@@ -1,0 +1,88 @@
+{
+  "researchVersion": "piercast-core-temperature-v0.1.0",
+  "researchedAt": "2026-09-09",
+  "status": "provisional_product_calibration",
+  "scoreSemantics": "Temperature suitability is a bounded FinFindr adjustment to the city/species seasonal opportunity ceiling; it is not a biological rating, fish-presence measurement, or catch probability.",
+  "acceptedInputDomainC": [0, 26],
+  "interpolation": "piecewise_linear_unrounded_celsius",
+  "productionReady": false,
+  "curves": [
+    {
+      "speciesId": "chinook_salmon",
+      "curveId": "chinook_salmon__shared_temperature__v0_1",
+      "evidenceIds": ["T001", "T006"],
+      "limitations": "The 10–14 C plateau follows a general agency range; the 9 C anchor reflects method-specific Lake Michigan gillnet catch and is not treated as a pier-bite optimum. Shoulder values are provisional FinFindr calibration choices.",
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.3 },
+        { "temperatureC": 4, "suitability": 0.5 },
+        { "temperatureC": 7, "suitability": 0.78 },
+        { "temperatureC": 9, "suitability": 0.95 },
+        { "temperatureC": 10, "suitability": 1 },
+        { "temperatureC": 14, "suitability": 1 },
+        { "temperatureC": 16, "suitability": 0.9 },
+        { "temperatureC": 18, "suitability": 0.7 },
+        { "temperatureC": 20, "suitability": 0.45 },
+        { "temperatureC": 22, "suitability": 0.2 },
+        { "temperatureC": 26, "suitability": 0.05 }
+      ]
+    },
+    {
+      "speciesId": "coho_salmon",
+      "curveId": "coho_salmon__shared_temperature__v0_1",
+      "evidenceIds": ["T002", "T008", "T013"],
+      "limitations": "The 12–14 C plateau follows a general agency range. The historical 16.6 C adult observation supports a gradual warm shoulder, not a second optimum. All suitability ordinates remain provisional.",
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.3 },
+        { "temperatureC": 4, "suitability": 0.5 },
+        { "temperatureC": 8, "suitability": 0.75 },
+        { "temperatureC": 10, "suitability": 0.9 },
+        { "temperatureC": 12, "suitability": 1 },
+        { "temperatureC": 14, "suitability": 1 },
+        { "temperatureC": 16.5, "suitability": 0.9 },
+        { "temperatureC": 19, "suitability": 0.65 },
+        { "temperatureC": 21, "suitability": 0.35 },
+        { "temperatureC": 23, "suitability": 0.15 },
+        { "temperatureC": 26, "suitability": 0.05 }
+      ]
+    },
+    {
+      "speciesId": "steelhead",
+      "curveId": "steelhead__shared_temperature__v0_1",
+      "evidenceIds": ["T003", "T007", "T009", "T010", "T032"],
+      "limitations": "The 12–14 C plateau follows a general agency range. The deliberately broad cold shoulder prevents winter and spring pier opportunity from being erased by an unsupported narrow optimum; strain and migration differences are not separately scored.",
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.5 },
+        { "temperatureC": 2, "suitability": 0.6 },
+        { "temperatureC": 5, "suitability": 0.75 },
+        { "temperatureC": 8, "suitability": 0.9 },
+        { "temperatureC": 10, "suitability": 0.97 },
+        { "temperatureC": 12, "suitability": 1 },
+        { "temperatureC": 14, "suitability": 1 },
+        { "temperatureC": 16, "suitability": 0.92 },
+        { "temperatureC": 18, "suitability": 0.75 },
+        { "temperatureC": 20, "suitability": 0.5 },
+        { "temperatureC": 22, "suitability": 0.25 },
+        { "temperatureC": 26, "suitability": 0.05 }
+      ]
+    },
+    {
+      "speciesId": "brown_trout",
+      "curveId": "brown_trout__shared_temperature__v0_1",
+      "evidenceIds": ["T004", "T014", "T015"],
+      "limitations": "The 10–16 C plateau and broad 8–18 C high-suitability region reconcile Michigan agency context with Great Lakes adult occupancy. The conflicting Wisconsin 18–24 C range is not used as a universal optimum.",
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.35 },
+        { "temperatureC": 3, "suitability": 0.5 },
+        { "temperatureC": 6, "suitability": 0.7 },
+        { "temperatureC": 8, "suitability": 0.85 },
+        { "temperatureC": 10, "suitability": 1 },
+        { "temperatureC": 16, "suitability": 1 },
+        { "temperatureC": 18, "suitability": 0.9 },
+        { "temperatureC": 20, "suitability": 0.7 },
+        { "temperatureC": 22, "suitability": 0.45 },
+        { "temperatureC": 24, "suitability": 0.25 },
+        { "temperatureC": 26, "suitability": 0.1 }
+      ]
+    }
+  ]
+}

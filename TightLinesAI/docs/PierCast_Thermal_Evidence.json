@@ -1,0 +1,1243 @@
+{
+  "schemaVersion": "research-pass-complete-2",
+  "status": "upfront_research_complete_parameters_not_approved",
+  "records": [
+    {
+      "evidenceId": "T001",
+      "authority": "Wisconsin DNR",
+      "title": "Chinook salmon fact sheet",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_chinooksalmon.pdf",
+      "publishedAt": "2008-04",
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "PDF page 1, Preferred Temperature Range",
+      "species": [
+        "Chinook salmon"
+      ],
+      "lifeStage": "Not specified for the temperature band",
+      "behavioralContext": "General preference; no seasonal stratification",
+      "measurementContext": "Agency fact-sheet summary; paired units rounded independently; method, sample and depth unspecified",
+      "supportedClaim": "The sheet prints 50–57 °F; 10–14 °C.",
+      "geographicScope": "Wisconsin Lake Michigan context",
+      "limitations": {
+        "transferLimit": "No monthly optimum, catchability curve, slope, accepted domain or local pier calibration established. Historical management figures not adopted."
+      },
+      "contradictions": [
+        "Temperature band requires methodological corroboration; do not silently choose between independently rounded unit endpoints."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T002",
+      "authority": "Wisconsin DNR",
+      "title": "Coho salmon fact sheet",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_cohosalmon.pdf",
+      "publishedAt": "2008-03",
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "PDF page 1, Preferred Temperature Range",
+      "species": [
+        "Coho salmon"
+      ],
+      "lifeStage": "Not specified for the temperature band",
+      "behavioralContext": "General preference; no seasonal stratification",
+      "measurementContext": "Agency fact-sheet summary; paired units rounded independently; method, sample and depth unspecified",
+      "supportedClaim": "The sheet prints 54–57 °F; 12–14 °C.",
+      "geographicScope": "Wisconsin Lake Michigan context",
+      "limitations": {
+        "transferLimit": "No monthly optimum, catchability curve, slope, accepted domain or local pier calibration established. Historical management figures not adopted."
+      },
+      "contradictions": [
+        "Temperature band requires methodological corroboration; do not silently choose between independently rounded unit endpoints."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T003",
+      "authority": "Wisconsin DNR",
+      "title": "Steelhead / rainbow trout fact sheet",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_rainbowtrout.pdf",
+      "publishedAt": "2008-02",
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "PDF page 1, Preferred Temperature Range",
+      "species": [
+        "Steelhead / rainbow trout"
+      ],
+      "lifeStage": "Not specified for the temperature band",
+      "behavioralContext": "General preference; no seasonal stratification",
+      "measurementContext": "Agency fact-sheet summary; paired units rounded independently; method, sample and depth unspecified",
+      "supportedClaim": "The sheet prints 53–57 °F; 12–14 °C.",
+      "geographicScope": "Wisconsin Lake Michigan context",
+      "limitations": {
+        "transferLimit": "No monthly optimum, catchability curve, slope, accepted domain or local pier calibration established. Historical management figures not adopted."
+      },
+      "contradictions": [
+        "Temperature band requires methodological corroboration; do not silently choose between independently rounded unit endpoints."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T004",
+      "authority": "Wisconsin DNR",
+      "title": "Brown trout fact sheet",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_browntrout.pdf",
+      "publishedAt": "2008-07",
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "PDF page 1, Preferred Temperature Range",
+      "species": [
+        "Brown trout"
+      ],
+      "lifeStage": "Not specified for the temperature band",
+      "behavioralContext": "General preference; no seasonal stratification",
+      "measurementContext": "Agency fact-sheet summary; paired units rounded independently; method, sample and depth unspecified",
+      "supportedClaim": "The sheet prints 65–75 °F; 18–24 °C.",
+      "geographicScope": "Wisconsin Lake Michigan context",
+      "limitations": {
+        "transferLimit": "No monthly optimum, catchability curve, slope, accepted domain or local pier calibration established. Historical management figures not adopted."
+      },
+      "contradictions": [
+        "Broad warm band quarantined pending methodological corroboration; not a demonstrated error and not an approved pier optimum."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T005",
+      "authority": "Wisconsin DNR",
+      "title": "Lake trout fact sheet",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_laketrout.pdf",
+      "publishedAt": "2008-04",
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "PDF page 1, Preferred Temperature Range",
+      "species": [
+        "Lake trout"
+      ],
+      "lifeStage": "Not specified for the temperature band",
+      "behavioralContext": "General preference; no seasonal stratification",
+      "measurementContext": "Agency fact-sheet summary; paired units rounded independently; method, sample and depth unspecified",
+      "supportedClaim": "The sheet prints 48–52 °F; 9–11 °C.",
+      "geographicScope": "Wisconsin Lake Michigan context",
+      "limitations": {
+        "transferLimit": "No monthly optimum, catchability curve, slope, accepted domain or local pier calibration established. Historical management figures not adopted."
+      },
+      "contradictions": [
+        "Temperature band requires methodological corroboration; do not silently choose between independently rounded unit endpoints."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T006",
+      "authority": "Adlerstein et al.; Transactions of the American Fisheries Society",
+      "title": "Seasonal Movements of Chinook Salmon in Lake Michigan Based on Tag Recoveries from Recreational Fisheries and Catch Rates in Gill-Net Assessments",
+      "urlOrPath": "https://academic.oup.com/tafs/article/137/3/736/7888693",
+      "publishedAt": "2008-05-01",
+      "updatedAt": null,
+      "dataYears": "Tagged releases 1990–1994; most recoveries by 1999; exact analysis-year bounds not fully extracted",
+      "accessedAt": "2026-09-09",
+      "locator": "Abstract; Methods (gill-net assessment); Discussion; Figure 7",
+      "species": [
+        "Chinook salmon"
+      ],
+      "lifeStage": "Hatchery-reared fish; gill-net catches pooled across age",
+      "behavioralContext": "May–September distribution",
+      "measurementContext": "Tag recoveries and assessment nets; 172 net sets, 2,944 fish; observed highest gill-net catches around 9 °C",
+      "supportedClaim": "Seasonal distribution shifts support separating lake feeding/distribution from autumn return; net temperature association is not an angling optimum.",
+      "geographicScope": "Lake Michigan",
+      "limitations": {
+        "transferLimit": "Historical lakewide evidence; fishing effort and prey confound interpretation; no pilot-pier response estimated."
+      },
+      "contradictions": [],
+      "readingScope": "Abstract and relevant methods/discussion text; figure not digitized",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T007",
+      "authority": "Höök et al.; Journal of Great Lakes Research / USGS",
+      "title": "Landscape scale measures of steelhead bioenergetic growth rate potential in Lake Michigan and comparison with angler catch rates",
+      "urlOrPath": "https://www.usgs.gov/publications/landscape-scale-measures-steelhead-oncorhynchus-mykiss-bioenergetic-growth-rate",
+      "publishedAt": "2004",
+      "updatedAt": null,
+      "dataYears": "1994–1996",
+      "accessedAt": "2026-09-09",
+      "locator": "Abstract; DOI 10.1016/S0380-1330(04)70370-6",
+      "species": [
+        "Steelhead"
+      ],
+      "lifeStage": "Not resolved from abstract",
+      "behavioralContext": "Lake habitat and growth potential",
+      "measurementContext": "Satellite surface temperatures and acoustic prey densities in growth model",
+      "supportedClaim": "Modeled landscape growth potential was not a good predictor of spatial steelhead catch rates.",
+      "geographicScope": "Lake Michigan",
+      "limitations": {
+        "transferLimit": "Abstract reviewed; does not establish no temperature effect or a pier-specific alternative model."
+      },
+      "contradictions": [],
+      "readingScope": "Agency-hosted abstract only",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T008",
+      "authority": "Michigan DNR",
+      "title": "Coho salmon",
+      "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/coho-salmon",
+      "publishedAt": null,
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "Fishing and Life history sections",
+      "species": [
+        "Coho salmon"
+      ],
+      "lifeStage": "Lake fish and spawning adults",
+      "behavioralContext": "Spring fishery; autumn staging/run",
+      "measurementContext": "Agency regional life-history account, no thermal experiment",
+      "supportedClaim": "East-shore fisheries have spring and late-summer/autumn contexts; tributary runs vary from September to November.",
+      "geographicScope": "Lake Michigan and Michigan tributaries",
+      "limitations": {
+        "transferLimit": "Southern-port and Platte Bay fisheries do not establish pilot-pier availability; no temperature band supplied."
+      },
+      "contradictions": [],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T009",
+      "authority": "Wisconsin DNR",
+      "title": "Wisconsin’s Lake Michigan Steelhead Strains",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Species_steelhead.pdf",
+      "publishedAt": null,
+      "updatedAt": null,
+      "dataYears": null,
+      "accessedAt": "2026-09-09",
+      "locator": "Page 1, strain sections",
+      "species": [
+        "Steelhead"
+      ],
+      "lifeStage": "Returning adults",
+      "behavioralContext": "Migration versus spawning",
+      "measurementContext": "Regional strain account; no thermal-response experiment",
+      "supportedClaim": "Strains have different run and spawning schedules; entry timing and spawning timing are distinct.",
+      "geographicScope": "Wisconsin Lake Michigan tributaries",
+      "limitations": {
+        "transferLimit": "Historic/undated stocking statements not current roster evidence; river chronology not a pier calendar."
+      },
+      "contradictions": [
+        "T003 simplifies Ganaraska migration to spring; T009 includes fall/winter contributions. T010 calls its Skamania a fall-run strain whereas T009 uses summer-run. Preserve wording and observation context."
+      ],
+      "readingScope": "source text reviewed",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T010",
+      "authority": "Wisconsin DNR",
+      "title": "Root River Steelhead Facility, Fall 2024 / Spring 2025",
+      "urlOrPath": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_RootRiverSteelheadFacilityFall2024Spring2025.pdf",
+      "publishedAt": null,
+      "updatedAt": null,
+      "dataYears": "Fall 2024 and spring 2025; referenced stocking in 2022",
+      "accessedAt": "2026-09-09",
+      "locator": "Printed page 8, STEELHEAD",
+      "species": [
+        "Steelhead"
+      ],
+      "lifeStage": "Age-3 tagged returns",
+      "behavioralContext": "Autumn facility passage",
+      "measurementContext": "Coded-wire-tag identification; 41 recovered tags in fall sample",
+      "supportedClaim": "All 41 recovered fall tags were Skamania, including fish originating in southern Wisconsin rivers including Sheboygan.",
+      "geographicScope": "Root River facility, Wisconsin; multiple stocking origins",
+      "limitations": {
+        "transferLimit": "Does not establish strain proportions or thermal response at Sheboygan piers; sample is captured/tagged returns, not all fish."
+      },
+      "contradictions": [
+        "Terminology differs from older strain sheets; do not infer a new biological spawning season from a run label."
+      ],
+      "readingScope": "Steelhead section, not full report analysis",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T011",
+      "authority": "Ivanova, Fisk and Johnson; Ecology and Evolution",
+      "title": "Realized thermal niche approach eliminates temperature bias in bioenergetic model estimates",
+      "urlOrPath": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10867506/",
+      "publishedAt": "2024-02-14",
+      "updatedAt": null,
+      "dataYears": "2014–2020 temperature records",
+      "accessedAt": "2026-09-09",
+      "locator": "Methods 2.4; Results 3.2; Figure 2; DOI 10.1002/ece3.10974",
+      "species": [
+        "Chinook salmon",
+        "Lake trout"
+      ],
+      "lifeStage": "Chinook juvenile through adult; lake-trout age scope needs underlying-data review",
+      "behavioralContext": "Annual thermal occupancy",
+      "measurementContext": "Acoustic and archival telemetry; daily means summarized at 30-day marks using surrounding days",
+      "supportedClaim": "Observed seasonal occupancy differs from assumed optimum: Chinook cooler in spring and warmer in midsummer/fall; lake trout cooler in most months.",
+      "geographicScope": "Lake Ontario",
+      "limitations": {
+        "transferLimit": "Occupancy is neither free-choice preference nor biting probability. Ontario-to-Michigan transfer unapproved; monthly means are not curve knots. Underlying datasets not analyzed."
+      },
+      "contradictions": [],
+      "readingScope": "Primary article text retrieved through indexed web result; direct open encountered browser challenge; figure not digitized",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+    {
+      "evidenceId": "T012",
+      "authority": "Bergstedt et al.; USGS / Journal of Great Lakes Research",
+      "title": "In situ determination of the annual thermal habitat use by lake trout in Lake Huron",
+      "urlOrPath": "https://pubs.usgs.gov/publication/1000840",
+      "publishedAt": "2003",
+      "updatedAt": null,
+      "dataYears": "October 1998–June 2001",
+      "accessedAt": "2026-09-09",
+      "locator": "Agency abstract; journal pages 347–361",
+      "species": [
+        "Lake trout"
+      ],
+      "lifeStage": "Tagged fish; detailed size distribution not extracted",
+      "behavioralContext": "Annual habitat use",
+      "measurementContext": "33 fish; 75-minute records; up to 14 months/fish",
+      "supportedClaim": "During stratification, thermal use differed among strains and individuals; most summer occupancy was colder than laboratory preference.",
+      "geographicScope": "Lake Huron",
+      "limitations": {
+        "transferLimit": "Lake Michigan pier transfer unapproved; small tagged sample; no catchability model."
+      },
+      "contradictions": [],
+      "readingScope": "Agency-hosted abstract only",
+      "relationshipStatus": "documented",
+      "transferStatus": "not_approved",
+      "reviewedBy": null,
+      "reviewedAt": null,
+      "extractedBy": "Codex; research extraction, not biological approval",
+      "nextReviewAt": null,
+      "reviewTriggers": [
+        "Before parameter adoption",
+        "New applicable field evidence",
+        "Source correction",
+        "Population or stocking changes",
+        "Validation contradiction"
+      ],
+      "productionReady": false
+    },
+  {
+    "evidenceId": "T013",
+    "authority": "Great Lakes Fishery Commission",
+    "title": "Temperature Relationships of Great Lakes Fishes",
+    "urlOrPath": "https://www.sealamprey.org/pubs/SpecialPubs/Sp87_3.pdf",
+    "publishedAt": "1987",
+    "updatedAt": null,
+    "dataYears": "Literature published through the report period",
+    "accessedAt": "2026-09-09",
+    "locator": "Species tables for preferred temperature, tolerance, growth, spawning and development",
+    "species": [
+      "Coho salmon",
+      "Brown trout",
+      "Walleye",
+      "Smallmouth bass",
+      "Channel catfish",
+      "Largemouth bass"
+    ],
+    "lifeStage": "Multiple; row-specific",
+    "behavioralContext": "Multiple thermal endpoints",
+    "measurementContext": "Historical synthesis of field and laboratory studies; endpoints and methods vary by row",
+    "supportedClaim": "The synthesis reports species- and life-stage-specific thermal observations, but does not provide a unified adult pier-angling opportunity function.",
+    "geographicScope": "Great Lakes and source-study locations",
+    "limitations": {
+      "transferLimit": "Historical synthesis; repeated values may share underlying studies. Never merge preference, tolerance, growth, spawning or development endpoints."
+    },
+    "contradictions": [],
+    "readingScope": "Full report species tables and surrounding endpoint definitions reviewed for the listed species; not every cited underlying study retrieved",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T014",
+    "authority": "Haynes et al.; Journal of Great Lakes Research",
+    "title": "Movement and temperatures of Great Lakes brown trout in Lake Ontario",
+    "urlOrPath": "https://www.sciencedirect.com/science/article/pii/S0380133087716402",
+    "publishedAt": "1987",
+    "updatedAt": null,
+    "dataYears": "1980–1982",
+    "accessedAt": "2026-09-09",
+    "locator": "Article abstract/results; DOI 10.1016/S0380-1330(87)71640-2",
+    "species": [
+      "Brown trout"
+    ],
+    "lifeStage": "Adult",
+    "behavioralContext": "Spring, summer and fall lake occupancy",
+    "measurementContext": "Telemetry and netting; temperature, depth and distance from shore",
+    "supportedClaim": "Most observed adults occupied 8–18 °C; seasonal means were roughly 10–13 °C, fish were often near the thermocline and all reported locations were within 3.2 km of shore.",
+    "geographicScope": "Lake Ontario",
+    "limitations": {
+      "transferLimit": "Ontario-to-Michigan and net/telemetry-to-pier-catch transfer unapproved; no winter observations or bite-response curve."
+    },
+    "contradictions": [],
+    "readingScope": "Publisher abstract and indexed results reviewed; full article not retrieved",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T015",
+    "authority": "Michigan DNR",
+    "title": "Brown trout species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/brown-trout",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat and fishing/life-history sections",
+    "species": [
+      "Brown trout"
+    ],
+    "lifeStage": "General/adult fishery",
+    "behavioralContext": "Lake habitat, early-spring pier fishery and fall staging/spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes a 50–65 °F preference, shallow rocky spring habitat, early-spring Great Lakes pier fishing and late-summer/fall staging near stream outlets.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "Method, population, depth distribution and catch-response function are not specified."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T016",
+    "authority": "Michigan DNR",
+    "title": "Lake trout species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/lake-trout",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat and spawning sections",
+    "species": [
+      "Lake trout"
+    ],
+    "lifeStage": "General/adult fishery",
+    "behavioralContext": "Annual depth use and fall spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes 40–55 °F preference, shallow 10–30 ft use in fall/winter/spring, 100–200+ ft summer use, and fall shoal spawning.",
+    "geographicScope": "Michigan Great Lakes",
+    "limitations": {
+      "transferLimit": "Broad summary; no city-specific occurrence, strain response, score slope or catch calibration."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T017",
+    "authority": "Reed et al.; USGS / Journal of Great Lakes Research",
+    "title": "Initial insights into thermal ecology of lake whitefish in northwestern Lake Michigan",
+    "urlOrPath": "https://www.usgs.gov/publications/initial-insights-thermal-ecology-lake-whitefish-northwestern-lake-michigan",
+    "publishedAt": "2023",
+    "updatedAt": null,
+    "dataYears": "October 2017 through approximately November 2018",
+    "accessedAt": "2026-09-09",
+    "locator": "Agency abstract; DOI 10.1016/j.jglr.2023.03.002",
+    "species": [
+      "Lake whitefish"
+    ],
+    "lifeStage": "Tagged fish; adult applicability inferred from study context",
+    "behavioralContext": "Annual thermal occupancy",
+    "measurementContext": "400 fish tagged; 13 recovered archival loggers; temperature sampled every four hours for up to 11 months",
+    "supportedClaim": "Recovered fish occupied 0–8 °C in winter and wider ranges in spring through fall; summer averaged 10.8 °C and frequently fell outside proposed narrow optimal bands.",
+    "geographicScope": "Northwestern Lake Michigan and Green Bay",
+    "limitations": {
+      "transferLimit": "Only 13 recovered loggers; occupancy is not selection or catchability; city/pier and reachable-depth transfer unapproved."
+    },
+    "contradictions": [],
+    "readingScope": "Agency-hosted abstract only",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T018",
+    "authority": "Michigan DNR",
+    "title": "Lake whitefish species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/whitefish",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat and reproduction sections",
+    "species": [
+      "Lake whitefish"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Summer depth and early-winter spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes deep summer habitat and early-winter spawning in shallow water over rock or sand, generally under 25 ft.",
+    "geographicScope": "Michigan Great Lakes",
+    "limitations": {
+      "transferLimit": "No numeric adult opportunity response or candidate-city occurrence is established."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T019",
+    "authority": "Michigan DNR",
+    "title": "Round whitefish (menominee) species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/menominee",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat, diet and reproduction sections",
+    "species": [
+      "Round whitefish"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Seasonal depth and fall spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "Round whitefish are described in 6–48 ft water mainly during April–May and October–November, as deep as 150 ft otherwise, with fall/usually November spawning.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No adult thermal opportunity curve; historical local occurrence must be reviewed separately. Lake-whitefish values are not transferable."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T020",
+    "authority": "Peat et al.; USGS / Journal of Thermal Biology",
+    "title": "Thermal ecology and seasonal distribution of adult walleye in Lakes Huron and Erie",
+    "urlOrPath": "https://pubs.usgs.gov/publication/70159488",
+    "publishedAt": "2015",
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Agency abstract; DOI 10.1016/j.jtherbio.2015.08.009",
+    "species": [
+      "Walleye"
+    ],
+    "lifeStage": "Adult",
+    "behavioralContext": "Seasonal thermal occupancy and migration",
+    "measurementContext": "Biologgers and telemetry; lake/resident-migrant comparisons",
+    "supportedClaim": "Thermal occupancy differed by lake, season and resident/migrant behavior, while reported sex, size and diel effects were not detected.",
+    "geographicScope": "Lakes Huron and Erie",
+    "limitations": {
+      "transferLimit": "No Lake Michigan pier catch response; population and habitat transfer unapproved."
+    },
+    "contradictions": [],
+    "readingScope": "Agency-hosted abstract only",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T021",
+    "authority": "Animal Biotelemetry authors",
+    "title": "Annual migration and thermal experience of walleye in Lake Ontario",
+    "urlOrPath": "https://doi.org/10.1186/s40317-025-00410-8",
+    "publishedAt": "2025",
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Article results/discussion",
+    "species": [
+      "Walleye"
+    ],
+    "lifeStage": "Adult",
+    "behavioralContext": "Annual movement, activity and modeled growth",
+    "measurementContext": "Telemetry with temperature/activity interpretation",
+    "supportedClaim": "The study reports reduced modeled growth during colder November–May conditions and greater warm-season vertical activity associated with feeding; peak modeled growth is cited at 21 °C.",
+    "geographicScope": "Lake Ontario",
+    "limitations": {
+      "transferLimit": "Growth is not catchability; Ontario-to-Lake-Michigan and telemetry-to-pier transfer unapproved."
+    },
+    "contradictions": [],
+    "readingScope": "Primary open article results and discussion reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T022",
+    "authority": "Carter et al.; Journal of Great Lakes Research",
+    "title": "Movement patterns of smallmouth and largemouth bass in and around a Lake Michigan harbor",
+    "urlOrPath": "https://www.sciencedirect.com/science/article/pii/S038013301200038X",
+    "publishedAt": "2012",
+    "updatedAt": null,
+    "dataYears": "2005–2006",
+    "accessedAt": "2026-09-09",
+    "locator": "Article abstract/methods/results; DOI 10.1016/j.jglr.2012.02.003",
+    "species": [
+      "Smallmouth bass",
+      "Largemouth bass"
+    ],
+    "lifeStage": "Adult-sized tagged fish",
+    "behavioralContext": "Spring spawning, warm-season harbor use and movement",
+    "measurementContext": "Acoustic telemetry; 26 smallmouth and 8 largemouth in/around a shallow harbor",
+    "supportedClaim": "Warm shallow harbor water supported spring reproductive use; smallmouth harbor presence declined after reproduction.",
+    "geographicScope": "North Point Marina, Illinois, Lake Michigan",
+    "limitations": {
+      "transferLimit": "Small samples, especially largemouth; harbor geometry and city transfer unapproved; no temperature-score curve."
+    },
+    "contradictions": [],
+    "readingScope": "Publisher abstract and indexed methods/results reviewed; full article access not established",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T023",
+    "authority": "Michigan DNR",
+    "title": "Smallmouth bass species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/smallmouth",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat and spawning sections",
+    "species": [
+      "Smallmouth bass"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Spring shallows, spawning and deeper post-spawn use",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes spring shallow movement, spawning around or above 60 °F, and deeper post-spawn rocky habitat.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No Lake Michigan port-specific adult opportunity function."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T024",
+    "authority": "U.S. Fish and Wildlife Service",
+    "title": "Habitat suitability index models: Smallmouth bass",
+    "urlOrPath": "https://www.govinfo.gov/content/pkg/GOVPUB-I49-PURL-LPS101721/pdf/GOVPUB-I49-PURL-LPS101721.pdf",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": "Historical literature synthesis",
+    "accessedAt": "2026-09-09",
+    "locator": "Adult temperature component",
+    "species": [
+      "Smallmouth bass"
+    ],
+    "lifeStage": "Adult",
+    "behavioralContext": "Laboratory temperature preference",
+    "measurementContext": "HSI synthesis citing laboratory acclimation/preference studies",
+    "supportedClaim": "The model summarizes adult laboratory preferred temperatures around 28–31 °C.",
+    "geographicScope": "General",
+    "limitations": {
+      "transferLimit": "Laboratory preference is acclimation-sensitive and not a Lake Michigan harbor or angling-opportunity curve."
+    },
+    "contradictions": [],
+    "readingScope": "Full government-hosted PDF adult temperature component reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T025",
+    "authority": "USGS Nonindigenous Aquatic Species program",
+    "title": "Freshwater drum species fact sheet",
+    "urlOrPath": "https://nas.er.usgs.gov/queries/factsheet.aspx?speciesid=946",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": "Referenced literature varies",
+    "accessedAt": "2026-09-09",
+    "locator": "Ecology section",
+    "species": [
+      "Freshwater drum"
+    ],
+    "lifeStage": "General/adult unless source row differs",
+    "behavioralContext": "Habitat, feeding, spawning and thermal stress",
+    "measurementContext": "Agency synthesis of referenced literature",
+    "supportedClaim": "The account describes bottom habitat, nocturnal feeding, May–June spawning at 18–26 °C, and stress above 25.6 °C when low oxygen co-occurs.",
+    "geographicScope": "North America",
+    "limitations": {
+      "transferLimit": "Stress and spawning endpoints are not preference or catchability; Lake Michigan pier transfer unapproved."
+    },
+    "contradictions": [],
+    "readingScope": "Agency fact-sheet source text and cited-literature summary reviewed; underlying studies not retrieved",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T026",
+    "authority": "USGS",
+    "title": "Biology of freshwater drum in western Lake Erie",
+    "urlOrPath": "https://www.usgs.gov/publications/biology-freshwater-drum-western-lake-erie",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Agency abstract",
+    "species": [
+      "Freshwater drum"
+    ],
+    "lifeStage": "Multiple; older-fish growth finding separated",
+    "behavioralContext": "Seasonal growth and bottom temperature",
+    "measurementContext": "Historical field study",
+    "supportedClaim": "Older-fish growth occurred during a mid-June to early-October period spanning reported bottom temperatures roughly 14–22 °C, with fastest growth during warmer August conditions.",
+    "geographicScope": "Western Lake Erie",
+    "limitations": {
+      "transferLimit": "Regional historical growth observations are not adult thermal preference or pier catch response."
+    },
+    "contradictions": [],
+    "readingScope": "Agency-hosted abstract only",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T027",
+    "authority": "USGS Fish Health Program",
+    "title": "Yellow perch (Perca flavescens) species profile",
+    "urlOrPath": "https://www.usgs.gov/labs/fish-health-program/science/yellow-perch-perca-flavescens-fhp",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Species biology summary",
+    "species": [
+      "Yellow perch"
+    ],
+    "lifeStage": "General",
+    "behavioralContext": "Temperature preference and winter activity",
+    "measurementContext": "Agency species summary",
+    "supportedClaim": "The profile describes moderate temperature preference around 19–21 °C and activity during winter.",
+    "geographicScope": "General",
+    "limitations": {
+      "transferLimit": "Method, life stage, depth, population and angling response are unspecified."
+    },
+    "contradictions": [],
+    "readingScope": "Agency species-summary source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T028",
+    "authority": "Michigan DNR",
+    "title": "Yellow perch species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/yellow-perch",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat, fishing and reproduction sections",
+    "species": [
+      "Yellow perch"
+    ],
+    "lifeStage": "General/adult fishery",
+    "behavioralContext": "Annual nearshore/depth cycle and spring spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes shallow nearshore schools, shallower spring/fall use, spring spawning and winter activity.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No candidate-city occurrence, temperature-score slope or depth-specific provider mapping."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T029",
+    "authority": "Michigan DNR",
+    "title": "Catfish species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/catfish",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Channel catfish habitat/fishing/reproduction sections",
+    "species": [
+      "Channel catfish"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Diel depth use and warm-season spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "Channel catfish are described in deeper cover by day, feeding shallower at night, and nesting in late spring/early summer.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No numeric adult pier opportunity function; diel best-time modeling is outside v1."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T030",
+    "authority": "Michigan DNR",
+    "title": "Largemouth bass species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/largemouth",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat and spawning sections",
+    "species": [
+      "Largemouth bass"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Warm shallow habitat, spawning and winter depth",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes cover-associated shallow habitat, activity around 70–85 °F, late-spring/early-summer spawning, and deeper winter use.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No Grand Haven harbor selection/catch function; values cannot be assigned to smallmouth."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T031",
+    "authority": "Michigan DNR",
+    "title": "Walleye species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/walleye",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Habitat, fishing and reproduction sections",
+    "species": [
+      "Walleye"
+    ],
+    "lifeStage": "General/adult",
+    "behavioralContext": "Annual feeding and spring spawning",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes year-round feeding, March–May spawning, and bottom/suspended habitat use.",
+    "geographicScope": "Michigan",
+    "limitations": {
+      "transferLimit": "No city-specific thermal catch response; light, depth and movement remain material."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  },
+  {
+    "evidenceId": "T032",
+    "authority": "Michigan DNR",
+    "title": "Steelhead species profile",
+    "urlOrPath": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead",
+    "publishedAt": null,
+    "updatedAt": null,
+    "dataYears": null,
+    "accessedAt": "2026-09-09",
+    "locator": "Migration, fishing and reproduction sections",
+    "species": [
+      "Steelhead"
+    ],
+    "lifeStage": "Adult",
+    "behavioralContext": "Lake feeding, tributary return and post-spawn return",
+    "measurementContext": "Agency life-history summary",
+    "supportedClaim": "The agency describes highly migratory Great Lakes fish, tributary entry from late autumn through early spring, spring spawning, post-spawn survival/return, and early-summer surface thermal bars.",
+    "geographicScope": "Michigan Great Lakes",
+    "limitations": {
+      "transferLimit": "No strain proportions, city-specific dates, adult bite-response curve or validated pier input."
+    },
+    "contradictions": [],
+    "readingScope": "Agency profile source text reviewed",
+    "relationshipStatus": "documented",
+    "transferStatus": "not_approved",
+    "reviewedBy": null,
+    "reviewedAt": null,
+    "extractedBy": "Codex; research extraction, not biological approval",
+    "nextReviewAt": null,
+    "reviewTriggers": [
+      "Before parameter adoption",
+      "New applicable field evidence",
+      "Source correction",
+      "Population or stocking changes",
+      "Validation contradiction"
+    ],
+    "productionReady": false
+  }
+  ]
+}

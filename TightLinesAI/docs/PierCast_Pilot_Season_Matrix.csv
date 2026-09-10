@@ -1,0 +1,673 @@
+city_id,species_id,month,season_evidence_state,roster_research_status,evidence_ids,limitations,researched_at,production_ready
+ludington,steelhead,1,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,2,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,3,inferred_review_window,priority,F1 F2; F3 F33; F4,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,4,reported_occurrence,priority,F1 F2,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,5,inferred_review_window,priority,F1 F2; F3 F33; F4,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,6,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,7,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,8,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,9,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,10,inferred_review_window,priority,F1 F2; F3 F33; F4,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,11,reported_occurrence,priority,F3 F33 F35,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,steelhead,12,reported_occurrence,priority,F4,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+ludington,brown_trout,1,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,2,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,3,inferred_review_window,priority,F1 F2,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,4,reported_occurrence,priority,F1 F2 F39,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,5,inferred_review_window,priority,F1 F2,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,6,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,7,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,8,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,9,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,10,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,11,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,brown_trout,12,unresolved,priority,,Spring; pier sides unresolved,2026-09-09,false
+ludington,chinook_salmon,1,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,2,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,3,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,4,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,5,inferred_review_window,priority,F5; F6 F10,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,6,reported_occurrence,priority,F5,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,7,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,8,inferred_review_window,priority,F5; F6 F10,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,9,reported_occurrence,priority,F6 F10,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,10,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,11,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,chinook_salmon,12,unresolved,priority,,Feeding and staging contexts,2026-09-09,false
+ludington,coho_salmon,1,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,2,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,3,inferred_review_window,priority,F2; F33; F7; F9,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,4,reported_occurrence,priority,F2,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,5,reported_occurrence,priority,F9,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,6,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,7,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,8,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,9,reported_occurrence,priority,F7,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,10,inferred_review_window,priority,F2; F33; F7; F9,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,11,reported_occurrence,priority,F33,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,coho_salmon,12,unresolved,priority,,Fall evidence historical; recent recurrence needed,2026-09-09,false
+ludington,smallmouth_bass,1,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,2,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,3,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,4,reported_occurrence,priority_scope_pending,F8,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,5,reported_occurrence,priority_scope_pending,F9,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,6,inferred_review_window,priority_scope_pending,F11; F8; F9,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,7,reported_occurrence,priority_scope_pending,F11,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,8,inferred_review_window,priority_scope_pending,F11; F8; F9,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,9,inferred_review_window,priority_scope_pending,F11; F8; F9,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,10,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,11,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,smallmouth_bass,12,unresolved,priority_scope_pending,,Stub/harbor pier scope; exact stub identity pending,2026-09-09,false
+ludington,freshwater_drum,1,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,2,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,3,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,4,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,5,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,6,inferred_review_window,priority,F12,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,7,reported_occurrence,priority,F12,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,8,inferred_review_window,priority,F12,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,9,inferred_review_window,priority,F12,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,10,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,11,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,freshwater_drum,12,unresolved,priority,,Warm-season expansion inferred,2026-09-09,false
+ludington,walleye,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,walleye,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,yellow_perch,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_trout,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+ludington,lake_whitefish,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+grand_haven,steelhead,1,unresolved,priority,,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,2,unresolved,priority,,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,3,inferred_review_window,priority,F12; F13; F15; F34,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,4,inferred_review_window,priority,F12; F13; F15; F34,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,5,reported_occurrence,priority,F13,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,6,reported_occurrence,priority,F34,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,7,reported_occurrence,priority,F12 F38,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,8,unresolved,priority,,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,9,unresolved,priority,,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,10,inferred_review_window,priority,F12; F13; F15; F34,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,11,reported_occurrence,priority,F15,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,steelhead,12,unresolved,priority,,Summer episodic; winter unresolved,2026-09-09,false
+grand_haven,brown_trout,1,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,2,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,3,inferred_review_window,priority,F13; F16,Spring,2026-09-09,false
+grand_haven,brown_trout,4,reported_occurrence,priority,F16 F36,Spring,2026-09-09,false
+grand_haven,brown_trout,5,reported_occurrence,priority,F13,Spring,2026-09-09,false
+grand_haven,brown_trout,6,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,7,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,8,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,9,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,10,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,11,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,brown_trout,12,unresolved,priority,,Spring,2026-09-09,false
+grand_haven,chinook_salmon,1,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,2,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,3,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,4,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,5,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,6,inferred_review_window,priority,F12,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,7,reported_occurrence,priority,F12,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,8,inferred_review_window,priority,F12,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,9,inferred_review_window,priority,F12,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,10,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,11,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,chinook_salmon,12,unresolved,priority,,S2 and generic salmon reports support staging research only,2026-09-09,false
+grand_haven,coho_salmon,1,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,2,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,3,inferred_review_window,priority,F16; F17,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,4,reported_occurrence,priority,F16,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,5,reported_occurrence,priority,F17,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,6,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,7,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,8,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,9,reported_occurrence,priority,F37,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,10,inferred_review_window,priority,F16; F17,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,11,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,coho_salmon,12,unresolved,priority,,Spring records and September 2017 occurrence; fall strength/current recurrence unresolved,2026-09-09,false
+grand_haven,smallmouth_bass,1,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,2,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,3,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,4,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,5,inferred_review_window,historical_local,S4,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,6,inferred_review_window,historical_local,S4,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,7,inferred_review_window,historical_local,S4,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,8,inferred_review_window,historical_local,S4,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,9,inferred_review_window,historical_local,S4,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,10,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,11,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,smallmouth_bass,12,unresolved,historical_local,,S4 historical pier data; modern unspecified bass not treated as smallmouth,2026-09-09,false
+grand_haven,freshwater_drum,1,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,2,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,3,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,4,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,5,reported_occurrence,priority,F20,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,6,reported_occurrence,priority,F14,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,7,reported_occurrence,priority,F21 F38,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,8,reported_occurrence,priority,F22,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,9,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,10,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,11,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,freshwater_drum,12,unresolved,priority,,Multiple warm-season reports,2026-09-09,false
+grand_haven,walleye,1,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,2,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,3,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,4,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,5,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,6,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,7,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,8,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,9,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,10,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,11,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,walleye,12,unresolved,grouped_listing,,S2 groups Grand Haven/Holland; individual seasonal evidence unresolved,2026-09-09,false
+grand_haven,yellow_perch,1,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,2,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,3,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,4,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,5,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,6,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,7,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,8,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,9,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,10,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,11,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,yellow_perch,12,unresolved,grouped_listing,,S2 and historical S4; monthly pier context unresolved,2026-09-09,false
+grand_haven,lake_trout,1,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,2,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,3,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,4,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,5,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,6,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,7,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,8,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,9,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,10,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,11,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_trout,12,unresolved,grouped_listing,,S2; avoid offshore data transfer,2026-09-09,false
+grand_haven,lake_whitefish,1,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,2,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,3,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,4,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,5,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,6,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,7,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,8,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,9,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,10,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,11,documented_window,priority,S3,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+grand_haven,lake_whitefish,12,unresolved,priority,,Documented November opportunity; gear rules L1; not a specific catch bulletin,2026-09-09,false
+manistee,steelhead,1,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,2,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,3,reported_occurrence,priority,A12,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,4,reported_occurrence,priority,F1,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,5,reported_occurrence,priority,F23,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,6,reported_occurrence,priority,F24,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,7,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,8,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,9,unresolved,priority,,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,10,reported_occurrence,priority,F25,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,11,reported_occurrence,priority,F3 F35,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,steelhead,12,reported_occurrence,priority,F4,November corroborated in 2025; December historical; January-February unresolved,2026-09-09,false
+manistee,brown_trout,1,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,2,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,3,inferred_review_window,priority,F1 F2; F23,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,4,reported_occurrence,priority,F1 F2 F36 F39,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,5,reported_occurrence,priority,F23,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,6,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,7,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,8,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,9,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,10,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,11,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,brown_trout,12,unresolved,priority,,Spring; side-specific support,2026-09-09,false
+manistee,chinook_salmon,1,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,2,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,3,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,4,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,5,inferred_review_window,priority,F5; F6 F26,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,6,reported_occurrence,priority,F5,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,7,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,8,inferred_review_window,priority,F5; F6 F26,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,9,reported_occurrence,priority,F6 F26,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,10,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,11,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,chinook_salmon,12,unresolved,priority,,Feeding and staging,2026-09-09,false
+manistee,coho_salmon,1,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,2,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,3,reported_occurrence,priority,A12,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,4,reported_occurrence,priority,F2 F36,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,5,inferred_review_window,priority,A12; F2; F25; F26,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,6,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,7,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,8,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,9,reported_occurrence,priority,F26,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,10,reported_occurrence,priority,F25,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,11,reported_occurrence,priority,F35,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,coho_salmon,12,unresolved,priority,,Spring and fall occurrences include November 2025; no annual endpoints established,2026-09-09,false
+manistee,smallmouth_bass,1,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,2,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,3,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,4,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,5,inferred_review_window,priority,F28,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,6,inferred_review_window,priority,F28,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,7,reported_occurrence,priority,F28,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,8,inferred_review_window,priority,F28,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,9,inferred_review_window,priority,F28,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,10,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,11,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,smallmouth_bass,12,unresolved,priority,,Warm-season extension inferred,2026-09-09,false
+manistee,freshwater_drum,1,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,2,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,3,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,4,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,5,inferred_review_window,priority,F24 F30; F28,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,6,reported_occurrence,priority,F24 F30,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,7,reported_occurrence,priority,F28,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,8,inferred_review_window,priority,F24 F30; F28,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,9,inferred_review_window,priority,F24 F30; F28,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,10,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,11,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,freshwater_drum,12,unresolved,priority,,Harbor-side scope in F24,2026-09-09,false
+manistee,walleye,1,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,2,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,3,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,4,inferred_review_window,priority,F20,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,5,reported_occurrence,priority,F20,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,6,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,7,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,8,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,9,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,10,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,11,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,walleye,12,unresolved,priority,,Spring first; no river-calendar transfer,2026-09-09,false
+manistee,yellow_perch,1,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,2,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,3,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,4,reported_occurrence,priority,F27 F39,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,5,reported_occurrence,priority,F20,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,6,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,7,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,8,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,9,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,10,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,11,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,yellow_perch,12,unresolved,priority,,Spring pier evidence,2026-09-09,false
+manistee,lake_trout,1,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,2,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,3,inferred_review_window,conditional_candidate,F2 F29,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,4,reported_occurrence,conditional_candidate,F2 F29 F39,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,5,inferred_review_window,conditional_candidate,F2 F29,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,6,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,7,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,8,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,9,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,10,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,11,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_trout,12,unresolved,conditional_candidate,,Limited spring catches; not offshore strength,2026-09-09,false
+manistee,lake_whitefish,1,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,2,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,3,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,4,reported_occurrence,conditional_candidate,F27,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,5,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,6,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,7,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,8,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,9,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,10,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,11,inferred_review_window,conditional_candidate,F27,November unspecified whitefish requires species resolution,2026-09-09,false
+manistee,lake_whitefish,12,unresolved,conditional_candidate,,November unspecified whitefish requires species resolution,2026-09-09,false
+frankfort,steelhead,1,unresolved,priority,,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,2,unresolved,priority,,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,3,inferred_review_window,priority,F1; F19; F25 F31; F7,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,4,reported_occurrence,priority,F1,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,5,inferred_review_window,priority,F1; F19; F25 F31; F7,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,6,unresolved,priority,,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,7,unresolved,priority,,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,8,unresolved,priority,,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,9,reported_occurrence,priority,F7,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,10,reported_occurrence,priority,F25 F31,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,11,reported_occurrence,priority,F19,December extension unverified locally,2026-09-09,false
+frankfort,steelhead,12,inferred_review_window,priority,F1; F19; F25 F31; F7,December extension unverified locally,2026-09-09,false
+frankfort,brown_trout,1,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,2,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,3,inferred_review_window,priority,F1; F30,June north-pier record,2026-09-09,false
+frankfort,brown_trout,4,reported_occurrence,priority,F1,June north-pier record,2026-09-09,false
+frankfort,brown_trout,5,inferred_review_window,priority,F1; F30,June north-pier record,2026-09-09,false
+frankfort,brown_trout,6,reported_occurrence,priority,F30,June north-pier record,2026-09-09,false
+frankfort,brown_trout,7,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,8,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,9,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,10,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,11,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,brown_trout,12,unresolved,priority,,June north-pier record,2026-09-09,false
+frankfort,chinook_salmon,1,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,2,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,3,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,4,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,5,inferred_review_window,priority,F18; F30; F7,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,6,reported_occurrence,priority,F30,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,7,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,8,reported_occurrence,priority,F18,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,9,reported_occurrence,priority,F7,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,10,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,11,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,chinook_salmon,12,unresolved,priority,,Feeding and staging,2026-09-09,false
+frankfort,coho_salmon,1,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,2,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,3,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,4,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,5,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,6,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,7,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,8,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,9,reported_occurrence,priority_historical,F7,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,10,reported_occurrence,priority_historical,F25,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,11,reported_occurrence,priority_historical,F3,No Platte Bay transfer,2026-09-09,false
+frankfort,coho_salmon,12,unresolved,priority_historical,,No Platte Bay transfer,2026-09-09,false
+frankfort,smallmouth_bass,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,smallmouth_bass,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,freshwater_drum,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,walleye,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,yellow_perch,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_trout,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+frankfort,lake_whitefish,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,steelhead,1,unresolved,local_listing,,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,2,unresolved,local_listing,,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,3,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,4,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,5,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,6,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,7,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,8,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,9,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,10,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,11,inferred_review_window,local_listing,S1 S6 S7,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,steelhead,12,unresolved,local_listing,,S1 S7; conditional summer research not uniform annual suitability,2026-09-09,false
+sheboygan,brown_trout,1,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,2,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,3,inferred_review_window,local_listing,S1 S6 S7,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,4,inferred_review_window,local_listing,S1 S6 S7,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,5,inferred_review_window,local_listing,S1 S6 S7,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,6,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,7,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,8,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,9,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,10,inferred_review_window,local_listing,S1 S6 S7,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,11,inferred_review_window,local_listing,S1 S6 S7,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,brown_trout,12,unresolved,local_listing,,S1 local listing; S6 regional spring evidence; autumn hypothesis,2026-09-09,false
+sheboygan,chinook_salmon,1,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,2,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,3,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,4,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,5,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,6,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,7,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,8,reported_occurrence,priority,S5,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,9,inferred_review_window,priority,S5,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,10,inferred_review_window,priority,S5,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,11,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,chinook_salmon,12,unresolved,priority,,Late August direct local; fall window inferred,2026-09-09,false
+sheboygan,coho_salmon,1,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,2,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,3,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,4,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,5,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,6,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,7,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,8,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,9,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,10,inferred_review_window,regional_candidate,S1 S6 S7,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,11,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,coho_salmon,12,unresolved,regional_candidate,,S1 generic salmon and S6 regional coho; local species confirmation pending,2026-09-09,false
+sheboygan,smallmouth_bass,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,smallmouth_bass,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,freshwater_drum,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,walleye,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,yellow_perch,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_trout,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,1,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,2,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,3,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,4,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,5,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,6,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,7,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,8,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,9,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,10,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,11,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+sheboygan,lake_whitefish,12,unresolved,unresolved,,Specific covered-pier fishery/season not established in initial research,2026-09-09,false
+grand_haven,channel_catfish,1,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,2,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,3,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,4,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,5,reported_occurrence,priority,F20,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,6,inferred_review_window,priority,F20,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,7,inferred_review_window,priority,F20,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,8,inferred_review_window,priority,F20,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,9,inferred_review_window,priority,F20,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,10,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,11,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+grand_haven,channel_catfish,12,unresolved,priority,,Additional species supported by local pier report,2026-09-09,false
+ludington,round_whitefish,1,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,2,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,3,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,4,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,5,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,6,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,7,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,8,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,9,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,10,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,11,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+ludington,round_whitefish,12,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+manistee,round_whitefish,1,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,2,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,3,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,4,reported_occurrence,conditional_candidate,F2 F27,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,5,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,6,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,7,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,8,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,9,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,10,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,11,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+manistee,round_whitefish,12,unresolved,conditional_candidate,,Menominee reports; canonical species identity review required,2026-09-09,false
+frankfort,round_whitefish,1,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,2,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,3,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,4,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,5,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,6,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,7,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,8,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,9,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,10,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,11,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+frankfort,round_whitefish,12,unresolved,historical_local,,S4 historical pier dataset; not lake whitefish,2026-09-09,false
+grand_haven,round_whitefish,1,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,2,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,3,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,4,reported_occurrence,conditional_candidate,F36,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,5,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,6,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,7,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,8,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,9,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,10,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,11,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,round_whitefish,12,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,1,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,2,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,3,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,4,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,5,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,6,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,7,reported_occurrence,conditional_candidate,F38,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,8,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,9,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,10,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,11,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false
+grand_haven,largemouth_bass,12,unresolved,conditional_candidate,,Explicit species-specific pier report; single month evidence; no transfer to lake whitefish/smallmouth,2026-09-09,false

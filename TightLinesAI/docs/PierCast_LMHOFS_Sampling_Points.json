@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "pier-cast-lmhofs-sampling-points-v1",
+  "status": "candidate_not_approved",
+  "reviewedAt": "2026-09-09",
+  "product": {
+    "id": "NOAA_NOS_LMHOFS_REGULARGRID",
+    "opendapEndpointTemplate": "https://opendap.co-ops.nos.noaa.gov/thredds/dodsC/NOAA/LMHOFS/MODELS/{YYYY}/{MM}/{DD}/lmhofs.t{CC}z.{YYYYMMDD}.regulargrid.f{HHH}.nc",
+    "variable": "temp",
+    "verticalSelection": "surface",
+    "depthIndex": 0,
+    "canonicalUnit": "C",
+    "grid": {
+      "rows": 478,
+      "columns": 837,
+      "latitudeFormula": "41.60 + 0.01 * gridRow",
+      "longitudeFormula": "-88.06 + 0.01 * gridColumn"
+    },
+    "selectionMethod": "nearest wet regular-grid center on the lakeward longitude side of the NOAA Coast Pilot outer-light coordinate",
+    "selectionProhibitions": [
+      "Do not dynamically choose whichever cell produces the highest rating.",
+      "Do not describe a model cell as a pier, harbor, plume, casting-depth, or observed temperature.",
+      "Do not use reference-light coordinates as navigation destinations."
+    ]
+  },
+  "operationalProbe": {
+    "modelCycleUtc": "2026-09-09T12:00:00Z",
+    "forecastHoursChecked": [1, 24, 72, 120],
+    "validTimesUtc": [
+      "2026-09-09T13:00:00Z",
+      "2026-09-10T12:00:00Z",
+      "2026-09-12T12:00:00Z",
+      "2026-09-14T12:00:00Z"
+    ],
+    "result": "All five candidate cells returned finite surface temperatures at every checked horizon.",
+    "limitation": "One successful cycle proves technical extractability only; it does not establish uptime, local representativeness, forecast skill, or pilot approval."
+  },
+  "cities": [
+    {
+      "cityId": "ludington_mi",
+      "gridRow": 235,
+      "gridColumn": 159,
+      "latitude": 43.95,
+      "longitude": -86.47,
+      "wetMask": 1,
+      "modelBathymetryM": 6.615642314703742,
+      "reference": {
+        "name": "Ludington North Breakwater Light",
+        "latitude": 43.9536111111,
+        "longitude": -86.4694444444,
+        "distanceM": 404
+      },
+      "probeTemperatureC": [21.86915, 22.12394, 21.439203, 21.033424],
+      "validationObservation": {
+        "datasetId": "obs_637",
+        "availabilityStatus": "historical_only",
+        "latestRecordUtcChecked": "2025-09-22T14:00:00Z"
+      },
+      "representationBlocker": "Pere Marquette Lake/channel plume transfer and prospective local comparison remain unvalidated."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "gridRow": 146,
+      "gridColumn": 180,
+      "latitude": 43.06,
+      "longitude": -86.26,
+      "wetMask": 1,
+      "modelBathymetryM": 9.928779235854584,
+      "reference": {
+        "name": "Grand Haven South Pierhead Entrance Light",
+        "latitude": 43.0569444444,
+        "longitude": -86.2558333333,
+        "distanceM": 480
+      },
+      "probeTemperatureC": [22.80323, 22.606117, 21.865347, 20.80338],
+      "validationObservation": {
+        "datasetId": "obs_671",
+        "availabilityStatus": "active_seasonal",
+        "latestRecordUtcChecked": "2026-09-08T23:56:00Z"
+      },
+      "representationBlocker": "Grand River plume gradients and candidate-to-casting-water transfer remain unvalidated."
+    },
+    {
+      "cityId": "manistee_mi",
+      "gridRow": 265,
+      "gridColumn": 171,
+      "latitude": 44.25,
+      "longitude": -86.35,
+      "wetMask": 1,
+      "modelBathymetryM": 7.5400476937748575,
+      "reference": {
+        "name": "Manistee North Pierhead Light",
+        "latitude": 44.2519444444,
+        "longitude": -86.3469444444,
+        "distanceM": 326
+      },
+      "probeTemperatureC": [20.965681, 21.538706, 21.28554, 20.483303],
+      "validationObservation": null,
+      "representationBlocker": "No pier-local comparison observation was found; Manistee River/channel influence requires prospective review."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "gridRow": 303,
+      "gridColumn": 180,
+      "latitude": 44.63,
+      "longitude": -86.26,
+      "wetMask": 1,
+      "modelBathymetryM": 12.58709828741525,
+      "reference": {
+        "name": "Frankfort North Breakwater Light",
+        "latitude": 44.6308333333,
+        "longitude": -86.2522222222,
+        "distanceM": 622
+      },
+      "probeTemperatureC": [20.779089, 20.992285, 20.570162, 19.878523],
+      "validationObservation": null,
+      "representationBlocker": "Betsie Lake/channel influence and one-cell equivalence for both Frankfort and Elberta structures remain unvalidated."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "gridRow": 215,
+      "gridColumn": 37,
+      "latitude": 43.75,
+      "longitude": -87.69,
+      "wetMask": 1,
+      "modelBathymetryM": 8.680713550792786,
+      "reference": {
+        "name": "Sheboygan Breakwater Light",
+        "latitude": 43.7494444444,
+        "longitude": -87.6927777778,
+        "distanceM": 232
+      },
+      "probeTemperatureC": [15.005668, 14.602592, 12.625891, 16.18147],
+      "validationObservation": {
+        "datasetId": "obs_709",
+        "availabilityStatus": "active_seasonal",
+        "latestRecordUtcChecked": "2026-09-08T23:55:00Z"
+      },
+      "representationBlocker": "Harbor/river influence, tentative structure coverage, and transfer from the Panther buoy remain unvalidated."
+    }
+  ]
+}

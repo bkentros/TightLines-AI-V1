@@ -1,440 +1,238 @@
-# FinFindr PierCast --- Implementation Specification
+# FinFindr PierCast — Agent Build Specification
 
-## Purpose
+**Version:** 2.0\
+**Updated:** 2026-09-09\
+**Authority:** The [Master Build Specification](PierCast_Master_Build_Spec.md)
+governs where this concise execution guide is silent.
 
-**PierCast** is a Great Lakes pier-fishing forecast that answers:
+## Product contract
 
-1.  **How good is this pier for fishing today and over the next 5
-    days?**
-2.  **Which species are realistically worth targeting from this pier
-    during each forecast period?**
+PierCast is a city-level Great Lakes pier-fishing outlook. It provides a
+**FinFindr Opportunity Rating** for each supported species and date, then uses
+the highest eligible species as the city headline.
 
-PierCast combines **configured local fishery knowledge** with **current
-and forecast environmental data**. The engine must be reusable so a new
-Great Lakes pier can be onboarded primarily through configuration rather
-than new code.
+Every available rating MUST be displayed to one decimal as **`X.X/10`**, such as
+`7.6/10`. Internally retain the continuous score for aggregation and deterministic
+ranking. The rating is FinFindr's configured estimate of relative fishing
+opportunity—not detected fish presence, a fish count, catch probability, or
+guarantee.
 
-------------------------------------------------------------------------
+The calendar contains today plus four additional city-local dates. Today covers
+only the remaining local day; future dates cover full local calendar days.
 
-## Core Design Principle
+## V1 scoring model
 
-**Fish presence and local availability come first.**
+PierCast v1 has exactly two numeric score inputs:
 
-Good environmental conditions cannot create a high species rating if
-that species is rarely available from that specific pier.
+1. `P_rating(c,s,t)`: the city × species **Seasonal Pier Opportunity Ceiling**,
+   continuously evaluated on the `1–10` FinFindr scale.
+2. `T(s,t)`: water-temperature suitability on `[0,1]`, resolved from the
+   species' applicable seasonal temperature curve and the city's hourly
+   water-temperature series.
 
-The scoring hierarchy is:
+Use the multiplicative formula:
 
-1.  Can this species realistically be available from this pier?
-2.  How strong is this species' fishery at this specific pier?
-3.  Is this a strong or weak year for that species?
-4.  Is the species seasonally accessible from the pier right now?
-5.  Are current/forecast environmental conditions increasing or
-    decreasing that opportunity?
-6.  Is the pier actually fishable?
+```text
+P(c,s,t) = (P_rating(c,s,t) - 1) / 9
+O(c,s,t) = P(c,s,t) × T(s,t)
+score(c,s,t) = 1 + 9 × O(c,s,t)
+```
 
-Do **not** use a simple weighted average that allows excellent
-temperature or weather to compensate for poor species presence.
+Equivalent direct form:
 
-------------------------------------------------------------------------
+```text
+score(c,s,t) = 1 + (P_rating(c,s,t) - 1) × T(s,t)
+```
 
-# Outputs
+This guarantees:
 
-## 1. Overall Pier Score
+```text
+1 ≤ score(c,s,t) ≤ P_rating(c,s,t) ≤ 10
+```
 
-A **1--10 score** answering:
+Do not replace this with an additive percentage formula. Favorable temperature
+must never create a strong rating during a city/species period configured as
+weak.
 
-> How good is the overall pier-fishing opportunity at this location
-> during this forecast period?
+## Configuration ownership
 
-This score is **independent of the individual species scores**. Do not
-calculate it by averaging species ratings.
+### Species profile
 
-Use:
+Owns:
 
--   Port-specific general seasonal opportunity
--   Nearshore water temperature and trend
--   Wind/exposure
--   Waves and fishability
--   Relevant weather/light modifiers
--   Optional tributary influence where appropriate
+- Stable species ID, public name, aliases, and artwork reference.
+- Seasonal temperature-preference curves.
+- Smooth transitions where feeding, staging, spawning, or other supported
+  contexts require different temperature responses.
+- Temperature evidence, calibration status, and curve version.
 
-The pier's general seasonal opportunity should prevent environmentally
-favorable conditions from creating an unrealistically high overall
-rating during a historically poor pier-fishing period.
+The resolved output is one temperature-suitability value `T(s,t)` from `0–1`.
+Temperature direction or trend is not a separate scoring input.
 
-------------------------------------------------------------------------
+### City × species profile
 
-## 2. Species Opportunity Scores
+Owns:
 
-Each relevant species receives an independent **1--10 opportunity
-score** for that pier and forecast period.
+- Eligibility and covered-pier scope.
+- One recurring Seasonal Pier Opportunity Ceiling curve on the `1–10` scale.
+- Evidence and calibration status for each meaningful timing segment.
+- Targeting restriction and limitation copy.
 
-Example:
+The seasonal curve owns both local fishery strength and timing. There is no
+separate permanent local baseline or annual multiplier. Its yearly peak is the
+maximum rating that city/species pairing can reach.
 
--   Chinook --- 9.3
--   Coho --- 7.8
--   Steelhead --- 6.5
+Configure the curve with sparse `MM-DD` anchors and interpolate daily across
+them. Use broad flat spans when evidence supports a consistently slow period.
+Use weekly or finer anchors only around evidenced arrivals, peaks, and declines.
+The curve must remain continuous across December/January and behave
+deterministically in leap years.
 
-Do not display species whose current opportunity is irrelevant unless
-needed.
+### City profile
 
-------------------------------------------------------------------------
+Owns:
 
-# Pier Configuration
+- Stable city ID, name, state, and IANA timezone.
+- The named structures covered, excluded, or unresolved.
+- One declared nearshore/port water-temperature series used by every rating
+  unless an explicit later product revision says otherwise.
+- Temperature source label, provider metadata, freshness, coverage, and
+  fallback/unavailable behavior.
 
-Every pier should contain:
+Provider depth/layer metadata may be retained for provenance, but depth is not a
+score variable. Do not dynamically choose whichever source produces a more
+favorable score. Clearly label modeled temperatures and disclose that localized
+harbor, plume, surface, and depth conditions may differ.
+
+## Daily calculation
 
--   `pier_id`
--   Name
--   Great Lake
--   State/province
--   Latitude/longitude
--   Configured nearshore model sampling coordinate
--   Preferred observed temperature station, if available
--   Shoreline/pier exposure orientation
--   General seasonal pier-opportunity curve
--   Relevant species
--   Tributary/river association, if applicable
--   Fishability/safety thresholds
--   Data-source priority/fallback rules
+Evaluate the formula over the accepted hourly temperature series using unrounded
+values. The seasonal ceiling changes by local date; temperature suitability
+changes with the temperature series.
 
-**Do not automatically assume the nearest model grid point represents
-the pier.** Configure an appropriate nearshore sampling location.
-
-------------------------------------------------------------------------
-
-# Pier × Species Configuration
-
-Every relevant Pier × Species combination should contain:
-
-### Local Fishery Baseline
-
-How strong and consistently catchable this species is **from this
-particular pier** compared with other locations.
-
-This is a long-term characteristic of the fishery.
-
-### Annual Abundance Modifier
-
-Allows unusually strong or weak year classes, stocking changes,
-survival, or population conditions to modify the long-term baseline
-without rewriting it.
-
-### Seasonal Accessibility Curve
-
-A smooth year-round curve representing how likely that species is to be
-within practical pier-fishing range at that location.
-
-Avoid hard seasonal date switches.
-
-### Temperature Suitability Curve
-
-A continuous curve describing how favorable nearshore temperatures are
-for **pier accessibility/behavior**, not merely the species' generic
-physiological preferred temperature.
-
-### Temperature-Trend Sensitivity
-
-Defines how warming/cooling trends affect opportunity.
-
-Magnitude, direction, and rate of change should be considered.
-
-### Environmental Sensitivities
-
-Species-specific effects where justified:
-
--   Wind/exposure
--   Waves
--   Light/cloud cover
--   Pressure/weather
--   Tributary flow/rainfall
--   Other future validated variables
-
-Keep minor variables as modifiers rather than allowing them to dominate
-the score.
-
-------------------------------------------------------------------------
-
-# Species Scoring Logic
-
-Do not use a flat formula such as:
-
-`30% baseline + 30% season + 30% temperature + 10% wind`
-
-Instead use a gated model.
-
-Conceptually:
-
-**Availability Potential**
-
-`Local Fishery Baseline × Annual Abundance × Seasonal Accessibility`
-
-This establishes how much opportunity can realistically exist.
-
-Then calculate:
-
-**Environmental Suitability**
-
-primarily from:
-
--   Current/forecast nearshore water temperature
--   Temperature trend
--   Relevant species-specific environmental modifiers
-
-Environmental suitability determines how much of the available potential
-is currently unlocked.
-
-### Required behavior
-
-Perfect temperature **must not** turn a weak local fishery into an elite
-species opportunity.
-
-Conversely, ideal conditions should be capable of strongly increasing
-the score when the species has high local and seasonal availability.
-
-Exact mathematical curves/coefficients should be configurable and
-calibratable rather than hard-coded throughout the application.
-
-------------------------------------------------------------------------
-
-# Overall Pier Score Logic
-
-The Overall Pier Score uses a separate model.
-
-Conceptually:
-
-`Port Seasonal Opportunity × Current Environmental Favorability`
-
-Important factors:
-
-1.  General seasonal opportunity for that specific pier
-2.  Nearshore water temperature
-3.  Temperature trend
-4.  Wind/exposure
-5.  Wave conditions
-6.  Relevant weather/light modifiers
-7.  Tributary influence where applicable
-8.  Pier fishability
-
-Do not allow species with naturally low availability at that port to
-reduce the Overall Pier Score.
-
-------------------------------------------------------------------------
-
-# Wind Handling
-
-Never treat compass wind direction as universally positive or negative.
-
-Each pier has an exposure/orientation configuration.
-
-Convert forecast wind into:
-
--   Onshore component
--   Offshore component
--   Alongshore component
--   Speed
--   Duration
-
-This allows the same wind direction to affect opposite sides of a Great
-Lake differently.
-
-When forecast water temperature already comes from a hydrodynamic model
-incorporating wind, avoid heavily counting wind again for its
-temperature effect.
-
-Wind may still independently affect waves, casting, drift, and pier
-fishability.
-
-------------------------------------------------------------------------
-
-# Temperature Data
-
-Use public Great Lakes observed and forecast data.
-
-Source priority:
-
-1.  Reliable nearby observed sensor for current conditions when
-    representative
-2.  Configured nearshore hydrodynamic model point
-3.  Valid fallback model location
-
-Track internal data quality/confidence.
-
-The forecast engine should ingest multiple forecast periods rather than
-only one daily temperature.
-
-Preserve hourly/sub-daily temperature data internally so the engine can
-detect:
-
--   Rapid cooling/warming
--   Upwelling/cold-water pushes
--   Best portions of a day
-
-Daily scores can then summarize the underlying higher-resolution
-calculations.
-
-------------------------------------------------------------------------
-
-# Tributary Influence
-
-Some piers are associated with river mouths/harbors and migratory
-fisheries.
-
-Allow optional tributary inputs:
-
--   River discharge/flow
--   Flow trend
--   Recent rainfall
--   Other validated migration indicators
-
-Apply these only to Pier × Species combinations where tributary
-conditions meaningfully affect pier opportunity.
-
-------------------------------------------------------------------------
-
-# Fishability Gate
-
-Separate **biological opportunity** from whether the pier is practically
-fishable.
-
-Consider:
-
--   Wave height
--   Wind
--   Severe weather
--   Ice
--   Known closure/access status when available
-
-A species may have a high biological opportunity while the pier is
-currently unfavorable or unsafe.
-
-Do not silently erase the biological species score. Surface the
-fishability limitation separately and allow it to cap or qualify the
-Overall Pier Score.
-
-------------------------------------------------------------------------
-
-# Forecast
-
-Generate ratings for:
-
--   Today
--   +1 day
--   +2 days
--   +3 days
--   +4 days
--   +5 days
-
-Run calculations internally at the highest practical temporal resolution
-supported by the forecast data, then aggregate into daily user-facing
-scores.
-
-Also determine a **best fishing window** when the sub-daily data
-supports one.
-
-Forecast confidence should decline with lead time, but **do not lower
-the actual predicted rating solely because it is farther into the
-future**. Store/display confidence separately.
-
-------------------------------------------------------------------------
-
-# Data Confidence
-
-Maintain an internal confidence value based on:
-
--   Observed vs modeled temperature
--   Distance/representativeness of data source
--   Missing inputs
--   Forecast lead time
--   Stale data
--   Fallback data usage
-
-The scoring engine must handle missing variables gracefully and should
-never fabricate unavailable measurements.
-
-------------------------------------------------------------------------
-
-# User Experience
-
-Keep the interface much simpler than the engine.
-
-Example:
-
-## PierCast --- Ludington
-
-**Today: 8.9/10 --- Excellent**
-
-### 5-Day Forecast
-
-Sat 8.9 \| Sun 8.1 \| Mon 7.0 \| Tue 9.3 \| Wed 8.6
-
-### Best Targets
-
--   Chinook --- 9.4
--   Steelhead --- 7.8
--   Coho --- 7.1
-
-**Best Window:** 7 PM--11 PM
-
-**Why:** Cooling nearshore water during strong seasonal Chinook
-availability is improving pier opportunity.
-
-Only expose technical environmental details when useful. The primary
-experience should answer:
-
-> Is this pier worth fishing, when should I go, and what should I
-> target?
-
-------------------------------------------------------------------------
-
-# Architecture Requirement
-
-Build PierCast as a **configuration-driven engine**.
-
-Adding a new Great Lakes pier should primarily require:
-
-1.  Pier configuration
-2.  Environmental sampling/source configuration
-3.  General pier seasonal curve
-4.  Relevant species list
-5.  Pier × Species configurations
-
-It should **not require writing new scoring logic for each pier**.
-
-Global species defaults may be used, but every Pier × Species
-configuration must support overrides because Great Lakes fisheries
-differ substantially by location.
-
-------------------------------------------------------------------------
-
-# Calibration Requirement
-
-All scoring curves, gates, coefficients, thresholds, and modifiers must
-be centrally configurable.
-
-Do not bury constants throughout application code.
-
-The system should support future calibration using:
-
--   Actual catch/report data
--   User feedback
--   Agency population/stocking information
--   Historical environmental conditions
--   Observed forecast performance
-
-The initial engine should remain explainable and deterministic enough
-that a developer can identify **why a score changed**.
-
-------------------------------------------------------------------------
-
-## Final Principle
-
-PierCast predicts **fishing opportunity**, not guaranteed catch
-probability.
-
-Static/configured fishery knowledge determines **what opportunity
-realistically exists**.
-
-Live and forecast environmental conditions determine **how favorable
-that opportunity is right now and over the next five days**.
+```text
+dailySpeciesScore = integral(score(c,s,t), covered intervals)
+                    / duration(covered intervals)
+```
+
+Use elapsed UTC duration, including 23/25-hour daylight-saving dates. Do not
+score from daily mean temperature, select the best hour, or extend the last
+value beyond the provider horizon. Missing required coverage yields partial or
+unavailable according to the reviewed policy.
+
+The Overall Pier Score is the highest complete, targeting-eligible daily species
+score. It is not an average of species and has no separate formula.
+
+## Variables with zero score weight
+
+Do not include these in the v1 number:
+
+- Permanent local baseline separate from the seasonal curve
+- Annual abundance multiplier
+- Temperature trend
+- Wind or waves
+- Pressure or moon phase
+- Cloud/light
+- Rainfall or tributary flow
+- Turbidity, currents, or dissolved oxygen
+- Access, closure, hazard, or confidence state
+
+Access, legal status, severe conditions, and confidence may qualify or suppress
+recommendation placement without altering the numeric rating. Future numeric
+variables require a new engine version and evidence from a held-out comparison
+against this two-input baseline.
+
+## Winter/open-water behavior
+
+From January through March, every report MUST show:
+
+> **Open-water outlook only.** This rating applies only when the covered pier is
+> open, legally accessible, and adjacent water is fishable. PierCast does not
+> assess ice thickness, pier icing, or whether walking onto ice is safe. Verify
+> current access and conditions before going.
+
+A known closure blocks recommendation. Unknown winter access retains the
+warning. Neither silently lowers the species rating. PierCast must never imply
+that ice is safe.
+
+## Missing and unsupported states
+
+Return a nonnumeric state when:
+
+- The city/species seasonal curve is absent or not approved for the current
+  mode.
+- The applicable temperature curve is absent or not approved.
+- Water temperature is missing, stale, incomplete, invalid, or outside the
+  accepted curve domain.
+- The city/species pairing is unsupported or materially unresolved.
+
+Never serialize zero as a substitute for missing data. Never expose a
+provisional curve through a public endpoint. All available reads include
+`score`, one-decimal `displayScore`, and `displayText: "X.X/10"`.
+
+## Research and calibration
+
+The monthly matrices remain an inventory rather than scoring curves. The
+disabled [core seasonal calibration](PierCast_Core_Species_Seasonal_Calibration.md)
+and [core temperature/source calibration](PierCast_Core_Temperature_and_Source_Calibration.md)
+now provide private provisional curves for Chinook, coho, steelhead, and brown
+trout only. The other nine species remain nonnumeric. Continue calibrating the
+core city × species timing curves from dated, pier-specific evidence:
+
+- Recurring arrival and first-catch periods
+- Ramp-up and peak timing
+- Decline and late-season tail
+- Multiple years where available
+- Successful and unsuccessful effort where reported
+- Clear separation of pier, shore, boat, and upstream evidence
+
+Do not force 52 independent weekly values. Use only the knots needed to
+represent the supported pattern. More date precision without evidence is false
+accuracy.
+
+Temperature endpoints must distinguish applicable life stage and behavior where
+possible. Exact suitability values and seasonal ratings are FinFindr
+configuration choices informed by evidence; they are not automatically
+agency-validated biological measurements.
+
+Before public enablement, compare:
+
+1. Seasonal curve alone.
+2. Seasonal curve multiplied by temperature suitability.
+
+Evaluate false excellent days, missed good days, score distribution, source
+coverage, stability around curve knots, and target-specific user feedback. Do
+not add another variable unless it materially improves held-out results.
+
+## Required implementation invariants
+
+- Perfect temperature returns exactly the configured seasonal rating.
+- Any lower temperature suitability returns a score no higher than the seasonal
+  rating.
+- A low/offseason seasonal rating cannot become strong because of temperature.
+- Seasonal and temperature knots interpolate continuously.
+- Calendar curves remain continuous across year-end and leap years.
+- Same city, species, date, and water temperature always produce the same
+  numeric score regardless of wind, trend, or other context.
+- Daily calculation uses duration-weighted hourly scores.
+- Available public UI always displays `X.X/10`.
+- Overall score equals the named driving species score.
+- Missing or unapproved required inputs fail closed.
+- January–March reports contain the open-water warning.
+
+## Immediate build order
+
+1. Complete detailed city × species timing research, prioritizing the strongest
+   pilot fisheries and high-change weeks.
+2. Create reviewed seasonal opportunity knots and seasonal temperature curves;
+   keep unsupported pairings disabled.
+3. Connect one declared city water-temperature feed and normalized fixture.
+4. Produce replayable hourly and daily owner-review ratings with component
+   traces.
+5. Render the five-date city experience, species ratings, `X.X/10` labels, source
+   time, and winter notice.
+6. Review representative annual dates and tune configurations before any public
+   enablement.
+
+The engine remains configuration-driven: onboarding another city or species
+should add evidence and curves, not another scoring formula.

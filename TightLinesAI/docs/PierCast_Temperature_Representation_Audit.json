@@ -1,0 +1,2893 @@
+{
+  "schemaVersion": "pier-cast-temperature-representation-audit-v1",
+  "generatedAt": "2026-09-10T02:11:18.196Z",
+  "protocolPath": "docs/PierCast_Temperature_Representation_Acceptance.json",
+  "sourcePolicy": "Only aggregate QC flag 1 (GOOD) enters comparison metrics.",
+  "archiveWindow": {
+    "start": "2026-08-10T00:00:00.000Z",
+    "retention": "rolling NOAA CO-OPS THREDDS archive; verified from 2026-08-10 at audit time"
+  },
+  "forecastLeadsHours": [
+    0,
+    24,
+    48,
+    72,
+    96,
+    120
+  ],
+  "archiveNativeNodeApproximationCheck": [
+    {
+      "cityId": "ludington_mi",
+      "cycle": "2026-09-09T18:00:00.000Z",
+      "comparisons": [
+        {
+          "lead": 0,
+          "status": "matched",
+          "validAt": "2026-09-09T18:00:00.000Z",
+          "regularGridTemperatureC": 22.028276,
+          "nativeNodeTemperatureC": 22.05256,
+          "nativeMinusRegularC": 0.024
+        },
+        {
+          "lead": 24,
+          "status": "matched",
+          "validAt": "2026-09-10T18:00:00.000Z",
+          "regularGridTemperatureC": 22.127657,
+          "nativeNodeTemperatureC": 22.187178,
+          "nativeMinusRegularC": 0.06
+        },
+        {
+          "lead": 72,
+          "status": "matched",
+          "validAt": "2026-09-12T18:00:00.000Z",
+          "regularGridTemperatureC": 21.468508,
+          "nativeNodeTemperatureC": 21.508034,
+          "nativeMinusRegularC": 0.04
+        },
+        {
+          "lead": 120,
+          "status": "matched",
+          "validAt": "2026-09-14T18:00:00.000Z",
+          "regularGridTemperatureC": 20.843533,
+          "nativeNodeTemperatureC": 20.857376,
+          "nativeMinusRegularC": 0.014
+        }
+      ],
+      "summary": {
+        "count": 4,
+        "mean": 0.035,
+        "p90": 0.06,
+        "maximum": 0.06
+      }
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cycle": "2026-09-09T18:00:00.000Z",
+      "comparisons": [
+        {
+          "lead": 0,
+          "status": "matched",
+          "validAt": "2026-09-09T18:00:00.000Z",
+          "regularGridTemperatureC": 22.824337,
+          "nativeNodeTemperatureC": 22.823988,
+          "nativeMinusRegularC": 0
+        },
+        {
+          "lead": 24,
+          "status": "matched",
+          "validAt": "2026-09-10T18:00:00.000Z",
+          "regularGridTemperatureC": 22.769814,
+          "nativeNodeTemperatureC": 22.76986,
+          "nativeMinusRegularC": 0
+        },
+        {
+          "lead": 72,
+          "status": "matched",
+          "validAt": "2026-09-12T18:00:00.000Z",
+          "regularGridTemperatureC": 21.881828,
+          "nativeNodeTemperatureC": 21.8703,
+          "nativeMinusRegularC": -0.012
+        },
+        {
+          "lead": 120,
+          "status": "matched",
+          "validAt": "2026-09-14T18:00:00.000Z",
+          "regularGridTemperatureC": 20.43926,
+          "nativeNodeTemperatureC": 20.378351,
+          "nativeMinusRegularC": -0.061
+        }
+      ],
+      "summary": {
+        "count": 4,
+        "mean": 0.018,
+        "p90": 0.061,
+        "maximum": 0.061
+      }
+    },
+    {
+      "cityId": "manistee_mi",
+      "cycle": "2026-09-09T18:00:00.000Z",
+      "comparisons": [
+        {
+          "lead": 0,
+          "status": "matched",
+          "validAt": "2026-09-09T18:00:00.000Z",
+          "regularGridTemperatureC": 21.160524,
+          "nativeNodeTemperatureC": 21.172432,
+          "nativeMinusRegularC": 0.012
+        },
+        {
+          "lead": 24,
+          "status": "matched",
+          "validAt": "2026-09-10T18:00:00.000Z",
+          "regularGridTemperatureC": 21.654024,
+          "nativeNodeTemperatureC": 21.646019,
+          "nativeMinusRegularC": -0.008
+        },
+        {
+          "lead": 72,
+          "status": "matched",
+          "validAt": "2026-09-12T18:00:00.000Z",
+          "regularGridTemperatureC": 21.191025,
+          "nativeNodeTemperatureC": 21.150084,
+          "nativeMinusRegularC": -0.041
+        },
+        {
+          "lead": 120,
+          "status": "matched",
+          "validAt": "2026-09-14T18:00:00.000Z",
+          "regularGridTemperatureC": 19.797176,
+          "nativeNodeTemperatureC": 19.679224,
+          "nativeMinusRegularC": -0.118
+        }
+      ],
+      "summary": {
+        "count": 4,
+        "mean": 0.045,
+        "p90": 0.118,
+        "maximum": 0.118
+      }
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cycle": "2026-09-09T18:00:00.000Z",
+      "comparisons": [
+        {
+          "lead": 0,
+          "status": "matched",
+          "validAt": "2026-09-09T18:00:00.000Z",
+          "regularGridTemperatureC": 21.02234,
+          "nativeNodeTemperatureC": 21.04179,
+          "nativeMinusRegularC": 0.019
+        },
+        {
+          "lead": 24,
+          "status": "matched",
+          "validAt": "2026-09-10T18:00:00.000Z",
+          "regularGridTemperatureC": 20.911121,
+          "nativeNodeTemperatureC": 20.925318,
+          "nativeMinusRegularC": 0.014
+        },
+        {
+          "lead": 72,
+          "status": "matched",
+          "validAt": "2026-09-12T18:00:00.000Z",
+          "regularGridTemperatureC": 20.642199,
+          "nativeNodeTemperatureC": 20.653772,
+          "nativeMinusRegularC": 0.012
+        },
+        {
+          "lead": 120,
+          "status": "matched",
+          "validAt": "2026-09-14T18:00:00.000Z",
+          "regularGridTemperatureC": 19.162066,
+          "nativeNodeTemperatureC": 19.265146,
+          "nativeMinusRegularC": 0.103
+        }
+      ],
+      "summary": {
+        "count": 4,
+        "mean": 0.037,
+        "p90": 0.103,
+        "maximum": 0.103
+      }
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cycle": "2026-09-09T18:00:00.000Z",
+      "comparisons": [
+        {
+          "lead": 0,
+          "status": "matched",
+          "validAt": "2026-09-09T18:00:00.000Z",
+          "regularGridTemperatureC": 13.844442,
+          "nativeNodeTemperatureC": 13.925523,
+          "nativeMinusRegularC": 0.081
+        },
+        {
+          "lead": 24,
+          "status": "matched",
+          "validAt": "2026-09-10T18:00:00.000Z",
+          "regularGridTemperatureC": 16.845612,
+          "nativeNodeTemperatureC": 16.675152,
+          "nativeMinusRegularC": -0.17
+        },
+        {
+          "lead": 72,
+          "status": "matched",
+          "validAt": "2026-09-12T18:00:00.000Z",
+          "regularGridTemperatureC": 12.490603,
+          "nativeNodeTemperatureC": 12.633171,
+          "nativeMinusRegularC": 0.143
+        },
+        {
+          "lead": 120,
+          "status": "matched",
+          "validAt": "2026-09-14T18:00:00.000Z",
+          "regularGridTemperatureC": 14.4987135,
+          "nativeNodeTemperatureC": 14.632275,
+          "nativeMinusRegularC": 0.134
+        }
+      ],
+      "summary": {
+        "count": 4,
+        "mean": 0.132,
+        "p90": 0.17,
+        "maximum": 0.17
+      }
+    }
+  ],
+  "cities": [
+    {
+      "cityId": "ludington_mi",
+      "decision": "blocked_insufficient_evidence",
+      "runtimeRegularGridCell": {
+        "latitude": 43.95,
+        "longitude": -86.47,
+        "verticalSelection": "surface",
+        "depthIndex": 0,
+        "gridRow": 235,
+        "gridColumn": 159,
+        "modelBathymetryM": 6.615642314703742,
+        "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+        "referencePoint": {
+          "referenceId": "ludington_north_breakwater_light",
+          "displayName": "Ludington North Breakwater Light",
+          "latitude": 43.9536111111,
+          "longitude": -86.4694444444,
+          "distanceM": 404,
+          "coordinateSource": "NOAA Coast Pilot 6"
+        },
+        "gridCellStatus": "candidate"
+      },
+      "archiveNativeNode": {
+        "index": 23004,
+        "latitude": 43.9483,
+        "longitude": -86.4701,
+        "bathymetryM": 7.368664,
+        "distanceFromRegularGridCenterM": 189
+      },
+      "archiveApproximation": "Nearest native node to the frozen regular-grid center; the archived server does not retain regulargrid files.",
+      "observation": {
+        "cityId": "ludington_mi",
+        "datasetId": "obs_62",
+        "variable": "sea_surface_temperature",
+        "aggregateQualityVariable": "sea_surface_temperature_aggregate_test",
+        "unit": "K",
+        "latitude": 43.97999954223633,
+        "longitude": -86.55999755859375,
+        "depthM": null,
+        "depthDescription": "explicit sea_surface_temperature variable; numeric sensor depth absent from dataset metadata",
+        "role": "supplemental",
+        "distanceFromRuntimeCellM": 7938,
+        "sourceUrl": "https://seagull-erddap.glos.org/erddap/tabledap/obs_62.csv?time%2Csea_surface_temperature%2Csea_surface_temperature_aggregate_test&orderBy(%22time%22)"
+      },
+      "observationRequestError": null,
+      "observationInventory": {
+        "recordCount": 2147,
+        "aggregateQcGoodCount": 144,
+        "rejectedCount": 2003,
+        "qualityFlagCounts": {
+          "1": 144,
+          "2": 322,
+          "3": 387,
+          "4": 1294
+        },
+        "rejectionReasonCounts": {
+          "quality_not_good": 2003
+        },
+        "firstRecordAt": "2026-08-24T00:00:00Z",
+        "lastRecordAt": "2026-09-07T23:50:00Z",
+        "distinctGoodDays": 13,
+        "distinctGoodMonths": 2,
+        "goodTemperatureRangeC": [
+          4.668,
+          22.2
+        ],
+        "thermalRegimeGoodCounts": {
+          "cold": 12,
+          "transition": 90,
+          "warm": 42
+        },
+        "rapidChangeEvents": 6
+      },
+      "modelComparison": {
+        "requestedCount": 108,
+        "matchedCount": 108,
+        "failedCount": 0,
+        "failures": [],
+        "overall": {
+          "count": 108,
+          "meanBiasC": 0.783,
+          "meanAbsoluteErrorC": 1.99,
+          "rootMeanSquareErrorC": 2.586,
+          "p90AbsoluteErrorC": 4.304,
+          "maximumAbsoluteErrorC": 8.767,
+          "meanObservationOffsetMinutes": 12.778
+        },
+        "byLead": {
+          "0": {
+            "count": 18,
+            "meanBiasC": 0.503,
+            "meanAbsoluteErrorC": 1.568,
+            "rootMeanSquareErrorC": 1.94,
+            "p90AbsoluteErrorC": 3.522,
+            "maximumAbsoluteErrorC": 4.542,
+            "meanObservationOffsetMinutes": 12.778
+          },
+          "24": {
+            "count": 18,
+            "meanBiasC": 0.501,
+            "meanAbsoluteErrorC": 1.641,
+            "rootMeanSquareErrorC": 2.044,
+            "p90AbsoluteErrorC": 3.716,
+            "maximumAbsoluteErrorC": 4.586,
+            "meanObservationOffsetMinutes": 12.778
+          },
+          "48": {
+            "count": 18,
+            "meanBiasC": 0.863,
+            "meanAbsoluteErrorC": 1.698,
+            "rootMeanSquareErrorC": 2.197,
+            "p90AbsoluteErrorC": 4.483,
+            "maximumAbsoluteErrorC": 5.605,
+            "meanObservationOffsetMinutes": 12.778
+          },
+          "72": {
+            "count": 18,
+            "meanBiasC": 0.72,
+            "meanAbsoluteErrorC": 2.013,
+            "rootMeanSquareErrorC": 2.359,
+            "p90AbsoluteErrorC": 4.072,
+            "maximumAbsoluteErrorC": 4.376,
+            "meanObservationOffsetMinutes": 12.778
+          },
+          "96": {
+            "count": 18,
+            "meanBiasC": 0.436,
+            "meanAbsoluteErrorC": 2.355,
+            "rootMeanSquareErrorC": 3.003,
+            "p90AbsoluteErrorC": 4.376,
+            "maximumAbsoluteErrorC": 6.649,
+            "meanObservationOffsetMinutes": 12.778
+          },
+          "120": {
+            "count": 18,
+            "meanBiasC": 1.672,
+            "meanAbsoluteErrorC": 2.664,
+            "rootMeanSquareErrorC": 3.575,
+            "p90AbsoluteErrorC": 7.779,
+            "maximumAbsoluteErrorC": 8.767,
+            "meanObservationOffsetMinutes": 12.778
+          }
+        },
+        "scoreSensitivityAtSeasonalRating10": {
+          "chinook_salmon": {
+            "overall": {
+              "count": 108,
+              "mean": 0.926,
+              "p90": 2.464,
+              "maximum": 3.257
+            },
+            "byLead": {
+              "0": {
+                "count": 18,
+                "mean": 0.755,
+                "p90": 1.849,
+                "maximum": 2.669
+              },
+              "24": {
+                "count": 18,
+                "mean": 0.829,
+                "p90": 2.017,
+                "maximum": 3.251
+              },
+              "48": {
+                "count": 18,
+                "mean": 0.831,
+                "p90": 2.089,
+                "maximum": 2.464
+              },
+              "72": {
+                "count": 18,
+                "mean": 0.93,
+                "p90": 2.638,
+                "maximum": 2.667
+              },
+              "96": {
+                "count": 18,
+                "mean": 0.969,
+                "p90": 2.499,
+                "maximum": 3.257
+              },
+              "120": {
+                "count": 18,
+                "mean": 1.242,
+                "p90": 2.76,
+                "maximum": 3.041
+              }
+            }
+          },
+          "coho_salmon": {
+            "overall": {
+              "count": 108,
+              "mean": 0.977,
+              "p90": 2.464,
+              "maximum": 3.257
+            },
+            "byLead": {
+              "0": {
+                "count": 18,
+                "mean": 0.871,
+                "p90": 2.474,
+                "maximum": 2.676
+              },
+              "24": {
+                "count": 18,
+                "mean": 0.937,
+                "p90": 2.474,
+                "maximum": 3.257
+              },
+              "48": {
+                "count": 18,
+                "mean": 0.915,
+                "p90": 2.471,
+                "maximum": 2.474
+              },
+              "72": {
+                "count": 18,
+                "mean": 1.043,
+                "p90": 2.464,
+                "maximum": 2.59
+              },
+              "96": {
+                "count": 18,
+                "mean": 0.982,
+                "p90": 2.506,
+                "maximum": 2.81
+              },
+              "120": {
+                "count": 18,
+                "mean": 1.117,
+                "p90": 2.169,
+                "maximum": 3.048
+              }
+            }
+          },
+          "steelhead": {
+            "overall": {
+              "count": 108,
+              "mean": 0.843,
+              "p90": 2.109,
+              "maximum": 3.106
+            },
+            "byLead": {
+              "0": {
+                "count": 18,
+                "mean": 0.711,
+                "p90": 1.653,
+                "maximum": 2.611
+              },
+              "24": {
+                "count": 18,
+                "mean": 0.776,
+                "p90": 1.836,
+                "maximum": 3.106
+              },
+              "48": {
+                "count": 18,
+                "mean": 0.773,
+                "p90": 1.81,
+                "maximum": 2.437
+              },
+              "72": {
+                "count": 18,
+                "mean": 0.868,
+                "p90": 2.451,
+                "maximum": 2.538
+              },
+              "96": {
+                "count": 18,
+                "mean": 0.855,
+                "p90": 2.467,
+                "maximum": 2.978
+              },
+              "120": {
+                "count": 18,
+                "mean": 1.072,
+                "p90": 2.319,
+                "maximum": 2.928
+              }
+            }
+          },
+          "brown_trout": {
+            "overall": {
+              "count": 108,
+              "mean": 0.566,
+              "p90": 1.619,
+              "maximum": 2.317
+            },
+            "byLead": {
+              "0": {
+                "count": 18,
+                "mean": 0.518,
+                "p90": 1.619,
+                "maximum": 2.026
+              },
+              "24": {
+                "count": 18,
+                "mean": 0.556,
+                "p90": 1.619,
+                "maximum": 2.317
+              },
+              "48": {
+                "count": 18,
+                "mean": 0.538,
+                "p90": 1.619,
+                "maximum": 1.924
+              },
+              "72": {
+                "count": 18,
+                "mean": 0.614,
+                "p90": 1.702,
+                "maximum": 1.983
+              },
+              "96": {
+                "count": 18,
+                "mean": 0.509,
+                "p90": 1.941,
+                "maximum": 2.03
+              },
+              "120": {
+                "count": 18,
+                "mean": 0.662,
+                "p90": 1.619,
+                "maximum": 2.213
+              }
+            }
+          }
+        },
+        "scoreSensitivityAtConfiguredSeasonalRating": {
+          "chinook_salmon": {
+            "count": 108,
+            "mean": 0.695,
+            "p90": 1.814,
+            "maximum": 2.437
+          },
+          "coho_salmon": {
+            "count": 108,
+            "mean": 0.229,
+            "p90": 0.541,
+            "maximum": 0.744
+          },
+          "steelhead": {
+            "count": 108,
+            "mean": 0.166,
+            "p90": 0.398,
+            "maximum": 0.601
+          },
+          "brown_trout": {
+            "count": 108,
+            "mean": 0.045,
+            "p90": 0.124,
+            "maximum": 0.182
+          }
+        },
+        "diagnosticAccuracyGates": {
+          "temperatureByLead": {
+            "0": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            },
+            "24": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            },
+            "48": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            },
+            "72": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            },
+            "96": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": false,
+              "p90AbsoluteErrorPass": false
+            },
+            "120": {
+              "evaluable": true,
+              "absoluteBiasPass": false,
+              "rmsePass": false,
+              "p90AbsoluteErrorPass": false
+            }
+          },
+          "scoreBySpeciesAndLead": {
+            "chinook_salmon": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "coho_salmon": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "steelhead": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "brown_trout": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            }
+          },
+          "interpretation": "Diagnostic only until every coverage and geometry prerequisite passes; failures may identify risk but cannot support a final reject from sparse data."
+        }
+      },
+      "blockers": [
+        "numeric_observation_depth_not_documented",
+        "fewer_than_60_distinct_observation_days",
+        "fewer_than_3_calendar_months",
+        "fewer_than_30_matches_for_one_or_more_leads",
+        "fewer_than_2_operational_seasons",
+        "winter_representation_not_validated",
+        "casting_water_and_plume_equivalence_not_validated"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "decision": "blocked_insufficient_evidence",
+      "runtimeRegularGridCell": {
+        "latitude": 43.06,
+        "longitude": -86.26,
+        "verticalSelection": "surface",
+        "depthIndex": 0,
+        "gridRow": 146,
+        "gridColumn": 180,
+        "modelBathymetryM": 9.928779235854584,
+        "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+        "referencePoint": {
+          "referenceId": "grand_haven_south_pierhead_entrance_light",
+          "displayName": "Grand Haven South Pierhead Entrance Light",
+          "latitude": 43.0569444444,
+          "longitude": -86.2558333333,
+          "distanceM": 480,
+          "coordinateSource": "NOAA Coast Pilot 6"
+        },
+        "gridCellStatus": "candidate"
+      },
+      "archiveNativeNode": {
+        "index": 13641,
+        "latitude": 43.0612,
+        "longitude": -86.2598,
+        "bathymetryM": 9.1304455,
+        "distanceFromRegularGridCenterM": 134
+      },
+      "archiveApproximation": "Nearest native node to the frozen regular-grid center; the archived server does not retain regulargrid files.",
+      "observation": {
+        "cityId": "grand_haven_mi",
+        "datasetId": "obs_671",
+        "variable": "sea_water_temperature_1",
+        "aggregateQualityVariable": "sea_water_temperature_1_aggregate_test",
+        "unit": "K",
+        "latitude": 43.002254486083984,
+        "longitude": -86.27080535888672,
+        "depthM": null,
+        "depthDescription": "water temperature 1; numeric sensor depth absent from dataset metadata",
+        "role": "configured",
+        "distanceFromRuntimeCellM": 6481,
+        "sourceUrl": "https://seagull-erddap.glos.org/erddap/tabledap/obs_671.csv?time%2Csea_water_temperature_1%2Csea_water_temperature_1_aggregate_test&orderBy(%22time%22)"
+      },
+      "observationRequestError": null,
+      "observationInventory": {
+        "recordCount": 27998,
+        "aggregateQcGoodCount": 332,
+        "rejectedCount": 27666,
+        "qualityFlagCounts": {
+          "1": 332,
+          "2": 81,
+          "3": 937,
+          "4": 8141,
+          "null": 18507
+        },
+        "rejectionReasonCounts": {
+          "missing": 11366,
+          "quality_not_good": 16300
+        },
+        "firstRecordAt": "2026-07-11T00:05:00Z",
+        "lastRecordAt": "2026-09-08T23:56:00Z",
+        "distinctGoodDays": 29,
+        "distinctGoodMonths": 3,
+        "goodTemperatureRangeC": [
+          11.68,
+          22.72
+        ],
+        "thermalRegimeGoodCounts": {
+          "cold": 0,
+          "transition": 203,
+          "warm": 129
+        },
+        "rapidChangeEvents": 9
+      },
+      "modelComparison": {
+        "requestedCount": 78,
+        "matchedCount": 78,
+        "failedCount": 0,
+        "failures": [],
+        "overall": {
+          "count": 78,
+          "meanBiasC": 0.426,
+          "meanAbsoluteErrorC": 1.425,
+          "rootMeanSquareErrorC": 1.973,
+          "p90AbsoluteErrorC": 3.21,
+          "maximumAbsoluteErrorC": 8.292,
+          "meanObservationOffsetMinutes": 10.077
+        },
+        "byLead": {
+          "0": {
+            "count": 13,
+            "meanBiasC": -0.185,
+            "meanAbsoluteErrorC": 1.148,
+            "rootMeanSquareErrorC": 1.408,
+            "p90AbsoluteErrorC": 1.944,
+            "maximumAbsoluteErrorC": 3.128,
+            "meanObservationOffsetMinutes": 10.077
+          },
+          "24": {
+            "count": 13,
+            "meanBiasC": 0.049,
+            "meanAbsoluteErrorC": 0.908,
+            "rootMeanSquareErrorC": 1.194,
+            "p90AbsoluteErrorC": 1.611,
+            "maximumAbsoluteErrorC": 2.999,
+            "meanObservationOffsetMinutes": 10.077
+          },
+          "48": {
+            "count": 13,
+            "meanBiasC": 0.343,
+            "meanAbsoluteErrorC": 0.889,
+            "rootMeanSquareErrorC": 0.999,
+            "p90AbsoluteErrorC": 1.556,
+            "maximumAbsoluteErrorC": 1.734,
+            "meanObservationOffsetMinutes": 10.077
+          },
+          "72": {
+            "count": 13,
+            "meanBiasC": 0.224,
+            "meanAbsoluteErrorC": 1.615,
+            "rootMeanSquareErrorC": 1.914,
+            "p90AbsoluteErrorC": 2.345,
+            "maximumAbsoluteErrorC": 4.732,
+            "meanObservationOffsetMinutes": 10.077
+          },
+          "96": {
+            "count": 13,
+            "meanBiasC": 0.252,
+            "meanAbsoluteErrorC": 1.945,
+            "rootMeanSquareErrorC": 2.932,
+            "p90AbsoluteErrorC": 4.759,
+            "maximumAbsoluteErrorC": 8.292,
+            "meanObservationOffsetMinutes": 10.077
+          },
+          "120": {
+            "count": 13,
+            "meanBiasC": 1.876,
+            "meanAbsoluteErrorC": 2.048,
+            "rootMeanSquareErrorC": 2.589,
+            "p90AbsoluteErrorC": 4.1,
+            "maximumAbsoluteErrorC": 5.158,
+            "meanObservationOffsetMinutes": 10.077
+          }
+        },
+        "scoreSensitivityAtSeasonalRating10": {
+          "chinook_salmon": {
+            "overall": {
+              "count": 78,
+              "mean": 1.003,
+              "p90": 2.868,
+              "maximum": 4.813
+            },
+            "byLead": {
+              "0": {
+                "count": 13,
+                "mean": 0.765,
+                "p90": 1.5,
+                "maximum": 2.868
+              },
+              "24": {
+                "count": 13,
+                "mean": 0.579,
+                "p90": 1.229,
+                "maximum": 2.81
+              },
+              "48": {
+                "count": 13,
+                "mean": 0.63,
+                "p90": 1.298,
+                "maximum": 1.75
+              },
+              "72": {
+                "count": 13,
+                "mean": 1.104,
+                "p90": 1.706,
+                "maximum": 3.59
+              },
+              "96": {
+                "count": 13,
+                "mean": 1.272,
+                "p90": 3.474,
+                "maximum": 3.634
+              },
+              "120": {
+                "count": 13,
+                "mean": 1.668,
+                "p90": 3.657,
+                "maximum": 4.813
+              }
+            }
+          },
+          "coho_salmon": {
+            "overall": {
+              "count": 78,
+              "mean": 0.978,
+              "p90": 2.339,
+              "maximum": 4.552
+            },
+            "byLead": {
+              "0": {
+                "count": 13,
+                "mean": 0.681,
+                "p90": 1.181,
+                "maximum": 2.384
+              },
+              "24": {
+                "count": 13,
+                "mean": 0.56,
+                "p90": 1.142,
+                "maximum": 2.338
+              },
+              "48": {
+                "count": 13,
+                "mean": 0.667,
+                "p90": 1.398,
+                "maximum": 1.768
+              },
+              "72": {
+                "count": 13,
+                "mean": 1.121,
+                "p90": 1.891,
+                "maximum": 2.962
+              },
+              "96": {
+                "count": 13,
+                "mean": 1.203,
+                "p90": 2.339,
+                "maximum": 3.609
+              },
+              "120": {
+                "count": 13,
+                "mean": 1.634,
+                "p90": 3.829,
+                "maximum": 4.552
+              }
+            }
+          },
+          "steelhead": {
+            "overall": {
+              "count": 78,
+              "mean": 0.961,
+              "p90": 2.571,
+              "maximum": 4.471
+            },
+            "byLead": {
+              "0": {
+                "count": 13,
+                "mean": 0.718,
+                "p90": 1.263,
+                "maximum": 2.571
+              },
+              "24": {
+                "count": 13,
+                "mean": 0.563,
+                "p90": 1.229,
+                "maximum": 2.525
+              },
+              "48": {
+                "count": 13,
+                "mean": 0.635,
+                "p90": 1.298,
+                "maximum": 1.75
+              },
+              "72": {
+                "count": 13,
+                "mean": 1.072,
+                "p90": 1.706,
+                "maximum": 3.149
+              },
+              "96": {
+                "count": 13,
+                "mean": 1.185,
+                "p90": 2.986,
+                "maximum": 3.392
+              },
+              "120": {
+                "count": 13,
+                "mean": 1.592,
+                "p90": 3.575,
+                "maximum": 4.471
+              }
+            }
+          },
+          "brown_trout": {
+            "overall": {
+              "count": 78,
+              "mean": 0.788,
+              "p90": 1.647,
+              "maximum": 3.103
+            },
+            "byLead": {
+              "0": {
+                "count": 13,
+                "mean": 0.571,
+                "p90": 1.318,
+                "maximum": 1.647
+              },
+              "24": {
+                "count": 13,
+                "mean": 0.508,
+                "p90": 1.407,
+                "maximum": 1.647
+              },
+              "48": {
+                "count": 13,
+                "mean": 0.612,
+                "p90": 1.4,
+                "maximum": 1.49
+              },
+              "72": {
+                "count": 13,
+                "mean": 0.866,
+                "p90": 1.525,
+                "maximum": 1.647
+              },
+              "96": {
+                "count": 13,
+                "mean": 0.913,
+                "p90": 1.66,
+                "maximum": 2.75
+              },
+              "120": {
+                "count": 13,
+                "mean": 1.259,
+                "p90": 2.933,
+                "maximum": 3.103
+              }
+            }
+          }
+        },
+        "scoreSensitivityAtConfiguredSeasonalRating": {
+          "chinook_salmon": {
+            "count": 78,
+            "mean": 0.625,
+            "p90": 1.794,
+            "maximum": 2.934
+          },
+          "coho_salmon": {
+            "count": 78,
+            "mean": 0.271,
+            "p90": 0.624,
+            "maximum": 1.166
+          },
+          "steelhead": {
+            "count": 78,
+            "mean": 0.283,
+            "p90": 0.759,
+            "maximum": 1.329
+          },
+          "brown_trout": {
+            "count": 78,
+            "mean": 0.063,
+            "p90": 0.128,
+            "maximum": 0.232
+          }
+        },
+        "diagnosticAccuracyGates": {
+          "temperatureByLead": {
+            "0": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": true
+            },
+            "24": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": true
+            },
+            "48": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": true
+            },
+            "72": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": true
+            },
+            "96": {
+              "evaluable": true,
+              "absoluteBiasPass": true,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            },
+            "120": {
+              "evaluable": true,
+              "absoluteBiasPass": false,
+              "rmsePass": true,
+              "p90AbsoluteErrorPass": false
+            }
+          },
+          "scoreBySpeciesAndLead": {
+            "chinook_salmon": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "coho_salmon": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "steelhead": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            },
+            "brown_trout": {
+              "0": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "24": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "48": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "72": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "96": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              },
+              "120": {
+                "evaluable": true,
+                "meanImpactPass": false,
+                "p90ImpactPass": false
+              }
+            }
+          },
+          "interpretation": "Diagnostic only until every coverage and geometry prerequisite passes; failures may identify risk but cannot support a final reject from sparse data."
+        }
+      },
+      "blockers": [
+        "numeric_observation_depth_not_documented",
+        "fewer_than_60_distinct_observation_days",
+        "all_3_thermal_regimes_not_observed",
+        "fewer_than_30_matches_for_one_or_more_leads",
+        "fewer_than_2_operational_seasons",
+        "winter_representation_not_validated",
+        "casting_water_and_plume_equivalence_not_validated"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "decision": "blocked_insufficient_evidence",
+      "runtimeRegularGridCell": {
+        "latitude": 44.25,
+        "longitude": -86.35,
+        "verticalSelection": "surface",
+        "depthIndex": 0,
+        "gridRow": 265,
+        "gridColumn": 171,
+        "modelBathymetryM": 7.5400476937748575,
+        "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+        "referencePoint": {
+          "referenceId": "manistee_north_pierhead_light",
+          "displayName": "Manistee North Pierhead Light",
+          "latitude": 44.2519444444,
+          "longitude": -86.3469444444,
+          "distanceM": 326,
+          "coordinateSource": "NOAA Coast Pilot 6"
+        },
+        "gridCellStatus": "candidate"
+      },
+      "archiveNativeNode": {
+        "index": 25982,
+        "latitude": 44.2488,
+        "longitude": -86.3489,
+        "bathymetryM": 6.1943827,
+        "distanceFromRegularGridCenterM": 160
+      },
+      "archiveApproximation": "Nearest native node to the frozen regular-grid center; the archived server does not retain regulargrid files.",
+      "observation": null,
+      "observationRequestError": null,
+      "observationInventory": {
+        "recordCount": 0,
+        "aggregateQcGoodCount": 0,
+        "rejectedCount": 0,
+        "qualityFlagCounts": {},
+        "rejectionReasonCounts": {},
+        "firstRecordAt": null,
+        "lastRecordAt": null,
+        "distinctGoodDays": 0,
+        "distinctGoodMonths": 0,
+        "goodTemperatureRangeC": null,
+        "thermalRegimeGoodCounts": {
+          "cold": 0,
+          "transition": 0,
+          "warm": 0
+        },
+        "rapidChangeEvents": 0
+      },
+      "modelComparison": {
+        "requestedCount": 0,
+        "matchedCount": 0,
+        "failedCount": 0,
+        "failures": [],
+        "overall": {
+          "count": 0,
+          "meanBiasC": null,
+          "meanAbsoluteErrorC": null,
+          "rootMeanSquareErrorC": null,
+          "p90AbsoluteErrorC": null,
+          "maximumAbsoluteErrorC": null,
+          "meanObservationOffsetMinutes": null
+        },
+        "byLead": {
+          "0": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "24": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "48": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "72": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "96": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "120": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          }
+        },
+        "scoreSensitivityAtSeasonalRating10": {
+          "chinook_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "coho_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "steelhead": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "brown_trout": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          }
+        },
+        "scoreSensitivityAtConfiguredSeasonalRating": {
+          "chinook_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "coho_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "steelhead": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "brown_trout": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          }
+        },
+        "diagnosticAccuracyGates": {
+          "temperatureByLead": {
+            "0": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "24": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "48": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "72": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "96": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "120": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            }
+          },
+          "scoreBySpeciesAndLead": {
+            "chinook_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "coho_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "steelhead": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "brown_trout": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            }
+          },
+          "interpretation": "Diagnostic only until every coverage and geometry prerequisite passes; failures may identify risk but cannot support a final reject from sparse data."
+        }
+      },
+      "blockers": [
+        "no_qualified_observation_dataset",
+        "fewer_than_60_distinct_observation_days",
+        "fewer_than_3_calendar_months",
+        "all_3_thermal_regimes_not_observed",
+        "fewer_than_3_rapid_change_events",
+        "fewer_than_30_matches_for_one_or_more_leads",
+        "fewer_than_2_operational_seasons",
+        "winter_representation_not_validated",
+        "casting_water_and_plume_equivalence_not_validated"
+      ]
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "decision": "blocked_insufficient_evidence",
+      "runtimeRegularGridCell": {
+        "latitude": 44.63,
+        "longitude": -86.26,
+        "verticalSelection": "surface",
+        "depthIndex": 0,
+        "gridRow": 303,
+        "gridColumn": 180,
+        "modelBathymetryM": 12.58709828741525,
+        "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+        "referencePoint": {
+          "referenceId": "frankfort_north_breakwater_light",
+          "displayName": "Frankfort North Breakwater Light",
+          "latitude": 44.6308333333,
+          "longitude": -86.2522222222,
+          "distanceM": 622,
+          "coordinateSource": "NOAA Coast Pilot 6"
+        },
+        "gridCellStatus": "candidate"
+      },
+      "archiveNativeNode": {
+        "index": 31879,
+        "latitude": 44.6285,
+        "longitude": -86.2608,
+        "bathymetryM": 13.274942,
+        "distanceFromRegularGridCenterM": 178
+      },
+      "archiveApproximation": "Nearest native node to the frozen regular-grid center; the archived server does not retain regulargrid files.",
+      "observation": null,
+      "observationRequestError": null,
+      "observationInventory": {
+        "recordCount": 0,
+        "aggregateQcGoodCount": 0,
+        "rejectedCount": 0,
+        "qualityFlagCounts": {},
+        "rejectionReasonCounts": {},
+        "firstRecordAt": null,
+        "lastRecordAt": null,
+        "distinctGoodDays": 0,
+        "distinctGoodMonths": 0,
+        "goodTemperatureRangeC": null,
+        "thermalRegimeGoodCounts": {
+          "cold": 0,
+          "transition": 0,
+          "warm": 0
+        },
+        "rapidChangeEvents": 0
+      },
+      "modelComparison": {
+        "requestedCount": 0,
+        "matchedCount": 0,
+        "failedCount": 0,
+        "failures": [],
+        "overall": {
+          "count": 0,
+          "meanBiasC": null,
+          "meanAbsoluteErrorC": null,
+          "rootMeanSquareErrorC": null,
+          "p90AbsoluteErrorC": null,
+          "maximumAbsoluteErrorC": null,
+          "meanObservationOffsetMinutes": null
+        },
+        "byLead": {
+          "0": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "24": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "48": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "72": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "96": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "120": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          }
+        },
+        "scoreSensitivityAtSeasonalRating10": {
+          "chinook_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "coho_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "steelhead": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "brown_trout": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          }
+        },
+        "scoreSensitivityAtConfiguredSeasonalRating": {
+          "chinook_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "coho_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "steelhead": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "brown_trout": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          }
+        },
+        "diagnosticAccuracyGates": {
+          "temperatureByLead": {
+            "0": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "24": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "48": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "72": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "96": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "120": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            }
+          },
+          "scoreBySpeciesAndLead": {
+            "chinook_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "coho_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "steelhead": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "brown_trout": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            }
+          },
+          "interpretation": "Diagnostic only until every coverage and geometry prerequisite passes; failures may identify risk but cannot support a final reject from sparse data."
+        }
+      },
+      "blockers": [
+        "no_qualified_observation_dataset",
+        "fewer_than_60_distinct_observation_days",
+        "fewer_than_3_calendar_months",
+        "all_3_thermal_regimes_not_observed",
+        "fewer_than_3_rapid_change_events",
+        "fewer_than_30_matches_for_one_or_more_leads",
+        "fewer_than_2_operational_seasons",
+        "winter_representation_not_validated",
+        "casting_water_and_plume_equivalence_not_validated"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "decision": "blocked_insufficient_evidence",
+      "runtimeRegularGridCell": {
+        "latitude": 43.75,
+        "longitude": -87.69,
+        "verticalSelection": "surface",
+        "depthIndex": 0,
+        "gridRow": 215,
+        "gridColumn": 37,
+        "modelBathymetryM": 8.680713550792786,
+        "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+        "referencePoint": {
+          "referenceId": "sheboygan_breakwater_light",
+          "displayName": "Sheboygan Breakwater Light",
+          "latitude": 43.7494444444,
+          "longitude": -87.6927777778,
+          "distanceM": 232,
+          "coordinateSource": "NOAA Coast Pilot 6"
+        },
+        "gridCellStatus": "candidate"
+      },
+      "archiveNativeNode": {
+        "index": 20329,
+        "latitude": 43.7506,
+        "longitude": -87.6912,
+        "bathymetryM": 7.918692,
+        "distanceFromRegularGridCenterM": 117
+      },
+      "archiveApproximation": "Nearest native node to the frozen regular-grid center; the archived server does not retain regulargrid files.",
+      "observation": {
+        "cityId": "sheboygan_wi",
+        "datasetId": "obs_709",
+        "variable": "Temp0",
+        "aggregateQualityVariable": "Temp0_aggregate_test",
+        "unit": "K",
+        "latitude": 43.75586,
+        "longitude": -87.68872,
+        "depthM": null,
+        "depthDescription": "Temp0 variable name suggests surface, but numeric depth is absent from dataset metadata",
+        "role": "configured",
+        "distanceFromRuntimeCellM": 660,
+        "sourceUrl": "https://seagull-erddap.glos.org/erddap/tabledap/obs_709.csv?time%2CTemp0%2CTemp0_aggregate_test&orderBy(%22time%22)"
+      },
+      "observationRequestError": null,
+      "observationInventory": {
+        "recordCount": 3814,
+        "aggregateQcGoodCount": 0,
+        "rejectedCount": 3814,
+        "qualityFlagCounts": {
+          "2": 3809,
+          "3": 1,
+          "4": 4
+        },
+        "rejectionReasonCounts": {
+          "quality_not_good": 3814
+        },
+        "firstRecordAt": "2026-08-26T15:30:00Z",
+        "lastRecordAt": "2026-09-08T23:55:00Z",
+        "distinctGoodDays": 0,
+        "distinctGoodMonths": 0,
+        "goodTemperatureRangeC": null,
+        "thermalRegimeGoodCounts": {
+          "cold": 0,
+          "transition": 0,
+          "warm": 0
+        },
+        "rapidChangeEvents": 0
+      },
+      "modelComparison": {
+        "requestedCount": 0,
+        "matchedCount": 0,
+        "failedCount": 0,
+        "failures": [],
+        "overall": {
+          "count": 0,
+          "meanBiasC": null,
+          "meanAbsoluteErrorC": null,
+          "rootMeanSquareErrorC": null,
+          "p90AbsoluteErrorC": null,
+          "maximumAbsoluteErrorC": null,
+          "meanObservationOffsetMinutes": null
+        },
+        "byLead": {
+          "0": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "24": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "48": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "72": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "96": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          },
+          "120": {
+            "count": 0,
+            "meanBiasC": null,
+            "meanAbsoluteErrorC": null,
+            "rootMeanSquareErrorC": null,
+            "p90AbsoluteErrorC": null,
+            "maximumAbsoluteErrorC": null,
+            "meanObservationOffsetMinutes": null
+          }
+        },
+        "scoreSensitivityAtSeasonalRating10": {
+          "chinook_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "coho_salmon": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "steelhead": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          },
+          "brown_trout": {
+            "overall": {
+              "count": 0,
+              "mean": null,
+              "p90": null,
+              "maximum": null
+            },
+            "byLead": {
+              "0": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "24": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "48": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "72": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "96": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              },
+              "120": {
+                "count": 0,
+                "mean": null,
+                "p90": null,
+                "maximum": null
+              }
+            }
+          }
+        },
+        "scoreSensitivityAtConfiguredSeasonalRating": {
+          "chinook_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "coho_salmon": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "steelhead": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          },
+          "brown_trout": {
+            "count": 0,
+            "mean": null,
+            "p90": null,
+            "maximum": null
+          }
+        },
+        "diagnosticAccuracyGates": {
+          "temperatureByLead": {
+            "0": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "24": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "48": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "72": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "96": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            },
+            "120": {
+              "evaluable": false,
+              "absoluteBiasPass": null,
+              "rmsePass": null,
+              "p90AbsoluteErrorPass": null
+            }
+          },
+          "scoreBySpeciesAndLead": {
+            "chinook_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "coho_salmon": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "steelhead": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            },
+            "brown_trout": {
+              "0": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "24": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "48": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "72": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "96": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              },
+              "120": {
+                "evaluable": false,
+                "meanImpactPass": null,
+                "p90ImpactPass": null
+              }
+            }
+          },
+          "interpretation": "Diagnostic only until every coverage and geometry prerequisite passes; failures may identify risk but cannot support a final reject from sparse data."
+        }
+      },
+      "blockers": [
+        "no_aggregate_qc_good_observations",
+        "numeric_observation_depth_not_documented",
+        "fewer_than_60_distinct_observation_days",
+        "fewer_than_3_calendar_months",
+        "all_3_thermal_regimes_not_observed",
+        "fewer_than_3_rapid_change_events",
+        "fewer_than_30_matches_for_one_or_more_leads",
+        "fewer_than_2_operational_seasons",
+        "winter_representation_not_validated",
+        "casting_water_and_plume_equivalence_not_validated"
+      ]
+    }
+  ],
+  "sources": [
+    "https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/LMHOFS/MODELS/catalog.html",
+    "https://tidesandcurrents.noaa.gov/ofs/publications/CO-OPS_Techrpt_091_LMHOFS_2019.pdf",
+    "https://seagull-erddap.glos.org/erddap/info/obs_62/index.html",
+    "https://seagull-erddap.glos.org/erddap/info/obs_671/index.html",
+    "https://seagull-erddap.glos.org/erddap/info/obs_709/index.html"
+  ]
+}

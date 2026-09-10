@@ -1,0 +1,91 @@
+{
+  "protocolVersion": "pier-cast-temperature-representation-v1.0.0",
+  "frozenAt": "2026-09-10T02:05:00Z",
+  "status": "predeclared_before_historical_forecast_extraction",
+  "scope": {
+    "cities": [
+      "ludington_mi",
+      "grand_haven_mi",
+      "manistee_mi",
+      "frankfort_elberta_mi",
+      "sheboygan_wi"
+    ],
+    "species": [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "brown_trout"
+    ],
+    "modelProduct": "NOAA_NOS_LMHOFS",
+    "runtimeGrid": "regulargrid_surface",
+    "archiveEvaluationGrid": "nearest_native_surface_node",
+    "forecastLeadsHours": [0, 24, 48, 72, 96, 120],
+    "observationMatchToleranceMinutes": 30
+  },
+  "qualityPolicy": {
+    "acceptedAggregateQualityFlags": [1],
+    "acceptedFlagMeaning": "GOOD",
+    "rejectedFlagMeanings": [
+      "NOT_EVALUATED",
+      "SUSPECT",
+      "BAD",
+      "MISSING"
+    ],
+    "unitConversion": "Convert K to C only after the record passes aggregate QC; reject non-finite and -2 to 40 C implausible values.",
+    "biasCorrection": "none",
+    "sourceSwitching": "prohibited"
+  },
+  "approvalGates": {
+    "geometry": {
+      "maximumObservationDistanceFromRuntimeCellM": 10000,
+      "maximumObservationDepthM": 3,
+      "numericDepthOrExplicitSurfaceMeasurementRequired": true,
+      "lakeSideWaterRequired": true,
+      "note": "Passing distance is necessary, not proof that a buoy represents casting water or a river plume."
+    },
+    "coverage": {
+      "minimumDistinctObservationDays": 60,
+      "minimumCalendarMonths": 3,
+      "minimumMatchedForecastsPerLead": 30,
+      "requiredThermalRegimesC": {
+        "cold": "temperatureC <= 8",
+        "transition": "8 < temperatureC < 18",
+        "warm": "temperatureC >= 18"
+      },
+      "minimumRapidChangeEvents": 3,
+      "rapidChangeDefinition": "At least 3 C absolute observation change within 24 hours.",
+      "minimumOperationalSeasons": 2,
+      "winterEvidenceRequiredForAnnualApproval": true
+    },
+    "temperatureSkill": {
+      "maximumAbsoluteMeanBiasC": 1,
+      "maximumRootMeanSquareErrorC": 3,
+      "maximumP90AbsoluteErrorC": 3,
+      "mustPassEveryLead": true,
+      "note": "The 3 C RMSE ceiling is the NOAA NOS surface-temperature skill criterion, not a PierCast fishing-accuracy claim."
+    },
+    "scoreSensitivity": {
+      "seasonalRatingUsedForStressTest": 10,
+      "maximumMeanAbsoluteRatingImpact": 0.5,
+      "maximumP90AbsoluteRatingImpact": 1,
+      "mustPassEveryCoreSpeciesAndLead": true,
+      "formula": "abs((1 + 9 * T_model) - (1 + 9 * T_observed))"
+    },
+    "independenceAndHoldout": {
+      "cellSelectionMayNotUseTemperatureOutcome": true,
+      "correctionRequiresSeparateTrainingAndHoldoutPeriods": true,
+      "noCorrectionMayBeApprovedFromThisInitialAudit": true
+    },
+    "operations": {
+      "completeAsIssuedCyclesRequired": true,
+      "sourceAndQcContractMustBeMachineValidated": true,
+      "missingOrStaleDataMustFailClosed": true
+    }
+  },
+  "decisionRules": {
+    "approved_for_pilot": "Every geometry, coverage, temperature-skill, score-sensitivity, independence, and operational gate passes for the named city scope.",
+    "rejected": "Coverage is adequate but one or more accuracy or representation gates materially fail.",
+    "blocked_insufficient_evidence": "One or more prerequisite coverage, geometry, source-QC, seasonal, or independent-observation gates cannot yet be evaluated.",
+    "effectOfDecision": "A representation decision never enables a species rating or public city automatically."
+  }
+}

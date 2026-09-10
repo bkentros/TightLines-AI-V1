@@ -1824,12 +1824,16 @@ export default function HomeScreen() {
               code="06"
               title="Pier Cast"
               tag="PIER FORECAST"
-              desc="Great Lakes pier forecasts · best species & fishing windows · today + 5 days"
+              desc="Great Lakes pier outlooks · strongest supported species · today + 4 days"
               moduleId="pier-cast"
               iconBg={["#E0F3F0", "#B8DFD8"]}
               iconBorder="#318F83"
               iconColor="#20665E"
-              comingSoon
+              onPress={isAdminEmail(user?.email)
+                ? () => router.push("/pier-cast-review")
+                : undefined}
+              badge={isAdminEmail(user?.email) ? "REVIEW" : undefined}
+              comingSoon={!isAdminEmail(user?.email)}
             />
           </View>
 
