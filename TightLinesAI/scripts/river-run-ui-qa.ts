@@ -1352,8 +1352,8 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /OPTICAL SENSOR · RAW FNU[\s\S]*?NOT VISIBILITY/,
-  "Turbidity tiles must label FNU as an optical reading rather than visibility",
+  /OPTICAL SENSOR · RAW FNU[\s\S]*?RAW SENSOR READING/,
+  "Turbidity tiles must identify FNU as a raw optical sensor reading",
 );
 assert.match(
   riverRunScreen,

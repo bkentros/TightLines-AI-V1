@@ -2472,7 +2472,7 @@ function LiveMetricTile({
               style={[styles.liveMetricComparison, { color: visual.accent }]}
               numberOfLines={1}
             >
-              NOT VISIBILITY
+              RAW SENSOR READING
             </Text>
           </View>
         )
