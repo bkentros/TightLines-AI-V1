@@ -47,7 +47,7 @@ The configuration now freezes the provider, product family, variable, cycles, ho
 
 | City | Frozen candidate cell | Seasonal observational check | Current disposition |
 | --- | --- | --- | --- |
-| Ludington | `(235,159)` at `43.95,-86.47` | Historical configured `obs_637`; supplemental surface feed `obs_62` | 13 QC-good days and 18 forecast matches/lead; blocked for coverage, depth, winter, and plume transfer. |
+| Ludington | `(235,159)` at `43.95,-86.47` | Historical configured `obs_637`; supplemental surface feed `obs_62` | 13 QC-good days and 18 forecast matches/lead; blocked for coverage, winter, and plume transfer. |
 | Grand Haven | `(146,180)` at `43.06,-86.26` | GLOS `obs_671` | 29 QC-good days and 13 matches/lead; blocked for coverage, cold regime, depth, winter, and Grand River transfer. |
 | Manistee | `(265,171)` at `44.25,-86.35` | None found in the official GLOS city search | Extractable candidate; spatial and prospective review still required. |
 | Frankfort–Elberta | `(303,180)` at `44.63,-86.26` | None found in the official GLOS city search | Extractable candidate; Betsie influence and two-structure equivalence unresolved. |

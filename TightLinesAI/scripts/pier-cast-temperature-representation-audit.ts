@@ -17,6 +17,7 @@ type ObservationConfig = {
   latitude: number;
   longitude: number;
   depthM: number | null;
+  explicitSurfaceMeasurement: boolean;
   depthDescription: string;
   role: "configured" | "supplemental";
 };
@@ -73,6 +74,7 @@ const OBSERVATIONS: Partial<Record<PierCastCityId, ObservationConfig>> = {
     latitude: 43.97999954223633,
     longitude: -86.55999755859375,
     depthM: null,
+    explicitSurfaceMeasurement: true,
     depthDescription:
       "explicit sea_surface_temperature variable; numeric sensor depth absent from dataset metadata",
     role: "supplemental",
@@ -86,6 +88,7 @@ const OBSERVATIONS: Partial<Record<PierCastCityId, ObservationConfig>> = {
     latitude: 43.002254486083984,
     longitude: -86.27080535888672,
     depthM: null,
+    explicitSurfaceMeasurement: false,
     depthDescription:
       "water temperature 1; numeric sensor depth absent from dataset metadata",
     role: "configured",
@@ -99,6 +102,7 @@ const OBSERVATIONS: Partial<Record<PierCastCityId, ObservationConfig>> = {
     latitude: 43.75586,
     longitude: -87.68872,
     depthM: null,
+    explicitSurfaceMeasurement: false,
     depthDescription:
       "Temp0 variable name suggests surface, but numeric depth is absent from dataset metadata",
     role: "configured",
@@ -443,7 +447,9 @@ for (const cityId of CITY_IDS) {
       "no_aggregate_qc_good_observations",
     );
   }
-  if (config && config.depthM === null) {
+  if (
+    config && config.depthM === null && !config.explicitSurfaceMeasurement
+  ) {
     blockers.push(
       "numeric_observation_depth_not_documented",
     );

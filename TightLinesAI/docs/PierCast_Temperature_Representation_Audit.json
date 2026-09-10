@@ -1,6 +1,6 @@
 {
   "schemaVersion": "pier-cast-temperature-representation-audit-v1",
-  "generatedAt": "2026-09-10T02:11:18.196Z",
+  "generatedAt": "2026-09-10T12:09:12.678Z",
   "protocolPath": "docs/PierCast_Temperature_Representation_Acceptance.json",
   "sourcePolicy": "Only aggregate QC flag 1 (GOOD) enters comparison metrics.",
   "archiveWindow": {
@@ -277,6 +277,7 @@
         "latitude": 43.97999954223633,
         "longitude": -86.55999755859375,
         "depthM": null,
+        "explicitSurfaceMeasurement": true,
         "depthDescription": "explicit sea_surface_temperature variable; numeric sensor depth absent from dataset metadata",
         "role": "supplemental",
         "distanceFromRuntimeCellM": 7938,
@@ -284,20 +285,20 @@
       },
       "observationRequestError": null,
       "observationInventory": {
-        "recordCount": 2147,
+        "recordCount": 2291,
         "aggregateQcGoodCount": 144,
-        "rejectedCount": 2003,
+        "rejectedCount": 2147,
         "qualityFlagCounts": {
           "1": 144,
           "2": 322,
           "3": 387,
-          "4": 1294
+          "4": 1438
         },
         "rejectionReasonCounts": {
-          "quality_not_good": 2003
+          "quality_not_good": 2147
         },
         "firstRecordAt": "2026-08-24T00:00:00Z",
-        "lastRecordAt": "2026-09-07T23:50:00Z",
+        "lastRecordAt": "2026-09-08T23:50:00Z",
         "distinctGoodDays": 13,
         "distinctGoodMonths": 2,
         "goodTemperatureRangeC": [
@@ -766,7 +767,6 @@
         }
       },
       "blockers": [
-        "numeric_observation_depth_not_documented",
         "fewer_than_60_distinct_observation_days",
         "fewer_than_3_calendar_months",
         "fewer_than_30_matches_for_one_or_more_leads",
@@ -814,6 +814,7 @@
         "latitude": 43.002254486083984,
         "longitude": -86.27080535888672,
         "depthM": null,
+        "explicitSurfaceMeasurement": false,
         "depthDescription": "water temperature 1; numeric sensor depth absent from dataset metadata",
         "role": "configured",
         "distanceFromRuntimeCellM": 6481,
@@ -2385,6 +2386,7 @@
         "latitude": 43.75586,
         "longitude": -87.68872,
         "depthM": null,
+        "explicitSurfaceMeasurement": false,
         "depthDescription": "Temp0 variable name suggests surface, but numeric depth is absent from dataset metadata",
         "role": "configured",
         "distanceFromRuntimeCellM": 660,

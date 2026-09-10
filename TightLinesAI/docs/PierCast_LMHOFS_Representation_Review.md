@@ -54,7 +54,7 @@ A repeatable all-five adapter, strict GLOS comparison layer, private complete-cy
 The remaining work is to accumulate approval-grade prospective evidence rather than changing cells opportunistically:
 
 1. accumulate at least 60 QC-good days, 30 matches per tested lead, required thermal regimes, and two operating seasons;
-2. resolve numeric sensor depth and pier/plume equivalence;
+2. resolve sensor depth where the variable is not explicitly surface and establish pier/plume equivalence;
 3. add qualified prospective observations for Manistee and Frankfort–Elberta;
 4. use separate training and holdout dates for any correction or thermal-curve revision; and
 5. approve or reject one city cell at a time without enabling species ratings automatically.

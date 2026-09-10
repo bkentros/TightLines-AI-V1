@@ -10,7 +10,7 @@
 
 The temperature plumbing works, but the available evidence is not sufficient to claim that the selected LMHOFS surface cells accurately represent year-round pier-accessible water in any of the five cities.
 
-The short late-summer comparison is informative, not approval-grade. Grand Haven performed reasonably through 72 forecast hours in this limited window, then its tail error increased at 96 and 120 hours. Ludington showed larger tail errors at every evaluated lead and exceeded the predeclared RMSE limit at the longest leads. Those findings identify real product risk because temperature error can materially change the provisional FinFindr rating during strong seasonal weeks. They still cannot justify a permanent correction: both samples are small, seasonal, spatially imperfect, lack documented numeric sensor depth, and provide no independent holdout period.
+The short late-summer comparison is informative, not approval-grade. Grand Haven performed reasonably through 72 forecast hours in this limited window, then its tail error increased at 96 and 120 hours. Ludington showed larger tail errors at every evaluated lead and exceeded the predeclared RMSE limit at the longest leads. Those findings identify real product risk because temperature error can materially change the provisional FinFindr rating during strong seasonal weeks. They still cannot justify a permanent correction: both samples are small, seasonal, spatially imperfect, and provide no independent holdout period. Grand Haven lacks documented numeric sensor depth; Ludington's variable is explicitly surface but still lacks direct proof of pier/plume equivalence.
 
 Manistee and Frankfort–Elberta have no qualified nearby observation dataset in the audited official catalog. Sheboygan's current candidate dataset supplied no aggregate-QC-good records. Those three cities are therefore unevaluable, not presumed accurate.
 
@@ -54,7 +54,7 @@ Only aggregate quality flag `1` entered the comparisons. The U.S. IOOS QARTOD vo
 
 | City | Dataset and geometry | Records / QC-good | Useful coverage | Disposition |
 | --- | --- | ---: | --- | --- |
-| Ludington | GLOS `obs_62`; explicit `sea_surface_temperature`; 7.94 km from runtime cell | 2,147 / 144 | 13 good days, 2 months, all 3 thermal regimes, 6 rapid events | Supplemental seasonal evidence only; numeric sensor depth absent. |
+| Ludington | GLOS `obs_62`; explicit `sea_surface_temperature`; 7.94 km from runtime cell | 2,291 / 144 | 13 good days, 2 months, all 3 thermal regimes, 6 rapid events | Supplemental seasonal evidence only; explicit surface name passes the protocol's depth/surface prerequisite, but pier/plume equivalence remains unproven. |
 | Grand Haven | GLOS `obs_671`; `sea_water_temperature_1`; 6.48 km from runtime cell | 27,998 / 332 | 29 good days, 3 months, transition/warm only, 9 rapid events | Configured seasonal comparison source; numeric depth and cold regime absent. |
 | Manistee | No qualified official observation found | 0 / 0 | None | Unevaluable. |
 | Frankfort–Elberta | No qualified official observation found | 0 / 0 | None | Unevaluable. |
@@ -101,7 +101,7 @@ The ceiling-10 stress test removed that seasonal damping. Mean/P90 effects were 
 
 | City | Decision | Principal blockers |
 | --- | --- | --- |
-| Ludington | `blocked_insufficient_evidence` | 13 days; 2 months; 18 matches/lead; one season; no winter; numeric depth and pier/plume equivalence undocumented. |
+| Ludington | `blocked_insufficient_evidence` | 13 days; 2 months; 18 matches/lead; one season; no winter; pier/plume equivalence undocumented. |
 | Grand Haven | `blocked_insufficient_evidence` | 29 days; 13 matches/lead; no cold regime; one season; no winter; numeric depth and Grand River/pier equivalence undocumented. |
 | Manistee | `blocked_insufficient_evidence` | No qualified independent water-temperature dataset. |
 | Frankfort–Elberta | `blocked_insufficient_evidence` | No qualified independent dataset and no proof that one cell represents both structures/Betsie influence. |
@@ -126,7 +126,7 @@ This archive is research infrastructure only. It cannot feed runtime scores, rep
 
 1. Operate the private archive prospectively until each evaluated city has at least two seasonal deployments, the required regimes, 60 good days, and 30 matches per lead. Annual approval additionally requires winter evidence; a narrower explicitly seasonal approval can be considered separately if winter observations are structurally unavailable.
 2. Obtain authoritative nearshore observations for Manistee and Frankfort–Elberta. If no agency feed exists, arrange a documented sensor program rather than substituting air temperature or a distant offshore buoy.
-3. Resolve sensor depth metadata and characterize harbor/river plume differences with paired local measurements, especially at Grand Haven and Frankfort–Elberta.
+3. Resolve sensor depth metadata where the variable is not explicitly surface, and characterize harbor/river plume differences with paired local measurements, especially at Grand Haven and Frankfort–Elberta.
 4. Re-run the frozen protocol without changing cells or curves. If correction is warranted, fit on a declared training period and judge it only on a separate holdout.
 5. Validate the unchanged two-input rating against dated pier outcomes. Temperature representation is necessary, but does not establish fishing-value calibration by itself.
 6. Approve or reject one city scope at a time; then separately review individual city × species rating activation.
