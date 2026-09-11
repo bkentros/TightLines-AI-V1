@@ -24,6 +24,15 @@ Deno.test("owner review outlook builds five dates and four disabled-preview spec
   assertEquals(outlook.cities.length, 5);
   for (const city of outlook.cities) {
     assertEquals(city.representationDecision, "blocked_insufficient_evidence");
+    assertEquals(city.temperatureTimeline.length, 115);
+    assertEquals(
+      city.temperatureTimeline[0].validAt,
+      "2026-09-10T00:30:00.000Z",
+    );
+    assertEquals(
+      city.temperatureTimeline[city.temperatureTimeline.length - 1].validAt,
+      "2026-09-14T18:00:00.000Z",
+    );
     assertEquals(city.dates.length, 5);
     assertEquals(city.dates[0].scope, "remaining_day");
     assertEquals(

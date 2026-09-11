@@ -167,15 +167,6 @@ type AxisTick = {
   labelX?: number;
 };
 
-function localDateKey(value: string, timezone: string): string {
-  return new Intl.DateTimeFormat("en-CA", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    timeZone: timezone,
-  }).format(new Date(value));
-}
-
 export function PierCastTemperatureChart({
   points,
   timezone,
@@ -215,35 +206,32 @@ export function PierCastTemperatureChart({
   const axisTicks: AxisTick[] = values.length
     ? xAxisMode === "days"
       ? (() => {
-          const dayStarts = points.reduce<number[]>((indexes, point, index) => {
-            const key = localDateKey(point.validAt, timezone);
-            const previousIndex = indexes[indexes.length - 1];
-            const previousKey =
-              previousIndex === undefined
-                ? null
-                : localDateKey(points[previousIndex]!.validAt, timezone);
-            if (key !== previousKey) indexes.push(index);
-            return indexes;
-          }, []);
-          // Today may contain only a few remaining hours. Its date already
-          // appears in the range summary, so omitting that axis label prevents
-          // it from colliding with tomorrow. The final forecast date is
-          // deliberately anchored to the right edge of the chart.
-          const futureDayStarts = dayStarts.slice(1, -1).map((pointIndex) => ({
-            pointIndex,
-            label: formatDay(points[pointIndex]!.validAt, timezone),
-            anchor: "middle" as const,
-          }));
           const lastIndex = values.length - 1;
-          return [
-            ...futureDayStarts,
-            {
-              pointIndex: lastIndex,
-              label: formatDay(points[lastIndex]!.validAt, timezone),
-              anchor: "end" as const,
-              labelX: plot.left + plotWidth,
-            },
-          ];
+          return Array.from(
+            new Set(
+              Array.from({ length: 6 }, (_, index) =>
+                Math.round((lastIndex * index) / 5),
+              ),
+            ),
+          ).map((pointIndex) => ({
+            pointIndex,
+            label:
+              pointIndex === 0
+                ? "TODAY"
+                : formatDay(points[pointIndex]!.validAt, timezone),
+            anchor:
+              pointIndex === 0
+                ? ("start" as const)
+                : pointIndex === lastIndex
+                  ? ("end" as const)
+                  : ("middle" as const),
+            labelX:
+              pointIndex === 0
+                ? plot.left
+                : pointIndex === lastIndex
+                  ? plot.left + plotWidth
+                  : undefined,
+          }));
         })()
       : Array.from(
           new Set([

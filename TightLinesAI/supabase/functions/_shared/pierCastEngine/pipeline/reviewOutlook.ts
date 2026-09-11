@@ -66,6 +66,10 @@ export function buildPierCastReviewOutlook(input: {
       displayName: city.displayName,
       timezone: city.timezone,
       representationDecision: "blocked_insufficient_evidence" as const,
+      temperatureTimeline: buildRollingTemperatureTimeline(
+        timeline.samples,
+        evaluatedAt,
+      ),
       dates: windows.map((window) =>
         buildDateOutlook({
           city,
@@ -96,6 +100,43 @@ export function buildPierCastReviewOutlook(input: {
     },
     cities,
   };
+}
+
+function buildRollingTemperatureTimeline(
+  samples: readonly PierCastLmhofsSample[],
+  evaluatedAt: Date,
+): Array<{ validAt: string; temperatureC: number }> {
+  const startTime = evaluatedAt.getTime();
+  const ordered = [...samples].sort((left, right) =>
+    Date.parse(left.validAt) - Date.parse(right.validAt)
+  );
+  const timeline = ordered
+    .filter((sample) => Date.parse(sample.validAt) >= startTime)
+    .map((sample) => ({
+      validAt: sample.validAt,
+      temperatureC: sample.temperatureC,
+    }));
+  const exactStart = timeline[0]?.validAt === evaluatedAt.toISOString();
+  if (exactStart) return timeline;
+
+  for (let index = 0; index < ordered.length - 1; index += 1) {
+    const left = ordered[index]!;
+    const right = ordered[index + 1]!;
+    const leftTime = Date.parse(left.validAt);
+    const rightTime = Date.parse(right.validAt);
+    if (startTime <= leftTime || startTime >= rightTime) continue;
+    if (rightTime - leftTime !== HOUR_MS) return timeline;
+    timeline.unshift({
+      validAt: evaluatedAt.toISOString(),
+      temperatureC: interpolate(
+        left.temperatureC,
+        right.temperatureC,
+        (startTime - leftTime) / (rightTime - leftTime),
+      ),
+    });
+    break;
+  }
+  return timeline;
 }
 
 function buildDateOutlook(input: {

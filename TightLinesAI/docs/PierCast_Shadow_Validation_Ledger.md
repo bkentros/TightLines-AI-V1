@@ -8,7 +8,7 @@
 **Migration:** `20260910150000_create_pier_cast_shadow_validation_ledger.sql`<br>
 **Hardening:** `20260910154000_harden_pier_cast_shadow_validation_ledger.sql`<br>
 **Edge Function:** `pier-cast-ingest` version 7<br>
-**Owner review:** `pier-cast` version 10<br>
+**Owner review:** `pier-cast` version 11<br>
 **Visibility:** service-role-only; no public or authenticated-client access
 
 ## Purpose

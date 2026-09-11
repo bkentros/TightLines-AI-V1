@@ -177,6 +177,7 @@ export type PierCastReviewCityOutlookRead = {
   displayName: string;
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
+  temperatureTimeline?: PierCastReviewTemperaturePointRead[];
   dates: PierCastReviewDateOutlookRead[];
 };
 

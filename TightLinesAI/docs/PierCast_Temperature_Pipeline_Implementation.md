@@ -131,7 +131,7 @@ The latest shadow-verified complete `2026-09-10T12:00:00Z` issue contains five c
 - Dedicated Edge and Vault secrets are configured without reusing another module's key.
 - The cron schedule is active, manual authenticated production invocations passed, and the first verified post-deployment automatic invocation passed.
 - Four complete production model cycles (2,420 samples) and 14,036 unique observation records are archived; repeat ingestion is idempotent.
-- The authenticated five-date owner-review outlook is deployed in `pier-cast` version 10; the mobile review presentation exposes nearshore thermal fit, and public outlook access does not exist.
+- The authenticated five-date owner-review outlook is deployed in `pier-cast` version 11; the mobile review presentation exposes nearshore thermal fit, a rolling current-to-day-five temperature timeline, and public outlook access does not exist.
 - Private prospective forecast capture is deployed: each complete issue commits 100 immutable active-v2 rows and 100 immutable same-issue v1-comparator rows. The first paired run and repeated-cycle idempotency check passed.
 - The same owner endpoint includes private ledger status, same-day forecast candidates, confirmation-gated outcome entry, recent outcomes, and idempotent retry behavior. The evaluation protocol was frozen before any outcome was recorded.
 - No live temperature endpoint was added to the public API.

@@ -388,6 +388,7 @@ export type PierCastReviewCityOutlook = {
   displayName: string;
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
+  temperatureTimeline: PierCastReviewTemperaturePoint[];
   dates: PierCastReviewDateOutlook[];
 };
 

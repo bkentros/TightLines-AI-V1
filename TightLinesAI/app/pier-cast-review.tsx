@@ -80,6 +80,8 @@ const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
   brown_trout: 0.9,
 };
 
+const HOURLY_CONDITION_CARD_WIDTH = 116;
+
 const STATE_LABELS: Record<PierCastCatalogCityRead["stateCode"], string> = {
   MI: "Michigan",
   WI: "Wisconsin",
@@ -615,9 +617,11 @@ function NearshoreMetricTile({
 
 function HourlyConditions({
   dates,
+  timeline,
   weather,
 }: {
   dates: PierCastReviewDateOutlookRead[];
+  timeline: PierCastReviewTemperaturePointRead[];
   weather: PierCastHourlyWeatherPoint[];
 }) {
   const weatherByTime = useMemo(
@@ -626,7 +630,6 @@ function HourlyConditions({
   );
   const timezone = dates[0]?.timezone ?? "America/Detroit";
   const rows = useMemo(() => {
-    const allowedDates = new Set(dates.map((date) => date.localDate));
     const unique = new Map<
       string,
       {
@@ -635,9 +638,8 @@ function HourlyConditions({
         localTime: string;
       }
     >();
-    for (const point of dates.flatMap((date) => date.waterTemperature.points)) {
+    for (const point of timeline) {
       const key = localHourKey(point.validAt, timezone);
-      if (!allowedDates.has(key.slice(0, 10))) continue;
       unique.set(key, {
         water: fahrenheit(point.temperatureC),
         weather: weatherByTime.get(key) ?? null,
@@ -647,7 +649,7 @@ function HourlyConditions({
     return [...unique.values()].sort((left, right) =>
       left.localTime.localeCompare(right.localTime),
     );
-  }, [dates, timezone, weatherByTime]);
+  }, [timeline, timezone, weatherByTime]);
   const dayGroups = useMemo(() => {
     const groups: Array<{ localDate: string; rows: typeof rows }> = [];
     for (const row of rows) {
@@ -661,6 +663,16 @@ function HourlyConditions({
     }
     return groups;
   }, [rows]);
+  const previousWaterByTime = useMemo(
+    () =>
+      new Map(
+        rows.map((row, index) => [
+          row.localTime,
+          index === 0 ? null : rows[index - 1]!.water,
+        ]),
+      ),
+    [rows],
+  );
   const first = rows[0] ?? null;
   const windDirection = directionLabel(
     first?.weather?.windDirectionDegrees ?? null,
@@ -751,17 +763,34 @@ function HourlyConditions({
             const parts = dateParts(group.localDate);
             return (
               <View key={group.localDate} style={styles.hourDayGroup}>
-                <View style={styles.hourDayHeader}>
+                <View
+                  style={[
+                    styles.hourDayHeader,
+                    {
+                      width: Math.max(
+                        HOURLY_CONDITION_CARD_WIDTH * 2,
+                        group.rows.length * HOURLY_CONDITION_CARD_WIDTH,
+                      ),
+                    },
+                  ]}
+                >
                   <View>
                     <Text style={styles.hourDayEyebrow}>
-                      {groupIndex === 0 ? "TODAY" : parts.day}
+                      {groupIndex === 0
+                        ? "TODAY"
+                        : groupIndex === 5
+                          ? "DAY FIVE"
+                          : parts.day}
                     </Text>
                     <Text style={styles.hourDayTitle}>
                       {parts.month} {parts.date}, {parts.year}
                     </Text>
                   </View>
                   <Text style={styles.hourDayCount}>
-                    {group.rows.length} HOURLY READS
+                    {group.rows.length} {group.rows.length === 1 ? "READ" : "READS"}
+                    {"  ·  "}
+                    {formatLocalHour(group.rows[0]!.localTime)}–
+                    {formatLocalHour(group.rows[group.rows.length - 1]!.localTime)}
                   </Text>
                 </View>
                 <View style={styles.hourCellsRow}>
@@ -769,65 +798,113 @@ function HourlyConditions({
                     const direction = directionLabel(
                       row.weather?.windDirectionDegrees ?? null,
                     );
+                    const isNow = groupIndex === 0 && index === 0;
+                    const previousWater = previousWaterByTime.get(row.localTime);
+                    const waterChange =
+                      previousWater == null ? null : row.water - previousWater;
+                    const trendIcon =
+                      waterChange === null || Math.abs(waterChange) < 0.05
+                        ? "remove-outline"
+                        : waterChange > 0
+                          ? "arrow-up-outline"
+                          : "arrow-down-outline";
+                    const trendColor =
+                      waterChange === null || Math.abs(waterChange) < 0.05
+                        ? paper.dashboardMuted
+                        : waterChange > 0
+                          ? "#B65B2A"
+                          : paper.dashboardBlue;
                     return (
                       <View
                         key={row.localTime}
                         style={[
                           styles.hourCell,
-                          groupIndex === 0 && index === 0 && styles.hourCellNow,
+                          isNow && styles.hourCellNow,
                         ]}
                       >
-                        <Text style={styles.hourCellDate}>
-                          {parts.month} {parts.date}
-                        </Text>
-                        <Text style={styles.hourCellTime}>
-                          {groupIndex === 0 && index === 0
-                            ? "NOW"
-                            : formatLocalHour(row.localTime)}
-                        </Text>
-                        <View style={styles.hourCellWaterLabel}>
-                          <Ionicons
-                            name="water"
-                            size={10}
-                            color={paper.dashboardBlue}
-                          />
-                          <Text style={styles.hourCellWaterLabelText}>
-                            WATER
+                        <View style={styles.hourCellHeading}>
+                          <View>
+                            <Text style={styles.hourCellTime}>
+                              {isNow ? "NOW" : formatLocalHour(row.localTime)}
+                            </Text>
+                            <Text style={styles.hourCellDate}>
+                              {parts.month} {parts.date}
+                            </Text>
+                          </View>
+                          {isNow ? (
+                            <View style={styles.hourCellStartBadge}>
+                              <Text style={styles.hourCellStartBadgeText}>START</Text>
+                            </View>
+                          ) : null}
+                        </View>
+
+                        <View style={styles.hourCellWaterBlock}>
+                          <View style={styles.hourCellWaterLabel}>
+                            <Ionicons
+                              name="water"
+                              size={12}
+                              color={paper.dashboardBlue}
+                            />
+                            <Text style={styles.hourCellWaterLabelText}>
+                              WATER
+                            </Text>
+                          </View>
+                          <Text style={styles.hourCellWater}>
+                            {row.water.toFixed(1)}°F
                           </Text>
                         </View>
-                        <Text style={styles.hourCellWater}>
-                          {row.water.toFixed(1)}°
-                        </Text>
-                        <View style={styles.hourCellAirRow}>
-                          <Ionicons
-                            name="thermometer-outline"
-                            size={11}
-                            color="#B65B2A"
-                          />
-                          <Text style={styles.hourCellAirLabel}>AIR</Text>
-                          <Text style={styles.hourCellAirValue}>
-                            {row.weather?.airTemperatureF == null
-                              ? "—"
-                              : `${Math.round(row.weather.airTemperatureF)}°`}
-                          </Text>
+
+                        <View style={styles.hourCellMetrics}>
+                          <View style={styles.hourCellMetricRow}>
+                            <View style={styles.hourCellMetricLabelWrap}>
+                              <Ionicons
+                                name="thermometer-outline"
+                                size={12}
+                                color="#B65B2A"
+                              />
+                              <Text style={styles.hourCellAirLabel}>AIR</Text>
+                            </View>
+                            <Text style={styles.hourCellMetricValue}>
+                              {row.weather?.airTemperatureF == null
+                                ? "—"
+                                : `${Math.round(row.weather.airTemperatureF)}°F`}
+                            </Text>
+                          </View>
+                          <View style={styles.hourCellMetricRow}>
+                            <View style={styles.hourCellMetricLabelWrap}>
+                              <Ionicons
+                                name="navigate-outline"
+                                size={12}
+                                color="#1E746B"
+                                style={{
+                                  transform: [
+                                    {
+                                      rotate: `${row.weather?.windDirectionDegrees ?? 0}deg`,
+                                    },
+                                  ],
+                                }}
+                              />
+                              <Text style={styles.hourCellWindLabel}>WIND</Text>
+                            </View>
+                            <Text style={styles.hourCellMetricValue}>
+                              {row.weather?.windSpeedMph == null
+                                ? "—"
+                                : `${direction} ${Math.round(row.weather.windSpeedMph)} mph`}
+                            </Text>
+                          </View>
                         </View>
-                        <View style={styles.hourCellDetailRow}>
-                          <Ionicons
-                            name="navigate-outline"
-                            size={10}
-                            color="#1E746B"
-                            style={{
-                              transform: [
-                                {
-                                  rotate: `${row.weather?.windDirectionDegrees ?? 0}deg`,
-                                },
-                              ],
-                            }}
-                          />
-                          <Text style={styles.hourCellWindDetail}>
-                            {row.weather?.windSpeedMph == null
-                              ? "—"
-                              : `${direction} ${Math.round(row.weather.windSpeedMph)}`}
+
+                        <View style={styles.hourCellTrendRow}>
+                          <Ionicons name={trendIcon} size={11} color={trendColor} />
+                          <Text
+                            style={[styles.hourCellTrendText, { color: trendColor }]}
+                            numberOfLines={1}
+                          >
+                            {waterChange === null
+                              ? "FORECAST START"
+                              : Math.abs(waterChange) < 0.05
+                                ? "STEADY FROM PRIOR"
+                                : `${Math.abs(waterChange).toFixed(1)}° FROM PRIOR`}
                           </Text>
                         </View>
                       </View>
@@ -911,7 +988,7 @@ function TemperaturePanel({
         <View style={styles.temperatureReadTile}>
           <View style={styles.temperatureReadLabelRow}>
             <Ionicons name="water" size={10} color={paper.dashboardBlue} />
-            <Text style={styles.temperatureReadLabel}>WATER · +12 HOURS</Text>
+            <Text style={styles.temperatureReadLabel}>WATER · IN 12 HOURS</Text>
           </View>
           <Text style={styles.temperatureReadValue}>
             {at12F === null ? "—" : `${at12F.toFixed(1)}°F`}
@@ -923,7 +1000,7 @@ function TemperaturePanel({
         <View style={styles.temperatureReadTile}>
           <View style={styles.temperatureReadLabelRow}>
             <Ionicons name="water" size={10} color={paper.dashboardBlue} />
-            <Text style={styles.temperatureReadLabel}>WATER · +24 HOURS</Text>
+            <Text style={styles.temperatureReadLabel}>WATER · IN 24 HOURS</Text>
           </View>
           <Text style={styles.temperatureReadValue}>
             {at24F === null ? "—" : `${at24F.toFixed(1)}°F`}
@@ -1449,16 +1526,28 @@ function CityReport({
   const date = outlook?.dates[selectedIndex] ?? outlook?.dates[0] ?? null;
   const allPoints = useMemo(() => {
     const points = new Map<string, PierCastReviewTemperaturePointRead>();
+    if (outlook?.temperatureTimeline?.length) {
+      for (const point of outlook.temperatureTimeline) {
+        points.set(point.validAt, point);
+      }
+      return [...points.values()].sort((a, b) =>
+        a.validAt.localeCompare(b.validAt),
+      );
+    }
     const forecastDates = outlook?.dates ?? [];
-    const allowedDates = new Set(forecastDates.map((item) => item.localDate));
-    const timezone = forecastDates[0]?.timezone ?? "America/Detroit";
+    const firstInterval = forecastDates[0]?.requestedInterval;
+    const lastInterval = forecastDates[forecastDates.length - 1]
+      ?.requestedInterval;
+    const rangeStart = Date.parse(firstInterval?.start ?? "");
+    const rangeEnd = Date.parse(lastInterval?.end ?? "");
     for (const point of outlook?.dates.flatMap(
       (item) => item.waterTemperature.points,
     ) ?? []) {
-      const localDate = localHourKey(point.validAt, timezone).slice(0, 10);
-      // Daily integrations may repeat the following midnight as a boundary
-      // point. Keep the chart strictly inside the five displayed local dates.
-      if (!allowedDates.has(localDate)) continue;
+      const validAt = Date.parse(point.validAt);
+      if (
+        (Number.isFinite(rangeStart) && validAt < rangeStart) ||
+        (Number.isFinite(rangeEnd) && validAt > rangeEnd)
+      ) continue;
       points.set(point.validAt, point);
     }
     return [...points.values()].sort((a, b) =>
@@ -1515,7 +1604,11 @@ function CityReport({
         />
       </View>
       <SpeciesBoard date={date} />
-      <HourlyConditions dates={outlook.dates} weather={weather} />
+      <HourlyConditions
+        dates={outlook.dates}
+        timeline={allPoints}
+        weather={weather}
+      />
       {weatherLoading ? (
         <View style={styles.weatherLoadingRow}>
           <ActivityIndicator size="small" color={paper.dashboardBlue} />
@@ -2640,118 +2733,168 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
     color: paper.dashboardBlue,
   },
-  fiveDayHourlyRail: { paddingBottom: 2 },
+  fiveDayHourlyRail: { paddingRight: 6, paddingBottom: 4 },
   hourDayGroup: {
     borderWidth: 1,
-    borderRightWidth: 0,
     borderColor: paper.dashboardLine,
+    borderRadius: 12,
     backgroundColor: "#FFFFFF",
+    overflow: "hidden",
+    marginRight: 10,
   },
   hourDayHeader: {
-    height: 46,
-    width: 312,
+    height: 58,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 12,
-    paddingHorizontal: 10,
+    gap: 16,
+    paddingHorizontal: 13,
     borderBottomWidth: 1,
     borderBottomColor: paper.dashboardLine,
-    backgroundColor: "#E6F2F5",
+    backgroundColor: "#E8F3F5",
   },
   hourDayEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6,
-    lineHeight: 8,
-    letterSpacing: 0.85,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: 1,
     color: "#167B78",
   },
   hourDayTitle: {
-    marginTop: 1,
+    marginTop: 2,
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 12,
-    lineHeight: 14,
+    fontSize: 14,
+    lineHeight: 16,
     color: paper.dashboardInk,
   },
   hourDayCount: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.55,
+    fontSize: 6.2,
+    letterSpacing: 0.65,
     color: paper.dashboardBlue,
   },
   hourCellsRow: { flexDirection: "row" },
   hourCell: {
-    width: 78,
-    minHeight: 126,
-    paddingHorizontal: 7,
-    paddingVertical: 8,
+    width: HOURLY_CONDITION_CARD_WIDTH,
+    height: 208,
+    paddingHorizontal: 10,
+    paddingVertical: 11,
     borderRightWidth: 1,
     borderRightColor: paper.dashboardLine,
     backgroundColor: "#FCFCFA",
   },
-  hourCellNow: { backgroundColor: "#FFF8E2" },
+  hourCellNow: { backgroundColor: "#FFF9E8" },
+  hourCellHeading: {
+    minHeight: 34,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: 5,
+  },
   hourCellTime: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
-    lineHeight: 9,
-    letterSpacing: 0.35,
-    color: paper.dashboardMuted,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    lineHeight: 13,
+    color: paper.dashboardInk,
   },
   hourCellDate: {
+    marginTop: 2,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.5,
-    lineHeight: 8,
-    letterSpacing: 0.55,
+    fontSize: 6,
+    lineHeight: 9,
+    letterSpacing: 0.65,
     color: "#167B78",
+  },
+  hourCellStartBadge: {
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 8,
+    backgroundColor: "#F3D989",
+  },
+  hourCellStartBadgeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5,
+    letterSpacing: 0.5,
+    color: "#725612",
+  },
+  hourCellWaterBlock: {
+    marginTop: 7,
+    paddingHorizontal: 9,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "rgba(47,124,164,0.16)",
+    borderRadius: 9,
+    backgroundColor: "#EBF4F8",
   },
   hourCellWaterLabel: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 3,
-    marginTop: 7,
+    gap: 4,
   },
   hourCellWaterLabelText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.7,
-    letterSpacing: 0.45,
+    fontSize: 6.2,
+    letterSpacing: 0.65,
     color: paper.dashboardBlue,
   },
   hourCellWater: {
-    marginTop: 1,
+    marginTop: 2,
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 17,
-    lineHeight: 20,
+    fontSize: 22,
+    lineHeight: 25,
     color: paper.dashboardBlue,
   },
-  hourCellAirRow: {
+  hourCellMetrics: {
+    gap: 5,
+    marginTop: 8,
+  },
+  hourCellMetricRow: {
+    minHeight: 25,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 5,
+    paddingHorizontal: 6,
+    borderRadius: 7,
+    backgroundColor: "rgba(10,27,46,0.035)",
+  },
+  hourCellMetricLabelWrap: {
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
-    marginTop: 7,
   },
   hourCellAirLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.5,
-    letterSpacing: 0.4,
+    fontSize: 5.8,
+    letterSpacing: 0.55,
     color: "#B65B2A",
   },
-  hourCellAirValue: {
-    marginLeft: "auto",
+  hourCellWindLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 0.55,
+    color: "#1E746B",
+  },
+  hourCellMetricValue: {
+    flexShrink: 1,
+    textAlign: "right",
     fontFamily: paperFonts.bodyBold,
-    fontSize: 8,
+    fontSize: 8.2,
     color: paper.dashboardInk,
   },
-  hourCellDetailRow: {
+  hourCellTrendRow: {
+    minHeight: 17,
     flexDirection: "row",
     alignItems: "center",
     gap: 3,
-    marginTop: 6,
+    marginTop: 8,
+    paddingHorizontal: 2,
   },
-  hourCellWindDetail: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 7.5,
-    lineHeight: 10,
-    color: paper.dashboardInk,
+  hourCellTrendText: {
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.3,
+    letterSpacing: 0.3,
   },
   hourlyLegend: {
     flexDirection: "row",
