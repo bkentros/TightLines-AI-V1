@@ -42,6 +42,28 @@ function localDateString(date: DateParts): string {
   ].join("-");
 }
 
+function parseLocalDate(value: string): DateParts {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) throw new Error(`Invalid local date: ${value}`);
+  const date = {
+    year: Number(match[1]),
+    month: Number(match[2]),
+    day: Number(match[3]),
+  };
+  if (localDateString(date) !== value) {
+    throw new Error(`Invalid local date: ${value}`);
+  }
+  const roundTrip = new Date(Date.UTC(date.year, date.month - 1, date.day));
+  if (
+    roundTrip.getUTCFullYear() !== date.year ||
+    roundTrip.getUTCMonth() + 1 !== date.month ||
+    roundTrip.getUTCDate() !== date.day
+  ) {
+    throw new Error(`Invalid local date: ${value}`);
+  }
+  return date;
+}
+
 function zonedMidnightUtc(date: DateParts, timezone: string): Date {
   const desiredLocalAsUtc = Date.UTC(date.year, date.month - 1, date.day);
   let candidate = desiredLocalAsUtc;
@@ -116,4 +138,28 @@ export function buildPierCastFiveDateWindows(input: {
       },
     };
   });
+}
+
+export function buildPierCastFullDayWindow(input: {
+  localDate: string;
+  timezone: string;
+}): PierCastDailyAssessmentWindow {
+  const date = parseLocalDate(input.localDate);
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: input.timezone }).format(
+      new Date(),
+    );
+  } catch {
+    throw new Error(`Invalid timezone: ${input.timezone}`);
+  }
+  return {
+    localDate: input.localDate,
+    timezone: input.timezone,
+    scope: "full_day",
+    requestedInterval: {
+      start: zonedMidnightUtc(date, input.timezone).toISOString(),
+      end: zonedMidnightUtc(addLocalDays(date, 1), input.timezone)
+        .toISOString(),
+    },
+  };
 }

@@ -1,13 +1,16 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
+  archivePierCastDailyScoreSnapshot,
   archivePierCastShadowForecast,
+  buildPierCastDailyScoreSnapshot,
   buildPierCastReviewOutlook,
   ingestPierCastCalibrationObservations,
   ingestPierCastTemperatureCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
   PIER_CAST_ENGINE_VERSION,
   type PierCastArchiveClient,
+  pierCastDailyScoreLakeDateForCycle,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
 
@@ -64,6 +67,19 @@ const handler = createPierCastIngestHandler({
       engineVersion: PIER_CAST_ENGINE_VERSION,
     });
     return { ...active, comparator };
+  },
+  archiveDailyScoreSnapshot: async (outcome) => {
+    const generatedAt = new Date().toISOString();
+    const snapshot = buildPierCastDailyScoreSnapshot({
+      batch: outcome.batch,
+      lakeDate: pierCastDailyScoreLakeDateForCycle(outcome.batch.issuedAt),
+      generatedAt,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return await archivePierCastDailyScoreSnapshot({
+      database: archiveClient,
+      snapshot,
+    });
   },
 });
 

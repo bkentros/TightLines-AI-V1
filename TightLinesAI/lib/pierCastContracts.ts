@@ -181,6 +181,26 @@ export type PierCastReviewCityOutlookRead = {
   dates: PierCastReviewDateOutlookRead[];
 };
 
+export type PierCastDailyScoreSnapshotRead = {
+  status: "locked_daily_snapshot";
+  lakeDate: string;
+  scoreTimezone: "America/Chicago";
+  setAt: string;
+  publishAt: string;
+  engineVersion: string;
+  formulaVersion:
+    | "seasonal-opportunity-bounded-temperature-v2"
+    | "seasonal-ceiling-x-temperature-v1";
+  rubricVersion: string;
+  seasonalCalibrationVersion: string;
+  temperatureCalibrationVersion: string;
+  source: { issuedAt: string; fetchedAt: string };
+  cities: Array<{
+    cityId: string;
+    date: PierCastReviewDateOutlookRead;
+  }>;
+};
+
 export type PierCastReviewOutlookResponse = {
   mode: "review";
   previewOnly: true;
@@ -200,6 +220,7 @@ export type PierCastReviewOutlookResponse = {
     cityCount: 5;
     sampleCount: 605;
   };
+  dailyScoreSnapshot?: PierCastDailyScoreSnapshotRead;
   cities: PierCastReviewCityOutlookRead[];
 };
 

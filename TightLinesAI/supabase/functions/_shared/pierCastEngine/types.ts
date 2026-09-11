@@ -392,6 +392,29 @@ export type PierCastReviewCityOutlook = {
   dates: PierCastReviewDateOutlook[];
 };
 
+export type PierCastDailyScoreSnapshot = {
+  status: "locked_daily_snapshot";
+  lakeDate: string;
+  scoreTimezone: "America/Chicago";
+  setAt: string;
+  publishAt: string;
+  engineVersion: string;
+  formulaVersion:
+    | "seasonal-opportunity-bounded-temperature-v2"
+    | "seasonal-ceiling-x-temperature-v1";
+  rubricVersion: string;
+  seasonalCalibrationVersion: string;
+  temperatureCalibrationVersion: string;
+  source: {
+    issuedAt: string;
+    fetchedAt: string;
+  };
+  cities: Array<{
+    cityId: PierCastCityId;
+    date: PierCastReviewDateOutlook;
+  }>;
+};
+
 export type PierCastReviewOutlookResponse = {
   mode: "review";
   previewOnly: true;
@@ -402,6 +425,7 @@ export type PierCastReviewOutlookResponse = {
     | "seasonal-opportunity-bounded-temperature-v2"
     | "seasonal-ceiling-x-temperature-v1";
   disclosure: string;
+  dailyScoreSnapshot?: PierCastDailyScoreSnapshot;
   source: {
     status: "fresh_archived_complete_cycle";
     productId: "NOAA_NOS_LMHOFS_REGULARGRID";

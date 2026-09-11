@@ -123,15 +123,26 @@ The exact builder was exercised against the production archive before deployment
 
 The latest shadow-verified complete `2026-09-10T12:00:00Z` issue contains five cities, 121 forecast hours per city, and 605 total samples. Engine `v0.7.0`, deployed in `pier-cast-ingest` Edge Function version 7, applies bounded-temperature formula v2 and archives the direct-multiplier formula v1 against the identical issue as a private comparator. The seasonal and temperature curves themselves are unchanged. Cron job `3` is active on `35 0,6,12,18 * * *`. Production privilege checks confirm that neither `anon` nor `authenticated` can select the private archives or execute the commit, read, scheduler, or shadow-ledger functions; `service_role` can execute the scheduler.
 
+## Immutable daily scores and live conditions
+
+Migration `20260911021500` adds the private `pier_cast_daily_score_snapshots` ledger and service-role-only commit/read functions. A snapshot contains one complete full-day score set for all five cities and all four core species, plus engine, formula, rubric, calibration, and source-cycle provenance. `lake_date` is the primary key and the commit uses first-write-wins conflict handling, so later ingestion cannot replace the day. Cached fallback outcomes are explicitly excluded from snapshot creation.
+
+The complete 18 UTC model issue is used to precompute the next Central Lake Michigan day before its publication boundary. The 00/06/12 UTC issues can only idempotently confirm or repair the current date; they do not supersede an existing snapshot. Publication is exactly `00:00 America/Chicago`. During the one-hour Eastern/Central date seam, Michigan's environmental date may advance first, but its displayed current score remains attached to the same Lake Michigan lock as Sheboygan. If a valid current snapshot is absent, the API withholds today's scores while preserving live environmental data.
+
+Environmental freshness remains independent. The existing schedule continues ingesting each complete LMHOFS cycle at `00:35`, `06:35`, `12:35`, and `18:35` UTC. The owner-review endpoint builds the current-to-day-five water timeline from the newest fresh archived cycle on every read, while the client reloads on focus and silently every 15 minutes while focused; contextual air and wind are fetched again with each report check. The UI exposes separate “conditions checked” and “today's score locked” states.
+
+Production rollout verification on `2026-09-10` applied the migration, deployed `pier-cast-ingest` version 9 and `pier-cast` version 13, and manually invoked authenticated ingestion request `851`. It committed the first snapshot for `2026-09-11`, set at `2026-09-11T02:15:28.554Z`, publishing at `2026-09-11T05:00:00Z`, from the complete `2026-09-10T18:00:00Z` issue under engine `pier-cast-simple-model-v0.8.0`.
+
 ## Activation state
 
 - The private archive and schedule migrations are applied to production.
 - The private strict-QC observation archive and corrected validation-pair RPC are applied to production.
-- The authenticated ingestion function is deployed as version 7 with gateway JWT verification and its dedicated internal-key check retained.
+- The authenticated ingestion function is deployed as version 9 with gateway JWT verification and its dedicated internal-key check retained.
 - Dedicated Edge and Vault secrets are configured without reusing another module's key.
 - The cron schedule is active, manual authenticated production invocations passed, and the first verified post-deployment automatic invocation passed.
 - Four complete production model cycles (2,420 samples) and 14,036 unique observation records are archived; repeat ingestion is idempotent.
-- The authenticated five-date owner-review outlook is deployed in `pier-cast` version 11; the mobile review presentation exposes nearshore thermal fit, a rolling current-to-day-five temperature timeline, and public outlook access does not exist.
+- The authenticated five-date owner-review outlook is deployed in `pier-cast` version 13; the mobile review presentation exposes nearshore thermal fit, a rolling current-to-day-five temperature timeline, separate daily-lock/live-refresh state, and public outlook access does not exist.
+- The immutable daily score ledger is applied and seeded for `2026-09-11`; later model cycles refresh environmental conditions and future outlooks without changing the published current-day score set.
 - Private prospective forecast capture is deployed: each complete issue commits 100 immutable active-v2 rows and 100 immutable same-issue v1-comparator rows. The first paired run and repeated-cycle idempotency check passed.
 - The same owner endpoint includes private ledger status, same-day forecast candidates, confirmation-gated outcome entry, recent outcomes, and idempotent retry behavior. The evaluation protocol was frozen before any outcome was recorded.
 - No live temperature endpoint was added to the public API.

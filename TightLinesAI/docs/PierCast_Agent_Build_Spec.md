@@ -130,6 +130,23 @@ unavailable according to the reviewed policy.
 The Overall Pier Score is the highest complete, targeting-eligible daily species
 score. It is not an average of species and has no separate formula.
 
+## Daily publication and live conditions
+
+Precompute tomorrow's complete five-city score set from the latest complete
+evening LMHOFS issue. Publish it at `00:00 America/Chicago` and treat the first
+successful row for that Lake Michigan date as immutable. The snapshot owns
+today's four species scores, city headline, and leaderboard inputs. Cached
+fallback data must never establish or replace it. If it is missing, withhold
+today's numbers rather than exposing a ranking that can move during the day.
+
+Environmental presentation is independent: accept every new complete six-hour
+LMHOFS issue for water, refresh contextual weather as available, recompute the
+remaining-day timeline at read time, and refresh the focused client every 15
+minutes plus on focus. Air and wind remain context only. Surface two timestamps
+or statuses so users can distinguish “score locked for today” from “conditions
+refreshed.” Future-day scores may change with accepted forecast inputs until
+their own daily snapshot is published.
+
 ## Variables with zero score weight
 
 Do not include these in the v1 number:

@@ -20,6 +20,7 @@ export * from "./archive/lmhofsArchive.ts";
 export * from "./archive/temperatureObservations.ts";
 export * from "./archive/shadowForecasts.ts";
 export * from "./archive/shadowOutcomes.ts";
+export * from "./archive/dailyScoreSnapshots.ts";
 export * from "./pipeline/temperatureIngestion.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./validation.ts";

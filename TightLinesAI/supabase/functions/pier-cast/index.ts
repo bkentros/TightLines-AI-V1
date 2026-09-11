@@ -2,13 +2,16 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { isAdminEmail } from "../_shared/appAccess.ts";
 import {
+  applyPierCastDailyScoreSnapshot,
   buildPierCastReviewOutlook,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   readLatestFreshPierCastLmhofsBatch,
+  readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
+  withholdPierCastCurrentDayScores,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastHandler } from "./handler.ts";
 
@@ -38,13 +41,18 @@ const handler = createPierCastHandler({
   },
   readReviewOutlook: async () => {
     const now = new Date();
-    const batch = await readLatestFreshPierCastLmhofsBatch(archiveClient, now);
-    return batch
-      ? buildPierCastReviewOutlook({
-        batch,
-        evaluationTime: now.toISOString(),
-      })
-      : null;
+    const [batch, dailyScoreSnapshot] = await Promise.all([
+      readLatestFreshPierCastLmhofsBatch(archiveClient, now),
+      readPublishedPierCastDailyScoreSnapshot(archiveClient, now),
+    ]);
+    if (!batch) return null;
+    const liveOutlook = buildPierCastReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    });
+    return dailyScoreSnapshot
+      ? applyPierCastDailyScoreSnapshot(liveOutlook, dailyScoreSnapshot)
+      : withholdPierCastCurrentDayScores(liveOutlook);
   },
   readShadowReview: async () => {
     const [

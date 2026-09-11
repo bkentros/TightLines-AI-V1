@@ -1,4 +1,5 @@
 import type {
+  PierCastDailyScoreSnapshotCommitSummary,
   PierCastObservationIngestionSummary,
   PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
@@ -16,6 +17,12 @@ export type PierCastIngestHandlerDependencies = {
       { status: "unavailable" }
     >,
   ) => Promise<PierCastShadowForecastCommitSummary>;
+  archiveDailyScoreSnapshot?: (
+    outcome: Extract<
+      PierCastTemperatureIngestionOutcome,
+      { status: "live_committed" }
+    >,
+  ) => Promise<PierCastDailyScoreSnapshotCommitSummary>;
 };
 
 export function createPierCastIngestHandler(
@@ -58,13 +65,19 @@ export function createPierCastIngestHandler(
         diagnostics: outcome.diagnostics,
         calibrationObservations,
         shadowForecast: null,
+        dailyScoreSnapshot: null,
       }, 503);
     }
 
-    const shadowForecast = await settleShadowForecast(
-      dependencies.archiveShadowForecast,
-      outcome,
-    );
+    const [shadowForecast, dailyScoreSnapshot] = await Promise.all([
+      settleShadowForecast(dependencies.archiveShadowForecast, outcome),
+      outcome.status === "live_committed"
+        ? settleDailyScoreSnapshot(
+          dependencies.archiveDailyScoreSnapshot,
+          outcome,
+        )
+        : Promise.resolve(null),
+    ]);
 
     return json({
       status: outcome.status,
@@ -81,8 +94,46 @@ export function createPierCastIngestHandler(
       diagnostics: outcome.diagnostics,
       calibrationObservations,
       shadowForecast,
+      dailyScoreSnapshot,
     });
   };
+}
+
+type PierCastDailyScoreSnapshotResult =
+  | PierCastDailyScoreSnapshotCommitSummary
+  | {
+    status: "unavailable";
+    lakeDate: null;
+    setAt: null;
+    publishAt: null;
+    cityCount: 0;
+    diagnostics: string[];
+  };
+
+async function settleDailyScoreSnapshot(
+  archive: PierCastIngestHandlerDependencies["archiveDailyScoreSnapshot"],
+  outcome: Extract<
+    PierCastTemperatureIngestionOutcome,
+    { status: "live_committed" }
+  >,
+): Promise<PierCastDailyScoreSnapshotResult | null> {
+  if (!archive) return null;
+  try {
+    return await archive(outcome);
+  } catch (error) {
+    return {
+      status: "unavailable",
+      lakeDate: null,
+      setAt: null,
+      publishAt: null,
+      cityCount: 0,
+      diagnostics: [
+        `daily_score_snapshot_archive_failed:${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      ],
+    };
+  }
 }
 
 type PierCastShadowForecastResult = PierCastShadowForecastCommitSummary | {

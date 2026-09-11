@@ -1,5 +1,7 @@
 # FinFindr PierCast — Master Build Specification
 
+> **Daily score lock and live-conditions policy — 2026-09-10:** Today's species scores, city headline, and leaderboard order are now published from one immutable full-day snapshot and remain unchanged for the Lake Michigan day. The complete evening LMHOFS issue precomputes the next snapshot; first successful commit wins, cached fallback data cannot establish a score, and publication occurs at `00:00 America/Chicago`. If the snapshot is missing, today's scores fail closed while environmental data remain available. Water forecasts continue accepting each new complete six-hour LMHOFS issue, contextual air/wind remain live, and the owner-review app silently checks conditions every 15 minutes while focused and immediately on focus. The interface labels score-lock and conditions-check state separately. The private ledger is deployed in migration `20260911021500`; `pier-cast-ingest` version 9 and `pier-cast` version 13 serve the policy. Public availability and validation gates are unchanged.
+
 > **Full-scale seasonal recalibration — 2026-09-10:** The [v0.4 cross-port audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md) revisits all 20 city × species curves under a shared full-scale rubric. It applies no blanket uplift: changes are tied to mode-specific catch density, recurrence, direct pier reports, recency, and coverage limitations. Manistee steelhead is the `10.0` seasonal reference; Frankfort Chinook/steelhead and Sheboygan Chinook can also reach a final `10.0` only with nearly optimal thermal fit. Researched dead intervals now include exact `1.0` anchors. The [v0.4 replay](PierCast_Seasonal_Calibration_Replay_v0.4.md) retains strong in-sample consistency (`0.857` Spearman versus the evidence guide) with zero unsupported good-or-better Michigan monthly cells. All values remain private and provisional.
 
 > **Evidence-foundation audit — 2026-09-10:** The historical [v0.3 all-port audit](PierCast_All_Port_Seasonal_Presence_Audit_v0.3.md) established the timing and relative ordering used by v0.4 from Michigan DNR's 1997–2022 port-specific `Pier/Dock` creel estimates, Wisconsin DNR's 2022–2024 pier tables, current stocking, and direct reports. Its numeric values are superseded by v0.4. Sparse adaptive date anchors with daily interpolation remain authoritative; weekly values are deterministic review outputs, not 52 independent configuration judgments.
@@ -34,7 +36,7 @@ The requirements below define the product, scoring semantics, evidence standards
 
 ### Version 2.0 scope change
 
-Uses one city × species Seasonal Pier Opportunity Rating and water-temperature suitability as the only numeric inputs. Applies the bounded v2 temperature modifier without adding another environmental variable. Removes the redundant permanent baseline and every other live score modifier. Five dates refresh after accepted new temperature runs; today covers the remaining local day. Practical conditions remain separate. Best fishing times and fixed fishing durations are outside v1 scope.
+Uses one city × species Seasonal Pier Opportunity Rating and water-temperature suitability as the only numeric inputs. Applies the bounded v2 temperature modifier without adding another environmental variable. Removes the redundant permanent baseline and every other live score modifier. Future dates refresh after accepted new temperature runs; today's published scores come from the immutable full-day Lake Michigan snapshot. Live environmental detail still covers the remaining local day and refreshes independently. Practical conditions remain separate. Best fishing times and fixed fishing durations are outside v1 scope.
 
 ### Navigation
 
@@ -490,11 +492,13 @@ Only `eligible` and `limited` records with complete biological daily coverage ma
 
 ### 9.1 Daily assessment period
 
-The calendar contains today plus four local dates using the pier's IANA timezone. Future dates cover `[local midnight, next local midnight)`. Today covers `[evaluationTime, next local midnight)` and is labeled **“Today · remaining day”**. No fixed trip duration, best-hour search, dawn-only selection, or cross-midnight fishing session is defined.
+The environmental calendar contains today plus four local dates using the pier's IANA timezone. Future dates cover `[local midnight, next local midnight)`. Today's live temperature/weather detail covers `[evaluationTime, next local midnight)` and is labeled **“Today · remaining day”**. No fixed trip duration, best-hour search, dawn-only selection, or cross-midnight fishing session is defined.
 
 Use UTC elapsed duration for calculation, including 23/25-hour DST dates. All species on a report share the requested period and evaluation time. Do not silently restrict biology to daylight or open-access hours; those would change score meaning and conceal limitations. Access and hazards are assessed independently over the same period.
 
-Reaggregate today from stored valid time series at hourly boundaries, on accepted input changes, and on reads when its assessment start is out of date. Use the actual evaluation time, reconstructing its boundary only under accepted interpolation rules. This removes elapsed conditions without claiming a new provider forecast. Record `evaluatedAt` separately from the input-driven `forecastUpdatedAt`. Future dates change with accepted inputs/configuration, not merely the passing hour. At midnight, advance the calendar and expose unavailable coverage rather than inventing the new fifth date's data.
+Reaggregate live environmental detail from stored valid time series at hourly boundaries, on accepted input changes, and on reads when its assessment start is out of date. Use the actual evaluation time, reconstructing its boundary only under accepted interpolation rules. This removes elapsed conditions without claiming a new provider forecast. Record `evaluatedAt` separately from the input-driven `forecastUpdatedAt`.
+
+Today's published biological scores use a separate full-day snapshot. The latest complete evening LMHOFS issue with full coverage precomputes the upcoming `America/Chicago` Lake Michigan date. The snapshot stores all five cities, four species per city, the city headline, full score/calibration provenance, and the model issue/fetch timestamps. It becomes readable at Central midnight; the first successful commit for the date is immutable. Later accepted model issues update current environmental data and future outlooks but never rewrite that date's scores or leaderboard. A cached fallback cycle cannot create the snapshot. If no valid snapshot exists, withhold today's numeric scores and ranking while continuing to return available water, air, and wind information. The one-hour Eastern/Central midnight seam retains the same Lake Michigan score lock while each city's environmental calendar remains local.
 
 ### 9.2 Daily biological aggregation
 
@@ -532,6 +536,8 @@ The headline means strongest among assessed eligible targets; disclose unavailab
 ### 9.5 Comparisons
 
 Use one-decimal display and deterministic continuous ordering. Describe rankings as daily opportunity among supported piers, with species, confidence, coverage, and limitations. Avoid copy claiming that adjacent ranks or small differences establish materially better catch prospects. Do not confidence-adjust the biological number.
+
+Rankings use the same immutable current-day snapshot as the city reports. Every client must see the same order for the Lake Michigan day, regardless of refresh time. Display score-set and conditions-updated metadata separately; never imply that a live conditions refresh recalculated today's ranking.
 
 Evaluate rank stability under plausible input/configuration uncertainty and differences in supported species breadth. More supported targets can legitimately raise a headline, but must not masquerade as stronger validation. Keep target-specific comparisons available and document ranking limitations during the pilot.
 

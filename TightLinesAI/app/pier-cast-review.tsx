@@ -81,6 +81,7 @@ const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
 };
 
 const HOURLY_CONDITION_CARD_WIDTH = 116;
+const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;
 
 const STATE_LABELS: Record<PierCastCatalogCityRead["stateCode"], string> = {
   MI: "Michigan",
@@ -180,6 +181,17 @@ function formatLocalHour(localTime: string): string {
   const suffix = hour >= 12 ? "PM" : "AM";
   const hour12 = hour % 12 || 12;
   return `${hour12} ${suffix}`;
+}
+
+function formatRefreshTime(value: string, timezone: string): string {
+  const date = new Date(value);
+  if (!Number.isFinite(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: timezone,
+    timeZoneName: "short",
+  }).format(date);
 }
 
 function directionLabel(degrees: number | null): string {
@@ -619,10 +631,14 @@ function HourlyConditions({
   dates,
   timeline,
   weather,
+  conditionsUpdatedAt,
+  scoreLakeDate,
 }: {
   dates: PierCastReviewDateOutlookRead[];
   timeline: PierCastReviewTemperaturePointRead[];
   weather: PierCastHourlyWeatherPoint[];
+  conditionsUpdatedAt: string;
+  scoreLakeDate: string | null;
 }) {
   const weatherByTime = useMemo(
     () => new Map(weather.map((point) => [point.localTime, point])),
@@ -737,6 +753,28 @@ function HourlyConditions({
           accent="#1E746B"
           tint="#E7F4F1"
         />
+      </View>
+
+      <View style={styles.freshnessStrip}>
+        <View style={styles.freshnessItem}>
+          <Ionicons name="refresh" size={13} color={paper.dashboardBlue} />
+          <View style={styles.freshnessCopy}>
+            <Text style={styles.freshnessLabel}>CONDITIONS CHECKED</Text>
+            <Text style={styles.freshnessValue}>
+              {formatRefreshTime(conditionsUpdatedAt, timezone)}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.freshnessRule} />
+        <View style={styles.freshnessItem}>
+          <Ionicons name="lock-closed" size={12} color="#167B78" />
+          <View style={styles.freshnessCopy}>
+            <Text style={styles.freshnessLabel}>TODAY&apos;S SCORE</Text>
+            <Text style={styles.freshnessValue}>
+              {scoreLakeDate ? "Locked for the day" : "Snapshot preparing"}
+            </Text>
+          </View>
+        </View>
       </View>
 
       <View style={styles.hourlyTimelineHeading}>
@@ -1183,6 +1221,7 @@ function PierCastLanding({
     stateCities[0] ??
     null;
   const forecastDate = leaderboard[0]?.date?.localDate;
+  const dailyScoreSnapshot = outlook.dailyScoreSnapshot ?? null;
 
   return (
     <>
@@ -1231,7 +1270,9 @@ function PierCastLanding({
             </Text>
           </View>
           <View style={styles.reportStatusBadge}>
-            <Text style={styles.reportStatusText}>TOP 5</Text>
+            <Text style={styles.reportStatusText}>
+              {dailyScoreSnapshot ? "LOCKED" : "TOP 5"}
+            </Text>
           </View>
         </View>
 
@@ -1313,8 +1354,9 @@ function PierCastLanding({
             color="#167B78"
           />
           <Text style={styles.rankingNoteText}>
-            This is not an overall city score. One species sets each city&apos;s
-            position, and the rankings refresh with the daily forecast.
+            {dailyScoreSnapshot
+              ? `Locked for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. One species sets each city's position; live pier conditions keep updating without moving today's leaderboard.`
+              : "Today’s score snapshot is preparing. Live pier conditions continue to update while the daily ranking is finalized."}
           </Text>
         </View>
       </View>
@@ -1515,11 +1557,15 @@ function CityReport({
   outlook,
   weather,
   weatherLoading,
+  conditionsUpdatedAt,
+  scoreLakeDate,
 }: {
   city: PierCastCatalogCityRead;
   outlook: PierCastReviewCityOutlookRead | null;
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
+  conditionsUpdatedAt: string;
+  scoreLakeDate: string | null;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => setSelectedIndex(0), [city.cityId]);
@@ -1608,6 +1654,8 @@ function CityReport({
         dates={outlook.dates}
         timeline={allPoints}
         weather={weather}
+        conditionsUpdatedAt={conditionsUpdatedAt}
+        scoreLakeDate={scoreLakeDate}
       />
       {weatherLoading ? (
         <View style={styles.weatherLoadingRow}>
@@ -1638,38 +1686,53 @@ export default function PierCastReviewScreen() {
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (options?: { silent?: boolean }) => {
     if (!admin) return;
-    setLoading(true);
-    setError(null);
+    const silent = options?.silent === true;
+    if (!silent) {
+      setLoading(true);
+      setError(null);
+    }
     try {
-      const [nextCatalog, nextOutlook] = await Promise.all([
-        fetchPierCastOwnerReviewCatalog(),
-        fetchPierCastOwnerReviewOutlook(),
-      ]);
-      setCatalog(nextCatalog);
+      const [nextCatalog, nextOutlook] = silent
+        ? [null, await fetchPierCastOwnerReviewOutlook()]
+        : await Promise.all([
+          fetchPierCastOwnerReviewCatalog(),
+          fetchPierCastOwnerReviewOutlook(),
+        ]);
+      if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
-      setSelectedCityId((current) =>
-        nextCatalog.cities.some((city) => city.cityId === current)
-          ? current
-          : null,
-      );
+      if (nextCatalog) {
+        setSelectedCityId((current) =>
+          nextCatalog.cities.some((city) => city.cityId === current)
+            ? current
+            : null,
+        );
+      }
+      setError(null);
     } catch (caught) {
-      setError(
-        caught instanceof PierCastRequestError
-          ? caught.message
-          : caught instanceof Error
+      if (!silent) {
+        setError(
+          caught instanceof PierCastRequestError
             ? caught.message
-            : "PierCast could not be loaded.",
-      );
+            : caught instanceof Error
+              ? caught.message
+              : "PierCast could not be loaded.",
+        );
+      }
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }, [admin]);
 
   useFocusEffect(
     useCallback(() => {
       void load();
+      const refreshTimer = setInterval(
+        () => void load({ silent: true }),
+        PIER_CAST_CONDITIONS_REFRESH_MS,
+      );
+      return () => clearInterval(refreshTimer);
     }, [load]),
   );
 
@@ -1722,7 +1785,7 @@ export default function PierCastReviewScreen() {
       clearTimeout(timeout);
       controller.abort();
     };
-  }, [selectedCity]);
+  }, [outlook?.generatedAt, selectedCity]);
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
@@ -1872,6 +1935,8 @@ export default function PierCastReviewScreen() {
                 outlook={selectedOutlook}
                 weather={weather}
                 weatherLoading={weatherLoading}
+                conditionsUpdatedAt={outlook.generatedAt}
+                scoreLakeDate={outlook.dailyScoreSnapshot?.lakeDate ?? null}
               />
               <RatingExplanation
                 winterNotice={catalog.winterOpenWaterNotice}
@@ -2654,6 +2719,42 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   nearshoreMetricGrid: { flexDirection: "row", gap: 7 },
+  freshnessStrip: {
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "stretch",
+    borderWidth: 1,
+    borderColor: "rgba(22,123,120,0.2)",
+    borderRadius: 9,
+    backgroundColor: "rgba(22,123,120,0.055)",
+  },
+  freshnessItem: {
+    minWidth: 0,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  freshnessCopy: { minWidth: 0, flex: 1, gap: 2 },
+  freshnessLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 0.7,
+    color: paper.dashboardMuted,
+  },
+  freshnessValue: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 8.5,
+    lineHeight: 11,
+    color: paper.dashboardInk,
+  },
+  freshnessRule: {
+    width: 1,
+    marginVertical: 8,
+    backgroundColor: "rgba(22,123,120,0.2)",
+  },
   nearshoreMetricTile: {
     minWidth: 0,
     flex: 1,

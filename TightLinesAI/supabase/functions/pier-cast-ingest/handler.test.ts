@@ -176,6 +176,68 @@ Deno.test("shadow archival failure is diagnosed without losing temperature inges
   ]);
 });
 
+Deno.test("PierCast ingestion commits the immutable daily score snapshot only from a live cycle", async () => {
+  let dailySnapshotCalls = 0;
+  const liveHandler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    archiveDailyScoreSnapshot: (outcome) => {
+      dailySnapshotCalls += 1;
+      assertEquals(outcome.status, "live_committed");
+      return Promise.resolve({
+        status: "committed",
+        lakeDate: "2026-09-10",
+        setAt: "2026-09-10T00:36:00.000Z",
+        publishAt: "2026-09-10T05:00:00.000Z",
+        cityCount: 5,
+      });
+    },
+  });
+
+  const liveResponse = await liveHandler(request());
+  const liveBody = await liveResponse.json();
+  assertEquals(liveResponse.status, 200);
+  assertEquals(liveBody.dailyScoreSnapshot.status, "committed");
+  assertEquals(liveBody.dailyScoreSnapshot.lakeDate, "2026-09-10");
+
+  const cachedHandler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () =>
+      Promise.resolve({
+        status: "cached_fallback",
+        source: "fresh_archived_complete_cycle",
+        batch: completeLmhofsBatch(),
+        fallbackUsed: true,
+        diagnostics: ["live_unavailable"],
+      }),
+    archiveDailyScoreSnapshot: () => {
+      dailySnapshotCalls += 1;
+      throw new Error("cached data must never set the daily score");
+    },
+  });
+  const cachedBody = await (await cachedHandler(request())).json();
+  assertEquals(cachedBody.dailyScoreSnapshot, null);
+  assertEquals(dailySnapshotCalls, 1);
+});
+
+Deno.test("daily score snapshot failure is diagnosed without losing live conditions", async () => {
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    archiveDailyScoreSnapshot: () =>
+      Promise.reject(new Error("snapshot ledger unavailable")),
+  });
+
+  const response = await handler(request());
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.status, "live_committed");
+  assertEquals(body.dailyScoreSnapshot.status, "unavailable");
+  assertEquals(body.dailyScoreSnapshot.diagnostics, [
+    "daily_score_snapshot_archive_failed:snapshot ledger unavailable",
+  ]);
+});
+
 Deno.test("PierCast ingestion returns 503 when no safe cycle exists", async () => {
   const handler = createPierCastIngestHandler({
     internalSecret: SECRET,
@@ -193,4 +255,5 @@ Deno.test("PierCast ingestion returns 503 when no safe cycle exists", async () =
   const body = await response.json();
   assertEquals(body.status, "unavailable");
   assertEquals(body.shadowForecast, null);
+  assertEquals(body.dailyScoreSnapshot, null);
 });

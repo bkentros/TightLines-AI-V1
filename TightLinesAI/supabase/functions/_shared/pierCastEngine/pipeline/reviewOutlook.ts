@@ -1,6 +1,8 @@
 import {
   getPierCastCoreTemperatureCurve,
   PIER_CAST_CORE_SPECIES_IDS,
+  PIER_CAST_SEASONAL_CALIBRATION_VERSION,
+  PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
 } from "../config/coreCalibration.ts";
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
 import { getPierCastSpeciesProfile } from "../config/species.ts";
@@ -11,7 +13,10 @@ import type {
   PierCastLmhofsSample,
 } from "../providers/lmhofs.ts";
 import { aggregateCompleteDailyScore } from "../scoring/daily.ts";
-import { buildPierCastFiveDateWindows } from "../scoring/dateWindows.ts";
+import {
+  buildPierCastFiveDateWindows,
+  buildPierCastFullDayWindow,
+} from "../scoring/dateWindows.ts";
 import { selectPierCastDailyHeadline } from "../scoring/headline.ts";
 import {
   combinePierCastOpportunity,
@@ -20,10 +25,12 @@ import {
 } from "../scoring/opportunity.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../scoring/seasonal.ts";
 import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
+import { PIER_CAST_RUBRIC_VERSION } from "../scoring/rating.ts";
 import {
   PIER_CAST_MONTHS,
   type PierCastCoverageRead,
   type PierCastDailyAssessmentWindow,
+  type PierCastDailyScoreSnapshot,
   type PierCastReviewDailyTemperature,
   type PierCastReviewOutlookResponse,
   type PierCastReviewSpeciesOutlook,
@@ -100,6 +107,178 @@ export function buildPierCastReviewOutlook(input: {
     },
     cities,
   };
+}
+
+export function buildPierCastDailyScoreSnapshot(input: {
+  batch: AvailableLmhofsBatch;
+  lakeDate: string;
+  generatedAt: string;
+  engineVersion: string;
+  formulaVersion?: PierCastFormulaVersion;
+}): PierCastDailyScoreSnapshot {
+  const generatedAt = new Date(input.generatedAt);
+  if (!Number.isFinite(generatedAt.getTime()) || !input.engineVersion.trim()) {
+    throw new Error("PierCast daily score snapshot metadata is invalid.");
+  }
+  validateReviewBatch(input.batch);
+  const formulaVersion = input.formulaVersion ?? PIER_CAST_FORMULA_VERSION;
+  const centralWindow = buildPierCastFullDayWindow({
+    localDate: input.lakeDate,
+    timezone: "America/Chicago",
+  });
+  const cities = PIER_CAST_CITY_PROFILES.map((city) => {
+    const timeline = input.batch.cities.find((candidate) =>
+      candidate.cityId === city.cityId
+    );
+    if (!timeline || timeline.status !== "available") {
+      throw new Error(
+        `PierCast daily score timeline missing for ${city.cityId}.`,
+      );
+    }
+    const window = buildPierCastFullDayWindow({
+      localDate: input.lakeDate,
+      timezone: city.timezone,
+    });
+    return {
+      cityId: city.cityId,
+      date: buildDateOutlook({
+        city,
+        samples: timeline.samples,
+        window,
+        formulaVersion,
+      }),
+    };
+  });
+  if (
+    cities.some(
+      (city) =>
+        city.date.headline.overall.status !== "available" ||
+        city.date.species.some(
+          (species) => species.biological.status !== "available",
+        ),
+    )
+  ) {
+    throw new Error(
+      "PierCast daily score snapshot requires complete full-day scores.",
+    );
+  }
+  return {
+    status: "locked_daily_snapshot",
+    lakeDate: input.lakeDate,
+    scoreTimezone: "America/Chicago",
+    setAt: generatedAt.toISOString(),
+    publishAt: centralWindow.requestedInterval.start,
+    engineVersion: input.engineVersion,
+    formulaVersion,
+    rubricVersion: PIER_CAST_RUBRIC_VERSION,
+    seasonalCalibrationVersion: PIER_CAST_SEASONAL_CALIBRATION_VERSION,
+    temperatureCalibrationVersion: PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
+    source: {
+      issuedAt: input.batch.issuedAt,
+      fetchedAt: input.batch.fetchedAt,
+    },
+    cities,
+  };
+}
+
+export function applyPierCastDailyScoreSnapshot(
+  liveOutlook: PierCastReviewOutlookResponse,
+  snapshot: PierCastDailyScoreSnapshot,
+): PierCastReviewOutlookResponse {
+  if (
+    snapshot.status !== "locked_daily_snapshot" ||
+    snapshot.formulaVersion !== liveOutlook.formulaVersion ||
+    snapshot.cities.length !== 5
+  ) {
+    throw new Error("PierCast daily score snapshot is incompatible.");
+  }
+  let lockedCityCount = 0;
+  const cities = liveOutlook.cities.map((city) => {
+    const locked = snapshot.cities.find(
+      (candidate) => candidate.cityId === city.cityId,
+    );
+    if (!locked) return city;
+    const exactDateIndex = city.dates.findIndex((date) =>
+      date.localDate === snapshot.lakeDate
+    );
+    const easternMidnightSeam = exactDateIndex < 0 &&
+      city.timezone === "America/Detroit" &&
+      city.dates[0]?.localDate === addIsoDate(snapshot.lakeDate, 1);
+    const lockedDateIndex = exactDateIndex >= 0
+      ? exactDateIndex
+      : easternMidnightSeam
+      ? 0
+      : -1;
+    const dates = city.dates.map((date, index) => {
+      if (index !== lockedDateIndex) return date;
+      lockedCityCount += 1;
+      return {
+        ...date,
+        headline: locked.date.headline,
+        species: locked.date.species,
+      };
+    });
+    return { ...city, dates };
+  });
+  if (lockedCityCount !== 5) {
+    throw new Error(
+      "PierCast daily score snapshot does not match the live forecast date.",
+    );
+  }
+  return { ...liveOutlook, dailyScoreSnapshot: snapshot, cities };
+}
+
+export function withholdPierCastCurrentDayScores(
+  liveOutlook: PierCastReviewOutlookResponse,
+): PierCastReviewOutlookResponse {
+  const reasonCode = "daily_score_snapshot_missing";
+  const unavailableScore = {
+    status: "unavailable" as const,
+    score: null,
+    reasonCodes: [reasonCode],
+    ratingName: "FinFindr Opportunity Rating" as const,
+  };
+  return {
+    ...liveOutlook,
+    cities: liveOutlook.cities.map((city) => ({
+      ...city,
+      dates: city.dates.map((date, index) =>
+        index === 0
+          ? {
+            ...date,
+            headline: {
+              overall: unavailableScore,
+              drivingSpeciesId: null,
+              headlineMode: "unavailable" as const,
+              promotion: {
+                status: "blocked" as const,
+                reasonCodes: [reasonCode],
+              },
+              reasonCodes: [reasonCode],
+            },
+            species: date.species.map((species) => ({
+              ...species,
+              biological: unavailableScore,
+              promotion: {
+                status: "blocked" as const,
+                reasonCodes: [reasonCode],
+              },
+              reasonCodes: [
+                ...new Set([...species.reasonCodes, reasonCode]),
+              ],
+            })),
+          }
+          : date
+      ),
+    })),
+  };
+}
+
+function addIsoDate(localDate: string, days: number): string {
+  const [year, month, day] = localDate.split("-").map(Number);
+  if (![year, month, day].every(Number.isInteger)) return "";
+  const date = new Date(Date.UTC(year, month - 1, day + days));
+  return date.toISOString().slice(0, 10);
 }
 
 function buildRollingTemperatureTimeline(
