@@ -4,31 +4,35 @@
 **Status:** Implemented for private review, including the [all-five temperature pipeline](PierCast_Temperature_Pipeline_Implementation.md) and completed [representation/calibration audit](PierCast_Temperature_Representation_and_Calibration.md); all curves remain provisional, all ratings remain disabled, and all cities remain absent from the public catalog.
 **Scope:** Chinook salmon, coho salmon, steelhead, and brown trout in Ludington, Grand Haven, Manistee, Frankfort–Elberta, and Sheboygan. No secondary species were calibrated.
 
+> **Post-implementation biological audit — 2026-09-10:** The [core salmonid temperature-response audit](PierCast_Core_Salmonid_Temperature_Response_Audit.md) confirms the curves are directionally asymmetric in the correct way—62–65 °F remains useful while 68–72 °F is progressively but not absolutely penalized—but finds the original sub-50 °F shoulders too punitive for pier-reachable opportunity. The versioned v0.2 candidate is now active in private review and changes only the cold shoulder; every v0.1 value at 50 °F and warmer is retained, and the v0.1 constants remain available for comparison.
+
 ## Decision
 
 PierCast v1 retains exactly two numeric inputs:
 
-`score = 1 + (seasonal opportunity ceiling - 1) × temperature suitability`
+`modifier = 0.30 + 0.75 × nearshore thermal fit`
 
-The city × species seasonal curve remains the dominant input. It establishes both timing and the maximum rating that the location can attain. Temperature is a continuous `0–1` unlock/reduction factor; it cannot lift a city above its configured seasonal ceiling. There is no permanent city baseline, depth factor, weather factor, trend bonus, or hidden third weight.
+`score = clamp(1, 10, 1 + (seasonal opportunity rating - 1) × modifier)`
+
+The city × species seasonal curve remains the dominant input. It establishes both timing and the reference rating under broadly supportive conditions. Nearshore thermal fit is the existing continuous `0–1` temperature-suitability variable interpreted as compatibility between modeled surface temperature and pier-reachable opportunity. The bounded v2 modifier ranges from `0.30–1.05`: it softens adverse-temperature penalties, and only `T > 0.9333…` can add a small synergy above the seasonal rating. It must not be described as the fish's experienced temperature at depth. There is no permanent city baseline, depth factor, weather factor, trend bonus, or hidden third input.
 
 The four temperature curves in [the machine-readable calibration](PierCast_Core_Species_Temperature_Curves.json) are **FinFindr product calibrations**, not measured biological response curves. Their sourced bands constrain the high-suitability region; their shoulders are explicit provisional judgments pending observed forecast-versus-outcome testing.
 
-## Why this multiplication is appropriately strong
+## Why this bounded interaction is appropriately restrained
 
-Multiplication makes temperature matter most when the calendar says meaningful fishable opportunity exists. The same poor temperature cannot manufacture a strong rating in a dead week, and optimal temperature cannot exceed the pier’s seasonal ceiling.
+Applying the modifier to seasonal headroom makes temperature matter most when the calendar says meaningful fishable opportunity exists. The same favorable temperature cannot manufacture a strong rating in a dead week. A poor thermal fit remains consequential without allowing a surface-temperature proxy to erase the entire seasonally supported opportunity, while a perfect fit contributes no more than five-percent headroom synergy.
 
-| Seasonal ceiling | `T = 0.25` | `T = 0.50` | `T = 0.75` | `T = 1.00` |
+| Seasonal rating | `T = 0.25` | `T = 0.50` | `T = 0.75` | `T = 1.00` |
 | ---: | ---: | ---: | ---: | ---: |
-| 4.0 | 1.8 | 2.5 | 3.3 | 4.0 |
-| 7.0 | 2.5 | 4.0 | 5.5 | 7.0 |
-| 9.0 | 3.0 | 5.0 | 7.0 | 9.0 |
+| 4.0 | 2.5 | 3.0 | 3.6 | 4.2 |
+| 7.0 | 3.9 | 5.1 | 6.2 | 7.3 |
+| 9.0 | 4.9 | 6.4 | 7.9 | 9.4 |
 
-Thus, moving from half-suitable to optimal water adds four rating points during a 9.0 peak, but only 1.5 points during a 4.0 shoulder. That is the intended interaction: water temperature can substantially distinguish good and poor days inside a real season, while timing and city strength still govern the opportunity envelope.
+Thus, moving from half-suitable to optimal water adds three rating points during a 9.0 peak, but only 1.2 points during a 4.0 shoulder. That is the intended interaction: water temperature can distinguish days inside a real season while timing and city strength remain controlling. The prior direct multiplier remains archived as the formula-v1 shadow comparator.
 
 ## Shared temperature curves
 
-All curves use unrounded Celsius, piecewise-linear interpolation, and an accepted input domain of `0–26 °C`. A reading outside that domain returns unavailable rather than inheriting an endpoint. One shared curve per species is the smallest defensible v1 design; city timing is already expressed in the seasonal ceiling, so city-specific thermal curves would add false precision and risk counting seasonal behavior twice.
+All curves use unrounded Celsius, piecewise-linear interpolation, and an accepted input domain of `0–26 °C`. A reading outside that domain returns unavailable rather than inheriting an endpoint. One shared curve per species is the smallest defensible v1 design; city timing is already expressed in the seasonal rating, so city-specific thermal curves would add false precision and risk counting seasonal behavior twice.
 
 | Species | High-suitability design | Important restraint |
 | --- | --- | --- |
@@ -37,7 +41,7 @@ All curves use unrounded Celsius, piecewise-linear interpolation, and an accepte
 | Steelhead | `12–14 °C` plateau; intentionally broad cold shoulder | A narrow agency band would incorrectly erase documented cold-season migration and pier opportunity. Lakewide modeled growth potential also failed to predict spatial angler catch well. [T003, T007, T009, T010, T032] |
 | Brown trout | `10–16 °C` plateau; remains high across much of 8–18 °C | Great Lakes adult occupancy and Michigan context conflict with the Wisconsin 18–24 °C fact-sheet range, so 18–24 °C is not treated as a universal optimum. [T004, T014, T015] |
 
-The nonzero cold and warm endpoints are deliberate. The seasonal ceiling already carries whether pier opportunity is plausible on that date; temperature should reduce that opportunity without claiming absolute absence. A zero is reserved for future empirical calibration if outcomes justify it.
+The nonzero cold and warm endpoints are deliberate. The seasonal rating already carries whether pier opportunity is plausible on that date; temperature should qualify that opportunity without claiming absolute absence. A zero is reserved for future empirical calibration if outcomes justify it.
 
 ## Water-temperature source architecture
 
@@ -69,7 +73,7 @@ The GLOS datasets are observations and seasonal validation references, not five-
 
 1. Operate the deployed private model and observation archives until approval-grade prospective overlap accumulates for the frozen indices.
 2. Re-run the frozen protocol by city, season, temperature range, forecast lead, and rapid-change event; do not tune and evaluate on the same dates.
-3. Establish a review dataset of dated pier outcomes for the four species and score the unchanged two-input model prospectively.
+3. Establish a review dataset of dated pier outcomes for the four species and score active v2 and same-issue formula-v1 comparator prospectively.
 4. Inspect calibration, discrimination, rank stability, missingness, and city/species edge cases. Adjust shoulders only through a new version with recorded evidence.
 5. Approve one city/species pilot at a time. Do not bulk-enable all 20 pairings.
 

@@ -14,54 +14,54 @@ export type PierCastCoreSeasonalCurve = PierCastSeasonalOpportunityCurve & {
 
 export const PIER_CAST_CORE_SEASONAL_CURVES = [
   {
-    "curveId": "ludington_mi__chinook_salmon__v0_1",
+    "curveId": "ludington_mi__chinook_salmon__v0_4",
     "cityId": "ludington_mi",
     "speciesId": "chinook_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.4,
+        "rating": 1,
       },
       {
         "monthDay": "04-15",
-        "rating": 1.7,
+        "rating": 1.3,
       },
       {
         "monthDay": "05-15",
-        "rating": 3,
+        "rating": 3.3,
       },
       {
         "monthDay": "06-03",
-        "rating": 5.8,
+        "rating": 5,
       },
       {
         "monthDay": "06-24",
-        "rating": 4.1,
-      },
-      {
-        "monthDay": "07-20",
         "rating": 3.6,
       },
       {
+        "monthDay": "07-20",
+        "rating": 2.8,
+      },
+      {
         "monthDay": "08-05",
-        "rating": 4.8,
+        "rating": 4.2,
       },
       {
         "monthDay": "08-21",
-        "rating": 6.8,
+        "rating": 7.1,
       },
       {
         "monthDay": "08-30",
-        "rating": 8.2,
+        "rating": 8.3,
       },
       {
         "monthDay": "09-08",
-        "rating": 7.8,
+        "rating": 8,
       },
       {
         "monthDay": "09-25",
-        "rating": 4.6,
+        "rating": 4,
       },
       {
         "monthDay": "10-12",
@@ -69,23 +69,23 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "11-01",
-        "rating": 1.5,
+        "rating": 1.2,
       },
       {
         "monthDay": "12-15",
-        "rating": 1.4,
+        "rating": 1,
       },
     ],
   },
   {
-    "curveId": "ludington_mi__coho_salmon__v0_1",
+    "curveId": "ludington_mi__coho_salmon__v0_4",
     "cityId": "ludington_mi",
     "speciesId": "coho_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.6,
+        "rating": 1.3,
       },
       {
         "monthDay": "03-10",
@@ -93,15 +93,15 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "04-05",
-        "rating": 5.4,
+        "rating": 2.8,
       },
       {
         "monthDay": "05-05",
-        "rating": 4.9,
+        "rating": 2.7,
       },
       {
         "monthDay": "06-05",
-        "rating": 2.7,
+        "rating": 1.8,
       },
       {
         "monthDay": "07-20",
@@ -113,43 +113,43 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "09-26",
-        "rating": 4.8,
-      },
-      {
-        "monthDay": "10-20",
         "rating": 5,
       },
       {
+        "monthDay": "10-20",
+        "rating": 5.6,
+      },
+      {
         "monthDay": "11-08",
-        "rating": 4.4,
+        "rating": 4.7,
       },
       {
         "monthDay": "12-05",
-        "rating": 2,
+        "rating": 1.7,
       },
     ],
   },
   {
-    "curveId": "ludington_mi__steelhead__v0_1",
+    "curveId": "ludington_mi__steelhead__v0_4",
     "cityId": "ludington_mi",
     "speciesId": "steelhead",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2.4,
+        "rating": 4,
       },
       {
         "monthDay": "03-10",
-        "rating": 3.5,
+        "rating": 4.8,
       },
       {
         "monthDay": "04-05",
-        "rating": 5.8,
+        "rating": 6,
       },
       {
         "monthDay": "05-10",
-        "rating": 4.2,
+        "rating": 3.2,
       },
       {
         "monthDay": "06-15",
@@ -157,7 +157,7 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "08-15",
-        "rating": 2.5,
+        "rating": 1.5,
       },
       {
         "monthDay": "09-25",
@@ -165,55 +165,55 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "10-20",
-        "rating": 5.4,
+        "rating": 8.1,
       },
       {
         "monthDay": "11-08",
-        "rating": 6.2,
+        "rating": 7.2,
       },
       {
         "monthDay": "12-05",
-        "rating": 5.1,
+        "rating": 4.8,
       },
       {
         "monthDay": "12-31",
-        "rating": 2.9,
+        "rating": 4,
       },
     ],
   },
   {
-    "curveId": "ludington_mi__brown_trout__v0_1",
+    "curveId": "ludington_mi__brown_trout__v0_4",
     "cityId": "ludington_mi",
     "speciesId": "brown_trout",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.8,
+        "rating": 4,
       },
       {
         "monthDay": "03-10",
-        "rating": 2.8,
+        "rating": 5.6,
       },
       {
         "monthDay": "04-05",
-        "rating": 5.2,
+        "rating": 7.6,
       },
       {
         "monthDay": "04-25",
-        "rating": 5,
+        "rating": 7.2,
       },
       {
         "monthDay": "05-20",
-        "rating": 3.7,
+        "rating": 5.6,
       },
       {
         "monthDay": "06-20",
-        "rating": 2.3,
+        "rating": 3.4,
       },
       {
         "monthDay": "08-15",
-        "rating": 1.6,
+        "rating": 1.2,
       },
       {
         "monthDay": "10-15",
@@ -221,87 +221,87 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "11-20",
-        "rating": 2.1,
+        "rating": 2.8,
       },
       {
         "monthDay": "12-31",
-        "rating": 1.8,
+        "rating": 4,
       },
     ],
   },
   {
-    "curveId": "grand_haven_mi__chinook_salmon__v0_1",
+    "curveId": "grand_haven_mi__chinook_salmon__v0_4",
     "cityId": "grand_haven_mi",
     "speciesId": "chinook_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.3,
+        "rating": 1,
       },
       {
         "monthDay": "05-15",
-        "rating": 1.9,
-      },
-      {
-        "monthDay": "06-20",
-        "rating": 2.8,
-      },
-      {
-        "monthDay": "07-22",
-        "rating": 5.6,
-      },
-      {
-        "monthDay": "08-05",
-        "rating": 5.2,
-      },
-      {
-        "monthDay": "08-26",
-        "rating": 6.7,
-      },
-      {
-        "monthDay": "09-08",
-        "rating": 6.1,
-      },
-      {
-        "monthDay": "09-28",
         "rating": 3.8,
       },
       {
+        "monthDay": "06-20",
+        "rating": 1.5,
+      },
+      {
+        "monthDay": "07-22",
+        "rating": 3.5,
+      },
+      {
+        "monthDay": "08-05",
+        "rating": 4,
+      },
+      {
+        "monthDay": "08-26",
+        "rating": 6.8,
+      },
+      {
+        "monthDay": "09-08",
+        "rating": 7.8,
+      },
+      {
+        "monthDay": "09-28",
+        "rating": 5.5,
+      },
+      {
         "monthDay": "10-15",
-        "rating": 1.9,
+        "rating": 3.2,
       },
       {
         "monthDay": "12-15",
-        "rating": 1.3,
+        "rating": 1,
       },
     ],
   },
   {
-    "curveId": "grand_haven_mi__coho_salmon__v0_1",
+    "curveId": "grand_haven_mi__coho_salmon__v0_4",
     "cityId": "grand_haven_mi",
     "speciesId": "coho_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.5,
+        "rating": 3.6,
       },
       {
         "monthDay": "03-15",
-        "rating": 2.8,
+        "rating": 5,
       },
       {
         "monthDay": "04-15",
-        "rating": 5.7,
+        "rating": 6,
       },
       {
         "monthDay": "05-07",
-        "rating": 5.1,
+        "rating": 6.8,
       },
       {
         "monthDay": "06-10",
-        "rating": 2.5,
+        "rating": 1.8,
       },
       {
         "monthDay": "07-20",
@@ -309,59 +309,59 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "08-25",
-        "rating": 3.4,
+        "rating": 5.3,
       },
       {
         "monthDay": "09-10",
-        "rating": 4.4,
+        "rating": 8.8,
       },
       {
         "monthDay": "10-27",
-        "rating": 4.6,
+        "rating": 6,
       },
       {
         "monthDay": "11-20",
-        "rating": 2.7,
+        "rating": 2.5,
       },
       {
         "monthDay": "12-31",
-        "rating": 1.5,
+        "rating": 3.6,
       },
     ],
   },
   {
-    "curveId": "grand_haven_mi__steelhead__v0_1",
+    "curveId": "grand_haven_mi__steelhead__v0_4",
     "cityId": "grand_haven_mi",
     "speciesId": "steelhead",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2,
+        "rating": 4,
       },
       {
         "monthDay": "03-15",
-        "rating": 3,
-      },
-      {
-        "monthDay": "04-20",
         "rating": 4.8,
       },
       {
+        "monthDay": "04-20",
+        "rating": 6.5,
+      },
+      {
         "monthDay": "05-10",
-        "rating": 5.1,
+        "rating": 4.8,
       },
       {
         "monthDay": "06-15",
-        "rating": 4.7,
+        "rating": 8.8,
       },
       {
         "monthDay": "07-22",
-        "rating": 5.4,
+        "rating": 8.7,
       },
       {
         "monthDay": "08-20",
-        "rating": 3.7,
+        "rating": 6,
       },
       {
         "monthDay": "09-25",
@@ -369,47 +369,47 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "10-30",
-        "rating": 6.5,
+        "rating": 9.2,
       },
       {
         "monthDay": "11-10",
-        "rating": 5.9,
+        "rating": 7.2,
       },
       {
         "monthDay": "12-31",
-        "rating": 2.3,
+        "rating": 4,
       },
     ],
   },
   {
-    "curveId": "grand_haven_mi__brown_trout__v0_1",
+    "curveId": "grand_haven_mi__brown_trout__v0_4",
     "cityId": "grand_haven_mi",
     "speciesId": "brown_trout",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.7,
+        "rating": 4,
       },
       {
         "monthDay": "03-10",
-        "rating": 2.7,
+        "rating": 5.8,
       },
       {
         "monthDay": "04-15",
-        "rating": 5.5,
+        "rating": 7.6,
       },
       {
         "monthDay": "05-10",
-        "rating": 4.9,
+        "rating": 6,
       },
       {
         "monthDay": "06-15",
-        "rating": 2.6,
+        "rating": 2.5,
       },
       {
         "monthDay": "08-15",
-        "rating": 1.6,
+        "rating": 1,
       },
       {
         "monthDay": "10-20",
@@ -417,23 +417,23 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "12-31",
-        "rating": 1.7,
+        "rating": 4,
       },
     ],
   },
   {
-    "curveId": "manistee_mi__chinook_salmon__v0_1",
+    "curveId": "manistee_mi__chinook_salmon__v0_4",
     "cityId": "manistee_mi",
     "speciesId": "chinook_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.4,
+        "rating": 1,
       },
       {
         "monthDay": "04-15",
-        "rating": 1.8,
+        "rating": 1.2,
       },
       {
         "monthDay": "05-15",
@@ -441,7 +441,7 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "06-03",
-        "rating": 6,
+        "rating": 6.5,
       },
       {
         "monthDay": "06-20",
@@ -453,59 +453,59 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "08-05",
-        "rating": 5,
+        "rating": 5.5,
       },
       {
         "monthDay": "08-20",
-        "rating": 7.8,
+        "rating": 8.5,
       },
       {
         "monthDay": "08-30",
-        "rating": 8.7,
+        "rating": 9.5,
       },
       {
         "monthDay": "09-07",
-        "rating": 8.3,
+        "rating": 9,
       },
       {
         "monthDay": "09-24",
-        "rating": 4.8,
+        "rating": 5.5,
       },
       {
         "monthDay": "10-12",
-        "rating": 2.4,
+        "rating": 5.8,
       },
       {
         "monthDay": "11-15",
-        "rating": 1.6,
+        "rating": 2.2,
       },
       {
         "monthDay": "12-31",
-        "rating": 1.4,
+        "rating": 1,
       },
     ],
   },
   {
-    "curveId": "manistee_mi__coho_salmon__v0_1",
+    "curveId": "manistee_mi__coho_salmon__v0_4",
     "cityId": "manistee_mi",
     "speciesId": "coho_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.9,
+        "rating": 1.5,
       },
       {
         "monthDay": "03-12",
-        "rating": 4.6,
+        "rating": 3,
       },
       {
         "monthDay": "04-12",
-        "rating": 5.8,
+        "rating": 3.5,
       },
       {
         "monthDay": "05-10",
-        "rating": 4.5,
+        "rating": 3.8,
       },
       {
         "monthDay": "06-20",
@@ -517,51 +517,51 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "08-20",
-        "rating": 4.9,
+        "rating": 3.8,
       },
       {
         "monthDay": "09-10",
-        "rating": 6.4,
+        "rating": 6.5,
       },
       {
         "monthDay": "10-05",
-        "rating": 6.7,
+        "rating": 8.2,
       },
       {
         "monthDay": "11-05",
-        "rating": 5.3,
+        "rating": 6.2,
       },
       {
         "monthDay": "12-10",
-        "rating": 2.4,
+        "rating": 1.8,
       },
     ],
   },
   {
-    "curveId": "manistee_mi__steelhead__v0_1",
+    "curveId": "manistee_mi__steelhead__v0_4",
     "cityId": "manistee_mi",
     "speciesId": "steelhead",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2.7,
+        "rating": 3.2,
       },
       {
         "monthDay": "03-12",
-        "rating": 4.8,
+        "rating": 5.7,
       },
       {
         "monthDay": "04-10",
-        "rating": 6.1,
+        "rating": 6.8,
       },
       {
         "monthDay": "05-07",
-        "rating": 5.2,
+        "rating": 4,
       },
       {
         "monthDay": "06-26",
-        "rating": 4.4,
+        "rating": 4.8,
       },
       {
         "monthDay": "07-15",
@@ -573,59 +573,59 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "10-05",
-        "rating": 5.2,
+        "rating": 8.3,
       },
       {
         "monthDay": "10-28",
-        "rating": 6.6,
+        "rating": 10,
       },
       {
         "monthDay": "11-10",
-        "rating": 6.3,
+        "rating": 8.2,
       },
       {
         "monthDay": "12-05",
-        "rating": 5.5,
+        "rating": 6,
       },
       {
         "monthDay": "12-31",
-        "rating": 3.1,
+        "rating": 3.5,
       },
     ],
   },
   {
-    "curveId": "manistee_mi__brown_trout__v0_1",
+    "curveId": "manistee_mi__brown_trout__v0_4",
     "cityId": "manistee_mi",
     "speciesId": "brown_trout",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.9,
+        "rating": 4.2,
       },
       {
         "monthDay": "03-10",
-        "rating": 3.1,
+        "rating": 6,
       },
       {
         "monthDay": "04-10",
-        "rating": 6.2,
+        "rating": 8.2,
       },
       {
         "monthDay": "04-30",
-        "rating": 5.9,
+        "rating": 7.8,
       },
       {
         "monthDay": "05-15",
-        "rating": 4.7,
+        "rating": 6.3,
       },
       {
         "monthDay": "06-20",
-        "rating": 2.6,
+        "rating": 4.2,
       },
       {
         "monthDay": "08-15",
-        "rating": 1.7,
+        "rating": 1,
       },
       {
         "monthDay": "10-15",
@@ -633,23 +633,23 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "12-31",
-        "rating": 1.9,
+        "rating": 4.2,
       },
     ],
   },
   {
-    "curveId": "frankfort_elberta_mi__chinook_salmon__v0_1",
+    "curveId": "frankfort_elberta_mi__chinook_salmon__v0_4",
     "cityId": "frankfort_elberta_mi",
     "speciesId": "chinook_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.3,
+        "rating": 1,
       },
       {
         "monthDay": "04-15",
-        "rating": 1.7,
+        "rating": 1.2,
       },
       {
         "monthDay": "05-20",
@@ -661,31 +661,31 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "06-25",
-        "rating": 5.9,
+        "rating": 4.5,
       },
       {
         "monthDay": "07-20",
-        "rating": 4,
+        "rating": 5.8,
       },
       {
         "monthDay": "08-05",
-        "rating": 5.2,
+        "rating": 8,
       },
       {
         "monthDay": "08-16",
-        "rating": 8.8,
+        "rating": 9.7,
       },
       {
         "monthDay": "08-27",
-        "rating": 8.4,
+        "rating": 9.4,
       },
       {
         "monthDay": "09-10",
-        "rating": 7.4,
+        "rating": 9.2,
       },
       {
         "monthDay": "09-26",
-        "rating": 5.3,
+        "rating": 7.2,
       },
       {
         "monthDay": "10-15",
@@ -693,23 +693,23 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "11-15",
-        "rating": 1.5,
+        "rating": 1,
       },
       {
         "monthDay": "12-31",
-        "rating": 1.3,
+        "rating": 1,
       },
     ],
   },
   {
-    "curveId": "frankfort_elberta_mi__coho_salmon__v0_1",
+    "curveId": "frankfort_elberta_mi__coho_salmon__v0_4",
     "cityId": "frankfort_elberta_mi",
     "speciesId": "coho_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.5,
+        "rating": 1.2,
       },
       {
         "monthDay": "03-15",
@@ -725,43 +725,43 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "08-16",
-        "rating": 4.4,
+        "rating": 6.2,
       },
       {
         "monthDay": "09-15",
-        "rating": 6,
+        "rating": 8.6,
       },
       {
         "monthDay": "10-05",
-        "rating": 6.4,
+        "rating": 7.2,
       },
       {
         "monthDay": "11-01",
-        "rating": 4.8,
+        "rating": 5.3,
       },
       {
         "monthDay": "12-01",
-        "rating": 2,
+        "rating": 1.7,
       },
     ],
   },
   {
-    "curveId": "frankfort_elberta_mi__steelhead__v0_1",
+    "curveId": "frankfort_elberta_mi__steelhead__v0_4",
     "cityId": "frankfort_elberta_mi",
     "speciesId": "steelhead",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2.5,
-      },
-      {
-        "monthDay": "03-10",
         "rating": 4,
       },
       {
+        "monthDay": "03-10",
+        "rating": 6,
+      },
+      {
         "monthDay": "04-02",
-        "rating": 7.2,
+        "rating": 7,
       },
       {
         "monthDay": "04-24",
@@ -769,67 +769,67 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "05-25",
-        "rating": 3.2,
+        "rating": 4.2,
       },
       {
         "monthDay": "07-15",
-        "rating": 2,
+        "rating": 5.2,
       },
       {
         "monthDay": "09-20",
-        "rating": 4.5,
+        "rating": 3.5,
       },
       {
         "monthDay": "10-16",
-        "rating": 8.4,
+        "rating": 9.8,
       },
       {
         "monthDay": "11-01",
-        "rating": 6,
+        "rating": 8,
       },
       {
         "monthDay": "11-25",
-        "rating": 4.5,
+        "rating": 5.2,
       },
       {
         "monthDay": "12-31",
-        "rating": 2.8,
+        "rating": 4,
       },
     ],
   },
   {
-    "curveId": "frankfort_elberta_mi__brown_trout__v0_1",
+    "curveId": "frankfort_elberta_mi__brown_trout__v0_4",
     "cityId": "frankfort_elberta_mi",
     "speciesId": "brown_trout",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.9,
+        "rating": 4.3,
       },
       {
         "monthDay": "03-10",
-        "rating": 3.1,
-      },
-      {
-        "monthDay": "04-05",
         "rating": 6,
       },
       {
+        "monthDay": "04-05",
+        "rating": 7.5,
+      },
+      {
         "monthDay": "05-10",
-        "rating": 4.5,
+        "rating": 7,
       },
       {
         "monthDay": "06-25",
-        "rating": 4.2,
+        "rating": 4.5,
       },
       {
         "monthDay": "07-20",
-        "rating": 2.5,
+        "rating": 3.5,
       },
       {
         "monthDay": "09-01",
-        "rating": 1.8,
+        "rating": 1.3,
       },
       {
         "monthDay": "10-15",
@@ -837,27 +837,27 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "11-20",
-        "rating": 2.4,
+        "rating": 3.2,
       },
       {
         "monthDay": "12-31",
-        "rating": 1.9,
+        "rating": 4.3,
       },
     ],
   },
   {
-    "curveId": "sheboygan_wi__chinook_salmon__v0_1",
+    "curveId": "sheboygan_wi__chinook_salmon__v0_4",
     "cityId": "sheboygan_wi",
     "speciesId": "chinook_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.4,
+        "rating": 1,
       },
       {
         "monthDay": "05-15",
-        "rating": 1.8,
+        "rating": 1.4,
       },
       {
         "monthDay": "06-20",
@@ -865,27 +865,27 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "07-20",
-        "rating": 3.4,
+        "rating": 4.8,
       },
       {
         "monthDay": "08-05",
-        "rating": 4.7,
+        "rating": 7,
       },
       {
         "monthDay": "08-18",
-        "rating": 6.6,
+        "rating": 8.6,
       },
       {
         "monthDay": "08-31",
-        "rating": 8.3,
+        "rating": 9.6,
       },
       {
         "monthDay": "09-12",
-        "rating": 7.6,
+        "rating": 8.8,
       },
       {
         "monthDay": "10-01",
-        "rating": 5.2,
+        "rating": 6,
       },
       {
         "monthDay": "10-31",
@@ -893,51 +893,51 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "12-15",
-        "rating": 1.4,
+        "rating": 1,
       },
     ],
   },
   {
-    "curveId": "sheboygan_wi__coho_salmon__v0_1",
+    "curveId": "sheboygan_wi__coho_salmon__v0_4",
     "cityId": "sheboygan_wi",
     "speciesId": "coho_salmon",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 1.5,
+        "rating": 1.2,
       },
       {
         "monthDay": "03-15",
-        "rating": 2.8,
+        "rating": 5.2,
       },
       {
         "monthDay": "04-15",
-        "rating": 4.8,
+        "rating": 7.7,
       },
       {
         "monthDay": "05-15",
-        "rating": 4.2,
+        "rating": 7,
       },
       {
         "monthDay": "06-20",
-        "rating": 2.4,
+        "rating": 4.5,
       },
       {
-        "monthDay": "07-25",
-        "rating": 2,
+        "monthDay": "07-15",
+        "rating": 7.5,
       },
       {
-        "monthDay": "08-25",
-        "rating": 3.8,
+        "monthDay": "08-13",
+        "rating": 6.2,
       },
       {
-        "monthDay": "09-15",
-        "rating": 5.1,
+        "monthDay": "09-09",
+        "rating": 7,
       },
       {
-        "monthDay": "10-15",
-        "rating": 4.2,
+        "monthDay": "10-19",
+        "rating": 5.4,
       },
       {
         "monthDay": "11-15",
@@ -945,95 +945,99 @@ export const PIER_CAST_CORE_SEASONAL_CURVES = [
       },
       {
         "monthDay": "12-31",
-        "rating": 1.5,
+        "rating": 1.2,
       },
     ],
   },
   {
-    "curveId": "sheboygan_wi__steelhead__v0_1",
+    "curveId": "sheboygan_wi__steelhead__v0_4",
     "cityId": "sheboygan_wi",
     "speciesId": "steelhead",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2.1,
+        "rating": 2.8,
       },
       {
         "monthDay": "03-15",
-        "rating": 3.5,
+        "rating": 5.2,
       },
       {
         "monthDay": "04-20",
-        "rating": 5.3,
+        "rating": 6.8,
       },
       {
         "monthDay": "05-25",
-        "rating": 4.4,
-      },
-      {
-        "monthDay": "07-15",
-        "rating": 3.5,
-      },
-      {
-        "monthDay": "08-25",
-        "rating": 3.8,
-      },
-      {
-        "monthDay": "10-10",
         "rating": 5.5,
       },
       {
+        "monthDay": "07-15",
+        "rating": 7.3,
+      },
+      {
+        "monthDay": "08-25",
+        "rating": 5.3,
+      },
+      {
+        "monthDay": "10-10",
+        "rating": 6.3,
+      },
+      {
         "monthDay": "11-15",
-        "rating": 4.4,
+        "rating": 4,
       },
       {
         "monthDay": "12-31",
-        "rating": 2.4,
+        "rating": 3,
       },
     ],
   },
   {
-    "curveId": "sheboygan_wi__brown_trout__v0_1",
+    "curveId": "sheboygan_wi__brown_trout__v0_4",
     "cityId": "sheboygan_wi",
     "speciesId": "brown_trout",
     "calibrationStatus": "provisional",
     "knots": [
       {
         "monthDay": "01-15",
-        "rating": 2.2,
+        "rating": 4.2,
       },
       {
         "monthDay": "03-10",
-        "rating": 3.4,
+        "rating": 6.8,
       },
       {
         "monthDay": "04-15",
-        "rating": 4.9,
+        "rating": 7.8,
       },
       {
         "monthDay": "05-20",
-        "rating": 4,
+        "rating": 7.2,
       },
       {
         "monthDay": "07-15",
-        "rating": 2.2,
+        "rating": 2,
       },
       {
-        "monthDay": "09-10",
-        "rating": 3.1,
+        "monthDay": "08-13",
+        "rating": 3,
       },
       {
-        "monthDay": "10-20",
-        "rating": 4.4,
+        "monthDay": "09-09",
+        "rating": 4.5,
+      },
+      {
+        "monthDay": "10-19",
+        "rating": 4.2,
       },
       {
         "monthDay": "11-25",
-        "rating": 3.6,
+        "rating": 3.8,
       },
       {
         "monthDay": "12-31",
-        "rating": 2.4,
+        "rating": 4.2,
       },
     ],
   },

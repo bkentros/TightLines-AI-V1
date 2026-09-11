@@ -26,7 +26,8 @@ export function buildPierCastCatalog(
     ratingName: "FinFindr Opportunity Rating",
     ratingDisplayFormat: "X.X/10",
     formulaVersion: PIER_CAST_FORMULA_VERSION,
-    formula: "1 + (seasonalRating - 1) * temperatureSuitability",
+    formula:
+      "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))",
     winterOpenWaterNotice: PIER_CAST_OPEN_WATER_NOTICE,
     disclosure: PIER_CAST_RATING_DISCLOSURE,
     cities,

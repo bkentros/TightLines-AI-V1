@@ -1,8 +1,8 @@
 {
-  "researchVersion": "piercast-core-seasonal-v0.1.0",
-  "researchedAt": "2026-09-09",
+  "researchVersion": "piercast-core-seasonal-v0.4.0",
+  "researchedAt": "2026-09-10",
   "status": "provisional_research_calibration",
-  "scoreSemantics": "FinFindr Seasonal Pier Opportunity Ceiling under supportive water temperature; not fish presence, catch probability, or an agency rating.",
+  "scoreSemantics": "FinFindr Seasonal Pier Opportunity Rating under broadly supportive water temperature; not fish presence, catch probability, an absolute ceiling, or an agency rating.",
   "interpolation": "piecewise_linear_recurring_month_day",
   "numericPrecision": "one_decimal_at_knots_full_precision_between_knots",
   "scope": {
@@ -20,82 +20,148 @@
       "brown_trout"
     ]
   },
+  "sharedCalibrationEvidence": {
+    "michiganCurveIds": [
+      "M3",
+      "M4",
+      "M5"
+    ],
+    "sheboyganCurveIds": [
+      "W3",
+      "W4",
+      "W5",
+      "W6"
+    ]
+  },
   "curves": [
     {
-      "curveId": "ludington_mi__chinook_salmon__v0_1",
+      "curveId": "ludington_mi__chinook_salmon__v0_4",
       "cityId": "ludington_mi",
       "speciesId": "chinook_salmon",
-      "confidence": "medium",
-      "evidenceIds": ["F5", "F6", "F10", "F41", "F43", "F44", "F45"],
-      "limitations": "Direct pier evidence supports early June and late-August to September access, but effort-standardized pier catch rates are unavailable and the DNR stub-pier identity is unresolved.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F5",
+        "F6",
+        "F10",
+        "F41",
+        "F43",
+        "F44",
+        "F45"
+      ],
+      "limitations": "The 1997-2022 Michigan DNR Pier/Dock creel series establishes the broad seasonal pattern and direct reports refine peak timing. The public series ends in 2022, monthly estimates cannot resolve individual weeks, and the DNR stub-pier identity remains unresolved.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.4, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "04-15",
-          "rating": 1.7,
+          "rating": 1.3,
           "basis": "pre_window_transition"
         },
-        { "monthDay": "05-15", "rating": 3.0, "basis": "early_feeding_window" },
+        {
+          "monthDay": "05-15",
+          "rating": 3.3,
+          "basis": "early_feeding_window"
+        },
         {
           "monthDay": "06-03",
-          "rating": 5.8,
+          "rating": 5,
           "basis": "documented_pier_occurrence",
-          "evidenceIds": ["F5"]
+          "evidenceIds": [
+            "F5"
+          ]
         },
         {
           "monthDay": "06-24",
-          "rating": 4.1,
+          "rating": 3.6,
           "basis": "post_early_window_decline"
         },
         {
           "monthDay": "07-20",
-          "rating": 3.6,
+          "rating": 2.8,
           "basis": "offshore_dominant_interval"
         },
         {
           "monthDay": "08-05",
-          "rating": 4.8,
+          "rating": 4.2,
           "basis": "documented_limited_pier_occurrence",
-          "evidenceIds": ["F43"]
+          "evidenceIds": [
+            "F43"
+          ]
         },
         {
           "monthDay": "08-21",
-          "rating": 6.8,
+          "rating": 7.1,
           "basis": "documented_pier_salmon_occurrence",
-          "evidenceIds": ["F41"]
+          "evidenceIds": [
+            "F41"
+          ]
         },
         {
           "monthDay": "08-30",
-          "rating": 8.2,
+          "rating": 8.3,
           "basis": "staging_peak_calibration",
-          "evidenceIds": ["F44"]
+          "evidenceIds": [
+            "F44"
+          ]
         },
         {
           "monthDay": "09-08",
-          "rating": 7.8,
+          "rating": 8,
           "basis": "documented_staging_window",
-          "evidenceIds": ["F6", "F45"]
+          "evidenceIds": [
+            "F6",
+            "F45"
+          ]
         },
         {
           "monthDay": "09-25",
-          "rating": 4.6,
+          "rating": 4,
           "basis": "documented_late_decline",
-          "evidenceIds": ["F10"]
+          "evidenceIds": [
+            "F10"
+          ]
         },
-        { "monthDay": "10-12", "rating": 2.1, "basis": "post_run_decline" },
-        { "monthDay": "11-01", "rating": 1.5, "basis": "broad_slow_period" },
-        { "monthDay": "12-15", "rating": 1.4, "basis": "broad_slow_period" }
+        {
+          "monthDay": "10-12",
+          "rating": 2.1,
+          "basis": "post_run_decline"
+        },
+        {
+          "monthDay": "11-01",
+          "rating": 1.2,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "12-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "ludington_mi__coho_salmon__v0_1",
+      "curveId": "ludington_mi__coho_salmon__v0_4",
       "cityId": "ludington_mi",
       "speciesId": "coho_salmon",
-      "confidence": "medium_low",
-      "evidenceIds": ["F2", "F7", "F9", "F33", "F35", "F46", "F49"],
-      "limitations": "Spring and fall pier occurrence is documented, but much fall support is historical or mixed pier/shore and does not establish a high ceiling.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F2",
+        "F7",
+        "F9",
+        "F33",
+        "F35",
+        "F46",
+        "F49"
+      ],
+      "limitations": "The official Pier/Dock series supports a modest September-October window and does not support the former spring maximum. Exact weekly timing after 2022 remains dependent on qualitative reports.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.6, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1.3,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "03-10",
           "rating": 2.4,
@@ -103,79 +169,119 @@
         },
         {
           "monthDay": "04-05",
-          "rating": 5.4,
+          "rating": 2.8,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F2", "F46"]
+          "evidenceIds": [
+            "F2",
+            "F46"
+          ]
         },
         {
           "monthDay": "05-05",
-          "rating": 4.9,
+          "rating": 2.7,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F9"]
+          "evidenceIds": [
+            "F9"
+          ]
         },
         {
           "monthDay": "06-05",
-          "rating": 2.7,
+          "rating": 1.8,
           "basis": "spring_window_decline"
         },
-        { "monthDay": "07-20", "rating": 1.8, "basis": "broad_slow_period" },
+        {
+          "monthDay": "07-20",
+          "rating": 1.8,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "08-25",
-          "rating": 3.0,
+          "rating": 3,
           "basis": "fall_arrival_transition"
         },
         {
           "monthDay": "09-26",
-          "rating": 4.8,
+          "rating": 5,
           "basis": "documented_fall_occurrence",
-          "evidenceIds": ["F7"]
+          "evidenceIds": [
+            "F7"
+          ]
         },
         {
           "monthDay": "10-20",
-          "rating": 5.0,
+          "rating": 5.6,
           "basis": "fall_peak_calibration",
-          "evidenceIds": ["F49"]
+          "evidenceIds": [
+            "F49"
+          ]
         },
         {
           "monthDay": "11-08",
-          "rating": 4.4,
+          "rating": 4.7,
           "basis": "documented_late_occurrence",
-          "evidenceIds": ["F33", "F35"]
+          "evidenceIds": [
+            "F33",
+            "F35"
+          ]
         },
-        { "monthDay": "12-05", "rating": 2.0, "basis": "late_window_decline" }
+        {
+          "monthDay": "12-05",
+          "rating": 1.7,
+          "basis": "late_window_decline"
+        }
       ]
     },
     {
-      "curveId": "ludington_mi__steelhead__v0_1",
+      "curveId": "ludington_mi__steelhead__v0_4",
       "cityId": "ludington_mi",
       "speciesId": "steelhead",
-      "confidence": "medium",
-      "evidenceIds": ["F1", "F2", "F3", "F4", "F33", "F35", "F49", "F50"],
-      "limitations": "Two cool-season windows are supported, but winter access and January-February pier data are unresolved; isolated summer opportunity remains temperature dependent.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F33",
+        "F35",
+        "F49",
+        "F50"
+      ],
+      "limitations": "The official Pier/Dock series strongly supports October and moderately supports April. January-March opportunity is supported by Michigan DNR guidance but lacks comparable monthly creel coverage and remains access-dependent.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.4,
+          "rating": 4,
           "basis": "winter_uncertain_open_water"
         },
         {
           "monthDay": "03-10",
-          "rating": 3.5,
+          "rating": 4.8,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-05",
-          "rating": 5.8,
+          "rating": 6,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F1", "F2"]
+          "evidenceIds": [
+            "F1",
+            "F2"
+          ]
         },
-        { "monthDay": "05-10", "rating": 4.2, "basis": "spring_decline" },
+        {
+          "monthDay": "05-10",
+          "rating": 3.2,
+          "basis": "spring_decline"
+        },
         {
           "monthDay": "06-15",
           "rating": 2.8,
           "basis": "limited_summer_access"
         },
-        { "monthDay": "08-15", "rating": 2.5, "basis": "broad_slow_period" },
+        {
+          "monthDay": "08-15",
+          "rating": 1.5,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "09-25",
           "rating": 3.4,
@@ -183,164 +289,282 @@
         },
         {
           "monthDay": "10-20",
-          "rating": 5.4,
+          "rating": 8.1,
           "basis": "documented_fall_occurrence",
-          "evidenceIds": ["F49"]
+          "evidenceIds": [
+            "F49"
+          ]
         },
         {
           "monthDay": "11-08",
-          "rating": 6.2,
+          "rating": 7.2,
           "basis": "documented_fall_peak",
-          "evidenceIds": ["F3", "F33", "F35"]
+          "evidenceIds": [
+            "F3",
+            "F33",
+            "F35"
+          ]
         },
         {
           "monthDay": "12-05",
-          "rating": 5.1,
+          "rating": 4.8,
           "basis": "documented_early_winter_occurrence",
-          "evidenceIds": ["F4"]
+          "evidenceIds": [
+            "F4"
+          ]
         },
         {
           "monthDay": "12-31",
-          "rating": 2.9,
+          "rating": 4,
           "basis": "winter_uncertainty_transition"
         }
       ]
     },
     {
-      "curveId": "ludington_mi__brown_trout__v0_1",
+      "curveId": "ludington_mi__brown_trout__v0_4",
       "cityId": "ludington_mi",
       "speciesId": "brown_trout",
-      "confidence": "medium_low",
-      "evidenceIds": ["F1", "F2", "F39", "F46", "F47", "M2"],
-      "limitations": "Repeated spring evidence supports a modest pier opportunity; most broader local brown-trout evidence is trolling rather than casting from the covered pier.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F1",
+        "F2",
+        "F39",
+        "F46",
+        "F47",
+        "M2"
+      ],
+      "limitations": "The official Pier/Dock series confirms a recurring April-May fishery and Michigan DNR identifies a January-March port opportunity, but recent catches are variable and the public quantitative series ends in 2022.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.8, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
+        },
         {
           "monthDay": "03-10",
-          "rating": 2.8,
+          "rating": 5.6,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-05",
-          "rating": 5.2,
+          "rating": 7.6,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F1", "F2", "F39"]
+          "evidenceIds": [
+            "F1",
+            "F2",
+            "F39"
+          ]
         },
-        { "monthDay": "04-25", "rating": 5.0, "basis": "spring_plateau" },
-        { "monthDay": "05-20", "rating": 3.7, "basis": "spring_decline" },
+        {
+          "monthDay": "04-25",
+          "rating": 7.2,
+          "basis": "spring_plateau"
+        },
+        {
+          "monthDay": "05-20",
+          "rating": 5.6,
+          "basis": "spring_decline"
+        },
         {
           "monthDay": "06-20",
-          "rating": 2.3,
+          "rating": 3.4,
           "basis": "warm_season_transition"
         },
-        { "monthDay": "08-15", "rating": 1.6, "basis": "broad_slow_period" },
-        { "monthDay": "10-15", "rating": 2.2, "basis": "weak_fall_context" },
-        { "monthDay": "11-20", "rating": 2.1, "basis": "late_fall_context" },
-        { "monthDay": "12-31", "rating": 1.8, "basis": "broad_slow_period" }
+        {
+          "monthDay": "08-15",
+          "rating": 1.2,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "10-15",
+          "rating": 2.2,
+          "basis": "weak_fall_context"
+        },
+        {
+          "monthDay": "11-20",
+          "rating": 2.8,
+          "basis": "late_fall_context"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
+        }
       ]
     },
     {
-      "curveId": "grand_haven_mi__chinook_salmon__v0_1",
+      "curveId": "grand_haven_mi__chinook_salmon__v0_4",
       "cityId": "grand_haven_mi",
       "speciesId": "chinook_salmon",
-      "confidence": "medium_low",
-      "evidenceIds": ["F12", "F18", "F43", "F44", "F45", "F48", "M1"],
-      "limitations": "Summer and staging-season pier occurrence is direct, but reports often say only salmon and the active scope excludes the closed North Pier.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F12",
+        "F18",
+        "F43",
+        "F44",
+        "F45",
+        "F48",
+        "M1"
+      ],
+      "limitations": "The official Pier/Dock series moves the recurring maximum to September; direct reports refine the late-August transition. Historical observations can include the North Pier, which is outside the active coverage scope while closed.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.3, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "05-15",
-          "rating": 1.9,
-          "basis": "pre_window_transition"
+          "rating": 3.8,
+          "basis": "documented_may_shoulder"
         },
         {
           "monthDay": "06-20",
-          "rating": 2.8,
-          "basis": "early_summer_transition"
+          "rating": 1.5,
+          "basis": "early_summer_lull"
         },
         {
           "monthDay": "07-22",
-          "rating": 5.6,
+          "rating": 3.5,
           "basis": "documented_pier_occurrence",
-          "evidenceIds": ["F12"]
+          "evidenceIds": [
+            "F12"
+          ]
         },
         {
           "monthDay": "08-05",
-          "rating": 5.2,
+          "rating": 4,
           "basis": "documented_mixed_salmon_occurrence",
-          "evidenceIds": ["F43"]
+          "evidenceIds": [
+            "F43"
+          ]
         },
         {
           "monthDay": "08-26",
-          "rating": 6.7,
+          "rating": 6.8,
           "basis": "documented_pierhead_salmon_window",
-          "evidenceIds": ["F18", "F44"]
+          "evidenceIds": [
+            "F18",
+            "F44"
+          ]
         },
         {
           "monthDay": "09-08",
-          "rating": 6.1,
+          "rating": 7.8,
           "basis": "staging_window_calibration",
-          "evidenceIds": ["F45"]
+          "evidenceIds": [
+            "F45"
+          ]
         },
         {
           "monthDay": "09-28",
-          "rating": 3.8,
+          "rating": 5.5,
           "basis": "documented_late_decline"
         },
-        { "monthDay": "10-15", "rating": 1.9, "basis": "post_run_decline" },
-        { "monthDay": "12-15", "rating": 1.3, "basis": "broad_slow_period" }
+        {
+          "monthDay": "10-15",
+          "rating": 3.2,
+          "basis": "post_peak_decline"
+        },
+        {
+          "monthDay": "12-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "grand_haven_mi__coho_salmon__v0_1",
+      "curveId": "grand_haven_mi__coho_salmon__v0_4",
       "cityId": "grand_haven_mi",
       "speciesId": "coho_salmon",
-      "confidence": "medium_low",
-      "evidenceIds": ["F16", "F17", "F37", "F46", "F47", "F52", "M1"],
-      "limitations": "The spring window is current and direct; fall pier support is older and commonly reports mixed salmon rather than species-specific coho.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F16",
+        "F17",
+        "F37",
+        "F46",
+        "F47",
+        "F52",
+        "M1"
+      ],
+      "limitations": "The 1997-2022 Pier/Dock series shows a recurring September maximum and a secondary April-May window. Exact week-level magnitude after 2022 and transfer from the excluded North Pier remain limitations.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.5, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 3.6,
+          "basis": "winter_open_water_opportunity"
+        },
         {
           "monthDay": "03-15",
-          "rating": 2.8,
+          "rating": 5,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-15",
-          "rating": 5.7,
+          "rating": 6,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F16", "F46", "F47"]
+          "evidenceIds": [
+            "F16",
+            "F46",
+            "F47"
+          ]
         },
         {
           "monthDay": "05-07",
-          "rating": 5.1,
+          "rating": 6.8,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F17"]
+          "evidenceIds": [
+            "F17"
+          ]
         },
-        { "monthDay": "06-10", "rating": 2.5, "basis": "spring_decline" },
-        { "monthDay": "07-20", "rating": 1.7, "basis": "broad_slow_period" },
-        { "monthDay": "08-25", "rating": 3.4, "basis": "mixed_salmon_arrival" },
+        {
+          "monthDay": "06-10",
+          "rating": 1.8,
+          "basis": "spring_decline"
+        },
+        {
+          "monthDay": "07-20",
+          "rating": 1.7,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "08-25",
+          "rating": 5.3,
+          "basis": "mixed_salmon_arrival"
+        },
         {
           "monthDay": "09-10",
-          "rating": 4.4,
+          "rating": 8.8,
           "basis": "historical_species_specific_occurrence",
-          "evidenceIds": ["F37"]
+          "evidenceIds": [
+            "F37"
+          ]
         },
         {
           "monthDay": "10-27",
-          "rating": 4.6,
+          "rating": 6,
           "basis": "documented_late_occurrence",
-          "evidenceIds": ["F52"]
+          "evidenceIds": [
+            "F52"
+          ]
         },
-        { "monthDay": "11-20", "rating": 2.7, "basis": "late_window_decline" },
-        { "monthDay": "12-31", "rating": 1.5, "basis": "broad_slow_period" }
+        {
+          "monthDay": "11-20",
+          "rating": 2.5,
+          "basis": "late_window_decline"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 3.6,
+          "basis": "winter_open_water_opportunity"
+        }
       ]
     },
     {
-      "curveId": "grand_haven_mi__steelhead__v0_1",
+      "curveId": "grand_haven_mi__steelhead__v0_4",
       "cityId": "grand_haven_mi",
       "speciesId": "steelhead",
-      "confidence": "medium",
+      "confidence": "medium_high",
       "evidenceIds": [
         "F13",
         "F14",
@@ -352,42 +576,54 @@
         "F49",
         "F50"
       ],
-      "limitations": "Direct reports support spring, episodic June-July, and a stronger October-November window; summer opportunity is highly temperature-sensitive.",
+      "limitations": "The official Pier/Dock record strongly supports June-July and October windows, including high recurrence. Exact weekly strength remains temperature-sensitive and historical observations can include the excluded North Pier.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.0,
-          "basis": "winter_uncertain_open_water"
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
         },
         {
           "monthDay": "03-15",
-          "rating": 3.0,
+          "rating": 4.8,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-20",
-          "rating": 4.8,
+          "rating": 6.5,
           "basis": "documented_spring_occurrence"
         },
         {
           "monthDay": "05-10",
-          "rating": 5.1,
-          "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F13"]
+          "rating": 4.8,
+          "basis": "documented_spring_shoulder",
+          "evidenceIds": [
+            "F13"
+          ]
         },
         {
           "monthDay": "06-15",
-          "rating": 4.7,
+          "rating": 8.8,
           "basis": "documented_summer_occurrence",
-          "evidenceIds": ["F14", "F34"]
+          "evidenceIds": [
+            "F14",
+            "F34"
+          ]
         },
         {
           "monthDay": "07-22",
-          "rating": 5.4,
+          "rating": 8.7,
           "basis": "documented_summer_occurrence",
-          "evidenceIds": ["F38", "F42"]
+          "evidenceIds": [
+            "F38",
+            "F42"
+          ]
         },
-        { "monthDay": "08-20", "rating": 3.7, "basis": "warm_period_decline" },
+        {
+          "monthDay": "08-20",
+          "rating": 6,
+          "basis": "late_summer_decline"
+        },
         {
           "monthDay": "09-25",
           "rating": 3.4,
@@ -395,81 +631,139 @@
         },
         {
           "monthDay": "10-30",
-          "rating": 6.5,
+          "rating": 9.2,
           "basis": "documented_fall_peak",
-          "evidenceIds": ["F49", "F50"]
+          "evidenceIds": [
+            "F49",
+            "F50"
+          ]
         },
         {
           "monthDay": "11-10",
-          "rating": 5.9,
+          "rating": 7.2,
           "basis": "documented_late_fall_occurrence",
-          "evidenceIds": ["F15"]
+          "evidenceIds": [
+            "F15"
+          ]
         },
         {
           "monthDay": "12-31",
-          "rating": 2.3,
-          "basis": "winter_uncertainty_transition"
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
         }
       ]
     },
     {
-      "curveId": "grand_haven_mi__brown_trout__v0_1",
+      "curveId": "grand_haven_mi__brown_trout__v0_4",
       "cityId": "grand_haven_mi",
       "speciesId": "brown_trout",
-      "confidence": "medium_low",
-      "evidenceIds": ["F13", "F16", "F36", "F46", "F47", "M2"],
-      "limitations": "A repeatable April-May pier window is supported, but the peak ceiling remains conservative because catch reports are generally described as a few fish.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F13",
+        "F16",
+        "F36",
+        "F46",
+        "F47",
+        "M2"
+      ],
+      "limitations": "The official Pier/Dock record confirms a highly recurrent April window, while recent stocking supports continued local relevance. January-March ratings remain conditional on safe open-water access.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.7, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
+        },
         {
           "monthDay": "03-10",
-          "rating": 2.7,
+          "rating": 5.8,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-15",
-          "rating": 5.5,
+          "rating": 7.6,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F16", "F36", "F46", "F47"]
+          "evidenceIds": [
+            "F16",
+            "F36",
+            "F46",
+            "F47"
+          ]
         },
         {
           "monthDay": "05-10",
-          "rating": 4.9,
+          "rating": 6,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F13"]
+          "evidenceIds": [
+            "F13"
+          ]
         },
-        { "monthDay": "06-15", "rating": 2.6, "basis": "spring_decline" },
-        { "monthDay": "08-15", "rating": 1.6, "basis": "broad_slow_period" },
-        { "monthDay": "10-20", "rating": 2.2, "basis": "weak_fall_context" },
-        { "monthDay": "12-31", "rating": 1.7, "basis": "broad_slow_period" }
+        {
+          "monthDay": "06-15",
+          "rating": 2.5,
+          "basis": "spring_decline"
+        },
+        {
+          "monthDay": "08-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "10-20",
+          "rating": 2.2,
+          "basis": "weak_fall_context"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
+        }
       ]
     },
     {
-      "curveId": "manistee_mi__chinook_salmon__v0_1",
+      "curveId": "manistee_mi__chinook_salmon__v0_4",
       "cityId": "manistee_mi",
       "speciesId": "chinook_salmon",
       "confidence": "medium_high",
-      "evidenceIds": ["F5", "F6", "F10", "F41", "F43", "F44", "F45", "F51"],
+      "evidenceIds": [
+        "F5",
+        "F6",
+        "F10",
+        "F41",
+        "F43",
+        "F44",
+        "F45",
+        "F51"
+      ],
       "limitations": "Multiple years support both early-summer and late-August/September pier opportunity; reports mix the North Pier, closed south-side structures, channel, and harbor in some weeks.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.4, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "04-15",
-          "rating": 1.8,
+          "rating": 1.2,
           "basis": "pre_window_transition"
         },
         {
           "monthDay": "05-15",
-          "rating": 3.0,
+          "rating": 3,
           "basis": "early_feeding_transition"
         },
         {
           "monthDay": "06-03",
-          "rating": 6.0,
+          "rating": 6.5,
           "basis": "documented_pier_occurrence",
-          "evidenceIds": ["F5"]
+          "evidenceIds": [
+            "F5"
+          ]
         },
-        { "monthDay": "06-20", "rating": 4.8, "basis": "early_window_decline" },
+        {
+          "monthDay": "06-20",
+          "rating": 4.8,
+          "basis": "early_window_decline"
+        },
         {
           "monthDay": "07-20",
           "rating": 3.6,
@@ -477,100 +771,159 @@
         },
         {
           "monthDay": "08-05",
-          "rating": 5.0,
+          "rating": 5.5,
           "basis": "documented_limited_pier_occurrence",
-          "evidenceIds": ["F43"]
+          "evidenceIds": [
+            "F43"
+          ]
         },
         {
           "monthDay": "08-20",
-          "rating": 7.8,
+          "rating": 8.5,
           "basis": "documented_pier_salmon_window",
-          "evidenceIds": ["F41", "F51"]
+          "evidenceIds": [
+            "F41",
+            "F51"
+          ]
         },
         {
           "monthDay": "08-30",
-          "rating": 8.7,
+          "rating": 9.5,
           "basis": "staging_peak_calibration",
-          "evidenceIds": ["F44"]
+          "evidenceIds": [
+            "F44"
+          ]
         },
         {
           "monthDay": "09-07",
-          "rating": 8.3,
+          "rating": 9,
           "basis": "documented_staging_window",
-          "evidenceIds": ["F6", "F45"]
+          "evidenceIds": [
+            "F6",
+            "F45"
+          ]
         },
         {
           "monthDay": "09-24",
-          "rating": 4.8,
+          "rating": 5.5,
           "basis": "documented_late_decline",
-          "evidenceIds": ["F10"]
+          "evidenceIds": [
+            "F10"
+          ]
         },
-        { "monthDay": "10-12", "rating": 2.4, "basis": "post_run_decline" },
-        { "monthDay": "11-15", "rating": 1.6, "basis": "broad_slow_period" },
-        { "monthDay": "12-31", "rating": 1.4, "basis": "broad_slow_period" }
+        {
+          "monthDay": "10-12",
+          "rating": 5.8,
+          "basis": "documented_late_window"
+        },
+        {
+          "monthDay": "11-15",
+          "rating": 2.2,
+          "basis": "post_run_decline"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "manistee_mi__coho_salmon__v0_1",
+      "curveId": "manistee_mi__coho_salmon__v0_4",
       "cityId": "manistee_mi",
       "speciesId": "coho_salmon",
-      "confidence": "medium",
-      "evidenceIds": ["A12", "F2", "F25", "F26", "F35", "F36", "F41", "F51"],
-      "limitations": "Spring and fall occurrences are direct across several years, but effort and structure-specific catch rates are not available.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "A12",
+        "F2",
+        "F25",
+        "F26",
+        "F35",
+        "F36",
+        "F41",
+        "F51"
+      ],
+      "limitations": "The official Pier/Dock series supports October as the clear recurring maximum and does not support the former strong April peak. North-Pier-only transfer and post-2022 weekly magnitude remain limitations.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 1.9,
+          "rating": 1.5,
           "basis": "winter_uncertain_open_water"
         },
         {
           "monthDay": "03-12",
-          "rating": 4.6,
+          "rating": 3,
           "basis": "documented_early_spring_occurrence",
-          "evidenceIds": ["A12"]
+          "evidenceIds": [
+            "A12"
+          ]
         },
         {
           "monthDay": "04-12",
-          "rating": 5.8,
+          "rating": 3.5,
           "basis": "documented_spring_peak",
-          "evidenceIds": ["F2", "F36"]
+          "evidenceIds": [
+            "F2",
+            "F36"
+          ]
         },
-        { "monthDay": "05-10", "rating": 4.5, "basis": "spring_decline" },
+        {
+          "monthDay": "05-10",
+          "rating": 3.8,
+          "basis": "spring_decline"
+        },
         {
           "monthDay": "06-20",
           "rating": 2.3,
           "basis": "broad_slow_transition"
         },
-        { "monthDay": "07-25", "rating": 2.0, "basis": "broad_slow_period" },
+        {
+          "monthDay": "07-25",
+          "rating": 2,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "08-20",
-          "rating": 4.9,
+          "rating": 3.8,
           "basis": "documented_fall_arrival",
-          "evidenceIds": ["F41", "F51"]
+          "evidenceIds": [
+            "F41",
+            "F51"
+          ]
         },
         {
           "monthDay": "09-10",
-          "rating": 6.4,
+          "rating": 6.5,
           "basis": "documented_fall_occurrence",
-          "evidenceIds": ["F26"]
+          "evidenceIds": [
+            "F26"
+          ]
         },
         {
           "monthDay": "10-05",
-          "rating": 6.7,
+          "rating": 8.2,
           "basis": "fall_peak_calibration",
-          "evidenceIds": ["F25"]
+          "evidenceIds": [
+            "F25"
+          ]
         },
         {
           "monthDay": "11-05",
-          "rating": 5.3,
+          "rating": 6.2,
           "basis": "documented_late_occurrence",
-          "evidenceIds": ["F35"]
+          "evidenceIds": [
+            "F35"
+          ]
         },
-        { "monthDay": "12-10", "rating": 2.4, "basis": "late_window_decline" }
+        {
+          "monthDay": "12-10",
+          "rating": 1.8,
+          "basis": "late_window_decline"
+        }
       ]
     },
     {
-      "curveId": "manistee_mi__steelhead__v0_1",
+      "curveId": "manistee_mi__steelhead__v0_4",
       "cityId": "manistee_mi",
       "speciesId": "steelhead",
       "confidence": "medium_high",
@@ -587,79 +940,102 @@
         "F42",
         "F49"
       ],
-      "limitations": "This is the best-supported broad cool-season profile in the pilot, though winter access and exact North-Pier-only strength remain unresolved.",
+      "limitations": "The official Pier/Dock series establishes an exceptionally recurrent October fishery and supports a smaller spring window. Winter access and exact North-Pier-only strength remain unresolved.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.7,
+          "rating": 3.2,
           "basis": "winter_uncertain_open_water"
         },
         {
           "monthDay": "03-12",
-          "rating": 4.8,
+          "rating": 5.7,
           "basis": "documented_spring_arrival",
-          "evidenceIds": ["A12"]
+          "evidenceIds": [
+            "A12"
+          ]
         },
         {
           "monthDay": "04-10",
-          "rating": 6.1,
+          "rating": 6.8,
           "basis": "documented_spring_peak",
-          "evidenceIds": ["F1", "F27"]
+          "evidenceIds": [
+            "F1",
+            "F27"
+          ]
         },
         {
           "monthDay": "05-07",
-          "rating": 5.2,
-          "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F23"]
+          "rating": 4,
+          "basis": "documented_spring_shoulder",
+          "evidenceIds": [
+            "F23"
+          ]
         },
         {
           "monthDay": "06-26",
-          "rating": 4.4,
+          "rating": 4.8,
           "basis": "documented_lake_side_occurrence",
-          "evidenceIds": ["F24"]
+          "evidenceIds": [
+            "F24"
+          ]
         },
         {
           "monthDay": "07-15",
           "rating": 3.2,
           "basis": "documented_low_summer_success",
-          "evidenceIds": ["F42"]
+          "evidenceIds": [
+            "F42"
+          ]
         },
-        { "monthDay": "08-25", "rating": 3.0, "basis": "broad_slow_period" },
+        {
+          "monthDay": "08-25",
+          "rating": 3,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "10-05",
-          "rating": 5.2,
+          "rating": 8.3,
           "basis": "fall_arrival_transition"
         },
         {
           "monthDay": "10-28",
-          "rating": 6.6,
+          "rating": 10,
           "basis": "documented_fall_peak",
-          "evidenceIds": ["F25", "F49"]
+          "evidenceIds": [
+            "F25",
+            "F49"
+          ]
         },
         {
           "monthDay": "11-10",
-          "rating": 6.3,
+          "rating": 8.2,
           "basis": "documented_late_fall_occurrence",
-          "evidenceIds": ["F3", "F35"]
+          "evidenceIds": [
+            "F3",
+            "F35"
+          ]
         },
         {
           "monthDay": "12-05",
-          "rating": 5.5,
+          "rating": 6,
           "basis": "documented_early_winter_occurrence",
-          "evidenceIds": ["F4"]
+          "evidenceIds": [
+            "F4"
+          ]
         },
         {
           "monthDay": "12-31",
-          "rating": 3.1,
+          "rating": 3.5,
           "basis": "winter_uncertainty_transition"
         }
       ]
     },
     {
-      "curveId": "manistee_mi__brown_trout__v0_1",
+      "curveId": "manistee_mi__brown_trout__v0_4",
       "cityId": "manistee_mi",
       "speciesId": "brown_trout",
-      "confidence": "medium",
+      "confidence": "medium_high",
       "evidenceIds": [
         "F1",
         "F2",
@@ -671,54 +1047,91 @@
         "F47",
         "M2"
       ],
-      "limitations": "Repeated April and May pier observations support the strongest brown-trout spring curve among the Michigan candidates, but catches are still often reported as low.",
+      "limitations": "The official Pier/Dock series confirms a highly recurrent April-May fishery, but the formerly strong June estimate is concentrated in older years and is deliberately down-weighted. Winter ratings remain access-dependent.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.9, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 4.2,
+          "basis": "winter_open_water_opportunity"
+        },
         {
           "monthDay": "03-10",
-          "rating": 3.1,
+          "rating": 6,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-10",
-          "rating": 6.2,
+          "rating": 8.2,
           "basis": "documented_spring_peak",
-          "evidenceIds": ["F1", "F2", "F29", "F36", "F39"]
+          "evidenceIds": [
+            "F1",
+            "F2",
+            "F29",
+            "F36",
+            "F39"
+          ]
         },
         {
           "monthDay": "04-30",
-          "rating": 5.9,
+          "rating": 7.8,
           "basis": "documented_spring_plateau",
-          "evidenceIds": ["F27"]
+          "evidenceIds": [
+            "F27"
+          ]
         },
         {
           "monthDay": "05-15",
-          "rating": 4.7,
+          "rating": 6.3,
           "basis": "documented_spring_decline",
-          "evidenceIds": ["F23"]
+          "evidenceIds": [
+            "F23"
+          ]
         },
         {
           "monthDay": "06-20",
-          "rating": 2.6,
+          "rating": 4.2,
           "basis": "warm_season_transition"
         },
-        { "monthDay": "08-15", "rating": 1.7, "basis": "broad_slow_period" },
-        { "monthDay": "10-15", "rating": 2.3, "basis": "weak_fall_context" },
-        { "monthDay": "12-31", "rating": 1.9, "basis": "broad_slow_period" }
+        {
+          "monthDay": "08-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "10-15",
+          "rating": 2.3,
+          "basis": "weak_fall_context"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 4.2,
+          "basis": "winter_open_water_opportunity"
+        }
       ]
     },
     {
-      "curveId": "frankfort_elberta_mi__chinook_salmon__v0_1",
+      "curveId": "frankfort_elberta_mi__chinook_salmon__v0_4",
       "cityId": "frankfort_elberta_mi",
       "speciesId": "chinook_salmon",
       "confidence": "medium_high",
-      "evidenceIds": ["F7", "F18", "F30", "F40", "F43", "F48"],
+      "evidenceIds": [
+        "F7",
+        "F18",
+        "F30",
+        "F40",
+        "F43",
+        "F48"
+      ],
       "limitations": "Direct north-breakwater and pier evidence supports June and an especially strong mid/late-August window; some reports combine Frankfort and offshore Lake Michigan effort.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.3, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "04-15",
-          "rating": 1.7,
+          "rating": 1.2,
           "basis": "pre_window_transition"
         },
         {
@@ -730,97 +1143,151 @@
           "monthDay": "06-17",
           "rating": 3.8,
           "basis": "documented_negative_pier_week",
-          "evidenceIds": ["F40"]
+          "evidenceIds": [
+            "F40"
+          ]
         },
         {
           "monthDay": "06-25",
-          "rating": 5.9,
+          "rating": 4.5,
           "basis": "documented_pier_occurrence",
-          "evidenceIds": ["F30"]
+          "evidenceIds": [
+            "F30"
+          ]
         },
         {
           "monthDay": "07-20",
-          "rating": 4.0,
-          "basis": "offshore_dominant_interval"
+          "rating": 5.8,
+          "basis": "documented_july_window"
         },
         {
           "monthDay": "08-05",
-          "rating": 5.2,
+          "rating": 8,
           "basis": "pre_peak_transition",
-          "evidenceIds": ["F43"]
+          "evidenceIds": [
+            "F43"
+          ]
         },
         {
           "monthDay": "08-16",
-          "rating": 8.8,
+          "rating": 9.7,
           "basis": "documented_great_pier_activity",
-          "evidenceIds": ["F48"]
+          "evidenceIds": [
+            "F48"
+          ]
         },
         {
           "monthDay": "08-27",
-          "rating": 8.4,
+          "rating": 9.4,
           "basis": "documented_breakwall_occurrence",
-          "evidenceIds": ["F18"]
+          "evidenceIds": [
+            "F18"
+          ]
         },
         {
           "monthDay": "09-10",
-          "rating": 7.4,
+          "rating": 9.2,
           "basis": "staging_window_calibration"
         },
         {
           "monthDay": "09-26",
-          "rating": 5.3,
+          "rating": 7.2,
           "basis": "documented_late_occurrence",
-          "evidenceIds": ["F7"]
+          "evidenceIds": [
+            "F7"
+          ]
         },
-        { "monthDay": "10-15", "rating": 2.2, "basis": "post_run_decline" },
-        { "monthDay": "11-15", "rating": 1.5, "basis": "broad_slow_period" },
-        { "monthDay": "12-31", "rating": 1.3, "basis": "broad_slow_period" }
+        {
+          "monthDay": "10-15",
+          "rating": 2.2,
+          "basis": "post_run_decline"
+        },
+        {
+          "monthDay": "11-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "frankfort_elberta_mi__coho_salmon__v0_1",
+      "curveId": "frankfort_elberta_mi__coho_salmon__v0_4",
       "cityId": "frankfort_elberta_mi",
       "speciesId": "coho_salmon",
-      "confidence": "medium_low",
-      "evidenceIds": ["F3", "F7", "F25", "F48", "F49", "M1"],
-      "limitations": "Fall pier occurrence is direct but several key reports are historical; Platte Bay and boat-only catches are excluded.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F3",
+        "F7",
+        "F25",
+        "F48",
+        "F49",
+        "M1"
+      ],
+      "limitations": "The official Pier/Dock series establishes a recurring September-October window. Weekly shape after 2022 still relies on reports, and Platte Bay and boat-only catches remain excluded.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.5, "basis": "broad_slow_period" },
-        { "monthDay": "03-15", "rating": 2.0, "basis": "weak_spring_context" },
+        {
+          "monthDay": "01-15",
+          "rating": 1.2,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "03-15",
+          "rating": 2,
+          "basis": "weak_spring_context"
+        },
         {
           "monthDay": "04-15",
           "rating": 2.8,
           "basis": "regional_spring_transfer"
         },
-        { "monthDay": "06-15", "rating": 1.8, "basis": "broad_slow_period" },
+        {
+          "monthDay": "06-15",
+          "rating": 1.8,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "08-16",
-          "rating": 4.4,
+          "rating": 6.2,
           "basis": "documented_arrival_with_chinook",
-          "evidenceIds": ["F48"]
+          "evidenceIds": [
+            "F48"
+          ]
         },
         {
           "monthDay": "09-15",
-          "rating": 6.0,
+          "rating": 8.6,
           "basis": "fall_window_transition"
         },
         {
           "monthDay": "10-05",
-          "rating": 6.4,
+          "rating": 7.2,
           "basis": "documented_fall_peak",
-          "evidenceIds": ["F7", "F25"]
+          "evidenceIds": [
+            "F7",
+            "F25"
+          ]
         },
         {
           "monthDay": "11-01",
-          "rating": 4.8,
+          "rating": 5.3,
           "basis": "documented_late_occurrence",
-          "evidenceIds": ["F3"]
+          "evidenceIds": [
+            "F3"
+          ]
         },
-        { "monthDay": "12-01", "rating": 2.0, "basis": "late_window_decline" }
+        {
+          "monthDay": "12-01",
+          "rating": 1.7,
+          "basis": "late_window_decline"
+        }
       ]
     },
     {
-      "curveId": "frankfort_elberta_mi__steelhead__v0_1",
+      "curveId": "frankfort_elberta_mi__steelhead__v0_4",
       "cityId": "frankfort_elberta_mi",
       "speciesId": "steelhead",
       "confidence": "medium_high",
@@ -835,104 +1302,181 @@
         "F46",
         "F49"
       ],
-      "limitations": "Both-pier evidence supports strong spring and October windows, but December through February remains underdocumented and access can be weather-limited.",
+      "limitations": "Both the 1997-2022 Pier/Dock series and direct both-pier reports establish an exceptionally recurrent October window. December through February remains underdocumented and access can be weather-limited.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.5,
-          "basis": "winter_uncertain_open_water"
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
         },
         {
           "monthDay": "03-10",
-          "rating": 4.0,
+          "rating": 6,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-02",
-          "rating": 7.2,
+          "rating": 7,
           "basis": "documented_respectable_spring_catches",
-          "evidenceIds": ["F1"]
+          "evidenceIds": [
+            "F1"
+          ]
         },
         {
           "monthDay": "04-24",
           "rating": 5.4,
           "basis": "documented_low_spring_occurrence",
-          "evidenceIds": ["F46"]
+          "evidenceIds": [
+            "F46"
+          ]
         },
-        { "monthDay": "05-25", "rating": 3.2, "basis": "spring_decline" },
-        { "monthDay": "07-15", "rating": 2.0, "basis": "broad_slow_period" },
+        {
+          "monthDay": "05-25",
+          "rating": 4.2,
+          "basis": "spring_decline"
+        },
+        {
+          "monthDay": "07-15",
+          "rating": 5.2,
+          "basis": "episodic_summer_window"
+        },
         {
           "monthDay": "09-20",
-          "rating": 4.5,
+          "rating": 3.5,
           "basis": "fall_arrival_transition",
-          "evidenceIds": ["F7"]
+          "evidenceIds": [
+            "F7"
+          ]
         },
         {
           "monthDay": "10-16",
-          "rating": 8.4,
+          "rating": 9.8,
           "basis": "documented_excellent_both_pier_catches",
-          "evidenceIds": ["F49"]
+          "evidenceIds": [
+            "F49"
+          ]
         },
         {
           "monthDay": "11-01",
-          "rating": 6.0,
+          "rating": 8,
           "basis": "documented_late_fall_occurrence",
-          "evidenceIds": ["F3", "F19"]
+          "evidenceIds": [
+            "F3",
+            "F19"
+          ]
         },
-        { "monthDay": "11-25", "rating": 4.5, "basis": "late_fall_decline" },
+        {
+          "monthDay": "11-25",
+          "rating": 5.2,
+          "basis": "late_fall_decline"
+        },
         {
           "monthDay": "12-31",
-          "rating": 2.8,
-          "basis": "winter_uncertainty_transition"
+          "rating": 4,
+          "basis": "winter_open_water_opportunity"
         }
       ]
     },
     {
-      "curveId": "frankfort_elberta_mi__brown_trout__v0_1",
+      "curveId": "frankfort_elberta_mi__brown_trout__v0_4",
       "cityId": "frankfort_elberta_mi",
       "speciesId": "brown_trout",
-      "confidence": "medium",
-      "evidenceIds": ["F1", "F30", "F46", "M2"],
-      "limitations": "April pier and June north-pier catches are direct, and local stocking supports fishery relevance, but the seasonal sample remains small.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "F1",
+        "F30",
+        "F46",
+        "M2"
+      ],
+      "limitations": "The official Pier/Dock series and continued local stocking support a good April-May fishery. Recent June catches are sparse, so the older June strength is down-weighted rather than copied into the current ceiling.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.9, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 4.3,
+          "basis": "winter_open_water_opportunity"
+        },
         {
           "monthDay": "03-10",
-          "rating": 3.1,
+          "rating": 6,
           "basis": "spring_arrival_transition"
         },
         {
           "monthDay": "04-05",
-          "rating": 6.0,
+          "rating": 7.5,
           "basis": "documented_spring_occurrence",
-          "evidenceIds": ["F1", "F46"]
+          "evidenceIds": [
+            "F1",
+            "F46"
+          ]
         },
-        { "monthDay": "05-10", "rating": 4.5, "basis": "spring_decline" },
+        {
+          "monthDay": "05-10",
+          "rating": 7,
+          "basis": "spring_plateau"
+        },
         {
           "monthDay": "06-25",
-          "rating": 4.2,
+          "rating": 4.5,
           "basis": "documented_early_summer_occurrence",
-          "evidenceIds": ["F30"]
+          "evidenceIds": [
+            "F30"
+          ]
         },
-        { "monthDay": "07-20", "rating": 2.5, "basis": "warm_season_decline" },
-        { "monthDay": "09-01", "rating": 1.8, "basis": "broad_slow_period" },
-        { "monthDay": "10-15", "rating": 2.8, "basis": "weak_fall_context" },
-        { "monthDay": "11-20", "rating": 2.4, "basis": "late_fall_context" },
-        { "monthDay": "12-31", "rating": 1.9, "basis": "broad_slow_period" }
+        {
+          "monthDay": "07-20",
+          "rating": 3.5,
+          "basis": "warm_season_decline"
+        },
+        {
+          "monthDay": "09-01",
+          "rating": 1.3,
+          "basis": "broad_slow_period"
+        },
+        {
+          "monthDay": "10-15",
+          "rating": 2.8,
+          "basis": "weak_fall_context"
+        },
+        {
+          "monthDay": "11-20",
+          "rating": 3.2,
+          "basis": "late_fall_context"
+        },
+        {
+          "monthDay": "12-31",
+          "rating": 4.3,
+          "basis": "winter_open_water_opportunity"
+        }
       ]
     },
     {
-      "curveId": "sheboygan_wi__chinook_salmon__v0_1",
+      "curveId": "sheboygan_wi__chinook_salmon__v0_4",
       "cityId": "sheboygan_wi",
       "speciesId": "chinook_salmon",
-      "confidence": "medium_low",
-      "evidenceIds": ["S1", "S5", "W1", "W2"],
-      "limitations": "The late-August 2026 pier signal is strong and effort-aware, but one retained local week cannot determine year-to-year peak timing by itself.",
+      "confidence": "medium_high",
+      "evidenceIds": [
+        "S1",
+        "S5",
+        "W1",
+        "W2",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W8",
+        "W9",
+        "W12"
+      ],
+      "limitations": "Multiple local pier observations now support a recurring August-to-September window, and current stocking plus long-term county effort support a strong local fishery. Exact peak timing remains weather-sensitive, while older archived reports have lower provenance than the current DNR report.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.4, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "05-15",
-          "rating": 1.8,
+          "rating": 1.4,
           "basis": "pre_window_transition"
         },
         {
@@ -942,186 +1486,318 @@
         },
         {
           "monthDay": "07-20",
-          "rating": 3.4,
+          "rating": 4.8,
           "basis": "regional_pre_staging_context"
         },
         {
           "monthDay": "08-05",
-          "rating": 4.7,
+          "rating": 7,
           "basis": "staging_arrival_transition"
         },
-        { "monthDay": "08-18", "rating": 6.6, "basis": "local_peak_approach" },
+        {
+          "monthDay": "08-18",
+          "rating": 8.6,
+          "basis": "local_peak_approach"
+        },
         {
           "monthDay": "08-31",
-          "rating": 8.3,
+          "rating": 9.6,
           "basis": "documented_high_effort_and_improved_catch",
-          "evidenceIds": ["S5", "W2"]
+          "evidenceIds": [
+            "S5",
+            "W2"
+          ]
         },
-        { "monthDay": "09-12", "rating": 7.6, "basis": "fall_peak_extension" },
+        {
+          "monthDay": "09-12",
+          "rating": 8.8,
+          "basis": "fall_peak_extension"
+        },
         {
           "monthDay": "10-01",
-          "rating": 5.2,
+          "rating": 6,
           "basis": "regional_fall_decline",
-          "evidenceIds": ["S1"]
+          "evidenceIds": [
+            "S1"
+          ]
         },
-        { "monthDay": "10-31", "rating": 2.3, "basis": "post_run_decline" },
-        { "monthDay": "12-15", "rating": 1.4, "basis": "broad_slow_period" }
+        {
+          "monthDay": "10-31",
+          "rating": 2.3,
+          "basis": "post_run_decline"
+        },
+        {
+          "monthDay": "12-15",
+          "rating": 1,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "sheboygan_wi__coho_salmon__v0_1",
+      "curveId": "sheboygan_wi__coho_salmon__v0_4",
       "cityId": "sheboygan_wi",
       "speciesId": "coho_salmon",
-      "confidence": "low",
-      "evidenceIds": ["S1", "S6", "S8", "W1"],
-      "limitations": "Wisconsin-wide pier harvest supports the species and two seasonal hypotheses, but retained evidence does not yet establish a Sheboygan-specific coho curve; this is a regional-transfer research candidate only.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "S1",
+        "S6",
+        "S8",
+        "W1",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W8",
+        "W9",
+        "W11"
+      ],
+      "limitations": "Local archived pier reports support late-summer and fall occurrence, while 2022-2024 statewide pier surveys repeatedly show a variable spring-to-summer coho fishery. Site-level contemporary Sheboygan catch-per-effort remains unavailable, so the exact magnitudes are still provisional.",
       "knots": [
-        { "monthDay": "01-15", "rating": 1.5, "basis": "broad_slow_period" },
+        {
+          "monthDay": "01-15",
+          "rating": 1.2,
+          "basis": "broad_slow_period"
+        },
         {
           "monthDay": "03-15",
-          "rating": 2.8,
+          "rating": 5.2,
           "basis": "regional_spring_arrival"
         },
         {
           "monthDay": "04-15",
-          "rating": 4.8,
+          "rating": 7.7,
           "basis": "regional_pier_spring_window",
-          "evidenceIds": ["S6", "S8", "W1"]
+          "evidenceIds": [
+            "S6",
+            "S8",
+            "W1"
+          ]
         },
         {
           "monthDay": "05-15",
-          "rating": 4.2,
+          "rating": 7,
           "basis": "regional_spring_decline"
         },
         {
           "monthDay": "06-20",
+          "rating": 4.5,
+          "basis": "regional_summer_pier_transition",
+          "evidenceIds": [
+            "W3",
+            "W4",
+            "W5"
+          ]
+        },
+        {
+          "monthDay": "07-15",
+          "rating": 7.5,
+          "basis": "recurring_regional_pier_window",
+          "evidenceIds": [
+            "W3",
+            "W4",
+            "W5"
+          ]
+        },
+        {
+          "monthDay": "08-13",
+          "rating": 6.2,
+          "basis": "documented_local_pier_occurrence",
+          "evidenceIds": [
+            "W8"
+          ]
+        },
+        {
+          "monthDay": "09-09",
+          "rating": 7,
+          "basis": "documented_local_fall_pier_peak",
+          "evidenceIds": [
+            "W9"
+          ]
+        },
+        {
+          "monthDay": "10-19",
+          "rating": 5.4,
+          "basis": "documented_local_fall_occurrence",
+          "evidenceIds": [
+            "W11"
+          ]
+        },
+        {
+          "monthDay": "11-15",
           "rating": 2.4,
-          "basis": "broad_slow_transition"
-        },
-        { "monthDay": "07-25", "rating": 2.0, "basis": "broad_slow_period" },
-        {
-          "monthDay": "08-25",
-          "rating": 3.8,
-          "basis": "regional_fall_arrival"
+          "basis": "late_window_decline"
         },
         {
-          "monthDay": "09-15",
-          "rating": 5.1,
-          "basis": "regional_fall_peak",
-          "evidenceIds": ["S1"]
-        },
-        {
-          "monthDay": "10-15",
-          "rating": 4.2,
-          "basis": "regional_fall_decline"
-        },
-        { "monthDay": "11-15", "rating": 2.4, "basis": "late_window_decline" },
-        { "monthDay": "12-31", "rating": 1.5, "basis": "broad_slow_period" }
+          "monthDay": "12-31",
+          "rating": 1.2,
+          "basis": "broad_slow_period"
+        }
       ]
     },
     {
-      "curveId": "sheboygan_wi__steelhead__v0_1",
+      "curveId": "sheboygan_wi__steelhead__v0_4",
       "cityId": "sheboygan_wi",
       "speciesId": "steelhead",
-      "confidence": "low",
-      "evidenceIds": ["S1", "S7", "W1"],
-      "limitations": "Agency material supports regional pier/shore seasons, but retained Sheboygan-specific dated catch evidence is insufficient for production calibration.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "S1",
+        "S7",
+        "W1",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W7",
+        "W8"
+      ],
+      "limitations": "Local pier observations support spring and late-summer occurrence, and current stocking establishes local fishery relevance. Contemporary Sheboygan pier catch-per-effort and a direct fall series remain unavailable, so the fall peak is still partly a regional transfer.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.1,
+          "rating": 2.8,
           "basis": "winter_uncertain_open_water"
         },
         {
           "monthDay": "03-15",
-          "rating": 3.5,
+          "rating": 5.2,
           "basis": "regional_spring_arrival"
         },
         {
           "monthDay": "04-20",
-          "rating": 5.3,
+          "rating": 6.8,
           "basis": "regional_spring_peak",
-          "evidenceIds": ["S7"]
+          "evidenceIds": [
+            "S7"
+          ]
         },
         {
           "monthDay": "05-25",
-          "rating": 4.4,
+          "rating": 5.5,
           "basis": "regional_spring_decline"
         },
         {
           "monthDay": "07-15",
-          "rating": 3.5,
+          "rating": 7.3,
           "basis": "regional_summer_pier_context",
-          "evidenceIds": ["S7"]
+          "evidenceIds": [
+            "S7",
+            "W3",
+            "W4",
+            "W5",
+            "W8"
+          ]
         },
         {
           "monthDay": "08-25",
-          "rating": 3.8,
+          "rating": 5.3,
           "basis": "fall_arrival_transition"
         },
         {
           "monthDay": "10-10",
-          "rating": 5.5,
+          "rating": 6.3,
           "basis": "regional_fall_peak",
-          "evidenceIds": ["S1", "S7"]
+          "evidenceIds": [
+            "S1",
+            "S7"
+          ]
         },
         {
           "monthDay": "11-15",
-          "rating": 4.4,
+          "rating": 4,
           "basis": "regional_late_fall_context"
         },
         {
           "monthDay": "12-31",
-          "rating": 2.4,
+          "rating": 3,
           "basis": "winter_uncertainty_transition"
         }
       ]
     },
     {
-      "curveId": "sheboygan_wi__brown_trout__v0_1",
+      "curveId": "sheboygan_wi__brown_trout__v0_4",
       "cityId": "sheboygan_wi",
       "speciesId": "brown_trout",
-      "confidence": "low",
-      "evidenceIds": ["S1", "W1"],
-      "limitations": "The species is an established regional shore target, but no retained date-level Sheboygan pier series supports a high or finely timed ceiling.",
+      "confidence": "medium",
+      "evidenceIds": [
+        "S1",
+        "W1",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W7",
+        "W8",
+        "W9",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "limitations": "Regional 2022-2024 pier estimates strongly favor the cold/early-spring window, and current Sheboygan River stocking plus local pier observations support local relevance. Contemporary Sheboygan-only catch-per-effort remains unavailable, so the score is good rather than exceptional and the fall window is secondary.",
       "knots": [
         {
           "monthDay": "01-15",
-          "rating": 2.2,
-          "basis": "winter_uncertain_open_water"
+          "rating": 4.2,
+          "basis": "winter_open_water_opportunity"
         },
         {
           "monthDay": "03-10",
-          "rating": 3.4,
+          "rating": 6.8,
           "basis": "regional_spring_arrival"
         },
-        { "monthDay": "04-15", "rating": 4.9, "basis": "regional_spring_peak" },
+        {
+          "monthDay": "04-15",
+          "rating": 7.8,
+          "basis": "documented_local_spring_peak",
+          "evidenceIds": [
+            "W7",
+            "W10"
+          ]
+        },
         {
           "monthDay": "05-20",
-          "rating": 4.0,
+          "rating": 7.2,
           "basis": "regional_spring_decline"
         },
-        { "monthDay": "07-15", "rating": 2.2, "basis": "broad_slow_period" },
         {
-          "monthDay": "09-10",
-          "rating": 3.1,
-          "basis": "regional_fall_arrival"
+          "monthDay": "07-15",
+          "rating": 2,
+          "basis": "broad_slow_period"
         },
         {
-          "monthDay": "10-20",
-          "rating": 4.4,
-          "basis": "regional_fall_shore_context",
-          "evidenceIds": ["S1"]
+          "monthDay": "08-13",
+          "rating": 3,
+          "basis": "documented_local_pier_occurrence",
+          "evidenceIds": [
+            "W8"
+          ]
+        },
+        {
+          "monthDay": "09-09",
+          "rating": 4.5,
+          "basis": "documented_local_fall_pier_peak",
+          "evidenceIds": [
+            "W9",
+            "W12"
+          ]
+        },
+        {
+          "monthDay": "10-19",
+          "rating": 4.2,
+          "basis": "documented_local_fall_occurrence",
+          "evidenceIds": [
+            "S1",
+            "W11"
+          ]
         },
         {
           "monthDay": "11-25",
-          "rating": 3.6,
+          "rating": 3.8,
           "basis": "regional_late_fall_context"
         },
         {
           "monthDay": "12-31",
-          "rating": 2.4,
-          "basis": "winter_uncertainty_transition"
+          "rating": 4.2,
+          "basis": "winter_open_water_opportunity"
         }
       ]
     }

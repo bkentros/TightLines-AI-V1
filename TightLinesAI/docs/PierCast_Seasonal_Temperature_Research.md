@@ -201,7 +201,7 @@ No production `acceptedDomainC` is approved for any of the 13 species. The four 
 | --- | --- |
 | Research-supported inputs | Adult/general thermal endpoints, seasonal behavioral contexts, 156 shared month rows, 672 local occurrence rows, and provider format/horizon facts are documented with provenance. |
 | Explicit regional transfers | Brown trout (Ontario), lake trout (Huron/Ontario), walleye (Huron/Erie/Ontario), bass (Illinois Lake Michigan harbor), drum (Erie), and lake whitefish (northwestern Lake Michigan/Green Bay) remain labeled RT and unapproved locally. |
-| Provisional calibration | Disabled provisional city-seasonal ceilings and shared thermal curves are adopted for Chinook, coho, steelhead, and brown trout only. They do not meet the full production evidence chain and are explicitly labeled FinFindr calibration. The other nine species remain nonnumeric. |
+| Provisional calibration | Disabled provisional city-seasonal ratings and shared thermal curves are adopted for Chinook, coho, steelhead, and brown trout only. They do not meet the full production evidence chain and are explicitly labeled FinFindr calibration. The other nine species remain nonnumeric. |
 | Unresolved launch blockers | Fixed casting-water areas/model layers, local temperature validation, opportunity/catch calibration, current access for noted structures, Sheboygan annual roster, reviewer assignment, and held-out evaluation. |
 | Optional effects deliberately disabled | Trend/acclimation lag, migration/spawning bonus, diel/light effect, wave/wind biology, and surface–bottom proxy. |
 

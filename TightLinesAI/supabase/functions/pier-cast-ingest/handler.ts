@@ -1,5 +1,6 @@
 import type {
   PierCastObservationIngestionSummary,
+  PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
 } from "../_shared/pierCastEngine/index.ts";
 
@@ -9,6 +10,12 @@ export type PierCastIngestHandlerDependencies = {
   internalSecret: string | null;
   ingest: () => Promise<PierCastTemperatureIngestionOutcome>;
   ingestObservations?: () => Promise<PierCastObservationIngestionSummary>;
+  archiveShadowForecast?: (
+    outcome: Exclude<
+      PierCastTemperatureIngestionOutcome,
+      { status: "unavailable" }
+    >,
+  ) => Promise<PierCastShadowForecastCommitSummary>;
 };
 
 export function createPierCastIngestHandler(
@@ -50,8 +57,14 @@ export function createPierCastIngestHandler(
         fallbackUsed: outcome.fallbackUsed,
         diagnostics: outcome.diagnostics,
         calibrationObservations,
+        shadowForecast: null,
       }, 503);
     }
+
+    const shadowForecast = await settleShadowForecast(
+      dependencies.archiveShadowForecast,
+      outcome,
+    );
 
     return json({
       status: outcome.status,
@@ -67,8 +80,42 @@ export function createPierCastIngestHandler(
       ),
       diagnostics: outcome.diagnostics,
       calibrationObservations,
+      shadowForecast,
     });
   };
+}
+
+type PierCastShadowForecastResult = PierCastShadowForecastCommitSummary | {
+  status: "unavailable";
+  runId: null;
+  generatedAt: null;
+  forecastCount: 0;
+  diagnostics: string[];
+};
+
+async function settleShadowForecast(
+  archive: PierCastIngestHandlerDependencies["archiveShadowForecast"],
+  outcome: Exclude<
+    PierCastTemperatureIngestionOutcome,
+    { status: "unavailable" }
+  >,
+): Promise<PierCastShadowForecastResult | null> {
+  if (!archive) return null;
+  try {
+    return await archive(outcome);
+  } catch (error) {
+    return {
+      status: "unavailable",
+      runId: null,
+      generatedAt: null,
+      forecastCount: 0,
+      diagnostics: [
+        `shadow_forecast_archive_failed:${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      ],
+    };
+  }
 }
 
 async function settleObservations(

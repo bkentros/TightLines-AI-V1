@@ -1,8 +1,11 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
+  archivePierCastShadowForecast,
+  buildPierCastReviewOutlook,
   ingestPierCastCalibrationObservations,
   ingestPierCastTemperatureCycle,
+  PIER_CAST_BASELINE_FORMULA_VERSION,
   PIER_CAST_ENGINE_VERSION,
   type PierCastArchiveClient,
 } from "../_shared/pierCastEngine/index.ts";
@@ -35,6 +38,33 @@ const handler = createPierCastIngestHandler({
     ingestPierCastCalibrationObservations({
       database: archiveClient,
     }),
+  archiveShadowForecast: async (outcome) => {
+    const evaluationTime = new Date().toISOString();
+    const activeOutlook = buildPierCastReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+    });
+    const baselineOutlook = buildPierCastReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+      formulaVersion: PIER_CAST_BASELINE_FORMULA_VERSION,
+    });
+    const active = await archivePierCastShadowForecast({
+      database: archiveClient,
+      outlook: activeOutlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    const comparator = await archivePierCastShadowForecast({
+      database: archiveClient,
+      outlook: baselineOutlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return { ...active, comparator };
+  },
 });
 
 Deno.serve(handler);

@@ -326,7 +326,7 @@ Deno.test("public catalog is empty while review catalog exposes research candida
   assertEquals(reviewCatalog.ratingDisplayFormat, "X.X/10");
   assertEquals(
     reviewCatalog.formula,
-    "1 + (seasonalRating - 1) * temperatureSuitability",
+    "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))",
   );
   assert(
     reviewCatalog.cities.every((city) =>
@@ -499,15 +499,16 @@ Deno.test("public mode rejects a provisional seasonal curve", () => {
   });
 });
 
-Deno.test("multiplicative formula makes the seasonal rating an absolute ceiling", () => {
+Deno.test("bounded temperature formula softens penalties and limits synergy", () => {
   const perfectTemperature = calculatePierCastInstantOpportunity({
     seasonalRating: 2,
     temperatureSuitability: 1,
   });
   assertEquals(perfectTemperature.status, "available");
   if (perfectTemperature.status !== "available") return;
-  assertEquals(perfectTemperature.rating.score, 2);
-  assertEquals(perfectTemperature.rating.displayText, "2.0/10");
+  assertAlmostEquals(perfectTemperature.temperatureModifier, 1.05);
+  assertAlmostEquals(perfectTemperature.rating.score, 2.05);
+  assertEquals(perfectTemperature.rating.displayText, "2.1/10");
 
   const unsuitableTemperature = calculatePierCastInstantOpportunity({
     seasonalRating: 10,
@@ -515,17 +516,36 @@ Deno.test("multiplicative formula makes the seasonal rating an absolute ceiling"
   });
   assertEquals(unsuitableTemperature.status, "available");
   if (unsuitableTemperature.status !== "available") return;
-  assertEquals(unsuitableTemperature.rating.displayText, "1.0/10");
+  assertAlmostEquals(unsuitableTemperature.temperatureModifier, 0.3);
+  assertEquals(unsuitableTemperature.rating.displayText, "3.7/10");
 
   const limitedTemperature = calculatePierCastInstantOpportunity({
-    seasonalRating: 8,
-    temperatureSuitability: 0.8,
+    seasonalRating: 9,
+    temperatureSuitability: 0.45,
   });
   assertEquals(limitedTemperature.status, "available");
   if (limitedTemperature.status !== "available") return;
-  assertAlmostEquals(limitedTemperature.rating.score, 6.6);
-  assertEquals(limitedTemperature.rating.displayText, "6.6/10");
-  assert(limitedTemperature.rating.score <= limitedTemperature.seasonalRating);
+  assertAlmostEquals(limitedTemperature.temperatureModifier, 0.6375);
+  assertAlmostEquals(limitedTemperature.rating.score, 6.1);
+  assertEquals(limitedTemperature.rating.displayText, "6.1/10");
+
+  const neutralTemperature = calculatePierCastInstantOpportunity({
+    seasonalRating: 8,
+    temperatureSuitability: (1 - 0.3) / 0.75,
+  });
+  assertEquals(neutralTemperature.status, "available");
+  if (neutralTemperature.status !== "available") return;
+  assertAlmostEquals(neutralTemperature.temperatureModifier, 1);
+  assertAlmostEquals(neutralTemperature.rating.score, 8);
+
+  const exceptional = calculatePierCastInstantOpportunity({
+    seasonalRating: 10,
+    temperatureSuitability: 1,
+  });
+  assertEquals(exceptional.status, "available");
+  if (exceptional.status !== "available") return;
+  assertEquals(exceptional.rating.score, 10);
+  assertEquals(exceptional.rating.displayText, "10.0/10");
 });
 
 Deno.test("combined opportunity preserves unavailable temperature reasons", () => {
@@ -560,9 +580,13 @@ Deno.test("seasonal and temperature evaluations combine into one traceable X.X/1
   if (result.status !== "available") return;
   assertEquals(result.seasonalRating, 8);
   assertAlmostEquals(result.temperatureSuitability, 0.6);
-  assertAlmostEquals(result.rating.score, 5.2);
-  assertEquals(result.rating.displayText, "5.2/10");
-  assertEquals(result.formulaVersion, "seasonal-ceiling-x-temperature-v1");
+  assertAlmostEquals(result.temperatureModifier, 0.75);
+  assertAlmostEquals(result.rating.score, 6.25);
+  assertEquals(result.rating.displayText, "6.3/10");
+  assertEquals(
+    result.formulaVersion,
+    "seasonal-opportunity-bounded-temperature-v2",
+  );
 });
 
 Deno.test("winter open-water notice is explicit and limited to valid January-March dates", () => {

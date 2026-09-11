@@ -89,7 +89,7 @@ const columns = [
   "week",
   "week_start_mm_dd",
   "week_midpoint_mm_dd",
-  "seasonal_opportunity_ceiling",
+  "seasonal_opportunity_rating",
   "one_decimal_display_preview",
   "confidence",
   "production_ready",

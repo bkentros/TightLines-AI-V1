@@ -1,5 +1,7 @@
 # PierCast — Temperature Representation and Calibration Decision
 
+> **Formula-v2 follow-up — 2026-09-10:** This audit used the original direct temperature multiplier. Active formula v2 reduces score sensitivity to thermal-fit error by 25% and preserves formula v1 as a same-issue comparator. That improvement does not cure missing observations, inadequate seasonal coverage, depth/plume transfer, or tail-error failures; all five representation decisions remain blocked.
+
 **Completed:** 2026-09-10
 **Decision:** All five city cells remain `candidate`; every city is `blocked_insufficient_evidence` for temperature-representation approval. No temperature curve, score formula, or rating flag was changed.
 **Machine-readable protocol:** [Temperature representation acceptance protocol](PierCast_Temperature_Representation_Acceptance.json)

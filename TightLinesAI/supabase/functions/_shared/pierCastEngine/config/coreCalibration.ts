@@ -7,6 +7,11 @@ import type {
 } from "../types.ts";
 import { PIER_CAST_CORE_SEASONAL_CURVES } from "./coreSeasonal.generated.ts";
 
+export const PIER_CAST_SEASONAL_CALIBRATION_VERSION =
+  "piercast-core-seasonal-v0.4.0";
+export const PIER_CAST_TEMPERATURE_CALIBRATION_VERSION =
+  "piercast-core-temperature-v0.2.0";
+
 export const PIER_CAST_CORE_SPECIES_IDS = [
   "chinook_salmon",
   "coho_salmon",
@@ -19,9 +24,10 @@ export type PierCastCoreSpeciesId = (typeof PIER_CAST_CORE_SPECIES_IDS)[number];
 /**
  * Product-calibration curves, not measured biological response functions.
  * The broad shoulders deliberately keep temperature secondary to the
- * city/species seasonal ceiling. Every curve remains private and provisional.
+ * city/species seasonal opportunity. Every curve remains private and
+ * provisional.
  */
-export const PIER_CAST_CORE_TEMPERATURE_CURVES = {
+export const PIER_CAST_CORE_TEMPERATURE_CURVES_V0_1 = {
   chinook_salmon: {
     curveId: "chinook_salmon__shared_temperature__v0_1",
     calibrationStatus: "provisional",
@@ -86,6 +92,88 @@ export const PIER_CAST_CORE_TEMPERATURE_CURVES = {
       { temperatureC: 3, suitability: 0.5 },
       { temperatureC: 6, suitability: 0.7 },
       { temperatureC: 8, suitability: 0.85 },
+      { temperatureC: 10, suitability: 1 },
+      { temperatureC: 16, suitability: 1 },
+      { temperatureC: 18, suitability: 0.9 },
+      { temperatureC: 20, suitability: 0.7 },
+      { temperatureC: 22, suitability: 0.45 },
+      { temperatureC: 24, suitability: 0.25 },
+      { temperatureC: 26, suitability: 0.1 },
+    ],
+  },
+} as const satisfies Record<PierCastCoreSpeciesId, PierCastTemperatureCurve>;
+
+/**
+ * Active private v0.2 candidate. The post-implementation biological audit
+ * raised only the sub-50 F cold shoulders. Every v0.1 value at 10 C / 50 F
+ * and warmer is retained exactly so the warm-side decision stays isolated.
+ * V0.1 remains exported above for deterministic side-by-side validation.
+ */
+export const PIER_CAST_CORE_TEMPERATURE_CURVES = {
+  chinook_salmon: {
+    curveId: "chinook_salmon__shared_temperature__v0_2",
+    calibrationStatus: "provisional",
+    acceptedDomainC: [0, 26],
+    knots: [
+      { temperatureC: 0, suitability: 0.45 },
+      { temperatureC: 4, suitability: 0.6 },
+      { temperatureC: 7, suitability: 0.82 },
+      { temperatureC: 9, suitability: 0.95 },
+      { temperatureC: 10, suitability: 1 },
+      { temperatureC: 14, suitability: 1 },
+      { temperatureC: 16, suitability: 0.9 },
+      { temperatureC: 18, suitability: 0.7 },
+      { temperatureC: 20, suitability: 0.45 },
+      { temperatureC: 22, suitability: 0.2 },
+      { temperatureC: 26, suitability: 0.05 },
+    ],
+  },
+  coho_salmon: {
+    curveId: "coho_salmon__shared_temperature__v0_2",
+    calibrationStatus: "provisional",
+    acceptedDomainC: [0, 26],
+    knots: [
+      { temperatureC: 0, suitability: 0.5 },
+      { temperatureC: 4, suitability: 0.65 },
+      { temperatureC: 7, suitability: 0.82 },
+      { temperatureC: 10, suitability: 0.9 },
+      { temperatureC: 12, suitability: 1 },
+      { temperatureC: 14, suitability: 1 },
+      { temperatureC: 16.5, suitability: 0.9 },
+      { temperatureC: 19, suitability: 0.65 },
+      { temperatureC: 21, suitability: 0.35 },
+      { temperatureC: 23, suitability: 0.15 },
+      { temperatureC: 26, suitability: 0.05 },
+    ],
+  },
+  steelhead: {
+    curveId: "steelhead__shared_temperature__v0_2",
+    calibrationStatus: "provisional",
+    acceptedDomainC: [0, 26],
+    knots: [
+      { temperatureC: 0, suitability: 0.65 },
+      { temperatureC: 2, suitability: 0.7 },
+      { temperatureC: 5, suitability: 0.82 },
+      { temperatureC: 8, suitability: 0.93 },
+      { temperatureC: 10, suitability: 0.97 },
+      { temperatureC: 12, suitability: 1 },
+      { temperatureC: 14, suitability: 1 },
+      { temperatureC: 16, suitability: 0.92 },
+      { temperatureC: 18, suitability: 0.75 },
+      { temperatureC: 20, suitability: 0.5 },
+      { temperatureC: 22, suitability: 0.25 },
+      { temperatureC: 26, suitability: 0.05 },
+    ],
+  },
+  brown_trout: {
+    curveId: "brown_trout__shared_temperature__v0_2",
+    calibrationStatus: "provisional",
+    acceptedDomainC: [0, 26],
+    knots: [
+      { temperatureC: 0, suitability: 0.6 },
+      { temperatureC: 3, suitability: 0.7 },
+      { temperatureC: 6, suitability: 0.82 },
+      { temperatureC: 8, suitability: 0.92 },
       { temperatureC: 10, suitability: 1 },
       { temperatureC: 16, suitability: 1 },
       { temperatureC: 18, suitability: 0.9 },

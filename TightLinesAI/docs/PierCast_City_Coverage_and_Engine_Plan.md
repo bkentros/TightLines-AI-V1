@@ -73,7 +73,7 @@ Suggested configuration hierarchy:
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Species profile | Stable species ID and aliases, shared biological evidence, and seasonal water-temperature suitability curves                              |
 | City            | Public identity, state, timezone, covered-pier inventory, one declared water-temperature series, supported species, and review status     |
-| City × species  | One recurring `1–10` Seasonal Pier Opportunity Ceiling curve, method/coverage scope, evidence, and calibration provenance                 |
+| City × species  | One recurring `1–10` Seasonal Pier Opportunity Rating curve, method/coverage scope, evidence, and calibration provenance                  |
 | Covered pier    | Exact structure identity, verified access point, hours/closures, exposure, practical assessments, and applicable forecast-area references |
 
 These are logical responsibilities, not a requirement for five new database
@@ -183,7 +183,7 @@ For every pairing, record:
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | Is there a credible targetable fishery from the covered structures?                | Include, exclude, or unresolved, with applicable evidence                                            |
 | Where and by what broad method does the outlook apply?                             | Fixed primary area/method and named pier coverage                                                    |
-| How much opportunity can this local fishery support through the year?              | One continuous `1–10` Seasonal Pier Opportunity Ceiling with evidence-backed date knots              |
+| How much opportunity can this local fishery support through the year?              | One continuous `1–10` Seasonal Pier Opportunity Rating with evidence-backed date knots               |
 | Does behavior require different thermal responses during the year?                 | Smallest supported set of seasonal temperature curves with smooth transitions                        |
 | Does the declared city water-temperature series remain useful throughout the year? | Source comparison, accepted domain, forecast coverage, and seasonal failure rules                    |
 | Are additional score factors necessary?                                            | Not in v1; a later factor requires evidence and a held-out comparison against the two-input baseline |

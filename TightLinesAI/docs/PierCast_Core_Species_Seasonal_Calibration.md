@@ -2,31 +2,38 @@
 
 ## Executive findings
 
-This package establishes a disciplined first numerical calibration for Chinook salmon, coho salmon, steelhead, and brown trout in Ludington, Grand Haven, Manistee, Frankfort–Elberta, and Sheboygan. It contains 20 city–species curves, explicit decimal knots, and 1,040 interpolated weekly review values. Every curve remains a **provisional FinFindr research calibration** and `production_ready=false`.
+This package establishes a disciplined numerical calibration for Chinook salmon, coho salmon, steelhead, and brown trout in Ludington, Grand Haven, Manistee, Frankfort–Elberta, and Sheboygan. It contains 20 city–species curves, explicit decimal knots, and 1,040 interpolated weekly review values. Every curve remains a **provisional FinFindr research calibration** and `production_ready=false`. Version 0.4 preserves the evidence-backed v0.3 timing and ordering while recalibrating magnitudes to use the full consumer-facing 1–10 scale. The complete reasoning is in the [v0.4 full-scale audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md).
 
-The strongest supported seasonal peaks are Frankfort steelhead in mid-October, Frankfort Chinook in mid-August, Manistee Chinook in late August, Sheboygan Chinook in late August, and Ludington Chinook near the end of August. These are opportunity ceilings under supportive water temperature, not promises about a trip or claims that fish are physically present.
+The strongest supported seasonal peaks are Manistee steelhead in late October, Frankfort steelhead in mid-October, Frankfort Chinook in mid-August, Sheboygan Chinook in late August, and Manistee Chinook in late August. Manistee steelhead is the reference `10.0` seasonal opportunity; this means the strongest supported window in the five-city FinFindr catalog, not a guaranteed catch.
 
 The evidence does not justify manufacturing 52 independent judgments per curve. The source of truth is therefore a sparse, continuous date curve. Anchors are placed more closely around documented arrivals, peaks, and declines and farther apart during broad slow periods. The weekly table is a deterministic review projection generated from those anchors—not a second configuration and not 1,040 separately researched coefficients.
 
-Michigan DNR describes its creel program as interviews that record fishing duration, target species, and catch, but the public weekly bulletins used here do not provide standardized pier-only effort and catch-rate estimates for each city and week.^1 Wisconsin states that its weekly reports come from randomly scheduled creel clerks, while also warning that they reflect only the sampled days and times.^2 Consequently, the dates and relative shapes are better supported than exact decimal magnitudes. Decimals provide smooth ranking and interpolation; they do not convert qualitative reports into scientific measurements.
+Michigan DNR describes its creel program as interviews that record fishing duration, target species, and catch.^1 Its public Great Lakes dashboard provides monthly port- and `Pier/Dock`-specific estimates through 2022, which now anchor the Michigan magnitudes and broad shapes.^2 Wisconsin's 2022–2024 reports provide regional mode-specific pier estimates but not a contemporary Sheboygan-only catch-per-effort series.^3 Consequently, the Michigan broad shapes and city ordering are now much better supported, while exact weekly decimals—especially at Sheboygan—remain product calibration rather than measured coefficients.
 
 ## Deliverables
 
 - [Core seasonal curves](PierCast_Core_Species_Seasonal_Curves.json) — authoritative research configuration with 20 explicit curves, evidence IDs, confidence, limitations, anchor rationale, and one-decimal knots.
 - [Weekly rating review table](PierCast_Core_Species_Weekly_Ratings.csv) — 52 midpoint evaluations for every curve, including a one-decimal `X.X/10` preview.
 - [Weekly table generator](../scripts/generate-pier-cast-weekly-ratings.mjs) — deterministic regeneration and structural validation.
+- [v0.3 all-port audit](PierCast_All_Port_Seasonal_Presence_Audit_v0.3.md) — quantitative method, findings, revisions, confidence, and full sources.
+- [v0.4 full-scale audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md) — current cross-port magnitude decisions and full source list.
+- [v0.4 seasonal replay](PierCast_Seasonal_Calibration_Replay_v0.4.md) — reproducible in-sample consistency checks after recalibration.
+- [Official Michigan Pier/Dock extract](PierCast_Michigan_Pier_Creel_Estimates_1989_2022.csv) and [monthly summary](PierCast_Michigan_Pier_Creel_Monthly_Summary.csv) — auditable source rows and derived catch-per-effort/recurrence checks.
 - [Pilot city evidence inventory](PierCast_Pilot_Cities_Research.md) — prior source register and coverage decisions incorporated by reference.
 
 ## Score meaning
 
-Each value is the **Seasonal Pier Opportunity Ceiling**:
+Each value is the **Seasonal Pier Opportunity Rating**:
 
 > Under supportive water temperature, how strong is the historically supported opportunity for this species from the covered pier or piers on this date?
 
-This calibration owns the local fishery strength and the calendar timing. Water temperature remains the only live numeric variable and can only reduce the ceiling:
+This calibration owns the local fishery strength and calendar timing. Water temperature remains the only live numeric variable. Formula v2 softens adverse-temperature penalties and permits only a bounded five-percent synergy when thermal fit is nearly optimal:
 
 ```text
-finalScore = 1 + (seasonalOpportunityCeiling - 1) × temperatureSuitability
+temperatureModifier = 0.30 + 0.75 × temperatureSuitability
+finalScore = clamp(1, 10,
+  1 + (seasonalOpportunityRating - 1) × temperatureModifier
+)
 ```
 
 The seasonal value is not a detected-presence score, biological abundance index, catch probability, catch-rate estimate, percentile, or government rating. A `7.6` means FinFindr judges the target-specific opportunity to be in the upper part of the shared “good” band if water temperature is supportive. It does not mean a 76% chance of catching a fish.
@@ -35,14 +42,15 @@ Internal and research values use one decimal at knots and full precision after i
 
 ## Common calibration rubric
 
-| Continuous ceiling | Working interpretation | Evidence expectation |
+| Continuous seasonal rating | Working interpretation | Evidence expectation |
 | --- | --- | --- |
-| 1.0–1.9 | Little historically supported pier opportunity in the supported annual profile | Broad slow interval inside an otherwise researched curve; never a substitute for missing research |
-| 2.0–3.9 | Limited or narrow opportunity | Shoulder season, inconsistent access to fish, or weak/episodic reports |
-| 4.0–5.9 | Fair, credible target opportunity | Direct occurrence or repeatable regional/local pattern, generally with meaningful limitations |
-| 6.0–7.9 | Good target-specific opportunity | Repeated or comparatively strong local pier evidence, appropriate timing, and a credible local fishery |
-| 8.0–8.9 | Exceptional supported window | Strong, structure-specific evidence or unusually favorable repeated reporting; used sparingly |
-| 9.0–10.0 | Reserved | Not assigned in v0.1 without effort-aware validation and prospective outcome data |
+| 1.0 | Negligible meaningful opportunity in a researched annual profile | Supported dead interval; never a substitute for missing research |
+| 1.1–2.0 | Poor | Rare, incidental, or strongly inaccessible seasonal occurrence |
+| 2.1–4.0 | Limited | Shoulder season, inconsistent access to fish, or weak/episodic reports |
+| 4.1–6.0 | Fair | Direct occurrence or repeatable regional/local pattern with meaningful limitations |
+| 6.1–8.0 | Good | Repeated or comparatively strong local pier evidence and useful targetability |
+| 8.1–9.4 | Excellent | Exceptional recurring window with strong local or mode-specific evidence |
+| 9.5–10.0 | Premier peak | One of the strongest supported pier opportunities in the five-city catalog |
 
 The numeric assignment is an evidence-aware calibration judgment, not a mechanical conversion of adjectives. A single report of “a few fish” can support occurrence and timing, but not an 8. A report of “excellent numbers,” “great activity,” limits, or many successful pier anglers can support a stronger anchor only after checking scope, method, and contradictory weeks. Negative reports are retained rather than discarded.
 
@@ -53,7 +61,7 @@ Five dimensions governed every curve:
 1. **Pier specificity.** A catch explicitly attributed to a pier, breakwall, or pierhead receives more weight than a port-wide statement. Boat catches, offshore depths, river runs, and nearby bays do not become pier evidence.
 2. **Recurrence.** Similar timing across years is stronger than one isolated bulletin. Older direct reports remain useful for recurring calendar structure but lower current confidence.
 3. **Effort and outcome language.** “Excellent numbers,” multiple successful anglers, and reported limits support a higher ceiling than “a few,” “slow,” or unsuccessful effort. These qualitative descriptions are not treated as standardized catch rates.
-4. **Contemporary applicability.** 2024–2026 observations receive the most weight. Historical reports fill recurrence gaps but do not independently establish present strength.
+4. **Quantitative recurrence and contemporary applicability.** Port/mode creel estimates anchor broad strength and recurrence. Modern and recent periods receive more weight than older years, while 2023–2026 reports test whether the older quantitative pattern still applies.
 5. **Coverage match.** Evidence for an excluded, closed, unresolved, or differently exposed structure stays qualified. Grand Haven North Pier and Manistee south-side construction are not silently treated as active coverage.
 
 The 2024 Wisconsin open-water survey illustrates why fishery mode matters: statewide pier harvest estimates included 1,459 coho, 931 Chinook, 493 rainbow trout, 789 brown trout, but only three lake trout; those are statewide totals and cannot be copied directly into a Sheboygan score.^3 The same report had reduced 2024 sampling, used modeled estimates for unsampled spring periods, and did not include October in modeled ramp/pier/shore estimates.^3 These facts support regional plausibility and relative caution, not city-week precision.
@@ -62,11 +70,11 @@ The 2024 Wisconsin open-water survey illustrates why fishery mode matters: state
 
 | City | Chinook peak | Coho peak | Steelhead peak | Brown trout peak |
 | --- | ---: | ---: | ---: | ---: |
-| Ludington | Aug 30 · 8.2 | Apr 5 · 5.4 | Nov 8 · 6.2 | Apr 5 · 5.2 |
-| Grand Haven | Aug 26 · 6.7 | Apr 15 · 5.7 | Oct 30 · 6.5 | Apr 15 · 5.5 |
-| Manistee | Aug 30 · 8.7 | Oct 5 · 6.7 | Oct 28 · 6.6 | Apr 10 · 6.2 |
-| Frankfort–Elberta | Aug 16 · 8.8 | Oct 5 · 6.4 | Oct 16 · 8.4 | Apr 5 · 6.0 |
-| Sheboygan | Aug 31 · 8.3 | Sep 15 · 5.1 | Oct 10 · 5.5 | Apr 15 · 4.9 |
+| Ludington | Aug 30 · 8.3 | Oct 20 · 5.6 | Oct 20 · 8.1 | Apr 5 · 7.6 |
+| Grand Haven | Sep 8 · 7.8 | Sep 10 · 8.8 | Oct 30 · 9.2 | Apr 15 · 7.6 |
+| Manistee | Aug 30 · 9.5 | Oct 5 · 8.2 | Oct 28 · 10.0 | Apr 10 · 8.2 |
+| Frankfort–Elberta | Aug 16 · 9.7 | Sep 15 · 8.6 | Oct 16 · 9.8 | Apr 5 · 7.5 |
+| Sheboygan | Aug 31 · 9.6 | Apr 15 · 7.7 | Jul 15 · 7.3 | Apr 15 · 7.8 |
 
 These are curve knots, not final daily forecasts. The final score can be materially lower when representative water temperature is less suitable.
 
@@ -74,64 +82,52 @@ These are curve knots, not final daily forecasts. The final score can be materia
 
 ### Ludington
 
-Chinook has two supported windows: a smaller early-June opportunity and a stronger late-August/early-September staging opportunity. DNR reported pier Chinook on June 3, 2026, while an August 21, 2024 report said the piers produced salmon and an August 26, 2026 report placed Chinook in the harbor and in front of the piers.^4 The late-September curve declines quickly because a September 25, 2024 report described only a few stub-pier Chinook and a slowing harbor fishery.^5
-
-Steelhead receives spring and late-fall peaks, with the higher one in November. Contemporary November pier catches and older December records support the late window, but January and February remain deliberately low-confidence. Brown trout peaks modestly in early April because several direct reports call catches slow or hit-or-miss. Coho retains two fair windows; neither has enough effort-aware evidence for a “good” ceiling.
+The official Pier/Dock record confirms late August–September Chinook but shows a meaningful modern decline, so Chinook stops at 8.3 rather than joining the premier tier. Coho remains a modest fall target at 5.6. October steelhead reaches 8.1 and April brown trout reaches 7.6. Winter brown and steelhead values apply only when open-water access is safe; the Chinook winter plateau is now exactly 1.0.
 
 ### Grand Haven
 
-The active research scope is South Pier because North Pier is excluded during reported construction. This reduces confidence in historical transfer when a report simply says “the pier.”
-
-Grand Haven Chinook rises through July and August but peaks below the three northern Michigan ports. On July 22, 2026, pier anglers caught a few steelhead and Chinook; on August 26, salmon were caught from the pierheads and by pier anglers.^6 Generic “salmon” language prevents a stronger species-specific claim. Warm-water weeks that pushed salmon offshore were interpreted as temperature-suitability evidence, not proof that the seasonal window disappeared.
-
-Coho and brown trout receive their strongest ceilings in April. An April 24, 2024 bulletin reported a few coho and brown trout from the pier, and April 2026 reporting repeated both species.^7 Steelhead is unusual here: direct reports support an episodic June–July opportunity plus a stronger October–November window. The fall peak is anchored by repeated pier catches on October 16 and October 30, 2024.^8
+The active research scope is South Pier because North Pier is excluded during reported construction. September coho is highly recurrent and reaches 8.8; June–July and October steelhead are major windows and the fall maximum reaches 9.2. Chinook's recurring maximum remains September but stops at 7.8 because its modern density is lower and historical North Pier contribution is unresolved. Brown trout reaches 7.6 in April and 1.0 in August.
 
 ### Manistee
 
-Manistee has the strongest overall evidence density among the four Michigan species. Chinook reports span early June, late August, and September across multiple years. The curve climbs rapidly in August, reaches 8.7 on August 30, and then declines through September as fish move through the harbor and into river systems. This shape represents recurring staging access, while the live temperature factor handles individual warm-water setbacks.
-
-Coho has distinct spring and fall windows. Steelhead has the broadest supported cool-season pattern in the pilot: March–May and October–December, plus limited June evidence. Brown trout peaks in April based on repeated direct reports from 2019, 2021, 2022, 2023, and 2025. The active city profile covers North Pier; evidence involving south-side or unspecified structures remains a confidence limitation.
+Manistee's late-August Chinook maximum is 9.5, October coho is 8.2, and October steelhead is the catalog reference at 10.0. Estimated Pier/Dock steelhead catch was positive in every surveyed October and its modern catch density is the highest core port/species/month result. Brown trout rises to 8.2 in April, while stale June strength remains down-weighted and August is 1.0.
 
 ### Frankfort–Elberta
 
-Frankfort produces the two highest research ceilings. A Michigan DNR report dated August 16, 2023 described great pier activity for Chinook from roughly 3 a.m. to daylight; that supports an 8.8 mid-August anchor, followed by a still-exceptional late-August window.^9 An explicit zero/negative week on June 17, 2026 is also retained, preventing the early-summer curve from becoming uniformly strong.
-
-Steelhead reaches 8.4 on October 16 because DNR reported excellent numbers from both north and south piers, with better numbers and limits on the south pier.^10 Lower catches in early November pull the curve down rather than extending the peak. Coho peaks in early October with medium-low confidence because the direct evidence is older. Brown trout has a good but short April window and a smaller June shoulder.
+Frankfort–Elberta reaches 9.7 for Chinook on August 16 and 9.8 for steelhead on October 16. September coho reaches 8.6. These three peaks combine unusually strong Pier/Dock density and recurrence with direct timing reports. Brown trout rises more moderately to 7.5 in April and stays good into May; older June strength remains reduced because recent catches are sparse.
 
 ### Sheboygan
 
-Sheboygan Chinook is the only Sheboygan curve with a strong local, date-level anchor. On August 31, 2026, Wisconsin DNR reported extremely high pier/shore effort, improved catch rates relative to the prior month, and many anglers leaving with Chinook; successful anglers generally had one or two fish, while others caught none.^11 This supports a strong 8.3 peak without implying universal success.
-
-The coho, steelhead, and brown-trout curves are intentionally marked low confidence. They are regional-transfer research candidates based on Wisconsin pier harvest, agency shore/pier guidance, and general local access descriptions—not production-ready Sheboygan calibrations. Their modest peaks keep the data reviewable without disguising the missing city-specific series. Additional archived Sheboygan creel summaries are required before any of these three curves can be approved.
+Sheboygan is treated as a major pier-fishing city without a blanket city bonus. Chinook reaches 9.6 in late August because current DNR reporting documents extremely high effort and many successful pier anglers. Wisconsin's mode-specific pier tables, local relevance, and recurring observations support coho at 7.7, steelhead at 7.3, and brown trout at 7.8. Those three remain `medium` confidence because Wisconsin does not publish a contemporary Sheboygan-only Pier/Dock catch-per-effort table.
 
 ## Species-level pattern checks
 
 ### Chinook salmon
 
-The Michigan curves preserve an early-summer feeding-access shoulder and a stronger late-summer staging peak. Frankfort and Manistee are highest because the retained reports include stronger direct activity language and repeated pier/harbor occurrence. Ludington is close behind. Grand Haven is capped lower because species-specific pier success is less consistent and structure coverage is restricted. The Wisconsin curve is locally strong only at the late-August anchor.
+The Michigan curves preserve early feeding-access shoulders where supported and stronger late-summer staging peaks. Frankfort and Manistee remain highest. Ludington is reduced slightly because the modern record is less consistent, while Grand Haven's maximum moves from August to September. Sheboygan remains a strong late-August port.
 
 ### Coho salmon
 
-Spring and fall are treated as distinct windows. Grand Haven is strongest in spring; Manistee and Frankfort are strongest in fall; Ludington has two fair peaks. Sheboygan remains a regional hypothesis. This prevents the high 2024 Wisconsin-wide coho harvest from being misrepresented as Sheboygan-specific pier performance.
+Spring and fall remain distinct where supported, but the new port-level data change the ordering: Grand Haven September is strongest, followed by Frankfort September and Manistee October. Ludington is modest. Sheboygan has credible spring, July, and fall opportunities but remains limited by the absence of contemporary site-only effort data.
 
 ### Steelhead
 
-Spring and autumn/early winter are the dominant calendar windows. Grand Haven also retains a modest summer shoulder because multiple reports directly mention pier steelhead in June and July. Frankfort receives the highest peak because “excellent numbers” and limits from both piers are unusually strong relative evidence. January–March ratings must always carry the separate open-water/access notice.
+October is exceptional at Manistee and Frankfort and good at Ludington. Grand Haven has three real windows—spring, June–July, and October—and the summer window is no longer described as modest. Sheboygan remains more variable. January–March ratings must always carry the separate open-water/access notice.
 
 ### Brown trout
 
-All four Michigan cities peak in early or mid-April, with conservative magnitudes reflecting reports of a few fish, slow action, and structure ambiguity. Stocking information supports local fishery relevance but does not directly measure pier catchability. Michigan DNR advisory minutes list continued brown-trout stocking at Frankfort, Manistee, and Ludington and a Grand Haven addition; this informs the local-strength prior without dictating weekly values.^12
+All five cities peak in early or mid-April. Michigan DNR Pier/Dock catch-per-effort confirms that the former Michigan magnitudes were too conservative, while recent trend checks prevent historical strength from being projected without limit. Wisconsin's recent pier tables and Sheboygan stocking support a 6.5 spring ceiling, not an exceptional 8 and not an equal fall peak.
 
 ## Confidence and release disposition
 
 | Confidence | Curves | Meaning |
 | --- | ---: | --- |
-| Medium-high | 4 | Strongest repeat local timing evidence; still lacks standardized pier-only weekly outcomes |
-| Medium | 6 | Direct recurring local evidence with meaningful gaps |
-| Medium-low | 7 | Direct evidence exists, but recurrence, species resolution, or structure scope is limited |
-| Low | 3 | Regional-transfer curve awaiting Sheboygan-specific corroboration |
+| Medium-high | 17 | Michigan port/mode quantitative record plus direct timing reports, or equivalent strong local Chinook evidence at Sheboygan |
+| Medium | 3 | Sheboygan coho, steelhead, and brown: strong local relevance and regional pier seasonality but no contemporary site-only catch-per-effort |
+| Medium-low | 0 | No v0.4 core curve remains dependent mainly on isolated qualitative occurrence |
+| Low | 0 | No core curve remains a pure regional-transfer hypothesis |
 
-All 20 curves remain blocked from public release because the complete scoring system still lacks approved seasonal temperature-suitability curves, a verified representative water-temperature feed for each city, prospective outcome testing, current access verification, and independent domain review. This is a research milestone, not a release authorization.
+All 20 curves remain private. The temperature curves, representative-temperature pipeline, stale-read fallback, and authenticated ingestion path are implemented, but public release still requires historical/shadow replay, prospective outcome testing, current access verification, and independent domain review. This is a calibration milestone, not a release authorization.
 
 ## Validation plan
 
@@ -160,13 +156,12 @@ Evaluation should occur prospectively for at least one complete open-water seaso
 
 ## Recommended implementation sequence
 
-1. Review the 20 peak magnitudes and city ordering as product judgments; do not debate every interpolated weekly decimal independently.
-2. Approve, revise, or reject the sparse knots in the JSON. Regenerate the weekly table after every change.
-3. Research and approve the seasonal temperature-suitability curves for these four species and their feeding/staging contexts.
-4. Select and validate one representative water-temperature series per city.
-5. Run historical replays and prospective shadow forecasts with all ratings still private.
-6. Verify one-decimal `X.X/10` presentation in the review UI and ensure copy does not imply that every one-tenth difference is practically meaningful.
-7. Expand to secondary species only after the core four have a coherent pilot baseline.
+1. Preserve the v0.4 magnitude and city-ordering decisions as a frozen prospective cohort; do not tune from memorable trips.
+2. Continue the historical/shadow replay and collect current effort-backed outcomes with all ratings private.
+3. Measure false-high rates for every displayed band and examine all city/species disagreements between the model and observed pier results.
+4. Verify one-decimal `X.X/10` presentation and ensure copy does not imply that every one-tenth difference is practically meaningful.
+5. Obtain an independent Great Lakes fisheries/pier-angler review, prioritizing the three medium-confidence Sheboygan curves.
+6. Expand to secondary species only after the four core species pass the replay and one open-water prospective validation cycle.
 
 ## Evidence ID additions
 
@@ -188,14 +183,27 @@ The original `A1–A20`, `F1–F40`, `S1–S8`, `L1`, and `T001–T032` register
 | F52 | [Michigan DNR, Oct. 27, 2021](https://content.govdelivery.com/accounts/MIDNR/bulletins/2f9782e) | Grand Haven pier steelhead/coho |
 | M1 | [Michigan DNR Lake Michigan advisory minutes, Apr. 5, 2022](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Boards/LMCFAC/Minutes/minutes-april-5-2022.pdf) | Port-level fishery-strength context; not pier-mode timing |
 | M2 | [Michigan DNR Lake Michigan advisory minutes, Oct. 17, 2023](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Boards/LMCFAC/Minutes/minutes-oct-17-2023.pdf) | Brown-trout stocking-site context; not catchability |
+| M3 | [Michigan DNR Great Lakes creel dashboard](https://app.powerbigov.us/view?r=eyJrIjoiOWQ5NjQxMmItYjFkYi00YzI2LTkxMTAtMjMwNjEzOWE5YjM3IiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9) | 1997–2022 monthly port/species `Pier/Dock` catch plus effort; quantitative backbone for all Michigan curves |
+| M4 | [Michigan DNR Lake Michigan port roadmap](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Maps/LakeMichigaRoadmap.pdf) | Agency seasonal opportunity check, including cold-season brown trout and steelhead |
+| M5 | [Michigan DNR 2025 Great Lakes recreational fisheries report and supplement](https://www.michigandnr.com/publications/pdfs/DNRFishLibrary/FisheriesReports/FR049.pdf) | Current survey-method, corrected-Manistee, and aggregate 2025 Pier/Dock seasonality check; not a city-specific magnitude source |
 | W1 | [Wisconsin DNR 2024 open-water sportfishing report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LMGLFC2025.pdf) | Regional mode-specific harvest and survey limitations |
 | W2 | [Wisconsin DNR Lake Michigan report, Aug. 31, 2026](https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport) | Sheboygan Chinook effort and catches |
+| W3 | [Wisconsin DNR 2022 open-water sportfishing report](https://dnr.wisconsin.gov/sites/default/files/topic/LM_LakeMichiganSportHarvestReport2022.pdf) | Regional pier-mode month bins and long-term Sheboygan County effort |
+| W4 | [Wisconsin DNR 2023 open-water sportfishing report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2023.pdf) | Regional pier-mode month bins and long-term Sheboygan County effort |
+| W5 | [Wisconsin DNR 2024 open-water sportfishing report](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf) | Regional pier-mode month bins and long-term Sheboygan County effort |
+| W6 | [Wisconsin DNR 2025 salmonid stocking summary](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_StockingSummary2025.pdf) | Current Sheboygan County and site-level fishery-support context; not catchability |
+| W7 | [Wisconsin DNR report, Mar. 25, 2010, archived reproduction](https://wisconsinoutdoor.com/smf/index.php?topic=3580.0) | Sheboygan South Pier rainbow/brown occurrence; historical, secondary-host provenance |
+| W8 | [Wisconsin DNR report, Aug. 13, 2010, archived reproduction](https://wisconsinoutdoor.com/smf/index.php?topic=4046.0) | Mixed salmonid catches from both Sheboygan piers; historical, secondary-host provenance |
+| W9 | [Wisconsin DNR report, Sept. 9, 2010, archived reproduction](https://wisconsinoutdoor.com/smf/index.php?topic=4116.0) | Fair Chinook/coho/brown catches from both Sheboygan piers; historical, secondary-host provenance |
+| W10 | [Wisconsin DNR report, Apr. 14, 2011, archived reproduction](https://wisconsinoutdoor.com/smf/index.php?topic=4601.0) | Low-number Sheboygan South Pier brown-trout occurrence; historical, secondary-host provenance |
+| W11 | [Wisconsin DNR creel excerpt, Oct. 2011, newspaper archive](https://chicago.suntimes.com/news/2011/10/19/18602479/midwest-fishing-report-rivers-rolling-fall-patterns-minocqua-add) | Sheboygan pier coho/brown occurrence; historical, secondary-host provenance |
+| W12 | [Southern Lake Michigan report, Sept. 7, 2019](https://www.seehafernews.com/2019/09/07/outdoor-report-2/) | Sheboygan pier Chinook/brown occurrence and effort context; secondary-host provenance |
 
 ## Sources
 
 1. Michigan Department of Natural Resources. “[Creel Clerks & Angler Surveys](https://www.michigan.gov/dnr/managing-resources/fisheries/creel).” Accessed September 9, 2026.
-2. Wisconsin Department of Natural Resources. “[Lake Michigan Outdoor Fishing Report — Aug. 31, 2026](https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport).” August 31, 2026.
-3. Wisconsin Department of Natural Resources. “[Wisconsin’s Lake Michigan Management Reports to the Great Lakes Fishery Commission, 2025](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LMGLFC2025.pdf),” Sportfishing Effort and Harvest, pp. 89–92. 2025.
+2. Michigan Department of Natural Resources. “[Michigan Creel Sportfishing Estimates](https://app.powerbigov.us/view?r=eyJrIjoiOWQ5NjQxMmItYjFkYi00YzI2LTkxMTAtMjMwNjEzOWE5YjM3IiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9).” Great Lakes public dashboard, data through 2022.
+3. Wisconsin Department of Natural Resources. “[2022](https://dnr.wisconsin.gov/sites/default/files/topic/LM_LakeMichiganSportHarvestReport2022.pdf), [2023](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2023.pdf), and [2024](https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf) Open Water Sportfishing Effort and Harvest from Lake Michigan and Green Bay,” pier-fishery tables.
 4. Michigan Department of Natural Resources. “[Weekly Fishing Report: August 21, 2024](https://content.govdelivery.com/accounts/MIDNR/bulletins/3b02c05).” August 21, 2024; and “[Weekly Fishing Report: August 26, 2026](https://content.govdelivery.com/accounts/MIDNR/bulletins/426de2b).” August 26, 2026.
 5. Michigan Department of Natural Resources. “[Weekly Fishing Report: September 25, 2024](https://content.govdelivery.com/accounts/MIDNR/bulletins/3b7fd3a).” September 25, 2024.
 6. Michigan Department of Natural Resources. “[Weekly Fishing Report: July 22, 2026](https://content.govdelivery.com/accounts/MIDNR/bulletins/421929e).” July 22, 2026; and “[Weekly Fishing Report: August 26, 2026](https://content.govdelivery.com/accounts/MIDNR/bulletins/426de2b).” August 26, 2026.

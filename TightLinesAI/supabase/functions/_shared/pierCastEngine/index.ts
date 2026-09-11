@@ -18,7 +18,10 @@ export * from "./providers/glos.ts";
 export * from "./validation/temperatureComparison.ts";
 export * from "./archive/lmhofsArchive.ts";
 export * from "./archive/temperatureObservations.ts";
+export * from "./archive/shadowForecasts.ts";
+export * from "./archive/shadowOutcomes.ts";
 export * from "./pipeline/temperatureIngestion.ts";
+export * from "./pipeline/reviewOutlook.ts";
 export * from "./validation.ts";
 
-export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.4.0";
+export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.8.0";

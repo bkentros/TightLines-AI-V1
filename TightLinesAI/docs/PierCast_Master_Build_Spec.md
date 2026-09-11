@@ -1,10 +1,22 @@
 # FinFindr PierCast — Master Build Specification
 
+> **Full-scale seasonal recalibration — 2026-09-10:** The [v0.4 cross-port audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md) revisits all 20 city × species curves under a shared full-scale rubric. It applies no blanket uplift: changes are tied to mode-specific catch density, recurrence, direct pier reports, recency, and coverage limitations. Manistee steelhead is the `10.0` seasonal reference; Frankfort Chinook/steelhead and Sheboygan Chinook can also reach a final `10.0` only with nearly optimal thermal fit. Researched dead intervals now include exact `1.0` anchors. The [v0.4 replay](PierCast_Seasonal_Calibration_Replay_v0.4.md) retains strong in-sample consistency (`0.857` Spearman versus the evidence guide) with zero unsupported good-or-better Michigan monthly cells. All values remain private and provisional.
+
+> **Evidence-foundation audit — 2026-09-10:** The historical [v0.3 all-port audit](PierCast_All_Port_Seasonal_Presence_Audit_v0.3.md) established the timing and relative ordering used by v0.4 from Michigan DNR's 1997–2022 port-specific `Pier/Dock` creel estimates, Wisconsin DNR's 2022–2024 pier tables, current stocking, and direct reports. Its numeric values are superseded by v0.4. Sparse adaptive date anchors with daily interpolation remain authoritative; weekly values are deterministic review outputs, not 52 independent configuration judgments.
+
+> **Seasonal replay — 2026-09-10:** The current [v0.4 consistency replay](PierCast_Seasonal_Calibration_Replay_v0.4.md) evaluates 120 official Michigan port × species × month cells. Monthly seasonal ratings correlate `0.857` with the nonbinding evidence guide, every Michigan curve peaks in the evidence peak month or an adjacent month, and no configured `>= 6.0` cell lacks both long-term and modern aggregate catch support. This is retrospective in-sample evidence, not predictive validation. Sheboygan lacks comparable site-only monthly data and remains outside the quantitative replay. The [v0.3 replay](PierCast_Seasonal_Calibration_Replay_v0.3.md) remains a historical comparison only. Prospective shadow validation is still required; public ratings remain disabled.
+
+> **Prospective shadow ledger — 2026-09-10:** The [private shadow-validation ledger](PierCast_Shadow_Validation_Ledger.md) is deployed and connected to the authenticated six-hour ingester. Each new complete model issue freezes 200 versioned forecasts: 100 active-v2 and 100 same-issue v1-comparator rows across five cities, five dates, and four core species. Outcomes are stored separately with explicit effort required for zero-catch evidence. Version 0.4 has started a separate production cohort under the [v2 prospective protocol](PierCast_Prospective_Evaluation_Protocol_v2.md); its first same-issue active/comparator pair contains 200 forecasts. The v1 protocol and v0.3 forecasts remain immutable historical evidence. Forecast collection is active, but a meaningful prospective sample remains required. Public flags and release gates remain unchanged.
+
 > **Version 2.0 product decision — 2026-09-09:** PierCast uses city-only public profiles with a **Covers these piers** section, year-round operation, and five initial candidates: Ludington, Grand Haven, Manistee, Frankfort, and tentatively Sheboygan. The numeric product is the **FinFindr Opportunity Rating**, displayed to one decimal as **`X.X/10`**. It is not detected fish presence, a fish count, catch probability, or biological measurement.
 
-> **Simplified v1 scoring decision — 2026-09-09:** The only numeric inputs are a city × species **Seasonal Pier Opportunity Ceiling** `P_rating(c,s,t)` and water-temperature suitability `T(s,t)`. The exact formula is `score(c,s,t) = 1 + (P_rating(c,s,t) - 1) × T(s,t)`. The seasonal curve encodes both local fishery strength and fine-grained timing. There is no separate permanent local baseline, annual multiplier, temperature-trend modifier, or weather modifier. Access, open water, hazards, data validity, and confidence remain separate gates/notices and never become hidden score weights. This decision supersedes conflicting older passages retained for historical context.
+> **Bounded-temperature v2 scoring decision — 2026-09-10:** The only numeric inputs remain a city × species **Seasonal Pier Opportunity Rating** `P_rating(c,s,t)` and water-temperature suitability `T(s,t)`. The exact formula is `score = clamp(1, 10, 1 + (P_rating - 1) × (0.30 + 0.75T))`. The seasonal curve encodes local fishery strength and fine-grained timing. Temperature retains a material penalty but cannot erase more than 70% of the seasonal opportunity above 1; only `T > 0.9333…` can exceed the seasonal rating, and perfect fit supplies at most a five-percent headroom multiplier. There is no separate permanent local baseline, annual multiplier, temperature-trend modifier, or weather modifier. Access, open water, hazards, data validity, and confidence remain separate gates/notices and never become hidden score weights. This supersedes the 2026-09-09 ceiling formula, which remains archived as the prospective shadow comparator. In product language, `T` is **nearshore thermal fit**: compatibility between modeled surface temperature and pier-reachable opportunity, not the temperature occupied by fish at depth.
 
-> **Research status — 2026-09-10:** The upfront annual evidence inventory covers all 13 retained species and five candidate cities. A provisional [core-species seasonal calibration](PierCast_Core_Species_Seasonal_Calibration.md) supplies 20 date-level curves and 1,040 weekly review values, while the [core temperature and source calibration](PierCast_Core_Temperature_and_Source_Calibration.md) adds four shared thermal curves and five fail-closed LMHOFS source plans. Five exact, wet surface candidates are frozen in the [LMHOFS representation review](PierCast_LMHOFS_Representation_Review.md). The completed [temperature representation/calibration audit](PierCast_Temperature_Representation_and_Calibration.md) classifies all five cities as `blocked_insufficient_evidence`: Grand Haven's sparse late-summer diagnostics were encouraging through 72 hours but failed tail-error gates later; Ludington showed larger tail risk; Manistee and Frankfort lack qualified observations; Sheboygan supplied no QC-good records. The [all-five temperature pipeline](PierCast_Temperature_Pipeline_Implementation.md) now operates production-private model and strict-QC observation archives, an authenticated ingestion function, and an active six-hour schedule. Three complete model cycles (1,815 samples) and 13,460 observation records are archived; repeat ingestion, corrected validation RPC, and service-role-only access are verified. See also [Annual Species Biology and Thermal Research](PierCast_Seasonal_Temperature_Research.md), the [156-row shared month matrix](PierCast_Species_Month_Biology_Matrix.csv), [Pilot Cities Research](PierCast_Pilot_Cities_Research.md), [Environmental Data Feasibility](PierCast_Environmental_Data_Feasibility.md), and the [City Coverage and Engine Plan](PierCast_City_Coverage_and_Engine_Plan.md). Every public rating remains unapproved and disabled.
+> **Research status — 2026-09-10:** The upfront annual evidence inventory covers all 13 retained species and five candidate cities. A provisional [core-species seasonal calibration](PierCast_Core_Species_Seasonal_Calibration.md) supplies 20 date-level curves and 1,040 weekly review values, while the [core temperature and source calibration](PierCast_Core_Temperature_and_Source_Calibration.md) adds four shared thermal curves and five fail-closed LMHOFS source plans. Five exact, wet surface candidates are frozen in the [LMHOFS representation review](PierCast_LMHOFS_Representation_Review.md). The completed [temperature representation/calibration audit](PierCast_Temperature_Representation_and_Calibration.md) classifies all five cities as `blocked_insufficient_evidence`: Grand Haven's sparse late-summer diagnostics were encouraging through 72 hours but failed tail-error gates later; Ludington showed larger tail risk; Manistee and Frankfort lack qualified observations; Sheboygan supplied no QC-good records. The [all-five temperature pipeline](PierCast_Temperature_Pipeline_Implementation.md) now operates production-private model and strict-QC observation archives, an authenticated ingestion function, and an active six-hour schedule. Four complete model cycles (2,420 samples) and 14,036 observation records are archived; repeat ingestion, corrected validation RPC, and service-role-only access are verified. See also [Annual Species Biology and Thermal Research](PierCast_Seasonal_Temperature_Research.md), the [156-row shared month matrix](PierCast_Species_Month_Biology_Matrix.csv), [Pilot Cities Research](PierCast_Pilot_Cities_Research.md), [Environmental Data Feasibility](PierCast_Environmental_Data_Feasibility.md), and the [City Coverage and Engine Plan](PierCast_City_Coverage_and_Engine_Plan.md). Every public rating remains unapproved and disabled.
+
+> **Owner-review implementation — 2026-09-10:** The authenticated five-date review outlook runs the provisional four-species v2 formula against one complete archived cycle for all five cities. It returns 25 city-date outlooks with duration-weighted scores, seasonal opportunity ratings, source provenance, coverage, and hourly surface-temperature points. Each authenticated ingestion run also freezes the prior ceiling formula against the identical model issue as a private comparator. The mobile owner-review screen presents the active values as disabled opportunity previews. The active private temperature candidate is v0.2: only the sub-50 °F shoulders were made less punitive; the entire v0.1 response at 50 °F and warmer is retained, and v0.1 remains available in code for comparison. Production still returns an empty public catalog and denies outlook access without a valid owner token.
+
+> **Owner-review visual system — 2026-09-10:** PierCast opens on a discovery dashboard rather than defaulting to one city. Its daily Top 5 ranks supported cities by each city's single highest eligible species score; this is explicitly not an overall city score. A State → City coverage browser provides an explicit report-loading action, and an opened report retains a distance-ordered horizontal rail of nearby supported cities. Both the discovery dashboard and every city report end with the same coverage-request workflow used by River Run, including authenticated account/view context, durable submission, and email delivery. The private PierCast report directly adopts River Run's editorial visual hierarchy: navy navigation, an arrow-only back control, ruled-paper texture, red corner marks, a large Fraunces city title, prominent target artwork, restrained mono metadata, compact hard-shadow paper cards, and consistent spacing. The hero identifies the selected day's leading species and displays its color-coded gauge. Five fixed dashboard-style day cards follow; each displays that day's highest eligible species score in the shared five-band color system. Selecting a date updates the hero and the four-species comparison, whose factors use the plain-language labels `Seasonal presence` and `Water temp suitability`. A River Run-style conditions card gives number-first water, air, and wind summaries plus one continuous horizontally scrollable hourly timeline covering the full five-date outlook. The water chart plots that complete outlook with numeric axes and shows actual temperatures at forecast start, +12 hours, and +24 hours; every delta is explicitly labeled `vs now`, while a separate hours-12–24 change explains reversals. The report ends with one concise covered-piers card and one concise rating explanation. Research status, provider provenance, grid metadata, validation ledgers, outcome-entry controls, and preview watermarks are intentionally absent from this consumer surface; owner-only access remains enforced in code. Air and wind are contextual only and never affect the PierCast score. The UI change does not alter scoring, release gates, or public availability.
 
 **Version:** 2.0\
 **Established:** 2026-09-05  
@@ -22,7 +34,7 @@ The requirements below define the product, scoring semantics, evidence standards
 
 ### Version 2.0 scope change
 
-Uses one city × species Seasonal Pier Opportunity Ceiling and water-temperature suitability as the only numeric inputs. Removes the redundant permanent baseline and every other live score modifier. Five dates refresh after accepted new temperature runs; today covers the remaining local day. Practical conditions remain separate. Best fishing times and fixed fishing durations are outside v1 scope.
+Uses one city × species Seasonal Pier Opportunity Rating and water-temperature suitability as the only numeric inputs. Applies the bounded v2 temperature modifier without adding another environmental variable. Removes the redundant permanent baseline and every other live score modifier. Five dates refresh after accepted new temperature runs; today covers the remaining local day. Practical conditions remain separate. Best fishing times and fixed fishing durations are outside v1 scope.
 
 ### Navigation
 
@@ -116,13 +128,13 @@ Cross-pier comparisons use the same rubric but remain subject to evidence qualit
 
 Store continuous scores internally. Display every available public rating to one decimal as **`X.X/10`**, for example `7.6/10`; never display a bare number that could be mistaken for another scale. Use the following **product rubric**, whose usefulness must be evaluated during the pilot:
 
-| Displayed score | Label | Intended interpretation |
-| --- | --- | --- |
-| 1–2 | Poor | Little supported opportunity for the target |
-| 3–4 | Limited | A weak or restrictive opportunity |
-| 5–6 | Fair | A credible opportunity with meaningful limitations |
-| 7–8 | Good | Strong support for target-specific opportunity over the assessed day |
-| 9–10 | Excellent | Exceptional support within the shared opportunity rubric |
+| Displayed score | Label     | Intended interpretation                                              |
+| --------------- | --------- | -------------------------------------------------------------------- |
+| 1–2             | Poor      | Little supported opportunity for the target                          |
+| 3–4             | Limited   | A weak or restrictive opportunity                                    |
+| 5–6             | Fair      | A credible opportunity with meaningful limitations                   |
+| 7–8             | Good      | Strong support for target-specific opportunity over the assessed day |
+| 9–10            | Excellent | Exceptional support within the shared opportunity rubric             |
 
 Round only for presentation using one shared function. Use the displayed integer to choose its label. Ranking comparisons use continuous values. Store the rubric version with forecasts. A score of 1 does not mean proven absence.
 
@@ -181,20 +193,20 @@ Fishing forums, commercial guide promotions, uncited temperature charts, search 
 
 Every material parameter or relationship MUST reference one or more evidence records with:
 
-| Field | Requirement |
-| --- | --- |
-| `evidenceId` | Stable internal identifier |
-| `authority`, `title`, `urlOrPath` | Direct source, not a search-results URL |
-| `publishedAt`, `updatedAt` | Record when available; unknown must remain explicit |
-| `dataYears`, `accessedAt` | Distinguish observation years from publication and retrieval dates |
-| `locator` | Relevant page, section, table, or dataset query |
-| `supportedClaim` | Specific finding used by the configuration |
-| `geographicScope` | Lake, tributary, pier, region, or study location |
-| `species`, `lifeStage`, `behavioralContext` | Applicability of the finding |
-| `measurementContext` | Units, depth, habitat, method, and relevant uncertainty |
-| `limitations`, `contradictions` | Transfer limits and unresolved conflicting findings |
-| `reviewedBy`, `reviewedAt` | Review provenance |
-| `nextReviewAt`, `reviewTriggers` | Time- or event-based maintenance |
+| Field                                       | Requirement                                                        |
+| ------------------------------------------- | ------------------------------------------------------------------ |
+| `evidenceId`                                | Stable internal identifier                                         |
+| `authority`, `title`, `urlOrPath`           | Direct source, not a search-results URL                            |
+| `publishedAt`, `updatedAt`                  | Record when available; unknown must remain explicit                |
+| `dataYears`, `accessedAt`                   | Distinguish observation years from publication and retrieval dates |
+| `locator`                                   | Relevant page, section, table, or dataset query                    |
+| `supportedClaim`                            | Specific finding used by the configuration                         |
+| `geographicScope`                           | Lake, tributary, pier, region, or study location                   |
+| `species`, `lifeStage`, `behavioralContext` | Applicability of the finding                                       |
+| `measurementContext`                        | Units, depth, habitat, method, and relevant uncertainty            |
+| `limitations`, `contradictions`             | Transfer limits and unresolved conflicting findings                |
+| `reviewedBy`, `reviewedAt`                  | Review provenance                                                  |
+| `nextReviewAt`, `reviewTriggers`            | Time- or event-based maintenance                                   |
 
 Store concise factual notes and permitted excerpts rather than copying entire copyrighted publications.
 
@@ -266,7 +278,7 @@ Choose the configured series before evaluating rating favorability. Do not dynam
 Required:
 
 - Local eligibility and evidence status.
-- One city-specific Seasonal Pier Opportunity Ceiling curve on the shared `1–10` scale. Its peak already encodes that city's long-term fishery strength; there is no separate permanent baseline.
+- One city-specific Seasonal Pier Opportunity Rating curve on the shared `1–10` scale. Its peak encodes that city's long-term fishery strength under broadly supportive conditions; there is no separate permanent baseline.
 - Sparse `MM-DD` anchors with daily interpolation. Use broad flat spans during consistently slow periods and weekly or finer evidence-backed anchors around meaningful arrivals, peaks, and declines.
 - One or more seasonal temperature-suitability curves where research supports different behavioral contexts; the engine resolves one continuous `T(s,t)` value.
 - Applicable method/covered-pier scope and targeting restrictions.
@@ -310,12 +322,12 @@ GLERL identifies its GLCFS products as experimental. Any use must document that 
 
 For each launch pier, fill and probe this matrix with actual provider/product IDs:
 
-| Input | Purpose | Requirement |
-| --- | --- | --- |
-| Representative water temperature | Main biological suitability | Required for dynamic v1 species scoring |
-| Access and restrictions | Separate recommendation qualification | Use known authoritative status where available; never weight the score |
-| Open-water/ice context | Separate winter qualification | Show the open-water-only notice; never use PierCast as an ice-safety assessment |
-| Other environmental inputs | Context only | Wind, waves, weather, light, flow, pressure, moon, and trends have zero score weight in v1 |
+| Input                            | Purpose                               | Requirement                                                                                |
+| -------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Representative water temperature | Main biological suitability           | Required for dynamic v1 species scoring                                                    |
+| Access and restrictions          | Separate recommendation qualification | Use known authoritative status where available; never weight the score                     |
+| Open-water/ice context           | Separate winter qualification         | Show the open-water-only notice; never use PierCast as an ice-safety assessment            |
+| Other environmental inputs       | Context only                          | Wind, waves, weather, light, flow, pressure, moon, and trends have zero score weight in v1 |
 
 Each required row MUST declare endpoint, variable, units, source location, issue cadence, forecast horizon, acceptable age, coverage minimum, timeout, retry policy, fallback, and unavailable behavior. Retain a sanitized fixture. Public enablement is blocked while the required temperature contract remains unresolved.
 
@@ -380,15 +392,11 @@ Before numeric scoring, resolve support for city, covered-pier scope, species, m
 
 Legal targeting and access do not change the underlying biological estimate. They determine whether it can support a trip recommendation in Sections 8–9.
 
-### 7.3 Seasonal Pier Opportunity Ceiling
+### 7.3 Seasonal Pier Opportunity Rating
 
-For each city × species pairing, configure `P_rating(c,s,t)` as a continuous recurring calendar curve from `1–10`. It answers: **under supportive water temperature, how strong is the historically supported opportunity for this species from the covered piers on this date?** It is a FinFindr estimate, not detected fish presence.
+For each city × species pairing, configure `P_rating(c,s,t)` as a continuous recurring calendar curve from `1–10`. It answers: **under broadly supportive water temperature, how strong is the historically supported opportunity for this species from the covered piers on this date?** It is a FinFindr estimate, not detected fish presence, catch probability, or an absolute maximum.
 
-The curve owns both long-term local fishery strength and seasonal timing. Its annual peak is the maximum that city/species fishery can reach; there is no separate permanent baseline. Configure sparse `MM-DD` knots and interpolate daily. Broad slow periods may remain flat, while evidence-backed arrivals, peaks, and declines may use weekly or finer knots. Do not invent weekly variation where evidence supports only a broad window.
-
-```text
-P(c,s,t) = (P_rating(c,s,t) - 1) / 9
-```
+The curve owns both long-term local fishery strength and seasonal timing. Its annual peak is the reference opportunity under broadly supportive conditions; the final v2 score can exceed it only through the formula's bounded near-optimal synergy and can never exceed 10. There is no separate permanent baseline. Configure sparse `MM-DD` knots and interpolate daily. Broad slow periods may remain flat, while evidence-backed arrivals, peaks, and declines may use weekly or finer knots. Do not invent weekly variation where evidence supports only a broad window.
 
 ### 7.4 Water-temperature suitability
 
@@ -398,22 +406,26 @@ Resolve the species' applicable seasonal temperature curve to one value:
 T(s,t) = configured water-temperature suitability in [0, 1]
 ```
 
-`T=1` fully unlocks the seasonal rating. Lower values reduce it. Temperature cannot increase the output above `P_rating`. Missing, stale, incomplete, invalid, or unsupported temperature produces unavailable rather than a neutral value. No other live input participates in v1 scoring.
+`T` remains a species-specific thermal-fit calibration, not a probability. Formula v2 converts it to `M = 0.30 + 0.75T`, so `M` ranges from `0.30–1.05`. Values below `T = 0.9333…` reduce the seasonal rating, while only the narrow near-optimal end can add a modest synergy. Missing, stale, incomplete, invalid, or unsupported temperature produces unavailable rather than a neutral value. No other live input participates in v1 scoring.
 
 ### 7.5 Final formula
 
 ```text
-O(c,s,t) = P(c,s,t) × T(s,t)
-score(c,s,t) = 1 + 9 × O(c,s,t)
+M(s,t) = 0.30 + 0.75 × T(s,t)
+score(c,s,t) = clamp(1, 10,
+  1 + (P_rating(c,s,t) - 1) × M(s,t)
+)
 ```
 
 Equivalent direct form:
 
 ```text
-score(c,s,t) = 1 + (P_rating(c,s,t) - 1) × T(s,t)
+score(c,s,t) = clamp(1, 10,
+  1 + (P_rating(c,s,t) - 1) × (0.30 + 0.75 × T(s,t))
+)
 ```
 
-This is multiplicative, not an additive percentage weighting. It guarantees `1 ≤ score ≤ P_rating ≤ 10`. Store `P_rating`, `T`, the continuous result, formula version, curve versions, and reason codes. Public UI MUST display the one-decimal result as `X.X/10`.
+This remains a gated interaction rather than a flat additive weighting. It guarantees `1 ≤ score ≤ 10`; the worst supported thermal fit retains 30% of seasonal headroom, and perfect fit can multiply that headroom by no more than `1.05`. Because the modifier acts only on `P_rating - 1`, favorable temperature cannot manufacture a strong rating during a weak seasonal period. Store `P_rating`, `T`, the temperature modifier, continuous result, formula version, curve versions, and reason codes. Public UI MUST display the one-decimal result as `X.X/10`.
 
 ### 7.6 Calibration checks
 
@@ -429,7 +441,7 @@ If calendar timing and temperature cannot be meaningfully separated with availab
 
 Maintain a small reviewed set of reference days spanning the shared Poor through Excellent rubric across pilot species and fisheries. Record source inputs, expected interpretation, resulting score, uncertainty, and calibration rationale. These are provisional engineering anchors, not agency-validated thresholds. Evaluate final daily outputs rather than assigning intuitive values independently to each multiplicative factor.
 
-For example, a configured seasonal rating of `8` and temperature suitability of `0.8` yields `1 + (8 - 1) × 0.8 = 6.6`, displayed as `6.6/10`. A seasonal rating of `2` cannot exceed `2.0/10`, even under ideal temperature. These illustrative values are not species parameters. Validate realistic score distributions, aggregation sensitivity, and false excellent outcomes; do not force every city or species to fill the scale.
+For example, a configured seasonal rating of `8` and temperature suitability of `0.8` yields `1 + (8 - 1) × (0.30 + 0.75 × 0.8) = 7.3`, displayed as `7.3/10`. A seasonal rating of `2` reaches only `2.1/10` under perfect thermal fit. These illustrative values are not species parameters. Validate realistic score distributions, aggregation sensitivity, and false excellent outcomes; do not force every city or species to fill the scale.
 
 ## 8. Access, restrictions, and practical conditions
 
@@ -437,11 +449,11 @@ For example, a configured seasonal rating of `8` and temperature suitability of 
 
 Maintain these dimensions separately for each zone and interval:
 
-| Dimension | States | Effect |
-| --- | --- | --- |
-| Access | `open_by_published_rules`, `closed`, `unknown` | Qualifies the daily outlook and controls promotion |
-| Target eligibility | `eligible`, `restricted`, `unknown` | Applies to species/method/date and relevant location boundary |
-| Conditions | `no_identified_limitation`, `limited`, `hazardous`, `unknown` | Qualifies or blocks promotion; does not alter biology |
+| Dimension          | States                                                        | Effect                                                        |
+| ------------------ | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| Access             | `open_by_published_rules`, `closed`, `unknown`                | Qualifies the daily outlook and controls promotion            |
+| Target eligibility | `eligible`, `restricted`, `unknown`                           | Applies to species/method/date and relevant location boundary |
+| Conditions         | `no_identified_limitation`, `limited`, `hazardous`, `unknown` | Qualifies or blocks promotion; does not alter biology         |
 
 Published public access with a recent review and no known closure may support `open_by_published_rules`. This does not claim real-time confirmation. Store `lastVerifiedAt`, source, and the fact that current closures may be unreported. A missing live closure feed alone must not imply closed access, but expired essential access evidence yields unknown.
 
@@ -499,7 +511,7 @@ Require interval-supported values or permitted reconstruction from bracketing sa
 
 Evaluate temperature suitability before aggregation. Temperatures above and below a suitable band may average into it without ever producing sustained favorable conditions. Do not score from daily mean temperature. Preserve material accepted sub-hourly excursions or flag inadequate resolution. A short favorable spike contributes only its duration, not the day's maximum.
 
-Newly suitable water does not prove fish arrival; the configured seasonal ceiling remains authoritative and temperature cannot raise the result above it.
+Newly suitable water does not prove fish arrival. The configured seasonal rating remains authoritative: temperature can add only the bounded near-optimal synergy and cannot manufacture a strong result from a weak seasonal rating.
 
 ### 9.3 Coverage and within-day variation
 
@@ -541,29 +553,29 @@ A daily score's confidence reflects its weakest material interval or input, not 
 
 Use these minimum classification rules; source-specific numeric error and freshness cutoffs belong in the reviewed source profile:
 
-| Dimension | High | Moderate | Low |
-| --- | --- | --- | --- |
-| Environmental | Representative source, complete fresh inputs, and independent evaluation supporting the relevant lead/depth/zone | Accepted source and complete essential coverage with documented model, fallback, or lead-time limitations | Usable but materially uncertain representation or forecast performance; not an essential validity failure |
-| Fishery evidence | Direct local evidence supporting the target, season, and relevant behavior | Supported local fishery with reviewed regional transfer or limited local detail | Material but explicitly bounded inference remains beyond established foundational eligibility |
+| Dimension        | High                                                                                                             | Moderate                                                                                                  | Low                                                                                                       |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Environmental    | Representative source, complete fresh inputs, and independent evaluation supporting the relevant lead/depth/zone | Accepted source and complete essential coverage with documented model, fallback, or lead-time limitations | Usable but materially uncertain representation or forecast performance; not an essential validity failure |
+| Fishery evidence | Direct local evidence supporting the target, season, and relevant behavior                                       | Supported local fishery with reviewed regional transfer or limited local detail                           | Material but explicitly bounded inference remains beyond established foundational eligibility             |
 
 Failure of an essential validity or foundational eligibility check is unavailable, not merely low confidence. A modifier's inference label does not automatically determine the entire forecast's confidence; assess the materiality and scope of the uncertainty.
 
 ### 10.2 Required fallback matrix
 
-| Situation | Required behavior |
-| --- | --- |
-| Preferred temperature observation fails, accepted model remains | Use labeled model estimate and reassess confidence |
-| Required temperature unavailable from all accepted sources | Dynamic biological score unavailable; sourced seasonal context may remain |
-| Optional trend history missing | Omit trend factor, disclose limitation; no fabricated trend |
-| Required active profile unavailable | Combined species score unavailable; no weight redistribution |
-| Optional minor weather modifier unavailable | Neutral factor with missing-effect reason; no remaining-weight inflation |
-| Essential waves/weather missing | Biological scores may remain; practical assessment unknown and ranked promotion withheld |
-| Freshness limit exceeded | Reject for active recommendation or use an independently valid configured fallback |
-| Last successful snapshot exists but is expired | Historical read only, timestamped; no live daily recommendation |
-| Forecast horizon ends | Partial/unavailable period; no persistence beyond horizon |
-| Annual assessment absent or expired | Neutral annual factor, annual strength unknown |
-| Current closure feed absent but reviewed access baseline valid | Published-access context with explicit live-status limitation |
-| Essential legal/access baseline expired | Affected trip eligibility unknown |
+| Situation                                                       | Required behavior                                                                        |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Preferred temperature observation fails, accepted model remains | Use labeled model estimate and reassess confidence                                       |
+| Required temperature unavailable from all accepted sources      | Dynamic biological score unavailable; sourced seasonal context may remain                |
+| Optional trend history missing                                  | Omit trend factor, disclose limitation; no fabricated trend                              |
+| Required active profile unavailable                             | Combined species score unavailable; no weight redistribution                             |
+| Optional minor weather modifier unavailable                     | Neutral factor with missing-effect reason; no remaining-weight inflation                 |
+| Essential waves/weather missing                                 | Biological scores may remain; practical assessment unknown and ranked promotion withheld |
+| Freshness limit exceeded                                        | Reject for active recommendation or use an independently valid configured fallback       |
+| Last successful snapshot exists but is expired                  | Historical read only, timestamped; no live daily recommendation                          |
+| Forecast horizon ends                                           | Partial/unavailable period; no persistence beyond horizon                                |
+| Annual assessment absent or expired                             | Neutral annual factor, annual strength unknown                                           |
+| Current closure feed absent but reviewed access baseline valid  | Published-access context with explicit live-status limitation                            |
+| Essential legal/access baseline expired                         | Affected trip eligibility unknown                                                        |
 
 Age limits are per product and capability. They must be assigned before a pier is enabled, based on source cadence and assessed usefulness. Merely displaying a stale badge does not make an expired recommendation usable.
 
@@ -714,8 +726,17 @@ Use discriminated unions so numeric and unavailable states cannot be confused. T
 
 ```ts
 type ScoreRead =
-  | { status: "available"; score: number; displayScore: number; displayText: `${number}/10`; label: string }
-  | { status: "unavailable" | "unsupported" | "restricted"; reasonCodes: string[] };
+  | {
+      status: "available";
+      score: number;
+      displayScore: number;
+      displayText: `${number}/10`;
+      label: string;
+    }
+  | {
+      status: "unavailable" | "unsupported" | "restricted";
+      reasonCodes: string[];
+    };
 
 type ConfidenceRead = {
   environmental: "low" | "moderate" | "high" | "unavailable";
@@ -755,7 +776,11 @@ type DailyPierOutlook = {
   requestedInterval: Interval;
   evaluatedAt: string;
   coverage: CoverageRead | null; // driving species; null without a headline
-  targetCoverage: { assessed: string[]; partial: string[]; unavailable: string[] };
+  targetCoverage: {
+    assessed: string[];
+    partial: string[];
+    unavailable: string[];
+  };
   overall: ScoreRead;
   drivingSpeciesId: string | null;
   headlineMode: "daily_outlook" | "biological_only" | "unavailable";
@@ -779,13 +804,13 @@ Run ingestion when expected provider cycles become available, allowing their act
 
 Use the following initial refresh policy; polling intervals are product/operating defaults subject to verified provider limits, not promises that new measurements exist at those intervals:
 
-| Layer | Initial policy | What changes |
-| --- | --- | --- |
-| Full five-date forecast | Rebuild after each accepted new hydrodynamic run, normally four times daily, approximately six hours apart | All supported future temperature values, daily species scores, headlines, coverage, and confidence are recomputed from the new run and other accepted inputs |
-| Representative observations/current conditions | Check hourly, or at the slower supported source cadence | Refresh observations and affected near-term calculations only; do not propagate a current observation across all five days without a validated correction method |
-| Wind/waves and other forecast products | Check at their documented publication cadence | Recompute affected valid intervals when a newly accepted product changes biological or practical assessment, even between water-model cycles |
-| Current hazards/closures | Check supported machine-readable feeds every 15 minutes where permitted, or use supported event delivery | Apply relevant restrictions as soon as successfully ingested; do not wait for the next full forecast run |
-| Remaining-day scores and dashboard | Reaggregate from stored valid series at hourly boundaries, accepted input/eligibility changes, and reads with an outdated assessment start | Remove elapsed hours, advance local dates at midnight, and refresh ranking without implying new provider data |
+| Layer                                          | Initial policy                                                                                                                             | What changes                                                                                                                                                     |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Full five-date forecast                        | Rebuild after each accepted new hydrodynamic run, normally four times daily, approximately six hours apart                                 | All supported future temperature values, daily species scores, headlines, coverage, and confidence are recomputed from the new run and other accepted inputs     |
+| Representative observations/current conditions | Check hourly, or at the slower supported source cadence                                                                                    | Refresh observations and affected near-term calculations only; do not propagate a current observation across all five days without a validated correction method |
+| Wind/waves and other forecast products         | Check at their documented publication cadence                                                                                              | Recompute affected valid intervals when a newly accepted product changes biological or practical assessment, even between water-model cycles                     |
+| Current hazards/closures                       | Check supported machine-readable feeds every 15 minutes where permitted, or use supported event delivery                                   | Apply relevant restrictions as soon as successfully ingested; do not wait for the next full forecast run                                                         |
+| Remaining-day scores and dashboard             | Reaggregate from stored valid series at hourly boundaries, accepted input/eligibility changes, and reads with an outdated assessment start | Remove elapsed hours, advance local dates at midnight, and refresh ranking without implying new provider data                                                    |
 
 The approximately six-hour full refresh follows NOAA's documented four daily Great Lakes model cycles; wait for actual product availability and validation rather than using the cycle start as a release timestamp. [NOAA OFS run schedule](https://tidesandcurrents.noaa.gov/ofs/ofs_faq.html)
 
@@ -831,59 +856,59 @@ Passing unit tests establishes only the first. Replaying plausible-looking score
 
 ### 13.2 Required implementation scenarios
 
-| Test scenario | Required outcome |
-| --- | --- |
-| Low seasonal ceiling, perfect temperature | Score cannot exceed the configured seasonal rating |
-| Strong fishery and supportive season/temperature | Appropriate high bands are reachable without unrelated bonuses |
-| Poor season, good weather | Seasonal ceiling remains effective |
-| Unsupported species | Explicit unsupported state, no invented baseline |
-| Every eligible species low | Headline cannot be excellent |
-| Low species added | Existing headline score does not fall |
-| Hazard affects part of the assessed day | Block ranked promotion, preserve exact notice interval and qualified daily biology; no implied all-day closure |
-| Practical inputs missing but complete biology and targeting valid | Numeric biological headline may remain in biological-only mode; promotion unknown, no ranked entry |
-| Secondary target restricted, unassessed, or less certain | No inherited eligibility/confidence and no misleading recommended-target placement |
-| Conditions limited | Reasons qualify promotion; headline still equals driving daily biology with no practical score cap |
-| Hazard affects route to another zone | Other zone is not silently treated as accessible |
-| Essential input missing | Affected capability unavailable |
-| Required seasonal or temperature curve missing | Explicit unavailable state; no fabricated default |
-| Observation switches to model | Source change or gap remains explicit; no fabricated continuity |
-| Configured city temperature source fails | Use an accepted fallback or return unavailable |
-| Sentinel or wrong-unit temperature | Rejected, not scored |
-| Temperature approaches the supported optimal range | Unrounded interpolated suitability improves gradually with other inputs fixed; no exact-temperature bonus |
-| Small temperature change crosses a curve knot | Continuous response within reviewed slope/sensitivity limits |
-| Temperature moves within a configured optimal plateau | No artificial preference for its midpoint or repeated improvement bonus |
-| Evidence supports different seasonal temperature responses | Existing profiles express different bands/asymmetric slopes with continuous transitions; no duplicate seasonal multiplier |
-| Same date and temperature reached by warming versus cooling | Identical result; direction has zero v1 score weight |
-| Valid measurement outside biological curve's accepted domain | No favorable endpoint clamping; explicit unavailable or evidenced out-of-domain rule |
-| Wind, waves, light, pressure, moon, or flow changes | Numeric rating remains unchanged in v1 |
-| One-hour score spike | Daily mean reflects its duration; no best-hour maximization |
-| Temperatures above/below the optimal band average into it | Aggregate time-resolved suitability scores; no score from the favorable mean temperature |
-| Water becomes favorable | No inferred fish arrival or invented universal response lag |
-| Partial day or species coverage | Visible limitation; no complete-day claim |
-| Favorable morning has elapsed | Reaggregate remaining day using stored data; distinguish evaluation time from source refresh |
-| Midnight, leap day, spring/fall DST | Correct dates, elapsed durations, and labels |
-| Farther lead with identical biology | Same biological rating, separately assessed confidence |
-| New config or model run | New immutable provenance; no stale cache collision |
-| Old refresh completes after newer forecast or hazard assessment | Guarded publication prevents active-snapshot regression |
-| Later closure/hazard update | Eligibility refresh does not wait for a new temperature run |
-| Historical replay | Uses only data available by original issue time |
-| Pilot catalog or Top 10 toggle | Pilot label with up to five entries; toggle appears at ten supported piers and preserves ranking scope/order |
-| Fewer eligible piers than requested | No fabricated or blocked entries to fill the list |
-| State changes in pier finder | Invalid pier selection cleared; leaderboard scope unchanged unless separately filtered |
-| Calendar day changes | Score, species, daily scope, confidence, and chart context update coherently |
-| Shared port research/source plan | Each pier retains its own assessed access/exposure; no fabricated score differences |
-| Poll returns identical data | Check timestamp may advance; forecast issue/update time is not falsely renewed |
-| New non-temperature conditions information arrives | Notice/promotion may update; numeric rating remains unchanged |
-| Ranking snapshot differs from latest profile | Latest valid profile shown with update context |
-| Temperature chart has source gap or zone change | Gap/scope disclosed; no artificial continuous series |
-| Partial biological coverage meets configured display policy | Labeled partial species score; excluded from headline and rankings |
-| Partial coverage fails duration/fraction/gap policy | Species score unavailable; no favorable subset selection |
-| Alternate temperature source looks more favorable | Declared city source remains authoritative; no daily source maximization |
-| All targeting eligibility restricted/unknown | Nonnumeric overall and null driver; qualified species biology preserved |
-| Low biological confidence | Profile remains available; ranked promotion withheld without altering score |
-| Current date changes or DST shifts | Correct remaining/full-day boundaries and duration-weighted means; no invented fifth-date coverage |
-| Same provider inputs, later evaluation | Remaining-day mean may change; forecast update timestamp does not falsely advance |
-| Offline saved outlook | Original assessment scope retained, expiry reevaluated, no new client-generated live score |
+| Test scenario                                                     | Required outcome                                                                                                          |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Low seasonal rating, perfect temperature                          | Five-percent maximum headroom synergy cannot manufacture a strong score                                                   |
+| Strong fishery and supportive season/temperature                  | Appropriate high bands are reachable without unrelated bonuses                                                            |
+| Poor season, good temperature                                     | Seasonal rating remains controlling                                                                                       |
+| Unsupported species                                               | Explicit unsupported state, no invented baseline                                                                          |
+| Every eligible species low                                        | Headline cannot be excellent                                                                                              |
+| Low species added                                                 | Existing headline score does not fall                                                                                     |
+| Hazard affects part of the assessed day                           | Block ranked promotion, preserve exact notice interval and qualified daily biology; no implied all-day closure            |
+| Practical inputs missing but complete biology and targeting valid | Numeric biological headline may remain in biological-only mode; promotion unknown, no ranked entry                        |
+| Secondary target restricted, unassessed, or less certain          | No inherited eligibility/confidence and no misleading recommended-target placement                                        |
+| Conditions limited                                                | Reasons qualify promotion; headline still equals driving daily biology with no practical score cap                        |
+| Hazard affects route to another zone                              | Other zone is not silently treated as accessible                                                                          |
+| Essential input missing                                           | Affected capability unavailable                                                                                           |
+| Required seasonal or temperature curve missing                    | Explicit unavailable state; no fabricated default                                                                         |
+| Observation switches to model                                     | Source change or gap remains explicit; no fabricated continuity                                                           |
+| Configured city temperature source fails                          | Use an accepted fallback or return unavailable                                                                            |
+| Sentinel or wrong-unit temperature                                | Rejected, not scored                                                                                                      |
+| Temperature approaches the supported optimal range                | Unrounded interpolated suitability improves gradually with other inputs fixed; no exact-temperature bonus                 |
+| Small temperature change crosses a curve knot                     | Continuous response within reviewed slope/sensitivity limits                                                              |
+| Temperature moves within a configured optimal plateau             | No artificial preference for its midpoint or repeated improvement bonus                                                   |
+| Evidence supports different seasonal temperature responses        | Existing profiles express different bands/asymmetric slopes with continuous transitions; no duplicate seasonal multiplier |
+| Same date and temperature reached by warming versus cooling       | Identical result; direction has zero v1 score weight                                                                      |
+| Valid measurement outside biological curve's accepted domain      | No favorable endpoint clamping; explicit unavailable or evidenced out-of-domain rule                                      |
+| Wind, waves, light, pressure, moon, or flow changes               | Numeric rating remains unchanged in v1                                                                                    |
+| One-hour score spike                                              | Daily mean reflects its duration; no best-hour maximization                                                               |
+| Temperatures above/below the optimal band average into it         | Aggregate time-resolved suitability scores; no score from the favorable mean temperature                                  |
+| Water becomes favorable                                           | No inferred fish arrival or invented universal response lag                                                               |
+| Partial day or species coverage                                   | Visible limitation; no complete-day claim                                                                                 |
+| Favorable morning has elapsed                                     | Reaggregate remaining day using stored data; distinguish evaluation time from source refresh                              |
+| Midnight, leap day, spring/fall DST                               | Correct dates, elapsed durations, and labels                                                                              |
+| Farther lead with identical biology                               | Same biological rating, separately assessed confidence                                                                    |
+| New config or model run                                           | New immutable provenance; no stale cache collision                                                                        |
+| Old refresh completes after newer forecast or hazard assessment   | Guarded publication prevents active-snapshot regression                                                                   |
+| Later closure/hazard update                                       | Eligibility refresh does not wait for a new temperature run                                                               |
+| Historical replay                                                 | Uses only data available by original issue time                                                                           |
+| Pilot catalog or Top 10 toggle                                    | Pilot label with up to five entries; toggle appears at ten supported piers and preserves ranking scope/order              |
+| Fewer eligible piers than requested                               | No fabricated or blocked entries to fill the list                                                                         |
+| State changes in pier finder                                      | Invalid pier selection cleared; leaderboard scope unchanged unless separately filtered                                    |
+| Calendar day changes                                              | Score, species, daily scope, confidence, and chart context update coherently                                              |
+| Shared port research/source plan                                  | Each pier retains its own assessed access/exposure; no fabricated score differences                                       |
+| Poll returns identical data                                       | Check timestamp may advance; forecast issue/update time is not falsely renewed                                            |
+| New non-temperature conditions information arrives                | Notice/promotion may update; numeric rating remains unchanged                                                             |
+| Ranking snapshot differs from latest profile                      | Latest valid profile shown with update context                                                                            |
+| Temperature chart has source gap or zone change                   | Gap/scope disclosed; no artificial continuous series                                                                      |
+| Partial biological coverage meets configured display policy       | Labeled partial species score; excluded from headline and rankings                                                        |
+| Partial coverage fails duration/fraction/gap policy               | Species score unavailable; no favorable subset selection                                                                  |
+| Alternate temperature source looks more favorable                 | Declared city source remains authoritative; no daily source maximization                                                  |
+| All targeting eligibility restricted/unknown                      | Nonnumeric overall and null driver; qualified species biology preserved                                                   |
+| Low biological confidence                                         | Profile remains available; ranked promotion withheld without altering score                                               |
+| Current date changes or DST shifts                                | Correct remaining/full-day boundaries and duration-weighted means; no invented fifth-date coverage                        |
+| Same provider inputs, later evaluation                            | Remaining-day mean may change; forecast update timestamp does not falsely advance                                         |
+| Offline saved outlook                                             | Original assessment scope retained, expiry reevaluated, no new client-generated live score                                |
 
 Use focused unit/property tests for mathematical and state invariants, provider fixtures for parsing, integration tests for snapshot/expiry behavior, and rendered UI checks for misleading combinations. Avoid snapshot tests that merely lock in arbitrary curve values as scientific truth.
 
@@ -949,15 +974,15 @@ Use one shared port research bundle plus concise per-pier difference records whe
 
 ### 14.2 Status progression
 
-| Status | Required evidence |
-| --- | --- |
-| `research_incomplete` | Candidate exists; material identity, fishery, source, or access questions remain |
-| `research_ready` | Foundational evidence, zone representation, species eligibility, and source plan reviewed |
-| `implementation_ready` | Valid configuration, provider prototype, replayable engine, and acceptance scenarios pass |
-| `pilot_ready` | Rendered states, monitoring, privacy/feedback flow, and predeclared evaluation plan complete |
-| `pilot_live` | Authorized limited public/beta enablement, with actual scope recorded |
-| `release_ready` | Pilot reviewed against its predeclared criteria; remaining limitations and operating budgets accepted |
-| `released` | Authorized broader enablement, production smoke checks, monitoring, and handoff complete |
+| Status                 | Required evidence                                                                                     |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- |
+| `research_incomplete`  | Candidate exists; material identity, fishery, source, or access questions remain                      |
+| `research_ready`       | Foundational evidence, zone representation, species eligibility, and source plan reviewed             |
+| `implementation_ready` | Valid configuration, provider prototype, replayable engine, and acceptance scenarios pass             |
+| `pilot_ready`          | Rendered states, monitoring, privacy/feedback flow, and predeclared evaluation plan complete          |
+| `pilot_live`           | Authorized limited public/beta enablement, with actual scope recorded                                 |
+| `release_ready`        | Pilot reviewed against its predeclared criteria; remaining limitations and operating budgets accepted |
+| `released`             | Authorized broader enablement, production smoke checks, monitoring, and handoff complete              |
 
 Authorization is evaluated from actual user instructions, including authorization already given. Do not invent repeated permission gates. Technical readiness and user authorization are separate facts; neither should be implied by a generic “done” label.
 
@@ -1034,16 +1059,16 @@ PierCast is complete for a named release scope only when:
 
 These references support source discovery and design rationale. They do not substitute for parameter-specific evidence records or approve a launch pier.
 
-| Source | Appropriate use | Must not be inferred automatically |
-| --- | --- | --- |
-| [NOAA OFS documentation](https://tidesandcurrents.noaa.gov/ofs/ofs_faq.html) | Product formats, timing, variables, and access discovery | Local pier forecast accuracy |
-| [NOAA GLERL GLCFS](https://www.glerl.noaa.gov/res/glcfs/) | Experimental product status and related data discovery | Guaranteed operational availability |
-| [NOAA water-temperature FAQ](https://www.glerl.noaa.gov/education/FAQs/temperatureFAQ.html) | Stratification and wind/upwelling context | Confirmed local fish presence or a catchability coefficient |
-| [Indiana DNR Lake Michigan fishing](https://www.in.gov/dnr/fish-and-wildlife/fishing/lake-michigan-fishing/) | Regional seasonal shoreline-fishery context | Identical profiles at other Great Lakes piers |
-| [Michigan DNR Chinook profile](https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon) | Species and life-history research starting point | An exact universal pier temperature curve |
-| [Michigan DNR creel program](https://www.michigan.gov/dnr/managing-resources/fisheries/creel) | Agency effort/catch evidence discovery | Adequate samples for every pier or fishing mode |
-| [Michigan DNR 2025 creel report](https://www.michigandnr.com/publications/pdfs/DNRFishLibrary/FisheriesReports/FR049.pdf) | Fishing-mode methodology and historical revision context | Direct use of lake-wide catch totals as pier productivity |
-| [NWS Great Lakes safety](https://www.weather.gov/safety/great-lakes) | Pier wave/structure hazards and official safety context | A universal safe wave-height threshold |
-| [Michigan DNR regulations](https://www.michigan.gov/dnr/things-to-do/fishing/fishing-regulations) | Current jurisdiction-specific regulation discovery | Coverage of another jurisdiction or an unreviewed boundary |
+| Source                                                                                                                    | Appropriate use                                          | Must not be inferred automatically                          |
+| ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------- |
+| [NOAA OFS documentation](https://tidesandcurrents.noaa.gov/ofs/ofs_faq.html)                                              | Product formats, timing, variables, and access discovery | Local pier forecast accuracy                                |
+| [NOAA GLERL GLCFS](https://www.glerl.noaa.gov/res/glcfs/)                                                                 | Experimental product status and related data discovery   | Guaranteed operational availability                         |
+| [NOAA water-temperature FAQ](https://www.glerl.noaa.gov/education/FAQs/temperatureFAQ.html)                               | Stratification and wind/upwelling context                | Confirmed local fish presence or a catchability coefficient |
+| [Indiana DNR Lake Michigan fishing](https://www.in.gov/dnr/fish-and-wildlife/fishing/lake-michigan-fishing/)              | Regional seasonal shoreline-fishery context              | Identical profiles at other Great Lakes piers               |
+| [Michigan DNR Chinook profile](https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon)       | Species and life-history research starting point         | An exact universal pier temperature curve                   |
+| [Michigan DNR creel program](https://www.michigan.gov/dnr/managing-resources/fisheries/creel)                             | Agency effort/catch evidence discovery                   | Adequate samples for every pier or fishing mode             |
+| [Michigan DNR 2025 creel report](https://www.michigandnr.com/publications/pdfs/DNRFishLibrary/FisheriesReports/FR049.pdf) | Fishing-mode methodology and historical revision context | Direct use of lake-wide catch totals as pier productivity   |
+| [NWS Great Lakes safety](https://www.weather.gov/safety/great-lakes)                                                      | Pier wave/structure hazards and official safety context  | A universal safe wave-height threshold                      |
+| [Michigan DNR regulations](https://www.michigan.gov/dnr/things-to-do/fishing/fishing-regulations)                         | Current jurisdiction-specific regulation discovery       | Coverage of another jurisdiction or an unreviewed boundary  |
 
 Reference review date: 2026-09-05. Provider contracts and current regulations must be rechecked during implementation and onboarding. This document deliberately leaves unsupported biological numbers out: the required evidence-and-calibration workflow is how those numbers become defensible configuration.

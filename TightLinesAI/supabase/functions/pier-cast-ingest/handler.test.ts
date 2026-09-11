@@ -129,6 +129,53 @@ Deno.test("PierCast ingestion reports complete live and cached outcomes", async 
   assertEquals(cachedBody.fallbackUsed, true);
 });
 
+Deno.test("PierCast ingestion commits one private shadow forecast after a usable cycle", async () => {
+  let archivedSource = "";
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    archiveShadowForecast: (outcome) => {
+      archivedSource = outcome.source;
+      return Promise.resolve({
+        status: "committed",
+        runId: "850753b5-83bf-4a2f-b28f-3ec866ee6f6d",
+        generatedAt: "2026-09-10T00:35:00.000Z",
+        forecastCount: 100,
+        formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
+      });
+    },
+  });
+
+  const response = await handler(request());
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(archivedSource, "live_lmhofs");
+  assertEquals(body.shadowForecast.status, "committed");
+  assertEquals(body.shadowForecast.forecastCount, 100);
+  assertEquals(
+    body.shadowForecast.formulaVersion,
+    "seasonal-opportunity-bounded-temperature-v2",
+  );
+});
+
+Deno.test("shadow archival failure is diagnosed without losing temperature ingestion", async () => {
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    archiveShadowForecast: () =>
+      Promise.reject(new Error("ledger unavailable")),
+  });
+
+  const response = await handler(request());
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.status, "live_committed");
+  assertEquals(body.shadowForecast.status, "unavailable");
+  assertEquals(body.shadowForecast.diagnostics, [
+    "shadow_forecast_archive_failed:ledger unavailable",
+  ]);
+});
+
 Deno.test("PierCast ingestion returns 503 when no safe cycle exists", async () => {
   const handler = createPierCastIngestHandler({
     internalSecret: SECRET,
@@ -143,5 +190,7 @@ Deno.test("PierCast ingestion returns 503 when no safe cycle exists", async () =
   });
   const response = await handler(request());
   assertEquals(response.status, 503);
-  assertEquals((await response.json()).status, "unavailable");
+  const body = await response.json();
+  assertEquals(body.status, "unavailable");
+  assertEquals(body.shadowForecast, null);
 });

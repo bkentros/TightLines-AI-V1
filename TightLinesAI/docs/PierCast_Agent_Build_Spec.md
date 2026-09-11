@@ -24,35 +24,41 @@ only the remaining local day; future dates cover full local calendar days.
 
 PierCast v1 has exactly two numeric score inputs:
 
-1. `P_rating(c,s,t)`: the city × species **Seasonal Pier Opportunity Ceiling**,
+1. `P_rating(c,s,t)`: the city × species **Seasonal Pier Opportunity Rating**,
    continuously evaluated on the `1–10` FinFindr scale.
-2. `T(s,t)`: water-temperature suitability on `[0,1]`, resolved from the
-   species' applicable seasonal temperature curve and the city's hourly
-   water-temperature series.
+2. `T(s,t)`: water-temperature suitability on `[0,1]`, presented as
+   **nearshore thermal fit** and resolved from the species' applicable
+   temperature curve and the city's hourly surface-temperature series. It is
+   a pier-reachability proxy, not the fish's experienced temperature at depth.
 
-Use the multiplicative formula:
+Use the bounded-temperature v2 formula:
 
 ```text
-P(c,s,t) = (P_rating(c,s,t) - 1) / 9
-O(c,s,t) = P(c,s,t) × T(s,t)
-score(c,s,t) = 1 + 9 × O(c,s,t)
+M(s,t) = 0.30 + 0.75 × T(s,t)
+score(c,s,t) = clamp(1, 10,
+  1 + (P_rating(c,s,t) - 1) × M(s,t)
+)
 ```
 
 Equivalent direct form:
 
 ```text
-score(c,s,t) = 1 + (P_rating(c,s,t) - 1) × T(s,t)
+score(c,s,t) = clamp(1, 10,
+  1 + (P_rating(c,s,t) - 1) × (0.30 + 0.75 × T(s,t))
+)
 ```
 
 This guarantees:
 
 ```text
-1 ≤ score(c,s,t) ≤ P_rating(c,s,t) ≤ 10
+1 ≤ score(c,s,t) ≤ 10
 ```
 
-Do not replace this with an additive percentage formula. Favorable temperature
-must never create a strong rating during a city/species period configured as
-weak.
+The worst supported fit retains 30% of seasonal headroom; only `T > 0.9333…`
+can exceed the seasonal rating, and perfect fit supplies at most a five-percent
+headroom multiplier. Favorable temperature must never create a strong rating
+during a city/species period configured as weak. The prior ceiling formula is
+retained only as a versioned prospective shadow comparator.
 
 ## Configuration ownership
 
@@ -74,13 +80,14 @@ Temperature direction or trend is not a separate scoring input.
 Owns:
 
 - Eligibility and covered-pier scope.
-- One recurring Seasonal Pier Opportunity Ceiling curve on the `1–10` scale.
+- One recurring Seasonal Pier Opportunity Rating curve on the `1–10` scale.
 - Evidence and calibration status for each meaningful timing segment.
 - Targeting restriction and limitation copy.
 
 The seasonal curve owns both local fishery strength and timing. There is no
 separate permanent local baseline or annual multiplier. Its yearly peak is the
-maximum rating that city/species pairing can reach.
+reference rating under broadly supportive temperature; v2's small synergy is
+the only way the final score can exceed it.
 
 Configure the curve with sparse `MM-DD` anchors and interpolate daily across
 them. Use broad flat spans when evidence supports a consistently slow period.
@@ -107,7 +114,7 @@ harbor, plume, surface, and depth conditions may differ.
 ## Daily calculation
 
 Evaluate the formula over the accepted hourly temperature series using unrounded
-values. The seasonal ceiling changes by local date; temperature suitability
+values. The seasonal rating changes by local date; temperature suitability
 changes with the temperature series.
 
 ```text
@@ -176,8 +183,15 @@ The monthly matrices remain an inventory rather than scoring curves. The
 disabled [core seasonal calibration](PierCast_Core_Species_Seasonal_Calibration.md)
 and [core temperature/source calibration](PierCast_Core_Temperature_and_Source_Calibration.md)
 now provide private provisional curves for Chinook, coho, steelhead, and brown
-trout only. The other nine species remain nonnumeric. Continue calibrating the
-core city × species timing curves from dated, pier-specific evidence:
+trout only. The [v0.4 full-scale audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md)
+anchors all four Michigan ports to official 1997–2022 `Pier/Dock` creel data,
+checks current Michigan aggregate seasonality, and uses the strongest available
+Wisconsin mode-specific and direct Sheboygan evidence. The other nine species
+remain nonnumeric. The [v0.4 seasonal replay](PierCast_Seasonal_Calibration_Replay_v0.4.md)
+finds strong retrospective consistency across 120 Michigan monthly cells but is
+in-sample, excludes Sheboygan from quantitative claims, and does not authorize
+release. Continue validating the core city × species timing curves from dated,
+pier-specific evidence:
 
 - Recurring arrival and first-catch periods
 - Ramp-up and peak timing
@@ -198,7 +212,8 @@ agency-validated biological measurements.
 Before public enablement, compare:
 
 1. Seasonal curve alone.
-2. Seasonal curve multiplied by temperature suitability.
+2. The archived direct-temperature v1 comparator.
+3. The active bounded-temperature v2 score.
 
 Evaluate false excellent days, missed good days, score distribution, source
 coverage, stability around curve knots, and target-specific user feedback. Do
@@ -206,9 +221,10 @@ not add another variable unless it materially improves held-out results.
 
 ## Required implementation invariants
 
-- Perfect temperature returns exactly the configured seasonal rating.
-- Any lower temperature suitability returns a score no higher than the seasonal
-  rating.
+- Perfect temperature can add no more than five percent of the seasonal
+  opportunity above the 1.0 floor.
+- Temperature cannot remove more than 70% of the configured seasonal
+  opportunity above the 1.0 floor.
 - A low/offseason seasonal rating cannot become strong because of temperature.
 - Seasonal and temperature knots interpolate continuously.
 - Calendar curves remain continuous across year-end and leap years.
@@ -222,17 +238,19 @@ not add another variable unless it materially improves held-out results.
 
 ## Immediate build order
 
-1. Complete detailed city × species timing research, prioritizing the strongest
-   pilot fisheries and high-change weeks.
-2. Create reviewed seasonal opportunity knots and seasonal temperature curves;
-   keep unsupported pairings disabled.
-3. Connect one declared city water-temperature feed and normalized fixture.
-4. Produce replayable hourly and daily owner-review ratings with component
-   traces.
-5. Render the five-date city experience, species ratings, `X.X/10` labels, source
-   time, and winter notice.
-6. Review representative annual dates and tune configurations before any public
-   enablement.
+1. Preserve the completed v0.4 seasonal curves and retrospective replay as the
+   current private cohort; do not tune against the same aggregate archive again.
+2. Continue the deployed [prospective shadow ledger](PierCast_Shadow_Validation_Ledger.md)
+   for all five cities and four core species. Forecast capture, the append-only
+   outcome contract, and the private owner outcome-entry/review interface are
+   operational. Collect outcomes under the frozen
+   [prospective evaluation protocol](PierCast_Prospective_Evaluation_Protocol_v2.md).
+3. Continue the temperature-representation evidence collection; do not approve
+   a city whose representation gates remain blocked.
+4. Review false-high examples by preregistered score band after a complete
+   season or minimum sample, then version any justified curve changes.
+5. Keep the public catalog empty until both seasonal outcome and temperature
+   representation gates pass.
 
 The engine remains configuration-driven: onboarding another city or species
 should add evidence and curves, not another scoring formula.

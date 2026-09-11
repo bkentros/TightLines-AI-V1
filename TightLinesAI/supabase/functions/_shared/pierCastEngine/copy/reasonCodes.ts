@@ -25,4 +25,4 @@ export const PIER_CAST_UNAVAILABLE_COPY: Record<
 };
 
 export const PIER_CAST_RATING_DISCLOSURE =
-  "FinFindr Opportunity Ratings estimate relative fishing opportunity from configured city-and-species seasonal timing and water-temperature suitability. They are not detected fish presence, fish counts, catch probabilities, or biological measurements.";
+  "FinFindr Opportunity Ratings estimate relative fishing opportunity from configured city-and-species seasonal timing and modeled nearshore surface-temperature fit. Thermal fit estimates compatibility with pier-reachable opportunity; it is not the fish's experienced temperature. Ratings are not detected fish presence, fish counts, catch probabilities, or biological measurements.";
