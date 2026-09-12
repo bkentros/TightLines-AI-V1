@@ -4,19 +4,37 @@ Reviewed 2026-09-12. This document accompanies the [authoritative seasonal propo
 
 ## Outcome and limits
 
-All 45 city × species combinations have explicit annual review coverage. Fifteen have bounded provisional seasonal proposals; 30 remain numerically unresolved, including ten admitted research candidates. These are **research configuration**, not runtime onboarding or validated annual scores. A complete calendar table is not the same as complete numerical knowledge. Unsupported days remain null. None of these nine species has a justified January–December numerical profile from this evidence package.
+All 45 city × species combinations have a final Phase 1 disposition: **16 accepted annual research calibrations and 29 deferred pairings**. The accepted curves contain 192 documented month-day anchors and supply 5,840 numeric species-days and 832 numeric weekly samples in 2025. Deferred pairings remain entirely unavailable; they are not species declared biologically absent. Research acceptance is broader than the earlier strict major-target audit and does not itself authorize runtime or public release.
+
+Every accepted pairing has a continuous January–December curve, including weak periods. This follows the clarified product requirement. Phase 1 configuration and evidence synthesis are complete; high-confidence empirical accuracy is not established by this package. Winter and some shoulder values are explicitly low-confidence habitat/accessibility judgments. They must not be presented as measured local winter catch rates.
 
 The recurring warm-season fisheries deserve batch development. Grand Haven drum and largemouth have the strongest proposed summer windows; Manistee perch has a stronger spring window than summer. Ludington perch peaks later than Manistee perch. A fishery can be worth targeting without being a premier salmonid-scale opportunity. Several species can simultaneously receive strong values: there is no quota of seasonal winners.
 
 The four completed core species, their weekly table and runtime configuration remain unchanged. Their existing 1–10 rubric governs these proposals. The UI, scoring formula, temperature pipeline, daily lock, city footprint, seven covered structures and disabled public release remain unchanged. Phase 2 owns thermal-response work and runtime eligibility; Phase 3 owns the joint annual-lineup review.
 
+## Accepted annual roster
+
+These are additions proposed for Phase 2, alongside the unchanged completed four species in every city.
+
+| City | Accepted additional annual calibrations | Count |
+| --- | --- | ---: |
+| Ludington | Smallmouth bass, freshwater drum, yellow perch | 3 |
+| Grand Haven | Smallmouth bass, freshwater drum, lake whitefish, round whitefish, channel catfish, largemouth bass | 6 |
+| Manistee | Lake trout, walleye, smallmouth bass, freshwater drum, yellow perch, round whitefish, largemouth bass | 7 |
+| Frankfort–Elberta | None yet; all nine additional pairings deferred | 0 |
+| Sheboygan | None yet; all nine additional pairings deferred | 0 |
+
+No additional accepted species in Frankfort–Elberta or Sheboygan means insufficient evidence for this calibration pass, not an assertion that these piers lack other fish or winter fishing.
+
 ## What a number means
 
 A seasonal value is a product calibration judgment about pier opportunity under supportive temperature. It is not fish abundance, a catch percentage, fish per hour, a government rating or a prediction that fish will bite. The existing bands are negligible 1, poor through 2, limited through 4, fair through 6, good through 8, excellent through 9.4, and premier above 9.4. The completed catalog reference remains Manistee late-October steelhead at 10.
 
-Sparse anchors are deliberately coarse, mostly half-point increments. No evidence identifies an exact 6.5 optimum on a particular day. Representative mid-month anchors carry approximately month-level timing resolution. Month boundaries are declared interpolation limits within a researched season, not demonstrated arrival or departure dates. Daily and weekly decimals between anchors are arithmetic, not additional biological findings. A score difference of 0.5 between weakly supported proposals should not be treated as statistically established.
+Sparse anchors are deliberately coarse, mostly half-point increments. No evidence identifies an exact 6.5 optimum on a particular day. Representative mid-month anchors carry approximately month-level timing resolution. Anchor dates are representative seasonal reference points, not demonstrated arrival or departure dates. Daily and weekly decimals between anchors are arithmetic, not additional biological findings. A score difference of 0.5 between weakly supported proposals should not be treated as statistically established.
 
-Each anchor has a rationale and source identifiers in the JSON. Linear interpolation is allowed only inside a listed segment. No extrapolation, annual wrapping, missing-month zero, winter floor or interpolation across disconnected seasons is permitted. A bounded segment is continuous within its domain; availability outside it is unresolved. Phase 2 must preserve that distinction, because the existing core runtime interpolator wraps annual curves and cannot safely receive these anchors without bounded-availability support.
+Each anchor records its rationale, source identifiers, evidence/inference basis and confidence in the JSON. Linear interpolation uses actual calendar days and wraps from December to January, exactly like the completed core curves. There are no seasonal availability windows. The detached generated TypeScript configuration is research-only and is not imported by runtime city assembly. Identical poor-band values in some months express the same coarse judgment, not a shared city curve or a measured common winter rate.
+
+An annual seasonal curve describes accessibility and fishery opportunity under supportive temperature. Regional studies inform habitat direction only after local fishery admission. They do not independently admit a species, justify a strong peak, or fit a temperature-to-bite relationship.
 
 ## Evidence hierarchy and interpretation
 
@@ -32,12 +50,12 @@ For lake trout the original conservative combined summary requires both Lean and
 
 ## Material contradictions and their resolution
 
-- **Winter:** January–March contain no matched local strata for the nine species in the preserved extract. DNR reporting also has seasonal interruptions. Ice fishing in a bayou or inland lake is a different mode/location. Winter silence cannot become a 1.0 or an inferred winter fishery. Cold-season fish biology is not a substitute for local catchability.[^91][^76]
+- **Winter:** January–March contain no matched local strata in the preserved extract. Missing observations remain missing. Annual weak-season values combine established local seasonal recurrence with explicitly transferred habitat evidence. Drum summer shallowing/deeper late-fall distribution, perch depth use and connected river-mouth movements, and bass habitat studies constrain direction, not numerical catch probability. Walleye winter feeding and continued winter bass/catfish activity contradict a universal inactivity floor. Heated discharge observations cannot establish unheated pier success.[^93][^95][^96][^94][^97][^98][^101][^103][^99][^100]
 - **Perch:** Manistee's April–May strength contrasts with Ludington's June–July pattern. Large pooled estimates coexist with concentrated catch years, small fish and slow contemporary reports. Proposed peaks stop at good or fair, without pretending every year produces the historical best outcome.[^13][^80][^82][^15][^17]
-- **Manistee walleye:** older May zero estimates conflict with repeated May night catches in 2019, 2022 and 2023. A narrow night-fishing proposal follows the direct multi-year timing instead of giving the old July estimate an automatic summer peak. The discrepancy is unresolved statistically, not erased.[^84][^18][^19]
+- **Manistee walleye:** older May zero estimates conflict with repeated May night catches in 2019, 2022 and 2023. The annual curve’s strongest night-fishing period follows the direct multi-year timing instead of giving the old July estimate an automatic summer peak. The discrepancy is unresolved statistically, not erased.[^84][^18][^19]
 - **Drum:** Grand Haven has strong recurring summer port records and contemporary catches. Manistee has recent pier reports despite mostly zero recent creel estimates, while Ludington's modern recurrence exceeds its recent series. They receive separate curves and ceilings; there is no shared drum curve.[^39][^40][^27][^42]
-- **Lake trout:** spring Manistee pier catches corroborate a limited proposal. Offshore abundance, stocking and autumn shoal spawning cannot fill other cities or autumn intervals. The April 2025 Ludington “pierheads out to 50 feet” wording occurs in boat context and is excluded from pier corroboration.[^20][^22][^77][^62]
-- **Grand Haven lake whitefish:** the DNR recognizes the autumn fishery but describes historical snagging contributions and changed November gear rules. Old jigging harvest and species-unspecified bait catches cannot identify current lawful lake-whitefish magnitude. The November lead stays active with null scores; a made-up percentage reduction would not fix the data.[^8][^9][^78][^86]
+- **Lake trout:** spring Manistee pier catches and repeated October Lean-component port catches support limited shoulders with different confidence. Shallow cold-season habitat supports a poor winter accessibility judgment, not a measured winter fishery. Offshore abundance, stocking and spawning cannot supply other cities’ curves. The April 2025 Ludington “pierheads out to 50 feet” wording occurs in boat context and is excluded from pier corroboration.[^20][^22][^77][^62]
+- **Grand Haven lake whitefish:** current DNR recognition supports admission of a lawful autumn target. Historical snagging harvest is discarded as a magnitude basis. November 3.5 is an explicitly low-confidence limited-band product judgment; it is not a statistical estimate or a percentage discount applied to historical harvest. Deep summer habitat and nearshore late-autumn behavior inform annual shape. Contemporary lawful-method effort data remain a validation priority.[^8][^9][^78][^86][^102]
 - **Species biology:** smallmouth's rocky habitat and largemouth's vegetation association explain different use of harbor faces, but neither makes every pier equivalent. Menominee's shallow spring/fall biology and pre-spawn feeding cessation argue against a generic spawning bonus. Temperature suitability remains a separate Phase 2 endpoint.[^67][^74][^64]
 
 ## Cross-city and completed-scale review
@@ -48,24 +66,27 @@ Core comparisons are qualitative calibration checks only. The completed four-spe
 
 ## All 45 pairings
 
-The following retains candidate discovery separately from numeric readiness. “Unresolved” describes evidence sufficiency, not ecological absence or removal from the candidate queue. For each Michigan pairing, tables show modern/recent rates and positive/matched years; a dash means no matched catch-and-effort support. Noncore winter gaps remain visible in the full monthly/daily outputs. These compact tables show April–December to avoid repeating empty January–March strata.
+The following retains candidate discovery separately from numeric readiness. “Unresolved” describes evidence sufficiency, not ecological absence or removal from the candidate queue. For each Michigan pairing, tables show modern/recent rates and positive/matched years; a dash means no matched catch-and-effort support. The anchor tables cover all 12 months for accepted pairings. Creel tables also show all 12 months so missing winter observations remain distinguishable from inferred annual ratings.
 
 ### ludington mi — lake trout
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target.[^1][^51][^50][^55]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target.
 
-**Seasonal lead retained:** Spring/autumn occurrence only; no supported score interval.
+**Deferral reason:** Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 2.2 | 1/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -80,20 +101,23 @@ Lake-trout table is the Lean component only; omitted Fat rows have not been impu
 
 ### ludington mi — walleye
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 One or two evening pier walleye in May 2022 corroborate possibility, but the pier side, repeated directed effort and major-fishery strength are missing. Basin fishing is not automatically North Breakwater fishing.[^1][^18][^53]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** One or two evening pier walleye in May 2022 corroborate possibility, but the pier side, repeated directed effort and major-fishery strength are missing. Basin fishing is not automatically North Breakwater fishing.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: One or two evening pier walleye in May 2022 corroborate possibility, but the pier side, repeated directed effort and major-fishery strength are missing. Basin fishing is not automatically North Breakwater fishing.
 
-**Seasonal lead retained:** May evening lead; no annual curve.
+**Deferral reason:** One or two evening pier walleye in May 2022 corroborate possibility, but the pier side, repeated directed effort and major-fishery strength are missing. Basin fishing is not automatically North Breakwater fishing.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 4.6 | 1/5 | 5.3 | 1/4 | 100.0% |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -106,25 +130,38 @@ One or two evening pier walleye in May 2022 corroborate possibility, but the pie
 
 ### ludington mi — smallmouth bass
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-July catches recur in eight modern port years and three of four recent years. Species-specific pier reports persist through 2026. Fair summer ceiling recognizes many few-fish reports and excludes spring stub-pier catches.[^1][^25][^29][^36][^44][^32][^33]
+July catches recur in eight modern port years and three of four recent years. Species-specific pier reports persist through 2026. Fair summer ceiling recognizes many few-fish reports and excludes spring stub-pier catches.[^1][^25][^29][^36][^44][^32][^33][^94][^101][^67]
 
 **Structure/mode:** North Breakwater corroborated in July; remaining port and unspecified-pier observations qualified. Casting lures/plastics from pier.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 2.5 | Research-window boundary within observed June port season; not an arrival date. |
-| 06-15 | 3.5 | Modern June catches recur, but recent matched June estimates are zero; limited shoulder. |
-| 07-15 | 4.5 | Best repeatability plus exact North-Pier July corroboration; few-fish reports limit ceiling to fair. |
-| 08-15 | 4.0 | Recent August pier reports sustain a limited opportunity despite weaker port density. |
-| 09-15 | 2.5 | September port catches concentrated in one recent year; no strong fall tail. |
-| 09-30 | 2.0 | Conservative end of evaluated September shoulder; October remains uncalibrated. |
+**Seasonal mechanism:** Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 04-15 | 1.5 | local_evidence_and_habitat_judgment; low | Modern April zeros and excluded stub-pier records preclude an early spring boost.[^1][^25][^29][^36][^44][^32][^33][^94][^101][^67] |
+| 05-15 | 2.5 | local_evidence_and_habitat_judgment; low | Two modern May port-positive years allow a limited shoulder; North Breakwater specificity is weaker than July.[^1][^25][^29][^36][^44][^32][^33][^94][^101][^67] |
+| 06-15 | 3.5 | local_evidence_calibration; low | Modern June catches recur, but recent matched June estimates are zero; limited shoulder.[^1][^25][^29][^36][^44][^32][^33] |
+| 07-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | Best repeatability plus exact North-Pier July corroboration; few-fish reports limit ceiling to fair.[^1][^25][^29][^36][^44][^32][^33] |
+| 08-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | Recent August pier reports sustain a limited opportunity despite weaker port density.[^1][^25][^29][^36][^44][^32][^33] |
+| 09-15 | 2.5 | local_evidence_calibration; low | September port catches concentrated in one recent year; no strong fall tail.[^1][^25][^29][^36][^44][^32][^33] |
+| 10-15 | 1.5 | local_evidence_and_habitat_judgment; low | Matched October port estimates are zero; no transferred inland fall-bass peak.[^1][^25][^29][^36][^44][^32][^33][^94][^101][^67] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 5.4 | 2/7 | 0.0 | 0/4 | — |
 | 6 | 48.0 | 3/6 | 0.0 | 0/3 | — |
@@ -137,23 +174,38 @@ July catches recur in eight modern port years and three of four recent years. Sp
 
 ### ludington mi — freshwater drum
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Repeated July-August port catches and July/August 2026 pier reports support a short limited-to-fair summer proposal. Recent port recurrence is much weaker than Grand Haven; no borrowed May-June curve.[^1][^42][^43]
+Repeated July-August port catches and July/August 2026 pier reports support a limited-to-fair summer peak in an annual curve. Recent port recurrence is much weaker than Grand Haven; no borrowed May-June curve.[^1][^42][^43][^93][^70]
 
 **Structure/mode:** Unspecified Ludington piers; exact North Breakwater attribution remains a Phase 2 gate. Lures or bottom-fished crawlers.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 07-01 | 3.0 | Beginning of recurrent July port season, an explicit interpolation boundary. |
-| 07-15 | 4.5 | July modern recurrence and several pier drum in July 2026 support fair opportunity, not good or excellent. |
-| 08-15 | 3.5 | August 2026 few-fish report and older port catches support a weaker late-summer window. |
-| 08-31 | 2.5 | End of evaluated August window; sparse September port evidence is insufficient to extend it. |
+**Seasonal mechanism:** Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 04-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 05-15 | 2.0 | local_evidence_and_habitat_judgment; low | One modern May port-positive year is an episodic poor shoulder, not Grand Haven May strength.[^1][^42][^43][^93][^70] |
+| 06-15 | 2.0 | local_evidence_and_habitat_judgment; low | Explicit June port zeros restrain the shoulder before July; shallow-water biology alone cannot earn fair.[^1][^42][^43][^93][^70] |
+| 07-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | July modern recurrence and several pier drum in July 2026 support fair opportunity, not good or excellent.[^1][^42][^43] |
+| 08-15 | 3.5 | local_evidence_calibration; low | August 2026 few-fish report and older port catches support a weaker late-summer window.[^1][^42][^43] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | Sparse modern September positives, absent in the recent slice, leave a poor tail.[^1][^42][^43][^93][^70] |
+| 10-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 3.7 | 1/6 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -166,24 +218,38 @@ Repeated July-August port catches and July/August 2026 pier reports support a sh
 
 ### ludington mi — yellow perch
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-June-July port catches are large but schooling concentrates catches in few years. Three of four recent July strata positive versus one of three in June; 2020 and 2023 slow reports prevent an excellent ceiling. August drops sharply. No automatic spring peak from generic perch biology.[^1][^14][^15][^16][^29][^31][^82]
+June-July port catches are large but schooling concentrates catches in few years. Three of four recent July strata positive versus one of three in June; 2020 and 2023 slow reports prevent an excellent ceiling. August drops sharply. No automatic spring peak from generic perch biology.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72]
 
 **Structure/mode:** North Breakwater has exact June/July evidence; August magnitude uses port-mode shoulder inference. Minnows/wigglers and small bait presentations within pier reach.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 3.5 | Evaluated June start; early-June 2023 catches only a couple at North Pier. |
-| 06-15 | 5.0 | Large June port estimates but one-year recent concentration and variable direct catches justify fair only. |
-| 07-15 | 6.0 | July is the strongest recurring local port window, capped at fair because recent reports remain variable or slow. |
-| 08-15 | 2.5 | Recent August density is far below July and dominated by one year. |
-| 08-31 | 2.0 | End of weak August shoulder; no inferred winter or autumn fishery. |
+**Seasonal mechanism:** Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
+| 03-15 | 2.0 | local_evidence_and_habitat_judgment; low | Approach to spring habitats permits only a poor pre-season estimate; no invented spring run.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72] |
+| 04-15 | 2.0 | local_evidence_and_habitat_judgment; low | Modern April zeros prevent borrowing Manistee spring strength.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72] |
+| 05-15 | 2.0 | local_evidence_and_habitat_judgment; low | Modern May zeros retain a poor value before the local June increase.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72] |
+| 06-15 | 5.0 | local_evidence_calibration; moderate_timing_low_magnitude | Large June port estimates but one-year recent concentration and variable direct catches justify fair only.[^1][^14][^15][^16][^29][^31][^82] |
+| 07-15 | 6.0 | local_evidence_calibration; moderate_timing_low_magnitude | July is the strongest recurring local port window, capped at fair because recent reports remain variable or slow.[^1][^14][^15][^16][^29][^31][^82] |
+| 08-15 | 2.5 | local_evidence_calibration; low | Recent August density is far below July and dominated by one year.[^1][^14][^15][^16][^29][^31][^82] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | Older September catches are concentrated and recent matched strata zero; retain poor.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72] |
+| 10-15 | 1.5 | local_evidence_and_habitat_judgment; low | Recent October port zeros and non-pier autumn reports cannot create a fall peak.[^1][^14][^15][^16][^29][^31][^82][^95][^96][^72] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^1][^95][^96][^72] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 1064.8 | 5/7 | 1487.4 | 1/3 | 100.0% |
@@ -196,20 +262,23 @@ June-July port catches are large but schooling concentrates catches in few years
 
 ### ludington mi — lake whitefish
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Rare port estimates and generic whitefish references do not identify a repeatable lake-whitefish target at North Breakwater. Do not transfer Grand Haven November conditions or misidentify menominee.[^1][^8]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Rare port estimates and generic whitefish references do not identify a repeatable lake-whitefish target at North Breakwater. Do not transfer Grand Haven November conditions or misidentify menominee.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Rare port estimates and generic whitefish references do not identify a repeatable lake-whitefish target at North Breakwater. Do not transfer Grand Haven November conditions or misidentify menominee.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** Rare port estimates and generic whitefish references do not identify a repeatable lake-whitefish target at North Breakwater. Do not transfer Grand Haven November conditions or misidentify menominee.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 2.2 | 1/6 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -222,20 +291,23 @@ Rare port estimates and generic whitefish references do not identify a repeatabl
 
 ### ludington mi — round whitefish
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Older autumn port catches support a historical lead. Recent matched autumn strata lack comparable catches; no current major directed North Breakwater fishery is established. Regional decline context is not a local absence measurement.[^1][^11]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Older autumn port catches support a historical lead. Recent matched autumn strata lack comparable catches; no current major directed North Breakwater fishery is established. Regional decline context is not a local absence measurement.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Older autumn port catches support a historical lead. Recent matched autumn strata lack comparable catches; no current major directed North Breakwater fishery is established. Regional decline context is not a local absence measurement.
 
-**Seasonal lead retained:** Historical October lead; current recurrence unresolved.
+**Deferral reason:** Older autumn port catches support a historical lead. Recent matched autumn strata lack comparable catches; no current major directed North Breakwater fishery is established. Regional decline context is not a local absence measurement.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -248,20 +320,23 @@ Older autumn port catches support a historical lead. Recent matched autumn strat
 
 ### ludington mi — channel catfish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Reviewed Pier/Dock estimates and dated pier evidence do not establish a major intentional channel-catfish fishery at North Breakwater. River, inland-lake and general Lake Michigan presence are insufficient.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Reviewed Pier/Dock estimates and dated pier evidence do not establish a major intentional channel-catfish fishery at North Breakwater. River, inland-lake and general Lake Michigan presence are insufficient.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Reviewed Pier/Dock estimates and dated pier evidence do not establish a major intentional channel-catfish fishery at North Breakwater. River, inland-lake and general Lake Michigan presence are insufficient.
 
-**Seasonal lead retained:** No supported score interval; absence of qualifying evidence is not biological absence.
+**Deferral reason:** Reviewed Pier/Dock estimates and dated pier evidence do not establish a major intentional channel-catfish fishery at North Breakwater. River, inland-lake and general Lake Michigan presence are insufficient.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -274,20 +349,23 @@ Reviewed Pier/Dock estimates and dated pier evidence do not establish a major in
 
 ### ludington mi — largemouth bass
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No adequate species-specific North Breakwater target evidence. Do not convert smallmouth, rock bass, or unspecified bass into largemouth; warm-water biology does not establish local fishing opportunity.[^1][^29]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** No adequate species-specific North Breakwater target evidence. Do not convert smallmouth, rock bass, or unspecified bass into largemouth; warm-water biology does not establish local fishing opportunity.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No adequate species-specific North Breakwater target evidence. Do not convert smallmouth, rock bass, or unspecified bass into largemouth; warm-water biology does not establish local fishing opportunity.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No adequate species-specific North Breakwater target evidence. Do not convert smallmouth, rock bass, or unspecified bass into largemouth; warm-water biology does not establish local fishing opportunity.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/4 | 0.0 | 0/3 | — |
@@ -300,20 +378,23 @@ No adequate species-specific North Breakwater target evidence. Do not convert sm
 
 ### grand haven mi — lake trout
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode.[^1][^55]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode.
 
-**Seasonal lead retained:** April/October occurrence lead only.
+**Deferral reason:** Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 11.1 | 3/7 | 16.6 | 1/4 | 100.0% |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -328,20 +409,23 @@ Lake-trout table is the Lean component only; omitted Fat rows have not been impu
 
 ### grand haven mi — walleye
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Low and intermittent spring port catches do not establish a major South Pier target. Upstream Grand River fisheries and a combined Grand Haven/Holland listing are outside the required geographic proof.[^1][^53]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Low and intermittent spring port catches do not establish a major South Pier target. Upstream Grand River fisheries and a combined Grand Haven/Holland listing are outside the required geographic proof.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Low and intermittent spring port catches do not establish a major South Pier target. Upstream Grand River fisheries and a combined Grand Haven/Holland listing are outside the required geographic proof.
 
-**Seasonal lead retained:** April-May occurrence does not justify a seasonal curve.
+**Deferral reason:** Low and intermittent spring port catches do not establish a major South Pier target. Upstream Grand River fisheries and a combined Grand Haven/Holland listing are outside the required geographic proof.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 5.7 | 2/7 | 0.0 | 0/4 | — |
 | 5 | 5.9 | 2/6 | 9.7 | 1/4 | 100.0% |
 | 6 | 0.2 | 1/5 | 0.4 | 1/4 | 100.0% |
@@ -354,25 +438,38 @@ Low and intermittent spring port catches do not establish a major South Pier tar
 
 ### grand haven mi — smallmouth bass
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Species-specific August pier report corroborates port catches. Modern August positive in six of seven matched years and recent four of four, but one recent year contributes most catches. Unidentified bass in current reports cannot independently raise smallmouth scores.[^1][^52][^34][^44]
+Species-specific August pier report corroborates port catches. Modern August positive in six of seven matched years and recent four of four, but one recent year contributes most catches. Unidentified bass in current reports cannot independently raise smallmouth scores.[^1][^52][^34][^44][^94][^101][^67]
 
 **Structure/mode:** Grand Haven piers; South-Pier-specific contribution unresolved. Casting live bait or artificial lures.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 2.5 | June port recurrence establishes a limited proposed shoulder. |
-| 06-15 | 3.5 | Four of seven modern June strata positive; no strong exact-side catch series. |
-| 07-15 | 4.0 | July catches recur but at low all-mode density; retain limited band. |
-| 08-15 | 5.0 | August is strongest within this species at this port; concentration and side uncertainty cap at fair. |
-| 09-15 | 2.5 | September has weak recurrence and much lower density. |
-| 09-30 | 2.0 | End of proposed fall shoulder, not a biological departure date. |
+**Seasonal mechanism:** Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 04-15 | 2.0 | local_evidence_and_habitat_judgment; low | A few positive April port years support poor episodic access, not a spawning peak.[^1][^52][^34][^44][^94][^101][^67] |
+| 05-15 | 2.5 | local_evidence_and_habitat_judgment; low | Sparse May port recurrence supports only limited access.[^1][^52][^34][^44][^94][^101][^67] |
+| 06-15 | 3.5 | local_evidence_calibration; low | Four of seven modern June strata positive; no strong exact-side catch series.[^1][^52][^34][^44] |
+| 07-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | July catches recur but at low all-mode density; retain limited band.[^1][^52][^34][^44] |
+| 08-15 | 5.0 | local_evidence_calibration; moderate_timing_low_magnitude | August is strongest within this species at this port; concentration and side uncertainty cap at fair.[^1][^52][^34][^44] |
+| 09-15 | 2.5 | local_evidence_calibration; low | September has weak recurrence and much lower density.[^1][^52][^34][^44] |
+| 10-15 | 1.5 | local_evidence_and_habitat_judgment; low | Explicit October port zeros dominate the local record despite possible harbor refuge use.[^1][^52][^34][^44][^94][^101][^67] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 1.8 | 3/6 | 1.4 | 2/4 | 90.9% |
 | 5 | 3.4 | 1/5 | 4.9 | 1/4 | 100.0% |
 | 6 | 8.6 | 4/7 | 11.7 | 2/4 | 53.2% |
@@ -385,26 +482,38 @@ Species-specific August pier report corroborates port catches. Modern August pos
 
 ### grand haven mi — freshwater drum
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** moderate_timing_low_magnitude.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** moderate_timing_low_magnitude.
 
-Repeated 2016-2026 pier catches and four of four positive recent May-September strata support a broad summer fishery. June 2026 good results followed by decline justify a good seasonal peak with variable realized scores. July total is one-year concentrated; no July spike is inferred.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90]
+Repeated 2016-2026 pier catches and four of four positive recent May-September strata support a broad summer fishery. June 2026 good results followed by decline justify a good seasonal peak with variable realized scores. July total is one-year concentrated; no July spike is inferred.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90][^93][^70]
 
 **Structure/mode:** Channel-facing South Pier supported by pier-context 2026 reports during North-Pier closure; older port totals pool structures. Casting spoons/crankbaits/Ned rigs or bottom-fished bait in channel.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 05-01 | 5.0 | May 2023 catches and recurrent May port estimates support a fair season start. |
-| 05-15 | 6.5 | Strong May recurrence supports good, with pooled-structure limitation. |
-| 06-15 | 7.0 | Strong repeated June port catches and contemporary success followed by slower weeks support good peak, below excellent. |
-| 07-15 | 6.5 | Recurring summer opportunity; concentrated recent July total does not justify a new peak. |
-| 08-15 | 6.5 | August recurrence remains strong; species can overlap bass peaks. |
-| 09-15 | 4.5 | September density declines and current reports describe a few drum, while older bait catches confirm recurrence. |
-| 09-30 | 3.5 | End of evaluated declining window; sparse October catches retained as a research gap, not zero. |
+**Seasonal mechanism:** Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 04-15 | 2.5 | local_evidence_and_habitat_judgment; low | Three of six modern April strata positive, but lower density than May: limited early shoulder.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90][^93][^70] |
+| 05-15 | 6.5 | local_evidence_calibration; moderate_timing_low_magnitude | Strong May recurrence supports good, with pooled-structure limitation.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90] |
+| 06-15 | 7.0 | local_evidence_calibration; moderate_timing_low_magnitude | Strong repeated June port catches and contemporary success followed by slower weeks support good peak, below excellent.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90] |
+| 07-15 | 6.5 | local_evidence_calibration; moderate_timing_low_magnitude | Recurring summer opportunity; concentrated recent July total does not justify a new peak.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90] |
+| 08-15 | 6.5 | local_evidence_calibration; moderate_timing_low_magnitude | August recurrence remains strong; species can overlap bass peaks.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90] |
+| 09-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | September density declines and current reports describe a few drum, while older bait catches confirm recurrence.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90] |
+| 10-15 | 2.5 | local_evidence_and_habitat_judgment; low | Modern October catches recur less strongly and only one recent positive stratum: limited decline, not summer strength.[^1][^19][^16][^17][^26][^39][^40][^41][^45][^89][^90][^93][^70] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 4.7 | 3/6 | 4.3 | 2/4 | 69.7% |
 | 5 | 107.9 | 6/7 | 134.3 | 4/4 | 33.6% |
 | 6 | 104.7 | 7/8 | 200.6 | 4/4 | 69.3% |
@@ -417,20 +526,23 @@ Repeated 2016-2026 pier catches and four of four positive recent May-September s
 
 ### grand haven mi — yellow perch
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Repeated modern port Pier/Dock perch catches justify continued score research. The primary 1981–1982 study confirms historical targeting but its Grand Haven catch statistics explicitly concern North Pier, excluded from current coverage. Recent port catches are highly concentrated in individual years. Neither historical North-Pier catches nor modern offshore perch reports establish current South-Pier magnitude or daily timing.[^1][^2][^92]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Historical Pier/Dock catches are substantial but recent August estimates are sharply lower. Boat perch reports cannot repair the missing contemporary South Pier target evidence; exact structure, size distribution and directed effort are needed.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Repeated modern port Pier/Dock perch catches justify continued score research. The primary 1981–1982 study confirms historical targeting but its Grand Haven catch statistics explicitly concern North Pier, excluded from current coverage. Recent port catches are highly concentrated in individual years. Neither historical North-Pier catches nor modern offshore perch reports establish current South-Pier magnitude or daily timing.
 
-**Seasonal lead retained:** Historical late-summer/autumn signal; current South Pier timing unproven.
+**Deferral reason:** Repeated modern port Pier/Dock perch catches justify continued score research. The primary 1981–1982 study confirms historical targeting but its Grand Haven catch statistics explicitly concern North Pier, excluded from current coverage. Recent port catches are highly concentrated in individual years. Neither historical North-Pier catches nor modern offshore perch reports establish current South-Pier magnitude or daily timing.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 42.0 | 3/6 | 51.1 | 2/4 | 95.7% |
 | 5 | 101.9 | 4/7 | 7.6 | 1/4 | 100.0% |
 | 6 | 41.7 | 8/9 | 9.6 | 3/4 | 73.4% |
@@ -443,20 +555,38 @@ Repeated modern port Pier/Dock perch catches justify continued score research. T
 
 ### grand haven mi — lake whitefish
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** moderate_autumn_timing_low_lawful_magnitude.
 
-Autumn fishery is acknowledged by DNR, with old pier catches on bait and jigs. Historical November harvest includes snagged fish; multiplying it by an invented lawful-catch discount would fabricate current magnitude. Species-unspecified bait reports cannot resolve lake versus round whitefish. Preserve November timing, hold all numerical values.[^1][^8][^9][^46][^78][^86][^85][^75]
+Current DNR recognition establishes the autumn lake-whitefish opportunity; older bait-based pier records and species-specific port recurrence corroborate occurrence. Historical harvest is not used to calibrate strength. A limited November band reflects feasibility with unresolved lawful-method success, explicitly a product judgment rather than a corrected creel estimate.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63]
 
-**Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
+**Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Lawful bait/egg presentation with November single-pointed unweighted hook; no jigging or snagging magnitude transfer.
 
-**Unavailable dates:** DNR confirms an autumn port fishery, but historical November harvest includes substantial snagging and only two matched modern November years in this extract. The 2025 gear change prevents treating historical harvest as current lawful bite opportunity. South Pier lawful-method catch and effort are unresolved.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-**Seasonal lead retained:** November historical target window; no current lawful-method magnitude or daily curve.
+**Seasonal mechanism:** Deep summer habitat reduces pier access; nearshore late-autumn/early-winter behavior and current agency recognition support an autumn opportunity. Historical snagging totals are discarded as a magnitude basis. Limited November 3.5 is a coarse low-confidence lawful-bait opportunity judgment, not an invented percentage reduction of harvest.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Deep summer habitat reduces pier access; nearshore late-autumn/early-winter behavior and current agency recognition support an autumn opportunity. Historical snagging totals are discarded as a magnitude basis. Limited November 3.5 is a coarse low-confidence lawful-bait opportunity judgment, not an invented percentage reduction of harvest.[^102][^8][^9][^63] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Deep summer habitat reduces pier access; nearshore late-autumn/early-winter behavior and current agency recognition support an autumn opportunity. Historical snagging totals are discarded as a magnitude basis. Limited November 3.5 is a coarse low-confidence lawful-bait opportunity judgment, not an invented percentage reduction of harvest.[^102][^8][^9][^63] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Deep summer habitat reduces pier access; nearshore late-autumn/early-winter behavior and current agency recognition support an autumn opportunity. Historical snagging totals are discarded as a magnitude basis. Limited November 3.5 is a coarse low-confidence lawful-bait opportunity judgment, not an invented percentage reduction of harvest.[^1][^102][^8][^9][^63] |
+| 04-15 | 2.5 | local_evidence_and_habitat_judgment; low | Scattered April species-specific port catches support limited spring opportunity, much weaker than the acknowledged autumn fishery.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63] |
+| 05-15 | 1.5 | local_evidence_and_habitat_judgment; low | Sparse May port signal and deeper-season transition leave poor opportunity.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63] |
+| 06-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^102][^8][^9][^63] |
+| 07-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^102][^8][^9][^63] |
+| 08-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^102][^8][^9][^63] |
+| 09-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^102][^8][^9][^63] |
+| 10-15 | 2.0 | local_evidence_and_habitat_judgment; low | October occasional catches support poor approach to the autumn run; no snagging-derived peak.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63] |
+| 11-15 | 3.5 | local_evidence_and_habitat_judgment; low | DNR recognizes a continuing lake-whitefish angler opportunity; bait-based pier reports corroborate feasibility but not standardized success. Assign limited 3.5 under legal hook methods, with low magnitude confidence.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63] |
+| 12-15 | 2.5 | local_evidence_and_habitat_judgment; low | December 2017 run nearly over supports a declining limited tail; January cannot inherit November strength.[^1][^8][^9][^46][^78][^86][^85][^75][^102][^63] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 8.9 | 3/6 | 3.6 | 2/4 | 78.6% |
 | 5 | 0.5 | 1/5 | 0.7 | 1/4 | 100.0% |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -469,22 +599,38 @@ Autumn fishery is acknowledged by DNR, with old pier catches on bait and jigs. H
 
 ### grand haven mi — round whitefish
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
 April port catches recur in six of seven modern strata and species-specific pier catches recur in 2018 and 2021. Modest counts and regional decline concern limit the proposal. Adjacent 2021 bulletins count as one year. No autumn peak is borrowed from lake whitefish.[^1][^47][^48][^81][^64][^11]
 
 **Structure/mode:** Grand Haven piers, exact South-Pier contribution unresolved. Skein/spawn, bait-fishing among spring salmonids.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 04-01 | 3.0 | Evaluated April boundary from monthly recurrence, not a measured arrival. |
-| 04-15 | 4.0 | Repeated April menominee catches support limited opportunity; mixed catches do not prove a good targeted fishery. |
-| 04-30 | 3.0 | End of supported April review window; May zeros do not specify a precise departure. |
+**Seasonal mechanism:** Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
+| 03-15 | 2.0 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^1][^64][^11] |
+| 04-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated April menominee catches support limited opportunity; mixed catches do not prove a good targeted fishery.[^1][^47][^48][^81][^64][^11] |
+| 05-15 | 2.0 | local_evidence_and_habitat_judgment; low | Modern May zeros lower opportunity despite a regional May shallow-water range.[^1][^47][^48][^81][^64][^11] |
+| 06-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^1][^64][^11] |
+| 07-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^64][^11] |
+| 08-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^64][^11] |
+| 09-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^1][^64][^11] |
+| 10-15 | 2.5 | local_evidence_and_habitat_judgment; low | Weak October port recurrence supports a limited fall return below April.[^1][^47][^48][^81][^64][^11] |
+| 11-15 | 2.5 | local_evidence_and_habitat_judgment; low | Sparse November species-specific port catch plus regional shallowing permits limited opportunity; pre-spawn feeding cessation prevents a peak.[^1][^47][^48][^81][^64][^11] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 21.1 | 6/7 | 30.4 | 4/4 | 62.0% |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -497,27 +643,38 @@ April port catches recur in six of seven modern strata and species-specific pier
 
 ### grand haven mi — channel catfish
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-May 2023 and September 2018 direct pier catches corroborate unusually persistent port-mode recurrence. August is strongest and less single-year concentrated than perch or smallmouth. Moderate fair ceiling reflects missing current per-side effort. Upstream Grand River catfish are excluded.[^1][^19][^90][^53][^73]
+May 2023 and September 2018 direct pier catches corroborate unusually persistent port-mode recurrence. August is strongest and less single-year concentrated than perch or smallmouth. Moderate fair ceiling reflects missing current per-side effort. Upstream Grand River catfish are excluded.[^1][^19][^90][^53][^73][^99][^100]
 
 **Structure/mode:** Grand Haven piers; side and current directed effort unresolved. Bottom-fished worms or gizzard shad; feasible evening/night fishing.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 05-01 | 3.5 | May pier bait catches establish a limited-to-fair start. |
-| 05-15 | 4.0 | Recurrent May port catches, without strong recent directed report. |
-| 06-15 | 4.0 | June occurrence very recurrent but lower port density than August. |
-| 07-15 | 4.5 | Summer recurrence improves; fair rating retains method/side uncertainty. |
-| 08-15 | 5.5 | All four recent August strata positive with strong relative density; fair peak, not a standardized catch-rate claim. |
-| 09-15 | 5.0 | September direct bait-fishing report and all four recent positive strata support sustained fair opportunity. |
-| 10-15 | 4.0 | October repeated port catches support a limited shoulder with weaker direct corroboration. |
-| 10-31 | 3.0 | End of evaluated October interval; winter is unsurveyed or inadequately resolved. |
+**Seasonal mechanism:** River telemetry and winter collection at a heated canal contradict blanket winter inactivity. Neither study establishes Grand Haven winter access. Local spring-through-autumn recurrence supports the broad season; winter is a low-confidence poor-access judgment without importing power-plant conditions.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: River telemetry and winter collection at a heated canal contradict blanket winter inactivity. Neither study establishes Grand Haven winter access. Local spring-through-autumn recurrence supports the broad season; winter is a low-confidence poor-access judgment without importing power-plant conditions.[^99][^100][^73] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: River telemetry and winter collection at a heated canal contradict blanket winter inactivity. Neither study establishes Grand Haven winter access. Local spring-through-autumn recurrence supports the broad season; winter is a low-confidence poor-access judgment without importing power-plant conditions.[^99][^100][^73] |
+| 03-15 | 2.0 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: River telemetry and winter collection at a heated canal contradict blanket winter inactivity. Neither study establishes Grand Haven winter access. Local spring-through-autumn recurrence supports the broad season; winter is a low-confidence poor-access judgment without importing power-plant conditions.[^1][^99][^100][^73] |
+| 04-15 | 3.0 | local_evidence_and_habitat_judgment; low | Six of eight modern April strata positive support a limited early season.[^1][^19][^90][^53][^73][^99][^100] |
+| 05-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | Recurrent May port catches, without strong recent directed report.[^1][^19][^90][^53][^73] |
+| 06-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | June occurrence very recurrent but lower port density than August.[^1][^19][^90][^53][^73] |
+| 07-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | Summer recurrence improves; fair rating retains method/side uncertainty.[^1][^19][^90][^53][^73] |
+| 08-15 | 5.5 | local_evidence_calibration; moderate_timing_low_magnitude | All four recent August strata positive with strong relative density; fair peak, not a standardized catch-rate claim.[^1][^19][^90][^53][^73] |
+| 09-15 | 5.0 | local_evidence_calibration; moderate_timing_low_magnitude | September direct bait-fishing report and all four recent positive strata support sustained fair opportunity.[^1][^19][^90][^53][^73] |
+| 10-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | October repeated port catches support a limited shoulder with weaker direct corroboration.[^1][^19][^90][^53][^73] |
+| 11-15 | 2.5 | local_evidence_and_habitat_judgment; low | Modest continuation from repeatedly positive October strata is habitat/shoulder inference, not a measured November catch rate.[^1][^19][^90][^53][^73][^99][^100] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: River telemetry and winter collection at a heated canal contradict blanket winter inactivity. Neither study establishes Grand Haven winter access. Local spring-through-autumn recurrence supports the broad season; winter is a low-confidence poor-access judgment without importing power-plant conditions.[^99][^100][^73] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 9.1 | 6/8 | 7.7 | 3/4 | 76.3% |
 | 5 | 21.4 | 5/7 | 20.1 | 3/4 | 48.0% |
 | 6 | 9.2 | 8/9 | 14.4 | 4/4 | 43.5% |
@@ -530,25 +687,38 @@ May 2023 and September 2018 direct pier catches corroborate unusually persistent
 
 ### grand haven mi — largemouth bass
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** moderate_timing_low_magnitude.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** moderate_timing_low_magnitude.
 
-July-August species-specific pier reports recur in 2018, 2025 and 2026. July and August recent port catches are positive in all four matched years, with August spread across years. A good August peak is supported more strongly than the smallmouth peak; spring habitat or spawning does not supply a bonus.[^1][^52][^35][^36][^37][^74]
+July-August species-specific pier reports recur in 2018, 2025 and 2026. July and August recent port catches are positive in all four matched years, with August spread across years. A good August peak is supported more strongly than the smallmouth peak; spring habitat or spawning does not supply a bonus.[^1][^52][^35][^36][^37][^74][^94][^97][^98]
 
 **Structure/mode:** Grand Haven piers; South-Pier attribution strengthened by August 2026 pier-context report during North closure. Crankbaits, live bait, drop-shot rigs and other suitable artificials.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 3.0 | June port recurrence supports limited shoulder, not a spring spawning peak. |
-| 06-15 | 4.0 | Three of four recent June strata positive, below July-August density. |
-| 07-15 | 5.0 | Repeated species-specific July pier catches and four of four recent port recurrence support fair. |
-| 08-15 | 6.5 | Repeated contemporary pier catches and comparatively stable August port strength support good. |
-| 09-15 | 3.5 | September density falls sharply; limited port-supported shoulder. |
-| 09-30 | 2.5 | End of evaluated fall shoulder; no unsupported winter tail. |
+**Seasonal mechanism:** Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 04-15 | 2.0 | local_evidence_and_habitat_judgment; low | Sparse April port occurrence supports poor access; no bonus for generic spawning habitat.[^1][^52][^35][^36][^37][^74][^94][^97][^98] |
+| 05-15 | 2.5 | local_evidence_and_habitat_judgment; low | Sparse May occurrence permits limited opportunity below the summer pier reports.[^1][^52][^35][^36][^37][^74][^94][^97][^98] |
+| 06-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | Three of four recent June strata positive, below July-August density.[^1][^52][^35][^36][^37][^74] |
+| 07-15 | 5.0 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated species-specific July pier catches and four of four recent port recurrence support fair.[^1][^52][^35][^36][^37][^74] |
+| 08-15 | 6.5 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated contemporary pier catches and comparatively stable August port strength support good.[^1][^52][^35][^36][^37][^74] |
+| 09-15 | 3.5 | local_evidence_calibration; low | September density falls sharply; limited port-supported shoulder.[^1][^52][^35][^36][^37][^74] |
+| 10-15 | 2.0 | local_evidence_and_habitat_judgment; low | Modern October zeros and loss of littoral use reduce the tail to poor.[^1][^52][^35][^36][^37][^74][^94][^97][^98] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 2.9 | 1/5 | 3.0 | 1/4 | 100.0% |
 | 5 | 3.9 | 1/5 | 5.6 | 1/4 | 100.0% |
 | 6 | 9.7 | 5/7 | 15.5 | 3/4 | 48.2% |
@@ -561,23 +731,38 @@ July-August species-specific pier reports recur in 2018, 2025 and 2026. July and
 
 ### manistee mi — lake trout
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-April 2023 and 2024 pier catches provide recurrence distinct from South-Pier-only April 2022 catches. Lean-component port data confirm sparse spring catches. Offshore abundance, autumn reef spawning and juvenile stocking do not establish covered-pier opportunity.[^1][^20][^22][^21][^62]
+April 2023 and 2024 pier catches provide recurrence distinct from South-Pier-only April 2022 catches. Lean-component port data confirm sparse spring catches and repeated October catches. These support limited spring and lower-confidence autumn shoulders; offshore abundance, reef spawning and stocking cannot establish covered-pier magnitude.[^1][^20][^22][^21][^62]
 
 **Structure/mode:** April 2023 pier catches while South Pier closed support North attribution; 2024 side unspecified. Spawn, spoons or crankbaits within pier reach.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 04-01 | 2.0 | Evaluated spring boundary, consistent with sparse April catches; not an arrival claim. |
-| 04-15 | 3.0 | Repeated few-fish spring pier reports justify limited opportunity only. |
-| 05-15 | 2.5 | Sparse May lean-lake-trout port catches support only a weak shoulder. |
-| 05-31 | 2.0 | End of spring review interval; no fall or summer curve inferred from biology alone. |
+**Seasonal mechanism:** Michigan DNR describes shallow cold-season use and deep summer use. The local spring pier reports and repeated October Lean-component catches permit two limited shoulders. Winter remains poor at 2 despite biological shallowing because repeatable covered-pier winter catches are unmeasured; summer 1 combines depth separation and repeated local zeros.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Michigan DNR describes shallow cold-season use and deep summer use. The local spring pier reports and repeated October Lean-component catches permit two limited shoulders. Winter remains poor at 2 despite biological shallowing because repeatable covered-pier winter catches are unmeasured; summer 1 combines depth separation and repeated local zeros.[^62][^1] |
+| 02-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Michigan DNR describes shallow cold-season use and deep summer use. The local spring pier reports and repeated October Lean-component catches permit two limited shoulders. Winter remains poor at 2 despite biological shallowing because repeatable covered-pier winter catches are unmeasured; summer 1 combines depth separation and repeated local zeros.[^62][^1] |
+| 03-15 | 2.5 | local_evidence_and_habitat_judgment; low | Cold-season shallow access is plausible but direct local confirmation strengthens in April; poor-to-limited only.[^1][^20][^22][^21][^62] |
+| 04-15 | 3.0 | local_evidence_calibration; low | Repeated few-fish spring pier reports justify limited opportunity only.[^1][^20][^22][^21][^62] |
+| 05-15 | 2.5 | local_evidence_calibration; low | Sparse May lean-lake-trout port catches support only a weak shoulder.[^1][^20][^22][^21][^62] |
+| 06-15 | 1.5 | local_evidence_and_habitat_judgment; low | Transition toward deeper lake habitat plus local June zeros leaves poor access.[^1][^20][^22][^21][^62] |
+| 07-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^62] |
+| 08-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^62] |
+| 09-15 | 1.5 | local_evidence_and_habitat_judgment; low | No modern September Lean catch signal: poor approach to autumn, not a spawning bonus.[^1][^20][^22][^21][^62] |
+| 10-15 | 3.0 | local_evidence_and_habitat_judgment; low | Four modern October Lean-positive years, including 2022, support a limited fall opportunity comparable to the modest spring peak.[^1][^20][^22][^21][^62] |
+| 11-15 | 2.5 | local_evidence_and_habitat_judgment; low | Late-fall continuation from October and shallow cold-season biology is low-confidence limited access, not measured November catches.[^1][^20][^22][^21][^62] |
+| 12-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Michigan DNR describes shallow cold-season use and deep summer use. The local spring pier reports and repeated October Lean-component catches permit two limited shoulders. Winter remains poor at 2 despite biological shallowing because repeatable covered-pier winter catches are unmeasured; summer 1 combines depth separation and repeated local zeros.[^62][^1] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 6.4 | 3/7 | 0.8 | 1/4 | 100.0% |
 | 5 | 7.7 | 1/5 | 8.9 | 1/4 | 100.0% |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -592,23 +777,38 @@ Lake-trout table is the Lean component only; omitted Fat rows have not been impu
 
 ### manistee mi — walleye
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Nighttime pier catches recur in May 2019, 2022 and 2023, including explicit targeting in 2023, and variable April casting in 2024. Older port zero estimates in May conflict with these observations; retain contradiction rather than fit an obsolete July peak.[^1][^84][^18][^19][^23][^53]
+Nighttime pier catches recur in May 2019, 2022 and 2023, including explicit targeting in 2023, and variable April casting in 2024. Older port zero estimates in May conflict with these observations; retain contradiction rather than fit an obsolete July peak.[^1][^84][^18][^19][^23][^53][^103]
 
 **Structure/mode:** Unspecified piers with North-Pier context in May 2022; excluded closure-era South observations not assigned to North. Nighttime pier casting; river and boat trolling excluded.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 04-15 | 3.0 | Late-April casting reports support a limited proposed entry to the window. |
-| 05-01 | 4.0 | Repeated May night fishing supports an improving limited window. |
-| 05-15 | 4.5 | Multi-year May directed catches support low fair peak; no target-hour denominator. |
-| 05-31 | 3.5 | Late-May shoulder; June 2016 North closure prevents extending North-Pier confidence from that report. |
+**Seasonal mechanism:** Walleye feed in winter; do not apply a winter inactivity floor. Covered-pier nighttime May catches establish the strongest local opportunity. Deep-water and upstream fisheries cannot support a fall or winter peak, so the annual weak-season band is poor rather than absent.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Walleye feed in winter; do not apply a winter inactivity floor. Covered-pier nighttime May catches establish the strongest local opportunity. Deep-water and upstream fisheries cannot support a fall or winter peak, so the annual weak-season band is poor rather than absent.[^103][^1] |
+| 02-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Walleye feed in winter; do not apply a winter inactivity floor. Covered-pier nighttime May catches establish the strongest local opportunity. Deep-water and upstream fisheries cannot support a fall or winter peak, so the annual weak-season band is poor rather than absent.[^103][^1] |
+| 03-15 | 2.5 | local_evidence_and_habitat_judgment; low | Spring movement approaches, but no imported upstream spawning strength: limited 2.5.[^1][^84][^18][^19][^23][^53][^103] |
+| 04-15 | 3.5 | local_evidence_and_habitat_judgment; low | April port recurrence and variable late-April pier casting support limited 3.5.[^1][^84][^18][^19][^23][^53][^103] |
+| 05-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | Multi-year May directed catches support low fair peak; no target-hour denominator.[^1][^84][^18][^19][^23][^53] |
+| 06-15 | 2.5 | local_evidence_and_habitat_judgment; low | Decline from recurrent May night catches; closure-era reports cannot establish strong North-Pier June fishing.[^1][^84][^18][^19][^23][^53][^103] |
+| 07-15 | 2.5 | local_evidence_and_habitat_judgment; low | Two older July port-positive years justify limited episodic opportunity, below the directly corroborated May peak.[^1][^84][^18][^19][^23][^53][^103] |
+| 08-15 | 2.0 | local_evidence_and_habitat_judgment; low | No modern August port catches; poor residual opportunity rather than impossible.[^1][^84][^18][^19][^23][^53][^103] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | No modern September catch signal; no transferred fall river run.[^1][^84][^18][^19][^23][^53][^103] |
+| 10-15 | 2.0 | local_evidence_and_habitat_judgment; low | No modern October catch signal; winter feeding biology cannot create a local autumn peak.[^1][^84][^18][^19][^23][^53][^103] |
+| 11-15 | 2.0 | local_evidence_and_habitat_judgment; low | Poor year-round residual access is a low-confidence prior; no Thanksgiving peak imported from Muskegon.[^1][^84][^18][^19][^23][^53][^103] |
+| 12-15 | 2.0 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Walleye feed in winter; do not apply a winter inactivity floor. Covered-pier nighttime May catches establish the strongest local opportunity. Deep-water and upstream fisheries cannot support a fall or winter peak, so the annual weak-season band is poor rather than absent.[^103][^1] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 2.2 | 3/8 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -621,24 +821,38 @@ Nighttime pier catches recur in May 2019, 2022 and 2023, including explicit targ
 
 ### manistee mi — smallmouth bass
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-June-August port season corroborated by species-specific July 2023/2024 and July 2026, plus August 2024 catches. Recent estimates are sparse and July 2026 was slow, so the curve remains limited-to-fair despite high older July totals.[^1][^30][^26][^28][^87][^88]
+June-August port season corroborated by species-specific July 2023/2024 and July 2026, plus August 2024 catches. Recent estimates are sparse and July 2026 was slow, so the curve remains limited-to-fair despite high older July totals.[^1][^30][^26][^28][^87][^88][^94][^101][^67]
 
 **Structure/mode:** Manistee piers, exact North-side species attribution incomplete; unidentified North-Pier bass not split. Nightcrawlers, spoons, jigs and soft plastics; early morning feasible.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 2.5 | June port recurrence supports a cautious shoulder. |
-| 06-15 | 3.0 | June older catches exceed recent evidence; limited rating. |
-| 07-15 | 4.5 | Repeated July species-specific pier catches support fair, tempered by sparse recent creel and 2026 slow report. |
-| 08-15 | 3.5 | August 2024 few-fish pier report and older recurrence support limited continuation. |
-| 08-31 | 2.5 | End of evaluated summer interval; river and lake bass do not extend the curve. |
+**Seasonal mechanism:** Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 04-15 | 2.0 | local_evidence_and_habitat_judgment; low | Scattered April port catches permit poor opportunity; no upstream Manistee Lake strength transferred.[^1][^30][^26][^28][^87][^88][^94][^101][^67] |
+| 05-15 | 2.5 | local_evidence_and_habitat_judgment; low | Scattered May recurrence supports limited early access below July.[^1][^30][^26][^28][^87][^88][^94][^101][^67] |
+| 06-15 | 3.0 | local_evidence_calibration; low | June older catches exceed recent evidence; limited rating.[^1][^30][^26][^28][^87][^88] |
+| 07-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated July species-specific pier catches support fair, tempered by sparse recent creel and 2026 slow report.[^1][^30][^26][^28][^87][^88] |
+| 08-15 | 3.5 | local_evidence_calibration; low | August 2024 few-fish pier report and older recurrence support limited continuation.[^1][^30][^26][^28][^87][^88] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | Weak older September port recurrence and recent zeros restrain the fall tail.[^1][^30][^26][^28][^87][^88][^94][^101][^67] |
+| 10-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^1][^94][^101][^67] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Harbor/lake movements and localized refuge use change casting access. Huron River telemetry contradicts a universal winter shutdown. The poor winter band is a low-confidence covered-pier accessibility judgment, not zero activity or a fitted temperature penalty.[^94][^101][^67] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 4.2 | 3/7 | 0.0 | 0/4 | — |
 | 5 | 2.4 | 3/6 | 1.4 | 1/4 | 100.0% |
 | 6 | 23.0 | 3/7 | 0.0 | 0/4 | — |
@@ -651,23 +865,38 @@ June-August port season corroborated by species-specific July 2023/2024 and July
 
 ### manistee mi — freshwater drum
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Pier reports recur in 2021 and 2023-2025 despite mostly zero recent creel estimates. June/July corroboration justifies a fair short proposal. No offshore or river reports counted; July 2026 boat drum excluded.[^1][^25][^30][^27][^26][^34][^88]
+Pier reports recur in 2021 and 2023-2025 despite mostly zero recent creel estimates. June/July corroboration justifies a fair summer peak in an annual curve. No offshore or river reports counted; July 2026 boat drum excluded.[^1][^25][^30][^27][^26][^34][^88][^93][^70]
 
 **Structure/mode:** Harbor/channel-facing piers; North-only attribution still needs method/side confirmation. Casting lures or bait on the harbor face.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 06-01 | 2.5 | Beginning of June port occurrence window, a low-confidence interpolation boundary. |
-| 06-15 | 3.5 | June harbor-face reports support limited opportunity. |
-| 07-15 | 4.5 | Repeated July reports support fair despite weak recent port estimates; below Grand Haven. |
-| 07-31 | 3.5 | End of directly corroborated summer window; August is held pending stronger local evidence. |
+**Seasonal mechanism:** Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 04-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 05-15 | 2.5 | local_evidence_and_habitat_judgment; low | Sparse May port catch and approaching shallow-water season permit a limited shoulder.[^1][^25][^30][^27][^26][^34][^88][^93][^70] |
+| 06-15 | 3.5 | local_evidence_calibration; low | June harbor-face reports support limited opportunity.[^1][^25][^30][^27][^26][^34][^88] |
+| 07-15 | 4.5 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated July reports support fair despite weak recent port estimates; below Grand Haven.[^1][^25][^30][^27][^26][^34][^88] |
+| 08-15 | 2.5 | local_evidence_and_habitat_judgment; low | Older August positives and adjacent July pier recurrence permit limited continuation; recent August zeros prevent fair.[^1][^25][^30][^27][^26][^34][^88][^93][^70] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | Recent September catch is very sparse; poor rather than a broad strong fall season.[^1][^25][^30][^27][^26][^34][^88][^93][^70] |
+| 10-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^1][^93][^70] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Great Lakes research supports summer shallowing and a late-fall move deeper. Transfer only the directional mechanism; local pier reports and port recurrence set the city peak. Winter 1.5 means poor inferred access, not absent fish or a thermal bite estimate.[^93][^70] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 3.5 | 1/5 | 0.0 | 0/4 | — |
 | 6 | 13.5 | 4/8 | 0.0 | 0/4 | — |
@@ -680,25 +909,38 @@ Pier reports recur in 2021 and 2023-2025 despite mostly zero recent creel estima
 
 ### manistee mi — yellow perch
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** moderate_timing_low_magnitude.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** moderate_timing_low_magnitude.
 
-April-May port catches recur strongly and North Pier has exact spring evidence. May exceeds April in both modern and recent pooled density. Large single-year contribution and 2022-2025 slow/sorting reports cap the proposal at good. June drops; July observation does not justify a productive tail.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24]
+April-May port catches recur strongly and North Pier has exact spring evidence. May exceeds April in both modern and recent pooled density. Large single-year contribution and 2022-2025 slow/sorting reports cap the proposal at good. June drops; July observation does not justify a productive tail.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24][^95][^96][^72]
 
 **Structure/mode:** North Pier explicitly corroborated in April 2017, May 2018 and June 2023. Minnows/wigglers from pier; schooling and small-fish sorting affect outcomes.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 04-01 | 5.0 | Evaluated April boundary supported by repeated monthly spring port catches, not a measured arrival. |
-| 04-15 | 6.0 | Exact April North-Pier catches and modern recurrence support upper fair; recent catches concentrated. |
-| 05-15 | 7.0 | Highest recurring spring port strength plus North-Pier spring corroboration support good, capped below excellent due variability and sorting. |
-| 06-15 | 4.0 | Repeated June 2023 reports say hit-or-miss and include small fish; substantial decline from May. |
-| 07-15 | 2.0 | Recent July estimates zero and 2022 observation is presence in otherwise slow fishing; poor meaningful opportunity. |
-| 07-31 | 1.5 | Weak end of evaluated July tail; no invented autumn or winter perch curve. |
+**Seasonal mechanism:** Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
+| 03-15 | 2.5 | local_evidence_and_habitat_judgment; low | Low-confidence pre-spring shoulder into well-supported April/May; not winter lake-perch harvest transferred to North Pier.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24][^95][^96][^72] |
+| 04-15 | 6.0 | local_evidence_calibration; moderate_timing_low_magnitude | Exact April North-Pier catches and modern recurrence support upper fair; recent catches concentrated.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24] |
+| 05-15 | 7.0 | local_evidence_calibration; moderate_timing_low_magnitude | Highest recurring spring port strength plus North-Pier spring corroboration support good, capped below excellent due variability and sorting.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24] |
+| 06-15 | 4.0 | local_evidence_calibration; moderate_timing_low_magnitude | Repeated June 2023 reports say hit-or-miss and include small fish; substantial decline from May.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24] |
+| 07-15 | 2.0 | local_evidence_calibration; low | Recent July estimates zero and 2022 observation is presence in otherwise slow fishing; poor meaningful opportunity.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24] |
+| 08-15 | 1.5 | local_evidence_and_habitat_judgment; low | Very weak older August and recent zeros justify poor residual access.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24][^95][^96][^72] |
+| 09-15 | 1.5 | local_evidence_and_habitat_judgment; low | Rare older September estimates and recent zeros keep opportunity poor.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24][^95][^96][^72] |
+| 10-15 | 1.5 | local_evidence_and_habitat_judgment; low | Explicit October port zeros prevent an autumn peak; connected-lake migration remains a caveat.[^1][^13][^80][^18][^19][^83][^16][^17][^14][^24][^95][^96][^72] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^1][^95][^96][^72] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Historical Lake Michigan winter depth patterns support weaker exposed-pier access, but newer connected-habitat genetics permits autumn/winter movements into drowned river mouths. Neither inland-lake catches nor migration proves a covered-pier school. Winter stays poor rather than absent, with city-specific spring/summer timing from local data.[^95][^96][^72] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 876.6 | 7/8 | 309.7 | 3/4 | 80.4% |
 | 5 | 1703.2 | 8/9 | 2037.9 | 3/4 | 87.9% |
 | 6 | 114.7 | 5/7 | 273.3 | 3/4 | 88.8% |
@@ -711,20 +953,23 @@ April-May port catches recur strongly and North Pier has exact spring evidence. 
 
 ### manistee mi — lake whitefish
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 April 2025 explicitly names lake whitefish, but older North-Pier spring and November reports say only whitefish. Two positive port years and species-ambiguous reports do not establish a current covered-pier seasonal magnitude; do not copy Grand Haven November.[^1][^21][^24][^80][^78]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** A couple lake whitefish in April 2025 and isolated port catch strata demonstrate occurrence. Unspecified whitefish and cisco from North Pier in 2022 cannot be reassigned. No recurring major intentional North Pier lake-whitefish fishery is proven.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: April 2025 explicitly names lake whitefish, but older North-Pier spring and November reports say only whitefish. Two positive port years and species-ambiguous reports do not establish a current covered-pier seasonal magnitude; do not copy Grand Haven November.
 
-**Seasonal lead retained:** Spring incidental record; no November transfer from Grand Haven.
+**Deferral reason:** April 2025 explicitly names lake whitefish, but older North-Pier spring and November reports say only whitefish. Two positive port years and species-ambiguous reports do not establish a current covered-pier seasonal magnitude; do not copy Grand Haven November.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 2.0 | 1/5 | 2.3 | 1/4 | 100.0% |
 | 5 | 16.1 | 1/5 | 18.7 | 1/4 | 100.0% |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -737,23 +982,38 @@ April 2025 explicitly names lake whitefish, but older North-Pier spring and Nove
 
 ### manistee mi — round whitefish
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Species-specific menominee catches recur in April 2023 and April 2025. Older autumn port catches do not establish contemporary North-Pier autumn timing or magnitude. Spring remains limited and separate from lake whitefish.[^1][^20][^77][^24][^64][^11]
+Species-specific menominee catches recur in April 2023 and April 2025. Repeated older October port catches support a lower-confidence limited autumn shoulder, not a contemporary North-Pier catch-rate estimate. Spring has stronger current corroboration; no lake-whitefish curve or spawning bonus is borrowed.[^1][^20][^77][^24][^64][^11]
 
 **Structure/mode:** Manistee piers; North attribution in April 2023 inferred from South closure, 2025 side unspecified. Waxworms, skein or spawn among spring salmonid catches.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 04-01 | 2.5 | Evaluated April boundary from monthly and report timing. |
-| 04-15 | 3.5 | Repeated April menominee catches support limited spring opportunity. |
-| 04-30 | 3.0 | Late-April 2025 mixed catches sustain a limited tail. |
-| 05-15 | 2.5 | Sparse historical May round-whitefish catches justify only a weak proposed shoulder; later dates uncalibrated. |
+**Seasonal mechanism:** Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
+| 03-15 | 2.0 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^1][^64][^11] |
+| 04-15 | 3.5 | local_evidence_calibration; low | Repeated April menominee catches support limited spring opportunity.[^1][^20][^77][^24][^64][^11] |
+| 05-15 | 2.5 | local_evidence_calibration; low | Sparse historical May round-whitefish catches justify only a weak shoulder; later dates uncalibrated.[^1][^20][^77][^24][^64][^11] |
+| 06-15 | 1.5 | local_evidence_and_habitat_judgment; low | End of brief spring shallowing and explicit June zeros leave poor access.[^1][^20][^77][^24][^64][^11] |
+| 07-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^64][^11] |
+| 08-15 | 1.0 | local_evidence_and_habitat_judgment; low | Summer depth/access separation with explicit local port-zero evidence supports negligible meaningful pier opportunity; 1 is not absence of the species.[^1][^64][^11] |
+| 09-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^1][^64][^11] |
+| 10-15 | 3.0 | local_evidence_and_habitat_judgment; low | Four of eight modern October strata positive, including a recent occurrence, justify a limited return; weaker current evidence than a major fall run.[^1][^20][^77][^24][^64][^11] |
+| 11-15 | 2.5 | local_evidence_and_habitat_judgment; low | Regional shallow use and adjacent October catches permit limited continuation; no automatic spawning bonus.[^1][^20][^77][^24][^64][^11] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Agency guidance distinguishes brief shallow spring/fall access from deeper periods. Retained port spring/fall catches set local asymmetry. Summer near-floor values combine explicit local zeros and reduced reachability; pre-spawn nonfeeding rules out a spawning bonus.[^64][^11] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 1.6 | 3/7 | 1.4 | 1/4 | 100.0% |
 | 5 | 1.2 | 2/7 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -766,20 +1026,23 @@ Species-specific menominee catches recur in April 2023 and April 2025. Older aut
 
 ### manistee mi — channel catfish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No qualifying current species-specific major North Pier fishery is established by reviewed estimates and reports. Upstream river or Manistee Lake catfish evidence would not resolve the pairing.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** No qualifying current species-specific major North Pier fishery is established by reviewed estimates and reports. Upstream river or Manistee Lake catfish evidence would not resolve the pairing.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No qualifying current species-specific major North Pier fishery is established by reviewed estimates and reports. Upstream river or Manistee Lake catfish evidence would not resolve the pairing.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No qualifying current species-specific major North Pier fishery is established by reviewed estimates and reports. Upstream river or Manistee Lake catfish evidence would not resolve the pairing.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -792,23 +1055,38 @@ No qualifying current species-specific major North Pier fishery is established b
 
 ### manistee mi — largemouth bass
 
-**Research queue:** research_candidate. **Numeric status:** provisional_seasonal_proposal. **Confidence:** low.
+**Research queue:** research_candidate. **Numeric status:** annual_research_calibrated. **Confidence:** low.
 
-Species-specific July 2023 and August 2024 catches support a narrow summer proposal, now stronger than a single-event lead. Only one recent positive July port year and few-fish report language restrict the entire curve to limited.[^1][^31][^87]
+Species-specific July 2023 and August 2024 catches support a limited summer peak in an annual curve, now stronger than a single-event lead. Only one recent positive July port year and few-fish report language restrict the entire curve to limited.[^1][^31][^87][^94][^97][^98][^74]
 
 **Structure/mode:** Manistee harbor-facing piers; covered North-Pier attribution unresolved. Nightcrawlers or artificial lures.
 
-**Unavailable dates:** Outside a bounded evidence-supported proposal; unknown does not mean absent.
+**Phase 1 disposition:** accepted_annual_calibration. Accepted annual research curve: no unavailable calendar dates.
 
-| Anchor | Proposed seasonal value | Reason |
-| --- | ---: | --- |
-| 07-01 | 2.0 | Evaluated July boundary from sparse port catches, not a confirmed arrival. |
-| 07-15 | 3.0 | July species-specific pier corroboration and sparse port recurrence support limited opportunity. |
-| 08-07 | 3.0 | A few largemouth explicitly reported from pier in August 2024; does not justify a strong peak. |
-| 08-31 | 2.0 | Weak end of August review window; no spring habitat-based or fall extension. |
+**Seasonal mechanism:** Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.
+
+**Annual limits:** "Numbers are ordinal research judgments, not observed monthly catch probabilities. Habitat-inferred months have low confidence and no local winter effort validation. Conditions/access and thermal-response gates remain separate. No automatic reweighting by ice or average temperature is included."
+
+| Anchor | Seasonal value | Basis / confidence | Reason |
+| --- | ---: | --- | --- |
+| 01-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
+| 02-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
+| 03-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 04-15 | 1.5 | local_evidence_and_habitat_judgment; low | No modern April port signal; species habitat alone does not establish a spring pier window.[^1][^31][^87][^94][^97][^98][^74] |
+| 05-15 | 2.0 | local_evidence_and_habitat_judgment; low | Two older May positives permit poor episodic access, below directly corroborated summer.[^1][^31][^87][^94][^97][^98][^74] |
+| 06-15 | 2.0 | local_evidence_and_habitat_judgment; low | June explicit zeros restrain an early summer shoulder.[^1][^31][^87][^94][^97][^98][^74] |
+| 07-15 | 3.0 | local_evidence_calibration; low | July species-specific pier corroboration and sparse port recurrence support limited opportunity.[^1][^31][^87] |
+| 08-15 | 3.0 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 09-15 | 2.0 | local_evidence_and_habitat_judgment; low | No local September port signal; declining summer tail is poor inference rather than reported catches.[^1][^31][^87][^94][^97][^98][^74] |
+| 10-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 11-15 | 1.5 | seasonal_habitat_inference; low | Weak seasonal shoulder/accessibility judgment: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^1][^94][^97][^98][^74] |
+| 12-15 | 1.5 | seasonal_habitat_inference; low | Cold-season accessibility calibration: Lake Michigan harbor telemetry supports a more confined habitat pattern than smallmouth. Inland telemetry supports deeper winter use, while recent biologging indicates continued swimming and probable feeding. Poor winter pier opportunity is an access inference, not a claim of dormancy.[^94][^97][^98][^74] |
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 3.3 | 2/6 | 0.0 | 0/4 | — |
 | 6 | 0.0 | 0/5 | 0.0 | 0/4 | — |
@@ -821,20 +1099,23 @@ Species-specific July 2023 and August 2024 catches support a narrow summer propo
 
 ### frankfort elberta mi — lake trout
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters.[^1][^49][^55]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters.
 
-**Seasonal lead retained:** No supported score interval at either structure.
+**Deferral reason:** Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 8.8 | 3/6 | 8.8 | 2/4 | 53.1% |
 | 5 | 13.4 | 1/4 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -849,20 +1130,23 @@ Lake-trout table is the Lean component only; omitted Fat rows have not been impu
 
 ### frankfort elberta mi — walleye
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 April 2024 and May 2026 catches between/inside piers explicitly describe trolling. Historical sparse Pier/Dock catches do not convert that boat fishery into major breakwater casting opportunity.[^1][^23][^49]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** April 2024 and May 2026 catches between/inside piers explicitly describe trolling. Historical sparse Pier/Dock catches do not convert that boat fishery into major breakwater casting opportunity.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: April 2024 and May 2026 catches between/inside piers explicitly describe trolling. Historical sparse Pier/Dock catches do not convert that boat fishery into major breakwater casting opportunity.
 
-**Seasonal lead retained:** Spring trolling excluded; no supported pier curve.
+**Deferral reason:** April 2024 and May 2026 catches between/inside piers explicitly describe trolling. Historical sparse Pier/Dock catches do not convert that boat fishery into major breakwater casting opportunity.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -875,20 +1159,23 @@ April 2024 and May 2026 catches between/inside piers explicitly describe trollin
 
 ### frankfort elberta mi — smallmouth bass
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Occasional summer port catches provide no adequate evidence of major directed fishing on either covered breakwater. Betsie Bay, river and Leland smallmouth reports are not interchangeable with these exact structures.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Occasional summer port catches provide no adequate evidence of major directed fishing on either covered breakwater. Betsie Bay, river and Leland smallmouth reports are not interchangeable with these exact structures.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Occasional summer port catches provide no adequate evidence of major directed fishing on either covered breakwater. Betsie Bay, river and Leland smallmouth reports are not interchangeable with these exact structures.
 
-**Seasonal lead retained:** Scattered August occurrence; no supported score interval.
+**Deferral reason:** Occasional summer port catches provide no adequate evidence of major directed fishing on either covered breakwater. Betsie Bay, river and Leland smallmouth reports are not interchangeable with these exact structures.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -901,20 +1188,23 @@ Occasional summer port catches provide no adequate evidence of major directed fi
 
 ### frankfort elberta mi — freshwater drum
 
-**Research queue:** research_candidate. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** research_candidate. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Sparse port catch estimates have no sufficient repeated exact-breakwater directed corroboration. Do not copy Grand Haven's channel drum fishery into Frankfort or Elberta.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Sparse port catch estimates have no sufficient repeated exact-breakwater directed corroboration. Do not copy Grand Haven's channel drum fishery into Frankfort or Elberta.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Sparse port catch estimates have no sufficient repeated exact-breakwater directed corroboration. Do not copy Grand Haven's channel drum fishery into Frankfort or Elberta.
 
-**Seasonal lead retained:** Scattered May/July estimates; no supported curve.
+**Deferral reason:** Sparse port catch estimates have no sufficient repeated exact-breakwater directed corroboration. Do not copy Grand Haven's channel drum fishery into Frankfort or Elberta.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 13.7 | 1/4 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -927,20 +1217,23 @@ Sparse port catch estimates have no sufficient repeated exact-breakwater directe
 
 ### frankfort elberta mi — yellow perch
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Reviewed port-mode estimates and exact-breakwater evidence do not establish a current major targeted perch fishery. Nearby inland lakes and boat fisheries are outside scope.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Reviewed port-mode estimates and exact-breakwater evidence do not establish a current major targeted perch fishery. Nearby inland lakes and boat fisheries are outside scope.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Reviewed port-mode estimates and exact-breakwater evidence do not establish a current major targeted perch fishery. Nearby inland lakes and boat fisheries are outside scope.
 
-**Seasonal lead retained:** No supported score interval; missing or zero port rows do not prove ecological absence.
+**Deferral reason:** Reviewed port-mode estimates and exact-breakwater evidence do not establish a current major targeted perch fishery. Nearby inland lakes and boat fisheries are outside scope.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -953,20 +1246,23 @@ Reviewed port-mode estimates and exact-breakwater evidence do not establish a cu
 
 ### frankfort elberta mi — lake whitefish
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Isolated spring port catches do not prove a recurring major lake-whitefish breakwater target. Historical menominee are a different species.[^1][^11]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** Isolated spring port catches do not prove a recurring major lake-whitefish breakwater target. Historical menominee are a different species.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Isolated spring port catches do not prove a recurring major lake-whitefish breakwater target. Historical menominee are a different species.
 
-**Seasonal lead retained:** Scattered May occurrence; no November curve inherited from Grand Haven.
+**Deferral reason:** Isolated spring port catches do not prove a recurring major lake-whitefish breakwater target. Historical menominee are a different species.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 6.9 | 1/3 | 10.2 | 1/2 | 100.0% |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -979,20 +1275,23 @@ Isolated spring port catches do not prove a recurring major lake-whitefish break
 
 ### frankfort elberta mi — round whitefish
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 The 2026 biologist interview recalls a Frankfort pier trip about ten years earlier, not a contemporary catch. It describes diminished abundance and interest, consistent with the weak modern port record. No current major target or Elberta-specific recurrence is established.[^1][^11]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** The 2026 biologist interview recalls a Frankfort pier trip about ten years earlier, not a contemporary catch. It describes diminished abundance and interest, consistent with the weak modern port record. No current major target or Elberta-specific recurrence is established.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: The 2026 biologist interview recalls a Frankfort pier trip about ten years earlier, not a contemporary catch. It describes diminished abundance and interest, consistent with the weak modern port record. No current major target or Elberta-specific recurrence is established.
 
-**Seasonal lead retained:** Historical fishery retained as a lead; current seasonal timing unresolved.
+**Deferral reason:** The 2026 biologist interview recalls a Frankfort pier trip about ten years earlier, not a contemporary catch. It describes diminished abundance and interest, consistent with the weak modern port record. No current major target or Elberta-specific recurrence is established.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -1005,20 +1304,23 @@ The 2026 biologist interview recalls a Frankfort pier trip about ten years earli
 
 ### frankfort elberta mi — channel catfish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No qualifying directed fishery on either covered breakwater was established. Regional catfish biology and river occurrence do not constitute pier evidence.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** No qualifying directed fishery on either covered breakwater was established. Regional catfish biology and river occurrence do not constitute pier evidence.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No qualifying directed fishery on either covered breakwater was established. Regional catfish biology and river occurrence do not constitute pier evidence.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No qualifying directed fishery on either covered breakwater was established. Regional catfish biology and river occurrence do not constitute pier evidence.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -1031,20 +1333,23 @@ No qualifying directed fishery on either covered breakwater was established. Reg
 
 ### frankfort elberta mi — largemouth bass
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No qualifying major directed largemouth fishery on either covered breakwater was established. Protected-harbor and inland-lake habitat cannot be assumed to apply to the breakwaters.[^1]
 
 **Structure/mode:** Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished. Pier/Dock.
 
-**Unavailable dates:** No qualifying major directed largemouth fishery on either covered breakwater was established. Protected-harbor and inland-lake habitat cannot be assumed to apply to the breakwaters.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No qualifying major directed largemouth fishery on either covered breakwater was established. Protected-harbor and inland-lake habitat cannot be assumed to apply to the breakwaters.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No qualifying major directed largemouth fishery on either covered breakwater was established. Protected-harbor and inland-lake habitat cannot be assumed to apply to the breakwaters.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 | Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |
 | --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | — | 0/0 | — | 0/0 | — |
+| 2 | — | 0/0 | — | 0/0 | — |
+| 3 | — | 0/0 | — | 0/0 | — |
 | 4 | 0.0 | 0/5 | 0.0 | 0/4 | — |
 | 5 | 0.0 | 0/3 | 0.0 | 0/2 | — |
 | 6 | 0.0 | 0/3 | 0.0 | 0/2 | — |
@@ -1057,157 +1362,157 @@ No qualifying major directed largemouth fishery on either covered breakwater was
 
 ### sheboygan wi — lake trout
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability.[^4][^5][^6][^54][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability.
 
-**Seasonal lead retained:** Regional modeled spring harvest is not a Sheboygan season.
+**Deferral reason:** Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — walleye
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Lake Michigan/Green Bay regional pier harvest has no Sheboygan allocation. River walleye and northern Green Bay fisheries cannot establish a major target at either Sheboygan pier.[^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** Lake Michigan/Green Bay regional pier harvest has no Sheboygan allocation. River walleye and northern Green Bay fisheries cannot establish a major target at either Sheboygan pier.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Lake Michigan/Green Bay regional pier harvest has no Sheboygan allocation. River walleye and northern Green Bay fisheries cannot establish a major target at either Sheboygan pier.
 
-**Seasonal lead retained:** No supported score interval; modeled regional spring bins are inapplicable.
+**Deferral reason:** Lake Michigan/Green Bay regional pier harvest has no Sheboygan allocation. River walleye and northern Green Bay fisheries cannot establish a major target at either Sheboygan pier.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — smallmouth bass
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 A dated 2019 report explicitly names both piers and a few smallmouth among salmonids and carp. Directed effort was salmon/trout or unspecified. Regional pier harvest corroborates statewide mode relevance but cannot establish current major Sheboygan targeting.[^10][^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** A dated 2019 report explicitly names both piers and a few smallmouth among salmonids and carp. Directed effort was salmon/trout or unspecified. Regional pier harvest corroborates statewide mode relevance but cannot establish current major Sheboygan targeting.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: A dated 2019 report explicitly names both piers and a few smallmouth among salmonids and carp. Directed effort was salmon/trout or unspecified. Regional pier harvest corroborates statewide mode relevance but cannot establish current major Sheboygan targeting.
 
-**Seasonal lead retained:** Late-summer historical occurrence; no current exact-pier magnitude.
+**Deferral reason:** A dated 2019 report explicitly names both piers and a few smallmouth among salmonids and carp. Directed effort was salmon/trout or unspecified. Regional pier harvest corroborates statewide mode relevance but cannot establish current major Sheboygan targeting.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — freshwater drum
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No reviewed source establishes recurring major intentional drum targeting on the two covered piers. Absence from individually named regional harvest categories is not a zero estimate.[^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** No reviewed source establishes recurring major intentional drum targeting on the two covered piers. Absence from individually named regional harvest categories is not a zero estimate.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No reviewed source establishes recurring major intentional drum targeting on the two covered piers. Absence from individually named regional harvest categories is not a zero estimate.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No reviewed source establishes recurring major intentional drum targeting on the two covered piers. Absence from individually named regional harvest categories is not a zero estimate.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — yellow perch
 
-**Research queue:** occurrence_lead. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** occurrence_lead. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 Regional pier perch harvest is real but geographically pooled. A local historical recollection describes diminished South Pier/power-plant-area perch fishing; its exact location and effort are imprecise. Neither establishes a current major fishery on the covered piers.[^4][^5][^6][^12][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** Regional pier perch harvest is real but geographically pooled. A local historical recollection describes diminished South Pier/power-plant-area perch fishing; its exact location and effort are imprecise. Neither establishes a current major fishery on the covered piers.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: Regional pier perch harvest is real but geographically pooled. A local historical recollection describes diminished South Pier/power-plant-area perch fishing; its exact location and effort are imprecise. Neither establishes a current major fishery on the covered piers.
 
-**Seasonal lead retained:** Historical lead only; no seasonal curve transferred from Michigan or Green Bay.
+**Deferral reason:** Regional pier perch harvest is real but geographically pooled. A local historical recollection describes diminished South Pier/power-plant-area perch fishing; its exact location and effort are imprecise. Neither establishes a current major fishery on the covered piers.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — lake whitefish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No adequate recurring directed fishery at either covered pier was established. Green Bay whitefish fisheries and lake-wide biology are geographically insufficient; unlisted regional harvest is not a zero observation.[^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** No adequate recurring directed fishery at either covered pier was established. Green Bay whitefish fisheries and lake-wide biology are geographically insufficient; unlisted regional harvest is not a zero observation.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No adequate recurring directed fishery at either covered pier was established. Green Bay whitefish fisheries and lake-wide biology are geographically insufficient; unlisted regional harvest is not a zero observation.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No adequate recurring directed fishery at either covered pier was established. Green Bay whitefish fisheries and lake-wide biology are geographically insufficient; unlisted regional harvest is not a zero observation.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — round whitefish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No adequate species-specific major directed fishery at either covered pier was established. Lake whitefish and northern Michigan menominee history are not transferable evidence.[^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** No adequate species-specific major directed fishery at either covered pier was established. Lake whitefish and northern Michigan menominee history are not transferable evidence.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No adequate species-specific major directed fishery at either covered pier was established. Lake whitefish and northern Michigan menominee history are not transferable evidence.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No adequate species-specific major directed fishery at either covered pier was established. Lake whitefish and northern Michigan menominee history are not transferable evidence.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — channel catfish
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No adequate current major directed channel-catfish fishery at either covered pier was established. Sheboygan River catches and general harbor claims are outside the exact-structure proof.[^4][^5][^6][^7]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** No adequate current major directed channel-catfish fishery at either covered pier was established. Sheboygan River catches and general harbor claims are outside the exact-structure proof.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No adequate current major directed channel-catfish fishery at either covered pier was established. Sheboygan River catches and general harbor claims are outside the exact-structure proof.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No adequate current major directed channel-catfish fishery at either covered pier was established. Sheboygan River catches and general harbor claims are outside the exact-structure proof.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ### sheboygan wi — largemouth bass
 
-**Research queue:** not_established. **Numeric status:** unresolved_seasonal_calibration. **Confidence:** insufficient_for_numeric_calibration.
+**Research queue:** not_established. **Numeric status:** deferred_pairing. **Confidence:** insufficient_for_numeric_calibration.
 
 No adequate species-specific major directed largemouth fishery at either covered pier was established. Smallmouth observations, unspecified bass and protected inland habitat cannot substitute.[^4][^5][^6][^7][^10]
 
 **Structure/mode:** Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately. null.
 
-**Unavailable dates:** No adequate species-specific major directed largemouth fishery at either covered pier was established. Smallmouth observations, unspecified bass and protected inland habitat cannot substitute.
+**Phase 1 disposition:** deferred. Pairing deferred as a whole: No adequate species-specific major directed largemouth fishery at either covered pier was established. Smallmouth observations, unspecified bass and protected inland habitat cannot substitute.
 
-**Seasonal lead retained:** No supported score interval.
+**Deferral reason:** No adequate species-specific major directed largemouth fishery at either covered pier was established. Smallmouth observations, unspecified bass and protected inland habitat cannot substitute.
 
-**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.
+**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.
 
 No comparable Sheboygan × covered-pier monthly catch/effort cross-tab was found. Wisconsin regional pier totals, county boat effort, nearshore juvenile surveys and upstream bass habitat do not provide that missing cross-tab.
 
 ## Reproducibility and next phases
 
-- Run `npm run generate:pier-cast:remaining-seasonal` for daily, weekly, monthly and coverage artifacts. Weekly bins begin January 1; week 52 includes December 24–31, with December 27 retained as the core-compatible review midpoint. Monthly means use available days only; availability counts prevent them from implying a complete month.
+- Run `npm run generate:pier-cast:remaining-seasonal` for daily, weekly, monthly and coverage artifacts. Weekly bins begin January 1; week 52 includes December 24–31, with December 27 retained as the core-compatible review midpoint. Accepted monthly means include every day; deferred months contain no numerical mean.
 - Run `node scripts/generate-pier-cast-remaining-seasonal-report.mjs` for this evidence report. Raw snapshots and additional bulletin retrieval checksums are preserved locally.
 - Run `npm run check:pier-cast:remaining-seasonal`, the existing remaining-species evidence checks, complete PierCast suite, core seasonal replay check and TypeScript checks. Tests establish implementation consistency, not empirical score accuracy.
-- Phase 2 must resolve exact-side eligibility for each proposal, research thermal responses using appropriate endpoints, and implement bounded availability before enabling any additional runtime species. Do not import null-window anchors into the cyclic core interpolator. Lake whitefish lawful-method magnitude and Frankfort/Sheboygan candidate gaps remain evidence tasks, not permission to invent curves.
-- Phase 3 must inspect daily/weekly species succession and overlapping peaks jointly, preserve real unavailable dates and unchanged public scientific gates, and reconcile deployment only if runtime/schema changes require it.
+- Phase 2 researches species thermal responses, audits covered-side/method eligibility for runtime integration, and uses the existing annual interpolator. It must not reinterpret tolerance, spawning temperature, occupancy or growth optimum as bite probability. Deferred pairings remain unavailable unless new evidence resolves their admission.
+- Phase 3 reviews the entire annual lineup and overlapping peaks together against the completed four-species scale, without forcing coverage or weakening public gates. Deploy only when runtime/schema changes require it.
 
-**Completion statement:** This is a reproducible Phase 1 research and provisional calibration package. It does not establish high-confidence numeric scores for all 45 pairings across all 12 months. Exact-side and annual evidence gaps are listed rather than hidden behind low scores. The ten still-unscored research candidates remain in the batch queue.
+**Completion statement:** Phase 1 supplies complete annual research configurations for 16 pairings and documented deferrals for the other 29. Nine of the original 25 discovery candidates remain deferred, along with seven weaker leads and 13 not-established pairings. The historical discovery queue and strict runtime audit are retained as separate artifacts. Empirical annual accuracy and exact-side runtime eligibility are not certified by research completion.
 
 ## Sources
 
@@ -1305,3 +1610,14 @@ All source records include geographic scope, fishing mode, review date and limit
 [^90]: [Michigan DNR Weekly Fishing Report 2018-09-06](https://content.govdelivery.com/accounts/MIDNR/bulletins/20b15b2). Published 2018-09-06; reviewed 2026-09-12. Scope: Grand Haven piers. Mode: Pier. Pier side and target-specific effort unspecified; no transfer of upstream catches.
 [^91]: [Michigan DNR Weekly Fishing Report 2022-10-26](https://content.govdelivery.com/accounts/MIDNR/bulletins/3347f01). Published 2022-10-26; reviewed 2026-09-12. Scope: Michigan statewide reporting program. Mode: Reporting coverage, not a catch observation. Missing winter reports are not zero catches and cannot establish winter opportunity or absence.
 [^92]: [Jordan and Talhelm: Economic impacts of sport fishing in Muskegon and Ottawa Counties, October 1981–October 1982](https://repository.library.noaa.gov/view/noaa/2064/noaa_2064_DS1.pdf). Published 1982; reviewed 2026-09-12. Scope: Four sampling areas; Grand Haven North Pier in local catch section. Mode: Pier; separate ice, bayou, boat and charter sections. 1981–1982 evidence, not modern opportunity. North Pier is excluded from current Grand Haven coverage. General regional seasonal narrative cannot establish species timing at South Pier. Historical lake-trout river-run wording is not adopted as a contemporary biological assumption.
+[^93]: [Bur: Growth, reproduction, mortality, distribution, and biomass of freshwater drum in Lake Erie](https://pubs.usgs.gov/publication/1000094). Published 1984; reviewed 2026-09-12. Scope: Lake Erie, 1977–1979. Mode: Research gill/trap nets and trawls, not angling. Different lake and old food web; no transferable city magnitudes, exact dates or bite probabilities.
+[^94]: [Carter et al.: Movement patterns of smallmouth and largemouth bass in and around a Lake Michigan harbor](https://experts.illinois.edu/en/publications/movement-patterns-of-smallmouth-and-largemouth-bass-in-and-around/). Published 2012-06; reviewed 2026-09-12. Scope: North Point Marina, Illinois; 2005–2006. Mode: Telemetry: 26 smallmouth and eight largemouth. Supports species-specific habitat use, not transfer of Illinois pier scores. Observed occupancy temperature is not an angling optimum.
+[^95]: [Michigan Sea Grant: Fish in Lake Michigan—Distribution of selected species](https://repository.library.noaa.gov/view/noaa/38961/noaa_38961_DS1.pdf). Published 1981-06; reviewed 2026-09-12. Scope: Lake Michigan basin. Mode: Distribution synthesis reviewed by fishery biologists. Historical distribution map, not contemporary pier catches. Do not erase drowned-river-mouth migration or transfer Green Bay opportunity.
+[^96]: [Chorak et al.: Yellow perch genetic structure and habitat use among connected habitats in eastern Lake Michigan](https://repository.library.noaa.gov/view/noaa/62227/noaa_62227_DS1.pdf). Published 2019; reviewed 2026-09-12. Scope: Eastern Lake Michigan and connected drowned river mouths including Manistee and Pere Marquette. Mode: Genetic/habitat sampling; no pier catch-effort model. Autumn/winter movement inference does not locate fish at the covered pier. Connected-lake harvest is not pier evidence.
+[^97]: [Hanson et al.: Intersexual variation in seasonal behaviour and depth distribution of largemouth bass](https://www.fecpl.ca/wp-content/uploads/2008/08/CJZ-Hanson-etal-2008.pdf). Published 2008; reviewed 2026-09-12. Scope: Warner Lake, Ontario; 2004–2005. Mode: Whole-lake telemetry of 20 bass. Small inland lake; transfers a qualitative habitat mechanism only. Movement is not bite probability.
+[^98]: [Reeve et al.: Winter behaviour and energetics of free-swimming largemouth bass](https://www.fecpl.ca/wp-content/uploads/2024/11/Winter-behaviour-and-energetics-of-free-swimming-largemouth-bass.pdf). Published 2025; reviewed 2026-09-12. Scope: Small temperate lake. Mode: Wild-fish biologging and bioenergetic inference. Consumption inferred from models, not measured pier catchability; no automatic winter zero or numerical thermal response. File path contains 2024; journal publication is 2025.
+[^99]: [Kruckman: Diel and seasonal patterns of channel catfish movement and habitat use in the lower Wabash River](https://thekeep.eiu.edu/theses/2504/). Published 2016; reviewed 2026-09-12. Scope: Lower Wabash River; 2014–2016. Mode: Telemetry of 27 channel catfish; thesis. Different river; cannot establish Grand Haven winter fish locations or convert activity to bite probability.
+[^100]: [Cooke and McKinley: Winter residency and activity patterns of channel catfish and common carp in a thermal discharge canal](https://www.fecpl.ca/wp-content/uploads/1999/05/Cat_Carp_MS.pdf). Published 1999; reviewed 2026-09-12. Scope: Nanticoke generating station, Lake Erie; winter 1997–1998. Mode: Telemetry; some fish collected by winter angling. Artificial heated canal; not a Grand Haven winter analogue. Retained as counterevidence to total inactivity, not as evidence of a covered winter fishery.
+[^101]: [Beam: Daily and seasonal movement, as related to habitat use, of smallmouth bass in the Huron River, Michigan](https://www.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/ResearchReports/RR1901-RR2000/RR1971.pdf). Published 1990-07-06; reviewed 2026-09-12. Scope: Huron River, Washtenaw County; 1987–1989. Mode: Radiotelemetry, 18 fish. Inland river, not any covered pier. No direct support for winter pier scores.
+[^102]: [Michigan DNR lake whitefish species account](https://www.michigan.gov/dnr/education/michigan-species/fish-species/whitefish). Published date not stated; reviewed 2026-09-12. Scope: Great Lakes. Mode: Species biology and fishing guidance. Spawning does not imply biting. General historical recovery wording is superseded by the 2025 agency decline notice for current magnitude.
+[^103]: [Michigan DNR walleye species account](https://www.michigan.gov/dnr/education/michigan-species/fish-species/walleye). Published date not stated; reviewed 2026-09-12. Scope: Michigan. Mode: Species biology and fishing guidance. Year-round species feeding does not establish a winter pier fishery; no transferred numeric catch rates.

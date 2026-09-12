@@ -1,28 +1,31 @@
-# Phase 1 seasonal research validation — 2026-09-12
+# Phase 1 annual seasonal calibration validation — 2026-09-12
 
-## Saved work
+## Completed configuration
 
-- 45 city × species decisions retained separately from candidate admission and runtime eligibility.
-- 15 bounded provisional numeric proposals; ten additional research candidates and 20 weaker/non-established pairings remain numerically unresolved.
-- 16,425 daily rows, 2,340 weekly rows and 540 monthly rows. There are 1,377 proposed numeric species-days and 15,048 unavailable species-days in the 2025 projection. These counts include all 45 combinations; they are not counts of calendar days without fishing opportunities.
-- 17 additional Michigan DNR bulletins and one NOAA-hosted primary historical study preserved with hashes, dates, modes, geographic scope and limitations. The NOAA study's relevant scanned pages were visually checked after OCR.
-- Full 45-pair report recomputes modern/recent recurrence and total-mode catch ratios from the preserved primary Michigan snapshots. Lake-trout inspection uses the Lean component explicitly, avoiding an assumed zero for missing Fat components.
+- All 45 city × species pairings have a Phase 1 disposition: 16 accepted annual research curves and 29 whole-pair deferrals. This supersedes the previous 15 partial-season proposals.
+- Accepted additions: Ludington 3, Grand Haven 6, Manistee 7, Frankfort–Elberta 0, Sheboygan 0. The latter two still retain the completed four core species. Deferral does not establish ecological absence.
+- 192 documented anchors interpolate continuously on actual calendar dates, including December–January and leap day. Every accepted pairing receives a value on every date; no bounded seasonal availability mechanism is needed.
+- The 2025 projections contain 16,425 daily rows (5,840 numeric; 10,585 deferred), 2,340 weekly rows (832 numeric; 1,508 deferred), and 540 monthly rows (192 numeric; 348 deferred).
+- `additionalSeasonalResearch.generated.ts` contains the 16 provisional curves for Phase 2. It is deliberately detached from runtime city assembly. Original runtime eligibility, core seasonal curves, core weekly ratings, thermal profiles, scoring formula and public gates remain unchanged.
+- Eleven additional agency/study records document annual habitat mechanisms and contradictions. Nine raw snapshots have checked hashes; two DNR pages were reviewed in full through the web reader but denied direct downloads, recorded in `annual-download-limitations.json`. The earlier 18-source Phase 1 supplement and original 74-source register remain preserved.
+- The 45-pair report recomputes all 12 months of modern/recent Pier/Dock recurrence and total-mode catch ratios from preserved Michigan estimates. Lake-trout inspection explicitly uses the Lean component, avoiding a zero assumption for missing Fat components.
 
-## Checks
+## Verification
 
-- `npm run qa:pier-cast:foundation`: 120 passed, zero failed.
+- `npm run qa:pier-cast:foundation`: **122 passed, zero failed**. Two added tests compare all 16 curves against the actual runtime evaluator on every date in 2024–2026 and verify that detached research curves neither activate city species nor bypass public calibration approval.
 - `npx tsc --noEmit`: passed.
-- `npm run check:pier-cast:remaining-species`: four evidence tests and existing generated-artifact checks passed.
-- `npm run check:pier-cast:seasonal-replay`: completed-core replay artifacts current. This is not validation of the new proposals.
-- `npm run check:pier-cast:remaining-seasonal`: six tests cover bounded interpolation, gaps, leap years, scope/release rejection, evidence identity, full-date bounds and generated-artifact consistency; report regeneration checked.
-- Existing four-species curves, weekly ratings, runtime configuration, temperature profiles and public-release gates unchanged.
+- `npm run check:pier-cast:remaining-seasonal`: six tests passed, including annual interpolation, leap dates, whole-pair deferrals, city-specific seasonal ordering, overlapping peaks, evidence/calendar/scope/release corruption, source hashes and generated-artifact consistency. Report regeneration checked.
+- `npm run check:pier-cast:remaining-species`: four evidence tests and the original evidence/configuration artifact checks passed.
+- `npm run check:pier-cast:seasonal-replay`: completed-core replay artifacts current. Its correlations do not validate the new curves.
 
-## Deployment decision
+## Scientific interpretation
 
-No schema, edge-function or runtime configuration change is included. No migration or deployment is required. Prior deployed functions and migration reconciliation are documented in `VALIDATION.md`; this pass does not claim a new production verification.
+Phase 1 configuration and evidence synthesis are complete. The numbers are provisional ordinal calibration judgments, not measured catch probabilities, DNR ratings or empirically validated weekly coefficients. Local catch recurrence and dated pier reports establish the stronger seasons; transferred habitat studies inform low-confidence weak-season direction only after local admission. Missing survey observations remain missing data and are never relabeled as zero catches.
 
-## Scientific limits
+Winter and some shoulder magnitudes lack local directed-effort validation. Current lawful-method lake-whitefish strength at Grand Haven remains particularly uncertain; the limited November judgment does not use historical snagging harvest or an invented correction factor. Several pairings retain covered-side attribution limitations that must be addressed before runtime activation. The report and per-anchor metadata preserve these distinctions.
 
-Software checks do not establish measured weekly accuracy. Proposed values are explicit product calibration judgments in the existing rubric; evidence generally resolves broad months, not exact arrival dates or half-point differences. No curve has a supported numeric January–December profile. Several proposed pairings still need exact covered-side attribution before Phase 2 runtime eligibility. Grand Haven lake whitefish requires current lawful-method magnitude evidence; historical snagging harvest cannot be repaired with an invented discount.
+Phase 2 owns species thermal profiles and runtime structure/method eligibility. Phase 3 owns the joint annual lineup and empirical validation review. Neither phase may turn temperature tolerance, occupancy, spawning or growth into an unsupported bite-probability claim, or weaken public scientific gates.
 
-The Phase 1 research package is preserved and reproducible, but high-confidence annual numerical coverage remains incomplete. Do not describe null dates as absent fish, mark these species production-ready, enable public ratings, or silently interpolate through gaps.
+## Deployment
+
+No runtime assembly, endpoint behavior or database schema changed. The new TypeScript module is research-only, so no migration or edge-function deployment is required for Phase 1. Prior deployment reconciliation is documented in `VALIDATION.md`; this pass does not claim a new production verification.

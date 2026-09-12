@@ -7,7 +7,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const directory=path.join(root,'docs/onboarding/piercast/remaining-species');
 const read=f=>JSON.parse(fs.readFileSync(f,'utf8'));
 const config=read(path.join(root,'docs/PierCast_Remaining_Species_Seasonal_Curves.json'));
-const sources=['sources.json','phase1-sources.json'].flatMap(f=>read(path.join(directory,f)));
+const sources=['sources.json','phase1-sources.json','annual-sources.json'].flatMap(f=>read(path.join(directory,f)));
 const sourceMap=new Map(sources.map((s,i)=>[s.evidenceId,{...s,number:i+1}]));
 const refs=ids=>[...new Set(ids)].map(id=>`[^${sourceMap.get(id).number}]`).join('');
 const ports={ludington_mi:'LUDINGTON',grand_haven_mi:'GRAND HAVEN',manistee_mi:'MANISTEE',frankfort_elberta_mi:'FRANKFORT-ELBERTA'};
@@ -19,19 +19,37 @@ Reviewed 2026-09-12. This document accompanies the [authoritative seasonal propo
 
 ## Outcome and limits
 
-All 45 city × species combinations have explicit annual review coverage. Fifteen have bounded provisional seasonal proposals; 30 remain numerically unresolved, including ten admitted research candidates. These are **research configuration**, not runtime onboarding or validated annual scores. A complete calendar table is not the same as complete numerical knowledge. Unsupported days remain null. None of these nine species has a justified January–December numerical profile from this evidence package.
+All 45 city × species combinations have a final Phase 1 disposition: **16 accepted annual research calibrations and 29 deferred pairings**. The accepted curves contain 192 documented month-day anchors and supply 5,840 numeric species-days and 832 numeric weekly samples in 2025. Deferred pairings remain entirely unavailable; they are not species declared biologically absent. Research acceptance is broader than the earlier strict major-target audit and does not itself authorize runtime or public release.
+
+Every accepted pairing has a continuous January–December curve, including weak periods. This follows the clarified product requirement. Phase 1 configuration and evidence synthesis are complete; high-confidence empirical accuracy is not established by this package. Winter and some shoulder values are explicitly low-confidence habitat/accessibility judgments. They must not be presented as measured local winter catch rates.
 
 The recurring warm-season fisheries deserve batch development. Grand Haven drum and largemouth have the strongest proposed summer windows; Manistee perch has a stronger spring window than summer. Ludington perch peaks later than Manistee perch. A fishery can be worth targeting without being a premier salmonid-scale opportunity. Several species can simultaneously receive strong values: there is no quota of seasonal winners.
 
 The four completed core species, their weekly table and runtime configuration remain unchanged. Their existing 1–10 rubric governs these proposals. The UI, scoring formula, temperature pipeline, daily lock, city footprint, seven covered structures and disabled public release remain unchanged. Phase 2 owns thermal-response work and runtime eligibility; Phase 3 owns the joint annual-lineup review.
 
+## Accepted annual roster
+
+These are additions proposed for Phase 2, alongside the unchanged completed four species in every city.
+
+| City | Accepted additional annual calibrations | Count |
+| --- | --- | ---: |
+| Ludington | Smallmouth bass, freshwater drum, yellow perch | 3 |
+| Grand Haven | Smallmouth bass, freshwater drum, lake whitefish, round whitefish, channel catfish, largemouth bass | 6 |
+| Manistee | Lake trout, walleye, smallmouth bass, freshwater drum, yellow perch, round whitefish, largemouth bass | 7 |
+| Frankfort–Elberta | None yet; all nine additional pairings deferred | 0 |
+| Sheboygan | None yet; all nine additional pairings deferred | 0 |
+
+No additional accepted species in Frankfort–Elberta or Sheboygan means insufficient evidence for this calibration pass, not an assertion that these piers lack other fish or winter fishing.
+
 ## What a number means
 
 A seasonal value is a product calibration judgment about pier opportunity under supportive temperature. It is not fish abundance, a catch percentage, fish per hour, a government rating or a prediction that fish will bite. The existing bands are negligible 1, poor through 2, limited through 4, fair through 6, good through 8, excellent through 9.4, and premier above 9.4. The completed catalog reference remains Manistee late-October steelhead at 10.
 
-Sparse anchors are deliberately coarse, mostly half-point increments. No evidence identifies an exact 6.5 optimum on a particular day. Representative mid-month anchors carry approximately month-level timing resolution. Month boundaries are declared interpolation limits within a researched season, not demonstrated arrival or departure dates. Daily and weekly decimals between anchors are arithmetic, not additional biological findings. A score difference of 0.5 between weakly supported proposals should not be treated as statistically established.
+Sparse anchors are deliberately coarse, mostly half-point increments. No evidence identifies an exact 6.5 optimum on a particular day. Representative mid-month anchors carry approximately month-level timing resolution. Anchor dates are representative seasonal reference points, not demonstrated arrival or departure dates. Daily and weekly decimals between anchors are arithmetic, not additional biological findings. A score difference of 0.5 between weakly supported proposals should not be treated as statistically established.
 
-Each anchor has a rationale and source identifiers in the JSON. Linear interpolation is allowed only inside a listed segment. No extrapolation, annual wrapping, missing-month zero, winter floor or interpolation across disconnected seasons is permitted. A bounded segment is continuous within its domain; availability outside it is unresolved. Phase 2 must preserve that distinction, because the existing core runtime interpolator wraps annual curves and cannot safely receive these anchors without bounded-availability support.
+Each anchor records its rationale, source identifiers, evidence/inference basis and confidence in the JSON. Linear interpolation uses actual calendar days and wraps from December to January, exactly like the completed core curves. There are no seasonal availability windows. The detached generated TypeScript configuration is research-only and is not imported by runtime city assembly. Identical poor-band values in some months express the same coarse judgment, not a shared city curve or a measured common winter rate.
+
+An annual seasonal curve describes accessibility and fishery opportunity under supportive temperature. Regional studies inform habitat direction only after local fishery admission. They do not independently admit a species, justify a strong peak, or fit a temperature-to-bite relationship.
 
 ## Evidence hierarchy and interpretation
 
@@ -47,12 +65,12 @@ For lake trout the original conservative combined summary requires both Lean and
 
 ## Material contradictions and their resolution
 
-- **Winter:** January–March contain no matched local strata for the nine species in the preserved extract. DNR reporting also has seasonal interruptions. Ice fishing in a bayou or inland lake is a different mode/location. Winter silence cannot become a 1.0 or an inferred winter fishery. Cold-season fish biology is not a substitute for local catchability.${refs(['P1_3347f01','P1_40db479'])}
+- **Winter:** January–March contain no matched local strata in the preserved extract. Missing observations remain missing. Annual weak-season values combine established local seasonal recurrence with explicitly transferred habitat evidence. Drum summer shallowing/deeper late-fall distribution, perch depth use and connected river-mouth movements, and bass habitat studies constrain direction, not numerical catch probability. Walleye winter feeding and continued winter bass/catfish activity contradict a universal inactivity floor. Heated discharge observations cannot establish unheated pier success.${refs(['A_DRUM_BUR1984','A_PERCH_ATLAS1981','A_PERCH_GENETICS2019','A_BASS_CARTER2012','A_BASS_WINTER2008','A_BASS_WINTER2024','A_SMALLMOUTH_RR1971','A_DNR_WALLEYE','A_CATFISH_KRUCKMAN2016','A_CATFISH_DISCHARGE1999'])}
 - **Perch:** Manistee's April–May strength contrasts with Ludington's June–July pattern. Large pooled estimates coexist with concentrated catch years, small fish and slow contemporary reports. Proposed peaks stop at good or fair, without pretending every year produces the historical best outcome.${refs(['B_1953bab','P1_1edc9d3','P1_2927150','B_35ed629','B_36281c5'])}
-- **Manistee walleye:** older May zero estimates conflict with repeated May night catches in 2019, 2022 and 2023. A narrow night-fishing proposal follows the direct multi-year timing instead of giving the old July estimate an automatic summer peak. The discrepancy is unresolved statistically, not erased.${refs(['P1_2452955','B_3176352','B_3588f66'])}
+- **Manistee walleye:** older May zero estimates conflict with repeated May night catches in 2019, 2022 and 2023. The annual curve’s strongest night-fishing period follows the direct multi-year timing instead of giving the old July estimate an automatic summer peak. The discrepancy is unresolved statistically, not erased.${refs(['P1_2452955','B_3176352','B_3588f66'])}
 - **Drum:** Grand Haven has strong recurring summer port records and contemporary catches. Manistee has recent pier reports despite mostly zero recent creel estimates, while Ludington's modern recurrence exceeds its recent series. They receive separate curves and ceilings; there is no shared drum curve.${refs(['B_41b62ae','B_41c718b','B_3a521c4','B_421929e'])}
-- **Lake trout:** spring Manistee pier catches corroborate a limited proposal. Offshore abundance, stocking and autumn shoal spawning cannot fill other cities or autumn intervals. The April 2025 Ludington “pierheads out to 50 feet” wording occurs in boat context and is excluded from pier corroboration.${refs(['B_3548e2b','B_39595be','P1_3dc30dc','T016'])}
-- **Grand Haven lake whitefish:** the DNR recognizes the autumn fishery but describes historical snagging contributions and changed November gear rules. Old jigging harvest and species-unspecified bait catches cannot identify current lawful lake-whitefish magnitude. The November lead stays active with null scores; a made-up percentage reduction would not fix the data.${refs(['WHITEFISH_GEAR','MI_REGS_2026','P1_26a3cdd','P1_26d27d2'])}
+- **Lake trout:** spring Manistee pier catches and repeated October Lean-component port catches support limited shoulders with different confidence. Shallow cold-season habitat supports a poor winter accessibility judgment, not a measured winter fishery. Offshore abundance, stocking and spawning cannot supply other cities’ curves. The April 2025 Ludington “pierheads out to 50 feet” wording occurs in boat context and is excluded from pier corroboration.${refs(['B_3548e2b','B_39595be','P1_3dc30dc','T016'])}
+- **Grand Haven lake whitefish:** current DNR recognition supports admission of a lawful autumn target. Historical snagging harvest is discarded as a magnitude basis. November 3.5 is an explicitly low-confidence limited-band product judgment; it is not a statistical estimate or a percentage discount applied to historical harvest. Deep summer habitat and nearshore late-autumn behavior inform annual shape. Contemporary lawful-method effort data remain a validation priority.${refs(['WHITEFISH_GEAR','MI_REGS_2026','P1_26a3cdd','P1_26d27d2','A_DNR_WHITEFISH'])}
 - **Species biology:** smallmouth's rocky habitat and largemouth's vegetation association explain different use of harbor faces, but neither makes every pier equivalent. Menominee's shallow spring/fall biology and pre-spawn feeding cessation argue against a generic spawning bonus. Temperature suitability remains a separate Phase 2 endpoint.${refs(['T023','T030','T019'])}
 
 ## Cross-city and completed-scale review
@@ -63,19 +81,20 @@ Core comparisons are qualitative calibration checks only. The completed four-spe
 
 ## All 45 pairings
 
-The following retains candidate discovery separately from numeric readiness. “Unresolved” describes evidence sufficiency, not ecological absence or removal from the candidate queue. For each Michigan pairing, tables show modern/recent rates and positive/matched years; a dash means no matched catch-and-effort support. Noncore winter gaps remain visible in the full monthly/daily outputs. These compact tables show April–December to avoid repeating empty January–March strata.
+The following retains candidate discovery separately from numeric readiness. “Unresolved” describes evidence sufficiency, not ecological absence or removal from the candidate queue. For each Michigan pairing, tables show modern/recent rates and positive/matched years; a dash means no matched catch-and-effort support. The anchor tables cover all 12 months for accepted pairings. Creel tables also show all 12 months so missing winter observations remain distinguishable from inferred annual ratings.
 `];
 for(const row of config.rows){
- lines.push(`### ${pretty(row.cityId)} — ${pretty(row.speciesId)}\n\n**Research queue:** ${row.candidateStatus}. **Numeric status:** ${row.reviewStatus}. **Confidence:** ${row.confidence}.\n\n${row.calibrationRationale}${refs(row.evidenceIds)}\n\n**Structure/mode:** ${row.attribution} ${row.fishingMode}.\n\n**Unavailable dates:** ${row.unavailableReason}\n`);
- if(row.segments.length){
-  lines.push('| Anchor | Proposed seasonal value | Reason |\n| --- | ---: | --- |');
-  for(const s of row.segments)for(const a of s.anchors)lines.push(`| ${a.monthDay} | ${a.rating.toFixed(1)} | ${a.rationale} |`);
- }else lines.push(`**Seasonal lead retained:** ${row.seasonalLead}\n\n**Evidence needed to resolve:** dated species-specific catches at a covered structure across the claimed season, with recurring results and enough current method/effort context to distinguish limited from fair or good opportunity. Regional, boat, upstream and excluded-structure reports cannot resolve that attribution.`);
+ lines.push(`### ${pretty(row.cityId)} — ${pretty(row.speciesId)}\n\n**Research queue:** ${row.candidateStatus}. **Numeric status:** ${row.reviewStatus}. **Confidence:** ${row.confidence}.\n\n${row.calibrationRationale}${refs(row.evidenceIds)}\n\n**Structure/mode:** ${row.attribution} ${row.fishingMode}.\n\n**Phase 1 disposition:** ${row.phase1Decision}. ${row.unavailableReason??"Accepted annual research curve: no unavailable calendar dates."}\n`);
+ if(row.knots.length){
+  lines.push(`**Seasonal mechanism:** ${row.seasonalMechanism}\n\n**Annual limits:** ${JSON.stringify(row.annualLimitations)}\n`);
+  lines.push('| Anchor | Seasonal value | Basis / confidence | Reason |\n| --- | ---: | --- | --- |');
+  for(const a of row.knots)lines.push(`| ${a.monthDay} | ${a.rating.toFixed(1)} | ${a.basis}; ${a.confidence} | ${a.rationale}${refs(a.evidenceIds)} |`);
+ }else lines.push(`**Deferral reason:** ${row.deferralReason}\n\n**Evidence needed:** repeated species-specific catches attributable to covered piers, with current seasonal/method context. Regional, offshore, upstream and excluded-structure catches cannot establish that attribution.`);
  if(ports[row.cityId]){
   lines.push('\n| Month | Modern catch / 1,000 total-mode hours | Modern positive/matched years | Recent catch / 1,000 total-mode hours | Recent positive/matched years | Largest recent year share of catch |\n| --- | ---: | ---: | ---: | ---: | ---: |');
   const local=all.filter(r=>r.port===ports[row.cityId]);
   const names=row.speciesId==='lake_trout'?['Lean Lake Trout']:speciesNames[row.speciesId];
-  for(let m=4;m<=12;m++){
+  for(let m=1;m<=12;m++){
    const a=summarizeStrata(local,names,y=>y>=2012&&y<=2022&&y!==2020,m),b=summarizeStrata(local,names,y=>y>=2018&&y<=2022&&y!==2020,m);
    const rate=s=>s.catchPer1000AllSpeciesHours==null?'—':s.catchPer1000AllSpeciesHours.toFixed(1);
    lines.push(`| ${m} | ${rate(a)} | ${a.positiveYears}/${a.matchedYears} | ${rate(b)} | ${b.positiveYears}/${b.matchedYears} | ${b.largestYearCatchShare==null?'—':(b.largestYearCatchShare*100).toFixed(1)+'%'} |`);
@@ -86,13 +105,13 @@ for(const row of config.rows){
 }
 lines.push(`## Reproducibility and next phases
 
-- Run \`npm run generate:pier-cast:remaining-seasonal\` for daily, weekly, monthly and coverage artifacts. Weekly bins begin January 1; week 52 includes December 24–31, with December 27 retained as the core-compatible review midpoint. Monthly means use available days only; availability counts prevent them from implying a complete month.
+- Run \`npm run generate:pier-cast:remaining-seasonal\` for daily, weekly, monthly and coverage artifacts. Weekly bins begin January 1; week 52 includes December 24–31, with December 27 retained as the core-compatible review midpoint. Accepted monthly means include every day; deferred months contain no numerical mean.
 - Run \`node scripts/generate-pier-cast-remaining-seasonal-report.mjs\` for this evidence report. Raw snapshots and additional bulletin retrieval checksums are preserved locally.
 - Run \`npm run check:pier-cast:remaining-seasonal\`, the existing remaining-species evidence checks, complete PierCast suite, core seasonal replay check and TypeScript checks. Tests establish implementation consistency, not empirical score accuracy.
-- Phase 2 must resolve exact-side eligibility for each proposal, research thermal responses using appropriate endpoints, and implement bounded availability before enabling any additional runtime species. Do not import null-window anchors into the cyclic core interpolator. Lake whitefish lawful-method magnitude and Frankfort/Sheboygan candidate gaps remain evidence tasks, not permission to invent curves.
-- Phase 3 must inspect daily/weekly species succession and overlapping peaks jointly, preserve real unavailable dates and unchanged public scientific gates, and reconcile deployment only if runtime/schema changes require it.
+- Phase 2 researches species thermal responses, audits covered-side/method eligibility for runtime integration, and uses the existing annual interpolator. It must not reinterpret tolerance, spawning temperature, occupancy or growth optimum as bite probability. Deferred pairings remain unavailable unless new evidence resolves their admission.
+- Phase 3 reviews the entire annual lineup and overlapping peaks together against the completed four-species scale, without forcing coverage or weakening public gates. Deploy only when runtime/schema changes require it.
 
-**Completion statement:** This is a reproducible Phase 1 research and provisional calibration package. It does not establish high-confidence numeric scores for all 45 pairings across all 12 months. Exact-side and annual evidence gaps are listed rather than hidden behind low scores. The ten still-unscored research candidates remain in the batch queue.
+**Completion statement:** Phase 1 supplies complete annual research configurations for 16 pairings and documented deferrals for the other 29. Nine of the original 25 discovery candidates remain deferred, along with seven weaker leads and 13 not-established pairings. The historical discovery queue and strict runtime audit are retained as separate artifacts. Empirical annual accuracy and exact-side runtime eligibility are not certified by research completion.
 
 ## Sources
 

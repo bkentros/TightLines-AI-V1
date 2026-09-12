@@ -1,0 +1,83 @@
+[
+  {
+    "evidenceId": "A_DRUM_BUR1984",
+    "url": "https://pubs.usgs.gov/publication/1000094",
+    "file": "sources/annual/DRUM_BUR1984.html",
+    "sha256": "8121e769524f062f9974bb47305c83e5898e96dfc50219fa98c3229cb76226c4",
+    "bytes": 48892,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_BASS_CARTER2012",
+    "url": "https://experts.illinois.edu/en/publications/movement-patterns-of-smallmouth-and-largemouth-bass-in-and-around/",
+    "file": "sources/annual/BASS_CARTER2012.html",
+    "sha256": "fc30765769d0c00f5b1924e61e668061dbf4ae17c6679b10f2f085aa646e6861",
+    "bytes": 59954,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_PERCH_ATLAS1981",
+    "url": "https://repository.library.noaa.gov/view/noaa/38961/noaa_38961_DS1.pdf",
+    "file": "sources/annual/PERCH_ATLAS1981.pdf",
+    "sha256": "714d4e9629439855ca1f0c60ae3f1ca8014b0a83271a08b3a0df33b9d88c5ebe",
+    "bytes": 7224797,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_PERCH_GENETICS2019",
+    "url": "https://repository.library.noaa.gov/view/noaa/62227/noaa_62227_DS1.pdf",
+    "file": "sources/annual/PERCH_GENETICS2019.pdf",
+    "sha256": "66c8d632d43c9b7293a48c561789b36baa8183db80291faf0aed4afddc1bf882",
+    "bytes": 1244151,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_BASS_WINTER2008",
+    "url": "https://www.fecpl.ca/wp-content/uploads/2008/08/CJZ-Hanson-etal-2008.pdf",
+    "file": "sources/annual/BASS_WINTER2008.pdf",
+    "sha256": "f51e0db5a7be0804e720d3de9b4138393bff08fbbc4e2759df5391b5c19a18ab",
+    "bytes": 497033,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_BASS_WINTER2024",
+    "url": "https://www.fecpl.ca/wp-content/uploads/2024/11/Winter-behaviour-and-energetics-of-free-swimming-largemouth-bass.pdf",
+    "file": "sources/annual/BASS_WINTER2024.pdf",
+    "sha256": "591b139b61855fae56e4f3f40ff4538dfa1e1ac4a8c1e8f8dd4b13e4a1d65954",
+    "bytes": 1858973,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_CATFISH_KRUCKMAN2016",
+    "url": "https://thekeep.eiu.edu/theses/2504/",
+    "file": "sources/annual/CATFISH_KRUCKMAN2016.html",
+    "sha256": "e58847c107ee99f8e333ff905e09e3ad5482ccab1674af6d34e4d0ca44e4c35a",
+    "bytes": 38788,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_CATFISH_DISCHARGE1999",
+    "url": "https://www.fecpl.ca/wp-content/uploads/1999/05/Cat_Carp_MS.pdf",
+    "file": "sources/annual/CATFISH_DISCHARGE1999.pdf",
+    "sha256": "b68b9efe5628999142878472a51887292c489c49a9b33fdb1519546050a381c8",
+    "bytes": 482761,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_SMALLMOUTH_RR1971",
+    "url": "https://www.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/ResearchReports/RR1901-RR2000/RR1971.pdf",
+    "file": "sources/annual/SMALLMOUTH_RR1971.pdf",
+    "sha256": "213965513d0d1eb98f461f577c80adb281b61515ada8ec706f418a8892796c09",
+    "bytes": 3791518,
+    "error": null,
+    "retrievedAt": "2026-09-12"
+  }
+]

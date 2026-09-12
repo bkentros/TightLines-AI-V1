@@ -1,0 +1,20 @@
+[
+  {
+    "evidenceId": "A_DNR_WHITEFISH",
+    "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/whitefish",
+    "file": "DNR_WHITEFISH.html",
+    "sha256": null,
+    "bytes": null,
+    "error": "curl: (22) The requested URL returned error: 403\n",
+    "retrievedAt": "2026-09-12"
+  },
+  {
+    "evidenceId": "A_DNR_WALLEYE",
+    "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/walleye",
+    "file": "DNR_WALLEYE.html",
+    "sha256": null,
+    "bytes": null,
+    "error": "curl: (22) The requested URL returned error: 403\n",
+    "retrievedAt": "2026-09-12"
+  }
+]
