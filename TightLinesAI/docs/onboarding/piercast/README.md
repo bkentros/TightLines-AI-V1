@@ -1,5 +1,7 @@
 # PierCast Five-City Onboarding Dossiers
 
+> **Candidate-list correction — 2026-09-12:** Use the [batch research roster](remaining-species/CANDIDATE_ROSTER.md) to select additional species for research: 25 candidate pairings, seven occurrence leads and 13 not established in the reviewed evidence. Recurring pier catches can qualify a research candidate without prior proof of major intentional targeting or score-ready calibration. The earlier strict classifications remain scoring caveats, not the research queue. Numerical and public-release gates remain unchanged.
+
 These dossiers are the operational source of truth for PierCast v1 structure
 scope. `open_by_published_rules` means an authoritative source publishes a
 public route/fishing use. It is not a live guarantee. Weather, waves, ice,

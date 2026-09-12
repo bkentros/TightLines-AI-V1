@@ -1,0 +1,993 @@
+{
+  "version": "candidate-roster-2026-09-12",
+  "purpose": "Batch research planning based on credible repeated pier catches; not major-target certification or numerical approval. Supersedes use of the prior 24 excluded / 18 unresolved / 3 narrow split as the research queue.",
+  "admissionRule": "Repeated species-specific local pier reports or multi-year port Pier/Dock catches can admit a candidate, even when targeting effort or exact side remains unresolved. Historical-only and single-event local evidence remains a lead. Boat-only, upstream-only, other-species and regional-only evidence cannot establish local pier catches.",
+  "selection": "Explicit review decisions, not an automatic numerical score or minimum abundance threshold. Low-count repeated catches are permitted as cautious candidates.",
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "lake_trout",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2015,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2521a66",
+        "B_257279c",
+        "MI_STOCKING"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target.",
+      "seasonalLead": "Spring/autumn occurrence only; no supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "walleye",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2014,
+        2019,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3176352",
+        "B_14ccdb0"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "One or two evening pier walleye in May 2022 corroborate possibility, but the pier side, repeated directed effort and major-fishery strength are missing. Basin fishing is not automatically North Breakwater fishing.",
+      "seasonalLead": "May evening lead; no annual curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2018,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_364ea3a",
+        "B_3eeac7b",
+        "B_425abbc",
+        "B_41407c5",
+        "B_2d7cf51"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "July 2021 explicitly places a couple smallmouth on North Pier; later summer pier reports recur but omit the side and target effort. April 2026 and May 2021 stub-pier catches are outside coverage. This is more than a stub-only lead, but a major North Breakwater target is unproven.",
+      "seasonalLead": "July-August occurrence; spring stub-pier evidence excluded.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "freshwater_drum",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_421929e",
+        "B_423b34d"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Port catches and July-August 2026 pier reports recur, but unspecified structures and mixed salmon-directed reporting do not demonstrate substantial intentional North Breakwater drum effort. Recent matched creel years are much weaker than the older summer record.",
+      "seasonalLead": "July-August lead; magnitude and exact fishing face unresolved.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2017,
+        2018,
+        2019,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_323f6bf",
+        "B_35ed629",
+        "B_3614332",
+        "B_364ea3a",
+        "B_3675eed"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "narrow_season_structure_specific",
+      "scoringLimitation": "Substantial recurring summer Pier/Dock catch estimates plus explicit North Pier observations establish a credible perch fishery lead. Direct June 2023 catches were only a couple fish; July 2022 describes movement, not catch success. Port-scale peaks cannot determine North Breakwater daily magnitudes or contemporary major-target effort.",
+      "seasonalLead": "June-July evidence strongest; variable catches, with no justified daily start/end or year-round baseline.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "lake_whitefish",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [
+        2015
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "WHITEFISH_GEAR"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Rare port estimates and generic whitefish references do not identify a repeatable lake-whitefish target at North Breakwater. Do not transfer Grand Haven November conditions or misidentify menominee.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "round_whitefish",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "ROUND_DECLINE"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Older autumn port catches support a historical lead. Recent matched autumn strata lack comparable catches; no current major directed North Breakwater fishery is established. Regional decline context is not a local absence measurement.",
+      "seasonalLead": "Historical October lead; current recurrence unresolved.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "channel_catfish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Reviewed Pier/Dock estimates and dated pier evidence do not establish a major intentional channel-catfish fishery at North Breakwater. River, inland-lake and general Lake Michigan presence are insufficient.",
+      "seasonalLead": "No supported score interval; absence of qualifying evidence is not biological absence.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "largemouth_bass",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_364ea3a"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No adequate species-specific North Breakwater target evidence. Do not convert smallmouth, rock bass, or unspecified bass into largemouth; warm-water biology does not establish local fishing opportunity.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_trout",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2014,
+        2015,
+        2017,
+        2019,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "MI_STOCKING"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode.",
+      "seasonalLead": "April/October occurrence lead only.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "walleye",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2015,
+        2016,
+        2017,
+        2019,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_14ccdb0"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Low and intermittent spring port catches do not establish a major South Pier target. Upstream Grand River fisheries and a combined Grand Haven/Holland listing are outside the required geographic proof.",
+      "seasonalLead": "April-May occurrence does not justify a seasonal curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3ebb776",
+        "B_425abbc",
+        "B_3e9b7f3"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "August creel recurrence and a 2018 species-specific pier report support local relevance. Current reports often say bass, while several explicitly identify largemouth. The exact South Pier share and contemporary directed smallmouth effort remain unresolved.",
+      "seasonalLead": "August lead; no evidence-backed daily shoulders.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_3a65224",
+        "B_41a3a94",
+        "B_41b62ae",
+        "B_41c718b",
+        "B_41e9e6e",
+        "B_4280cb4"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "narrow_season_structure_specific",
+      "scoringLimitation": "Repeated agency reports explicitly describe casting for drum, including consecutive June 2026 reports, backed by recurrent May-June Pier/Dock estimates. July 2026 North Pier closure makes South Pier a reasonable inference within pier-context channel reports, but does not supply station-specific catches or establish the amount of directed effort.",
+      "seasonalLead": "May-August local lead, strongest creel May-June; weak September mixed catches do not justify extending a strong season.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "yellow_perch",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "MI_2025"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Historical Pier/Dock catches are substantial but recent August estimates are sharply lower. Boat perch reports cannot repair the missing contemporary South Pier target evidence; exact structure, size distribution and directed effort are needed.",
+      "seasonalLead": "Historical late-summer/autumn signal; current South Pier timing unproven.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_whitefish",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2019,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "WHITEFISH_GEAR",
+        "MI_REGS_2026",
+        "B_3c05a1b"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "DNR confirms an autumn port fishery, but historical November harvest includes substantial snagging and only two matched modern November years in this extract. The 2025 gear change prevents treating historical harvest as current lawful bite opportunity. South Pier lawful-method catch and effort are unresolved.",
+      "seasonalLead": "November historical target window; no current lawful-method magnitude or daily curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "round_whitefish",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2cce8db",
+        "B_2cea412",
+        "ROUND_DECLINE"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "April 2021 reports explicitly identify round whitefish, and spring port estimates recur across years. Neither the side nor directed effort is resolved; adjacent weeks in one year are not independent annual corroboration. Lake-whitefish November evidence is not transferable.",
+      "seasonalLead": "April lead; no justified year-round curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "channel_catfish",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_14ccdb0"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Repeated late-summer port estimates and a May 2023 channel-from-piers report support a real port lead. No adequate current exact-South-Pier directed effort resolves the contribution of other docks/piers. Upstream catfish fisheries are excluded.",
+      "seasonalLead": "May and late-summer/autumn leads; exact seasonal magnitude unresolved.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3e9b7f3",
+        "B_3eeac7b",
+        "B_426de2b"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Species-specific July-August 2025 and August 2026 reports corroborate strong recent August port recurrence. Drop-shot and crankbait catches support deliberate bass methods, but the current exact-structure attribution is inferred and major directed largemouth effort is unquantified. Unspecified bass cannot be added to this count.",
+      "seasonalLead": "July-August lead; no spring spawning bonus or invented annual tail.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2019,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3155afc",
+        "B_3548e2b",
+        "B_39595be",
+        "MI_STOCKING"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "April 2022 lake trout explicitly came from excluded South Pier. April 2023 closure supports a north-side inference for a few mixed catches; April 2024 again reports only a few. This demonstrates occasional reachability, not a major intentional North Pier fishery. Recent Manistee Reef stocking does not resolve North Pier adult targeting.",
+      "seasonalLead": "Spring occurrence; offshore and excluded-South-Pier evidence cannot define a curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "walleye",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2014,
+        2015,
+        2016
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3176352",
+        "B_3588f66",
+        "B_3987c22",
+        "B_14ccdb0"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "May 2022 pier catches and May 2023 explicit nighttime targeting establish a local directed lead; April 2024 casting also recurs. Side attribution and current major-fishery strength remain uncertain, while recent matched creel catches are weak. Stronger 2016 port reports coincided with North Pier closure and cannot justify its magnitude.",
+      "seasonalLead": "Late April-May nighttime lead; no defensible daily start, peak or end.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_366250d",
+        "B_3675eed",
+        "B_3a65224",
+        "B_3abfd6e"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Species-specific summer pier catches recur, but the harbor face is often described without a pier side. July 2024 North Pier bass is not species-identified. Recent matched creel strength is much lower than historical summer values; a major directed North Pier target is not yet established.",
+      "seasonalLead": "June-July lead; river and Manistee Lake bass evidence excluded.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_366250d",
+        "B_3a521c4",
+        "B_3a65224",
+        "B_3ebb776"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "A 2021 report recommends catch-and-release drum fishing; 2023-2025 pier catches recur. The harbor-facing location, exact side and proportion of intentional effort remain unresolved. Modern aggregate summer catches exceed recent matched values; catch advice alone is not quantified major targeting.",
+      "seasonalLead": "June-July harbor-face lead; no outer-lake thermal transfer assumed.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_1953bab",
+        "B_3176352",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_323f6bf",
+        "B_3de4822"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "narrow_season_structure_specific",
+      "scoringLimitation": "Repeated exact North Pier reports in 2017, 2022 and 2023, deliberate perch baits, and large recurring April-May port estimates support a narrow perch fishery. Later reports retain slow periods, small-fish sorting and boat/pier distinctions. These establish recurring targeting more strongly than the other Manistee additions, but not comparable 1-10 daily magnitudes.",
+      "seasonalLead": "April-May port strength; exact North Pier June catches recur but are hit-or-miss. July observations alone are not a high-catch tail.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_whitefish",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2018,
+        2019
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3155afc",
+        "B_3de4822"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "A couple lake whitefish in April 2025 and isolated port catch strata demonstrate occurrence. Unspecified whitefish and cisco from North Pier in 2022 cannot be reassigned. No recurring major intentional North Pier lake-whitefish fishery is proven.",
+      "seasonalLead": "Spring incidental record; no November transfer from Grand Haven.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "round_whitefish",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3548e2b",
+        "B_3de4822",
+        "ROUND_DECLINE"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Historical autumn port catches and a few spring menominee in 2023/2025 sustain a lead. They do not establish current major targeting on North Pier; declining regional reports require caution and are not local abundance estimates.",
+      "seasonalLead": "Historical October and scattered April records; no supported numerical interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "channel_catfish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No qualifying current species-specific major North Pier fishery is established by reviewed estimates and reports. Upstream river or Manistee Lake catfish evidence would not resolve the pairing.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "largemouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2013,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3675eed",
+        "B_3abfd6e"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "July 2023 explicitly distinguishes largemouth from smallmouth in pier/harbor catches, corroborating occasional July port estimates. Exact North Pier targeting and repeated major effort are missing. The 2024 North Pier bass report is taxonomically unresolved.",
+      "seasonalLead": "July occurrence lead only; no generalized warm-season curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_trout",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2012,
+        2014,
+        2015,
+        2016,
+        2017,
+        2019,
+        2021,
+        2022
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_4160ba5",
+        "MI_STOCKING"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters.",
+      "seasonalLead": "No supported score interval at either structure.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "walleye",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [
+        2014
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3987c22",
+        "B_4160ba5"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "April 2024 and May 2026 catches between/inside piers explicitly describe trolling. Historical sparse Pier/Dock catches do not convert that boat fishery into major breakwater casting opportunity.",
+      "seasonalLead": "Spring trolling excluded; no supported pier curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "smallmouth_bass",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2014,
+        2018,
+        2021
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Occasional summer port catches provide no adequate evidence of major directed fishing on either covered breakwater. Betsie Bay, river and Leland smallmouth reports are not interchangeable with these exact structures.",
+      "seasonalLead": "Scattered August occurrence; no supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "freshwater_drum",
+      "candidateStatus": "research_candidate",
+      "positivePortCatchYears": [
+        2013,
+        2015,
+        2017,
+        2018
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Sparse port catch estimates have no sufficient repeated exact-breakwater directed corroboration. Do not copy Grand Haven's channel drum fishery into Frankfort or Elberta.",
+      "seasonalLead": "Scattered May/July estimates; no supported curve.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "yellow_perch",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Reviewed port-mode estimates and exact-breakwater evidence do not establish a current major targeted perch fishery. Nearby inland lakes and boat fisheries are outside scope.",
+      "seasonalLead": "No supported score interval; missing or zero port rows do not prove ecological absence.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_whitefish",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [
+        2019
+      ],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "ROUND_DECLINE"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Isolated spring port catches do not prove a recurring major lake-whitefish breakwater target. Historical menominee are a different species.",
+      "seasonalLead": "Scattered May occurrence; no November curve inherited from Grand Haven.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "round_whitefish",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL",
+        "ROUND_DECLINE"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "The 2026 biologist interview recalls a Frankfort pier trip about ten years earlier, not a contemporary catch. It describes diminished abundance and interest, consistent with the weak modern port record. No current major target or Elberta-specific recurrence is established.",
+      "seasonalLead": "Historical fishery retained as a lead; current seasonal timing unresolved.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "channel_catfish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No qualifying directed fishery on either covered breakwater was established. Regional catfish biology and river occurrence do not constitute pier evidence.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "largemouth_bass",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": "Pier/Dock",
+      "evidenceIds": [
+        "MI_CREEL"
+      ],
+      "scopeCaveat": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No qualifying major directed largemouth fishery on either covered breakwater was established. Protected-harbor and inland-lake habitat cannot be assumed to apply to the breakwaters.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "lake_trout",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_STOCKING",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability.",
+      "seasonalLead": "Regional modeled spring harvest is not a Sheboygan season.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "walleye",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "Lake Michigan/Green Bay regional pier harvest has no Sheboygan allocation. River walleye and northern Green Bay fisheries cannot establish a major target at either Sheboygan pier.",
+      "seasonalLead": "No supported score interval; modeled regional spring bins are inapplicable.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "smallmouth_bass",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "SHEBOYGAN_SMALLMOUTH",
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "A dated 2019 report explicitly names both piers and a few smallmouth among salmonids and carp. Directed effort was salmon/trout or unspecified. Regional pier harvest corroborates statewide mode relevance but cannot establish current major Sheboygan targeting.",
+      "seasonalLead": "Late-summer historical occurrence; no current exact-pier magnitude.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "freshwater_drum",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No reviewed source establishes recurring major intentional drum targeting on the two covered piers. Absence from individually named regional harvest categories is not a zero estimate.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "yellow_perch",
+      "candidateStatus": "occurrence_lead",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "SHEBOYGAN_PERCH_HISTORY",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "historical_unresolved",
+      "scoringLimitation": "Regional pier perch harvest is real but geographically pooled. A local historical recollection describes diminished South Pier/power-plant-area perch fishing; its exact location and effort are imprecise. Neither establishes a current major fishery on the covered piers.",
+      "seasonalLead": "Historical lead only; no seasonal curve transferred from Michigan or Green Bay.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "lake_whitefish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No adequate recurring directed fishery at either covered pier was established. Green Bay whitefish fisheries and lake-wide biology are geographically insufficient; unlisted regional harvest is not a zero observation.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "round_whitefish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No adequate species-specific major directed fishery at either covered pier was established. Lake whitefish and northern Michigan menominee history are not transferable evidence.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "channel_catfish",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No adequate current major directed channel-catfish fishery at either covered pier was established. Sheboygan River catches and general harbor claims are outside the exact-structure proof.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "largemouth_bass",
+      "candidateStatus": "not_established",
+      "positivePortCatchYears": [],
+      "portMode": null,
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT",
+        "SHEBOYGAN_SMALLMOUTH"
+      ],
+      "scopeCaveat": "Wisconsin regional pier totals are not Sheboygan observations; retain local dated reports separately.",
+      "priorScoringAssessment": "excluded",
+      "scoringLimitation": "No adequate species-specific major directed largemouth fishery at either covered pier was established. Smallmouth observations, unspecified bass and protected inland habitat cannot substitute.",
+      "seasonalLead": "No supported score interval.",
+      "scoreReady": false
+    }
+  ]
+}

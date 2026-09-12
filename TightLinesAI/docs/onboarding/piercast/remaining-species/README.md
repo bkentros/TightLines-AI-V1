@@ -1,5 +1,7 @@
 # PierCast remaining-species decision register
 
+> **Research-queue update:** Use the [batch candidate roster](CANDIDATE_ROSTER.md) for research selection. The classifications below preserve the earlier stricter major-target/scoring assessment; they no longer exclude credible recurring pier catches from further research.
+
 This register evaluates nine species against the seven covered structures in five cities. It records eligibility decisions and unresolved calibration explicitly. None of the 45 pairings has a justified numeric onboarding configuration in this review. Excluded means excluded from this product roster on the reviewed evidence, not biologically absent. Narrow-season status preserves a credible local fishery lead; it does not certify a major current target or numerical readiness.
 
 The strongest additional leads are yellow perch at Manistee North Pier, summer perch at Ludington North Breakwater, and channel-facing freshwater drum at Grand Haven. Exact seasonal magnitudes, comparative 1–10 calibration and thermal ordinates remain unresolved. The completed 20 core curves and public-release gates remain unchanged.

@@ -1,5 +1,7 @@
 # FinFindr PierCast — Agent Build Specification
 
+> **Candidate-list correction — 2026-09-12:** Use the [batch research roster](onboarding/piercast/remaining-species/CANDIDATE_ROSTER.md) to select additional species for research: 25 candidate pairings, seven occurrence leads and 13 not established in the reviewed evidence. Recurring pier catches can qualify a research candidate without prior proof of major intentional targeting or score-ready calibration. The earlier strict classifications remain scoring caveats, not the research queue. Numerical and public-release gates remain unchanged.
+
 > **Remaining-species review — 2026-09-12:** The [45-pair decision register](onboarding/piercast/remaining-species/README.md) supersedes earlier candidate labels for the nine non-core species. Three narrow fishery leads remain; other pairings are historical/unresolved or excluded. No additional daily seasonal or thermal curve is justified by this review. Numerical onboarding remains unresolved, with explicit unavailable/excluded weekly rows and configuration gates. The existing four-species scores, formula, UI, daily lock, conditions pipeline and disabled public release remain unchanged.
 
 **Version:** 2.0\
