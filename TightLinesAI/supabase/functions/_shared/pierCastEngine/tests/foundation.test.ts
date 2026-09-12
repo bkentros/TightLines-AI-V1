@@ -15,6 +15,9 @@ import {
   getPierCastCityProfile,
   PIER_CAST_CITY_PROFILES,
   PIER_CAST_CORE_SPECIES_IDS,
+  PIER_CAST_FROZEN_CITY_IDS,
+  PIER_CAST_FROZEN_COVERED_STRUCTURE_IDS,
+  PIER_CAST_FROZEN_SPECIES_IDS,
   PIER_CAST_LMHOFS_CANDIDATE_LOCATIONS,
   PIER_CAST_MONTHS,
   PIER_CAST_OPEN_WATER_NOTICE,
@@ -103,6 +106,43 @@ Deno.test("PierCast foundation validates with every real rating disabled", () =>
       )
     ),
   );
+});
+
+Deno.test("PierCast v1 is frozen to five cities, four species, and seven covered structures", () => {
+  assertEquals(
+    PIER_CAST_CITY_PROFILES.map((city) => city.cityId),
+    [...PIER_CAST_FROZEN_CITY_IDS],
+  );
+  assertEquals(PIER_CAST_CORE_SPECIES_IDS, PIER_CAST_FROZEN_SPECIES_IDS);
+  assertEquals(
+    PIER_CAST_CITY_PROFILES.flatMap((city) =>
+      city.structures.filter((structure) =>
+        structure.disposition === "candidate"
+      )
+        .map((structure) => structure.structureId)
+    ),
+    [...PIER_CAST_FROZEN_COVERED_STRUCTURE_IDS],
+  );
+  for (const city of PIER_CAST_CITY_PROFILES) {
+    for (const speciesId of PIER_CAST_FROZEN_SPECIES_IDS) {
+      const profile = city.species.find((candidate) =>
+        candidate.speciesId === speciesId
+      );
+      assert(profile, `${city.cityId}:${speciesId} missing`);
+      assertEquals(profile.inheritance, "candidate");
+      assert(profile.seasonalOpportunityCurve);
+    }
+    for (
+      const structure of city.structures.filter((candidate) =>
+        candidate.disposition === "candidate"
+      )
+    ) {
+      assertEquals(structure.accessStatus, "open_by_published_rules");
+      assertEquals(structure.liveAccessStatus, "not_live_checked");
+      assert(structure.accessRoute);
+      assert(structure.accessEvidence.length > 0);
+    }
+  }
 });
 
 Deno.test("LMHOFS candidates freeze five unique surface grid cells", () => {

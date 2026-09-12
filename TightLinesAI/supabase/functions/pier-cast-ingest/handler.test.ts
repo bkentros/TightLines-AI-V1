@@ -1,5 +1,9 @@
 import { assertEquals } from "jsr:@std/assert";
 import type { PierCastTemperatureIngestionOutcome } from "../_shared/pierCastEngine/index.ts";
+import {
+  type PierCastFieldTemperatureInput,
+  validatePierCastFieldTemperatureObservation,
+} from "../_shared/pierCastEngine/index.ts";
 import { completeLmhofsBatch } from "../_shared/pierCastEngine/tests/fixtures/lmhofs.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
 
@@ -69,6 +73,147 @@ Deno.test("PierCast ingestion reports private observation archival without affec
   assertEquals(body.status, "live_committed");
   assertEquals(body.calibrationObservations.status, "partial");
   assertEquals(body.calibrationObservations.usableRecordCount, 15);
+});
+
+Deno.test("authenticated field-temperature operation validates and privately archives usable and rejected evidence", async () => {
+  let regularIngestCalls = 0;
+  let archivedRecords = 0;
+  const now = new Date("2026-09-11T18:00:00.000Z");
+  const valid: PierCastFieldTemperatureInput = {
+    sourceId: "manistee_north_pier__surface_logger_v1",
+    cityId: "manistee_mi",
+    structureId: "manistee_north_pier",
+    observedAt: "2026-09-11T17:45:00.000Z",
+    latitude: 44.25195,
+    longitude: -86.34695,
+    depthM: 0.5,
+    temperatureC: 17.25,
+    instrumentId: "logger-001",
+    instrumentModel: "documented-test-logger",
+    instrumentAccuracyC: 0.2,
+    calibrationCheckedAt: "2026-09-11T16:00:00.000Z",
+    calibrationReferenceC: 15,
+    calibrationObservedC: 15.1,
+    qualityFlag: "good",
+    fieldSessionId: "manistee-2026-deployment-01",
+  };
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      regularIngestCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    validateFieldObservation: (input) =>
+      validatePierCastFieldTemperatureObservation(input, now),
+    archiveFieldObservations: (records) => {
+      archivedRecords = records.length;
+      return Promise.resolve(records.length);
+    },
+  });
+  const headers = new Headers({
+    "content-type": "application/json",
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "field-temperature",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          records: [valid, { ...valid, qualityFlag: "bad" }],
+        }),
+      },
+    ),
+  );
+  assertEquals(response.status, 200);
+  assertEquals(await response.json(), {
+    status: "committed",
+    committedRecordCount: 2,
+    usableRecordCount: 1,
+    rejectedRecordCount: 1,
+    protocolVersion: "piercast-field-temperature-v1",
+  });
+  assertEquals(archivedRecords, 2);
+  assertEquals(regularIngestCalls, 0);
+});
+
+Deno.test("field-temperature operation rejects malformed and oversized batches", async () => {
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    validateFieldObservation: (input) =>
+      validatePierCastFieldTemperatureObservation(input),
+    archiveFieldObservations: (records) => Promise.resolve(records.length),
+  });
+  const baseHeaders = {
+    "content-type": "application/json",
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "field-temperature",
+  };
+  const malformed = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers: baseHeaders, body: "{" },
+    ),
+  );
+  assertEquals(malformed.status, 400);
+
+  const nullBody = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers: baseHeaders, body: "null" },
+    ),
+  );
+  assertEquals(nullBody.status, 400);
+
+  const oversized = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: { ...baseHeaders, "content-length": "1000001" },
+        body: JSON.stringify({ records: [{}] }),
+      },
+    ),
+  );
+  assertEquals(oversized.status, 413);
+
+  const actualOversized = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: baseHeaders,
+        body: JSON.stringify({ records: [], padding: "x".repeat(1_000_000) }),
+      },
+    ),
+  );
+  assertEquals(actualOversized.status, 413);
+});
+
+Deno.test("PierCast ingestion rejects unknown authenticated operations", async () => {
+  let calls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      calls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "field-temperatures",
+  });
+  const response = await handler(
+    new Request("https://example.test/functions/v1/pier-cast-ingest", {
+      method: "POST",
+      headers,
+    }),
+  );
+  assertEquals(response.status, 400);
+  assertEquals(calls, 0);
 });
 
 Deno.test("observation archive failure is nonfatal and explicitly diagnosed", async () => {

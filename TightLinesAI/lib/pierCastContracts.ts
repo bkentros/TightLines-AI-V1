@@ -18,7 +18,26 @@ export type PierCastStructureRead = {
   displayName: string;
   municipality: string;
   disposition: "candidate" | "excluded" | "unresolved";
-  accessStatus: "not_live_verified" | "reported_closed" | "route_unverified";
+  accessStatus:
+    | "open_by_published_rules"
+    | "not_live_verified"
+    | "reported_closed"
+    | "route_unverified";
+  accessRoute: {
+    displayName: string;
+    streetAddress: string;
+    latitude: number;
+    longitude: number;
+    coordinateSource: string;
+  } | null;
+  accessEvidence: Array<{
+    evidenceId: string;
+    authority: string;
+    title: string;
+    url: string;
+    reviewedAt: string;
+  }>;
+  liveAccessStatus: "not_live_checked" | "reported_closed";
   limitation: string;
 };
 

@@ -2,6 +2,8 @@
 
 > **Formula-v2 follow-up — 2026-09-10:** This audit used the original direct temperature multiplier. Active formula v2 reduces score sensitivity to thermal-fit error by 25% and preserves formula v1 as a same-issue comparator. That improvement does not cure missing observations, inadequate seasonal coverage, depth/plume transfer, or tail-error failures; all five representation decisions remain blocked.
 
+> **Field-evidence implementation — 2026-09-11:** A complete official-source rescan found no public feed that removes the blocked gaps. The [seven-site field program](PierCast_Field_Temperature_Program.md), strict validator, private archive, authenticated batch operation, and source-specific pairing RPC are now deployed. This completes the software/data-contract work, not the physical evidence: authorization, deployment, two open-water seasons, and required matches still must occur before any representation approval.
+
 **Completed:** 2026-09-10
 **Decision:** All five city cells remain `candidate`; every city is `blocked_insufficient_evidence` for temperature-representation approval. No temperature curve, score formula, or rating flag was changed.
 **Machine-readable protocol:** [Temperature representation acceptance protocol](PierCast_Temperature_Representation_Acceptance.json)

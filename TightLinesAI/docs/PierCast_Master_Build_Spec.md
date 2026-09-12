@@ -1,5 +1,7 @@
 # FinFindr PierCast — Master Build Specification
 
+> **Five-city product closure — 2026-09-11:** PierCast v1 is frozen to exactly five cities, four species, and seven covered structures under [`piercast-five-city-four-species-v1`](PierCast_Scope_Freeze_v1.md). The roster is enforced in code and tests. The [city onboarding dossiers](onboarding/piercast/README.md) now resolve the published public route, access point, authority evidence, and exclusions for every covered structure; published access remains separate from live conditions. Frankfort Chinook and Sheboygan Coho are resolved as provisional candidates from the completed official evidence audit, leaving 20/20 city × core-species pairs in frozen candidate scope. The exhaustive [observation-source closure](PierCast_Observation_Source_Closure_2026-09-11.md) found no public feed that removes the representation gaps. A strict [seven-site local field-temperature program](PierCast_Field_Temperature_Program.md), private archive, authenticated ingestion operation, per-structure validation-pair path, import tool, and [authority-routing packet](PierCast_Field_Deployment_Authorization_Packet.md) are implemented; migrations `20260911180000` and `20260911183000` and both PierCast edge functions are deployed. Physical authorization, logger deployment, elapsed seasonal evidence, and prospective fishing outcomes cannot be manufactured in code; public ratings remain disabled until those unchanged gates pass.
+
 > **Daily score lock and live-conditions policy — 2026-09-10:** Today's species scores, city headline, and leaderboard order are now published from one immutable full-day snapshot and remain unchanged for the Lake Michigan day. The complete evening LMHOFS issue precomputes the next snapshot; first successful commit wins, cached fallback data cannot establish a score, and publication occurs at `00:00 America/Chicago`. If the snapshot is missing, today's scores fail closed while environmental data remain available. Water forecasts continue accepting each new complete six-hour LMHOFS issue, contextual air/wind remain live, and the owner-review app silently checks conditions every 15 minutes while focused and immediately on focus. The interface labels score-lock and conditions-check state separately. The private ledger is deployed in migration `20260911021500`; `pier-cast-ingest` version 9 and `pier-cast` version 13 serve the policy. Public availability and validation gates are unchanged.
 
 > **Full-scale seasonal recalibration — 2026-09-10:** The [v0.4 cross-port audit](PierCast_Full_Scale_Seasonal_Recalibration_v0.4.md) revisits all 20 city × species curves under a shared full-scale rubric. It applies no blanket uplift: changes are tied to mode-specific catch density, recurrence, direct pier reports, recency, and coverage limitations. Manistee steelhead is the `10.0` seasonal reference; Frankfort Chinook/steelhead and Sheboygan Chinook can also reach a final `10.0` only with nearly optimal thermal fit. Researched dead intervals now include exact `1.0` anchors. The [v0.4 replay](PierCast_Seasonal_Calibration_Replay_v0.4.md) retains strong in-sample consistency (`0.857` Spearman versus the evidence guide) with zero unsupported good-or-better Michigan monthly cells. All values remain private and provisional.
@@ -22,11 +24,13 @@
 
 **Version:** 2.0\
 **Established:** 2026-09-05  
-**Last audited:** 2026-09-10\
+**Last audited:** 2026-09-11\
 **Finalized:** 2026-09-06  
-**Status:** Accepted simplified two-input specification; representation approval, outcome validation, and public release readiness remain incomplete\
-**Scope:** Researched Great Lakes piers and breakwalls, with an initial limited pilot  
+**Status:** Five-city/four-species scope and access are complete; physical representation evidence, outcome validation, and public release approval remain incomplete\
+**Scope:** Frozen v1 cohort of five cities, four species, and seven covered structures
 **Predecessor:** [PierCast_Agent_Build_Spec.md](PierCast_Agent_Build_Spec.md)
+
+**Field execution:** The seven-site protocol, private production archive, source-specific pairing, import tool, and authority-routing packet are complete. Physical authorization, purchase/assignment, installation, and elapsed evidence remain external release gates and are not represented as completed software.
 
 This document replaces the predecessor's implementation requirements for new PierCast work. The predecessor remains a concept record. Where they differ, follow this document. Existing River Run requirements continue to govern River Run; they do not automatically become PierCast scoring rules.
 

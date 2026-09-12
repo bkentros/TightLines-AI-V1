@@ -1,7 +1,7 @@
 # PierCast — Temperature Pipeline Implementation
 
-**Completed:** 2026-09-10
-**Status:** Live adapter, private model and strict-QC observation archives, authenticated ingestion function, and cycle-aligned schedule are deployed and verified in the FinFindr production project. Public scoring remains disabled pending representation and product validation.
+**Completed:** 2026-09-11
+**Status:** Live adapter, private model, agency and local-field observation archives, authenticated ingestion, and cycle-aligned schedule are deployed and verified in the FinFindr production project. Public scoring remains disabled pending physical representation and product validation.
 **Related:** [LMHOFS representation review](PierCast_LMHOFS_Representation_Review.md) · [Core temperature calibration](PierCast_Core_Temperature_and_Source_Calibration.md) · [Representation/calibration decision](PierCast_Temperature_Representation_and_Calibration.md)
 
 ## Implemented behavior
@@ -137,6 +137,7 @@ Production rollout verification on `2026-09-10` applied the migration, deployed 
 
 - The private archive and schedule migrations are applied to production.
 - The private strict-QC observation archive and corrected validation-pair RPC are applied to production.
+- Migrations `20260911180000` and `20260911183000` add and harden the private seven-site field-temperature archive. A source-specific pairing RPC keeps separate structures from being blended even where they share a model cell. The authenticated `field-temperature` operation validates and archives batches without invoking or modifying the scheduled LMHOFS cycle.
 - The authenticated ingestion function is deployed as version 9 with gateway JWT verification and its dedicated internal-key check retained.
 - Dedicated Edge and Vault secrets are configured without reusing another module's key.
 - The cron schedule is active, manual authenticated production invocations passed, and the first verified post-deployment automatic invocation passed.
@@ -156,5 +157,5 @@ Production rollout verification on `2026-09-10` applied the migration, deployed 
 1. Compare the private v0.1 and v0.2 cold-water outputs against reference days and eventual pier outcomes without treating attractive values as validation.
 2. Continue monitoring automatic scheduled runs, including source lag, archive freshness, fallback use, and GLOS resumption/cessation.
 3. Accumulate the frozen protocol's required days, regimes, matches per lead, and operating seasons; do not promote aggregate flags 2, 3, or 4.
-4. Obtain qualified observation coverage for Manistee and Frankfort–Elberta and documented sensor depth/plume context for existing sources.
+4. Execute the deployed [field-temperature program](PierCast_Field_Temperature_Program.md): obtain site authorization, deploy the seven frozen logger sources, and accumulate the required depth/plume evidence. The official-source search is closed in [the 2026-09-11 audit](PierCast_Observation_Source_Closure_2026-09-11.md).
 5. Build the private owner-facing entry/review interface on the deployed append-only outcome RPC, then evaluate the two-input rating against prospectively held dated outcomes before any city/species activation.

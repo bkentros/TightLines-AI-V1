@@ -1,9 +1,17 @@
 # FinFindr PierCast — Agent Build Specification
 
 **Version:** 2.0\
-**Updated:** 2026-09-09\
+**Updated:** 2026-09-11\
 **Authority:** The [Master Build Specification](PierCast_Master_Build_Spec.md)
 governs where this concise execution guide is silent.
+
+## Frozen v1 cohort
+
+Follow [PierCast v1 Scope Freeze](PierCast_Scope_Freeze_v1.md). Product work is limited to the five frozen city IDs, four core species, and seven covered structures. The roster is enforced by `config/scope.ts`; research-only secondary species and unresolved/excluded structures must not leak into v1 UI counts or scores.
+
+Published public routes are resolved in the [five-city onboarding dossiers](onboarding/piercast/README.md). `open_by_published_rules` never means live-open: current signs, closures, construction, waves, ice, and authority instructions control.
+
+The [field temperature program](PierCast_Field_Temperature_Program.md) is the required evidence path where public observations are absent or spatially inadequate. Its data are validation-only and may never become runtime fallback. The code/archive portion is deployed; physical authorization, deployment, elapsed seasons, and prospective outcomes remain external evidence gates.
 
 ## Product contract
 

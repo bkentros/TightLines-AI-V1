@@ -70,9 +70,26 @@ export type PierCastStructure = {
   municipality: string;
   disposition: PierCastStructureDisposition;
   accessStatus:
+    | "open_by_published_rules"
     | "not_live_verified"
     | "reported_closed"
     | "route_unverified";
+  /** The public land-side route to use; never a promise of live conditions. */
+  accessRoute: {
+    displayName: string;
+    streetAddress: string;
+    latitude: number;
+    longitude: number;
+    coordinateSource: string;
+  } | null;
+  accessEvidence: readonly {
+    evidenceId: string;
+    authority: string;
+    title: string;
+    url: string;
+    reviewedAt: string;
+  }[];
+  liveAccessStatus: "not_live_checked" | "reported_closed";
   limitation: string;
 };
 

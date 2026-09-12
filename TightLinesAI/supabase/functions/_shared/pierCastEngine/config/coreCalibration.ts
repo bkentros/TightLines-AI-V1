@@ -6,18 +6,14 @@ import type {
   PierCastTemperatureCurve,
 } from "../types.ts";
 import { PIER_CAST_CORE_SEASONAL_CURVES } from "./coreSeasonal.generated.ts";
+import { PIER_CAST_FROZEN_SPECIES_IDS } from "./scope.ts";
 
 export const PIER_CAST_SEASONAL_CALIBRATION_VERSION =
   "piercast-core-seasonal-v0.4.0";
 export const PIER_CAST_TEMPERATURE_CALIBRATION_VERSION =
   "piercast-core-temperature-v0.2.0";
 
-export const PIER_CAST_CORE_SPECIES_IDS = [
-  "chinook_salmon",
-  "coho_salmon",
-  "steelhead",
-  "brown_trout",
-] as const satisfies readonly PierCastSpeciesId[];
+export const PIER_CAST_CORE_SPECIES_IDS = PIER_CAST_FROZEN_SPECIES_IDS;
 
 export type PierCastCoreSpeciesId = (typeof PIER_CAST_CORE_SPECIES_IDS)[number];
 

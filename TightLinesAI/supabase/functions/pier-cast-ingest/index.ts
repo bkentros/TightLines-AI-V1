@@ -2,6 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   archivePierCastDailyScoreSnapshot,
+  archivePierCastFieldTemperatureObservations,
   archivePierCastShadowForecast,
   buildPierCastDailyScoreSnapshot,
   buildPierCastReviewOutlook,
@@ -11,6 +12,7 @@ import {
   PIER_CAST_ENGINE_VERSION,
   type PierCastArchiveClient,
   pierCastDailyScoreLakeDateForCycle,
+  validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
 
@@ -41,6 +43,10 @@ const handler = createPierCastIngestHandler({
     ingestPierCastCalibrationObservations({
       database: archiveClient,
     }),
+  validateFieldObservation: (input) =>
+    validatePierCastFieldTemperatureObservation(input),
+  archiveFieldObservations: (records) =>
+    archivePierCastFieldTemperatureObservations(archiveClient, records),
   archiveShadowForecast: async (outcome) => {
     const evaluationTime = new Date().toISOString();
     const activeOutlook = buildPierCastReviewOutlook({

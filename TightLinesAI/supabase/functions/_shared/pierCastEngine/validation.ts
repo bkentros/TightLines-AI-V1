@@ -1,4 +1,8 @@
 import { PIER_CAST_CITY_PROFILES } from "./config/cities.ts";
+import {
+  PIER_CAST_FROZEN_CITY_IDS,
+  PIER_CAST_FROZEN_COVERED_STRUCTURE_IDS,
+} from "./config/scope.ts";
 import { PIER_CAST_CORE_SPECIES_IDS } from "./config/coreCalibration.ts";
 import { PIER_CAST_SPECIES_PROFILES } from "./config/species.ts";
 import { validatePierCastSeasonalOpportunityCurve } from "./scoring/seasonal.ts";
@@ -173,6 +177,18 @@ export function validatePierCastCityProfiles(
       `Expected five candidate cities; found ${cities.length}.`,
     ));
   }
+  const expectedCityIds = new Set<string>(PIER_CAST_FROZEN_CITY_IDS);
+  const actualCityIds = new Set<string>(cities.map((city) => city.cityId));
+  if (
+    actualCityIds.size !== expectedCityIds.size ||
+    [...expectedCityIds].some((cityId) => !actualCityIds.has(cityId))
+  ) {
+    issues.push(issue(
+      "city_roster_outside_frozen_scope",
+      "cityProfiles",
+      "PierCast v1 is frozen to its five versioned city IDs.",
+    ));
+  }
 
   for (const city of cities) {
     const root = `cityProfiles.${city.cityId}`;
@@ -304,6 +320,37 @@ export function validatePierCastCityProfiles(
           "Every research-stage structure requires an explicit limitation.",
         ));
       }
+      if (structure.disposition === "candidate") {
+        if (
+          structure.accessStatus !== "open_by_published_rules" ||
+          structure.liveAccessStatus !== "not_live_checked" ||
+          !structure.accessRoute ||
+          !Number.isFinite(structure.accessRoute.latitude) ||
+          !Number.isFinite(structure.accessRoute.longitude) ||
+          !structure.accessRoute.streetAddress.trim() ||
+          structure.accessEvidence.length === 0
+        ) {
+          issues.push(issue(
+            "candidate_structure_access_dossier_incomplete",
+            `${root}.structures.${structure.structureId}`,
+            "Every covered structure requires a published public route, coordinates, evidence, and an explicit non-live status.",
+          ));
+        }
+      }
+      for (const evidence of structure.accessEvidence) {
+        if (
+          !evidence.evidenceId.trim() || !evidence.authority.trim() ||
+          !evidence.title.trim() ||
+          !/^https:\/\//.test(evidence.url) ||
+          !/^\d{4}-\d{2}-\d{2}$/.test(evidence.reviewedAt)
+        ) {
+          issues.push(issue(
+            "structure_access_evidence_invalid",
+            `${root}.structures.${structure.structureId}.accessEvidence`,
+            "Access evidence must retain an ID, authority, title, HTTPS URL, and review date.",
+          ));
+        }
+      }
     }
 
     const speciesIds = new Set<string>();
@@ -366,6 +413,17 @@ export function validatePierCastCityProfiles(
           "Each core city/species pairing requires its disabled provisional seasonal curve.",
         ));
       }
+      if (
+        PIER_CAST_CORE_SPECIES_IDS.includes(
+          citySpecies.speciesId as (typeof PIER_CAST_CORE_SPECIES_IDS)[number],
+        ) && citySpecies.inheritance !== "candidate"
+      ) {
+        issues.push(issue(
+          "core_city_species_not_in_frozen_candidate_scope",
+          `${root}.species.${citySpecies.speciesId}.inheritance`,
+          "Every frozen v1 city/species pairing must be a candidate; evidence limitations belong in validation gates, not unresolved scope.",
+        ));
+      }
     }
     if (speciesIds.size !== retainedSpecies.size) {
       issues.push(issue(
@@ -374,6 +432,25 @@ export function validatePierCastCityProfiles(
         `Every city must disposition all ${retainedSpecies.size} retained species.`,
       ));
     }
+  }
+  const actualCoveredStructureIds = cities.flatMap((city) =>
+    city.structures.filter((structure) => structure.disposition === "candidate")
+      .map((structure) => structure.structureId)
+  );
+  const expectedCoveredStructureIds = new Set<string>(
+    PIER_CAST_FROZEN_COVERED_STRUCTURE_IDS,
+  );
+  if (
+    actualCoveredStructureIds.length !== expectedCoveredStructureIds.size ||
+    actualCoveredStructureIds.some((structureId) =>
+      !expectedCoveredStructureIds.has(structureId)
+    )
+  ) {
+    issues.push(issue(
+      "covered_structure_roster_outside_frozen_scope",
+      "cityProfiles.structures",
+      "PierCast v1 covered structures must match the versioned seven-structure roster.",
+    ));
   }
   return issues;
 }

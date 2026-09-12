@@ -33,6 +33,8 @@
     "replay:pier-cast:seasonal": "node scripts/replay-pier-cast-seasonal-calibration.mjs --write",
     "check:pier-cast:seasonal-replay": "node scripts/replay-pier-cast-seasonal-calibration.mjs --check",
     "evaluate:pier-cast:shadow": "node --env-file=.env scripts/evaluate-pier-cast-shadow-validation.mjs --write",
+    "validate:pier-cast:field-temperature": "deno run --allow-read scripts/import-pier-cast-field-temperature.ts",
+    "import:pier-cast:field-temperature": "deno run --env-file=.env --allow-read --allow-env=EXPO_PUBLIC_SUPABASE_URL,SUPABASE_URL,PIER_CAST_INTERNAL_KEY --allow-net scripts/import-pier-cast-field-temperature.ts --commit",
     "start:dev-client:with-tunnel-host": "bash scripts/expo-metro-via-tunnel-host.sh",
     "start:dev-client:localtunnel": "bash scripts/start-metro-localtunnel.sh",
     "start:dev-client:ngrok": "bash scripts/start-metro-ngrok.sh",

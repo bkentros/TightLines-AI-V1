@@ -1,11 +1,14 @@
 import type {
   PierCastDailyScoreSnapshotCommitSummary,
+  PierCastFieldTemperatureInput,
+  PierCastFieldTemperatureRecord,
   PierCastObservationIngestionSummary,
   PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
 } from "../_shared/pierCastEngine/index.ts";
 
 const INTERNAL_KEY_HEADER = "x-pier-cast-internal-key";
+const OPERATION_HEADER = "x-pier-cast-operation";
 
 export type PierCastIngestHandlerDependencies = {
   internalSecret: string | null;
@@ -23,6 +26,12 @@ export type PierCastIngestHandlerDependencies = {
       { status: "live_committed" }
     >,
   ) => Promise<PierCastDailyScoreSnapshotCommitSummary>;
+  validateFieldObservation?: (
+    input: PierCastFieldTemperatureInput,
+  ) => PierCastFieldTemperatureRecord;
+  archiveFieldObservations?: (
+    records: readonly PierCastFieldTemperatureRecord[],
+  ) => Promise<number>;
 };
 
 export function createPierCastIngestHandler(
@@ -40,6 +49,12 @@ export function createPierCastIngestHandler(
     if (!suppliedSecret || !constantTimeEqual(suppliedSecret, secret)) {
       return json({ error: "pier_cast_ingest_forbidden" }, 403);
     }
+
+    const operation = request.headers.get(OPERATION_HEADER);
+    if (operation === "field-temperature") {
+      return await handleFieldTemperature(request, dependencies);
+    }
+    if (operation) return json({ error: "pier_cast_operation_invalid" }, 400);
 
     const observationPromise = dependencies.ingestObservations?.();
     let outcome: PierCastTemperatureIngestionOutcome;
@@ -97,6 +112,71 @@ export function createPierCastIngestHandler(
       dailyScoreSnapshot,
     });
   };
+}
+
+async function handleFieldTemperature(
+  request: Request,
+  dependencies: PierCastIngestHandlerDependencies,
+): Promise<Response> {
+  if (
+    !dependencies.validateFieldObservation ||
+    !dependencies.archiveFieldObservations
+  ) {
+    return json({ error: "pier_cast_field_ingest_misconfigured" }, 500);
+  }
+  const declaredLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(declaredLength) && declaredLength > 1_000_000) {
+    return json({ error: "pier_cast_field_batch_too_large" }, 413);
+  }
+  let body: unknown;
+  try {
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).byteLength > 1_000_000) {
+      return json({ error: "pier_cast_field_batch_too_large" }, 413);
+    }
+    body = JSON.parse(rawBody);
+  } catch {
+    return json({ error: "pier_cast_field_payload_invalid" }, 400);
+  }
+  if (
+    !body || typeof body !== "object" ||
+    !Array.isArray((body as { records?: unknown }).records)
+  ) {
+    return json({ error: "pier_cast_field_payload_invalid" }, 400);
+  }
+  const inputs = (body as { records: unknown[] }).records;
+  if (inputs.length === 0 || inputs.length > 1000) {
+    return json({ error: "pier_cast_field_payload_invalid" }, 400);
+  }
+
+  let records: PierCastFieldTemperatureRecord[];
+  try {
+    records = inputs.map((record) =>
+      dependencies.validateFieldObservation!(
+        record as PierCastFieldTemperatureInput,
+      )
+    );
+  } catch {
+    return json({ error: "pier_cast_field_payload_invalid" }, 400);
+  }
+  try {
+    const committedRecordCount = await dependencies.archiveFieldObservations(
+      records,
+    );
+    return json({
+      status: "committed",
+      committedRecordCount,
+      usableRecordCount: records.filter((record) =>
+        record.recordStatus === "usable"
+      ).length,
+      rejectedRecordCount: records.filter((record) =>
+        record.recordStatus === "rejected"
+      ).length,
+      protocolVersion: records[0].protocolVersion,
+    });
+  } catch {
+    return json({ error: "pier_cast_field_archive_failed" }, 503);
+  }
 }
 
 type PierCastDailyScoreSnapshotResult =

@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "sourceId": "manistee_north_pier__surface_logger_v1",
+      "cityId": "manistee_mi",
+      "structureId": "manistee_north_pier",
+      "observedAt": "2026-09-11T17:45:00.000Z",
+      "latitude": 44.25195,
+      "longitude": -86.34695,
+      "depthM": 0.5,
+      "temperatureC": 17.25,
+      "instrumentId": "replace-with-logger-serial",
+      "instrumentModel": "replace-with-documented-model",
+      "instrumentAccuracyC": 0.2,
+      "calibrationCheckedAt": "2026-09-11T16:00:00.000Z",
+      "calibrationReferenceC": 15.0,
+      "calibrationObservedC": 15.1,
+      "qualityFlag": "good",
+      "fieldSessionId": "replace-with-deployment-id"
+    }
+  ]
+}
