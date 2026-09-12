@@ -1,0 +1,444 @@
+{
+  "version": "phase2-eligibility-first-pass-2026-09-12",
+  "status": "runtime_activation_pending",
+  "basis": "Phase 1 retained structure attribution plus Phase 2 thermal/representation audit; no new exact-side catch confirmation claimed.",
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "evaluatedStructureId": "ludington_north_breakwater",
+      "structureStatus": "named_covered_structure_corroboration",
+      "attribution": "North Breakwater corroborated in July; remaining port and unspecified-pier observations qualified.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_364ea3a",
+        "B_3eeac7b",
+        "B_425abbc",
+        "B_41407c5",
+        "B_2d7cf51",
+        "A_BASS_CARTER2012",
+        "A_SMALLMOUTH_RR1971",
+        "T023"
+      ],
+      "fishingMode": "Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "freshwater_drum",
+      "evaluatedStructureId": "ludington_north_breakwater",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Unspecified Ludington piers; exact North Breakwater attribution remains a Phase 2 gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_421929e",
+        "B_423b34d",
+        "A_DRUM_BUR1984",
+        "T026"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "evaluatedStructureId": "ludington_north_breakwater",
+      "structureStatus": "named_covered_structure_corroboration",
+      "attribution": "North Breakwater has exact June/July evidence; August magnitude uses port-mode shoulder inference.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_323f6bf",
+        "B_35ed629",
+        "B_3614332",
+        "B_364ea3a",
+        "B_3675eed",
+        "P1_2927150",
+        "A_PERCH_ATLAS1981",
+        "A_PERCH_GENETICS2019",
+        "T028"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Grand Haven piers; South-Pier-specific contribution unresolved.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3ebb776",
+        "B_425abbc",
+        "A_BASS_CARTER2012",
+        "A_SMALLMOUTH_RR1971",
+        "T023"
+      ],
+      "fishingMode": "Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "contextual_inference_not_exact_confirmation",
+      "attribution": "Channel-facing South Pier supported by pier-context 2026 reports during North-Pier closure; older port totals pool structures.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_3a65224",
+        "B_41b62ae",
+        "B_41c718b",
+        "B_41e9e6e",
+        "B_4280cb4",
+        "P1_15952cf",
+        "P1_20b15b2",
+        "A_DRUM_BUR1984",
+        "T026"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_whitefish",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "WHITEFISH_GEAR",
+        "MI_REGS_2026",
+        "B_3c05a1b",
+        "P1_26a3cdd",
+        "P1_26d27d2",
+        "P1_95e0dc",
+        "P1_1cb4c9f",
+        "A_DNR_WHITEFISH",
+        "T017"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review",
+        "current_lawful_method_magnitude_unvalidated"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "round_whitefish",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Grand Haven piers, exact South-Pier contribution unresolved.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2cce8db",
+        "B_2cea412",
+        "P1_1e722ec",
+        "T019",
+        "ROUND_DECLINE"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review",
+        "adult_thermal_response_evidence_very_weak"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "channel_catfish",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Grand Haven piers; side and current directed effort unresolved.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "P1_20b15b2",
+        "B_14ccdb0",
+        "T029",
+        "A_CATFISH_KRUCKMAN2016",
+        "A_CATFISH_DISCHARGE1999"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "evaluatedStructureId": "grand_haven_south_pier",
+      "structureStatus": "contextual_inference_not_exact_confirmation",
+      "attribution": "Grand Haven piers; South-Pier attribution strengthened by August 2026 pier-context report during North closure.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3e9b7f3",
+        "B_3eeac7b",
+        "B_426de2b",
+        "T030",
+        "A_BASS_CARTER2012",
+        "A_BASS_WINTER2008",
+        "A_BASS_WINTER2024"
+      ],
+      "fishingMode": "Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "contextual_inference_not_exact_confirmation",
+      "attribution": "April 2023 pier catches while South Pier closed support North attribution; 2024 side unspecified.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3548e2b",
+        "B_39595be",
+        "B_3155afc",
+        "T016"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "walleye",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "contextual_inference_not_exact_confirmation",
+      "attribution": "Unspecified piers with North-Pier context in May 2022; excluded closure-era South observations not assigned to North.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "P1_2452955",
+        "B_3176352",
+        "B_3588f66",
+        "B_3987c22",
+        "B_14ccdb0",
+        "A_DNR_WALLEYE"
+      ],
+      "fishingMode": "Pier casting/bait fishing, strongest evidence at night; no added numerical night modifier.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Manistee piers, exact North-side species attribution incomplete; unidentified North-Pier bass not split.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_366250d",
+        "B_3a65224",
+        "B_3abfd6e",
+        "P1_3ad6654",
+        "P1_41fa7c2",
+        "A_BASS_CARTER2012",
+        "A_SMALLMOUTH_RR1971",
+        "T023"
+      ],
+      "fishingMode": "Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Harbor/channel-facing piers; North-only attribution still needs method/side confirmation.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_366250d",
+        "B_3a521c4",
+        "B_3a65224",
+        "B_3ebb776",
+        "P1_41fa7c2",
+        "A_DRUM_BUR1984",
+        "T026"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "named_covered_structure_corroboration",
+      "attribution": "North Pier explicitly corroborated in April 2017, May 2018 and June 2023.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_1953bab",
+        "P1_1edc9d3",
+        "B_3176352",
+        "B_3588f66",
+        "P1_3600e54",
+        "B_3614332",
+        "B_36281c5",
+        "B_323f6bf",
+        "B_3de4822",
+        "A_PERCH_ATLAS1981",
+        "A_PERCH_GENETICS2019",
+        "T028"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "round_whitefish",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "contextual_inference_not_exact_confirmation",
+      "attribution": "Manistee piers; North attribution in April 2023 inferred from South closure, 2025 side unspecified.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3548e2b",
+        "P1_3dc30dc",
+        "B_3de4822",
+        "T019",
+        "ROUND_DECLINE"
+      ],
+      "fishingMode": "Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review",
+        "adult_thermal_response_evidence_very_weak"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "largemouth_bass",
+      "evaluatedStructureId": "manistee_north_pier",
+      "structureStatus": "unresolved_covered_side",
+      "attribution": "Manistee harbor-facing piers; covered North-Pier attribution unresolved.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3675eed",
+        "P1_3ad6654",
+        "A_BASS_CARTER2012",
+        "A_BASS_WINTER2008",
+        "A_BASS_WINTER2024",
+        "T030"
+      ],
+      "fishingMode": "Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season.",
+      "representation": "The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.",
+      "methodConstraint": "Current legal method, harvest season and covered access require final activation review.",
+      "runtimeEligible": false,
+      "publicEnabled": false,
+      "blockingReasons": [
+        "thermal_candidate_not_validated",
+        "surface_to_fishing_zone_transfer_not_approved",
+        "covered_side_attribution_requires_review"
+      ]
+    }
+  ]
+}

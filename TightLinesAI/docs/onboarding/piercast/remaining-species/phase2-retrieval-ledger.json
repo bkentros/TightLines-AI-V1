@@ -1,0 +1,110 @@
+[
+  {
+    "evidenceId": "P2_WALLEYE_CATCH2021",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0257882",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_WALLEYE_CATCH2021.html",
+    "bytes": 337874,
+    "sha256": "2407c1da82744f1e3b4b461433d970395b796f777baf90caf9ddeacc2e5a3c84",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_DRUM_COLD2023",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9865675/",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_DRUM_COLD2023.html",
+    "bytes": 240283,
+    "sha256": "23a31af5dc3b2406e3c4fe7d90a75ec278f316f40db47a72d6a64ba149ef6558",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_BASS_TOURNAMENT2022",
+    "url": "https://oup.silverchair-cdn.com/article-minimal/7811583",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_BASS_TOURNAMENT2022.html",
+    "bytes": 330359,
+    "sha256": "a848a1cc8a5849c94267b58fb9ec38f3d3827fa4af011b39bafadb3e2e116f6c",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_CATFISH_RELEASE2025",
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1111/fme.12805",
+    "retrievedAt": "2026-09-12",
+    "file": "P2_CATFISH_RELEASE2025.html",
+    "error": "HTTP Error 403: Forbidden",
+    "bytes": null,
+    "sha256": null
+  },
+  {
+    "evidenceId": "P2_WHITEFISH_REED2023",
+    "url": "https://www.usgs.gov/publications/initial-insights-thermal-ecology-lake-whitefish-northwestern-lake-michigan",
+    "retrievedAt": "2026-09-12",
+    "file": "P2_WHITEFISH_REED2023.html",
+    "error": "HTTP Error 403: Forbidden",
+    "bytes": null,
+    "sha256": null
+  },
+  {
+    "evidenceId": "P2_WALLEYE_TELEMETRY2025",
+    "url": "https://link.springer.com/article/10.1186/s40317-025-00410-8",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_WALLEYE_TELEMETRY2025.html",
+    "bytes": 466077,
+    "sha256": "7537be38d894b5554b929be281e324d58398a2ca43a31ed1db3c3f4d2c01f883",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_LAKE_TROUT_HURON2003",
+    "url": "https://pubs.usgs.gov/publication/1000840",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_LAKE_TROUT_HURON2003.html",
+    "bytes": 42594,
+    "sha256": "0d3f79a89bc1adabce6bd8493c1ad44ed0cc91754032349d2e27a12d70993f10",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_LARGEMOUTH_DNR",
+    "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/largemouth",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_LARGEMOUTH_DNR.html",
+    "bytes": 469944,
+    "sha256": "6c8e038476782f5bf36d5ee39c970bbaffc9eca7a6940ef8021d9ff6eb1ae351",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_PERCH_USGS",
+    "url": "https://www.usgs.gov/labs/fish-health-program/science/yellow-perch-perca-flavescens-fhp",
+    "retrievedAt": "2026-09-12",
+    "file": "P2_PERCH_USGS.html",
+    "error": "HTTP Error 403: Forbidden",
+    "bytes": null,
+    "sha256": null
+  },
+  {
+    "evidenceId": "P2_WHITEFISH_GEAR2025",
+    "url": "https://www.michigan.gov/dnr/about/newsroom/releases/2025/11/12/single-pointed-hook-regulations-nov-1-30",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_WHITEFISH_GEAR2025.html",
+    "bytes": 482075,
+    "sha256": "33277fb1a1e3f12020e1d404ef44652baf5e8d2387e35d57c71f6954e2e30f2f",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_GLFC1987",
+    "url": "https://www.sealamprey.org/pubs/SpecialPubs/Sp87_3.pdf",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/GLFC1987.pdf",
+    "bytes": 1747831,
+    "sha256": "7f69cad530be9b6281465799c28d803d62ddbac61520598c388054750d374bfd",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_WI_GUIDE2017",
+    "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/Pubs_2017GuidetotheFutureSummary.pdf",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/WI_GUIDE2017.pdf",
+    "bytes": 1396422,
+    "sha256": "4ee4991b29520ef979d01794373682ed32b22465f40fc12b70705d2887007085",
+    "error": null
+  }
+]

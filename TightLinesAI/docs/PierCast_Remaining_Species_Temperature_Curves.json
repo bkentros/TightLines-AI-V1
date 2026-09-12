@@ -1,0 +1,1220 @@
+{
+  "version": "remaining-thermal-research-v0.1-2026-09-12",
+  "phase": 2,
+  "status": "research_candidates_tested_pending_scientific_and_eligibility_review",
+  "publicReleaseEnabled": false,
+  "definition": "Normalized nearshore thermal compatibility product calibration, not probability of biting or fish temperature at depth.",
+  "domainPolicy": "Accepted input bounds are model review limits, not tolerance limits. Values outside each curve domain remain unavailable. Warm/cool species drafts extend to 32 C; cold-water drafts end at 26 C. Existing core domains are unchanged.",
+  "temperatureRepresentation": "Existing LMHOFS surface cell only. No new environmental input or depth coefficient. Local representation approval is not inferred from a curve.",
+  "sourceRegisters": [
+    "PierCast_Thermal_Evidence.json",
+    "onboarding/piercast/remaining-species/annual-sources.json",
+    "onboarding/piercast/remaining-species/sources.json",
+    "onboarding/piercast/remaining-species/phase2-sources.json"
+  ],
+  "profiles": [
+    {
+      "speciesId": "lake_trout",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "T005",
+        "T016",
+        "P2_LAKE_TROUT_HURON2003"
+      ],
+      "calibrationRationale": "Cold shoulders remain substantial because lake trout use cold reachable water. The high-fit region is broad around the agency cold-water band; increasingly warm surface water is a poorer nearshore proxy. No laboratory optimum is labeled a bite optimum.",
+      "limitations": "Lakeward or channel-bottom fishing can encounter water colder than the surface. Summer offshore occupancy cannot validate pier success.",
+      "curve": {
+        "curveId": "lake_trout__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 2,
+            "suitability": 0.8,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 11,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.4,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.2,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 23,
+            "suitability": 0.1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "T005",
+              "T016",
+              "P2_LAKE_TROUT_HURON2003"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "walleye",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_WALLEYE_CATCH2021",
+        "P2_WALLEYE_TELEMETRY2025",
+        "A_DNR_WALLEYE"
+      ],
+      "calibrationRationale": "Broad cold-to-moderate suitability avoids a growth-optimum-only summer curve. The spring nighttime seasonal peak remains meaningful in cool water. Warm decline is a provisional compatibility judgment, not the air-temperature coefficient from Escanaba.",
+      "limitations": "Light and fishing technique influence catches but remain outside the unchanged two-input formula. Surface/channel temperature separation remains unresolved.",
+      "curve": {
+        "curveId": "walleye__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.6,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 23,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.7,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 29,
+            "suitability": 0.4,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.2,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WALLEYE_CATCH2021",
+              "P2_WALLEYE_TELEMETRY2025",
+              "A_DNR_WALLEYE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "smallmouth_bass",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_WI_GUIDE2017",
+        "A_BASS_CARTER2012",
+        "A_SMALLMOUTH_RR1971",
+        "T023"
+      ],
+      "calibrationRationale": "Directional warming support comes from actual river angling. A broad high-fit interval and restrained warm decline avoid claiming a fitted peak or assuming winter dormancy. The high-temperature limb is explicitly unvalidated.",
+      "limitations": "Guided fly-fishing and a noon river measurement differ from Great Lakes pier methods and modeled surface water. Harbor departure at a particular temperature is not a bite threshold.",
+      "curve": {
+        "curveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.35,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.45,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.6,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 29,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.6,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WI_GUIDE2017",
+              "A_BASS_CARTER2012",
+              "A_SMALLMOUTH_RR1971",
+              "T023"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "freshwater_drum",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_GLFC1987",
+        "P2_DRUM_COLD2023",
+        "A_DRUM_BUR1984"
+      ],
+      "calibrationRationale": "Adult habitat/preference evidence supports a broad warmer-water compatibility region. Cold values stay nonzero; acute juvenile cold-stress and heated-discharge records cannot define adult winter bite suppression.",
+      "limitations": "Bottom/channel fishing may not share the frozen lakeward surface temperature; no adult pier temperature-catch experiment identifies ordinates.",
+      "curve": {
+        "curveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.3,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.4,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.55,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 0.7,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.95,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 27,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 30,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "P2_DRUM_COLD2023",
+              "A_DRUM_BUR1984"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "yellow_perch",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_PERCH_USGS",
+        "T028",
+        "A_PERCH_ATLAS1981",
+        "A_PERCH_GENETICS2019"
+      ],
+      "calibrationRationale": "Retain broad cold-water suitability so spring and winter feeding are not erased by a summer preference band. Broad moderate-water compatibility and warm decline are product calibration choices.",
+      "limitations": "Schools, depth and prey can dominate catch rate. The 19\u201321 C general preference is not a narrow pier-catch optimum; surface-to-bottom transfer needs validation.",
+      "curve": {
+        "curveId": "yellow_perch__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.8,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 0.95,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 24,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 27,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 30,
+            "suitability": 0.35,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.2,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_PERCH_USGS",
+              "T028",
+              "A_PERCH_ATLAS1981",
+              "A_PERCH_GENETICS2019"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "lake_whitefish",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_WHITEFISH_REED2023",
+        "A_DNR_WHITEFISH",
+        "P2_WHITEFISH_GEAR2025"
+      ],
+      "calibrationRationale": "Broad cold shoulder and moderate-water high-fit interval acknowledge winter activity and diverse occupied temperatures. The curve qualifies lawful feeding opportunity; spawning occupancy does not create a bite bonus.",
+      "limitations": "Tag recovery is sparse and northwestern Lake Michigan differs from Grand Haven. Lawful bait success and surface-to-bottom representation are unvalidated.",
+      "curve": {
+        "curveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 3,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 6,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 15,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 0.4,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 24,
+            "suitability": 0.2,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_WHITEFISH_REED2023",
+              "A_DNR_WHITEFISH",
+              "P2_WHITEFISH_GEAR2025"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "round_whitefish",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "very_low",
+      "evidenceIds": [
+        "P2_GLFC1987",
+        "T019",
+        "ROUND_DECLINE"
+      ],
+      "calibrationRationale": "Very-low-confidence cold-water compatibility hypothesis for sensitivity review only. No single historical occurrence or spawning temperature defines the peak; the moderate-width high-fit region and all ordinates remain unresolved empirical hypotheses.",
+      "limitations": "The weakest thermal draft: no retrieved adult pier angling response, sparse historical context, and pre-spawn feeding cessation. Must not share lake-whitefish approval or be activated on the strength of this draft.",
+      "curve": {
+        "curveId": "round_whitefish__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 3,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 6,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 0.85,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.55,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.25,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "T019",
+              "ROUND_DECLINE"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "channel_catfish",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_GLFC1987",
+        "A_CATFISH_KRUCKMAN2016",
+        "A_CATFISH_DISCHARGE1999",
+        "P2_CATFISH_RELEASE2025"
+      ],
+      "calibrationRationale": "Broad warm compatibility with meaningful cold shoulders reflects adult habitat breadth. Cultured juvenile feeding, post-release acceleration and power-plant conditions do not set a bite plateau or winter zero.",
+      "limitations": "Grand River channel-bottom temperature and the lakeward model cell may diverge. The mild warm decline is a sensitivity hypothesis, not survival or post-capture physiology.",
+      "curve": {
+        "curveId": "channel_catfish__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.4,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.5,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.65,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 0.8,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.95,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 24,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 28,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 30,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_GLFC1987",
+              "A_CATFISH_KRUCKMAN2016",
+              "A_CATFISH_DISCHARGE1999",
+              "P2_CATFISH_RELEASE2025"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "speciesId": "largemouth_bass",
+      "status": "sensitivity_candidate_only",
+      "productionReady": false,
+      "empiricallyValidated": false,
+      "confidence": "low",
+      "evidenceIds": [
+        "P2_LARGEMOUTH_DNR",
+        "P2_BASS_TOURNAMENT2022",
+        "A_BASS_CARTER2012",
+        "A_BASS_WINTER2008",
+        "A_BASS_WINTER2024"
+      ],
+      "calibrationRationale": "Warm compatibility is broad and cold-water activity remains possible. Agency activity guidance and tournament association support direction, not a quantified pier optimum; the winter shoulder avoids dormancy assumptions.",
+      "limitations": "Cover-associated harbor habitat is not equivalent to the outer lakeward cell. Tournament weigh-in and release survival are not unconditional pier catch probabilities.",
+      "curve": {
+        "curveId": "largemouth_bass__additional_thermal_research__v0_1",
+        "calibrationStatus": "provisional",
+        "acceptedDomainC": [
+          0,
+          32
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.35,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.45,
+            "basis": "product_calibration_judgment",
+            "rationale": "Cold shoulder: preserve possible feeding and avoid duplicating seasonal exclusion.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.6,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 0.75,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 28,
+            "suitability": 1,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 30,
+            "suitability": 0.9,
+            "basis": "product_calibration_judgment",
+            "rationale": "Broad compatibility region informed by the species evidence, not a measured bite function.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          },
+          {
+            "temperatureC": 32,
+            "suitability": 0.7,
+            "basis": "product_calibration_judgment",
+            "rationale": "Provisional transition or warm shoulder; no lethal threshold or occupancy value is converted into bite probability.",
+            "evidenceIds": [
+              "P2_LARGEMOUTH_DNR",
+              "P2_BASS_TOURNAMENT2022",
+              "A_BASS_CARTER2012",
+              "A_BASS_WINTER2008",
+              "A_BASS_WINTER2024"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

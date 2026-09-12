@@ -1,0 +1,118 @@
+{
+  "formulaVersion": "seasonal-opportunity-bounded-temperature-v2",
+  "observationalValidation": false,
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "seasonalPeak": 4.5,
+      "maximumScoreChangeForTwoC": 0.4375,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "freshwater_drum",
+      "seasonalPeak": 4.5,
+      "maximumScoreChangeForTwoC": 0.511875,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "seasonalPeak": 6,
+      "maximumScoreChangeForTwoC": 0.75,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "seasonalPeak": 5,
+      "maximumScoreChangeForTwoC": 0.5,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "seasonalPeak": 7,
+      "maximumScoreChangeForTwoC": 0.8775,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_whitefish",
+      "seasonalPeak": 3.5,
+      "maximumScoreChangeForTwoC": 0.3125,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "round_whitefish",
+      "seasonalPeak": 4,
+      "maximumScoreChangeForTwoC": 0.3375,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "channel_catfish",
+      "seasonalPeak": 5.5,
+      "maximumScoreChangeForTwoC": 0.497813,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "seasonalPeak": 6.5,
+      "maximumScoreChangeForTwoC": 0.804375,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "seasonalPeak": 3,
+      "maximumScoreChangeForTwoC": 0.375,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "walleye",
+      "seasonalPeak": 4.5,
+      "maximumScoreChangeForTwoC": 0.525,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "seasonalPeak": 4.5,
+      "maximumScoreChangeForTwoC": 0.4375,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "seasonalPeak": 4.5,
+      "maximumScoreChangeForTwoC": 0.511875,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "seasonalPeak": 7,
+      "maximumScoreChangeForTwoC": 0.9,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "round_whitefish",
+      "seasonalPeak": 3.5,
+      "maximumScoreChangeForTwoC": 0.28125,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "largemouth_bass",
+      "seasonalPeak": 3,
+      "maximumScoreChangeForTwoC": 0.2925,
+      "interpretation": "Sensitivity at annual peak, not forecast error or confidence interval"
+    }
+  ]
+}
