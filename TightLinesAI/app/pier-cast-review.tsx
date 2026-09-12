@@ -1187,124 +1187,117 @@ function LeaderFish({
   );
 }
 
-function DailyLeaderCover({
+const PODIUM_MEDALS = {
+  1: {
+    label: "GOLD",
+    accent: "#C99618",
+    border: "#D9B64D",
+    surface: "#FFF9E8",
+    medal: "#F2C94C",
+    baseText: "#4F3708",
+  },
+  2: {
+    label: "SILVER",
+    accent: "#778894",
+    border: "#AAB6BE",
+    surface: "#F4F7F8",
+    medal: "#C8D0D5",
+    baseText: "#23313B",
+  },
+  3: {
+    label: "BRONZE",
+    accent: "#A85F35",
+    border: "#C88965",
+    surface: "#FCF1EA",
+    medal: "#D88A5B",
+    baseText: "#FFFFFF",
+  },
+} as const;
+
+function PodiumStandingCard({
   entry,
-  forecastDate,
-  cityCount,
-  locked,
+  rank,
   onOpen,
 }: {
   entry: PierCastLeaderboardEntry;
-  forecastDate: string | undefined;
-  cityCount: number;
-  locked: boolean;
+  rank: 1 | 2 | 3;
   onOpen: () => void;
 }) {
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
-  const accent = entry.score === null
-    ? paper.dashboardBlue
-    : scoreAccentColor(entry.score);
+  const medal = PODIUM_MEDALS[rank];
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.dailyLeaderCover,
+        styles.podiumStandingCard,
+        rank === 1 && styles.podiumStandingCardChampion,
+        { borderColor: medal.border, backgroundColor: medal.surface },
         pressed && styles.leaderboardRowPressed,
       ]}
-      onPress={onOpen}
+      onPress={() => {
+        hapticSelection();
+        onOpen();
+      }}
       accessibilityRole="button"
-      accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked 1`}
+      accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked ${rank}`}
     >
-      <TopographicLines
-        style={StyleSheet.absoluteFill}
-        color={paper.dashboardBlue}
-        count={7}
-      />
-      <CornerMarkSet color={paper.red} size={17} thickness={2} inset={12} />
-
-      <View style={styles.dailyLeaderTopline}>
-        <View style={styles.dailyLeaderEyebrow}>
-          <SectionEyebrow
-            color={paper.red}
-            size={9.5}
-            dashes={false}
-            align="left"
-          >
-            TODAY&apos;S #1 PIER
-          </SectionEyebrow>
+      <View style={[styles.podiumMetalLine, { backgroundColor: medal.accent }]} />
+      {rank === 1 ? (
+        <View style={styles.championFlag}>
+          <Ionicons name="trophy" size={9} color="#76520A" />
+          <Text style={styles.championFlagText}>TODAY&apos;S LEADER</Text>
         </View>
-        <View style={styles.dailyLockStamp}>
-          <Ionicons
-            name={locked ? "lock-closed" : "time-outline"}
-            size={10}
-            color={paper.dashboardBlue}
-          />
-          <Text style={styles.dailyLockStampText}>
-            {locked ? "RANK LOCKED" : "PREPARING"}
-          </Text>
-        </View>
+      ) : (
+        <Text style={[styles.podiumMedalLabel, { color: medal.accent }]}>
+          {medal.label}
+        </Text>
+      )}
+      <View
+        style={[
+          styles.podiumMedal,
+          rank === 1 && styles.podiumMedalChampion,
+          { borderColor: medal.accent, backgroundColor: medal.medal },
+        ]}
+      >
+        <Text style={styles.podiumMedalNumber}>{rank}</Text>
       </View>
-
-      <Text style={styles.dailyLeaderLakeLine}>
-        LAKE MICHIGAN · {STATE_LABELS[entry.city.stateCode].toUpperCase()}
-      </Text>
       <Text
-        style={styles.dailyLeaderCity}
+        style={styles.podiumCity}
         numberOfLines={2}
         allowFontScaling={false}
       >
-        {entry.city.displayName.toUpperCase()}
+        {entry.city.displayName}
       </Text>
-      <Text style={styles.dailyLeaderDeck} numberOfLines={2}>
-        {speciesId ? SPECIES_LABELS[speciesId] : "Daily rating preparing"}
-        {speciesId ? ` leads today at ${primaryPierName(entry.city)}.` : ""}
+      <Text style={styles.podiumState} numberOfLines={1}>
+        {STATE_LABELS[entry.city.stateCode].toUpperCase()}
       </Text>
-
-      <View style={styles.dailyLeaderStage}>
-        <Text style={styles.dailyLeaderRankWatermark}>01</Text>
-        <View style={styles.dailyLeaderFishStage}>
-          <LeaderFish speciesId={speciesId} featured />
-        </View>
-        <View style={[styles.dailyLeaderScorePlate, { borderColor: accent }]}>
-          <Text style={styles.dailyLeaderScoreLabel}>DAILY SCORE</Text>
-          <View style={styles.dailyLeaderScoreLine}>
-            <Text style={[styles.dailyLeaderScoreValue, { color: accent }]}>
-              {entry.score?.toFixed(1) ?? "—"}
-            </Text>
-            <Text style={styles.dailyLeaderScoreMax}>/10</Text>
-          </View>
-          <View
-            style={[styles.dailyLeaderScoreRule, { backgroundColor: accent }]}
-          />
-        </View>
+      <View
+        style={[
+          styles.podiumFishStage,
+          rank === 1 && styles.podiumFishStageChampion,
+        ]}
+      >
+        <LeaderFish speciesId={speciesId} featured={rank === 1} />
       </View>
-
-      <View style={styles.dailyLeaderMeta}>
-        <View style={styles.dailyLeaderMetaCell}>
-          <Text style={styles.dailyLeaderMetaLabel}>FORECAST DATE</Text>
-          <Text style={styles.dailyLeaderMetaValue}>
-            {fullDateLabel(forecastDate)}
-          </Text>
-        </View>
-        <View style={styles.dailyLeaderMetaDivider} />
-        <View style={styles.dailyLeaderMetaCell}>
-          <Text style={styles.dailyLeaderMetaLabel}>LIVE COVERAGE</Text>
-          <Text style={styles.dailyLeaderMetaValue}>
-            {cityCount} pier cities
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.dailyLeaderAction}>
-        <Text style={styles.dailyLeaderActionText} numberOfLines={1}>
-          OPEN {entry.city.displayName.toUpperCase()} PIERCAST
+      <Text style={styles.podiumSpecies} numberOfLines={1}>
+        {speciesId ? SPECIES_LABELS[speciesId] : "RATING PENDING"}
+      </Text>
+      <View style={styles.podiumScoreLine}>
+        <Text style={[styles.podiumScoreValue, { color: medal.accent }]}>
+          {entry.score?.toFixed(1) ?? "—"}
         </Text>
-        <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
+        <Text style={styles.podiumScoreMax}>/10</Text>
+      </View>
+      <View style={[styles.podiumBase, { backgroundColor: medal.accent }]}>
+        <Text style={[styles.podiumBaseText, { color: medal.baseText }]}>
+          {rank === 1 ? "GOLD CHAMPION" : `${medal.label} PIER`}
+        </Text>
+        <Ionicons name="chevron-forward" size={8} color={medal.baseText} />
       </View>
     </Pressable>
   );
 }
 
-function RankedFieldRow({
+function BlueRibbonStandingRow({
   entry,
   rank,
   onOpen,
@@ -1314,45 +1307,43 @@ function RankedFieldRow({
   onOpen: () => void;
 }) {
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
-  const accent = entry.score === null
-    ? "#AAB2B6"
-    : scoreAccentColor(entry.score);
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.rankedFieldRow,
+        styles.blueRibbonRow,
         pressed && styles.leaderboardRowPressed,
       ]}
-      onPress={onOpen}
+      onPress={() => {
+        hapticSelection();
+        onOpen();
+      }}
       accessibilityRole="button"
       accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked ${rank}`}
     >
-      <View style={styles.rankedFieldRank}>
-        <Text style={styles.rankedFieldRankLabel}>RANK</Text>
-        <Text style={styles.rankedFieldRankNumber}>
-          {String(rank).padStart(2, "0")}
-        </Text>
+      <View style={styles.blueRibbonMark}>
+        <Ionicons name="ribbon" size={17} color={paper.dashboardBlue} />
+        <Text style={styles.blueRibbonRank}>{rank}</Text>
       </View>
-      <View style={styles.rankedFieldFishStage}>
+      <View style={styles.blueRibbonFishStage}>
         <LeaderFish speciesId={speciesId} />
       </View>
-      <View style={styles.rankedFieldIdentity}>
-        <Text style={styles.rankedFieldState}>
+      <View style={styles.blueRibbonIdentity}>
+        <Text style={styles.blueRibbonState}>
           {STATE_LABELS[entry.city.stateCode].toUpperCase()}
         </Text>
-        <Text style={styles.rankedFieldCity} numberOfLines={1}>
+        <Text style={styles.blueRibbonCity} numberOfLines={1}>
           {entry.city.displayName}
         </Text>
-        <Text style={styles.rankedFieldTarget} numberOfLines={1}>
+        <Text style={styles.blueRibbonTarget} numberOfLines={1}>
           {speciesId ? SPECIES_LABELS[speciesId] : "Rating unavailable"}
           {speciesId ? ` · ${primaryPierName(entry.city)}` : ""}
         </Text>
       </View>
-      <View style={styles.rankedFieldScore}>
-        <Text style={[styles.rankedFieldScoreValue, { color: accent }]}>
+      <View style={styles.blueRibbonScore}>
+        <Text style={styles.blueRibbonScoreValue}>
           {entry.score?.toFixed(1) ?? "—"}
         </Text>
-        <Text style={styles.rankedFieldScoreMax}>/10</Text>
+        <Text style={styles.blueRibbonScoreMax}>/10</Text>
       </View>
       <Ionicons name="chevron-forward" size={15} color={paper.dashboardBlue} />
     </Pressable>
@@ -1424,47 +1415,134 @@ function PierCastLanding({
     null;
   const forecastDate = leaderboard[0]?.date?.localDate;
   const dailyScoreSnapshot = outlook.dailyScoreSnapshot ?? null;
+  const standingsReady =
+    Boolean(dailyScoreSnapshot) &&
+    leaderboard.length === 5 &&
+    leaderboard.every((entry) => entry.score !== null);
 
   return (
     <>
-      {leaderboard[0] ? (
-        <DailyLeaderCover
-          entry={leaderboard[0]}
-          forecastDate={forecastDate}
-          cityCount={catalog.cities.length}
-          locked={Boolean(dailyScoreSnapshot)}
-          onOpen={() => onOpenCity(leaderboard[0]!.city.cityId)}
+      <View style={styles.leaderboardCard}>
+        <TopographicLines
+          style={StyleSheet.absoluteFill}
+          color={paper.dashboardBlue}
+          count={8}
         />
-      ) : null}
+        <CornerMarkSet color={paper.red} size={16} thickness={2} inset={11} />
 
-      <View style={styles.rankedFieldCard}>
-        <View style={styles.rankedFieldHeader}>
-          <View style={styles.rankedFieldHeaderCopy}>
-            <SectionEyebrow color={paper.dashboardBlue} size={8.5}>
-              TODAY&apos;S LEADERBOARD
-            </SectionEyebrow>
-            <Text style={styles.rankedFieldTitle}>The field.</Text>
-            <Text style={styles.rankedFieldSubtitle}>
-              Each city is ranked by its single highest species rating.
+        <View style={styles.leaderboardMasthead}>
+          <SectionEyebrow color={paper.red} size={9}>
+            TODAY ON LAKE MICHIGAN
+          </SectionEyebrow>
+          <Text style={styles.leaderboardTitle} allowFontScaling={false}>
+            PIERCAST LEADERBOARD
+          </Text>
+          <Text style={styles.leaderboardSubtitle}>
+            The strongest species-specific opportunity at every supported pier
+            city.
+          </Text>
+          <View style={styles.leaderboardMeta}>
+            <View style={styles.leaderboardMetaCell}>
+              <Text style={styles.leaderboardMetaLabel}>FORECAST DATE</Text>
+              <Text style={styles.leaderboardMetaValue}>
+                {fullDateLabel(forecastDate)}
+              </Text>
+            </View>
+            <View style={styles.leaderboardMetaDivider} />
+            <View style={styles.leaderboardMetaCell}>
+              <Text style={styles.leaderboardMetaLabel}>DAILY STANDINGS</Text>
+              <View style={styles.leaderboardLockLine}>
+                <Ionicons
+                  name={standingsReady ? "lock-closed" : "time-outline"}
+                  size={9}
+                  color={paper.dashboardBlue}
+                />
+                <Text style={styles.leaderboardMetaValue}>
+                  {standingsReady ? "Locked" : "Preparing"}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {standingsReady ? (
+          <>
+            <View style={styles.podiumSectionLabel}>
+              <View style={styles.podiumSectionRule} />
+              <Text style={styles.podiumSectionText}>MEDAL STANDINGS</Text>
+              <View style={styles.podiumSectionRule} />
+            </View>
+
+            <View style={styles.podiumStage}>
+              {[leaderboard[1], leaderboard[0], leaderboard[2]].map(
+                (entry, stageIndex) => {
+                  if (!entry) return null;
+                  const rank = ([2, 1, 3] as const)[stageIndex];
+                  return (
+                    <PodiumStandingCard
+                      key={entry.city.cityId}
+                      entry={entry}
+                      rank={rank}
+                      onOpen={() => onOpenCity(entry.city.cityId)}
+                    />
+                  );
+                },
+              )}
+            </View>
+
+            <View style={styles.blueRibbonSection}>
+              <View style={styles.blueRibbonHeader}>
+                <View style={styles.blueRibbonHeaderIcon}>
+                  <Ionicons
+                    name="ribbon-outline"
+                    size={15}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+                <View style={styles.blueRibbonHeaderCopy}>
+                  <Text style={styles.blueRibbonEyebrow}>
+                    BLUE RIBBON PIERS
+                  </Text>
+                  <Text style={styles.blueRibbonHeaderText}>
+                    Still among today&apos;s top five.
+                  </Text>
+                </View>
+                <Text style={styles.blueRibbonRange}>04—05</Text>
+              </View>
+              {leaderboard.slice(3).map((entry, index) => (
+                <BlueRibbonStandingRow
+                  key={entry.city.cityId}
+                  entry={entry}
+                  rank={index + 4}
+                  onOpen={() => onOpenCity(entry.city.cityId)}
+                />
+              ))}
+            </View>
+          </>
+        ) : (
+          <View style={styles.leaderboardPending}>
+            <View style={styles.leaderboardPendingIcon}>
+              <Ionicons
+                name="hourglass-outline"
+                size={22}
+                color={paper.dashboardBlue}
+              />
+            </View>
+            <Text style={styles.leaderboardPendingTitle}>
+              Today&apos;s podium is being prepared.
+            </Text>
+            <Text style={styles.leaderboardPendingCopy}>
+              No medals are awarded until all five city scores are complete and
+              locked.
             </Text>
           </View>
-          <Text style={styles.rankedFieldRange}>02—05</Text>
-        </View>
-        <View style={styles.rankedFieldRows}>
-          {leaderboard.slice(1).map((entry, index) => (
-            <RankedFieldRow
-              key={entry.city.cityId}
-              entry={entry}
-              rank={index + 2}
-              onOpen={() => onOpenCity(entry.city.cityId)}
-            />
-          ))}
-        </View>
+        )}
+
         <View style={styles.rankingNote}>
           <Ionicons name="lock-closed-outline" size={14} color="#167B78" />
           <Text style={styles.rankingNoteText}>
-            {dailyScoreSnapshot
-              ? `Ranks are locked for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data still refresh throughout the day.`
+            {standingsReady && dailyScoreSnapshot
+              ? `Each city is ranked by its single highest species rating. Standings are locked for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}, while live weather and water data keep refreshing.`
               : "Today’s ranking is preparing. Live pier conditions continue to refresh."}
           </Text>
         </View>
@@ -2168,314 +2246,432 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
   },
   leaderboardRowPressed: {
-    opacity: 0.9,
-    transform: [{ scale: 0.995 }],
+    opacity: 0.88,
+    transform: [{ scale: 0.992 }],
   },
-  leaderFish: { width: 74, height: 48 },
-  leaderFishFeatured: { width: 205, height: 118 },
-  dailyLeaderCover: {
+  leaderFish: {
+    width: 68,
+    height: 44,
+  },
+  leaderFishFeatured: {
+    width: 91,
+    height: 59,
+  },
+  leaderboardCard: {
     position: "relative",
     overflow: "hidden",
-    paddingHorizontal: 21,
-    paddingTop: 25,
-    paddingBottom: 18,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 14,
     backgroundColor: "#FEFEFC",
     ...paperShadows.hard,
   },
-  dailyLeaderTopline: {
-    flexDirection: "row",
+  leaderboardMasthead: {
     alignItems: "center",
-    justifyContent: "space-between",
-    gap: 10,
+    paddingHorizontal: 20,
+    paddingTop: 26,
+    paddingBottom: 17,
   },
-  dailyLeaderEyebrow: {
-    minWidth: 0,
-    flex: 1,
-  },
-  dailyLockStamp: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: "#BFD9E7",
-    borderRadius: 12,
-    backgroundColor: "#EFF7FB",
-  },
-  dailyLockStampText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.75,
-    color: paper.dashboardBlue,
-  },
-  dailyLeaderLakeLine: {
-    marginTop: 21,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: 1.8,
-    textAlign: "center",
-    color: paper.dashboardBlue,
-  },
-  dailyLeaderCity: {
-    marginTop: 4,
+  leaderboardTitle: {
+    maxWidth: 365,
+    marginTop: 9,
     fontFamily: paperFonts.display,
-    fontSize: 39,
-    lineHeight: 40,
-    letterSpacing: -1.15,
+    fontSize: 32,
+    lineHeight: 34,
+    letterSpacing: -0.8,
     textAlign: "center",
     color: paper.dashboardInk,
   },
-  dailyLeaderDeck: {
+  leaderboardSubtitle: {
     maxWidth: 325,
-    alignSelf: "center",
     marginTop: 8,
     fontFamily: paperFonts.body,
-    fontSize: 11,
-    lineHeight: 16,
+    fontSize: 10.5,
+    lineHeight: 15,
     textAlign: "center",
     color: paper.dashboardMuted,
   },
-  dailyLeaderStage: {
-    position: "relative",
-    height: 145,
-    justifyContent: "center",
-    marginTop: 6,
-  },
-  dailyLeaderRankWatermark: {
-    position: "absolute",
-    left: -2,
-    top: 17,
-    fontFamily: paperFonts.display,
-    fontSize: 87,
-    lineHeight: 94,
-    letterSpacing: -5,
-    color: "rgba(47,124,164,0.075)",
-  },
-  dailyLeaderFishStage: {
-    width: 220,
-    height: 124,
-    alignSelf: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    transform: [{ translateX: -20 }],
-  },
-  dailyLeaderScorePlate: {
-    position: "absolute",
-    right: 0,
-    bottom: 19,
-    width: 96,
-    minHeight: 79,
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1.5,
-    backgroundColor: "rgba(255,255,253,0.96)",
-    ...paperShadows.lift,
-  },
-  dailyLeaderScoreLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.7,
-    letterSpacing: 0.9,
-    color: paper.dashboardMuted,
-  },
-  dailyLeaderScoreLine: {
+  leaderboardMeta: {
+    width: "100%",
+    minHeight: 56,
     flexDirection: "row",
-    alignItems: "baseline",
-    marginTop: 1,
-  },
-  dailyLeaderScoreValue: {
-    fontFamily: paperFonts.display,
-    fontSize: 38,
-    lineHeight: 40,
-    letterSpacing: -1.3,
-  },
-  dailyLeaderScoreMax: {
-    marginLeft: 2,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6,
-    color: paper.dashboardMuted,
-  },
-  dailyLeaderScoreRule: {
-    width: 27,
-    height: 3,
-    marginTop: 2,
-  },
-  dailyLeaderMeta: {
-    minHeight: 60,
-    flexDirection: "row",
-    marginTop: 2,
+    marginTop: 18,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
+    backgroundColor: "rgba(255,255,255,0.56)",
   },
-  dailyLeaderMetaCell: {
+  leaderboardMetaCell: {
     minWidth: 0,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     gap: 3,
-    paddingHorizontal: 8,
-    paddingVertical: 10,
+    paddingHorizontal: 7,
+    paddingVertical: 9,
   },
-  dailyLeaderMetaDivider: {
+  leaderboardMetaDivider: {
     width: 1,
     backgroundColor: paper.dashboardLine,
   },
-  dailyLeaderMetaLabel: {
+  leaderboardMetaLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.9,
+    fontSize: 5.6,
+    letterSpacing: 0.85,
     color: paper.dashboardMuted,
   },
-  dailyLeaderMetaValue: {
+  leaderboardMetaValue: {
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 12,
-    lineHeight: 15,
+    fontSize: 11.5,
+    lineHeight: 14,
     textAlign: "center",
     color: paper.dashboardInk,
   },
-  dailyLeaderAction: {
-    minHeight: 47,
+  leaderboardLockLine: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-    marginTop: 16,
-    paddingHorizontal: 18,
-    backgroundColor: paper.dashboardInk,
+    gap: 5,
   },
-  dailyLeaderActionText: {
-    flexShrink: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 1.15,
-    color: "#FFFFFF",
-  },
-  rankedFieldCard: {
-    overflow: "hidden",
-    paddingTop: 18,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 14,
-    backgroundColor: "#FEFEFC",
-    ...paperShadows.hard,
-  },
-  rankedFieldHeader: {
+  podiumSectionLabel: {
     flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 12,
-    paddingHorizontal: 18,
-    paddingBottom: 17,
+    alignItems: "center",
+    gap: 9,
+    paddingHorizontal: 17,
+    paddingTop: 3,
   },
-  rankedFieldHeaderCopy: {
-    minWidth: 0,
+  podiumSectionRule: {
     flex: 1,
+    height: 1,
+    backgroundColor: paper.dashboardLine,
   },
-  rankedFieldTitle: {
-    marginTop: 4,
-    fontFamily: paperFonts.display,
-    fontSize: 29,
-    lineHeight: 31,
+  podiumSectionText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 1,
+    color: paper.dashboardMuted,
+  },
+  leaderboardPending: {
+    alignItems: "center",
+    marginHorizontal: 12,
+    marginTop: 18,
+    paddingHorizontal: 22,
+    paddingVertical: 28,
+    borderWidth: 1,
+    borderColor: "#BDD8E6",
+    borderRadius: 12,
+    backgroundColor: "#EEF7FB",
+  },
+  leaderboardPendingIcon: {
+    width: 46,
+    height: 46,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#B7D5E4",
+    borderRadius: 23,
+    backgroundColor: "#FFFFFF",
+  },
+  leaderboardPendingTitle: {
+    marginTop: 12,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 18,
+    lineHeight: 21,
+    textAlign: "center",
     color: paper.dashboardInk,
   },
-  rankedFieldSubtitle: {
-    marginTop: 4,
+  leaderboardPendingCopy: {
+    maxWidth: 285,
+    marginTop: 6,
     fontFamily: paperFonts.body,
     fontSize: 9.5,
-    lineHeight: 13,
+    lineHeight: 14,
+    textAlign: "center",
     color: paper.dashboardMuted,
   },
-  rankedFieldRange: {
-    marginTop: 3,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.25,
-    color: paper.red,
+  podiumStage: {
+    minHeight: 267,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 7,
+    paddingHorizontal: 10,
+    paddingTop: 20,
   },
-  rankedFieldRows: {
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardLine,
+  podiumStandingCard: {
+    position: "relative",
+    overflow: "hidden",
+    minWidth: 0,
+    minHeight: 218,
+    flex: 1,
+    alignItems: "center",
+    paddingHorizontal: 8,
+    paddingTop: 12,
+    paddingBottom: 35,
+    borderWidth: 1.5,
+    borderRadius: 12,
   },
-  rankedFieldRow: {
-    minHeight: 99,
+  podiumStandingCardChampion: {
+    minHeight: 250,
+    flex: 1.08,
+    zIndex: 2,
+    ...paperShadows.lift,
+  },
+  podiumMetalLine: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 4,
+  },
+  championFlag: {
+    minHeight: 18,
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.dashboardLine,
-    backgroundColor: "rgba(255,255,255,0.68)",
+    gap: 4,
+    paddingHorizontal: 5,
+    borderWidth: 1,
+    borderColor: "rgba(153,111,16,0.28)",
+    borderRadius: 9,
+    backgroundColor: "rgba(255,255,255,0.64)",
   },
-  rankedFieldRank: {
-    width: 39,
-    alignItems: "flex-start",
-  },
-  rankedFieldRankLabel: {
+  championFlagText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 4.8,
-    letterSpacing: 0.65,
-    color: paper.dashboardMuted,
+    fontSize: 4.4,
+    letterSpacing: 0.4,
+    color: "#76520A",
   },
-  rankedFieldRankNumber: {
-    marginTop: -1,
+  podiumMedalLabel: {
+    minHeight: 18,
+    paddingTop: 4,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.3,
+    letterSpacing: 0.8,
+  },
+  podiumMedal: {
+    width: 36,
+    height: 36,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 7,
+    borderWidth: 1.5,
+    borderRadius: 18,
+    shadowColor: paper.dashboardInk,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+  podiumMedalChampion: {
+    width: 43,
+    height: 43,
+    borderRadius: 22,
+  },
+  podiumMedalNumber: {
     fontFamily: paperFonts.display,
-    fontSize: 26,
-    lineHeight: 30,
-    letterSpacing: -0.8,
+    fontSize: 23,
+    lineHeight: 27,
     color: paper.dashboardInk,
   },
-  rankedFieldFishStage: {
-    width: 70,
-    height: 61,
+  podiumCity: {
+    width: "100%",
+    minHeight: 32,
+    marginTop: 8,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 13.5,
+    lineHeight: 15.5,
+    textAlign: "center",
+    color: paper.dashboardInk,
+  },
+  podiumState: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 4.7,
+    letterSpacing: 0.6,
+    textAlign: "center",
+    color: "#167B78",
+  },
+  podiumFishStage: {
+    width: "100%",
+    height: 51,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 6,
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.08)",
+    borderRadius: 25,
+    backgroundColor: "rgba(255,255,255,0.62)",
+  },
+  podiumFishStageChampion: {
+    height: 60,
+    borderRadius: 30,
+  },
+  podiumSpecies: {
+    width: "100%",
+    marginTop: 6,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.2,
+    letterSpacing: 0.42,
+    textAlign: "center",
+    color: paper.dashboardMuted,
+  },
+  podiumScoreLine: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "center",
+    marginTop: 4,
+  },
+  podiumScoreValue: {
+    fontFamily: paperFonts.display,
+    fontSize: 28,
+    lineHeight: 31,
+    letterSpacing: -0.8,
+  },
+  podiumScoreMax: {
+    marginLeft: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 4.8,
+    color: paper.dashboardMuted,
+  },
+  podiumBase: {
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    left: 0,
+    minHeight: 28,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 2,
+    paddingHorizontal: 4,
+  },
+  podiumBaseText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.2,
+    letterSpacing: 0.65,
+    textAlign: "center",
+  },
+  blueRibbonSection: {
+    overflow: "hidden",
+    marginHorizontal: 12,
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: "#BFD8E5",
+    borderRadius: 12,
+    backgroundColor: "rgba(255,255,255,0.82)",
+  },
+  blueRibbonHeader: {
+    minHeight: 57,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+    backgroundColor: "#EAF4FB",
+  },
+  blueRibbonHeaderIcon: {
+    width: 31,
+    height: 31,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#BAD7E5",
+    borderRadius: 16,
+    backgroundColor: "#FFFFFF",
+  },
+  blueRibbonHeaderCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
+  blueRibbonEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 0.9,
+    color: paper.dashboardBlue,
+  },
+  blueRibbonHeaderText: {
+    marginTop: 2,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 8.5,
+    color: paper.dashboardMuted,
+  },
+  blueRibbonRange: {
+    fontFamily: paperFonts.display,
+    fontSize: 15,
+    color: paper.dashboardBlue,
+  },
+  blueRibbonRow: {
+    minHeight: 88,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 9,
+    borderTopWidth: 1,
+    borderTopColor: "#D5E4EB",
+    borderLeftWidth: 4,
+    borderLeftColor: paper.dashboardBlue,
+    backgroundColor: "rgba(255,255,255,0.84)",
+  },
+  blueRibbonMark: {
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  blueRibbonRank: {
+    marginTop: -4,
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    lineHeight: 23,
+    color: paper.dashboardInk,
+  },
+  blueRibbonFishStage: {
+    width: 62,
+    height: 55,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#DDE9ED",
-    backgroundColor: "#EFF6F7",
+    borderColor: "#D7E7EE",
+    borderRadius: 27,
+    backgroundColor: "#F1F7F9",
   },
-  rankedFieldIdentity: {
+  blueRibbonIdentity: {
     minWidth: 0,
     flex: 1,
   },
-  rankedFieldState: {
+  blueRibbonState: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.7,
-    letterSpacing: 0.85,
+    fontSize: 5.3,
+    letterSpacing: 0.72,
     color: "#167B78",
   },
-  rankedFieldCity: {
+  blueRibbonCity: {
     marginTop: 1,
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 17,
+    fontSize: 16.5,
     lineHeight: 19,
     color: paper.dashboardInk,
   },
-  rankedFieldTarget: {
-    marginTop: 4,
+  blueRibbonTarget: {
+    marginTop: 3,
     fontFamily: paperFonts.bodySemiBold,
-    fontSize: 7,
-    lineHeight: 10,
+    fontSize: 6.8,
+    lineHeight: 9.5,
     color: paper.dashboardMuted,
   },
-  rankedFieldScore: {
-    width: 47,
+  blueRibbonScore: {
+    width: 45,
     flexDirection: "row",
     alignItems: "baseline",
     justifyContent: "flex-end",
   },
-  rankedFieldScoreValue: {
+  blueRibbonScoreValue: {
     fontFamily: paperFonts.display,
     fontSize: 24,
     lineHeight: 28,
     letterSpacing: -0.7,
+    color: paper.dashboardBlue,
   },
-  rankedFieldScoreMax: {
+  blueRibbonScoreMax: {
     marginLeft: 1,
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 4.8,
@@ -2490,6 +2686,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderWidth: 1,
     borderColor: "rgba(22,123,120,0.22)",
+    borderRadius: 9,
     backgroundColor: "rgba(22,123,120,0.055)",
   },
   rankingNoteText: {
