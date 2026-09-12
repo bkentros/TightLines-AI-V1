@@ -1,0 +1,4 @@
+# Preserve downloaded evidence byte-for-byte, including publisher CRLF/whitespace.
+# Read human-reviewed findings in phase1-sources.json and PHASE1_SEASONAL_RESEARCH.md.
+*.html binary
+*.pdf binary

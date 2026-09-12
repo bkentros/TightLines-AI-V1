@@ -1,5 +1,7 @@
 # PierCast species roster for batch score research
 
+The [Phase 1 seasonal review](PHASE1_SEASONAL_RESEARCH.md) now develops this queue into 15 bounded numeric research proposals. Candidate admission and runtime eligibility remain separate.
+
 This is the current research queue. The earlier 24 exclusions / 18 unresolved / three narrow leads applied a major-target and scoring-readiness standard too early. Those assessments remain useful caveats, but they do not determine whether a species deserves research. This roster admits credible recurring pier catches more broadly, as instructed, and keeps all numerical and public-release gates unchanged.
 
 **25 city × species candidates** enter score research together. Seven weaker occurrence leads need verification; 13 pairings have no established local pier evidence in the reviewed collection. These are evidence-planning decisions, not claims that all 25 are major fisheries or verified at every covered structure.

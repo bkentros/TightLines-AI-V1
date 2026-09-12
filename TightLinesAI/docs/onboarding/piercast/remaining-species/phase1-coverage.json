@@ -1,0 +1,321 @@
+{
+  "referenceYear": 2025,
+  "weeklyConvention": "52 January-1-based bins; final bin December 24-31 includes eight days. Midpoint remains December 27 for compatibility with core review. Daily table covers every date. Missing days excluded from availableDayMean, never treated as zero.",
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "lake_trout",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "walleye",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "availableDays": 122,
+      "unavailableDays": 243,
+      "peak": 4.5
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "freshwater_drum",
+      "availableDays": 62,
+      "unavailableDays": 303,
+      "peak": 4.5
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "availableDays": 92,
+      "unavailableDays": 273,
+      "peak": 6
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "lake_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "round_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "channel_catfish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "largemouth_bass",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_trout",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "walleye",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "availableDays": 122,
+      "unavailableDays": 243,
+      "peak": 5
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "availableDays": 153,
+      "unavailableDays": 212,
+      "peak": 7
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "yellow_perch",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "round_whitefish",
+      "availableDays": 30,
+      "unavailableDays": 335,
+      "peak": 4
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "channel_catfish",
+      "availableDays": 184,
+      "unavailableDays": 181,
+      "peak": 5.5
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "availableDays": 122,
+      "unavailableDays": 243,
+      "peak": 6.5
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "availableDays": 61,
+      "unavailableDays": 304,
+      "peak": 3
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "walleye",
+      "availableDays": 47,
+      "unavailableDays": 318,
+      "peak": 4.5
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "availableDays": 92,
+      "unavailableDays": 273,
+      "peak": 4.5
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "availableDays": 61,
+      "unavailableDays": 304,
+      "peak": 4.5
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "availableDays": 122,
+      "unavailableDays": 243,
+      "peak": 7
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "round_whitefish",
+      "availableDays": 45,
+      "unavailableDays": 320,
+      "peak": 3.5
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "channel_catfish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "largemouth_bass",
+      "availableDays": 62,
+      "unavailableDays": 303,
+      "peak": 3
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_trout",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "walleye",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "smallmouth_bass",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "freshwater_drum",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "yellow_perch",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "round_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "channel_catfish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "largemouth_bass",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "lake_trout",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "walleye",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "smallmouth_bass",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "freshwater_drum",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "yellow_perch",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "lake_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "round_whitefish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "channel_catfish",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "largemouth_bass",
+      "availableDays": 0,
+      "unavailableDays": 365,
+      "peak": null
+    }
+  ]
+}
