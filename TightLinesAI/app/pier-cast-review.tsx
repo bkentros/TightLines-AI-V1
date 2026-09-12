@@ -1187,28 +1187,27 @@ function LeaderFish({
   );
 }
 
-function FeaturedLeaderboardCard({
+function DailyLeaderCover({
   entry,
+  forecastDate,
+  cityCount,
+  locked,
   onOpen,
 }: {
   entry: PierCastLeaderboardEntry;
+  forecastDate: string | undefined;
+  cityCount: number;
+  locked: boolean;
   onOpen: () => void;
 }) {
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
-  const band = entry.score === null
-    ? null
-    : dashboardBandStyleForScore(entry.score);
   const accent = entry.score === null
     ? paper.dashboardBlue
     : scoreAccentColor(entry.score);
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.featuredLeaderCard,
-        band && {
-          borderColor: band.chipBorder,
-          backgroundColor: band.chipBg,
-        },
+        styles.dailyLeaderCover,
         pressed && styles.leaderboardRowPressed,
       ]}
       onPress={onOpen}
@@ -1217,137 +1216,95 @@ function FeaturedLeaderboardCard({
     >
       <TopographicLines
         style={StyleSheet.absoluteFill}
-        color={accent}
-        count={5}
+        color={paper.dashboardBlue}
+        count={7}
       />
-      <View style={styles.featuredLeaderTopline}>
-        <View style={styles.featuredLeaderRibbon}>
-          <Ionicons name="trophy" size={12} color="#8C6415" />
-          <Text style={styles.featuredLeaderRibbonText}>TODAY&apos;S LEADER</Text>
+      <CornerMarkSet color={paper.red} size={17} thickness={2} inset={12} />
+
+      <View style={styles.dailyLeaderTopline}>
+        <View style={styles.dailyLeaderEyebrow}>
+          <SectionEyebrow
+            color={paper.red}
+            size={9.5}
+            dashes={false}
+            align="left"
+          >
+            TODAY&apos;S #1 PIER
+          </SectionEyebrow>
         </View>
-        <View style={styles.viewReportCue}>
-          <Text style={styles.viewReportCueText}>VIEW REPORT</Text>
+        <View style={styles.dailyLockStamp}>
           <Ionicons
-            name="arrow-forward"
-            size={12}
+            name={locked ? "lock-closed" : "time-outline"}
+            size={10}
             color={paper.dashboardBlue}
+          />
+          <Text style={styles.dailyLockStampText}>
+            {locked ? "RANK LOCKED" : "PREPARING"}
+          </Text>
+        </View>
+      </View>
+
+      <Text style={styles.dailyLeaderLakeLine}>
+        LAKE MICHIGAN · {STATE_LABELS[entry.city.stateCode].toUpperCase()}
+      </Text>
+      <Text
+        style={styles.dailyLeaderCity}
+        numberOfLines={2}
+        allowFontScaling={false}
+      >
+        {entry.city.displayName.toUpperCase()}
+      </Text>
+      <Text style={styles.dailyLeaderDeck} numberOfLines={2}>
+        {speciesId ? SPECIES_LABELS[speciesId] : "Daily rating preparing"}
+        {speciesId ? ` leads today at ${primaryPierName(entry.city)}.` : ""}
+      </Text>
+
+      <View style={styles.dailyLeaderStage}>
+        <Text style={styles.dailyLeaderRankWatermark}>01</Text>
+        <View style={styles.dailyLeaderFishStage}>
+          <LeaderFish speciesId={speciesId} featured />
+        </View>
+        <View style={[styles.dailyLeaderScorePlate, { borderColor: accent }]}>
+          <Text style={styles.dailyLeaderScoreLabel}>DAILY SCORE</Text>
+          <View style={styles.dailyLeaderScoreLine}>
+            <Text style={[styles.dailyLeaderScoreValue, { color: accent }]}>
+              {entry.score?.toFixed(1) ?? "—"}
+            </Text>
+            <Text style={styles.dailyLeaderScoreMax}>/10</Text>
+          </View>
+          <View
+            style={[styles.dailyLeaderScoreRule, { backgroundColor: accent }]}
           />
         </View>
       </View>
-      <View style={styles.featuredLeaderBody}>
-        <View style={styles.featuredLeaderIdentity}>
-          <Text style={styles.featuredLeaderState}>
-            #1 · {STATE_LABELS[entry.city.stateCode].toUpperCase()}
+
+      <View style={styles.dailyLeaderMeta}>
+        <View style={styles.dailyLeaderMetaCell}>
+          <Text style={styles.dailyLeaderMetaLabel}>FORECAST DATE</Text>
+          <Text style={styles.dailyLeaderMetaValue}>
+            {fullDateLabel(forecastDate)}
           </Text>
-          <Text style={styles.featuredLeaderCity} numberOfLines={2}>
-            {entry.city.displayName}
-          </Text>
-          <View style={styles.featuredLeaderTargetRow}>
-            <Ionicons name="location" size={11} color="#167B78" />
-            <Text style={styles.featuredLeaderTarget} numberOfLines={2}>
-              {speciesId ? SPECIES_LABELS[speciesId] : "Rating unavailable"}
-              {" · "}
-              {primaryPierName(entry.city)}
-            </Text>
-          </View>
         </View>
-        <View style={styles.featuredLeaderVisual}>
-          <View style={styles.featuredLeaderFishStage}>
-            <LeaderFish speciesId={speciesId} featured />
-          </View>
-          <View style={[styles.featuredLeaderScore, { borderColor: accent }]}>
-            <Text style={[styles.featuredLeaderScoreValue, { color: accent }]}>
-              {entry.score?.toFixed(1) ?? "—"}
-            </Text>
-            <Text style={styles.featuredLeaderScoreMax}>OUT OF 10</Text>
-          </View>
+        <View style={styles.dailyLeaderMetaDivider} />
+        <View style={styles.dailyLeaderMetaCell}>
+          <Text style={styles.dailyLeaderMetaLabel}>LIVE COVERAGE</Text>
+          <Text style={styles.dailyLeaderMetaValue}>
+            {cityCount} pier cities
+          </Text>
         </View>
       </View>
-      <View style={styles.featuredLeaderFooter}>
-        <View style={[styles.scoreBandPill, { backgroundColor: accent }]}>
-          <Text
-            style={[
-              styles.scoreBandPillText,
-              { color: band?.fg ?? "#FFFFFF" },
-            ]}
-          >
-            {band?.label.toUpperCase() ?? "PENDING"}
-          </Text>
-        </View>
-        <Text style={styles.featuredLeaderFooterText}>
-          Strongest species-specific opportunity today
+
+      <View style={styles.dailyLeaderAction}>
+        <Text style={styles.dailyLeaderActionText} numberOfLines={1}>
+          OPEN {entry.city.displayName.toUpperCase()} PIERCAST
         </Text>
+        <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
       </View>
     </Pressable>
   );
 }
 
-function PodiumLeaderboardCard({
-  entry,
-  rank,
-  onOpen,
-}: {
-  entry: PierCastLeaderboardEntry;
-  rank: 2 | 3;
-  onOpen: () => void;
-}) {
-  const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
-  const accent = entry.score === null
-    ? "#AAB2B6"
-    : scoreAccentColor(entry.score);
-  const band = entry.score === null
-    ? null
-    : dashboardBandStyleForScore(entry.score);
-  return (
-    <Pressable
-      style={({ pressed }) => [
-        styles.podiumCard,
-        band && { borderTopColor: accent },
-        pressed && styles.leaderboardRowPressed,
-      ]}
-      onPress={onOpen}
-      accessibilityRole="button"
-      accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked ${rank}`}
-    >
-      <View style={styles.podiumTopline}>
-        <View
-          style={[
-            styles.podiumRankBadge,
-            rank === 2 ? styles.podiumRankSilver : styles.podiumRankBronze,
-          ]}
-        >
-          <Text style={styles.podiumRankNumber}>{rank}</Text>
-        </View>
-        <Text style={styles.podiumState}>{entry.city.stateCode}</Text>
-        <Ionicons
-          name="arrow-forward-circle-outline"
-          size={17}
-          color={paper.dashboardBlue}
-        />
-      </View>
-      <View style={styles.podiumFishStage}>
-        <LeaderFish speciesId={speciesId} />
-      </View>
-      <Text style={styles.podiumCity} numberOfLines={2}>
-        {entry.city.displayName}
-      </Text>
-      <Text style={styles.podiumTarget} numberOfLines={1}>
-        {speciesId ? SPECIES_LABELS[speciesId] : "Pending rating"}
-      </Text>
-      <View style={styles.podiumScoreRow}>
-        <Text style={[styles.podiumScore, { color: accent }]}>
-          {entry.score?.toFixed(1) ?? "—"}
-        </Text>
-        <Text style={styles.podiumScoreMax}>/10</Text>
-        {band ? (
-          <View style={[styles.podiumBandDot, { backgroundColor: accent }]} />
-        ) : null}
-      </View>
-    </Pressable>
-  );
-}
-
-function LeaderboardRunnerRow({
+function RankedFieldRow({
   entry,
   rank,
   onOpen,
@@ -1363,36 +1320,39 @@ function LeaderboardRunnerRow({
   return (
     <Pressable
       style={({ pressed }) => [
-        styles.leaderboardRunnerRow,
+        styles.rankedFieldRow,
         pressed && styles.leaderboardRowPressed,
       ]}
       onPress={onOpen}
       accessibilityRole="button"
       accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked ${rank}`}
     >
-      <View style={styles.runnerRankWrap}>
-        <Text style={styles.runnerRankLabel}>RANK</Text>
-        <Text style={styles.runnerRank}>{rank}</Text>
+      <View style={styles.rankedFieldRank}>
+        <Text style={styles.rankedFieldRankLabel}>RANK</Text>
+        <Text style={styles.rankedFieldRankNumber}>
+          {String(rank).padStart(2, "0")}
+        </Text>
       </View>
-      <View style={styles.runnerFishStage}>
+      <View style={styles.rankedFieldFishStage}>
         <LeaderFish speciesId={speciesId} />
       </View>
-      <View style={styles.runnerIdentity}>
-        <Text style={styles.runnerState}>
+      <View style={styles.rankedFieldIdentity}>
+        <Text style={styles.rankedFieldState}>
           {STATE_LABELS[entry.city.stateCode].toUpperCase()}
         </Text>
-        <Text style={styles.runnerCity} numberOfLines={1}>
+        <Text style={styles.rankedFieldCity} numberOfLines={1}>
           {entry.city.displayName}
         </Text>
-        <Text style={styles.runnerTarget} numberOfLines={1}>
+        <Text style={styles.rankedFieldTarget} numberOfLines={1}>
           {speciesId ? SPECIES_LABELS[speciesId] : "Rating unavailable"}
+          {speciesId ? ` · ${primaryPierName(entry.city)}` : ""}
         </Text>
       </View>
-      <View style={styles.runnerScoreWrap}>
-        <Text style={[styles.runnerScore, { color: accent }]}>
+      <View style={styles.rankedFieldScore}>
+        <Text style={[styles.rankedFieldScoreValue, { color: accent }]}>
           {entry.score?.toFixed(1) ?? "—"}
         </Text>
-        <Text style={styles.runnerScoreMax}>/10</Text>
+        <Text style={styles.rankedFieldScoreMax}>/10</Text>
       </View>
       <Ionicons name="chevron-forward" size={15} color={paper.dashboardBlue} />
     </Pressable>
@@ -1467,176 +1427,70 @@ function PierCastLanding({
 
   return (
     <>
-      <View style={styles.landingHero}>
-        <View style={styles.landingHeroGlow} />
-        <View style={styles.landingHeroWatermark}>
-          <Ionicons
-            name="water-outline"
-            size={112}
-            color="rgba(47,124,164,0.08)"
-          />
-        </View>
-        <TopographicLines
-          style={StyleSheet.absoluteFill}
-          color={paper.dashboardBlue}
-          count={6}
+      {leaderboard[0] ? (
+        <DailyLeaderCover
+          entry={leaderboard[0]}
+          forecastDate={forecastDate}
+          cityCount={catalog.cities.length}
+          locked={Boolean(dailyScoreSnapshot)}
+          onOpen={() => onOpenCity(leaderboard[0]!.city.cityId)}
         />
-        <CornerMarkSet
-          color={paper.dashboardBlue}
-          size={15}
-          thickness={2}
-          inset={11}
-        />
-        <View style={styles.landingHeroBadge}>
-          <View style={styles.landingHeroBadgeIcon}>
-            <Ionicons name="trophy" size={12} color="#FFFFFF" />
-          </View>
-          <Text style={styles.landingHeroBadgeText}>
-            LAKE MICHIGAN DAILY BOARD
-          </Text>
-        </View>
-        <Text style={styles.landingHeroTitle}>Where should you fish today?</Text>
-        <Text style={styles.landingHeroCopy}>
-          One clear, daily ranking of the strongest pier opportunities across
-          every supported shoreline.
-        </Text>
-        <View style={styles.landingHeroMeta}>
-          <View style={styles.landingHeroMetaItem}>
-            <View style={styles.landingHeroMetaIcon}>
-              <Ionicons
-                name="calendar-clear-outline"
-                size={13}
-                color={paper.dashboardBlue}
-              />
-            </View>
-            <Text style={styles.landingHeroMetaLabel}>TODAY</Text>
-            <Text style={styles.landingHeroMetaValue}>
-              {fullDateLabel(forecastDate)}
-            </Text>
-          </View>
-          <View style={styles.landingHeroMetaRule} />
-          <View style={styles.landingHeroMetaItem}>
-            <View style={styles.landingHeroMetaIcon}>
-              <Ionicons
-                name="location-outline"
-                size={14}
-                color={paper.dashboardBlue}
-              />
-            </View>
-            <Text style={styles.landingHeroMetaLabel}>COVERAGE</Text>
-            <Text style={styles.landingHeroMetaValue}>
-              {catalog.cities.length} pier cities
-            </Text>
-          </View>
-          <View style={styles.landingHeroMetaRule} />
-          <View style={styles.landingHeroMetaItem}>
-            <View style={styles.landingHeroMetaIcon}>
-              <Ionicons
-                name={dailyScoreSnapshot ? "lock-closed" : "time-outline"}
-                size={12}
-                color={paper.dashboardBlue}
-              />
-            </View>
-            <Text style={styles.landingHeroMetaLabel}>DAILY RANK</Text>
-            <Text style={styles.landingHeroMetaValue}>
-              {dailyScoreSnapshot ? "Locked" : "Preparing"}
-            </Text>
-          </View>
-        </View>
-      </View>
+      ) : null}
 
-      <View style={styles.reportCard}>
-        <View style={styles.reportHeader}>
-          <View style={[styles.reportHeaderIcon, styles.leaderboardHeaderIcon]}>
-            <Ionicons name="trophy-outline" size={18} color="#9B6412" />
-          </View>
-          <View style={styles.reportHeaderCopy}>
-            <Text style={styles.eyebrow}>TODAY&apos;S LEADERBOARD</Text>
-            <Text style={styles.reportTitle}>Lake Michigan Power Rankings</Text>
-            <Text style={styles.reportSubtitle}>
-              The strongest target at every supported pier city.
+      <View style={styles.rankedFieldCard}>
+        <View style={styles.rankedFieldHeader}>
+          <View style={styles.rankedFieldHeaderCopy}>
+            <SectionEyebrow color={paper.dashboardBlue} size={8.5}>
+              TODAY&apos;S LEADERBOARD
+            </SectionEyebrow>
+            <Text style={styles.rankedFieldTitle}>The field.</Text>
+            <Text style={styles.rankedFieldSubtitle}>
+              Each city is ranked by its single highest species rating.
             </Text>
           </View>
-          <View style={styles.reportStatusBadge}>
-            <Text style={styles.reportStatusText}>
-              {dailyScoreSnapshot ? "LOCKED" : "TOP 5"}
-            </Text>
-          </View>
+          <Text style={styles.rankedFieldRange}>02—05</Text>
         </View>
-
-        {leaderboard[0] ? (
-          <FeaturedLeaderboardCard
-            entry={leaderboard[0]}
-            onOpen={() => onOpenCity(leaderboard[0]!.city.cityId)}
-          />
-        ) : null}
-        <View style={styles.podiumGrid}>
-          {leaderboard.slice(1, 3).map((entry, index) => (
-            <PodiumLeaderboardCard
+        <View style={styles.rankedFieldRows}>
+          {leaderboard.slice(1).map((entry, index) => (
+            <RankedFieldRow
               key={entry.city.cityId}
               entry={entry}
-              rank={(index + 2) as 2 | 3}
-              onOpen={() => onOpenCity(entry.city.cityId)}
-            />
-          ))}
-        </View>
-        <View style={styles.leaderboardRunners}>
-          {leaderboard.slice(3).map((entry, index) => (
-            <LeaderboardRunnerRow
-              key={entry.city.cityId}
-              entry={entry}
-              rank={index + 4}
+              rank={index + 2}
               onOpen={() => onOpenCity(entry.city.cityId)}
             />
           ))}
         </View>
         <View style={styles.rankingNote}>
-          <Ionicons
-            name="information-circle-outline"
-            size={15}
-            color="#167B78"
-          />
+          <Ionicons name="lock-closed-outline" size={14} color="#167B78" />
           <Text style={styles.rankingNoteText}>
             {dailyScoreSnapshot
-              ? `Locked for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. One species sets each city's position; live pier conditions keep updating without moving today's leaderboard.`
-              : "Today’s score snapshot is preparing. Live pier conditions continue to update while the daily ranking is finalized."}
+              ? `Ranks are locked for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data still refresh throughout the day.`
+              : "Today’s ranking is preparing. Live pier conditions continue to refresh."}
           </Text>
         </View>
       </View>
 
-      <View style={[styles.reportCard, styles.pierFinderCard]}>
-        <View style={styles.pierFinderGlow} />
-        <View style={styles.reportHeader}>
-          <View style={[styles.reportHeaderIcon, styles.pierFinderHeaderIcon]}>
-            <Ionicons
-              name="map-outline"
-              size={18}
-              color={paper.dashboardBlue}
-            />
-          </View>
-          <View style={styles.reportHeaderCopy}>
-            <Text style={styles.eyebrow}>SUPPORTED SHORELINES</Text>
-            <Text style={styles.reportTitle}>Find Your PierCast</Text>
-            <Text style={styles.reportSubtitle}>
-              Choose a state, then select a supported pier city.
-            </Text>
-          </View>
+      <View style={styles.pierFinderCard}>
+        <TopographicLines
+          style={StyleSheet.absoluteFill}
+          color={paper.dashboardBlue}
+          count={6}
+        />
+        <CornerMarkSet color={paper.red} size={14} thickness={2} inset={11} />
+        <View style={styles.pierFinderHeading}>
+          <SectionEyebrow color={paper.red} size={9}>
+            CHOOSE YOUR SHORELINE
+          </SectionEyebrow>
+          <Text style={styles.pierFinderTitle}>Find your PierCast.</Text>
+          <Text style={styles.pierFinderSubtitle}>
+            Move from lake-wide rankings to the report built for your pier.
+          </Text>
         </View>
 
-        <View style={styles.pierFinderSteps}>
-          <View style={styles.pierFinderStep}>
-            <View style={styles.pierFinderStepNumber}>
-              <Text style={styles.pierFinderStepNumberText}>1</Text>
-            </View>
-            <Text style={styles.pierFinderStepText}>CHOOSE SHORELINE</Text>
-          </View>
-          <View style={styles.pierFinderStepLine} />
-          <View style={styles.pierFinderStep}>
-            <View style={styles.pierFinderStepNumber}>
-              <Text style={styles.pierFinderStepNumberText}>2</Text>
-            </View>
-            <Text style={styles.pierFinderStepText}>PICK YOUR CITY</Text>
-          </View>
+        <View style={styles.finderPromptRow}>
+          <Text style={styles.finderPromptNumber}>01</Text>
+          <Text style={styles.finderPromptLabel}>SELECT A STATE</Text>
+          <View style={styles.finderPromptRule} />
         </View>
 
         <View style={styles.stateSelector}>
@@ -1663,36 +1517,10 @@ function PierCastLanding({
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
               >
-                <View
-                  style={[
-                    styles.stateMonogram,
-                    selected && styles.stateMonogramSelected,
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.stateCode,
-                      selected && styles.stateCodeSelected,
-                    ]}
-                  >
-                    {stateCode}
-                  </Text>
-                </View>
+                <Text style={styles.stateCode}>{stateCode}</Text>
                 <View style={styles.stateChoiceCopy}>
-                  <Text
-                    style={[
-                      styles.stateName,
-                      selected && styles.stateNameSelected,
-                    ]}
-                  >
-                    {STATE_LABELS[stateCode]}
-                  </Text>
-                  <Text
-                    style={[
-                      styles.stateCityCount,
-                      selected && styles.stateCityCountSelected,
-                    ]}
-                  >
+                  <Text style={styles.stateName}>{STATE_LABELS[stateCode]}</Text>
+                  <Text style={styles.stateCityCount}>
                     {count} {count === 1 ? "CITY" : "CITIES"}
                   </Text>
                 </View>
@@ -1713,6 +1541,12 @@ function PierCastLanding({
               </Pressable>
             );
           })}
+        </View>
+
+        <View style={styles.finderPromptRow}>
+          <Text style={styles.finderPromptNumber}>02</Text>
+          <Text style={styles.finderPromptLabel}>SELECT A PIER CITY</Text>
+          <View style={styles.finderPromptRule} />
         </View>
 
         <ScrollView
@@ -1739,80 +1573,45 @@ function PierCastLanding({
                 accessibilityRole="button"
                 accessibilityState={{ selected }}
               >
-                {selected ? (
-                  <TopographicLines
-                    style={StyleSheet.absoluteFill}
-                    color={paper.dashboardBlue}
-                    count={4}
-                  />
-                ) : null}
-                <View
-                  style={[
-                    styles.coverageCityIcon,
-                    selected && styles.coverageCityIconSelected,
-                  ]}
-                >
-                  <Ionicons
-                    name="location-outline"
-                    size={17}
-                    color={paper.dashboardBlue}
-                  />
-                </View>
                 <View style={styles.coverageCityTopline}>
                   <Text style={styles.coverageCityState}>
                     {STATE_LABELS[city.stateCode].toUpperCase()}
                   </Text>
-                  {selected ? (
-                    <View style={styles.coverageCityCheck}>
-                      <Ionicons
-                        name="checkmark"
-                        size={13}
-                        color={paper.dashboardBlue}
-                      />
-                    </View>
-                  ) : null}
+                  <Text style={styles.coverageCityIndex}>
+                    {String(stateCities.indexOf(city) + 1).padStart(2, "0")}
+                  </Text>
                 </View>
-                <Text
-                  style={[
-                    styles.coverageCityName,
-                    selected && styles.coverageCityNameSelected,
-                  ]}
-                >
+                <View style={styles.coverageCityIcon}>
+                  <Ionicons
+                    name="location-outline"
+                    size={18}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+                <Text style={styles.coverageCityName}>
                   {city.displayName}
                 </Text>
-                <Text
-                  style={[
-                    styles.coverageCityDetail,
-                    selected && styles.coverageCityDetailSelected,
-                  ]}
-                >
+                <Text style={styles.coverageCityDetail}>
                   {pierCount} {pierCount === 1 ? "PIER" : "PIERS"} COVERED
                 </Text>
+                <View
+                  style={[
+                    styles.coverageCityCheck,
+                    selected && styles.coverageCityCheckSelected,
+                  ]}
+                >
+                  {selected ? (
+                    <Ionicons
+                      name="checkmark"
+                      size={14}
+                      color={paper.dashboardBlue}
+                    />
+                  ) : null}
+                </View>
               </Pressable>
             );
           })}
         </ScrollView>
-
-        {selectedBrowseCity ? (
-          <View style={styles.pierFinderSelection}>
-            <View style={styles.pierFinderSelectionIcon}>
-              <Ionicons
-                name="checkmark"
-                size={13}
-                color={paper.dashboardBlue}
-              />
-            </View>
-            <View style={styles.pierFinderSelectionCopy}>
-              <Text style={styles.pierFinderSelectionLabel}>
-                YOUR PIERCAST
-              </Text>
-              <Text style={styles.pierFinderSelectionValue} numberOfLines={1}>
-                {selectedBrowseCity.displayName} ·{" "}
-                {primaryPierName(selectedBrowseCity)}
-              </Text>
-            </View>
-          </View>
-        ) : null}
 
         <Pressable
           style={({ pressed }) => [
@@ -1830,16 +1629,10 @@ function PierCastLanding({
         >
           <Text style={styles.loadCityButtonText}>
             {selectedBrowseCity
-              ? `VIEW ${selectedBrowseCity.displayName.toUpperCase()} PIERCAST`
+              ? `${selectedBrowseCity.displayName.toUpperCase()} PIERCAST`
               : "SELECT A CITY"}
           </Text>
-          <View style={styles.loadCityButtonArrow}>
-            <Ionicons
-              name="arrow-forward"
-              size={14}
-              color={paper.dashboardBlue}
-            />
-          </View>
+          <Ionicons name="arrow-forward" size={17} color="#FFFFFF" />
         </Pressable>
       </View>
     </>
@@ -2374,552 +2167,451 @@ const styles = StyleSheet.create({
     letterSpacing: 1.55,
     color: paper.dashboardBlue,
   },
-  landingHero: {
+  leaderboardRowPressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.995 }],
+  },
+  leaderFish: { width: 74, height: 48 },
+  leaderFishFeatured: { width: 205, height: 118 },
+  dailyLeaderCover: {
     position: "relative",
     overflow: "hidden",
-    alignItems: "center",
-    paddingHorizontal: 18,
-    paddingTop: 24,
-    paddingBottom: 0,
-    borderWidth: 1.5,
-    borderColor: "#B9D8E8",
-    borderRadius: 16,
-    backgroundColor: "#F1F8FC",
-    ...paperShadows.hard,
-  },
-  landingHeroGlow: {
-    position: "absolute",
-    top: -95,
-    right: -70,
-    width: 230,
-    height: 230,
-    borderRadius: 115,
-    backgroundColor: "rgba(113,183,218,0.16)",
-  },
-  landingHeroWatermark: {
-    position: "absolute",
-    right: -12,
-    bottom: 35,
-    transform: [{ rotate: "-12deg" }],
-  },
-  landingHeroBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 7,
-    paddingRight: 10,
+    paddingHorizontal: 21,
+    paddingTop: 25,
+    paddingBottom: 18,
     borderWidth: 1,
-    borderColor: "rgba(47,124,164,0.24)",
-    borderRadius: 16,
-    backgroundColor: "rgba(255,255,255,0.86)",
-  },
-  landingHeroBadgeIcon: {
-    width: 29,
-    height: 29,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 15,
-    backgroundColor: paper.dashboardBlue,
-  },
-  landingHeroBadgeText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: 1.1,
-    color: paper.dashboardBlue,
-  },
-  landingHeroTitle: {
-    maxWidth: 390,
-    marginTop: 15,
-    fontFamily: paperFonts.display,
-    fontSize: 34,
-    lineHeight: 37,
-    letterSpacing: -0.9,
-    textAlign: "center",
-    color: paper.dashboardInk,
-  },
-  landingHeroCopy: {
-    maxWidth: 370,
-    marginTop: 10,
-    marginBottom: 20,
-    fontFamily: paperFonts.body,
-    fontSize: 12.5,
-    lineHeight: 18,
-    textAlign: "center",
-    color: paper.dashboardMuted,
-  },
-  landingHeroMeta: {
-    width: "100%",
-    minHeight: 76,
-    flexDirection: "row",
-    borderTopWidth: 1,
-    borderTopColor: "rgba(47,124,164,0.18)",
-    backgroundColor: "rgba(255,255,255,0.48)",
-  },
-  landingHeroMetaItem: {
-    minWidth: 0,
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 2,
-    paddingHorizontal: 5,
-    paddingVertical: 9,
-  },
-  landingHeroMetaIcon: {
-    width: 25,
-    height: 25,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 2,
-    borderRadius: 13,
-    backgroundColor: "#DFEFF7",
-  },
-  landingHeroMetaRule: {
-    width: 1,
-    backgroundColor: "rgba(47,124,164,0.15)",
-  },
-  landingHeroMetaLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.8,
-    color: paper.dashboardMuted,
-  },
-  landingHeroMetaValue: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    lineHeight: 12,
-    textAlign: "center",
-    color: paper.dashboardInk,
-  },
-  leaderboardHeaderIcon: { backgroundColor: "#FFF4DC" },
-  leaderboardRowPressed: { opacity: 0.83, transform: [{ scale: 0.99 }] },
-  leaderFish: { width: 88, height: 58 },
-  leaderFishFeatured: { width: 128, height: 78 },
-  featuredLeaderCard: {
-    position: "relative",
-    overflow: "hidden",
-    gap: 12,
-    padding: 14,
-    borderWidth: 1.5,
-    borderColor: "#B9D8E8",
-    borderRadius: 15,
-    backgroundColor: "#EEF7FB",
+    borderColor: paper.dashboardLine,
+    borderRadius: 14,
+    backgroundColor: "#FEFEFC",
     ...paperShadows.hard,
   },
-  featuredLeaderTopline: {
+  dailyLeaderTopline: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 10,
   },
-  featuredLeaderRibbon: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: "rgba(170,119,18,0.22)",
-    borderRadius: 13,
-    backgroundColor: "rgba(255,245,214,0.9)",
+  dailyLeaderEyebrow: {
+    minWidth: 0,
+    flex: 1,
   },
-  featuredLeaderRibbonText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.4,
-    letterSpacing: 0.8,
-    color: "#765414",
-  },
-  viewReportCue: {
+  dailyLockStamp: {
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: "#BFD9E7",
+    borderRadius: 12,
+    backgroundColor: "#EFF7FB",
   },
-  viewReportCueText: {
+  dailyLockStampText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.2,
-    letterSpacing: 0.7,
+    fontSize: 5.8,
+    letterSpacing: 0.75,
     color: paper.dashboardBlue,
   },
-  featuredLeaderBody: {
+  dailyLeaderLakeLine: {
+    marginTop: 21,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 1.8,
+    textAlign: "center",
+    color: paper.dashboardBlue,
+  },
+  dailyLeaderCity: {
+    marginTop: 4,
+    fontFamily: paperFonts.display,
+    fontSize: 39,
+    lineHeight: 40,
+    letterSpacing: -1.15,
+    textAlign: "center",
+    color: paper.dashboardInk,
+  },
+  dailyLeaderDeck: {
+    maxWidth: 325,
+    alignSelf: "center",
+    marginTop: 8,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
+    textAlign: "center",
+    color: paper.dashboardMuted,
+  },
+  dailyLeaderStage: {
+    position: "relative",
+    height: 145,
+    justifyContent: "center",
+    marginTop: 6,
+  },
+  dailyLeaderRankWatermark: {
+    position: "absolute",
+    left: -2,
+    top: 17,
+    fontFamily: paperFonts.display,
+    fontSize: 87,
+    lineHeight: 94,
+    letterSpacing: -5,
+    color: "rgba(47,124,164,0.075)",
+  },
+  dailyLeaderFishStage: {
+    width: 220,
+    height: 124,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: [{ translateX: -20 }],
+  },
+  dailyLeaderScorePlate: {
+    position: "absolute",
+    right: 0,
+    bottom: 19,
+    width: 96,
+    minHeight: 79,
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1.5,
+    backgroundColor: "rgba(255,255,253,0.96)",
+    ...paperShadows.lift,
+  },
+  dailyLeaderScoreLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.7,
+    letterSpacing: 0.9,
+    color: paper.dashboardMuted,
+  },
+  dailyLeaderScoreLine: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    marginTop: 1,
+  },
+  dailyLeaderScoreValue: {
+    fontFamily: paperFonts.display,
+    fontSize: 38,
+    lineHeight: 40,
+    letterSpacing: -1.3,
+  },
+  dailyLeaderScoreMax: {
+    marginLeft: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6,
+    color: paper.dashboardMuted,
+  },
+  dailyLeaderScoreRule: {
+    width: 27,
+    height: 3,
+    marginTop: 2,
+  },
+  dailyLeaderMeta: {
+    minHeight: 60,
+    flexDirection: "row",
+    marginTop: 2,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  dailyLeaderMetaCell: {
+    minWidth: 0,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 3,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+  },
+  dailyLeaderMetaDivider: {
+    width: 1,
+    backgroundColor: paper.dashboardLine,
+  },
+  dailyLeaderMetaLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 0.9,
+    color: paper.dashboardMuted,
+  },
+  dailyLeaderMetaValue: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 12,
+    lineHeight: 15,
+    textAlign: "center",
+    color: paper.dashboardInk,
+  },
+  dailyLeaderAction: {
+    minHeight: 47,
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    justifyContent: "center",
+    gap: 10,
+    marginTop: 16,
+    paddingHorizontal: 18,
+    backgroundColor: paper.dashboardInk,
   },
-  featuredLeaderIdentity: { minWidth: 0, flex: 1 },
-  featuredLeaderState: {
+  dailyLeaderActionText: {
+    flexShrink: 1,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.7,
-    letterSpacing: 0.9,
-    color: "#167B78",
+    fontSize: 7.5,
+    letterSpacing: 1.15,
+    color: "#FFFFFF",
   },
-  featuredLeaderCity: {
+  rankedFieldCard: {
+    overflow: "hidden",
+    paddingTop: 18,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 14,
+    backgroundColor: "#FEFEFC",
+    ...paperShadows.hard,
+  },
+  rankedFieldHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 12,
+    paddingHorizontal: 18,
+    paddingBottom: 17,
+  },
+  rankedFieldHeaderCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
+  rankedFieldTitle: {
     marginTop: 4,
     fontFamily: paperFonts.display,
     fontSize: 29,
-    lineHeight: 30,
-    letterSpacing: -0.6,
+    lineHeight: 31,
     color: paper.dashboardInk,
   },
-  featuredLeaderTargetRow: {
-    minWidth: 0,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 5,
-    marginTop: 8,
-  },
-  featuredLeaderTarget: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 8.3,
-    lineHeight: 11,
+  rankedFieldSubtitle: {
+    marginTop: 4,
+    fontFamily: paperFonts.body,
+    fontSize: 9.5,
+    lineHeight: 13,
     color: paper.dashboardMuted,
   },
-  featuredLeaderVisual: {
-    width: 130,
+  rankedFieldRange: {
+    marginTop: 3,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.25,
+    color: paper.red,
+  },
+  rankedFieldRows: {
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+  },
+  rankedFieldRow: {
+    minHeight: 99,
+    flexDirection: "row",
     alignItems: "center",
     gap: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: "rgba(255,255,255,0.68)",
   },
-  featuredLeaderFishStage: {
-    width: 130,
-    height: 74,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 37,
-    backgroundColor: "rgba(255,255,255,0.66)",
+  rankedFieldRank: {
+    width: 39,
+    alignItems: "flex-start",
   },
-  featuredLeaderScore: {
-    minWidth: 92,
-    alignItems: "center",
-    paddingHorizontal: 11,
-    paddingVertical: 6,
-    borderWidth: 1.5,
-    borderRadius: 12,
-    backgroundColor: "rgba(255,255,255,0.78)",
-  },
-  featuredLeaderScoreValue: {
-    fontFamily: paperFonts.display,
-    fontSize: 32,
-    lineHeight: 33,
-    letterSpacing: -1,
-  },
-  featuredLeaderScoreMax: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.5,
-    letterSpacing: 0.75,
-    color: paper.dashboardMuted,
-  },
-  featuredLeaderFooter: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: "rgba(10,27,46,0.09)",
-  },
-  scoreBandPill: {
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 10,
-  },
-  scoreBandPillText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6,
-    letterSpacing: 0.7,
-    color: "#FFFFFF",
-  },
-  featuredLeaderFooterText: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 8,
-    lineHeight: 11,
-    color: paper.dashboardMuted,
-  },
-  podiumGrid: { flexDirection: "row", gap: 8 },
-  podiumCard: {
-    minWidth: 0,
-    flex: 1,
-    minHeight: 210,
-    padding: 11,
-    borderWidth: 1,
-    borderTopWidth: 3,
-    borderColor: paper.dashboardLine,
-    borderRadius: 13,
-    backgroundColor: "#FCFCFA",
-  },
-  podiumTopline: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  podiumRankBadge: {
-    width: 28,
-    height: 28,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 14,
-    borderWidth: 1,
-  },
-  podiumRankSilver: {
-    borderColor: "#B8C1C8",
-    backgroundColor: "#EEF1F3",
-  },
-  podiumRankBronze: {
-    borderColor: "#C9986B",
-    backgroundColor: "#F5E7DA",
-  },
-  podiumRankNumber: {
-    fontFamily: paperFonts.display,
-    fontSize: 18,
-    color: paper.dashboardInk,
-  },
-  podiumState: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
-    letterSpacing: 1,
-    color: "#167B78",
-  },
-  podiumFishStage: {
-    height: 63,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 4,
-    borderRadius: 30,
-    backgroundColor: "#EEF6F8",
-  },
-  podiumCity: {
-    marginTop: 8,
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 17,
-    lineHeight: 18,
-    color: paper.dashboardInk,
-  },
-  podiumTarget: {
-    marginTop: 4,
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 7.5,
-    color: paper.dashboardMuted,
-  },
-  podiumScoreRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    marginTop: "auto",
-    paddingTop: 7,
-  },
-  podiumScore: {
-    fontFamily: paperFonts.display,
-    fontSize: 28,
-    lineHeight: 30,
-    letterSpacing: -0.7,
-  },
-  podiumScoreMax: {
-    marginLeft: 2,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.5,
-    color: paper.dashboardMuted,
-  },
-  podiumBandDot: {
-    width: 7,
-    height: 7,
-    marginLeft: "auto",
-    borderRadius: 4,
-  },
-  leaderboardRunners: { gap: 7 },
-  leaderboardRunnerRow: {
-    minHeight: 76,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
-    backgroundColor: "#FFFFFF",
-  },
-  runnerRankWrap: { width: 27, alignItems: "center" },
-  runnerRankLabel: {
+  rankedFieldRankLabel: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 4.8,
-    letterSpacing: 0.5,
+    letterSpacing: 0.65,
     color: paper.dashboardMuted,
   },
-  runnerRank: {
-    marginTop: -2,
+  rankedFieldRankNumber: {
+    marginTop: -1,
     fontFamily: paperFonts.display,
-    fontSize: 23,
-    lineHeight: 27,
+    fontSize: 26,
+    lineHeight: 30,
+    letterSpacing: -0.8,
     color: paper.dashboardInk,
   },
-  runnerFishStage: {
-    width: 58,
-    height: 52,
+  rankedFieldFishStage: {
+    width: 70,
+    height: 61,
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 26,
-    backgroundColor: "#EEF6F8",
+    borderWidth: 1,
+    borderColor: "#DDE9ED",
+    backgroundColor: "#EFF6F7",
   },
-  runnerIdentity: { minWidth: 0, flex: 1 },
-  runnerState: {
+  rankedFieldIdentity: {
+    minWidth: 0,
+    flex: 1,
+  },
+  rankedFieldState: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.5,
-    letterSpacing: 0.7,
+    fontSize: 5.7,
+    letterSpacing: 0.85,
     color: "#167B78",
   },
-  runnerCity: {
+  rankedFieldCity: {
+    marginTop: 1,
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 15,
-    lineHeight: 17,
+    fontSize: 17,
+    lineHeight: 19,
     color: paper.dashboardInk,
   },
-  runnerTarget: {
-    marginTop: 2,
+  rankedFieldTarget: {
+    marginTop: 4,
     fontFamily: paperFonts.bodySemiBold,
     fontSize: 7,
+    lineHeight: 10,
     color: paper.dashboardMuted,
   },
-  runnerScoreWrap: {
+  rankedFieldScore: {
+    width: 47,
     flexDirection: "row",
     alignItems: "baseline",
+    justifyContent: "flex-end",
   },
-  runnerScore: {
+  rankedFieldScoreValue: {
     fontFamily: paperFonts.display,
-    fontSize: 22,
-    letterSpacing: -0.5,
+    fontSize: 24,
+    lineHeight: 28,
+    letterSpacing: -0.7,
   },
-  runnerScoreMax: {
+  rankedFieldScoreMax: {
     marginLeft: 1,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5,
+    fontSize: 4.8,
     color: paper.dashboardMuted,
   },
   rankingNote: {
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: 7,
-    padding: 10,
+    gap: 8,
+    margin: 12,
+    paddingHorizontal: 11,
+    paddingVertical: 10,
     borderWidth: 1,
-    borderColor: "rgba(22,123,120,0.2)",
-    borderRadius: 9,
-    backgroundColor: "rgba(22,123,120,0.06)",
+    borderColor: "rgba(22,123,120,0.22)",
+    backgroundColor: "rgba(22,123,120,0.055)",
   },
   rankingNoteText: {
     minWidth: 0,
     flex: 1,
     fontFamily: paperFonts.bodySemiBold,
-    fontSize: 9,
-    lineHeight: 13,
+    fontSize: 8.7,
+    lineHeight: 12.5,
     color: "#53676D",
   },
   pierFinderCard: {
     position: "relative",
     overflow: "hidden",
-    borderColor: "#C6DEE9",
-    backgroundColor: "#FBFDFE",
+    gap: 15,
+    paddingHorizontal: 18,
+    paddingTop: 25,
+    paddingBottom: 18,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 14,
+    backgroundColor: "#FEFEFC",
+    ...paperShadows.hard,
   },
-  pierFinderGlow: {
-    position: "absolute",
-    top: -75,
-    right: -75,
-    width: 190,
-    height: 190,
-    borderRadius: 95,
-    backgroundColor: "rgba(104,177,214,0.1)",
-  },
-  pierFinderHeaderIcon: { backgroundColor: "#DFF0F8" },
-  pierFinderSteps: {
-    flexDirection: "row",
+  pierFinderHeading: {
     alignItems: "center",
-    paddingHorizontal: 4,
+    paddingHorizontal: 12,
+    paddingBottom: 5,
   },
-  pierFinderStep: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
+  pierFinderTitle: {
+    marginTop: 5,
+    fontFamily: paperFonts.display,
+    fontSize: 31,
+    lineHeight: 34,
+    letterSpacing: -0.7,
+    textAlign: "center",
+    color: paper.dashboardInk,
   },
-  pierFinderStepNumber: {
-    width: 20,
-    height: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    backgroundColor: paper.dashboardBlue,
-  },
-  pierFinderStepNumberText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    color: "#FFFFFF",
-  },
-  pierFinderStepText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.7,
+  pierFinderSubtitle: {
+    maxWidth: 310,
+    marginTop: 6,
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 14,
+    textAlign: "center",
     color: paper.dashboardMuted,
   },
-  pierFinderStepLine: {
-    minWidth: 12,
+  finderPromptRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 2,
+  },
+  finderPromptNumber: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    lineHeight: 20,
+    color: paper.red,
+  },
+  finderPromptLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.3,
+    letterSpacing: 0.9,
+    color: paper.dashboardInk,
+  },
+  finderPromptRule: {
     flex: 1,
     height: 1,
-    marginHorizontal: 7,
-    backgroundColor: "#C6DEE9",
+    backgroundColor: paper.dashboardLine,
   },
-  stateSelector: { flexDirection: "row", gap: 8 },
+  stateSelector: {
+    flexDirection: "row",
+    gap: 8,
+  },
   stateChoice: {
     minWidth: 0,
     flex: 1,
     minHeight: 72,
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
-    padding: 10,
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingVertical: 10,
     borderWidth: 1.5,
-    borderColor: "#D7E2E7",
-    borderRadius: 12,
-    backgroundColor: "rgba(255,255,255,0.9)",
+    borderColor: "#D5E0E5",
+    borderRadius: 11,
+    backgroundColor: "rgba(255,255,255,0.93)",
   },
   stateChoiceSelected: {
     borderColor: paper.dashboardBlue,
-    backgroundColor: "#E8F4FA",
-  },
-  stateMonogram: {
-    width: 42,
-    height: 42,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    backgroundColor: "#EFF3F4",
-  },
-  stateMonogramSelected: {
-    backgroundColor: "#D6EBF6",
+    backgroundColor: "#EAF4FB",
+    ...paperShadows.lift,
   },
   stateCode: {
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 19,
+    fontFamily: paperFonts.display,
+    fontSize: 27,
+    lineHeight: 30,
+    letterSpacing: -0.7,
     color: paper.dashboardBlue,
   },
-  stateCodeSelected: { color: paper.dashboardBlue },
-  stateChoiceCopy: { minWidth: 0, flex: 1 },
+  stateChoiceCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
   stateName: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10.5,
+    fontSize: 9.5,
     color: paper.dashboardInk,
   },
-  stateNameSelected: { color: paper.dashboardInk },
   stateCityCount: {
-    marginTop: 2,
+    marginTop: 3,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.8,
-    letterSpacing: 0.55,
+    fontSize: 5.3,
+    letterSpacing: 0.65,
     color: paper.dashboardMuted,
   },
-  stateCityCountSelected: { color: paper.dashboardBlue },
   selectionCheck: {
-    width: 21,
-    height: 21,
+    width: 22,
+    height: 22,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#D2DDE2",
+    borderColor: "#CFDCE2",
     borderRadius: 11,
     backgroundColor: "#FFFFFF",
   },
@@ -2927,137 +2619,114 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardBlue,
     backgroundColor: "#FFFFFF",
   },
-  coverageCityRail: { gap: 9, paddingVertical: 2, paddingRight: 10 },
+  coverageCityRail: {
+    gap: 9,
+    paddingVertical: 4,
+    paddingRight: 12,
+  },
   coverageCityCard: {
     position: "relative",
-    overflow: "hidden",
-    width: 154,
-    minHeight: 124,
-    alignItems: "flex-start",
+    width: 164,
+    minHeight: 145,
     justifyContent: "flex-end",
-    padding: 12,
+    padding: 13,
     borderWidth: 1.5,
-    borderColor: "#D7E2E7",
-    borderRadius: 13,
-    backgroundColor: "rgba(255,255,255,0.92)",
+    borderColor: "#D5E0E5",
+    borderRadius: 12,
+    backgroundColor: "rgba(255,255,255,0.94)",
   },
   coverageCityCardSelected: {
     borderColor: paper.dashboardBlue,
-    backgroundColor: "#E8F4FA",
-  },
-  coverageCityIcon: {
-    width: 34,
-    height: 34,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "auto",
-    borderRadius: 17,
-    backgroundColor: "#EEF5F8",
-  },
-  coverageCityIconSelected: {
-    backgroundColor: "#D5EAF5",
+    backgroundColor: "#EAF4FB",
+    ...paperShadows.lift,
   },
   coverageCityTopline: {
-    width: "100%",
+    position: "absolute",
+    top: 11,
+    left: 12,
+    right: 12,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 9,
   },
   coverageCityState: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 5.5,
-    letterSpacing: 0.7,
+    letterSpacing: 0.75,
     color: paper.dashboardBlue,
   },
-  coverageCityCheck: {
-    width: 21,
-    height: 21,
+  coverageCityIndex: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.5,
+    letterSpacing: 0.6,
+    color: "#A3ADB2",
+  },
+  coverageCityIcon: {
+    width: 36,
+    height: 36,
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: "auto",
+    marginTop: 21,
     borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    borderRadius: 11,
-    backgroundColor: "#FFFFFF",
+    borderColor: "#C8DFEA",
+    borderRadius: 18,
+    backgroundColor: "#F3F9FC",
   },
   coverageCityName: {
-    marginTop: 2,
+    marginTop: 10,
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 17,
-    lineHeight: 20,
+    fontSize: 18,
+    lineHeight: 21,
     color: paper.dashboardInk,
   },
-  coverageCityNameSelected: { color: paper.dashboardInk },
   coverageCityDetail: {
-    marginTop: 3,
+    marginTop: 4,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.7,
+    fontSize: 5.4,
     letterSpacing: 0.55,
     color: paper.dashboardMuted,
   },
-  coverageCityDetailSelected: { color: paper.dashboardBlue },
-  pierFinderSelection: {
-    minHeight: 48,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 9,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: "#C6DEE9",
-    borderRadius: 11,
-    backgroundColor: "#F0F8FC",
-  },
-  pierFinderSelectionIcon: {
-    width: 28,
-    height: 28,
+  coverageCityCheck: {
+    position: "absolute",
+    top: 48,
+    right: 12,
+    width: 23,
+    height: 23,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 14,
-    backgroundColor: "#D8ECF6",
+    borderWidth: 1,
+    borderColor: "#D3DEE3",
+    borderRadius: 12,
+    backgroundColor: "#FFFFFF",
   },
-  pierFinderSelectionCopy: { minWidth: 0, flex: 1 },
-  pierFinderSelectionLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 5.7,
-    letterSpacing: 0.8,
-    color: paper.dashboardBlue,
-  },
-  pierFinderSelectionValue: {
-    marginTop: 2,
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    color: paper.dashboardInk,
+  coverageCityCheckSelected: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: "#FFFFFF",
   },
   loadCityButton: {
-    minHeight: 50,
+    minHeight: 51,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardBlue,
-    borderRadius: 12,
-    backgroundColor: "#E5F2F8",
+    gap: 11,
+    paddingHorizontal: 18,
+    borderRadius: 11,
+    backgroundColor: paper.dashboardInk,
   },
   loadCityButtonPressed: {
-    opacity: 0.82,
-    transform: [{ scale: 0.99 }],
+    opacity: 0.84,
+    transform: [{ scale: 0.995 }],
   },
-  loadCityButtonDisabled: { opacity: 0.42 },
+  loadCityButtonDisabled: {
+    opacity: 0.42,
+  },
   loadCityButtonText: {
+    flexShrink: 1,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1,
-    color: paper.dashboardBlue,
-  },
-  loadCityButtonArrow: {
-    width: 26,
-    height: 26,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 13,
-    backgroundColor: "#FFFFFF",
+    fontSize: 8,
+    letterSpacing: 1.15,
+    color: "#FFFFFF",
   },
   portSelector: {
     gap: 10,
