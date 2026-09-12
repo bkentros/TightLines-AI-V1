@@ -10,6 +10,8 @@ import {
   PIER_CAST_CITY_TEMPERATURE_SOURCES,
 } from "./coreCalibration.ts";
 
+import { PIER_CAST_REMAINING_SPECIES_REVIEW } from "./remainingSpecies.generated.ts";
+
 function species(
   speciesId: PierCastSpeciesId,
   inheritance: PierCastSpeciesInheritance,
@@ -26,8 +28,21 @@ function species(
   };
 }
 
-const unresolved = (speciesId: PierCastSpeciesId, limitation: string) =>
-  species(speciesId, "unresolved", limitation);
+const reviewedSpecies = (
+  cityId: PierCastCityProfile["cityId"],
+): PierCastCitySpeciesProfile[] =>
+  PIER_CAST_REMAINING_SPECIES_REVIEW.filter((row) => row.cityId === cityId).map(
+    (row) =>
+      species(
+        row.speciesId,
+        row.classification === "narrow_season_structure_specific"
+          ? "conditional"
+          : row.classification === "historical_unresolved"
+          ? "historical_lead"
+          : "unresolved",
+        `${row.classification}: ${row.limitation}`,
+      ),
+  );
 
 const structure = (value: PierCastStructure): PierCastStructure => value;
 
@@ -117,23 +132,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("ludington_mi", "coho_salmon", "candidate"),
       coreSpecies("ludington_mi", "steelhead", "candidate"),
       coreSpecies("ludington_mi", "brown_trout", "candidate"),
-      unresolved("lake_trout", "No adequate covered-pier season evidence."),
-      unresolved("walleye", "No adequate covered-pier season evidence."),
-      species(
-        "smallmouth_bass",
-        "conditional",
-        "Depends on stub-pier identity and access.",
-      ),
-      species("freshwater_drum", "candidate"),
-      unresolved("yellow_perch", "No adequate covered-pier season evidence."),
-      unresolved("lake_whitefish", "No adequate covered-pier season evidence."),
-      species(
-        "round_whitefish",
-        "historical_lead",
-        "Contemporary corroboration required.",
-      ),
-      unresolved("channel_catfish", "No adequate covered-pier evidence."),
-      unresolved("largemouth_bass", "No adequate covered-pier evidence."),
+      ...reviewedSpecies("ludington_mi"),
     ],
   },
   {
@@ -197,43 +196,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("grand_haven_mi", "coho_salmon", "candidate"),
       coreSpecies("grand_haven_mi", "steelhead", "candidate"),
       coreSpecies("grand_haven_mi", "brown_trout", "candidate"),
-      species(
-        "lake_trout",
-        "conditional",
-        "Grouped agency lead; individual pier season unresolved.",
-      ),
-      species(
-        "walleye",
-        "conditional",
-        "Grouped agency lead; individual pier season unresolved.",
-      ),
-      species(
-        "smallmouth_bass",
-        "historical_lead",
-        "Current pier-specific season needs corroboration.",
-      ),
-      species("freshwater_drum", "candidate"),
-      species(
-        "yellow_perch",
-        "conditional",
-        "Grouped and boat evidence cannot establish a pier season.",
-      ),
-      species(
-        "lake_whitefish",
-        "candidate",
-        "Narrow November port context; lawful method remains separate.",
-      ),
-      species(
-        "round_whitefish",
-        "conditional",
-        "Local lead needs a current season review.",
-      ),
-      species("channel_catfish", "candidate"),
-      species(
-        "largemouth_bass",
-        "candidate",
-        "Secondary target with a direct warm-season report.",
-      ),
+      ...reviewedSpecies("grand_haven_mi"),
     ],
   },
   {
@@ -310,22 +273,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("manistee_mi", "coho_salmon", "candidate"),
       coreSpecies("manistee_mi", "steelhead", "candidate"),
       coreSpecies("manistee_mi", "brown_trout", "candidate"),
-      species("lake_trout", "conditional", "Limited direct pier record."),
-      species("walleye", "candidate"),
-      species("smallmouth_bass", "candidate"),
-      species("freshwater_drum", "candidate"),
-      species("yellow_perch", "candidate"),
-      species("lake_whitefish", "conditional", "Limited direct record."),
-      species(
-        "round_whitefish",
-        "historical_lead",
-        "Contemporary corroboration required.",
-      ),
-      unresolved("channel_catfish", "No adequate covered-pier evidence."),
-      unresolved(
-        "largemouth_bass",
-        "No species-specific covered-pier evidence.",
-      ),
+      ...reviewedSpecies("manistee_mi"),
     ],
   },
   {
@@ -417,22 +365,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("frankfort_elberta_mi", "coho_salmon", "candidate"),
       coreSpecies("frankfort_elberta_mi", "steelhead", "candidate"),
       coreSpecies("frankfort_elberta_mi", "brown_trout", "candidate"),
-      unresolved("lake_trout", "Offshore evidence is excluded."),
-      species("walleye", "conditional", "Inside-pier trolling lead only."),
-      unresolved(
-        "smallmouth_bass",
-        "No adequate covered-pier evidence; Leland reports excluded.",
-      ),
-      unresolved("freshwater_drum", "No adequate covered-pier evidence."),
-      unresolved("yellow_perch", "No adequate covered-pier evidence."),
-      unresolved("lake_whitefish", "No adequate covered-pier evidence."),
-      species(
-        "round_whitefish",
-        "historical_lead",
-        "Contemporary corroboration required.",
-      ),
-      unresolved("channel_catfish", "No adequate covered-pier evidence."),
-      unresolved("largemouth_bass", "No adequate covered-pier evidence."),
+      ...reviewedSpecies("frankfort_elberta_mi"),
     ],
   },
   {
@@ -525,15 +458,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       ),
       coreSpecies("sheboygan_wi", "steelhead", "candidate"),
       coreSpecies("sheboygan_wi", "brown_trout", "candidate"),
-      unresolved("lake_trout", "No adequate covered-pier evidence."),
-      unresolved("walleye", "No adequate covered-pier evidence."),
-      unresolved("smallmouth_bass", "No adequate covered-pier evidence."),
-      unresolved("freshwater_drum", "No adequate covered-pier evidence."),
-      unresolved("yellow_perch", "No adequate covered-pier evidence."),
-      unresolved("lake_whitefish", "No adequate covered-pier evidence."),
-      unresolved("round_whitefish", "No adequate covered-pier evidence."),
-      unresolved("channel_catfish", "No adequate covered-pier evidence."),
-      unresolved("largemouth_bass", "No adequate covered-pier evidence."),
+      ...reviewedSpecies("sheboygan_wi"),
     ],
   },
 ] as const;

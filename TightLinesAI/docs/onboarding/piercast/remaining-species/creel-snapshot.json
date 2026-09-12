@@ -1,0 +1,64 @@
+{
+  "retrievedAt": "2026-09-12",
+  "publisher": "Michigan Department of Natural Resources",
+  "sourceTitle": "Michigan Creel Sportfishing Estimates",
+  "url": "https://app.powerbigov.us/view?r=eyJrIjoiOWQ5NjQxMmItYjFkYi00YzI2LTkxMTAtMjMwNjEzOWE5YjM3IiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9",
+  "queryUrl": "https://wabi-us-gov-iowa-api.analysis.usgovcloudapi.net/public/reports/querydata?synchronous=true",
+  "publicResourceKey": "9d96412b-b1db-4c26-9110-2306139a9b37",
+  "modelId": 176006,
+  "filters": {
+    "Mode": [
+      "Pier/Dock"
+    ],
+    "Estimate Type": [
+      "Angler Hours",
+      "Catch",
+      "Harvest"
+    ],
+    "PORT": "one query per listed port"
+  },
+  "dimensions": [
+    "Year",
+    "PORT",
+    "Mode",
+    "SpeciesName",
+    "Month",
+    "MonthName",
+    "Estimate Type"
+  ],
+  "measure": "Sum(Combined.Estimate)",
+  "rowWindow": 10000,
+  "sourceRefreshDate": null,
+  "scopeLimitations": [
+    "Port and Pier/Dock mode; no exact pier ID, targeting effort, fishing method, size, or uncertainty columns in these queries.",
+    "Complete retrieved rows include explicit zero estimates; missing species rows are not imputed to zero.",
+    "Historical catch includes harvest and releases from 1997; older harvest is not substituted for catch.",
+    "2020 retained in raw records but excluded from comparison periods; no unsurveyed winter assumed absent."
+  ],
+  "files": [
+    {
+      "port": "LUDINGTON",
+      "file": "sources/piercast-creel-LUDINGTON.json",
+      "sha256": "484f720decef519b5c42a87b0361d48babc8dac2d72424b6c90d0e9ef48ffc15",
+      "compactRowCount": 2930
+    },
+    {
+      "port": "GRAND HAVEN",
+      "file": "sources/piercast-creel-GRAND_HAVEN.json",
+      "sha256": "34a114b03e4845fad576fa0dd8c36fff73528fec3bf7436e2120b43f5e243ae8",
+      "compactRowCount": 3685
+    },
+    {
+      "port": "MANISTEE",
+      "file": "sources/piercast-creel-MANISTEE.json",
+      "sha256": "1fc3504d6fdea10e63ad5915d6ac1fe5b3979d27feccdb59a0ea45799c5a0d25",
+      "compactRowCount": 3509
+    },
+    {
+      "port": "FRANKFORT-ELBERTA",
+      "file": "sources/piercast-creel-FRANKFORT-ELBERTA.json",
+      "sha256": "25473fa5c5024bf143f72214c435da1b828119df2f41d8c666fbc65738b8cb21",
+      "compactRowCount": 2872
+    }
+  ]
+}

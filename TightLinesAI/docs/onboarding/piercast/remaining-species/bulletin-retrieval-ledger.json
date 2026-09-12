@@ -1,0 +1,492 @@
+[
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/10303eb",
+    "publishedAt": "2015-05-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "b76217761188e8c50aa6e9a16db8b67e1d7d7d098eee76ef242144b0e14cc75d",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/120bd0c",
+    "publishedAt": "2015-10-22",
+    "retrievedAt": "2026-09-12",
+    "sha256": "d5ad53b26b39baa466c4c5386c9f02cb2def986563181360a59cec302b70a56e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/1953bab",
+    "publishedAt": "2017-04-20",
+    "retrievedAt": "2026-09-12",
+    "sha256": "89d07db74f4b77690680e0c6d715b2ff7f543fccbdc975e9978d1cdc83e9ef83",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/1b558d8",
+    "publishedAt": "2017-09-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "74fed46ea0385bb42c48b02bd353310d33cab1909b5bfdb2494611721f89f154",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/1f55fee",
+    "publishedAt": "2018-06-06",
+    "retrievedAt": "2026-09-12",
+    "sha256": "2d2b168af858ba383aab125fa7c97f01e43f6550693c8947cea84708182a411d",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/1f70923",
+    "publishedAt": "2018-06-13",
+    "retrievedAt": "2026-09-12",
+    "sha256": "5c5a4c6e7e4e3a4a060e74e10bebd3275a07212bf5510f118bc8d966e8d95a7c",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/1f8ae24",
+    "publishedAt": "2018-06-21",
+    "retrievedAt": "2026-09-12",
+    "sha256": "96f485ce9c47894397b12e2f46b0f6b84335c0f5314dd84c63f0884555510995",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/218605d",
+    "publishedAt": "2018-10-31",
+    "retrievedAt": "2026-09-12",
+    "sha256": "7b3031b273b8e8fc2486c7b8bf706f8144de7a0058a748ad7d9f9715b68e0c2e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/219dc2e",
+    "publishedAt": "2018-11-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "bdaf269d54e2ebe3495988e096f06e4dd8eae4f8caea5b5596a2251b4bf95b6e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2401e19",
+    "publishedAt": "2019-04-24",
+    "retrievedAt": "2026-09-12",
+    "sha256": "7c20432f88b32ac5d78876dc62b3d6e94d3f7a65e0c540bd89df479e948d5caa",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2521a66",
+    "publishedAt": "2019-07-17",
+    "retrievedAt": "2026-09-12",
+    "sha256": "829b3b8189d9a85e501324e365e9dd36e7b2353158c3f4e1536df485a199defa",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/257279c",
+    "publishedAt": "2019-08-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "df5b56ae8fd954b592182d4139d55642fe747da02d0d5cd2c0201df76e422cd8",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/261ba5c",
+    "publishedAt": "2019-09-25",
+    "retrievedAt": "2026-09-12",
+    "sha256": "76f624133bdf74a4640bbd7b67fefbcdfe34d8bf3361e15227f60a90e83982fb",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2cce8db",
+    "publishedAt": "2021-04-14",
+    "retrievedAt": "2026-09-12",
+    "sha256": "1755772cad9ad2a4154a87252ce27ade29657ea4c72311512ef413ec41e804c6",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2cea412",
+    "publishedAt": "2021-04-21",
+    "retrievedAt": "2026-09-12",
+    "sha256": "b12f933b9aa5a853029c416a8ed286ec325361594a9ab0483bd0e448158a1b5e",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2d7cf51",
+    "publishedAt": "2021-05-05",
+    "retrievedAt": "2026-09-12",
+    "sha256": "70d4b74c8c26fa98a4591022f0a84ad0721661c5425ae393b25c1a62696002bb",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2e736eb",
+    "publishedAt": "2021-07-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "e467c5be560b7a91ceb8c7876e2544c94d66d11fb7e7b6108f29b87fe09e8a6e",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/2f9782e",
+    "publishedAt": "2021-10-27",
+    "retrievedAt": "2026-09-12",
+    "sha256": "b70a2aaab3fa9393052c7ea1fa470b8ecad675d65a1fbd5663f803f1d008c117",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3155afc",
+    "publishedAt": "2022-04-27",
+    "retrievedAt": "2026-09-12",
+    "sha256": "bf82e9d9ededdf7e7ee8b589a3bfc6f4293aacc41b0f74dfcc8c78847d876f5b",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3176352",
+    "publishedAt": "2022-05-11",
+    "retrievedAt": "2026-09-12",
+    "sha256": "91d5ad8718eec9e88f423a3c7299e889640a444dc402511f590dc3d0fdd96240",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/323f6bf",
+    "publishedAt": "2022-07-20",
+    "retrievedAt": "2026-09-12",
+    "sha256": "75e8664ea5a7784b1cea7e3756514f5baf9898f98ee0cabc7c7b2ff0e05ae430",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3548e2b",
+    "publishedAt": "2023-04-12",
+    "retrievedAt": "2026-09-12",
+    "sha256": "a87597276aab5bea9ef57ef3e2ebb112565603ada63add4399435c161d6e644b",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3573537",
+    "publishedAt": "2023-04-26",
+    "retrievedAt": "2026-09-12",
+    "sha256": "c265c9788d588f385f88550217947335f02cbf0419fd57ab248de79993ffcc70",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3588f66",
+    "publishedAt": "2023-05-03",
+    "retrievedAt": "2026-09-12",
+    "sha256": "798f955f6ed230004af3fcbfa2d48d6683d5978eaabc7c4d8e1a7c8c5c4d7430",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/35ed629",
+    "publishedAt": "2023-06-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "27b08cf59260d557afb0104f1f5adf50efdb40e81ed53845cafb91dffe217065",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3614332",
+    "publishedAt": "2023-06-21",
+    "retrievedAt": "2026-09-12",
+    "sha256": "bde7693c8b841168403d1ea1273edf581913b868484d33759bf65d71fce34db8",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/36281c5",
+    "publishedAt": "2023-06-28",
+    "retrievedAt": "2026-09-12",
+    "sha256": "9db55002f1af8db6e6dd6393643db7f37ffd43f162d83ee757be310104b88932",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/363ad03",
+    "publishedAt": "2023-07-05",
+    "retrievedAt": "2026-09-12",
+    "sha256": "44666071c511f8f462f689400b892c19a93bee031f5a0050a8841070e69237ba",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/364ea3a",
+    "publishedAt": "2023-07-12",
+    "retrievedAt": "2026-09-12",
+    "sha256": "158146d0151ffb8af6b4baf72d3128f642902cde9b909f301c7da8cb52800dd8",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/366250d",
+    "publishedAt": "2023-07-19",
+    "retrievedAt": "2026-09-12",
+    "sha256": "4ce5eb146b88b86ebdceb8a5d2e72678bed58ace957f927fa331aa4714d4628d",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3675eed",
+    "publishedAt": "2023-07-26",
+    "retrievedAt": "2026-09-12",
+    "sha256": "acc7e7dc8ef0af8b6827b19be639dbc40d6978f9f2bd0dfa10c72c1f49386969",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/36b27d5",
+    "publishedAt": "2023-08-16",
+    "retrievedAt": "2026-09-12",
+    "sha256": "8186873a83bc05245b34599316cafd236ff813f1293f77c3210d625a2f50bd2b",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/378d7b9",
+    "publishedAt": "2023-11-01",
+    "retrievedAt": "2026-09-12",
+    "sha256": "240fb9c16b3ff0d8df4011b6a4561c82d0bdbe7d35cb11041fb2bda12939139e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/39595be",
+    "publishedAt": "2024-04-10",
+    "retrievedAt": "2026-09-12",
+    "sha256": "9b2e785d0bce11d7956f5453cb342a2e6b6d81b6829dc6570f7740071d6be1d5",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3987c22",
+    "publishedAt": "2024-04-24",
+    "retrievedAt": "2026-09-12",
+    "sha256": "d66d9d3e3dfc195b9d7ae8d4d2320103907a7f33cd7dd21d0105322f9b9835b8",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3a521c4",
+    "publishedAt": "2024-06-26",
+    "retrievedAt": "2026-09-12",
+    "sha256": "ca9a41b0d4aee27e151dfcdbf0b932a55ca4bcbc2581ada1637e0cf49dd22616",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3a65224",
+    "publishedAt": "2024-07-03",
+    "retrievedAt": "2026-09-12",
+    "sha256": "d9c312c4402bf283745d8804c5e8ac5fd18b726918cbefb3edbdb18e76c7a282",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3abfd6e",
+    "publishedAt": "2024-07-31",
+    "retrievedAt": "2026-09-12",
+    "sha256": "5dfd08dd78cefc19d17a12b0d91178dd5c5448c27b1a0c181ff50fc666881fbd",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3b02c05",
+    "publishedAt": "2024-08-21",
+    "retrievedAt": "2026-09-12",
+    "sha256": "b0ba627352073248a63bcaac5860359ab272b846bd339d7b300eb4c3a59bdb8c",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3b7fd3a",
+    "publishedAt": "2024-09-25",
+    "retrievedAt": "2026-09-12",
+    "sha256": "bb4c582b742f21d686f6b90fd4c2ee1cc9467812971689087e576f4e5e045065",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3bc5a97",
+    "publishedAt": "2024-10-16",
+    "retrievedAt": "2026-09-12",
+    "sha256": "e81817b4e873731a761d90aa98880f13969aa2ff5dc9f09265b267cfcbb6b68c",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3bf0cc8",
+    "publishedAt": "2024-10-30",
+    "retrievedAt": "2026-09-12",
+    "sha256": "063c8ab1741817454f7623a9c9175ac983f16782edf73a3a12eca0b9e5c194a2",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3c05a1b",
+    "publishedAt": "2024-11-06",
+    "retrievedAt": "2026-09-12",
+    "sha256": "09570dfad878a88fc18248b63912e6f2956e355cfd2076ad3e3d45059e66d1a5",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3d67f34",
+    "publishedAt": "2025-03-12",
+    "retrievedAt": "2026-09-12",
+    "sha256": "03da865aa5e5e346c42c67d78480eae61f6b9baaa6310a066a620b01c7738f0d",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3d9f82a",
+    "publishedAt": "2025-04-02",
+    "retrievedAt": "2026-09-12",
+    "sha256": "275a4fdd6d7049015df946586487fc81df4de53943636eafbc8313b90960c58c",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3de4822",
+    "publishedAt": "2025-04-30",
+    "retrievedAt": "2026-09-12",
+    "sha256": "2b89491ba73534cc1763da1491cea748762beb04396408124e7eee9c0f77fba8",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3df50cf",
+    "publishedAt": "2025-05-07",
+    "retrievedAt": "2026-09-12",
+    "sha256": "4f6e2192bb8a318c853236a037220d06d33aa36243a25b534c8ef4cb223ce37d",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3e69eb7",
+    "publishedAt": "2025-06-25",
+    "retrievedAt": "2026-09-12",
+    "sha256": "c5e6e5eeb4f55a80b7b5c8d0b111a121b5b7338fc79710ca7ba90f0abac3e9fe",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3e8bd76",
+    "publishedAt": "2025-07-09",
+    "retrievedAt": "2026-09-12",
+    "sha256": "486b00098950f264386bfb7c921c0e31bed79a6ea805604bdab658e2c2c60d5c",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3e9b7f3",
+    "publishedAt": "2025-07-16",
+    "retrievedAt": "2026-09-12",
+    "sha256": "299f7c86b90ec7bcbe44fc1518286acdd6a666fe6b31ec23e2b86eafa2ef62ee",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3ebb776",
+    "publishedAt": "2025-07-30",
+    "retrievedAt": "2026-09-12",
+    "sha256": "813eeff3045494f4cf3600dca99b9bc64327c10b8524282dc5b17956bb2f6804",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3eeac7b",
+    "publishedAt": "2025-08-20",
+    "retrievedAt": "2026-09-12",
+    "sha256": "c5398737bfcf627d94bd7055e13e7f4871f5e5e40c910711328bf48d04a94400",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3f0b284",
+    "publishedAt": "2025-09-03",
+    "retrievedAt": "2026-09-12",
+    "sha256": "d47f974d254ecf74e9adce6aba0fa95c1bf9b5890b324b6e4ed9cb1d84092ad1",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3f1ef58",
+    "publishedAt": "2025-09-10",
+    "retrievedAt": "2026-09-12",
+    "sha256": "eb2c13b792c7bd5da8c55355bcf96c5f9982712c2d8130871771a873fd51188e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3f82f6f",
+    "publishedAt": "2025-10-22",
+    "retrievedAt": "2026-09-12",
+    "sha256": "17a0aa98d3e63d533840d37df984397f7637de32f042f89cc84b591b7409e65f",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3fa205d",
+    "publishedAt": "2025-11-05",
+    "retrievedAt": "2026-09-12",
+    "sha256": "2d2aff825a4f0e01b35460eaa53ce332ccbeef3535e3c32944d20b6e4c4b7c82",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/4120b21",
+    "publishedAt": "2026-04-08",
+    "retrievedAt": "2026-09-12",
+    "sha256": "cb5a350d765ed0bd0c16acb5bda85db357b5f4e8bca0189bd9d1ec84bb20191e",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/4130cd0",
+    "publishedAt": "2026-04-15",
+    "retrievedAt": "2026-09-12",
+    "sha256": "5b33ef68e22cc5c7063e0598e919402e9f0ec11cb42efd1041fe9ae639f0a8ed",
+    "usedInDecisionRegister": false
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/41407c5",
+    "publishedAt": "2026-04-22",
+    "retrievedAt": "2026-09-12",
+    "sha256": "13faafe15dd6b14f8e18d703a2c5cf7f6891cfe78ae86dd2cce134826d3f2741",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/4160ba5",
+    "publishedAt": "2026-05-06",
+    "retrievedAt": "2026-09-12",
+    "sha256": "79c2edcabcc04c92779e9ab3c6d11b57639b73312d986a54d6eab8e38c2f3b36",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/41a3a94",
+    "publishedAt": "2026-06-03",
+    "retrievedAt": "2026-09-12",
+    "sha256": "ae6fc481c3aa26b1511163a50605632d0f4deeff65c55591f931236e387bdd48",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/41b62ae",
+    "publishedAt": "2026-06-10",
+    "retrievedAt": "2026-09-12",
+    "sha256": "400a52b18fbdb317655e87d8b878761ade05a6c2075fa343a14b773be0e0a3dc",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/41c718b",
+    "publishedAt": "2026-06-17",
+    "retrievedAt": "2026-09-12",
+    "sha256": "36b7f22464fd358e5d1fe4000ec9a8d3d4392cd5fc22332a8cb40a7b5d6c29af",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/41e9e6e",
+    "publishedAt": "2026-07-01",
+    "retrievedAt": "2026-09-12",
+    "sha256": "cfc708bd8d41054ed701066fcccd5e0d3e6422e4914a26961e03ab34ee2a4870",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/421929e",
+    "publishedAt": "2026-07-22",
+    "retrievedAt": "2026-09-12",
+    "sha256": "b561eb03cb52a568d21a119d81f6af0c927bb6298fd0983446577901390bf9c3",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/423b34d",
+    "publishedAt": "2026-08-05",
+    "retrievedAt": "2026-09-12",
+    "sha256": "0d041d880312157e3d3b69f88a24e784b054af6c1202ba244e95859151caf7fd",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/425abbc",
+    "publishedAt": "2026-08-19",
+    "retrievedAt": "2026-09-12",
+    "sha256": "716243ce0f75ac6af945f3f0c8353d654846bcce93632f199e5a28018e290507",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/426de2b",
+    "publishedAt": "2026-08-26",
+    "retrievedAt": "2026-09-12",
+    "sha256": "3f183018740755579c0df1ae5a42ac1611ad6eb7b68cbe64724c57bbe8a92b5c",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/4280cb4",
+    "publishedAt": "2026-09-02",
+    "retrievedAt": "2026-09-12",
+    "sha256": "bc9c3ffbd37af136df84d0aa8403db3ef30a4bfec6ad1b60901a35a263978138",
+    "usedInDecisionRegister": true
+  },
+  {
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/607527",
+    "publishedAt": "2012-12-05",
+    "retrievedAt": "2026-09-12",
+    "sha256": "7c48a0a2890c9af7e49a8b049450845bc3dd3364d077a1959b5b7f01c1b8726d",
+    "usedInDecisionRegister": false
+  }
+]

@@ -1,5 +1,7 @@
 # PierCast — City Coverage and Engine Plan
 
+> **Remaining-species review — 2026-09-12:** The [45-pair decision register](onboarding/piercast/remaining-species/README.md) supersedes earlier candidate labels for the nine non-core species. Three narrow fishery leads remain; other pairings are historical/unresolved or excluded. No additional daily seasonal or thermal curve is justified by this review. Numerical onboarding remains unresolved, with explicit unavailable/excluded weekly rows and configuration gates. The existing four-species scores, formula, UI, daily lock, conditions pipeline and disabled public release remain unchanged.
+
 **Date:** 2026-09-09\
 **Status:** Accepted product direction and completed upfront research synthesis;
 implementation/release gates remain unresolved.\

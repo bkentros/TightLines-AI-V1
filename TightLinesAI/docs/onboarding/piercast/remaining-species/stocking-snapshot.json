@@ -1,0 +1,11 @@
+{
+  "retrievedAt": "2026-09-12",
+  "url": "https://utility.arcgis.com/usrsvcs/servers/fc7739be5f5247e7bf7f2c6bc9471140/rest/services/DNR/FishStockingReportGISAGO/MapServer/0/query",
+  "where": "Water_Body_Name LIKE '%MICHIGAN%' AND County_Name IN ('MASON','OTTAWA','MANISTEE','BENZIE') AND stocking_date >= timestamp '2023-01-01 00:00:00'",
+  "outFields": "County_Name,Water_Body_Name,SPEC_COMM_Alt,stocking_date,Number_Fish_Stocked,sitename",
+  "returnGeometry": false,
+  "recordCount": 38,
+  "file": "sources/michigan-stocking-selected.json",
+  "sha256": "a161432bcb0b838d178bd4c614468abb301a0cf3e737f74290598d8dd586ac7b",
+  "limitations": "Bounded name/county slice; not all federal/offshore releases. No opportunity values derived."
+}

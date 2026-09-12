@@ -26,3 +26,7 @@ schema template; its values are not evidence and must never be committed. The
 [authorization packet](../../PierCast_Field_Deployment_Authorization_Packet.md)
 contains the regulator routing, fixed technical description, request language,
 and submission checklist for all seven sites.
+
+## Remaining species
+
+The [45-pair decision register](remaining-species/README.md) reviews the nine additions against these exact structures. Its explicit classifications supersede earlier candidate leads; none authorizes a numeric score. See the raw creel snapshots, monthly comparisons, thermal review and generated weekly availability in that directory.

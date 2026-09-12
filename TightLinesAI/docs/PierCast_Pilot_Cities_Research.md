@@ -1,5 +1,7 @@
 # PierCast — Pilot Cities, Piers, Species, and Seasons
 
+> **Remaining-species review — 2026-09-12:** The [45-pair decision register](onboarding/piercast/remaining-species/README.md) supersedes earlier candidate labels for the nine non-core species. Three narrow fishery leads remain; other pairings are historical/unresolved or excluded. No additional daily seasonal or thermal curve is justified by this review. Numerical onboarding remains unresolved, with explicit unavailable/excluded weekly rows and configuration gates. The existing four-species scores, formula, UI, daily lock, conditions pipeline and disabled public release remain unchanged.
+
 **Research date:** 2026-09-09
 **Status:** Upfront local research pass complete: coverage decisions, source corrections, retained rosters, seasonal evidence inventory, and unresolved facts are explicitly dispositioned. No city/species is release-ready or forecast-validated.
 **Related plan:** [City Coverage and Engine Plan](PierCast_City_Coverage_and_Engine_Plan.md)

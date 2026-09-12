@@ -1,5 +1,7 @@
 # PierCast — Annual Species Biology and Thermal Research
 
+> **Remaining-species review — 2026-09-12:** The [45-pair decision register](onboarding/piercast/remaining-species/README.md) supersedes earlier candidate labels for the nine non-core species. Three narrow fishery leads remain; other pairings are historical/unresolved or excluded. No additional daily seasonal or thermal curve is justified by this review. Numerical onboarding remains unresolved, with explicit unavailable/excluded weekly rows and configuration gates. The existing four-species scores, formula, UI, daily lock, conditions pipeline and disabled public release remain unchanged.
+
 **Completed:** 2026-09-09
 **Status:** Full upfront evidence pass for all 13 retained species. A later product-calibration pass added disabled provisional curves for the four core species only; no numerical curve is approved for public use. See [Core temperature and source calibration](PierCast_Core_Temperature_and_Source_Calibration.md).
 **Scope:** Chinook salmon, coho salmon, steelhead, brown trout, lake trout, walleye, smallmouth bass, freshwater drum, yellow perch, lake whitefish, round whitefish, channel catfish, and largemouth bass across all twelve months.
