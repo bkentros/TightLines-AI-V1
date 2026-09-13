@@ -127,7 +127,7 @@ Deno.test("authorized owner-review catalog returns five disabled cities", async 
       seasonalOpportunityCurve: unknown;
     }) => !species.ratingEnabled && species.seasonalOpportunityCurve !== null)
       .length,
-    27,
+    28,
   );
 });
 

@@ -1,15 +1,15 @@
 {
-  "version": "piercast-private-roster-v2-2026-09-12",
+  "version": "piercast-private-roster-v3-2026-09-13",
   "phase": 2,
   "status": "decisions_complete",
   "scope": "Private disabled provisional scored lineup only; no public scientific approval",
-  "admissionStandard": "Repeated pier catch evidence plus named corroboration or explicitly bounded covered-side inference. No offshore, upstream, unknown bass-species or single-catch-only admission. Provisional thermal compatibility follows the same product-calibration standard as the completed core; all public representation and outcome-validation gates remain blocked.",
+  "admissionStandard": "Credible recurring identified catches from covered piers, supported by primary reports/creel and named dated corroboration or bounded explicit structure inference. No major-fishery or directed-effort prerequisite. Exact structure, fishing mode, annual calibration and applicable provisional thermal profile remain required. Public scientific gates remain disabled.",
   "rows": [
     {
       "cityId": "ludington_mi",
       "speciesId": "lake_trout",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Port Pier/Dock recurrence and the April 2019 pier report support occurrence, but the North Breakwater attribution is not resolved. Offshore, reef and state-park catches do not resolve this exact structure.",
       "evidenceIds": [
         "MI_CREEL",
         "B_2521a66",
@@ -21,13 +21,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "walleye",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Pier catches in May 2022 and multiple port catch years establish a lead; the retained report does not identify North Breakwater. Basin night fishing does not identify shore versus boat mode.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3176352",
@@ -38,7 +40,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
@@ -63,13 +67,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "freshwater_drum",
       "decision": "defer",
-      "rationale": "Deferred: recurring city pier catches support research, but the retained evidence does not resolve the covered side and species sufficiently. Unidentified bass are not split into smallmouth and largemouth.",
+      "rationale": "Repeated city pier reports and an annual curve support recurrence. The covered North Breakwater cannot be separated from other piers in the retained species-specific evidence. This is a structure-attribution deferral, not insufficient popularity.",
       "evidenceIds": [
         "MI_CREEL",
         "B_421929e",
@@ -83,7 +89,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
@@ -108,13 +116,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "lake_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Rare port estimates and generic whitefish reports do not establish repeated species-specific North Breakwater catches; lake and round whitefish cannot be merged.",
       "evidenceIds": [
         "MI_CREEL",
         "WHITEFISH_GEAR"
@@ -124,13 +134,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "round_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Historical port catches remain a lead, but current species-specific North Breakwater recurrence and an applicable adult thermal calibration are not established.",
       "evidenceIds": [
         "MI_CREEL",
         "ROUND_DECLINE"
@@ -140,13 +152,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "channel_catfish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated species-specific catches from North Breakwater are established in the reviewed collection. River or inland-lake records do not resolve the pairing.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -155,13 +169,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "ludington_mi",
       "speciesId": "largemouth_bass",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified largemouth catches from North Breakwater are established. Unspecified bass, rock bass and smallmouth cannot be relabeled.",
       "evidenceIds": [
         "MI_CREEL",
         "B_364ea3a"
@@ -171,13 +187,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "lake_trout",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Port Pier/Dock catches recur, but the reviewed reports cannot attribute them to South Pier. Grouped Grand Haven/Holland and offshore reports cannot establish the covered structure.",
       "evidenceIds": [
         "MI_CREEL",
         "MI_STOCKING"
@@ -187,13 +205,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "walleye",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Port catches establish occurrence, but repeated South Pier catches are not resolved. Upstream Grand River catches and grouped-port listings remain out of scope.",
       "evidenceIds": [
         "MI_CREEL",
         "B_14ccdb0"
@@ -203,13 +223,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "smallmouth_bass",
       "decision": "defer",
-      "rationale": "Deferred: recurring city pier catches support research, but the retained evidence does not resolve the covered side and species sufficiently. Unidentified bass are not split into smallmouth and largemouth.",
+      "rationale": "Repeated identified city pier catches support an annual research curve, but the covered South Pier attribution remains unverified. The AFS exact-site lead returned 403 and was not accepted from search snippets.",
       "evidenceIds": [
         "MI_CREEL",
         "B_207cdc1",
@@ -225,7 +247,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13). November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
@@ -253,13 +277,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "yellow_perch",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Repeated port Pier/Dock catches justify research. The historical quantitative study identifies excluded North Pier; recent reports do not resolve recurring South Pier catches and seasonal magnitude. A purported local brochure could not be retrieved.",
       "evidenceIds": [
         "MI_CREEL",
         "MI_2025",
@@ -270,13 +296,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "lake_whitefish",
       "decision": "defer",
-      "rationale": "Deferred: exact South Pier contribution and current lawful-method magnitude are unresolved. Historical snagging or generic port harvest cannot establish current target strength.",
+      "rationale": "Repeated pier reports and agency recognition establish a port fishery. Exact South Pier attribution remains unresolved, and catch totals containing snagged fish cannot calibrate lawful hook-and-line magnitude after the gear change. Not deferred for lack of popularity.",
       "evidenceIds": [
         "MI_CREEL",
         "WHITEFISH_GEAR",
@@ -295,13 +323,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "round_whitefish",
       "decision": "defer",
-      "rationale": "Deferred from the scored lineup: available thermal experiments concern juveniles; adult response remains insufficiently constrained. Annual research is retained, not erased.",
+      "rationale": "Annual research remains retained; exact South Pier recurrence and adult thermal response remain insufficiently constrained. Juvenile avoidance experiments cannot supply an adult bite curve.",
       "evidenceIds": [
         "MI_CREEL",
         "B_2cce8db",
@@ -316,13 +346,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
       "speciesId": "channel_catfish",
       "decision": "defer",
-      "rationale": "Deferred: recurring city pier catches support research, but the retained evidence does not resolve the covered side and species sufficiently. Unidentified bass are not split into smallmouth and largemouth.",
+      "rationale": "Species-specific city pier reports and annual research support a candidate. Repeated catches cannot yet be assigned to covered South Pier. Generic catfish reports cannot distinguish channel from flathead or bullhead.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3588f66",
@@ -338,7 +370,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "grand_haven_mi",
@@ -362,7 +396,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13). November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
@@ -382,13 +418,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "walleye",
       "decision": "defer",
-      "rationale": "Deferred: North Pier perch wording does not prove that the adjacent walleye sentence concerns North Pier. South-closure-era trolling/casting is not separated into pier mode for walleye. No upstream or boat transfer.",
+      "rationale": "Pier catches recur, but North Pier is not identified for walleye. A preceding North Pier perch sentence cannot attribute the following walleye catches; boat or upstream catches do not resolve it.",
       "evidenceIds": [
         "MI_CREEL",
         "P1_2452955",
@@ -404,13 +442,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. Great Lakes lake-side season is not an upstream river-season determination.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "smallmouth_bass",
-      "decision": "defer",
-      "rationale": "Deferred: recurring city pier catches support research, but the retained evidence does not resolve the covered side and species sufficiently. Unidentified bass are not split into smallmouth and largemouth.",
+      "decision": "admit_private_provisional",
+      "rationale": "Repeated identified pier catches in 2023, 2024 and 2026, with a July 2024 dated local report explicitly identifying North Pier, meet the recurring-catch standard. The newspaper corroborates the agency event and is not counted as another event. Existing annual curve and shared provisional smallmouth thermal profile are retained.",
       "evidenceIds": [
         "MI_CREEL",
         "B_366250d",
@@ -421,14 +461,17 @@
         "A_BASS_CARTER2012",
         "A_SMALLMOUTH_RR1971",
         "T023",
+        "R_MAN_SMALL_NORTH2024",
         "P2_REGS2026"
       ],
       "structureId": "manistee_north_pier",
-      "thermalDecision": "not_admitted",
+      "thermalDecision": "provisional_product_calibration",
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
-      "methodConstraint": "Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).",
-      "regulationValidThrough": "2027-03-31"
+      "methodConstraint": "Year-round bass catch-and-immediate-release in otherwise open waters; harvest only within the applicable 2026 guide season and size/bag limits. Pier access and lawful gear remain separate.",
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
@@ -453,7 +496,9 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
@@ -481,13 +526,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "lake_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "The explicit April 2025 lake-whitefish report is not enough to resolve repeat species-specific North Pier catches. Older North Pier reports identify only whitefish and cannot be split into lake versus round whitefish.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3155afc",
@@ -500,13 +547,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "round_whitefish",
       "decision": "defer",
-      "rationale": "Deferred from the scored lineup: available thermal experiments concern juveniles; adult response remains insufficiently constrained. Annual research is retained, not erased.",
+      "rationale": "Annual research remains retained. Adult thermal-response evidence is insufficient for a scored profile; juvenile round-whitefish avoidance is not adopted as adult pier compatibility.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3548e2b",
@@ -521,13 +570,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "channel_catfish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified channel-catfish catches from North Pier are established. Manistee Lake and upstream river catches are not covered-pier evidence.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -536,13 +587,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "manistee_mi",
       "speciesId": "largemouth_bass",
       "decision": "defer",
-      "rationale": "Deferred: recurring city pier catches support research, but the retained evidence does not resolve the covered side and species sufficiently. Unidentified bass are not split into smallmouth and largemouth.",
+      "rationale": "Annual port research remains retained, but repeated identified largemouth catches on North Pier are unresolved. The new July 2024 North Pier corroboration names smallmouth, not largemouth.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3675eed",
@@ -558,13 +611,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": "Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).",
-      "regulationValidThrough": "2027-03-31"
+      "regulationValidThrough": "2027-03-31",
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "lake_trout",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Sparse port-mode cold-season catches remain a lead, but recurring catches from either covered breakwater are not established. Trolling at depth and Point Betsie stocking do not identify breakwater casting catches.",
       "evidenceIds": [
         "MI_CREEL",
         "B_4160ba5",
@@ -575,13 +630,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "walleye",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Historical port Pier/Dock catches remain a lead. The reviewed April 2024 and May 2026 inside/between-piers reports explicitly concern trolling and do not establish recurring breakwater catches.",
       "evidenceIds": [
         "MI_CREEL",
         "B_3987c22",
@@ -592,13 +649,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "smallmouth_bass",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Port catches indicate occurrence, but repeated species-specific catches from either covered breakwater are not established. Betsie Bay/river and other-port catches are not substituted.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -607,13 +666,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "freshwater_drum",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Sparse port catches do not resolve repeated catches from either covered breakwater. Grand Haven or Manistee reports cannot establish this pairing.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -622,13 +683,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "yellow_perch",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated contemporary catch evidence from either covered breakwater is established. Inland-lake, bay and boat reports are not substituted.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -637,13 +700,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "lake_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Isolated spring port catches do not establish recurring species-specific catches from either covered breakwater. Menominee is a different species.",
       "evidenceIds": [
         "MI_CREEL",
         "ROUND_DECLINE"
@@ -653,13 +718,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "round_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Historical Frankfort pier use is recognized, but the 2026 interview recalls a trip roughly a decade earlier. Contemporary recurrence and adult thermal calibration remain unestablished; it does not support an Elberta transfer.",
       "evidenceIds": [
         "MI_CREEL",
         "ROUND_DECLINE"
@@ -669,13 +736,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "channel_catfish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified channel-catfish catches on either covered breakwater are established. Regional or river presence does not resolve the pairing.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -684,13 +753,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "frankfort_elberta_mi",
       "speciesId": "largemouth_bass",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified largemouth catches on either covered breakwater are established. Unspecified bass and protected inland habitat do not establish these structures.",
       "evidenceIds": [
         "MI_CREEL"
       ],
@@ -699,13 +770,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "lake_trout",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Regional pier harvest cannot be assigned to Sheboygan. Reef stocking and boat catches do not establish repeat catches from either covered pier.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -718,13 +791,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "walleye",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Regional Lake Michigan/Green Bay pier harvest cannot be assigned to Sheboygan. River walleye do not establish repeat catches from either covered pier.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -736,13 +811,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "smallmouth_bass",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "The September 2019 report documents smallmouth caught from the covered piers, regardless of anglers targeting salmon. A second independent dated local pier event is not established in the reviewed evidence; river and regional data do not supply that recurrence.",
       "evidenceIds": [
         "SHEBOYGAN_SMALLMOUTH",
         "WI_2022",
@@ -755,13 +832,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "freshwater_drum",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated dated species-specific catches from either covered pier are established. Regional catches and unspecified harbor reports are insufficient; unlisted regional harvest is not a zero catch estimate.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -773,13 +852,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "yellow_perch",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "Historical local recollection and pooled regional pier catches do not establish contemporary repeat catches from either covered pier. Power-plant-area and inland-lake reports are not transferred.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -792,13 +873,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "lake_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified lake-whitefish catches from either covered pier are established. Green Bay whitefish fisheries are geographically inapplicable.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -810,13 +893,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "round_whitefish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated species-specific round-whitefish catches from either covered pier are established. Lake whitefish and northern Michigan history are not substituted.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -828,13 +913,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "channel_catfish",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified channel-catfish catches from either covered pier are established. Sheboygan River reports do not resolve either covered structure.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -846,13 +933,15 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     },
     {
       "cityId": "sheboygan_wi",
       "speciesId": "largemouth_bass",
       "decision": "defer",
-      "rationale": "Phase 1 whole-pair deferral retained: no accepted annual calibration. Evidence and limitations remain in the Phase 1 register.",
+      "rationale": "No repeated identified largemouth catches from either covered pier are established. Smallmouth observations and unspecified bass are not relabeled.",
       "evidenceIds": [
         "WI_2022",
         "WI_2023",
@@ -865,7 +954,10 @@
       "representationDecision": "private_surface_proxy_only_public_blocked",
       "publicEnabled": false,
       "methodConstraint": null,
-      "regulationValidThrough": null
+      "regulationValidThrough": null,
+      "reconciliationStandard": "recurring_covered_pier_catches_v1",
+      "reconciledAt": "2026-09-13"
     }
-  ]
+  ],
+  "reconciledAt": "2026-09-13"
 }

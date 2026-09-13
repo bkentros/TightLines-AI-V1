@@ -85,7 +85,7 @@ Deno.test("private annual lineup produces complete monthly snapshots including w
       engineVersion: PIER_CAST_ENGINE_VERSION,
     });
     assert(
-      snapshot.cities.reduce((n, c) => n + c.date.species.length, 0) === 27,
+      snapshot.cities.reduce((n, c) => n + c.date.species.length, 0) === 28,
     );
     for (const city of snapshot.cities) {
       for (const fish of city.date.species) {

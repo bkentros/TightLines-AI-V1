@@ -30,7 +30,7 @@ function snapshotInput() {
   };
 }
 
-Deno.test("shadow payload freezes 135 disabled forecasts and their model provenance", () => {
+Deno.test("shadow payload freezes 140 disabled forecasts and their model provenance", () => {
   const payload = buildPierCastShadowForecastPayload(snapshotInput());
   assertEquals(payload.run, {
     speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
@@ -41,11 +41,11 @@ Deno.test("shadow payload freezes 135 disabled forecasts and their model provena
     engineVersion: PIER_CAST_ENGINE_VERSION,
     formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
     rubricVersion: "finfindr-opportunity-v1",
-    seasonalCalibrationVersion: "piercast-private-seasonal-v1-core-v0.4.0",
+    seasonalCalibrationVersion: "piercast-private-seasonal-v2-core-v0.4.0",
     temperatureCalibrationVersion: "piercast-private-temperature-v1-core-v0.2.0",
     previewOnly: true,
   });
-  assertEquals(payload.forecasts.length, 135);
+  assertEquals(payload.forecasts.length, 140);
   assertEquals(new Set(payload.forecasts.map((item) => item.cityId)).size, 5);
   assertEquals(
     new Set(payload.forecasts.map((item) => item.speciesId)).size,
@@ -61,12 +61,12 @@ Deno.test("shadow payload freezes 135 disabled forecasts and their model provena
   assertEquals(
     payload.forecasts.filter((item) => item.assessmentScope === "remaining_day")
       .length,
-    27,
+    28,
   );
   assertEquals(
     payload.forecasts.filter((item) => item.assessmentScope === "full_day")
       .length,
-    108,
+    112,
   );
 });
 
@@ -81,7 +81,7 @@ Deno.test("shadow archiver makes one service-role RPC and accepts idempotent com
         data: {
           status: "already_committed",
           runId: "850753b5-83bf-4a2f-b28f-3ec866ee6f6d",
-          forecastCount: 135,
+          forecastCount: 140,
         },
         error: null,
       });
@@ -93,9 +93,9 @@ Deno.test("shadow archiver makes one service-role RPC and accepts idempotent com
     ...snapshotInput(),
   });
   assertEquals(functionName, "commit_pier_cast_shadow_forecast");
-  assertEquals((arguments_.p_forecasts as unknown[]).length, 135);
+  assertEquals((arguments_.p_forecasts as unknown[]).length, 140);
   assertEquals(result.status, "already_committed");
-  assertEquals(result.forecastCount, 135);
+  assertEquals(result.forecastCount, 140);
   assertEquals(
     result.formulaVersion,
     "seasonal-opportunity-bounded-temperature-v2",

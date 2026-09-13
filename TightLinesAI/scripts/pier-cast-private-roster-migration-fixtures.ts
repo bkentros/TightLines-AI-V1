@@ -43,15 +43,21 @@ const duplicate = structuredClone(snapshot);
 duplicate.cities[0].date.species.at(-1)!.speciesId = "chinook_salmon";
 const wrongForecast = structuredClone(payload.forecasts);
 wrongForecast[0].speciesId = "channel_catfish";
-const legacyRun = {...payload.run, engineVersion: "pier-cast-simple-model-v0.8.0", speciesRosterVersion: "piercast-five-city-four-species-v1"};
-const legacyForecasts = payload.forecasts.filter(f => (PIER_CAST_CORE_SPECIES_IDS as readonly string[]).includes(f.speciesId));
+const legacyRun = {
+  ...payload.run,
+  engineVersion: "pier-cast-simple-model-v0.8.0",
+  speciesRosterVersion: "piercast-five-city-four-species-v1",
+};
+const legacyForecasts = payload.forecasts.filter((f) =>
+  (PIER_CAST_CORE_SPECIES_IDS as readonly string[]).includes(f.speciesId)
+);
 console.log(`begin;
 insert into public.pier_cast_temperature_cycles values ('${batch.issuedAt}','complete') on conflict do nothing;
 do $test$ declare result jsonb; begin
  result:=public.commit_pier_cast_shadow_forecast(${q(payload.run)},${
   q(payload.forecasts)
 });
- if (result->>'forecastCount')::integer<>135 then raise exception 'expanded shadow count';end if;
+ if (result->>'forecastCount')::integer<>140 then raise exception 'expanded shadow count';end if;
  result:=public.commit_pier_cast_shadow_forecast(${q(payload.run)},${
   q(payload.forecasts)
 });
@@ -79,5 +85,39 @@ do $test$ declare result jsonb; begin
  if result->>'status'<>'committed' then raise exception 'new snapshot failed';end if;
  if (select jsonb_array_length(snapshot->'cities'->0->'date'->'species') from public.pier_cast_daily_score_snapshots where lake_date='2026-09-10')<>6 then raise exception 'new roster missing';end if;
  if has_function_privilege('anon','public.commit_pier_cast_daily_score_snapshot(jsonb)','execute') then raise exception 'public privilege';end if;
+end;$test$;
+rollback;`);
+
+const previousSnapshot = structuredClone(snapshot);
+previousSnapshot.speciesRosterVersion = "piercast-private-roster-v2-2026-09-12";
+previousSnapshot.engineVersion = "pier-cast-simple-model-v0.9.1";
+for (const city of previousSnapshot.cities) {
+  if (city.cityId === "manistee_mi") {
+    city.date.species = city.date.species.filter((s) =>
+      s.speciesId !== "smallmouth_bass"
+    );
+  }
+}
+const previousRun = {
+  ...payload.run,
+  engineVersion: "pier-cast-simple-model-v0.9.1",
+  speciesRosterVersion: "piercast-private-roster-v2-2026-09-12",
+};
+const previousForecasts = payload.forecasts.filter((f) =>
+  !(f.cityId === "manistee_mi" && f.speciesId === "smallmouth_bass")
+);
+console.log(`begin;
+insert into public.pier_cast_temperature_cycles values ('${batch.issuedAt}','complete') on conflict do nothing;
+do $test$ declare result jsonb; begin
+result:=public.commit_pier_cast_shadow_forecast(${q(previousRun)},${
+  q(previousForecasts)
+});
+if (result->>'forecastCount')::integer<>135 then raise exception 'v2 shadow count'; end if;
+result:=public.commit_pier_cast_daily_score_snapshot(${q(previousSnapshot)});
+if result->>'status'<>'committed' then raise exception 'v2 snapshot rejected'; end if;
+result:=public.commit_pier_cast_daily_score_snapshot(${q(snapshot)});
+if result->>'status'<>'already_committed' then raise exception 'v2 lock overwritten'; end if;
+if cardinality(public.pier_cast_private_roster('manistee_mi','piercast-private-roster-v2-2026-09-12'))<>7 then raise exception 'v2 roster changed'; end if;
+if cardinality(public.pier_cast_private_roster('manistee_mi','piercast-private-roster-v3-2026-09-13'))<>8 then raise exception 'v3 roster missing'; end if;
 end;$test$;
 rollback;`);

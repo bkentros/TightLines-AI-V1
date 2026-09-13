@@ -1,12 +1,12 @@
 {
   "auditDate": "2026-09-13",
-  "engineVersion": "pier-cast-simple-model-v0.9.1",
+  "engineVersion": "pier-cast-simple-model-v0.10.0",
   "publicEnabled": false,
-  "dailyChecks": 39447,
-  "temperatureScenarios": 11232,
+  "dailyChecks": 40908,
+  "temperatureScenarios": 11648,
   "thermalGridChecks": 2889,
   "thermalGateChecks": 63,
-  "pipelineSpeciesDays": 2430,
+  "pipelineSpeciesDays": 2520,
   "pipelineDates": [
     "2026-01-15",
     "2026-02-15",
@@ -201,6 +201,16 @@
     },
     {
       "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "min": 1.5,
+      "max": 4.5,
+      "peakDates": [
+        "07-15"
+      ],
+      "maxDailyChange": 0.05000000000000071
+    },
+    {
+      "cityId": "manistee_mi",
       "speciesId": "freshwater_drum",
       "min": 1.5,
       "max": 4.5,
@@ -323,7 +333,7 @@
     },
     {
       "cityId": "manistee_mi",
-      "speciesCount": 7,
+      "speciesCount": 8,
       "goodWeeks": 29,
       "overlapWeeks": 17,
       "allLimitedOrPoorWeeks": []

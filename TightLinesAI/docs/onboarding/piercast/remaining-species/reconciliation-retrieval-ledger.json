@@ -1,0 +1,76 @@
+[
+  {
+    "evidenceId": "R_AFS2023",
+    "url": "https://afsannualmeeting2023.fisheries.org/grand-rapids-outdoor-activities/",
+    "accessedAt": "2026-09-13",
+    "status": "unavailable",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "evidenceId": "R_MAN_SMALL_NORTH2024",
+    "url": "https://www.manisteenews.com/news/article/manistee-anglers-catching-chinook-of-sizes-19555925.php",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_MAN_SMALL_NORTH2024.html",
+    "sha256": "1c79bb3b5b360f7ca6e857ae82ae5a2fd507cf94e7dd41441d3306694bda3999",
+    "bytes": 489484,
+    "sanitized": "Redacted embedded third-party New Relic browser license metadata."
+  },
+  {
+    "evidenceId": "R_MAN_SMALL_PRIMARY2024",
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/3a65224",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_MAN_SMALL_PRIMARY2024.html",
+    "sha256": "41a202f85d1299ad9b6b5e43e739bcfd1afc5f4e25a0e1dd7fbe45e14ce23cd6",
+    "bytes": 54733,
+    "sanitized": "Redacted an embedded third-party impression-tracking URL."
+  },
+  {
+    "evidenceId": "R_WI_CURRENT",
+    "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_WI_CURRENT.html",
+    "sha256": "01f9e08d2a501cbeff959628d39264012d9bcc82e042fbb43fafa21b26bad930",
+    "bytes": 126952,
+    "sanitized": "Redacted an embedded third-party page token."
+  },
+  {
+    "evidenceId": "R_SHEB2019",
+    "url": "https://www.seehafernews.com/2019/09/07/outdoor-report-2/",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_SHEB2019.html",
+    "sha256": "d947b004bf9db38d39a0ac036c74ad91b364101c50eff544d1b937d98d5d794f",
+    "bytes": 69305,
+    "sanitized": "Removed an embedded third-party Google Maps script containing an API key and redacted a reCAPTCHA site key."
+  },
+  {
+    "evidenceId": "R_GH_BROCHURE2011",
+    "url": "https://visitgrandhaven.com/wp-content/uploads/2014/06/Fishing-Brochure-2011.pdf",
+    "accessedAt": "2026-09-13",
+    "status": "unavailable",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "evidenceId": "R_GH_CAT2016",
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/160dd38",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_GH_CAT2016.html",
+    "sha256": "600689ef797edb3ab461a3ab288696d60bb4df7baec9fa9b80ec60fa6413912c",
+    "bytes": 74203,
+    "sanitized": "Redacted an embedded third-party impression-tracking URL."
+  },
+  {
+    "evidenceId": "R_GH_BASS2018",
+    "url": "https://content.govdelivery.com/accounts/MIDNR/bulletins/207cdc1",
+    "accessedAt": "2026-09-13",
+    "status": 200,
+    "path": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_GH_BASS2018.html",
+    "sha256": "d107a405a62bf8397122756745aabe7c84a08fdea69dff1386d869b5927876cb",
+    "bytes": 64623,
+    "sanitized": "Redacted an embedded third-party impression-tracking URL."
+  }
+]

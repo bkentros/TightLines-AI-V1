@@ -193,5 +193,18 @@
     "limitations": "Juvenile acclimated preference is not adult pier feeding or bite response; does not validate an adult 6-10 C plateau. No numerical profile is fitted to these values.",
     "readingScope": "Full original document relevant sections read",
     "downloadStatus": "preserved"
+  },
+  {
+    "evidenceId": "R_MAN_SMALL_NORTH2024",
+    "title": "Arielle Breen, Manistee anglers catching Chinook of all sizes",
+    "publishedAt": "2024-07-05",
+    "reviewedAt": "2026-09-13",
+    "url": "https://www.manisteenews.com/news/article/manistee-anglers-catching-chinook-of-sizes-19555925.php",
+    "geographicScope": "Manistee North Pier",
+    "endpoint": "Dated structure-specific catch corroboration",
+    "finding": "Names smallmouth bass and North Pier in reporting the July 3 DNR event.",
+    "limitations": "Secondary corroboration; North attribution is not in original agency wording. Same event as B_3a65224, not an independent catch event. No effort estimate.",
+    "readingScope": "Full article relevant section and original linked agency report reviewed",
+    "downloadStatus": "preserved"
   }
 ]

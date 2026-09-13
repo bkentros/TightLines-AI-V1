@@ -1,5 +1,7 @@
 # PierCast Phase 2 onboarding decisions
 
+> Superseded by the [final roster reconciliation](../../../PierCast_Final_Roster_Reconciliation.md) and updated machine-readable decision register: eight admissions, 37 non-admissions. The original seven-admission narrative below is historical.
+
 Phase 2 admits seven additional city/species pairings into the private provisional scored lineup and records final deferrals for the other 38 of the 45 researched pairings. Nine of those deferrals retain Phase 1 annual research curves; the other 29 did not pass Phase 1 annual calibration. A deferral is a decision based on the current evidence, not a claim of biological absence.
 
 The admission standard is repeated pier-catch evidence plus named covered-structure corroboration or a bounded, explicit side inference supported by the local source chain. Thermal curves remain transparent product calibrations of compatibility, not empirical bite probabilities. This uses the completed core species’ private-review standard. It does not approve a lakeward surface cell as fish-experienced or bottom temperature, and it does not enable public ratings.

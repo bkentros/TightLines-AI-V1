@@ -1,5 +1,7 @@
 # PierCast Phase 3 annual lineup audit
 
+> **Final roster reconciliation — 2026-09-13:** [Authoritative decisions and confidence limits](PierCast_Final_Roster_Reconciliation.md). All 45 additional pairings now use the recurring-covered-pier-catch standard. Eight additions are scored, including Manistee North Pier smallmouth; 37 are not admitted for explicit evidence reasons. The private lineup is 28 combinations (6/6/8/4/4), with 140 forecasts per run. Engine v0.10.0 and roster v3 preserve prior rosters and daily locks. Earlier counts below are historical. Numeric curves, formula and public gates remain unchanged.
+
 Audit date: 2026-09-13. Baseline: `7c69499`. Corrected engine: `pier-cast-simple-model-v0.9.1`. Scope: the five frozen cities and seven covered structures; the private provisional lineup only.
 
 **Result: the annual configuration audit is complete, with two runtime defects corrected.** All 27 configured city/species combinations have continuous annual seasonal scores and a thermal profile. All 45 additional-species decisions remain explicit: seven private admissions and 38 whole-pair deferrals. No seasonal anchor, thermal knot, scoring formula, city roster, or covered structure changed. Public ratings remain disabled. This is configuration and implementation verification, not prospective proof of forecast accuracy.

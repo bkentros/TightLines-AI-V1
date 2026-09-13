@@ -1,4 +1,4 @@
-import { useId } from "react";
+import React, { useId, useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Svg, {
   Circle,
@@ -148,18 +148,6 @@ function formatHour(value: string, timezone: string): string {
     .replace(" ", "");
 }
 
-function formatDay(value: string, timezone: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "numeric",
-    day: "numeric",
-    timeZone: timezone,
-  })
-    .format(new Date(value))
-    .replace(",", "")
-    .toUpperCase();
-}
-
 type AxisTick = {
   pointIndex: number;
   label: string;
@@ -167,6 +155,18 @@ type AxisTick = {
   labelX?: number;
 };
 
+/**
+ * Five-day nearshore water-temperature chart.
+ *
+ * Design notes:
+ *  - The stroke carries a VERTICAL gradient, so color encodes temperature:
+ *    warm rust at the top of the plot, cool blue at the bottom. Reading the
+ *    line's color tells you the same thing as reading its height.
+ *  - Day boundaries are drawn as hairlines with their own labels, so a
+ *    five-day series stops reading as one undifferentiated squiggle.
+ *  - The warmest and coolest hours are annotated in place — the two values
+ *    an angler actually looks for.
+ */
 export function PierCastTemperatureChart({
   points,
   timezone,
@@ -177,8 +177,8 @@ export function PierCastTemperatureChart({
   xAxisMode?: "hours" | "days";
 }) {
   const width = 356;
-  const height = 188;
-  const plot = { left: 42, right: 10, top: 15, bottom: 34 };
+  const height = 212;
+  const plot = { left: 40, right: 12, top: 26, bottom: 38 };
   const plotWidth = width - plot.left - plot.right;
   const plotHeight = height - plot.top - plot.bottom;
   const values = points.map((point) => celsiusToFahrenheit(point.temperatureC));
@@ -196,41 +196,112 @@ export function PierCastTemperatureChart({
     y: plot.top + ((high - value) / range) * plotHeight,
   }));
   const linePath = smoothPath(coordinates);
+  const baseline = plot.top + plotHeight;
   const areaPath =
     linePath && coordinates.length
-      ? `${linePath} L${coordinates[coordinates.length - 1]!.x},${plot.top + plotHeight} L${coordinates[0]!.x},${plot.top + plotHeight} Z`
+      ? `${linePath} L${coordinates[coordinates.length - 1]!.x},${baseline} L${coordinates[0]!.x},${baseline} Z`
       : "";
   const rawId = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const gradientId = `pierTemp${rawId}`;
+  const areaId = `pierTempArea${rawId}`;
+  const strokeId = `pierTempStroke${rawId}`;
   const yTicks = [high, high - range / 3, high - (2 * range) / 3, low];
+
+  // Warmest / coolest hour, annotated in place.
+  const maxIndex = values.length ? values.indexOf(rawMax) : -1;
+  const minIndex = values.length ? values.indexOf(rawMin) : -1;
+  const extremes =
+    values.length > 3 && maxIndex !== minIndex
+      ? [
+          { index: maxIndex, value: rawMax, warm: true },
+          { index: minIndex, value: rawMin, warm: false },
+        ]
+      : [];
+
+  // Local-day spans. We need the whole span, not just the first point, so a
+  // label can sit over the middle of its day instead of on its left edge.
+  const dayBoundaries = useMemo(() => {
+    const marks: Array<{
+      index: number;
+      endIndex: number;
+      label: string;
+    }> = [];
+    let currentKey: string | null = null;
+    points.forEach((point, index) => {
+      const key = new Intl.DateTimeFormat("en-CA", {
+        timeZone: timezone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).format(new Date(point.validAt));
+      if (key === currentKey) {
+        marks[marks.length - 1]!.endIndex = index;
+        return;
+      }
+      currentKey = key;
+      marks.push({
+        index,
+        endIndex: index,
+        label:
+          marks.length === 0
+            ? "TODAY"
+            : new Intl.DateTimeFormat("en-US", {
+                weekday: "short",
+                timeZone: timezone,
+              })
+                .format(new Date(point.validAt))
+                .toUpperCase(),
+      });
+    });
+    return marks;
+  }, [points, timezone]);
+
+  // Every local day in the series gets a label, always — a day must never
+  // vanish from the axis just because its slice is short. Labels want to sit
+  // at their day's midpoint; a two-pass declutter then spreads any that would
+  // collide, so positions stay predictable instead of dropping in and out.
+  const MIN_LABEL_GAP = 46;
+  const EDGE_PAD = 13;
+  const xAt = (index: number) =>
+    plot.left +
+    (values.length === 1
+      ? plotWidth / 2
+      : (index / (values.length - 1)) * plotWidth);
+
   const axisTicks: AxisTick[] = values.length
     ? xAxisMode === "days"
       ? (() => {
-          const lastIndex = values.length - 1;
-          return Array.from(
-            new Set(
-              Array.from({ length: 6 }, (_, index) =>
-                Math.round((lastIndex * index) / 5),
-              ),
-            ),
-          ).map((pointIndex) => ({
-            pointIndex,
-            label:
-              pointIndex === 0
-                ? "TODAY"
-                : formatDay(points[pointIndex]!.validAt, timezone),
+          const leftLimit = plot.left;
+          const rightLimit = plot.left + plotWidth - EDGE_PAD;
+          // 1. desired position: the middle of each day's actual span.
+          const desired = dayBoundaries.map(({ index, endIndex }, dayIndex) =>
+            dayIndex === 0 ? leftLimit : (xAt(index) + xAt(endIndex)) / 2,
+          );
+          // 2. push right so nothing overlaps its left neighbour.
+          const placed = [...desired];
+          for (let i = 1; i < placed.length; i++) {
+            placed[i] = Math.max(placed[i]!, placed[i - 1]! + MIN_LABEL_GAP);
+          }
+          // 3. pull back from the right edge, preserving the same gap.
+          placed[placed.length - 1] = Math.min(
+            placed[placed.length - 1]!,
+            rightLimit,
+          );
+          for (let i = placed.length - 2; i >= 0; i--) {
+            placed[i] = Math.min(placed[i]!, placed[i + 1]! - MIN_LABEL_GAP);
+          }
+          // 4. the first label never slides left of the plot.
+          placed[0] = Math.max(placed[0]!, leftLimit);
+          return dayBoundaries.map(({ index, label }, dayIndex) => ({
+            pointIndex: index,
+            label,
             anchor:
-              pointIndex === 0
+              dayIndex === 0
                 ? ("start" as const)
-                : pointIndex === lastIndex
+                : dayIndex === dayBoundaries.length - 1 &&
+                    placed[dayIndex]! >= rightLimit - 1
                   ? ("end" as const)
                   : ("middle" as const),
-            labelX:
-              pointIndex === 0
-                ? plot.left
-                : pointIndex === lastIndex
-                  ? plot.left + plotWidth
-                  : undefined,
+            labelX: placed[dayIndex]!,
           }));
         })()
       : Array.from(
@@ -260,6 +331,8 @@ export function PierCastTemperatureChart({
     );
   }
 
+  const startPoint = coordinates[0]!;
+
   return (
     <View
       style={styles.chartShell}
@@ -269,96 +342,156 @@ export function PierCastTemperatureChart({
     >
       <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`}>
         <Defs>
-          <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <Stop
-              offset="0"
-              stopColor={paper.dashboardBlueSky}
-              stopOpacity="0.8"
-            />
-            <Stop
-              offset="0.7"
-              stopColor={paper.dashboardBlueSky}
-              stopOpacity="0.22"
-            />
+          <LinearGradient id={areaId} x1="0" y1="0" x2="0" y2="1">
+            <Stop offset="0" stopColor="#4E9BC4" stopOpacity="0.42" />
+            <Stop offset="0.55" stopColor={paper.dashboardBlueSky} stopOpacity="0.2" />
             <Stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
           </LinearGradient>
+          {/* Warm at the top of the plot, cool at the bottom — the line's
+              color and its height say the same thing. */}
+          <LinearGradient
+            id={strokeId}
+            x1="0"
+            y1={plot.top}
+            x2="0"
+            y2={baseline}
+            gradientUnits="userSpaceOnUse"
+          >
+            <Stop offset="0" stopColor="#CC6A22" />
+            <Stop offset="0.45" stopColor="#3E8FB0" />
+            <Stop offset="1" stopColor="#1E5C80" />
+          </LinearGradient>
         </Defs>
+
+        {/* Horizontal grid */}
         {yTicks.map((tick, index) => {
           const y = plot.top + (index / (yTicks.length - 1)) * plotHeight;
           return (
             <Line
-              key={tick}
+              key={`grid-${tick}`}
               x1={plot.left}
               x2={plot.left + plotWidth}
               y1={y}
               y2={y}
-              stroke="rgba(10,27,46,0.11)"
+              stroke="rgba(10,27,46,0.10)"
               strokeWidth="1"
-              strokeDasharray={index === yTicks.length - 1 ? undefined : "3 5"}
+              strokeDasharray={index === yTicks.length - 1 ? undefined : "2 6"}
             />
           );
         })}
         {yTicks.map((tick, index) => (
           <SvgText
-            key={`label-${tick}`}
-            x={plot.left - 7}
-            y={plot.top + (index / (yTicks.length - 1)) * plotHeight + 3}
+            key={`ylabel-${tick}`}
+            x={plot.left - 8}
+            y={plot.top + (index / (yTicks.length - 1)) * plotHeight + 3.5}
             textAnchor="end"
-            fill="rgba(10,27,46,0.58)"
+            fill="rgba(10,27,46,0.52)"
             fontFamily={paperFonts.metaMonoBold}
-            fontSize="8"
+            fontSize="9"
           >
             {`${Math.round(tick)}°`}
           </SvgText>
         ))}
-        {axisTicks.map(({ pointIndex }) => {
-          const coordinate = coordinates[pointIndex]!;
-          return (
-            <Line
-              key={`vertical-${pointIndex}`}
-              x1={coordinate.x}
-              x2={coordinate.x}
-              y1={plot.top}
-              y2={plot.top + plotHeight}
-              stroke="rgba(10,27,46,0.055)"
-              strokeWidth="1"
-            />
-          );
-        })}
-        <Path d={areaPath} fill={`url(#${gradientId})`} />
+
+        {/* Day boundary hairlines */}
+        {xAxisMode === "days"
+          ? dayBoundaries.slice(1).map(({ index }) => {
+              const coordinate = coordinates[index];
+              if (!coordinate) return null;
+              return (
+                <Line
+                  key={`day-${index}`}
+                  x1={coordinate.x}
+                  x2={coordinate.x}
+                  y1={plot.top - 6}
+                  y2={baseline}
+                  stroke="rgba(10,27,46,0.13)"
+                  strokeWidth="1"
+                  strokeDasharray="2 4"
+                />
+              );
+            })
+          : null}
+
+        <Path d={areaPath} fill={`url(#${areaId})`} />
         <Path
           d={linePath}
           fill="none"
-          stroke={paper.dashboardBlue}
+          stroke={`url(#${strokeId})`}
           strokeWidth="3.5"
           strokeLinejoin="round"
           strokeLinecap="round"
         />
-        {axisTicks.map(({ pointIndex }) => {
-          const coordinate = coordinates[pointIndex]!;
+
+        {/* Warmest / coolest hour */}
+        {extremes.map(({ index, value, warm }) => {
+          const coordinate = coordinates[index];
+          if (!coordinate) return null;
+          const color = warm ? "#C05F1C" : "#1E5C80";
+          const labelY = warm
+            ? Math.max(plot.top - 8, coordinate.y - 11)
+            : Math.min(baseline + 13, coordinate.y + 16);
+          const anchor =
+            coordinate.x < plot.left + 34
+              ? ("start" as const)
+              : coordinate.x > plot.left + plotWidth - 34
+                ? ("end" as const)
+                : ("middle" as const);
           return (
-            <Circle
-              key={`dot-${pointIndex}`}
-              cx={coordinate.x}
-              cy={coordinate.y}
-              r="3.2"
-              fill="#FFFFFF"
-              stroke={paper.dashboardBlue}
-              strokeWidth="2"
-            />
+            <React.Fragment key={`extreme-${warm ? "max" : "min"}`}>
+              <Circle
+                cx={coordinate.x}
+                cy={coordinate.y}
+                r="4"
+                fill="#FFFFFF"
+                stroke={color}
+                strokeWidth="2.4"
+              />
+              <SvgText
+                x={coordinate.x}
+                y={labelY}
+                textAnchor={anchor}
+                fill={color}
+                fontFamily={paperFonts.metaMonoBold}
+                fontSize="9.5"
+              >
+                {`${value.toFixed(1)}°`}
+              </SvgText>
+            </React.Fragment>
           );
         })}
+
+        {/* Forecast start */}
+        <Circle
+          cx={startPoint.x}
+          cy={startPoint.y}
+          r="3.4"
+          fill={paper.dashboardInk}
+        />
+        <SvgText
+          x={plot.left}
+          y={plot.top - 12}
+          textAnchor="start"
+          fill="rgba(10,27,46,0.5)"
+          fontFamily={paperFonts.metaMonoBold}
+          fontSize="8.5"
+        >
+          NOW
+        </SvgText>
+
+        {/* X axis */}
         {axisTicks.map(({ pointIndex, label, anchor, labelX }) => {
-          const coordinate = coordinates[pointIndex]!;
+          const coordinate = coordinates[pointIndex];
+          if (!coordinate) return null;
           return (
             <SvgText
               key={`time-${pointIndex}`}
               x={labelX ?? coordinate.x}
-              y={height - 9}
+              y={height - 12}
               textAnchor={anchor}
-              fill="rgba(10,27,46,0.58)"
+              fill="rgba(10,27,46,0.55)"
               fontFamily={paperFonts.metaMonoBold}
-              fontSize="8"
+              fontSize="9"
             >
               {label}
             </SvgText>
@@ -427,7 +560,7 @@ const styles = StyleSheet.create({
   },
   gaugeLabelCompact: { marginTop: 0, fontSize: 4.2, letterSpacing: 0.35 },
   gaugeLabelMedium: { fontSize: 5.4, letterSpacing: 0.5 },
-  chartShell: { height: 188, overflow: "hidden" },
+  chartShell: { height: 212, overflow: "hidden" },
   emptyChart: {
     height: 170,
     alignItems: "center",

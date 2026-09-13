@@ -31,6 +31,8 @@ import {
   type ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 import * as Crypto from "expo-crypto";
 import { useRouter } from "expo-router";
 import * as AppleAuthentication from "expo-apple-authentication";
@@ -96,16 +98,6 @@ const FEATURES: {
   },
   {
     numeral: "II",
-    moduleId: "river-run",
-    title: "River Migration",
-    tag: "MIGRATION",
-    blurb: "Migration stage, activity, seasonal presence, river conditions, and official fish counts where available.",
-    iconBg: ["#FBE4E1", "#F3C2BC"],
-    iconBorder: "#C0392B",
-    iconColor: "#9A2B20",
-  },
-  {
-    numeral: "III",
     moduleId: "tackle-box",
     title: "Tackle Box",
     tag: "RECOMMENDER",
@@ -115,14 +107,25 @@ const FEATURES: {
     iconColor: "#8A6A1A",
   },
   {
+    numeral: "III",
+    moduleId: "river-run",
+    title: "River Migration",
+    tag: "MIGRATION",
+    blurb: "Migration stage, activity, seasonal presence, river conditions, and official fish counts where available.",
+    iconBg: ["#FBE4E1", "#F3C2BC"],
+    iconBorder: "#C0392B",
+    iconColor: "#9A2B20",
+  },
+  {
     numeral: "IV",
-    moduleId: "water-read",
-    title: "Water Read",
-    tag: "POLYGON",
-    blurb: "Structure, cover, and likely holding zones across supported lakes.",
-    iconBg: ["#E8F2FA", "#C8DFF2"],
-    iconBorder: "#0F63B0",
-    iconColor: "#0A4A87",
+    moduleId: "pier-cast",
+    comingSoon: true,
+    title: "Pier Cast",
+    tag: "PIER FORECAST",
+    blurb: "Daily ratings for supported Great Lakes pier cities, plus five-day water, air, and wind.",
+    iconBg: ["#E0F3F0", "#B8DFD8"],
+    iconBorder: "#318F83",
+    iconColor: "#20665E",
   },
   {
     numeral: "V",
@@ -134,7 +137,38 @@ const FEATURES: {
     iconBorder: "#D9772B",
     iconColor: "#9B4E18",
   },
+  {
+    numeral: "VI",
+    moduleId: "water-read",
+    title: "Water Read",
+    tag: "POLYGON",
+    blurb: "Structure, cover, and likely holding zones across supported lakes.",
+    iconBg: ["#E8F2FA", "#C8DFF2"],
+    iconBorder: "#0F63B0",
+    iconColor: "#0A4A87",
+  },
 ];
+
+/** Deep-water gradient — the same masthead language used inside the app. */
+function MastheadBackdrop() {
+  return (
+    <Svg style={StyleSheet.absoluteFill} pointerEvents="none">
+      <Defs>
+        <LinearGradient id="welcomeDeep" x1="0" y1="0" x2="1" y2="1">
+          <Stop offset="0" stopColor="#0A1B2E" />
+          <Stop offset="0.5" stopColor="#12384E" />
+          <Stop offset="1" stopColor="#0B2135" />
+        </LinearGradient>
+        <LinearGradient id="welcomeGlow" x1="0" y1="1" x2="0" y2="0">
+          <Stop offset="0" stopColor={paper.dashboardBlue} stopOpacity="0.5" />
+          <Stop offset="1" stopColor={paper.dashboardBlue} stopOpacity="0" />
+        </LinearGradient>
+      </Defs>
+      <Rect x="0" y="0" width="100%" height="100%" fill="url(#welcomeDeep)" />
+      <Rect x="0" y="44%" width="100%" height="56%" fill="url(#welcomeGlow)" />
+    </Svg>
+  );
+}
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -145,11 +179,13 @@ export default function WelcomeScreen() {
   const { width, fontScale } = useWindowDimensions();
   const useExpandedModuleCopy = fontScale >= 1.2 || width <= 340;
   const scopeStage = authScopeStageSize(layoutTier);
+  // Sized down when Pier Cast made this a six-module list — the masthead
+  // gives up height first so the auth actions stay above the fold.
   const welcomeStage = layoutTier === "tall"
-    ? { stage: 92, emblem: 62 }
+    ? { stage: 72, emblem: 50 }
     : layoutTier === "standard"
-    ? { stage: 78, emblem: 52 }
-    : scopeStage;
+    ? { stage: 66, emblem: 46 }
+    : { stage: 58, emblem: 40 };
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -309,20 +345,23 @@ export default function WelcomeScreen() {
 
   return (
     <View style={styles.root}>
+      <StatusBar style="dark" />
       <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={[styles.container, scrollLayout]}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
-          scrollEnabled={layoutTier === "compact" || notice != null}
+          scrollEnabled
+          alwaysBounceVertical={false}
         >
-          {/* ─── Hero — issue cover ─────────────────────────────────────── */}
-          <View style={styles.hero}>
+          {/* ─── Masthead — the app's own deep-water language ──────────── */}
+          <View style={styles.masthead}>
+            <MastheadBackdrop />
             <TopographicLines
-              style={styles.heroTopo}
-              color={paper.dashboardInk}
-              count={5}
+              style={StyleSheet.absoluteFill}
+              color={paper.dashboardBlueSky}
+              count={6}
             />
             <Animated.View
               pointerEvents="none"
@@ -331,7 +370,7 @@ export default function WelcomeScreen() {
                 {
                   opacity: heroSheen.interpolate({
                     inputRange: [0, 0.12, 0.88, 1],
-                    outputRange: [0, 0.16, 0.16, 0],
+                    outputRange: [0, 0.1, 0.1, 0],
                   }),
                   transform: [
                     {
@@ -346,18 +385,22 @@ export default function WelcomeScreen() {
               ]}
             />
 
-            {/* Issue rubric — small mono line at the top of the cover */}
-            <View style={styles.issueRubricRow}>
-              <View style={styles.issueRubricRule} />
+            {/* One living rubric line instead of two stacked chrome rows. */}
+            <View style={styles.rubricRow}>
+              <View style={styles.livePulseWrap}>
+                <View style={styles.livePulseRing} />
+                <Animated.View
+                  style={[styles.livePulseDot, { opacity: pulse }]}
+                />
+              </View>
               <Text
-                style={styles.issueRubricText}
+                style={styles.rubricText}
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                minimumFontScale={0.88}
+                minimumFontScale={0.85}
               >
                 FIELD GUIDE · NO. 001 · {editionMonth} {editionYear}
               </Text>
-              <View style={styles.issueRubricRule} />
             </View>
 
             <WelcomeBrandOrbit
@@ -367,30 +410,11 @@ export default function WelcomeScreen() {
               style={styles.stageWrap}
             />
 
-            {/* Live label + wordmark */}
-            <View style={styles.liveRow}>
-              <View style={styles.livePulseWrap}>
-                <View style={styles.livePulseRing} />
-                <Animated.View
-                  style={[styles.livePulseDot, { opacity: pulse }]}
-                />
-              </View>
-              <Text
-                style={styles.liveLabel}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                minimumFontScale={0.88}
-              >
-                FIELD-EDITION ACTIVE
-              </Text>
-            </View>
-
-            <Text style={styles.brandMark}>
+            <Text style={styles.brandMark} allowFontScaling={false}>
               FinFindr<Text style={styles.brandMarkDot}>.</Text>
             </Text>
-            <View style={styles.brandRule} />
             <Text style={styles.tagline}>
-              <Text style={styles.taglineItalic}>Finding fins</Text>
+              <Text style={styles.taglineStrong}>Finding fins</Text>
               , made easier.
             </Text>
           </View>
@@ -497,7 +521,7 @@ export default function WelcomeScreen() {
                       iconBg={item.iconBg}
                       iconBorder={item.iconBorder}
                       iconColor={item.iconColor}
-                      size={40}
+                      size={34}
                     />
                     <View style={styles.valueModuleTextCol}>
                       <View
@@ -528,9 +552,9 @@ export default function WelcomeScreen() {
                         numberOfLines={
                           useExpandedModuleCopy
                             ? undefined
-                            : item.comingSoon
-                            ? 3
-                            : 2
+                            : layoutTier === "tall"
+                            ? 2
+                            : 1
                         }
                       >
                         {item.blurb}
@@ -763,64 +787,49 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: 6,
-    paddingTop: 6,
-    gap: 10,
+    paddingTop: 10,
+    gap: 9,
   },
 
-  // ── Hero / issue cover ────────────────────────────────────────────────
-  hero: {
+  // ── Masthead ──────────────────────────────────────────────────────────
+  // Bleeds past the container's side padding so the navy runs edge to edge,
+  // the way every interior screen's masthead does.
+  masthead: {
     position: "relative",
-    paddingVertical: 6,
-    paddingHorizontal: paperSpacing.md,
-    alignItems: "center",
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-    borderRadius: 12,
     overflow: "hidden",
+    alignItems: "center",
+    paddingTop: 14,
+    paddingBottom: 16,
+    paddingHorizontal: paperSpacing.md,
+    borderRadius: 18,
+    backgroundColor: paper.dashboardInk,
     shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 5 },
-  },
-  heroTopo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.32,
+    shadowOpacity: 0.16,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 4,
   },
   heroSheen: {
     position: "absolute",
     top: -20,
     bottom: -20,
     width: 64,
-    backgroundColor: "rgba(255,255,255,0.55)",
+    backgroundColor: "rgba(201,228,242,0.30)",
     zIndex: 2,
   },
 
-  issueRubricRow: {
+  rubricRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    alignSelf: "stretch",
-    paddingHorizontal: 4,
-    marginBottom: 2,
+    gap: 7,
+    marginBottom: 4,
     zIndex: 1,
   },
-  issueRubricRule: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardInk,
-    opacity: 0.35,
-  },
-  issueRubricText: {
+  rubricText: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    color: paper.dashboardInk,
+    color: paper.gold,
     letterSpacing: 1.6,
-    opacity: 0.78,
   },
 
   stageWrap: {
@@ -893,13 +902,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.34)",
   },
 
-  liveRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginTop: 1,
-    zIndex: 1,
-  },
   livePulseWrap: {
     width: 10,
     height: 10,
@@ -912,55 +914,42 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.45,
+    borderColor: paper.gold,
+    opacity: 0.5,
   },
   livePulseDot: {
     width: 5,
     height: 5,
     borderRadius: 2.5,
-    backgroundColor: paper.dashboardBlue,
-  },
-  liveLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.8,
+    backgroundColor: paper.gold,
   },
 
   brandMark: {
     fontFamily: paperFonts.display,
-    fontSize: 28,
-    color: paper.dashboardInk,
-    letterSpacing: -0.5,
+    fontSize: 31,
+    color: "#FFFFFF",
+    letterSpacing: -0.8,
     fontWeight: "700",
-    lineHeight: 30,
-    marginTop: 2,
+    lineHeight: 38,
+    marginTop: 4,
     zIndex: 1,
   },
   brandMarkDot: {
-    color: paper.dashboardBlue,
-  },
-  brandRule: {
-    width: 44,
-    height: 2.5,
-    backgroundColor: paper.dashboardBlue,
-    marginTop: 2,
-    borderRadius: 1,
-    zIndex: 1,
+    color: paper.dashboardBlueLight,
   },
   tagline: {
-    fontFamily: paperFonts.body,
-    fontSize: 11.5,
-    color: paper.dashboardInk,
-    opacity: 0.78,
-    marginTop: 3,
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 13.5,
+    lineHeight: 18,
+    letterSpacing: 0.1,
+    color: "rgba(255,255,255,0.76)",
+    marginTop: 5,
     textAlign: "center",
     zIndex: 1,
   },
-  taglineItalic: {
-    fontFamily: paperFonts.displayItalic,
-    color: paper.dashboardInk,
+  taglineStrong: {
+    fontFamily: paperFonts.bodyBold,
+    color: "#FFFFFF",
   },
 
   // ── Field-guide entries ───────────────────────────────────────────────
@@ -995,25 +984,26 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: 6,
+    gap: 5,
   },
   valueModule: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: 5,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 7,
+    paddingHorizontal: 7,
+    paddingVertical: 6,
     position: "relative",
   },
   valueModuleCompact: {
     // Compact widths wrap the longer title/tag pairs while Water Read stays
-    // on one line. Keep the five modules visually equal without fixing their
-    // height, so larger text can still grow instead of clipping.
-    minHeight: 106,
+    // on one line. Keep the six modules visually equal without fixing their
+    // height, so larger text can still grow instead of clipping. Trimmed from
+    // 106 when Pier Cast made this a six-module list.
+    minHeight: 94,
   },
   valueModuleMain: {
     flex: 1,
@@ -1055,10 +1045,10 @@ const styles = StyleSheet.create({
     borderRadius: 1.5,
   },
   valueModuleCode: {
-    width: 30,
+    width: 24,
     flexShrink: 0,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 9,
     letterSpacing: 1,
     opacity: 0.85,
   },
@@ -1074,20 +1064,20 @@ const styles = StyleSheet.create({
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 14.5,
+    fontSize: 13.5,
     color: paper.dashboardInk,
     fontWeight: "600",
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
+    fontSize: 9,
     letterSpacing: 1,
     color: paper.dashboardMuted,
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 11,
-    lineHeight: 14,
+    fontSize: 10.5,
+    lineHeight: 13.5,
     color: paper.dashboardInk,
     opacity: 0.72,
   },

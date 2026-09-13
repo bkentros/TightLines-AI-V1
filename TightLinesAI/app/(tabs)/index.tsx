@@ -1765,6 +1765,20 @@ export default function HomeScreen() {
 
             <ModuleRow
               code="01"
+              title="Pier Cast"
+              tag="PIER FORECAST"
+              desc="Great Lakes pier outlooks · strongest supported species · today + 4 days"
+              moduleId="pier-cast"
+              iconBg={["#E0F3F0", "#B8DFD8"]}
+              iconBorder="#318F83"
+              iconColor="#20665E"
+              onPress={isAdminEmail(user?.email) ? () => router.push("/pier-cast-review") : undefined}
+              badge={isAdminEmail(user?.email) ? "REVIEW" : undefined}
+              comingSoon={!isAdminEmail(user?.email)}
+              descLines={2}
+            />
+            <ModuleRow
+              code="02"
               title="River Migration"
               tag="MIGRATION"
               badge="NEW"
@@ -1777,7 +1791,7 @@ export default function HomeScreen() {
               descLines={2}
             />
             <ModuleRow
-              code="02"
+              code="03"
               title="Today's Bite"
               tag="CONDITIONS"
               desc="Full breakdown · windows · limiting factors"
@@ -1788,7 +1802,7 @@ export default function HomeScreen() {
               onPress={handleHowFishingPress}
             />
             <ModuleRow
-              code="03"
+              code="04"
               title="Tackle Box"
               tag="RECOMMENDER"
               desc="Tuned picks for today's conditions & species"
@@ -1797,17 +1811,6 @@ export default function HomeScreen() {
               iconBorder="#C99B2D"
               iconColor="#8A6A1A"
               onPress={handleRecommenderPress}
-            />
-            <ModuleRow
-              code="04"
-              title="Water Read"
-              tag="POLYGON"
-              desc="Most lakes: structure + potential hotspots"
-              moduleId="water-read"
-              iconBg={["#E8F2FA", "#C8DFF2"]}
-              iconBorder="#0F63B0"
-              iconColor="#0A4A87"
-              onPress={handleWaterReadPress}
             />
             <ModuleRow
               code="05"
@@ -1822,18 +1825,14 @@ export default function HomeScreen() {
             />
             <ModuleRow
               code="06"
-              title="Pier Cast"
-              tag="PIER FORECAST"
-              desc="Great Lakes pier outlooks · strongest supported species · today + 4 days"
-              moduleId="pier-cast"
-              iconBg={["#E0F3F0", "#B8DFD8"]}
-              iconBorder="#318F83"
-              iconColor="#20665E"
-              onPress={isAdminEmail(user?.email)
-                ? () => router.push("/pier-cast-review")
-                : undefined}
-              badge={isAdminEmail(user?.email) ? "REVIEW" : undefined}
-              comingSoon={!isAdminEmail(user?.email)}
+              title="Water Read"
+              tag="POLYGON"
+              desc="Most lakes: structure + potential hotspots"
+              moduleId="water-read"
+              iconBg={["#E8F2FA", "#C8DFF2"]}
+              iconBorder="#0F63B0"
+              iconColor="#0A4A87"
+              onPress={handleWaterReadPress}
             />
           </View>
 

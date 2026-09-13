@@ -236,7 +236,7 @@ for (const date of dates) {
   });
   assertEquals(
     snapshot.cities.reduce((n, c) => n + c.date.species.length, 0),
-    27,
+    28,
   );
 }
 let thermalGridChecks = 0, thermalGateChecks = 0;

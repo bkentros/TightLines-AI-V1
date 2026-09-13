@@ -1,0 +1,43 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Power BI public report identifiers used by the PierCast evidence extractor"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''^TightLinesAI/docs/onboarding/piercast/remaining-species/creel-snapshot\.json$''',
+  '''^TightLinesAI/scripts/extract-pier-cast-michigan-creel\.mjs$''',
+]
+regexes = ['''(?i)(publicResourceKey"?|REPORT_KEY)\s*[:=]''']
+
+[[allowlists]]
+description = "Power BI public-view URLs, not Grafana credentials"
+targetRules = ["grafana-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''^TightLinesAI/docs/onboarding/piercast/remaining-species/(creel-snapshot|sources)\.json$''',
+]
+regexes = ['''https://app\.powerbigov\.us/view\?r=''' ]
+
+[[allowlists]]
+description = "Water Reader deterministic lookup-key comparisons"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''^TightLinesAI/(lib/water-reader-engine/legend|lib/waterReaderLegendTemplates|supabase/functions/_shared/waterReaderEngine/legend)\.ts$''',
+]
+regexes = ['''if \(exactKey === '[^']+'\) return exactKey;''']
+
+[[allowlists]]
+description = "Documented rounded latitude/longitude cache keys"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''^TightLinesAI/docs/audits/recommender-2x2/pass(8c-deployment-device-smoke|9c-final-release-readiness)\.md$''',
+]
+regexes = ['''rounded session key:.*lat_key=.*lon_key=''' ]

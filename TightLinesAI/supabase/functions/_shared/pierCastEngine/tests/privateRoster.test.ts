@@ -27,12 +27,12 @@ import {
 } from "../index.ts";
 import { completeLmhofsBatch } from "./fixtures/lmhofs.ts";
 Deno.test("private admissions are city-specific, full-year and publicly disabled", () => {
-  assertEquals(PIER_CAST_PRIVATE_ADMISSIONS.length, 7);
+  assertEquals(PIER_CAST_PRIVATE_ADMISSIONS.length, 8);
   assertEquals(
     PIER_CAST_CITY_PROFILES.map((c) =>
       getPierCastPrivateSpeciesIds(c.cityId).length
     ),
-    [6, 6, 7, 4, 4],
+    [6, 6, 8, 4, 4],
   );
   for (const row of PIER_CAST_PRIVATE_ADMISSIONS) {
     const curve = getPierCastPrivateSeasonalCurve(row.cityId, row.speciesId)!;
@@ -145,4 +145,25 @@ Deno.test("configuration rejects missing, copied or altered private calibration"
   profiles.find((p) => p.speciesId === "freshwater_drum")!
     .seasonalTemperatureCurves![0].knots[0].suitability = .99;
   assert(validatePierCastSpeciesProfiles(profiles).length > 0);
+});
+
+Deno.test("reconciled roster preserves the previous private city rosters", () => {
+  const previous = "piercast-private-roster-v2-2026-09-12";
+  assertEquals(getPierCastPrivateSpeciesIds("manistee_mi", previous).length, 7);
+  assert(
+    !getPierCastPrivateSpeciesIds("manistee_mi", previous).includes(
+      "smallmouth_bass",
+    ),
+  );
+  assert(
+    getPierCastPrivateSpeciesIds("manistee_mi").includes("smallmouth_bass"),
+  );
+  for (const city of PIER_CAST_CITY_PROFILES) {
+    if (city.cityId !== "manistee_mi") {
+      assertEquals(
+        getPierCastPrivateSpeciesIds(city.cityId, previous),
+        getPierCastPrivateSpeciesIds(city.cityId),
+      );
+    }
+  }
 });

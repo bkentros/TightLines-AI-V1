@@ -48,6 +48,8 @@ const ANGLER_FEATURES: Array<{
   iconBg: [string, string];
   accent: string;
   iconColor: string;
+  /** Included with Angler, not yet open to everyone. */
+  comingSoon?: boolean;
 }> = [
   {
     module: 'todays-bite',
@@ -58,14 +60,6 @@ const ANGLER_FEATURES: Array<{
     iconColor: '#1F6B38',
   },
   {
-    module: 'river-run',
-    title: 'River Migration',
-    copy: 'Audited migration reads for supported rivers, seasons, and species—including stage, activity, seasonal presence, river conditions, and official fish counts where available.',
-    iconBg: ['#FBE4E1', '#F3C2BC'],
-    accent: paper.red,
-    iconColor: '#9A2B20',
-  },
-  {
     module: 'tackle-box',
     title: 'Tackle Box',
     copy: 'Condition-matched lure and fly picks tuned to species, water type, clarity, and the day.',
@@ -74,12 +68,21 @@ const ANGLER_FEATURES: Array<{
     iconColor: '#8A6A1A',
   },
   {
-    module: 'water-read',
-    title: 'Water Read',
-    copy: 'Structure intelligence for supported waters, built to highlight higher-percentage zones.',
-    iconBg: ['#E8F2FA', '#C8DFF2'],
-    accent: paper.dashboardBlue,
-    iconColor: '#0A4A87',
+    module: 'river-run',
+    title: 'River Migration',
+    copy: 'Audited migration reads for supported rivers, seasons, and species\u2014including stage, activity, seasonal presence, river conditions, and official fish counts where available.',
+    iconBg: ['#FBE4E1', '#F3C2BC'],
+    accent: paper.red,
+    iconColor: '#9A2B20',
+  },
+  {
+    module: 'pier-cast',
+    comingSoon: true,
+    title: 'Pier Cast',
+    copy: 'Daily 1\u201310 ratings for supported Great Lakes pier cities, with five-day water, air, and wind at the pier.',
+    iconBg: ['#E0F3F0', '#B8DFD8'],
+    accent: '#318F83',
+    iconColor: '#20665E',
   },
   {
     module: 'color-match',
@@ -88,6 +91,14 @@ const ANGLER_FEATURES: Array<{
     iconBg: ['#FBEBDD', '#F3C9A7'],
     accent: '#D9772B',
     iconColor: '#9B4E18',
+  },
+  {
+    module: 'water-read',
+    title: 'Water Read',
+    copy: 'Structure intelligence for supported waters, built to highlight higher-percentage zones.',
+    iconBg: ['#E8F2FA', '#C8DFF2'],
+    accent: paper.dashboardBlue,
+    iconColor: '#0A4A87',
   },
 ];
 
@@ -132,8 +143,8 @@ export default function SubscribeScreen() {
       </>
     );
   const heroCopy = hasAngler
-    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, River Migration, Tackle Box, Water Read, and Color Match are unlocked.`
-    : "One membership unlocks Today's Bite, River Migration, Tackle Box, Water Read, and Color Match.";
+    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, Tackle Box, River Migration, Color Match, and Water Read are unlocked. Pier Cast is coming soon.`
+    : "One membership unlocks Today's Bite, Tackle Box, River Migration, Color Match, and Water Read. Pier Cast is coming soon.";
 
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -261,9 +272,25 @@ export default function SubscribeScreen() {
                   </Text>
                   <Text style={styles.featureCopy}>{feature.copy}</Text>
                 </View>
-                <View style={styles.featureCheck}>
-                  <Ionicons name="checkmark" size={11} color="#FFFFFF" />
-                </View>
+                {feature.comingSoon ? (
+                  <View
+                    style={[
+                      styles.featureSoon,
+                      {
+                        borderColor: `${feature.accent}59`,
+                        backgroundColor: `${feature.accent}16`,
+                      },
+                    ]}
+                  >
+                    <Text style={[styles.featureSoonText, { color: feature.accent }]}>
+                      SOON
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={styles.featureCheck}>
+                    <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+                  </View>
+                )}
               </View>
             ))}
           </View>
@@ -579,6 +606,18 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: paper.dashboardInk,
     opacity: 0.78,
+  },
+  featureSoon: {
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderWidth: 1,
+    borderRadius: 3,
+    alignSelf: 'center',
+  },
+  featureSoonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.9,
   },
   featureCheck: {
     width: 18,

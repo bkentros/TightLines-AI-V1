@@ -80,7 +80,7 @@ Deno.test("additional private research uses only the sixteen annual pairings and
     }
   }
   assertEquals(expected.size, 0);
-  assertEquals(hypothetical, 35);
+  assertEquals(hypothetical, 30);
   assertEquals(deferred, 10);
 });
 

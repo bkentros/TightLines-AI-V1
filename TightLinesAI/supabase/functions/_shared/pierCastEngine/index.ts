@@ -30,4 +30,4 @@ export * from "./pipeline/temperatureIngestion.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./validation.ts";
 
-export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.9.1";
+export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
