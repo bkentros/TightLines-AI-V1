@@ -182,10 +182,10 @@ export default function WelcomeScreen() {
   // Sized down when Pier Cast made this a six-module list — the masthead
   // gives up height first so the auth actions stay above the fold.
   const welcomeStage = layoutTier === "tall"
-    ? { stage: 72, emblem: 50 }
+    ? { stage: 62, emblem: 44 }
     : layoutTier === "standard"
-    ? { stage: 66, emblem: 46 }
-    : { stage: 58, emblem: 40 };
+    ? { stage: 56, emblem: 40 }
+    : { stage: 50, emblem: 35 };
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -521,7 +521,7 @@ export default function WelcomeScreen() {
                       iconBg={item.iconBg}
                       iconBorder={item.iconBorder}
                       iconColor={item.iconColor}
-                      size={34}
+                      size={31}
                     />
                     <View style={styles.valueModuleTextCol}>
                       <View
@@ -786,9 +786,9 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     alignSelf: "center",
     paddingHorizontal: paperSpacing.lg,
-    paddingBottom: 6,
-    paddingTop: 10,
-    gap: 9,
+    paddingBottom: 14,
+    paddingTop: 8,
+    gap: 8,
   },
 
   // ── Masthead ──────────────────────────────────────────────────────────
@@ -798,10 +798,10 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
     alignItems: "center",
-    paddingTop: 14,
-    paddingBottom: 16,
+    paddingTop: 11,
+    paddingBottom: 13,
     paddingHorizontal: paperSpacing.md,
-    borderRadius: 18,
+    borderRadius: 16,
     backgroundColor: paper.dashboardInk,
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.16,
@@ -822,7 +822,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
-    marginBottom: 4,
+    marginBottom: 2,
     zIndex: 1,
   },
   rubricText: {
@@ -926,12 +926,12 @@ const styles = StyleSheet.create({
 
   brandMark: {
     fontFamily: paperFonts.display,
-    fontSize: 31,
+    fontSize: 27,
     color: "#FFFFFF",
-    letterSpacing: -0.8,
+    letterSpacing: -0.7,
     fontWeight: "700",
-    lineHeight: 38,
-    marginTop: 4,
+    lineHeight: 32,
+    marginTop: 3,
     zIndex: 1,
   },
   brandMarkDot: {
@@ -939,11 +939,11 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 13.5,
-    lineHeight: 18,
+    fontSize: 12.5,
+    lineHeight: 16,
     letterSpacing: 0.1,
-    color: "rgba(255,255,255,0.76)",
-    marginTop: 5,
+    color: "rgba(255,255,255,0.78)",
+    marginTop: 3,
     textAlign: "center",
     zIndex: 1,
   },
@@ -954,8 +954,8 @@ const styles = StyleSheet.create({
 
   // ── Field-guide entries ───────────────────────────────────────────────
   valuePropsBlock: {
-    gap: 4,
-    marginVertical: 4,
+    gap: 3,
+    marginVertical: 2,
   },
   valuePropsHeader: {
     flexDirection: "row",
@@ -984,7 +984,7 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: 5,
+    gap: 4,
   },
   valueModule: {
     flexDirection: "row",
@@ -995,7 +995,7 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     borderRadius: 8,
     paddingHorizontal: 7,
-    paddingVertical: 6,
+    paddingVertical: 5,
     position: "relative",
   },
   valueModuleCompact: {
@@ -1064,7 +1064,7 @@ const styles = StyleSheet.create({
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 13.5,
+    fontSize: 13,
     color: paper.dashboardInk,
     fontWeight: "600",
   },
@@ -1076,17 +1076,17 @@ const styles = StyleSheet.create({
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 10.5,
-    lineHeight: 13.5,
+    fontSize: 10,
+    lineHeight: 13,
     color: paper.dashboardInk,
     opacity: 0.72,
   },
 
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
-    gap: 8,
+    gap: 7,
   },
-  appleBtn: { height: 50, width: "100%" },
+  appleBtn: { height: 48, width: "100%" },
 
   // ── Footer ────────────────────────────────────────────────────────────
   footerCol: {
