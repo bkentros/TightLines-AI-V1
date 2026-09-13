@@ -1,3 +1,5 @@
+import { colorTrialRequiresUpgrade } from "../lib/reportTrialPaywall";
+import { getEffectiveTier } from "../lib/subscription";
 import {
   CornerMarkSet,
   PaperBackground,
@@ -134,6 +136,7 @@ export default function ColorPickerScreen() {
   }, [step, busy]);
   const [error, setError] = useState("");
   const [report, setReport] = useState<ReportEnvelope | null>(null);
+  const [claimedTrial, setClaimedTrial] = useState<ReportEnvelope | null>(null);
   const [savedId, setSavedId] = useState<string | null>(null);
   const [paywall, setPaywall] = useState(false);
   const pending = useRef<{ key: string; request: ReportRequest } | null>(null);
@@ -164,10 +167,12 @@ export default function ColorPickerScreen() {
     setReport(null);
     setStep(initial ? "clarity" : "category");
     setSavedId(null);
+    setClaimedTrial(null);
+    setPaywall(false);
     pending.current = null;
     if (userId) {
       fetchSavedColorTrial().then((report) => {
-        if (active && report?.selection.report.userId === userId) setSavedId(report.selection.report.reportId);
+        if (active && report?.selection.report.userId === userId) { setSavedId(report.selection.report.reportId); setClaimedTrial(report); }
       }).catch(() => {});
       AsyncStorage.getItem(`color-picker-last:${userId}`).then((id) => {
         if (active && id) setSavedId(current => current ?? id);
@@ -230,6 +235,10 @@ export default function ColorPickerScreen() {
         date: today(requestZone),
         timezone: requestZone,
       };
+      const auth = useAuthStore.getState();
+      if (colorTrialRequiresUpgrade(getEffectiveTier(auth.profile, auth.user?.email) === "free", claimedTrial?.request ?? null, base)) {
+        setPaywall(true); return;
+      }
       const key = JSON.stringify(base);
       if (!pending.current || pending.current.key !== key) {
         pending.current = {
@@ -244,6 +253,8 @@ export default function ColorPickerScreen() {
       pending.current = null;
       if (mounted.current) {
         setReport(result);
+        const auth = useAuthStore.getState();
+        if (getEffectiveTier(auth.profile, auth.user?.email) === "free") setClaimedTrial(result);
         setTypeId(result.request.typeId);
         setClarity(result.request.clarity);
         setCategory(colorChoiceForType(result.request.typeId)?.categoryId ?? "");

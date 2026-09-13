@@ -32,6 +32,14 @@ try {
   assert.equal(second.body.error, 'subscription_required');
   assert.equal((await color({ action: 'saved_trial' })).body.report.selection.report.reportId, reportId);
   assert.equal((await color({ action: 'reopen', reportId })).status, 200);
+  const paidSetup = { ...setup, requestId: `paid_${marker}`, clarity: 'clear' };
+  const upgrade = await request(`/rest/v1/profiles?id=eq.${userId}`, admin, { subscription_tier: 'angler' }, 'PATCH');
+  assert.equal(upgrade.status, 204);
+  assert.equal((await color(paidSetup)).status, 200, 'paid generation');
+  const downgrade = await request(`/rest/v1/profiles?id=eq.${userId}`, admin, { subscription_tier: 'free' }, 'PATCH');
+  assert.equal(downgrade.status, 204);
+  assert.equal((await color(paidSetup)).status, 403, 'cached request after downgrade');
+  assert.equal((await color({ ...paidSetup, requestId: `cached_day_${marker}` })).status, 403, 'cached daily setup after downgrade');
   const denied = await request('/rest/v1/feature_report_trials', { apikey: anon, Authorization: `Bearer ${auth.body.access_token}` }, undefined, 'GET');
   assert.ok(denied.status >= 400, 'trial records must not be client readable');
   const catalog = await request('/functions/v1/pier-cast/catalog', headers, undefined, 'GET');

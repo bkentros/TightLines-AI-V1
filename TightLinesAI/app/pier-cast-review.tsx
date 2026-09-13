@@ -1,3 +1,5 @@
+import { pierTrialRequiresUpgrade } from "../lib/reportTrialPaywall";
+import { getEffectiveTier } from "../lib/subscription";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -2918,13 +2920,28 @@ export default function PierCastReviewScreen() {
   const openCity = useCallback(async (cityId: string, silent = false) => {
     if (admin) { setSelectedCityId(cityId); return; }
     if (openingCity.current) return;
-    openingCity.current = true;
     const userId = user?.id;
     if (!silent) requestedCity.current = cityId;
+    const claimed = savedReport?.cities[0];
+    const city = catalog?.cities.find(c => c.cityId === cityId);
+    const auth = useAuthStore.getState();
+    if (claimed && city && pierTrialRequiresUpgrade(
+      getEffectiveTier(auth.profile, auth.user?.email) === "free",
+      { cityId: claimed.cityId, date: claimed.dates[0]?.localDate ?? "" }, cityId,
+      new Intl.DateTimeFormat("en-CA", { timeZone: city.timezone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()),
+    )) { if (!silent) setPaywall(true); return; }
+    // Automatic refresh must never swallow an explicit city/paywall tap.
+    if (!silent) openingCity.current = true;
     try {
       const report = await fetchPierCastCityReport(cityId);
       if (accountId.current !== userId || (!silent && requestedCity.current !== cityId)) return;
+      if (silent) {
+        setCityReport(current => current?.cities[0]?.cityId === cityId ? report : current);
+        return;
+      }
       setCityReport(report); setSelectedCityId(cityId); setError(null);
+      const auth = useAuthStore.getState();
+      if (getEffectiveTier(auth.profile, auth.user?.email) === "free") setSavedReport(report);
       if (!silent) void fetchSavedPierCastReport().then(saved => {
         if (accountId.current === userId) setSavedReport(saved.report);
       }).catch(() => {});
@@ -2938,8 +2955,8 @@ export default function PierCastReviewScreen() {
           }).catch(() => {});
         }
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
-    } finally { openingCity.current = false; }
-  }, [admin, user?.id]);
+    } finally { if (!silent) openingCity.current = false; }
+  }, [admin, user?.id, savedReport, catalog]);
   useEffect(() => {
     if (admin || !selectedCityId) return;
     const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);

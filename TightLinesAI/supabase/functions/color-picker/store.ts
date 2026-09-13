@@ -20,23 +20,23 @@ export function createReportStore(db: any, isFree = false): ReportStore {
     if (result.error) throw new Error("Color report storage unavailable");
     return result.data;
   };
+  const commit = async (userId: string, envelope: unknown) => checked(
+    await db.rpc("commit_color_picker_report_with_trial", {
+      p_user_id: userId, p_envelope: envelope, p_is_free: isFree,
+    }),
+  );
+  // A cached generation is still report access: after downgrade it must claim
+  // the allowance or match the already claimed report, just like a new draw.
+  const cachedGeneration = async (userId: string, envelope: any) =>
+    envelope && isFree ? await commit(userId, envelope) : envelope ?? null;
   return {
     async byRequest(userId, requestId) {
-      return checked(
-        await db.from("color_picker_reports").select("envelope").eq(
-          "user_id",
-          userId,
-        ).eq("request_id", requestId).maybeSingle(),
-      )?.envelope ?? null;
+      const row = checked(await db.from("color_picker_reports").select("envelope").eq("user_id", userId).eq("request_id", requestId).maybeSingle());
+      return await cachedGeneration(userId, row?.envelope);
     },
     async byDay(userId, typeId, clarity, date) {
-      return checked(
-        await db.from("color_picker_reports").select("envelope").eq(
-          "user_id",
-          userId,
-        ).eq("type_id", typeId).eq("clarity", clarity).eq("daily_date", date)
-          .maybeSingle(),
-      )?.envelope ?? null;
+      const row = checked(await db.from("color_picker_reports").select("envelope").eq("user_id", userId).eq("type_id", typeId).eq("clarity", clarity).eq("daily_date", date).maybeSingle());
+      return await cachedGeneration(userId, row?.envelope);
     },
     async byId(userId, reportId) {
       return checked(
@@ -46,14 +46,6 @@ export function createReportStore(db: any, isFree = false): ReportStore {
         ).eq("id", reportId).maybeSingle(),
       )?.envelope ?? null;
     },
-    async commit(userId, envelope) {
-      return checked(
-        await db.rpc("commit_color_picker_report_with_trial", {
-          p_user_id: userId,
-          p_envelope: envelope,
-          p_is_free: isFree,
-        }),
-      );
-    },
+    commit,
   };
 }
