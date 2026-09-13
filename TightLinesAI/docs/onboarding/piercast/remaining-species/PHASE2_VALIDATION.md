@@ -1,28 +1,43 @@
-# Phase 2 thermal research checkpoint
+# Phase 2 private research integration validation
 
-This is a tested research checkpoint, not completed runtime onboarding or public approval.
+The private research calculations are integrated. Live rating activation remains explicitly deferred; this is not empirical validation or public release approval.
 
-## Artifacts
+## Delivered
 
-- Nine species-specific provisional thermal candidates, with explicit per-knot judgment labels and source references. Round whitefish is marked very low confidence.
-- Nine preserved source snapshots and three documented direct-download failures across 12 reviewed source records. GLFC PDF pages 71, 136 and 192 and Wisconsin guide-study PDF page 22 were visually checked.
-- 2,889 temperature samples and 6,656 hypothetical weekly/temperature scenarios for the 16 accepted annual pairings, generated using the actual runtime interpolators and unchanged scoring formula.
-- Sixteen-pair eligibility register: three named covered-structure corroborations, five contextual inferences, eight unresolved side attributions. No source/structure gate has been approved by inference from a thermal curve.
-- Maximum tested score difference for a two-degree input difference at an annual peak is 0.9, for Manistee yellow perch. This is numerical sensitivity, not measured error, a confidence interval or evidence that the temperature source meets its acceptance criteria.
+- Eight provisional thermal profiles produce private sensitivity output for 14 accepted city/species pairings: Ludington three, Grand Haven five, Manistee six. Frankfort–Elberta and Sheboygan receive no additions.
+- Two round-whitefish pairings retain continuous annual seasonal baselines but return no live thermal-combined hypothesis. The newly preserved juvenile experiment cannot calibrate adult pier feeding.
+- All 16 pairings retain their structure attribution, fishing mode, regulation scope and scientific blocking reasons. A newspaper's Manistee North Pier attribution is distinguished from its linked DNR report, which does not name a side.
+- The 2026 Michigan regulation guide is preserved with SHA-256 verification. Printed pages 12, 13, 21 and 31 were visually inspected. Bass catch-and-release and possession seasons remain distinct; Grand Haven November gear restrictions apply across species. Review-period expiry is visible in the private output.
+- Twelve preserved snapshots and three documented retrieval failures across 15 Phase 2 source records. The prior annual/thermal source registers remain linked.
+- The nine offline thermal drafts, 2,889 sampled fits and 6,656 hypothetical weekly scenarios remain reproducible. Offline round-whitefish sensitivity is explicitly not a selected adult response.
 
-## Checks
+## Runtime contract
 
-- Complete PierCast suite: **125 passed, zero failed**.
+The owner-authorized `/review/outlook` response adds `cities[].additionalSpeciesResearch`. Each entry is labeled `surface_temperature_sensitivity_not_validated_forecast`; `runtimeEligible` and `publicEnabled` remain false. Fourteen entries contain hypothetical daily calculations using the existing hourly interpolation, daily aggregation and scoring formula. Two contain seasonal baselines only. All preserve independent annual curves, including weak periods and December–January interpolation.
+
+Additional research never enters `dates.species`, headline selection, immutable daily snapshots, the shadow forecast ledger, active species profiles or public catalogs. The existing four-species scoring and daily-lock contracts are unchanged. There is no UI change in this commit.
+
+The LMHOFS surface input is not newly approved as fish-experienced or bottom temperature. Covered-side uncertainties and adult round-whitefish response remain explicit activation deferrals. Passing tests does not resolve these scientific questions.
+
+## Verification
+
+- Complete PierCast suite: **130 passed, zero failed**.
 - TypeScript: `npx tsc --noEmit` passed.
-- Deno type check: `deno check scripts/generate-pier-cast-phase2.ts` passed.
-- Phase 2 generator, source hashes, generated thermal module, scenario tables and evidence report: current.
+- Deno checked the runtime pipeline and Phase 2 generator successfully.
+- Phase 2 generators, source hashes, sampled fits, sensitivity outputs and evidence report: current.
 - Phase 1 annual research: six tests and generated artifacts passed.
 - Original remaining-species evidence: four tests and generated artifacts passed.
-- Completed-core seasonal replay: current.
-- New tests cover curve bounds, continuity, cold values, species distinctions, formula headroom, missing/stale/unreviewed input, public approval and unchanged active species profiles.
+- Completed-core seasonal replay: current; core seasonal and thermal numeric configuration unchanged.
+- New integration tests verify exactly 16 city-specific research entries, 14 combined hypotheses, two thermal deferrals, blocked promotion, no headline/snapshot contamination, cold-water calculations in every month, expired regulation-review status, out-of-domain inputs and incomplete daily coverage.
 
-## Open work
+## Deployment reconciliation
 
-Thermal candidates require scientific review and independent outcome validation; the warm tails and adult round-whitefish response are particularly weak. The side/method review must resolve or defer the uncertain attributions and reconcile current regulations before any affected runtime activation. The 2026 regulation PDF exceeded the web reader's size limit; the 2025 agency notice and retained 2026 register do not constitute a fresh complete legal audit.
+No schema or database data change was required. The linked migration list remains matched through `20260911183000`.
 
-The generated thermal module remains detached from runtime assembly. Existing core scores, species profiles, UI, daily snapshot behavior, provider pipeline and public gates are unchanged. No migration or deployment was required for this research checkpoint. Phase 2 remains in progress; do not call these species onboarded or the numerical profiles empirically validated.
+`pier-cast` deployed as version **17**, active with JWT verification enabled. `pier-cast-ingest` remains version **12**, active with JWT verification enabled; its scoring and ingestion contract did not require deployment. Deployed smoke checks returned an empty public catalog (HTTP 200, zero cities) and denied anonymous access to the owner outlook (HTTP 403). Authorized research contents were verified in handler/pipeline tests; no authenticated production owner session was available for a full response smoke check.
+
+The pre-existing `app/pier-cast-review.tsx` working-tree edit was preserved and excluded from the Phase 2 commit.
+
+## Phase 3 handoff
+
+Review the full annual lineup together, including overlapping seasonal peaks, city-specific strength and weak periods. Use the 16 annual baselines and 14 provisional combined hypotheses; keep both round-whitefish thermal responses visibly deferred. Additional species are not validated live forecasts. Activating them still requires the recorded structure, thermal and temperature-representation gates to be satisfied; public release remains disabled.

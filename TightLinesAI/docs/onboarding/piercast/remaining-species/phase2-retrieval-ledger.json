@@ -106,5 +106,32 @@
     "bytes": 1396422,
     "sha256": "4ee4991b29520ef979d01794373682ed32b22465f40fc12b70705d2887007085",
     "error": null
+  },
+  {
+    "evidenceId": "P2_REGS2026",
+    "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf?hash=74FFE796837AA641CBE132C1583F68A5&rev=e64a3c8c16d4439e96323529bd8fc0f2",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_REGS2026.pdf",
+    "bytes": 21014081,
+    "sha256": "d06e0072dac74f3aeb98feff145c3268b86779f09986919e002ebd335f6240bb",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_MANISTEE_REPRINT2024",
+    "url": "https://www.ourmidland.com/news/article/michigan-fishing-report-shows-ludington-manistee-19544910.php",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_MANISTEE_REPRINT2024.html",
+    "bytes": 491628,
+    "sha256": "edac2f7906de3976d612879a1a008ed75ad30aff6d6c4fa7e05bb7f11a325f32",
+    "error": null
+  },
+  {
+    "evidenceId": "P2_ROUND_JUVENILE2023",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10469578/",
+    "retrievedAt": "2026-09-12",
+    "file": "sources/phase2/P2_ROUND_JUVENILE2023.html",
+    "bytes": 230151,
+    "sha256": "e12e21e9754277d5a379bee6d10668cc0c5f7d3316f43e4b6767e3cfd33cdf6a",
+    "error": null
   }
 ]

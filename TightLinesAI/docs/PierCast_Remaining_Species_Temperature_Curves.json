@@ -1,7 +1,7 @@
 {
-  "version": "remaining-thermal-research-v0.1-2026-09-12",
+  "version": "remaining-thermal-research-v0.2-2026-09-12",
   "phase": 2,
-  "status": "research_candidates_tested_pending_scientific_and_eligibility_review",
+  "status": "private_research_integrated_live_activation_deferred",
   "publicReleaseEnabled": false,
   "definition": "Normalized nearshore thermal compatibility product calibration, not probability of biting or fish temperature at depth.",
   "domainPolicy": "Accepted input bounds are model review limits, not tolerance limits. Values outside each curve domain remain unavailable. Warm/cool species drafts extend to 32 C; cold-water drafts end at 26 C. Existing core domains are unchanged.",
@@ -10,7 +10,8 @@
     "PierCast_Thermal_Evidence.json",
     "onboarding/piercast/remaining-species/annual-sources.json",
     "onboarding/piercast/remaining-species/sources.json",
-    "onboarding/piercast/remaining-species/phase2-sources.json"
+    "onboarding/piercast/remaining-species/phase2-sources.json",
+    "onboarding/piercast/remaining-species/phase1-sources.json"
   ],
   "profiles": [
     {
@@ -156,7 +157,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "walleye",
@@ -279,7 +282,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "smallmouth_bass",
@@ -412,7 +417,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "freshwater_drum",
@@ -546,7 +553,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "yellow_perch",
@@ -691,7 +700,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "lake_whitefish",
@@ -814,7 +825,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "round_whitefish",
@@ -825,10 +838,11 @@
       "evidenceIds": [
         "P2_GLFC1987",
         "T019",
-        "ROUND_DECLINE"
+        "ROUND_DECLINE",
+        "P2_ROUND_JUVENILE2023"
       ],
       "calibrationRationale": "Very-low-confidence cold-water compatibility hypothesis for sensitivity review only. No single historical occurrence or spawning temperature defines the peak; the moderate-width high-fit region and all ordinates remain unresolved empirical hypotheses.",
-      "limitations": "The weakest thermal draft: no retrieved adult pier angling response, sparse historical context, and pre-spawn feeding cessation. Must not share lake-whitefish approval or be activated on the strength of this draft.",
+      "limitations": "The weakest thermal draft: no retrieved adult pier angling response, sparse historical context, and pre-spawn feeding cessation. Must not share lake-whitefish approval or be activated on the strength of this draft. The 2023 shuttle-box experiment tested 55-62 mm juveniles reared at 15 C; it cannot calibrate adult pier feeding. Adult high-fit plateau remains unresolved.",
       "curve": {
         "curveId": "round_whitefish__additional_thermal_research__v0_1",
         "calibrationStatus": "provisional",
@@ -926,7 +940,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "deferred_adult_response",
+      "reviewConclusion": "Adult evidence does not justify selecting this draft as a live private forecast response; retain offline sensitivity only."
     },
     {
       "speciesId": "channel_catfish",
@@ -1071,7 +1087,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     },
     {
       "speciesId": "largemouth_bass",
@@ -1214,7 +1232,9 @@
             ]
           }
         ]
-      }
+      },
+      "privateReviewDecision": "provisional_sensitivity_only",
+      "reviewConclusion": "Accepted only as an explicit private sensitivity hypothesis. Broad response direction is biologically informed; ordinates, winter shoulders, and warm tails remain product judgments. No empirical bite probability or temperature-representation approval."
     }
   ]
 }

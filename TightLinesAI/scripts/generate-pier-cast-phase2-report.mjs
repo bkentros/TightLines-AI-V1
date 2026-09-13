@@ -9,16 +9,16 @@ const eligibility=read(dir+'phase2-eligibility.json');
 const sensitivity=read(dir+'phase2-sensitivity.json');
 const sources=new Map();
 for(const f of config.sourceRegisters){const a=read('docs/'+f);for(const s of Array.isArray(a)?a:a.records)sources.set(s.evidenceId,{...sources.get(s.evidenceId),...s});}
-const used=[...new Set(config.profiles.flatMap(p=>p.evidenceIds))];
+const used=[...new Set([...config.profiles.flatMap(p=>p.evidenceIds), "P2_REGS2026", "P2_MANISTEE_REPRINT2024"])];
 const refs=ids=>ids.map(id=>`[^${id}]`).join('');
 const pretty=s=>s.replaceAll('_',' ');
 const lines=[`# PierCast additional-species thermal calibration and eligibility
 
 ## Status
 
-Phase 2 is **in progress**. Nine species-specific thermal sensitivity candidates are configured and evaluated with the existing engine. None is an empirically fitted adult pier-bite response, and none activates a new runtime species. Round whitefish has particularly weak adult thermal support. The [machine-readable drafts](../../../PierCast_Remaining_Species_Temperature_Curves.json) preserve every ordinate's calibration basis, rationale and source identifiers.
+Phase 2 private research integration is implemented with explicit live-activation deferrals. Eight species have provisional thermal sensitivity profiles connected to the owner-only outlook for 14 city/species pairings. The two round-whitefish pairings return their full-year seasonal baselines but no live thermal-combined hypothesis: adult response remains deferred. All nine draft curves remain in offline sensitivity artifacts. None is an empirically fitted adult pier-bite response or an approved live rating. The [machine-readable drafts](../../../PierCast_Remaining_Species_Temperature_Curves.json) preserve every ordinate's calibration basis, rationale and source identifiers.
 
-The first eligibility audit covers all 16 Phase 1 annual pairings. Three have named covered-structure corroboration, five retain contextual attribution, and eight retain unresolved side attribution. These categories describe the preserved evidence, not newly verified catches. All retain temperature-representation and calibration gates. The [eligibility register](phase2-eligibility.json) records each blocking reason.
+The eligibility register covers all 16 Phase 1 annual pairings. Three have named covered-structure corroboration, five retain contextual attribution, and eight retain unresolved side attribution. These categories describe the preserved evidence. The Manistee drum newspaper reprint names North Pier, while its linked original DNR report does not name a side; this discrepancy is retained rather than upgrading the primary attribution. All retain temperature-representation and calibration gates. The [eligibility register](phase2-eligibility.json) records each blocking reason.
 
 The four completed species and their seasonal/thermal configuration remain unchanged. The five-city footprint, covered structures, formula, LMHOFS pipeline, caching, daily lock and disabled public catalog remain unchanged. The 29 Phase 1 deferred pairings have no hypothetical combined scores.
 
@@ -59,11 +59,11 @@ lines.push(`## Covered structure and fishing mode
 
 A source saying “piers” does not prove which side produced the catch. A closure can strengthen attribution but does not itself prove that a report excludes an unmapped stub or other structure. Those inferences remain visible. Bottom-oriented or sheltered-harbor fishing also requires assessment of whether the frozen lakeward surface cell represents the relevant water; changing curve shape cannot repair an unvalidated water proxy.
 
-The Grand Haven November hook restriction concerns fishing gear in the defined waters across species, not only whitefish targeting. The 2025 DNR notice supports this distinction; final activation must reconcile the current guide and applicable boundaries. The 2026 guide's direct web retrieval exceeded the reader's size limit in this pass, so this package does not claim a fresh complete 2026 legal audit.${refs(['P2_WHITEFISH_GEAR2025'])}
+The 2026 Michigan guide is preserved and its relevant printed pages 12, 13, 21 and 31 were visually reviewed. Bass catch-and-immediate-release is allowed year-round where fishing is otherwise open; harvest has a separate season. Manistee lake trout (MM 6-8) has year-round possession. Grand Haven's November 1-30 restriction requires one single-pointed unweighted hook no greater than half an inch from point to shank in the pier-head-to-US-31 waters, across species. The rule is not a whitefish-only seasonal exclusion. Great Lakes walleye permissions are not extended to upstream river waters. The review expires March 31, 2027 and is not a live access-closure certification.${refs(['P2_REGS2026'])}
 
-| City | Species | Evaluated covered structure | Attribution status | Runtime activation |
+| City | Species | Evaluated covered structure | Attribution status | Private research / live activation |
 | --- | --- | --- | --- | --- |`);
-for(const r of eligibility.rows)lines.push(`| ${pretty(r.cityId)} | ${pretty(r.speciesId)} | ${r.evaluatedStructureId} | ${r.structureStatus} | Pending |`);
+for(const r of eligibility.rows)lines.push(`| ${pretty(r.cityId)} | ${pretty(r.speciesId)} | ${r.evaluatedStructureId} | ${r.structureStatus} | ${r.privateResearchDecision}; live deferred |`);
 for(const r of eligibility.rows)lines.push(`\n### ${pretty(r.cityId)} — ${pretty(r.speciesId)}\n\n${r.attribution}\n\n${r.fishingMode} ${r.methodConstraint}\n\n**Representation:** ${r.representation}\n\n**Open gates:** ${r.blockingReasons.join('; ')}. Local evidence identifiers and links remain in the [Phase 1 report](PHASE1_SEASONAL_RESEARCH.md) and the eligibility JSON.`);
 lines.push(`## Sensitivity review
 
@@ -76,13 +76,15 @@ The following reports the largest score change caused by a two-degree difference
 | City | Species | Seasonal peak | Maximum score change for 2 C |
 | --- | --- | ---: | ---: |`);
 for(const r of sensitivity.rows)lines.push(`| ${pretty(r.cityId)} | ${pretty(r.speciesId)} | ${r.seasonalPeak} | ${r.maximumScoreChangeForTwoC.toFixed(3)} |`);
-lines.push(`## Remaining Phase 2 work
+lines.push(`## Private runtime integration and Phase 3 handoff
 
-1. Review and refine the numerical candidates against independent adult feeding/catch evidence, especially round whitefish and the weakly constrained warm tails. A source documenting growth, tolerance, release stress or spawning cannot close this gap by itself.
-2. Resolve or explicitly defer the eight uncertain pier-side attributions and review the five contextual inferences. Do not expand to excluded structures or convert generic harbor reports into exact-pier confirmation.
-3. Complete current regulation and fishing-method reconciliation, including Grand Haven's November restriction across species and catch-and-release versus harvest seasons for bass.
-4. Determine which pairings can enter private runtime review under the existing surface-temperature representation contract. Keep public and scientific gates intact; no automatic all-city species admission.
-5. Integrate the eligible subset with explicit city rosters, complete tests and TypeScript checks, reconcile deployment only if runtime/schema changes are introduced, then hand the full annual lineup to Phase 3.
+The owner-only outlook includes a separate \`additionalSpeciesResearch\` collection for each city. Ludington has three annual candidates, Grand Haven six, and Manistee seven; Frankfort–Elberta and Sheboygan receive no additions. Each entry preserves structure attribution, method constraints, source identifiers, regulation-review dates and blocking reasons. Fourteen entries carry a provisional surface-temperature sensitivity calculation; the two round-whitefish entries carry seasonal baselines only. Their annual curves remain continuous through December–January.
+
+These results are research hypotheses using the actual hourly interpolation, date windows and unchanged scoring formula. They are not added to \`dates.species\`, headline selection, immutable daily snapshots, the shadow forecast ledger or public catalogs. Scientific gates remain blocked, and targeting eligibility remains unknown. No additional depth, spawning, night or seasonal coefficient has been introduced. Missing coverage and out-of-domain water inputs remain unavailable. Old daily snapshots retain their four-species contract.
+
+Phase 3 should compare the completed four-species lineup and the 16 annual candidates across all 52 weeks, retaining independent species peaks and genuine overlap. Compare the 14 combined hypotheses under matched temperature scenarios; review round whitefish as a seasonal-only deferred case. Do not equate a missing thermal hypothesis with biological absence.
+
+Live activation remains deferred until the retained scientific and structure gates are satisfied. Exact structure uncertainty, adult round-whitefish thermal response, lawful-method whitefish magnitude and the surface-to-fishing-zone transfer cannot be approved by passing software tests or by an annual-lineup discussion. These are explicit limitations, not claims that all species have been onboarded as validated forecasts.
 
 ## Reproducibility
 

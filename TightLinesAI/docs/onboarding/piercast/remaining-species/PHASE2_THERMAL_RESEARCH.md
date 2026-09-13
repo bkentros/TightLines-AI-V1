@@ -2,9 +2,9 @@
 
 ## Status
 
-Phase 2 is **in progress**. Nine species-specific thermal sensitivity candidates are configured and evaluated with the existing engine. None is an empirically fitted adult pier-bite response, and none activates a new runtime species. Round whitefish has particularly weak adult thermal support. The [machine-readable drafts](../../../PierCast_Remaining_Species_Temperature_Curves.json) preserve every ordinate's calibration basis, rationale and source identifiers.
+Phase 2 private research integration is implemented with explicit live-activation deferrals. Eight species have provisional thermal sensitivity profiles connected to the owner-only outlook for 14 city/species pairings. The two round-whitefish pairings return their full-year seasonal baselines but no live thermal-combined hypothesis: adult response remains deferred. All nine draft curves remain in offline sensitivity artifacts. None is an empirically fitted adult pier-bite response or an approved live rating. The [machine-readable drafts](../../../PierCast_Remaining_Species_Temperature_Curves.json) preserve every ordinate's calibration basis, rationale and source identifiers.
 
-The first eligibility audit covers all 16 Phase 1 annual pairings. Three have named covered-structure corroboration, five retain contextual attribution, and eight retain unresolved side attribution. These categories describe the preserved evidence, not newly verified catches. All retain temperature-representation and calibration gates. The [eligibility register](phase2-eligibility.json) records each blocking reason.
+The eligibility register covers all 16 Phase 1 annual pairings. Three have named covered-structure corroboration, five retain contextual attribution, and eight retain unresolved side attribution. These categories describe the preserved evidence. The Manistee drum newspaper reprint names North Pier, while its linked original DNR report does not name a side; this discrepancy is retained rather than upgrading the primary attribution. All retain temperature-representation and calibration gates. The [eligibility register](phase2-eligibility.json) records each blocking reason.
 
 The four completed species and their seasonal/thermal configuration remain unchanged. The five-city footprint, covered structures, formula, LMHOFS pipeline, caching, daily lock and disabled public catalog remain unchanged. The 29 Phase 1 deferred pairings have no hypothetical combined scores.
 
@@ -170,9 +170,9 @@ All listed ordinates are product judgments. The source references constrain inte
 
 **Confidence:** very_low. **Disposition:** sensitivity candidate only.
 
-Very-low-confidence cold-water compatibility hypothesis for sensitivity review only. No single historical occurrence or spawning temperature defines the peak; the moderate-width high-fit region and all ordinates remain unresolved empirical hypotheses.[^P2_GLFC1987][^T019][^ROUND_DECLINE]
+Very-low-confidence cold-water compatibility hypothesis for sensitivity review only. No single historical occurrence or spawning temperature defines the peak; the moderate-width high-fit region and all ordinates remain unresolved empirical hypotheses.[^P2_GLFC1987][^T019][^ROUND_DECLINE][^P2_ROUND_JUVENILE2023]
 
-The weakest thermal draft: no retrieved adult pier angling response, sparse historical context, and pre-spawn feeding cessation. Must not share lake-whitefish approval or be activated on the strength of this draft.
+The weakest thermal draft: no retrieved adult pier angling response, sparse historical context, and pre-spawn feeding cessation. Must not share lake-whitefish approval or be activated on the strength of this draft. The 2023 shuttle-box experiment tested 55-62 mm juveniles reared at 15 C; it cannot calibrate adult pier feeding. Adult high-fit plateau remains unresolved.
 
 | Water temperature C | Thermal fit |
 | ---: | ---: |
@@ -233,32 +233,32 @@ All listed ordinates are product judgments. The source references constrain inte
 
 A source saying “piers” does not prove which side produced the catch. A closure can strengthen attribution but does not itself prove that a report excludes an unmapped stub or other structure. Those inferences remain visible. Bottom-oriented or sheltered-harbor fishing also requires assessment of whether the frozen lakeward surface cell represents the relevant water; changing curve shape cannot repair an unvalidated water proxy.
 
-The Grand Haven November hook restriction concerns fishing gear in the defined waters across species, not only whitefish targeting. The 2025 DNR notice supports this distinction; final activation must reconcile the current guide and applicable boundaries. The 2026 guide's direct web retrieval exceeded the reader's size limit in this pass, so this package does not claim a fresh complete 2026 legal audit.[^P2_WHITEFISH_GEAR2025]
+The 2026 Michigan guide is preserved and its relevant printed pages 12, 13, 21 and 31 were visually reviewed. Bass catch-and-immediate-release is allowed year-round where fishing is otherwise open; harvest has a separate season. Manistee lake trout (MM 6-8) has year-round possession. Grand Haven's November 1-30 restriction requires one single-pointed unweighted hook no greater than half an inch from point to shank in the pier-head-to-US-31 waters, across species. The rule is not a whitefish-only seasonal exclusion. Great Lakes walleye permissions are not extended to upstream river waters. The review expires March 31, 2027 and is not a live access-closure certification.[^P2_REGS2026]
 
-| City | Species | Evaluated covered structure | Attribution status | Runtime activation |
+| City | Species | Evaluated covered structure | Attribution status | Private research / live activation |
 | --- | --- | --- | --- | --- |
-| ludington mi | smallmouth bass | ludington_north_breakwater | named_covered_structure_corroboration | Pending |
-| ludington mi | freshwater drum | ludington_north_breakwater | unresolved_covered_side | Pending |
-| ludington mi | yellow perch | ludington_north_breakwater | named_covered_structure_corroboration | Pending |
-| grand haven mi | smallmouth bass | grand_haven_south_pier | unresolved_covered_side | Pending |
-| grand haven mi | freshwater drum | grand_haven_south_pier | contextual_inference_not_exact_confirmation | Pending |
-| grand haven mi | lake whitefish | grand_haven_south_pier | unresolved_covered_side | Pending |
-| grand haven mi | round whitefish | grand_haven_south_pier | unresolved_covered_side | Pending |
-| grand haven mi | channel catfish | grand_haven_south_pier | unresolved_covered_side | Pending |
-| grand haven mi | largemouth bass | grand_haven_south_pier | contextual_inference_not_exact_confirmation | Pending |
-| manistee mi | lake trout | manistee_north_pier | contextual_inference_not_exact_confirmation | Pending |
-| manistee mi | walleye | manistee_north_pier | contextual_inference_not_exact_confirmation | Pending |
-| manistee mi | smallmouth bass | manistee_north_pier | unresolved_covered_side | Pending |
-| manistee mi | freshwater drum | manistee_north_pier | unresolved_covered_side | Pending |
-| manistee mi | yellow perch | manistee_north_pier | named_covered_structure_corroboration | Pending |
-| manistee mi | round whitefish | manistee_north_pier | contextual_inference_not_exact_confirmation | Pending |
-| manistee mi | largemouth bass | manistee_north_pier | unresolved_covered_side | Pending |
+| ludington mi | smallmouth bass | ludington_north_breakwater | named_covered_structure_corroboration | provisional_sensitivity_only; live deferred |
+| ludington mi | freshwater drum | ludington_north_breakwater | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| ludington mi | yellow perch | ludington_north_breakwater | named_covered_structure_corroboration | provisional_sensitivity_only; live deferred |
+| grand haven mi | smallmouth bass | grand_haven_south_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| grand haven mi | freshwater drum | grand_haven_south_pier | contextual_inference_not_exact_confirmation | provisional_sensitivity_only; live deferred |
+| grand haven mi | lake whitefish | grand_haven_south_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| grand haven mi | round whitefish | grand_haven_south_pier | unresolved_covered_side | annual_only_thermal_deferred; live deferred |
+| grand haven mi | channel catfish | grand_haven_south_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| grand haven mi | largemouth bass | grand_haven_south_pier | contextual_inference_not_exact_confirmation | provisional_sensitivity_only; live deferred |
+| manistee mi | lake trout | manistee_north_pier | contextual_inference_not_exact_confirmation | provisional_sensitivity_only; live deferred |
+| manistee mi | walleye | manistee_north_pier | contextual_inference_not_exact_confirmation | provisional_sensitivity_only; live deferred |
+| manistee mi | smallmouth bass | manistee_north_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| manistee mi | freshwater drum | manistee_north_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
+| manistee mi | yellow perch | manistee_north_pier | named_covered_structure_corroboration | provisional_sensitivity_only; live deferred |
+| manistee mi | round whitefish | manistee_north_pier | contextual_inference_not_exact_confirmation | annual_only_thermal_deferred; live deferred |
+| manistee mi | largemouth bass | manistee_north_pier | unresolved_covered_side | provisional_sensitivity_only; live deferred |
 
 ### ludington mi — smallmouth bass
 
 North Breakwater corroborated in July; remaining port and unspecified-pier observations qualified.
 
-Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Current legal method, harvest season and covered access require final activation review.
+Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -268,7 +268,7 @@ Pier casting or bait fishing around reachable structure/cover; catch-and-release
 
 Unspecified Ludington piers; exact North Breakwater attribution remains a Phase 2 gate.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -278,7 +278,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 North Breakwater has exact June/July evidence; August magnitude uses port-mode shoulder inference.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -288,7 +288,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 Grand Haven piers; South-Pier-specific contribution unresolved.
 
-Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13). November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -298,7 +298,7 @@ Pier casting or bait fishing around reachable structure/cover; catch-and-release
 
 Channel-facing South Pier supported by pier-context 2026 reports during North-Pier closure; older port totals pool structures.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -308,7 +308,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Gra
 
 Port Pier/Dock recurrence is not exact covered-pier confirmation; named-pier reports and excluded structures remain distinguished.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -318,7 +318,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Gra
 
 Grand Haven piers, exact South-Pier contribution unresolved.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -328,7 +328,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Gra
 
 Grand Haven piers; side and current directed effort unresolved.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -338,7 +338,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Gra
 
 Grand Haven piers; South-Pier attribution strengthened by August 2026 pier-context report during North closure.
 
-Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Grand Haven November single-unweighted-hook restriction applies across species in the regulated waters; do not carry jig/treble methods into November.
+Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13). November 1-30: one single-pointed unweighted hook, at most 0.5 inch from point to shank, throughout the regulated pier-head-to-US-31 waters (pp. 17, 31); do not transfer jig or treble-hook methods.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -348,7 +348,7 @@ Pier casting or bait fishing around reachable structure/cover; catch-and-release
 
 April 2023 pier catches while South Pier closed support North attribution; 2024 side unspecified.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -358,7 +358,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 Unspecified piers with North-Pier context in May 2022; excluded closure-era South observations not assigned to North.
 
-Pier casting/bait fishing, strongest evidence at night; no added numerical night modifier. Current legal method, harvest season and covered access require final activation review.
+Pier casting/bait fishing, strongest evidence at night; no added numerical night modifier. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply. Great Lakes lake-side season is not an upstream river-season determination.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -368,7 +368,7 @@ Pier casting/bait fishing, strongest evidence at night; no added numerical night
 
 Manistee piers, exact North-side species attribution incomplete; unidentified North-Pier bass not split.
 
-Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Current legal method, harvest season and covered access require final activation review.
+Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -376,9 +376,9 @@ Pier casting or bait fishing around reachable structure/cover; catch-and-release
 
 ### manistee mi — freshwater drum
 
-Harbor/channel-facing piers; North-only attribution still needs method/side confirmation.
+Harbor/channel-facing piers; North-only attribution still needs method/side confirmation. June 28, 2024 newspaper reprint names North Pier, but the linked original June 26 DNR bulletin says only the pier. Secondary corroboration strengthens the lead without removing the primary side-attribution limitation.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -388,7 +388,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 North Pier explicitly corroborated in April 2017, May 2018 and June 2023.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -398,7 +398,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 Manistee piers; North attribution in April 2023 inferred from South closure, 2025 side unspecified.
 
-Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Current legal method, harvest season and covered access require final activation review.
+Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. 2026 guide permits year-round hook-and-line season for this species in the applicable Great Lakes waters; fishing access and lawful gear still apply.
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -408,7 +408,7 @@ Bottom-oriented bait or lure fishing; no offshore/boat or upstream transfer. Cur
 
 Manistee harbor-facing piers; covered North-Pier attribution unresolved.
 
-Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Current legal method, harvest season and covered access require final activation review.
+Pier casting or bait fishing around reachable structure/cover; catch-and-release opportunity distinguished from harvest season. Year-round catch-and-immediate-release where otherwise open; harvest is Saturday before Memorial Day through December 31 (2026 guide pp. 12-13).
 
 **Representation:** The existing lakeward LMHOFS surface cell is not certified as channel-bottom, sheltered harbor-face or fish-experienced temperature.
 
@@ -439,13 +439,15 @@ The following reports the largest score change caused by a two-degree difference
 | manistee mi | yellow perch | 7 | 0.900 |
 | manistee mi | round whitefish | 3.5 | 0.281 |
 | manistee mi | largemouth bass | 3 | 0.292 |
-## Remaining Phase 2 work
+## Private runtime integration and Phase 3 handoff
 
-1. Review and refine the numerical candidates against independent adult feeding/catch evidence, especially round whitefish and the weakly constrained warm tails. A source documenting growth, tolerance, release stress or spawning cannot close this gap by itself.
-2. Resolve or explicitly defer the eight uncertain pier-side attributions and review the five contextual inferences. Do not expand to excluded structures or convert generic harbor reports into exact-pier confirmation.
-3. Complete current regulation and fishing-method reconciliation, including Grand Haven's November restriction across species and catch-and-release versus harvest seasons for bass.
-4. Determine which pairings can enter private runtime review under the existing surface-temperature representation contract. Keep public and scientific gates intact; no automatic all-city species admission.
-5. Integrate the eligible subset with explicit city rosters, complete tests and TypeScript checks, reconcile deployment only if runtime/schema changes are introduced, then hand the full annual lineup to Phase 3.
+The owner-only outlook includes a separate `additionalSpeciesResearch` collection for each city. Ludington has three annual candidates, Grand Haven six, and Manistee seven; Frankfort–Elberta and Sheboygan receive no additions. Each entry preserves structure attribution, method constraints, source identifiers, regulation-review dates and blocking reasons. Fourteen entries carry a provisional surface-temperature sensitivity calculation; the two round-whitefish entries carry seasonal baselines only. Their annual curves remain continuous through December–January.
+
+These results are research hypotheses using the actual hourly interpolation, date windows and unchanged scoring formula. They are not added to `dates.species`, headline selection, immutable daily snapshots, the shadow forecast ledger or public catalogs. Scientific gates remain blocked, and targeting eligibility remains unknown. No additional depth, spawning, night or seasonal coefficient has been introduced. Missing coverage and out-of-domain water inputs remain unavailable. Old daily snapshots retain their four-species contract.
+
+Phase 3 should compare the completed four-species lineup and the 16 annual candidates across all 52 weeks, retaining independent species peaks and genuine overlap. Compare the 14 combined hypotheses under matched temperature scenarios; review round whitefish as a seasonal-only deferred case. Do not equate a missing thermal hypothesis with biological absence.
+
+Live activation remains deferred until the retained scientific and structure gates are satisfied. Exact structure uncertainty, adult round-whitefish thermal response, lawful-method whitefish magnitude and the surface-to-fishing-zone transfer cannot be approved by passing software tests or by an annual-lineup discussion. These are explicit limitations, not claims that all species have been onboarded as validated forecasts.
 
 ## Reproducibility
 
@@ -475,6 +477,7 @@ Run `npm run generate:pier-cast:phase2` to regenerate thermal TypeScript, sample
 [^P2_WHITEFISH_GEAR2025]: [Michigan DNR, Grand Haven, Muskegon and Whitehall/Montague single-pointed hook regulations](https://www.michigan.gov/dnr/about/newsroom/releases/2025/11/12/single-pointed-hook-regulations-nov-1-30). Published 2025-11-12; reviewed 2026-09-12. Scope: Named ports; Grand Haven westernmost pierhead to US 31 bridge. Lawful fishing gear, November. Applies to gear in the area, not just targeting whitefish. Regulatory scope does not prove species-specific South-Pier catch magnitude; 2026 guide must be reconciled before activation.
 [^T019]: [Round whitefish (menominee) species profile](https://www.michigan.gov/dnr/education/michigan-species/fish-species/menominee). Published date not stated; reviewed 2026-09-09. Scope: Michigan. Agency life-history summary. No adult thermal opportunity curve; historical local occurrence must be reviewed separately. Lake-whitefish values are not transferable.
 [^ROUND_DECLINE]: [Alan Campbell, Grayling and Menominee, Leelanau Enterprise](https://www.leelanaunews.com/article/7195,grayling-and-menominee). Published 2026-02-25; reviewed 2026-09-12. Scope: Northwest Michigan; biologist recalls Frankfort pier trip. Historical pier angling; attributed interview. 2026 publication is not a 2026 catch observation. Journalist species/season generalizations do not override species-specific DNR biology.
+[^P2_ROUND_JUVENILE2023]: [Harman et al., Effect of elevated embryonic incubation temperature on the temperature preference of juvenile lake and round whitefish](https://pmc.ncbi.nlm.nih.gov/articles/PMC10469578/). Published 2023; reviewed 2026-09-12. Scope: Laboratory shuttle-box; twelve-month juvenile round whitefish. Thermal selection after developmental incubation treatments, DOI 10.1093/conphys/coad067. Juvenile acclimated preference is not adult pier feeding or bite response; does not validate an adult 6-10 C plateau. No numerical profile is fitted to these values.
 [^A_CATFISH_KRUCKMAN2016]: [Kruckman: Diel and seasonal patterns of channel catfish movement and habitat use in the lower Wabash River](https://thekeep.eiu.edu/theses/2504/). Published 2016; reviewed 2026-09-12. Scope: Lower Wabash River; 2014–2016. Telemetry of 27 channel catfish; thesis. Different river; cannot establish Grand Haven winter fish locations or convert activity to bite probability.
 [^A_CATFISH_DISCHARGE1999]: [Cooke and McKinley: Winter residency and activity patterns of channel catfish and common carp in a thermal discharge canal](https://www.fecpl.ca/wp-content/uploads/1999/05/Cat_Carp_MS.pdf). Published 1999; reviewed 2026-09-12. Scope: Nanticoke generating station, Lake Erie; winter 1997–1998. Telemetry; some fish collected by winter angling. Artificial heated canal; not a Grand Haven winter analogue. Retained as counterevidence to total inactivity, not as evidence of a covered winter fishery.
 [^P2_CATFISH_RELEASE2025]: [Qualich and Louison, Effects of Temperature, Air Exposure Time, and Bleeding on Post-Release Movement of Angled Channel Catfish](https://onlinelibrary.wiley.com/doi/full/10.1111/fme.12805). Published 2025; reviewed 2026-09-12. Scope: Baldwin Lake, Illinois; May–November 2023. Post-angling depth and acceleration, not pre-capture success. Power-plant lake and injured/released fish. No warm-water optimum or catch-response plateau established.
@@ -482,3 +485,5 @@ Run `npm run generate:pier-cast:phase2` to regenerate thermal TypeScript, sample
 [^P2_BASS_TOURNAMENT2022]: [Maahs, Sylvia and Weber, Effects of Length and Bag Limits on Largemouth Bass Tournament Capture and Mortality](https://oup.silverchair-cdn.com/article-minimal/7811583). Published 2022-09-19; reviewed 2026-09-12. Scope: Brushy Creek Lake, Iowa; 2015–2019. Tournament weigh-in probability and mortality. Weigh-in is conditional on tournament rules/angler behavior and excludes culled fish. No open-pier probability, winter curve or surface-only response.
 [^A_BASS_WINTER2008]: [Hanson et al.: Intersexual variation in seasonal behaviour and depth distribution of largemouth bass](https://www.fecpl.ca/wp-content/uploads/2008/08/CJZ-Hanson-etal-2008.pdf). Published 2008; reviewed 2026-09-12. Scope: Warner Lake, Ontario; 2004–2005. Whole-lake telemetry of 20 bass. Small inland lake; transfers a qualitative habitat mechanism only. Movement is not bite probability.
 [^A_BASS_WINTER2024]: [Reeve et al.: Winter behaviour and energetics of free-swimming largemouth bass](https://www.fecpl.ca/wp-content/uploads/2024/11/Winter-behaviour-and-energetics-of-free-swimming-largemouth-bass.pdf). Published 2025; reviewed 2026-09-12. Scope: Small temperate lake. Wild-fish biologging and bioenergetic inference. Consumption inferred from models, not measured pier catchability; no automatic winter zero or numerical thermal response. File path contains 2024; journal publication is 2025.
+[^P2_REGS2026]: [Michigan DNR, 2026 Michigan Fishing Regulations](https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf?hash=74FFE796837AA641CBE132C1583F68A5&rev=e64a3c8c16d4439e96323529bd8fc0f2). Published 2026; reviewed 2026-09-12. Scope: Michigan; guide effective through March 31, 2027. Hook-and-line seasons and gear restrictions; printed pages 12, 13, 17, 21, 31. Legal permission is not catch evidence; current access closures remain separate. Lake-side walleye rules must not be extended upstream. Pages 12, 13, 21, 31 visually inspected after local PDF extraction.
+[^P2_MANISTEE_REPRINT2024]: [Arielle Breen, Fishing report shows local conditions, best methods](https://www.ourmidland.com/news/article/michigan-fishing-report-shows-ludington-manistee-19544910.php). Published 2024-06-28; reviewed 2026-09-12. Scope: Manistee North Pier; secondary reprint of June 26, 2024 DNR report. Pier catch and method corroboration. The original DNR report says only the pier. North attribution is the newspaper wording, not an agency-confirmed side; the reprint is not an independent catch event.

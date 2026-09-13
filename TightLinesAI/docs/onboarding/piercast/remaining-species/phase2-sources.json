@@ -154,5 +154,44 @@
     "limitations": "River/method transfer only; no identified optimum or declining warm limb, no winter sample sufficient for a fitted annual response.",
     "readingScope": "Original full page/PDF relevant sections reviewed; agency abstract where stated",
     "downloadStatus": "preserved"
+  },
+  {
+    "evidenceId": "P2_REGS2026",
+    "title": "Michigan DNR, 2026 Michigan Fishing Regulations",
+    "publishedAt": "2026",
+    "reviewedAt": "2026-09-12",
+    "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/LED/digests/2026-Michigan-Fishing-Regulations_web_accessible.pdf?hash=74FFE796837AA641CBE132C1583F68A5&rev=e64a3c8c16d4439e96323529bd8fc0f2",
+    "geographicScope": "Michigan; guide effective through March 31, 2027",
+    "endpoint": "Hook-and-line seasons and gear restrictions; printed pages 12, 13, 17, 21, 31",
+    "finding": "Bass catch-and-immediate-release is year-round unless waters otherwise closed. Lake trout MM 6-8, including Manistee, is open all year. Grand Haven November 1-30 requires one single-pointed unweighted hook, point-to-shank no greater than half an inch, from westernmost pier head to US-31 bridge.",
+    "limitations": "Legal permission is not catch evidence; current access closures remain separate. Lake-side walleye rules must not be extended upstream. Pages 12, 13, 21, 31 visually inspected after local PDF extraction.",
+    "readingScope": "Full original document relevant sections read",
+    "downloadStatus": "preserved"
+  },
+  {
+    "evidenceId": "P2_MANISTEE_REPRINT2024",
+    "title": "Arielle Breen, Fishing report shows local conditions, best methods",
+    "publishedAt": "2024-06-28",
+    "reviewedAt": "2026-09-12",
+    "url": "https://www.ourmidland.com/news/article/michigan-fishing-report-shows-ludington-manistee-19544910.php",
+    "geographicScope": "Manistee North Pier; secondary reprint of June 26, 2024 DNR report",
+    "endpoint": "Pier catch and method corroboration",
+    "finding": "Reprint specifies North Pier drum on the harbor side; links the original DNR bulletin B_3a521c4.",
+    "limitations": "The original DNR report says only the pier. North attribution is the newspaper wording, not an agency-confirmed side; the reprint is not an independent catch event.",
+    "readingScope": "Full original document relevant sections read",
+    "downloadStatus": "preserved"
+  },
+  {
+    "evidenceId": "P2_ROUND_JUVENILE2023",
+    "title": "Harman et al., Effect of elevated embryonic incubation temperature on the temperature preference of juvenile lake and round whitefish",
+    "publishedAt": "2023",
+    "reviewedAt": "2026-09-12",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10469578/",
+    "geographicScope": "Laboratory shuttle-box; twelve-month juvenile round whitefish",
+    "endpoint": "Thermal selection after developmental incubation treatments, DOI 10.1093/conphys/coad067",
+    "finding": "Round-whitefish groups were 55-62 mm, 1.19-1.71 g. Group mean upper avoidance 15.11-15.80 C; lower avoidance 13.04-13.73 C after common rearing at 15 C.",
+    "limitations": "Juvenile acclimated preference is not adult pier feeding or bite response; does not validate an adult 6-10 C plateau. No numerical profile is fitted to these values.",
+    "readingScope": "Full original document relevant sections read",
+    "downloadStatus": "preserved"
   }
 ]

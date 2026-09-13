@@ -407,6 +407,31 @@ export type PierCastReviewCityOutlook = {
   representationDecision: "blocked_insufficient_evidence";
   temperatureTimeline: PierCastReviewTemperaturePoint[];
   dates: PierCastReviewDateOutlook[];
+  /** Research hypotheses only; excluded from daily snapshots and headlines. */
+  additionalSpeciesResearch?: PierCastAdditionalSpeciesResearch[];
+};
+
+export type PierCastAdditionalSpeciesResearch = {
+  speciesId: PierCastSpeciesId;
+  evaluatedStructureId: string;
+  structureStatus: string;
+  attribution: string;
+  fishingMode: string;
+  methodConstraint: string;
+  regulationValidThrough: string;
+  evidenceIds: string[];
+  runtimeEligible: false;
+  publicEnabled: false;
+  interpretation: "surface_temperature_sensitivity_not_validated_forecast";
+  thermalDecision: "provisional_sensitivity_only" | "deferred_adult_response";
+  blockingReasons: string[];
+  dates: Array<{
+    localDate: string;
+    regulationReviewStatus: "within_review_period" | "requires_refresh";
+    seasonalRating: number | null;
+    /** Null when the adult thermal response is deferred. */
+    hypotheticalOutlook: PierCastReviewSpeciesOutlook | null;
+  }>;
 };
 
 export type PierCastDailyScoreSnapshot = {

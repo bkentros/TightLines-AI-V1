@@ -6,6 +6,9 @@ import {
 } from "../config/coreCalibration.ts";
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
 import { getPierCastSpeciesProfile } from "../config/species.ts";
+import { PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH } from "../config/additionalSeasonalResearch.generated.ts";
+import { PIER_CAST_ADDITIONAL_THERMAL_RESEARCH } from "../config/additionalThermalResearch.generated.ts";
+import { PIER_CAST_ADDITIONAL_ELIGIBILITY } from "../config/additionalEligibility.generated.ts";
 import { PIER_CAST_RATING_DISCLOSURE } from "../copy/reasonCodes.ts";
 import { pierCastOpenWaterNoticeApplies } from "../copy/openWater.ts";
 import type {
@@ -28,14 +31,17 @@ import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
 import { PIER_CAST_RUBRIC_VERSION } from "../scoring/rating.ts";
 import {
   PIER_CAST_MONTHS,
+  type PierCastAdditionalSpeciesResearch,
   type PierCastCoverageRead,
   type PierCastDailyAssessmentWindow,
   type PierCastDailyScoreSnapshot,
+  type PierCastMonthEvidenceState,
   type PierCastReviewDailyTemperature,
   type PierCastReviewOutlookResponse,
   type PierCastReviewSpeciesOutlook,
   type PierCastScoredSegment,
   type PierCastSpeciesDailyCandidate,
+  type PierCastSpeciesId,
   type PierCastTemperatureCurve,
 } from "../types.ts";
 
@@ -85,6 +91,12 @@ export function buildPierCastReviewOutlook(input: {
           formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
         })
       ),
+      additionalSpeciesResearch: buildAdditionalSpeciesResearch({
+        cityId: city.cityId,
+        samples: timeline.samples,
+        windows,
+        formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
+      }),
     };
   });
 
@@ -393,7 +405,9 @@ function buildDateOutlook(input: {
 }
 
 function buildSpeciesOutlook(input: {
-  speciesId: (typeof PIER_CAST_CORE_SPECIES_IDS)[number];
+  speciesId: PierCastSpeciesId;
+  researchTemperatureCurve?: PierCastTemperatureCurve;
+  researchMonthEvidenceState?: PierCastMonthEvidenceState;
   inheritance: "candidate" | "conditional" | "historical_lead" | "unresolved";
   configurationRatingEnabled: boolean;
   seasonalCurve: Parameters<
@@ -407,7 +421,8 @@ function buildSpeciesOutlook(input: {
     throw new Error("PierCast review preview expected disabled configuration.");
   }
   const speciesProfile = getPierCastSpeciesProfile(input.speciesId);
-  const temperatureCurve = getPierCastCoreTemperatureCurve(input.speciesId);
+  const temperatureCurve = input.researchTemperatureCurve ??
+    getPierCastCoreTemperatureCurve(input.speciesId);
   if (!speciesProfile || !temperatureCurve) {
     throw new Error(
       `PierCast core calibration missing for ${input.speciesId}.`,
@@ -416,7 +431,8 @@ function buildSpeciesOutlook(input: {
   const monthIndex = Number(input.window.localDate.slice(5, 7)) - 1;
   const month = PIER_CAST_MONTHS[monthIndex];
   if (!month) throw new Error("PierCast review local month is invalid.");
-  const monthEvidenceState = speciesProfile.monthContexts[month].evidenceState;
+  const monthEvidenceState = input.researchMonthEvidenceState ??
+    speciesProfile.monthContexts[month].evidenceState;
   const seasonal = evaluatePierCastSeasonalOpportunity({
     ratingEnabled: true,
     mode: "review",
@@ -523,6 +539,92 @@ function buildSpeciesOutlook(input: {
     promotion,
     reasonCodes: [...reasons],
   };
+}
+
+/**
+ * Owner-only research output. These hypotheses never enter headline selection,
+ * immutable daily snapshots, the shadow forecast ledger, or public catalogs.
+ * Surface temperature is deliberately labeled an unvalidated scenario proxy.
+ */
+function buildAdditionalSpeciesResearch(input: {
+  cityId: (typeof PIER_CAST_CITY_PROFILES)[number]["cityId"];
+  samples: readonly PierCastLmhofsSample[];
+  windows: readonly PierCastDailyAssessmentWindow[];
+  formulaVersion: PierCastFormulaVersion;
+}): PierCastAdditionalSpeciesResearch[] {
+  return PIER_CAST_ADDITIONAL_ELIGIBILITY.filter((row) =>
+    row.cityId === input.cityId
+  ).map((row) => {
+    const seasonalCurve = PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH.find((curve) =>
+      curve.cityId === row.cityId && curve.speciesId === row.speciesId
+    );
+    const thermal = PIER_CAST_ADDITIONAL_THERMAL_RESEARCH.find((profile) =>
+      profile.speciesId === row.speciesId
+    );
+    if (!seasonalCurve || !thermal) {
+      throw new Error("Incomplete additional-species research configuration.");
+    }
+    const deferred = row.speciesId === "round_whitefish";
+    return {
+      speciesId: row.speciesId,
+      evaluatedStructureId: row.evaluatedStructureId,
+      structureStatus: row.structureStatus,
+      attribution: row.attribution,
+      fishingMode: row.fishingMode,
+      methodConstraint: row.methodConstraint,
+      regulationValidThrough: row.regulationReview.validThrough,
+      evidenceIds: [...row.evidenceIds],
+      runtimeEligible: false,
+      publicEnabled: false,
+      interpretation: "surface_temperature_sensitivity_not_validated_forecast",
+      thermalDecision: deferred
+        ? "deferred_adult_response"
+        : "provisional_sensitivity_only",
+      blockingReasons: [...row.blockingReasons],
+      dates: input.windows.map((window) => {
+        const seasonal = evaluatePierCastSeasonalOpportunity({
+          curve: seasonalCurve,
+          localDate: window.localDate,
+          ratingEnabled: true,
+          mode: "review",
+        });
+        const hypotheticalOutlook = deferred ? null : buildSpeciesOutlook({
+          speciesId: row.speciesId,
+          inheritance: "conditional",
+          configurationRatingEnabled: false,
+          seasonalCurve,
+          researchTemperatureCurve: thermal.curve,
+          // Full-year product hypothesis, not a promotion of biological evidence.
+          researchMonthEvidenceState: "proposed_regional_transfer",
+          samples: input.samples,
+          window,
+          formulaVersion: input.formulaVersion,
+        });
+        if (hypotheticalOutlook) {
+          hypotheticalOutlook.reasonCodes.push(
+            "additional_species_sensitivity_only",
+            ...row.blockingReasons,
+          );
+          hypotheticalOutlook.promotion = {
+            status: "blocked",
+            reasonCodes: [
+              ...row.blockingReasons,
+              "configuration_rating_disabled",
+            ],
+          };
+        }
+        return {
+          localDate: window.localDate,
+          regulationReviewStatus: window.localDate >= "2026-04-01" &&
+              window.localDate <= row.regulationReview.validThrough
+            ? "within_review_period"
+            : "requires_refresh",
+          seasonalRating: seasonal.rating,
+          hypotheticalOutlook,
+        };
+      }),
+    };
+  });
 }
 
 type TemperatureSegment = {
