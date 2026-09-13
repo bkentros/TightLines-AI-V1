@@ -1,5 +1,7 @@
 # Color Match and PierCast lifetime free reports
 
+> **Owner-approved public research release — 2026-09-13:** [Authoritative release policy and disclosure](PierCast_Public_Release_Readiness.md). The existing five-city, 28-pair roster is approved for public research-based estimates. Earlier public-blocked/private-only statements below describe the prior policy. Scientific validation statuses and numeric scores remain unchanged; no production app build is created.
+
 Confirmed policy (2026-09-13): one free report per feature per account, forever. No daily allowance reset.
 
 - Color Match: the first successful report is persisted. Reopening it and retrying its existing request/setup returns the same report. Another lure/fly, clarity, or new report date requires upgrading. Saved trial recovery is server-backed, including after reinstalling or changing devices.

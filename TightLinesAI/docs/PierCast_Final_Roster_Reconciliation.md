@@ -1,5 +1,7 @@
 # PierCast final roster reconciliation
 
+> **Owner-approved public research release — 2026-09-13:** [Authoritative release policy and disclosure](PierCast_Public_Release_Readiness.md). The existing five-city, 28-pair roster is approved for public research-based estimates. Earlier public-blocked/private-only statements below describe the prior policy. Scientific validation statuses and numeric scores remain unchanged; no production app build is created.
+
 The current five-city private lineup is **28 city/species combinations**: the existing 20 core combinations plus eight additional pairings. All 45 additional-species decisions have been reconciled against the same recurring-catch standard. Manistee North Pier smallmouth is now admitted. The other seven admissions remain; 37 pairings are not admitted on the available evidence. These are completed evidence-bounded roster decisions, not findings that the excluded fish cannot occur.
 
 This closes the roster-standard inconsistency left by the initial Phase 3 audit. The current specification is **credible recurring identified catches from the exact covered piers**, not a requirement that a species be popular, dominant, or the intended target of most surveyed anglers. Numeric calibration and temperature compatibility remain separate requirements. A sparse fishery can qualify and receive a low score; an unidentified or geographically unresolved fishery cannot be made valid by assigning it 1.0.

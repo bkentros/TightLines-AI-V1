@@ -76,7 +76,7 @@ export type PierCastCatalogCityRead = {
   stateCode: "MI" | "WI";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
-  releaseStatus: "research_only";
+  releaseStatus: "research_only" | "public_research";
   waterTemperatureSource: {
     sourceId: string;
     productId: string;
@@ -221,8 +221,9 @@ export type PierCastDailyScoreSnapshotRead = {
 };
 
 export type PierCastReviewOutlookResponse = {
-  mode: "review";
-  previewOnly: true;
+  mode: "review" | "public_research";
+  previewOnly: boolean;
+  releasePolicyVersion?: string;
   generatedAt: string;
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";

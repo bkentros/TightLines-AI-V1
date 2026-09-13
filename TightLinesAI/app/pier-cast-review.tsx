@@ -1,3 +1,4 @@
+import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_RESEARCH_DETAIL } from "../lib/pierCastDisclosure";
 import { pierTrialRequiresUpgrade } from "../lib/reportTrialPaywall";
 import { getEffectiveTier } from "../lib/subscription";
 import { Ionicons } from "@expo/vector-icons";
@@ -1574,9 +1575,10 @@ function RatingExplanation({
         </Text>
       </View>
       <Text style={styles.ratingExplanationCopy}>
-        A 1–10 pier-fishing outlook based on seasonal presence and nearshore
-        water-temperature suitability. It is a FinFindr rating, not a biological
-        rating or catch guarantee.
+        {PIER_CAST_RESEARCH_DISCLOSURE}
+      </Text>
+      <Text style={styles.ratingExplanationCopy}>
+        {PIER_CAST_RESEARCH_DETAIL}
       </Text>
       {showWinterNotice ? (
         <View style={styles.winterNotice}>
@@ -2108,6 +2110,7 @@ function PierCastLanding({
           <Text style={styles.standingsSubtitle}>
             Every supported pier city, ranked by its strongest species rating.
           </Text>
+          <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
           <BandSpectrum />
           <View style={styles.standingsMeta}>
             <View style={styles.standingsMetaCell}>
@@ -3168,6 +3171,7 @@ export default function PierCastReviewScreen() {
                   })}
                 </ScrollView>
               </View>
+              <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
               <CityReport
                 city={selectedCity}
                 outlook={selectedOutlook}

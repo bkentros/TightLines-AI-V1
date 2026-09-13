@@ -1,3 +1,4 @@
+import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_PUBLIC_RELEASE } from "../_shared/pierCastEngine/config/publicRelease.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
 
 export class PierCastAccessError extends Error {
@@ -25,6 +26,8 @@ export function leaderboardOnly(
   const snapshot = outlook.dailyScoreSnapshot;
   return {
     generatedAt: outlook.generatedAt,
+    disclosure: PIER_CAST_RESEARCH_DISCLOSURE,
+    releasePolicyVersion: PIER_CAST_PUBLIC_RELEASE.version,
     ...(snapshot
       ? {
         dailyScoreSnapshot: {

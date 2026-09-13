@@ -1,33 +1,51 @@
-# PierCast public-release readiness — 2026-09-13
+# PierCast public research release — 2026-09-13
 
-**Decision: not yet public-release ready under the current validation requirements. No app build or submission was created.**
+**Owner-approved launch standard: research-based opportunity estimates, with clear limitations. No app build or submission was created.** This decision supersedes the earlier requirement to complete field/outcome validation before any public exposure; it does not confer scientific approval.
 
-## Completed scope
+## Approved scope
 
-Five cities, seven covered structures, 28 city/species combinations:
+| City | Species | Count |
+|---|---|---:|
+| Ludington | Chinook, coho, steelhead, brown trout, smallmouth, yellow perch | 6 |
+| Grand Haven | Chinook, coho, steelhead, brown trout, freshwater drum, largemouth | 6 |
+| Manistee | Chinook, coho, steelhead, brown trout, lake trout, smallmouth, drum, perch | 8 |
+| Frankfort–Elberta | Chinook, coho, steelhead, brown trout | 4 |
+| Sheboygan | Chinook, coho, steelhead, brown trout | 4 |
 
-| City | Core species | Additions | Total |
-|---|---|---|---:|
-| Ludington | Chinook, coho, steelhead, brown trout | Smallmouth, yellow perch | 6 |
-| Grand Haven | Chinook, coho, steelhead, brown trout | Freshwater drum, largemouth | 6 |
-| Manistee | Chinook, coho, steelhead, brown trout | Lake trout, smallmouth, drum, perch | 8 |
-| Frankfort–Elberta | Chinook, coho, steelhead, brown trout | None | 4 |
-| Sheboygan | Chinook, coho, steelhead, brown trout | None | 4 |
+The seven covered structures, numeric seasonal curves, thermal profiles, formula and daily score locks are unchanged. The distinct `piercast-public-research-v1-2026-09-13` policy authorizes exactly roster v3. It rejects unknown cities, extra/missing species and unapproved roster-version changes. Unadmitted research candidates are not public reports.
 
-Annual seasonal curves and species thermal compatibility profiles are configured. Roster admission and numerical configuration are complete for the private provisional scope; their existence does not establish empirical predictive accuracy. The authoritative evidence limits remain in [final roster reconciliation](PierCast_Final_Roster_Reconciliation.md).
+## Customer disclosure
 
-Daily score locks, conditions refresh, durable caching, access dossiers, ingestion and lifetime free-report controls are implemented. Current verification: 143 PierCast tests pass; private-roster and Phase 3 generated-artifact checks pass; TypeScript passes. The sanitized retained Sheboygan source matches its updated evidence-ledger hash and byte count.
+“Research-based opportunity ratings, not catch guarantees. Actual pier conditions may differ.”
 
-## Release blockers and decisions
+This wording appears on the leaderboard and city reports. The rating explanation also states:
 
-1. **Scientific release standard:** current public gates require approved temperature representation and prospective outcome validation. Production aggregate checks found zero field-temperature observations and zero shadow outcomes/validation pairs. The [field program](PierCast_Field_Temperature_Program.md) explicitly requires physical deployment and elapsed evidence. Configuration switches cannot satisfy those requirements.
-2. **Provisional launch alternative:** a public research-based product would require an explicit product-policy decision, a distinct provisional release state, truthful customer-facing limitations, and public serialization/tests for that state. Do not set scientific approval flags to true merely to allow launch. The release-policy decision has been requested from the owner and remains pending.
-3. **Public-path integration:** public endpoints currently return no cities by design. All five cities, species and temperature gates must be reconciled with the chosen launch policy. Owner-review endpoints must remain restricted. Test the actual released catalog, top-five leaderboard, selected-city reports, free first-use/next-day lock, and saved-report recovery together against the chosen scope.
-4. **Native paywall QA:** verify RevenueCat presentation, dismissal/reopening, purchase/restore and refreshed entitlement on iOS and Android. Backend tests verify HTTP paywall decisions, not native purchase sheets. No new production build is required for repository work, but an available development client/device is needed for this interaction check.
-5. **Launch presentation:** home, welcome, subscription and how-it-works screens must agree with backend availability. Pending welcome layout improvements are retained; premature NEW/available flags are not shipped while public catalog cities remain empty.
+“Ratings combine published research with FinFindr's judgment about seasonal pier opportunity and temperature suitability. They are not measured catch probabilities. NOAA water temperatures are modeled estimates, not measurements at the pier; accuracy has not been verified at each covered pier. Evidence is stronger for some species and seasons than others.”
 
-## Reconciliation
+The public API includes disclosure and release-policy metadata. Scientific calibration/representation approvals remain unchanged. Public discovery does not expose numeric seasonal curves, and public city reports exclude additional research drafts. The disclosure communicates uncertainty; it is not a representation of legal immunity.
 
-Linked database dry run reports up to date, including lifetime allowance migration `20260913160000`. Deployed functions are ACTIVE: PierCast v21, ingestion v15, Color Match v15, admin trial reset v17. No new migration is needed for this readiness audit. No app build, submission, or public-rating enablement was performed.
+## Access and operations
 
-The existing tests and completed roster support continuing release preparation. They do not justify declaring the public release complete while the items above remain unresolved.
+- Public catalog: five cities, 28 admitted pairings, `public_research` release status.
+- Leaderboard: top five headline ratings without species-report or temperature data, independent of subscription allowance and live conditions refresh.
+- City report: authenticated; one lifetime free city/report day with same-day condition refresh. Another city or report day requires upgrade. Saved trial reports remain recoverable.
+- Owner-review and validation endpoints remain owner-only.
+- Public city reports still require a fresh complete model cycle and a published daily score snapshot. Data failures remain unavailable rather than inventing scores.
+- Home, welcome, subscription and how-it-works availability match the approved public scope.
+
+## Verification and remaining observation work
+
+All 145 PierCast tests passed, including exact-roster public authorization and explicit compatibility with known earlier daily snapshots. Edge-function and app TypeScript checks passed. Production verification uses a disposable free account for catalog scope/disclosures, first city, same-city refresh, second-city denial, expired-day denial, saved recovery and independent daily leaderboard; it also checks Color Match lifetime/downgrade behavior and owner endpoint restrictions.
+
+Field measurements and prospective fishing results remain useful post-launch validation. Production archives contained zero field-temperature observations and zero fishing outcomes/validation pairs at the readiness audit; no scientific validation results have been invented. Physical RevenueCat paywall presentation and purchase/restore on iOS/Android remain device QA; automated checks cover the application decisions and backend responses. No new production build is created by this work.
+
+No schema or score-data migration is required: the policy changes serialization/access, not the archived daily score format or roster. Existing immutable snapshots remain intact.
+
+
+## Final production verification
+
+The approved research-release backend is deployed. Production smoke passed with a disposable account: five-city/28-pair catalog and disclosure, restricted owner review, first free city, same-city refresh, second-city and expired-day HTTP 403, saved recovery, and the full locked leaderboard. Paid five-city/five-day reports are checked separately by the same smoke script. Accounts created by the smoke are deleted in its cleanup step.
+
+The first production check identified an older immutable roster in today's snapshot. The serializer now accepts explicitly known v1/v2 snapshots only when their species remain a subset of the approved v3 scope. It rejects unknown roster versions and arbitrary partial/expanded rosters. Today's scores and leaderboard remain unchanged; future dates use the complete current 28-pair roster. No historical snapshot was rewritten.
+
+The database dry run reports up to date. No production app build, submission or OTA release was created. The checked-in app presents the approved disclosure and opens PierCast to regular accounts when run in a development client or a future build. Native purchase-sheet interaction remains device QA, not something the backend smoke simulates.

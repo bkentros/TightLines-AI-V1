@@ -144,7 +144,6 @@ const FEATURE_GUIDES: FeatureGuide[] = [
     tagline: "Which pier is worth the drive?",
     module: "pier-cast",
     route: "/pier-cast-review",
-    ownerOnly: true,
     action: "OPEN PIER CAST",
     iconBg: ["#E0F3F0", "#B8DFD8"],
     accent: "#318F83",

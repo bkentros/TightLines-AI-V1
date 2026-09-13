@@ -47,7 +47,7 @@ function reviewOutlook() {
   });
 }
 
-Deno.test("public PierCast catalog remains empty before release", async () => {
+Deno.test("public PierCast catalog exposes the approved research roster", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("catalog"));
   assertEquals(response.status, 200);
@@ -59,7 +59,9 @@ Deno.test("public PierCast catalog remains empty before release", async () => {
     body.formulaVersion,
     "seasonal-opportunity-bounded-temperature-v2",
   );
-  assertEquals(body.cities, []);
+  assertEquals(body.cities.length, 5);
+  assertEquals(body.cities.map((c: {species: unknown[]}) => c.species.length), [6,6,8,4,4]);
+  assertEquals(body.cities.every((c: { releaseStatus: string }) => c.releaseStatus === "public_research"), true);
 });
 
 Deno.test("owner-review catalog requires authorization", async () => {

@@ -1,3 +1,8 @@
+import {
+  isPierCastResearchCity,
+  PIER_CAST_RESEARCH_DISCLOSURE,
+  publicResearchSpecies,
+} from "./publicRelease.ts";
 import { PIER_CAST_RATING_DISCLOSURE } from "../copy/reasonCodes.ts";
 import { PIER_CAST_OPEN_WATER_NOTICE } from "../copy/openWater.ts";
 import { PIER_CAST_FORMULA_VERSION } from "../scoring/opportunity.ts";
@@ -8,17 +13,26 @@ export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
 ): PierCastCatalogResponse {
   const cities = PIER_CAST_CITY_PROFILES
-    .filter((city) => mode === "review" || city.publicEnabled)
+    .filter((city) => mode === "review" || isPierCastResearchCity(city.cityId))
     .map((city) => ({
       cityId: city.cityId,
       displayName: city.displayName,
       stateCode: city.stateCode,
       timezone: city.timezone,
       tentative: city.tentative,
-      releaseStatus: "research_only" as const,
+      releaseStatus: mode === "public"
+        ? "public_research" as const
+        : "research_only" as const,
       waterTemperatureSource: city.waterTemperatureSource,
       structures: city.structures.map((structure) => ({ ...structure })),
-      species: city.species.map((species) => ({ ...species })),
+      species: city.species.filter((species) =>
+        mode === "review" ||
+        publicResearchSpecies(city.cityId).includes(species.speciesId)
+      ).map((species) => ({
+        ...species,
+        // Public discovery must not expose the full seasonal score configuration.
+        ...(mode === "public" ? { seasonalOpportunityCurve: null } : {}),
+      })),
     }));
 
   return {
@@ -29,7 +43,9 @@ export function buildPierCastCatalog(
     formula:
       "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))",
     winterOpenWaterNotice: PIER_CAST_OPEN_WATER_NOTICE,
-    disclosure: PIER_CAST_RATING_DISCLOSURE,
+    disclosure: mode === "public"
+      ? PIER_CAST_RESEARCH_DISCLOSURE
+      : PIER_CAST_RATING_DISCLOSURE,
     cities,
   };
 }

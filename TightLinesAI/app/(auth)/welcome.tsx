@@ -119,7 +119,6 @@ const FEATURES: {
   {
     numeral: "IV",
     moduleId: "pier-cast",
-    comingSoon: true,
     title: "Pier Cast",
     tag: "PIER FORECAST",
     blurb: "Daily ratings for supported Great Lakes pier cities, plus five-day water, air, and wind.",

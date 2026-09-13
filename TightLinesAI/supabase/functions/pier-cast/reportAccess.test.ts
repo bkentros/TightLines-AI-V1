@@ -111,3 +111,28 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
   assertEquals(claims.has("c"), false);
   assertEquals(commits, 3);
 });
+
+Deno.test("public research authorization is exact-roster and does not claim scientific validation", async () => {
+  const { isPierCastResearchRoster, isPierCastResearchCity, publicResearchSpecies, PIER_CAST_RESEARCH_DISCLOSURE } = await import("../_shared/pierCastEngine/config/publicRelease.ts");
+  const { PIER_CAST_CITY_PROFILES } = await import("../_shared/pierCastEngine/config/cities.ts");
+  const { buildPierCastCatalog } = await import("../_shared/pierCastEngine/config/catalog.ts");
+  assertEquals(PIER_CAST_CITY_PROFILES.every(c => !c.publicEnabled), true);
+  assertEquals(isPierCastResearchCity("unapproved_city"), false);
+  assertEquals(isPierCastResearchRoster("ludington_mi", publicResearchSpecies("ludington_mi")), true);
+  assertEquals(isPierCastResearchRoster("ludington_mi", [...publicResearchSpecies("ludington_mi"), "walleye"]), false);
+  assertEquals(isPierCastResearchRoster("manistee_mi", publicResearchSpecies("ludington_mi")), false);
+  const catalog = buildPierCastCatalog("public");
+  assertEquals(catalog.disclosure, PIER_CAST_RESEARCH_DISCLOSURE);
+  assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4]);
+  assertEquals(catalog.cities.every(c => c.releaseStatus === "public_research" && c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
+});
+
+Deno.test("research launch preserves known earlier daily snapshots without accepting arbitrary partial rosters", async () => {
+  const { isPierCastResearchRoster, publicResearchSpecies } = await import("../_shared/pierCastEngine/config/publicRelease.ts");
+  const core = ["chinook_salmon", "coho_salmon", "steelhead", "brown_trout"];
+  assertEquals(isPierCastResearchRoster("ludington_mi", core), false);
+  assertEquals(isPierCastResearchRoster("ludington_mi", core, "piercast-five-city-four-species-v1"), true);
+  assertEquals(isPierCastResearchRoster("ludington_mi", core, "unknown"), false);
+  assertEquals(isPierCastResearchRoster("ludington_mi", ["walleye", ...core], "piercast-five-city-four-species-v1"), false);
+  assertEquals(isPierCastResearchRoster("manistee_mi", publicResearchSpecies("manistee_mi").filter(id => id !== "smallmouth_bass"), "piercast-private-roster-v2-2026-09-12"), true);
+});

@@ -1,3 +1,10 @@
+import { PIER_CAST_LEGACY_ROSTER_VERSION } from "../_shared/pierCastEngine/config/privateCalibration.ts";
+import {
+  isPierCastResearchRoster,
+  PIER_CAST_PUBLIC_RELEASE,
+  PIER_CAST_RESEARCH_DETAIL,
+  PIER_CAST_RESEARCH_DISCLOSURE,
+} from "../_shared/pierCastEngine/config/publicRelease.ts";
 import {
   createPierReportAccess,
   leaderboardOnly,
@@ -15,7 +22,6 @@ import {
   buildPierCastReviewOutlook,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
-  PIER_CAST_SPECIES_PROFILES,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   readLatestFreshPierCastLmhofsBatch,
@@ -89,27 +95,26 @@ async function readPublicOutlook() {
   if (!released.length) return null;
   const outlook = await readOutlook();
   if (!outlook) return null;
-  // A city cannot expose a still-private species configuration.
   const allowed = new Set(
     released.filter((city) => {
       const report = outlook.cities.find((c) => c.cityId === city.cityId);
-      return city.waterTemperatureSource?.calibrationStatus ===
-          "approved_for_pilot" &&
-        !!report && report.dates.every((date) =>
-          date.species.every((s) =>
-            city.species.find((config) =>
-              config.speciesId === s.speciesId
-            )
-              ?.ratingEnabled &&
-            PIER_CAST_SPECIES_PROFILES.find((profile) =>
-              profile.speciesId === s.speciesId
-            )?.ratingEnabled
-          )
-        );
+      return !!report && report.dates.every((date) =>
+        isPierCastResearchRoster(
+          city.cityId,
+          date.species.map((s) => s.speciesId),
+          outlook.dailyScoreSnapshot?.cities.some(row => row.cityId === city.cityId && row.date.localDate === date.localDate)
+            ? outlook.dailyScoreSnapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION
+            : PIER_CAST_PUBLIC_RELEASE.rosterVersion,
+        )
+      );
     }).map((city) => city.cityId),
   );
   return {
     ...outlook,
+    mode: "public_research" as const,
+    previewOnly: false,
+    releasePolicyVersion: PIER_CAST_PUBLIC_RELEASE.version,
+    disclosure: `${PIER_CAST_RESEARCH_DISCLOSURE} ${PIER_CAST_RESEARCH_DETAIL}`,
     cities: outlook.cities.filter((city) => allowed.has(city.cityId)),
     ...(outlook.dailyScoreSnapshot
       ? {
@@ -169,14 +174,10 @@ const handler = createPierCastHandler({
       const city = released.find((c) => c.cityId === row.cityId);
       if (
         !city ||
-        city.waterTemperatureSource?.calibrationStatus !==
-          "approved_for_pilot" ||
-        !row.date.species.every((s) =>
-          city.species.find((config) => config.speciesId === s.speciesId)
-            ?.ratingEnabled &&
-          PIER_CAST_SPECIES_PROFILES.find((profile) =>
-            profile.speciesId === s.speciesId
-          )?.ratingEnabled
+        !isPierCastResearchRoster(
+          row.cityId,
+          row.date.species.map((s) => s.speciesId),
+          snapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION,
         )
       ) return [];
       return [{

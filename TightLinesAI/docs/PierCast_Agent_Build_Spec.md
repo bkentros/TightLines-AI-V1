@@ -1,5 +1,7 @@
 # FinFindr PierCast — Agent Build Specification
 
+> **Owner-approved public research release — 2026-09-13:** [Authoritative release policy and disclosure](PierCast_Public_Release_Readiness.md). The existing five-city, 28-pair roster is approved for public research-based estimates. Earlier public-blocked/private-only statements below describe the prior policy. Scientific validation statuses and numeric scores remain unchanged; no production app build is created.
+
 > **Public-release readiness — 2026-09-13:** [Current release decision and blockers](PierCast_Public_Release_Readiness.md). The 28-combination private configuration is complete; public scientific validation is not. Production validation archives contain no field observations or fishing outcomes. No app build or public enablement was performed.
 
 > **Final roster reconciliation — 2026-09-13:** [Authoritative decisions and confidence limits](PierCast_Final_Roster_Reconciliation.md). All 45 additional pairings now use the recurring-covered-pier-catch standard. Eight additions are scored, including Manistee North Pier smallmouth; 37 are not admitted for explicit evidence reasons. The private lineup is 28 combinations (6/6/8/4/4), with 140 forecasts per run. Engine v0.10.0 and roster v3 preserve prior rosters and daily locks. Earlier counts below are historical. Numeric curves, formula and public gates remain unchanged.

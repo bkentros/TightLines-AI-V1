@@ -77,7 +77,6 @@ const ANGLER_FEATURES: Array<{
   },
   {
     module: 'pier-cast',
-    comingSoon: true,
     title: 'Pier Cast',
     copy: 'Daily 1\u201310 ratings for supported Great Lakes pier cities, with five-day water, air, and wind at the pier.',
     iconBg: ['#E0F3F0', '#B8DFD8'],

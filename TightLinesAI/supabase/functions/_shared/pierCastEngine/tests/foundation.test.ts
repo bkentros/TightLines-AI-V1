@@ -358,10 +358,12 @@ Deno.test("known construction and identity limitations stay encoded", () => {
   assertEquals(stub.disposition, "unresolved");
 });
 
-Deno.test("public catalog is empty while review catalog exposes research candidates", () => {
+Deno.test("public research catalog preserves scientific gates and hides numeric configuration", () => {
   const publicCatalog = buildPierCastCatalog("public");
   const reviewCatalog = buildPierCastCatalog("review");
-  assertEquals(publicCatalog.cities, []);
+  assertEquals(publicCatalog.cities.length, 5);
+  assertEquals(publicCatalog.cities.flatMap(c => c.species).length, 28);
+  assertEquals(publicCatalog.cities.flatMap(c => c.species).every(s => !s.ratingEnabled && s.seasonalOpportunityCurve === null), true);
   assertEquals(reviewCatalog.cities.length, 5);
   assertEquals(reviewCatalog.ratingName, "FinFindr Opportunity Rating");
   assertEquals(reviewCatalog.ratingDisplayFormat, "X.X/10");

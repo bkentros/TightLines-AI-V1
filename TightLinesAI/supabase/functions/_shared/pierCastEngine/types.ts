@@ -172,7 +172,7 @@ export type PierCastCatalogCity = {
   stateCode: "MI" | "WI";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
-  releaseStatus: "research_only";
+  releaseStatus: "research_only" | "public_research";
   waterTemperatureSource: PierCastCityTemperatureSource | null;
   structures: PierCastStructure[];
   species: PierCastCitySpeciesProfile[];
@@ -463,8 +463,9 @@ export type PierCastDailyScoreSnapshot = {
 
 export type PierCastReviewOutlookResponse = {
   speciesRosterVersion?: string;
-  mode: "review";
-  previewOnly: true;
+  mode: "review" | "public_research";
+  previewOnly: boolean;
+  releasePolicyVersion?: string;
   generatedAt: string;
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";

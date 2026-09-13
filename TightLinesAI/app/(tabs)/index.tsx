@@ -1772,9 +1772,8 @@ export default function HomeScreen() {
               iconBg={["#E0F3F0", "#B8DFD8"]}
               iconBorder="#318F83"
               iconColor="#20665E"
-              onPress={isAdminEmail(user?.email) ? () => router.push("/pier-cast-review") : undefined}
-              badge={isAdminEmail(user?.email) ? "REVIEW" : undefined}
-              comingSoon={!isAdminEmail(user?.email)}
+              onPress={() => router.push("/pier-cast-review")}
+              badge="NEW"
               descLines={2}
             />
             <ModuleRow
