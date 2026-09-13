@@ -28,6 +28,8 @@ import { selectPierCastDailyHeadline } from "../scoring/headline.ts";
 import {
   combinePierCastOpportunity,
   PIER_CAST_FORMULA_VERSION,
+  PIER_CAST_TEMPERATURE_MODIFIER_FLOOR,
+  PIER_CAST_TEMPERATURE_MODIFIER_WEIGHT,
   type PierCastFormulaVersion,
 } from "../scoring/opportunity.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../scoring/seasonal.ts";
@@ -462,6 +464,8 @@ function buildSpeciesOutlook(input: {
         input.samples,
         input.window,
         temperatureCurve,
+        seasonal.rating,
+        input.formulaVersion,
       )
     ) {
       const startTemperature = evaluateTemperatureSuitability({
@@ -673,14 +677,36 @@ function buildTemperatureScoreSegments(
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
   curve: PierCastTemperatureCurve,
+  seasonalRating: number,
+  formulaVersion: PierCastFormulaVersion,
 ): TemperatureSegment[] {
-  return buildTemperatureSegments(samples, window, curve);
+  // The bounded score is piecewise linear with an additional corner where it
+  // reaches 10. Include that corner before integrating endpoint scores.
+  const breakpoints: number[] = [];
+  if (formulaVersion === PIER_CAST_FORMULA_VERSION && seasonalRating > 1) {
+    const ceilingFit = (9 / (seasonalRating - 1) -
+      PIER_CAST_TEMPERATURE_MODIFIER_FLOOR) /
+      PIER_CAST_TEMPERATURE_MODIFIER_WEIGHT;
+    for (let i = 1; i < curve.knots.length; i++) {
+      const left = curve.knots[i - 1], right = curve.knots[i];
+      const progress = (ceilingFit - left.suitability) /
+        (right.suitability - left.suitability);
+      if (progress > 0 && progress < 1) {
+        breakpoints.push(
+          left.temperatureC +
+            progress * (right.temperatureC - left.temperatureC),
+        );
+      }
+    }
+  }
+  return buildTemperatureSegments(samples, window, curve, breakpoints);
 }
 
 function buildTemperatureSegments(
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
   curve: PierCastTemperatureCurve | null,
+  extraBreakpoints: readonly number[] = [],
 ): TemperatureSegment[] {
   const requestedStart = Date.parse(window.requestedInterval.start);
   const requestedEnd = Date.parse(window.requestedInterval.end);
@@ -710,13 +736,18 @@ function buildTemperatureSegments(
     );
     const splitPoints = [{ time: start, temperatureC: startTemperature }];
     if (curve && endTemperature !== startTemperature) {
-      for (const knot of curve.knots) {
-        const progress = (knot.temperatureC - startTemperature) /
+      for (
+        const temperatureC of new Set([
+          ...curve.knots.map((k) => k.temperatureC),
+          ...extraBreakpoints,
+        ])
+      ) {
+        const progress = (temperatureC - startTemperature) /
           (endTemperature - startTemperature);
         if (progress > 0 && progress < 1) {
           splitPoints.push({
             time: start + progress * (end - start),
-            temperatureC: knot.temperatureC,
+            temperatureC,
           });
         }
       }

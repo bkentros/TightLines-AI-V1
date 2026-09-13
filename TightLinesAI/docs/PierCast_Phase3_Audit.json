@@ -1,0 +1,352 @@
+{
+  "auditDate": "2026-09-13",
+  "engineVersion": "pier-cast-simple-model-v0.9.1",
+  "publicEnabled": false,
+  "dailyChecks": 39447,
+  "temperatureScenarios": 11232,
+  "thermalGridChecks": 2889,
+  "thermalGateChecks": 63,
+  "pipelineSpeciesDays": 2430,
+  "pipelineDates": [
+    "2026-01-15",
+    "2026-02-15",
+    "2026-03-15",
+    "2026-04-15",
+    "2026-05-15",
+    "2026-06-15",
+    "2026-07-15",
+    "2026-08-15",
+    "2026-09-15",
+    "2026-10-15",
+    "2026-11-15",
+    "2026-12-15",
+    "2024-02-29",
+    "2026-03-08",
+    "2026-11-01",
+    "2026-12-31",
+    "2027-01-01",
+    "2027-04-01"
+  ],
+  "pairSummaries": [
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "chinook_salmon",
+      "min": 1,
+      "max": 8.3,
+      "peakDates": [
+        "08-30"
+      ],
+      "maxDailyChange": 0.23529411764705976
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "coho_salmon",
+      "min": 1.3,
+      "max": 5.6,
+      "peakDates": [
+        "10-20"
+      ],
+      "maxDailyChange": 0.1111111111111116
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "steelhead",
+      "min": 1.5,
+      "max": 8.1,
+      "peakDates": [
+        "10-20"
+      ],
+      "maxDailyChange": 0.1880000000000006
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "brown_trout",
+      "min": 1.2,
+      "max": 7.6,
+      "peakDates": [
+        "04-05"
+      ],
+      "maxDailyChange": 0.07692307692307754
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "min": 1.5,
+      "max": 4.5,
+      "peakDates": [
+        "07-15"
+      ],
+      "maxDailyChange": 0.04838709677419395
+    },
+    {
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "min": 1.5,
+      "max": 6,
+      "peakDates": [
+        "07-15"
+      ],
+      "maxDailyChange": 0.11290322580645196
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "chinook_salmon",
+      "min": 1,
+      "max": 7.8,
+      "peakDates": [
+        "09-08"
+      ],
+      "maxDailyChange": 0.13529411764705923
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "coho_salmon",
+      "min": 1.7,
+      "max": 8.8,
+      "peakDates": [
+        "09-10"
+      ],
+      "maxDailyChange": 0.2187500000000009
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "steelhead",
+      "min": 3.4,
+      "max": 9.2,
+      "peakDates": [
+        "10-30"
+      ],
+      "maxDailyChange": 0.18181818181818254
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "brown_trout",
+      "min": 1,
+      "max": 7.6,
+      "peakDates": [
+        "04-15"
+      ],
+      "maxDailyChange": 0.09722222222222321
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "min": 1.5,
+      "max": 7,
+      "peakDates": [
+        "06-15"
+      ],
+      "maxDailyChange": 0.13333333333333375
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "min": 1.5,
+      "max": 6.5,
+      "peakDates": [
+        "08-15"
+      ],
+      "maxDailyChange": 0.0967741935483879
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "chinook_salmon",
+      "min": 1,
+      "max": 9.5,
+      "peakDates": [
+        "08-30"
+      ],
+      "maxDailyChange": 0.20588235294117752
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "coho_salmon",
+      "min": 1.5,
+      "max": 8.2,
+      "peakDates": [
+        "10-05"
+      ],
+      "maxDailyChange": 0.128571428571429
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "steelhead",
+      "min": 3,
+      "max": 10,
+      "peakDates": [
+        "10-28"
+      ],
+      "maxDailyChange": 0.13846153846153975
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "brown_trout",
+      "min": 1,
+      "max": 8.2,
+      "peakDates": [
+        "04-10"
+      ],
+      "maxDailyChange": 0.10000000000000053
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "min": 1,
+      "max": 3,
+      "peakDates": [
+        "04-15",
+        "10-15"
+      ],
+      "maxDailyChange": 0.05000000000000071
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "min": 1.5,
+      "max": 4.5,
+      "peakDates": [
+        "07-15"
+      ],
+      "maxDailyChange": 0.06451612903225845
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "min": 1.5,
+      "max": 7,
+      "peakDates": [
+        "05-15"
+      ],
+      "maxDailyChange": 0.11290322580645196
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "chinook_salmon",
+      "min": 1,
+      "max": 9.7,
+      "peakDates": [
+        "08-16"
+      ],
+      "maxDailyChange": 0.2631578947368425
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "coho_salmon",
+      "min": 1.2,
+      "max": 8.6,
+      "peakDates": [
+        "09-15"
+      ],
+      "maxDailyChange": 0.12000000000000033
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "steelhead",
+      "min": 3.5,
+      "max": 9.8,
+      "peakDates": [
+        "10-16"
+      ],
+      "maxDailyChange": 0.24230769230769234
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "brown_trout",
+      "min": 1.3,
+      "max": 7.5,
+      "peakDates": [
+        "04-05"
+      ],
+      "maxDailyChange": 0.057692307692308376
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "chinook_salmon",
+      "min": 1,
+      "max": 9.6,
+      "peakDates": [
+        "08-31"
+      ],
+      "maxDailyChange": 0.14736842105263293
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "coho_salmon",
+      "min": 1.2,
+      "max": 7.7,
+      "peakDates": [
+        "04-15"
+      ],
+      "maxDailyChange": 0.120000000000001
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "steelhead",
+      "min": 2.8,
+      "max": 7.3,
+      "peakDates": [
+        "07-15"
+      ],
+      "maxDailyChange": 0.0638888888888891
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesId": "brown_trout",
+      "min": 2,
+      "max": 7.8,
+      "peakDates": [
+        "04-15"
+      ],
+      "maxDailyChange": 0.09285714285714342
+    }
+  ],
+  "citySummaries": [
+    {
+      "cityId": "ludington_mi",
+      "speciesCount": 6,
+      "goodWeeks": 19,
+      "overlapWeeks": 0,
+      "allLimitedOrPoorWeeks": [
+        1,
+        2
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "speciesCount": 6,
+      "goodWeeks": 37,
+      "overlapWeeks": 24,
+      "allLimitedOrPoorWeeks": [
+        1,
+        2
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "speciesCount": 7,
+      "goodWeeks": 29,
+      "overlapWeeks": 17,
+      "allLimitedOrPoorWeeks": []
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "speciesCount": 4,
+      "goodWeeks": 28,
+      "overlapWeeks": 15,
+      "allLimitedOrPoorWeeks": []
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "speciesCount": 4,
+      "goodWeeks": 32,
+      "overlapWeeks": 22,
+      "allLimitedOrPoorWeeks": [
+        46,
+        47,
+        48,
+        49,
+        50
+      ]
+    }
+  ]
+}

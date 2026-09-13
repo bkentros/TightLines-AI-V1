@@ -14,6 +14,10 @@ type MonthContextTuple = readonly [
 ];
 
 const SB = "sourced_biology" as const;
+// Phase 3: LF?/WD? in admitted Chinook, coho and drum profiles are explicit
+// low-confidence annual calibration transfers, not sourced winter pier biology.
+// See docs/PierCast_Phase3_Audit.md. Unknown context codes remain visible;
+// public approval and the evaluator's absent-biology gate are unchanged.
 const RT = "proposed_regional_transfer" as const;
 const AE = "absent_biology_evidence" as const;
 
@@ -68,8 +72,8 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
     aliases: ["King Salmon"],
     behavioralProfileIds: ["lake_feeding", "mature_return_staging"],
     monthContexts: monthContexts([
-      ["LF?", AE],
-      ["LF?", AE],
+      ["LF?", RT],
+      ["LF?", RT],
       ["LF", SB],
       ["LF/SN", SB],
       ["LF/SN", SB],
@@ -78,8 +82,8 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
       ["LF/MR", SB],
       ["MR", SB],
       ["MR/LF", SB],
-      ["LF?", AE],
-      ["LF?", AE],
+      ["LF?", RT],
+      ["LF?", RT],
     ]),
     evidenceIds: ["T001", "T006"],
     seasonalTemperatureCurves: [
@@ -92,8 +96,8 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
     aliases: [],
     behavioralProfileIds: ["lake_feeding", "mature_return_staging"],
     monthContexts: monthContexts([
-      ["LF?", AE],
-      ["LF?", AE],
+      ["LF?", RT],
+      ["LF?", RT],
       ["LF/SN", SB],
       ["LF/SN", SB],
       ["LF", SB],
@@ -103,7 +107,7 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
       ["MR", SB],
       ["MR", SB],
       ["MR/LF", SB],
-      ["LF?", AE],
+      ["LF?", RT],
     ]),
     evidenceIds: ["T002", "T008", "T013"],
     seasonalTemperatureCurves: [
@@ -242,8 +246,8 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
       "cold_season_deep",
     ],
     monthContexts: monthContexts([
-      ["WD?", AE],
-      ["WD?", AE],
+      ["WD?", RT],
+      ["WD?", RT],
       ["WD/TR", RT],
       ["TR", RT],
       ["SP/LF", RT],
@@ -252,8 +256,8 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
       ["LF", RT],
       ["LF", RT],
       ["TR", RT],
-      ["WD?", AE],
-      ["WD?", AE],
+      ["WD?", RT],
+      ["WD?", RT],
     ]),
     evidenceIds: ["T025", "T026"],
   }),

@@ -254,13 +254,13 @@ Deno.test("every retained species has twelve explicit month contexts", () => {
     contexts.filter((context) =>
       context.evidenceState === "proposed_regional_transfer"
     ).length,
-    70,
+    81,
   );
   assertEquals(
     contexts.filter((context) =>
       context.evidenceState === "absent_biology_evidence"
     ).length,
-    12,
+    1,
   );
 });
 

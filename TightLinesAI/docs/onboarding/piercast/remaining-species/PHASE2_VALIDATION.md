@@ -1,5 +1,7 @@
 # Phase 2 final onboarding validation
 
+> **Phase 3 follow-up — 2026-09-13:** [Annual audit](../../../PierCast_Phase3_Audit.md) corrected winter metadata that still suppressed some admitted scores and a ceiling-crossing integration defect. The Phase 2 annual curve checks alone did not establish full winter runtime completeness. Engine v0.9.1 now passes monthly full-lineup snapshots; all numerical curves and public gates remain unchanged.
+
 Phase 2 implementation and disposition review are complete. Seven additional city/species pairings are fully integrated into the private provisional scored lineup. The other 38 of the 45 researched pairings have explicit deferrals; nine retain Phase 1 annual curves for research. No public or empirical scientific approval is implied.
 
 ## Final private additions
