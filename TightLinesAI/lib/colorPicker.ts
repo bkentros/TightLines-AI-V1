@@ -68,3 +68,10 @@ export async function reopenColorReport(
   });
   return parseColorReportEnvelope(response);
 }
+
+export async function fetchSavedColorTrial(): Promise<ReportEnvelope | null> {
+  const result = await invokeEdgeFunction<{ report: unknown }>("color-picker", {
+    accessToken: await getValidAccessToken(), body: { action: "saved_trial" },
+  });
+  return result.report ? parseColorReportEnvelope(result.report) : null;
+}

@@ -93,3 +93,19 @@ test("HTTP boundaries enforce auth and strict report UUIDs", async () => {
     assert.equal((await call(good, { action: "reopen", reportId })).status, 400);
   }
 });
+
+test("authenticated per-request services preserve saved access and return quota errors", async () => {
+  const f = fixture();
+  const saved = await f.service.generate("real-user", request);
+  const limited = createReportService({ ...f.deps, store: { ...f.deps.store,
+    async commit() { throw new ColorServiceError("subscription_required", "Your free Color Match report has been used. Upgrade to generate another report.", 403); },
+  } });
+  const handler = createColorHandler({ authorize: async () => ({ userId: "real-user", service: limited }), savedTrial: async user => ({ report: user === "real-user" ? saved : null }) });
+  const call = (body: unknown) => handler(new Request("https://test", { method: "POST", body: JSON.stringify(body) }));
+  assert.equal((await call({ action: "saved_trial", userId: "spoofed" })).status, 200);
+  assert.equal((await call({ action: "reopen", reportId: saved.selection.report.reportId })).status, 200);
+  assert.equal((await call({ action: "generate", ...request })).status, 200);
+  const blocked = await call({ action: "generate", ...request, requestId: "another_read", clarity: "clear" });
+  assert.equal(blocked.status, 403);
+  assert.equal((await blocked.json()).error, "subscription_required");
+});

@@ -291,3 +291,8 @@ not add another variable unless it materially improves held-out results.
 
 The engine remains configuration-driven: onboarding another city or species
 should add evidence and curves, not another scoring formula.
+
+
+## Lifetime free-report access — 2026-09-13
+
+See [Color Match and PierCast free-tier contract](Free_Tier_Color_Match_PierCast.md). Each feature has one lifetime free report per account, enforced through service-owned atomic database claims. Saved reports remain recoverable. PierCast leaderboard reads do not consume an allowance or expose city reports; public scientific release gates remain unchanged.

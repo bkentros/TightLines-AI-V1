@@ -265,3 +265,36 @@ Deno.test("PierCast handler enforces route and method boundaries", async () => {
   assertEquals(options.status, 200);
   assertEquals(options.headers.get("access-control-allow-origin"), "*");
 });
+
+Deno.test("public standings are independent of account access and cannot expose reports", async () => {
+  const { leaderboardOnly } = await import("./reportAccess.ts");
+  let claims = 0;
+  const handler = createPierCastHandler({
+    ...dependencies({ authorized: false }),
+    readLeaderboard: async () => leaderboardOnly(reviewOutlook()),
+    readCityReport: async () => { claims++; throw new Error("not authorized"); },
+  });
+  for (let index = 0; index < 3; index++) {
+    const response = await handler(request("leaderboard"));
+    assertEquals(response.status, 200);
+    const body = await response.json();
+    assertEquals(body.cities.length, 5);
+    assertEquals(body.cities.every((c: { dates: object[] }) => c.dates.every(d => !("species" in d) && !("waterTemperature" in d))), true);
+  }
+  assertEquals(claims, 0);
+  assertEquals((await handler(request("review/outlook"))).status, 403);
+  assertEquals((await handler(request("report?cityId=bad-id"))).status, 400);
+  assertEquals((await handler(request("report?cityId=ludington_mi", "POST"))).status, 405);
+});
+
+Deno.test("city report quota errors reach the paywall and never become a leaderboard response", async () => {
+  const { PierCastAccessError } = await import("./reportAccess.ts");
+  const handler = createPierCastHandler({ ...dependencies(), readCityReport: async () => {
+    throw new PierCastAccessError("subscription_required", "Upgrade for another report.", 403);
+  } });
+  const response = await handler(request("report?cityId=ludington_mi"));
+  assertEquals(response.status, 403);
+  assertEquals((await response.json()).error, "subscription_required");
+  assertEquals((await createPierCastHandler(dependencies())(request("report?cityId=ludington_mi"))).status, 404);
+  assertEquals((await createPierCastHandler(dependencies())(request("leaderboard"))).status, 503);
+});

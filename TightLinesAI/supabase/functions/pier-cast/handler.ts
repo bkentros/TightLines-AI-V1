@@ -1,3 +1,4 @@
+import { leaderboardOnly, PierCastAccessError } from "./reportAccess.ts";
 import {
   buildPierCastCatalog,
   parsePierCastShadowOutcomeInput,
@@ -30,6 +31,9 @@ function error(message: string, code: string, status: number): Response {
 }
 
 export type PierCastHandlerDependencies = {
+  readLeaderboard?: () => Promise<ReturnType<typeof leaderboardOnly> | null>;
+  readCityReport?: (request: Request, cityId: string) => Promise<unknown>;
+  readSavedReport?: (request: Request) => Promise<unknown>;
   authorizeReview: (request: Request) => Promise<boolean>;
   readReviewOutlook: () => Promise<PierCastReviewOutlookResponse | null>;
   readShadowReview: () => Promise<PierCastShadowReviewResponse>;
@@ -46,6 +50,44 @@ export function createPierCastHandler(
       return new Response(null, { headers: PIER_CAST_CORS_HEADERS });
     }
     const url = new URL(request.url);
+    if (
+      url.pathname.endsWith("/leaderboard") ||
+      url.pathname.endsWith("/report") || url.pathname.endsWith("/saved-report")
+    ) {
+      if (request.method !== "GET") {
+        return error("Method not allowed.", "method_not_allowed", 405);
+      }
+      try {
+        if (
+          url.pathname.endsWith("/saved-report") && dependencies.readSavedReport
+        ) return json(await dependencies.readSavedReport(request));
+        if (url.pathname.endsWith("/report") && dependencies.readCityReport) {
+          const cityId = url.searchParams.get("cityId");
+          if (!cityId || !/^[a-z_]{3,80}$/.test(cityId)) {
+            return error("Choose a city.", "invalid_city", 400);
+          }
+          return json(await dependencies.readCityReport(request, cityId));
+        }
+        if (!url.pathname.endsWith("/leaderboard")) {
+          return error("Route unavailable.", "not_found", 404);
+        }
+        const leaderboard = await dependencies.readLeaderboard?.();
+        return leaderboard ? json(leaderboard) : error(
+          "PierCast is not publicly available yet.",
+          "pier_cast_unavailable",
+          503,
+        );
+      } catch (caught) {
+        if (caught instanceof PierCastAccessError) {
+          return error(caught.message, caught.code, caught.status);
+        }
+        return error(
+          "PierCast access could not be verified.",
+          "pier_cast_access_unavailable",
+          503,
+        );
+      }
+    }
     const reviewCatalog = url.pathname.endsWith("/review/catalog");
     const reviewOutlook = url.pathname.endsWith("/review/outlook");
     const shadowReview = url.pathname.endsWith("/review/shadow");

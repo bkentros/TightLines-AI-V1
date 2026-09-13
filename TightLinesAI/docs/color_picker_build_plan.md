@@ -183,3 +183,8 @@ At that historical point, four distinct colors appeared whenever possible. Exist
 Implemented approved Junebug soft jerkbaits; black/blue-flake and Junebug paddletails/underspins; red/white and Five of Diamonds spoons; verified Clown topwater for stained water. Added documented Senko green-pumpkin/red-flake, green-pumpkin/watermelon, chartreuse-tail and blue/black laminate recipes with explicit clarity boundaries. Added documented chartreuse/white paddletails. See `color-picker/verified_pool_expansion.md` for exact recipes, manufacturer evidence and limitations. Prior skeptical-color exclusions remain enforced.
 
 Worm pools now contain 8–11 choices; paddletails 5–7. Murky underspins and spoons each have four. Catalog 2026-09-08.3 deployed through shared backend. At that checkpoint, 38 tests, TypeScript, structural QA and 320px/390px report-flow checks passed. Daily caching remains intact; the later release correction replaced minimum-overlap randomization, and existing reports are not rerolled.
+
+
+## Lifetime free-report access — 2026-09-13
+
+See [Color Match and PierCast free-tier contract](Free_Tier_Color_Match_PierCast.md). Each feature has one lifetime free report per account, enforced through service-owned atomic database claims. Saved reports remain recoverable. PierCast leaderboard reads do not consume an allowance or expose city reports; public scientific release gates remain unchanged.

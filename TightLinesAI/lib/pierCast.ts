@@ -2,6 +2,7 @@ import { captureAnalytics } from "./analytics";
 import { getValidAccessToken } from "./supabase";
 import type {
   PierCastCatalogResponse,
+  PierCastLeaderboardResponse,
   PierCastReviewOutlookResponse,
   PierCastShadowOutcomeCommit,
   PierCastShadowOutcomeInput,
@@ -57,19 +58,14 @@ export function recordPierCastShadowOutcome(
 }
 
 async function pierCastGet<ResponseType>(
-  path: "catalog" | "review/catalog" | "review/outlook" | "review/shadow",
+  path: string,
   requireAuth: boolean,
 ): Promise<ResponseType> {
   return pierCastRequest<ResponseType>(path, requireAuth, "GET");
 }
 
 async function pierCastRequest<ResponseType>(
-  path:
-    | "catalog"
-    | "review/catalog"
-    | "review/outlook"
-    | "review/shadow"
-    | "review/outcomes",
+  path: string,
   requireAuth: boolean,
   method: "GET" | "POST",
   body?: unknown,
@@ -172,4 +168,14 @@ function readErrorMessage(parsed: unknown, status: number): string {
     }
   }
   return `PierCast request failed with status ${status}.`;
+}
+
+export function fetchPierCastLeaderboard(): Promise<PierCastLeaderboardResponse> {
+  return pierCastGet("leaderboard", false);
+}
+export function fetchPierCastCityReport(cityId: string): Promise<PierCastReviewOutlookResponse> {
+  return pierCastGet(`report?cityId=${encodeURIComponent(cityId)}`, true);
+}
+export function fetchSavedPierCastReport(): Promise<{ report: PierCastReviewOutlookResponse | null }> {
+  return pierCastGet("saved-report", true);
 }

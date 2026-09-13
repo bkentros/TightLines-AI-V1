@@ -1,4 +1,4 @@
-import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   isAdminEmail,
 } from "./appAccess.ts";
@@ -61,6 +61,10 @@ export async function resetFreeTierStateForUser(
   if (sessionError) {
     throw new Error(`recommender_sessions_reset_failed:${sessionError.message}`);
   }
+
+  const { error: featureTrialError } = await supabase.from("feature_report_trials")
+    .delete().eq("user_id", userId);
+  if (featureTrialError) throw new Error(`feature_trial_reset_failed:${featureTrialError.message}`);
 
   let activeGenerationDeleted = 0;
   const { data: activeRows, error: activeError } = await supabase

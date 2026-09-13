@@ -310,3 +310,10 @@ export type PierCastShadowReviewResponse = {
   }>;
   recentOutcomes: PierCastShadowOutcomeRead[];
 };
+
+/** Public standings intentionally contain no species, conditions, or full snapshots. */
+export type PierCastLeaderboardResponse = {
+  generatedAt: string;
+  dailyScoreSnapshot?: Pick<PierCastDailyScoreSnapshotRead, "status" | "lakeDate" | "setAt" | "publishAt">;
+  cities: Array<{ cityId: string; dates: Array<Pick<PierCastReviewDateOutlookRead, "localDate" | "headline">> }>;
+};

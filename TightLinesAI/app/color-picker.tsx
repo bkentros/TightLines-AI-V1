@@ -33,6 +33,7 @@ import { PaperNavHeader } from "../components/paper/PaperNavHeader";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import { ColorPickerView, ColorPickerLoadingSkeleton } from "../components/fishing/ColorPickerView";
 import {
+  fetchSavedColorTrial,
   generateColorReport,
   reopenColorReport,
   type ReportEnvelope,
@@ -165,8 +166,11 @@ export default function ColorPickerScreen() {
     setSavedId(null);
     pending.current = null;
     if (userId) {
+      fetchSavedColorTrial().then((report) => {
+        if (active && report?.selection.report.userId === userId) setSavedId(report.selection.report.reportId);
+      }).catch(() => {});
       AsyncStorage.getItem(`color-picker-last:${userId}`).then((id) => {
-        if (active) setSavedId(id);
+        if (active && id) setSavedId(current => current ?? id);
       }).catch(() => {});
     }
     return () => {
@@ -258,7 +262,7 @@ export default function ColorPickerScreen() {
         : "Unable to build your colors.";
       if (mounted.current) {
         setError(message);
-        if (/subscription|Angler subscription/i.test(message)) setPaywall(true);
+        if (/subscription|free Color Match report has been used/i.test(message)) setPaywall(true);
       }
     } finally {
       running.current = false;

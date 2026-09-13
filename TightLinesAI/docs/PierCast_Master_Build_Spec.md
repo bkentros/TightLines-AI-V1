@@ -1094,3 +1094,8 @@ These references support source discovery and design rationale. They do not subs
 | [Michigan DNR regulations](https://www.michigan.gov/dnr/things-to-do/fishing/fishing-regulations)                         | Current jurisdiction-specific regulation discovery       | Coverage of another jurisdiction or an unreviewed boundary  |
 
 Reference review date: 2026-09-05. Provider contracts and current regulations must be rechecked during implementation and onboarding. This document deliberately leaves unsupported biological numbers out: the required evidence-and-calibration workflow is how those numbers become defensible configuration.
+
+
+## Lifetime free-report access — 2026-09-13
+
+See [Color Match and PierCast free-tier contract](Free_Tier_Color_Match_PierCast.md). Each feature has one lifetime free report per account, enforced through service-owned atomic database claims. Saved reports remain recoverable. PierCast leaderboard reads do not consume an allowance or expose city reports; public scientific release gates remain unchanged.

@@ -33,6 +33,7 @@ import {
   SectionEyebrow,
   TopographicLines,
 } from "../components/paper";
+import { SubscribePrompt } from "../components/SubscribePrompt";
 import { FeedbackCard } from "../components/FeedbackCard";
 import {
   PierCastMiniBar,
@@ -40,6 +41,10 @@ import {
 } from "../components/pier-cast/PierCastVisuals";
 import { isAdminEmail } from "../lib/adminAccess";
 import {
+  fetchPierCastCatalog,
+  fetchPierCastLeaderboard,
+  fetchPierCastCityReport,
+  fetchSavedPierCastReport,
   fetchPierCastOwnerReviewCatalog,
   fetchPierCastOwnerReviewOutlook,
   PierCastRequestError,
@@ -47,6 +52,7 @@ import {
 import type {
   PierCastCatalogCityRead,
   PierCastCatalogResponse,
+  PierCastLeaderboardResponse,
   PierCastReviewCityOutlookRead,
   PierCastReviewDateOutlookRead,
   PierCastReviewOutlookResponse,
@@ -235,13 +241,13 @@ function directionLabel(degrees: number | null): string {
   return directions[Math.round((((degrees % 360) + 360) % 360) / 22.5) % 16]!;
 }
 
-function scoreValue(date: PierCastReviewDateOutlookRead): number | null {
+function scoreValue(date: Pick<PierCastReviewDateOutlookRead, "headline">): number | null {
   return date.headline.overall.status === "available"
     ? date.headline.overall.displayScore
     : null;
 }
 
-function rankingScoreValue(date: PierCastReviewDateOutlookRead): number | null {
+function rankingScoreValue(date: Pick<PierCastReviewDateOutlookRead, "headline">): number | null {
   return date.headline.overall.status === "available"
     ? date.headline.overall.score
     : null;
@@ -1588,7 +1594,7 @@ function fullDateLabel(localDate: string | undefined): string {
 
 type PierCastLeaderboardEntry = {
   city: PierCastCatalogCityRead;
-  date: PierCastReviewDateOutlookRead | null;
+  date: Pick<PierCastReviewDateOutlookRead, "localDate" | "headline"> | null;
   score: number | null;
   rankingScore: number | null;
 };
@@ -1999,7 +2005,7 @@ function PierCastLanding({
   onOpenCity,
 }: {
   catalog: PierCastCatalogResponse;
-  outlook: PierCastReviewOutlookResponse;
+  outlook: PierCastLeaderboardResponse;
   onOpenCity: (cityId: string) => void;
 }) {
   const stateCodes = useMemo(
@@ -2837,12 +2843,19 @@ export default function PierCastReviewScreen() {
   const profile = useAuthStore((state) => state.profile);
   const admin = isAdminEmail(user?.email);
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
-  const [outlook, setOutlook] = useState<PierCastReviewOutlookResponse | null>(
+  const [outlook, setOutlook] = useState<PierCastReviewOutlookResponse | PierCastLeaderboardResponse | null>(
     null,
   );
+  const [cityReport, setCityReport] = useState<PierCastReviewOutlookResponse | null>(null);
+  const [savedReport, setSavedReport] = useState<PierCastReviewOutlookResponse | null>(null);
+  const [paywall, setPaywall] = useState(false);
+  const requestedCity = useRef<string | null>(null);
+  const openingCity = useRef(false);
+  const accountId = useRef(user?.id);
+  accountId.current = user?.id;
   const [selectedCityId, setSelectedCityId] = useState<string | null>(null);
   const pageScrollRef = useRef<ScrollView>(null);
-  const [loading, setLoading] = useState(admin);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
@@ -2854,19 +2867,24 @@ export default function PierCastReviewScreen() {
   }, [selectedCityId]);
 
   const load = useCallback(async (options?: { silent?: boolean }) => {
-    if (!admin) return;
+    const userId = user?.id;
     const silent = options?.silent === true;
     if (!silent) {
       setLoading(true);
       setError(null);
     }
     try {
-      const [nextCatalog, nextOutlook] = silent
-        ? [null, await fetchPierCastOwnerReviewOutlook()]
-        : await Promise.all([
-          fetchPierCastOwnerReviewCatalog(),
-          fetchPierCastOwnerReviewOutlook(),
-        ]);
+      const nextCatalog = silent ? null : await (admin ? fetchPierCastOwnerReviewCatalog() : fetchPierCastCatalog());
+      if (accountId.current !== userId) return;
+      if (nextCatalog) setCatalog(nextCatalog);
+      if (!admin && nextCatalog?.cities.length === 0) { setOutlook(null); return; }
+      const nextOutlook = await (admin ? fetchPierCastOwnerReviewOutlook() : fetchPierCastLeaderboard());
+      if (accountId.current !== userId) return;
+      if (!admin && userId && !silent) {
+        void fetchSavedPierCastReport().then(saved => {
+          if (accountId.current === userId) setSavedReport(saved.report);
+        }).catch(() => {});
+      }
       if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
       if (nextCatalog) {
@@ -2890,7 +2908,43 @@ export default function PierCastReviewScreen() {
     } finally {
       if (!silent) setLoading(false);
     }
-  }, [admin]);
+  }, [admin, user?.id]);
+
+  useEffect(() => {
+    setSelectedCityId(null); setCityReport(null); setSavedReport(null);
+    setOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
+  }, [user?.id]);
+
+  const openCity = useCallback(async (cityId: string, silent = false) => {
+    if (admin) { setSelectedCityId(cityId); return; }
+    if (openingCity.current) return;
+    openingCity.current = true;
+    const userId = user?.id;
+    if (!silent) requestedCity.current = cityId;
+    try {
+      const report = await fetchPierCastCityReport(cityId);
+      if (accountId.current !== userId || (!silent && requestedCity.current !== cityId)) return;
+      setCityReport(report); setSelectedCityId(cityId); setError(null);
+      if (!silent) void fetchSavedPierCastReport().then(saved => {
+        if (accountId.current === userId) setSavedReport(saved.report);
+      }).catch(() => {});
+    } catch (caught) {
+      if (accountId.current !== userId || (!silent && requestedCity.current !== cityId)) return;
+      if (caught instanceof PierCastRequestError && caught.code === "subscription_required") {
+        if (!silent) {
+          setPaywall(true);
+          void fetchSavedPierCastReport().then(saved => {
+            if (accountId.current === userId) setSavedReport(saved.report);
+          }).catch(() => {});
+        }
+      } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
+    } finally { openingCity.current = false; }
+  }, [admin, user?.id]);
+  useEffect(() => {
+    if (admin || !selectedCityId) return;
+    const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);
+    return () => clearInterval(timer);
+  }, [admin, selectedCityId, openCity]);
 
   useFocusEffect(
     useCallback(() => {
@@ -2906,7 +2960,7 @@ export default function PierCastReviewScreen() {
   const selectedCity =
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const selectedOutlook =
-    outlook?.cities.find((city) => city.cityId === selectedCityId) ?? null;
+    (admin && outlook && "mode" in outlook ? outlook : cityReport)?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const nearbyCities = useMemo(
     () =>
       selectedCity && catalog
@@ -2966,6 +3020,8 @@ export default function PierCastReviewScreen() {
           onPress={() => {
             if (selectedCityId) {
               hapticSelection();
+              requestedCity.current = null;
+              setError(null);
               setSelectedCityId(null);
               return;
             }
@@ -2990,14 +3046,14 @@ export default function PierCastReviewScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        {!admin ? (
+        {!admin && catalog?.cities.length === 0 ? (
           <View style={styles.messageCard}>
             <Ionicons
               name="lock-closed-outline"
               size={24}
               color={paper.dashboardBlue}
             />
-            <Text style={styles.messageTitle}>Owner access only</Text>
+            <Text style={styles.messageTitle}>PierCast is coming soon</Text>
           </View>
         ) : loading ? (
           <PierCastReportSkeleton />
@@ -3058,7 +3114,7 @@ export default function PierCastReviewScreen() {
                         onPress={() => {
                           if (selected) return;
                           hapticSelection();
-                          setSelectedCityId(city.cityId);
+                          void openCity(city.cityId);
                         }}
                         accessibilityRole="button"
                         accessibilityState={{ selected }}
@@ -3100,7 +3156,7 @@ export default function PierCastReviewScreen() {
                 outlook={selectedOutlook}
                 weather={weather}
                 weatherLoading={weatherLoading}
-                conditionsUpdatedAt={outlook.generatedAt}
+                conditionsUpdatedAt={(admin ? outlook : cityReport)?.generatedAt ?? outlook.generatedAt}
               />
               <RatingExplanation
                 winterNotice={catalog.winterOpenWaterNotice}
@@ -3119,12 +3175,16 @@ export default function PierCastReviewScreen() {
             </>
           ) : (
             <>
+              {!admin && savedReport && <Pressable style={styles.retryButton} onPress={() => {
+                const cityId = savedReport.cities[0]?.cityId;
+                if (cityId) { requestedCity.current = cityId; setCityReport(savedReport); setSelectedCityId(cityId); }
+              }}><Text style={styles.retryButtonText}>OPEN SAVED REPORT · {savedReport.cities[0]?.dates[0]?.localDate}</Text></Pressable>}
               <PierCastLanding
                 catalog={catalog}
                 outlook={outlook}
                 onOpenCity={(cityId) => {
                   hapticSelection();
-                  setSelectedCityId(cityId);
+                  void openCity(cityId);
                 }}
               />
               <PierCastCoverageRequest
@@ -3137,6 +3197,9 @@ export default function PierCastReviewScreen() {
           )
         ) : null}
       </ScrollView>
+      <SubscribePrompt visible={paywall} onDismiss={() => setPaywall(false)} onUnlocked={() => {
+        setPaywall(false); if (requestedCity.current) void openCity(requestedCity.current);
+      }} />
     </SafeAreaView>
   );
 }
