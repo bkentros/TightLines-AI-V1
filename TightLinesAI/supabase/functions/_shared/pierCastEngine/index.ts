@@ -5,6 +5,7 @@ export * from "./config/species.ts";
 export * from "./config/scope.ts";
 export * from "./config/cities.ts";
 export * from "./config/coreCalibration.ts";
+export * from "./config/privateCalibration.ts";
 export * from "./config/representationCalibration.ts";
 export * from "./config/fieldValidation.ts";
 export * from "./config/catalog.ts";
@@ -29,4 +30,4 @@ export * from "./pipeline/temperatureIngestion.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./validation.ts";
 
-export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.8.0";
+export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.9.0";

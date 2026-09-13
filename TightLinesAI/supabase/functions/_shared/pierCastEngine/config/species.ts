@@ -1,3 +1,4 @@
+import { getPierCastPrivateTemperatureCurve } from "./privateCalibration.ts";
 import {
   PIER_CAST_MONTHS,
   type PierCastBehaviorContext,
@@ -47,7 +48,9 @@ function profile(
     >
     & Partial<Pick<PierCastSpeciesProfile, "seasonalTemperatureCurves">>,
 ): PierCastSpeciesProfile {
-  const seasonalTemperatureCurves = input.seasonalTemperatureCurves ?? null;
+  const privateCurve = getPierCastPrivateTemperatureCurve(input.speciesId);
+  const seasonalTemperatureCurves = input.seasonalTemperatureCurves ??
+    (privateCurve ? [privateCurve] : null);
   return {
     ...input,
     calibrationStatus: seasonalTemperatureCurves

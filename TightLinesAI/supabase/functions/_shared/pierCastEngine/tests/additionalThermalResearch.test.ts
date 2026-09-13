@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import { assert, assertEquals } from "jsr:@std/assert";
 import { PIER_CAST_ADDITIONAL_THERMAL_RESEARCH as curves } from "../config/additionalThermalResearch.generated.ts";
 import { evaluateTemperatureSuitability, validatePierCastTemperatureCurve } from "../scoring/temperature.ts";
@@ -12,7 +13,7 @@ Deno.test("additional thermal candidates retain all input and public gates",()=>
   assertEquals(curves.length,9);
   for(const {speciesId,curve} of curves){
     assertEquals(validatePierCastTemperatureCurve(curve),[]);
-    assertEquals(PIER_CAST_SPECIES_PROFILES.find(p=>p.speciesId===speciesId)!.seasonalTemperatureCurves,null);
+    assertEquals(PIER_CAST_SPECIES_PROFILES.find(p=>p.speciesId===speciesId)!.seasonalTemperatureCurves !== null, !!getPierCastPrivateTemperatureCurve(speciesId));
     for(const overrides of [{mode:"public"},{ratingEnabled:false},{inputStatus:"stale"},{inputStatus:"unreviewed_representation"},{monthEvidenceState:"absent_biology_evidence"}]){
       assertEquals(fit(speciesId,10,overrides).status,"unavailable");
     }

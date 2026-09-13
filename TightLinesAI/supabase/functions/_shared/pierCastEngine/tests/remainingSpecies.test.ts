@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import { assert, assertEquals } from "jsr:@std/assert";
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
 import { PIER_CAST_REMAINING_SPECIES_REVIEW } from "../config/remainingSpecies.generated.ts";
@@ -27,9 +28,9 @@ Deno.test("all 45 remaining pairings retain explicit reviewed unavailable config
     const decision = artifact.decisions.find((
       d: { cityId: string; speciesId: string },
     ) => d.cityId === r.cityId && d.speciesId === r.speciesId);
-    assertEquals(profile.seasonalOpportunityCurve, null);
+    assertEquals(profile.seasonalOpportunityCurve !== null, !!getPierCastPrivateAdmission(city.cityId, r.speciesId));
     assertEquals(profile.ratingEnabled, false);
-    assert(profile.inheritance !== "candidate");
+    assertEquals(profile.inheritance === "candidate", !!getPierCastPrivateAdmission(city.cityId, r.speciesId));
     assertEquals(decision.classification, r.classification);
     assertEquals(decision.rationale, r.limitation);
     assertEquals(

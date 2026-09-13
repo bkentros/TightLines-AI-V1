@@ -1,9 +1,13 @@
 import {
-  getPierCastCoreTemperatureCurve,
-  PIER_CAST_CORE_SPECIES_IDS,
-  PIER_CAST_SEASONAL_CALIBRATION_VERSION,
-  PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
-} from "../config/coreCalibration.ts";
+  PIER_CAST_PRIVATE_SEASONAL_VERSION,
+  PIER_CAST_PRIVATE_THERMAL_VERSION,
+} from "../config/privateCalibration.ts";
+import {
+  getPierCastPrivateAdmission,
+  getPierCastPrivateSpeciesIds,
+  getPierCastPrivateTemperatureCurve,
+  PIER_CAST_PRIVATE_ROSTER_VERSION,
+} from "../config/privateCalibration.ts";
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
 import { getPierCastSpeciesProfile } from "../config/species.ts";
 import { PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH } from "../config/additionalSeasonalResearch.generated.ts";
@@ -102,6 +106,7 @@ export function buildPierCastReviewOutlook(input: {
 
   return {
     mode: "review",
+    speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
     previewOnly: true,
     generatedAt: evaluatedAt.toISOString(),
     ratingName: "FinFindr Opportunity Rating",
@@ -176,6 +181,7 @@ export function buildPierCastDailyScoreSnapshot(input: {
   }
   return {
     status: "locked_daily_snapshot",
+    speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
     lakeDate: input.lakeDate,
     scoreTimezone: "America/Chicago",
     setAt: generatedAt.toISOString(),
@@ -183,8 +189,8 @@ export function buildPierCastDailyScoreSnapshot(input: {
     engineVersion: input.engineVersion,
     formulaVersion,
     rubricVersion: PIER_CAST_RUBRIC_VERSION,
-    seasonalCalibrationVersion: PIER_CAST_SEASONAL_CALIBRATION_VERSION,
-    temperatureCalibrationVersion: PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
+    seasonalCalibrationVersion: PIER_CAST_PRIVATE_SEASONAL_VERSION,
+    temperatureCalibrationVersion: PIER_CAST_PRIVATE_THERMAL_VERSION,
     source: {
       issuedAt: input.batch.issuedAt,
       fetchedAt: input.batch.fetchedAt,
@@ -361,25 +367,31 @@ function buildDateOutlook(input: {
     points: temperaturePoints,
   };
 
-  const species = PIER_CAST_CORE_SPECIES_IDS.map((speciesId) => {
-    const citySpecies = input.city.species.find((candidate) =>
-      candidate.speciesId === speciesId
-    );
-    if (!citySpecies) {
-      throw new Error(
-        `PierCast core species ${speciesId} missing for ${input.city.cityId}.`,
+  const species = getPierCastPrivateSpeciesIds(input.city.cityId).map(
+    (speciesId) => {
+      const citySpecies = input.city.species.find((candidate) =>
+        candidate.speciesId === speciesId
       );
-    }
-    return buildSpeciesOutlook({
-      speciesId,
-      inheritance: citySpecies.inheritance,
-      configurationRatingEnabled: citySpecies.ratingEnabled,
-      seasonalCurve: citySpecies.seasonalOpportunityCurve,
-      samples: input.samples,
-      window: input.window,
-      formulaVersion: input.formulaVersion,
-    });
-  });
+      if (!citySpecies) {
+        throw new Error(
+          `PierCast core species ${speciesId} missing for ${input.city.cityId}.`,
+        );
+      }
+      return buildSpeciesOutlook({
+        speciesId,
+        inheritance: citySpecies.inheritance,
+        configurationRatingEnabled: citySpecies.ratingEnabled,
+        seasonalCurve: citySpecies.seasonalOpportunityCurve,
+        samples: input.samples,
+        window: input.window,
+        formulaVersion: input.formulaVersion,
+        privateAdmission: getPierCastPrivateAdmission(
+          input.city.cityId,
+          speciesId,
+        ),
+      });
+    },
+  );
   const headlineCandidates: PierCastSpeciesDailyCandidate[] = species.map(
     (candidate) => ({
       speciesId: candidate.speciesId,
@@ -407,6 +419,7 @@ function buildDateOutlook(input: {
 function buildSpeciesOutlook(input: {
   speciesId: PierCastSpeciesId;
   researchTemperatureCurve?: PierCastTemperatureCurve;
+  privateAdmission?: ReturnType<typeof getPierCastPrivateAdmission>;
   researchMonthEvidenceState?: PierCastMonthEvidenceState;
   inheritance: "candidate" | "conditional" | "historical_lead" | "unresolved";
   configurationRatingEnabled: boolean;
@@ -422,7 +435,7 @@ function buildSpeciesOutlook(input: {
   }
   const speciesProfile = getPierCastSpeciesProfile(input.speciesId);
   const temperatureCurve = input.researchTemperatureCurve ??
-    getPierCastCoreTemperatureCurve(input.speciesId);
+    getPierCastPrivateTemperatureCurve(input.speciesId);
   if (!speciesProfile || !temperatureCurve) {
     throw new Error(
       `PierCast core calibration missing for ${input.speciesId}.`,
@@ -508,7 +521,13 @@ function buildSpeciesOutlook(input: {
       ? []
       : aggregate.biological.reasonCodes
   ) reasons.add(reason);
-  const targetingEligibility = input.inheritance === "candidate"
+  const regulationReviewed = !input.privateAdmission ||
+    (input.window.localDate >= "2026-04-01" &&
+      input.window.localDate <= input.privateAdmission.regulationValidThrough);
+  if (!regulationReviewed) reasons.add("regulation_review_expired");
+  const targetingEligibility = !regulationReviewed
+    ? "unknown" as const
+    : input.inheritance === "candidate"
     ? "eligible" as const
     : input.inheritance === "conditional"
     ? "unknown" as const
@@ -521,8 +540,16 @@ function buildSpeciesOutlook(input: {
     ],
   };
 
+  if (input.privateAdmission) reasons.add("private_provisional_city_admission");
   return {
     speciesId: input.speciesId,
+    ...(input.privateAdmission
+      ? {
+        methodConstraint: input.privateAdmission.methodConstraint,
+        evaluatedStructureId: input.privateAdmission.structureId,
+        regulationValidThrough: input.privateAdmission.regulationValidThrough,
+      }
+      : {}),
     previewMode: "disabled_provisional",
     configurationRatingEnabled: false,
     seasonalRating: seasonal.rating,
@@ -553,7 +580,8 @@ function buildAdditionalSpeciesResearch(input: {
   formulaVersion: PierCastFormulaVersion;
 }): PierCastAdditionalSpeciesResearch[] {
   return PIER_CAST_ADDITIONAL_ELIGIBILITY.filter((row) =>
-    row.cityId === input.cityId
+    row.cityId === input.cityId &&
+    !getPierCastPrivateAdmission(input.cityId, row.speciesId)
   ).map((row) => {
     const seasonalCurve = PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH.find((curve) =>
       curve.cityId === row.cityId && curve.speciesId === row.speciesId

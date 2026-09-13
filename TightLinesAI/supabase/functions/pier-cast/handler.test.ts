@@ -127,7 +127,7 @@ Deno.test("authorized owner-review catalog returns five disabled cities", async 
       seasonalOpportunityCurve: unknown;
     }) => !species.ratingEnabled && species.seasonalOpportunityCurve !== null)
       .length,
-    20,
+    27,
   );
 });
 
@@ -154,7 +154,7 @@ Deno.test("authorized owner-review outlook returns real disabled-preview ratings
   assertEquals(body.source.sampleCount, 605);
   assertEquals(body.cities.length, 5);
   assertEquals(body.cities[0].dates.length, 5);
-  assertEquals(body.cities[0].dates[0].species.length, 4);
+  assertEquals(body.cities[0].dates[0].species.length, 6);
   assertEquals(
     body.cities.every((city: { representationDecision: string }) =>
       city.representationDecision === "blocked_insufficient_evidence"

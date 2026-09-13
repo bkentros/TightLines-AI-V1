@@ -1,4 +1,4 @@
-import { PIER_CAST_CORE_SPECIES_IDS } from "../config/coreCalibration.ts";
+import { getPierCastPrivateSpeciesIds } from "../config/privateCalibration.ts";
 import type {
   PierCastCityId,
   PierCastShadowOutcomeCommit,
@@ -48,7 +48,7 @@ export function parsePierCastShadowOutcomeInput(
     1,
     100,
   ) as PierCastShadowOutcomeInput["speciesId"];
-  if (!PIER_CAST_CORE_SPECIES_IDS.includes(speciesId)) {
+  if (!getPierCastPrivateSpeciesIds(cityId).includes(speciesId)) {
     throw new Error("Unsupported PierCast outcome species.");
   }
   const localDate = requiredText(input.localDate, "localDate", 10, 10);

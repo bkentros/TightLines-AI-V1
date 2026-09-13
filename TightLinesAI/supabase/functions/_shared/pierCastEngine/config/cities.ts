@@ -1,3 +1,7 @@
+import {
+  getPierCastPrivateAdmission,
+  getPierCastPrivateSeasonalCurve,
+} from "./privateCalibration.ts";
 import type {
   PierCastCityProfile,
   PierCastCitySpeciesProfile,
@@ -35,12 +39,16 @@ const reviewedSpecies = (
     (row) =>
       species(
         row.speciesId,
-        row.classification === "narrow_season_structure_specific"
+        getPierCastPrivateAdmission(cityId, row.speciesId)
+          ? "candidate"
+          : row.classification === "narrow_season_structure_specific"
           ? "conditional"
           : row.classification === "historical_unresolved"
           ? "historical_lead"
           : "unresolved",
-        `${row.classification}: ${row.limitation}`,
+        getPierCastPrivateAdmission(cityId, row.speciesId)?.rationale ??
+          `${row.classification}: ${row.limitation}`,
+        getPierCastPrivateSeasonalCurve(cityId, row.speciesId),
       ),
   );
 

@@ -2,6 +2,8 @@
 
 ## Status
 
+The subsequent [final onboarding decisions](PHASE2_ONBOARDING_DECISIONS.md) supersede the activation status described below: seven pairings now enter the private provisional scored lineup; nine annual candidates remain deferred. This report preserves the thermal research and original sensitivity analysis. Public ratings and scientific representation approval remain blocked.
+
 Phase 2 private research integration is implemented with explicit live-activation deferrals. Eight species have provisional thermal sensitivity profiles connected to the owner-only outlook for 14 city/species pairings. The two round-whitefish pairings return their full-year seasonal baselines but no live thermal-combined hypothesis: adult response remains deferred. All nine draft curves remain in offline sensitivity artifacts. None is an empirically fitted adult pier-bite response or an approved live rating. The [machine-readable drafts](../../../PierCast_Remaining_Species_Temperature_Curves.json) preserve every ordinate's calibration basis, rationale and source identifiers.
 
 The eligibility register covers all 16 Phase 1 annual pairings. Three have named covered-structure corroboration, five retain contextual attribution, and eight retain unresolved side attribution. These categories describe the preserved evidence. The Manistee drum newspaper reprint names North Pier, while its linked original DNR report does not name a side; this discrepancy is retained rather than upgrading the primary attribution. All retain temperature-representation and calibration gates. The [eligibility register](phase2-eligibility.json) records each blocking reason.

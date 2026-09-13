@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import { assertEquals, assertNotEquals } from "jsr:@std/assert";
 import {
   applyPierCastDailyScoreSnapshot,
@@ -33,7 +34,7 @@ Deno.test("daily score snapshots use a full Lake Michigan day and publish at Cen
     assertEquals(city.date.localDate, "2026-09-10");
     assertEquals(city.date.scope, "full_day");
     assertEquals(city.date.headline.overall.status, "available");
-    assertEquals(city.date.species.length, 4);
+    assertEquals(city.date.species.map(s=>s.speciesId), getPierCastPrivateSpeciesIds(city.cityId));
   }
 });
 

@@ -1,3 +1,7 @@
+import {
+  getPierCastPrivateSeasonalCurve,
+  getPierCastPrivateTemperatureCurve,
+} from "./config/privateCalibration.ts";
 import { PIER_CAST_CITY_PROFILES } from "./config/cities.ts";
 import {
   PIER_CAST_FROZEN_CITY_IDS,
@@ -121,7 +125,7 @@ export function validatePierCastSpeciesProfiles(
     const coreSpecies = PIER_CAST_CORE_SPECIES_IDS.includes(
       profile.speciesId as (typeof PIER_CAST_CORE_SPECIES_IDS)[number],
     );
-    if (coreSpecies) {
+    if (coreSpecies || getPierCastPrivateTemperatureCurve(profile.speciesId)) {
       if (
         profile.calibrationStatus !== "provisional" ||
         profile.seasonalTemperatureCurves?.length !== 1
@@ -138,7 +142,13 @@ export function validatePierCastSpeciesProfiles(
             issue(curveIssue, `${root}.${curve.curveId}`, curveIssue),
           );
         }
-        if (curve.calibrationStatus !== "provisional") {
+        if (
+          curve.calibrationStatus !== "provisional" ||
+          JSON.stringify(curve) !==
+            JSON.stringify(
+              getPierCastPrivateTemperatureCurve(profile.speciesId),
+            )
+        ) {
           issues.push(issue(
             "temperature_curve_prematurely_approved",
             `${root}.${curve.curveId}.calibrationStatus`,
@@ -379,6 +389,23 @@ export function validatePierCastCityProfiles(
       }
       if (citySpecies.seasonalOpportunityCurve !== null) {
         const curve = citySpecies.seasonalOpportunityCurve;
+        const expectedCurve = getPierCastPrivateSeasonalCurve(
+          city.cityId,
+          citySpecies.speciesId,
+        );
+        if (
+          expectedCurve &&
+          (curve.curveId !== expectedCurve.curveId ||
+            JSON.stringify(curve.knots) !== JSON.stringify(expectedCurve.knots))
+        ) {
+          issues.push(
+            issue(
+              "private_seasonal_curve_mismatch",
+              root,
+              "Private seasonal curves must match the reviewed city-specific configuration.",
+            ),
+          );
+        }
         for (
           const curveIssue of validatePierCastSeasonalOpportunityCurve(
             curve,
@@ -391,21 +418,19 @@ export function validatePierCastCityProfiles(
           ));
         }
         if (
-          !PIER_CAST_CORE_SPECIES_IDS.includes(
-            citySpecies
-              .speciesId as (typeof PIER_CAST_CORE_SPECIES_IDS)[number],
+          !getPierCastPrivateSeasonalCurve(
+            city.cityId,
+            citySpecies.speciesId,
           ) || curve.calibrationStatus !== "provisional"
         ) {
           issues.push(issue(
             "seasonal_curve_outside_private_core_scope",
             `${root}.species.${citySpecies.speciesId}.seasonalOpportunityCurve`,
-            "Only disabled provisional curves for the four core species are allowed.",
+            "Only disabled provisional curves for the explicit private city roster are allowed.",
           ));
         }
       } else if (
-        PIER_CAST_CORE_SPECIES_IDS.includes(
-          citySpecies.speciesId as (typeof PIER_CAST_CORE_SPECIES_IDS)[number],
-        )
+        getPierCastPrivateSeasonalCurve(city.cityId, citySpecies.speciesId)
       ) {
         issues.push(issue(
           "core_seasonal_curve_missing",

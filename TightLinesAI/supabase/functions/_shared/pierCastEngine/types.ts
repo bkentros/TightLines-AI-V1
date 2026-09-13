@@ -375,6 +375,9 @@ export type PierCastReviewDailyTemperature = {
 };
 
 export type PierCastReviewSpeciesOutlook = {
+  methodConstraint?: string;
+  evaluatedStructureId?: string;
+  regulationValidThrough?: string;
   speciesId: PierCastSpeciesId;
   previewMode: "disabled_provisional";
   configurationRatingEnabled: false;
@@ -435,6 +438,7 @@ export type PierCastAdditionalSpeciesResearch = {
 };
 
 export type PierCastDailyScoreSnapshot = {
+  speciesRosterVersion?: string;
   status: "locked_daily_snapshot";
   lakeDate: string;
   scoreTimezone: "America/Chicago";
@@ -458,6 +462,7 @@ export type PierCastDailyScoreSnapshot = {
 };
 
 export type PierCastReviewOutlookResponse = {
+  speciesRosterVersion?: string;
   mode: "review";
   previewOnly: true;
   generatedAt: string;
@@ -494,7 +499,7 @@ export type PierCastShadowOutcomeResult =
 export type PierCastShadowOutcomeInput = {
   dedupeKey: string;
   cityId: PierCastCityId;
-  speciesId: "chinook_salmon" | "coho_salmon" | "steelhead" | "brown_trout";
+  speciesId: PierCastSpeciesId;
   localDate: string;
   structureName: string;
   observedAt: string | null;
@@ -544,7 +549,7 @@ export type PierCastShadowReviewResponse = {
   } | null;
   outcomeCandidates: Array<{
     cityId: PierCastCityId;
-    speciesId: "chinook_salmon" | "coho_salmon" | "steelhead" | "brown_trout";
+    speciesId: PierCastSpeciesId;
     localDate: string;
     seasonalRating: number | null;
     displayScore: number | null;

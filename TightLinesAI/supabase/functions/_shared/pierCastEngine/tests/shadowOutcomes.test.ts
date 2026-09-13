@@ -130,3 +130,10 @@ Deno.test("shadow outcome recorder calls only the constrained RPC", async () => 
     "invalid result",
   );
 });
+
+Deno.test("additional outcomes accept admitted city pairs and reject research-only or wrong-city pairs", () => {
+  assertEquals(parsePierCastShadowOutcomeInput({...validOutcome(),speciesId:"freshwater_drum"}).speciesId,"freshwater_drum");
+  assertThrows(()=>parsePierCastShadowOutcomeInput({...validOutcome(),speciesId:"yellow_perch"}));
+  assertThrows(()=>parsePierCastShadowOutcomeInput({...validOutcome(),cityId:"sheboygan_wi",speciesId:"freshwater_drum"}));
+  assertThrows(()=>parsePierCastShadowOutcomeInput({...validOutcome(),speciesId:"round_whitefish"}));
+});

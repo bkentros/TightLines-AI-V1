@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import { assert, assertAlmostEquals, assertEquals } from "jsr:@std/assert";
 import {
   buildPierCastDailyScoreSnapshot,
@@ -15,7 +16,7 @@ Deno.test("additional private research uses only the sixteen annual pairings and
     evaluationTime: "2026-09-10T00:30:00.000Z",
   });
   const expected = new Set(
-    PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH.map((p) =>
+    PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH.filter(p=>!getPierCastPrivateAdmission(p.cityId,p.speciesId)).map((p) =>
       `${p.cityId}/${p.speciesId}`
     ),
   );
@@ -70,7 +71,7 @@ Deno.test("additional private research uses only the sixteen annual pairings and
       }
     }
     for (const date of city.dates) {
-      assertEquals(date.species.length, 4);
+      assertEquals(date.species.map(s=>s.speciesId), getPierCastPrivateSpeciesIds(city.cityId));
       assert(
         !city.additionalSpeciesResearch?.some((r) =>
           r.speciesId === date.headline.drivingSpeciesId
@@ -79,7 +80,7 @@ Deno.test("additional private research uses only the sixteen annual pairings and
     }
   }
   assertEquals(expected.size, 0);
-  assertEquals(hypothetical, 70);
+  assertEquals(hypothetical, 35);
   assertEquals(deferred, 10);
 });
 
@@ -115,7 +116,7 @@ Deno.test("additional research is absent from the immutable daily snapshot contr
     engineVersion: PIER_CAST_ENGINE_VERSION,
   });
   assert(!JSON.stringify(snapshot).includes("additionalSpeciesResearch"));
-  for (const city of snapshot.cities) assertEquals(city.date.species.length, 4);
+  for (const city of snapshot.cities) assertEquals(city.date.species.map(s=>s.speciesId), getPierCastPrivateSpeciesIds(city.cityId));
 });
 
 Deno.test("accepted additional research retains cold-water calculations in every month and flags regulation expiry", () => {

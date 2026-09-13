@@ -1,7 +1,12 @@
 import {
-  PIER_CAST_SEASONAL_CALIBRATION_VERSION,
-  PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
-} from "../config/coreCalibration.ts";
+  PIER_CAST_PRIVATE_SEASONAL_VERSION,
+  PIER_CAST_PRIVATE_THERMAL_VERSION,
+} from "../config/privateCalibration.ts";
+import {
+  PIER_CAST_PRIVATE_FORECAST_COUNT,
+  PIER_CAST_PRIVATE_ROSTER_VERSION,
+  pierCastRosterMatches,
+} from "../config/privateCalibration.ts";
 import type { PierCastLmhofsBatch } from "../providers/lmhofs.ts";
 import {
   PIER_CAST_BASELINE_FORMULA_VERSION,
@@ -27,13 +32,14 @@ export type PierCastShadowForecastCommitSummary = {
   status: "committed" | "already_committed";
   runId: string;
   generatedAt: string;
-  forecastCount: 100;
+  forecastCount: number;
   formulaVersion: string;
   comparator?: PierCastShadowForecastCommitSummary;
 };
 
 export type PierCastShadowForecastPayload = {
   run: {
+    speciesRosterVersion: string;
     generatedAt: string;
     sourceIssuedAt: string;
     sourceFetchedAt: string;
@@ -114,12 +120,15 @@ export function buildPierCastShadowForecastPayload(input: {
       })
     );
   });
-  if (forecasts.length !== 100) {
-    throw new Error("PierCast shadow snapshot requires exactly 100 forecasts.");
+  if (forecasts.length !== PIER_CAST_PRIVATE_FORECAST_COUNT) {
+    throw new Error(
+      "PierCast shadow snapshot requires the complete private roster for five dates.",
+    );
   }
 
   return {
     run: {
+      speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
       generatedAt: input.outlook.generatedAt,
       sourceIssuedAt: input.outlook.source.issuedAt,
       sourceFetchedAt: input.outlook.source.fetchedAt,
@@ -127,8 +136,8 @@ export function buildPierCastShadowForecastPayload(input: {
       engineVersion: input.engineVersion,
       formulaVersion: input.outlook.formulaVersion,
       rubricVersion: PIER_CAST_RUBRIC_VERSION,
-      seasonalCalibrationVersion: PIER_CAST_SEASONAL_CALIBRATION_VERSION,
-      temperatureCalibrationVersion: PIER_CAST_TEMPERATURE_CALIBRATION_VERSION,
+      seasonalCalibrationVersion: PIER_CAST_PRIVATE_SEASONAL_VERSION,
+      temperatureCalibrationVersion: PIER_CAST_PRIVATE_THERMAL_VERSION,
       previewOnly: true,
     },
     forecasts,
@@ -161,7 +170,7 @@ export async function archivePierCastShadowForecast(input: {
     (result.status !== "committed" && result.status !== "already_committed") ||
     typeof result.runId !== "string" ||
     result.runId.length === 0 ||
-    Number(result.forecastCount) !== 100
+    Number(result.forecastCount) !== PIER_CAST_PRIVATE_FORECAST_COUNT
   ) {
     throw new Error(
       "PierCast shadow forecast commit returned an invalid result.",
@@ -171,7 +180,7 @@ export async function archivePierCastShadowForecast(input: {
     status: result.status,
     runId: result.runId,
     generatedAt: payload.run.generatedAt,
-    forecastCount: 100,
+    forecastCount: PIER_CAST_PRIVATE_FORECAST_COUNT,
     formulaVersion: payload.run.formulaVersion,
   };
 }
@@ -185,6 +194,7 @@ function validateSnapshotInput(
     !engineVersion.trim() ||
     outlook.mode !== "review" ||
     !outlook.previewOnly ||
+    outlook.speciesRosterVersion !== PIER_CAST_PRIVATE_ROSTER_VERSION ||
     ![
       PIER_CAST_FORMULA_VERSION,
       PIER_CAST_BASELINE_FORMULA_VERSION,
@@ -198,7 +208,10 @@ function validateSnapshotInput(
       city.representationDecision !== "blocked_insufficient_evidence" ||
       city.dates.length !== 5 ||
       city.dates.some((date, leadDay) =>
-        date.species.length !== 4 ||
+        !pierCastRosterMatches(
+          city.cityId,
+          date.species.map((s) => s.speciesId),
+        ) ||
         date.scope !== (leadDay === 0 ? "remaining_day" : "full_day")
       )
     )

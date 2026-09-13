@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import {
   assert,
   assertAlmostEquals,
@@ -44,7 +45,7 @@ Deno.test("owner review outlook builds five dates and four disabled-preview spec
       assertEquals(date.waterTemperature.minimumC, 15);
       assertEquals(date.waterTemperature.maximumC, 15);
       assert(date.waterTemperature.points.length >= 2);
-      assertEquals(date.species.length, 4);
+      assertEquals(date.species.map(s=>s.speciesId), getPierCastPrivateSpeciesIds(city.cityId));
       assertEquals(date.headline.headlineMode, "biological_only");
       assertEquals(date.headline.promotion.status, "blocked");
       for (const species of date.species) {

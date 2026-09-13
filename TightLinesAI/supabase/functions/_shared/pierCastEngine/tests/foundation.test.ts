@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import {
   assert,
   assertAlmostEquals,
@@ -79,7 +80,7 @@ Deno.test("PierCast foundation validates with every real rating disabled", () =>
   const coreSpecies = new Set<string>(PIER_CAST_CORE_SPECIES_IDS);
   assert(
     PIER_CAST_SPECIES_PROFILES.every((profile) =>
-      coreSpecies.has(profile.speciesId)
+      !!getPierCastPrivateTemperatureCurve(profile.speciesId)
         ? profile.calibrationStatus === "provisional" &&
           profile.seasonalTemperatureCurves?.length === 1
         : profile.calibrationStatus === "not_calibrated" &&
@@ -99,7 +100,7 @@ Deno.test("PierCast foundation validates with every real rating disabled", () =>
     PIER_CAST_CITY_PROFILES.every((city) =>
       city.species.every((profile) =>
         !profile.ratingEnabled &&
-        (coreSpecies.has(profile.speciesId)
+        (getPierCastPrivateSpeciesIds(city.cityId).includes(profile.speciesId)
           ? profile.seasonalOpportunityCurve?.calibrationStatus ===
             "provisional"
           : profile.seasonalOpportunityCurve === null)

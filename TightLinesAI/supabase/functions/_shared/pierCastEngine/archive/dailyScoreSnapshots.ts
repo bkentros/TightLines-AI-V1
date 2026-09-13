@@ -1,3 +1,8 @@
+import {
+  PIER_CAST_LEGACY_ROSTER_VERSION,
+  pierCastRosterMatches,
+} from "../config/privateCalibration.ts";
+import type { PierCastCityId } from "../types.ts";
 import type {
   PierCastDailyScoreSnapshot,
   PierCastReviewDateOutlook,
@@ -117,17 +122,29 @@ function validateSnapshot(snapshot: PierCastDailyScoreSnapshot): void {
       (city) =>
         city.date?.localDate !== snapshot.lakeDate ||
         city.date?.scope !== "full_day" ||
-        !isCompleteDate(city.date),
+        !isCompleteDate(
+          city.cityId,
+          city.date,
+          snapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION,
+        ),
     )
   ) {
     throw new Error("PierCast daily score snapshot is invalid.");
   }
 }
 
-function isCompleteDate(date: PierCastReviewDateOutlook): boolean {
+function isCompleteDate(
+  cityId: PierCastCityId,
+  date: PierCastReviewDateOutlook,
+  version: string,
+): boolean {
   return (
     date.headline.overall.status === "available" &&
-    date.species.length === 4 &&
+    pierCastRosterMatches(
+      cityId,
+      date.species.map((s) => s.speciesId),
+      version,
+    ) &&
     date.species.every(
       (species) =>
         species.biological.status === "available" &&

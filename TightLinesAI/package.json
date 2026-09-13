@@ -201,7 +201,9 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "generate:pier-cast:phase2": "deno run --allow-read --allow-write scripts/generate-pier-cast-phase2.ts && node scripts/generate-pier-cast-phase2-report.mjs",
-    "check:pier-cast:phase2": "deno run --allow-read scripts/generate-pier-cast-phase2.ts --check && node scripts/generate-pier-cast-phase2-report.mjs --check"
+    "check:pier-cast:phase2": "deno run --allow-read scripts/generate-pier-cast-phase2.ts --check && node scripts/generate-pier-cast-phase2-report.mjs --check",
+    "generate:pier-cast:private-roster": "node scripts/generate-pier-cast-private-roster.mjs && deno run --allow-read --allow-write scripts/generate-pier-cast-private-weekly.ts",
+    "check:pier-cast:private-roster": "node scripts/generate-pier-cast-private-roster.mjs --check && deno run --allow-read scripts/generate-pier-cast-private-weekly.ts --check"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

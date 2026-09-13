@@ -1,43 +1,55 @@
-# Phase 2 private research integration validation
+# Phase 2 final onboarding validation
 
-The private research calculations are integrated. Live rating activation remains explicitly deferred; this is not empirical validation or public release approval.
+Phase 2 implementation and disposition review are complete. Seven additional city/species pairings are fully integrated into the private provisional scored lineup. The other 38 of the 45 researched pairings have explicit deferrals; nine retain Phase 1 annual curves for research. No public or empirical scientific approval is implied.
 
-## Delivered
+## Final private additions
 
-- Eight provisional thermal profiles produce private sensitivity output for 14 accepted city/species pairings: Ludington three, Grand Haven five, Manistee six. Frankfort–Elberta and Sheboygan receive no additions.
-- Two round-whitefish pairings retain continuous annual seasonal baselines but return no live thermal-combined hypothesis. The newly preserved juvenile experiment cannot calibrate adult pier feeding.
-- All 16 pairings retain their structure attribution, fishing mode, regulation scope and scientific blocking reasons. A newspaper's Manistee North Pier attribution is distinguished from its linked DNR report, which does not name a side.
-- The 2026 Michigan regulation guide is preserved with SHA-256 verification. Printed pages 12, 13, 21 and 31 were visually inspected. Bass catch-and-release and possession seasons remain distinct; Grand Haven November gear restrictions apply across species. Review-period expiry is visible in the private output.
-- Twelve preserved snapshots and three documented retrieval failures across 15 Phase 2 source records. The prior annual/thermal source registers remain linked.
-- The nine offline thermal drafts, 2,889 sampled fits and 6,656 hypothetical weekly scenarios remain reproducible. Offline round-whitefish sensitivity is explicitly not a selected adult response.
+| City | Additions | Total scored species including the core four |
+| --- | --- | ---: |
+| Ludington | Smallmouth bass, yellow perch | 6 |
+| Grand Haven | Freshwater drum, largemouth bass | 6 |
+| Manistee | Lake trout, freshwater drum, yellow perch | 7 |
+| Frankfort–Elberta | None | 4 |
+| Sheboygan | None | 4 |
 
-## Runtime contract
+The [final decision report](PHASE2_ONBOARDING_DECISIONS.md) and [45-pair machine-readable register](../../../PierCast_Phase2_Onboarding_Decisions.json) distinguish named structure corroboration from contextual inference. Recurring pier catches and the retained source chains support the admitted hypotheses; all thermal ordinates remain explicitly provisional product calibrations. Generic harbor occupancy, upstream catches, offshore fisheries and unidentified bass are not substituted for covered-pier species evidence.
 
-The owner-authorized `/review/outlook` response adds `cities[].additionalSpeciesResearch`. Each entry is labeled `surface_temperature_sensitivity_not_validated_forecast`; `runtimeEligible` and `publicEnabled` remain false. Fourteen entries contain hypothetical daily calculations using the existing hourly interpolation, daily aggregation and scoring formula. Two contain seasonal baselines only. All preserve independent annual curves, including weak periods and December–January interpolation.
+Each admission has a continuous full-year seasonal curve, a species-specific thermal profile, private city-roster membership, method constraints, regulation-review provenance, daily scoring and prospective shadow archival. The [private weekly table](../../../PierCast_Private_Lineup_Weekly_Ratings.csv) contains 1,404 seasonal samples for all 27 city/species curves. The completed four species' numerical seasonal and thermal curves and the scoring formula are unchanged.
 
-Additional research never enters `dates.species`, headline selection, immutable daily snapshots, the shadow forecast ledger, active species profiles or public catalogs. The existing four-species scoring and daily-lock contracts are unchanged. There is no UI change in this commit.
+Round whitefish remains deferred because the preserved laboratory evidence concerns juvenile thermal preference rather than adult pier feeding. Grand Haven lake whitefish retains structure and current lawful-method magnitude limitations. Other deferrals retain their specific side/mode/species identification gaps. No inference that deferred fish are absent is made.
 
-The LMHOFS surface input is not newly approved as fish-experienced or bottom temperature. Covered-side uncertainties and adult round-whitefish response remain explicit activation deferrals. Passing tests does not resolve these scientific questions.
+## Runtime and scientific gates
+
+The owner-only scored lineup now uses the explicit versioned city rosters. The nine deferred annual candidates remain in a separate research collection; seven retain combined sensitivity calculations and two round-whitefish pairings retain seasonal baselines only. Deferred candidates cannot drive the headline.
+
+All public city flags, species rating flags and scientific promotion gates remain disabled. The LMHOFS lakeward surface cell is still an unapproved representation of bottom or fish-experienced temperature. Private admission uses the same provisional review standard as the completed core; it does not relabel the proxy as validated. Temperature-input missing/stale/domain/coverage gates and daily aggregation are unchanged.
+
+The 2026 regulation review applies through March 31, 2027; outside that review period, admitted species' targeting eligibility becomes unknown. Bass catch-and-immediate-release and harvest seasons remain distinct. Grand Haven November hook restrictions apply across species. Access closures remain independent.
+
+## Daily locks and validation records
+
+New snapshots carry roster version `piercast-private-roster-v2-2026-09-12`. Legacy snapshots without that field retain the four-species roster; existing first-write daily locks cannot be overwritten by the new deployment. New days use counts 6/6/7/4/4. Missing, duplicate and wrong-city species are rejected.
+
+New private shadow runs contain 135 rows for five dates across 27 city/species pairings. Historical 100-row runs remain supported. Engine `pier-cast-simple-model-v0.9.0` and assembled seasonal/thermal provenance separate the new cohort from prior calibration. The existing frozen evaluation script continues evaluating its preregistered v0.8.0/core cohort; the expansion does not silently pool new species into that confirmatory analysis or change its thresholds. New records remain available for separate cohort evaluation.
 
 ## Verification
 
-- Complete PierCast suite: **130 passed, zero failed**.
-- TypeScript: `npx tsc --noEmit` passed.
-- Deno checked the runtime pipeline and Phase 2 generator successfully.
-- Phase 2 generators, source hashes, sampled fits, sensitivity outputs and evidence report: current.
-- Phase 1 annual research: six tests and generated artifacts passed.
-- Original remaining-species evidence: four tests and generated artifacts passed.
-- Completed-core seasonal replay: current; core seasonal and thermal numeric configuration unchanged.
-- New integration tests verify exactly 16 city-specific research entries, 14 combined hypotheses, two thermal deferrals, blocked promotion, no headline/snapshot contamination, cold-water calculations in every month, expired regulation-review status, out-of-domain inputs and incomplete daily coverage.
+- Complete PierCast suite: **134 passed, zero failed**.
+- TypeScript: `npx tsc --noEmit` passed on the shared working tree.
+- Private roster, Phase 2 thermal, Phase 1 annual, original evidence and core replay artifact checks passed; all source identifiers and retained source hashes are verified by their generators.
+- Six Phase 1 and four original-evidence Node tests passed.
+- New tests cover exact city membership, full leap-year seasonal coverage, public gating, legacy snapshot reads and same-day merging, copied/missing/altered calibration, deferred and wrong-city outcome rejection, plus the existing domain/coverage/scoring tests.
+- An isolated local PostgreSQL instance successfully applied the baseline ledger/snapshot schemas and new migration. Rollback-only fixtures verify legacy 100-row and new 135-row shadow commits, shadow idempotency, old and new daily snapshots, preservation of old daily locks, wrong-city and duplicate rejection, and retained public privilege restrictions.
+- The SQL fixtures are reproducible with `deno run --allow-read scripts/pier-cast-private-roster-migration-fixtures.ts`; execute the emitted SQL only in an isolated database containing the relevant schemas.
 
-## Deployment reconciliation
+## Deployment
 
-No schema or database data change was required. The linked migration list remains matched through `20260911183000`.
+Migration `20260912180000_pier_cast_private_species_roster.sql` is applied; the linked database reports no pending migrations. No historical records were rewritten.
 
-`pier-cast` deployed as version **17**, active with JWT verification enabled. `pier-cast-ingest` remains version **12**, active with JWT verification enabled; its scoring and ingestion contract did not require deployment. Deployed smoke checks returned an empty public catalog (HTTP 200, zero cities) and denied anonymous access to the owner outlook (HTTP 403). Authorized research contents were verified in handler/pipeline tests; no authenticated production owner session was available for a full response smoke check.
+`pier-cast` is active at version **18** and `pier-cast-ingest` at version **13**, both with JWT verification enabled. Deployed read-only checks confirm the expected five city rosters, HTTP 200 with zero public catalog cities, and HTTP 403 for anonymous owner-review access. Authorized full production owner-outlook contents were not smoke-tested without an owner session; handler, pipeline, database and deployment checks cover the implemented contracts.
 
-The pre-existing `app/pier-cast-review.tsx` working-tree edit was preserved and excluded from the Phase 2 commit.
+The other agent's `app/pier-cast-review.tsx` and `components/pier-cast/PierCastVisuals.tsx` edits remain untouched and excluded from this commit.
 
-## Phase 3 handoff
+## Phase 3
 
-Review the full annual lineup together, including overlapping seasonal peaks, city-specific strength and weak periods. Use the 16 annual baselines and 14 provisional combined hypotheses; keep both round-whitefish thermal responses visibly deferred. Additional species are not validated live forecasts. Activating them still requires the recorded structure, thermal and temperature-representation gates to be satisfied; public release remains disabled.
+The remaining phase is the annual lineup review together: compare all 52 weeks, city-specific relative strength, independent and overlapping species peaks, and weak periods. Deferrals remain visible decisions; do not fill gaps with unsupported fish or call provisional scores measured catch probabilities. Public release still requires explicit authorization and the existing scientific validation gates.

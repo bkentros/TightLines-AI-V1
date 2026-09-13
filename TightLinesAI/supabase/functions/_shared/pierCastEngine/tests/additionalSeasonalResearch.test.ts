@@ -1,3 +1,4 @@
+import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
 import { assert, assertEquals } from "jsr:@std/assert";
 import { PIER_CAST_ADDITIONAL_SEASONAL_RESEARCH } from "../config/additionalSeasonalResearch.generated.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../scoring/seasonal.ts";
@@ -28,7 +29,7 @@ Deno.test("annual research does not activate city species or bypass public calib
     const city = PIER_CAST_CITY_PROFILES.find(c => c.cityId === curve.cityId)!;
     const species = city.species.find(s => s.speciesId === curve.speciesId)!;
     assertEquals(species.ratingEnabled, false);
-    assertEquals(species.seasonalOpportunityCurve, null);
+    assertEquals(species.seasonalOpportunityCurve !== null, !!getPierCastPrivateAdmission(city.cityId, curve.speciesId));
     assertEquals(evaluatePierCastSeasonalOpportunity({
       curve, localDate: "2025-07-15", ratingEnabled: true, mode: "public",
     }).status, "unavailable");
