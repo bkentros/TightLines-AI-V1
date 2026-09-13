@@ -25,6 +25,24 @@ const OPEN_RESULT: RateLimitResult = {
   retryAfterSeconds: 0,
 };
 
+function closedResult(
+  feature: string,
+  rule?: RateLimitRule,
+): RateLimitResult {
+  const windowSeconds = Math.max(1, Math.floor(rule?.windowSeconds ?? 60));
+  const maxRequests = Math.max(1, Math.floor(rule?.maxRequests ?? 1));
+  return {
+    allowed: false,
+    feature,
+    windowSeconds,
+    maxRequests,
+    requestCount: maxRequests,
+    remaining: 0,
+    resetAt: new Date(Date.now() + windowSeconds * 1000).toISOString(),
+    retryAfterSeconds: windowSeconds,
+  };
+}
+
 function normalizeRateLimitRow(
   data: unknown,
   feature: string,
@@ -68,9 +86,13 @@ export async function checkUserRateLimit(
 ): Promise<RateLimitResult> {
   const rpc = (supabase as { rpc?: (...args: unknown[]) => unknown })?.rpc;
   if (typeof rpc !== "function") {
-    return { ...OPEN_RESULT, feature: params.feature };
+    console.error("[rate-limit] RPC unavailable; denying request", {
+      feature: params.feature,
+    });
+    return closedResult(params.feature, params.rules[0]);
   }
 
+  let allowedResult: RateLimitResult | null = null;
   for (const rule of params.rules) {
     if (
       !Number.isFinite(rule.windowSeconds) || !Number.isFinite(rule.maxRequests)
@@ -95,28 +117,36 @@ export async function checkUserRateLimit(
       };
       const { data, error } = response;
       if (error) {
-        console.error("[rate-limit] check failed; allowing request", {
+        console.error("[rate-limit] check failed; denying request", {
           feature: params.feature,
           windowSeconds,
           message: error.message,
         });
-        return { ...OPEN_RESULT, feature: params.feature };
+        return closedResult(params.feature, { windowSeconds, maxRequests });
       }
       const result = normalizeRateLimitRow(data, params.feature, {
         windowSeconds,
         maxRequests,
       });
+      if (!result) {
+        console.error("[rate-limit] check returned invalid data; denying request", {
+          feature: params.feature,
+          windowSeconds,
+        });
+        return closedResult(params.feature, { windowSeconds, maxRequests });
+      }
       if (result && !result.allowed) return result;
+      allowedResult = result;
     } catch (error) {
-      console.error("[rate-limit] check threw; allowing request", {
+      console.error("[rate-limit] check threw; denying request", {
         feature: params.feature,
         message: error instanceof Error ? error.message : String(error),
       });
-      return { ...OPEN_RESULT, feature: params.feature };
+      return closedResult(params.feature, { windowSeconds, maxRequests });
     }
   }
 
-  return { ...OPEN_RESULT, feature: params.feature };
+  return allowedResult ?? { ...OPEN_RESULT, feature: params.feature };
 }
 
 export function rateLimitHeaders(

@@ -162,6 +162,24 @@ function mockClient(options: {
         error: options.authError ?? null,
       }),
     },
+    rpc: async (name: string) => {
+      if (name !== "consume_app_feature_rate_limit") {
+        throw new Error(`unexpected RPC ${name}`);
+      }
+      return {
+        data: {
+          allowed: true,
+          feature: "recommender",
+          window_seconds: 60,
+          max_requests: 60,
+          request_count: 1,
+          remaining: 59,
+          reset_at: "2026-07-18T00:01:00.000Z",
+          retry_after_seconds: 0,
+        },
+        error: null,
+      };
+    },
     from: (table: string) => {
       if (table === "profiles") {
         return {

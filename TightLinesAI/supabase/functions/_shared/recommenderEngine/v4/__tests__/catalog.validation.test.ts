@@ -795,11 +795,11 @@ Deno.test("QA-5B: new inventory has manifest, asset, and frontend image mapping"
     assert(manifest.includes(`key: "${id}"`), `${id} missing manifest entry`);
     assert(
       lureImageMap.includes(`${id}:`) &&
-        lureImageMap.includes(`assets/images/lures/${id}.png`),
+        lureImageMap.includes(`assets/images/recommender/illustrated/${id}.png`),
       `${id} missing frontend lure image mapping`,
     );
     const stat = await Deno.stat(
-      new URL(`assets/images/lures/${id}.png`, repoRoot),
+      new URL(`assets/images/recommender/illustrated/${id}.png`, repoRoot),
     );
     assert(stat.isFile, `${id} lure asset is not a file`);
   }
@@ -808,11 +808,11 @@ Deno.test("QA-5B: new inventory has manifest, asset, and frontend image mapping"
     assert(manifest.includes(`key: "${id}"`), `${id} missing manifest entry`);
     assert(
       flyImageMap.includes(`${id}:`) &&
-        flyImageMap.includes(`assets/images/flies/${id}.png`),
+        flyImageMap.includes(`assets/images/recommender/illustrated/${id}.png`),
       `${id} missing frontend fly image mapping`,
     );
     const stat = await Deno.stat(
-      new URL(`assets/images/flies/${id}.png`, repoRoot),
+      new URL(`assets/images/recommender/illustrated/${id}.png`, repoRoot),
     );
     assert(stat.isFile, `${id} fly asset is not a file`);
   }
