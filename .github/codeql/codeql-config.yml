@@ -1,0 +1,7 @@
+name: FinFindr CodeQL configuration
+
+# These are downloaded research snapshots retained as evidence. They are not
+# shipped, served, or executed by FinFindr, and scanning their embedded vendor
+# JavaScript produces findings that do not describe this application's code.
+paths-ignore:
+  - TightLinesAI/docs/**/*.html

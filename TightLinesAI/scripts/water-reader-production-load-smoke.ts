@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'node:crypto';
 import type { AddressInfo } from 'node:net';
 import { startHeavyGeneratorServer } from './water-reader-heavy-generator-server.ts';
 import type {
@@ -88,7 +89,7 @@ async function createSmokeUsers(params: {
   authClient: ReturnType<typeof createClient>;
   count: number;
 }): Promise<SmokeUser[]> {
-  const stamp = `${Date.now()}-${Math.random().toString(16).slice(2, 8)}`;
+  const stamp = `${Date.now()}-${randomUUID()}`;
   const users: SmokeUser[] = [];
   for (let i = 0; i < params.count; i += 1) {
     const email = `water-reader-load-smoke-${stamp}-${i}@example.com`;
