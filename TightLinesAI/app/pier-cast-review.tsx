@@ -1335,11 +1335,17 @@ function eventDate(value: string, timezone: string): string {
   }).format(new Date(value));
 }
 
-function eventMoment(value: string, timezone: string): string {
+function eventShortDate(value: string, timezone: string): string {
   return new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
+    timeZone: timezone,
+  }).format(new Date(value));
+}
+
+function eventClock(value: string, timezone: string): string {
+  return new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
     minute: "2-digit",
     timeZone: timezone,
@@ -1450,9 +1456,6 @@ function WaterTemperatureShifts({
                         ? "drop"
                         : "rise"}
                     </Text>
-                    <Text style={styles.flipEventDate}>
-                      BY {eventDate(event.endAt, timezone).toUpperCase()}
-                    </Text>
                   </View>
                   <View
                     style={[
@@ -1502,10 +1505,48 @@ function WaterTemperatureShifts({
                     <Text style={styles.flipEventMetricLabel}>ENDING WATER</Text>
                   </View>
                 </View>
-                <Text style={styles.flipEventTiming}>
-                  {eventMoment(event.startAt, timezone)} →{" "}
-                  {eventMoment(event.endAt, timezone)}
-                </Text>
+                <View style={styles.flipEventTiming}>
+                  <Text style={styles.flipEventTimingLabel}>
+                    MODELED SHIFT WINDOW
+                  </Text>
+                  <View style={styles.flipEventTimingRow}>
+                    <View style={styles.flipEventMoment}>
+                      <Text style={styles.flipEventMomentLabel}>START</Text>
+                      <Text style={styles.flipEventMomentDate} numberOfLines={1}>
+                        {eventShortDate(event.startAt, timezone).toUpperCase()}
+                      </Text>
+                      <Text style={styles.flipEventMomentClock}>
+                        {eventClock(event.startAt, timezone)}
+                      </Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.flipEventTimingArrow,
+                        { backgroundColor: tone.tint },
+                      ]}
+                    >
+                      <Ionicons
+                        name="arrow-forward"
+                        size={13}
+                        color={tone.accent}
+                      />
+                    </View>
+                    <View
+                      style={[
+                        styles.flipEventMoment,
+                        styles.flipEventMomentEnd,
+                      ]}
+                    >
+                      <Text style={styles.flipEventMomentLabel}>END</Text>
+                      <Text style={styles.flipEventMomentDate} numberOfLines={1}>
+                        {eventShortDate(event.endAt, timezone).toUpperCase()}
+                      </Text>
+                      <Text style={styles.flipEventMomentClock}>
+                        {eventClock(event.endAt, timezone)}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
                 {boundary ? (
                   <Text style={styles.flipEventBoundary}>{boundary}</Text>
                 ) : null}
@@ -1541,32 +1582,64 @@ function WaterTemperatureShifts({
 }
 
 function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
+  const [expanded, setExpanded] = useState(false);
   const approved = city.structures.filter(
     (item) => item.disposition === "candidate",
   );
   const structures = approved.length
     ? approved
     : city.structures.filter((item) => item.disposition !== "excluded");
+  const structureCountLabel = `${structures.length
+    .toString()
+    .padStart(2, "0")} ${structures.length === 1 ? "PIER" : "PIERS"}`;
   return (
     <View style={styles.compactInfoCard}>
-      <View style={styles.compactInfoIcon}>
-        <Ionicons name="location" size={17} color="#167B78" />
-      </View>
-      <View style={styles.compactInfoBody}>
-        <Text style={styles.compactInfoTitle}>Piers covered</Text>
-        <Text style={styles.compactInfoCopy}>
-          Check local access before you go — published rules are not a live
-          guarantee.
-        </Text>
-        <View style={styles.pierChips}>
-          {structures.map((item) => (
-            <View key={item.structureId} style={styles.pierChip}>
-              <View style={styles.pierChipDot} />
-              <Text style={styles.pierChipText}>{item.displayName}</Text>
-            </View>
-          ))}
+      <Pressable
+        style={({ pressed }) => [
+          styles.compactInfoHeader,
+          pressed && styles.collapsiblePressed,
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setExpanded((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        accessibilityLabel={`Piers covered, ${structures.length} ${structures.length === 1 ? "pier" : "piers"}`}
+      >
+        <View style={styles.compactInfoIcon}>
+          <Ionicons name="location" size={17} color="#167B78" />
         </View>
-      </View>
+        <View style={styles.compactInfoBody}>
+          <Text style={styles.compactInfoTitle}>Piers covered</Text>
+          <Text style={styles.compactInfoSummary}>
+            {structureCountLabel}
+          </Text>
+        </View>
+        <View style={styles.collapsibleChevron}>
+          <Ionicons
+            name={expanded ? "chevron-up" : "chevron-down"}
+            size={17}
+            color="#167B78"
+          />
+        </View>
+      </Pressable>
+      {expanded ? (
+        <View style={styles.compactInfoContent}>
+          <Text style={styles.compactInfoCopy}>
+            Check local access before you go — published rules are not a live
+            guarantee.
+          </Text>
+          <View style={styles.pierChips}>
+            {structures.map((item) => (
+              <View key={item.structureId} style={styles.pierChip}>
+                <View style={styles.pierChipDot} />
+                <Text style={styles.pierChipText}>{item.displayName}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -1578,9 +1651,27 @@ function RatingExplanation({
   winterNotice: string;
   showWinterNotice: boolean;
 }) {
+  const [expanded, setExpanded] = useState(showWinterNotice);
+
+  useEffect(() => {
+    if (showWinterNotice) setExpanded(true);
+  }, [showWinterNotice]);
+
   return (
     <View style={styles.ratingExplanation}>
-      <View style={styles.ratingExplanationTitleRow}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.ratingExplanationTitleRow,
+          pressed && styles.collapsiblePressed,
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setExpanded((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        accessibilityLabel="About the FinFindr Opportunity Rating"
+      >
         <Ionicons
           name="information-circle"
           size={18}
@@ -1589,17 +1680,28 @@ function RatingExplanation({
         <Text style={styles.ratingExplanationTitle}>
           FinFindr Opportunity Rating
         </Text>
-      </View>
-      <Text style={styles.ratingExplanationCopy}>
-        {PIER_CAST_RESEARCH_DISCLOSURE}
-      </Text>
-      <Text style={styles.ratingExplanationCopy}>
-        {PIER_CAST_RESEARCH_DETAIL}
-      </Text>
-      {showWinterNotice ? (
-        <View style={styles.winterNotice}>
-          <Ionicons name="snow-outline" size={14} color="#856318" />
-          <Text style={styles.winterNoticeText}>{winterNotice}</Text>
+        <View style={styles.ratingExplanationChevron}>
+          <Ionicons
+            name={expanded ? "chevron-up" : "chevron-down"}
+            size={17}
+            color={paper.dashboardBlue}
+          />
+        </View>
+      </Pressable>
+      {expanded ? (
+        <View style={styles.ratingExplanationContent}>
+          <Text style={styles.ratingExplanationCopy}>
+            {PIER_CAST_RESEARCH_DISCLOSURE}
+          </Text>
+          <Text style={styles.ratingExplanationCopy}>
+            {PIER_CAST_RESEARCH_DETAIL}
+          </Text>
+          {showWinterNotice ? (
+            <View style={styles.winterNotice}>
+              <Ionicons name="snow-outline" size={14} color="#856318" />
+              <Text style={styles.winterNoticeText}>{winterNotice}</Text>
+            </View>
+          ) : null}
         </View>
       ) : null}
     </View>
@@ -3290,14 +3392,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
   },
-  flipEventDate: {
-    marginTop: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    lineHeight: 10,
-    letterSpacing: 0.55,
-    color: paper.dashboardMuted,
-  },
   flipSeverityChip: {
     paddingHorizontal: 7,
     paddingVertical: 4,
@@ -3345,11 +3439,64 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   flipEventTiming: {
-    marginTop: 8,
-    fontFamily: paperFonts.body,
-    fontSize: 9.5,
-    lineHeight: 14,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
+    backgroundColor: "#F8FAFA",
+  },
+  flipEventTimingLabel: {
+    marginBottom: 7,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: 0.9,
+    textAlign: "center",
     color: paper.dashboardMuted,
+  },
+  flipEventTimingRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  flipEventMoment: {
+    minWidth: 0,
+    flex: 1,
+  },
+  flipEventMomentEnd: {
+    alignItems: "flex-end",
+  },
+  flipEventMomentLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: 0.8,
+    color: paper.dashboardMuted,
+  },
+  flipEventMomentDate: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    lineHeight: 11,
+    letterSpacing: 0.25,
+    color: paper.dashboardInk,
+  },
+  flipEventMomentClock: {
+    marginTop: 2,
+    fontFamily: paperFonts.monoBold,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardInk,
+  },
+  flipEventTimingArrow: {
+    width: 27,
+    height: 27,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
   },
   flipEventBoundary: {
     marginTop: 3,
@@ -5089,8 +5236,6 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   compactInfoCard: {
-    flexDirection: "row",
-    padding: 16,
     borderRadius: 13,
     backgroundColor: "#F7FBFA",
     borderWidth: 1,
@@ -5098,6 +5243,11 @@ const styles = StyleSheet.create({
     borderColor: "rgba(22,123,120,0.28)",
     borderTopColor: "#2E9B97",
     ...paperShadows.hard,
+  },
+  compactInfoHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 14,
   },
   compactInfoIcon: {
     width: 39,
@@ -5114,12 +5264,37 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: paper.dashboardInk,
   },
+  compactInfoSummary: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    lineHeight: 11,
+    letterSpacing: 1,
+    color: "#68767D",
+  },
+  compactInfoContent: {
+    marginHorizontal: 14,
+    paddingTop: 11,
+    paddingBottom: 14,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(22,123,120,0.16)",
+  },
   compactInfoCopy: {
-    marginTop: 3,
     fontFamily: paperFonts.body,
     fontSize: 12.5,
     lineHeight: 18,
     color: "#68767D",
+  },
+  collapsibleChevron: {
+    width: 31,
+    height: 31,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 16,
+    backgroundColor: "rgba(22,123,120,0.08)",
+  },
+  collapsiblePressed: {
+    opacity: 0.68,
   },
   pierChips: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 9 },
   pierChip: {
@@ -5143,7 +5318,6 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   ratingExplanation: {
-    padding: 17,
     borderRadius: 17,
     backgroundColor: "#E7F3F6",
     borderLeftWidth: 4,
@@ -5153,11 +5327,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
+    padding: 17,
   },
   ratingExplanationTitle: {
+    minWidth: 0,
+    flex: 1,
     fontFamily: paperFonts.bodyBold,
     fontSize: 15,
     color: paper.dashboardInk,
+  },
+  ratingExplanationChevron: {
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    backgroundColor: "rgba(42,110,150,0.09)",
+  },
+  ratingExplanationContent: {
+    marginHorizontal: 17,
+    paddingTop: 2,
+    paddingBottom: 17,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(42,110,150,0.13)",
   },
   ratingExplanationCopy: {
     marginTop: 8,
