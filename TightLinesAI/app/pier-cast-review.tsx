@@ -2126,7 +2126,14 @@ function PierCastLanding({
           <Text style={styles.standingsSubtitle}>
             Every supported pier city, ranked by its strongest species rating.
           </Text>
-          <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
+          <Text
+            style={[
+              styles.ratingExplanationCopy,
+              styles.standingsDisclosure,
+            ]}
+          >
+            {PIER_CAST_RESEARCH_DISCLOSURE}
+          </Text>
           <BandSpectrum />
           <View style={styles.standingsMeta}>
             <View style={styles.standingsMetaCell}>
@@ -4133,6 +4140,11 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     textAlign: "center",
     color: "rgba(255,255,255,0.62)",
+  },
+  standingsDisclosure: {
+    width: "100%",
+    maxWidth: 320,
+    textAlign: "center",
   },
   standingsMeta: {
     width: "100%",
