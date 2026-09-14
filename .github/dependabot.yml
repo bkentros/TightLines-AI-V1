@@ -5,12 +5,10 @@ updates:
     schedule:
       interval: weekly
       day: monday
-    open-pull-requests-limit: 5
-    groups:
-      production-dependencies:
-        dependency-type: production
-      development-dependencies:
-        dependency-type: development
+    # Expo/React Native upgrades must be performed together through Expo's
+    # compatibility tooling and native smoke tests. Disable routine npm version
+    # PRs; Dependabot security-update PRs are not subject to this limit.
+    open-pull-requests-limit: 0
 
   - package-ecosystem: github-actions
     directory: /
