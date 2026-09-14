@@ -1370,7 +1370,7 @@ function temperatureCoverageNote(
   return "Some forecast samples could not be analyzed. Results use only valid continuous temperature data.";
 }
 
-function LakeFlipTracker({
+function WaterTemperatureShifts({
   summary,
   timezone,
 }: {
@@ -1384,7 +1384,7 @@ function LakeFlipTracker({
   return (
     <ReportSection
       eyebrow="FIVE-DAY WATER SHIFT WATCH"
-      title="Lake Flip Tracker"
+      title="Water Temperature Shifts"
       badge="MODELED"
       accent="#1E746B"
     >
@@ -1398,7 +1398,7 @@ function LakeFlipTracker({
           <Text style={styles.flipEmptyTitle}>SHIFT ANALYSIS UNAVAILABLE</Text>
           <Text style={styles.flipEmptyCopy}>
             This forecast does not contain enough detector data to evaluate
-            rapid water-temperature changes.
+            meaningful water-temperature changes.
           </Text>
         </View>
       ) : events.length === 0 ? (
@@ -1408,7 +1408,7 @@ function LakeFlipTracker({
             size={20}
             color="#1E746B"
           />
-          <Text style={styles.flipEmptyTitle}>NO RAPID SHIFT DETECTED</Text>
+          <Text style={styles.flipEmptyTitle}>NO QUALIFYING SHIFT DETECTED</Text>
           <Text style={styles.flipEmptyCopy}>
             No modeled water-temperature change of at least 3°F was found
             within a rolling 24-hour window.
@@ -1425,7 +1425,7 @@ function LakeFlipTracker({
                 key={event.eventId}
                 style={[styles.flipEvent, { borderLeftColor: tone.accent }]}
                 accessible
-                accessibilityLabel={`${event.severity} ${event.direction}, ${eventMagnitudeF(event).toFixed(1)} degrees Fahrenheit over ${eventDuration(event.durationHours).toLowerCase()}, by ${eventDate(event.endAt, timezone)}`}
+                accessibilityLabel={`${event.severity} water temperature ${event.direction === "cooling" ? "drop" : "rise"}, ${eventMagnitudeF(event).toFixed(1)} degrees Fahrenheit over ${eventDuration(event.durationHours).toLowerCase()}, by ${eventDate(event.endAt, timezone)}`}
               >
                 <View style={styles.flipEventHead}>
                   <View
@@ -1446,7 +1446,9 @@ function LakeFlipTracker({
                   </View>
                   <View style={styles.flipEventHeading}>
                     <Text style={styles.flipEventTitle}>
-                      Rapid {event.direction}
+                      Water temperature {event.direction === "cooling"
+                        ? "drop"
+                        : "rise"}
                     </Text>
                     <Text style={styles.flipEventDate}>
                       BY {eventDate(event.endAt, timezone).toUpperCase()}
@@ -1486,7 +1488,7 @@ function LakeFlipTracker({
                       {eventDuration(event.durationHours)}
                     </Text>
                     <Text style={styles.flipEventMetricLabel}>
-                      START TO EXTREME
+                      SHIFT DURATION
                     </Text>
                   </View>
                   <View style={styles.flipEventMetricRule} />
@@ -1529,9 +1531,9 @@ function LakeFlipTracker({
           color="#1E746B"
         />
         <Text style={styles.flipExplainerText}>
-          Rapid modeled cooling can be a lake-flip or upwelling signal near a
-          pier; rapid warming can mark warmer water returning. Temperature
-          alone cannot confirm the physical cause.
+          A strong modeled temperature drop can signal a lake flip or upwelling
+          near a pier; a rise can mark warmer water returning. Temperature alone
+          cannot confirm the physical cause.
         </Text>
       </View>
     </ReportSection>
@@ -2850,7 +2852,7 @@ function CityReport({
         weatherLoading={weatherLoading}
       />
       <TemperaturePanel date={date} allPoints={allPoints} />
-      <LakeFlipTracker
+      <WaterTemperatureShifts
         summary={outlook.temperatureEvents}
         timezone={outlook.timezone}
       />
@@ -3246,7 +3248,7 @@ export default function PierCastReviewScreen() {
 }
 
 const styles = StyleSheet.create({
-  // ── Lake Flip Tracker ──────────────────────────────────────────────
+  // ── Water Temperature Shifts ───────────────────────────────────────
   flipEventList: {
     gap: 9,
   },

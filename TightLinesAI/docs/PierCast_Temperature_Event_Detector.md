@@ -7,7 +7,7 @@
 
 ## Output meaning
 
-The detector analyzes the complete continuous hourly surface-temperature timeline returned for a PierCast city. It identifies modeled rapid cooling and warming. Temperature alone does not establish the physical cause, so the engine does not label an event as observed upwelling or downwelling and does not return a probability.
+The detector analyzes the complete continuous hourly surface-temperature timeline returned for a PierCast city. It identifies modeled directional temperature shifts. Temperature alone does not establish the physical cause, so the engine does not label an event as observed upwelling or downwelling and does not return a probability.
 
 Each result is one directional excursion between a meaningful high and low. The 6-, 12-, and 24-hour calculations measure the excursion and classify its severity; they never create independent duplicate events.
 
@@ -38,6 +38,6 @@ The engine records maximum directional movement within rolling 6-, 12-, and 24-h
 
 `buildPierCastReviewOutlook` computes one `temperatureEvents` summary beside each city's `temperatureTimeline`. Public city reports preserve it; the conditions-free leaderboard does not expose it. The app contract keeps the field optional so a saved report created before this detector remains readable.
 
-The Lake Flip Tracker is the detector's single presentation surface. It always lists every detected event—`extreme`, `major`, `notable`, and `minor`—without a display limit. Events are ranked first by severity, then by total modeled temperature-change magnitude, with chronological order breaking any remaining tie. The tracker also distinguishes no-event, unavailable, and partial-coverage states.
+The Water Temperature Shifts section is the detector's single presentation surface. It always lists every detected event—`extreme`, `major`, `notable`, and `minor`—without a display limit. Events are ranked first by severity, then by total modeled temperature-change magnitude, with chronological order breaking any remaining tie. The tracker also distinguishes no-event, unavailable, and partial-coverage states.
 
-Dates and times are rendered in the selected city's timezone. The UI shows the actual full excursion magnitude and start-to-extreme duration; it does not turn the 6-, 12-, and 24-hour diagnostic windows into separate notices. No banners or probabilities are shown. Cooling is described as a possible lake-flip or upwelling signal, and warming as warmer water returning, without claiming that temperature alone proves the physical cause.
+Dates and times are rendered in the selected city's timezone. Event titles use the neutral, factual labels “Water temperature drop” and “Water temperature rise”; severity, magnitude, and duration communicate intensity. The UI shows the actual full excursion magnitude and start-to-extreme duration; it does not turn the 6-, 12-, and 24-hour diagnostic windows into separate notices. No banners or probabilities are shown. Only a strong modeled drop is described as a possible lake-flip or upwelling signal, and warming as warmer water returning, without claiming that temperature alone proves the physical cause.
