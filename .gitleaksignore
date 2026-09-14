@@ -1,0 +1,5 @@
+# Exact false positive: synthetic PierCast outcome dedupe identifier in a unit
+# test. The fixture was rewritten in the follow-up commit; retaining this
+# fingerprint keeps full-history scans green without suppressing this rule in
+# any other file, line, or commit.
+66e95ed8d721814b556430881cbc3f090429efe8:TightLinesAI/supabase/functions/_shared/pierCastEngine/tests/wisconsinShadow.test.ts:generic-api-key:252

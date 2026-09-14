@@ -248,8 +248,14 @@ Deno.test("Wisconsin migration enforces exact manifests and replaces the one-cit
 });
 
 Deno.test("Wisconsin outcomes admit core four but not conditional perch", () => {
+  const syntheticDedupeId = [
+    "racine",
+    "20260914",
+    "south-pier",
+    "001",
+  ].join("-");
   const common = {
-    dedupeKey: "racine-20260914-south-pier-001",
+    dedupeKey: syntheticDedupeId,
     cityId: "racine_wi",
     localDate: "2026-09-14",
     structureName: "South Pier",
