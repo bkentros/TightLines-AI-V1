@@ -80,7 +80,8 @@ import {
   getRiverRunSpeciesImage,
 } from "../lib/riverRunSpeciesImages";
 import {
-  rankPierCastTemperatureEvents,
+  orderPierCastTemperatureEvents,
+  pierCastTemperatureEventTimingLabel,
 } from "../lib/pierCastTemperatureEventPresentation";
 import { hapticSelection } from "../lib/safeHaptics";
 import { usePaperBonePulse } from "../lib/usePaperBonePulse";
@@ -1379,11 +1380,13 @@ function temperatureCoverageNote(
 function WaterTemperatureShifts({
   summary,
   timezone,
+  referenceAt,
 }: {
   summary: PierCastTemperatureEventSummaryRead | undefined;
   timezone: string;
+  referenceAt: string;
 }) {
-  const events = rankPierCastTemperatureEvents(summary);
+  const events = orderPierCastTemperatureEvents(summary, referenceAt);
   const unavailable = !summary || summary.status === "unavailable";
   const coverageNote = temperatureCoverageNote(summary);
 
@@ -1426,12 +1429,17 @@ function WaterTemperatureShifts({
             const tone = TEMPERATURE_EVENT_TONES[event.direction];
             const severityTone = TEMPERATURE_SEVERITY_TONES[event.severity];
             const boundary = eventBoundaryText(event);
+            const timingLabel = pierCastTemperatureEventTimingLabel(
+              event,
+              referenceAt,
+              timezone,
+            );
             return (
               <View
                 key={event.eventId}
                 style={[styles.flipEvent, { borderLeftColor: tone.accent }]}
                 accessible
-                accessibilityLabel={`${event.severity} water temperature ${event.direction === "cooling" ? "drop" : "rise"}, ${eventMagnitudeF(event).toFixed(1)} degrees Fahrenheit over ${eventDuration(event.durationHours).toLowerCase()}, by ${eventDate(event.endAt, timezone)}`}
+                accessibilityLabel={`${timingLabel.toLowerCase()}, ${event.severity} water temperature ${event.direction === "cooling" ? "drop" : "rise"}, ${eventMagnitudeF(event).toFixed(1)} degrees Fahrenheit over ${eventDuration(event.durationHours).toLowerCase()}, ending ${eventDate(event.endAt, timezone)}`}
               >
                 <View style={styles.flipEventHead}>
                   <View
@@ -1451,6 +1459,14 @@ function WaterTemperatureShifts({
                     />
                   </View>
                   <View style={styles.flipEventHeading}>
+                    <Text
+                      style={[
+                        styles.flipEventRelativeTiming,
+                        { color: tone.accent },
+                      ]}
+                    >
+                      {timingLabel}
+                    </Text>
                     <Text style={styles.flipEventTitle}>
                       Water temperature {event.direction === "cooling"
                         ? "drop"
@@ -2964,6 +2980,7 @@ function CityReport({
       <WaterTemperatureShifts
         summary={outlook.temperatureEvents}
         timezone={outlook.timezone}
+        referenceAt={conditionsUpdatedAt}
       />
       <PiersCovered city={city} />
     </>
@@ -3385,6 +3402,13 @@ const styles = StyleSheet.create({
   flipEventHeading: {
     minWidth: 0,
     flex: 1,
+  },
+  flipEventRelativeTiming: {
+    marginBottom: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 9,
+    letterSpacing: 0.75,
   },
   flipEventTitle: {
     fontFamily: paperFonts.displaySemiBold,
