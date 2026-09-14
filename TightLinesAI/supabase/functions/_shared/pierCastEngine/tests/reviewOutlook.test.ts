@@ -26,6 +26,12 @@ Deno.test("owner review outlook builds five dates and four disabled-preview spec
   for (const city of outlook.cities) {
     assertEquals(city.representationDecision, "blocked_insufficient_evidence");
     assertEquals(city.temperatureTimeline.length, 115);
+    assertEquals(city.temperatureEvents.status, "available");
+    assertEquals(
+      city.temperatureEvents.detectorVersion,
+      "piercast-temperature-events-v1",
+    );
+    assertEquals(city.temperatureEvents.events, []);
     assertEquals(
       city.temperatureTimeline[0].validAt,
       "2026-09-10T00:30:00.000Z",
@@ -76,6 +82,27 @@ Deno.test("review outlook applies the bounded temperature formula under constant
       (0.3 + 0.75 * 0.95);
   assertAlmostEquals(chinook.biological.score, expected, 1e-12);
   assert(chinook.biological.displayText.endsWith("/10"));
+});
+
+Deno.test("review outlook exposes one engine event for one multi-window movement", () => {
+  const batch = completeLmhofsBatch();
+  const city = batch.cities[0]!;
+  city.samples = city.samples.map((sample) => ({
+    ...sample,
+    temperatureC: sample.forecastHour <= 24
+      ? (70 - 10 * sample.forecastHour / 24 - 32) * 5 / 9
+      : (60 - 32) * 5 / 9,
+  }));
+  const outlook = buildPierCastReviewOutlook({
+    batch,
+    evaluationTime: "2026-09-09T18:00:00.000Z",
+  });
+  const events = outlook.cities[0]!.temperatureEvents.events;
+
+  assertEquals(events.length, 1);
+  assertEquals(events[0]!.direction, "cooling");
+  assertEquals(events[0]!.severity, "major");
+  assertEquals(events[0]!.triggerWindowHours, 24);
 });
 
 Deno.test("review outlook can reproduce the frozen v1 shadow comparator", () => {

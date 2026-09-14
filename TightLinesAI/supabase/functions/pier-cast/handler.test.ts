@@ -158,6 +158,11 @@ Deno.test("authorized owner-review outlook returns real disabled-preview ratings
   assertEquals(body.cities[0].dates.length, 5);
   assertEquals(body.cities[0].dates[0].species.length, 6);
   assertEquals(
+    body.cities[0].temperatureEvents.detectorVersion,
+    "piercast-temperature-events-v1",
+  );
+  assertEquals(body.cities[0].temperatureEvents.events, []);
+  assertEquals(
     body.cities.every((city: { representationDecision: string }) =>
       city.representationDecision === "blocked_insufficient_evidence"
     ),

@@ -142,6 +142,38 @@ export type PierCastReviewTemperaturePointRead = {
   temperatureC: number;
 };
 
+export type PierCastTemperatureEventRead = {
+  eventId: string;
+  direction: "cooling" | "warming";
+  severity: "minor" | "notable" | "major" | "extreme";
+  startAt: string;
+  endAt: string;
+  startTemperatureC: number;
+  endTemperatureC: number;
+  changeC: number;
+  magnitudeC: number;
+  durationHours: number;
+  triggerWindowHours: 12 | 24;
+  maximumChangeByWindowC: {
+    hours6: number;
+    hours12: number;
+    hours24: number;
+  };
+  startsAtCoverageBoundary: boolean;
+  endsAtCoverageBoundary: boolean;
+};
+
+export type PierCastTemperatureEventSummaryRead = {
+  status: "available" | "partial" | "unavailable";
+  detectorVersion: "piercast-temperature-events-v1";
+  coverageStart: string | null;
+  coverageEnd: string | null;
+  pointCount: number;
+  segmentCount: number;
+  events: PierCastTemperatureEventRead[];
+  reasonCodes: string[];
+};
+
 export type PierCastReviewSpeciesOutlookRead = {
   speciesId: PierCastSpeciesId;
   previewMode: "disabled_provisional";
@@ -197,6 +229,8 @@ export type PierCastReviewCityOutlookRead = {
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
   temperatureTimeline?: PierCastReviewTemperaturePointRead[];
+  /** Optional for saved reports created before the event detector shipped. */
+  temperatureEvents?: PierCastTemperatureEventSummaryRead;
   dates: PierCastReviewDateOutlookRead[];
 };
 

@@ -34,6 +34,7 @@ import {
 } from "../scoring/opportunity.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../scoring/seasonal.ts";
 import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
+import { detectPierCastTemperatureEvents } from "../scoring/temperatureEvents.ts";
 import { PIER_CAST_RUBRIC_VERSION } from "../scoring/rating.ts";
 import {
   PIER_CAST_MONTHS,
@@ -80,15 +81,17 @@ export function buildPierCastReviewOutlook(input: {
       evaluationTime: evaluatedAt.toISOString(),
       timezone: city.timezone,
     });
+    const temperatureTimeline = buildRollingTemperatureTimeline(
+      timeline.samples,
+      evaluatedAt,
+    );
     return {
       cityId: city.cityId,
       displayName: city.displayName,
       timezone: city.timezone,
       representationDecision: "blocked_insufficient_evidence" as const,
-      temperatureTimeline: buildRollingTemperatureTimeline(
-        timeline.samples,
-        evaluatedAt,
-      ),
+      temperatureTimeline,
+      temperatureEvents: detectPierCastTemperatureEvents(temperatureTimeline),
       dates: windows.map((window) =>
         buildDateOutlook({
           city,

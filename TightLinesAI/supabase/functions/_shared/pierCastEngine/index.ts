@@ -10,6 +10,7 @@ export * from "./config/representationCalibration.ts";
 export * from "./config/fieldValidation.ts";
 export * from "./config/catalog.ts";
 export * from "./scoring/temperature.ts";
+export * from "./scoring/temperatureEvents.ts";
 export * from "./scoring/seasonal.ts";
 export * from "./scoring/opportunity.ts";
 export * from "./scoring/rating.ts";

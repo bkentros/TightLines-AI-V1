@@ -1,4 +1,7 @@
-import { fetchPierCastLmhofsBatch } from "../supabase/functions/_shared/pierCastEngine/index.ts";
+import {
+  buildPierCastReviewOutlook,
+  fetchPierCastLmhofsBatch,
+} from "../supabase/functions/_shared/pierCastEngine/index.ts";
 
 const fullHorizon = Deno.args.includes("--full");
 const summaryOnly = Deno.args.includes("--summary");
@@ -9,6 +12,13 @@ const batch = await fetchPierCastLmhofsBatch({
   concurrency: 10,
   requestTimeoutMs: 20_000,
 });
+
+const eventOutlook = fullHorizon && batch.status === "available"
+  ? buildPierCastReviewOutlook({
+    batch,
+    evaluationTime: batch.fetchedAt,
+  })
+  : null;
 
 const summary = batch.status === "unavailable" ? batch : {
   status: batch.status,
@@ -30,6 +40,13 @@ const summary = batch.status === "unavailable" ? batch : {
         Math.max(...city.samples.map((sample) => sample.temperatureC)),
       ]
       : null,
+    ...(fullHorizon
+      ? {
+        temperatureEvents: eventOutlook?.cities.find(
+          (outlookCity) => outlookCity.cityId === city.cityId,
+        )?.temperatureEvents ?? null,
+      }
+      : {}),
     ...(!summaryOnly
       ? {
         samples: city.samples.map((sample) => ({

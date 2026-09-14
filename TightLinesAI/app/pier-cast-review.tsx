@@ -61,6 +61,8 @@ import type {
   PierCastReviewOutlookResponse,
   PierCastReviewTemperaturePointRead,
   PierCastSpeciesId,
+  PierCastTemperatureEventRead,
+  PierCastTemperatureEventSummaryRead,
 } from "../lib/pierCastContracts";
 import {
   fetchPierCastHourlyWeather,
@@ -77,6 +79,9 @@ import {
   getRiverRunSpeciesHeroScale,
   getRiverRunSpeciesImage,
 } from "../lib/riverRunSpeciesImages";
+import {
+  rankPierCastTemperatureEvents,
+} from "../lib/pierCastTemperatureEventPresentation";
 import { hapticSelection } from "../lib/safeHaptics";
 import { usePaperBonePulse } from "../lib/usePaperBonePulse";
 import { useAuthStore } from "../store/authStore";
@@ -724,7 +729,9 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                 </View>
                 <View style={styles.factor}>
                   <View style={styles.factorLabelRow}>
-                    <Text style={styles.factorLabel}>WATER FIT</Text>
+                    <Text style={styles.factorLabel} numberOfLines={1}>
+                      WATER TEMP FIT
+                    </Text>
                     <Text style={styles.factorValue}>
                       {suitabilityText(species.temperatureSuitabilityRange)}
                     </Text>
@@ -1287,237 +1294,244 @@ function TemperaturePanel({
   );
 }
 
-/**
- * Lake Flip Tracker — UI SHELL ONLY.
- *
- * A "flip" (turnover / upwelling) is a fast nearshore temperature swing:
- * a wind pushes warm surface water offshore and cold water rises to take its
- * place, or the wind relaxes and warm water floods back. Both concentrate
- * bait and move fish, which is why anglers chase them.
- *
- * The layout, day grouping and swing magnitudes below are real — they read
- * the same modeled temperature timeline the chart uses. The PROBABILITY is a
- * deliberate placeholder: a plain linear map off the sharpest six-hour move in
- * each day, so the card has believable shape to build against. Replace
- * `flipProbability` with the real model; nothing else here needs to change.
- */
-const FLIP_WINDOW_HOURS = 6;
-const FLIP_WATCH_THRESHOLD = 45;
+const TEMPERATURE_EVENT_TONES = {
+  cooling: { accent: "#1E5C80", tint: "#EEF5F8" },
+  warming: { accent: "#B85D20", tint: "#FBF2EB" },
+} as const;
 
-type FlipDay = {
-  localDate: string;
-  /** Sharpest six-hour move in °F, signed: negative cools, positive warms. */
-  swingF: number;
-  direction: "cold_push" | "warm_return" | "steady";
-  probability: number;
+const TEMPERATURE_SEVERITY_TONES: Record<
+  PierCastTemperatureEventRead["severity"],
+  string
+> = {
+  minor: "#71838C",
+  notable: "#1E746B",
+  major: "#B87520",
+  extreme: "#B54026",
 };
 
-const FLIP_LEVELS = [
-  { limit: 20, tone: "#8FA3AE", label: "QUIET" },
-  { limit: 40, tone: "#3E8FB0", label: "SLIGHT" },
-  { limit: 60, tone: "#1E746B", label: "WATCH" },
-  { limit: 80, tone: "#C98A3A", label: "LIKELY" },
-  { limit: Infinity, tone: "#C05F1C", label: "STRONG" },
-] as const;
-
-function flipLevel(probability: number) {
-  return (
-    FLIP_LEVELS.find((level) => probability < level.limit) ?? FLIP_LEVELS[4]
-  );
+function eventMagnitudeF(event: PierCastTemperatureEventRead): number {
+  return event.magnitudeC * 9 / 5;
 }
 
-/** PLACEHOLDER mapping — swap for the real model. */
-function flipProbability(swingF: number): number {
-  return Math.max(0, Math.min(95, Math.round(Math.abs(swingF) * 9)));
+function eventTemperatureF(temperatureC: number): string {
+  return `${fahrenheit(temperatureC).toFixed(1)}°F`;
 }
 
-function buildFlipDays(
-  points: PierCastReviewTemperaturePointRead[],
-  timezone: string,
-): FlipDay[] {
-  const byDay = new Map<string, number[]>();
-  for (const point of points) {
-    const localDate = localHourKey(point.validAt, timezone).slice(0, 10);
-    const bucket = byDay.get(localDate);
-    const value = fahrenheit(point.temperatureC);
-    if (bucket) bucket.push(value);
-    else byDay.set(localDate, [value]);
+function eventDuration(durationHours: number): string {
+  const rounded = Math.round(durationHours * 10) / 10;
+  const value = Number.isInteger(rounded)
+    ? rounded.toFixed(0)
+    : rounded.toFixed(1);
+  return `${value} ${rounded === 1 ? "HR" : "HRS"}`;
+}
+
+function eventDate(value: string, timezone: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: timezone,
+  }).format(new Date(value));
+}
+
+function eventMoment(value: string, timezone: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: timezone,
+    timeZoneName: "short",
+  }).format(new Date(value));
+}
+
+function eventBoundaryText(event: PierCastTemperatureEventRead): string | null {
+  if (event.startsAtCoverageBoundary && event.endsAtCoverageBoundary) {
+    return "This shift touches both available-coverage boundaries; its full size may be larger.";
   }
-  return [...byDay.entries()].slice(0, 5).map(([localDate, values]) => {
-    let sharpest = 0;
-    for (let i = FLIP_WINDOW_HOURS; i < values.length; i++) {
-      const move = values[i]! - values[i - FLIP_WINDOW_HOURS]!;
-      if (Math.abs(move) > Math.abs(sharpest)) sharpest = move;
-    }
-    return {
-      localDate,
-      swingF: sharpest,
-      direction:
-        Math.abs(sharpest) < 1
-          ? ("steady" as const)
-          : sharpest < 0
-            ? ("cold_push" as const)
-            : ("warm_return" as const),
-      probability: flipProbability(sharpest),
-    };
-  });
+  if (event.startsAtCoverageBoundary) {
+    return "This shift may already be underway when available coverage begins.";
+  }
+  if (event.endsAtCoverageBoundary) {
+    return "Available coverage ends before this shift can be confirmed complete.";
+  }
+  return null;
+}
+
+function temperatureCoverageNote(
+  summary: PierCastTemperatureEventSummaryRead | undefined,
+): string | null {
+  if (summary?.status !== "partial") return null;
+  if (summary.reasonCodes.includes("temperature_event_coverage_gap")) {
+    return "Forecast coverage contains a gap. PierCast never measures a shift across missing hours.";
+  }
+  return "Some forecast samples could not be analyzed. Results use only valid continuous temperature data.";
 }
 
 function LakeFlipTracker({
-  allPoints,
+  summary,
   timezone,
 }: {
-  allPoints: PierCastReviewTemperaturePointRead[];
+  summary: PierCastTemperatureEventSummaryRead | undefined;
   timezone: string;
 }) {
-  const days = useMemo(
-    () => buildFlipDays(allPoints, timezone),
-    [allPoints, timezone],
-  );
-  const peak = useMemo(
-    () =>
-      days.reduce<FlipDay | null>(
-        (best, day) =>
-          best === null || day.probability > best.probability ? day : best,
-        null,
-      ),
-    [days],
-  );
-
-  if (!days.length) {
-    return (
-      <ReportSection
-        eyebrow="FIVE-DAY TURNOVER WATCH"
-        title="Lake Flip Tracker"
-        badge="PREVIEW"
-        accent="#1E746B"
-      >
-        <View style={styles.flipEmpty}>
-          <Text style={styles.flipEmptyText}>
-            NOT ENOUGH WATER DATA TO WATCH FOR A FLIP
-          </Text>
-        </View>
-      </ReportSection>
-    );
-  }
-
-  const peakLevel = peak ? flipLevel(peak.probability) : FLIP_LEVELS[0];
-  const peakParts = peak ? dateParts(peak.localDate) : null;
+  const events = rankPierCastTemperatureEvents(summary);
+  const unavailable = !summary || summary.status === "unavailable";
+  const coverageNote = temperatureCoverageNote(summary);
 
   return (
     <ReportSection
-      eyebrow="FIVE-DAY TURNOVER WATCH"
+      eyebrow="FIVE-DAY WATER SHIFT WATCH"
       title="Lake Flip Tracker"
-      badge="PREVIEW"
+      badge="MODELED"
       accent="#1E746B"
     >
-      {/* Lead with the one day worth planning around. */}
-      <View style={[styles.flipLead, { borderColor: `${peakLevel.tone}40` }]}>
-        <View style={[styles.flipLeadRail, { backgroundColor: peakLevel.tone }]} />
-        <View style={styles.flipLeadCopy}>
-          <Text style={[styles.flipLeadLabel, { color: peakLevel.tone }]}>
-            STRONGEST SIGNAL
-          </Text>
-          <Text style={styles.flipLeadDay}>
-            {peakParts
-              ? `${peakParts.day} ${peakParts.month} ${peakParts.date}`
-              : "—"}
-          </Text>
-          <Text style={styles.flipLeadDetail}>
-            {peak && peak.direction === "cold_push"
-              ? "Cold push — warm surface water driven off, cold water rising"
-              : peak && peak.direction === "warm_return"
-                ? "Warm return — surface water flooding back nearshore"
-                : "No meaningful swing in the forecast window"}
+      {unavailable ? (
+        <View style={styles.flipEmpty}>
+          <Ionicons
+            name="cloud-offline-outline"
+            size={18}
+            color={paper.dashboardMuted}
+          />
+          <Text style={styles.flipEmptyTitle}>SHIFT ANALYSIS UNAVAILABLE</Text>
+          <Text style={styles.flipEmptyCopy}>
+            This forecast does not contain enough detector data to evaluate
+            rapid water-temperature changes.
           </Text>
         </View>
-        <View style={styles.flipLeadScore}>
-          <Text
-            style={[styles.flipLeadPercent, { color: peakLevel.tone }]}
-            allowFontScaling={false}
-          >
-            {peak?.probability ?? 0}
-            <Text style={styles.flipLeadPercentSign}>%</Text>
-          </Text>
-          <Text style={[styles.flipLeadTier, { color: peakLevel.tone }]}>
-            {peakLevel.label}
+      ) : events.length === 0 ? (
+        <View style={styles.flipEmpty}>
+          <Ionicons
+            name="checkmark-circle-outline"
+            size={20}
+            color="#1E746B"
+          />
+          <Text style={styles.flipEmptyTitle}>NO RAPID SHIFT DETECTED</Text>
+          <Text style={styles.flipEmptyCopy}>
+            No modeled water-temperature change of at least 3°F was found
+            within a rolling 24-hour window.
           </Text>
         </View>
-      </View>
-
-      {/* Five-day probability columns */}
-      <View style={styles.flipGrid}>
-        {days.map((day, index) => {
-          const parts = dateParts(day.localDate);
-          const level = flipLevel(day.probability);
-          const watch = day.probability >= FLIP_WATCH_THRESHOLD;
-          return (
-            <View
-              key={day.localDate}
-              style={[styles.flipTile, watch && styles.flipTileWatch]}
-            >
-              <Text style={styles.flipTileDay}>
-                {index === 0 ? "TODAY" : parts.day}
-              </Text>
-              <Text style={styles.flipTileDate}>{parts.date}</Text>
-
-              <View style={styles.flipTrack}>
-                <View
-                  style={[
-                    styles.flipFill,
-                    {
-                      height: `${Math.max(4, day.probability)}%`,
-                      backgroundColor: level.tone,
-                    },
-                  ]}
-                />
-              </View>
-
-              <Text
-                style={[styles.flipTilePercent, { color: level.tone }]}
-                allowFontScaling={false}
+      ) : (
+        <View style={styles.flipEventList}>
+          {events.map((event) => {
+            const tone = TEMPERATURE_EVENT_TONES[event.direction];
+            const severityTone = TEMPERATURE_SEVERITY_TONES[event.severity];
+            const boundary = eventBoundaryText(event);
+            return (
+              <View
+                key={event.eventId}
+                style={[styles.flipEvent, { borderLeftColor: tone.accent }]}
+                accessible
+                accessibilityLabel={`${event.severity} ${event.direction}, ${eventMagnitudeF(event).toFixed(1)} degrees Fahrenheit over ${eventDuration(event.durationHours).toLowerCase()}, by ${eventDate(event.endAt, timezone)}`}
               >
-                {day.probability}%
-              </Text>
-
-              <View style={styles.flipSwingRow}>
-                <Ionicons
-                  name={
-                    day.direction === "cold_push"
-                      ? "arrow-down"
-                      : day.direction === "warm_return"
-                        ? "arrow-up"
-                        : "remove"
-                  }
-                  size={9}
-                  color={level.tone}
-                />
-                <Text style={styles.flipSwingText}>
-                  {Math.abs(day.swingF) < 0.1
-                    ? "—"
-                    : `${Math.abs(day.swingF).toFixed(1)}°`}
+                <View style={styles.flipEventHead}>
+                  <View
+                    style={[
+                      styles.flipEventDirectionIcon,
+                      { backgroundColor: tone.tint },
+                    ]}
+                  >
+                    <Ionicons
+                      name={
+                        event.direction === "cooling"
+                          ? "arrow-down"
+                          : "arrow-up"
+                      }
+                      size={14}
+                      color={tone.accent}
+                    />
+                  </View>
+                  <View style={styles.flipEventHeading}>
+                    <Text style={styles.flipEventTitle}>
+                      Rapid {event.direction}
+                    </Text>
+                    <Text style={styles.flipEventDate}>
+                      BY {eventDate(event.endAt, timezone).toUpperCase()}
+                    </Text>
+                  </View>
+                  <View
+                    style={[
+                      styles.flipSeverityChip,
+                      { backgroundColor: severityTone },
+                    ]}
+                  >
+                    <Text style={styles.flipSeverityText}>
+                      {event.severity.toUpperCase()}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.flipEventMetrics}>
+                  <View style={styles.flipEventMetric}>
+                    <Text
+                      style={[
+                        styles.flipEventMetricValue,
+                        { color: tone.accent },
+                      ]}
+                      allowFontScaling={false}
+                    >
+                      {event.direction === "cooling" ? "−" : "+"}
+                      {eventMagnitudeF(event).toFixed(1)}°F
+                    </Text>
+                    <Text style={styles.flipEventMetricLabel}>TOTAL SHIFT</Text>
+                  </View>
+                  <View style={styles.flipEventMetricRule} />
+                  <View style={styles.flipEventMetric}>
+                    <Text
+                      style={styles.flipEventMetricValue}
+                      allowFontScaling={false}
+                    >
+                      {eventDuration(event.durationHours)}
+                    </Text>
+                    <Text style={styles.flipEventMetricLabel}>
+                      START TO EXTREME
+                    </Text>
+                  </View>
+                  <View style={styles.flipEventMetricRule} />
+                  <View style={styles.flipEventMetric}>
+                    <Text
+                      style={styles.flipEventMetricValue}
+                      allowFontScaling={false}
+                    >
+                      {eventTemperatureF(event.endTemperatureC)}
+                    </Text>
+                    <Text style={styles.flipEventMetricLabel}>ENDING WATER</Text>
+                  </View>
+                </View>
+                <Text style={styles.flipEventTiming}>
+                  {eventMoment(event.startAt, timezone)} →{" "}
+                  {eventMoment(event.endAt, timezone)}
                 </Text>
+                {boundary ? (
+                  <Text style={styles.flipEventBoundary}>{boundary}</Text>
+                ) : null}
               </View>
-            </View>
-          );
-        })}
-      </View>
+            );
+          })}
+        </View>
+      )}
 
-      {/* What a flip is, in one line an angler can act on. */}
+      {coverageNote ? (
+        <View style={styles.flipCoverageNote}>
+          <Ionicons name="warning-outline" size={13} color="#95651D" />
+          <Text style={styles.flipCoverageText}>
+            {coverageNote}
+          </Text>
+        </View>
+      ) : null}
+
       <View style={styles.flipExplainer}>
-        <Ionicons name="swap-vertical" size={13} color="#1E746B" />
+        <Ionicons
+          name="information-circle-outline"
+          size={14}
+          color="#1E746B"
+        />
         <Text style={styles.flipExplainerText}>
-          A flip is a fast nearshore temperature swing — wind drives warm
-          surface water off and cold water rises, or it relaxes and warm water
-          floods back. Both push bait and fish toward the pier.
-        </Text>
-      </View>
-
-      <View style={styles.flipPreviewNote}>
-        <Ionicons name="construct" size={12} color={paper.dashboardMuted} />
-        <Text style={styles.flipPreviewText}>
-          Preview layout. Swing values come from the modeled temperature
-          forecast; the probability model is not live yet.
+          Rapid modeled cooling can be a lake-flip or upwelling signal near a
+          pier; rapid warming can mark warmer water returning. Temperature
+          alone cannot confirm the physical cause.
         </Text>
       </View>
     </ReportSection>
@@ -2836,7 +2850,10 @@ function CityReport({
         weatherLoading={weatherLoading}
       />
       <TemperaturePanel date={date} allPoints={allPoints} />
-      <LakeFlipTracker allPoints={allPoints} timezone={date.timezone} />
+      <LakeFlipTracker
+        summary={outlook.temperatureEvents}
+        timezone={outlook.timezone}
+      />
       <PiersCovered city={city} />
     </>
   );
@@ -2962,6 +2979,9 @@ export default function PierCastReviewScreen() {
   }, [admin, user?.id, savedReport, catalog]);
   useEffect(() => {
     if (admin || !selectedCityId) return;
+    // Refresh immediately when a report opens or the response contract changes;
+    // the interval then keeps modeled conditions current in the background.
+    void openCity(selectedCityId, true);
     const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);
     return () => clearInterval(timer);
   }, [admin, selectedCityId, openCity]);
@@ -3227,134 +3247,107 @@ export default function PierCastReviewScreen() {
 
 const styles = StyleSheet.create({
   // ── Lake Flip Tracker ──────────────────────────────────────────────
-  flipLead: {
-    position: "relative",
-    overflow: "hidden",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    marginBottom: 12,
-    paddingLeft: 15,
-    paddingRight: 14,
-    paddingVertical: 13,
+  flipEventList: {
+    gap: 9,
+  },
+  flipEvent: {
+    paddingHorizontal: 12,
+    paddingVertical: 12,
     borderWidth: 1,
-    borderRadius: 10,
-    backgroundColor: "#F7FAFA",
-  },
-  flipLeadRail: {
-    position: "absolute",
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: 4,
-  },
-  flipLeadCopy: {
-    minWidth: 0,
-    flex: 1,
-  },
-  flipLeadLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.3,
-  },
-  flipLeadDay: {
-    marginTop: 3,
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 18,
-    lineHeight: 22,
-    letterSpacing: -0.3,
-    color: paper.dashboardInk,
-  },
-  flipLeadDetail: {
-    marginTop: 3,
-    fontFamily: paperFonts.body,
-    fontSize: 11,
-    lineHeight: 15.5,
-    color: paper.dashboardMuted,
-  },
-  flipLeadScore: {
-    alignItems: "flex-end",
-  },
-  flipLeadPercent: {
-    fontFamily: paperFonts.monoBold,
-    fontSize: 30,
-    lineHeight: 34,
-    letterSpacing: -1.4,
-  },
-  flipLeadPercentSign: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 13,
-  },
-  flipLeadTier: {
-    marginTop: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.2,
-  },
-
-  flipGrid: {
-    flexDirection: "row",
-    width: "100%",
-    gap: 6,
-  },
-  flipTile: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    minWidth: 0,
-    alignItems: "center",
-    gap: 3,
-    paddingVertical: 11,
-    paddingHorizontal: 3,
-    borderWidth: 1,
+    borderLeftWidth: 4,
     borderColor: paper.dashboardLine,
     borderRadius: 9,
     backgroundColor: "#FFFFFF",
   },
-  flipTileWatch: {
-    borderColor: "rgba(30,116,107,0.40)",
-    backgroundColor: "#F2F8F7",
-  },
-  flipTileDay: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 0.8,
-    color: paper.dashboardMuted,
-  },
-  flipTileDate: {
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 14,
-    lineHeight: 17,
-    color: paper.dashboardInk,
-  },
-  flipTrack: {
-    width: 8,
-    height: 46,
-    marginTop: 4,
-    justifyContent: "flex-end",
-    overflow: "hidden",
-    borderRadius: 4,
-    backgroundColor: "rgba(10,27,46,0.07)",
-  },
-  flipFill: {
-    width: "100%",
-    borderRadius: 4,
-  },
-  flipTilePercent: {
-    marginTop: 4,
-    fontFamily: paperFonts.monoBold,
-    fontSize: 13,
-    letterSpacing: -0.5,
-  },
-  flipSwingRow: {
+  flipEventHead: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 2,
+    gap: 8,
   },
-  flipSwingText: {
+  flipEventDirectionIcon: {
+    width: 27,
+    height: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 14,
+  },
+  flipEventHeading: {
+    minWidth: 0,
+    flex: 1,
+  },
+  flipEventTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 15,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  flipEventDate: {
+    marginTop: 1,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 7,
+    lineHeight: 10,
+    letterSpacing: 0.55,
     color: paper.dashboardMuted,
+  },
+  flipSeverityChip: {
+    paddingHorizontal: 7,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  flipSeverityText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 0.8,
+    color: "#FFFFFF",
+  },
+  flipEventMetrics: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    marginTop: 11,
+    paddingVertical: 9,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  flipEventMetric: {
+    minWidth: 0,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 3,
+  },
+  flipEventMetricRule: {
+    width: 1,
+    backgroundColor: paper.dashboardLine,
+  },
+  flipEventMetricValue: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 12,
+    lineHeight: 16,
+    color: paper.dashboardInk,
+  },
+  flipEventMetricLabel: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    lineHeight: 8,
+    letterSpacing: 0.45,
+    textAlign: "center",
+    color: paper.dashboardMuted,
+  },
+  flipEventTiming: {
+    marginTop: 8,
+    fontFamily: paperFonts.body,
+    fontSize: 9.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
+  flipEventBoundary: {
+    marginTop: 3,
+    fontFamily: paperFonts.body,
+    fontSize: 9.5,
+    lineHeight: 13,
+    color: "#775D31",
   },
 
   flipExplainer: {
@@ -3377,19 +3370,23 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: "#3F5A5C",
   },
-  flipPreviewNote: {
+  flipCoverageNote: {
     flexDirection: "row",
     alignItems: "flex-start",
     gap: 7,
     marginTop: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 7,
+    backgroundColor: "#FFF7E8",
   },
-  flipPreviewText: {
+  flipCoverageText: {
     minWidth: 0,
     flex: 1,
     fontFamily: paperFonts.body,
     fontSize: 10.5,
     lineHeight: 15,
-    color: paper.dashboardMuted,
+    color: "#775D31",
   },
   flipEmpty: {
     alignItems: "center",
@@ -3400,10 +3397,20 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     backgroundColor: "#FBFCFC",
   },
-  flipEmptyText: {
+  flipEmptyTitle: {
+    marginTop: 7,
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 8.5,
     letterSpacing: 1,
+    color: paper.dashboardMuted,
+  },
+  flipEmptyCopy: {
+    maxWidth: 280,
+    marginTop: 6,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
+    textAlign: "center",
     color: paper.dashboardMuted,
   },
   // ── Skeleton placeholders ──────────────────────────────────────────

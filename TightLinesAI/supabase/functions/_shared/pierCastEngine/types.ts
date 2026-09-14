@@ -366,6 +366,48 @@ export type PierCastReviewTemperaturePoint = {
   temperatureC: number;
 };
 
+export type PierCastTemperatureEventDirection = "cooling" | "warming";
+
+export type PierCastTemperatureEventSeverity =
+  | "minor"
+  | "notable"
+  | "major"
+  | "extreme";
+
+export type PierCastTemperatureEvent = {
+  eventId: string;
+  direction: PierCastTemperatureEventDirection;
+  severity: PierCastTemperatureEventSeverity;
+  startAt: string;
+  endAt: string;
+  startTemperatureC: number;
+  endTemperatureC: number;
+  /** Signed: negative cools and positive warms. */
+  changeC: number;
+  magnitudeC: number;
+  durationHours: number;
+  /** Longest configured window whose threshold established this severity. */
+  triggerWindowHours: 12 | 24;
+  maximumChangeByWindowC: {
+    hours6: number;
+    hours12: number;
+    hours24: number;
+  };
+  startsAtCoverageBoundary: boolean;
+  endsAtCoverageBoundary: boolean;
+};
+
+export type PierCastTemperatureEventSummary = {
+  status: "available" | "partial" | "unavailable";
+  detectorVersion: "piercast-temperature-events-v1";
+  coverageStart: string | null;
+  coverageEnd: string | null;
+  pointCount: number;
+  segmentCount: number;
+  events: PierCastTemperatureEvent[];
+  reasonCodes: string[];
+};
+
 export type PierCastReviewDailyTemperature = {
   status: "complete" | "partial" | "none";
   minimumC: number | null;
@@ -409,6 +451,7 @@ export type PierCastReviewCityOutlook = {
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
   temperatureTimeline: PierCastReviewTemperaturePoint[];
+  temperatureEvents: PierCastTemperatureEventSummary;
   dates: PierCastReviewDateOutlook[];
   /** Research hypotheses only; excluded from daily snapshots and headlines. */
   additionalSpeciesResearch?: PierCastAdditionalSpeciesResearch[];

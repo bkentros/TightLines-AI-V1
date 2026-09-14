@@ -40,6 +40,7 @@ function fixture() {
       representationDecision: "blocked_insufficient_evidence",
       dates: [date],
       temperatureTimeline: [{ secret: "timeline" }],
+      temperatureEvents: { events: [{ secret: "thermal event" }] },
       additionalSpeciesResearch: [{ secret: "research" }],
     })),
   } as unknown as PierCastReviewOutlookResponse;
@@ -56,6 +57,7 @@ Deno.test("leaderboard and city projections cannot leak another city's report", 
     "ludington_mi",
   ]);
   assertEquals(report.cities[0].additionalSpeciesResearch, undefined);
+  assertEquals(report.cities[0].temperatureEvents?.events.length, 1);
 });
 Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
   const claims = new Map<string, { report_key: string }>();
