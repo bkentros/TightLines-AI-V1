@@ -848,10 +848,12 @@ function longDate(value: string): string | null {
 }
 
 function decodeHtml(value: string): string {
-  return value.replaceAll("&nbsp;", " ").replaceAll("&amp;", "&").replaceAll(
-    "&#8211;",
-    "–",
-  ).replaceAll("&#8217;", "’");
+  // Decode the ampersand entity last so an input such as `&amp;nbsp;` is not
+  // decoded twice in a single pass.
+  return value.replaceAll("&nbsp;", " ").replaceAll("&#8211;", "–").replaceAll(
+    "&#8217;",
+    "’",
+  ).replaceAll("&amp;", "&");
 }
 
 function htmlText(value: string): string {

@@ -38,39 +38,39 @@ assert.match(
 
 assert.match(
   guide,
-  /title: "Today's Bite"[\s\S]*?title: "River Migration"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "Water Read"[\s\S]*?title: "Color Match"/,
+  /title: "Today's Bite"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "River Migration"[\s\S]*?title: "Pier Cast"[\s\S]*?title: "Color Match"[\s\S]*?title: "Water Read"/,
   "Feature guidance must follow the product-priority order",
 );
 
-for (const label of ["WHEN TO USE IT", "HOW IT READS", "GUIDE'S NOTE"]) {
+for (const label of ["WHEN TO USE IT", "HOW IT WORKS"]) {
   assert.match(
     guide,
-    new RegExp(`label=\\"${label.replace("'", "\\'")}\\"`),
+    new RegExp(`label=\\"${label.replaceAll("'", "\\'")}\\"`),
     `Every feature card must use the structured ${label} section`,
   );
 }
 
 assert.match(
   guide,
-  /warmwater species[\s\S]*?trout and other coldwater species in fall, winter, and spring[\s\S]*?Do not rely on it for coldwater species in summer/,
+  /Trout reads are dependable from fall through spring[\s\S]*?In summer heat, trust it for warmwater fish and treat coldwater species with caution/,
   "Today's Bite must carry the owner-approved species and season boundary",
 );
 
 assert.match(
   guide,
-  /module: "color-match"[\s\S]*?route: "\/color-picker"[\s\S]*?two equal-status picks for direct light and two for diffuse light/,
+  /module: "color-match"[\s\S]*?route: "\/color-picker"[\s\S]*?two colors that hold up in bright, direct sun and two for flat, overcast light[\s\S]*?equal picks, not a ranking/,
   "Color Match must be openable and describe its honest two-by-two guidance",
 );
 
 assert.match(
   guide,
-  /When a supported migration is your main question, this is the primary read—not Today's Bite/,
+  /When a migration is your question, this is the read to trust \\u2014 not Today's Bite/,
   "River Migration must be positioned as the primary supported-migration tool",
 );
 
 assert.match(
   guide,
-  /supported salmon and steelhead river migrations—especially migration stage, seasonal presence, activity, current river conditions, and official fish counts where available/,
+  /live gauge readings from that exact river \\u2014 flow, height and water temperature \\u2014 with researched run timing[\s\S]*?migration stage[\s\S]*?official fish counts/,
   "River Migration guidance must describe the simplified public reads and conditions",
 );
 
@@ -81,5 +81,5 @@ assert.doesNotMatch(
 );
 
 console.log(
-  "Feature guide QA passed: concise five-tool order, structured guidance, and seasonal product boundaries.",
+  "Feature guide QA passed: concise six-tool order, structured guidance, and seasonal product boundaries.",
 );

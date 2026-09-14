@@ -340,6 +340,7 @@ async function processOneGenerationJob(workerId: string) {
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
+    console.error('Water Reader generation job failed', { jobId: job.id, error });
     const { error: failedError } = await supabase.rpc('mark_water_reader_generation_job_failed', {
       in_job_id: job.id,
       in_error: message,
@@ -351,7 +352,7 @@ async function processOneGenerationJob(workerId: string) {
       claimed: true,
       jobId: job.id,
       lakeId: job.lake_id,
-      error: message,
+      error: 'generation_failed',
       retryAfterSeconds: jobBackoffSeconds(job),
     };
   }
@@ -387,7 +388,11 @@ async function readJsonBody(req: IncomingMessage): Promise<any> {
 }
 
 function sendJson(res: ServerResponse, status: number, body: unknown) {
-  res.writeHead(status, { 'Content-Type': 'application/json' });
+  res.writeHead(status, {
+    'Cache-Control': 'no-store',
+    'Content-Type': 'application/json; charset=utf-8',
+    'X-Content-Type-Options': 'nosniff',
+  });
   res.end(JSON.stringify(body));
 }
 
@@ -425,10 +430,11 @@ export function startHeavyGeneratorServer(port: number) {
       }
       sendJson(res, 404, { error: 'not_found', message: 'Not found' });
     } catch (error) {
+      console.error('Water Reader heavy generator request failed', error);
       sendJson(res, 500, {
         feature: WATER_READER_READ_FEATURE,
         error: 'heavy_generation_failed',
-        message: error instanceof Error ? error.message : String(error),
+        message: 'Heavy generation failed',
       });
     }
   });
