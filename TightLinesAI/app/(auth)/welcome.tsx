@@ -53,7 +53,6 @@ import {
 import { useAuthStore } from "../../store/authStore";
 import { supabase } from "../../lib/supabase";
 import { useAuthScrollLayout } from "../../hooks/useAuthScrollLayout";
-import { authScopeStageSize } from "../../lib/responsiveAuth";
 import { TopographicLines } from "../../components/paper";
 import {
   IntelligenceModuleEmblem,
@@ -153,18 +152,18 @@ function MastheadBackdrop() {
   return (
     <Svg style={StyleSheet.absoluteFill} pointerEvents="none">
       <Defs>
-        <LinearGradient id="welcomeDeep" x1="0" y1="0" x2="1" y2="1">
+        {/* One continuous ramp. A second overlay rect used to supply the glow,
+            but on the shortened masthead its falloff compressed into a hard
+            edge, so the lift is folded into these stops instead. */}
+        <LinearGradient id="welcomeDeep" x1="0.08" y1="0" x2="0.92" y2="1">
           <Stop offset="0" stopColor="#0A1B2E" />
-          <Stop offset="0.5" stopColor="#12384E" />
-          <Stop offset="1" stopColor="#0B2135" />
-        </LinearGradient>
-        <LinearGradient id="welcomeGlow" x1="0" y1="1" x2="0" y2="0">
-          <Stop offset="0" stopColor={paper.dashboardBlue} stopOpacity="0.5" />
-          <Stop offset="1" stopColor={paper.dashboardBlue} stopOpacity="0" />
+          <Stop offset="0.34" stopColor="#10314A" />
+          <Stop offset="0.62" stopColor="#164A64" />
+          <Stop offset="0.85" stopColor="#0F3049" />
+          <Stop offset="1" stopColor="#0A1D31" />
         </LinearGradient>
       </Defs>
       <Rect x="0" y="0" width="100%" height="100%" fill="url(#welcomeDeep)" />
-      <Rect x="0" y="44%" width="100%" height="56%" fill="url(#welcomeGlow)" />
     </Svg>
   );
 }
@@ -177,14 +176,16 @@ export default function WelcomeScreen() {
     useAuthScrollLayout("form");
   const { width, fontScale } = useWindowDimensions();
   const useExpandedModuleCopy = fontScale >= 1.2 || width <= 340;
-  const scopeStage = authScopeStageSize(layoutTier);
   // Sized down when Pier Cast made this a six-module list — the masthead
   // gives up height first so the auth actions stay above the fold.
+  // stage is the reserved layout box; shell is the rounded logo tile; logo is
+  // the artwork inside it. stage > shell > logo, always — the aura is drawn
+  // from `stage`, so nothing can paint outside the space the layout knows about.
   const welcomeStage = layoutTier === "tall"
-    ? { stage: 62, emblem: 44 }
+    ? { stage: 76, shell: 52, logo: 36 }
     : layoutTier === "standard"
-    ? { stage: 56, emblem: 40 }
-    : { stage: 50, emblem: 35 };
+    ? { stage: 68, shell: 46, logo: 32 }
+    : { stage: 60, shell: 40, logo: 28 };
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -404,8 +405,8 @@ export default function WelcomeScreen() {
 
             <WelcomeBrandOrbit
               size={welcomeStage.stage}
-              shellSize={scopeStage.emblem}
-              logoSize={welcomeStage.emblem}
+              shellSize={welcomeStage.shell}
+              logoSize={welcomeStage.logo}
               style={styles.stageWrap}
             />
 
@@ -683,6 +684,8 @@ function WelcomeBrandOrbit({
   }, [breathe, orbit, shimmer]);
 
   const orbitInset = Math.max(5, Math.round(size * 0.05));
+  // 0.9 of the stage, so the 1.08 breathe peak still lands inside it.
+  const auraSize = Math.round(size * 0.9);
   const logoRadius = Math.round(shellSize * 0.235);
 
   return (
@@ -694,9 +697,9 @@ function WelcomeBrandOrbit({
         style={[
           styles.brandAura,
           {
-            width: shellSize + 28,
-            height: shellSize + 28,
-            borderRadius: (shellSize + 28) / 2,
+            width: auraSize,
+            height: auraSize,
+            borderRadius: auraSize / 2,
             opacity: breathe.interpolate({
               inputRange: [0, 1],
               outputRange: [0.1, 0.24],
@@ -787,7 +790,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: 14,
     paddingTop: 8,
-    gap: 8,
+    gap: 7,
   },
 
   // ── Masthead ──────────────────────────────────────────────────────────
@@ -797,8 +800,8 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
     alignItems: "center",
-    paddingTop: 11,
-    paddingBottom: 13,
+    paddingTop: 9,
+    paddingBottom: 10,
     paddingHorizontal: paperSpacing.md,
     borderRadius: 16,
     backgroundColor: paper.dashboardInk,
@@ -930,7 +933,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.7,
     fontWeight: "700",
     lineHeight: 32,
-    marginTop: 3,
+    marginTop: 7,
     zIndex: 1,
   },
   brandMarkDot: {
@@ -939,10 +942,10 @@ const styles = StyleSheet.create({
   tagline: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12.5,
-    lineHeight: 16,
+    lineHeight: 15,
     letterSpacing: 0.1,
     color: "rgba(255,255,255,0.78)",
-    marginTop: 3,
+    marginTop: 2,
     textAlign: "center",
     zIndex: 1,
   },
@@ -983,7 +986,7 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: 4,
+    gap: 3,
   },
   valueModule: {
     flexDirection: "row",
@@ -1083,7 +1086,7 @@ const styles = StyleSheet.create({
 
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
-    gap: 7,
+    gap: 6,
   },
   appleBtn: { height: 48, width: "100%" },
 
