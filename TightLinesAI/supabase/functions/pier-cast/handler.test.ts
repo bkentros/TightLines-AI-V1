@@ -16,11 +16,16 @@ function request(path: string, method = "GET", body?: unknown): Request {
 function dependencies(input?: {
   authorized?: boolean;
   readReviewOutlook?: () => Promise<ReturnType<typeof reviewOutlook> | null>;
+  readExpansionReviewOutlook?: () => Promise<
+    ReturnType<typeof reviewOutlook> | null
+  >;
 }) {
   return {
     authorizeReview: () => Promise.resolve(input?.authorized ?? true),
     readReviewOutlook: input?.readReviewOutlook ??
       (() => Promise.resolve(reviewOutlook())),
+    readExpansionReviewOutlook: input?.readExpansionReviewOutlook ??
+      (() => Promise.resolve(null)),
     readShadowReview: () =>
       Promise.resolve({
         status: "private_shadow_validation" as const,
@@ -85,13 +90,27 @@ Deno.test("owner-review catalog requires authorization", async () => {
   assertEquals(reads, 0);
 });
 
-Deno.test("authorized owner-review catalog returns five disabled cities", async () => {
+Deno.test("authorized owner-review catalog includes the disabled Wisconsin expansion", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("review/catalog"));
   assertEquals(response.status, 200);
   const body = await response.json();
   assertEquals(body.mode, "review");
-  assertEquals(body.cities.length, 5);
+  assertEquals(body.cities.length, 9);
+  assertEquals(
+    ["port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi"].every(
+      (cityId) => body.cities.some((city: { cityId: string }) => city.cityId === cityId),
+    ),
+    true,
+  );
+  assertEquals(
+    body.cities.find((city: { cityId: string }) =>
+      city.cityId === "port_washington_wi"
+    )?.species.filter((species: { seasonalOpportunityCurve: unknown }) =>
+      species.seasonalOpportunityCurve !== null
+    ).length,
+    4,
+  );
   assertEquals(
     body.cities.every((city: { releaseStatus: string }) =>
       city.releaseStatus === "research_only"
@@ -129,7 +148,7 @@ Deno.test("authorized owner-review catalog returns five disabled cities", async 
       seasonalOpportunityCurve: unknown;
     }) => !species.ratingEnabled && species.seasonalOpportunityCurve !== null)
       .length,
-    28,
+    44,
   );
 });
 
@@ -167,6 +186,30 @@ Deno.test("authorized owner-review outlook returns real disabled-preview ratings
       city.representationDecision === "blocked_insufficient_evidence"
     ),
     true,
+  );
+});
+
+Deno.test("Port Washington expansion outlook is authorization-gated and isolated", async () => {
+  let reads = 0;
+  const forbidden = createPierCastHandler(dependencies({
+    authorized: false,
+    readExpansionReviewOutlook: () => {
+      reads += 1;
+      return Promise.resolve(reviewOutlook());
+    },
+  }));
+  assertEquals(
+    (await forbidden(request("review/expansion/outlook"))).status,
+    403,
+  );
+  assertEquals(reads, 0);
+
+  const unavailable = createPierCastHandler(dependencies());
+  const response = await unavailable(request("review/expansion/outlook"));
+  assertEquals(response.status, 503);
+  assertEquals(
+    (await response.json()).error,
+    "pier_cast_expansion_outlook_unavailable",
   );
 });
 

@@ -216,6 +216,102 @@ Deno.test("PierCast ingestion rejects unknown authenticated operations", async (
   assertEquals(calls, 0);
 });
 
+Deno.test("Port Washington shadow operation bypasses production ingest", async () => {
+  let productionCalls = 0;
+  let expansionCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestPortWashingtonShadow: () => {
+      expansionCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-14T06:00:00.000Z",
+        fetchedAt: "2026-09-14T12:05:00.000Z",
+        cycleAgeHours: 6,
+        cityCount: 1,
+        sampleCount: 121,
+        diagnostics: [],
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 20,
+          formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "port-washington-shadow",
+  });
+  const response = await handler(new Request(
+    "https://example.test/functions/v1/pier-cast-ingest",
+    { method: "POST", headers },
+  ));
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 1);
+  assertEquals(body.sampleCount, 121);
+  assertEquals(body.shadowForecast.forecastCount, 20);
+  assertEquals(productionCalls, 0);
+  assertEquals(expansionCalls, 1);
+});
+
+Deno.test("Wisconsin shadow operation commits the complete four-city cohort", async () => {
+  let productionCalls = 0;
+  let expansionCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestWisconsinShadow: () => {
+      expansionCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-14T12:00:00.000Z",
+        fetchedAt: "2026-09-14T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 4,
+        sampleCount: 484,
+        diagnostics: [],
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 80,
+          formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "wisconsin-shadow",
+  });
+  const response = await handler(new Request(
+    "https://example.test/functions/v1/pier-cast-ingest",
+    { method: "POST", headers },
+  ));
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 4);
+  assertEquals(body.sampleCount, 484);
+  assertEquals(body.shadowForecast.forecastCount, 80);
+  assertEquals(productionCalls, 0);
+  assertEquals(expansionCalls, 1);
+});
+
 Deno.test("observation archive failure is nonfatal and explicitly diagnosed", async () => {
   const handler = createPierCastIngestHandler({
     internalSecret: SECRET,

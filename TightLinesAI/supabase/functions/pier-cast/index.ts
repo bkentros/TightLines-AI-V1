@@ -20,11 +20,13 @@ import {
   applyPierCastDailyScoreSnapshot,
   buildPierCastCatalog,
   buildPierCastReviewOutlook,
+  buildPierCastWisconsinReviewOutlook,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   readLatestFreshPierCastLmhofsBatch,
+  readLatestFreshPierCastWisconsinLmhofsBatch,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
   withholdPierCastCurrentDayScores,
@@ -61,6 +63,19 @@ async function readOutlook() {
   return dailyScoreSnapshot
     ? applyPierCastDailyScoreSnapshot(liveOutlook, dailyScoreSnapshot)
     : withholdPierCastCurrentDayScores(liveOutlook);
+}
+async function readExpansionOutlook() {
+  const now = new Date();
+  const batch = await readLatestFreshPierCastWisconsinLmhofsBatch(
+    archiveClient,
+    now,
+  );
+  return batch
+    ? buildPierCastWisconsinReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
 }
 async function account(request: Request) {
   const token = request.headers.get("x-user-token") ??
@@ -102,8 +117,12 @@ async function readPublicOutlook() {
         isPierCastResearchRoster(
           city.cityId,
           date.species.map((s) => s.speciesId),
-          outlook.dailyScoreSnapshot?.cities.some(row => row.cityId === city.cityId && row.date.localDate === date.localDate)
-            ? outlook.dailyScoreSnapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION
+          outlook.dailyScoreSnapshot?.cities.some((row) =>
+              row.cityId === city.cityId &&
+              row.date.localDate === date.localDate
+            )
+            ? outlook.dailyScoreSnapshot.speciesRosterVersion ??
+              PIER_CAST_LEGACY_ROSTER_VERSION
             : PIER_CAST_PUBLIC_RELEASE.rosterVersion,
         )
       );
@@ -215,13 +234,17 @@ const handler = createPierCastHandler({
     return !error && !!user && isAdminEmail(user.email);
   },
   readReviewOutlook: readOutlook,
+  readExpansionReviewOutlook: readExpansionOutlook,
   readShadowReview: async () => {
     const [
       runs,
       forecasts,
+      expansionRuns,
+      expansionForecasts,
       outcomes,
       pairs,
       latestRun,
+      latestExpansionRun,
       recentOutcomes,
     ] = await Promise.all([
       database.from("pier_cast_shadow_forecast_runs").select("run_id", {
@@ -229,6 +252,14 @@ const handler = createPierCastHandler({
         head: true,
       }),
       database.from("pier_cast_shadow_forecasts").select("run_id", {
+        count: "exact",
+        head: true,
+      }),
+      database.from("pier_cast_expansion_shadow_forecast_runs").select(
+        "run_id",
+        { count: "exact", head: true },
+      ),
+      database.from("pier_cast_expansion_shadow_forecasts").select("run_id", {
         count: "exact",
         head: true,
       }),
@@ -244,7 +275,13 @@ const handler = createPierCastHandler({
         },
       ),
       database.from("pier_cast_shadow_forecast_runs").select(
-        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count",
+        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count,created_at",
+      ).eq("engine_version", PIER_CAST_ENGINE_VERSION).eq(
+        "formula_version",
+        PIER_CAST_FORMULA_VERSION,
+      ).order("created_at", { ascending: false }).limit(1),
+      database.from("pier_cast_expansion_shadow_forecast_runs").select(
+        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count,created_at",
       ).eq("engine_version", PIER_CAST_ENGINE_VERSION).eq(
         "formula_version",
         PIER_CAST_FORMULA_VERSION,
@@ -257,17 +294,36 @@ const handler = createPierCastHandler({
       const result of [
         runs,
         forecasts,
+        expansionRuns,
+        expansionForecasts,
         outcomes,
         pairs,
         latestRun,
+        latestExpansionRun,
         recentOutcomes,
       ]
     ) {
       if (result.error) throw new Error(result.error.message);
     }
-    const latest = latestRun.data?.[0] as Record<string, unknown> | undefined;
+    const productionLatest = latestRun.data?.[0] as
+      | Record<string, unknown>
+      | undefined;
+    const expansionLatest = latestExpansionRun.data?.[0] as
+      | Record<string, unknown>
+      | undefined;
+    const latestIsExpansion = Boolean(
+      expansionLatest &&
+        (!productionLatest ||
+          Date.parse(String(expansionLatest.created_at)) >
+            Date.parse(String(productionLatest.created_at))),
+    );
+    const latest = latestIsExpansion ? expansionLatest : productionLatest;
     const candidateRows = latest
-      ? await database.from("pier_cast_shadow_forecasts").select(
+      ? await database.from(
+        latestIsExpansion
+          ? "pier_cast_expansion_shadow_forecasts"
+          : "pier_cast_shadow_forecasts",
+      ).select(
         "city_id,species_id,local_date,seasonal_rating,display_score,score_status",
       ).eq("run_id", String(latest.run_id)).eq("lead_day", 0).limit(20)
       : { data: [], error: null };
@@ -279,8 +335,9 @@ const handler = createPierCastHandler({
     const recent = (recentOutcomes.data ?? []) as Record<string, unknown>[];
     return {
       status: "private_shadow_validation" as const,
-      runCount: runs.count ?? 0,
-      forecastCount: forecasts.count ?? 0,
+      runCount: (runs.count ?? 0) + (expansionRuns.count ?? 0),
+      forecastCount: (forecasts.count ?? 0) +
+        (expansionForecasts.count ?? 0),
       outcomeCount: outcomes.count ?? 0,
       pairedForecastCount: pairs.count ?? 0,
       latestRun: latest

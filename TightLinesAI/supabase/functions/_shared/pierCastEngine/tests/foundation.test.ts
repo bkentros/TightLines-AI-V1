@@ -364,7 +364,20 @@ Deno.test("public research catalog preserves scientific gates and hides numeric 
   assertEquals(publicCatalog.cities.length, 5);
   assertEquals(publicCatalog.cities.flatMap(c => c.species).length, 28);
   assertEquals(publicCatalog.cities.flatMap(c => c.species).every(s => !s.ratingEnabled && s.seasonalOpportunityCurve === null), true);
-  assertEquals(reviewCatalog.cities.length, 5);
+  assertEquals(reviewCatalog.cities.length, 9);
+  assertEquals(
+    publicCatalog.cities.some((city) => city.cityId === "port_washington_wi"),
+    false,
+  );
+  for (const cityId of ["milwaukee_wi", "racine_wi", "kenosha_wi"] as const) {
+    assertEquals(publicCatalog.cities.some((city) => city.cityId === cityId), false);
+    assert(reviewCatalog.cities.some((city) => city.cityId === cityId));
+  }
+  assertEquals(
+    reviewCatalog.cities.find((city) => city.cityId === "port_washington_wi")
+      ?.structures.map((structure) => structure.displayName),
+    ["Harbor Breakwalls / North Pier", "Coal Dock Park Promenade"],
+  );
   assertEquals(reviewCatalog.ratingName, "FinFindr Opportunity Rating");
   assertEquals(reviewCatalog.ratingDisplayFormat, "X.X/10");
   assertEquals(

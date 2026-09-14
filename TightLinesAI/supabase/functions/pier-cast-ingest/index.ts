@@ -3,10 +3,16 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   archivePierCastDailyScoreSnapshot,
   archivePierCastFieldTemperatureObservations,
+  archivePierCastPortWashingtonShadowForecast,
+  archivePierCastWisconsinShadowForecast,
   archivePierCastShadowForecast,
   buildPierCastDailyScoreSnapshot,
+  buildPierCastPortWashingtonReviewOutlook,
+  buildPierCastWisconsinReviewOutlook,
   buildPierCastReviewOutlook,
   ingestPierCastCalibrationObservations,
+  ingestPierCastPortWashingtonShadowCycle,
+  ingestPierCastWisconsinShadowCycle,
   ingestPierCastTemperatureCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
   PIER_CAST_ENGINE_VERSION,
@@ -86,6 +92,88 @@ const handler = createPierCastIngestHandler({
       database: archiveClient,
       snapshot,
     });
+  },
+  ingestPortWashingtonShadow: async () => {
+    const outcome = await ingestPierCastPortWashingtonShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+        shadowForecast: null,
+      };
+    }
+    const evaluationTime = new Date().toISOString();
+    const outlook = buildPierCastPortWashingtonReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+    });
+    const shadowForecast = await archivePierCastPortWashingtonShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 1,
+      sampleCount: 121,
+      diagnostics: outcome.diagnostics,
+      shadowForecast,
+    };
+  },
+  ingestWisconsinShadow: async () => {
+    const outcome = await ingestPierCastWisconsinShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+        shadowForecast: null,
+      };
+    }
+    const evaluationTime = new Date().toISOString();
+    const outlook = buildPierCastWisconsinReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+    });
+    const shadowForecast = await archivePierCastWisconsinShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 4,
+      sampleCount: 484,
+      diagnostics: outcome.diagnostics,
+      shadowForecast,
+    };
   },
 });
 

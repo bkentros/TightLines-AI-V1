@@ -40,6 +40,15 @@ export function fetchPierCastOwnerReviewOutlook(): Promise<
   return pierCastGet<PierCastReviewOutlookResponse>("review/outlook", true);
 }
 
+export function fetchPierCastOwnerExpansionReviewOutlook(): Promise<
+  PierCastReviewOutlookResponse
+> {
+  return pierCastGet<PierCastReviewOutlookResponse>(
+    "review/expansion/outlook",
+    true,
+  );
+}
+
 export function fetchPierCastShadowReview(): Promise<
   PierCastShadowReviewResponse
 > {

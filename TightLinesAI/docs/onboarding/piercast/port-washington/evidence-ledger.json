@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "piercast-city-evidence-ledger-v1",
+  "cityId": "port_washington_wi",
+  "reviewedAt": "2026-09-14",
+  "scope": {
+    "reading": "general_city_harbor",
+    "namedAccessAreas": [
+      "Harbor Breakwalls / North Pier",
+      "Coal Dock Park Promenade"
+    ],
+    "notClaimed": [
+      "structure-specific catch prediction",
+      "live access status",
+      "pier thermometer measurement",
+      "safe wave or ice conditions"
+    ]
+  },
+  "evidence": [
+    {
+      "id": "PW_ACCESS_001",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan fishing access",
+      "url": "https://dnr.wisconsin.gov/topic/OpenOutdoors/AccessFishlakeMichigan",
+      "supports": ["Port Washington Harbor fishing access", "Fisherman's Park parking/access"],
+      "granularity": "city_harbor",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_SPECIES_001",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Close to Home fishing opportunities",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_closetohome_letter.pdf",
+      "supports": ["Port Washington breakwall pier/shore access", "salmon", "steelhead", "brown trout", "north entrance pier"],
+      "granularity": "city_access_and_species",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_CURRENT_001",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Outdoor Fishing Report, September 7, 2026",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["North Pier coho and Chinook activity", "Coal Dock shoreline activity", "direct city temperature context"],
+      "granularity": "city_pier_shore_weekly",
+      "reviewedAt": "2026-09-14",
+      "temporalLimitation": "Current report evidence is a dated observation and is not generalized to other weeks by itself."
+    },
+    {
+      "id": "PW_HARVEST_001",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Creel Harvest Tables 1998–2024",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_CreelHarvestTables1998-2024.pdf",
+      "supports": ["Ozaukee County pier-mode recurrence", "2024 core-four harvest"],
+      "granularity": "county_mode_annual",
+      "reviewedAt": "2026-09-14",
+      "temporalLimitation": "Annual county values cannot assign month or exact Port Washington structure."
+    },
+    {
+      "id": "PW_SEASON_2022",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2022 Lake Michigan open-water sport fishing report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/LM_LakeMichiganSportHarvestReport2022.pdf",
+      "supports": ["statewide pier-mode monthly temporal shape and effort"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_SEASON_2023",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2023 Lake Michigan open-water sport fishing report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2023.pdf",
+      "supports": ["statewide pier-mode monthly temporal shape and effort"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_SEASON_2024",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2024 Lake Michigan open-water sport fishing report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf",
+      "supports": ["statewide pier-mode monthly temporal shape and effort"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_ACCESS_002",
+      "authority": "City of Port Washington",
+      "title": "Parks, Open Space and Forestry Plan inventory",
+      "url": "https://www.portwashingtonwi.gov/home/showpublisheddocument/132/637793020063700000",
+      "supports": ["Coal Dock Park address", "promenade", "fishing", "parking"],
+      "granularity": "municipal_facility",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_ACCESS_003",
+      "authority": "City of Port Washington",
+      "title": "Park rental information and hours",
+      "url": "https://www.portwashingtonwi.gov/departments/parks-recreation/parks-facilities/rental-information",
+      "supports": ["published Fisherman's Park and Coal Dock Park hours"],
+      "granularity": "municipal_rules",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "PW_GRID_001",
+      "authority": "NOAA Office of Coast Survey",
+      "title": "United States Coast Pilot 6, 2026 edition",
+      "url": "https://www.nauticalcharts.noaa.gov/publications/coast-pilot/files/cp6/CPB6_WEB.pdf",
+      "supports": ["Port Washington harbor and breakwater geometry", "Breakwater Light reference coordinate"],
+      "granularity": "navigation_reference",
+      "reviewedAt": "2026-09-14"
+    }
+  ],
+  "calibrationDisclosure": "All numeric opportunity ratings are provisional FinFindr calibrations derived from the cited evidence. No source publishes or endorses a FinFindr score."
+}

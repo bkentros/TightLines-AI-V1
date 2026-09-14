@@ -8,11 +8,15 @@ import { PIER_CAST_OPEN_WATER_NOTICE } from "../copy/openWater.ts";
 import { PIER_CAST_FORMULA_VERSION } from "../scoring/opportunity.ts";
 import type { PierCastCatalogMode, PierCastCatalogResponse } from "../types.ts";
 import { PIER_CAST_CITY_PROFILES } from "./cities.ts";
+import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "./wisconsinShadow.ts";
 
 export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
 ): PierCastCatalogResponse {
-  const cities = PIER_CAST_CITY_PROFILES
+  const profiles = mode === "review"
+    ? [...PIER_CAST_CITY_PROFILES, ...PIER_CAST_WISCONSIN_CITY_PROFILES]
+    : PIER_CAST_CITY_PROFILES;
+  const cities = profiles
     .filter((city) => mode === "review" || isPierCastResearchCity(city.cityId))
     .map((city) => ({
       cityId: city.cityId,

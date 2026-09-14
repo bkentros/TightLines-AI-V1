@@ -101,7 +101,7 @@ export type PierCastCatalogCityRead = {
         latitude: number;
         longitude: number;
         distanceM: number;
-        coordinateSource: "NOAA Coast Pilot 6";
+        coordinateSource: "NOAA Coast Pilot 6" | "NOAA Aids to Navigation";
       };
       gridCellStatus: "candidate" | "approved_for_pilot";
     } | null;
@@ -271,8 +271,8 @@ export type PierCastReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 5;
-    sampleCount: 605;
+    cityCount: number;
+    sampleCount: number;
   };
   dailyScoreSnapshot?: PierCastDailyScoreSnapshotRead;
   cities: PierCastReviewCityOutlookRead[];

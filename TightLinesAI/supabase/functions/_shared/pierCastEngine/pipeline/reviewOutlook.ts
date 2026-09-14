@@ -39,6 +39,7 @@ import { PIER_CAST_RUBRIC_VERSION } from "../scoring/rating.ts";
 import {
   PIER_CAST_MONTHS,
   type PierCastAdditionalSpeciesResearch,
+  type PierCastCityProfile,
   type PierCastCoverageRead,
   type PierCastDailyAssessmentWindow,
   type PierCastDailyScoreSnapshot,
@@ -59,18 +60,59 @@ type AvailableLmhofsBatch = Extract<
 
 const HOUR_MS = 60 * 60 * 1000;
 
+type PierCastOutlookAdmission = {
+  methodConstraint: string;
+  structureId: string;
+  regulationValidThrough: string;
+};
+
+export type PierCastReviewCohort = {
+  cityProfiles: readonly PierCastCityProfile[];
+  speciesRosterVersion: string;
+  speciesIdsForCity: (
+    cityId: PierCastCityProfile["cityId"],
+  ) => readonly PierCastSpeciesId[];
+  temperatureCurveForSpecies: (
+    speciesId: PierCastSpeciesId,
+  ) => PierCastTemperatureCurve | null;
+  admissionForCitySpecies: (
+    cityId: PierCastCityProfile["cityId"],
+    speciesId: PierCastSpeciesId,
+  ) => PierCastOutlookAdmission | undefined;
+  includeAdditionalSpeciesResearch?: boolean;
+};
+
 export function buildPierCastReviewOutlook(input: {
   batch: AvailableLmhofsBatch;
   evaluationTime: string;
   formulaVersion?: PierCastFormulaVersion;
 }): PierCastReviewOutlookResponse {
+  return buildPierCastCohortReviewOutlook({
+    ...input,
+    cohort: {
+      cityProfiles: PIER_CAST_CITY_PROFILES,
+      speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
+      speciesIdsForCity: getPierCastPrivateSpeciesIds,
+      temperatureCurveForSpecies: getPierCastPrivateTemperatureCurve,
+      admissionForCitySpecies: getPierCastPrivateAdmission,
+      includeAdditionalSpeciesResearch: true,
+    },
+  });
+}
+
+export function buildPierCastCohortReviewOutlook(input: {
+  batch: AvailableLmhofsBatch;
+  evaluationTime: string;
+  formulaVersion?: PierCastFormulaVersion;
+  cohort: PierCastReviewCohort;
+}): PierCastReviewOutlookResponse {
   const evaluatedAt = new Date(input.evaluationTime);
   if (!Number.isFinite(evaluatedAt.getTime())) {
     throw new Error("PierCast review evaluation time is invalid.");
   }
-  validateReviewBatch(input.batch);
+  validateReviewBatch(input.batch, input.cohort.cityProfiles);
 
-  const cities = PIER_CAST_CITY_PROFILES.map((city) => {
+  const cities = input.cohort.cityProfiles.map((city) => {
     const timeline = input.batch.cities.find((candidate) =>
       candidate.cityId === city.cityId
     );
@@ -98,20 +140,28 @@ export function buildPierCastReviewOutlook(input: {
           samples: timeline.samples,
           window,
           formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
+          speciesIds: input.cohort.speciesIdsForCity(city.cityId),
+          temperatureCurveForSpecies: input.cohort.temperatureCurveForSpecies,
+          admissionForSpecies: (speciesId) =>
+            input.cohort.admissionForCitySpecies(city.cityId, speciesId),
         })
       ),
-      additionalSpeciesResearch: buildAdditionalSpeciesResearch({
-        cityId: city.cityId,
-        samples: timeline.samples,
-        windows,
-        formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
-      }),
+      ...(input.cohort.includeAdditionalSpeciesResearch
+        ? {
+          additionalSpeciesResearch: buildAdditionalSpeciesResearch({
+            cityId: city.cityId,
+            samples: timeline.samples,
+            windows,
+            formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
+          }),
+        }
+        : {}),
     };
   });
 
   return {
     mode: "review",
-    speciesRosterVersion: PIER_CAST_PRIVATE_ROSTER_VERSION,
+    speciesRosterVersion: input.cohort.speciesRosterVersion,
     previewOnly: true,
     generatedAt: evaluatedAt.toISOString(),
     ratingName: "FinFindr Opportunity Rating",
@@ -124,8 +174,11 @@ export function buildPierCastReviewOutlook(input: {
       issuedAt: input.batch.issuedAt,
       fetchedAt: input.batch.fetchedAt,
       cycleAgeHours: input.batch.cycleAgeHours,
-      cityCount: 5,
-      sampleCount: 605,
+      cityCount: input.cohort.cityProfiles.length,
+      sampleCount: input.batch.cities.reduce(
+        (sum, city) => sum + city.samples.length,
+        0,
+      ),
     },
     cities,
   };
@@ -168,6 +221,10 @@ export function buildPierCastDailyScoreSnapshot(input: {
         samples: timeline.samples,
         window,
         formulaVersion,
+        speciesIds: getPierCastPrivateSpeciesIds(city.cityId),
+        temperatureCurveForSpecies: getPierCastPrivateTemperatureCurve,
+        admissionForSpecies: (speciesId) =>
+          getPierCastPrivateAdmission(city.cityId, speciesId),
       }),
     };
   });
@@ -342,10 +399,17 @@ function buildRollingTemperatureTimeline(
 }
 
 function buildDateOutlook(input: {
-  city: (typeof PIER_CAST_CITY_PROFILES)[number];
+  city: PierCastCityProfile;
   samples: readonly PierCastLmhofsSample[];
   window: PierCastDailyAssessmentWindow;
   formulaVersion: PierCastFormulaVersion;
+  speciesIds: readonly PierCastSpeciesId[];
+  temperatureCurveForSpecies: (
+    speciesId: PierCastSpeciesId,
+  ) => PierCastTemperatureCurve | null;
+  admissionForSpecies: (
+    speciesId: PierCastSpeciesId,
+  ) => PierCastOutlookAdmission | undefined;
 }) {
   const temperatureSegments = buildTemperatureCoverageSegments(
     input.samples,
@@ -372,7 +436,7 @@ function buildDateOutlook(input: {
     points: temperaturePoints,
   };
 
-  const species = getPierCastPrivateSpeciesIds(input.city.cityId).map(
+  const species = input.speciesIds.map(
     (speciesId) => {
       const citySpecies = input.city.species.find((candidate) =>
         candidate.speciesId === speciesId
@@ -390,10 +454,8 @@ function buildDateOutlook(input: {
         samples: input.samples,
         window: input.window,
         formulaVersion: input.formulaVersion,
-        privateAdmission: getPierCastPrivateAdmission(
-          input.city.cityId,
-          speciesId,
-        ),
+        temperatureCurve: input.temperatureCurveForSpecies(speciesId),
+        admission: input.admissionForSpecies(speciesId),
       });
     },
   );
@@ -424,7 +486,8 @@ function buildDateOutlook(input: {
 function buildSpeciesOutlook(input: {
   speciesId: PierCastSpeciesId;
   researchTemperatureCurve?: PierCastTemperatureCurve;
-  privateAdmission?: ReturnType<typeof getPierCastPrivateAdmission>;
+  temperatureCurve?: PierCastTemperatureCurve | null;
+  admission?: PierCastOutlookAdmission;
   researchMonthEvidenceState?: PierCastMonthEvidenceState;
   inheritance: "candidate" | "conditional" | "historical_lead" | "unresolved";
   configurationRatingEnabled: boolean;
@@ -440,7 +503,7 @@ function buildSpeciesOutlook(input: {
   }
   const speciesProfile = getPierCastSpeciesProfile(input.speciesId);
   const temperatureCurve = input.researchTemperatureCurve ??
-    getPierCastPrivateTemperatureCurve(input.speciesId);
+    input.temperatureCurve;
   if (!speciesProfile || !temperatureCurve) {
     throw new Error(
       `PierCast core calibration missing for ${input.speciesId}.`,
@@ -528,9 +591,9 @@ function buildSpeciesOutlook(input: {
       ? []
       : aggregate.biological.reasonCodes
   ) reasons.add(reason);
-  const regulationReviewed = !input.privateAdmission ||
+  const regulationReviewed = !input.admission ||
     (input.window.localDate >= "2026-04-01" &&
-      input.window.localDate <= input.privateAdmission.regulationValidThrough);
+      input.window.localDate <= input.admission.regulationValidThrough);
   if (!regulationReviewed) reasons.add("regulation_review_expired");
   const targetingEligibility = !regulationReviewed
     ? "unknown" as const
@@ -547,14 +610,14 @@ function buildSpeciesOutlook(input: {
     ],
   };
 
-  if (input.privateAdmission) reasons.add("private_provisional_city_admission");
+  if (input.admission) reasons.add("private_provisional_city_admission");
   return {
     speciesId: input.speciesId,
-    ...(input.privateAdmission
+    ...(input.admission
       ? {
-        methodConstraint: input.privateAdmission.methodConstraint,
-        evaluatedStructureId: input.privateAdmission.structureId,
-        regulationValidThrough: input.privateAdmission.regulationValidThrough,
+        methodConstraint: input.admission.methodConstraint,
+        evaluatedStructureId: input.admission.structureId,
+        regulationValidThrough: input.admission.regulationValidThrough,
       }
       : {}),
     previewMode: "disabled_provisional",
@@ -796,16 +859,25 @@ function interpolate(left: number, right: number, progress: number): number {
   return left + (right - left) * progress;
 }
 
-function validateReviewBatch(batch: AvailableLmhofsBatch): void {
+function validateReviewBatch(
+  batch: AvailableLmhofsBatch,
+  cityProfiles: readonly PierCastCityProfile[] = PIER_CAST_CITY_PROFILES,
+): void {
+  const expectedCityIds = new Set(cityProfiles.map((city) => city.cityId));
+  const expectedSampleCount = cityProfiles.length * 121;
   if (
-    batch.status !== "available" || batch.cities.length !== 5 ||
+    cityProfiles.length === 0 || expectedCityIds.size !== cityProfiles.length ||
+    batch.status !== "available" ||
+    batch.cities.length !== cityProfiles.length ||
+    batch.cities.some((city) => !expectedCityIds.has(city.cityId)) ||
     batch.cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     ) ||
-    batch.cities.reduce((sum, city) => sum + city.samples.length, 0) !== 605
+    batch.cities.reduce((sum, city) => sum + city.samples.length, 0) !==
+      expectedSampleCount
   ) {
     throw new Error(
-      "PierCast review requires one complete archived all-city cycle.",
+      "PierCast review requires one complete archived all-city cycle for its cohort.",
     );
   }
 }

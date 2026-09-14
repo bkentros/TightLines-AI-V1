@@ -30,7 +30,7 @@
     "check:pier-cast:remaining-seasonal": "node --test scripts/pier-cast-remaining-seasonal.test.mjs && node scripts/generate-pier-cast-remaining-seasonal-report.mjs --check",
     "generate:pier-cast:remaining-species": "node scripts/pier-cast-remaining-species-evidence.mjs && node scripts/generate-pier-cast-remaining-species.mjs",
     "check:pier-cast:remaining-species": "node --test scripts/pier-cast-remaining-species-evidence.test.mjs && node scripts/pier-cast-remaining-species-evidence.mjs --check && node scripts/generate-pier-cast-remaining-species.mjs --check",
-    "qa:pier-cast:foundation": "deno test --allow-read supabase/functions/_shared/pierCastEngine/tests supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts supabase/functions/pier-cast-ingest/handler.test.ts",
+    "qa:pier-cast:foundation": "node --import tsx --test scripts/pier-cast-standings.test.ts && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts supabase/functions/pier-cast-ingest/handler.test.ts",
     "audit:pier-cast:lmhofs": "deno run --allow-net=opendap.co-ops.nos.noaa.gov scripts/pier-cast-lmhofs-live-audit.ts",
     "audit:pier-cast:temperature-representation": "deno run --allow-read --allow-write=docs/PierCast_Temperature_Representation_Audit.json --allow-net=opendap.co-ops.nos.noaa.gov,seagull-erddap.glos.org scripts/pier-cast-temperature-representation-audit.ts --write",
     "generate:pier-cast:weekly-ratings": "node scripts/generate-pier-cast-weekly-ratings.mjs",

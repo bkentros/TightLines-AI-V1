@@ -35,7 +35,11 @@ export type PierCastCityId =
   | "grand_haven_mi"
   | "manistee_mi"
   | "frankfort_elberta_mi"
-  | "sheboygan_wi";
+  | "sheboygan_wi"
+  | "port_washington_wi"
+  | "milwaukee_wi"
+  | "racine_wi"
+  | "kenosha_wi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -131,7 +135,7 @@ export type PierCastCityTemperatureSource = {
       latitude: number;
       longitude: number;
       distanceM: number;
-      coordinateSource: "NOAA Coast Pilot 6";
+      coordinateSource: "NOAA Coast Pilot 6" | "NOAA Aids to Navigation";
     };
     gridCellStatus: "candidate" | "approved_for_pilot";
   } | null;
@@ -523,8 +527,8 @@ export type PierCastReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 5;
-    sampleCount: 605;
+    cityCount: number;
+    sampleCount: number;
   };
   cities: PierCastReviewCityOutlook[];
 };

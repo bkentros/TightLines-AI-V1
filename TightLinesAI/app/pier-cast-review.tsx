@@ -49,9 +49,12 @@ import {
   fetchPierCastCityReport,
   fetchSavedPierCastReport,
   fetchPierCastOwnerReviewCatalog,
+  fetchPierCastOwnerExpansionReviewOutlook,
   fetchPierCastOwnerReviewOutlook,
   PierCastRequestError,
 } from "../lib/pierCast";
+import { projectPierCastStandings } from "../lib/pierCastStandings";
+import { getPierCastSpeciesImage } from "../lib/pierCastSpeciesImages";
 import type {
   PierCastCatalogCityRead,
   PierCastCatalogResponse,
@@ -75,10 +78,7 @@ import {
   paperShadows,
   scoreAccentColor,
 } from "../lib/theme";
-import {
-  getRiverRunSpeciesHeroScale,
-  getRiverRunSpeciesImage,
-} from "../lib/riverRunSpeciesImages";
+import { getRiverRunSpeciesHeroScale } from "../lib/riverRunSpeciesImages";
 import {
   orderPierCastTemperatureEvents,
   pierCastTemperatureEventTimingLabel,
@@ -108,6 +108,15 @@ const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
   coho_salmon: 1.4,
   steelhead: 1.08,
   brown_trout: 0.9,
+  lake_trout: 1.38,
+  walleye: 1.38,
+  smallmouth_bass: 1.38,
+  freshwater_drum: 1.32,
+  yellow_perch: 1.34,
+  lake_whitefish: 1.4,
+  round_whitefish: 1.4,
+  channel_catfish: 1.38,
+  largemouth_bass: 1.38,
 };
 
 const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;
@@ -122,9 +131,7 @@ const STATE_LABELS: Record<PierCastCatalogCityRead["stateCode"], string> = {
 };
 
 function coreSpeciesImage(speciesId: PierCastSpeciesId) {
-  return getRiverRunSpeciesImage(
-    speciesId === "brown_trout" ? "lake_run_brown_trout" : speciesId,
-  );
+  return getPierCastSpeciesImage(speciesId);
 }
 
 function primaryPierName(city: PierCastCatalogCityRead): string {
@@ -1870,9 +1877,20 @@ function RankMedallion({
   rank,
   size = 34,
 }: {
-  rank: number;
+  rank: number | null;
   size?: number;
 }) {
+  if (rank === null) {
+    return (
+      <Text
+        style={[styles.standingRankNumeral, { width: size }]}
+        allowFontScaling={false}
+        accessibilityLabel="Not yet ranked"
+      >
+        —
+      </Text>
+    );
+  }
   const tier = MEDAL_TIERS[rank];
   if (!tier) {
     return (
@@ -2060,21 +2078,21 @@ function LeaderSpotlight({
   );
 }
 
-/** Ranks 02–05 — uniform ledger rows with their own strength meters. */
+/** Ranks 02+ — uniform ledger rows with their own strength meters. */
 function StandingRow({
   entry,
   rank,
   onOpen,
 }: {
   entry: PierCastLeaderboardEntry;
-  rank: number;
+  rank: number | null;
   onOpen: () => void;
 }) {
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
   const score = entry.score;
   const band = score !== null ? dashboardBandStyleForScore(score) : null;
   const accent = stateAccent(entry.city.stateCode);
-  const tier = MEDAL_TIERS[rank];
+  const tier = rank === null ? null : MEDAL_TIERS[rank];
   return (
     <Pressable
       style={({ pressed }) => [
@@ -2087,7 +2105,9 @@ function StandingRow({
         onOpen();
       }}
       accessibilityRole="button"
-      accessibilityLabel={`View ${entry.city.displayName} PierCast, ranked ${rank}`}
+      accessibilityLabel={rank === null
+        ? `View ${entry.city.displayName} PierCast, rating pending`
+        : `View ${entry.city.displayName} PierCast, ranked ${rank}`}
     >
       <View style={[styles.standingEdge, { backgroundColor: accent.accent }]} />
       <RankMedallion rank={rank} />
@@ -2140,12 +2160,18 @@ function StandingRow({
 function PierCastLanding({
   catalog,
   outlook,
+  supplementalOutlooks,
   onOpenCity,
 }: {
   catalog: PierCastCatalogResponse;
-  outlook: PierCastLeaderboardResponse;
+  outlook: PierCastReviewOutlookResponse | PierCastLeaderboardResponse;
+  supplementalOutlooks: readonly PierCastReviewOutlookResponse[];
   onOpenCity: (cityId: string) => void;
 }) {
+  const standingsOutlook = useMemo(
+    () => projectPierCastStandings(outlook, supplementalOutlooks),
+    [outlook, supplementalOutlooks],
+  );
   const stateCodes = useMemo(
     () =>
       Array.from(new Set(catalog.cities.map((city) => city.stateCode))).sort(
@@ -2177,7 +2203,7 @@ function PierCastLanding({
     () =>
       catalog.cities
         .map((city) => {
-          const cityOutlook = outlook.cities.find(
+          const cityOutlook = standingsOutlook.cities.find(
             (candidate) => candidate.cityId === city.cityId,
           );
           const date = cityOutlook?.dates[0] ?? null;
@@ -2192,9 +2218,8 @@ function PierCastLanding({
           (left, right) =>
             (right.rankingScore ?? -1) - (left.rankingScore ?? -1) ||
             left.city.displayName.localeCompare(right.city.displayName),
-        )
-        .slice(0, 5),
-    [catalog.cities, outlook.cities],
+        ),
+    [catalog.cities, standingsOutlook.cities],
   );
 
   /** cityId → today's headline score, so the finder can echo the standings. */
@@ -2208,19 +2233,29 @@ function PierCastLanding({
 
   const rankByCityId = useMemo(() => {
     const map = new Map<string, number>();
-    leaderboard.forEach((entry, index) => map.set(entry.city.cityId, index + 1));
+    leaderboard
+      .filter((entry) => entry.score !== null)
+      .forEach((entry, index) => map.set(entry.city.cityId, index + 1));
     return map;
   }, [leaderboard]);
+
+  const rankedLeaderboard = useMemo(
+    () => leaderboard.filter((entry) => entry.score !== null),
+    [leaderboard],
+  );
+  const pendingLeaderboard = useMemo(
+    () => leaderboard.filter((entry) => entry.score === null),
+    [leaderboard],
+  );
 
   const selectedBrowseCity =
     stateCities.find((city) => city.cityId === browseCityId) ??
     stateCities[0] ??
     null;
   const forecastDate = leaderboard[0]?.date?.localDate;
-  const dailyScoreSnapshot = outlook.dailyScoreSnapshot ?? null;
+  const dailyScoreSnapshot = standingsOutlook.dailyScoreSnapshot ?? null;
   const standingsReady =
-    Boolean(dailyScoreSnapshot) &&
-    leaderboard.length === 5 &&
+    leaderboard.length === catalog.cities.length &&
     leaderboard.every((entry) => entry.score !== null);
   const selectedStateAccent = stateAccent(selectedState);
 
@@ -2262,33 +2297,35 @@ function PierCastLanding({
             </View>
             <View style={styles.standingsMetaDivider} />
             <View style={styles.standingsMetaCell}>
-              <Text style={styles.standingsMetaLabel}>PIER CITIES RANKED</Text>
+              <Text style={styles.standingsMetaLabel}>PIER CITIES SCORED</Text>
               <Text style={styles.standingsMetaValue}>
-                {standingsReady
-                  ? String(leaderboard.length).padStart(2, "0")
-                  : "—"}
+                {`${String(rankedLeaderboard.length).padStart(2, "0")}/${String(leaderboard.length).padStart(2, "0")}`}
               </Text>
             </View>
           </View>
         </View>
 
-        {standingsReady ? (
+        {leaderboard.length > 0 ? (
           <View style={styles.standingsBody}>
-            <LeaderSpotlight
-              entry={leaderboard[0]}
-              onOpen={() => onOpenCity(leaderboard[0].city.cityId)}
-            />
+            {rankedLeaderboard[0] ? (
+              <LeaderSpotlight
+                entry={rankedLeaderboard[0]}
+                onOpen={() => onOpenCity(rankedLeaderboard[0].city.cityId)}
+              />
+            ) : null}
 
-            <View style={styles.standingsDivider}>
-              <View style={styles.standingsDividerRule} />
-              <Text style={styles.standingsDividerText}>
-                CHASING THE LEADER
-              </Text>
-              <View style={styles.standingsDividerRule} />
-            </View>
+            {rankedLeaderboard.length > 1 ? (
+              <View style={styles.standingsDivider}>
+                <View style={styles.standingsDividerRule} />
+                <Text style={styles.standingsDividerText}>
+                  CHASING THE LEADER
+                </Text>
+                <View style={styles.standingsDividerRule} />
+              </View>
+            ) : null}
 
             <View style={styles.standingsList}>
-              {leaderboard.slice(1).map((entry, index) => (
+              {rankedLeaderboard.slice(1).map((entry, index) => (
                 <StandingRow
                   key={entry.city.cityId}
                   entry={entry}
@@ -2297,6 +2334,28 @@ function PierCastLanding({
                 />
               ))}
             </View>
+
+            {pendingLeaderboard.length > 0 ? (
+              <>
+                <View style={styles.standingsDivider}>
+                  <View style={styles.standingsDividerRule} />
+                  <Text style={styles.standingsDividerText}>
+                    AWAITING TODAY&apos;S SCORE
+                  </Text>
+                  <View style={styles.standingsDividerRule} />
+                </View>
+                <View style={styles.standingsList}>
+                  {pendingLeaderboard.map((entry) => (
+                    <StandingRow
+                      key={entry.city.cityId}
+                      entry={entry}
+                      rank={null}
+                      onOpen={() => onOpenCity(entry.city.cityId)}
+                    />
+                  ))}
+                </View>
+              </>
+            ) : null}
           </View>
         ) : (
           <View style={styles.standingsPending}>
@@ -2311,8 +2370,8 @@ function PierCastLanding({
               Today&apos;s standings are being prepared.
             </Text>
             <Text style={styles.standingsPendingCopy}>
-              No city is ranked until all five scores are complete for the
-              Lake Michigan day.
+              No city is ranked until every supported city score is complete
+              for the Lake Michigan day.
             </Text>
           </View>
         )}
@@ -2320,9 +2379,13 @@ function PierCastLanding({
         <View style={styles.rankingNote}>
           <Ionicons name="ribbon-outline" size={13} color="#167B78" />
           <Text style={styles.rankingNoteText}>
-            {standingsReady && dailyScoreSnapshot
-              ? `Each city is ranked by its single highest species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
-              : "Today's ranking is preparing. Live pier conditions continue to refresh."}
+            {standingsReady
+              ? dailyScoreSnapshot
+                ? supplementalOutlooks.length > 0
+                  ? `Released cities use their locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} scores; shadow-review cities use their latest complete current-day score.`
+                  : `Each city is ranked by its single highest species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
+                : "Every supported city has a complete current score. Live pier conditions continue to refresh."
+              : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "city is" : "cities are"} awaiting a complete score; every supported city remains listed.`}
           </Text>
         </View>
       </View>
@@ -2459,7 +2522,7 @@ function PierCastLanding({
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.cityRailPad}
         >
-          {stateCities.map((city, index) => {
+          {stateCities.map((city) => {
             const selected = city.cityId === selectedBrowseCity?.cityId;
             const accent = stateAccent(city.stateCode);
             const pierCount = city.structures.filter(
@@ -2505,13 +2568,13 @@ function PierCastLanding({
                     {city.stateCode}
                   </Text>
                   <View style={styles.cityCardToplineSpacer} />
-                  {cityRank !== null && standingsReady ? (
+                  {cityRank !== null ? (
                     <Text style={styles.cityCardRank}>
                       #{cityRank}
                     </Text>
                   ) : (
                     <Text style={styles.cityCardRank}>
-                      {String(index + 1).padStart(2, "0")}
+                      —
                     </Text>
                   )}
                 </View>
@@ -2996,6 +3059,9 @@ export default function PierCastReviewScreen() {
   const [outlook, setOutlook] = useState<PierCastReviewOutlookResponse | PierCastLeaderboardResponse | null>(
     null,
   );
+  const [expansionOutlook, setExpansionOutlook] = useState<
+    PierCastReviewOutlookResponse | null
+  >(null);
   const [cityReport, setCityReport] = useState<PierCastReviewOutlookResponse | null>(null);
   const [savedReport, setSavedReport] = useState<PierCastReviewOutlookResponse | null>(null);
   const [paywall, setPaywall] = useState(false);
@@ -3029,6 +3095,9 @@ export default function PierCastReviewScreen() {
       if (nextCatalog) setCatalog(nextCatalog);
       if (!admin && nextCatalog?.cities.length === 0) { setOutlook(null); return; }
       const nextOutlook = await (admin ? fetchPierCastOwnerReviewOutlook() : fetchPierCastLeaderboard());
+      const nextExpansionOutlook = admin
+        ? await fetchPierCastOwnerExpansionReviewOutlook().catch(() => null)
+        : null;
       if (accountId.current !== userId) return;
       if (!admin && userId && !silent) {
         void fetchSavedPierCastReport().then(saved => {
@@ -3037,6 +3106,7 @@ export default function PierCastReviewScreen() {
       }
       if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
+      setExpansionOutlook(nextExpansionOutlook);
       if (nextCatalog) {
         setSelectedCityId((current) =>
           nextCatalog.cities.some((city) => city.cityId === current)
@@ -3062,7 +3132,7 @@ export default function PierCastReviewScreen() {
 
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null); setSavedReport(null);
-    setOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
+    setOutlook(null); setExpansionOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
   }, [user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
@@ -3128,7 +3198,17 @@ export default function PierCastReviewScreen() {
   const selectedCity =
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const selectedOutlook =
-    (admin && outlook && "mode" in outlook ? outlook : cityReport)?.cities.find((city) => city.cityId === selectedCityId) ?? null;
+    (admin
+      ? [
+          ...(outlook && "mode" in outlook ? outlook.cities : []),
+          ...(expansionOutlook?.cities ?? []),
+        ].find((city) => city.cityId === selectedCityId)
+      : cityReport?.cities.find((city) => city.cityId === selectedCityId)) ??
+    null;
+  const supplementalStandingsOutlooks = useMemo(
+    () => admin && expansionOutlook ? [expansionOutlook] : [],
+    [admin, expansionOutlook],
+  );
   const nearbyCities = useMemo(
     () =>
       selectedCity && catalog
@@ -3325,7 +3405,13 @@ export default function PierCastReviewScreen() {
                 outlook={selectedOutlook}
                 weather={weather}
                 weatherLoading={weatherLoading}
-                conditionsUpdatedAt={(admin ? outlook : cityReport)?.generatedAt ?? outlook.generatedAt}
+                conditionsUpdatedAt={admin
+                  ? (expansionOutlook?.cities.some((city) =>
+                        city.cityId === selectedCity?.cityId
+                      )
+                      ? expansionOutlook?.generatedAt
+                      : outlook.generatedAt) ?? outlook.generatedAt
+                  : cityReport?.generatedAt ?? outlook.generatedAt}
               />
               <RatingExplanation
                 winterNotice={catalog.winterOpenWaterNotice}
@@ -3351,6 +3437,7 @@ export default function PierCastReviewScreen() {
               <PierCastLanding
                 catalog={catalog}
                 outlook={outlook}
+                supplementalOutlooks={supplementalStandingsOutlooks}
                 onOpenCity={(cityId) => {
                   hapticSelection();
                   void openCity(cityId);

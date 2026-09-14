@@ -19,7 +19,11 @@ export function getPierCastPrivateSpeciesIds(
   cityId: PierCastCityId,
   version: string = PIER_CAST_PRIVATE_ROSTER_VERSION,
 ): PierCastSpeciesId[] {
-  if (!PIER_CAST_FROZEN_CITY_IDS.includes(cityId)) {
+  if (
+    !PIER_CAST_FROZEN_CITY_IDS.includes(
+      cityId as (typeof PIER_CAST_FROZEN_CITY_IDS)[number],
+    )
+  ) {
     throw new Error("Unknown PierCast city.");
   }
   if (version === PIER_CAST_LEGACY_ROSTER_VERSION) {

@@ -36,6 +36,9 @@ export type PierCastHandlerDependencies = {
   readSavedReport?: (request: Request) => Promise<unknown>;
   authorizeReview: (request: Request) => Promise<boolean>;
   readReviewOutlook: () => Promise<PierCastReviewOutlookResponse | null>;
+  readExpansionReviewOutlook?: () => Promise<
+    PierCastReviewOutlookResponse | null
+  >;
   readShadowReview: () => Promise<PierCastShadowReviewResponse>;
   recordShadowOutcome: (
     input: PierCastShadowOutcomeInput,
@@ -90,9 +93,15 @@ export function createPierCastHandler(
     }
     const reviewCatalog = url.pathname.endsWith("/review/catalog");
     const reviewOutlook = url.pathname.endsWith("/review/outlook");
+    const expansionReviewOutlook = url.pathname.endsWith(
+      "/review/expansion/outlook",
+    );
     const shadowReview = url.pathname.endsWith("/review/shadow");
     const shadowOutcome = url.pathname.endsWith("/review/outcomes");
-    if (reviewCatalog || reviewOutlook || shadowReview || shadowOutcome) {
+    if (
+      reviewCatalog || reviewOutlook || expansionReviewOutlook ||
+      shadowReview || shadowOutcome
+    ) {
       try {
         if (!await dependencies.authorizeReview(request)) {
           return error(
@@ -112,6 +121,32 @@ export function createPierCastHandler(
         return request.method === "GET"
           ? json(buildPierCastCatalog("review"))
           : error("Method not allowed.", "method_not_allowed", 405);
+      }
+      if (expansionReviewOutlook) {
+        if (request.method !== "GET") {
+          return error("Method not allowed.", "method_not_allowed", 405);
+        }
+        if (!dependencies.readExpansionReviewOutlook) {
+          return error(
+            "Wisconsin expansion shadow review is not configured.",
+            "pier_cast_expansion_outlook_unavailable",
+            503,
+          );
+        }
+        try {
+          const outlook = await dependencies.readExpansionReviewOutlook();
+          return outlook ? json(outlook) : error(
+            "No fresh Wisconsin expansion shadow cycle is available.",
+            "pier_cast_expansion_outlook_unavailable",
+            503,
+          );
+        } catch {
+          return error(
+            "Wisconsin expansion shadow outlook could not be generated.",
+            "pier_cast_expansion_outlook_failed",
+            503,
+          );
+        }
       }
       if (shadowReview) {
         if (request.method !== "GET") {

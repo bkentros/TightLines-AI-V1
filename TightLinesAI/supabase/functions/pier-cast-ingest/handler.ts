@@ -32,6 +32,30 @@ export type PierCastIngestHandlerDependencies = {
   archiveFieldObservations?: (
     records: readonly PierCastFieldTemperatureRecord[],
   ) => Promise<number>;
+  ingestPortWashingtonShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+    shadowForecast: PierCastShadowForecastCommitSummary | null;
+  }>;
+  ingestWisconsinShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+    shadowForecast: PierCastShadowForecastCommitSummary | null;
+  }>;
 };
 
 export function createPierCastIngestHandler(
@@ -53,6 +77,40 @@ export function createPierCastIngestHandler(
     const operation = request.headers.get(OPERATION_HEADER);
     if (operation === "field-temperature") {
       return await handleFieldTemperature(request, dependencies);
+    }
+    if (operation === "port-washington-shadow") {
+      if (!dependencies.ingestPortWashingtonShadow) {
+        return json(
+          { error: "pier_cast_port_washington_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestPortWashingtonShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_port_washington_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "wisconsin-shadow") {
+      if (!dependencies.ingestWisconsinShadow) {
+        return json(
+          { error: "pier_cast_wisconsin_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestWisconsinShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_wisconsin_shadow_ingest_failed" },
+          503,
+        );
+      }
     }
     if (operation) return json({ error: "pier_cast_operation_invalid" }, 400);
 
