@@ -48,6 +48,10 @@ Migration `20260914233000_pier_cast_v3_shadow_ledger.sql` and the original core-
 
 Migration `20260915210000_expand_pier_cast_v3_secondary_manifest.sql` upgrades future private runs to the exact 56-pair, 280-row manifest without rewriting the original run. The v3 schedule remains at minute 50 after the 00/06/12/18 UTC issue windows. It reads the two fresh archived cohorts, refuses mismatched cycles, builds the nine-city outlook, and writes a separate frozen run.
 
+The secondary-manifest migration and both `pier-cast` Edge Functions were deployed to the linked production project on September 15, 2026. Final deployment verification committed run `6550d54e-5bc7-46ab-9615-97cf30d4a9f5`: exactly 280 forecasts for 56 city/species pairs across nine cities and five lead days, using engine `pier-cast-opportunity-modes-v3-shadow-v1.1.1`, with preview-only and promotion-blocked constraints intact. The authenticated owner-review endpoint returned the same nine-city variable roster (56 first-day pairings), while anonymous access to the private ledger remained denied.
+
+Engine v1.1.1 also removes the short availability gap caused by staggered primary and Wisconsin archive schedules. Both newest cohorts must first be fresh against the real clock; when their issue times differ, the reader selects the newest issue present in both archives. It never combines different issues and still returns unavailable when no fresh coherent cycle exists.
+
 ## Promotion remains correctly blocked
 
 The internal engineering work for Pass 2 is complete. Three evidence gates cannot be manufactured by code and remain pending: independent specialist sign-off, local surface-temperature representation evidence, and an adequate prospective effort-aware outcome sample. Formula v3 must remain shadow-only until those gates pass and the owner explicitly approves promotion.

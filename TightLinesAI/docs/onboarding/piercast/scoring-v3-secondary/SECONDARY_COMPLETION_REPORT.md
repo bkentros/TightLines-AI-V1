@@ -2,6 +2,8 @@
 
 Status: complete disabled shadow research and calibration. Date: 2026-09-15.
 
+Deployment verification: the private secondary manifest is live behind owner review. Production run `6550d54e-5bc7-46ab-9615-97cf30d4a9f5` archived all 280 expected forecasts under engine v1.1.1; public Formula v3 promotion remains blocked.
+
 ## Outcome
 
 All 81 secondary city/species pairings were re-reviewed against the intended product boundary: one general city-harbor reading anchored to the main public piers. Twenty pairings clear the Grade A/B numeric-research gate and produce 27 disabled v3 opportunity modes. The other 61 have explicit defer/exclude decisions and no numeric score. Production v2 is unchanged and Formula v3 remains private, disabled, and promotion-blocked.
