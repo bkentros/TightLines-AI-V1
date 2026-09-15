@@ -17,6 +17,8 @@ const PIER_CAST_SPECIES_IMAGES: Record<
   round_whitefish: require("../assets/images/fish/round_whitefish.png"),
   channel_catfish: require("../assets/images/fish/channel_catfish.png"),
   largemouth_bass: require("../assets/images/fish/largemouth_bass.png"),
+  atlantic_salmon: require("../assets/images/fish/atlantic_salmon.png"),
+  northern_pike: require("../assets/images/fish/northern_pike.png"),
 };
 
 export function getPierCastSpeciesImage(

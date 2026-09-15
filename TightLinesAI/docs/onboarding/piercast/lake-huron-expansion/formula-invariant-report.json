@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "piercast-v3-lake-huron-formula-invariants-v1",
+  "formula": "1 + (seasonalPotential - 1) * (0.30 + 0.70 * temperatureSuitability)",
+  "modeSelection": "maximum_realized_mode_never_sum",
+  "cases": 525,
+  "scoreBounds": [
+    1,
+    10
+  ],
+  "monotonicTemperatureSuitability": true,
+  "neverExceedsSeasonalPotential": true,
+  "neverExceedsFisheryStrength": true,
+  "modesNeverStack": true,
+  "yearEndContinuityChecked": true,
+  "leapDayChecked": true,
+  "result": "pass"
+}

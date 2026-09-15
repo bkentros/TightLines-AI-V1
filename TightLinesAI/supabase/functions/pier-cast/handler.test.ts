@@ -102,17 +102,23 @@ Deno.test("owner-review catalog requires authorization", async () => {
   assertEquals(reads, 0);
 });
 
-Deno.test("authorized owner-review catalog includes the disabled Wisconsin expansion", async () => {
+Deno.test("authorized owner-review catalog includes Wisconsin and Lake Huron", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("review/catalog"));
   assertEquals(response.status, 200);
   const body = await response.json();
   assertEquals(body.mode, "review");
-  assertEquals(body.cities.length, 9);
+  assertEquals(body.cities.length, 12);
   assertEquals(
     ["port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi"].every(
       (cityId) =>
         body.cities.some((city: { cityId: string }) => city.cityId === cityId),
+    ),
+    true,
+  );
+  assertEquals(
+    ["harbor_beach_mi", "oscoda_mi", "port_sanilac_mi"].every((cityId) =>
+      body.cities.some((city: { cityId: string }) => city.cityId === cityId)
     ),
     true,
   );

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "piercast-lake-huron-artifact-hashes-v1",
+  "sha256": {
+    "source-ledger.json": "5defdf0b1203494eddeb91de6d8aeb5d0653fd0f441f203addc421ed9304ba07",
+    "retrieval-ledger.json": "adca4aa7e3092747b64c31e797d02a2f2d89624caf341f74d67dafa81ce77743",
+    "candidate-decision-matrix.json": "25a788c6486fa87708407301474bfa8e8d1c23d2959487f2e4cb4426482bc7c3",
+    "admitted-runtime-candidates.json": "e65d9b5e567a6d25ec5d15f51788b3367f8da85e723171569e28d86a47599f42",
+    "opportunity-mode-calibrations.json": "cf6bda1de2d883bf47c437e0f0d0fa6ad66d05f905c0ddc70fdaf1746aa01c87",
+    "cross-city-calibration-comparison.csv": "f6062cff06fe08f0e41ebecc1e95b0a82374c4bbb6c2a6c4e0c264ed23422ddc",
+    "full-year-weekly-audit.csv": "19f4443eb1dfe83a3cbe26239c05e99288b1fbe145c41a33bf88593fe674801b",
+    "pair-peak-ceiling-summary.csv": "2ee05d1c9f52c54f3ef1e9869d66236473d57be11068224f2bc8152329c1ab4f",
+    "formula-invariant-report.json": "cf7775fad7dad4728aafee76bffd36fd34adbe914cfc0d4f1d8702e1643bddb8",
+    "exact-manifest-count-report.json": "608c36d47ae0790ba9f164e182c031bc53afbb6709b3f9f3e86d5846b41d0a3e",
+    "lmhofs-sampling-audit.json": "4d273fab114acb3223e0e4c584aa00a9c93185351ec3238b8cd39f2a61056a1e",
+    "COMPLETION_REPORT.md": "84bbf2f0ee0181ff7b7a10788493e69c854de93b1ba5be5ab8c903c71724d1ee",
+    "harbor-beach-access-dossier.md": "0977100d7f2452f5d9b149b64f8af7cc5fa53a6946683d9ae1bd2b8b90c27492",
+    "oscoda-access-dossier.md": "06fa8261cad118e1b5bd4eaafe5d0bbee7f33d8da53dfc2cc04a582ef811d8cc",
+    "port-sanilac-access-dossier.md": "fe219a141c11fec35623176e54143a6fcb42d3c89fb46fca11e4b3da3d857f00"
+  }
+}

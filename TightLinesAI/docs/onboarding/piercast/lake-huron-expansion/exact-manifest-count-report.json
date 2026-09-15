@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "piercast-v3-twelve-city-manifest-v1",
+  "cityCount": 12,
+  "previousPairCount": 56,
+  "lakeHuronPairCount": 14,
+  "pairCount": 70,
+  "forecastDatesPerPair": 5,
+  "forecastCount": 350,
+  "lakeHuronModeCount": 21,
+  "totalModeCount": 146,
+  "cityRosterCounts": {
+    "harbor_beach_mi": 2,
+    "oscoda_mi": 9,
+    "port_sanilac_mi": 3
+  },
+  "historicalManifestsPreserved": [
+    {
+      "configVersion": "piercast-v3-nine-city-pass1-complete-v1",
+      "pairCount": 36,
+      "forecastCount": 180
+    },
+    {
+      "configVersion": "piercast-v3-nine-city-secondary-complete-v2",
+      "pairCount": 56,
+      "forecastCount": 280
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import {
   getPierCastV3PairCalibration,
   getPierCastV3SpeciesIdsForCity,
   PIER_CAST_CITY_PROFILES,
+  PIER_CAST_LAKE_HURON_CITY_PROFILES,
   PIER_CAST_V3_CITY_IDS,
   PIER_CAST_V3_FORECAST_COUNT,
   PIER_CAST_V3_FORMULA_VERSION,
@@ -18,11 +19,11 @@ import {
   PIER_CAST_V3_RATING_ENABLED,
   PIER_CAST_V3_SPECIES_IDS,
   PIER_CAST_WISCONSIN_CITY_PROFILES,
-  readLatestCoherentPierCastV3SourceCohorts,
   type PierCastCityProfile,
   type PierCastLmhofsBatch,
   type PierCastLmhofsSample,
   pierCastV3RegulationClosureApplies,
+  readLatestCoherentPierCastV3SourceCohorts,
   validatePierCastV3OpportunityMode,
 } from "../index.ts";
 
@@ -35,20 +36,20 @@ type AvailableBatch = Extract<
 Deno.test("v3 generated config is the complete core and secondary handoff", () => {
   assertEquals(PIER_CAST_V3_RATING_ENABLED, false);
   assertEquals(PIER_CAST_V3_PUBLIC_ENABLED, false);
-  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 56);
-  assertEquals(PIER_CAST_V3_PAIR_COUNT, 56);
+  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 70);
+  assertEquals(PIER_CAST_V3_PAIR_COUNT, 70);
   assertEquals(
     PIER_CAST_V3_PAIR_CALIBRATIONS.reduce(
       (sum, pair) => sum + pair.modes.length,
       0,
     ),
-    125,
+    146,
   );
   assertEquals(
     new Set(PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.pairKey)).size,
-    56,
+    70,
   );
-  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 12);
+  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 14);
   for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
     assertEquals(
       getPierCastV3PairCalibration(pair.cityId, pair.speciesId)?.pairKey,
@@ -100,7 +101,7 @@ Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10",
       }
     }
   }
-  assertEquals(evaluated, 56 * 365 * 5);
+  assertEquals(evaluated, 70 * 365 * 5);
 
   const reference = getPierCastV3PairCalibration("manistee_mi", "steelhead")!;
   const modes = evaluatePierCastV3ModePotentials({
@@ -157,6 +158,7 @@ Deno.test("v3 outlook never publishes a biological score inside the perch closur
     batch: combinePierCastV3LmhofsBatches(
       batch(PIER_CAST_CITY_PROFILES, closedIssue),
       batch(PIER_CAST_WISCONSIN_CITY_PROFILES, closedIssue),
+      batch(PIER_CAST_LAKE_HURON_CITY_PROFILES, closedIssue),
     ),
     evaluationTime: "2027-05-01T12:15:00.000Z",
   });
@@ -176,6 +178,7 @@ Deno.test("v3 outlook never publishes a biological score inside the perch closur
     batch: combinePierCastV3LmhofsBatches(
       batch(PIER_CAST_CITY_PROFILES, openIssue),
       batch(PIER_CAST_WISCONSIN_CITY_PROFILES, openIssue),
+      batch(PIER_CAST_LAKE_HURON_CITY_PROFILES, openIssue),
     ),
     evaluationTime: "2027-06-16T12:15:00.000Z",
   });
@@ -209,19 +212,24 @@ Deno.test("v3 recurring availability is continuous across the year seam", () => 
   }
 });
 
-Deno.test("v3 nine-city outlook requires one coherent issue and stays blocked", () => {
+Deno.test("v3 twelve-city outlook requires one coherent issue and stays blocked", () => {
   const primary = batch(PIER_CAST_CITY_PROFILES);
   const expansion = batch(PIER_CAST_WISCONSIN_CITY_PROFILES);
-  const combined = combinePierCastV3LmhofsBatches(primary, expansion);
+  const lakeHuron = batch(PIER_CAST_LAKE_HURON_CITY_PROFILES);
+  const combined = combinePierCastV3LmhofsBatches(
+    primary,
+    expansion,
+    lakeHuron,
+  );
   const outlook = buildPierCastV3ReviewOutlook({
     batch: combined,
     evaluationTime: "2026-09-14T12:15:00.000Z",
   });
   assertEquals(outlook.formulaVersion, PIER_CAST_V3_FORMULA_VERSION);
   assertEquals(outlook.mode, "v3_shadow_review");
-  assertEquals(outlook.source.cityCount, 9);
-  assertEquals(outlook.source.sampleCount, 1089);
-  assertEquals(outlook.cities.length, 9);
+  assertEquals(outlook.source.cityCount, 12);
+  assertEquals(outlook.source.sampleCount, 1452);
+  assertEquals(outlook.cities.length, 12);
   assertEquals(outlook.promotion.status, "blocked");
   assertEquals(outlook.cities.every((city) => city.dates.length === 5), true);
   assertEquals(
@@ -244,7 +252,7 @@ Deno.test("v3 nine-city outlook requires one coherent issue and stays blocked", 
   const mismatched = structuredClone(expansion);
   mismatched.issuedAt = "2026-09-14T06:00:00.000Z";
   assertThrows(
-    () => combinePierCastV3LmhofsBatches(primary, mismatched),
+    () => combinePierCastV3LmhofsBatches(primary, mismatched, lakeHuron),
     Error,
     "same-issue",
   );
@@ -263,6 +271,10 @@ Deno.test("v3 source selection bridges staggered fresh archive cycles without mi
     PIER_CAST_WISCONSIN_CITY_PROFILES,
     "2026-09-15T00:00:00.000Z",
   );
+  const lakeHuron00 = batch(
+    PIER_CAST_LAKE_HURON_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
   let primaryReads = 0;
   let expansionReads = 0;
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
@@ -271,20 +283,20 @@ Deno.test("v3 source selection bridges staggered fresh archive cycles without mi
     readPrimary: (_database, at) => {
       primaryReads += 1;
       return Promise.resolve(
-        at.toISOString() === "2026-09-15T00:00:00.000Z"
-          ? primary00
-          : primary06,
+        at.toISOString() === "2026-09-15T00:00:00.000Z" ? primary00 : primary06,
       );
     },
     readExpansion: () => {
       expansionReads += 1;
       return Promise.resolve(expansion00);
     },
+    readLakeHuron: () => Promise.resolve(lakeHuron00),
   });
 
   assert(cohorts);
   assertEquals(cohorts.issuedAt, "2026-09-15T00:00:00.000Z");
   assertEquals(cohorts.primary.issuedAt, cohorts.expansion.issuedAt);
+  assertEquals(cohorts.primary.issuedAt, cohorts.lakeHuron.issuedAt);
   assertEquals(cohorts.usedCommonCycleFallback, true);
   assertEquals(primaryReads, 2);
   assertEquals(expansionReads, 1);
@@ -299,25 +311,29 @@ Deno.test("v3 source selection fails closed when no common fresh cycle exists", 
     PIER_CAST_WISCONSIN_CITY_PROFILES,
     "2026-09-15T00:00:00.000Z",
   );
+  const lakeHuron00 = batch(
+    PIER_CAST_LAKE_HURON_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
     database: { rpc: () => Promise.resolve({ data: null, error: null }) },
     now: new Date("2026-09-15T12:40:00.000Z"),
     readPrimary: (_database, at) =>
       Promise.resolve(
-        at.toISOString() === "2026-09-15T00:00:00.000Z"
-          ? null
-          : primary06,
+        at.toISOString() === "2026-09-15T00:00:00.000Z" ? null : primary06,
       ),
     readExpansion: () => Promise.resolve(expansion00),
+    readLakeHuron: () => Promise.resolve(lakeHuron00),
   });
 
   assertEquals(cohorts, null);
 });
 
-Deno.test("v3 archive freezes the exact 280-row pair manifest", async () => {
+Deno.test("v3 archive freezes the exact 350-row pair manifest", async () => {
   const combined = combinePierCastV3LmhofsBatches(
     batch(PIER_CAST_CITY_PROFILES),
     batch(PIER_CAST_WISCONSIN_CITY_PROFILES),
+    batch(PIER_CAST_LAKE_HURON_CITY_PROFILES),
   );
   const outlook = buildPierCastV3ReviewOutlook({
     batch: combined,
@@ -330,8 +346,8 @@ Deno.test("v3 archive freezes the exact 280-row pair manifest", async () => {
     engineVersion: "v3-test-engine",
   });
   assertEquals(payload.forecasts.length, PIER_CAST_V3_FORECAST_COUNT);
-  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 280);
-  assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 9);
+  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 350);
+  assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 12);
   assertEquals(
     payload.forecasts.every((row) =>
       row.modeCalibrationId !== null && row.seasonalPotential !== null &&
@@ -364,20 +380,23 @@ Deno.test("v3 archive freezes the exact 280-row pair manifest", async () => {
   assertEquals(result.forecastCount, PIER_CAST_V3_FORECAST_COUNT);
 });
 
-Deno.test("v3 migration enforces a private exact manifest and delayed schedule", async () => {
+Deno.test("v3 Lake Huron migration enforces the exact manifest, historical counts, and delayed schedule", async () => {
   const sql = await Deno.readTextFile(
     new URL(
-      "../../../../migrations/20260915210000_expand_pier_cast_v3_secondary_manifest.sql",
+      "../../../../migrations/20260915230000_expand_pier_cast_v3_lake_huron_manifest.sql",
       import.meta.url,
     ),
   );
-  assert(sql.includes("jsonb_array_length(p_forecasts) <> 280"));
+  assert(sql.includes("jsonb_array_length(p_forecasts)<>350"));
   assert(sql.includes("count(distinct item->>'cityId')"));
   assert(sql.includes("piercast_v3_expected_pairs"));
-  assert(sql.includes("p_run->>'promotionStatus' <> 'blocked'"));
-  assert(sql.includes("auth.role() <> 'service_role'"));
-  assert(sql.includes("count(distinct (city_id, species_id)) <> 56"));
-  assert(sql.includes("forecastCount',280"));
+  assert(sql.includes("p_run->>'promotionStatus'<>'blocked'"));
+  assert(sql.includes("auth.role()<>'service_role'"));
+  assert(sql.includes("count(distinct(city_id,species_id))<>70"));
+  assert(sql.includes("forecastCount',350"));
+  assert(sql.includes("forecast_count in (180,280,350)"));
+  assert(sql.includes("piercast-lake-huron-shadow-v1"));
+  assert(sql.includes("'58 0,6,12,18 * * *'"));
 });
 
 function batch(

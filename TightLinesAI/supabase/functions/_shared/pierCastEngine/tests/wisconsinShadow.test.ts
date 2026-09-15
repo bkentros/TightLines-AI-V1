@@ -84,9 +84,11 @@ Deno.test("Wisconsin cohort is complete in owner review and absent from public r
   assertEquals(PIER_CAST_FROZEN_CITY_IDS.length, 5);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
   assertEquals(PIER_CAST_WISCONSIN_CITY_PROFILES.length, 4);
-  const publicIds = new Set(buildPierCastCatalog("public").cities.map((city) => city.cityId));
+  const publicIds = new Set(
+    buildPierCastCatalog("public").cities.map((city) => city.cityId),
+  );
   const review = buildPierCastCatalog("review");
-  assertEquals(review.cities.length, 9);
+  assertEquals(review.cities.length, 12);
   for (const cityId of PIER_CAST_WISCONSIN_CITY_IDS) {
     assertEquals(publicIds.has(cityId), false);
     const city = review.cities.find((candidate) => candidate.cityId === cityId);
@@ -114,7 +116,10 @@ Deno.test("new Wisconsin curves are valid year-round and match the reviewed arti
     calibrationVersion: string;
     cities: Record<string, { curves: Record<string, Array<[string, number]>> }>;
   };
-  assertEquals(artifact.calibrationVersion, "piercast-wisconsin-seasonal-v0.1.0");
+  assertEquals(
+    artifact.calibrationVersion,
+    "piercast-wisconsin-seasonal-v0.1.0",
+  );
   for (const cityId of ["milwaukee_wi", "racine_wi", "kenosha_wi"] as const) {
     for (const speciesId of PIER_CAST_WISCONSIN_SPECIES_IDS) {
       const curve = PIER_CAST_WISCONSIN_SEASONAL_CURVES[cityId][speciesId];
@@ -128,7 +133,8 @@ Deno.test("new Wisconsin curves are valid year-round and match the reviewed arti
         "provisional",
       );
       for (let day = 0; day < 365; day += 1) {
-        const localDate = new Date(Date.UTC(2027, 0, 1 + day)).toISOString().slice(0, 10);
+        const localDate = new Date(Date.UTC(2027, 0, 1 + day)).toISOString()
+          .slice(0, 10);
         assertEquals(
           evaluatePierCastSeasonalOpportunity({
             ratingEnabled: true,
@@ -149,18 +155,25 @@ Deno.test("Wisconsin review produces four cities, five days, and eighty forecast
     batch,
     evaluationTime: "2026-09-14T12:15:00.000Z",
   });
-  assertEquals(outlook.speciesRosterVersion, PIER_CAST_WISCONSIN_ROSTER_VERSION);
+  assertEquals(
+    outlook.speciesRosterVersion,
+    PIER_CAST_WISCONSIN_ROSTER_VERSION,
+  );
   assertEquals(outlook.source.cityCount, 4);
   assertEquals(outlook.source.sampleCount, 484);
   assertEquals(outlook.cities.length, 4);
-  assertEquals(outlook.cities.every((city) =>
-    city.dates.length === 5 && city.dates.every((date) =>
-      date.species.length === 4 && date.species.every((species) =>
-        species.configurationRatingEnabled === false &&
-        species.promotion.status === "blocked"
+  assertEquals(
+    outlook.cities.every((city) =>
+      city.dates.length === 5 &&
+      city.dates.every((date) =>
+        date.species.length === 4 && date.species.every((species) =>
+          species.configurationRatingEnabled === false &&
+          species.promotion.status === "blocked"
+        )
       )
-    )
-  ), true);
+    ),
+    true,
+  );
   const payload = buildPierCastWisconsinShadowForecastPayload({
     outlook,
     batch,
@@ -177,9 +190,18 @@ Deno.test("Wisconsin archive uses expansion RPCs and rejects partial city timeli
   const database: PierCastArchiveClient = {
     rpc: (name) => {
       calls.push(name);
-      return Promise.resolve(name === "commit_pier_cast_expansion_shadow_forecast"
-        ? { data: { status: "committed", runId: crypto.randomUUID(), forecastCount: 80 }, error: null }
-        : { data: { status: "committed" }, error: null });
+      return Promise.resolve(
+        name === "commit_pier_cast_expansion_shadow_forecast"
+          ? {
+            data: {
+              status: "committed",
+              runId: crypto.randomUUID(),
+              forecastCount: 80,
+            },
+            error: null,
+          }
+          : { data: { status: "committed" }, error: null },
+      );
     },
   };
   const batch = wisconsinBatch();
@@ -207,10 +229,11 @@ Deno.test("Wisconsin archive uses expansion RPCs and rejects partial city timeli
     "four complete 121-hour",
   );
   assertThrows(
-    () => buildPierCastWisconsinReviewOutlook({
-      batch: partial,
-      evaluationTime: "2026-09-14T12:15:00.000Z",
-    }),
+    () =>
+      buildPierCastWisconsinReviewOutlook({
+        batch: partial,
+        evaluationTime: "2026-09-14T12:15:00.000Z",
+      }),
     Error,
     "complete archived all-city cycle",
   );
@@ -241,7 +264,9 @@ Deno.test("Wisconsin migration enforces exact manifests and replaces the one-cit
   assert(sql.includes("jsonb_array_length(p_samples) <> expected_count"));
   assert(sql.includes("expected_count := 484"));
   assert(sql.includes("expected_count := 80"));
-  assert(sql.includes("count(distinct (item->>'forecastHour')::integer) <> 121"));
+  assert(
+    sql.includes("count(distinct (item->>'forecastHour')::integer) <> 121"),
+  );
   assert(sql.includes("x-pier-cast-operation','wisconsin-shadow'"));
   assert(sql.includes("cron.unschedule(existing_job_id)"));
   assert(sql.includes("'45 0,6,12,18 * * *'"));
@@ -269,9 +294,14 @@ Deno.test("Wisconsin outcomes admit core four but not conditional perch", () => 
     sourceReference: null,
     notes: null,
   };
-  assertEquals(parsePierCastShadowOutcomeInput({ ...common, speciesId: "coho_salmon" }).cityId, "racine_wi");
+  assertEquals(
+    parsePierCastShadowOutcomeInput({ ...common, speciesId: "coho_salmon" })
+      .cityId,
+    "racine_wi",
+  );
   assertThrows(
-    () => parsePierCastShadowOutcomeInput({ ...common, speciesId: "yellow_perch" }),
+    () =>
+      parsePierCastShadowOutcomeInput({ ...common, speciesId: "yellow_perch" }),
     Error,
     "Unsupported PierCast outcome species",
   );

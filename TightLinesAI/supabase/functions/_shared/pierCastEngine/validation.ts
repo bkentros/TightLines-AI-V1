@@ -49,11 +49,11 @@ export function validatePierCastSpeciesProfiles(
   const issues: PierCastValidationIssue[] = [];
   const ids = new Set<string>();
 
-  if (profiles.length !== 13) {
+  if (profiles.length !== 15) {
     issues.push(issue(
       "species_roster_incomplete",
       "speciesProfiles",
-      `Expected 13 retained species profiles; found ${profiles.length}.`,
+      `Expected 15 retained species profiles; found ${profiles.length}.`,
     ));
   }
 

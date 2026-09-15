@@ -1,19 +1,22 @@
 import {
   buildPierCastReviewOutlook,
   fetchPierCastLmhofsBatch,
+  PIER_CAST_LAKE_HURON_CITY_PROFILES,
 } from "../supabase/functions/_shared/pierCastEngine/index.ts";
 
 const fullHorizon = Deno.args.includes("--full");
 const summaryOnly = Deno.args.includes("--summary");
+const lakeHuron = Deno.args.includes("--lake-huron");
 const forecastHours = fullHorizon ? undefined : [0, 1, 24, 72, 120] as const;
 
 const batch = await fetchPierCastLmhofsBatch({
   forecastHours,
   concurrency: 10,
   requestTimeoutMs: 20_000,
+  ...(lakeHuron ? { cityProfiles: PIER_CAST_LAKE_HURON_CITY_PROFILES } : {}),
 });
 
-const eventOutlook = fullHorizon && batch.status === "available"
+const eventOutlook = fullHorizon && !lakeHuron && batch.status === "available"
   ? buildPierCastReviewOutlook({
     batch,
     evaluationTime: batch.fetchedAt,

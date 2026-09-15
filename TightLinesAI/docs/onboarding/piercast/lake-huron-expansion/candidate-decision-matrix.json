@@ -1,0 +1,869 @@
+{
+  "schemaVersion": "piercast-lake-huron-decisions-v1",
+  "rows": [
+    {
+      "pairKey": "harbor_beach_mi/chinook_salmon",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "chinook_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/coho_salmon",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "coho_salmon",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2022_04_20",
+        "LH_DNR_2024_10_09",
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2024_10_09"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/steelhead",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "steelhead",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/brown_trout",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "brown_trout",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/lake_trout",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "lake_trout",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/walleye",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "walleye",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/smallmouth_bass",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "smallmouth_bass",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2025_09_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/freshwater_drum",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "freshwater_drum",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/yellow_perch",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "yellow_perch",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/lake_whitefish",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "lake_whitefish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/round_whitefish",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "round_whitefish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/channel_catfish",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "channel_catfish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/largemouth_bass",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "largemouth_bass",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/atlantic_salmon",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "harbor_beach_mi/northern_pike",
+      "cityId": "harbor_beach_mi",
+      "cityName": "Harbor Beach",
+      "speciesId": "northern_pike",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/chinook_salmon",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "chinook_salmon",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2025_09_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/coho_salmon",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "coho_salmon",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2025_04_02",
+        "LH_DNR_2025_09_17",
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/steelhead",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "steelhead",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2025_04_02",
+        "LH_DNR_2026_05_13",
+        "LH_DNR_2025_11_05"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/brown_trout",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "brown_trout",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/lake_trout",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "lake_trout",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/walleye",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "walleye",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_05_01",
+        "LH_DNR_2024_05_08",
+        "LH_DNR_2025_04_16",
+        "LH_DNR_2026_05_13",
+        "LH_DNR_2025_09_17"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/smallmouth_bass",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "smallmouth_bass",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2025_11_05"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/freshwater_drum",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "freshwater_drum",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2024_04_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/yellow_perch",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "yellow_perch",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/lake_whitefish",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "lake_whitefish",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/round_whitefish",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "round_whitefish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/channel_catfish",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "channel_catfish",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/largemouth_bass",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "largemouth_bass",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/atlantic_salmon",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "atlantic_salmon",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2024_05_01",
+        "LH_DNR_2025_04_16",
+        "LH_DNR_2026_05_13",
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/northern_pike",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "northern_pike",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/chinook_salmon",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "chinook_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/coho_salmon",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "coho_salmon",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2022_04_20",
+        "LH_DNR_2024_10_09",
+        "LH_DNR_2025_09_10",
+        "LH_DNR_2025_09_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/steelhead",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "steelhead",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2022_04_20",
+        "LH_DNR_2024_05_08",
+        "LH_DNR_2025_09_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/brown_trout",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "brown_trout",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/lake_trout",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "lake_trout",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/walleye",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "walleye",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/smallmouth_bass",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "smallmouth_bass",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "Plausible local occurrence exists, but repeatable public-pier timing or magnitude is insufficient for a defensible numeric calibration.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/freshwater_drum",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "freshwater_drum",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/yellow_perch",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "yellow_perch",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/lake_whitefish",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "lake_whitefish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/round_whitefish",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "round_whitefish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/channel_catfish",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "channel_catfish",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/largemouth_bass",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "largemouth_bass",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/atlantic_salmon",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_DNR_BETTER_WATERS"
+      ],
+      "rationale": "No evidence establishes a meaningful recurring public-pier target within this product boundary.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_sanilac_mi/northern_pike",
+      "cityId": "port_sanilac_mi",
+      "cityName": "Port Sanilac",
+      "speciesId": "northern_pike",
+      "disposition": "admit",
+      "evidenceIds": [
+        "LH_DNR_2024_05_08",
+        "LH_DNR_2025_09_24"
+      ],
+      "rationale": "Recurring exact-city public pier, catwalk, or breakwall evidence supports a bounded numeric private-shadow calibration.",
+      "numericTreatment": "disabled_v3_candidate",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "oscoda_mi/rock_bass",
+      "cityId": "oscoda_mi",
+      "cityName": "Oscoda",
+      "speciesId": "rock_bass",
+      "disposition": "defer",
+      "evidenceIds": [
+        "LH_DNR_2018_09_06"
+      ],
+      "rationale": "One exact pier report is a valid candidate lead but does not establish recurring seasonal magnitude; rock bass is not added to the global schema.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "ludington_mi/atlantic_salmon",
+      "cityId": "ludington_mi",
+      "cityName": "ludington_mi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "ludington_mi/northern_pike",
+      "cityId": "ludington_mi",
+      "cityName": "ludington_mi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "grand_haven_mi/atlantic_salmon",
+      "cityId": "grand_haven_mi",
+      "cityName": "grand_haven_mi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "grand_haven_mi/northern_pike",
+      "cityId": "grand_haven_mi",
+      "cityName": "grand_haven_mi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "manistee_mi/atlantic_salmon",
+      "cityId": "manistee_mi",
+      "cityName": "manistee_mi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "manistee_mi/northern_pike",
+      "cityId": "manistee_mi",
+      "cityName": "manistee_mi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/atlantic_salmon",
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "frankfort_elberta_mi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/northern_pike",
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "frankfort_elberta_mi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "sheboygan_wi/atlantic_salmon",
+      "cityId": "sheboygan_wi",
+      "cityName": "sheboygan_wi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "sheboygan_wi/northern_pike",
+      "cityId": "sheboygan_wi",
+      "cityName": "sheboygan_wi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_washington_wi/atlantic_salmon",
+      "cityId": "port_washington_wi",
+      "cityName": "port_washington_wi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "port_washington_wi/northern_pike",
+      "cityId": "port_washington_wi",
+      "cityName": "port_washington_wi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "milwaukee_wi/atlantic_salmon",
+      "cityId": "milwaukee_wi",
+      "cityName": "milwaukee_wi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "milwaukee_wi/northern_pike",
+      "cityId": "milwaukee_wi",
+      "cityName": "milwaukee_wi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "racine_wi/atlantic_salmon",
+      "cityId": "racine_wi",
+      "cityName": "racine_wi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "racine_wi/northern_pike",
+      "cityId": "racine_wi",
+      "cityName": "racine_wi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "kenosha_wi/atlantic_salmon",
+      "cityId": "kenosha_wi",
+      "cityName": "kenosha_wi",
+      "speciesId": "atlantic_salmon",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    },
+    {
+      "pairKey": "kenosha_wi/northern_pike",
+      "cityId": "kenosha_wi",
+      "cityName": "kenosha_wi",
+      "speciesId": "northern_pike",
+      "disposition": "exclude",
+      "evidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR"
+      ],
+      "rationale": "Schema-wide explicit disposition: no reviewed evidence in this expansion supports changing the existing city roster.",
+      "numericTreatment": "none",
+      "promotionEligible": false
+    }
+  ]
+}

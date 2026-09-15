@@ -6,6 +6,7 @@ import {
   evaluatePierCastSeasonalOpportunity,
   evaluatePierCastV3ModePotentials,
   PIER_CAST_CITY_PROFILES,
+  PIER_CAST_LAKE_HURON_CITY_PROFILES,
   PIER_CAST_V3_FORMULA_VERSION,
   PIER_CAST_V3_PAIR_CALIBRATIONS,
   PIER_CAST_V3_THERMAL_FLOOR,
@@ -21,6 +22,7 @@ const fits = [0, 0.25, 0.5, 0.75, 1] as const;
 const profiles = [
   ...PIER_CAST_CITY_PROFILES,
   ...PIER_CAST_WISCONSIN_CITY_PROFILES,
+  ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
 ];
 
 const invariantCounts = {
@@ -214,8 +216,8 @@ const gates = {
     { gate: "formula_and_configuration_implementation", status: "pass" },
     { gate: "deterministic_full_year_invariants", status: "pass" },
     {
-      gate: "same_issue_nine_city_shadow_archive",
-      status: "deployed_active",
+      gate: "same_issue_twelve_city_shadow_archive",
+      status: "implementation_complete_deployment_pending",
     },
     { gate: "effort_aware_prospective_evaluator", status: "pass" },
     {

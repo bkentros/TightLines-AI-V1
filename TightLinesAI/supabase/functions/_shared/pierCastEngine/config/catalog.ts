@@ -9,12 +9,17 @@ import { PIER_CAST_FORMULA_VERSION } from "../scoring/opportunity.ts";
 import type { PierCastCatalogMode, PierCastCatalogResponse } from "../types.ts";
 import { PIER_CAST_CITY_PROFILES } from "./cities.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "./wisconsinShadow.ts";
+import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "./lakeHuronShadow.ts";
 
 export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
 ): PierCastCatalogResponse {
   const profiles = mode === "review"
-    ? [...PIER_CAST_CITY_PROFILES, ...PIER_CAST_WISCONSIN_CITY_PROFILES]
+    ? [
+      ...PIER_CAST_CITY_PROFILES,
+      ...PIER_CAST_WISCONSIN_CITY_PROFILES,
+      ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
+    ]
     : PIER_CAST_CITY_PROFILES;
   const cities = profiles
     .filter((city) => mode === "review" || isPierCastResearchCity(city.cityId))

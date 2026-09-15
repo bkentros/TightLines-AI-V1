@@ -27,8 +27,8 @@ import {
   PIER_CAST_FORMULA_VERSION,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
-  readLatestFreshPierCastLmhofsBatch,
   readLatestCoherentPierCastV3SourceCohorts,
+  readLatestFreshPierCastLmhofsBatch,
   readLatestFreshPierCastWisconsinLmhofsBatch,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
@@ -90,6 +90,7 @@ async function readV3Outlook() {
   const batch = combinePierCastV3LmhofsBatches(
     cohorts.primary,
     cohorts.expansion,
+    cohorts.lakeHuron,
   );
   return buildPierCastV3ReviewOutlook({
     batch,

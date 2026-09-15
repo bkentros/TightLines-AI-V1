@@ -9,8 +9,7 @@ import type {
 import { PIER_CAST_CORE_TEMPERATURE_CURVES } from "./coreCalibration.ts";
 import { PIER_CAST_PORT_WASHINGTON_PROFILE } from "./portWashingtonShadow.ts";
 
-export const PIER_CAST_WISCONSIN_SCOPE_VERSION =
-  "piercast-wisconsin-shadow-v1";
+export const PIER_CAST_WISCONSIN_SCOPE_VERSION = "piercast-wisconsin-shadow-v1";
 export const PIER_CAST_WISCONSIN_ROSTER_VERSION =
   "piercast-wisconsin-core-four-v1";
 export const PIER_CAST_WISCONSIN_SEASONAL_VERSION =
@@ -48,68 +47,164 @@ export type PierCastWisconsinSpeciesId =
 export const PIER_CAST_WISCONSIN_SEASONAL_CURVES = {
   milwaukee_wi: {
     coho_salmon: seasonal("milwaukee_wi", "coho_salmon", [
-      ["01-15", 1.0], ["03-01", 1.8], ["03-25", 6.8], ["04-20", 7.4],
-      ["05-20", 7.6], ["06-20", 3.0], ["07-20", 4.4], ["08-20", 1.8],
-      ["09-07", 6.2], ["10-15", 4.0], ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-01", 1.8],
+      ["03-25", 6.8],
+      ["04-20", 7.4],
+      ["05-20", 7.6],
+      ["06-20", 3.0],
+      ["07-20", 4.4],
+      ["08-20", 1.8],
+      ["09-07", 6.2],
+      ["10-15", 4.0],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     chinook_salmon: seasonal("milwaukee_wi", "chinook_salmon", [
-      ["01-15", 1.0], ["03-15", 1.0], ["05-15", 1.4], ["06-15", 1.8],
-      ["07-15", 6.8], ["08-15", 7.0], ["09-07", 6.8], ["10-15", 4.0],
-      ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-15", 1.0],
+      ["05-15", 1.4],
+      ["06-15", 1.8],
+      ["07-15", 6.8],
+      ["08-15", 7.0],
+      ["09-07", 6.8],
+      ["10-15", 4.0],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     steelhead: seasonal("milwaukee_wi", "steelhead", [
-      ["01-15", 1.2], ["03-15", 3.8], ["04-15", 4.6], ["05-15", 2.0],
-      ["06-15", 3.2], ["07-15", 4.4], ["08-15", 2.4], ["09-15", 1.6],
-      ["10-15", 1.4], ["11-15", 1.2], ["12-15", 1.2],
+      ["01-15", 1.2],
+      ["03-15", 3.8],
+      ["04-15", 4.6],
+      ["05-15", 2.0],
+      ["06-15", 3.2],
+      ["07-15", 4.4],
+      ["08-15", 2.4],
+      ["09-15", 1.6],
+      ["10-15", 1.4],
+      ["11-15", 1.2],
+      ["12-15", 1.2],
     ]),
     brown_trout: seasonal("milwaukee_wi", "brown_trout", [
-      ["01-15", 2.0], ["03-01", 4.8], ["04-01", 6.6], ["05-15", 5.8],
-      ["06-15", 2.8], ["07-15", 1.3], ["08-15", 1.9], ["09-15", 1.5],
-      ["10-15", 1.4], ["11-15", 1.4], ["12-15", 1.8],
+      ["01-15", 2.0],
+      ["03-01", 4.8],
+      ["04-01", 6.6],
+      ["05-15", 5.8],
+      ["06-15", 2.8],
+      ["07-15", 1.3],
+      ["08-15", 1.9],
+      ["09-15", 1.5],
+      ["10-15", 1.4],
+      ["11-15", 1.4],
+      ["12-15", 1.8],
     ]),
   },
   racine_wi: {
     coho_salmon: seasonal("racine_wi", "coho_salmon", [
-      ["01-15", 1.0], ["03-01", 1.9], ["03-25", 7.0], ["04-20", 7.6],
-      ["05-20", 7.4], ["06-20", 2.8], ["07-20", 4.8], ["08-20", 2.2],
-      ["09-07", 7.3], ["10-15", 4.4], ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-01", 1.9],
+      ["03-25", 7.0],
+      ["04-20", 7.6],
+      ["05-20", 7.4],
+      ["06-20", 2.8],
+      ["07-20", 4.8],
+      ["08-20", 2.2],
+      ["09-07", 7.3],
+      ["10-15", 4.4],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     chinook_salmon: seasonal("racine_wi", "chinook_salmon", [
-      ["01-15", 1.0], ["03-15", 1.0], ["05-15", 1.4], ["06-15", 1.7],
-      ["07-15", 7.0], ["08-15", 7.4], ["09-07", 7.2], ["10-15", 4.4],
-      ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-15", 1.0],
+      ["05-15", 1.4],
+      ["06-15", 1.7],
+      ["07-15", 7.0],
+      ["08-15", 7.4],
+      ["09-07", 7.2],
+      ["10-15", 4.4],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     steelhead: seasonal("racine_wi", "steelhead", [
-      ["01-15", 1.3], ["03-15", 4.4], ["04-15", 5.3], ["05-15", 1.8],
-      ["06-15", 2.8], ["07-15", 5.7], ["08-15", 3.4], ["09-15", 1.8],
-      ["10-15", 1.5], ["11-15", 1.3], ["12-15", 1.2],
+      ["01-15", 1.3],
+      ["03-15", 4.4],
+      ["04-15", 5.3],
+      ["05-15", 1.8],
+      ["06-15", 2.8],
+      ["07-15", 5.7],
+      ["08-15", 3.4],
+      ["09-15", 1.8],
+      ["10-15", 1.5],
+      ["11-15", 1.3],
+      ["12-15", 1.2],
     ]),
     brown_trout: seasonal("racine_wi", "brown_trout", [
-      ["01-15", 2.0], ["03-01", 4.8], ["04-01", 6.7], ["05-15", 5.5],
-      ["06-15", 2.4], ["07-15", 1.3], ["08-15", 1.8], ["09-15", 1.5],
-      ["10-15", 1.4], ["11-15", 1.4], ["12-15", 1.8],
+      ["01-15", 2.0],
+      ["03-01", 4.8],
+      ["04-01", 6.7],
+      ["05-15", 5.5],
+      ["06-15", 2.4],
+      ["07-15", 1.3],
+      ["08-15", 1.8],
+      ["09-15", 1.5],
+      ["10-15", 1.4],
+      ["11-15", 1.4],
+      ["12-15", 1.8],
     ]),
   },
   kenosha_wi: {
     coho_salmon: seasonal("kenosha_wi", "coho_salmon", [
-      ["01-15", 1.0], ["03-01", 2.0], ["03-25", 7.4], ["04-20", 8.0],
-      ["05-20", 7.5], ["06-20", 2.8], ["07-20", 4.5], ["08-20", 1.8],
-      ["09-07", 6.4], ["10-15", 4.0], ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-01", 2.0],
+      ["03-25", 7.4],
+      ["04-20", 8.0],
+      ["05-20", 7.5],
+      ["06-20", 2.8],
+      ["07-20", 4.5],
+      ["08-20", 1.8],
+      ["09-07", 6.4],
+      ["10-15", 4.0],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     chinook_salmon: seasonal("kenosha_wi", "chinook_salmon", [
-      ["01-15", 1.0], ["03-15", 1.0], ["05-15", 1.3], ["06-15", 1.6],
-      ["07-15", 6.3], ["08-15", 6.7], ["09-07", 6.4], ["10-15", 3.8],
-      ["11-15", 1.2], ["12-15", 1.0],
+      ["01-15", 1.0],
+      ["03-15", 1.0],
+      ["05-15", 1.3],
+      ["06-15", 1.6],
+      ["07-15", 6.3],
+      ["08-15", 6.7],
+      ["09-07", 6.4],
+      ["10-15", 3.8],
+      ["11-15", 1.2],
+      ["12-15", 1.0],
     ]),
     steelhead: seasonal("kenosha_wi", "steelhead", [
-      ["01-15", 1.2], ["03-15", 3.7], ["04-15", 4.3], ["05-15", 1.6],
-      ["06-15", 2.3], ["07-15", 4.2], ["08-15", 2.7], ["09-15", 1.6],
-      ["10-15", 1.4], ["11-15", 1.2], ["12-15", 1.2],
+      ["01-15", 1.2],
+      ["03-15", 3.7],
+      ["04-15", 4.3],
+      ["05-15", 1.6],
+      ["06-15", 2.3],
+      ["07-15", 4.2],
+      ["08-15", 2.7],
+      ["09-15", 1.6],
+      ["10-15", 1.4],
+      ["11-15", 1.2],
+      ["12-15", 1.2],
     ]),
     brown_trout: seasonal("kenosha_wi", "brown_trout", [
-      ["01-15", 1.8], ["03-01", 4.2], ["04-01", 5.8], ["05-15", 4.8],
-      ["06-15", 2.1], ["07-15", 1.2], ["08-15", 1.6], ["09-15", 1.4],
-      ["10-15", 1.3], ["11-15", 1.3], ["12-15", 1.7],
+      ["01-15", 1.8],
+      ["03-01", 4.2],
+      ["04-01", 5.8],
+      ["05-15", 4.8],
+      ["06-15", 2.1],
+      ["07-15", 1.2],
+      ["08-15", 1.6],
+      ["09-15", 1.4],
+      ["10-15", 1.3],
+      ["11-15", 1.3],
+      ["12-15", 1.7],
     ]),
   },
 } as const satisfies Record<
@@ -162,19 +257,21 @@ const evidence = (
   url: string,
 ) => ({ evidenceId, authority, title, url, reviewedAt: "2026-09-14" });
 
-const dnrAccess = (city: string) => evidence(
-  `wi_dnr_${city}_lake_michigan_access_2026_09_14`,
-  "Wisconsin Department of Natural Resources",
-  "Lake Michigan fishing access",
-  "https://dnr.wisconsin.gov/topic/OpenOutdoors/AccessFishlakeMichigan",
-);
+const dnrAccess = (city: string) =>
+  evidence(
+    `wi_dnr_${city}_lake_michigan_access_2026_09_14`,
+    "Wisconsin Department of Natural Resources",
+    "Lake Michigan fishing access",
+    "https://dnr.wisconsin.gov/topic/OpenOutdoors/AccessFishlakeMichigan",
+  );
 
-const dnrSpecies = (city: string) => evidence(
-  `wi_dnr_${city}_close_to_home_species_2026_09_14`,
-  "Wisconsin Department of Natural Resources",
-  "Close to Home fishing opportunities",
-  "https://dnr.wisconsin.gov/sites/default/files/topic/ClosetoHomeFishing.pdf",
-);
+const dnrSpecies = (city: string) =>
+  evidence(
+    `wi_dnr_${city}_close_to_home_species_2026_09_14`,
+    "Wisconsin Department of Natural Resources",
+    "Close to Home fishing opportunities",
+    "https://dnr.wisconsin.gov/sites/default/files/topic/ClosetoHomeFishing.pdf",
+  );
 
 const citySpecies = (
   cityId: Exclude<PierCastWisconsinCityId, "port_washington_wi">,
@@ -182,7 +279,8 @@ const citySpecies = (
 ): PierCastCitySpeciesProfile => ({
   speciesId,
   inheritance: "candidate",
-  seasonalOpportunityCurve: PIER_CAST_WISCONSIN_SEASONAL_CURVES[cityId][speciesId],
+  seasonalOpportunityCurve:
+    PIER_CAST_WISCONSIN_SEASONAL_CURVES[cityId][speciesId],
   ratingEnabled: false,
   limitation:
     "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
@@ -210,14 +308,52 @@ const remaining = (
       ? "Exact DNR pier/shore reports establish a summer fishery lead, but local multi-year monthly evidence is insufficient for a defensible year-round rating curve."
       : "No exact recurring city-pier seasonal evidence supports a year-round rating curve.",
   ),
-  researchSpecies("lake_trout", "historical_lead", "Regional and boat occurrence does not establish repeatable city-pier opportunity."),
+  researchSpecies(
+    "lake_trout",
+    "historical_lead",
+    "Regional and boat occurrence does not establish repeatable city-pier opportunity.",
+  ),
   researchSpecies("walleye", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("smallmouth_bass", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("freshwater_drum", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("lake_whitefish", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("round_whitefish", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("channel_catfish", "unresolved", "No city-pier seasonal admission."),
-  researchSpecies("largemouth_bass", "unresolved", "No city-pier seasonal admission."),
+  researchSpecies(
+    "smallmouth_bass",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "freshwater_drum",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "lake_whitefish",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "round_whitefish",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "channel_catfish",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "largemouth_bass",
+    "unresolved",
+    "No city-pier seasonal admission.",
+  ),
+  researchSpecies(
+    "atlantic_salmon",
+    "unresolved",
+    "Explicit Lake Huron schema review found no evidence supporting a roster change for this existing Wisconsin city.",
+  ),
+  researchSpecies(
+    "northern_pike",
+    "unresolved",
+    "Explicit Lake Huron schema review found no evidence supporting a roster change for this existing Wisconsin city.",
+  ),
 ];
 
 export const PIER_CAST_MILWAUKEE_PROFILE: PierCastCityProfile = {
@@ -287,10 +423,12 @@ export const PIER_CAST_MILWAUKEE_PROFILE: PierCastCityProfile = {
       accessStatus: "open_by_published_rules",
       accessRoute: {
         displayName: "Cupertino Park / Russell Avenue",
-        streetAddress: "S Lincoln Memorial Dr & E Russell Ave, Milwaukee, WI 53207",
+        streetAddress:
+          "S Lincoln Memorial Dr & E Russell Ave, Milwaukee, WI 53207",
         latitude: 43.005901136576,
         longitude: -87.89147250902,
-        coordinateSource: "U.S. Census Geocoder match for 1200 S Lincoln Memorial Dr",
+        coordinateSource:
+          "U.S. Census Geocoder match for 1200 S Lincoln Memorial Dr",
       },
       accessEvidence: [dnrAccess("milwaukee"), dnrSpecies("milwaukee")],
       liveAccessStatus: "not_live_checked",
@@ -299,7 +437,9 @@ export const PIER_CAST_MILWAUKEE_PROFILE: PierCastCityProfile = {
     },
   ],
   species: [
-    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) => citySpecies("milwaukee_wi", id)),
+    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
+      citySpecies("milwaukee_wi", id)
+    ),
     ...remaining("unresolved"),
   ],
 };
@@ -374,7 +514,9 @@ export const PIER_CAST_RACINE_PROFILE: PierCastCityProfile = {
     },
   ],
   species: [
-    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) => citySpecies("racine_wi", id)),
+    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
+      citySpecies("racine_wi", id)
+    ),
     ...remaining("conditional"),
   ],
 };
@@ -422,7 +564,8 @@ export const PIER_CAST_KENOSHA_PROFILE: PierCastCityProfile = {
         streetAddress: "5001 Simmons Island Rd, Kenosha, WI 53140",
         latitude: 42.590994336165,
         longitude: -87.816225895478,
-        coordinateSource: "Approximate land-side entry using U.S. Census Geocoder match at 5000 4th Ave",
+        coordinateSource:
+          "Approximate land-side entry using U.S. Census Geocoder match at 5000 4th Ave",
       },
       accessEvidence: [dnrAccess("kenosha"), dnrSpecies("kenosha")],
       liveAccessStatus: "not_live_checked",
@@ -449,7 +592,9 @@ export const PIER_CAST_KENOSHA_PROFILE: PierCastCityProfile = {
     },
   ],
   species: [
-    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) => citySpecies("kenosha_wi", id)),
+    ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
+      citySpecies("kenosha_wi", id)
+    ),
     ...remaining("conditional"),
   ],
 };
@@ -474,10 +619,16 @@ export function getPierCastWisconsinTemperatureCurve(
 export function getPierCastWisconsinAdmission(
   cityId: PierCastWisconsinCityId,
   speciesId: PierCastSpeciesId,
-): { methodConstraint: string; structureId: string; regulationValidThrough: string } | undefined {
+): {
+  methodConstraint: string;
+  structureId: string;
+  regulationValidThrough: string;
+} | undefined {
   if (
     !PIER_CAST_WISCONSIN_CITY_IDS.includes(cityId) ||
-    !PIER_CAST_WISCONSIN_SPECIES_IDS.includes(speciesId as PierCastWisconsinSpeciesId)
+    !PIER_CAST_WISCONSIN_SPECIES_IDS.includes(
+      speciesId as PierCastWisconsinSpeciesId,
+    )
   ) return undefined;
   return {
     methodConstraint:

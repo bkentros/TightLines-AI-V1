@@ -101,6 +101,8 @@ const SPECIES_LABELS: Record<PierCastSpeciesId, string> = {
   round_whitefish: "Round Whitefish",
   channel_catfish: "Channel Catfish",
   largemouth_bass: "Largemouth Bass",
+  atlantic_salmon: "Atlantic Salmon",
+  northern_pike: "Northern Pike",
 };
 
 const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
@@ -117,6 +119,8 @@ const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
   round_whitefish: 1.4,
   channel_catfish: 1.38,
   largemouth_bass: 1.38,
+  atlantic_salmon: 1.5,
+  northern_pike: 1.28,
 };
 
 const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;

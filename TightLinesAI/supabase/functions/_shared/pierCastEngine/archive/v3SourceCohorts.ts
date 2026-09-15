@@ -4,6 +4,7 @@ import {
   readLatestFreshPierCastLmhofsBatch,
 } from "./lmhofsArchive.ts";
 import { readLatestFreshPierCastWisconsinLmhofsBatch } from "./wisconsinLmhofsArchive.ts";
+import { readLatestFreshPierCastLakeHuronLmhofsBatch } from "./lakeHuronLmhofsArchive.ts";
 
 type AvailableBatch = Extract<
   PierCastLmhofsBatch,
@@ -18,17 +19,18 @@ type CohortReader = (
 export type PierCastV3SourceCohorts = {
   primary: AvailableBatch;
   expansion: AvailableBatch;
+  lakeHuron: AvailableBatch;
   issuedAt: string;
   usedCommonCycleFallback: boolean;
 };
 
 /**
- * Select the newest cycle that is fresh and complete in both archives.
+ * Select the newest cycle that is fresh and complete in all three archives.
  *
  * The primary and expansion jobs intentionally run a few minutes apart. During
  * that window their individually newest cycles can differ. We first require
- * both newest cycles to be fresh against the real clock, then pin only the
- * newer archive back to the older issue. This keeps owner review continuously
+ * all newest cycles to be fresh against the real clock, then pin only the
+ * newer archives back to the oldest issue. This keeps owner review continuously
  * available without ever combining different model issues or reviving a stale
  * cohort.
  */
@@ -37,6 +39,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   now: Date;
   readPrimary?: CohortReader;
   readExpansion?: CohortReader;
+  readLakeHuron?: CohortReader;
 }): Promise<PierCastV3SourceCohorts | null> {
   if (!Number.isFinite(input.now.getTime())) {
     throw new Error("Formula v3 source time is invalid.");
@@ -44,37 +47,54 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   const readPrimary = input.readPrimary ?? readLatestFreshPierCastLmhofsBatch;
   const readExpansion = input.readExpansion ??
     readLatestFreshPierCastWisconsinLmhofsBatch;
-  let [primary, expansion] = await Promise.all([
+  const readLakeHuron = input.readLakeHuron ??
+    readLatestFreshPierCastLakeHuronLmhofsBatch;
+  let [primary, expansion, lakeHuron] = await Promise.all([
     readPrimary(input.database, input.now),
     readExpansion(input.database, input.now),
+    readLakeHuron(input.database, input.now),
   ]);
-  if (!primary || !expansion) return null;
-  if (primary.issuedAt === expansion.issuedAt) {
+  if (!primary || !expansion || !lakeHuron) return null;
+  if (
+    primary.issuedAt === expansion.issuedAt &&
+    primary.issuedAt === lakeHuron.issuedAt
+  ) {
     return {
       primary,
       expansion,
+      lakeHuron,
       issuedAt: primary.issuedAt,
       usedCommonCycleFallback: false,
     };
   }
 
-  const primaryIssue = Date.parse(primary.issuedAt);
-  const expansionIssue = Date.parse(expansion.issuedAt);
-  if (!Number.isFinite(primaryIssue) || !Number.isFinite(expansionIssue)) {
+  const issues = [primary, expansion, lakeHuron].map((batch) =>
+    Date.parse(batch.issuedAt)
+  );
+  if (issues.some((issue) => !Number.isFinite(issue))) {
     throw new Error("Formula v3 source issue is invalid.");
   }
-  const commonIssue = new Date(Math.min(primaryIssue, expansionIssue));
-  if (primaryIssue > expansionIssue) {
+  const commonIssue = new Date(Math.min(...issues));
+  if (issues[0] > commonIssue.getTime()) {
     primary = await readPrimary(input.database, commonIssue);
-  } else {
+  }
+  if (issues[1] > commonIssue.getTime()) {
     expansion = await readExpansion(input.database, commonIssue);
   }
-  if (!primary || !expansion || primary.issuedAt !== expansion.issuedAt) {
+  if (issues[2] > commonIssue.getTime()) {
+    lakeHuron = await readLakeHuron(input.database, commonIssue);
+  }
+  if (
+    !primary || !expansion || !lakeHuron ||
+    primary.issuedAt !== expansion.issuedAt ||
+    primary.issuedAt !== lakeHuron.issuedAt
+  ) {
     return null;
   }
   return {
     primary,
     expansion,
+    lakeHuron,
     issuedAt: primary.issuedAt,
     usedCommonCycleFallback: true,
   };

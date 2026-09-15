@@ -11,7 +11,9 @@ export type PierCastSpeciesId =
   | "lake_whitefish"
   | "round_whitefish"
   | "channel_catfish"
-  | "largemouth_bass";
+  | "largemouth_bass"
+  | "atlantic_salmon"
+  | "northern_pike";
 
 export type PierCastStructureRead = {
   structureId: string;
@@ -101,7 +103,10 @@ export type PierCastCatalogCityRead = {
         latitude: number;
         longitude: number;
         distanceM: number;
-        coordinateSource: "NOAA Coast Pilot 6" | "NOAA Aids to Navigation";
+        coordinateSource:
+          | "NOAA Coast Pilot 6"
+          | "NOAA Aids to Navigation"
+          | "Michigan Water Trails";
       };
       gridCellStatus: "candidate" | "approved_for_pilot";
     } | null;
@@ -110,13 +115,13 @@ export type PierCastCatalogCityRead = {
     freshnessLimitHours: number;
     fallbackPolicy: "unavailable";
     validationObservation: {
-      provider: "GLOS Seagull ERDDAP";
+      provider: "GLOS Seagull ERDDAP" | "NOAA CO-OPS";
       datasetId: string;
       seasonal: true;
       availabilityStatus: "active_seasonal" | "historical_only";
       temperatureVariable: string;
       aggregateQualityVariable: string;
-      reportedUnit: "K";
+      reportedUnit: "K" | "C";
       nominalDepthM: number | null;
     } | null;
     limitation: string;

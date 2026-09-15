@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "piercast-lake-huron-retrieval-ledger-v1",
+  "retrievalDate": "2026-09-15",
+  "retrievals": [
+    {
+      "evidenceId": "LH_ACCESS_HARBOR_BEACH_CITY",
+      "url": "https://www.harborbeach.com/judge-james-h-lincoln-memorial-park",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_ACCESS_HARBOR_BEACH_WATER_TRAILS",
+      "url": "https://www.michiganwatertrails.org/location.asp?aid=836&ait=av",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_ACCESS_OSCODA_COAST_PILOT",
+      "url": "https://nauticalcharts.noaa.gov/publications/coast-pilot/files/cp6/CPB6_WEB.pdf",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_ACCESS_PORT_SANILAC_CITY",
+      "url": "https://www.portsanilac.net/things-to-do",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_ACCESS_PORT_SANILAC_ORDINANCE",
+      "url": "https://www.portsanilac.net/_files/ugd/94aae1_2c58f2abda5d496b965ecb771f9f6f25.pdf",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_BETTER_WATERS",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/where",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2018_09_06",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2022_04_20",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2024_04_17",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2024_04_24",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2024_05_01",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2024_05_08",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2024_10_09",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_04_02",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_04_16",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_09_10",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_09_17",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_09_24",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2025_11_05",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_DNR_2026_05_13",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_THERMAL_ATLANTIC_USGS",
+      "url": "https://nas.er.usgs.gov/queries/FactSheet.aspx?speciesID=926",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_THERMAL_PIKE_MIDNR",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/managing/fisheries/FR15_NorthernPikeManagementPlan.pdf",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_THERMAL_PIKE_PEER",
+      "url": "https://doi.org/10.1111/fme.12412",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_LMHOFS_DOC",
+      "url": "https://tidesandcurrents.noaa.gov/ofs/lmhofs/lmhofs.html",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_NOAA_LIGHT_LIST",
+      "url": "https://www.navcen.uscg.gov/sites/default/files/pdf/lightLists/LightList_V7_2025.pdf",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    },
+    {
+      "evidenceId": "LH_COOPS_9075014",
+      "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=9075014",
+      "retrievedAt": "2026-09-15",
+      "status": "reviewed",
+      "localArchive": null,
+      "archiveReason": "Linked authoritative source retained; no copyrighted bulk copy committed."
+    }
+  ]
+}

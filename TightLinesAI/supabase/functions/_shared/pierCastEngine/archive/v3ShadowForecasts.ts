@@ -152,8 +152,8 @@ function validate(input: {
     input.outlook.formulaVersion !== PIER_CAST_V3_FORMULA_VERSION ||
     input.outlook.configVersion !== PIER_CAST_V3_CONFIG_VERSION ||
     input.outlook.promotion.status !== "blocked" ||
-    input.outlook.cities.length !== 9 ||
-    input.batch.status !== "available" || input.batch.cities.length !== 9 ||
+    input.outlook.cities.length !== 12 ||
+    input.batch.status !== "available" || input.batch.cities.length !== 12 ||
     input.outlook.source.issuedAt !== input.batch.issuedAt
   ) throw new Error("Formula v3 shadow input is incomplete.");
   for (const city of input.outlook.cities) {

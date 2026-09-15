@@ -32,6 +32,7 @@
     "check:pier-cast:remaining-species": "node --test scripts/pier-cast-remaining-species-evidence.test.mjs && node scripts/pier-cast-remaining-species-evidence.mjs --check && node scripts/generate-pier-cast-remaining-species.mjs --check",
     "qa:pier-cast:foundation": "node --import tsx --test scripts/pier-cast-standings.test.ts && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts supabase/functions/pier-cast-ingest/handler.test.ts",
     "audit:pier-cast:lmhofs": "deno run --allow-net=opendap.co-ops.nos.noaa.gov scripts/pier-cast-lmhofs-live-audit.ts",
+    "audit:pier-cast:lake-huron-lmhofs": "deno run --allow-net=opendap.co-ops.nos.noaa.gov scripts/pier-cast-lmhofs-live-audit.ts --lake-huron --full --summary",
     "audit:pier-cast:temperature-representation": "deno run --allow-read --allow-write=docs/PierCast_Temperature_Representation_Audit.json --allow-net=opendap.co-ops.nos.noaa.gov,seagull-erddap.glos.org scripts/pier-cast-temperature-representation-audit.ts --write",
     "generate:pier-cast:weekly-ratings": "node scripts/generate-pier-cast-weekly-ratings.mjs",
     "replay:pier-cast:seasonal": "node scripts/replay-pier-cast-seasonal-calibration.mjs --write",
@@ -214,11 +215,13 @@
     "qa:pier-cast:v3-pass1": "npm run check:pier-cast:v3-pass1-inventory && npm run check:pier-cast:v3-pass1-calibration",
     "generate:pier-cast:v3-secondary": "node --import tsx scripts/generate-pier-cast-v3-secondary.ts",
     "check:pier-cast:v3-secondary": "node --import tsx scripts/generate-pier-cast-v3-secondary.ts --check",
+    "generate:pier-cast:lake-huron": "node --import tsx scripts/generate-pier-cast-lake-huron.ts",
+    "check:pier-cast:lake-huron": "node --import tsx scripts/generate-pier-cast-lake-huron.ts --check",
     "generate:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts",
     "check:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts --check",
     "generate:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts",
     "check:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts --check",
-    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
+    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:lake-huron && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

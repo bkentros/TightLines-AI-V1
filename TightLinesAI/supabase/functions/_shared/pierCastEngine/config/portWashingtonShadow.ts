@@ -303,6 +303,18 @@ export const PIER_CAST_PORT_WASHINGTON_PROFILE: PierCastCityProfile = {
       null,
       "No city-pier seasonal admission.",
     ),
+    speciesProfile(
+      "atlantic_salmon",
+      "unresolved",
+      null,
+      "Explicit Lake Huron schema review found no evidence supporting a roster change for Port Washington.",
+    ),
+    speciesProfile(
+      "northern_pike",
+      "unresolved",
+      null,
+      "Explicit Lake Huron schema review found no evidence supporting a roster change for Port Washington.",
+    ),
   ],
 };
 

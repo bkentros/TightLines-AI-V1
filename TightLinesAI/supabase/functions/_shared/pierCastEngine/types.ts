@@ -28,7 +28,9 @@ export type PierCastSpeciesId =
   | "lake_whitefish"
   | "round_whitefish"
   | "channel_catfish"
-  | "largemouth_bass";
+  | "largemouth_bass"
+  | "atlantic_salmon"
+  | "northern_pike";
 
 export type PierCastCityId =
   | "ludington_mi"
@@ -39,7 +41,10 @@ export type PierCastCityId =
   | "port_washington_wi"
   | "milwaukee_wi"
   | "racine_wi"
-  | "kenosha_wi";
+  | "kenosha_wi"
+  | "harbor_beach_mi"
+  | "oscoda_mi"
+  | "port_sanilac_mi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -135,7 +140,10 @@ export type PierCastCityTemperatureSource = {
       latitude: number;
       longitude: number;
       distanceM: number;
-      coordinateSource: "NOAA Coast Pilot 6" | "NOAA Aids to Navigation";
+      coordinateSource:
+        | "NOAA Coast Pilot 6"
+        | "NOAA Aids to Navigation"
+        | "Michigan Water Trails";
     };
     gridCellStatus: "candidate" | "approved_for_pilot";
   } | null;
@@ -144,13 +152,13 @@ export type PierCastCityTemperatureSource = {
   freshnessLimitHours: number;
   fallbackPolicy: "unavailable";
   validationObservation: {
-    provider: "GLOS Seagull ERDDAP";
+    provider: "GLOS Seagull ERDDAP" | "NOAA CO-OPS";
     datasetId: string;
     seasonal: true;
     availabilityStatus: "active_seasonal" | "historical_only";
     temperatureVariable: string;
     aggregateQualityVariable: string;
-    reportedUnit: "K";
+    reportedUnit: "K" | "C";
     nominalDepthM: number | null;
   } | null;
   limitation: string;

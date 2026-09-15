@@ -2,6 +2,7 @@ import type { PierCastCityId, PierCastSpeciesId } from "../types.ts";
 import { getPierCastCoreTemperatureCurve } from "./coreCalibration.ts";
 import { PIER_CAST_ADDITIONAL_THERMAL_RESEARCH } from "./additionalThermalResearch.generated.ts";
 import { PIER_CAST_V3_PAIR_CALIBRATIONS } from "./v3Calibration.generated.ts";
+import { getPierCastLakeHuronTemperatureCurve } from "./lakeHuronShadow.ts";
 
 export const PIER_CAST_V3_FORMULA_VERSION =
   "piercast-opportunity-modes-bounded-temperature-v3" as const;
@@ -20,6 +21,9 @@ export const PIER_CAST_V3_CITY_IDS = [
   "milwaukee_wi",
   "racine_wi",
   "kenosha_wi",
+  "harbor_beach_mi",
+  "oscoda_mi",
+  "port_sanilac_mi",
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [
@@ -119,7 +123,7 @@ export function getPierCastV3TemperatureCurve(speciesId: PierCastSpeciesId) {
   return getPierCastCoreTemperatureCurve(speciesId) ??
     PIER_CAST_ADDITIONAL_THERMAL_RESEARCH.find((candidate) =>
       candidate.speciesId === speciesId
-    )?.curve ?? null;
+    )?.curve ?? getPierCastLakeHuronTemperatureCurve(speciesId);
 }
 
 export const PIER_CAST_V3_PAIR_COUNT = PIER_CAST_V3_PAIR_CALIBRATIONS.length;

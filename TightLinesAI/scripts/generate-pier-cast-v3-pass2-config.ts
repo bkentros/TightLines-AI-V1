@@ -24,6 +24,18 @@ const secondaryCalibrationPath = resolve(
   secondaryDirectory,
   "secondary-mode-calibrations.json",
 );
+const lakeHuronDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/lake-huron-expansion",
+);
+const lakeHuronCandidatePath = resolve(
+  lakeHuronDirectory,
+  "admitted-runtime-candidates.json",
+);
+const lakeHuronCalibrationPath = resolve(
+  lakeHuronDirectory,
+  "opportunity-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -36,6 +48,8 @@ const secondaryCalibrationText = readFileSync(
   secondaryCalibrationPath,
   "utf8",
 );
+const lakeHuronCandidateText = readFileSync(lakeHuronCandidatePath, "utf8");
+const lakeHuronCalibrationText = readFileSync(lakeHuronCalibrationPath, "utf8");
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
 const secondaryCandidateArtifact = JSON.parse(
@@ -44,17 +58,29 @@ const secondaryCandidateArtifact = JSON.parse(
 const secondaryCalibrationArtifact = JSON.parse(
   secondaryCalibrationText,
 ) as CalibrationArtifact;
+const lakeHuronCandidateArtifact = JSON.parse(
+  lakeHuronCandidateText,
+) as CandidateArtifact;
+const lakeHuronCalibrationArtifact = JSON.parse(
+  lakeHuronCalibrationText,
+) as CalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
+assertLakeHuron(lakeHuronCandidateArtifact, lakeHuronCalibrationArtifact);
 const modesById = new Map(
-  [...calibrationArtifact.modes, ...secondaryCalibrationArtifact.modes].map(
+  [
+    ...calibrationArtifact.modes,
+    ...secondaryCalibrationArtifact.modes,
+    ...lakeHuronCalibrationArtifact.modes,
+  ].map(
     (mode) => [mode.modeCalibrationId, mode],
   ),
 );
 const pairs = [
   ...candidateArtifact.candidates,
   ...secondaryCandidateArtifact.candidates,
+  ...lakeHuronCandidateArtifact.candidates,
 ].map((pair) => ({
   ...pair,
   publicEnabled: false as const,
@@ -83,15 +109,23 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-nine-city-secondary-complete-v2" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-lake-huron-v3" as const;
 export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = ${
   JSON.stringify(candidateArtifact.schemaVersion)
 } as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
-  JSON.stringify(sha256(`${candidateText}\n${secondaryCandidateText}`))
+  JSON.stringify(
+    sha256(
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}`,
+    ),
+  )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
-  JSON.stringify(sha256(`${calibrationText}\n${secondaryCalibrationText}`))
+  JSON.stringify(
+    sha256(
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}`,
+    ),
+  )
 } as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
@@ -136,6 +170,32 @@ function assertSecondary(
     ) {
       throw new Error(`Invalid secondary pair ${pair.pairKey}.`);
     }
+    keys.add(pair.pairKey);
+  }
+}
+
+function assertLakeHuron(
+  candidates: CandidateArtifact,
+  calibrations: CalibrationArtifact,
+): void {
+  if (
+    candidates.importedByRuntime !== true ||
+    candidates.ratingEnabled !== false ||
+    candidates.publicEnabled !== false ||
+    candidates.formulaImplemented !== true ||
+    candidates.candidates.length !== 14 ||
+    calibrations.modes.length !== 21
+  ) {
+    throw new Error(
+      "Lake Huron handoff does not match the reviewed disabled contract.",
+    );
+  }
+  const keys = new Set<string>();
+  for (const pair of candidates.candidates) {
+    if (
+      pair.ratingEnabled !== false || keys.has(pair.pairKey) ||
+      pair.modes.length < 1
+    ) throw new Error(`Invalid Lake Huron pair ${pair.pairKey}.`);
     keys.add(pair.pairKey);
   }
 }

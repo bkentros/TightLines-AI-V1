@@ -316,6 +316,50 @@ Deno.test("Wisconsin shadow operation commits the complete four-city cohort", as
   assertEquals(expansionCalls, 1);
 });
 
+Deno.test("Lake Huron operation commits only the isolated three-city source cohort", async () => {
+  let productionCalls = 0;
+  let lakeHuronCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestLakeHuronShadow: () => {
+      lakeHuronCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-15T12:00:00.000Z",
+        fetchedAt: "2026-09-15T12:05:00.000Z",
+        cycleAgeHours: .1,
+        cityCount: 3,
+        sampleCount: 363,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "lake-huron-shadow",
+        }),
+      },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 3);
+  assertEquals(body.sampleCount, 363);
+  assertEquals(productionCalls, 0);
+  assertEquals(lakeHuronCalls, 1);
+});
+
 Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ingest", async () => {
   let productionCalls = 0;
   let v3Calls = 0;
@@ -331,13 +375,13 @@ Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ing
         status: "committed",
         source: "fresh_archived_complete_cycle",
         issuedAt: "2026-09-14T12:00:00.000Z",
-        cityCount: 9,
-        sampleCount: 1089,
+        cityCount: 12,
+        sampleCount: 1452,
         shadowForecast: {
           status: "committed",
           runId: crypto.randomUUID(),
           generatedAt: "2026-09-14T12:05:00.000Z",
-          forecastCount: 280,
+          forecastCount: 350,
           formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3",
         },
       });
@@ -355,9 +399,9 @@ Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ing
   );
   const body = await response.json();
   assertEquals(response.status, 200);
-  assertEquals(body.cityCount, 9);
-  assertEquals(body.sampleCount, 1089);
-  assertEquals(body.shadowForecast.forecastCount, 280);
+  assertEquals(body.cityCount, 12);
+  assertEquals(body.sampleCount, 1452);
+  assertEquals(body.shadowForecast.forecastCount, 350);
   assertEquals(productionCalls, 0);
   assertEquals(v3Calls, 1);
 });

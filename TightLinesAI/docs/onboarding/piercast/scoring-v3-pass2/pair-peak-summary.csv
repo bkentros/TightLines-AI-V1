@@ -55,3 +55,17 @@ pairKey,cityId,speciesId,evidenceGrade,idealPeakDate,idealPeakMode,researchedFis
 "frankfort_elberta_mi/lake_trout","frankfort_elberta_mi","lake_trout","B","2027-01-20","cold_season_nearshore",4,4,0
 "racine_wi/yellow_perch","racine_wi","yellow_perch","B","2027-07-20","summer_harbor_schooling",4.8,4.8,46
 "kenosha_wi/yellow_perch","kenosha_wi","yellow_perch","B","2027-07-20","summer_harbor_schooling",5.4,5.4,46
+"harbor_beach_mi/coho_salmon","harbor_beach_mi","coho_salmon","B","2027-04-20","spring_coldwater_pier",5.8,5.8,0
+"harbor_beach_mi/smallmouth_bass","harbor_beach_mi","smallmouth_bass","B","2027-07-20","warm_season_breakwall",4.9,4.9,0
+"oscoda_mi/atlantic_salmon","oscoda_mi","atlantic_salmon","A","2027-04-20","spring_coldwater_pier",8.4,8.4,0
+"oscoda_mi/steelhead","oscoda_mi","steelhead","A","2027-04-20","spring_coldwater_pier",7.4,7.4,0
+"oscoda_mi/walleye","oscoda_mi","walleye","A","2027-05-01","spring_low_light",6.8,6.8,0
+"oscoda_mi/lake_trout","oscoda_mi","lake_trout","B","2027-04-20","spring_coldwater_pier",4.6,4.6,0
+"oscoda_mi/coho_salmon","oscoda_mi","coho_salmon","B","2027-09-18","fall_harbor_staging",6.5,6.5,0
+"oscoda_mi/chinook_salmon","oscoda_mi","chinook_salmon","B","2027-09-18","fall_harbor_staging",5.5,5.5,0
+"oscoda_mi/smallmouth_bass","oscoda_mi","smallmouth_bass","B","2027-07-20","warm_season_pier",4.5,4.5,0
+"oscoda_mi/channel_catfish","oscoda_mi","channel_catfish","B","2027-07-20","warm_season_bottom_fishery",4.2,4.2,0
+"oscoda_mi/freshwater_drum","oscoda_mi","freshwater_drum","B","2027-07-20","warm_season_bottom_fishery",3.9,3.9,0
+"port_sanilac_mi/coho_salmon","port_sanilac_mi","coho_salmon","A","2027-04-20","spring_coldwater_pier",6.4,6.4,0
+"port_sanilac_mi/steelhead","port_sanilac_mi","steelhead","B","2027-04-20","spring_coldwater_pier",4.5,4.5,0
+"port_sanilac_mi/northern_pike","port_sanilac_mi","northern_pike","B","2027-07-20","warm_season_breakwall",5.1,5.1,0

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "piercast-lake-huron-lmhofs-cell-audit-v1",
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+  "reviewedCellSelectionCycle": "2026-09-15T00:00:00Z",
+  "completeTimelineRequirementHours": [
+    0,
+    120
+  ],
+  "liveRetrieval": {
+    "status": "available",
+    "issuedAt": "2026-09-15T12:00:00.000Z",
+    "fetchedAt": "2026-09-15T16:33:26.850Z",
+    "fullHorizonRequested": true,
+    "cityCount": 3,
+    "sampleCount": 363,
+    "missingForecastHours": [],
+    "temperatureRangesC": {
+      "harbor_beach_mi": [
+        14.947351,
+        18.638395
+      ],
+      "oscoda_mi": [
+        15.261529,
+        17.094557
+      ],
+      "port_sanilac_mi": [
+        18.461994,
+        20.760136
+      ]
+    },
+    "diagnostics": []
+  },
+  "cells": [
+    {
+      "cityId": "harbor_beach_mi",
+      "reference": [
+        43.84132,
+        -82.64677
+      ],
+      "row": 224,
+      "column": 542,
+      "latitude": 43.84,
+      "longitude": -82.64,
+      "bathymetryM": 0.850409492620949,
+      "distanceM": 562,
+      "mask": 1,
+      "f000TemperatureC": 17.52553,
+      "independentObservation": "NOAA CO-OPS 9075014 lead; representation not approved"
+    },
+    {
+      "cityId": "oscoda_mi",
+      "reference": [
+        44.4066394,
+        -83.3165022
+      ],
+      "row": 281,
+      "column": 475,
+      "latitude": 44.41,
+      "longitude": -83.31,
+      "bathymetryM": 5.151933949879942,
+      "distanceM": 638,
+      "mask": 1,
+      "f000TemperatureC": 15.925162,
+      "independentObservation": null
+    },
+    {
+      "cityId": "port_sanilac_mi",
+      "reference": [
+        43.4302836,
+        -82.5348128
+      ],
+      "row": 183,
+      "column": 553,
+      "latitude": 43.43,
+      "longitude": -82.53,
+      "bathymetryM": 6.844249508910049,
+      "distanceM": 390,
+      "mask": 1,
+      "f000TemperatureC": 20.871536,
+      "independentObservation": null
+    }
+  ],
+  "representationApproval": "blocked_insufficient_evidence"
+}

@@ -1,4 +1,9 @@
-import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
+import {
+  getPierCastPrivateAdmission,
+  getPierCastPrivateSpeciesIds,
+  getPierCastPrivateTemperatureCurve,
+  PIER_CAST_PRIVATE_ROSTER_VERSION,
+} from "../config/privateCalibration.ts";
 import {
   assert,
   assertAlmostEquals,
@@ -74,7 +79,7 @@ function evaluate(
 
 Deno.test("PierCast foundation validates with every real rating disabled", () => {
   assertEquals(validatePierCastFoundation(), []);
-  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 13);
+  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 15);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
   assert(PIER_CAST_SPECIES_PROFILES.every((profile) => !profile.ratingEnabled));
   const coreSpecies = new Set<string>(PIER_CAST_CORE_SPECIES_IDS);
@@ -244,11 +249,11 @@ Deno.test("every retained species has twelve explicit month contexts", () => {
   const contexts = PIER_CAST_SPECIES_PROFILES.flatMap((profile) =>
     Object.values(profile.monthContexts)
   );
-  assertEquals(contexts.length, 156);
+  assertEquals(contexts.length, 180);
   assertEquals(
     contexts.filter((context) => context.evidenceState === "sourced_biology")
       .length,
-    74,
+    98,
   );
   assertEquals(
     contexts.filter((context) =>
@@ -277,7 +282,7 @@ Deno.test("engine species-month contexts match the reviewed research matrix", as
     )
   );
 
-  assertEquals(rows.length, 156);
+  assertEquals(rows.length, 180);
   const seenKeys = new Set<string>();
   for (const row of rows) {
     const key = `${row.species_id}:${row.month}`;
@@ -321,7 +326,7 @@ Deno.test("every configured evidence ID exists in the non-production research le
     records: Array<{ evidenceId: string; productionReady: boolean }>;
   };
   const evidenceIds = ledger.records.map((record) => record.evidenceId);
-  assertEquals(evidenceIds.length, 32);
+  assertEquals(evidenceIds.length, 36);
   assertEquals(new Set(evidenceIds).size, evidenceIds.length);
   assert(ledger.records.every((record) => record.productionReady === false));
 
@@ -362,15 +367,23 @@ Deno.test("public research catalog preserves scientific gates and hides numeric 
   const publicCatalog = buildPierCastCatalog("public");
   const reviewCatalog = buildPierCastCatalog("review");
   assertEquals(publicCatalog.cities.length, 5);
-  assertEquals(publicCatalog.cities.flatMap(c => c.species).length, 28);
-  assertEquals(publicCatalog.cities.flatMap(c => c.species).every(s => !s.ratingEnabled && s.seasonalOpportunityCurve === null), true);
-  assertEquals(reviewCatalog.cities.length, 9);
+  assertEquals(publicCatalog.cities.flatMap((c) => c.species).length, 28);
+  assertEquals(
+    publicCatalog.cities.flatMap((c) => c.species).every((s) =>
+      !s.ratingEnabled && s.seasonalOpportunityCurve === null
+    ),
+    true,
+  );
+  assertEquals(reviewCatalog.cities.length, 12);
   assertEquals(
     publicCatalog.cities.some((city) => city.cityId === "port_washington_wi"),
     false,
   );
   for (const cityId of ["milwaukee_wi", "racine_wi", "kenosha_wi"] as const) {
-    assertEquals(publicCatalog.cities.some((city) => city.cityId === cityId), false);
+    assertEquals(
+      publicCatalog.cities.some((city) => city.cityId === cityId),
+      false,
+    );
     assert(reviewCatalog.cities.some((city) => city.cityId === cityId));
   }
   assertEquals(

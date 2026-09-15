@@ -6,6 +6,13 @@ import { PIER_CAST_SPECIES_PROFILES } from "../supabase/functions/_shared/pierCa
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/wisconsinShadow.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/seasonal.ts";
 
+// This historical Pass 1 artifact is intentionally frozen to the original
+// thirteen-species scope. Lake Huron schema additions are audited separately.
+const PASS1_SPECIES_PROFILES = PIER_CAST_SPECIES_PROFILES.filter((species) =>
+  species.speciesId !== "atlantic_salmon" &&
+  species.speciesId !== "northern_pike"
+);
+
 const OUTPUT_DIRECTORY = resolve(
   "docs/onboarding/piercast/scoring-v3-pass1",
 );
@@ -57,28 +64,35 @@ if (allCities.length !== 9 || cityIds.size !== 9) {
   );
 }
 
-if (PIER_CAST_SPECIES_PROFILES.length !== 13) {
+if (PASS1_SPECIES_PROFILES.length !== 13) {
   throw new Error(
-    `Pass 1 requires exactly thirteen catalog species; received ${PIER_CAST_SPECIES_PROFILES.length}.`,
+    `Pass 1 requires exactly thirteen catalog species; received ${PASS1_SPECIES_PROFILES.length}.`,
   );
 }
 
 const speciesNames = new Map(
-  PIER_CAST_SPECIES_PROFILES.map((species) => [
+  PASS1_SPECIES_PROFILES.map((species) => [
     species.speciesId,
     species.displayName,
   ]),
 );
 
 const rows = allCities.flatMap((city) => {
-  const profiles = new Map(city.species.map((species) => [species.speciesId, species]));
-  if (profiles.size !== PIER_CAST_SPECIES_PROFILES.length) {
+  const pass1Ids = new Set(
+    PASS1_SPECIES_PROFILES.map((species) => species.speciesId),
+  );
+  const profiles = new Map(
+    city.species.filter((species) => pass1Ids.has(species.speciesId)).map(
+      (species) => [species.speciesId, species],
+    ),
+  );
+  if (profiles.size !== PASS1_SPECIES_PROFILES.length) {
     throw new Error(
       `${city.cityId} exposes ${profiles.size} species profiles; expected thirteen.`,
     );
   }
 
-  return PIER_CAST_SPECIES_PROFILES.map((species) => {
+  return PASS1_SPECIES_PROFILES.map((species) => {
     const profile = profiles.get(species.speciesId);
     if (!profile) {
       throw new Error(`${city.cityId}/${species.speciesId} is missing.`);
@@ -114,12 +128,14 @@ const rows = allCities.flatMap((city) => {
 });
 
 if (rows.length !== 117) {
-  throw new Error(`Pass 1 requires 117 pairing rows; generated ${rows.length}.`);
+  throw new Error(
+    `Pass 1 requires 117 pairing rows; generated ${rows.length}.`,
+  );
 }
 
-const configuredCount = rows.filter((row) =>
-  row.currentCurveStatus === "configured_provisional"
-).length;
+const configuredCount =
+  rows.filter((row) => row.currentCurveStatus === "configured_provisional")
+    .length;
 if (configuredCount !== 44) {
   throw new Error(
     `Expected 44 currently configured pairings; generated ${configuredCount}.`,
@@ -137,10 +153,11 @@ const inventory = {
   },
   counts: {
     cities: allCities.length,
-    species: PIER_CAST_SPECIES_PROFILES.length,
+    species: PASS1_SPECIES_PROFILES.length,
     decisionsRequired: rows.length,
     configuredPairingsRequiringRecalibration: configuredCount,
-    unconfiguredPairingsRequiringAdmissionReaudit: rows.length - configuredCount,
+    unconfiguredPairingsRequiringAdmissionReaudit: rows.length -
+      configuredCount,
   },
   cities: allCities.map((city) => ({
     cityId: city.cityId,
@@ -148,7 +165,7 @@ const inventory = {
     stateCode: city.stateCode,
     timezone: city.timezone,
   })),
-  species: PIER_CAST_SPECIES_PROFILES.map((species) => ({
+  species: PASS1_SPECIES_PROFILES.map((species) => ({
     speciesId: species.speciesId,
     displayName: species.displayName,
   })),
@@ -184,9 +201,13 @@ async function buildBaselineReconciliation() {
       resolve("docs/onboarding/piercast/remaining-species/decisions.json"),
       "utf8",
     ),
-    readFile(resolve("docs/PierCast_Core_Species_Seasonal_Curves.json"), "utf8"),
+    readFile(
+      resolve("docs/PierCast_Core_Species_Seasonal_Curves.json"),
+      "utf8",
+    ),
   ]);
-  const existingDecisions = (JSON.parse(decisionText).decisions ?? []) as ExistingDecision[];
+  const existingDecisions =
+    (JSON.parse(decisionText).decisions ?? []) as ExistingDecision[];
   const coreCurves = (JSON.parse(coreCurveText).curves ?? []) as CoreCurve[];
   const decisionByPair = new Map(
     existingDecisions.map((decision) => [
@@ -232,7 +253,9 @@ async function buildBaselineReconciliation() {
       requiredEvidence =
         "Acquire or prospectively collect Sheboygan-specific pier catch and effort by species/month and validate mode-specific magnitude.";
       evidenceIds = coreCurve.evidenceIds;
-    } else if (configured && isNewWisconsinCity && coreSpeciesIds.has(row.speciesId)) {
+    } else if (
+      configured && isNewWisconsinCity && coreSpeciesIds.has(row.speciesId)
+    ) {
       baselineDisposition = "admit";
       evidenceGrade = "B";
       decisionBasis =
@@ -262,15 +285,16 @@ async function buildBaselineReconciliation() {
       evidenceGrade = "C";
       decisionBasis =
         "A legacy private secondary-species curve exists, but its magnitude and/or covered-pier attribution relies heavily on calibration judgment and has not cleared temperature-representation gates.";
-      requiredEvidence =
-        existingDecision?.requiredEvidence ??
+      requiredEvidence = existingDecision?.requiredEvidence ??
         "Obtain repeated exact-main-pier, effort-aware observations and validate the active opportunity modes before v3 promotion.";
       evidenceIds = existingDecision?.evidenceIds ?? [];
     } else if (existingDecision) {
       baselineDisposition = existingDecision.classification === "excluded"
         ? "exclude"
         : "defer";
-      evidenceGrade = existingDecision.classification === "excluded" ? "D" : "C";
+      evidenceGrade = existingDecision.classification === "excluded"
+        ? "D"
+        : "C";
       decisionBasis = existingDecision.rationale;
       requiredEvidence = existingDecision.requiredEvidence;
       evidenceIds = existingDecision.evidenceIds;
@@ -285,7 +309,13 @@ async function buildBaselineReconciliation() {
       requiredEvidence =
         "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.";
       evidenceIds = row.cityId === "port_washington_wi"
-        ? ["PW_ACCESS_001", "PW_HARVEST_001", "PW_SEASON_2022", "PW_SEASON_2023", "PW_SEASON_2024"]
+        ? [
+          "PW_ACCESS_001",
+          "PW_HARVEST_001",
+          "PW_SEASON_2022",
+          "PW_SEASON_2023",
+          "PW_SEASON_2024",
+        ]
         : row.speciesId === "yellow_perch"
         ? [
           "WI_ACCESS_2026",
@@ -304,7 +334,11 @@ async function buildBaselineReconciliation() {
         "Reopen only with repeated species-specific city-pier evidence that establishes intentional targetability, timing, and relative magnitude.";
       evidenceIds = row.cityId === "port_washington_wi"
         ? ["PW_ACCESS_001", "PW_HARVEST_001"]
-        : ["WI_ACCESS_2026", "WI_EXACT_PIER_SPECIES_2023", "WI_COUNTY_MODE_1998_2024"];
+        : [
+          "WI_ACCESS_2026",
+          "WI_EXACT_PIER_SPECIES_2023",
+          "WI_COUNTY_MODE_1998_2024",
+        ];
     }
 
     return {
@@ -329,7 +363,8 @@ async function buildBaselineReconciliation() {
 
   const dispositionCounts = reconciledRows.reduce<Record<string, number>>(
     (counts, row) => {
-      counts[row.baselineDisposition] = (counts[row.baselineDisposition] ?? 0) + 1;
+      counts[row.baselineDisposition] = (counts[row.baselineDisposition] ?? 0) +
+        1;
       return counts;
     },
     {},
@@ -388,14 +423,17 @@ function buildEvidenceGapRegister(
       ...(text.includes("thermal") || text.includes("temperature")
         ? ["thermal_mode_validation"]
         : []),
-      ...(text.includes("season") || text.includes("timing") || text.includes("annual")
+      ...(text.includes("season") || text.includes("timing") ||
+          text.includes("annual")
         ? ["seasonal_timing"]
         : []),
       ...(text.includes("recurring") || text.includes("repeated")
         ? ["recurrence"]
         : []),
     ];
-    if (blockerCategories.length === 0) blockerCategories.push("magnitude_support");
+    if (blockerCategories.length === 0) {
+      blockerCategories.push("magnitude_support");
+    }
     return {
       priority,
       cityId: row.cityId,
@@ -416,7 +454,8 @@ function buildEvidenceGapRegister(
   return {
     schemaVersion: "piercast-v3-pass1-evidence-gap-register-v1",
     status: "open",
-    ordering: "P0 protects an existing high-impact numeric claim; P1 strengthens an admitted Grade B pairing; P2 resolves a deferred pairing.",
+    ordering:
+      "P0 protects an existing high-impact numeric claim; P1 strengthens an admitted Grade B pairing; P2 resolves a deferred pairing.",
     counts: {
       total: rows.length,
       P0: rows.filter((row) => row.priority === "P0").length,
@@ -458,58 +497,71 @@ function buildLegacyCurveAudit(
     ]),
   );
   const dates = localDatesForYear(2025);
-  const auditedRows = allCities.flatMap((city) => city.species.flatMap((species) => {
-    if (!species.seasonalOpportunityCurve) return [];
-    const daily = dates.map((localDate) => {
-      const evaluated = evaluatePierCastSeasonalOpportunity({
-        ratingEnabled: true,
-        mode: "review",
-        localDate,
-        curve: species.seasonalOpportunityCurve,
+  const auditedRows = allCities.flatMap((city) =>
+    city.species.flatMap((species) => {
+      if (!species.seasonalOpportunityCurve) return [];
+      const daily = dates.map((localDate) => {
+        const evaluated = evaluatePierCastSeasonalOpportunity({
+          ratingEnabled: true,
+          mode: "review",
+          localDate,
+          curve: species.seasonalOpportunityCurve,
+        });
+        if (evaluated.status !== "available" || evaluated.rating === null) {
+          throw new Error(
+            `Could not evaluate ${city.cityId}/${species.speciesId}/${localDate}.`,
+          );
+        }
+        return { localDate, rating: evaluated.rating };
       });
-      if (evaluated.status !== "available" || evaluated.rating === null) {
-        throw new Error(`Could not evaluate ${city.cityId}/${species.speciesId}/${localDate}.`);
-      }
-      return { localDate, rating: evaluated.rating };
-    });
-    const ratings = daily.map((day) => day.rating);
-    const minimum = Math.min(...ratings);
-    const maximum = Math.max(...ratings);
-    const peakDates = daily.filter((day) => Math.abs(day.rating - maximum) < 1e-9)
-      .map((day) => day.localDate.slice(5));
-    const perfectTemperatureV2Maximum = Math.min(10, 1 + (maximum - 1) * 1.05);
-    const evidenceGrade = gradeByPair.get(`${city.cityId}/${species.speciesId}`);
-    const reviewFlags = [
-      ...(evidenceGrade === "C" ? ["low_confidence_numeric_curve"] : []),
-      ...(maximum >= 8.1 && evidenceGrade !== "A"
-        ? ["excellent_peak_without_grade_a_evidence"]
-        : []),
-      ...(perfectTemperatureV2Maximum < 9.95
-        ? ["legacy_formula_cannot_display_10"]
-        : []),
-      ...(minimum > 2 ? ["weak_season_never_reaches_negligible_band"] : []),
-    ];
-    return [{
-      cityId: city.cityId,
-      cityName: city.displayName,
-      speciesId: species.speciesId,
-      speciesName: speciesNames.get(species.speciesId) ?? species.speciesId,
-      curveId: species.seasonalOpportunityCurve.curveId,
-      evidenceGrade,
-      minimum: Number(minimum.toFixed(3)),
-      maximum: Number(maximum.toFixed(3)),
-      peakBand: legacyBand(maximum),
-      peakDates,
-      daysStrongOrBetter: ratings.filter((rating) => rating >= 6.1).length,
-      daysExcellentOrBetter: ratings.filter((rating) => rating >= 8.1).length,
-      daysReferenceClass: ratings.filter((rating) => rating >= 9.5).length,
-      perfectTemperatureV2Maximum: Number(perfectTemperatureV2Maximum.toFixed(3)),
-      canDisplayTenUnderV2: perfectTemperatureV2Maximum >= 9.95,
-      reviewFlags,
-    }];
-  }));
+      const ratings = daily.map((day) => day.rating);
+      const minimum = Math.min(...ratings);
+      const maximum = Math.max(...ratings);
+      const peakDates = daily.filter((day) =>
+        Math.abs(day.rating - maximum) < 1e-9
+      )
+        .map((day) => day.localDate.slice(5));
+      const perfectTemperatureV2Maximum = Math.min(
+        10,
+        1 + (maximum - 1) * 1.05,
+      );
+      const evidenceGrade = gradeByPair.get(
+        `${city.cityId}/${species.speciesId}`,
+      );
+      const reviewFlags = [
+        ...(evidenceGrade === "C" ? ["low_confidence_numeric_curve"] : []),
+        ...(maximum >= 8.1 && evidenceGrade !== "A"
+          ? ["excellent_peak_without_grade_a_evidence"]
+          : []),
+        ...(perfectTemperatureV2Maximum < 9.95
+          ? ["legacy_formula_cannot_display_10"]
+          : []),
+        ...(minimum > 2 ? ["weak_season_never_reaches_negligible_band"] : []),
+      ];
+      return [{
+        cityId: city.cityId,
+        cityName: city.displayName,
+        speciesId: species.speciesId,
+        speciesName: speciesNames.get(species.speciesId) ?? species.speciesId,
+        curveId: species.seasonalOpportunityCurve.curveId,
+        evidenceGrade,
+        minimum: Number(minimum.toFixed(3)),
+        maximum: Number(maximum.toFixed(3)),
+        peakBand: legacyBand(maximum),
+        peakDates,
+        daysStrongOrBetter: ratings.filter((rating) => rating >= 6.1).length,
+        daysExcellentOrBetter: ratings.filter((rating) => rating >= 8.1).length,
+        daysReferenceClass: ratings.filter((rating) => rating >= 9.5).length,
+        perfectTemperatureV2Maximum: Number(
+          perfectTemperatureV2Maximum.toFixed(3),
+        ),
+        canDisplayTenUnderV2: perfectTemperatureV2Maximum >= 9.95,
+        reviewFlags,
+      }];
+    })
+  );
 
-  const speciesRankings = PIER_CAST_SPECIES_PROFILES.map((species) => ({
+  const speciesRankings = PASS1_SPECIES_PROFILES.map((species) => ({
     speciesId: species.speciesId,
     currentConfiguredCities: auditedRows.filter((row) =>
       row.speciesId === species.speciesId
@@ -531,15 +583,18 @@ function buildLegacyCurveAudit(
       "These diagnostics identify recalibration risks in legacy curves. They are not proposed v3 values.",
     counts: {
       curves: auditedRows.length,
-      lowConfidenceNumericCurves: auditedRows.filter((row) =>
-        row.reviewFlags.includes("low_confidence_numeric_curve")
-      ).length,
-      excellentPeaksWithoutGradeA: auditedRows.filter((row) =>
-        row.reviewFlags.includes("excellent_peak_without_grade_a_evidence")
-      ).length,
-      cannotDisplayTenUnderV2: auditedRows.filter((row) =>
-        row.reviewFlags.includes("legacy_formula_cannot_display_10")
-      ).length,
+      lowConfidenceNumericCurves:
+        auditedRows.filter((row) =>
+          row.reviewFlags.includes("low_confidence_numeric_curve")
+        ).length,
+      excellentPeaksWithoutGradeA:
+        auditedRows.filter((row) =>
+          row.reviewFlags.includes("excellent_peak_without_grade_a_evidence")
+        ).length,
+      cannotDisplayTenUnderV2:
+        auditedRows.filter((row) =>
+          row.reviewFlags.includes("legacy_formula_cannot_display_10")
+        ).length,
     },
     speciesRankings,
     rows: auditedRows,
@@ -566,9 +621,10 @@ const csvColumns = [
 ] as const;
 
 const jsonText = `${JSON.stringify(inventory, null, 2)}\n`;
-const csvText = `${csvColumns.join(",")}\n${rows.map((row) =>
-  csvColumns.map((column) => csvCell(row[column])).join(",")
-).join("\n")}\n`;
+const csvText = `${csvColumns.join(",")}\n${
+  rows.map((row) => csvColumns.map((column) => csvCell(row[column])).join(","))
+    .join("\n")
+}\n`;
 
 async function main(): Promise<void> {
   const reconciliation = await buildBaselineReconciliation();
@@ -592,9 +648,13 @@ async function main(): Promise<void> {
   ] as const;
   const reconciliationJsonText = `${JSON.stringify(reconciliation, null, 2)}\n`;
   const reconciliationCsvText = `${reconciliationColumns.join(",")}\n${
-    reconciliation.rows.map((row) => reconciliationColumns.map((column) =>
-      csvCell(column === "evidenceIds" ? row.evidenceIds.join("|") : row[column])
-    ).join(",")).join("\n")
+    reconciliation.rows.map((row) =>
+      reconciliationColumns.map((column) =>
+        csvCell(
+          column === "evidenceIds" ? row.evidenceIds.join("|") : row[column],
+        )
+      ).join(",")
+    ).join("\n")
   }\n`;
   const legacyAuditColumns = [
     "cityId",
@@ -616,10 +676,12 @@ async function main(): Promise<void> {
   ] as const;
   const legacyAuditJsonText = `${JSON.stringify(legacyAudit, null, 2)}\n`;
   const legacyAuditCsvText = `${legacyAuditColumns.join(",")}\n${
-    legacyAudit.rows.map((row) => legacyAuditColumns.map((column) => {
-      const value = row[column];
-      return csvCell(Array.isArray(value) ? value.join("|") : value);
-    }).join(",")).join("\n")
+    legacyAudit.rows.map((row) =>
+      legacyAuditColumns.map((column) => {
+        const value = row[column];
+        return csvCell(Array.isArray(value) ? value.join("|") : value);
+      }).join(",")
+    ).join("\n")
   }\n`;
   const gapColumns = [
     "priority",
@@ -635,10 +697,12 @@ async function main(): Promise<void> {
   ] as const;
   const gapRegisterJsonText = `${JSON.stringify(gapRegister, null, 2)}\n`;
   const gapRegisterCsvText = `${gapColumns.join(",")}\n${
-    gapRegister.rows.map((row) => gapColumns.map((column) => {
-      const value = row[column];
-      return csvCell(Array.isArray(value) ? value.join("|") : value);
-    }).join(",")).join("\n")
+    gapRegister.rows.map((row) =>
+      gapColumns.map((column) => {
+        const value = row[column];
+        return csvCell(Array.isArray(value) ? value.join("|") : value);
+      }).join(",")
+    ).join("\n")
   }\n`;
 
   if (checkOnly) {
@@ -690,7 +754,7 @@ async function main(): Promise<void> {
     JSON.stringify({
       checkOnly,
       cities: allCities.length,
-      species: PIER_CAST_SPECIES_PROFILES.length,
+      species: PASS1_SPECIES_PROFILES.length,
       decisions: rows.length,
       configured: configuredCount,
     }),

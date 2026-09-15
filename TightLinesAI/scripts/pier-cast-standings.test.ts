@@ -74,6 +74,9 @@ function v3ReviewFixture(): PierCastV3ReviewOutlookResponse {
     "milwaukee_wi",
     "racine_wi",
     "kenosha_wi",
+    "harbor_beach_mi",
+    "oscoda_mi",
+    "port_sanilac_mi",
   ];
   return {
     mode: "v3_shadow_review",
@@ -125,17 +128,20 @@ test("owner standings still include all live review cities without a snapshot", 
   );
 });
 
-test("v3 owner standings include all nine cities with variable species rosters", () => {
+test("v3 owner standings include all twelve cities with variable species rosters", () => {
   const outlook = v3ReviewFixture();
   const standings = projectPierCastStandings(outlook);
 
   assert.equal(standings.generatedAt, outlook.generatedAt);
-  assert.equal(standings.cities.length, 9);
+  assert.equal(standings.cities.length, 12);
   assert.deepEqual(
     standings.cities.map((city) => city.cityId),
     outlook.cities.map((city) => city.cityId),
   );
-  assert.equal(new Set(outlook.cities.map((city) => city.dates[0].species.length)).size, 3);
+  assert.equal(
+    new Set(outlook.cities.map((city) => city.dates[0].species.length)).size,
+    3,
+  );
 });
 
 test("public standings ignore owner-only supplemental outlooks", () => {
