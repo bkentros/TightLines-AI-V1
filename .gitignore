@@ -59,6 +59,7 @@ TightLinesAI/scripts/_tackle-gen-full.log
 
 # Generated local review artifacts
 TightLinesAI/tmp/
+/Claude outputs/
 
 # Local store-listing artwork and one-off render tooling. These are archived
 # outside Git and excluded from EAS builds; keep the mobile repository lean.
