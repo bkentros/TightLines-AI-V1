@@ -49,8 +49,7 @@ import {
   fetchPierCastCityReport,
   fetchSavedPierCastReport,
   fetchPierCastOwnerReviewCatalog,
-  fetchPierCastOwnerExpansionReviewOutlook,
-  fetchPierCastOwnerReviewOutlook,
+  fetchPierCastOwnerV3ReviewOutlook,
   PierCastRequestError,
 } from "../lib/pierCast";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
@@ -66,6 +65,7 @@ import type {
   PierCastSpeciesId,
   PierCastTemperatureEventRead,
   PierCastTemperatureEventSummaryRead,
+  PierCastV3ReviewOutlookResponse,
 } from "../lib/pierCastContracts";
 import {
   fetchPierCastHourlyWeather,
@@ -670,6 +670,8 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
         }
       >
         {speciesRows.map((species, index) => {
+          const seasonalPotential = species.seasonalRating ??
+            species.activeMode?.seasonalPotential ?? null;
           const score =
             species.biological.status === "available"
               ? species.biological.displayScore
@@ -768,11 +770,11 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                   <View style={styles.factorLabelRow}>
                     <Text style={styles.factorLabel}>SEASON</Text>
                     <Text style={styles.factorValue}>
-                      {species.seasonalRating?.toFixed(1) ?? "—"}
+                      {seasonalPotential?.toFixed(1) ?? "—"}
                     </Text>
                   </View>
                   <PierCastMiniBar
-                    value={species.seasonalRating}
+                    value={seasonalPotential}
                     color={paper.dashboardBlue}
                   />
                 </View>
@@ -2223,7 +2225,10 @@ function PierCastLanding({
   onOpenCity,
 }: {
   catalog: PierCastCatalogResponse;
-  outlook: PierCastReviewOutlookResponse | PierCastLeaderboardResponse;
+  outlook:
+    | PierCastReviewOutlookResponse
+    | PierCastV3ReviewOutlookResponse
+    | PierCastLeaderboardResponse;
   supplementalOutlooks: readonly PierCastReviewOutlookResponse[];
   onOpenCity: (cityId: string) => void;
 }) {
@@ -3168,11 +3173,11 @@ export default function PierCastReviewScreen() {
   const profile = useAuthStore((state) => state.profile);
   const admin = isAdminEmail(user?.email);
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
-  const [outlook, setOutlook] = useState<PierCastReviewOutlookResponse | PierCastLeaderboardResponse | null>(
-    null,
-  );
-  const [expansionOutlook, setExpansionOutlook] = useState<
-    PierCastReviewOutlookResponse | null
+  const [outlook, setOutlook] = useState<
+    | PierCastReviewOutlookResponse
+    | PierCastV3ReviewOutlookResponse
+    | PierCastLeaderboardResponse
+    | null
   >(null);
   const [cityReport, setCityReport] = useState<PierCastReviewOutlookResponse | null>(null);
   const [savedReport, setSavedReport] = useState<PierCastReviewOutlookResponse | null>(null);
@@ -3206,10 +3211,9 @@ export default function PierCastReviewScreen() {
       if (accountId.current !== userId) return;
       if (nextCatalog) setCatalog(nextCatalog);
       if (!admin && nextCatalog?.cities.length === 0) { setOutlook(null); return; }
-      const nextOutlook = await (admin ? fetchPierCastOwnerReviewOutlook() : fetchPierCastLeaderboard());
-      const nextExpansionOutlook = admin
-        ? await fetchPierCastOwnerExpansionReviewOutlook().catch(() => null)
-        : null;
+      const nextOutlook = await (admin
+        ? fetchPierCastOwnerV3ReviewOutlook()
+        : fetchPierCastLeaderboard());
       if (accountId.current !== userId) return;
       if (!admin && userId && !silent) {
         void fetchSavedPierCastReport().then(saved => {
@@ -3218,7 +3222,6 @@ export default function PierCastReviewScreen() {
       }
       if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
-      setExpansionOutlook(nextExpansionOutlook);
       if (nextCatalog) {
         setSelectedCityId((current) =>
           nextCatalog.cities.some((city) => city.cityId === current)
@@ -3244,7 +3247,7 @@ export default function PierCastReviewScreen() {
 
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null); setSavedReport(null);
-    setOutlook(null); setExpansionOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
+    setOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
   }, [user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
@@ -3311,16 +3314,12 @@ export default function PierCastReviewScreen() {
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const selectedOutlook =
     (admin
-      ? [
-          ...(outlook && "mode" in outlook ? outlook.cities : []),
-          ...(expansionOutlook?.cities ?? []),
-        ].find((city) => city.cityId === selectedCityId)
+      ? (outlook && "mode" in outlook ? outlook.cities : []).find(
+          (city) => city.cityId === selectedCityId,
+        )
       : cityReport?.cities.find((city) => city.cityId === selectedCityId)) ??
     null;
-  const supplementalStandingsOutlooks = useMemo(
-    () => admin && expansionOutlook ? [expansionOutlook] : [],
-    [admin, expansionOutlook],
-  );
+  const supplementalStandingsOutlooks: readonly PierCastReviewOutlookResponse[] = [];
   const nearbyCities = useMemo(
     () =>
       selectedCity && catalog
@@ -3518,11 +3517,7 @@ export default function PierCastReviewScreen() {
                 weather={weather}
                 weatherLoading={weatherLoading}
                 conditionsUpdatedAt={admin
-                  ? (expansionOutlook?.cities.some((city) =>
-                        city.cityId === selectedCity?.cityId
-                      )
-                      ? expansionOutlook?.generatedAt
-                      : outlook.generatedAt) ?? outlook.generatedAt
+                  ? outlook.generatedAt
                   : cityReport?.generatedAt ?? outlook.generatedAt}
               />
               <RatingExplanation

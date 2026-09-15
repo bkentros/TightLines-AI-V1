@@ -176,10 +176,20 @@ export type PierCastTemperatureEventSummaryRead = {
 
 export type PierCastReviewSpeciesOutlookRead = {
   speciesId: PierCastSpeciesId;
-  previewMode: "disabled_provisional";
+  previewMode: "disabled_provisional" | "disabled_shadow_only";
   configurationRatingEnabled: false;
-  seasonalRating: number | null;
-  seasonalCurveId: string | null;
+  publicEnabled?: false;
+  seasonalRating?: number | null;
+  seasonalCurveId?: string | null;
+  activeMode?: {
+    modeCalibrationId: string;
+    modeId: string;
+    fisheryStrength: number;
+    seasonalAvailability: number;
+    seasonalPotential: number;
+    thermalCurveId: string;
+  } | null;
+  evaluatedModeCount?: number;
   temperatureCurveId: string | null;
   temperatureSuitabilityRange: [number, number] | null;
   biological: PierCastScoreRead;
@@ -275,6 +285,27 @@ export type PierCastReviewOutlookResponse = {
     sampleCount: number;
   };
   dailyScoreSnapshot?: PierCastDailyScoreSnapshotRead;
+  cities: PierCastReviewCityOutlookRead[];
+};
+
+export type PierCastV3ReviewOutlookResponse = {
+  mode: "v3_shadow_review";
+  previewOnly: true;
+  generatedAt: string;
+  ratingName: "FinFindr Opportunity Rating";
+  ratingDisplayFormat: "X.X/10";
+  formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3";
+  formula:
+    "1 + (seasonalPotential - 1) * (0.30 + 0.70 * temperatureSuitability)";
+  modeSelection: "maximum_realized_mode_never_sum";
+  configVersion: string;
+  sourceHashes: {
+    pass1CandidatesSha256: string;
+    pass1CalibrationSha256: string;
+  };
+  promotion: { status: "blocked"; reasonCodes: string[] };
+  source: PierCastReviewOutlookResponse["source"];
+  dailyScoreSnapshot?: never;
   cities: PierCastReviewCityOutlookRead[];
 };
 

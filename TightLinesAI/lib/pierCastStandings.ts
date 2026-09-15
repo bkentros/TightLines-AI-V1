@@ -1,11 +1,15 @@
 import type {
   PierCastLeaderboardResponse,
   PierCastReviewOutlookResponse,
+  PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
 
 /** Build a headline-only owner leaderboard without weakening public isolation. */
 export function projectPierCastStandings(
-  outlook: PierCastReviewOutlookResponse | PierCastLeaderboardResponse,
+  outlook:
+    | PierCastReviewOutlookResponse
+    | PierCastV3ReviewOutlookResponse
+    | PierCastLeaderboardResponse,
   supplementalOutlooks: readonly PierCastReviewOutlookResponse[] = [],
 ): PierCastLeaderboardResponse {
   // Public callers already receive the server's release-filtered projection.
@@ -19,7 +23,10 @@ export function projectPierCastStandings(
   >();
   const addCity = (
     cityId: string,
-    date: PierCastReviewOutlookResponse["cities"][number]["dates"][number]
+    date: (
+      | PierCastReviewOutlookResponse
+      | PierCastV3ReviewOutlookResponse
+    )["cities"][number]["dates"][number]
       | undefined,
   ) => {
     if (!date) return;

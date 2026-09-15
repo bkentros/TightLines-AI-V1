@@ -7,6 +7,7 @@ import type {
   PierCastShadowOutcomeCommit,
   PierCastShadowOutcomeInput,
   PierCastShadowReviewResponse,
+  PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -45,6 +46,15 @@ export function fetchPierCastOwnerExpansionReviewOutlook(): Promise<
 > {
   return pierCastGet<PierCastReviewOutlookResponse>(
     "review/expansion/outlook",
+    true,
+  );
+}
+
+export function fetchPierCastOwnerV3ReviewOutlook(): Promise<
+  PierCastV3ReviewOutlookResponse
+> {
+  return pierCastGet<PierCastV3ReviewOutlookResponse>(
+    "review/v3/outlook",
     true,
   );
 }

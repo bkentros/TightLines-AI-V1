@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import type { PierCastReviewOutlookResponse } from "../lib/pierCastContracts";
+import type {
+  PierCastReviewOutlookResponse,
+  PierCastV3ReviewOutlookResponse,
+} from "../lib/pierCastContracts";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 
 function ownerReviewFixture(): PierCastReviewOutlookResponse {
@@ -59,6 +62,34 @@ function wisconsinExpansionFixture(): PierCastReviewOutlookResponse {
   };
 }
 
+function v3ReviewFixture(): PierCastV3ReviewOutlookResponse {
+  const fixture = ownerReviewFixture();
+  const cityIds = [
+    "ludington_mi",
+    "grand_haven_mi",
+    "manistee_mi",
+    "frankfort_elberta_mi",
+    "sheboygan_wi",
+    "port_washington_wi",
+    "milwaukee_wi",
+    "racine_wi",
+    "kenosha_wi",
+  ];
+  return {
+    mode: "v3_shadow_review",
+    previewOnly: true,
+    generatedAt: "2026-09-15T12:29:54.000Z",
+    cities: cityIds.map((cityId, index) => ({
+      ...fixture.cities[0],
+      cityId,
+      dates: fixture.cities[0].dates.map((date) => ({
+        ...date,
+        species: Array.from({ length: index % 3 + 4 }, () => ({})),
+      })),
+    })),
+  } as unknown as PierCastV3ReviewOutlookResponse;
+}
+
 test("owner standings retain the locked snapshot and include every expansion city", () => {
   const standings = projectPierCastStandings(ownerReviewFixture(), [
     wisconsinExpansionFixture(),
@@ -92,6 +123,19 @@ test("owner standings still include all live review cities without a snapshot", 
     projectPierCastStandings(outlook).cities.map((city) => city.cityId),
     outlook.cities.map((city) => city.cityId),
   );
+});
+
+test("v3 owner standings include all nine cities with variable species rosters", () => {
+  const outlook = v3ReviewFixture();
+  const standings = projectPierCastStandings(outlook);
+
+  assert.equal(standings.generatedAt, outlook.generatedAt);
+  assert.equal(standings.cities.length, 9);
+  assert.deepEqual(
+    standings.cities.map((city) => city.cityId),
+    outlook.cities.map((city) => city.cityId),
+  );
+  assert.equal(new Set(outlook.cities.map((city) => city.dates[0].species.length)).size, 3);
 });
 
 test("public standings ignore owner-only supplemental outlooks", () => {
