@@ -263,6 +263,12 @@ function scoreValue(date: Pick<PierCastReviewDateOutlookRead, "headline">): numb
     : null;
 }
 
+function isDateScorePending(date: PierCastReviewDateOutlookRead): boolean {
+  return date.headline.overall.status !== "available" &&
+    date.waterTemperature.status === "partial" &&
+    date.waterTemperature.coverageFraction > 0;
+}
+
 function rankingScoreValue(date: Pick<PierCastReviewDateOutlookRead, "headline">): number | null {
   return date.headline.overall.status === "available"
     ? date.headline.overall.score
@@ -447,6 +453,7 @@ function DailyForecastStrip({
       {dates.slice(0, 5).map((date, index) => {
         const parts = dateParts(date.localDate);
         const score = scoreValue(date);
+        const pending = isDateScorePending(date);
         const accent = score === null ? "#AAB2B6" : scoreAccentColor(score);
         const band = score === null ? null : dashboardBandStyleForScore(score);
         const selected = index === selectedIndex;
@@ -462,7 +469,7 @@ function DailyForecastStrip({
             onPress={() => onSelect(index)}
             accessibilityRole="button"
             accessibilityState={{ selected }}
-            accessibilityLabel={`${index === 0 ? "Today" : parts.day}, ${parts.month} ${parts.date}, ${score === null ? "rating unavailable" : `${score.toFixed(1)} out of 10`}`}
+            accessibilityLabel={`${index === 0 ? "Today" : parts.day}, ${parts.month} ${parts.date}, ${pending ? "rating pending" : score === null ? "rating unavailable" : `${score.toFixed(1)} out of 10`}`}
           >
             <Text
               style={[
@@ -482,11 +489,12 @@ function DailyForecastStrip({
               <Text
                 style={[
                   styles.forecastTileScore,
+                  pending && styles.forecastTileScorePending,
                   { color: band?.fg ?? "#FFFFFF" },
                 ]}
                 allowFontScaling={false}
               >
-                {score?.toFixed(1) ?? "—"}
+                {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
               </Text>
             </View>
             <Text style={styles.forecastTileHiLo}>
@@ -507,6 +515,7 @@ function PierCastHero({
   date: PierCastReviewDateOutlookRead;
 }) {
   const score = scoreValue(date);
+  const pending = isDateScorePending(date);
   const band = score !== null ? dashboardBandStyleForScore(score) : null;
   const speciesId = date.headline.drivingSpeciesId;
   const fish = speciesId ? coreSpeciesImage(speciesId) : null;
@@ -547,12 +556,15 @@ function PierCastHero({
 
         <View style={styles.heroScoreRow}>
           <Text
-            style={styles.heroScoreValue}
+            style={[
+              styles.heroScoreValue,
+              pending && styles.heroScorePending,
+            ]}
             allowFontScaling={false}
           >
-            {score?.toFixed(1) ?? "—"}
+            {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
           </Text>
-          <Text style={styles.heroScoreMax}>/10</Text>
+          {!pending ? <Text style={styles.heroScoreMax}>/10</Text> : null}
           <View style={styles.heroScoreSpacer} />
           {band ? (
             <View
@@ -577,7 +589,9 @@ function PierCastHero({
           />
         </View>
         <Text style={styles.heroRatingHint}>
-          FINFINDR OPPORTUNITY RATING · TODAY
+          {pending
+            ? "FINFINDR OPPORTUNITY RATING · AWAITING FULL-DAY DATA"
+            : "FINFINDR OPPORTUNITY RATING · TODAY"}
         </Text>
       </View>
 
@@ -602,9 +616,15 @@ function PierCastHero({
           )}
         </View>
         <View style={styles.heroPlateCopy}>
-          <Text style={styles.heroPlateLabel}>TOP TARGET TODAY</Text>
+          <Text style={styles.heroPlateLabel}>
+            {pending ? "TOP TARGET PENDING" : "TOP TARGET TODAY"}
+          </Text>
           <Text style={styles.heroPlateSpecies} numberOfLines={2}>
-            {speciesId ? SPECIES_LABELS[speciesId] : "Unavailable"}
+            {pending
+              ? "Pending"
+              : speciesId
+                ? SPECIES_LABELS[speciesId]
+                : "Unavailable"}
           </Text>
           <Text style={styles.heroPlateDetail}>
             {pierCount} {pierCount === 1 ? "pier" : "piers"} covered ·{" "}
@@ -617,6 +637,7 @@ function PierCastHero({
 }
 
 function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
+  const pending = isDateScorePending(date);
   const speciesRows = [...date.species].sort((left, right) => {
     const leftScore =
       left.biological.status === "available"
@@ -632,7 +653,7 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
   });
   return (
     <ReportSection
-      eyebrow="TODAY'S TARGETS"
+      eyebrow={pending ? "TARGETS PENDING" : "TODAY'S TARGETS"}
       title="Species Comparison"
       badge={`${speciesRows.length} SPECIES`}
     >
@@ -642,7 +663,11 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
         nestedScrollEnabled
         showsVerticalScrollIndicator={speciesRows.length > 4}
         indicatorStyle="black"
-        accessibilityLabel="Species ranked from highest to lowest score"
+        accessibilityLabel={
+          pending
+            ? "Species ratings pending"
+            : "Species ranked from highest to lowest score"
+        }
       >
         {speciesRows.map((species, index) => {
           const score =
@@ -656,7 +681,9 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
           const ratingLabel =
             species.biological.status === "available"
               ? species.biological.label
-              : "Unavailable";
+              : pending
+                ? "Pending"
+                : "Unavailable";
           const suitability = species.temperatureSuitabilityRange
             ? (species.temperatureSuitabilityRange[0] +
                 species.temperatureSuitabilityRange[1]) /
@@ -693,7 +720,11 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                   <View
                     style={[
                       styles.speciesBandPill,
-                      { backgroundColor: band.chipBg },
+                      {
+                        backgroundColor: pending
+                          ? "#E8EEF1"
+                          : band.chipBg,
+                      },
                     ]}
                   >
                     <View
@@ -705,7 +736,11 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                     <Text
                       style={[
                         styles.speciesBandText,
-                        { color: band.verdictColor },
+                        {
+                          color: pending
+                            ? DEFAULT_RANK_ACCENT.ink
+                            : band.verdictColor,
+                        },
                       ]}
                     >
                       {ratingLabel.toUpperCase()}
@@ -714,12 +749,18 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                 </View>
                 <View style={styles.speciesScoreWrap}>
                   <Text
-                    style={[styles.speciesScore, { color: accent }]}
+                    style={[
+                      styles.speciesScore,
+                      pending && styles.speciesScorePending,
+                      { color: accent },
+                    ]}
                     allowFontScaling={false}
                   >
-                    {score?.toFixed(1) ?? "—"}
+                    {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
                   </Text>
-                  <Text style={styles.speciesScoreMax}>/10</Text>
+                  {!pending ? (
+                    <Text style={styles.speciesScoreMax}>/10</Text>
+                  ) : null}
                 </View>
               </View>
               <View style={styles.factorRow}>
@@ -1805,6 +1846,11 @@ const MEDAL_TIERS: Record<
   },
 };
 
+const DEFAULT_RANK_ACCENT = {
+  ring: "#748A96",
+  ink: "#526772",
+};
+
 /** The 5-band rating scale, lowest to highest — the app's signature ramp. */
 const BAND_SPECTRUM = [
   paper.bandTough,
@@ -1895,7 +1941,10 @@ function RankMedallion({
   if (!tier) {
     return (
       <Text
-        style={[styles.standingRankNumeral, { width: size }]}
+        style={[
+          styles.standingRankNumeral,
+          { width: size, color: DEFAULT_RANK_ACCENT.ink },
+        ]}
         allowFontScaling={false}
       >
         {String(rank).padStart(2, "0")}
@@ -1970,11 +2019,12 @@ function LeaderSpotlight({
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
   const score = entry.score;
   const band = score !== null ? dashboardBandStyleForScore(score) : null;
-  const accent = stateAccent(entry.city.stateCode);
+  const rankAccent = MEDAL_TIERS[1];
   return (
     <Pressable
       style={({ pressed }) => [
         styles.leaderCard,
+        { borderColor: rankAccent.edge },
         pressed && styles.standingPressed,
       ]}
       onPress={() => {
@@ -1987,7 +2037,7 @@ function LeaderSpotlight({
       <View
         style={[
           styles.leaderRail,
-          { backgroundColor: band?.bg ?? paper.dashboardBlue },
+          { backgroundColor: band?.bg ?? paper.dashboardLine },
         ]}
       />
       <CornerMarkSet color={paper.red} size={13} thickness={2} inset={9} />
@@ -2002,7 +2052,9 @@ function LeaderSpotlight({
 
       <View style={styles.leaderBody}>
         <View style={styles.leaderCopy}>
-          <Text style={[styles.leaderStateTag, { color: accent.deep }]}>
+          <Text
+            style={[styles.leaderStateTag, { color: rankAccent.ink }]}
+          >
             {STATE_LABELS[entry.city.stateCode].toUpperCase()}
           </Text>
           <Text
@@ -2091,8 +2143,8 @@ function StandingRow({
   const speciesId = entry.date?.headline.drivingSpeciesId ?? null;
   const score = entry.score;
   const band = score !== null ? dashboardBandStyleForScore(score) : null;
-  const accent = stateAccent(entry.city.stateCode);
   const tier = rank === null ? null : MEDAL_TIERS[rank];
+  const rankAccent = tier ?? DEFAULT_RANK_ACCENT;
   return (
     <Pressable
       style={({ pressed }) => [
@@ -2109,13 +2161,20 @@ function StandingRow({
         ? `View ${entry.city.displayName} PierCast, rating pending`
         : `View ${entry.city.displayName} PierCast, ranked ${rank}`}
     >
-      <View style={[styles.standingEdge, { backgroundColor: accent.accent }]} />
+      <View
+        style={[
+          styles.standingEdge,
+          { backgroundColor: band?.bg ?? paper.dashboardLine },
+        ]}
+      />
       <RankMedallion rank={rank} />
       <View style={styles.standingFishStage}>
         <LeaderFish speciesId={speciesId} />
       </View>
       <View style={styles.standingIdentity}>
-        <Text style={[styles.standingStateTag, { color: accent.deep }]}>
+        <Text
+          style={[styles.standingStateTag, { color: rankAccent.ink }]}
+        >
           {STATE_LABELS[entry.city.stateCode].toUpperCase()}
         </Text>
         <Text style={styles.standingCity} numberOfLines={1}>
@@ -2243,6 +2302,13 @@ function PierCastLanding({
     () => leaderboard.filter((entry) => entry.score !== null),
     [leaderboard],
   );
+  const [rankedCityLimit, setRankedCityLimit] = useState(5);
+  const visibleRankedLeaderboard = useMemo(
+    () => rankedLeaderboard.slice(0, rankedCityLimit),
+    [rankedCityLimit, rankedLeaderboard],
+  );
+  const hasMoreRankedCities = rankedLeaderboard.length > 5;
+  const showingExpandedLeaderboard = rankedCityLimit > 5;
   const pendingLeaderboard = useMemo(
     () => leaderboard.filter((entry) => entry.score === null),
     [leaderboard],
@@ -2307,14 +2373,16 @@ function PierCastLanding({
 
         {leaderboard.length > 0 ? (
           <View style={styles.standingsBody}>
-            {rankedLeaderboard[0] ? (
+            {visibleRankedLeaderboard[0] ? (
               <LeaderSpotlight
-                entry={rankedLeaderboard[0]}
-                onOpen={() => onOpenCity(rankedLeaderboard[0].city.cityId)}
+                entry={visibleRankedLeaderboard[0]}
+                onOpen={() =>
+                  onOpenCity(visibleRankedLeaderboard[0].city.cityId)
+                }
               />
             ) : null}
 
-            {rankedLeaderboard.length > 1 ? (
+            {visibleRankedLeaderboard.length > 1 ? (
               <View style={styles.standingsDivider}>
                 <View style={styles.standingsDividerRule} />
                 <Text style={styles.standingsDividerText}>
@@ -2325,7 +2393,7 @@ function PierCastLanding({
             ) : null}
 
             <View style={styles.standingsList}>
-              {rankedLeaderboard.slice(1).map((entry, index) => (
+              {visibleRankedLeaderboard.slice(1).map((entry, index) => (
                 <StandingRow
                   key={entry.city.cityId}
                   entry={entry}
@@ -2334,6 +2402,50 @@ function PierCastLanding({
                 />
               ))}
             </View>
+
+            {hasMoreRankedCities ? (
+              <View style={styles.standingsSeeMoreRow}>
+                <View style={styles.standingsSeeMoreRule} />
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={
+                    showingExpandedLeaderboard
+                      ? "See fewer leaderboard cities"
+                      : "See more leaderboard cities"
+                  }
+                  accessibilityHint={
+                    showingExpandedLeaderboard
+                      ? "Collapses the leaderboard to the top 5 cities"
+                      : `Shows the top ${Math.min(10, rankedLeaderboard.length)} cities`
+                  }
+                  hitSlop={8}
+                  onPress={() => {
+                    hapticSelection();
+                    setRankedCityLimit((current) =>
+                      current > 5 ? 5 : 10,
+                    );
+                  }}
+                  style={({ pressed }) => [
+                    styles.standingsSeeMore,
+                    pressed && styles.standingsSeeMorePressed,
+                  ]}
+                >
+                  <Text style={styles.standingsSeeMoreText}>
+                    {showingExpandedLeaderboard ? "see less" : "see more"}
+                  </Text>
+                  <Ionicons
+                    name={
+                      showingExpandedLeaderboard
+                        ? "chevron-up"
+                        : "chevron-down"
+                    }
+                    size={11}
+                    color={paper.dashboardMuted}
+                  />
+                </Pressable>
+                <View style={styles.standingsSeeMoreRule} />
+              </View>
+            ) : null}
 
             {pendingLeaderboard.length > 0 ? (
               <>
@@ -3995,6 +4107,11 @@ const styles = StyleSheet.create({
     letterSpacing: -2,
     color: "#FFFFFF",
   },
+  heroScorePending: {
+    fontSize: 18,
+    lineHeight: 44,
+    letterSpacing: 2,
+  },
   heroScoreMax: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 12,
@@ -4634,6 +4751,37 @@ const styles = StyleSheet.create({
   standingsList: {
     gap: 8,
   },
+  standingsSeeMoreRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  standingsSeeMoreRule: {
+    flex: 1,
+    height: 1,
+    backgroundColor: paper.dashboardHair,
+  },
+  standingsSeeMore: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    paddingHorizontal: 11,
+    paddingVertical: 5,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 4,
+    backgroundColor: "#FFFFFF",
+  },
+  standingsSeeMorePressed: {
+    opacity: 0.7,
+  },
+  standingsSeeMoreText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardMuted,
+  },
   standingRow: {
     position: "relative",
     overflow: "hidden",
@@ -5161,6 +5309,12 @@ const styles = StyleSheet.create({
     letterSpacing: -0.6,
     color: paper.dashboardInk,
   },
+  forecastTileScorePending: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.5,
+    lineHeight: 10,
+    letterSpacing: 0.45,
+  },
   forecastTileHiLo: {
     paddingVertical: 5,
     fontFamily: paperFonts.metaMonoBold,
@@ -5251,6 +5405,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     lineHeight: 36,
     letterSpacing: -1.2,
+  },
+  speciesScorePending: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    lineHeight: 12,
+    letterSpacing: 0.55,
   },
   speciesScoreMax: {
     fontFamily: paperFonts.metaMonoBold,
