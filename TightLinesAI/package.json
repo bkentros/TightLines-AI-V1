@@ -37,6 +37,7 @@
     "replay:pier-cast:seasonal": "node scripts/replay-pier-cast-seasonal-calibration.mjs --write",
     "check:pier-cast:seasonal-replay": "node scripts/replay-pier-cast-seasonal-calibration.mjs --check",
     "evaluate:pier-cast:shadow": "node --env-file=.env scripts/evaluate-pier-cast-shadow-validation.mjs --write",
+    "evaluate:pier-cast:v3-shadow": "node --env-file=.env scripts/evaluate-pier-cast-v3-shadow-validation.mjs --write",
     "validate:pier-cast:field-temperature": "deno run --allow-read scripts/import-pier-cast-field-temperature.ts",
     "import:pier-cast:field-temperature": "deno run --env-file=.env --allow-read --allow-env=EXPO_PUBLIC_SUPABASE_URL,SUPABASE_URL,PIER_CAST_INTERNAL_KEY --allow-net scripts/import-pier-cast-field-temperature.ts --commit",
     "start:dev-client:with-tunnel-host": "bash scripts/expo-metro-via-tunnel-host.sh",
@@ -205,7 +206,17 @@
     "generate:pier-cast:private-roster": "node scripts/generate-pier-cast-private-roster.mjs && deno run --allow-read --allow-write scripts/generate-pier-cast-private-weekly.ts",
     "check:pier-cast:private-roster": "node scripts/generate-pier-cast-private-roster.mjs --check && deno run --allow-read scripts/generate-pier-cast-private-weekly.ts --check",
     "audit:pier-cast:phase3": "deno run --allow-read --allow-write scripts/audit-pier-cast-phase3.ts",
-    "check:pier-cast:phase3": "deno run --allow-read scripts/audit-pier-cast-phase3.ts --check"
+    "check:pier-cast:phase3": "deno run --allow-read scripts/audit-pier-cast-phase3.ts --check",
+    "generate:pier-cast:v3-pass1-inventory": "node --import tsx scripts/generate-pier-cast-v3-pass1-inventory.ts",
+    "check:pier-cast:v3-pass1-inventory": "node --import tsx scripts/generate-pier-cast-v3-pass1-inventory.ts --check",
+    "generate:pier-cast:v3-pass1-calibration": "node --import tsx scripts/generate-pier-cast-v3-pass1-calibration.ts",
+    "check:pier-cast:v3-pass1-calibration": "node --import tsx scripts/generate-pier-cast-v3-pass1-calibration.ts --check",
+    "qa:pier-cast:v3-pass1": "npm run check:pier-cast:v3-pass1-inventory && npm run check:pier-cast:v3-pass1-calibration",
+    "generate:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts",
+    "check:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts --check",
+    "generate:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts",
+    "check:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts --check",
+    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

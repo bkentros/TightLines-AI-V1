@@ -1,0 +1,1275 @@
+{
+  "schemaVersion": "piercast-v3-pass1-legacy-curve-audit-v1",
+  "status": "diagnostic_only_v2_immutable",
+  "referenceYear": 2025,
+  "formulaReviewed": "seasonal-opportunity-bounded-temperature-v2",
+  "warning": "These diagnostics identify recalibration risks in legacy curves. They are not proposed v3 values.",
+  "counts": {
+    "curves": 44,
+    "lowConfidenceNumericCurves": 8,
+    "excellentPeaksWithoutGradeA": 1,
+    "cannotDisplayTenUnderV2": 40
+  },
+  "speciesRankings": [
+    {
+      "speciesId": "chinook_salmon",
+      "currentConfiguredCities": [
+        {
+          "cityId": "frankfort_elberta_mi",
+          "maximum": 9.7,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "sheboygan_wi",
+          "maximum": 9.6,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "manistee_mi",
+          "maximum": 9.5,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "ludington_mi",
+          "maximum": 8.3,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 7.8,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "racine_wi",
+          "maximum": 7.4,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "port_washington_wi",
+          "maximum": 7.2,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "milwaukee_wi",
+          "maximum": 7,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "kenosha_wi",
+          "maximum": 6.7,
+          "evidenceGrade": "B"
+        }
+      ]
+    },
+    {
+      "speciesId": "coho_salmon",
+      "currentConfiguredCities": [
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 8.8,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "frankfort_elberta_mi",
+          "maximum": 8.6,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "manistee_mi",
+          "maximum": 8.2,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "kenosha_wi",
+          "maximum": 8,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "port_washington_wi",
+          "maximum": 7.8,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "sheboygan_wi",
+          "maximum": 7.7,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "milwaukee_wi",
+          "maximum": 7.6,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "racine_wi",
+          "maximum": 7.6,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "ludington_mi",
+          "maximum": 5.6,
+          "evidenceGrade": "A"
+        }
+      ]
+    },
+    {
+      "speciesId": "steelhead",
+      "currentConfiguredCities": [
+        {
+          "cityId": "manistee_mi",
+          "maximum": 10,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "frankfort_elberta_mi",
+          "maximum": 9.8,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 9.2,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "ludington_mi",
+          "maximum": 8.1,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "sheboygan_wi",
+          "maximum": 7.3,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "racine_wi",
+          "maximum": 5.7,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "port_washington_wi",
+          "maximum": 5.2,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "milwaukee_wi",
+          "maximum": 4.6,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "kenosha_wi",
+          "maximum": 4.3,
+          "evidenceGrade": "B"
+        }
+      ]
+    },
+    {
+      "speciesId": "brown_trout",
+      "currentConfiguredCities": [
+        {
+          "cityId": "manistee_mi",
+          "maximum": 8.2,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "sheboygan_wi",
+          "maximum": 7.8,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 7.6,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "ludington_mi",
+          "maximum": 7.6,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "frankfort_elberta_mi",
+          "maximum": 7.5,
+          "evidenceGrade": "A"
+        },
+        {
+          "cityId": "port_washington_wi",
+          "maximum": 7,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "racine_wi",
+          "maximum": 6.7,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "milwaukee_wi",
+          "maximum": 6.6,
+          "evidenceGrade": "B"
+        },
+        {
+          "cityId": "kenosha_wi",
+          "maximum": 5.8,
+          "evidenceGrade": "B"
+        }
+      ]
+    },
+    {
+      "speciesId": "lake_trout",
+      "currentConfiguredCities": [
+        {
+          "cityId": "manistee_mi",
+          "maximum": 3,
+          "evidenceGrade": "C"
+        }
+      ]
+    },
+    {
+      "speciesId": "walleye",
+      "currentConfiguredCities": []
+    },
+    {
+      "speciesId": "smallmouth_bass",
+      "currentConfiguredCities": [
+        {
+          "cityId": "ludington_mi",
+          "maximum": 4.5,
+          "evidenceGrade": "C"
+        },
+        {
+          "cityId": "manistee_mi",
+          "maximum": 4.5,
+          "evidenceGrade": "C"
+        }
+      ]
+    },
+    {
+      "speciesId": "freshwater_drum",
+      "currentConfiguredCities": [
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 7,
+          "evidenceGrade": "C"
+        },
+        {
+          "cityId": "manistee_mi",
+          "maximum": 4.5,
+          "evidenceGrade": "C"
+        }
+      ]
+    },
+    {
+      "speciesId": "yellow_perch",
+      "currentConfiguredCities": [
+        {
+          "cityId": "manistee_mi",
+          "maximum": 7,
+          "evidenceGrade": "C"
+        },
+        {
+          "cityId": "ludington_mi",
+          "maximum": 6,
+          "evidenceGrade": "C"
+        }
+      ]
+    },
+    {
+      "speciesId": "lake_whitefish",
+      "currentConfiguredCities": []
+    },
+    {
+      "speciesId": "round_whitefish",
+      "currentConfiguredCities": []
+    },
+    {
+      "speciesId": "channel_catfish",
+      "currentConfiguredCities": []
+    },
+    {
+      "speciesId": "largemouth_bass",
+      "currentConfiguredCities": [
+        {
+          "cityId": "grand_haven_mi",
+          "maximum": 6.5,
+          "evidenceGrade": "C"
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "ludington_mi__chinook_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 8.3,
+      "peakBand": "excellent",
+      "peakDates": [
+        "08-30"
+      ],
+      "daysStrongOrBetter": 32,
+      "daysExcellentOrBetter": 8,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.665,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "ludington_mi__coho_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.3,
+      "maximum": 5.6,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "10-20"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 5.83,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "ludington_mi__steelhead__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.5,
+      "maximum": 8.1,
+      "peakBand": "excellent",
+      "peakDates": [
+        "10-20"
+      ],
+      "daysStrongOrBetter": 42,
+      "daysExcellentOrBetter": 1,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.455,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "ludington_mi__brown_trout__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.2,
+      "maximum": 7.6,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-05"
+      ],
+      "daysStrongOrBetter": 57,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.93,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "curveId": "ludington_mi__smallmouth_bass__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 4.5,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 4.675,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "curveId": "ludington_mi__yellow_perch__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 6,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.25,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "grand_haven_mi__chinook_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 7.8,
+      "peakBand": "strong",
+      "peakDates": [
+        "09-08"
+      ],
+      "daysStrongOrBetter": 33,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.14,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "grand_haven_mi__coho_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.7,
+      "maximum": 8.8,
+      "peakBand": "excellent",
+      "peakDates": [
+        "09-10"
+      ],
+      "daysStrongOrBetter": 82,
+      "daysExcellentOrBetter": 15,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 9.19,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "grand_haven_mi__steelhead__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 3.4,
+      "maximum": 9.2,
+      "peakBand": "excellent",
+      "peakDates": [
+        "10-30"
+      ],
+      "daysStrongOrBetter": 149,
+      "daysExcellentOrBetter": 63,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 9.61,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10",
+        "weak_season_never_reaches_negligible_band"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "grand_haven_mi__brown_trout__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 7.6,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 54,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.93,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "curveId": "grand_haven_mi__freshwater_drum__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 7,
+      "peakBand": "strong",
+      "peakDates": [
+        "06-15"
+      ],
+      "daysStrongOrBetter": 102,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.3,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "largemouth_bass",
+      "speciesName": "Largemouth Bass",
+      "curveId": "grand_haven_mi__largemouth_bass__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 6.5,
+      "peakBand": "strong",
+      "peakDates": [
+        "08-15"
+      ],
+      "daysStrongOrBetter": 13,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.775,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "manistee_mi__chinook_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 9.5,
+      "peakBand": "reference_class",
+      "peakDates": [
+        "08-30"
+      ],
+      "daysStrongOrBetter": 52,
+      "daysExcellentOrBetter": 25,
+      "daysReferenceClass": 1,
+      "perfectTemperatureV2Maximum": 9.925,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "manistee_mi__coho_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.5,
+      "maximum": 8.2,
+      "peakBand": "excellent",
+      "peakDates": [
+        "10-05"
+      ],
+      "daysStrongOrBetter": 60,
+      "daysExcellentOrBetter": 3,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.56,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "manistee_mi__steelhead__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 3,
+      "maximum": 10,
+      "peakBand": "reference_class",
+      "peakDates": [
+        "10-28"
+      ],
+      "daysStrongOrBetter": 102,
+      "daysExcellentOrBetter": 39,
+      "daysReferenceClass": 10,
+      "perfectTemperatureV2Maximum": 10,
+      "canDisplayTenUnderV2": true,
+      "reviewFlags": [
+        "weak_season_never_reaches_negligible_band"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "manistee_mi__brown_trout__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 8.2,
+      "peakBand": "excellent",
+      "peakDates": [
+        "04-10"
+      ],
+      "daysStrongOrBetter": 68,
+      "daysExcellentOrBetter": 7,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.56,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "curveId": "manistee_mi__lake_trout__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1,
+      "maximum": 3,
+      "peakBand": "limited",
+      "peakDates": [
+        "04-15",
+        "10-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 3.1,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "curveId": "manistee_mi__smallmouth_bass__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 4.5,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 4.675,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "curveId": "manistee_mi__freshwater_drum__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 4.5,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 4.675,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "curveId": "manistee_mi__yellow_perch__annual_v1",
+      "evidenceGrade": "C",
+      "minimum": 1.5,
+      "maximum": 7,
+      "peakBand": "strong",
+      "peakDates": [
+        "05-15"
+      ],
+      "daysStrongOrBetter": 37,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.3,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "low_confidence_numeric_curve",
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "frankfort_elberta_mi__chinook_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1,
+      "maximum": 9.7,
+      "peakBand": "reference_class",
+      "peakDates": [
+        "08-16"
+      ],
+      "daysStrongOrBetter": 70,
+      "daysExcellentOrBetter": 44,
+      "daysReferenceClass": 9,
+      "perfectTemperatureV2Maximum": 10,
+      "canDisplayTenUnderV2": true,
+      "reviewFlags": []
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "frankfort_elberta_mi__coho_salmon__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.2,
+      "maximum": 8.6,
+      "peakBand": "excellent",
+      "peakDates": [
+        "09-15"
+      ],
+      "daysStrongOrBetter": 67,
+      "daysExcellentOrBetter": 14,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.98,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "frankfort_elberta_mi__steelhead__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 3.5,
+      "maximum": 9.8,
+      "peakBand": "reference_class",
+      "peakDates": [
+        "10-16"
+      ],
+      "daysStrongOrBetter": 81,
+      "daysExcellentOrBetter": 23,
+      "daysReferenceClass": 4,
+      "perfectTemperatureV2Maximum": 10,
+      "canDisplayTenUnderV2": true,
+      "reviewFlags": [
+        "weak_season_never_reaches_negligible_band"
+      ]
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "frankfort_elberta_mi__brown_trout__v0_4",
+      "evidenceGrade": "A",
+      "minimum": 1.3,
+      "maximum": 7.5,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-05"
+      ],
+      "daysStrongOrBetter": 76,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.825,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "sheboygan_wi__chinook_salmon__v0_4",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 9.6,
+      "peakBand": "reference_class",
+      "peakDates": [
+        "08-31"
+      ],
+      "daysStrongOrBetter": 63,
+      "daysExcellentOrBetter": 34,
+      "daysReferenceClass": 3,
+      "perfectTemperatureV2Maximum": 10,
+      "canDisplayTenUnderV2": true,
+      "reviewFlags": [
+        "excellent_peak_without_grade_a_evidence"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "sheboygan_wi__coho_salmon__v0_4",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 7.7,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 152,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.035,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "sheboygan_wi__steelhead__v0_4",
+      "evidenceGrade": "B",
+      "minimum": 2.8,
+      "maximum": 7.3,
+      "peakBand": "strong",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 106,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.615,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10",
+        "weak_season_never_reaches_negligible_band"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "sheboygan_wi__brown_trout__v0_4",
+      "evidenceGrade": "B",
+      "minimum": 2,
+      "maximum": 7.8,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 97,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.14,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "port_washington_wi__coho_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7.8,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-20"
+      ],
+      "daysStrongOrBetter": 79,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.14,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "port_washington_wi__chinook_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7.2,
+      "peakBand": "strong",
+      "peakDates": [
+        "08-15"
+      ],
+      "daysStrongOrBetter": 69,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.51,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "port_washington_wi__steelhead__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 5.2,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 5.41,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "port_washington_wi__brown_trout__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 7,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-01"
+      ],
+      "daysStrongOrBetter": 38,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.3,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "milwaukee_wi__coho_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7.6,
+      "peakBand": "strong",
+      "peakDates": [
+        "05-20"
+      ],
+      "daysStrongOrBetter": 72,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.93,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "milwaukee_wi__chinook_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7,
+      "peakBand": "strong",
+      "peakDates": [
+        "08-15"
+      ],
+      "daysStrongOrBetter": 68,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.3,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "milwaukee_wi__steelhead__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 4.6,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 4.78,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "milwaukee_wi__brown_trout__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.3,
+      "maximum": 6.6,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-01"
+      ],
+      "daysStrongOrBetter": 36,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.88,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7.6,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-20"
+      ],
+      "daysStrongOrBetter": 89,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.93,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "racine_wi__chinook_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 7.4,
+      "peakBand": "strong",
+      "peakDates": [
+        "08-15"
+      ],
+      "daysStrongOrBetter": 74,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 7.72,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "racine_wi__steelhead__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 5.7,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "07-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 5.935,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "racine_wi__brown_trout__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.3,
+      "maximum": 6.7,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-01"
+      ],
+      "daysStrongOrBetter": 32,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.985,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 8,
+      "peakBand": "strong",
+      "peakDates": [
+        "04-20"
+      ],
+      "daysStrongOrBetter": 77,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 8.35,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "curveId": "kenosha_wi__chinook_salmon__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1,
+      "maximum": 6.7,
+      "peakBand": "strong",
+      "peakDates": [
+        "08-15"
+      ],
+      "daysStrongOrBetter": 60,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.985,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 4.3,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "04-15"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 4.465,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "curveId": "kenosha_wi__brown_trout__seasonal_v0_1",
+      "evidenceGrade": "B",
+      "minimum": 1.2,
+      "maximum": 5.8,
+      "peakBand": "ordinary",
+      "peakDates": [
+        "04-01"
+      ],
+      "daysStrongOrBetter": 0,
+      "daysExcellentOrBetter": 0,
+      "daysReferenceClass": 0,
+      "perfectTemperatureV2Maximum": 6.04,
+      "canDisplayTenUnderV2": false,
+      "reviewFlags": [
+        "legacy_formula_cannot_display_10"
+      ]
+    }
+  ]
+}

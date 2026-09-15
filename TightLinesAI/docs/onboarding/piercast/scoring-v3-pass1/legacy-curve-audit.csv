@@ -1,0 +1,45 @@
+cityId,cityName,speciesId,speciesName,curveId,evidenceGrade,minimum,maximum,peakBand,peakDates,daysStrongOrBetter,daysExcellentOrBetter,daysReferenceClass,perfectTemperatureV2Maximum,canDisplayTenUnderV2,reviewFlags
+ludington_mi,Ludington,chinook_salmon,Chinook Salmon,ludington_mi__chinook_salmon__v0_4,A,1,8.3,excellent,08-30,32,8,0,8.665,false,legacy_formula_cannot_display_10
+ludington_mi,Ludington,coho_salmon,Coho Salmon,ludington_mi__coho_salmon__v0_4,A,1.3,5.6,ordinary,10-20,0,0,0,5.83,false,legacy_formula_cannot_display_10
+ludington_mi,Ludington,steelhead,Steelhead,ludington_mi__steelhead__v0_4,A,1.5,8.1,excellent,10-20,42,1,0,8.455,false,legacy_formula_cannot_display_10
+ludington_mi,Ludington,brown_trout,Brown Trout,ludington_mi__brown_trout__v0_4,A,1.2,7.6,strong,04-05,57,0,0,7.93,false,legacy_formula_cannot_display_10
+ludington_mi,Ludington,smallmouth_bass,Smallmouth Bass,ludington_mi__smallmouth_bass__annual_v1,C,1.5,4.5,ordinary,07-15,0,0,0,4.675,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+ludington_mi,Ludington,yellow_perch,Yellow Perch,ludington_mi__yellow_perch__annual_v1,C,1.5,6,ordinary,07-15,0,0,0,6.25,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+grand_haven_mi,Grand Haven,chinook_salmon,Chinook Salmon,grand_haven_mi__chinook_salmon__v0_4,A,1,7.8,strong,09-08,33,0,0,8.14,false,legacy_formula_cannot_display_10
+grand_haven_mi,Grand Haven,coho_salmon,Coho Salmon,grand_haven_mi__coho_salmon__v0_4,A,1.7,8.8,excellent,09-10,82,15,0,9.19,false,legacy_formula_cannot_display_10
+grand_haven_mi,Grand Haven,steelhead,Steelhead,grand_haven_mi__steelhead__v0_4,A,3.4,9.2,excellent,10-30,149,63,0,9.61,false,legacy_formula_cannot_display_10|weak_season_never_reaches_negligible_band
+grand_haven_mi,Grand Haven,brown_trout,Brown Trout,grand_haven_mi__brown_trout__v0_4,A,1,7.6,strong,04-15,54,0,0,7.93,false,legacy_formula_cannot_display_10
+grand_haven_mi,Grand Haven,freshwater_drum,Freshwater Drum,grand_haven_mi__freshwater_drum__annual_v1,C,1.5,7,strong,06-15,102,0,0,7.3,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+grand_haven_mi,Grand Haven,largemouth_bass,Largemouth Bass,grand_haven_mi__largemouth_bass__annual_v1,C,1.5,6.5,strong,08-15,13,0,0,6.775,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+manistee_mi,Manistee,chinook_salmon,Chinook Salmon,manistee_mi__chinook_salmon__v0_4,A,1,9.5,reference_class,08-30,52,25,1,9.925,false,legacy_formula_cannot_display_10
+manistee_mi,Manistee,coho_salmon,Coho Salmon,manistee_mi__coho_salmon__v0_4,A,1.5,8.2,excellent,10-05,60,3,0,8.56,false,legacy_formula_cannot_display_10
+manistee_mi,Manistee,steelhead,Steelhead,manistee_mi__steelhead__v0_4,A,3,10,reference_class,10-28,102,39,10,10,true,weak_season_never_reaches_negligible_band
+manistee_mi,Manistee,brown_trout,Brown Trout,manistee_mi__brown_trout__v0_4,A,1,8.2,excellent,04-10,68,7,0,8.56,false,legacy_formula_cannot_display_10
+manistee_mi,Manistee,lake_trout,Lake Trout,manistee_mi__lake_trout__annual_v1,C,1,3,limited,04-15|10-15,0,0,0,3.1,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+manistee_mi,Manistee,smallmouth_bass,Smallmouth Bass,manistee_mi__smallmouth_bass__annual_v1,C,1.5,4.5,ordinary,07-15,0,0,0,4.675,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+manistee_mi,Manistee,freshwater_drum,Freshwater Drum,manistee_mi__freshwater_drum__annual_v1,C,1.5,4.5,ordinary,07-15,0,0,0,4.675,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+manistee_mi,Manistee,yellow_perch,Yellow Perch,manistee_mi__yellow_perch__annual_v1,C,1.5,7,strong,05-15,37,0,0,7.3,false,low_confidence_numeric_curve|legacy_formula_cannot_display_10
+frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,frankfort_elberta_mi__chinook_salmon__v0_4,A,1,9.7,reference_class,08-16,70,44,9,10,true,
+frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,frankfort_elberta_mi__coho_salmon__v0_4,A,1.2,8.6,excellent,09-15,67,14,0,8.98,false,legacy_formula_cannot_display_10
+frankfort_elberta_mi,Frankfort,steelhead,Steelhead,frankfort_elberta_mi__steelhead__v0_4,A,3.5,9.8,reference_class,10-16,81,23,4,10,true,weak_season_never_reaches_negligible_band
+frankfort_elberta_mi,Frankfort,brown_trout,Brown Trout,frankfort_elberta_mi__brown_trout__v0_4,A,1.3,7.5,strong,04-05,76,0,0,7.825,false,legacy_formula_cannot_display_10
+sheboygan_wi,Sheboygan,chinook_salmon,Chinook Salmon,sheboygan_wi__chinook_salmon__v0_4,B,1,9.6,reference_class,08-31,63,34,3,10,true,excellent_peak_without_grade_a_evidence
+sheboygan_wi,Sheboygan,coho_salmon,Coho Salmon,sheboygan_wi__coho_salmon__v0_4,B,1.2,7.7,strong,04-15,152,0,0,8.035,false,legacy_formula_cannot_display_10
+sheboygan_wi,Sheboygan,steelhead,Steelhead,sheboygan_wi__steelhead__v0_4,B,2.8,7.3,strong,07-15,106,0,0,7.615,false,legacy_formula_cannot_display_10|weak_season_never_reaches_negligible_band
+sheboygan_wi,Sheboygan,brown_trout,Brown Trout,sheboygan_wi__brown_trout__v0_4,B,2,7.8,strong,04-15,97,0,0,8.14,false,legacy_formula_cannot_display_10
+port_washington_wi,Port Washington,coho_salmon,Coho Salmon,port_washington_wi__coho_salmon__seasonal_v0_1,B,1,7.8,strong,04-20,79,0,0,8.14,false,legacy_formula_cannot_display_10
+port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,port_washington_wi__chinook_salmon__seasonal_v0_1,B,1,7.2,strong,08-15,69,0,0,7.51,false,legacy_formula_cannot_display_10
+port_washington_wi,Port Washington,steelhead,Steelhead,port_washington_wi__steelhead__seasonal_v0_1,B,1.2,5.2,ordinary,04-15,0,0,0,5.41,false,legacy_formula_cannot_display_10
+port_washington_wi,Port Washington,brown_trout,Brown Trout,port_washington_wi__brown_trout__seasonal_v0_1,B,1.2,7,strong,04-01,38,0,0,7.3,false,legacy_formula_cannot_display_10
+milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,milwaukee_wi__coho_salmon__seasonal_v0_1,B,1,7.6,strong,05-20,72,0,0,7.93,false,legacy_formula_cannot_display_10
+milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,milwaukee_wi__chinook_salmon__seasonal_v0_1,B,1,7,strong,08-15,68,0,0,7.3,false,legacy_formula_cannot_display_10
+milwaukee_wi,Milwaukee,steelhead,Steelhead,milwaukee_wi__steelhead__seasonal_v0_1,B,1.2,4.6,ordinary,04-15,0,0,0,4.78,false,legacy_formula_cannot_display_10
+milwaukee_wi,Milwaukee,brown_trout,Brown Trout,milwaukee_wi__brown_trout__seasonal_v0_1,B,1.3,6.6,strong,04-01,36,0,0,6.88,false,legacy_formula_cannot_display_10
+racine_wi,Racine,coho_salmon,Coho Salmon,racine_wi__coho_salmon__seasonal_v0_1,B,1,7.6,strong,04-20,89,0,0,7.93,false,legacy_formula_cannot_display_10
+racine_wi,Racine,chinook_salmon,Chinook Salmon,racine_wi__chinook_salmon__seasonal_v0_1,B,1,7.4,strong,08-15,74,0,0,7.72,false,legacy_formula_cannot_display_10
+racine_wi,Racine,steelhead,Steelhead,racine_wi__steelhead__seasonal_v0_1,B,1.2,5.7,ordinary,07-15,0,0,0,5.935,false,legacy_formula_cannot_display_10
+racine_wi,Racine,brown_trout,Brown Trout,racine_wi__brown_trout__seasonal_v0_1,B,1.3,6.7,strong,04-01,32,0,0,6.985,false,legacy_formula_cannot_display_10
+kenosha_wi,Kenosha,coho_salmon,Coho Salmon,kenosha_wi__coho_salmon__seasonal_v0_1,B,1,8,strong,04-20,77,0,0,8.35,false,legacy_formula_cannot_display_10
+kenosha_wi,Kenosha,chinook_salmon,Chinook Salmon,kenosha_wi__chinook_salmon__seasonal_v0_1,B,1,6.7,strong,08-15,60,0,0,6.985,false,legacy_formula_cannot_display_10
+kenosha_wi,Kenosha,steelhead,Steelhead,kenosha_wi__steelhead__seasonal_v0_1,B,1.2,4.3,ordinary,04-15,0,0,0,4.465,false,legacy_formula_cannot_display_10
+kenosha_wi,Kenosha,brown_trout,Brown Trout,kenosha_wi__brown_trout__seasonal_v0_1,B,1.2,5.8,ordinary,04-01,0,0,0,6.04,false,legacy_formula_cannot_display_10

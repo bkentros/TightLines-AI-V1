@@ -251,10 +251,12 @@ Deno.test("Port Washington shadow operation bypasses production ingest", async (
     "x-pier-cast-internal-key": SECRET,
     "x-pier-cast-operation": "port-washington-shadow",
   });
-  const response = await handler(new Request(
-    "https://example.test/functions/v1/pier-cast-ingest",
-    { method: "POST", headers },
-  ));
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
   const body = await response.json();
   assertEquals(response.status, 200);
   assertEquals(body.cityCount, 1);
@@ -299,10 +301,12 @@ Deno.test("Wisconsin shadow operation commits the complete four-city cohort", as
     "x-pier-cast-internal-key": SECRET,
     "x-pier-cast-operation": "wisconsin-shadow",
   });
-  const response = await handler(new Request(
-    "https://example.test/functions/v1/pier-cast-ingest",
-    { method: "POST", headers },
-  ));
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
   const body = await response.json();
   assertEquals(response.status, 200);
   assertEquals(body.cityCount, 4);
@@ -310,6 +314,52 @@ Deno.test("Wisconsin shadow operation commits the complete four-city cohort", as
   assertEquals(body.shadowForecast.forecastCount, 80);
   assertEquals(productionCalls, 0);
   assertEquals(expansionCalls, 1);
+});
+
+Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ingest", async () => {
+  let productionCalls = 0;
+  let v3Calls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestV3Shadow: () => {
+      v3Calls += 1;
+      return Promise.resolve({
+        status: "committed",
+        source: "fresh_archived_complete_cycle",
+        issuedAt: "2026-09-14T12:00:00.000Z",
+        cityCount: 9,
+        sampleCount: 1089,
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 180,
+          formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "v3-shadow",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 9);
+  assertEquals(body.sampleCount, 1089);
+  assertEquals(body.shadowForecast.forecastCount, 180);
+  assertEquals(productionCalls, 0);
+  assertEquals(v3Calls, 1);
 });
 
 Deno.test("observation archive failure is nonfatal and explicitly diagnosed", async () => {

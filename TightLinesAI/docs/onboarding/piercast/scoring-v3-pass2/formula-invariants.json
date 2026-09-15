@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "piercast-v3-pass2-formula-invariants-v1",
+  "formulaVersion": "piercast-opportunity-modes-bounded-temperature-v3",
+  "formula": "1 + (seasonalPotential - 1) * (0.30 + 0.70 * temperatureSuitability)",
+  "thermalFloor": 0.3,
+  "thermalWeight": 0.7,
+  "referenceYear": 2027,
+  "temperatureSuitabilityScenarios": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "status": "pass",
+  "checks": {
+    "everyScoreWithinOneToTen": true,
+    "temperatureFitMonotonic": true,
+    "scoreNeverExceedsActiveModePotential": true,
+    "activeModePotentialNeverExceedsFisheryStrength": true,
+    "idealFitCanReachResearchedTen": true,
+    "modesSelectedByMaximumNeverSummed": true,
+    "disabledConfigurationFailsClosedWithoutShadowOverride": true
+  },
+  "counts": {
+    "evaluatedScores": 65700,
+    "boundedScores": 65700,
+    "monotonicComparisons": 52560,
+    "ceilingComparisons": 65700,
+    "configurationPairs": 36,
+    "configurationModes": 98
+  }
+}

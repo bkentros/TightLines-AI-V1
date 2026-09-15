@@ -7,6 +7,7 @@ import {
   type PierCastShadowOutcomeInput,
   type PierCastShadowReviewResponse,
 } from "../_shared/pierCastEngine/index.ts";
+import type { PierCastV3ReviewOutlookResponse } from "../_shared/pierCastEngine/pipeline/v3ReviewOutlook.ts";
 
 export const PIER_CAST_CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -39,6 +40,7 @@ export type PierCastHandlerDependencies = {
   readExpansionReviewOutlook?: () => Promise<
     PierCastReviewOutlookResponse | null
   >;
+  readV3ReviewOutlook?: () => Promise<PierCastV3ReviewOutlookResponse | null>;
   readShadowReview: () => Promise<PierCastShadowReviewResponse>;
   recordShadowOutcome: (
     input: PierCastShadowOutcomeInput,
@@ -96,10 +98,12 @@ export function createPierCastHandler(
     const expansionReviewOutlook = url.pathname.endsWith(
       "/review/expansion/outlook",
     );
+    const v3ReviewOutlook = url.pathname.endsWith("/review/v3/outlook");
     const shadowReview = url.pathname.endsWith("/review/shadow");
     const shadowOutcome = url.pathname.endsWith("/review/outcomes");
     if (
       reviewCatalog || reviewOutlook || expansionReviewOutlook ||
+      v3ReviewOutlook ||
       shadowReview || shadowOutcome
     ) {
       try {
@@ -144,6 +148,32 @@ export function createPierCastHandler(
           return error(
             "Wisconsin expansion shadow outlook could not be generated.",
             "pier_cast_expansion_outlook_failed",
+            503,
+          );
+        }
+      }
+      if (v3ReviewOutlook) {
+        if (request.method !== "GET") {
+          return error("Method not allowed.", "method_not_allowed", 405);
+        }
+        if (!dependencies.readV3ReviewOutlook) {
+          return error(
+            "Formula v3 shadow review is not configured.",
+            "pier_cast_v3_outlook_unavailable",
+            503,
+          );
+        }
+        try {
+          const outlook = await dependencies.readV3ReviewOutlook();
+          return outlook ? json(outlook) : error(
+            "No coherent same-issue nine-city Formula v3 cycle is available.",
+            "pier_cast_v3_outlook_unavailable",
+            503,
+          );
+        } catch {
+          return error(
+            "Formula v3 shadow outlook could not be generated.",
+            "pier_cast_v3_outlook_failed",
             503,
           );
         }

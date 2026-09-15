@@ -5,6 +5,7 @@ import type {
   PierCastObservationIngestionSummary,
   PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
+  PierCastV3ShadowCommitSummary,
 } from "../_shared/pierCastEngine/index.ts";
 
 const INTERNAL_KEY_HEADER = "x-pier-cast-internal-key";
@@ -55,6 +56,14 @@ export type PierCastIngestHandlerDependencies = {
     sampleCount: number;
     diagnostics: string[];
     shadowForecast: PierCastShadowForecastCommitSummary | null;
+  }>;
+  ingestV3Shadow?: () => Promise<{
+    status: "committed" | "already_committed";
+    source: "fresh_archived_complete_cycle";
+    issuedAt: string;
+    cityCount: 9;
+    sampleCount: 1089;
+    shadowForecast: PierCastV3ShadowCommitSummary;
   }>;
 };
 
@@ -110,6 +119,16 @@ export function createPierCastIngestHandler(
           { error: "pier_cast_wisconsin_shadow_ingest_failed" },
           503,
         );
+      }
+    }
+    if (operation === "v3-shadow") {
+      if (!dependencies.ingestV3Shadow) {
+        return json({ error: "pier_cast_v3_shadow_misconfigured" }, 500);
+      }
+      try {
+        return json(await dependencies.ingestV3Shadow());
+      } catch {
+        return json({ error: "pier_cast_v3_shadow_ingest_failed" }, 503);
       }
     }
     if (operation) return json({ error: "pier_cast_operation_invalid" }, 400);

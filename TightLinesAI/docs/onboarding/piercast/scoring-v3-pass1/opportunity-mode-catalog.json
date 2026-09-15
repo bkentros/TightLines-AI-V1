@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "piercast-v3-pass1-opportunity-mode-catalog-v1",
+  "status": "research_hypotheses_not_scores",
+  "warning": "These modes organize evidence collection. They do not admit a city/species pair and contain no numeric calibration.",
+  "species": {
+    "chinook_salmon": [
+      "spring_nearshore_transient",
+      "summer_coldwater_access",
+      "fall_harbor_staging"
+    ],
+    "coho_salmon": [
+      "spring_nearshore",
+      "summer_coldwater_access",
+      "fall_harbor_staging"
+    ],
+    "steelhead": [
+      "spring_thermal_front",
+      "summer_thermal_break_or_upwelling",
+      "fall_harbor_staging"
+    ],
+    "brown_trout": [
+      "winter_harbor_open_water",
+      "spring_nearshore",
+      "fall_harbor"
+    ],
+    "lake_trout": [
+      "coldwater_nearshore",
+      "fall_nearshore_or_harbor"
+    ],
+    "walleye": [
+      "spring_harbor_or_channel",
+      "summer_night_pier",
+      "fall_harbor_or_channel"
+    ],
+    "smallmouth_bass": [
+      "spring_harbor_warmup",
+      "summer_rock_structure",
+      "fall_harbor"
+    ],
+    "freshwater_drum": [
+      "late_spring_harbor",
+      "summer_harbor_or_pier"
+    ],
+    "yellow_perch": [
+      "spring_nearshore_subject_to_regulation",
+      "summer_harbor_or_pier",
+      "fall_nearshore"
+    ],
+    "lake_whitefish": [
+      "late_fall_nearshore",
+      "winter_open_water"
+    ],
+    "round_whitefish": [
+      "late_fall_nearshore",
+      "winter_open_water"
+    ],
+    "channel_catfish": [
+      "late_spring_harbor_or_channel",
+      "summer_harbor_or_channel"
+    ],
+    "largemouth_bass": [
+      "late_spring_protected_harbor",
+      "summer_protected_harbor"
+    ]
+  }
+}

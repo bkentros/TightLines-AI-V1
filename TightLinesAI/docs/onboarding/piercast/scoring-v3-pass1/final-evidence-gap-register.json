@@ -1,0 +1,546 @@
+{
+  "schemaVersion": "piercast-v3-pass1-final-evidence-gap-register-v1",
+  "status": "pass1_complete_deferred_pair_research_queue",
+  "counts": {
+    "deferredPairs": 29,
+    "p0": 8,
+    "p1": 4,
+    "p2": 17
+  },
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "walleye",
+      "speciesName": "Walleye",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3176352",
+        "B_14ccdb0"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_364ea3a",
+        "B_3eeac7b",
+        "B_425abbc",
+        "B_41407c5",
+        "B_2d7cf51"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_421929e",
+        "B_423b34d"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_323f6bf",
+        "B_35ed629",
+        "B_3614332",
+        "B_364ea3a",
+        "B_3675eed"
+      ]
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "ROUND_DECLINE"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3ebb776",
+        "B_425abbc",
+        "B_3e9b7f3"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_3a65224",
+        "B_41a3a94",
+        "B_41b62ae",
+        "B_41c718b",
+        "B_41e9e6e",
+        "B_4280cb4"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "MI_2025"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "lake_whitefish",
+      "speciesName": "Lake Whitefish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "WHITEFISH_GEAR",
+        "MI_REGS_2026",
+        "B_3c05a1b"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2cce8db",
+        "B_2cea412",
+        "ROUND_DECLINE"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "channel_catfish",
+      "speciesName": "Channel Catfish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_14ccdb0"
+      ]
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "largemouth_bass",
+      "speciesName": "Largemouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3e9b7f3",
+        "B_3eeac7b",
+        "B_426de2b"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Reopen only with repeated current exact-covered-structure intentional targeting, species identification and catch/effort evidence.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3155afc",
+        "B_3548e2b",
+        "B_39595be",
+        "MI_STOCKING"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "walleye",
+      "speciesName": "Walleye",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3176352",
+        "B_3588f66",
+        "B_3987c22",
+        "B_14ccdb0"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_366250d",
+        "B_3675eed",
+        "B_3a65224",
+        "B_3abfd6e"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_366250d",
+        "B_3a521c4",
+        "B_3a65224",
+        "B_3ebb776"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P0",
+      "legacyNumericCurveRetired": true,
+      "blockingDimensions": "local_effort|covered_structure_or_mode|adult_pier_thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_1953bab",
+        "B_3176352",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_323f6bf",
+        "B_3de4822"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3548e2b",
+        "B_3de4822",
+        "ROUND_DECLINE"
+      ]
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "largemouth_bass",
+      "speciesName": "Largemouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "B_3675eed",
+        "B_3abfd6e"
+      ]
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "MI_CREEL",
+        "ROUND_DECLINE"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "SHEBOYGAN_SMALLMOUTH",
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "WI_CURRENT"
+      ]
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P1",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Resolve exact-structure directed catch and effort across seasons/years, lawful methods, relative magnitude against the frozen core scale, and applicable thermal response before numeric onboarding.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_2022",
+        "WI_2023",
+        "WI_2024",
+        "SHEBOYGAN_PERCH_HISTORY",
+        "WI_CURRENT"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "PW_ACCESS_001",
+        "PW_HARVEST_001",
+        "PW_SEASON_2022",
+        "PW_SEASON_2023",
+        "PW_SEASON_2024"
+      ]
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P1",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "PW_ACCESS_001",
+        "PW_HARVEST_001",
+        "PW_SEASON_2022",
+        "PW_SEASON_2023",
+        "PW_SEASON_2024"
+      ]
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_COUNTY_MODE_1998_2024"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_COUNTY_MODE_1998_2024"
+      ]
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P1",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_WEEKLY_2024_07_15",
+        "WI_WEEKLY_2024_07_29",
+        "WI_WEEKLY_2024_08",
+        "V3_WI_PERCH_STATUS"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "evidenceGrade": "C",
+      "priority": "P2",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_COUNTY_MODE_1998_2024"
+      ]
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "evidenceGrade": "C",
+      "priority": "P1",
+      "legacyNumericCurveRetired": false,
+      "blockingDimensions": "local_recurrence|seasonal_magnitude|covered_structure_or_mode|thermal_response",
+      "evidenceNeeded": "Obtain repeated exact-city pier/shore observations plus local effort-aware seasonal evidence and applicable mode-specific thermal support.",
+      "reopeningRule": "Reopen only when the missing evidence is archived, normalized in the claim ledger, reviewed across all nine cities for this species, and passes the Grade A/B numeric gate.",
+      "evidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_WEEKLY_2024_07_15",
+        "WI_WEEKLY_2024_07_29",
+        "WI_WEEKLY_2024_08",
+        "V3_WI_PERCH_STATUS"
+      ]
+    }
+  ]
+}

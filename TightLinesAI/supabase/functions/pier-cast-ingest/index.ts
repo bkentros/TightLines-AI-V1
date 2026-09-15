@@ -4,20 +4,26 @@ import {
   archivePierCastDailyScoreSnapshot,
   archivePierCastFieldTemperatureObservations,
   archivePierCastPortWashingtonShadowForecast,
-  archivePierCastWisconsinShadowForecast,
   archivePierCastShadowForecast,
+  archivePierCastV3ShadowForecast,
+  archivePierCastWisconsinShadowForecast,
   buildPierCastDailyScoreSnapshot,
   buildPierCastPortWashingtonReviewOutlook,
-  buildPierCastWisconsinReviewOutlook,
   buildPierCastReviewOutlook,
+  buildPierCastV3ReviewOutlook,
+  buildPierCastWisconsinReviewOutlook,
+  combinePierCastV3LmhofsBatches,
   ingestPierCastCalibrationObservations,
   ingestPierCastPortWashingtonShadowCycle,
-  ingestPierCastWisconsinShadowCycle,
   ingestPierCastTemperatureCycle,
+  ingestPierCastWisconsinShadowCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
   PIER_CAST_ENGINE_VERSION,
+  PIER_CAST_V3_ENGINE_VERSION,
   type PierCastArchiveClient,
   pierCastDailyScoreLakeDateForCycle,
+  readLatestFreshPierCastLmhofsBatch,
+  readLatestFreshPierCastWisconsinLmhofsBatch,
   validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
@@ -172,6 +178,36 @@ const handler = createPierCastIngestHandler({
       cityCount: 4,
       sampleCount: 484,
       diagnostics: outcome.diagnostics,
+      shadowForecast,
+    };
+  },
+  ingestV3Shadow: async () => {
+    const now = new Date();
+    const [primary, expansion] = await Promise.all([
+      readLatestFreshPierCastLmhofsBatch(archiveClient, now),
+      readLatestFreshPierCastWisconsinLmhofsBatch(archiveClient, now),
+    ]);
+    if (!primary || !expansion) {
+      throw new Error("Formula v3 source cohorts are unavailable.");
+    }
+    const batch = combinePierCastV3LmhofsBatches(primary, expansion);
+    const outlook = buildPierCastV3ReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    });
+    const shadowForecast = await archivePierCastV3ShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch,
+      ingestionSource: "fresh_archived_complete_cycle",
+      engineVersion: PIER_CAST_V3_ENGINE_VERSION,
+    });
+    return {
+      status: shadowForecast.status,
+      source: "fresh_archived_complete_cycle" as const,
+      issuedAt: batch.issuedAt,
+      cityCount: 9 as const,
+      sampleCount: 1089 as const,
       shadowForecast,
     };
   },

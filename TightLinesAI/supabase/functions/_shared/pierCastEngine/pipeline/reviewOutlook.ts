@@ -123,7 +123,7 @@ export function buildPierCastCohortReviewOutlook(input: {
       evaluationTime: evaluatedAt.toISOString(),
       timezone: city.timezone,
     });
-    const temperatureTimeline = buildRollingTemperatureTimeline(
+    const temperatureTimeline = buildPierCastRollingTemperatureTimeline(
       timeline.samples,
       evaluatedAt,
     );
@@ -361,7 +361,7 @@ function addIsoDate(localDate: string, days: number): string {
   return date.toISOString().slice(0, 10);
 }
 
-function buildRollingTemperatureTimeline(
+export function buildPierCastRollingTemperatureTimeline(
   samples: readonly PierCastLmhofsSample[],
   evaluatedAt: Date,
 ): Array<{ validAt: string; temperatureC: number }> {
@@ -411,7 +411,7 @@ function buildDateOutlook(input: {
     speciesId: PierCastSpeciesId,
   ) => PierCastOutlookAdmission | undefined;
 }) {
-  const temperatureSegments = buildTemperatureCoverageSegments(
+  const temperatureSegments = buildPierCastTemperatureCoverageSegments(
     input.samples,
     input.window,
   );
@@ -423,7 +423,7 @@ function buildDateOutlook(input: {
       scoreAtEnd: 1,
     })),
   }).coverage;
-  const temperaturePoints = buildTemperaturePoints(
+  const temperaturePoints = buildPierCastTemperaturePoints(
     input.samples,
     input.window,
   );
@@ -732,11 +732,20 @@ type TemperatureSegment = {
   temperatureAtEnd: number;
 };
 
-function buildTemperatureCoverageSegments(
+export function buildPierCastTemperatureCoverageSegments(
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
 ): TemperatureSegment[] {
   return buildTemperatureSegments(samples, window, null);
+}
+
+/** Splits hourly LMHOFS interpolation at every thermal-curve knot. */
+export function buildPierCastThermalScoreSegments(
+  samples: readonly PierCastLmhofsSample[],
+  window: PierCastDailyAssessmentWindow,
+  curve: PierCastTemperatureCurve,
+): TemperatureSegment[] {
+  return buildTemperatureSegments(samples, window, curve);
 }
 
 function buildTemperatureScoreSegments(
@@ -840,11 +849,11 @@ function buildTemperatureSegments(
   return result;
 }
 
-function buildTemperaturePoints(
+export function buildPierCastTemperaturePoints(
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
 ) {
-  const segments = buildTemperatureCoverageSegments(samples, window);
+  const segments = buildPierCastTemperatureCoverageSegments(samples, window);
   const points = new Map<string, number>();
   for (const segment of segments) {
     points.set(segment.start, segment.temperatureAtStart);

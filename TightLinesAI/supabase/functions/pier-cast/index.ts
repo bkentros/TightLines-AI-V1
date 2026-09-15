@@ -20,7 +20,9 @@ import {
   applyPierCastDailyScoreSnapshot,
   buildPierCastCatalog,
   buildPierCastReviewOutlook,
+  buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
+  combinePierCastV3LmhofsBatches,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
   type PierCastArchiveClient,
@@ -76,6 +78,19 @@ async function readExpansionOutlook() {
       evaluationTime: now.toISOString(),
     })
     : null;
+}
+async function readV3Outlook() {
+  const now = new Date();
+  const [primary, expansion] = await Promise.all([
+    readLatestFreshPierCastLmhofsBatch(archiveClient, now),
+    readLatestFreshPierCastWisconsinLmhofsBatch(archiveClient, now),
+  ]);
+  if (!primary || !expansion) return null;
+  const batch = combinePierCastV3LmhofsBatches(primary, expansion);
+  return buildPierCastV3ReviewOutlook({
+    batch,
+    evaluationTime: now.toISOString(),
+  });
 }
 async function account(request: Request) {
   const token = request.headers.get("x-user-token") ??
@@ -235,6 +250,7 @@ const handler = createPierCastHandler({
   },
   readReviewOutlook: readOutlook,
   readExpansionReviewOutlook: readExpansionOutlook,
+  readV3ReviewOutlook: readV3Outlook,
   readShadowReview: async () => {
     const [
       runs,

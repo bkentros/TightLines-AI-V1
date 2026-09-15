@@ -1,5 +1,6 @@
 import { assertEquals } from "jsr:@std/assert";
 import { buildPierCastReviewOutlook } from "../_shared/pierCastEngine/index.ts";
+import type { PierCastV3ReviewOutlookResponse } from "../_shared/pierCastEngine/pipeline/v3ReviewOutlook.ts";
 import { completeLmhofsBatch } from "../_shared/pierCastEngine/tests/fixtures/lmhofs.ts";
 import { createPierCastHandler } from "./handler.ts";
 
@@ -19,12 +20,15 @@ function dependencies(input?: {
   readExpansionReviewOutlook?: () => Promise<
     ReturnType<typeof reviewOutlook> | null
   >;
+  readV3ReviewOutlook?: () => Promise<PierCastV3ReviewOutlookResponse | null>;
 }) {
   return {
     authorizeReview: () => Promise.resolve(input?.authorized ?? true),
     readReviewOutlook: input?.readReviewOutlook ??
       (() => Promise.resolve(reviewOutlook())),
     readExpansionReviewOutlook: input?.readExpansionReviewOutlook ??
+      (() => Promise.resolve(null)),
+    readV3ReviewOutlook: input?.readV3ReviewOutlook ??
       (() => Promise.resolve(null)),
     readShadowReview: () =>
       Promise.resolve({
@@ -65,8 +69,16 @@ Deno.test("public PierCast catalog exposes the approved research roster", async 
     "seasonal-opportunity-bounded-temperature-v2",
   );
   assertEquals(body.cities.length, 5);
-  assertEquals(body.cities.map((c: {species: unknown[]}) => c.species.length), [6,6,8,4,4]);
-  assertEquals(body.cities.every((c: { releaseStatus: string }) => c.releaseStatus === "public_research"), true);
+  assertEquals(
+    body.cities.map((c: { species: unknown[] }) => c.species.length),
+    [6, 6, 8, 4, 4],
+  );
+  assertEquals(
+    body.cities.every((c: { releaseStatus: string }) =>
+      c.releaseStatus === "public_research"
+    ),
+    true,
+  );
 });
 
 Deno.test("owner-review catalog requires authorization", async () => {
@@ -99,7 +111,8 @@ Deno.test("authorized owner-review catalog includes the disabled Wisconsin expan
   assertEquals(body.cities.length, 9);
   assertEquals(
     ["port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi"].every(
-      (cityId) => body.cities.some((city: { cityId: string }) => city.cityId === cityId),
+      (cityId) =>
+        body.cities.some((city: { cityId: string }) => city.cityId === cityId),
     ),
     true,
   );
@@ -213,6 +226,31 @@ Deno.test("Port Washington expansion outlook is authorization-gated and isolated
   );
 });
 
+Deno.test("Formula v3 review route is owner-only and fails closed without a coherent cycle", async () => {
+  let reads = 0;
+  const forbidden = createPierCastHandler(dependencies({
+    authorized: false,
+    readV3ReviewOutlook: () => {
+      reads += 1;
+      return Promise.resolve(null);
+    },
+  }));
+  assertEquals((await forbidden(request("review/v3/outlook"))).status, 403);
+  assertEquals(reads, 0);
+
+  const unavailable = createPierCastHandler(dependencies());
+  const response = await unavailable(request("review/v3/outlook"));
+  assertEquals(response.status, 503);
+  assertEquals(
+    (await response.json()).error,
+    "pier_cast_v3_outlook_unavailable",
+  );
+  assertEquals(
+    (await unavailable(request("review/v3/outlook", "POST"))).status,
+    405,
+  );
+});
+
 Deno.test("owner-review outlook fails closed when no fresh complete cycle exists", async () => {
   const missingHandler = createPierCastHandler(dependencies({
     readReviewOutlook: () => Promise.resolve(null),
@@ -322,29 +360,56 @@ Deno.test("public standings are independent of account access and cannot expose 
   const handler = createPierCastHandler({
     ...dependencies({ authorized: false }),
     readLeaderboard: async () => leaderboardOnly(reviewOutlook()),
-    readCityReport: async () => { claims++; throw new Error("not authorized"); },
+    readCityReport: async () => {
+      claims++;
+      throw new Error("not authorized");
+    },
   });
   for (let index = 0; index < 3; index++) {
     const response = await handler(request("leaderboard"));
     assertEquals(response.status, 200);
     const body = await response.json();
     assertEquals(body.cities.length, 5);
-    assertEquals(body.cities.every((c: { dates: object[] }) => c.dates.every(d => !("species" in d) && !("waterTemperature" in d))), true);
+    assertEquals(
+      body.cities.every((c: { dates: object[] }) =>
+        c.dates.every((d) => !("species" in d) && !("waterTemperature" in d))
+      ),
+      true,
+    );
   }
   assertEquals(claims, 0);
   assertEquals((await handler(request("review/outlook"))).status, 403);
   assertEquals((await handler(request("report?cityId=bad-id"))).status, 400);
-  assertEquals((await handler(request("report?cityId=ludington_mi", "POST"))).status, 405);
+  assertEquals(
+    (await handler(request("report?cityId=ludington_mi", "POST"))).status,
+    405,
+  );
 });
 
 Deno.test("city report quota errors reach the paywall and never become a leaderboard response", async () => {
   const { PierCastAccessError } = await import("./reportAccess.ts");
-  const handler = createPierCastHandler({ ...dependencies(), readCityReport: async () => {
-    throw new PierCastAccessError("subscription_required", "Upgrade for another report.", 403);
-  } });
+  const handler = createPierCastHandler({
+    ...dependencies(),
+    readCityReport: async () => {
+      throw new PierCastAccessError(
+        "subscription_required",
+        "Upgrade for another report.",
+        403,
+      );
+    },
+  });
   const response = await handler(request("report?cityId=ludington_mi"));
   assertEquals(response.status, 403);
   assertEquals((await response.json()).error, "subscription_required");
-  assertEquals((await createPierCastHandler(dependencies())(request("report?cityId=ludington_mi"))).status, 404);
-  assertEquals((await createPierCastHandler(dependencies())(request("leaderboard"))).status, 503);
+  assertEquals(
+    (await createPierCastHandler(dependencies())(
+      request("report?cityId=ludington_mi"),
+    )).status,
+    404,
+  );
+  assertEquals(
+    (await createPierCastHandler(dependencies())(request("leaderboard")))
+      .status,
+    503,
+  );
 });
