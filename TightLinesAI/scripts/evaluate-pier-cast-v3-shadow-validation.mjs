@@ -46,7 +46,7 @@ const eligible = result.cohort.v3EligibleOutcomes >= 200 &&
   result.cohort.cities === 9 && result.cohort.species === 4;
 const report = `# Formula v3 prospective evaluation
 
-**Generated:** ${result.generatedAt}  
+**Generated:** ${result.generatedAt}
 **Decision state:** ${eligible ? "eligible for specialist interpretation; not automatically promotable" : "insufficient prospective evidence"}
 
 This report treats the FinFindr rating as an ordinal opportunity score, not a catch probability. AUC measures ranking discrimination only. It does not calibrate catch probability, erase access/weather limitations, or independently authorize promotion.

@@ -1,6 +1,6 @@
 # Formula v3 prospective evaluation
 
-**Generated:** 2026-09-15T11:23:29.868Z  
+**Generated:** 2026-09-15T11:23:29.868Z
 **Decision state:** insufficient prospective evidence
 
 This report treats the FinFindr rating as an ordinal opportunity score, not a catch probability. AUC measures ranking discrimination only. It does not calibrate catch probability, erase access/weather limitations, or independently authorize promotion.
