@@ -7,20 +7,30 @@ targetRules = ["generic-api-key"]
 condition = "AND"
 regexTarget = "line"
 paths = [
-  '''^TightLinesAI/docs/onboarding/piercast/remaining-species/creel-snapshot\.json$''',
+  '''^TightLinesAI/docs/onboarding/piercast/.*$''',
   '''^TightLinesAI/scripts/extract-pier-cast-michigan-creel\.mjs$''',
 ]
 regexes = ['''(?i)(publicResourceKey"?|REPORT_KEY)\s*[:=]''']
 
 [[allowlists]]
-description = "Power BI public-view URLs, not Grafana credentials"
+description = "Official Power BI public-view URLs in research citations, not Grafana credentials"
 targetRules = ["grafana-api-key"]
 condition = "AND"
 regexTarget = "line"
 paths = [
-  '''^TightLinesAI/docs/onboarding/piercast/remaining-species/(creel-snapshot|sources)\.json$''',
+  '''^TightLinesAI/docs/.*$''',
 ]
 regexes = ['''https://app\.powerbigov\.us/view\?r=''' ]
+
+[[allowlists]]
+description = "Port Washington research citation IDs, not API credentials"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''^TightLinesAI/scripts/generate-pier-cast-v3-pass1-inventory\.ts$''',
+]
+regexes = ['''["']PW_(?:ACCESS|HARVEST)_001["']''']
 
 [[allowlists]]
 description = "Water Reader deterministic lookup-key comparisons"
