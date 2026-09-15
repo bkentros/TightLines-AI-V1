@@ -18,6 +18,7 @@ import {
   PIER_CAST_V3_RATING_ENABLED,
   PIER_CAST_V3_SPECIES_IDS,
   PIER_CAST_WISCONSIN_CITY_PROFILES,
+  readLatestCoherentPierCastV3SourceCohorts,
   type PierCastCityProfile,
   type PierCastLmhofsBatch,
   type PierCastLmhofsSample,
@@ -247,6 +248,70 @@ Deno.test("v3 nine-city outlook requires one coherent issue and stays blocked", 
     Error,
     "same-issue",
   );
+});
+
+Deno.test("v3 source selection bridges staggered fresh archive cycles without mixing issues", async () => {
+  const primary00 = batch(
+    PIER_CAST_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
+  const primary06 = batch(
+    PIER_CAST_CITY_PROFILES,
+    "2026-09-15T06:00:00.000Z",
+  );
+  const expansion00 = batch(
+    PIER_CAST_WISCONSIN_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
+  let primaryReads = 0;
+  let expansionReads = 0;
+  const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+    database: { rpc: () => Promise.resolve({ data: null, error: null }) },
+    now: new Date("2026-09-15T12:40:00.000Z"),
+    readPrimary: (_database, at) => {
+      primaryReads += 1;
+      return Promise.resolve(
+        at.toISOString() === "2026-09-15T00:00:00.000Z"
+          ? primary00
+          : primary06,
+      );
+    },
+    readExpansion: () => {
+      expansionReads += 1;
+      return Promise.resolve(expansion00);
+    },
+  });
+
+  assert(cohorts);
+  assertEquals(cohorts.issuedAt, "2026-09-15T00:00:00.000Z");
+  assertEquals(cohorts.primary.issuedAt, cohorts.expansion.issuedAt);
+  assertEquals(cohorts.usedCommonCycleFallback, true);
+  assertEquals(primaryReads, 2);
+  assertEquals(expansionReads, 1);
+});
+
+Deno.test("v3 source selection fails closed when no common fresh cycle exists", async () => {
+  const primary06 = batch(
+    PIER_CAST_CITY_PROFILES,
+    "2026-09-15T06:00:00.000Z",
+  );
+  const expansion00 = batch(
+    PIER_CAST_WISCONSIN_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
+  const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+    database: { rpc: () => Promise.resolve({ data: null, error: null }) },
+    now: new Date("2026-09-15T12:40:00.000Z"),
+    readPrimary: (_database, at) =>
+      Promise.resolve(
+        at.toISOString() === "2026-09-15T00:00:00.000Z"
+          ? null
+          : primary06,
+      ),
+    readExpansion: () => Promise.resolve(expansion00),
+  });
+
+  assertEquals(cohorts, null);
 });
 
 Deno.test("v3 archive freezes the exact 280-row pair manifest", async () => {

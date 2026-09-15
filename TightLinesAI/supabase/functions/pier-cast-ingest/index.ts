@@ -22,8 +22,7 @@ import {
   PIER_CAST_V3_ENGINE_VERSION,
   type PierCastArchiveClient,
   pierCastDailyScoreLakeDateForCycle,
-  readLatestFreshPierCastLmhofsBatch,
-  readLatestFreshPierCastWisconsinLmhofsBatch,
+  readLatestCoherentPierCastV3SourceCohorts,
   validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
@@ -183,14 +182,17 @@ const handler = createPierCastIngestHandler({
   },
   ingestV3Shadow: async () => {
     const now = new Date();
-    const [primary, expansion] = await Promise.all([
-      readLatestFreshPierCastLmhofsBatch(archiveClient, now),
-      readLatestFreshPierCastWisconsinLmhofsBatch(archiveClient, now),
-    ]);
-    if (!primary || !expansion) {
+    const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+      database: archiveClient,
+      now,
+    });
+    if (!cohorts) {
       throw new Error("Formula v3 source cohorts are unavailable.");
     }
-    const batch = combinePierCastV3LmhofsBatches(primary, expansion);
+    const batch = combinePierCastV3LmhofsBatches(
+      cohorts.primary,
+      cohorts.expansion,
+    );
     const outlook = buildPierCastV3ReviewOutlook({
       batch,
       evaluationTime: now.toISOString(),

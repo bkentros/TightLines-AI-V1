@@ -35,6 +35,7 @@ export * from "./archive/shadowForecasts.ts";
 export * from "./archive/portWashingtonShadowForecasts.ts";
 export * from "./archive/wisconsinShadowForecasts.ts";
 export * from "./archive/v3ShadowForecasts.ts";
+export * from "./archive/v3SourceCohorts.ts";
 export * from "./archive/shadowOutcomes.ts";
 export * from "./archive/dailyScoreSnapshots.ts";
 export * from "./pipeline/temperatureIngestion.ts";
@@ -46,4 +47,4 @@ export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
 export const PIER_CAST_V3_ENGINE_VERSION =
-  "pier-cast-opportunity-modes-v3-shadow-v1.1.0";
+  "pier-cast-opportunity-modes-v3-shadow-v1.1.1";

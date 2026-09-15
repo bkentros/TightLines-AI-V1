@@ -28,6 +28,7 @@ import {
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   readLatestFreshPierCastLmhofsBatch,
+  readLatestCoherentPierCastV3SourceCohorts,
   readLatestFreshPierCastWisconsinLmhofsBatch,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
@@ -81,12 +82,15 @@ async function readExpansionOutlook() {
 }
 async function readV3Outlook() {
   const now = new Date();
-  const [primary, expansion] = await Promise.all([
-    readLatestFreshPierCastLmhofsBatch(archiveClient, now),
-    readLatestFreshPierCastWisconsinLmhofsBatch(archiveClient, now),
-  ]);
-  if (!primary || !expansion) return null;
-  const batch = combinePierCastV3LmhofsBatches(primary, expansion);
+  const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+    database: archiveClient,
+    now,
+  });
+  if (!cohorts) return null;
+  const batch = combinePierCastV3LmhofsBatches(
+    cohorts.primary,
+    cohorts.expansion,
+  );
   return buildPierCastV3ReviewOutlook({
     batch,
     evaluationTime: now.toISOString(),
