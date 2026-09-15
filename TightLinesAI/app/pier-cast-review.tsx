@@ -105,7 +105,10 @@ const SPECIES_LABELS: Record<PierCastSpeciesId, string> = {
   northern_pike: "Northern Pike",
 };
 
-const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
+// Normalize the visible (non-transparent) fish artwork inside the species-card
+// stage. Source PNGs have different canvas aspect ratios and padding, so these
+// values intentionally differ from the larger River Run hero-image scales.
+const FISH_SCALE: Record<PierCastSpeciesId, number> = {
   chinook_salmon: 1.38,
   coho_salmon: 1.4,
   steelhead: 1.08,
@@ -119,8 +122,8 @@ const FISH_SCALE: Partial<Record<PierCastSpeciesId, number>> = {
   round_whitefish: 1.4,
   channel_catfish: 1.38,
   largemouth_bass: 1.38,
-  atlantic_salmon: 1.5,
-  northern_pike: 1.28,
+  atlantic_salmon: 1.07,
+  northern_pike: 0.9,
 };
 
 const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;
