@@ -792,13 +792,13 @@ async function main() {
       "43.43, -82.53 (row 183, column 553; 6.8442 m model depth; 390 m from reference)",
     ),
   };
-  const hashes: Record<string, string> = {};
-  for (const [name, content] of Object.entries(artifacts)) {
-    hashes[name] = sha(content);
-  }
+  const hashes = Object.entries(artifacts).map(([artifactPath, content]) => ({
+    artifactPath,
+    sha256Digest: sha(content),
+  }));
   artifacts["artifact-hashes.json"] = json({
     schemaVersion: "piercast-lake-huron-artifact-hashes-v1",
-    sha256: hashes,
+    artifacts: hashes,
   });
   await mkdir(out, { recursive: true });
   for (const [name, content] of Object.entries(artifacts)) {
