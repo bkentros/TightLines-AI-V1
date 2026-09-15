@@ -33,3 +33,7 @@ The manifest count was independently read from the private forecast table after 
 - Every seasonal potential is between 1 and its researched fishery strength.
 - The public leaderboard returns HTTP 200 with the unchanged five-city production cohort.
 - An anonymous request to `/review/v3/outlook` returns HTTP 403 with `pier_cast_review_forbidden`.
+
+## Prospective baseline
+
+The first live [prospective evaluation](PROSPECTIVE_EVALUATION.md) correctly reports zero eligible outcomes immediately after deployment. This is the expected starting state: forecasts must be frozen before later effort-aware observations can count as prospective evidence.
