@@ -2,6 +2,7 @@ import type {
   PierCastV3AvailabilityKnot,
   PierCastV3ModePotential,
   PierCastV3OpportunityMode,
+  PierCastV3PairCalibration,
 } from "../config/v3Calibration.ts";
 
 type ParsedDate = { year: number; month: number; day: number };
@@ -77,6 +78,24 @@ export function evaluatePierCastV3ModePotentials(input: {
     )
     ? evaluated
     : [];
+}
+
+export function pierCastV3RegulationClosureApplies(input: {
+  localDate: string;
+  pair: PierCastV3PairCalibration;
+}): boolean {
+  const date = parseLocalDate(input.localDate);
+  if (!date) return false;
+  const monthDay = input.localDate.slice(5);
+  return (input.pair.closedWindows ?? []).some((window) => {
+    if (
+      !parseMonthDay(window.startMonthDay) ||
+      !parseMonthDay(window.endMonthDay)
+    ) return false;
+    return window.startMonthDay <= window.endMonthDay
+      ? monthDay >= window.startMonthDay && monthDay <= window.endMonthDay
+      : monthDay >= window.startMonthDay || monthDay <= window.endMonthDay;
+  });
 }
 
 function interpolateRecurringAvailability(

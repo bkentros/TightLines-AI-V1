@@ -11,6 +11,7 @@ import {
   PIER_CAST_V3_THERMAL_FLOOR,
   PIER_CAST_V3_THERMAL_WEIGHT,
   PIER_CAST_WISCONSIN_CITY_PROFILES,
+  pierCastV3RegulationClosureApplies,
 } from "../supabase/functions/_shared/pierCastEngine/index.ts";
 
 const outputDirectory = resolve("docs/onboarding/piercast/scoring-v3-pass2");
@@ -42,13 +43,17 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
     candidate.speciesId === pair.speciesId
   )
     ?.seasonalOpportunityCurve;
-  if (!city || !legacyCurve) {
-    throw new Error(`Legacy comparator missing for ${pair.pairKey}.`);
+  if (!city) {
+    throw new Error(`City profile missing for ${pair.pairKey}.`);
   }
   let peak = { score: -1, date: "", modeId: "", strength: 0 };
+  let regulatedUnavailableDays = 0;
   for (let day = 0; day < 365; day += 1) {
     const date = new Date(Date.UTC(referenceYear, 0, 1 + day)).toISOString()
       .slice(0, 10);
+    if (pierCastV3RegulationClosureApplies({ localDate: date, pair })) {
+      regulatedUnavailableDays += 1;
+    }
     const modes = evaluatePierCastV3ModePotentials({
       localDate: date,
       modes: pair.modes,
@@ -107,6 +112,7 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
     idealPeakMode: peak.modeId,
     researchedFisheryStrength: peak.strength,
     v3IdealPeakScore: round(peak.score),
+    regulatedUnavailableDays,
   });
 
   for (let week = 0; week < 52; week += 1) {
@@ -116,13 +122,15 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
       localDate: date,
       modes: pair.modes,
     });
-    const legacy = evaluatePierCastSeasonalOpportunity({
-      ratingEnabled: true,
-      mode: "review",
-      localDate: date,
-      curve: legacyCurve,
-    });
-    if (legacy.status !== "available") {
+    const legacy = legacyCurve
+      ? evaluatePierCastSeasonalOpportunity({
+        ratingEnabled: true,
+        mode: "review",
+        localDate: date,
+        curve: legacyCurve,
+      })
+      : null;
+    if (legacy && legacy.status !== "available") {
       throw new Error(`Legacy score unavailable for ${pair.pairKey}.`);
     }
     for (const fit of fits) {
@@ -131,25 +139,42 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
         temperatureSuitability: fit,
         allowDisabledConfiguration: true,
       });
-      const v2 = calculatePierCastInstantOpportunity({
-        seasonalRating: legacy.rating,
-        temperatureSuitability: fit,
-      });
-      if (v3.status !== "available" || v2.status !== "available") {
+      const v2 = legacy?.status === "available"
+        ? calculatePierCastInstantOpportunity({
+          seasonalRating: legacy.rating,
+          temperatureSuitability: fit,
+        })
+        : null;
+      if (
+        v3.status !== "available" ||
+        (v2 !== null && v2.status !== "available")
+      ) {
         throw new Error("Replay score unavailable.");
       }
+      const regulationOpen = !pierCastV3RegulationClosureApplies({
+        localDate: date,
+        pair,
+      });
       weekly.push({
         pairKey: pair.pairKey,
         localDate: date,
         temperatureSuitability: fit,
-        v2SeasonalRating: round(legacy.rating),
-        v2Score: round(v2.rating.score),
+        v2SeasonalRating: legacy?.status === "available"
+          ? round(legacy.rating)
+          : "",
+        v2Score: v2?.status === "available" ? round(v2.rating.score) : "",
         v3ActiveMode: v3.activeMode.modeId,
         v3FisheryStrength: v3.activeMode.fisheryStrength,
         v3SeasonalAvailability: round(v3.activeMode.seasonalAvailability),
         v3SeasonalPotential: round(v3.activeMode.seasonalPotential),
         v3Score: round(v3.score),
-        deltaV3MinusV2: round(v3.score - v2.rating.score),
+        deltaV3MinusV2: v2?.status === "available"
+          ? round(v3.score - v2.rating.score)
+          : "",
+        regulationOpen: regulationOpen ? "true" : "false",
+        resultStatus: regulationOpen
+          ? "available"
+          : "unavailable_species_regulation_closed",
       });
     }
   }

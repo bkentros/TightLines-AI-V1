@@ -29,6 +29,7 @@ condition = "AND"
 regexTarget = "line"
 paths = [
   '''^TightLinesAI/scripts/generate-pier-cast-v3-pass1-inventory\.ts$''',
+  '''^TightLinesAI/scripts/generate-pier-cast-v3-secondary\.ts$''',
 ]
 regexes = ['''["']PW_(?:ACCESS|HARVEST)_001["']''']
 

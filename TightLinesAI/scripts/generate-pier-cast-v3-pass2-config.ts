@@ -12,6 +12,18 @@ const candidatePath = resolve(
   "v3-disabled-runtime-candidates.json",
 );
 const calibrationPath = resolve(pass1Directory, "v3-mode-calibrations.json");
+const secondaryDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/scoring-v3-secondary",
+);
+const secondaryCandidatePath = resolve(
+  secondaryDirectory,
+  "secondary-runtime-candidates.json",
+);
+const secondaryCalibrationPath = resolve(
+  secondaryDirectory,
+  "secondary-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -19,14 +31,31 @@ const outputPath = resolve(
 
 const candidateText = readFileSync(candidatePath, "utf8");
 const calibrationText = readFileSync(calibrationPath, "utf8");
+const secondaryCandidateText = readFileSync(secondaryCandidatePath, "utf8");
+const secondaryCalibrationText = readFileSync(
+  secondaryCalibrationPath,
+  "utf8",
+);
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
+const secondaryCandidateArtifact = JSON.parse(
+  secondaryCandidateText,
+) as CandidateArtifact;
+const secondaryCalibrationArtifact = JSON.parse(
+  secondaryCalibrationText,
+) as CalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
+assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
 const modesById = new Map(
-  calibrationArtifact.modes.map((mode) => [mode.modeCalibrationId, mode]),
+  [...calibrationArtifact.modes, ...secondaryCalibrationArtifact.modes].map(
+    (mode) => [mode.modeCalibrationId, mode],
+  ),
 );
-const pairs = candidateArtifact.candidates.map((pair) => ({
+const pairs = [
+  ...candidateArtifact.candidates,
+  ...secondaryCandidateArtifact.candidates,
+].map((pair) => ({
   ...pair,
   publicEnabled: false as const,
   promotionEligible: false as const,
@@ -54,15 +83,15 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-nine-city-core-four-pass2-v1" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-nine-city-secondary-complete-v2" as const;
 export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = ${
   JSON.stringify(candidateArtifact.schemaVersion)
 } as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
-  JSON.stringify(sha256(candidateText))
+  JSON.stringify(sha256(`${candidateText}\n${secondaryCandidateText}`))
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
-  JSON.stringify(sha256(calibrationText))
+  JSON.stringify(sha256(`${calibrationText}\n${secondaryCalibrationText}`))
 } as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
@@ -81,6 +110,34 @@ if (process.argv.includes("--check")) {
 } else {
   writeFileSync(outputPath, generated);
   console.log(`Generated ${outputPath} with ${pairs.length} pairs.`);
+}
+
+function assertSecondary(
+  candidates: CandidateArtifact,
+  calibrations: CalibrationArtifact,
+): void {
+  if (
+    candidates.importedByRuntime !== true ||
+    candidates.ratingEnabled !== false ||
+    candidates.publicEnabled !== false ||
+    candidates.formulaImplemented !== true ||
+    candidates.candidates.length !== 20 ||
+    calibrations.modes.length !== 27
+  ) {
+    throw new Error(
+      "Secondary handoff does not match the reviewed disabled contract.",
+    );
+  }
+  const keys = new Set<string>();
+  for (const pair of candidates.candidates) {
+    if (
+      pair.ratingEnabled !== false || keys.has(pair.pairKey) ||
+      pair.modes.length < 1
+    ) {
+      throw new Error(`Invalid secondary pair ${pair.pairKey}.`);
+    }
+    keys.add(pair.pairKey);
+  }
 }
 
 function assertPass1(
@@ -117,15 +174,21 @@ function sha256(value: string): string {
 
 type CandidateArtifact = {
   schemaVersion: string;
-  importedByRuntime: false;
+  importedByRuntime: boolean;
   ratingEnabled: false;
   publicEnabled: false;
-  formulaImplemented: false;
+  formulaImplemented: boolean;
   candidates: Array<{
     pairKey: string;
     cityId: string;
     speciesId: string;
     ratingEnabled: false;
+    closedWindows?: Array<{
+      startMonthDay: string;
+      endMonthDay: string;
+      reasonCode: "species_regulation_closed";
+      evidenceIds: string[];
+    }>;
     modes: Array<{
       modeCalibrationId: string;
       modeId: string;

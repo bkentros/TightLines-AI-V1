@@ -1,4 +1,7 @@
 import type { PierCastCityId, PierCastSpeciesId } from "../types.ts";
+import { getPierCastCoreTemperatureCurve } from "./coreCalibration.ts";
+import { PIER_CAST_ADDITIONAL_THERMAL_RESEARCH } from "./additionalThermalResearch.generated.ts";
+import { PIER_CAST_V3_PAIR_CALIBRATIONS } from "./v3Calibration.generated.ts";
 
 export const PIER_CAST_V3_FORMULA_VERSION =
   "piercast-opportunity-modes-bounded-temperature-v3" as const;
@@ -20,11 +23,10 @@ export const PIER_CAST_V3_CITY_IDS = [
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [
-  "chinook_salmon",
-  "coho_salmon",
-  "steelhead",
-  "brown_trout",
-] as const satisfies readonly PierCastSpeciesId[];
+  ...new Set(
+    PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.speciesId),
+  ),
+] as readonly PierCastSpeciesId[];
 
 export type PierCastV3AvailabilityKnot = {
   monthDay: string;
@@ -51,6 +53,12 @@ export type PierCastV3PairCalibration = {
   ratingEnabled: false;
   publicEnabled: false;
   promotionEligible: false;
+  closedWindows?: readonly {
+    startMonthDay: string;
+    endMonthDay: string;
+    reasonCode: "species_regulation_closed";
+    evidenceIds: readonly string[];
+  }[];
   modes: readonly PierCastV3OpportunityMode[];
 };
 
@@ -91,8 +99,6 @@ export {
   PIER_CAST_V3_SOURCE_SHA256,
 } from "./v3Calibration.generated.ts";
 
-import { PIER_CAST_V3_PAIR_CALIBRATIONS } from "./v3Calibration.generated.ts";
-
 export function getPierCastV3PairCalibration(
   cityId: PierCastCityId,
   speciesId: PierCastSpeciesId,
@@ -101,3 +107,20 @@ export function getPierCastV3PairCalibration(
     pair.cityId === cityId && pair.speciesId === speciesId
   ) ?? null;
 }
+
+export function getPierCastV3SpeciesIdsForCity(
+  cityId: PierCastCityId,
+): PierCastSpeciesId[] {
+  return PIER_CAST_V3_PAIR_CALIBRATIONS.filter((pair) => pair.cityId === cityId)
+    .map((pair) => pair.speciesId);
+}
+
+export function getPierCastV3TemperatureCurve(speciesId: PierCastSpeciesId) {
+  return getPierCastCoreTemperatureCurve(speciesId) ??
+    PIER_CAST_ADDITIONAL_THERMAL_RESEARCH.find((candidate) =>
+      candidate.speciesId === speciesId
+    )?.curve ?? null;
+}
+
+export const PIER_CAST_V3_PAIR_COUNT = PIER_CAST_V3_PAIR_CALIBRATIONS.length;
+export const PIER_CAST_V3_FORECAST_COUNT = PIER_CAST_V3_PAIR_COUNT * 5;

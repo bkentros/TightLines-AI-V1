@@ -1,0 +1,1583 @@
+{
+  "schemaVersion": "piercast-v3-secondary-mode-calibrations-v1",
+  "status": "complete_disabled_shadow_calibration",
+  "modes": [
+    {
+      "modeCalibrationId": "ludington_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "cold_season_nearshore",
+      "modeName": "Cold-season nearshore access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "01-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "03-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "04-30",
+          "availability": 0.28
+        },
+        {
+          "monthDay": "05-31",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_2521a66",
+        "B_257279c",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "Cold-season port access identified by the Michigan DNR roadmap and bounded by port Pier/Dock recurrence.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "ludington_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "09-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_2521a66",
+        "B_257279c",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "A low-ceiling summer opportunity only when cold water remains reachable at the harbor mouth; this is not an offshore abundance score.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "ludington_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "modeId": "warm_season_harbor",
+      "modeName": "Warm-season harbor fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 0.25
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_364ea3a",
+        "B_3eeac7b",
+        "B_425abbc",
+        "B_41407c5",
+        "B_2d7cf51",
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "evidenceInterpretation": "Recurring warm-season Pier/Dock catches support a harbor-scale bass opportunity; the curve does not imply every breakwall face is equivalent.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "ludington_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "modeId": "warm_season_bottom_fishery",
+      "modeName": "Warm-season bottom fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5,
+      "availabilityKnots": [
+        {
+          "monthDay": "04-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-05",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "06-10",
+          "availability": 0.85
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.3
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_421929e",
+        "B_423b34d",
+        "THERMAL_DRUM_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_DRUM_USGS"
+      ],
+      "evidenceInterpretation": "Port Pier/Dock catches establish a recurring warm-season bottom-fishing mode; salmon-directed effort is not treated as drum-target effort.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "ludington_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "spring_nearshore_schooling",
+      "modeName": "Spring nearshore schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 6,
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_323f6bf",
+        "B_35ed629",
+        "B_3614332",
+        "B_364ea3a",
+        "B_3675eed",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Spring shallows and recurring Pier/Dock harvest support a concentrated nearshore perch opportunity.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "ludington_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "summer_harbor_schooling",
+      "modeName": "Summer harbor schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 7.6,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "07-12",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.75
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_323f6bf",
+        "B_35ed629",
+        "B_3614332",
+        "B_364ea3a",
+        "B_3675eed",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Recurring summer pier/shore observations support a city-harbor perch mode; school location remains variable.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "cold_season_nearshore",
+      "modeName": "Cold-season nearshore access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.6,
+      "availabilityKnots": [
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "01-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "03-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "04-30",
+          "availability": 0.28
+        },
+        {
+          "monthDay": "05-31",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "Cold-season port access identified by the Michigan DNR roadmap and bounded by port Pier/Dock recurrence.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "09-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "A low-ceiling summer opportunity only when cold water remains reachable at the harbor mouth; this is not an offshore abundance score.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "modeId": "warm_season_harbor",
+      "modeName": "Warm-season harbor fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 0.25
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3ebb776",
+        "B_425abbc",
+        "B_3e9b7f3",
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "evidenceInterpretation": "Recurring warm-season Pier/Dock catches support a harbor-scale bass opportunity; the curve does not imply every breakwall face is equivalent.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "modeId": "warm_season_bottom_fishery",
+      "modeName": "Warm-season bottom fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 7.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "04-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-05",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "06-10",
+          "availability": 0.85
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.3
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_3a65224",
+        "B_41a3a94",
+        "B_41b62ae",
+        "B_41c718b",
+        "B_41e9e6e",
+        "B_4280cb4",
+        "THERMAL_DRUM_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_DRUM_USGS"
+      ],
+      "evidenceInterpretation": "Port Pier/Dock catches establish a recurring warm-season bottom-fishing mode; salmon-directed effort is not treated as drum-target effort.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "spring_nearshore_schooling",
+      "modeName": "Spring nearshore schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 4.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "05-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "MI_2025",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Spring shallows and recurring Pier/Dock harvest support a concentrated nearshore perch opportunity.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
+        "Recent recruitment is encouraging but is not converted into an automatic score increase; the ceiling remains below historical harvest-era strength."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "summer_harbor_schooling",
+      "modeName": "Summer harbor schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 6,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "08-05",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.75
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "MI_2025",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Recurring summer pier/shore observations support a city-harbor perch mode; school location remains variable.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
+        "Recent recruitment is encouraging but is not converted into an automatic score increase; the ceiling remains below historical harvest-era strength."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__round_whitefish__spring_menominee__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "modeId": "spring_menominee",
+      "modeName": "Spring menominee fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.4
+        },
+        {
+          "monthDay": "04-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-10",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_2cce8db",
+        "B_2cea412",
+        "ROUND_DECLINE",
+        "P2_GLFC1987",
+        "P2_ROUND_JUVENILE2023"
+      ],
+      "thermalEvidenceIds": [
+        "P2_GLFC1987",
+        "P2_ROUND_JUVENILE2023"
+      ],
+      "evidenceInterpretation": "Repeated April Pier/Dock occurrence and DNR pier reports support a modest spring menominee opportunity.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__channel_catfish__warm_season_channel__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "channel_catfish",
+      "speciesName": "Channel Catfish",
+      "modeId": "warm_season_channel",
+      "modeName": "Warm-season channel fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 5.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0.8
+        },
+        {
+          "monthDay": "08-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-05",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3588f66",
+        "B_14ccdb0",
+        "P2_CATFISH_RELEASE2025"
+      ],
+      "thermalEvidenceIds": [
+        "P2_CATFISH_RELEASE2025"
+      ],
+      "evidenceInterpretation": "High multi-month Pier/Dock recurrence supports a genuine channel-mouth fishery; upstream Grand River catches are excluded.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "grand_haven_mi__largemouth_bass__warm_season_harbor_cover__v3_secondary_v1",
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "largemouth_bass",
+      "speciesName": "Largemouth Bass",
+      "modeId": "warm_season_harbor_cover",
+      "modeName": "Warm-season harbor-cover fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 6.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 0.25
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_207cdc1",
+        "B_3e9b7f3",
+        "B_3eeac7b",
+        "B_426de2b",
+        "THERMAL_LARGEMOUTH_MIDNR"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LARGEMOUTH_MIDNR"
+      ],
+      "evidenceInterpretation": "Strong recurring port Pier/Dock catches and species-specific DNR reports support a harbor-cover largemouth opportunity.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "cold_season_nearshore",
+      "modeName": "Cold-season nearshore access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4,
+      "availabilityKnots": [
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "01-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "03-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "04-30",
+          "availability": 0.28
+        },
+        {
+          "monthDay": "05-31",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3155afc",
+        "B_3548e2b",
+        "B_39595be",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "Cold-season port access identified by the Michigan DNR roadmap and bounded by port Pier/Dock recurrence.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.6,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "09-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3155afc",
+        "B_3548e2b",
+        "B_39595be",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "A low-ceiling summer opportunity only when cold water remains reachable at the harbor mouth; this is not an offshore abundance score.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__walleye__spring_low_light__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "walleye",
+      "speciesName": "Walleye",
+      "modeId": "spring_low_light",
+      "modeName": "Spring low-light fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "04-01",
+          "availability": 0.5
+        },
+        {
+          "monthDay": "05-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "06-10",
+          "availability": 0.4
+        },
+        {
+          "monthDay": "07-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3176352",
+        "B_3588f66",
+        "B_3987c22",
+        "B_14ccdb0",
+        "P2_WALLEYE_TELEMETRY2025"
+      ],
+      "thermalEvidenceIds": [
+        "P2_WALLEYE_TELEMETRY2025"
+      ],
+      "evidenceInterpretation": "Repeated spring pier casting and nighttime targeting support a modest low-light opportunity; basin walleye abundance is not transferred.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "smallmouth_bass",
+      "speciesName": "Smallmouth Bass",
+      "modeId": "warm_season_harbor",
+      "modeName": "Warm-season harbor fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 0.25
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_366250d",
+        "B_3675eed",
+        "B_3a65224",
+        "B_3abfd6e",
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_SMALLMOUTH_WIDNR"
+      ],
+      "evidenceInterpretation": "Recurring warm-season Pier/Dock catches support a harbor-scale bass opportunity; the curve does not imply every breakwall face is equivalent.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "freshwater_drum",
+      "speciesName": "Freshwater Drum",
+      "modeId": "warm_season_bottom_fishery",
+      "modeName": "Warm-season bottom fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.7,
+      "availabilityKnots": [
+        {
+          "monthDay": "04-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-05",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "06-10",
+          "availability": 0.85
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.3
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_2e736eb",
+        "B_366250d",
+        "B_3a521c4",
+        "B_3a65224",
+        "B_3ebb776",
+        "THERMAL_DRUM_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_DRUM_USGS"
+      ],
+      "evidenceInterpretation": "Port Pier/Dock catches establish a recurring warm-season bottom-fishing mode; salmon-directed effort is not treated as drum-target effort.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "spring_nearshore_schooling",
+      "modeName": "Spring nearshore schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 7.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "05-05",
+          "availability": 1
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "06-25",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_1953bab",
+        "B_3176352",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_323f6bf",
+        "B_3de4822",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Spring shallows and recurring Pier/Dock harvest support a concentrated nearshore perch opportunity.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "summer_harbor_schooling",
+      "modeName": "Summer harbor schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 4.5,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.75
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_1953bab",
+        "B_3176352",
+        "B_3588f66",
+        "B_3614332",
+        "B_36281c5",
+        "B_323f6bf",
+        "B_3de4822",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Recurring summer pier/shore observations support a city-harbor perch mode; school location remains variable.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "manistee_mi__round_whitefish__fall_menominee__v3_secondary_v1",
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "round_whitefish",
+      "speciesName": "Round Whitefish",
+      "modeId": "fall_menominee",
+      "modeName": "Fall menominee fishery",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.1,
+      "availabilityKnots": [
+        {
+          "monthDay": "08-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "09-20",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "10-25",
+          "availability": 0.85
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "01-10",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_3548e2b",
+        "B_3de4822",
+        "ROUND_DECLINE",
+        "SECONDARY_MI_ROADMAP",
+        "P2_GLFC1987",
+        "P2_ROUND_JUVENILE2023"
+      ],
+      "thermalEvidenceIds": [
+        "P2_GLFC1987",
+        "P2_ROUND_JUVENILE2023"
+      ],
+      "evidenceInterpretation": "The DNR roadmap, autumn Pier/Dock recurrence, and current species-specific pier observations support a modest fall menominee mode.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "frankfort_elberta_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "cold_season_nearshore",
+      "modeName": "Cold-season nearshore access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4,
+      "availabilityKnots": [
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "01-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "03-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "04-30",
+          "availability": 0.28
+        },
+        {
+          "monthDay": "05-31",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_4160ba5",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "Cold-season port access identified by the Michigan DNR roadmap and bounded by port Pier/Dock recurrence.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "frankfort_elberta_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "lake_trout",
+      "speciesName": "Lake Trout",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "09-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "MI_CREEL",
+        "B_4160ba5",
+        "MI_STOCKING",
+        "SECONDARY_MI_ROADMAP",
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_LAKE_TROUT_USGS"
+      ],
+      "evidenceInterpretation": "A low-ceiling summer opportunity only when cold water remains reachable at the harbor mouth; this is not an offshore abundance score.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "summer_harbor_schooling",
+      "modeName": "Summer harbor schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.75
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_WEEKLY_2024_07_15",
+        "WI_WEEKLY_2024_07_29",
+        "WI_WEEKLY_2024_08",
+        "V3_WI_PERCH_STATUS",
+        "WI_SEASON_2024",
+        "WI_REGULATIONS_2026_27",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Recurring summer pier/shore observations support a city-harbor perch mode; school location remains variable.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
+        "Wisconsin's published month table pools Lake Michigan and Green Bay; only its broad summer shape is used, while city magnitude is capped by Racine-specific shoreline observations."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "kenosha_wi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "yellow_perch",
+      "speciesName": "Yellow Perch",
+      "modeId": "summer_harbor_schooling",
+      "modeName": "Summer harbor schooling",
+      "status": "disabled_secondary_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "05-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.75
+        },
+        {
+          "monthDay": "10-01",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_WEEKLY_2024_07_15",
+        "WI_WEEKLY_2024_07_29",
+        "WI_WEEKLY_2024_08",
+        "V3_WI_PERCH_STATUS",
+        "WI_SEASON_2024",
+        "WI_REGULATIONS_2026_27",
+        "THERMAL_PERCH_USGS"
+      ],
+      "thermalEvidenceIds": [
+        "THERMAL_PERCH_USGS"
+      ],
+      "evidenceInterpretation": "Recurring summer pier/shore observations support a city-harbor perch mode; school location remains variable.",
+      "calibrationBasis": "FinFindr judgment bounded by multi-year port Pier/Dock recurrence, current DNR city/port guidance, local reports, and cross-city relative magnitude. It is not an agency score or catch probability.",
+      "limitations": [
+        "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
+        "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
+        "Wisconsin's published month table pools Lake Michigan and Green Bay; only its broad summer shape is used, while city magnitude is capped by repeated Kenosha pier/harbor observations."
+      ],
+      "promotionEligible": false
+    }
+  ]
+}

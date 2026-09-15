@@ -212,11 +212,13 @@
     "generate:pier-cast:v3-pass1-calibration": "node --import tsx scripts/generate-pier-cast-v3-pass1-calibration.ts",
     "check:pier-cast:v3-pass1-calibration": "node --import tsx scripts/generate-pier-cast-v3-pass1-calibration.ts --check",
     "qa:pier-cast:v3-pass1": "npm run check:pier-cast:v3-pass1-inventory && npm run check:pier-cast:v3-pass1-calibration",
+    "generate:pier-cast:v3-secondary": "node --import tsx scripts/generate-pier-cast-v3-secondary.ts",
+    "check:pier-cast:v3-secondary": "node --import tsx scripts/generate-pier-cast-v3-secondary.ts --check",
     "generate:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts",
     "check:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts --check",
     "generate:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts",
     "check:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts --check",
-    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
+    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

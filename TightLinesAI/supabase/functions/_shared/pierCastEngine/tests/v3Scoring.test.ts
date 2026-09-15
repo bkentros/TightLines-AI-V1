@@ -7,10 +7,13 @@ import {
   combinePierCastV3LmhofsBatches,
   evaluatePierCastV3ModePotentials,
   getPierCastV3PairCalibration,
+  getPierCastV3SpeciesIdsForCity,
   PIER_CAST_CITY_PROFILES,
   PIER_CAST_V3_CITY_IDS,
+  PIER_CAST_V3_FORECAST_COUNT,
   PIER_CAST_V3_FORMULA_VERSION,
   PIER_CAST_V3_PAIR_CALIBRATIONS,
+  PIER_CAST_V3_PAIR_COUNT,
   PIER_CAST_V3_PUBLIC_ENABLED,
   PIER_CAST_V3_RATING_ENABLED,
   PIER_CAST_V3_SPECIES_IDS,
@@ -18,6 +21,7 @@ import {
   type PierCastCityProfile,
   type PierCastLmhofsBatch,
   type PierCastLmhofsSample,
+  pierCastV3RegulationClosureApplies,
   validatePierCastV3OpportunityMode,
 } from "../index.ts";
 
@@ -27,31 +31,33 @@ type AvailableBatch = Extract<
   { status: "available" | "partial" }
 >;
 
-Deno.test("v3 generated config is the complete disabled Pass 1 handoff", () => {
+Deno.test("v3 generated config is the complete core and secondary handoff", () => {
   assertEquals(PIER_CAST_V3_RATING_ENABLED, false);
   assertEquals(PIER_CAST_V3_PUBLIC_ENABLED, false);
-  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 36);
+  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 56);
+  assertEquals(PIER_CAST_V3_PAIR_COUNT, 56);
   assertEquals(
     PIER_CAST_V3_PAIR_CALIBRATIONS.reduce(
       (sum, pair) => sum + pair.modes.length,
       0,
     ),
-    98,
+    125,
   );
   assertEquals(
     new Set(PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.pairKey)).size,
-    36,
+    56,
   );
-  for (const cityId of PIER_CAST_V3_CITY_IDS) {
-    for (const speciesId of PIER_CAST_V3_SPECIES_IDS) {
-      const pair = getPierCastV3PairCalibration(cityId, speciesId);
-      assert(pair, `${cityId}/${speciesId} must exist`);
-      assertEquals(pair.ratingEnabled, false);
-      assertEquals(pair.publicEnabled, false);
-      assertEquals(pair.promotionEligible, false);
-      for (const mode of pair.modes) {
-        assertEquals(validatePierCastV3OpportunityMode(mode), []);
-      }
+  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 12);
+  for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
+    assertEquals(
+      getPierCastV3PairCalibration(pair.cityId, pair.speciesId)?.pairKey,
+      pair.pairKey,
+    );
+    assertEquals(pair.ratingEnabled, false);
+    assertEquals(pair.publicEnabled, false);
+    assertEquals(pair.promotionEligible, false);
+    for (const mode of pair.modes) {
+      assertEquals(validatePierCastV3OpportunityMode(mode), []);
     }
   }
 });
@@ -93,7 +99,7 @@ Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10",
       }
     }
   }
-  assertEquals(evaluated, 36 * 365 * 5);
+  assertEquals(evaluated, 56 * 365 * 5);
 
   const reference = getPierCastV3PairCalibration("manistee_mi", "steelhead")!;
   const modes = evaluatePierCastV3ModePotentials({
@@ -115,6 +121,70 @@ Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10",
     }).status,
     "unavailable",
   );
+});
+
+Deno.test("v3 enforces the Wisconsin yellow-perch closure as unavailable", () => {
+  for (const cityId of ["racine_wi", "kenosha_wi"] as const) {
+    const pair = getPierCastV3PairCalibration(cityId, "yellow_perch")!;
+    assertEquals(
+      pierCastV3RegulationClosureApplies({
+        localDate: "2027-05-01",
+        pair,
+      }),
+      true,
+    );
+    assertEquals(
+      pierCastV3RegulationClosureApplies({
+        localDate: "2027-06-15",
+        pair,
+      }),
+      true,
+    );
+    assertEquals(
+      pierCastV3RegulationClosureApplies({
+        localDate: "2027-06-16",
+        pair,
+      }),
+      false,
+    );
+  }
+});
+
+Deno.test("v3 outlook never publishes a biological score inside the perch closure", () => {
+  const closedIssue = "2027-05-01T12:00:00.000Z";
+  const closed = buildPierCastV3ReviewOutlook({
+    batch: combinePierCastV3LmhofsBatches(
+      batch(PIER_CAST_CITY_PROFILES, closedIssue),
+      batch(PIER_CAST_WISCONSIN_CITY_PROFILES, closedIssue),
+    ),
+    evaluationTime: "2027-05-01T12:15:00.000Z",
+  });
+  for (const cityId of ["racine_wi", "kenosha_wi"] as const) {
+    const city = closed.cities.find((candidate) =>
+      candidate.cityId === cityId
+    )!;
+    const perch = city.dates[0].species.find((candidate) =>
+      candidate.speciesId === "yellow_perch"
+    )!;
+    assertEquals(perch.biological.status, "unavailable");
+    assert(perch.reasonCodes.includes("species_regulation_closed"));
+  }
+
+  const openIssue = "2027-06-16T12:00:00.000Z";
+  const open = buildPierCastV3ReviewOutlook({
+    batch: combinePierCastV3LmhofsBatches(
+      batch(PIER_CAST_CITY_PROFILES, openIssue),
+      batch(PIER_CAST_WISCONSIN_CITY_PROFILES, openIssue),
+    ),
+    evaluationTime: "2027-06-16T12:15:00.000Z",
+  });
+  for (const cityId of ["racine_wi", "kenosha_wi"] as const) {
+    const city = open.cities.find((candidate) => candidate.cityId === cityId)!;
+    const perch = city.dates[0].species.find((candidate) =>
+      candidate.speciesId === "yellow_perch"
+    )!;
+    assertEquals(perch.biological.status, "available");
+  }
 });
 
 Deno.test("v3 recurring availability is continuous across the year seam", () => {
@@ -156,7 +226,8 @@ Deno.test("v3 nine-city outlook requires one coherent issue and stays blocked", 
   assertEquals(
     outlook.cities.every((city) =>
       city.dates.every((date) =>
-        date.species.length === 4 &&
+        date.species.length ===
+          getPierCastV3SpeciesIdsForCity(city.cityId).length &&
         date.species.every((species) =>
           species.biological.status === "available" &&
           species.previewMode === "disabled_shadow_only" &&
@@ -178,7 +249,7 @@ Deno.test("v3 nine-city outlook requires one coherent issue and stays blocked", 
   );
 });
 
-Deno.test("v3 archive freezes exactly 180 mode-aware forecasts", async () => {
+Deno.test("v3 archive freezes the exact 280-row pair manifest", async () => {
   const combined = combinePierCastV3LmhofsBatches(
     batch(PIER_CAST_CITY_PROFILES),
     batch(PIER_CAST_WISCONSIN_CITY_PROFILES),
@@ -193,7 +264,8 @@ Deno.test("v3 archive freezes exactly 180 mode-aware forecasts", async () => {
     ingestionSource: "fresh_archived_complete_cycle",
     engineVersion: "v3-test-engine",
   });
-  assertEquals(payload.forecasts.length, 180);
+  assertEquals(payload.forecasts.length, PIER_CAST_V3_FORECAST_COUNT);
+  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 280);
   assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 9);
   assertEquals(
     payload.forecasts.every((row) =>
@@ -212,7 +284,7 @@ Deno.test("v3 archive freezes exactly 180 mode-aware forecasts", async () => {
           data: {
             status: "committed",
             runId: crypto.randomUUID(),
-            forecastCount: 180,
+            forecastCount: PIER_CAST_V3_FORECAST_COUNT,
           },
           error: null,
         });
@@ -224,36 +296,29 @@ Deno.test("v3 archive freezes exactly 180 mode-aware forecasts", async () => {
     engineVersion: "v3-test-engine",
   });
   assertEquals(called, "commit_pier_cast_v3_shadow_forecast");
-  assertEquals(result.forecastCount, 180);
+  assertEquals(result.forecastCount, PIER_CAST_V3_FORECAST_COUNT);
 });
 
 Deno.test("v3 migration enforces a private exact manifest and delayed schedule", async () => {
   const sql = await Deno.readTextFile(
     new URL(
-      "../../../../migrations/20260914233000_pier_cast_v3_shadow_ledger.sql",
+      "../../../../migrations/20260915210000_expand_pier_cast_v3_secondary_manifest.sql",
       import.meta.url,
     ),
   );
-  assert(sql.includes("jsonb_array_length(p_forecasts) <> 180"));
+  assert(sql.includes("jsonb_array_length(p_forecasts) <> 280"));
   assert(sql.includes("count(distinct item->>'cityId')"));
-  assert(sql.includes("count(distinct item->>'speciesId')"));
-  assert(
-    sql.includes(
-      "promotion_status text not null check (promotion_status = 'blocked')",
-    ),
-  );
-  assert(sql.includes("x-pier-cast-operation','v3-shadow'"));
-  assert(sql.includes("'50 0,6,12,18 * * *'"));
-  assert(
-    sql.includes(
-      "revoke all on table public.pier_cast_v3_shadow_forecasts from public, anon, authenticated",
-    ),
-  );
-  assert(sql.includes("view public.pier_cast_v3_shadow_validation_pairs"));
-  assert(sql.includes("forecast.mode_calibration_id"));
+  assert(sql.includes("piercast_v3_expected_pairs"));
+  assert(sql.includes("p_run->>'promotionStatus' <> 'blocked'"));
+  assert(sql.includes("auth.role() <> 'service_role'"));
+  assert(sql.includes("count(distinct (city_id, species_id)) <> 56"));
+  assert(sql.includes("forecastCount',280"));
 });
 
-function batch(profiles: readonly PierCastCityProfile[]): AvailableBatch {
+function batch(
+  profiles: readonly PierCastCityProfile[],
+  issuedAt = ISSUED_AT,
+): AvailableBatch {
   const hours = Array.from({ length: 121 }, (_, hour) => hour);
   const cities = profiles.map((profile, cityIndex) => {
     const source = profile.waterTemperatureSource!;
@@ -262,9 +327,9 @@ function batch(profiles: readonly PierCastCityProfile[]): AvailableBatch {
       cityId: profile.cityId,
       sourceId: source.sourceId,
       productId: "NOAA_NOS_LMHOFS_REGULARGRID",
-      issuedAt: ISSUED_AT,
+      issuedAt,
       forecastHour,
-      validAt: new Date(Date.parse(ISSUED_AT) + forecastHour * 3_600_000)
+      validAt: new Date(Date.parse(issuedAt) + forecastHour * 3_600_000)
         .toISOString(),
       temperatureC: 12 + cityIndex * 0.2 + forecastHour / 500,
       rawUnit: "C",
@@ -280,7 +345,7 @@ function batch(profiles: readonly PierCastCityProfile[]): AvailableBatch {
       status: "available" as const,
       cityId: profile.cityId,
       sourceId: source.sourceId,
-      issuedAt: ISSUED_AT,
+      issuedAt,
       requestedForecastHours: hours,
       coverageStart: samples[0].validAt,
       coverageEnd: samples[120].validAt,
@@ -290,8 +355,8 @@ function batch(profiles: readonly PierCastCityProfile[]): AvailableBatch {
   });
   return {
     status: "available",
-    issuedAt: ISSUED_AT,
-    fetchedAt: "2026-09-14T12:05:00.000Z",
+    issuedAt,
+    fetchedAt: new Date(Date.parse(issuedAt) + 5 * 60_000).toISOString(),
     cycleAgeHours: 0.25,
     fullHorizonRequested: true,
     requestedForecastHours: hours,

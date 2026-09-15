@@ -1,0 +1,1063 @@
+{
+  "schemaVersion": "piercast-v3-secondary-runtime-candidates-v1",
+  "importedByRuntime": true,
+  "ratingEnabled": false,
+  "publicEnabled": false,
+  "formulaImplemented": true,
+  "candidates": [
+    {
+      "pairKey": "ludington_mi/lake_trout",
+      "cityId": "ludington_mi",
+      "speciesId": "lake_trout",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "ludington_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+          "modeId": "cold_season_nearshore",
+          "fisheryStrength": 3.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "01-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "03-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "04-30",
+              "availability": 0.28
+            },
+            {
+              "monthDay": "05-31",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "ludington_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+          "modeId": "summer_coldwater_access",
+          "fisheryStrength": 3.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "09-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "ludington_mi/smallmouth_bass",
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "ludington_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+          "modeId": "warm_season_harbor",
+          "fisheryStrength": 5.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 0.25
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "ludington_mi/freshwater_drum",
+      "cityId": "ludington_mi",
+      "speciesId": "freshwater_drum",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "ludington_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+          "modeId": "warm_season_bottom_fishery",
+          "fisheryStrength": 5,
+          "availabilityKnots": [
+            {
+              "monthDay": "04-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-05",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "06-10",
+              "availability": 0.85
+            },
+            {
+              "monthDay": "07-15",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-25",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.3
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "ludington_mi/yellow_perch",
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "ludington_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+          "modeId": "spring_nearshore_schooling",
+          "fisheryStrength": 6,
+          "availabilityKnots": [
+            {
+              "monthDay": "02-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "ludington_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+          "modeId": "summer_harbor_schooling",
+          "fisheryStrength": 7.6,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-16",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "07-12",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/lake_trout",
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_trout",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+          "modeId": "cold_season_nearshore",
+          "fisheryStrength": 3.6,
+          "availabilityKnots": [
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "01-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "03-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "04-30",
+              "availability": 0.28
+            },
+            {
+              "monthDay": "05-31",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "grand_haven_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+          "modeId": "summer_coldwater_access",
+          "fisheryStrength": 3.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "09-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/smallmouth_bass",
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+          "modeId": "warm_season_harbor",
+          "fisheryStrength": 4.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 0.25
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/freshwater_drum",
+      "cityId": "grand_haven_mi",
+      "speciesId": "freshwater_drum",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+          "modeId": "warm_season_bottom_fishery",
+          "fisheryStrength": 7.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "04-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-05",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "06-10",
+              "availability": 0.85
+            },
+            {
+              "monthDay": "07-15",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-25",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.3
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/yellow_perch",
+      "cityId": "grand_haven_mi",
+      "speciesId": "yellow_perch",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+          "modeId": "spring_nearshore_schooling",
+          "fisheryStrength": 4.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "02-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "05-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "grand_haven_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+          "modeId": "summer_harbor_schooling",
+          "fisheryStrength": 6,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-16",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "08-05",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/round_whitefish",
+      "cityId": "grand_haven_mi",
+      "speciesId": "round_whitefish",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__round_whitefish__spring_menominee__v3_secondary_v1",
+          "modeId": "spring_menominee",
+          "fisheryStrength": 3.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "02-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.4
+            },
+            {
+              "monthDay": "04-15",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-10",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/channel_catfish",
+      "cityId": "grand_haven_mi",
+      "speciesId": "channel_catfish",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__channel_catfish__warm_season_channel__v3_secondary_v1",
+          "modeId": "warm_season_channel",
+          "fisheryStrength": 5.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0.8
+            },
+            {
+              "monthDay": "08-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-05",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "grand_haven_mi/largemouth_bass",
+      "cityId": "grand_haven_mi",
+      "speciesId": "largemouth_bass",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "grand_haven_mi__largemouth_bass__warm_season_harbor_cover__v3_secondary_v1",
+          "modeId": "warm_season_harbor_cover",
+          "fisheryStrength": 6.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 0.25
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/lake_trout",
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+          "modeId": "cold_season_nearshore",
+          "fisheryStrength": 4,
+          "availabilityKnots": [
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "01-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "03-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "04-30",
+              "availability": 0.28
+            },
+            {
+              "monthDay": "05-31",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "manistee_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+          "modeId": "summer_coldwater_access",
+          "fisheryStrength": 3.6,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "09-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/walleye",
+      "cityId": "manistee_mi",
+      "speciesId": "walleye",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__walleye__spring_low_light__v3_secondary_v1",
+          "modeId": "spring_low_light",
+          "fisheryStrength": 4.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "04-01",
+              "availability": 0.5
+            },
+            {
+              "monthDay": "05-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "06-10",
+              "availability": 0.4
+            },
+            {
+              "monthDay": "07-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "walleye__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/smallmouth_bass",
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
+          "modeId": "warm_season_harbor",
+          "fisheryStrength": 5,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 0.25
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/freshwater_drum",
+      "cityId": "manistee_mi",
+      "speciesId": "freshwater_drum",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__freshwater_drum__warm_season_bottom_fishery__v3_secondary_v1",
+          "modeId": "warm_season_bottom_fishery",
+          "fisheryStrength": 4.7,
+          "availabilityKnots": [
+            {
+              "monthDay": "04-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-05",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "06-10",
+              "availability": 0.85
+            },
+            {
+              "monthDay": "07-15",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-25",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.3
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/yellow_perch",
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
+          "modeId": "spring_nearshore_schooling",
+          "fisheryStrength": 7.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "02-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "05-05",
+              "availability": 1
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "06-25",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "manistee_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+          "modeId": "summer_harbor_schooling",
+          "fisheryStrength": 4.5,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-16",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "manistee_mi/round_whitefish",
+      "cityId": "manistee_mi",
+      "speciesId": "round_whitefish",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "manistee_mi__round_whitefish__fall_menominee__v3_secondary_v1",
+          "modeId": "fall_menominee",
+          "fisheryStrength": 4.1,
+          "availabilityKnots": [
+            {
+              "monthDay": "08-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "09-20",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 0.85
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 1
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "01-10",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/lake_trout",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_trout",
+      "ratingEnabled": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "frankfort_elberta_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
+          "modeId": "cold_season_nearshore",
+          "fisheryStrength": 4,
+          "availabilityKnots": [
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "01-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "03-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "04-30",
+              "availability": 0.28
+            },
+            {
+              "monthDay": "05-31",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "frankfort_elberta_mi__lake_trout__summer_coldwater_access__v3_secondary_v1",
+          "modeId": "summer_coldwater_access",
+          "fisheryStrength": 3.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-01",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-01",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "09-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "racine_wi/yellow_perch",
+      "cityId": "racine_wi",
+      "speciesId": "yellow_perch",
+      "ratingEnabled": false,
+      "closedWindows": [
+        {
+          "startMonthDay": "05-01",
+          "endMonthDay": "06-15",
+          "reasonCode": "species_regulation_closed",
+          "evidenceIds": [
+            "WI_REGULATIONS_2026_27"
+          ]
+        }
+      ],
+      "modes": [
+        {
+          "modeCalibrationId": "racine_wi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+          "modeId": "summer_harbor_schooling",
+          "fisheryStrength": 4.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-16",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "kenosha_wi/yellow_perch",
+      "cityId": "kenosha_wi",
+      "speciesId": "yellow_perch",
+      "ratingEnabled": false,
+      "closedWindows": [
+        {
+          "startMonthDay": "05-01",
+          "endMonthDay": "06-15",
+          "reasonCode": "species_regulation_closed",
+          "evidenceIds": [
+            "WI_REGULATIONS_2026_27"
+          ]
+        }
+      ],
+      "modes": [
+        {
+          "modeCalibrationId": "kenosha_wi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
+          "modeId": "summer_harbor_schooling",
+          "fisheryStrength": 5.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "05-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "06-16",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-01",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1"
+        }
+      ]
+    }
+  ]
+}

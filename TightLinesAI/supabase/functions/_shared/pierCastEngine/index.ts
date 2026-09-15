@@ -45,4 +45,5 @@ export * from "./pipeline/v3ReviewOutlook.ts";
 export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
-export const PIER_CAST_V3_ENGINE_VERSION = "pier-cast-opportunity-modes-v3-shadow-v1.0.0";
+export const PIER_CAST_V3_ENGINE_VERSION =
+  "pier-cast-opportunity-modes-v3-shadow-v1.1.0";

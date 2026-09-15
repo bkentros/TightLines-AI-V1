@@ -1,15 +1,15 @@
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
-import { getPierCastCoreTemperatureCurve } from "../config/coreCalibration.ts";
 import { getPierCastSpeciesProfile } from "../config/species.ts";
 import {
   getPierCastV3PairCalibration,
+  getPierCastV3SpeciesIdsForCity,
+  getPierCastV3TemperatureCurve,
   PIER_CAST_V3_CALIBRATION_SHA256,
   PIER_CAST_V3_CITY_IDS,
   PIER_CAST_V3_CONFIG_VERSION,
   PIER_CAST_V3_FORMULA_VERSION,
   PIER_CAST_V3_MODE_SELECTION,
   PIER_CAST_V3_SOURCE_SHA256,
-  PIER_CAST_V3_SPECIES_IDS,
   type PierCastV3ModePotential,
 } from "../config/v3Calibration.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../config/wisconsinShadow.ts";
@@ -21,7 +21,10 @@ import type {
 import { aggregateCompleteDailyScore } from "../scoring/daily.ts";
 import { buildPierCastFiveDateWindows } from "../scoring/dateWindows.ts";
 import { selectPierCastDailyHeadline } from "../scoring/headline.ts";
-import { evaluatePierCastV3ModePotentials } from "../scoring/modesV3.ts";
+import {
+  evaluatePierCastV3ModePotentials,
+  pierCastV3RegulationClosureApplies,
+} from "../scoring/modesV3.ts";
 import { calculatePierCastV3Opportunity } from "../scoring/opportunityV3.ts";
 import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
 import { detectPierCastTemperatureEvents } from "../scoring/temperatureEvents.ts";
@@ -249,7 +252,7 @@ function buildDate(
       scoreAtEnd: 1,
     })),
   }).coverage;
-  const species = PIER_CAST_V3_SPECIES_IDS.map((speciesId) =>
+  const species = getPierCastV3SpeciesIdsForCity(city.cityId).map((speciesId) =>
     buildSpecies(city.cityId, speciesId, samples, window)
   );
   const headline = selectPierCastDailyHeadline(species.map((candidate) => ({
@@ -284,7 +287,7 @@ function buildSpecies(
   window: PierCastDailyAssessmentWindow,
 ): PierCastV3ReviewSpeciesOutlook {
   const pair = getPierCastV3PairCalibration(cityId, speciesId);
-  const curve = getPierCastCoreTemperatureCurve(speciesId);
+  const curve = getPierCastV3TemperatureCurve(speciesId);
   const profile = getPierCastSpeciesProfile(speciesId);
   const monthIndex = Number(window.localDate.slice(5, 7)) - 1;
   const month = [
@@ -378,6 +381,18 @@ function buildSpecies(
       "prospective_validation_pending",
     ],
   };
+  const regulationClosed = pierCastV3RegulationClosureApplies({
+    localDate: window.localDate,
+    pair,
+  });
+  const biological = regulationClosed
+    ? {
+      status: "unavailable" as const,
+      score: null,
+      reasonCodes: ["species_regulation_closed"],
+      ratingName: "FinFindr Opportunity Rating" as const,
+    }
+    : aggregate.biological;
   return {
     speciesId,
     previewMode: "disabled_shadow_only",
@@ -389,14 +404,12 @@ function buildSpecies(
     temperatureSuitabilityRange: suitability.length
       ? [Math.min(...suitability), Math.max(...suitability)]
       : null,
-    biological: aggregate.biological,
+    biological,
     coverage: aggregate.coverage,
     targetingEligibility: "eligible",
     promotion,
     reasonCodes: [
-      ...(aggregate.biological.status === "unavailable"
-        ? aggregate.biological.reasonCodes
-        : []),
+      ...(biological.status === "unavailable" ? biological.reasonCodes : []),
       ...promotion.reasonCodes,
       "v3_shadow_evaluation_override",
     ],

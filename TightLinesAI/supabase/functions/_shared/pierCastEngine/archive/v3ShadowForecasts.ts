@@ -1,7 +1,8 @@
 import {
+  getPierCastV3SpeciesIdsForCity,
   PIER_CAST_V3_CONFIG_VERSION,
+  PIER_CAST_V3_FORECAST_COUNT,
   PIER_CAST_V3_FORMULA_VERSION,
-  PIER_CAST_V3_SPECIES_IDS,
 } from "../config/v3Calibration.ts";
 import type { PierCastLmhofsBatch } from "../providers/lmhofs.ts";
 import type { PierCastV3ReviewOutlookResponse } from "../pipeline/v3ReviewOutlook.ts";
@@ -12,13 +13,13 @@ type AvailableBatch = Extract<
   PierCastLmhofsBatch,
   { status: "available" | "partial" }
 >;
-const FORECAST_COUNT = 180;
+const FORECAST_COUNT = PIER_CAST_V3_FORECAST_COUNT;
 
 export type PierCastV3ShadowCommitSummary = {
   status: "committed" | "already_committed";
   runId: string;
   generatedAt: string;
-  forecastCount: 180;
+  forecastCount: number;
   formulaVersion: typeof PIER_CAST_V3_FORMULA_VERSION;
 };
 
@@ -82,7 +83,9 @@ export function buildPierCastV3ShadowForecastPayload(input: {
     );
   });
   if (forecasts.length !== FORECAST_COUNT) {
-    throw new Error("Formula v3 shadow payload must contain 180 forecasts.");
+    throw new Error(
+      `Formula v3 shadow payload must contain ${FORECAST_COUNT} forecasts.`,
+    );
   }
   return {
     run: {
@@ -154,15 +157,14 @@ function validate(input: {
     input.outlook.source.issuedAt !== input.batch.issuedAt
   ) throw new Error("Formula v3 shadow input is incomplete.");
   for (const city of input.outlook.cities) {
+    const speciesIds = getPierCastV3SpeciesIdsForCity(city.cityId);
     if (
       city.dates.length !== 5 ||
       city.dates.some((date, leadDay) =>
-        date.species.length !== PIER_CAST_V3_SPECIES_IDS.length ||
+        date.species.length !== speciesIds.length ||
         date.scope !== (leadDay === 0 ? "remaining_day" : "full_day") ||
         date.species.some((species) =>
-          !PIER_CAST_V3_SPECIES_IDS.includes(
-            species.speciesId as typeof PIER_CAST_V3_SPECIES_IDS[number],
-          ) ||
+          !speciesIds.includes(species.speciesId) ||
           species.configurationRatingEnabled || species.publicEnabled ||
           species.promotion.status !== "blocked"
         )
