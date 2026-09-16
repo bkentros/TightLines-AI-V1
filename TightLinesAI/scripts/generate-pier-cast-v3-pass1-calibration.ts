@@ -216,6 +216,105 @@ const STRENGTH_OVERRIDES = new Map<string, {
         "The legacy 9.6 event is capped below the reference-class band because the direct 2026 event lacks a comparable recurring city-pier effort denominator. This is a magnitude-evidence decision, not a confidence discount.",
     },
   ],
+  [
+    "milwaukee_wi/coho_salmon/fall_harbor_staging",
+    {
+      fisheryStrength: 6.8,
+      rationale:
+        "Research recalibration 2026-09: repeated Milwaukee County pier-mode coho harvest in 2022 and 2024, exact Milwaukee pier access/species guidance, and Wisconsin DNR fall-shore guidance support a Good but sub-spring fall opportunity. The county series lacks month-specific city-pier effort, so this remains a disabled research judgment.",
+    },
+  ],
+]);
+
+const AVAILABILITY_OVERRIDES = new Map<string, {
+  knots: AvailabilityKnot[];
+  rationale: string;
+}>([
+  [
+    "grand_haven_mi/steelhead/winter_spring_thermal_front",
+    {
+      knots: [
+        { monthDay: "01-01", availability: 0.55 },
+        { monthDay: "03-15", availability: 0.8 },
+        { monthDay: "04-15", availability: 1 },
+        { monthDay: "05-15", availability: 0.6 },
+        { monthDay: "06-01", availability: 0 },
+        { monthDay: "11-15", availability: 0 },
+        { monthDay: "12-31", availability: 0.55 },
+      ],
+      rationale:
+        "Grand Haven May Pier/Dock steelhead catches recur in recent surveyed years; the former April-to-May availability drop to 0.35 overstated the spring fishery's decline.",
+    },
+  ],
+  [
+    "frankfort_elberta_mi/chinook_salmon/summer_coldwater_access",
+    {
+      knots: [
+        { monthDay: "06-01", availability: 0 },
+        { monthDay: "06-20", availability: 0.25 },
+        { monthDay: "07-01", availability: 0.55 },
+        { monthDay: "07-15", availability: 0.8 },
+        { monthDay: "07-24", availability: 0.9 },
+        { monthDay: "08-10", availability: 1 },
+        { monthDay: "08-14", availability: 0.78 },
+        { monthDay: "08-17", availability: 0.32 },
+        { monthDay: "08-20", availability: 0 },
+      ],
+      rationale:
+        "July Frankfort/Elberta Pier/Dock Chinook catch recurs in the recent creel slice; the prior summer mode rose too late for that month.",
+    },
+  ],
+  [
+    "frankfort_elberta_mi/coho_salmon/fall_harbor_staging",
+    {
+      knots: [
+        { monthDay: "08-01", availability: 0 },
+        { monthDay: "08-10", availability: 0.35 },
+        { monthDay: "08-20", availability: 0.65 },
+        { monthDay: "08-30", availability: 0.82 },
+        { monthDay: "09-15", availability: 1 },
+        { monthDay: "10-12", availability: 0.78 },
+        { monthDay: "11-09", availability: 0.32 },
+        { monthDay: "12-01", availability: 0 },
+      ],
+      rationale:
+        "August Frankfort/Elberta Pier/Dock coho catch appears in two recent surveyed years; fall harbor staging now rises through August while retaining the September peak.",
+    },
+  ],
+  [
+    "milwaukee_wi/coho_salmon/fall_harbor_staging",
+    {
+      knots: [
+        { monthDay: "08-01", availability: 0 },
+        { monthDay: "08-16", availability: 0.35 },
+        { monthDay: "08-29", availability: 0.72 },
+        { monthDay: "09-07", availability: 1 },
+        { monthDay: "09-25", availability: 1 },
+        { monthDay: "10-15", availability: 0.72 },
+        { monthDay: "11-07", availability: 0.32 },
+        { monthDay: "12-01", availability: 0 },
+      ],
+      rationale:
+        "The DNR's September 2026 Milwaukee shore report and Milwaukee-area fall guide support a sustained fall shore window; a one-day September 7 peak followed by immediate decline was over-specific.",
+    },
+  ],
+  ...["milwaukee_wi", "port_washington_wi"].map((cityId) => [
+    `${cityId}/chinook_salmon/fall_harbor_staging`,
+    {
+      knots: [
+        { monthDay: "07-20", availability: 0 },
+        { monthDay: "07-30", availability: 0.35 },
+        { monthDay: "08-09", availability: 0.72 },
+        { monthDay: "08-15", availability: 1 },
+        { monthDay: "09-11", availability: 0.95 },
+        { monthDay: "09-25", availability: 0.75 },
+        { monthDay: "10-10", availability: 0.32 },
+        { monthDay: "11-01", availability: 0 },
+      ],
+      rationale:
+        "Wisconsin DNR's September 2026 shore report documents renewed Milwaukee casting and Port Washington pier/shore salmon success. The Milwaukee-area fall guide identifies September as the Chinook peak; the former curve faded too quickly after August.",
+    },
+  ] as const),
 ]);
 
 const allCities = [
@@ -661,13 +760,14 @@ async function main(): Promise<void> {
       const overrideKey = `${decision.cityId}/${decision.speciesId}/${definition.modeId}`;
       const override = STRENGTH_OVERRIDES.get(overrideKey);
       const fisheryStrength = override?.fisheryStrength ?? legacyPeak.fisheryStrength;
-      const availabilityKnots = definition.availability.kind === "fixed"
+      const availabilityOverride = AVAILABILITY_OVERRIDES.get(overrideKey);
+      const availabilityKnots = availabilityOverride?.knots ?? (definition.availability.kind === "fixed"
         ? definition.availability.knots
         : buildDynamicAvailability(
           definition.availability.start,
           legacyPeak.peakDate,
           definition.availability.end,
-        );
+        ));
       const mode = {
         modeCalibrationId:
           `${decision.cityId}__${decision.speciesId}__${definition.modeId}__v3_pass1`,
@@ -711,7 +811,8 @@ async function main(): Promise<void> {
           windowPeak: legacyPeak.fisheryStrength,
           peakDate: legacyPeak.peakDate,
         },
-        calibrationOverride: override?.rationale ?? null,
+        calibrationOverride: [override?.rationale, availabilityOverride?.rationale]
+          .filter(Boolean).join(" ") || null,
         limitations: [
           citySpecies?.limitation ?? null,
           decision.evidenceGrade === "B"

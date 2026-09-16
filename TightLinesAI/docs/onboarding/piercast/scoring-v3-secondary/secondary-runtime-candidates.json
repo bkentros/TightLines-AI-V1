@@ -18,16 +18,28 @@
           "fisheryStrength": 3.8,
           "availabilityKnots": [
             {
-              "monthDay": "10-15",
+              "monthDay": "09-15",
               "availability": 0
             },
             {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 1
+            },
+            {
               "monthDay": "11-15",
-              "availability": 0.45
+              "availability": 0.8
             },
             {
               "monthDay": "01-20",
-              "availability": 1
+              "availability": 0.55
             },
             {
               "monthDay": "03-15",
@@ -84,7 +96,7 @@
         {
           "modeCalibrationId": "ludington_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
           "modeId": "warm_season_harbor",
-          "fisheryStrength": 5.2,
+          "fisheryStrength": 5.8,
           "availabilityKnots": [
             {
               "monthDay": "03-15",
@@ -246,16 +258,28 @@
           "fisheryStrength": 3.6,
           "availabilityKnots": [
             {
-              "monthDay": "10-15",
+              "monthDay": "09-15",
               "availability": 0
             },
             {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 1
+            },
+            {
               "monthDay": "11-15",
-              "availability": 0.45
+              "availability": 0.8
             },
             {
               "monthDay": "01-20",
-              "availability": 1
+              "availability": 0.55
             },
             {
               "monthDay": "03-15",
@@ -312,7 +336,7 @@
         {
           "modeCalibrationId": "grand_haven_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
           "modeId": "warm_season_harbor",
-          "fisheryStrength": 4.8,
+          "fisheryStrength": 7,
           "availabilityKnots": [
             {
               "monthDay": "03-15",
@@ -365,11 +389,15 @@
             },
             {
               "monthDay": "05-05",
-              "availability": 0.45
+              "availability": 0.75
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.9
             },
             {
               "monthDay": "06-10",
-              "availability": 0.85
+              "availability": 0.95
             },
             {
               "monthDay": "07-15",
@@ -377,11 +405,15 @@
             },
             {
               "monthDay": "08-25",
-              "availability": 0.9
+              "availability": 0.95
             },
             {
-              "monthDay": "10-01",
-              "availability": 0.3
+              "monthDay": "09-20",
+              "availability": 0.85
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.4
             },
             {
               "monthDay": "11-01",
@@ -402,7 +434,7 @@
         {
           "modeCalibrationId": "grand_haven_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
           "modeId": "spring_nearshore_schooling",
-          "fisheryStrength": 4.4,
+          "fisheryStrength": 6.2,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -413,15 +445,19 @@
               "availability": 0.35
             },
             {
-              "monthDay": "05-10",
+              "monthDay": "04-15",
+              "availability": 0.9
+            },
+            {
+              "monthDay": "04-25",
               "availability": 1
             },
             {
-              "monthDay": "06-01",
+              "monthDay": "05-10",
               "availability": 0.55
             },
             {
-              "monthDay": "06-25",
+              "monthDay": "06-01",
               "availability": 0
             }
           ],
@@ -430,7 +466,7 @@
         {
           "modeCalibrationId": "grand_haven_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
           "modeId": "summer_harbor_schooling",
-          "fisheryStrength": 6,
+          "fisheryStrength": 7.2,
           "availabilityKnots": [
             {
               "monthDay": "05-15",
@@ -441,16 +477,24 @@
               "availability": 0.55
             },
             {
+              "monthDay": "07-15",
+              "availability": 0.82
+            },
+            {
               "monthDay": "08-05",
               "availability": 1
             },
             {
-              "monthDay": "08-20",
-              "availability": 0.75
+              "monthDay": "08-25",
+              "availability": 0.93
             },
             {
-              "monthDay": "10-01",
-              "availability": 0.2
+              "monthDay": "09-20",
+              "availability": 0.82
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.35
             },
             {
               "monthDay": "11-01",
@@ -508,7 +552,7 @@
         {
           "modeCalibrationId": "grand_haven_mi__channel_catfish__warm_season_channel__v3_secondary_v1",
           "modeId": "warm_season_channel",
-          "fisheryStrength": 5.8,
+          "fisheryStrength": 6.8,
           "availabilityKnots": [
             {
               "monthDay": "03-20",
@@ -527,7 +571,15 @@
               "availability": 1
             },
             {
+              "monthDay": "09-20",
+              "availability": 0.9
+            },
+            {
               "monthDay": "10-05",
+              "availability": 0.75
+            },
+            {
+              "monthDay": "10-31",
               "availability": 0.55
             },
             {
@@ -549,7 +601,7 @@
         {
           "modeCalibrationId": "grand_haven_mi__largemouth_bass__warm_season_harbor_cover__v3_secondary_v1",
           "modeId": "warm_season_harbor_cover",
-          "fisheryStrength": 6.2,
+          "fisheryStrength": 7.4,
           "availabilityKnots": [
             {
               "monthDay": "03-15",
@@ -597,16 +649,28 @@
           "fisheryStrength": 4,
           "availabilityKnots": [
             {
-              "monthDay": "10-15",
+              "monthDay": "09-15",
               "availability": 0
             },
             {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 1
+            },
+            {
               "monthDay": "11-15",
-              "availability": 0.45
+              "availability": 0.8
             },
             {
               "monthDay": "01-20",
-              "availability": 1
+              "availability": 0.55
             },
             {
               "monthDay": "03-15",
@@ -801,8 +865,16 @@
               "availability": 0.35
             },
             {
-              "monthDay": "05-05",
+              "monthDay": "04-10",
+              "availability": 0.82
+            },
+            {
+              "monthDay": "04-20",
               "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.9
             },
             {
               "monthDay": "06-01",
@@ -818,30 +890,30 @@
         {
           "modeCalibrationId": "manistee_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
           "modeId": "summer_harbor_schooling",
-          "fisheryStrength": 4.5,
+          "fisheryStrength": 6.8,
           "availabilityKnots": [
             {
               "monthDay": "05-15",
               "availability": 0
             },
             {
-              "monthDay": "06-16",
-              "availability": 0.55
+              "monthDay": "06-01",
+              "availability": 0.8
             },
             {
-              "monthDay": "07-10",
+              "monthDay": "06-20",
               "availability": 1
             },
             {
+              "monthDay": "07-15",
+              "availability": 0.82
+            },
+            {
               "monthDay": "08-20",
-              "availability": 0.75
+              "availability": 0.45
             },
             {
-              "monthDay": "10-01",
-              "availability": 0.2
-            },
-            {
-              "monthDay": "11-01",
+              "monthDay": "09-15",
               "availability": 0
             }
           ],
@@ -903,16 +975,28 @@
           "fisheryStrength": 4,
           "availabilityKnots": [
             {
-              "monthDay": "10-15",
+              "monthDay": "09-15",
               "availability": 0
             },
             {
+              "monthDay": "10-01",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 1
+            },
+            {
               "monthDay": "11-15",
-              "availability": 0.45
+              "availability": 0.8
             },
             {
               "monthDay": "01-20",
-              "availability": 1
+              "availability": 0.55
             },
             {
               "monthDay": "03-15",

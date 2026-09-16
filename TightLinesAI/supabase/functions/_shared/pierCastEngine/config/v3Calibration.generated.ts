@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-species-expansion-v4" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-seasonal-research-v5" as const;
 export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "e8958fc021022f73bab2125bec4a20300adc4eb78890a6d3eafb806c33d00137" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "9770fac05f845c388e5aa9fd374b89e6236f822b09936fae3ebe955c2a9befb8" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "1104ba7cf093ac32d0efa629991da724afa6fe8a063e8a4c8519e4a8ca635ca3" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "e735d24d1f8bea5cce2c727a6e5528540cd8e753c47144b1fdd8a52b0dfbd8e2" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -1035,7 +1035,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           },
           {
             "monthDay": "05-15",
-            "availability": 0.35
+            "availability": 0.6
           },
           {
             "monthDay": "06-01",
@@ -2101,12 +2101,20 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 0
           },
           {
-            "monthDay": "06-29",
-            "availability": 0.35
+            "monthDay": "06-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.8
           },
           {
             "monthDay": "07-24",
-            "availability": 0.72
+            "availability": 0.9
           },
           {
             "monthDay": "08-10",
@@ -2317,12 +2325,16 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 0
           },
           {
-            "monthDay": "08-19",
+            "monthDay": "08-10",
             "availability": 0.35
           },
           {
-            "monthDay": "09-04",
-            "availability": 0.72
+            "monthDay": "08-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "08-30",
+            "availability": 0.82
           },
           {
             "monthDay": "09-15",
@@ -3485,7 +3497,11 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           },
           {
             "monthDay": "09-11",
-            "availability": 0.78
+            "availability": 0.95
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.75
           },
           {
             "monthDay": "10-10",
@@ -4001,7 +4017,11 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           },
           {
             "monthDay": "09-11",
-            "availability": 0.78
+            "availability": 0.95
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.75
           },
           {
             "monthDay": "10-10",
@@ -4147,7 +4167,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.2,
+        "fisheryStrength": 6.8,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -4166,8 +4186,12 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 1
           },
           {
-            "monthDay": "10-07",
-            "availability": 0.78
+            "monthDay": "09-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.72
           },
           {
             "monthDay": "11-07",
@@ -5561,16 +5585,28 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "fisheryStrength": 3.8,
         "availabilityKnots": [
           {
-            "monthDay": "10-15",
+            "monthDay": "09-15",
             "availability": 0
           },
           {
+            "monthDay": "10-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
             "monthDay": "11-15",
-            "availability": 0.45
+            "availability": 0.8
           },
           {
             "monthDay": "01-20",
-            "availability": 1
+            "availability": 0.55
           },
           {
             "monthDay": "03-15",
@@ -5659,7 +5695,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "ludington_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
         "modeId": "warm_season_harbor",
-        "fisheryStrength": 5.2,
+        "fisheryStrength": 5.8,
         "availabilityKnots": [
           {
             "monthDay": "03-15",
@@ -5891,16 +5927,28 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "fisheryStrength": 3.6,
         "availabilityKnots": [
           {
-            "monthDay": "10-15",
+            "monthDay": "09-15",
             "availability": 0
           },
           {
+            "monthDay": "10-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
             "monthDay": "11-15",
-            "availability": 0.45
+            "availability": 0.8
           },
           {
             "monthDay": "01-20",
-            "availability": 1
+            "availability": 0.55
           },
           {
             "monthDay": "03-15",
@@ -5985,7 +6033,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "grand_haven_mi__smallmouth_bass__warm_season_harbor__v3_secondary_v1",
         "modeId": "warm_season_harbor",
-        "fisheryStrength": 4.8,
+        "fisheryStrength": 7,
         "availabilityKnots": [
           {
             "monthDay": "03-15",
@@ -6055,11 +6103,15 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           },
           {
             "monthDay": "05-05",
-            "availability": 0.45
+            "availability": 0.75
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.9
           },
           {
             "monthDay": "06-10",
-            "availability": 0.85
+            "availability": 0.95
           },
           {
             "monthDay": "07-15",
@@ -6067,11 +6119,15 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           },
           {
             "monthDay": "08-25",
-            "availability": 0.9
+            "availability": 0.95
           },
           {
-            "monthDay": "10-01",
-            "availability": 0.3
+            "monthDay": "09-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.4
           },
           {
             "monthDay": "11-01",
@@ -6114,7 +6170,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "grand_haven_mi__yellow_perch__spring_nearshore_schooling__v3_secondary_v1",
         "modeId": "spring_nearshore_schooling",
-        "fisheryStrength": 4.4,
+        "fisheryStrength": 6.2,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -6125,15 +6181,19 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 0.35
           },
           {
-            "monthDay": "05-10",
+            "monthDay": "04-15",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "04-25",
             "availability": 1
           },
           {
-            "monthDay": "06-01",
+            "monthDay": "05-10",
             "availability": 0.55
           },
           {
-            "monthDay": "06-25",
+            "monthDay": "06-01",
             "availability": 0
           }
         ],
@@ -6149,14 +6209,14 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "limitations": [
           "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
           "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
-          "Recent recruitment is encouraging but is not converted into an automatic score increase; the ceiling remains below historical harvest-era strength."
+          "The revised summer ceiling uses recent Pier/Dock recurrence and stays below exceptional historic catch rates; school location and target effort remain uncertain."
         ],
         "promotionEligible": false
       },
       {
         "modeCalibrationId": "grand_haven_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
         "modeId": "summer_harbor_schooling",
-        "fisheryStrength": 6,
+        "fisheryStrength": 7.2,
         "availabilityKnots": [
           {
             "monthDay": "05-15",
@@ -6167,16 +6227,24 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 0.55
           },
           {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
             "monthDay": "08-05",
             "availability": 1
           },
           {
-            "monthDay": "08-20",
-            "availability": 0.75
+            "monthDay": "08-25",
+            "availability": 0.93
           },
           {
-            "monthDay": "10-01",
-            "availability": 0.2
+            "monthDay": "09-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.35
           },
           {
             "monthDay": "11-01",
@@ -6195,7 +6263,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "limitations": [
           "Port-level Pier/Dock effort is not target-specific and cannot validate an individual daily score.",
           "The shared surface-temperature response is a broad secondary modifier, not the fish's experienced temperature.",
-          "Recent recruitment is encouraging but is not converted into an automatic score increase; the ceiling remains below historical harvest-era strength."
+          "The revised summer ceiling uses recent Pier/Dock recurrence and stays below exceptional historic catch rates; school location and target effort remain uncertain."
         ],
         "promotionEligible": false
       }
@@ -6267,7 +6335,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "grand_haven_mi__channel_catfish__warm_season_channel__v3_secondary_v1",
         "modeId": "warm_season_channel",
-        "fisheryStrength": 5.8,
+        "fisheryStrength": 6.8,
         "availabilityKnots": [
           {
             "monthDay": "03-20",
@@ -6286,7 +6354,15 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 1
           },
           {
+            "monthDay": "09-20",
+            "availability": 0.9
+          },
+          {
             "monthDay": "10-05",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "10-31",
             "availability": 0.55
           },
           {
@@ -6323,7 +6399,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "grand_haven_mi__largemouth_bass__warm_season_harbor_cover__v3_secondary_v1",
         "modeId": "warm_season_harbor_cover",
-        "fisheryStrength": 6.2,
+        "fisheryStrength": 7.4,
         "availabilityKnots": [
           {
             "monthDay": "03-15",
@@ -6388,16 +6464,28 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "fisheryStrength": 4,
         "availabilityKnots": [
           {
-            "monthDay": "10-15",
+            "monthDay": "09-15",
             "availability": 0
           },
           {
+            "monthDay": "10-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
             "monthDay": "11-15",
-            "availability": 0.45
+            "availability": 0.8
           },
           {
             "monthDay": "01-20",
-            "availability": 1
+            "availability": 0.55
           },
           {
             "monthDay": "03-15",
@@ -6678,8 +6766,16 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
             "availability": 0.35
           },
           {
-            "monthDay": "05-05",
+            "monthDay": "04-10",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "04-20",
             "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.9
           },
           {
             "monthDay": "06-01",
@@ -6714,30 +6810,30 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "manistee_mi__yellow_perch__summer_harbor_schooling__v3_secondary_v1",
         "modeId": "summer_harbor_schooling",
-        "fisheryStrength": 4.5,
+        "fisheryStrength": 6.8,
         "availabilityKnots": [
           {
             "monthDay": "05-15",
             "availability": 0
           },
           {
-            "monthDay": "06-16",
-            "availability": 0.55
+            "monthDay": "06-01",
+            "availability": 0.8
           },
           {
-            "monthDay": "07-10",
+            "monthDay": "06-20",
             "availability": 1
           },
           {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
             "monthDay": "08-20",
-            "availability": 0.75
+            "availability": 0.45
           },
           {
-            "monthDay": "10-01",
-            "availability": 0.2
-          },
-          {
-            "monthDay": "11-01",
+            "monthDay": "09-15",
             "availability": 0
           }
         ],
@@ -6838,16 +6934,28 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "fisheryStrength": 4,
         "availabilityKnots": [
           {
-            "monthDay": "10-15",
+            "monthDay": "09-15",
             "availability": 0
           },
           {
+            "monthDay": "10-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
             "monthDay": "11-15",
-            "availability": 0.45
+            "availability": 0.8
           },
           {
             "monthDay": "01-20",
-            "availability": 1
+            "availability": 0.55
           },
           {
             "monthDay": "03-15",

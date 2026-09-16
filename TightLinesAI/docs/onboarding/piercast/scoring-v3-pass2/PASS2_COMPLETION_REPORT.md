@@ -1,5 +1,7 @@
 # PierCast Scoring v3 — Pass 2 completion report
 
+> **September 16 research recalibration:** The [all-pair seasonal opportunity audit](../seasonal-opportunity-audit-2026-09/README.md) updates 17 private v3 pairing calendars or ceilings after this historical completion report. Runtime scope, formula, public gates, and v2 behavior are unchanged.
+
 **Completed:** September 16, 2026
 
 **Implementation status:** complete

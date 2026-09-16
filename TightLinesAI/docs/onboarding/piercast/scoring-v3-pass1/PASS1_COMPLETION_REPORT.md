@@ -1,5 +1,7 @@
 # PierCast Scoring v3 Pass 1
 
+> **September 16 research recalibration:** The [all-pair seasonal opportunity audit](../seasonal-opportunity-audit-2026-09/README.md) supersedes the Milwaukee fall coho strength and timing, Milwaukee/Port Washington fall Chinook timing, Grand Haven spring steelhead timing, and Frankfort/Elberta summer Chinook and fall coho timing described by this historical Pass 1 report. Generated calibration artifacts contain the current disabled candidates.
+
 ## Executive decision
 
 Pass 1 is complete as a disabled research and calibration package for all nine configured PierCast cities and all thirteen catalog species. Every one of the 117 city/species pairings now has a final `admit`, `defer`, or `exclude` decision supported by an explicit source chain and limitation.

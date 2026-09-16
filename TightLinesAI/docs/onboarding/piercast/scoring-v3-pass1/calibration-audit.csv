@@ -5,26 +5,26 @@ ludington_mi,Ludington,steelhead,Steelhead,A,8.1,8.1,0,42,37,1,1,3,true
 ludington_mi,Ludington,brown_trout,Brown Trout,A,7.6,7.6,0,57,45,0,0,3,true
 grand_haven_mi,Grand Haven,chinook_salmon,Chinook Salmon,A,7.8,7.8,0,33,31,0,0,3,true
 grand_haven_mi,Grand Haven,coho_salmon,Coho Salmon,A,8.8,8.8,0,82,69,15,15,3,true
-grand_haven_mi,Grand Haven,steelhead,Steelhead,A,9.2,9.2,0,149,124,63,31,3,true
+grand_haven_mi,Grand Haven,steelhead,Steelhead,A,9.2,9.2,0,149,129,63,31,3,true
 grand_haven_mi,Grand Haven,brown_trout,Brown Trout,A,7.6,7.6,0,54,45,0,0,3,true
 manistee_mi,Manistee,chinook_salmon,Chinook Salmon,A,9.5,9.5,0,52,60,25,22,3,true
 manistee_mi,Manistee,coho_salmon,Coho Salmon,A,8.2,8.2,0,60,40,3,2,3,true
 manistee_mi,Manistee,steelhead,Steelhead,A,10,10,0,102,75,39,29,3,true
 manistee_mi,Manistee,brown_trout,Brown Trout,A,8.2,8.2,0,68,53,7,3,3,true
-frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,A,9.7,9.7,0,70,66,44,34,3,true
-frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,A,8.6,8.6,0,67,48,14,11,3,true
+frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,A,9.7,9.7,0,70,79,44,44,3,true
+frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,A,8.6,8.6,0,67,59,14,14,3,true
 frankfort_elberta_mi,Frankfort,steelhead,Steelhead,A,9.8,9.8,0,81,80,23,27,3,true
 frankfort_elberta_mi,Frankfort,brown_trout,Brown Trout,A,7.5,7.5,0,76,44,0,0,3,true
 sheboygan_wi,Sheboygan,chinook_salmon,Chinook Salmon,B,9.6,9.4,-0.2,63,63,34,21,3,false
 sheboygan_wi,Sheboygan,coho_salmon,Coho Salmon,B,7.7,7.7,0,152,86,0,0,3,false
 sheboygan_wi,Sheboygan,steelhead,Steelhead,B,7.3,7.3,0,106,56,0,0,3,false
 sheboygan_wi,Sheboygan,brown_trout,Brown Trout,B,7.8,7.8,0,97,48,0,0,3,false
-port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,B,7.2,7.2,0,69,36,0,0,2,false
+port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,B,7.2,7.2,0,69,50,0,0,2,false
 port_washington_wi,Port Washington,coho_salmon,Coho Salmon,B,7.8,7.8,0,79,61,0,0,3,false
 port_washington_wi,Port Washington,steelhead,Steelhead,B,5.2,5.2,0,0,0,0,0,2,false
 port_washington_wi,Port Washington,brown_trout,Brown Trout,B,7,7,0,38,31,0,0,2,false
-milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,B,7,7,0,68,33,0,0,2,false
-milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,B,7.6,7.6,0,72,36,0,0,3,false
+milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,B,7,7,0,68,49,0,0,2,false
+milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,B,7.6,7.6,0,72,63,0,0,3,false
 milwaukee_wi,Milwaukee,steelhead,Steelhead,B,4.6,4.6,0,0,0,0,0,2,false
 milwaukee_wi,Milwaukee,brown_trout,Brown Trout,B,6.6,6.6,0,36,19,0,0,2,false
 racine_wi,Racine,chinook_salmon,Chinook Salmon,B,7.4,7.4,0,74,41,0,0,2,false

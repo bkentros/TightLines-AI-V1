@@ -148,7 +148,7 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-species-expansion-v4" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-seasonal-research-v5" as const;
 export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(

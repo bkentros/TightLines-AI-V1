@@ -105,6 +105,52 @@ Deno.test("v3 species expansion exposes the exact 94-pair city roster", () => {
   }
 });
 
+Deno.test("research seasonal corrections preserve fall pier opportunity without a blanket uplift", () => {
+  const ideal = (cityId: string, speciesId: string, localDate: string) => {
+    const pair = PIER_CAST_V3_PAIR_CALIBRATIONS.find((candidate) =>
+      candidate.cityId === cityId && candidate.speciesId === speciesId
+    );
+    assert(pair);
+    const modes = evaluatePierCastV3ModePotentials({ localDate, modes: pair.modes });
+    const result = calculatePierCastV3Opportunity({
+      modes,
+      temperatureSuitability: 1,
+      allowDisabledConfiguration: true,
+    });
+    assertEquals(result.status, "available");
+    assert(result.score !== null);
+    return result.score;
+  };
+
+  assert(ideal("milwaukee_wi", "coho_salmon", "2027-09-16") >= 6.8);
+  assert(ideal("milwaukee_wi", "chinook_salmon", "2027-09-16") > 6);
+  assert(ideal("port_washington_wi", "chinook_salmon", "2027-09-16") > 6);
+  assert(ideal("grand_haven_mi", "steelhead", "2027-05-15") > 4.5);
+  assert(ideal("frankfort_elberta_mi", "chinook_salmon", "2027-07-15") > 7);
+  assert(ideal("frankfort_elberta_mi", "coho_salmon", "2027-08-25") > 6);
+  for (
+    const cityId of [
+      "ludington_mi",
+      "grand_haven_mi",
+      "manistee_mi",
+      "frankfort_elberta_mi",
+    ]
+  ) {
+    const october = ideal(cityId, "lake_trout", "2027-10-25");
+    const january = ideal(cityId, "lake_trout", "2027-01-20");
+    assert(october > january);
+    assert(october <= 4);
+  }
+  assertEquals(ideal("grand_haven_mi", "smallmouth_bass", "2027-06-25"), 7);
+  assert(ideal("grand_haven_mi", "freshwater_drum", "2027-09-16") > 6);
+  assert(ideal("grand_haven_mi", "yellow_perch", "2027-09-16") > 6);
+  assert(ideal("grand_haven_mi", "channel_catfish", "2027-09-16") > 6);
+  assert(ideal("grand_haven_mi", "largemouth_bass", "2027-08-15") > 6);
+  assert(ideal("manistee_mi", "yellow_perch", "2027-04-15") > 6);
+  assert(ideal("manistee_mi", "yellow_perch", "2027-06-15") > 6);
+  assertEquals(ideal("milwaukee_wi", "coho_salmon", "2027-01-15"), 1);
+});
+
 Deno.test("Grand Haven November method restriction is visible without closing the fishery", () => {
   const november = getPierCastV3RegulationNotices({
     cityId: "grand_haven_mi",
@@ -477,6 +523,22 @@ Deno.test("v3 species-expansion migration enforces the exact manifest and preser
     pair.pairKey
   ).sort();
   assertEquals(sqlPairs, generatedPairs);
+});
+
+Deno.test("seasonal research shadow version archives separately from historical v4 runs", async () => {
+  const sql = await Deno.readTextFile(
+    new URL(
+      "../../../../migrations/20260916220000_pier_cast_v3_seasonal_research_v5.sql",
+      import.meta.url,
+    ),
+  );
+  assert(sql.includes("'piercast-v3-twelve-city-species-expansion-v4'"));
+  assert(sql.includes("'piercast-v3-twelve-city-seasonal-research-v5'"));
+  assert(sql.includes("'pier-cast-opportunity-modes-v3-shadow-v1.4.0'"));
+  assert(sql.includes("jsonb_array_length(p_forecasts)<>470"));
+  assert(sql.includes("auth.role()<>'service_role'"));
+  assert(sql.includes("p_run->>'promotionStatus'<>'blocked'"));
+  assert(sql.includes("piercast_v3_expected_pairs()"));
 });
 
 function batch(

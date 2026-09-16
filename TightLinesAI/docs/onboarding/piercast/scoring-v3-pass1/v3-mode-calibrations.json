@@ -2319,7 +2319,7 @@
         },
         {
           "monthDay": "05-15",
-          "availability": 0.35
+          "availability": 0.6
         },
         {
           "monthDay": "06-01",
@@ -2419,7 +2419,7 @@
         "windowPeak": 7.1,
         "peakDate": "05-31"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "Grand Haven May Pier/Dock steelhead catches recur in recent surveyed years; the former April-to-May availability drop to 0.35 overstated the spring fishery's decline.",
       "limitations": [
         "Monthly port evidence cannot validate individual daily ordinates or catch probability.",
         "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
@@ -4763,12 +4763,20 @@
           "availability": 0
         },
         {
-          "monthDay": "06-29",
-          "availability": 0.35
+          "monthDay": "06-20",
+          "availability": 0.25
+        },
+        {
+          "monthDay": "07-01",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 0.8
         },
         {
           "monthDay": "07-24",
-          "availability": 0.72
+          "availability": 0.9
         },
         {
           "monthDay": "08-10",
@@ -4862,7 +4870,7 @@
         "windowPeak": 8.8,
         "peakDate": "08-10"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "July Frankfort/Elberta Pier/Dock Chinook catch recurs in the recent creel slice; the prior summer mode rose too late for that month.",
       "limitations": [
         "Michigan DNR Pier/Dock estimates and direct breakwall reports establish shore reachability; the provisional magnitude remains subject to outcome validation.",
         "Monthly port evidence cannot validate individual daily ordinates or catch probability.",
@@ -5263,12 +5271,16 @@
           "availability": 0
         },
         {
-          "monthDay": "08-19",
+          "monthDay": "08-10",
           "availability": 0.35
         },
         {
-          "monthDay": "09-04",
-          "availability": 0.72
+          "monthDay": "08-20",
+          "availability": 0.65
+        },
+        {
+          "monthDay": "08-30",
+          "availability": 0.82
         },
         {
           "monthDay": "09-15",
@@ -5363,7 +5375,7 @@
         "windowPeak": 8.6,
         "peakDate": "09-15"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "August Frankfort/Elberta Pier/Dock coho catch appears in two recent surveyed years; fall harbor staging now rises through August while retaining the September peak.",
       "limitations": [
         "Monthly port evidence cannot validate individual daily ordinates or catch probability.",
         "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
@@ -7873,7 +7885,11 @@
         },
         {
           "monthDay": "09-11",
-          "availability": 0.78
+          "availability": 0.95
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.75
         },
         {
           "monthDay": "10-10",
@@ -7960,7 +7976,7 @@
         "windowPeak": 7.2,
         "peakDate": "08-15"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "Wisconsin DNR's September 2026 shore report documents renewed Milwaukee casting and Port Washington pier/shore salmon success. The Milwaukee-area fall guide identifies September as the Chinook peak; the former curve faded too quickly after August.",
       "limitations": [
         "City-harbor shadow candidate supported by Wisconsin DNR Port Washington access/fishing guidance, Ozaukee County pier harvest, statewide pier seasonality, and current local pier/shore reporting; the numeric curve is a provisional FinFindr calibration.",
         "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
@@ -9025,7 +9041,11 @@
         },
         {
           "monthDay": "09-11",
-          "availability": 0.78
+          "availability": 0.95
+        },
+        {
+          "monthDay": "09-25",
+          "availability": 0.75
         },
         {
           "monthDay": "10-10",
@@ -9111,7 +9131,7 @@
         "windowPeak": 7,
         "peakDate": "08-15"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "Wisconsin DNR's September 2026 shore report documents renewed Milwaukee casting and Port Washington pier/shore salmon success. The Milwaukee-area fall guide identifies September as the Chinook peak; the former curve faded too quickly after August.",
       "limitations": [
         "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
         "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
@@ -9381,7 +9401,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.2,
+      "fisheryStrength": 6.8,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -9401,8 +9421,12 @@
           "availability": 1
         },
         {
-          "monthDay": "10-07",
-          "availability": 0.78
+          "monthDay": "09-25",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.72
         },
         {
           "monthDay": "11-07",
@@ -9489,7 +9513,7 @@
         "windowPeak": 6.2,
         "peakDate": "09-07"
       },
-      "calibrationOverride": null,
+      "calibrationOverride": "Research recalibration 2026-09: repeated Milwaukee County pier-mode coho harvest in 2022 and 2024, exact Milwaukee pier access/species guidance, and Wisconsin DNR fall-shore guidance support a Good but sub-spring fall opportunity. The county series lacks month-specific city-pier effort, so this remains a disabled research judgment. The DNR's September 2026 Milwaukee shore report and Milwaukee-area fall guide support a sustained fall shore window; a one-day September 7 peak followed by immediate decline was over-specific.",
       "limitations": [
         "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
         "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",

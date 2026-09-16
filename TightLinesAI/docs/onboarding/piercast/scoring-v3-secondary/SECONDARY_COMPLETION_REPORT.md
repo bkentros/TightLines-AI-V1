@@ -23,21 +23,21 @@ All 81 secondary city/species pairings were re-reviewed against the intended pro
 ## Admitted pairings
 
 - ludington_mi/lake_trout: cold_season_nearshore 3.8/10; summer_coldwater_access 3.4/10
-- ludington_mi/smallmouth_bass: warm_season_harbor 5.2/10
+- ludington_mi/smallmouth_bass: warm_season_harbor 5.8/10
 - ludington_mi/freshwater_drum: warm_season_bottom_fishery 5/10
 - ludington_mi/yellow_perch: spring_nearshore_schooling 6/10; summer_harbor_schooling 7.6/10
 - grand_haven_mi/lake_trout: cold_season_nearshore 3.6/10; summer_coldwater_access 3.4/10
-- grand_haven_mi/smallmouth_bass: warm_season_harbor 4.8/10
+- grand_haven_mi/smallmouth_bass: warm_season_harbor 7/10
 - grand_haven_mi/freshwater_drum: warm_season_bottom_fishery 7.2/10
-- grand_haven_mi/yellow_perch: spring_nearshore_schooling 4.4/10; summer_harbor_schooling 6/10
+- grand_haven_mi/yellow_perch: spring_nearshore_schooling 6.2/10; summer_harbor_schooling 7.2/10
 - grand_haven_mi/round_whitefish: spring_menominee 3.8/10
-- grand_haven_mi/channel_catfish: warm_season_channel 5.8/10
-- grand_haven_mi/largemouth_bass: warm_season_harbor_cover 6.2/10
+- grand_haven_mi/channel_catfish: warm_season_channel 6.8/10
+- grand_haven_mi/largemouth_bass: warm_season_harbor_cover 7.4/10
 - manistee_mi/lake_trout: cold_season_nearshore 4/10; summer_coldwater_access 3.6/10
 - manistee_mi/walleye: spring_low_light 4.2/10
 - manistee_mi/smallmouth_bass: warm_season_harbor 5/10
 - manistee_mi/freshwater_drum: warm_season_bottom_fishery 4.7/10
-- manistee_mi/yellow_perch: spring_nearshore_schooling 7.2/10; summer_harbor_schooling 4.5/10
+- manistee_mi/yellow_perch: spring_nearshore_schooling 7.2/10; summer_harbor_schooling 6.8/10
 - manistee_mi/round_whitefish: fall_menominee 4.1/10
 - frankfort_elberta_mi/lake_trout: cold_season_nearshore 4/10; summer_coldwater_access 3.8/10
 - racine_wi/yellow_perch: summer_harbor_schooling 4.8/10; unavailable during WI yellow-perch closure May 1-June 15

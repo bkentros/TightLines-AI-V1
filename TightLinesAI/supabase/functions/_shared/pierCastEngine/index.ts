@@ -51,4 +51,4 @@ export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
 export const PIER_CAST_V3_ENGINE_VERSION =
-  "pier-cast-opportunity-modes-v3-shadow-v1.3.0";
+  "pier-cast-opportunity-modes-v3-shadow-v1.4.0";

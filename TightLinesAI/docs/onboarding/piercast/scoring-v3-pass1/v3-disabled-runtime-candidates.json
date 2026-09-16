@@ -727,7 +727,7 @@
             },
             {
               "monthDay": "05-15",
-              "availability": 0.35
+              "availability": 0.6
             },
             {
               "monthDay": "06-01",
@@ -1450,12 +1450,20 @@
               "availability": 0
             },
             {
-              "monthDay": "06-29",
-              "availability": 0.35
+              "monthDay": "06-20",
+              "availability": 0.25
+            },
+            {
+              "monthDay": "07-01",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "07-15",
+              "availability": 0.8
             },
             {
               "monthDay": "07-24",
-              "availability": 0.72
+              "availability": 0.9
             },
             {
               "monthDay": "08-10",
@@ -1602,12 +1610,16 @@
               "availability": 0
             },
             {
-              "monthDay": "08-19",
+              "monthDay": "08-10",
               "availability": 0.35
             },
             {
-              "monthDay": "09-04",
-              "availability": 0.72
+              "monthDay": "08-20",
+              "availability": 0.65
+            },
+            {
+              "monthDay": "08-30",
+              "availability": 0.82
             },
             {
               "monthDay": "09-15",
@@ -2391,7 +2403,11 @@
             },
             {
               "monthDay": "09-11",
-              "availability": 0.78
+              "availability": 0.95
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.75
             },
             {
               "monthDay": "10-10",
@@ -2747,7 +2763,11 @@
             },
             {
               "monthDay": "09-11",
-              "availability": 0.78
+              "availability": 0.95
+            },
+            {
+              "monthDay": "09-25",
+              "availability": 0.75
             },
             {
               "monthDay": "10-10",
@@ -2843,7 +2863,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.2,
+          "fisheryStrength": 6.8,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -2862,8 +2882,12 @@
               "availability": 1
             },
             {
-              "monthDay": "10-07",
-              "availability": 0.78
+              "monthDay": "09-25",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.72
             },
             {
               "monthDay": "11-07",

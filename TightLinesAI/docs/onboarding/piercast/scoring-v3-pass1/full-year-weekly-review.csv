@@ -794,12 +794,12 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-03-30,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.47,winter_spring_thermal_front,disabled_candidate
 2025-04-06,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.746,winter_spring_thermal_front,disabled_candidate
 2025-04-13,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,7.021,winter_spring_thermal_front,disabled_candidate
-2025-04-20,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.439,winter_spring_thermal_front,disabled_candidate
-2025-04-27,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,5.514,winter_spring_thermal_front,disabled_candidate
-2025-05-04,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,4.589,winter_spring_thermal_front,disabled_candidate
-2025-05-11,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,3.664,winter_spring_thermal_front,disabled_candidate
-2025-05-18,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,2.758,winter_spring_thermal_front,disabled_candidate
-2025-05-25,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,2.365,summer_thermal_break_or_upwelling,disabled_candidate
+2025-04-20,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.693,winter_spring_thermal_front,disabled_candidate
+2025-04-27,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.124,winter_spring_thermal_front,disabled_candidate
+2025-05-04,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,5.555,winter_spring_thermal_front,disabled_candidate
+2025-05-11,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,4.985,winter_spring_thermal_front,disabled_candidate
+2025-05-18,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,4.014,winter_spring_thermal_front,disabled_candidate
+2025-05-25,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,2.507,winter_spring_thermal_front,disabled_candidate
 2025-06-01,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,4.307,summer_thermal_break_or_upwelling,disabled_candidate
 2025-06-08,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,6.327,summer_thermal_break_or_upwelling,disabled_candidate
 2025-06-15,grand_haven_mi,Grand Haven,steelhead,Steelhead,admit,A,8.8,summer_thermal_break_or_upwelling,disabled_candidate
@@ -2051,13 +2051,13 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-06-01,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.24,spring_nearshore_transient,disabled_candidate
 2025-06-08,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.47,spring_nearshore_transient,disabled_candidate
 2025-06-15,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.7,spring_nearshore_transient,disabled_candidate
-2025-06-22,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.048,summer_coldwater_access,disabled_candidate
-2025-06-29,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.73,summer_coldwater_access,disabled_candidate
-2025-07-06,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,4.538,summer_coldwater_access,disabled_candidate
-2025-07-13,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,5.346,summer_coldwater_access,disabled_candidate
-2025-07-20,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,6.154,summer_coldwater_access,disabled_candidate
-2025-07-27,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,7.001,summer_coldwater_access,disabled_candidate
-2025-08-03,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,7.901,summer_coldwater_access,disabled_candidate
+2025-06-22,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,3.375,summer_coldwater_access,disabled_candidate
+2025-06-29,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,4.865,summer_coldwater_access,disabled_candidate
+2025-07-06,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,5.986,summer_coldwater_access,disabled_candidate
+2025-07-13,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,6.961,summer_coldwater_access,disabled_candidate
+2025-07-20,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,7.673,summer_coldwater_access,disabled_candidate
+2025-07-27,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,8.158,summer_coldwater_access,disabled_candidate
+2025-08-03,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,8.479,summer_coldwater_access,disabled_candidate
 2025-08-10,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,8.8,summer_coldwater_access,disabled_candidate
 2025-08-17,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,9.629,fall_harbor_staging,disabled_candidate
 2025-08-24,frankfort_elberta_mi,Frankfort,chinook_salmon,Chinook Salmon,admit,A,9.133,fall_harbor_staging,disabled_candidate
@@ -2112,10 +2112,10 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-08-03,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,5.029,summer_coldwater_access,disabled_candidate
 2025-08-10,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,5.654,summer_coldwater_access,disabled_candidate
 2025-08-17,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,5.539,summer_coldwater_access,disabled_candidate
-2025-08-24,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,4.539,fall_harbor_staging,disabled_candidate
-2025-08-31,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,5.769,fall_harbor_staging,disabled_candidate
-2025-09-07,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,7.052,fall_harbor_staging,disabled_candidate
-2025-09-14,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,8.407,fall_harbor_staging,disabled_candidate
+2025-08-24,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,6.457,fall_harbor_staging,disabled_candidate
+2025-08-31,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,7.317,fall_harbor_staging,disabled_candidate
+2025-09-07,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,7.916,fall_harbor_staging,disabled_candidate
+2025-09-14,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,8.515,fall_harbor_staging,disabled_candidate
 2025-09-21,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,8.228,fall_harbor_staging,disabled_candidate
 2025-09-28,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,7.795,fall_harbor_staging,disabled_candidate
 2025-10-05,frankfort_elberta_mi,Frankfort,coho_salmon,Coho Salmon,admit,A,7.361,fall_harbor_staging,disabled_candidate
@@ -3411,14 +3411,14 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-07-27,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,5.693,summer_coldwater_access,disabled_candidate
 2025-08-03,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.397,summer_coldwater_access,disabled_candidate
 2025-08-10,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,7.1,summer_coldwater_access,disabled_candidate
-2025-08-17,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,7.099,fall_harbor_staging,disabled_candidate
-2025-08-24,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.745,fall_harbor_staging,disabled_candidate
-2025-08-31,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.392,fall_harbor_staging,disabled_candidate
-2025-09-07,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.038,fall_harbor_staging,disabled_candidate
-2025-09-14,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,5.541,fall_harbor_staging,disabled_candidate
-2025-09-21,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,4.853,fall_harbor_staging,disabled_candidate
-2025-09-28,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,4.164,fall_harbor_staging,disabled_candidate
-2025-10-05,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,3.476,fall_harbor_staging,disabled_candidate
+2025-08-17,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,7.177,fall_harbor_staging,disabled_candidate
+2025-08-24,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,7.097,fall_harbor_staging,disabled_candidate
+2025-08-31,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,7.016,fall_harbor_staging,disabled_candidate
+2025-09-07,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.936,fall_harbor_staging,disabled_candidate
+2025-09-14,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.624,fall_harbor_staging,disabled_candidate
+2025-09-21,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,6.004,fall_harbor_staging,disabled_candidate
+2025-09-28,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,5.117,fall_harbor_staging,disabled_candidate
+2025-10-05,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,3.873,fall_harbor_staging,disabled_candidate
 2025-10-12,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,2.804,fall_harbor_staging,disabled_candidate
 2025-10-19,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,2.172,fall_harbor_staging,disabled_candidate
 2025-10-26,port_washington_wi,Port Washington,chinook_salmon,Chinook Salmon,admit,B,1.541,fall_harbor_staging,disabled_candidate
@@ -4087,14 +4087,14 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-07-27,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,5.616,summer_coldwater_access,disabled_candidate
 2025-08-03,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.308,summer_coldwater_access,disabled_candidate
 2025-08-10,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,7,summer_coldwater_access,disabled_candidate
-2025-08-17,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.902,fall_harbor_staging,disabled_candidate
-2025-08-24,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.56,fall_harbor_staging,disabled_candidate
-2025-08-31,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.218,fall_harbor_staging,disabled_candidate
-2025-09-07,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,5.876,fall_harbor_staging,disabled_candidate
-2025-09-14,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,5.394,fall_harbor_staging,disabled_candidate
-2025-09-21,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,4.728,fall_harbor_staging,disabled_candidate
-2025-09-28,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,4.062,fall_harbor_staging,disabled_candidate
-2025-10-05,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,3.396,fall_harbor_staging,disabled_candidate
+2025-08-17,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.978,fall_harbor_staging,disabled_candidate
+2025-08-24,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.9,fall_harbor_staging,disabled_candidate
+2025-08-31,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.822,fall_harbor_staging,disabled_candidate
+2025-09-07,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.744,fall_harbor_staging,disabled_candidate
+2025-09-14,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,6.443,fall_harbor_staging,disabled_candidate
+2025-09-21,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,5.843,fall_harbor_staging,disabled_candidate
+2025-09-28,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,4.984,fall_harbor_staging,disabled_candidate
+2025-10-05,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,3.78,fall_harbor_staging,disabled_candidate
 2025-10-12,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,2.745,fall_harbor_staging,disabled_candidate
 2025-10-19,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,2.135,fall_harbor_staging,disabled_candidate
 2025-10-26,milwaukee_wi,Milwaukee,chinook_salmon,Chinook Salmon,admit,B,1.524,fall_harbor_staging,disabled_candidate
@@ -4139,22 +4139,22 @@ localDate,cityId,cityName,speciesId,speciesName,disposition,evidenceGrade,season
 2025-07-27,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.997,summer_coldwater_access,disabled_candidate
 2025-08-03,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.532,summer_coldwater_access,disabled_candidate
 2025-08-10,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.69,summer_coldwater_access,disabled_candidate
-2025-08-17,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.968,fall_harbor_staging,disabled_candidate
-2025-08-24,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.004,fall_harbor_staging,disabled_candidate
-2025-08-31,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.068,fall_harbor_staging,disabled_candidate
-2025-09-07,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,6.2,fall_harbor_staging,disabled_candidate
-2025-09-14,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.933,fall_harbor_staging,disabled_candidate
-2025-09-21,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.666,fall_harbor_staging,disabled_candidate
-2025-09-28,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.399,fall_harbor_staging,disabled_candidate
-2025-10-05,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.132,fall_harbor_staging,disabled_candidate
-2025-10-12,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.67,fall_harbor_staging,disabled_candidate
-2025-10-19,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.13,fall_harbor_staging,disabled_candidate
-2025-10-26,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.59,fall_harbor_staging,disabled_candidate
-2025-11-02,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.05,fall_harbor_staging,disabled_candidate
-2025-11-09,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.525,fall_harbor_staging,disabled_candidate
-2025-11-16,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.04,fall_harbor_staging,disabled_candidate
-2025-11-23,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1.555,fall_harbor_staging,disabled_candidate
-2025-11-30,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1.069,fall_harbor_staging,disabled_candidate
+2025-08-17,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.195,fall_harbor_staging,disabled_candidate
+2025-08-24,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.351,fall_harbor_staging,disabled_candidate
+2025-08-31,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.537,fall_harbor_staging,disabled_candidate
+2025-09-07,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,6.8,fall_harbor_staging,disabled_candidate
+2025-09-14,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,6.8,fall_harbor_staging,disabled_candidate
+2025-09-21,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,6.8,fall_harbor_staging,disabled_candidate
+2025-09-28,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,6.556,fall_harbor_staging,disabled_candidate
+2025-10-05,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.988,fall_harbor_staging,disabled_candidate
+2025-10-12,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,5.42,fall_harbor_staging,disabled_candidate
+2025-10-19,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.773,fall_harbor_staging,disabled_candidate
+2025-10-26,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,4.066,fall_harbor_staging,disabled_candidate
+2025-11-02,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,3.36,fall_harbor_staging,disabled_candidate
+2025-11-09,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.701,fall_harbor_staging,disabled_candidate
+2025-11-16,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,2.16,fall_harbor_staging,disabled_candidate
+2025-11-23,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1.619,fall_harbor_staging,disabled_candidate
+2025-11-30,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1.077,fall_harbor_staging,disabled_candidate
 2025-12-07,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1,spring_nearshore,disabled_candidate
 2025-12-14,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1,spring_nearshore,disabled_candidate
 2025-12-21,milwaukee_wi,Milwaukee,coho_salmon,Coho Salmon,admit,B,1,spring_nearshore,disabled_candidate

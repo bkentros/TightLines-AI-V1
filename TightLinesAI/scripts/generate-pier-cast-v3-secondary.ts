@@ -99,15 +99,18 @@ const winterLakeTrout = (strength: number): ModeSeed => ({
   modeName: "Cold-season nearshore access",
   fisheryStrength: strength,
   availabilityKnots: knots([
-    ["10-15", 0],
-    ["11-15", 0.45],
-    ["01-20", 1],
+    ["09-15", 0],
+    ["10-01", 0.2],
+    ["10-15", 0.7],
+    ["10-25", 1],
+    ["11-15", 0.8],
+    ["01-20", 0.55],
     ["03-15", 0.78],
     ["04-30", 0.28],
     ["05-31", 0],
   ]),
   interpretation:
-    "Cold-season port access identified by the Michigan DNR roadmap and bounded by port Pier/Dock recurrence.",
+    "October Pier/Dock catches at all four ports and Michigan DNR's fall spawning-shoal and pier guidance support an October nearshore peak. Winter remains a lower-confidence shoulder because creel effort is not observed then.",
 });
 const summerLakeTrout = (strength: number): ModeSeed => ({
   modeId: "summer_coldwater_access",
@@ -197,7 +200,14 @@ const admissions: Record<string, AdmissionSeed> = {
     modes: [winterLakeTrout(3.8), summerLakeTrout(3.4)],
     evidenceIds: ["SECONDARY_MI_ROADMAP"],
   },
-  "ludington_mi/smallmouth_bass": { grade: "B", modes: [smallmouth(5.2)] },
+  "ludington_mi/smallmouth_bass": {
+    grade: "B",
+    modes: [{
+      ...smallmouth(5.8),
+      interpretation:
+        "Recent July Pier/Dock catches recur in three surveyed years; the modest ceiling stays below Grand Haven's stronger recent harbor fishery.",
+    }],
+  },
   "ludington_mi/freshwater_drum": { grade: "B", modes: [drum(5.0)] },
   "ludington_mi/yellow_perch": {
     grade: "A",
@@ -209,14 +219,65 @@ const admissions: Record<string, AdmissionSeed> = {
     modes: [winterLakeTrout(3.6), summerLakeTrout(3.4)],
     evidenceIds: ["SECONDARY_MI_ROADMAP"],
   },
-  "grand_haven_mi/smallmouth_bass": { grade: "B", modes: [smallmouth(4.8)] },
-  "grand_haven_mi/freshwater_drum": { grade: "A", modes: [drum(7.2)] },
+  "grand_haven_mi/smallmouth_bass": {
+    grade: "B",
+    modes: [{
+      ...smallmouth(7.0),
+      interpretation:
+        "August Grand Haven Pier/Dock smallmouth catch recurs in all four recent surveyed years at a much higher rate than the former limited ceiling implied.",
+    }],
+  },
+  "grand_haven_mi/freshwater_drum": {
+    grade: "A",
+    modes: [{
+      ...drum(7.2),
+      availabilityKnots: knots([
+        ["04-01", 0],
+        ["05-05", 0.75],
+        ["05-20", 0.9],
+        ["06-10", 0.95],
+        ["07-15", 1],
+        ["08-25", 0.95],
+        ["09-20", 0.85],
+        ["10-15", 0.4],
+        ["11-01", 0],
+      ]),
+      interpretation:
+        "The existing 7.2 ceiling now covers recurring Grand Haven Pier/Dock drum catch in May and September, not only a narrow July peak.",
+    }],
+  },
   "grand_haven_mi/yellow_perch": {
     grade: "A",
-    modes: [springPerch(4.4), summerPerch(6.0, "08-05")],
+    modes: [{
+      ...springPerch(6.2, "04-25"),
+      availabilityKnots: knots([
+        ["02-15", 0],
+        ["03-20", 0.35],
+        ["04-15", 0.9],
+        ["04-25", 1],
+        ["05-10", 0.55],
+        ["06-01", 0],
+      ]),
+      interpretation:
+        "Repeated April Grand Haven Pier/Dock perch catch supports a short spring pulse, while the recent May record is less consistent.",
+    }, {
+      ...summerPerch(7.2, "08-05"),
+      availabilityKnots: knots([
+        ["05-15", 0],
+        ["06-16", 0.55],
+        ["07-15", 0.82],
+        ["08-05", 1],
+        ["08-25", 0.93],
+        ["09-20", 0.82],
+        ["10-15", 0.35],
+        ["11-01", 0],
+      ]),
+      interpretation:
+        "Grand Haven summer Pier/Dock perch catch recurs through September, including multiple recent positive years; the previous 6.0 ceiling and rapid August decline understated that fishery.",
+    }],
     evidenceIds: ["SECONDARY_MI_ROADMAP", "MI_2025"],
     limitations: [
-      "Recent recruitment is encouraging but is not converted into an automatic score increase; the ceiling remains below historical harvest-era strength.",
+      "The revised summer ceiling uses recent Pier/Dock recurrence and stays below exceptional historic catch rates; school location and target effort remain uncertain.",
     ],
   },
   "grand_haven_mi/round_whitefish": {
@@ -241,27 +302,29 @@ const admissions: Record<string, AdmissionSeed> = {
     modes: [{
       modeId: "warm_season_channel",
       modeName: "Warm-season channel fishery",
-      fisheryStrength: 5.8,
+      fisheryStrength: 6.8,
       availabilityKnots: knots([
         ["03-20", 0],
         ["05-01", 0.45],
         ["06-20", 0.8],
         ["08-10", 1],
-        ["10-05", 0.55],
+        ["09-20", 0.9],
+        ["10-05", 0.75],
+        ["10-31", 0.55],
         ["11-15", 0],
       ]),
       interpretation:
-        "High multi-month Pier/Dock recurrence supports a genuine channel-mouth fishery; upstream Grand River catches are excluded.",
+        "Recent Grand Haven Pier/Dock channel-catfish catches recur in all four surveyed years from July through September and continue into October; upstream Grand River catches are excluded.",
     }],
   },
   "grand_haven_mi/largemouth_bass": {
     grade: "A",
     modes: [{
-      ...smallmouth(6.2),
+      ...smallmouth(7.4),
       modeId: "warm_season_harbor_cover",
       modeName: "Warm-season harbor-cover fishery",
       interpretation:
-        "Strong recurring port Pier/Dock catches and species-specific DNR reports support a harbor-cover largemouth opportunity.",
+        "Strong August port Pier/Dock catches in all four recent surveyed years support a Good harbor-cover largemouth opportunity.",
     }],
   },
   "manistee_mi/lake_trout": {
@@ -290,7 +353,32 @@ const admissions: Record<string, AdmissionSeed> = {
   "manistee_mi/freshwater_drum": { grade: "B", modes: [drum(4.7)] },
   "manistee_mi/yellow_perch": {
     grade: "A",
-    modes: [springPerch(7.2, "05-05"), summerPerch(4.5, "07-10")],
+    modes: [{
+      ...springPerch(7.2, "05-05"),
+      availabilityKnots: knots([
+        ["02-15", 0],
+        ["03-20", 0.35],
+        ["04-10", 0.82],
+        ["04-20", 1],
+        ["05-20", 0.9],
+        ["06-01", 0.55],
+        ["06-25", 0],
+      ]),
+      interpretation:
+        "April and May Manistee Pier/Dock perch catch recur at high rates in recent years; the spring peak now covers both months instead of one May day.",
+    }, {
+      ...summerPerch(6.8, "06-20"),
+      availabilityKnots: knots([
+        ["05-15", 0],
+        ["06-01", 0.8],
+        ["06-20", 1],
+        ["07-15", 0.82],
+        ["08-20", 0.45],
+        ["09-15", 0],
+      ]),
+      interpretation:
+        "June Manistee Pier/Dock perch harvest recurs in three recent surveyed years; the old 4.5 summer peak understated this separate post-spring school.",
+    }],
     evidenceIds: ["SECONDARY_MI_ROADMAP"],
   },
   "manistee_mi/round_whitefish": {
