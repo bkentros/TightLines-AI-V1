@@ -13,6 +13,7 @@
 - PierCast foundation tests: 210 passed. V3 pass 2 checks: 44 passed. TypeScript: passed. iOS and Android Expo exports: passed.
 - The account-level smoke check confirmed that a research-preview report returns `city_unavailable`, then stopped because the first released-city report returned `report_unavailable`. The latest complete archived LMHOFS cycle was issued at 06:00 UTC and was outside the 13-hour report freshness window at the time of the check. A direct NOAA LMHOFS audit returned HTTP 503 for the attempted cycles. The published daily leaderboard remained available. Re-run the account smoke check after NOAA service and scheduled ingestion recover.
 - The broader River Run live-conditions smoke check stopped because Manitowoc currently has no usable live measurement. This did not affect River Run catalog visibility.
+- The owner account's private v3 route returned `pier_cast_v3_outlook_unavailable`: the core, Wisconsin, and Lake Huron archives all had a complete 06:00 UTC issue, but no newer complete issue, so the shared 06:00 cycle aged past the 13-hour freshness limit. NOAA's live LMHOFS endpoint returned HTTP 503 during the check. The app now falls back to the public city catalog and standings, shows a review-availability notice, and retries the private review on refresh. A temporarily unavailable public leaderboard still leaves city discovery visible. Released-city report failures remain visible within the page instead of replacing all of PierCast.
 
 ## Store counters
 
