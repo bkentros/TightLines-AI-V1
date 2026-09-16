@@ -1,0 +1,8 @@
+---
+description: FinFindr repository working notes
+alwaysApply: true
+---
+
+Read `CLAUDE.md` at the repository root before making changes. It contains
+the current test invocation, River Run visibility model, environment traps,
+and Git conventions. The application root is `TightLinesAI/`.

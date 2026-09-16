@@ -102,18 +102,18 @@ deno fmt --check <changed files>
 
 ## Environment variables — known traps
 
-`TightLinesAI/.env` contains values that do not all work. Verified 2026-09-15:
+`TightLinesAI/.env` contains values that do not all work. Verified 2026-09-16:
 
 | Variable | State | Notes |
 |---|---|---|
 | `EXPO_PUBLIC_SUPABASE_ANON_KEY` | **works** | The real anon JWT. Use this one. |
-| `SUPABASE_ANON_KEY` | **broken** | Holds a stray non-JWT `cfk_…` value; returns `UNAUTHORIZED_INVALID_JWT_FORMAT`. |
+| `SUPABASE_ANON_KEY` | absent locally | Use `EXPO_PUBLIC_SUPABASE_ANON_KEY`; scripts fall back to it. |
+| `CLOUDFLARE_API_KEY` | present locally | The former misplaced `cfk_…` value is a Cloudflare global API key, not a Supabase key. Never expose it; prefer a scoped token for Cloudflare work. |
 | `SUPABASE_SERVICE_ROLE_KEY` | works | Valid. |
-| `V1_DATABASE_URL` | **broken** | Password rotated. Host/port/user are correct. |
+| `V1_DATABASE_URL` | **broken** | `.env` has two definitions with different passwords; both fail authentication. The later definition wins when sourced. Do not rotate the production password to repair this local variable. |
 
-Every script that reads `SUPABASE_ANON_KEY` falls back to
-`EXPO_PUBLIC_SUPABASE_ANON_KEY` first, so nothing is currently broken by it —
-but **always prefer `EXPO_PUBLIC_SUPABASE_ANON_KEY`** in new code.
+Scripts that read `SUPABASE_ANON_KEY` fall back to
+`EXPO_PUBLIC_SUPABASE_ANON_KEY`; always prefer the latter in new code.
 
 `V1_DATABASE_URL` is only consumed by
 `scripts/water-reader-geometry-audit/audit_shoreline_features.py`.

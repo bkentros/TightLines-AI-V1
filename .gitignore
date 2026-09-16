@@ -46,6 +46,11 @@ yarn-error.*
 .vscode/
 .idea/
 .cursor/
+!.cursor/
+.cursor/*
+!.cursor/rules/
+.cursor/rules/*
+!.cursor/rules/project-context.mdc
 .claude/
 node_modules/.deno/
 
