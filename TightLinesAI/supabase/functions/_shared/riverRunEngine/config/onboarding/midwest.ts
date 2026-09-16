@@ -524,10 +524,10 @@ const trailShared = {
   fishabilityBands: trailFishability,
   baselineCoverage: trailBaseline,
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "trail-creek-owner-review-ready-v1",
+    isEnabled: true,
+    auditVersion: "trail-creek-public-release-v1",
     notes:
-      "Hidden owner-review candidate deployed only behind the admin review gate; no public release is authorized.",
+      "Public release authorized September 15, 2026 after the completed river foundation, activity replay, rendered owner review, and installed-client compatibility checks.",
   },
 };
 export const TRAIL_CREEK_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -651,10 +651,10 @@ const kewauneeShared = {
   fishabilityBands: kewauneeFishability,
   baselineCoverage: kewauneeBaseline,
   publicAudit: {
-    isEnabled: false,
-    auditVersion: "kewaunee-owner-review-ready-v1",
+    isEnabled: true,
+    auditVersion: "kewaunee-public-release-v1",
     notes:
-      "Hidden owner-review candidate deployed only behind the admin review gate; no public release is authorized.",
+      "Public release authorized September 15, 2026 after the completed river foundation, activity replay, rendered owner review, and installed-client compatibility checks.",
   },
 };
 const kewauneeWeather = (

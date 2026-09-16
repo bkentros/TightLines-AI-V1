@@ -570,10 +570,10 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 16);
-  assertEquals(runIds.length, 55);
-  assertEquals(new Set(riverIds).size, 15);
-  assertEquals(new Set(runIds).size, 52);
+  assertEquals(riverIds.length, 24);
+  assertEquals(runIds.length, 75);
+  assertEquals(new Set(riverIds).size, 23);
+  assertEquals(new Set(runIds).size, 72);
   for (
     const riverId of [
       "grand",
@@ -586,6 +586,14 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "salmon_ny",
       "oak_orchard",
       "lower_genesee",
+      "green",
+      "puyallup",
+      "cowlitz",
+      "trail_creek",
+      "kewaunee_river",
+      "clackamas",
+      "manitowoc",
+      "oswego",
     ]
   ) {
     assertEquals(riverIds.includes(riverId), true);
@@ -759,7 +767,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog hides Midwest drafts from incompatible clients", async () => {
+Deno.test("owner-review catalog retains publicly released Midwest rivers for older clients", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers"),
     {
@@ -778,15 +786,22 @@ Deno.test("owner-review catalog hides Midwest drafts from incompatible clients",
   assertEquals(response.status, 200);
   assertEquals(
     wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["bois_brule", "milwaukee", "root", "sheboygan"],
+    [
+      "bois_brule",
+      "kewaunee_river",
+      "manitowoc",
+      "milwaukee",
+      "root",
+      "sheboygan",
+    ],
   );
   assertEquals(
     indiana.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["st_joseph"],
+    ["st_joseph", "trail_creek"],
   );
 });
 
-Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients", async () => {
+Deno.test("owner-review snapshot serves released Midwest rivers without a capability gate", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/review/snapshot?riverId=trail_creek&runId=trail_creek_fall_chinook&presentationState=IN",
@@ -797,11 +812,10 @@ Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients"
     },
   );
 
-  assertEquals(response.status, 404);
-  assertEquals((await json(response)).error, "river_run_review_not_found");
+  assertEquals(response.status, 200);
 });
 
-Deno.test("owner-review catalog hides fall 2026 drafts without the client capability", async () => {
+Deno.test("owner-review catalog retains released fall 2026 rivers without the old capability", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "midwest-owner-review-v1",
@@ -818,12 +832,12 @@ Deno.test("owner-review catalog hides fall 2026 drafts without the client capabi
   );
 
   assertEquals(response.status, 200);
-  assert(!riverIds.includes("clackamas"));
-  assert(!riverIds.includes("manitowoc"));
-  assert(!riverIds.includes("oswego"));
+  assert(riverIds.includes("clackamas"));
+  assert(riverIds.includes("manitowoc"));
+  assert(riverIds.includes("oswego"));
 });
 
-Deno.test("fall 2026 capability exposes only compatible drafts to an admin", async () => {
+Deno.test("old fall 2026 capability no longer hides other released rivers", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "fall-2026-owner-review-v1",
@@ -843,8 +857,8 @@ Deno.test("fall 2026 capability exposes only compatible drafts to an admin", asy
   for (const riverId of ["clackamas", "manitowoc", "oswego"]) {
     assert(riverIds.includes(riverId));
   }
-  assert(!riverIds.includes("trail_creek"));
-  assert(!riverIds.includes("kewaunee_river"));
+  assert(riverIds.includes("trail_creek"));
+  assert(riverIds.includes("kewaunee_river"));
 });
 
 Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or temperature", async () => {
@@ -898,7 +912,7 @@ Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or 
   );
 });
 
-Deno.test("owner-review snapshot hides fall 2026 drafts without the capability", async () => {
+Deno.test("owner-review snapshot serves released fall 2026 rivers without the old capability", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/review/snapshot?riverId=oswego&runId=oswego_fall_chinook&presentationState=NY",
@@ -910,11 +924,10 @@ Deno.test("owner-review snapshot hides fall 2026 drafts without the capability",
     },
   );
 
-  assertEquals(response.status, 404);
-  assertEquals((await json(response)).error, "river_run_review_not_found");
+  assertEquals(response.status, 200);
 });
 
-Deno.test("owner-review catalog is admin-only and includes compatible hidden Midwest rivers", async () => {
+Deno.test("owner-review catalog is admin-only and includes every released river", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "midwest-owner-review-v1",
@@ -950,7 +963,14 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
   assertEquals(response.status, 200);
   assertEquals(
     wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["bois_brule", "kewaunee_river", "milwaukee", "root", "sheboygan"],
+    [
+      "bois_brule",
+      "kewaunee_river",
+      "manitowoc",
+      "milwaukee",
+      "root",
+      "sheboygan",
+    ],
   );
   assertEquals(
     wisconsin.rivers.every(
@@ -986,7 +1006,7 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
   );
   assertEquals(
     newYork.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["lower_genesee", "oak_orchard", "salmon_ny"],
+    ["lower_genesee", "oak_orchard", "oswego", "salmon_ny"],
   );
   assertEquals(
     newYork.rivers.map(
@@ -995,7 +1015,7 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
         river.runs.length,
       ],
     ).sort(),
-    [["lower_genesee", 3], ["oak_orchard", 4], ["salmon_ny", 4]],
+    [["lower_genesee", 3], ["oak_orchard", 4], ["oswego", 4], ["salmon_ny", 4]],
   );
 });
 

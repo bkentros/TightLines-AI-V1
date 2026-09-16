@@ -736,10 +736,10 @@ const shared = (
   fishabilityBands,
   baselineCoverage,
   publicAudit: {
-    isEnabled: false,
-    auditVersion: `${riverId}-owner-review-ready-v2`,
+    isEnabled: true,
+    auditVersion: `${riverId}-public-release-v1`,
     notes:
-      "Hidden owner-review candidate only; no public release is authorized.",
+      "Public release authorized September 15, 2026 after the completed river foundation, activity replay, rendered owner review, and installed-client compatibility checks.",
   },
 });
 const clackShared = shared(

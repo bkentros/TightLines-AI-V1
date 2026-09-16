@@ -42,17 +42,25 @@ try {
   const accessToken = stringField(signedIn.body, "access_token");
 
   const target = {
-    riverId: "pere_marquette",
-    runId: "pere_marquette_fall_chinook",
-    presentationState: "MI",
+    riverId: "clackamas",
+    runId: "clackamas_fall_chinook",
+    presentationState: "OR",
   };
   const first = await riverSnapshot(accessToken, target);
   assertStatus(first, 200, "first free River Migration snapshot");
-  assertEquals(stringField(first.body, "accessTier"), "free_trial", "first access tier");
+  assertEquals(
+    stringField(first.body, "accessTier"),
+    "free_trial",
+    "first access tier",
+  );
 
   const replay = await riverSnapshot(accessToken, target);
   assertStatus(replay, 200, "same-refresh replay");
-  assertEquals(stringField(replay.body, "refreshSlot"), stringField(first.body, "refreshSlot"), "replay slot");
+  assertEquals(
+    stringField(replay.body, "refreshSlot"),
+    stringField(first.body, "refreshSlot"),
+    "replay slot",
+  );
 
   const clientReset = await requestJson(
     `${baseUrl}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}`,
@@ -77,15 +85,21 @@ try {
     },
   );
   if (clientReset.status < 400) {
-    throw new Error("authenticated client unexpectedly reset its server-managed trial");
+    throw new Error(
+      "authenticated client unexpectedly reset its server-managed trial",
+    );
   }
 
   const other = await riverSnapshot(accessToken, {
     ...target,
-    runId: "pere_marquette_fall_coho",
+    runId: "clackamas_fall_coho",
   });
   assertStatus(other, 403, "different-combination denial");
-  assertEquals(stringField(other.body, "error"), "subscription_required", "different-combination error");
+  assertEquals(
+    stringField(other.body, "error"),
+    "subscription_required",
+    "different-combination error",
+  );
 
   const stale = await requestJson(
     `${baseUrl}/rest/v1/profiles?id=eq.${encodeURIComponent(userId)}`,
@@ -104,7 +118,11 @@ try {
 
   const expiredReplay = await riverSnapshot(accessToken, target);
   assertStatus(expiredReplay, 403, "expired same-combination denial");
-  assertEquals(stringField(expiredReplay.body, "error"), "subscription_required", "expired replay error");
+  assertEquals(
+    stringField(expiredReplay.body, "error"),
+    "subscription_required",
+    "expired replay error",
+  );
 
   console.log("Production River Migration free-trial smoke passed.");
 } finally {
@@ -179,7 +197,9 @@ function assertStatus(
 ) {
   if (response.status !== expected) {
     throw new Error(
-      `${label}: expected ${expected}, received ${response.status} ${JSON.stringify(response.body)}`,
+      `${label}: expected ${expected}, received ${response.status} ${
+        JSON.stringify(response.body)
+      }`,
     );
   }
 }

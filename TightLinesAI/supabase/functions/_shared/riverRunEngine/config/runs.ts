@@ -9,6 +9,7 @@ import {
   BOIS_BRULE_FALL_COHO_RUN_PROFILE,
   BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/boisBrule.ts";
+import { FALL_2026_DRAFT_RUNS } from "./onboarding/fall2026.ts";
 import {
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
@@ -20,6 +21,7 @@ import {
   MILWAUKEE_FALL_COHO_RUN_PROFILE,
   MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/milwaukee.ts";
+import { MIDWEST_DRAFT_RUNS } from "./onboarding/midwest.ts";
 import { NEW_YORK_RUNS } from "./onboarding/newYork.ts";
 import {
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
@@ -43,6 +45,7 @@ import {
   WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/white.ts";
+import { WASHINGTON_DRAFT_RUNS } from "./onboarding/washington.ts";
 import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
 
 export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
@@ -2454,4 +2457,7 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,
   BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
   ...NEW_YORK_RUNS,
+  ...WASHINGTON_DRAFT_RUNS,
+  ...MIDWEST_DRAFT_RUNS,
+  ...FALL_2026_DRAFT_RUNS,
 ].map(withSeasonalZonePlan);

@@ -33,15 +33,32 @@ const expectedRivers = new Set([
   "salmon_ny",
   "oak_orchard",
   "lower_genesee",
+  "green",
+  "puyallup",
+  "cowlitz",
+  "trail_creek",
+  "kewaunee_river",
+  "clackamas",
+  "manitowoc",
+  "oswego",
 ]);
-const fourSpeciesRivers = new Set([
-  "big_manistee",
-  "milwaukee",
-  "sheboygan",
-  "root",
-  "bois_brule",
-  "salmon_ny",
-  "oak_orchard",
+const expectedSpeciesCounts = new Map([
+  ["big_manistee", 4],
+  ["milwaukee", 4],
+  ["sheboygan", 4],
+  ["root", 4],
+  ["bois_brule", 4],
+  ["salmon_ny", 4],
+  ["oak_orchard", 4],
+  ["lower_genesee", 3],
+  ["green", 2],
+  ["puyallup", 2],
+  ["cowlitz", 2],
+  ["trail_creek", 2],
+  ["kewaunee_river", 3],
+  ["clackamas", 2],
+  ["manitowoc", 3],
+  ["oswego", 4],
 ]);
 const expectedRunIds = new Set([
   "pere_marquette_fall_chinook",
@@ -96,6 +113,26 @@ const expectedRunIds = new Set([
   "lower_genesee_fall_chinook",
   "lower_genesee_fall_steelhead",
   "lower_genesee_fall_brown_trout",
+  "green_fall_chinook",
+  "green_fall_coho",
+  "puyallup_fall_chinook",
+  "puyallup_fall_coho",
+  "cowlitz_fall_chinook",
+  "cowlitz_fall_coho",
+  "trail_creek_fall_chinook",
+  "trail_creek_fall_coho",
+  "kewaunee_river_fall_chinook",
+  "kewaunee_river_fall_coho",
+  "kewaunee_river_fall_brown_trout",
+  "clackamas_fall_chinook",
+  "clackamas_fall_coho",
+  "manitowoc_fall_chinook",
+  "manitowoc_fall_coho",
+  "manitowoc_fall_brown_trout",
+  "oswego_fall_chinook",
+  "oswego_fall_coho",
+  "oswego_fall_steelhead",
+  "oswego_fall_brown_trout",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -108,12 +145,12 @@ assert(
   "Existing portfolio must have no noisy onboarding warnings.",
 );
 assert(
-  report.riverCount === 15,
-  `Expected 15 rivers, received ${report.riverCount}.`,
+  report.riverCount === 23,
+  `Expected 23 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 52,
-  `Expected 52 runs, received ${report.runCount}.`,
+  report.runCount === 72,
+  `Expected 72 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(
@@ -121,7 +158,7 @@ for (const river of report.rivers) {
     `Unexpected or duplicate river ${river.riverId}.`,
   );
   assert(
-    river.runs.length === (fourSpeciesRivers.has(river.riverId) ? 4 : 3),
+    river.runs.length === (expectedSpeciesCounts.get(river.riverId) ?? 3),
     `${river.riverId} exposes an unexpected species count.`,
   );
   assert(

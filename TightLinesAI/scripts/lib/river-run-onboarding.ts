@@ -424,16 +424,21 @@ function auditRun(
         "Reach-mismatched river sources require an explicit weather-only input contract naming the run reach, weather point, excluded source types, and limitation.",
       ));
     }
-  } else if (
-    river.hydraulicSources.length === 0 ||
-    river.waterTemperatureSources.length === 0
-  ) {
-    findings.push(finding(
-      "error",
-      "activity",
-      "activity.dataMode",
-      "Observed-river Activity requires accepted hydraulics and measured water temperature.",
-    ));
+  } else {
+    const needsHydraulics = (run.activity?.weights.riverBehavior ?? 0) > 0;
+    const needsTemperature = (run.activity?.weights.waterTemperature ?? 0) > 0;
+    if (
+      (!needsHydraulics && !needsTemperature) ||
+      (needsHydraulics && river.hydraulicSources.length === 0) ||
+      (needsTemperature && river.waterTemperatureSources.length === 0)
+    ) {
+      findings.push(finding(
+        "error",
+        "activity",
+        "activity.dataMode",
+        "Observed-river Activity requires every positively weighted measured-river source type to be configured.",
+      ));
+    }
   }
   if (!run.activity?.version.trim() || !run.activity.evidenceNotes.trim()) {
     findings.push(finding(

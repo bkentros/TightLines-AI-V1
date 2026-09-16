@@ -16,7 +16,7 @@ import {
   WASHINGTON_DRAFT_RUNS,
 } from "../index.ts";
 
-Deno.test("Washington foundations validate and remain owner-review only", () => {
+Deno.test("Washington foundations validate and are publicly released", () => {
   assertEquals(WASHINGTON_DRAFT_RIVERS.length, 3);
   assertEquals(WASHINGTON_DRAFT_RUNS.length, 6);
   for (const river of WASHINGTON_DRAFT_RIVERS) {
@@ -34,12 +34,7 @@ Deno.test("Washington foundations validate and remain owner-review only", () => 
     );
     assertEquals(river.fishCountSources?.length, 1);
     assert(
-      RIVER_RUN_DRAFT_RIVER_PROFILES.some((item) =>
-        item.riverId === river.riverId
-      ),
-    );
-    assert(
-      !RIVER_RUN_RIVER_PROFILES.some((item) => item.riverId === river.riverId),
+      RIVER_RUN_RIVER_PROFILES.some((item) => item.riverId === river.riverId),
     );
   }
   for (const run of WASHINGTON_DRAFT_RUNS) {
@@ -52,8 +47,8 @@ Deno.test("Washington foundations validate and remain owner-review only", () => 
       true,
       result.issues.map((item) => item.message).join("\n"),
     );
-    assertEquals(result.publicVisible, false);
-    assertEquals(run.publicAudit.isEnabled, false);
+    assertEquals(result.publicVisible, true);
+    assertEquals(run.publicAudit.isEnabled, true);
     assertEquals(run.activity?.dataMode, "weather_only");
     assertEquals(run.activity?.weights.riverBehavior, 0);
     assertEquals(run.activity?.weights.waterTemperature, 0);
@@ -67,11 +62,10 @@ Deno.test("Washington foundations validate and remain owner-review only", () => 
       run.primitiveCapabilities.migrationTiming.status,
       "unavailable",
     );
-    assert(
-      RIVER_RUN_DRAFT_RUN_PROFILES.some((item) => item.runId === run.runId),
-    );
-    assert(!RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId));
+    assert(RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId));
   }
+  assertEquals(RIVER_RUN_DRAFT_RIVER_PROFILES.length, 0);
+  assertEquals(RIVER_RUN_DRAFT_RUN_PROFILES.length, 0);
 });
 
 Deno.test("Green Fishability is an Auburn/Big Soos presentation read only", () => {

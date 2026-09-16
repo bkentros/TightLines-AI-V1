@@ -12,7 +12,7 @@ import {
   validateRunProfile,
 } from "../index.ts";
 
-Deno.test("Midwest owner-review documents validate and remain hidden", () => {
+Deno.test("Midwest onboarding documents validate and are publicly released", () => {
   assertEquals(MIDWEST_DRAFT_RIVERS.length, 2);
   assertEquals(MIDWEST_DRAFT_RUNS.length, 5);
   assertEquals(
@@ -41,8 +41,8 @@ Deno.test("Midwest owner-review documents validate and remain hidden", () => {
         true,
         `${run.runId}: ${result.issues.map((i) => i.message).join("\n")}`,
       );
-      assertEquals(result.publicVisible, false, run.runId);
-      assertEquals(run.publicAudit.isEnabled, false, run.runId);
+      assertEquals(result.publicVisible, true, run.runId);
+      assertEquals(run.publicAudit.isEnabled, true, run.runId);
       assertEquals(run.activity?.weights.waterTemperature, 0, run.runId);
       if (run.riverId === "trail_creek") {
         assertEquals(run.activity?.dataMode, "observed_river", run.runId);
@@ -59,17 +59,16 @@ Deno.test("Midwest owner-review documents validate and remain hidden", () => {
         RIVER_RUN_RUN_PROFILES.some((publicRun) =>
           publicRun.runId === run.runId
         ),
-        false,
+        true,
         run.runId,
       );
     }
     const issues = validateConfigurationRevision({
       configKey: document.river.riverId,
       revision: 1,
-      status: "draft",
+      status: "published",
       document,
-      evidenceNotes:
-        "Hidden owner-review candidate; public release is not authorized.",
+      evidenceNotes: "Public release authorized September 15, 2026.",
     });
     assert(
       issues.every((issue) => issue.severity !== "error"),

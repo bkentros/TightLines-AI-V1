@@ -16,7 +16,7 @@ import type {
   SupabaseLikeClient,
 } from "../index.ts";
 
-Deno.test("fall 2026 river and run drafts validate and remain hidden", () => {
+Deno.test("fall 2026 rivers and runs validate and are publicly released", () => {
   assertEquals(FALL_2026_DRAFT_RIVERS.length, 3);
   assertEquals(FALL_2026_DRAFT_RUNS.length, 9);
   for (const river of FALL_2026_DRAFT_RIVERS) {
@@ -37,15 +37,18 @@ Deno.test("fall 2026 river and run drafts validate and remain hidden", () => {
       true,
       `${run.runId}: ${result.issues.map((issue) => issue.message).join("\n")}`,
     );
-    assertEquals(run.publicAudit.isEnabled, false);
-    assertEquals(result.publicVisible, false);
+    assertEquals(run.publicAudit.isEnabled, true);
+    assertEquals(result.publicVisible, true);
   }
 });
 
 Deno.test("Manitowoc and Oswego retain archival temperature context without live or scored temperature", () => {
   for (const river of [MANITOWOC_RIVER_PROFILE, OSWEGO_RIVER_PROFILE]) {
     assertEquals(river.waterTemperatureSources, []);
-    assertEquals(river.conditionDataCapabilities.waterTemperature.status, "unavailable");
+    assertEquals(
+      river.conditionDataCapabilities.waterTemperature.status,
+      "unavailable",
+    );
     assertEquals(river.historicalWaterTemperatureSource?.windowRadiusDays, 3);
     assertEquals(
       Object.keys(river.historicalWaterTemperatureSource?.normals ?? {}).length,

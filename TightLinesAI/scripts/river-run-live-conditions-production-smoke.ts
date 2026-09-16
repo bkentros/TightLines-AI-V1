@@ -27,6 +27,25 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
     "turbidity_fnu",
   ],
   lower_genesee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  green: [
+    "flow_cfs",
+    "gage_height_ft",
+    "water_temp_f",
+    "turbidity_fnu",
+    "turbidity_fnu",
+  ],
+  puyallup: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  cowlitz: ["flow_cfs", "gage_height_ft"],
+  trail_creek: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  kewaunee_river: ["flow_cfs", "water_temp_f"],
+  clackamas: [
+    "flow_cfs",
+    "gage_height_ft",
+    "water_temp_f",
+    "turbidity_fnu",
+  ],
+  manitowoc: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  oswego: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
@@ -44,6 +63,14 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   salmon_ny: ["flow_cfs"],
   oak_orchard: ["flow_cfs"],
   lower_genesee: ["flow_cfs"],
+  green: ["flow_cfs"],
+  puyallup: ["flow_cfs"],
+  cowlitz: ["flow_cfs"],
+  trail_creek: ["flow_cfs"],
+  kewaunee_river: ["flow_cfs"],
+  clackamas: ["flow_cfs"],
+  manitowoc: ["flow_cfs"],
+  oswego: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
     "legacy"
