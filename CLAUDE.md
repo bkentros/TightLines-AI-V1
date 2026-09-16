@@ -102,7 +102,7 @@ deno fmt --check <changed files>
 
 ## Environment variables — known traps
 
-`TightLinesAI/.env` contains values that do not all work. Verified 2026-09-16:
+Local `TightLinesAI/.env` status, verified 2026-09-16:
 
 | Variable | State | Notes |
 |---|---|---|
@@ -110,7 +110,7 @@ deno fmt --check <changed files>
 | `SUPABASE_ANON_KEY` | absent locally | Use `EXPO_PUBLIC_SUPABASE_ANON_KEY`; scripts fall back to it. |
 | `CLOUDFLARE_API_KEY` | present locally | The former misplaced `cfk_…` value is a Cloudflare global API key, not a Supabase key. Never expose it; prefer a scoped token for Cloudflare work. |
 | `SUPABASE_SERVICE_ROLE_KEY` | works | Valid. |
-| `V1_DATABASE_URL` | **broken** | `.env` has two definitions with different passwords; both fail authentication. The later definition wins when sourced. Do not rotate the production password to repair this local variable. |
+| `V1_DATABASE_URL` | works locally | One Session pooler URL remains. Its password is URL-encoded; a read-only `SELECT 1` succeeded. |
 
 Scripts that read `SUPABASE_ANON_KEY` fall back to
 `EXPO_PUBLIC_SUPABASE_ANON_KEY`; always prefer the latter in new code.
@@ -118,8 +118,8 @@ Scripts that read `SUPABASE_ANON_KEY` fall back to
 `V1_DATABASE_URL` is only consumed by
 `scripts/water-reader-geometry-audit/audit_shoreline_features.py`.
 
-**Direct `psql` will fail; the Supabase CLI will not.** The CLI holds working
-database credentials in the macOS keychain, so prefer it:
+Direct `psql` and the linked Supabase CLI both connected successfully on
+2026-09-16. Check migration parity with:
 
 ```bash
 supabase migration list --linked
@@ -134,7 +134,7 @@ Never print or materialize API keys into the transcript.
 
 - Project ref `hsesngprhpgajyfbrwbf` ("FinFindr"), East US, already linked.
 - Migrations under `TightLinesAI/supabase/migrations/`.
-  As of 2026-09-15 local and remote are fully reconciled with **zero drift**;
+  As of 2026-09-16 local and remote are fully reconciled with **zero drift**;
   check with `supabase migration list --linked` before assuming work is needed.
 - Deploy a function with `supabase functions deploy <name>` — required for any
   River Run config change to reach users.
