@@ -126,7 +126,9 @@ async function account(request: Request) {
   };
 }
 async function readPublicOutlook() {
-  const released = buildPierCastCatalog("public").cities;
+  const released = buildPierCastCatalog("public").cities.filter((city) =>
+    city.releaseStatus === "public_research"
+  );
   if (!released.length) return null;
   const outlook = await readOutlook();
   if (!outlook) return null;
@@ -171,7 +173,9 @@ async function readPublicOutlook() {
 const readReport = createPierReportAccess({
   readOutlook: readPublicOutlook,
   cityTimezone: (cityId) =>
-    buildPierCastCatalog("public").cities.find((c) => c.cityId === cityId)
+    buildPierCastCatalog("public").cities.find((c) =>
+      c.cityId === cityId && c.releaseStatus === "public_research"
+    )
       ?.timezone ?? null,
   readPrior: async (userId) => {
     const { data, error } = await database.from("feature_report_trials").select(
@@ -201,7 +205,9 @@ const readReport = createPierReportAccess({
 
 const handler = createPierCastHandler({
   readLeaderboard: async () => {
-    const released = buildPierCastCatalog("public").cities;
+    const released = buildPierCastCatalog("public").cities.filter((city) =>
+      city.releaseStatus === "public_research"
+    );
     if (!released.length) return null;
     const snapshot = await readPublishedPierCastDailyScoreSnapshot(
       archiveClient,

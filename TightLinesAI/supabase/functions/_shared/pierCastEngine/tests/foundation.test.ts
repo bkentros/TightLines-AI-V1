@@ -382,10 +382,18 @@ Deno.test("known construction and identity limitations stay encoded", () => {
   assertEquals(stub.disposition, "unresolved");
 });
 
-Deno.test("public research catalog preserves scientific gates and hides numeric configuration", () => {
+Deno.test("all twelve cities are discoverable while only five have public reports", () => {
   const publicCatalog = buildPierCastCatalog("public");
   const reviewCatalog = buildPierCastCatalog("review");
-  assertEquals(publicCatalog.cities.length, 5);
+  assertEquals(publicCatalog.cities.length, 12);
+  assertEquals(
+    publicCatalog.cities.filter((city) => city.releaseStatus === "public_research").length,
+    5,
+  );
+  assertEquals(
+    publicCatalog.cities.filter((city) => city.releaseStatus === "research_only").length,
+    7,
+  );
   assertEquals(publicCatalog.cities.flatMap((c) => c.species).length, 28);
   assertEquals(
     publicCatalog.cities.flatMap((c) => c.species).every((s) =>
@@ -395,14 +403,14 @@ Deno.test("public research catalog preserves scientific gates and hides numeric 
   );
   assertEquals(reviewCatalog.cities.length, 12);
   assertEquals(
-    publicCatalog.cities.some((city) => city.cityId === "port_washington_wi"),
-    false,
+    publicCatalog.cities.find((city) => city.cityId === "port_washington_wi")
+      ?.releaseStatus,
+    "research_only",
   );
   for (const cityId of ["milwaukee_wi", "racine_wi", "kenosha_wi"] as const) {
-    assertEquals(
-      publicCatalog.cities.some((city) => city.cityId === cityId),
-      false,
-    );
+    const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
+    assertEquals(publicCity?.releaseStatus, "research_only");
+    assertEquals(publicCity?.species, []);
     assert(reviewCatalog.cities.some((city) => city.cityId === cityId));
   }
   assertEquals(

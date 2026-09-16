@@ -76,15 +76,14 @@ function portWashingtonBatch(): Extract<
   };
 }
 
-Deno.test("Port Washington is owner-review-only and leaves frozen production scope unchanged", () => {
+Deno.test("Port Washington is discoverable without a public score or report", () => {
   assertEquals(PIER_CAST_FROZEN_CITY_IDS.length, 5);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
-  assertEquals(
-    buildPierCastCatalog("public").cities.some((city) =>
-      city.cityId === "port_washington_wi"
-    ),
-    false,
+  const publicCity = buildPierCastCatalog("public").cities.find((city) =>
+    city.cityId === "port_washington_wi"
   );
+  assertEquals(publicCity?.releaseStatus, "research_only");
+  assertEquals(publicCity?.species, []);
   const candidate = buildPierCastCatalog("review").cities.find((city) =>
     city.cityId === "port_washington_wi"
   );

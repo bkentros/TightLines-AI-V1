@@ -68,16 +68,17 @@ Deno.test("public PierCast catalog exposes the approved research roster", async 
     body.formulaVersion,
     "seasonal-opportunity-bounded-temperature-v2",
   );
-  assertEquals(body.cities.length, 5);
+  assertEquals(body.cities.length, 12);
   assertEquals(
     body.cities.map((c: { species: unknown[] }) => c.species.length),
-    [6, 6, 8, 4, 4],
+    [6, 6, 8, 4, 4, 0, 0, 0, 0, 0, 0, 0],
   );
   assertEquals(
-    body.cities.every((c: { releaseStatus: string }) =>
-      c.releaseStatus === "public_research"
-    ),
-    true,
+    body.cities.map((c: { releaseStatus: string }) => c.releaseStatus),
+    [
+      ...Array(5).fill("public_research"),
+      ...Array(7).fill("research_only"),
+    ],
   );
 });
 

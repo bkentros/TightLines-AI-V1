@@ -76,14 +76,14 @@ Deno.test("Lake Huron profiles are private, complete, and use unique audited cel
     ).size,
     3,
   );
-  const publicIds = new Set(
-    buildPierCastCatalog("public").cities.map((c) => c.cityId),
-  );
+  const publicCatalog = buildPierCastCatalog("public");
   const reviewIds = new Set(
     buildPierCastCatalog("review").cities.map((c) => c.cityId),
   );
   for (const cityId of PIER_CAST_LAKE_HURON_CITY_IDS) {
-    assert(!publicIds.has(cityId));
+    const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
+    assertEquals(publicCity?.releaseStatus, "research_only");
+    assertEquals(publicCity?.species, []);
     assert(reviewIds.has(cityId));
     assertEquals(
       PIER_CAST_LAKE_HURON_CITY_PROFILES.find((p) => p.cityId === cityId)!

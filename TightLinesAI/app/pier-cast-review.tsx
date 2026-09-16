@@ -2301,6 +2301,9 @@ function PierCastLanding({
   const leaderboard = useMemo(
     () =>
       catalog.cities
+        .filter((city) =>
+          catalog.mode === "review" || city.releaseStatus === "public_research"
+        )
         .map((city) => {
           const cityOutlook = standingsOutlook.cities.find(
             (candidate) => candidate.cityId === city.cityId,
@@ -2318,7 +2321,7 @@ function PierCastLanding({
             (right.rankingScore ?? -1) - (left.rankingScore ?? -1) ||
             left.city.displayName.localeCompare(right.city.displayName),
         ),
-    [catalog.cities, standingsOutlook.cities],
+    [catalog.cities, catalog.mode, standingsOutlook.cities],
   );
 
   /** cityId → today's headline score, so the finder can echo the standings. */
@@ -2358,10 +2361,14 @@ function PierCastLanding({
     stateCities.find((city) => city.cityId === browseCityId) ??
     stateCities[0] ??
     null;
+  const selectedBrowseIsPreview = Boolean(
+    selectedBrowseCity?.releaseStatus === "research_only" &&
+      catalog.mode === "public",
+  );
   const forecastDate = leaderboard[0]?.date?.localDate;
   const dailyScoreSnapshot = standingsOutlook.dailyScoreSnapshot ?? null;
   const standingsReady =
-    leaderboard.length === catalog.cities.length &&
+    leaderboard.length > 0 &&
     leaderboard.every((entry) => entry.score !== null);
   const selectedStateAccent = stateAccent(selectedState);
 
@@ -2522,7 +2529,7 @@ function PierCastLanding({
               Today&apos;s standings are being prepared.
             </Text>
             <Text style={styles.standingsPendingCopy}>
-              No city is ranked until every supported city score is complete
+              No city is ranked until every released city score is complete
               for the Lake Michigan day.
             </Text>
           </View>
@@ -2536,8 +2543,8 @@ function PierCastLanding({
                 ? supplementalOutlooks.length > 0
                   ? `Released cities use their locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} scores; shadow-review cities use their latest complete current-day score.`
                   : `Each city is ranked by its single highest species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
-                : "Every supported city has a complete current score. Live pier conditions continue to refresh."
-              : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "city is" : "cities are"} awaiting a complete score; every supported city remains listed.`}
+                : "Every released city has a complete current score. Live pier conditions continue to refresh."
+              : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "released city is" : "released cities are"} awaiting a complete score; every city remains listed in the finder.`}
           </Text>
         </View>
       </View>
@@ -2676,6 +2683,8 @@ function PierCastLanding({
         >
           {stateCities.map((city) => {
             const selected = city.cityId === selectedBrowseCity?.cityId;
+            const isPreview = city.releaseStatus === "research_only" &&
+              catalog.mode === "public";
             const accent = stateAccent(city.stateCode);
             const pierCount = city.structures.filter(
               (structure) => structure.disposition !== "excluded",
@@ -2720,7 +2729,9 @@ function PierCastLanding({
                     {city.stateCode}
                   </Text>
                   <View style={styles.cityCardToplineSpacer} />
-                  {cityRank !== null ? (
+                  {isPreview ? (
+                    <Text style={styles.cityCardRank}>PREVIEW</Text>
+                  ) : cityRank !== null ? (
                     <Text style={styles.cityCardRank}>
                       #{cityRank}
                     </Text>
@@ -2763,7 +2774,9 @@ function PierCastLanding({
                     </View>
                   ) : (
                     <View style={styles.cityCardScoreIdle}>
-                      <Text style={styles.cityCardScoreIdleText}>—</Text>
+                      <Text style={styles.cityCardScoreIdleText}>
+                        {isPreview ? "SOON" : "—"}
+                      </Text>
                     </View>
                   )}
                 </View>
@@ -2791,7 +2804,7 @@ function PierCastLanding({
         >
           <Text style={styles.loadCityButtonText}>
             {selectedBrowseCity
-              ? `OPEN ${selectedBrowseCity.displayName.toUpperCase()}`
+              ? `${selectedBrowseIsPreview ? "VIEW" : "OPEN"} ${selectedBrowseCity.displayName.toUpperCase()}${selectedBrowseIsPreview ? " PREVIEW" : ""}`
               : "SELECT A CITY"}
           </Text>
           <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
@@ -3287,11 +3300,19 @@ export default function PierCastReviewScreen() {
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
     if (admin) { setSelectedCityId(cityId); return; }
+    const city = catalog?.cities.find(c => c.cityId === cityId);
+    if (city?.releaseStatus === "research_only") {
+      if (!silent) {
+        setCityReport(null);
+        setSelectedCityId(cityId);
+        setError(null);
+      }
+      return;
+    }
     if (openingCity.current) return;
     const userId = user?.id;
     if (!silent) requestedCity.current = cityId;
     const claimed = savedReport?.cities[0];
-    const city = catalog?.cities.find(c => c.cityId === cityId);
     const auth = useAuthStore.getState();
     if (claimed && city && pierTrialRequiresUpgrade(
       getEffectiveTier(auth.profile, auth.user?.email) === "free",
@@ -3429,7 +3450,7 @@ export default function PierCastReviewScreen() {
           <Ionicons name="chevron-back" size={25} color="#FFFFFF" />
         </Pressable>
         <View style={styles.navTitleWrap} pointerEvents="none">
-          <Text style={styles.navEyebrow}>LAKE MICHIGAN · PIER FORECAST</Text>
+          <Text style={styles.navEyebrow}>GREAT LAKES · PIER FORECAST</Text>
           <Text style={styles.navTitle}>PIERCAST</Text>
         </View>
         <View style={styles.navSpacer} />
@@ -3535,6 +3556,8 @@ export default function PierCastReviewScreen() {
                           >
                             {selected
                               ? "CURRENT"
+                              : city.releaseStatus === "research_only" && !admin
+                                ? "RESEARCH PREVIEW"
                               : Number.isFinite(distance)
                                 ? `${Math.round(distance)} MI AWAY`
                                 : city.stateCode}
@@ -3546,23 +3569,38 @@ export default function PierCastReviewScreen() {
                 </ScrollView>
               </View>
               <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
-              <CityReport
-                city={selectedCity}
-                outlook={selectedOutlook}
-                weather={weather}
-                weatherLoading={weatherLoading}
-                conditionsUpdatedAt={admin
-                  ? outlook.generatedAt
-                  : cityReport?.generatedAt ?? outlook.generatedAt}
-              />
-              <RatingExplanation
-                winterNotice={catalog.winterOpenWaterNotice}
-                showWinterNotice={Boolean(
-                  selectedOutlook?.dates.some(
-                    (date) => date.openWaterNoticeApplies,
-                  ),
-                )}
-              />
+              {!admin && selectedCity.releaseStatus === "research_only" ? (
+                <>
+                  <View style={styles.messageCard}>
+                    <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
+                    <Text style={styles.messageTitle}>{selectedCity.displayName}</Text>
+                    <Text style={styles.messageCopy}>
+                      This city is in PierCast research preview. Its piers are listed below; daily ratings and reports are still being reviewed.
+                    </Text>
+                  </View>
+                  <PiersCovered city={selectedCity} />
+                </>
+              ) : (
+                <>
+                  <CityReport
+                    city={selectedCity}
+                    outlook={selectedOutlook}
+                    weather={weather}
+                    weatherLoading={weatherLoading}
+                    conditionsUpdatedAt={admin
+                      ? outlook.generatedAt
+                      : cityReport?.generatedAt ?? outlook.generatedAt}
+                  />
+                  <RatingExplanation
+                    winterNotice={catalog.winterOpenWaterNotice}
+                    showWinterNotice={Boolean(
+                      selectedOutlook?.dates.some(
+                        (date) => date.openWaterNoticeApplies,
+                      ),
+                    )}
+                  />
+                </>
+              )}
               <PierCastCoverageRequest
                 profile={profile}
                 user={user}

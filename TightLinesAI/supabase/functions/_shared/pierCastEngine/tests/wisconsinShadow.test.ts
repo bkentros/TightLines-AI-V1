@@ -80,17 +80,17 @@ function wisconsinBatch(): Extract<
   };
 }
 
-Deno.test("Wisconsin cohort is complete in owner review and absent from public release", () => {
+Deno.test("Wisconsin cohort is discoverable without public scores", () => {
   assertEquals(PIER_CAST_FROZEN_CITY_IDS.length, 5);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
   assertEquals(PIER_CAST_WISCONSIN_CITY_PROFILES.length, 4);
-  const publicIds = new Set(
-    buildPierCastCatalog("public").cities.map((city) => city.cityId),
-  );
+  const publicCatalog = buildPierCastCatalog("public");
   const review = buildPierCastCatalog("review");
   assertEquals(review.cities.length, 12);
   for (const cityId of PIER_CAST_WISCONSIN_CITY_IDS) {
-    assertEquals(publicIds.has(cityId), false);
+    const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
+    assertEquals(publicCity?.releaseStatus, "research_only");
+    assertEquals(publicCity?.species, []);
     const city = review.cities.find((candidate) => candidate.cityId === cityId);
     assert(city);
     assertEquals(city.tentative, true);

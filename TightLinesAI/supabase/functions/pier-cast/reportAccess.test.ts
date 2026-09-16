@@ -125,8 +125,10 @@ Deno.test("public research authorization is exact-roster and does not claim scie
   assertEquals(isPierCastResearchRoster("manistee_mi", publicResearchSpecies("ludington_mi")), false);
   const catalog = buildPierCastCatalog("public");
   assertEquals(catalog.disclosure, PIER_CAST_RESEARCH_DISCLOSURE);
-  assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4]);
-  assertEquals(catalog.cities.every(c => c.releaseStatus === "public_research" && c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
+  assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4,0,0,0,0,0,0,0]);
+  assertEquals(catalog.cities.filter(c => c.releaseStatus === "public_research").length, 5);
+  assertEquals(catalog.cities.filter(c => c.releaseStatus === "research_only").length, 7);
+  assertEquals(catalog.cities.every(c => c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
 });
 
 Deno.test("research launch preserves known earlier daily snapshots without accepting arbitrary partial rosters", async () => {
