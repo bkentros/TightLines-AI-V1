@@ -103,6 +103,10 @@ const SPECIES_LABELS: Record<PierCastSpeciesId, string> = {
   largemouth_bass: "Largemouth Bass",
   atlantic_salmon: "Atlantic Salmon",
   northern_pike: "Northern Pike",
+  burbot: "Burbot",
+  white_perch: "White Perch",
+  white_bass: "White Bass",
+  bluegill: "Bluegill",
 };
 
 // Normalize the visible (non-transparent) fish artwork inside the species-card
@@ -124,6 +128,10 @@ const FISH_SCALE: Record<PierCastSpeciesId, number> = {
   largemouth_bass: 1.38,
   atlantic_salmon: 1.07,
   northern_pike: 0.9,
+  burbot: 1.24,
+  white_perch: 1.2,
+  white_bass: 1.2,
+  bluegill: 1.16,
 };
 
 const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;
@@ -645,6 +653,13 @@ function PierCastHero({
 
 function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
   const pending = isDateScorePending(date);
+  const regulationNotices = [
+    ...new Map(
+      date.species.flatMap((species) => species.regulationNotices ?? []).map(
+        (notice) => [notice.noticeId, notice] as const,
+      ),
+    ).values(),
+  ];
   const speciesRows = [...date.species].sort((left, right) => {
     const leftScore =
       left.biological.status === "available"
@@ -664,6 +679,19 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
       title="Species Comparison"
       badge={`${speciesRows.length} SPECIES`}
     >
+      {regulationNotices.map((notice) => (
+        <View key={notice.noticeId} style={styles.speciesRegulationNotice}>
+          <Ionicons name="warning-outline" size={15} color="#8A5C16" />
+          <View style={styles.speciesRegulationNoticeCopy}>
+            <Text style={styles.speciesRegulationNoticeTitle}>
+              {notice.title.toUpperCase()}
+            </Text>
+            <Text style={styles.speciesRegulationNoticeText}>
+              {notice.message}
+            </Text>
+          </View>
+        </View>
+      ))}
       <ScrollView
         style={speciesRows.length > 4 ? styles.speciesViewport : undefined}
         contentContainerStyle={styles.speciesList}
@@ -5358,6 +5386,32 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.035,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
+  },
+  speciesRegulationNotice: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+    marginBottom: 10,
+    paddingHorizontal: 11,
+    paddingVertical: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#E8D2A5",
+    backgroundColor: "#FFF8E8",
+  },
+  speciesRegulationNoticeCopy: { flex: 1, minWidth: 0 },
+  speciesRegulationNoticeTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.9,
+    color: "#8A5C16",
+  },
+  speciesRegulationNoticeText: {
+    marginTop: 3,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 15,
+    color: paper.dashboardInk,
   },
   speciesAccent: { position: "absolute", left: 0, top: 0, bottom: 0, width: 5 },
   speciesHeader: {

@@ -6,8 +6,11 @@ import {
   calculatePierCastV3Opportunity,
   combinePierCastV3LmhofsBatches,
   evaluatePierCastV3ModePotentials,
+  getPierCastSpeciesProfile,
   getPierCastV3PairCalibration,
+  getPierCastV3RegulationNotices,
   getPierCastV3SpeciesIdsForCity,
+  getPierCastV3TemperatureCurve,
   PIER_CAST_CITY_PROFILES,
   PIER_CAST_LAKE_HURON_CITY_PROFILES,
   PIER_CAST_V3_CITY_IDS,
@@ -36,20 +39,20 @@ type AvailableBatch = Extract<
 Deno.test("v3 generated config is the complete core and secondary handoff", () => {
   assertEquals(PIER_CAST_V3_RATING_ENABLED, false);
   assertEquals(PIER_CAST_V3_PUBLIC_ENABLED, false);
-  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 70);
-  assertEquals(PIER_CAST_V3_PAIR_COUNT, 70);
+  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 94);
+  assertEquals(PIER_CAST_V3_PAIR_COUNT, 94);
   assertEquals(
     PIER_CAST_V3_PAIR_CALIBRATIONS.reduce(
       (sum, pair) => sum + pair.modes.length,
       0,
     ),
-    146,
+    179,
   );
   assertEquals(
     new Set(PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.pairKey)).size,
-    70,
+    94,
   );
-  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 14);
+  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 19);
   for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
     assertEquals(
       getPierCastV3PairCalibration(pair.cityId, pair.speciesId)?.pairKey,
@@ -62,6 +65,72 @@ Deno.test("v3 generated config is the complete core and secondary handoff", () =
       assertEquals(validatePierCastV3OpportunityMode(mode), []);
     }
   }
+});
+
+Deno.test("v3 species expansion exposes the exact 94-pair city roster", () => {
+  const expected: Record<string, number> = {
+    ludington_mi: 10,
+    grand_haven_mi: 15,
+    manistee_mi: 12,
+    frankfort_elberta_mi: 7,
+    sheboygan_wi: 4,
+    port_washington_wi: 4,
+    milwaukee_wi: 4,
+    racine_wi: 5,
+    kenosha_wi: 5,
+    harbor_beach_mi: 7,
+    oscoda_mi: 10,
+    port_sanilac_mi: 11,
+  };
+  for (const cityId of PIER_CAST_V3_CITY_IDS) {
+    assertEquals(
+      getPierCastV3SpeciesIdsForCity(cityId).length,
+      expected[cityId],
+    );
+  }
+  for (
+    const speciesId of [
+      "burbot",
+      "white_perch",
+      "white_bass",
+      "bluegill",
+    ] as const
+  ) {
+    const profile = getPierCastSpeciesProfile(speciesId);
+    const curve = getPierCastV3TemperatureCurve(speciesId);
+    assert(profile);
+    assert(curve);
+    assertEquals(profile.seasonalTemperatureCurves?.[0].curveId, curve.curveId);
+    assertEquals(profile.ratingEnabled, false);
+  }
+});
+
+Deno.test("Grand Haven November method restriction is visible without closing the fishery", () => {
+  const november = getPierCastV3RegulationNotices({
+    cityId: "grand_haven_mi",
+    speciesId: "lake_whitefish",
+    localDate: "2027-11-15",
+  });
+  assertEquals(november.length, 1);
+  assertEquals(november[0].reasonCode, "special_tackle_restriction");
+  assertEquals(
+    getPierCastV3RegulationNotices({
+      cityId: "grand_haven_mi",
+      speciesId: "lake_whitefish",
+      localDate: "2027-12-01",
+    }),
+    [],
+  );
+  assertEquals(
+    pierCastV3RegulationClosureApplies({
+      localDate: "2027-11-15",
+      pair: getPierCastV3PairCalibration(
+        "grand_haven_mi",
+        "lake_whitefish",
+      )!,
+    }),
+    false,
+  );
 });
 
 Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10", () => {
@@ -101,7 +170,7 @@ Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10",
       }
     }
   }
-  assertEquals(evaluated, 70 * 365 * 5);
+  assertEquals(evaluated, 94 * 365 * 5);
 
   const reference = getPierCastV3PairCalibration("manistee_mi", "steelhead")!;
   const modes = evaluatePierCastV3ModePotentials({
@@ -329,7 +398,7 @@ Deno.test("v3 source selection fails closed when no common fresh cycle exists", 
   assertEquals(cohorts, null);
 });
 
-Deno.test("v3 archive freezes the exact 350-row pair manifest", async () => {
+Deno.test("v3 archive freezes the exact 470-row pair manifest", async () => {
   const combined = combinePierCastV3LmhofsBatches(
     batch(PIER_CAST_CITY_PROFILES),
     batch(PIER_CAST_WISCONSIN_CITY_PROFILES),
@@ -346,7 +415,7 @@ Deno.test("v3 archive freezes the exact 350-row pair manifest", async () => {
     engineVersion: "v3-test-engine",
   });
   assertEquals(payload.forecasts.length, PIER_CAST_V3_FORECAST_COUNT);
-  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 350);
+  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 470);
   assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 12);
   assertEquals(
     payload.forecasts.every((row) =>
@@ -380,23 +449,34 @@ Deno.test("v3 archive freezes the exact 350-row pair manifest", async () => {
   assertEquals(result.forecastCount, PIER_CAST_V3_FORECAST_COUNT);
 });
 
-Deno.test("v3 Lake Huron migration enforces the exact manifest, historical counts, and delayed schedule", async () => {
+Deno.test("v3 species-expansion migration enforces the exact manifest and preserves historical counts", async () => {
   const sql = await Deno.readTextFile(
     new URL(
-      "../../../../migrations/20260915230000_expand_pier_cast_v3_lake_huron_manifest.sql",
+      "../../../../migrations/20260915234500_expand_pier_cast_v3_species_manifest.sql",
       import.meta.url,
     ),
   );
-  assert(sql.includes("jsonb_array_length(p_forecasts)<>350"));
+  assert(sql.includes("jsonb_array_length(p_forecasts)<>470"));
   assert(sql.includes("count(distinct item->>'cityId')"));
   assert(sql.includes("piercast_v3_expected_pairs"));
   assert(sql.includes("p_run->>'promotionStatus'<>'blocked'"));
   assert(sql.includes("auth.role()<>'service_role'"));
-  assert(sql.includes("count(distinct(city_id,species_id))<>70"));
-  assert(sql.includes("forecastCount',350"));
-  assert(sql.includes("forecast_count in (180,280,350)"));
-  assert(sql.includes("piercast-lake-huron-shadow-v1"));
-  assert(sql.includes("'58 0,6,12,18 * * *'"));
+  assert(sql.includes("count(distinct(city_id,species_id))<>94"));
+  assert(sql.includes("forecastCount',470"));
+  assert(sql.includes("forecast_count in (180,280,350,470)"));
+  assert(sql.includes("piercast-v3-twelve-city-species-expansion-v4"));
+
+  const expectedPairsFunction = sql.match(
+    /create or replace function public\.piercast_v3_expected_pairs\(\)[\s\S]*?\$\$;/,
+  )?.[0];
+  assert(expectedPairsFunction, "Expected-pairs SQL function was not found.");
+  const sqlPairs = [...expectedPairsFunction.matchAll(
+    /\('([a-z_]+)','([a-z_]+)'\)/g,
+  )].map((match) => `${match[1]}/${match[2]}`).sort();
+  const generatedPairs = PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) =>
+    pair.pairKey
+  ).sort();
+  assertEquals(sqlPairs, generatedPairs);
 });
 
 function batch(

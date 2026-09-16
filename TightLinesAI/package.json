@@ -217,11 +217,14 @@
     "check:pier-cast:v3-secondary": "node --import tsx scripts/generate-pier-cast-v3-secondary.ts --check",
     "generate:pier-cast:lake-huron": "node --import tsx scripts/generate-pier-cast-lake-huron.ts",
     "check:pier-cast:lake-huron": "node --import tsx scripts/generate-pier-cast-lake-huron.ts --check",
+    "generate:pier-cast:species-expansion": "node --import tsx scripts/generate-pier-cast-species-expansion.ts",
+    "check:pier-cast:species-expansion": "node --import tsx scripts/generate-pier-cast-species-expansion.ts --check",
+    "qa:pier-cast:species-artwork": "node --import tsx --test scripts/pier-cast-species-artwork.test.ts",
     "generate:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts",
     "check:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts --check",
     "generate:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts",
     "check:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts --check",
-    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:lake-huron && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
+    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:lake-huron && npm run check:pier-cast:species-expansion && npm run qa:pier-cast:species-artwork && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "piercast-species-expansion-pass1-global-dispositions-v1",
+  "reviewedAt": "2026-09-15",
+  "rule": "Every species not already present in the shared PierCast species schema receives an explicit disposition across all 12 live cities before Pass 2 may add the global species profile.",
+  "species": [
+    {
+      "speciesId": "burbot",
+      "displayName": "Burbot",
+      "scientificName": "Lota lota",
+      "admittedCities": ["ludington_mi", "manistee_mi"],
+      "cityDispositions": {
+        "ludington_mi": "admit: DNR January-March port target",
+        "grand_haven_mi": "exclude: no recurring city-harbor target evidence",
+        "manistee_mi": "admit: DNR February-March port target",
+        "frankfort_elberta_mi": "exclude: DNR roadmap does not list burbot and no local recurrence found",
+        "sheboygan_wi": "exclude: named-pier guide and reviewed local evidence do not establish burbot",
+        "port_washington_wi": "exclude: named-breakwater guide and reviewed local evidence do not establish burbot",
+        "milwaukee_wi": "exclude: named-pier guide and reviewed local evidence do not establish burbot",
+        "racine_wi": "exclude: named-pier guide and reviewed local evidence do not establish burbot",
+        "kenosha_wi": "exclude: named-pier guide and reviewed local evidence do not establish burbot",
+        "harbor_beach_mi": "exclude: no recreational public-pier burbot target evidence",
+        "oscoda_mi": "exclude: DNR port roadmap and current inventory do not list burbot",
+        "port_sanilac_mi": "exclude: DNR port roadmap and municipal target list do not list burbot"
+      },
+      "requiredPass2Assets": ["species enum/catalog entry", "behavior context", "thermal curve", "fish artwork", "Ludington and Manistee v3 modes", "cross-city roster tests"]
+    },
+    {
+      "speciesId": "white_perch",
+      "displayName": "White Perch",
+      "scientificName": "Morone americana",
+      "admittedCities": ["grand_haven_mi"],
+      "cityDispositions": {
+        "ludington_mi": "exclude: no recurring modern Pier/Dock record",
+        "grand_haven_mi": "admit: nine modern years, 25 positive strata and exact pier report",
+        "manistee_mi": "exclude: no recurring modern Pier/Dock record",
+        "frankfort_elberta_mi": "exclude: no recurring modern Pier/Dock record",
+        "sheboygan_wi": "exclude: no city-pier target evidence",
+        "port_washington_wi": "exclude: no city-pier target evidence",
+        "milwaukee_wi": "exclude: no city-pier target evidence",
+        "racine_wi": "exclude: no city-pier target evidence",
+        "kenosha_wi": "exclude: no city-pier target evidence",
+        "harbor_beach_mi": "exclude: no public-harbor target evidence",
+        "oscoda_mi": "exclude: no public-harbor target evidence",
+        "port_sanilac_mi": "exclude: do not confuse DNR-listed white bass with white perch"
+      },
+      "requiredPass2Assets": ["species enum/catalog entry", "behavior context", "thermal curve", "fish artwork", "Grand Haven v3 mode", "cross-city roster tests"]
+    },
+    {
+      "speciesId": "white_bass",
+      "displayName": "White Bass",
+      "scientificName": "Morone chrysops",
+      "admittedCities": ["grand_haven_mi", "port_sanilac_mi"],
+      "cityDispositions": {
+        "ludington_mi": "exclude: no recurring modern Pier/Dock record",
+        "grand_haven_mi": "admit: seven modern years and 12 positive strata concentrated in summer",
+        "manistee_mi": "exclude: no recurring modern Pier/Dock record",
+        "frankfort_elberta_mi": "exclude: no recurring modern Pier/Dock record",
+        "sheboygan_wi": "exclude: no city-pier target evidence",
+        "port_washington_wi": "exclude: no city-pier target evidence",
+        "milwaukee_wi": "exclude: no city-pier target evidence",
+        "racine_wi": "exclude: no city-pier target evidence",
+        "kenosha_wi": "exclude: no city-pier target evidence",
+        "harbor_beach_mi": "exclude: no public-harbor target evidence",
+        "oscoda_mi": "exclude: no public-harbor target evidence",
+        "port_sanilac_mi": "admit: DNR summer port target plus exact June pier catch"
+      },
+      "requiredPass2Assets": ["species enum/catalog entry", "behavior context", "thermal curve", "fish artwork", "Grand Haven and Port Sanilac v3 modes", "cross-city roster tests"]
+    },
+    {
+      "speciesId": "bluegill",
+      "displayName": "Bluegill",
+      "scientificName": "Lepomis macrochirus",
+      "admittedCities": ["grand_haven_mi"],
+      "cityDispositions": {
+        "ludington_mi": "exclude: only two low-count modern years",
+        "grand_haven_mi": "admit: seven modern years, 18 positive strata and exact good August pier catch",
+        "manistee_mi": "exclude: no recurring modern Pier/Dock record",
+        "frankfort_elberta_mi": "exclude: no recurring modern Pier/Dock record",
+        "sheboygan_wi": "exclude: no city-pier target evidence",
+        "port_washington_wi": "exclude: no city-pier target evidence",
+        "milwaukee_wi": "exclude: no city-pier target evidence",
+        "racine_wi": "exclude: no city-pier target evidence",
+        "kenosha_wi": "exclude: no city-pier target evidence",
+        "harbor_beach_mi": "exclude: no recurring public-harbor target evidence",
+        "oscoda_mi": "exclude: broad river sunfish inventory does not establish the pier/catwalk fishery",
+        "port_sanilac_mi": "exclude: no recurring public-breakwall target evidence"
+      },
+      "requiredPass2Assets": ["species enum/catalog entry", "behavior context", "thermal curve", "fish artwork", "Grand Haven v3 mode", "cross-city roster tests"]
+    }
+  ]
+}

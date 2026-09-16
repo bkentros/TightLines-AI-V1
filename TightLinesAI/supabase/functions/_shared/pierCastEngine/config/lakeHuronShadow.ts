@@ -5,6 +5,7 @@ import type {
   PierCastSpeciesId,
   PierCastTemperatureCurve,
 } from "../types.ts";
+import { applyPierCastSpeciesExpansionDispositions } from "./speciesExpansion.ts";
 
 export const PIER_CAST_LAKE_HURON_SCOPE_VERSION =
   "piercast-lake-huron-shadow-v1";
@@ -121,15 +122,18 @@ function species(
   cityId: PierCastLakeHuronCityId,
 ): PierCastCitySpeciesProfile[] {
   const admitted = new Set(admittedByCity[cityId]);
-  return allSpecies.map((speciesId) => ({
-    speciesId,
-    inheritance: admitted.has(speciesId) ? "candidate" : "unresolved",
-    seasonalOpportunityCurve: null,
-    ratingEnabled: false,
-    limitation: admitted.has(speciesId)
-      ? "Evidence-admitted Formula v3 Lake Huron private-shadow candidate; numeric scoring remains disabled and promotion-blocked."
-      : "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured.",
-  }));
+  return applyPierCastSpeciesExpansionDispositions(
+    cityId,
+    allSpecies.map((speciesId) => ({
+      speciesId,
+      inheritance: admitted.has(speciesId) ? "candidate" : "unresolved",
+      seasonalOpportunityCurve: null,
+      ratingEnabled: false,
+      limitation: admitted.has(speciesId)
+        ? "Evidence-admitted Formula v3 Lake Huron private-shadow candidate; numeric scoring remains disabled and promotion-blocked."
+        : "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured.",
+    })),
+  );
 }
 
 const harborBeachAccess = [{

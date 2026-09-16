@@ -38,6 +38,7 @@ import {
   toFinFindrOpportunityRating,
   validatePierCastFoundation,
 } from "../index.ts";
+import { getPierCastSpeciesExpansionTemperatureCurve } from "../config/speciesExpansion.ts";
 
 const provisionalCurve: PierCastTemperatureCurve = {
   curveId: "test_provisional_only",
@@ -79,13 +80,16 @@ function evaluate(
 
 Deno.test("PierCast foundation validates with every real rating disabled", () => {
   assertEquals(validatePierCastFoundation(), []);
-  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 15);
+  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 19);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
   assert(PIER_CAST_SPECIES_PROFILES.every((profile) => !profile.ratingEnabled));
   const coreSpecies = new Set<string>(PIER_CAST_CORE_SPECIES_IDS);
   assert(
     PIER_CAST_SPECIES_PROFILES.every((profile) =>
-      !!getPierCastPrivateTemperatureCurve(profile.speciesId)
+      !!(
+          getPierCastPrivateTemperatureCurve(profile.speciesId) ??
+            getPierCastSpeciesExpansionTemperatureCurve(profile.speciesId)
+        )
         ? profile.calibrationStatus === "provisional" &&
           profile.seasonalTemperatureCurves?.length === 1
         : profile.calibrationStatus === "not_calibrated" &&
@@ -249,17 +253,17 @@ Deno.test("every retained species has twelve explicit month contexts", () => {
   const contexts = PIER_CAST_SPECIES_PROFILES.flatMap((profile) =>
     Object.values(profile.monthContexts)
   );
-  assertEquals(contexts.length, 180);
+  assertEquals(contexts.length, 228);
   assertEquals(
     contexts.filter((context) => context.evidenceState === "sourced_biology")
       .length,
-    98,
+    107,
   );
   assertEquals(
     contexts.filter((context) =>
       context.evidenceState === "proposed_regional_transfer"
     ).length,
-    81,
+    120,
   );
   assertEquals(
     contexts.filter((context) =>
@@ -330,7 +334,22 @@ Deno.test("every configured evidence ID exists in the non-production research le
   assertEquals(new Set(evidenceIds).size, evidenceIds.length);
   assert(ledger.records.every((record) => record.productionReady === false));
 
-  const evidenceIdSet = new Set(evidenceIds);
+  const expansionLedgerUrl = new URL(
+    "../../../../../docs/onboarding/piercast/species-expansion-pass1/source-ledger.json",
+    import.meta.url,
+  );
+  const expansionLedger = JSON.parse(
+    await Deno.readTextFile(expansionLedgerUrl),
+  ) as { sources: Array<{ evidenceId: string }> };
+  const expansionEvidenceIds = expansionLedger.sources.map((record) =>
+    record.evidenceId
+  );
+  assertEquals(
+    new Set(expansionEvidenceIds).size,
+    expansionEvidenceIds.length,
+  );
+
+  const evidenceIdSet = new Set([...evidenceIds, ...expansionEvidenceIds]);
   for (const profile of PIER_CAST_SPECIES_PROFILES) {
     for (const evidenceId of profile.evidenceIds) {
       assert(

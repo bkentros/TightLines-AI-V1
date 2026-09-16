@@ -13,7 +13,11 @@ export type PierCastSpeciesId =
   | "channel_catfish"
   | "largemouth_bass"
   | "atlantic_salmon"
-  | "northern_pike";
+  | "northern_pike"
+  | "burbot"
+  | "white_perch"
+  | "white_bass"
+  | "bluegill";
 
 export type PierCastStructureRead = {
   structureId: string;
@@ -209,6 +213,17 @@ export type PierCastReviewSpeciesOutlookRead = {
     status: "eligible" | "limited" | "blocked" | "unknown";
     reasonCodes: string[];
   };
+  regulationNotices?: Array<{
+    noticeId: string;
+    cityId: string;
+    speciesId: PierCastSpeciesId | "all";
+    startMonthDay: string;
+    endMonthDay: string;
+    reasonCode: "special_tackle_restriction";
+    title: string;
+    message: string;
+    evidenceIds: readonly string[];
+  }>;
   reasonCodes: string[];
 };
 
@@ -385,6 +400,16 @@ export type PierCastShadowReviewResponse = {
 /** Public standings intentionally contain no species, conditions, or full snapshots. */
 export type PierCastLeaderboardResponse = {
   generatedAt: string;
-  dailyScoreSnapshot?: Pick<PierCastDailyScoreSnapshotRead, "status" | "lakeDate" | "setAt" | "publishAt">;
-  cities: Array<{ cityId: string; dates: Array<Pick<PierCastReviewDateOutlookRead, "localDate" | "headline">> }>;
+  dailyScoreSnapshot?: Pick<
+    PierCastDailyScoreSnapshotRead,
+    "status" | "lakeDate" | "setAt" | "publishAt"
+  >;
+  cities: Array<
+    {
+      cityId: string;
+      dates: Array<
+        Pick<PierCastReviewDateOutlookRead, "localDate" | "headline">
+      >;
+    }
+  >;
 };

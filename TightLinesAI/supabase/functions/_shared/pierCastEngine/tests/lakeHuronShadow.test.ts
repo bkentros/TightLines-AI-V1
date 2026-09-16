@@ -88,7 +88,7 @@ Deno.test("Lake Huron profiles are private, complete, and use unique audited cel
     assertEquals(
       PIER_CAST_LAKE_HURON_CITY_PROFILES.find((p) => p.cityId === cityId)!
         .species.length,
-      15,
+      19,
     );
   }
   assertEquals(
@@ -109,7 +109,7 @@ Deno.test("Lake Huron profiles are private, complete, and use unique audited cel
         p.cityId as typeof PIER_CAST_LAKE_HURON_CITY_IDS[number],
       )
     ).length,
-    14,
+    28,
   );
 });
 

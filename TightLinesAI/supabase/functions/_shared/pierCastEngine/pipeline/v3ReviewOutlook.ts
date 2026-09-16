@@ -14,6 +14,7 @@ import {
 } from "../config/v3Calibration.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../config/wisconsinShadow.ts";
 import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "../config/lakeHuronShadow.ts";
+import { getPierCastV3RegulationNotices } from "../config/speciesExpansion.ts";
 import { pierCastOpenWaterNoticeApplies } from "../copy/openWater.ts";
 import type {
   PierCastLmhofsBatch,
@@ -69,6 +70,7 @@ export type PierCastV3ReviewSpeciesOutlook = {
     status: "blocked";
     reasonCodes: string[];
   };
+  regulationNotices: ReturnType<typeof getPierCastV3RegulationNotices>;
   reasonCodes: string[];
 };
 
@@ -399,6 +401,11 @@ function buildSpecies(
     localDate: window.localDate,
     pair,
   });
+  const regulationNotices = getPierCastV3RegulationNotices({
+    cityId,
+    speciesId,
+    localDate: window.localDate,
+  });
   const biological = regulationClosed
     ? {
       status: "unavailable" as const,
@@ -422,6 +429,7 @@ function buildSpecies(
     coverage: aggregate.coverage,
     targetingEligibility: "eligible",
     promotion,
+    regulationNotices,
     reasonCodes: [
       ...(biological.status === "unavailable" ? biological.reasonCodes : []),
       ...promotion.reasonCodes,

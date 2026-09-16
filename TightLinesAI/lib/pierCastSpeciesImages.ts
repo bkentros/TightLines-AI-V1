@@ -19,6 +19,10 @@ const PIER_CAST_SPECIES_IMAGES: Record<
   largemouth_bass: require("../assets/images/fish/largemouth_bass.png"),
   atlantic_salmon: require("../assets/images/fish/atlantic_salmon.png"),
   northern_pike: require("../assets/images/fish/northern_pike.png"),
+  burbot: require("../assets/images/fish/burbot.png"),
+  white_perch: require("../assets/images/fish/white_perch.png"),
+  white_bass: require("../assets/images/fish/white_bass.png"),
+  bluegill: require("../assets/images/fish/bluegill.png"),
 };
 
 export function getPierCastSpeciesImage(

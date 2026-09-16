@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-lake-huron-v3" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-disabled-runtime-candidates-v1" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "929391446b64f597b742ce66c40d45cc050ea6ea887454e2a391c18a878aec5d" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "5221ce7bca3e11704f451d5c473b9cecd8fcb076f6db03ec0a570075e2cf4dfe" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-species-expansion-v4" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "e8958fc021022f73bab2125bec4a20300adc4eb78890a6d3eafb806c33d00137" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "9770fac05f845c388e5aa9fd374b89e6236f822b09936fae3ebe955c2a9befb8" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -8185,5 +8185,1742 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "promotionEligible": false
       }
     ]
+  },
+  {
+    "pairKey": "harbor_beach_mi/atlantic_salmon",
+    "cityId": "harbor_beach_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harbor_beach_mi__atlantic_salmon__spring_coldwater_pier__v3_species_expansion_v1",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Spring cold-water harbor opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "harbor_beach_mi__atlantic_salmon__fall_harbor_return__v3_species_expansion_v1",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall harbor return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harbor_beach_mi/steelhead",
+    "cityId": "harbor_beach_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harbor_beach_mi__steelhead__coolwater_port_opportunity__v3_species_expansion_v1",
+        "modeId": "coolwater_port_opportunity",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-30",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring-through-fall cool-water port opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_HB_SHALLOW_2022",
+          "EXP_HB_STEELHEAD_2014"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harbor_beach_mi/lake_trout",
+    "cityId": "harbor_beach_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harbor_beach_mi__lake_trout__reachable_coldwater_port__v3_species_expansion_v1",
+        "modeId": "reachable_coldwater_port",
+        "fisheryStrength": 5.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Reachable cold-water port fishery",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_HB_SHALLOW_2022"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harbor_beach_mi/walleye",
+    "cityId": "harbor_beach_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harbor_beach_mi__walleye__warm_season_low_light_breakwall__v3_species_expansion_v1",
+        "modeId": "warm_season_low_light_breakwall",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm-season low-light breakwall fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_HB_WALLEYE_2018",
+          "EXP_HB_WALLEYE_2021"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harbor_beach_mi/northern_pike",
+    "cityId": "harbor_beach_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harbor_beach_mi__northern_pike__warm_season_harbor__v3_species_expansion_v1",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-31",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Warm-season harbor casting",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_HB_2025_09_17"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "oscoda_mi/northern_pike",
+    "cityId": "oscoda_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "oscoda_mi__northern_pike__spring_river_mouth__v3_species_expansion_v1",
+        "modeId": "spring_river_mouth",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-30",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring river-mouth opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "oscoda_mi__northern_pike__fall_lower_river_mouth__v3_species_expansion_v1",
+        "modeId": "fall_lower_river_mouth",
+        "fisheryStrength": 4.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-31",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall lower-river and mouth opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_OSC_2022_09_28"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/atlantic_salmon",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__atlantic_salmon__spring_breakwall__v3_species_expansion_v1",
+        "modeId": "spring_breakwall",
+        "fisheryStrength": 6.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Spring breakwall fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_2022_05_11",
+          "EXP_PS_2019_06_13",
+          "EXP_PS_2024_05_29"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "port_sanilac_mi__atlantic_salmon__fall_harbor_return__v3_species_expansion_v1",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall harbor return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/chinook_salmon",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__chinook_salmon__spring_coldwater_transient__v3_species_expansion_v1",
+        "modeId": "spring_coldwater_transient",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring cold-water transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_CITY"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "port_sanilac_mi__chinook_salmon__fall_harbor_staging__v3_species_expansion_v1",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall harbor staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_CITY"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/brown_trout",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__brown_trout__spring_nearshore__v3_species_expansion_v1",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring nearshore trout opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_CITY"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "port_sanilac_mi__brown_trout__fall_coolwater_return__v3_species_expansion_v1",
+        "modeId": "fall_coolwater_return",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall cool-water return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/lake_trout",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__lake_trout__reachable_coldwater_port__v3_species_expansion_v1",
+        "modeId": "reachable_coldwater_port",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Reachable cold-water port fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_CITY"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/yellow_perch",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__yellow_perch__warm_season_breakwall__v3_species_expansion_v1",
+        "modeId": "warm_season_breakwall",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Warm-season breakwall perch fishery",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_BETTER_WATERS",
+          "EXP_PS_CITY"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/walleye",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__walleye__warm_season_low_light_breakwall__v3_species_expansion_v1",
+        "modeId": "warm_season_low_light_breakwall",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm-season low-light breakwall fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_CITY",
+          "EXP_PS_2019_06_13"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/smallmouth_bass",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__smallmouth_bass__warm_season_breakwall__v3_species_expansion_v1",
+        "modeId": "warm_season_breakwall",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "07-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "10-31",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm-season breakwall fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_PS_2022_06_15",
+          "EXP_PS_2025_05_21"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "port_sanilac_mi/white_bass",
+    "cityId": "port_sanilac_mi",
+    "speciesId": "white_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "port_sanilac_mi__white_bass__summer_breakwall_schooling__v3_species_expansion_v1",
+        "modeId": "summer_breakwall_schooling",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "white_bass__shared_temperature__v0_1_research",
+        "modeName": "Summer breakwall schooling opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LH_ROADMAP",
+          "EXP_PS_2022_06_15"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "ludington_mi/northern_pike",
+    "cityId": "ludington_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "ludington_mi__northern_pike__warm_season_harbor__v3_species_expansion_v1",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Warm-season harbor fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "ludington_mi/burbot",
+    "cityId": "ludington_mi",
+    "speciesId": "burbot",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "ludington_mi__burbot__winter_harbor_bottom__v3_species_expansion_v1",
+        "modeId": "winter_harbor_bottom",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "02-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0.5
+          }
+        ],
+        "thermalCurveId": "burbot__shared_temperature__v0_1_research",
+        "modeName": "Winter harbor bottom-fishing opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LM_ROADMAP",
+          "THERM_BURBOT_2016"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "grand_haven_mi/white_perch",
+    "cityId": "grand_haven_mi",
+    "speciesId": "white_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "grand_haven_mi__white_perch__warm_season_harbor_schooling__v3_species_expansion_v1",
+        "modeId": "warm_season_harbor_schooling",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "white_perch__shared_temperature__v0_1_research",
+        "modeName": "Warm-season harbor schooling opportunity",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL",
+          "EXP_GH_WHITE_PERCH_2017"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "grand_haven_mi/white_bass",
+    "cityId": "grand_haven_mi",
+    "speciesId": "white_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "grand_haven_mi__white_bass__summer_harbor_schooling__v3_species_expansion_v1",
+        "modeId": "summer_harbor_schooling",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "10-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "white_bass__shared_temperature__v0_1_research",
+        "modeName": "Summer harbor schooling opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "grand_haven_mi/bluegill",
+    "cityId": "grand_haven_mi",
+    "speciesId": "bluegill",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "grand_haven_mi__bluegill__warm_season_pier__v3_species_expansion_v1",
+        "modeId": "warm_season_pier",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
+        "modeName": "Warm-season pier fishery",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL",
+          "EXP_GH_BLUEGILL_2021"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "grand_haven_mi/lake_whitefish",
+    "cityId": "grand_haven_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "grand_haven_mi__lake_whitefish__spring_coldwater_pier__v3_species_expansion_v1",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 3.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Spring cold-water pier opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "grand_haven_mi__lake_whitefish__lawful_fall_spawning_aggregation__v3_species_expansion_v1",
+        "modeId": "lawful_fall_spawning_aggregation",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Lawful fall spawning-aggregation opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL",
+          "EXP_GH_WHITEFISH_2025",
+          "EXP_MI_FO202_26"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete.",
+          "Historical November snagging harvest is excluded from lawful bite-strength calibration; the current single-hook restriction must be displayed."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manistee_mi/northern_pike",
+    "cityId": "manistee_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manistee_mi__northern_pike__spring_harbor__v3_species_expansion_v1",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring harbor opportunity",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL",
+          "EXP_NW_2022_05_04",
+          "EXP_NW_2024_04_24"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manistee_mi__northern_pike__late_summer_fall_harbor__v3_species_expansion_v1",
+        "modeId": "late_summer_fall_harbor",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Late-summer and fall harbor opportunity",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manistee_mi/burbot",
+    "cityId": "manistee_mi",
+    "speciesId": "burbot",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manistee_mi__burbot__winter_harbor_bottom__v3_species_expansion_v1",
+        "modeId": "winter_harbor_bottom",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "02-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "02-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "burbot__shared_temperature__v0_1_research",
+        "modeName": "Winter harbor bottom-fishing opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_LM_ROADMAP",
+          "THERM_BURBOT_2016"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "frankfort_elberta_mi/northern_pike",
+    "cityId": "frankfort_elberta_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "frankfort_elberta_mi__northern_pike__spring_harbor__v3_species_expansion_v1",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "06-30",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring harbor opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL",
+          "EXP_NW_2022_05_04",
+          "EXP_NW_2024_04_24"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "frankfort_elberta_mi__northern_pike__late_summer_harbor__v3_species_expansion_v1",
+        "modeId": "late_summer_harbor",
+        "fisheryStrength": 3.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Late-summer harbor occurrence",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "frankfort_elberta_mi/walleye",
+    "cityId": "frankfort_elberta_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "frankfort_elberta_mi__walleye__spring_harbor_low_light__v3_species_expansion_v1",
+        "modeId": "spring_harbor_low_light",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Spring low-light harbor opportunity",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_NW_2022_05_04",
+          "EXP_NW_2024_04_24"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "frankfort_elberta_mi__walleye__late_summer_low_light__v3_species_expansion_v1",
+        "modeId": "late_summer_low_light",
+        "fisheryStrength": 3.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Late-summer low-light occurrence",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "EXP_MI_CREEL"
+        ],
+        "limitations": [
+          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
+          "Weekly reports establish occurrence and timing but not standardized target effort.",
+          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
+          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
   }
 ] as const satisfies readonly PierCastV3PairCalibration[];

@@ -381,7 +381,7 @@ Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ing
           status: "committed",
           runId: crypto.randomUUID(),
           generatedAt: "2026-09-14T12:05:00.000Z",
-          forecastCount: 350,
+          forecastCount: 470,
           formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3",
         },
       });
@@ -401,7 +401,7 @@ Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ing
   assertEquals(response.status, 200);
   assertEquals(body.cityCount, 12);
   assertEquals(body.sampleCount, 1452);
-  assertEquals(body.shadowForecast.forecastCount, 350);
+  assertEquals(body.shadowForecast.forecastCount, 470);
   assertEquals(productionCalls, 0);
   assertEquals(v3Calls, 1);
 });

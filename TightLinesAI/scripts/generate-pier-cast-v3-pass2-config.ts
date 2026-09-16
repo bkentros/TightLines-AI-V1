@@ -36,6 +36,18 @@ const lakeHuronCalibrationPath = resolve(
   lakeHuronDirectory,
   "opportunity-mode-calibrations.json",
 );
+const speciesExpansionDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/species-expansion-pass2",
+);
+const speciesExpansionCandidatePath = resolve(
+  speciesExpansionDirectory,
+  "runtime-candidates.json",
+);
+const speciesExpansionCalibrationPath = resolve(
+  speciesExpansionDirectory,
+  "mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -50,6 +62,14 @@ const secondaryCalibrationText = readFileSync(
 );
 const lakeHuronCandidateText = readFileSync(lakeHuronCandidatePath, "utf8");
 const lakeHuronCalibrationText = readFileSync(lakeHuronCalibrationPath, "utf8");
+const speciesExpansionCandidateText = readFileSync(
+  speciesExpansionCandidatePath,
+  "utf8",
+);
+const speciesExpansionCalibrationText = readFileSync(
+  speciesExpansionCalibrationPath,
+  "utf8",
+);
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
 const secondaryCandidateArtifact = JSON.parse(
@@ -64,15 +84,26 @@ const lakeHuronCandidateArtifact = JSON.parse(
 const lakeHuronCalibrationArtifact = JSON.parse(
   lakeHuronCalibrationText,
 ) as CalibrationArtifact;
+const speciesExpansionCandidateArtifact = JSON.parse(
+  speciesExpansionCandidateText,
+) as CandidateArtifact;
+const speciesExpansionCalibrationArtifact = JSON.parse(
+  speciesExpansionCalibrationText,
+) as CalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
 assertLakeHuron(lakeHuronCandidateArtifact, lakeHuronCalibrationArtifact);
+assertSpeciesExpansion(
+  speciesExpansionCandidateArtifact,
+  speciesExpansionCalibrationArtifact,
+);
 const modesById = new Map(
   [
     ...calibrationArtifact.modes,
     ...secondaryCalibrationArtifact.modes,
     ...lakeHuronCalibrationArtifact.modes,
+    ...speciesExpansionCalibrationArtifact.modes,
   ].map(
     (mode) => [mode.modeCalibrationId, mode],
   ),
@@ -81,6 +112,7 @@ const pairs = [
   ...candidateArtifact.candidates,
   ...secondaryCandidateArtifact.candidates,
   ...lakeHuronCandidateArtifact.candidates,
+  ...speciesExpansionCandidateArtifact.candidates,
 ].map((pair) => ({
   ...pair,
   publicEnabled: false as const,
@@ -100,6 +132,13 @@ const pairs = [
     };
   }),
 }));
+if (
+  pairs.length !== 94 ||
+  new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
+  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 179
+) {
+  throw new Error("Combined Formula v3 species manifest is incomplete.");
+}
 
 const generated = `/* eslint-disable */
 /**
@@ -109,21 +148,19 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-lake-huron-v3" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = ${
-  JSON.stringify(candidateArtifact.schemaVersion)
-} as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-species-expansion-v4" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}`,
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}`,
     ),
   )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}`,
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}`,
     ),
   )
 } as const;
@@ -196,6 +233,34 @@ function assertLakeHuron(
       pair.ratingEnabled !== false || keys.has(pair.pairKey) ||
       pair.modes.length < 1
     ) throw new Error(`Invalid Lake Huron pair ${pair.pairKey}.`);
+    keys.add(pair.pairKey);
+  }
+}
+
+function assertSpeciesExpansion(
+  candidates: CandidateArtifact,
+  calibrations: CalibrationArtifact,
+): void {
+  if (
+    candidates.schemaVersion !==
+      "piercast-v3-species-expansion-runtime-candidates-v1" ||
+    candidates.importedByRuntime !== true ||
+    candidates.ratingEnabled !== false ||
+    candidates.publicEnabled !== false ||
+    candidates.formulaImplemented !== true ||
+    candidates.candidates.length !== 24 ||
+    calibrations.modes.length !== 33
+  ) {
+    throw new Error(
+      "Species-expansion handoff does not match the reviewed disabled contract.",
+    );
+  }
+  const keys = new Set<string>();
+  for (const pair of candidates.candidates) {
+    if (
+      pair.ratingEnabled !== false || keys.has(pair.pairKey) ||
+      pair.modes.length < 1
+    ) throw new Error(`Invalid species-expansion pair ${pair.pairKey}.`);
     keys.add(pair.pairKey);
   }
 }

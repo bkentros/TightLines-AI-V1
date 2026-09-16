@@ -8,6 +8,7 @@ import type {
 } from "../types.ts";
 import { PIER_CAST_CORE_TEMPERATURE_CURVES } from "./coreCalibration.ts";
 import { PIER_CAST_PORT_WASHINGTON_PROFILE } from "./portWashingtonShadow.ts";
+import { applyPierCastSpeciesExpansionDispositions } from "./speciesExpansion.ts";
 
 export const PIER_CAST_WISCONSIN_SCOPE_VERSION = "piercast-wisconsin-shadow-v1";
 export const PIER_CAST_WISCONSIN_ROSTER_VERSION =
@@ -436,12 +437,12 @@ export const PIER_CAST_MILWAUKEE_PROFILE: PierCastCityProfile = {
         "DNR identifies Cupertino Pier at Cupertino Park. The city reading is not point-specific; current signs, temporary closures, waves, ice, and weather control.",
     },
   ],
-  species: [
+  species: applyPierCastSpeciesExpansionDispositions("milwaukee_wi", [
     ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
       citySpecies("milwaukee_wi", id)
     ),
     ...remaining("unresolved"),
-  ],
+  ]),
 };
 
 export const PIER_CAST_RACINE_PROFILE: PierCastCityProfile = {
@@ -513,12 +514,12 @@ export const PIER_CAST_RACINE_PROFILE: PierCastCityProfile = {
         "DNR identifies South Pier fishing access from the harbor/causeway. Marina tenant docks are outside scope; current signs, closures, waves, ice, and weather control.",
     },
   ],
-  species: [
+  species: applyPierCastSpeciesExpansionDispositions("racine_wi", [
     ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
       citySpecies("racine_wi", id)
     ),
     ...remaining("conditional"),
-  ],
+  ]),
 };
 
 export const PIER_CAST_KENOSHA_PROFILE: PierCastCityProfile = {
@@ -591,12 +592,12 @@ export const PIER_CAST_KENOSHA_PROFILE: PierCastCityProfile = {
         "DNR identifies South Pier access and parking off 57th Street. Current signs, closures, waves, ice, and weather control.",
     },
   ],
-  species: [
+  species: applyPierCastSpeciesExpansionDispositions("kenosha_wi", [
     ...PIER_CAST_WISCONSIN_SPECIES_IDS.map((id) =>
       citySpecies("kenosha_wi", id)
     ),
     ...remaining("conditional"),
-  ],
+  ]),
 };
 
 export const PIER_CAST_WISCONSIN_CITY_PROFILES = [

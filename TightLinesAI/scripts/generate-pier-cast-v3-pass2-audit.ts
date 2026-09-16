@@ -217,7 +217,7 @@ const gates = {
     { gate: "deterministic_full_year_invariants", status: "pass" },
     {
       gate: "same_issue_twelve_city_shadow_archive",
-      status: "implementation_complete_deployment_pending",
+      status: "pass",
     },
     { gate: "effort_aware_prospective_evaluator", status: "pass" },
     {

@@ -9,6 +9,7 @@ import {
 } from "./config/scope.ts";
 import { PIER_CAST_CORE_SPECIES_IDS } from "./config/coreCalibration.ts";
 import { PIER_CAST_SPECIES_PROFILES } from "./config/species.ts";
+import { getPierCastSpeciesExpansionTemperatureCurve } from "./config/speciesExpansion.ts";
 import { validatePierCastSeasonalOpportunityCurve } from "./scoring/seasonal.ts";
 import { validatePierCastTemperatureCurve } from "./scoring/temperature.ts";
 import {
@@ -49,11 +50,11 @@ export function validatePierCastSpeciesProfiles(
   const issues: PierCastValidationIssue[] = [];
   const ids = new Set<string>();
 
-  if (profiles.length !== 15) {
+  if (profiles.length !== 19) {
     issues.push(issue(
       "species_roster_incomplete",
       "speciesProfiles",
-      `Expected 15 retained species profiles; found ${profiles.length}.`,
+      `Expected 19 retained species profiles; found ${profiles.length}.`,
     ));
   }
 
@@ -125,7 +126,10 @@ export function validatePierCastSpeciesProfiles(
     const coreSpecies = PIER_CAST_CORE_SPECIES_IDS.includes(
       profile.speciesId as (typeof PIER_CAST_CORE_SPECIES_IDS)[number],
     );
-    if (coreSpecies || getPierCastPrivateTemperatureCurve(profile.speciesId)) {
+    const expectedTemperatureCurve =
+      getPierCastPrivateTemperatureCurve(profile.speciesId) ??
+        getPierCastSpeciesExpansionTemperatureCurve(profile.speciesId);
+    if (coreSpecies || expectedTemperatureCurve) {
       if (
         profile.calibrationStatus !== "provisional" ||
         profile.seasonalTemperatureCurves?.length !== 1
@@ -146,13 +150,13 @@ export function validatePierCastSpeciesProfiles(
           curve.calibrationStatus !== "provisional" ||
           JSON.stringify(curve) !==
             JSON.stringify(
-              getPierCastPrivateTemperatureCurve(profile.speciesId),
+              expectedTemperatureCurve,
             )
         ) {
           issues.push(issue(
             "temperature_curve_prematurely_approved",
             `${root}.${curve.curveId}.calibrationStatus`,
-            "Core temperature curves remain provisional during private calibration.",
+            "Private temperature curves remain provisional during calibration.",
           ));
         }
       }
@@ -163,7 +167,7 @@ export function validatePierCastSpeciesProfiles(
       issues.push(issue(
         "secondary_species_calibration_out_of_scope",
         root,
-        "Only the four core species may contain provisional calibration.",
+        "Only explicitly researched species may contain provisional calibration.",
       ));
     }
   }

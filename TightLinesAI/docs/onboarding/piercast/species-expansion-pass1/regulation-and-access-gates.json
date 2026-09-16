@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "piercast-species-expansion-pass1-gates-v1",
+  "status": "research_complete_not_implemented",
+  "reviewedAt": "2026-09-15",
+  "refreshRequiredAfter": "2027-03-31",
+  "sources": ["EXP_MI_REGS_2026", "EXP_MI_FO202_26", "EXP_PS_ORDINANCE"],
+  "gates": [
+    {
+      "gateId": "michigan_great_lakes_trout_salmon_open_year_round_2026",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "harbor_beach_mi", "oscoda_mi", "port_sanilac_mi"],
+      "species": ["atlantic_salmon", "chinook_salmon", "coho_salmon", "brown_trout", "steelhead", "lake_trout"],
+      "effect": "No seasonal score suppression is required solely for an open/closed harvest season under the 2026 Great Lakes table.",
+      "sourceId": "EXP_MI_REGS_2026",
+      "limitations": "Bag, possession, size and water-specific rules still apply; refresh for the next regulation cycle."
+    },
+    {
+      "gateId": "michigan_lower_peninsula_great_lakes_pike_walleye_open_year_round_2026",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "harbor_beach_mi", "oscoda_mi", "port_sanilac_mi"],
+      "species": ["northern_pike", "walleye"],
+      "effect": "No seasonal score suppression is required solely for an open/closed harvest season in the covered Great Lakes and connected waters.",
+      "sourceId": "EXP_MI_REGS_2026",
+      "limitations": "Confirm the exact connected-water boundary and current size/bag rules before public release."
+    },
+    {
+      "gateId": "michigan_bass_release_only_outside_possession_season_2026",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "harbor_beach_mi", "oscoda_mi", "port_sanilac_mi"],
+      "species": ["smallmouth_bass", "largemouth_bass"],
+      "effect": "Forecasting may remain live year-round, but the UI must distinguish catch-and-immediate-release periods from the legal possession season.",
+      "sourceId": "EXP_MI_REGS_2026",
+      "limitations": "Exact dates and any local exceptions must be rendered from current regulation data, not frozen prose."
+    },
+    {
+      "gateId": "michigan_other_admitted_species_open_year_round_2026",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "harbor_beach_mi", "oscoda_mi", "port_sanilac_mi"],
+      "species": ["yellow_perch", "white_bass", "white_perch", "bluegill", "lake_whitefish", "burbot"],
+      "effect": "No general statewide seasonal score closure is required for these additions under the reviewed 2026 rules.",
+      "sourceId": "EXP_MI_REGS_2026",
+      "limitations": "Water-specific exceptions, size/bag limits and future orders remain controlling."
+    },
+    {
+      "gateId": "grand_haven_november_single_hook_restriction",
+      "cities": ["grand_haven_mi"],
+      "species": ["all"],
+      "effectiveWindow": ["11-01", "11-30"],
+      "effect": "Within the defined port, allow only one single-pointed unweighted hook no larger than one-half inch from point to shank. Pass 2 must show a method notice and must not calibrate lake-whitefish bite strength from historical snagging harvest.",
+      "sourceId": "EXP_MI_FO202_26",
+      "limitations": "This is a tackle rule, not a biological closure; verify the operative fisheries order during each annual refresh."
+    },
+    {
+      "gateId": "port_sanilac_public_access_boundary",
+      "cities": ["port_sanilac_mi"],
+      "species": ["all"],
+      "effect": "Keep product geography on lawful public breakwall/shore access. Do not imply that private, leased, closed or operational marina docks are public fishing locations.",
+      "sourceId": "EXP_PS_ORDINANCE",
+      "limitations": "Posted closures and directions from harbor personnel override static app guidance."
+    }
+  ],
+  "wisconsinFinding": "This pass recommends no new Wisconsin city/species pairs. Existing live-pair regulation behavior is outside the implementation scope of this pass and must remain unchanged."
+}

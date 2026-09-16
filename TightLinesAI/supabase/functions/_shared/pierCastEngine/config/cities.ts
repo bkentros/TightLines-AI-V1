@@ -15,6 +15,7 @@ import {
 } from "./coreCalibration.ts";
 
 import { PIER_CAST_REMAINING_SPECIES_REVIEW } from "./remainingSpecies.generated.ts";
+import { applyPierCastSpeciesExpansionDispositions } from "./speciesExpansion.ts";
 
 function species(
   speciesId: PierCastSpeciesId,
@@ -80,7 +81,7 @@ const lakeHuronSchemaDispositions = (): PierCastCitySpeciesProfile[] => [
   ),
 ];
 
-export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
+export const PIER_CAST_CITY_PROFILES_BASE: readonly PierCastCityProfile[] = [
   {
     cityId: "ludington_mi",
     displayName: "Ludington",
@@ -488,6 +489,15 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
     ],
   },
 ] as const;
+
+export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] =
+  PIER_CAST_CITY_PROFILES_BASE.map((city) => ({
+    ...city,
+    species: applyPierCastSpeciesExpansionDispositions(
+      city.cityId,
+      city.species,
+    ),
+  }));
 
 export function getPierCastCityProfile(
   cityId: PierCastCityProfile["cityId"],

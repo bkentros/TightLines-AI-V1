@@ -13,6 +13,7 @@ export * from "./config/portWashingtonShadow.ts";
 export * from "./config/wisconsinShadow.ts";
 export * from "./config/lakeHuronShadow.ts";
 export * from "./config/v3Calibration.ts";
+export * from "./config/speciesExpansion.ts";
 export * from "./scoring/temperature.ts";
 export * from "./scoring/temperatureEvents.ts";
 export * from "./scoring/seasonal.ts";
@@ -50,4 +51,4 @@ export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
 export const PIER_CAST_V3_ENGINE_VERSION =
-  "pier-cast-opportunity-modes-v3-shadow-v1.2.0";
+  "pier-cast-opportunity-modes-v3-shadow-v1.3.0";

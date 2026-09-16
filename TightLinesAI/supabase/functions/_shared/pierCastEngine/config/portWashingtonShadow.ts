@@ -7,6 +7,7 @@ import type {
   PierCastTemperatureCurve,
 } from "../types.ts";
 import { PIER_CAST_CORE_TEMPERATURE_CURVES } from "./coreCalibration.ts";
+import { applyPierCastSpeciesExpansionDispositions } from "./speciesExpansion.ts";
 
 export const PIER_CAST_PORT_WASHINGTON_SCOPE_VERSION =
   "piercast-port-washington-shadow-v1";
@@ -244,7 +245,7 @@ export const PIER_CAST_PORT_WASHINGTON_PROFILE: PierCastCityProfile = {
         "The city identifies fishing along the Coal Dock promenade. The city-level reading does not claim that conditions match every point on the promenade; on-site restrictions and current conditions control.",
     },
   ],
-  species: [
+  species: applyPierCastSpeciesExpansionDispositions("port_washington_wi", [
     core("coho_salmon"),
     core("chinook_salmon"),
     core("steelhead"),
@@ -315,7 +316,7 @@ export const PIER_CAST_PORT_WASHINGTON_PROFILE: PierCastCityProfile = {
       null,
       "Explicit Lake Huron schema review found no evidence supporting a roster change for Port Washington.",
     ),
-  ],
+  ]),
 };
 
 export type PierCastPortWashingtonAdmission = {

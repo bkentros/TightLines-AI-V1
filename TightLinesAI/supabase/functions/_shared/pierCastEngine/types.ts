@@ -30,7 +30,11 @@ export type PierCastSpeciesId =
   | "channel_catfish"
   | "largemouth_bass"
   | "atlantic_salmon"
-  | "northern_pike";
+  | "northern_pike"
+  | "burbot"
+  | "white_perch"
+  | "white_bass"
+  | "bluegill";
 
 export type PierCastCityId =
   | "ludington_mi"

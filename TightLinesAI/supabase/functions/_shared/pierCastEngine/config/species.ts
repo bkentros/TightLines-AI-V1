@@ -7,6 +7,7 @@ import {
   type PierCastSpeciesProfile,
 } from "../types.ts";
 import { PIER_CAST_CORE_TEMPERATURE_CURVES } from "./coreCalibration.ts";
+import { PIER_CAST_SPECIES_EXPANSION_TEMPERATURE_CURVES } from "./speciesExpansion.generated.ts";
 
 type MonthContextTuple = readonly [
   code: string,
@@ -63,6 +64,20 @@ function profile(
     seasonalTemperatureCurves,
     ratingEnabled: false,
   };
+}
+
+function expansionTemperatureCurve(
+  speciesId: PierCastSpeciesProfile["speciesId"],
+) {
+  const candidate = PIER_CAST_SPECIES_EXPANSION_TEMPERATURE_CURVES.find(
+    (row) => row.speciesId === speciesId,
+  );
+  if (!candidate) {
+    throw new Error(
+      `PierCast expansion temperature curve missing: ${speciesId}.`,
+    );
+  }
+  return candidate.curve;
 }
 
 export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
@@ -430,6 +445,110 @@ export const PIER_CAST_SPECIES_PROFILES: readonly PierCastSpeciesProfile[] = [
       "WA",
     ], SB)),
     evidenceIds: ["LH_THERMAL_PIKE_MIDNR", "LH_DNR_2024_05_08"],
+  }),
+  profile({
+    speciesId: "burbot",
+    displayName: "Burbot",
+    aliases: ["Lawyer", "Eelpout"],
+    behavioralProfileIds: [
+      "winter_bottom_feeding",
+      "winter_spawning_aggregation",
+      "warm_season_deep_refuge",
+    ],
+    monthContexts: monthContexts([
+      ["CF/SP", SB],
+      ["SP/CF", SB],
+      ["CF/TR", RT],
+      ["TR", RT],
+      ["DS", RT],
+      ["DS", RT],
+      ["DS", RT],
+      ["DS", RT],
+      ["DS/TR", RT],
+      ["TR", RT],
+      ["CF", RT],
+      ["CF/SP", SB],
+    ]),
+    evidenceIds: ["THERM_BURBOT_2016", "THERM_MI_TOLERANCE"],
+    seasonalTemperatureCurves: [expansionTemperatureCurve("burbot")],
+  }),
+  profile({
+    speciesId: "white_perch",
+    displayName: "White Perch",
+    aliases: [],
+    behavioralProfileIds: [
+      "spring_spawning_transition",
+      "warm_season_schooling",
+      "cold_season_deep",
+    ],
+    monthContexts: monthContexts([
+      ["WD", RT],
+      ["WD", RT],
+      ["TR", RT],
+      ["SP", SB],
+      ["SP/PR", SB],
+      ["PR/LF", RT],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF/TR", RT],
+      ["WD", RT],
+      ["WD", RT],
+    ]),
+    evidenceIds: ["THERM_WHITE_PERCH_GLFC", "THERM_WHITE_PERCH_USGS"],
+    seasonalTemperatureCurves: [expansionTemperatureCurve("white_perch")],
+  }),
+  profile({
+    speciesId: "white_bass",
+    displayName: "White Bass",
+    aliases: ["Silver Bass"],
+    behavioralProfileIds: [
+      "spring_spawning_migration",
+      "warm_season_schooling",
+      "cold_season_deep",
+    ],
+    monthContexts: monthContexts([
+      ["WD", RT],
+      ["WD", RT],
+      ["RM/TR", RT],
+      ["RM/SP", SB],
+      ["SP/LF", SB],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF/TR", RT],
+      ["WD", RT],
+      ["WD", RT],
+    ]),
+    evidenceIds: ["THERM_WHITE_BASS_FWS", "THERM_WHITE_BASS_EPA"],
+    seasonalTemperatureCurves: [expansionTemperatureCurve("white_bass")],
+  }),
+  profile({
+    speciesId: "bluegill",
+    displayName: "Bluegill",
+    aliases: ["Bream"],
+    behavioralProfileIds: [
+      "spring_shallow_spawn",
+      "warm_season_cover_feeding",
+      "cold_season_deep",
+    ],
+    monthContexts: monthContexts([
+      ["WD", RT],
+      ["WD", RT],
+      ["WD/TR", RT],
+      ["SN/TR", RT],
+      ["SN/SP", SB],
+      ["SP/LF", SB],
+      ["LF", RT],
+      ["LF", RT],
+      ["LF/TR", RT],
+      ["TR", RT],
+      ["WD", RT],
+      ["WD", RT],
+    ]),
+    evidenceIds: ["THERM_BLUEGILL_MI", "THERM_MI_TOLERANCE"],
+    seasonalTemperatureCurves: [expansionTemperatureCurve("bluegill")],
   }),
 ] as const;
 

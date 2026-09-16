@@ -1,16 +1,31 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { PIER_CAST_CITY_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/cities.ts";
+import { PIER_CAST_CITY_PROFILES_BASE } from "../supabase/functions/_shared/pierCastEngine/config/cities.ts";
 import { PIER_CAST_SPECIES_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/species.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/wisconsinShadow.ts";
 import { evaluatePierCastSeasonalOpportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/seasonal.ts";
 
 // This historical Pass 1 artifact is intentionally frozen to the original
-// thirteen-species scope. Lake Huron schema additions are audited separately.
+// thirteen-species scope. Later catalog additions are audited in their own
+// research passes and must not silently change this reproducibility boundary.
+const PASS1_SPECIES_IDS = new Set([
+  "chinook_salmon",
+  "coho_salmon",
+  "steelhead",
+  "brown_trout",
+  "lake_trout",
+  "walleye",
+  "smallmouth_bass",
+  "freshwater_drum",
+  "yellow_perch",
+  "lake_whitefish",
+  "round_whitefish",
+  "channel_catfish",
+  "largemouth_bass",
+]);
 const PASS1_SPECIES_PROFILES = PIER_CAST_SPECIES_PROFILES.filter((species) =>
-  species.speciesId !== "atlantic_salmon" &&
-  species.speciesId !== "northern_pike"
+  PASS1_SPECIES_IDS.has(species.speciesId)
 );
 
 const OUTPUT_DIRECTORY = resolve(
@@ -53,7 +68,7 @@ const csvCell = (value: unknown): string => {
 };
 
 const allCities = [
-  ...PIER_CAST_CITY_PROFILES,
+  ...PIER_CAST_CITY_PROFILES_BASE,
   ...PIER_CAST_WISCONSIN_CITY_PROFILES,
 ];
 
