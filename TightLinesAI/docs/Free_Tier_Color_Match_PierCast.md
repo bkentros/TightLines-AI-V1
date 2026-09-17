@@ -1,14 +1,16 @@
 # Color Match and PierCast lifetime free reports
 
+> **Live server policy, prepared for the next app release (2026-09-17):** PierCast permits four distinct city/local-date reports per free account. Opening or refreshing a claimed city/date does not consume another report. Earlier PierCast claims carry over, so an account that used one report has three remaining. The fifth distinct report requires a subscription. Color Match remains at one lifetime report. Migration `20260917120000` and the updated `pier-cast` Edge Function are deployed. The submitted app still checks the old one-report limit locally; a new app binary is required to expose all four reports to users.
+
 > **Owner-approved public research release — 2026-09-13:** [Authoritative release policy and disclosure](PierCast_Public_Release_Readiness.md). The existing five-city, 28-pair roster is approved for public research-based estimates. Earlier public-blocked/private-only statements below describe the prior policy. Scientific validation statuses and numeric scores remain unchanged; no production app build is created.
 
-Confirmed policy (2026-09-13): one free report per feature per account, forever. No daily allowance reset.
+Original policy (2026-09-13): one free report per feature per account, forever. Superseded for PierCast on 2026-09-17. Neither feature has a daily allowance reset.
 
 - Color Match: the first successful report is persisted. Reopening it and retrying its existing request/setup returns the same report. Another lure/fly, clarity, or new report date requires upgrading. Saved trial recovery is server-backed, including after reinstalling or changing devices.
-- PierCast: the first successful city report binds the allowance to that city and its server-calculated local report date. The same report may refresh conditions during that day. Another city or another report day returns `subscription_required`; the original dated snapshot remains reopenable.
+- PierCast: the first four distinct city/local-date reports consume the lifetime allowance. The same city/date may refresh without another claim. A fifth distinct city/date returns `subscription_required`. Existing one-report claims were migrated into the four-report ledger.
 - The top-five leaderboard is independent of report claims and account tier. Its explicit response projection contains headline scores only, never species reports, temperature series, research candidates, or full daily snapshots. It reads the published daily snapshot independently of live conditions availability.
 - Leaderboard, city finder and nearby-port selections use the same authenticated city-report endpoint and paywall handling. Subscription upgrades bypass trial limits; downgrading does not clear an existing trial.
-- Claims are persisted in `feature_report_trials`, which has no client read/write privileges. Service-only RPCs arbitrate concurrent claims. Color report insertion and allowance consumption share one database transaction; invalid/failed work does not consume an allowance. Only the existing authorized admin reset can deliberately clear these records.
+- Color Match claims remain in `feature_report_trials`; PierCast claims are in `pier_cast_report_claims`. Neither table permits client read/write access. Service-only RPCs arbitrate concurrent claims. Color report insertion and allowance consumption share one database transaction; invalid/failed work does not consume an allowance. The authorized admin reset clears both tables.
 
 ## Release boundary
 

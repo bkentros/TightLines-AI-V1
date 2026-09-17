@@ -42,6 +42,8 @@ try {
   assert.equal((await color({ ...paidSetup, requestId: `cached_day_${marker}` })).status, 403, 'cached daily setup after downgrade');
   const denied = await request('/rest/v1/feature_report_trials', { apikey: anon, Authorization: `Bearer ${auth.body.access_token}` }, undefined, 'GET');
   assert.ok(denied.status >= 400, 'trial records must not be client readable');
+  const pierClaimsDenied = await request('/rest/v1/pier_cast_report_claims', { apikey: anon, Authorization: `Bearer ${auth.body.access_token}` }, undefined, 'GET');
+  assert.ok(pierClaimsDenied.status >= 400, 'PierCast claims must not be client readable');
   const catalog = await request('/functions/v1/pier-cast/catalog', headers, undefined, 'GET');
   assert.equal(catalog.status, 200);
   assert.equal(catalog.body.cities.length, 12, 'all researched pier cities are discoverable');
@@ -66,7 +68,6 @@ try {
   assert.equal(previewReport.status, 404, 'research preview cannot open a scored report');
   assert.equal(previewReport.body.error, 'city_unavailable');
   const firstCity = releasedCities[0].cityId;
-  const secondCity = releasedCities[1].cityId;
   const firstPier = await getPier(`report?cityId=${firstCity}`);
   assert.equal(firstPier.status, 200, `first public city: ${firstPier.body?.error}`);
   assert.equal(firstPier.body.mode, 'public_research');
@@ -75,17 +76,19 @@ try {
   assert.equal(firstPier.body.cities[0].additionalSpeciesResearch, undefined);
   assert.match(firstPier.body.disclosure, /not measurements at the pier/);
   assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 200, 'same-city refresh');
-  const blockedPier = await getPier(`report?cityId=${secondCity}`);
+  for (const city of releasedCities.slice(1, 4)) {
+    const freePier = await getPier(`report?cityId=${city.cityId}`);
+    assert.equal(freePier.status, 200, `free city ${city.cityId}: ${freePier.body?.error}`);
+  }
+  const blockedPier = await getPier(`report?cityId=${releasedCities[4].cityId}`);
   assert.equal(blockedPier.status, 403);
   assert.equal(blockedPier.body.error, 'subscription_required');
-  assert.equal((await getPier('saved-report')).body.report.cities[0].cityId, firstCity);
+  const savedAfterFour = await getPier('saved-report');
+  assert.ok(releasedCities.slice(0, 4).some(city => city.cityId === savedAfterFour.body.report.cities[0].cityId));
   const boardAfter = await getPier('leaderboard');
   assert.equal(boardAfter.status, 200);
   assert.deepEqual(boardAfter.body.cities, boardBefore.body.cities, 'daily leaderboard remains unchanged after report consumption');
-  // Simulate an expired claim on this disposable account without altering a live user's data.
-  const expire = await request(`/rest/v1/feature_report_trials?user_id=eq.${userId}&feature=eq.pier_cast`, admin, { report_key: `${firstCity}:2000-01-01` }, 'PATCH');
-  assert.equal(expire.status, 204);
-  assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 403, 'later day cannot reset trial');
+  assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 200, 'claimed city refreshes after allowance is exhausted');
   assert.equal((await getPier('saved-report')).status, 200, 'old report remains accessible');
   assert.equal((await request(`/rest/v1/profiles?id=eq.${userId}`, admin, { subscription_tier: 'angler' }, 'PATCH')).status, 204);
   for (const city of releasedCities) {
@@ -97,7 +100,7 @@ try {
     assert.equal(paidCity.body.cities[0].dates[1].species.length, city.species.length, 'next-day report uses full approved roster');
     assert.ok(paidCity.body.dailyScoreSnapshot.cities.every(row => row.cityId === city.cityId), 'snapshot cannot leak other city reports');
   }
-  console.log('PASS: Color Match lifetime/downgrade; twelve-city PierCast discovery with seven private-score previews, five-city public report roster/disclosure, private owner gate, first city, refresh, second-city and expired-day paywall, saved recovery, independent locked leaderboard, paid five-city/five-day reports');
+  console.log('PASS: Color Match lifetime/downgrade; twelve-city PierCast discovery with seven private-score previews, five-city public report roster/disclosure, private owner gate, four free city reports, fifth-city paywall, saved recovery, independent locked leaderboard, paid five-city/five-day reports');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

@@ -121,7 +121,7 @@ export function cityReportOnly(
 
 export function createPierReportAccess(deps: {
   readOutlook: () => Promise<PierCastReviewOutlookResponse | null>;
-  readPrior: (userId: string) => Promise<{ report_key: string } | null>;
+  readClaimKeys: (userId: string) => Promise<string[]>;
   cityTimezone: (cityId: string) => string | null;
   claim: (
     userId: string,
@@ -131,7 +131,7 @@ export function createPierReportAccess(deps: {
   now?: () => Date;
 }) {
   return async (userId: string, free: boolean, cityId: string) => {
-    const prior = free ? await deps.readPrior(userId) : null;
+    const claimKeys = free ? await deps.readClaimKeys(userId) : [];
     const timezone = deps.cityTimezone(cityId);
     if (!timezone) {
       throw new PierCastAccessError(
@@ -147,10 +147,10 @@ export function createPierReportAccess(deps: {
       day: "2-digit",
     }).format(deps.now?.() ?? new Date());
     const key = `${cityId}:${localDate}`;
-    if (prior && prior.report_key !== key) {
+    if (claimKeys.length >= 4 && !claimKeys.includes(key)) {
       throw new PierCastAccessError(
         "subscription_required",
-        "Your free PierCast report has been used. Upgrade for another report.",
+        "Your four free PierCast reports have been used. Upgrade for another report.",
         403,
       );
     }

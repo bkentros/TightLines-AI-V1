@@ -1,5 +1,4 @@
 import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_RESEARCH_DETAIL } from "../lib/pierCastDisclosure";
-import { pierTrialRequiresUpgrade } from "../lib/reportTrialPaywall";
 import { getEffectiveTier } from "../lib/subscription";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
@@ -3379,13 +3378,6 @@ export default function PierCastReviewScreen() {
     if (openingCity.current) return;
     const userId = user?.id;
     if (!silent) requestedCity.current = cityId;
-    const claimed = savedReport?.cities[0];
-    const auth = useAuthStore.getState();
-    if (claimed && city && pierTrialRequiresUpgrade(
-      getEffectiveTier(auth.profile, auth.user?.email) === "free",
-      { cityId: claimed.cityId, date: claimed.dates[0]?.localDate ?? "" }, cityId,
-      new Intl.DateTimeFormat("en-CA", { timeZone: city.timezone, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date()),
-    )) { if (!silent) setPaywall(true); return; }
     // Automatic refresh must never swallow an explicit city/paywall tap.
     if (!silent) openingCity.current = true;
     try {
@@ -3412,7 +3404,7 @@ export default function PierCastReviewScreen() {
         }
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
-  }, [admin, user?.id, savedReport, catalog]);
+  }, [admin, user?.id, catalog]);
   useEffect(() => {
     if (admin || !selectedCityId) return;
     // Refresh immediately when a report opens or the response contract changes;

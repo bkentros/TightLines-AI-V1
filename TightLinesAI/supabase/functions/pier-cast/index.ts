@@ -180,24 +180,23 @@ const readReport = createPierReportAccess({
       c.cityId === cityId && c.releaseStatus === "public_research"
     )
       ?.timezone ?? null,
-  readPrior: async (userId) => {
-    const { data, error } = await database.from("feature_report_trials").select(
+  readClaimKeys: async (userId) => {
+    const { data, error } = await database.from("pier_cast_report_claims").select(
       "report_key",
-    ).eq("user_id", userId).eq("feature", "pier_cast").maybeSingle();
+    ).eq("user_id", userId);
     if (error) throw new Error("Trial lookup failed");
-    return data;
+    return (data ?? []).map((row) => row.report_key);
   },
   claim: async (userId, key, report) => {
-    const { data, error } = await database.rpc("claim_feature_report_trial", {
+    const { data, error } = await database.rpc("claim_pier_cast_report", {
       p_user_id: userId,
-      p_feature: "pier_cast",
       p_report_key: key,
       p_envelope: report,
     });
     if (error?.message === "subscription_required") {
       throw new PierCastAccessError(
         "subscription_required",
-        "Your free PierCast report has been used. Upgrade for another report.",
+        "Your four free PierCast reports have been used. Upgrade for another report.",
         403,
       );
     }
@@ -245,9 +244,9 @@ const handler = createPierCastHandler({
   },
   readSavedReport: async (request) => {
     const { userId } = await account(request);
-    const { data, error } = await database.from("feature_report_trials").select(
+    const { data, error } = await database.from("pier_cast_report_claims").select(
       "envelope",
-    ).eq("user_id", userId).eq("feature", "pier_cast").maybeSingle();
+    ).eq("user_id", userId).order("used_at", { ascending: false }).limit(1).maybeSingle();
     if (error) throw new Error("Trial lookup failed");
     return { report: data?.envelope ?? null };
   },

@@ -59,14 +59,14 @@ Deno.test("leaderboard and city projections cannot leak another city's report", 
   assertEquals(report.cities[0].additionalSpeciesResearch, undefined);
   assertEquals(report.cities[0].temperatureEvents?.events.length, 1);
 });
-Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
-  const claims = new Map<string, { report_key: string }>();
+Deno.test("four lifetime city/day reports, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
+  const claims = new Map<string, string[]>();
   let now = new Date("2026-09-13T15:00:00Z");
   let outlook: PierCastReviewOutlookResponse | null = fixture();
   let commits = 0;
   const read = createPierReportAccess({
     readOutlook: async () => outlook,
-    readPrior: async (user) => claims.get(user) ?? null,
+    readClaimKeys: async (user) => claims.get(user) ?? [],
     cityTimezone: (city) =>
       ["ludington_mi", "grand_haven_mi"].includes(city)
         ? "America/Detroit"
@@ -74,7 +74,7 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
     now: () => now,
     claim: async (user, key, report) => {
       commits++;
-      claims.set(user, { report_key: key });
+      claims.set(user, [...new Set([...(claims.get(user) ?? []), key])]);
       return report;
     },
   });
@@ -85,20 +85,11 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
       .generatedAt,
     outlook!.generatedAt,
   );
-  await assertRejects(
-    () => read("a", true, "grand_haven_mi"),
-    PierCastAccessError,
-    "Upgrade",
-  );
+  await read("a", true, "grand_haven_mi");
   await read("b", true, "grand_haven_mi");
   await read("a", false, "grand_haven_mi");
-  assertEquals(commits, 3);
+  assertEquals(commits, 4);
   now = new Date("2026-09-14T15:00:00Z");
-  await assertRejects(
-    () => read("a", true, "ludington_mi"),
-    PierCastAccessError,
-    "Upgrade",
-  );
   await assertRejects(
     () => read("c", true, "ludington_mi"),
     PierCastAccessError,
@@ -111,7 +102,25 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
     "not ready",
   );
   assertEquals(claims.has("c"), false);
-  assertEquals(commits, 3);
+  assertEquals(commits, 4);
+});
+
+Deno.test("fifth distinct city/date is blocked; one of four saved reports can refresh", async () => {
+  const claims = new Map<string, string[]>([["a", [
+    "ludington_mi:2026-09-10", "ludington_mi:2026-09-11",
+    "ludington_mi:2026-09-12", "ludington_mi:2026-09-13",
+  ]]]);
+  let commits = 0;
+  const read = createPierReportAccess({
+    readOutlook: async () => fixture(),
+    readClaimKeys: async user => claims.get(user) ?? [],
+    cityTimezone: () => "America/Detroit",
+    now: () => new Date("2026-09-13T15:00:00Z"),
+    claim: async (_user, _key, report) => { commits++; return report; },
+  });
+  await read("a", true, "ludington_mi");
+  await assertRejects(() => read("a", true, "grand_haven_mi"), PierCastAccessError, "Upgrade");
+  assertEquals(commits, 1);
 });
 
 Deno.test("public research authorization is exact-roster and does not claim scientific validation", async () => {

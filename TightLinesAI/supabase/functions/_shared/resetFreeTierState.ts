@@ -62,6 +62,10 @@ export async function resetFreeTierStateForUser(
     throw new Error(`recommender_sessions_reset_failed:${sessionError.message}`);
   }
 
+  const { error: pierCastClaimError } = await supabase.from("pier_cast_report_claims")
+    .delete().eq("user_id", userId);
+  if (pierCastClaimError) throw new Error(`pier_cast_claim_reset_failed:${pierCastClaimError.message}`);
+
   const { error: featureTrialError } = await supabase.from("feature_report_trials")
     .delete().eq("user_id", userId);
   if (featureTrialError) throw new Error(`feature_trial_reset_failed:${featureTrialError.message}`);
