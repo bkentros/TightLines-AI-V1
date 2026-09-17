@@ -1,9 +1,10 @@
 import { assertEquals } from "jsr:@std/assert";
-import { leaderboardOnly } from "./reportAccess.ts";
+import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
+import { cityReportOnly, leaderboardOnly } from "./reportAccess.ts";
 
 Deno.test("public standings rank by primary species and never expose secondary scores", () => {
   const candidate = (
-    speciesId: "yellow_perch" | "coho_salmon",
+    speciesId: "yellow_perch" | "coho_salmon" | "lake_trout",
     score: number,
   ) => ({
     speciesId,
@@ -27,6 +28,7 @@ Deno.test("public standings rank by primary species and never expose secondary s
         cityId: "ludington_mi",
         dates: [{
           localDate: "2026-09-16",
+          headline: { overall: { status: "available" } },
           species: [candidate("yellow_perch", 9), candidate("coho_salmon", 6)],
         }],
       },
@@ -34,7 +36,12 @@ Deno.test("public standings rank by primary species and never expose secondary s
         cityId: "grand_haven_mi",
         dates: [{
           localDate: "2026-09-16",
-          species: [candidate("coho_salmon", 7)],
+          headline: { overall: { status: "available" } },
+          species: [
+            candidate("yellow_perch", 9),
+            candidate("coho_salmon", 7),
+            candidate("lake_trout", 8),
+          ],
         }],
       },
     ],
@@ -50,5 +57,28 @@ Deno.test("public standings rank by primary species and never expose secondary s
     "coho_salmon",
   );
   assertEquals(leaderboard.cities[1].dates[0].headline.overall.score, 6);
+  assertEquals(
+    leaderboard.cities[0].dates[0].headline.drivingSpeciesId,
+    "lake_trout",
+  );
+  assertEquals(leaderboard.cities[0].dates[0].headline.overall.score, 8);
   assertEquals("species" in leaderboard.cities[1].dates[0], false);
+
+  const cityOutlook = {
+    ...outlook,
+    dailyScoreSnapshot: {
+      cities: [{ cityId: "ludington_mi", date: outlook.cities[0].dates[0] }],
+    },
+  } as unknown as PierCastReviewOutlookResponse;
+  const cityReport = cityReportOnly(cityOutlook, "ludington_mi");
+  assertEquals(
+    cityReport.cities[0].dates[0].headline.drivingSpeciesId,
+    "coho_salmon",
+  );
+  assertEquals(cityReport.cities[0].dates[0].headline.overall.score, 6);
+  assertEquals(cityReport.cities[0].dates[0].species.length, 2);
+  assertEquals(
+    cityReport.dailyScoreSnapshot?.cities[0].date.headline.drivingSpeciesId,
+    "coho_salmon",
+  );
 });

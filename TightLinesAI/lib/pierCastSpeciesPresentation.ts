@@ -9,6 +9,7 @@ export const PRIMARY_PIER_CAST_SPECIES: ReadonlySet<PierCastSpeciesId> =
     "chinook_salmon",
     "steelhead",
     "brown_trout",
+    "lake_trout",
     "freshwater_drum",
   ]);
 
@@ -55,33 +56,18 @@ function headlineForSpecies(
   };
 }
 
-/** Keep research-only bluegill out of every displayed PierCast forecast. */
+/** Show all configured targets except bluegill, with a primary-species headline. */
 export function presentPierCastDate(
   date: PierCastReviewDateOutlookRead,
 ): PierCastReviewDateOutlookRead {
   const species = date.species.filter((row) => row.speciesId !== "bluegill");
-  if (date.headline.drivingSpeciesId !== "bluegill") {
-    return species.length === date.species.length ? date : { ...date, species };
-  }
-
   return {
     ...date,
     species,
-    headline: headlineForSpecies(species),
-  };
-}
-
-/** The standings score and featured fish come only from primary species. */
-export function presentPierCastStandingsDate(
-  date: PierCastReviewDateOutlookRead,
-): PierCastReviewDateOutlookRead {
-  const displayed = presentPierCastDate(date);
-  return {
-    ...displayed,
-    headline: headlineForSpecies(
-      displayed.species.filter((row) =>
-        PRIMARY_PIER_CAST_SPECIES.has(row.speciesId)
-      ),
-    ),
+    headline: date.headline.overall.status === "available"
+      ? headlineForSpecies(
+        species.filter((row) => PRIMARY_PIER_CAST_SPECIES.has(row.speciesId)),
+      )
+      : date.headline,
   };
 }

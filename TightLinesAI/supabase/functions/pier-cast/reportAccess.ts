@@ -4,14 +4,30 @@ import {
 } from "../_shared/pierCastEngine/config/publicRelease.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
 import { selectPierCastDailyHeadline } from "../_shared/pierCastEngine/scoring/headline.ts";
+import type { PierCastReviewDateOutlook } from "../_shared/pierCastEngine/types.ts";
 
 const PRIMARY_SPECIES_IDS = new Set([
   "coho_salmon",
   "chinook_salmon",
   "steelhead",
   "brown_trout",
+  "lake_trout",
   "freshwater_drum",
 ]);
+
+function primaryHeadline(date: PierCastReviewDateOutlook) {
+  if (date.headline.overall.status !== "available") return date.headline;
+  return selectPierCastDailyHeadline(
+    date.species.filter((species) => PRIMARY_SPECIES_IDS.has(species.speciesId))
+      .map((species) => ({
+        speciesId: species.speciesId,
+        biological: species.biological,
+        coverage: species.coverage,
+        targetingEligibility: species.targetingEligibility,
+        promotion: species.promotion,
+      })),
+  );
+}
 
 export class PierCastAccessError extends Error {
   constructor(readonly code: string, message: string, readonly status: number) {
@@ -37,17 +53,7 @@ export function leaderboardOnly(
     cityId: city.cityId,
     dates: city.dates.slice(0, 1).map((date) => ({
       localDate: date.localDate,
-      headline: selectPierCastDailyHeadline(
-        date.species.filter((species) =>
-          PRIMARY_SPECIES_IDS.has(species.speciesId)
-        ).map((species) => ({
-          speciesId: species.speciesId,
-          biological: species.biological,
-          coverage: species.coverage,
-          targetingEligibility: species.targetingEligibility,
-          promotion: species.promotion,
-        })),
-      ),
+      headline: primaryHeadline(date),
     })),
   })).sort((a, b) =>
     (b.dates[0]?.headline.overall.score ?? -1) -
@@ -87,14 +93,26 @@ export function cityReportOnly(
   const { additionalSpeciesResearch: _research, ...report } = city;
   return {
     ...outlook,
-    cities: [report],
+    cities: [{
+      ...report,
+      dates: report.dates.map((date) => ({
+        ...date,
+        headline: primaryHeadline(date),
+      })),
+    }],
     ...(outlook.dailyScoreSnapshot
       ? {
         dailyScoreSnapshot: {
           ...outlook.dailyScoreSnapshot,
           cities: outlook.dailyScoreSnapshot.cities.filter((c) =>
             c.cityId === cityId
-          ),
+          ).map((city) => ({
+            ...city,
+            date: {
+              ...city.date,
+              headline: primaryHeadline(city.date),
+            },
+          })),
         },
       }
       : {}),

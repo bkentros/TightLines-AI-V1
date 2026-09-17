@@ -6,11 +6,11 @@ import type {
 } from "../lib/pierCastContracts";
 import {
   presentPierCastDate,
-  presentPierCastStandingsDate,
+  PRIMARY_PIER_CAST_SPECIES,
 } from "../lib/pierCastSpeciesPresentation";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 
-test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
+test("city and standings headlines use primary species, including lake trout", () => {
   const available = (score: number) => ({
     status: "available" as const,
     score,
@@ -21,7 +21,7 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
     rubricVersion: "test",
   });
   const species = (
-    speciesId: "bluegill" | "coho_salmon" | "yellow_perch",
+    speciesId: "bluegill" | "coho_salmon" | "yellow_perch" | "lake_trout",
     score: number,
   ) => ({
     speciesId,
@@ -33,13 +33,14 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
   const date = {
     localDate: "2026-08-15",
     headline: {
-      overall: available(8),
+      overall: available(9),
       drivingSpeciesId: "bluegill",
     },
     species: [
-      species("bluegill", 8),
-      species("yellow_perch", 7),
+      species("bluegill", 9),
+      species("yellow_perch", 8),
       species("coho_salmon", 6),
+      species("lake_trout", 7),
     ],
   } as unknown as PierCastReviewDateOutlookRead;
 
@@ -47,14 +48,19 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
   assert.deepEqual(displayed.species.map((row) => row.speciesId), [
     "yellow_perch",
     "coho_salmon",
+    "lake_trout",
   ]);
-  assert.equal(displayed.headline.drivingSpeciesId, "yellow_perch");
+  assert.equal(displayed.headline.drivingSpeciesId, "lake_trout");
   assert.equal(displayed.headline.overall.score, 7);
   assert.equal(date.headline.drivingSpeciesId, "bluegill");
+  assert.equal(PRIMARY_PIER_CAST_SPECIES.has("lake_trout"), true);
 
-  const standingsDate = presentPierCastStandingsDate(date);
-  assert.equal(standingsDate.headline.drivingSpeciesId, "coho_salmon");
-  assert.equal(standingsDate.headline.overall.score, 6);
+  const withoutLakeTrout = presentPierCastDate({
+    ...date,
+    species: date.species.filter((row) => row.speciesId !== "lake_trout"),
+  });
+  assert.equal(withoutLakeTrout.headline.drivingSpeciesId, "coho_salmon");
+  assert.equal(withoutLakeTrout.headline.overall.score, 6);
 
   const standings = projectPierCastStandings({
     mode: "v3_shadow_review",
@@ -63,7 +69,7 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
   } as unknown as PierCastV3ReviewOutlookResponse);
   assert.equal(
     standings.cities[0]?.dates[0]?.headline.drivingSpeciesId,
-    "coho_salmon",
+    "lake_trout",
   );
-  assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 6);
+  assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 7);
 });
