@@ -528,9 +528,11 @@ function DailyForecastStrip({
 function PierCastHero({
   city,
   date,
+  isToday,
 }: {
   city: PierCastCatalogCityRead;
   date: PierCastReviewDateOutlookRead;
+  isToday: boolean;
 }) {
   const score = scoreValue(date);
   const pending = isDateScorePending(date);
@@ -609,7 +611,7 @@ function PierCastHero({
         <Text style={styles.heroRatingHint}>
           {pending
             ? "FINFINDR OPPORTUNITY RATING · AWAITING FULL-DAY DATA"
-            : "FINFINDR OPPORTUNITY RATING · TODAY"}
+            : `FINFINDR OPPORTUNITY RATING · ${isToday ? "TODAY" : "SELECTED DAY"}`}
         </Text>
       </View>
 
@@ -635,7 +637,7 @@ function PierCastHero({
         </View>
         <View style={styles.heroPlateCopy}>
           <Text style={styles.heroPlateLabel}>
-            {pending ? "TOP TARGET PENDING" : "TOP TARGET TODAY"}
+            {pending ? "TOP TARGET PENDING" : `TOP TARGET ${isToday ? "TODAY" : "SELECTED DAY"}`}
           </Text>
           <Text style={styles.heroPlateSpecies} numberOfLines={2}>
             {pending
@@ -654,7 +656,7 @@ function PierCastHero({
   );
 }
 
-function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
+function SpeciesBoard({ date, isToday }: { date: PierCastReviewDateOutlookRead; isToday: boolean }) {
   const [moreSpeciesExpanded, setMoreSpeciesExpanded] = useState(false);
   const [expandedTimeSpeciesId, setExpandedTimeSpeciesId] = useState<PierCastSpeciesId | null>(null);
   const pending = isDateScorePending(date);
@@ -849,7 +851,7 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
   };
   return (
     <ReportSection
-      eyebrow={pending ? "TARGETS PENDING" : "TODAY'S TARGETS"}
+      eyebrow={pending ? "TARGETS PENDING" : isToday ? "TODAY'S TARGETS" : "SELECTED DAY TARGETS"}
       title="Species Comparison"
       badge={`${speciesRows.length} SPECIES`}
     >
@@ -3196,6 +3198,7 @@ function CityReport({
     [outlook],
   );
   const date = displayDates[selectedIndex] ?? displayDates[0] ?? null;
+  const isToday = date?.localDate === displayDates[0]?.localDate;
   const allPoints = useMemo(() => {
     const points = new Map<string, PierCastReviewTemperaturePointRead>();
     if (outlook?.temperatureTimeline?.length) {
@@ -3245,7 +3248,7 @@ function CityReport({
 
   return (
     <>
-      <PierCastHero city={city} date={date} />
+      <PierCastHero city={city} date={date} isToday={isToday} />
       <ReportSection
         eyebrow="DAILY PIER READ"
         title="Five-Day Outlook"
@@ -3262,7 +3265,7 @@ function CityReport({
           }}
         />
       </ReportSection>
-      <SpeciesBoard key={`${city.cityId}:${date.localDate}`} date={date} />
+      <SpeciesBoard key={`${city.cityId}:${date.localDate}`} date={date} isToday={isToday} />
       <HourlyConditions
         dates={displayDates}
         timeline={allPoints}
