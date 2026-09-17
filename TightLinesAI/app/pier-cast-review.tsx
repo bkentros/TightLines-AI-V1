@@ -53,6 +53,7 @@ import {
   PierCastRequestError,
 } from "../lib/pierCast";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
+import { presentPierCastDate } from "../lib/pierCastSpeciesPresentation";
 import { getPierCastSpeciesImage } from "../lib/pierCastSpeciesImages";
 import type {
   PierCastCatalogCityRead,
@@ -108,6 +109,14 @@ const SPECIES_LABELS: Record<PierCastSpeciesId, string> = {
   white_bass: "White Bass",
   bluegill: "Bluegill",
 };
+
+const PRIMARY_PIER_CAST_SPECIES = new Set<PierCastSpeciesId>([
+  "coho_salmon",
+  "chinook_salmon",
+  "steelhead",
+  "brown_trout",
+  "freshwater_drum",
+]);
 
 // Normalize the visible (non-transparent) fish artwork inside the species-card
 // stage. Source PNGs have different canvas aspect ratios and padding, so these
@@ -652,6 +661,7 @@ function PierCastHero({
 }
 
 function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
+  const [moreSpeciesExpanded, setMoreSpeciesExpanded] = useState(false);
   const pending = isDateScorePending(date);
   const regulationNotices = [
     ...new Map(
@@ -673,6 +683,125 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
       rightScore - leftScore || left.speciesId.localeCompare(right.speciesId)
     );
   });
+  const mainSpecies = speciesRows.filter((species) =>
+    PRIMARY_PIER_CAST_SPECIES.has(species.speciesId)
+  );
+  const moreSpecies = speciesRows.filter((species) =>
+    !PRIMARY_PIER_CAST_SPECIES.has(species.speciesId)
+  );
+  const renderSpeciesCard = (
+    species: (typeof speciesRows)[number],
+    index: number,
+  ) => {
+    const seasonalPotential = species.seasonalRating ??
+      species.activeMode?.seasonalPotential ?? null;
+    const score =
+      species.biological.status === "available"
+        ? species.biological.displayScore
+        : null;
+    const accent = score === null ? "#AAB2B6" : scoreAccentColor(score);
+    const band = dashboardBandStyleForScore(score ?? 5);
+    const fish = coreSpeciesImage(species.speciesId);
+    const scale = FISH_SCALE[species.speciesId] ?? 1;
+    const ratingLabel =
+      species.biological.status === "available"
+        ? species.biological.label
+        : pending
+          ? "Pending"
+          : "Unavailable";
+    const suitability = species.temperatureSuitabilityRange
+      ? (species.temperatureSuitabilityRange[0] +
+          species.temperatureSuitabilityRange[1]) /
+        2
+      : null;
+    return (
+      <View key={species.speciesId} style={styles.speciesCard}>
+        <View style={[styles.speciesAccent, { backgroundColor: accent }]} />
+        <View style={styles.speciesHeader}>
+          <Text style={styles.speciesIndex}>
+            {String(index + 1).padStart(2, "0")}
+          </Text>
+          <View style={styles.speciesFishStage}>
+            {fish ? (
+              <Image
+                source={fish}
+                style={[styles.speciesFish, { transform: [{ scale }] }]}
+                resizeMode="contain"
+              />
+            ) : (
+              <Ionicons
+                name="fish-outline"
+                size={30}
+                color={paper.dashboardBlueLight}
+              />
+            )}
+          </View>
+          <View style={styles.speciesIdentity}>
+            <Text style={styles.speciesName} numberOfLines={2}>
+              {SPECIES_LABELS[species.speciesId]}
+            </Text>
+            <View
+              style={[
+                styles.speciesBandPill,
+                { backgroundColor: pending ? "#E8EEF1" : band.chipBg },
+              ]}
+            >
+              <View style={[styles.speciesBandDot, { backgroundColor: accent }]} />
+              <Text
+                style={[
+                  styles.speciesBandText,
+                  { color: pending ? DEFAULT_RANK_ACCENT.ink : band.verdictColor },
+                ]}
+              >
+                {ratingLabel.toUpperCase()}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.speciesScoreWrap}>
+            <Text
+              style={[
+                styles.speciesScore,
+                pending && styles.speciesScorePending,
+                { color: accent },
+              ]}
+              allowFontScaling={false}
+            >
+              {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
+            </Text>
+            {!pending ? <Text style={styles.speciesScoreMax}>/10</Text> : null}
+          </View>
+        </View>
+        <View style={styles.factorRow}>
+          <View style={styles.factor}>
+            <View style={styles.factorLabelRow}>
+              <Text style={styles.factorLabel}>SEASON</Text>
+              <Text style={styles.factorValue}>
+                {seasonalPotential?.toFixed(1) ?? "—"}
+              </Text>
+            </View>
+            <PierCastMiniBar
+              value={seasonalPotential}
+              color={paper.dashboardBlue}
+            />
+          </View>
+          <View style={styles.factor}>
+            <View style={styles.factorLabelRow}>
+              <Text style={styles.factorLabel} numberOfLines={1}>
+                WATER TEMP FIT
+              </Text>
+              <Text style={styles.factorValue}>
+                {suitabilityText(species.temperatureSuitabilityRange)}
+              </Text>
+            </View>
+            <PierCastMiniBar
+              value={suitability === null ? null : suitability * 10}
+              color={accent}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
   return (
     <ReportSection
       eyebrow={pending ? "TARGETS PENDING" : "TODAY'S TARGETS"}
@@ -692,153 +821,38 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
           </View>
         </View>
       ))}
-      <ScrollView
-        style={speciesRows.length > 4 ? styles.speciesViewport : undefined}
-        contentContainerStyle={styles.speciesList}
-        nestedScrollEnabled
-        showsVerticalScrollIndicator={speciesRows.length > 4}
-        indicatorStyle="black"
-        accessibilityLabel={
-          pending
-            ? "Species ratings pending"
-            : "Species ranked from highest to lowest score"
-        }
-      >
-        {speciesRows.map((species, index) => {
-          const seasonalPotential = species.seasonalRating ??
-            species.activeMode?.seasonalPotential ?? null;
-          const score =
-            species.biological.status === "available"
-              ? species.biological.displayScore
-              : null;
-          const accent = score === null ? "#AAB2B6" : scoreAccentColor(score);
-          const band = dashboardBandStyleForScore(score ?? 5);
-          const fish = coreSpeciesImage(species.speciesId);
-          const scale = FISH_SCALE[species.speciesId] ?? 1;
-          const ratingLabel =
-            species.biological.status === "available"
-              ? species.biological.label
-              : pending
-                ? "Pending"
-                : "Unavailable";
-          const suitability = species.temperatureSuitabilityRange
-            ? (species.temperatureSuitabilityRange[0] +
-                species.temperatureSuitabilityRange[1]) /
-              2
-            : null;
-          return (
-            <View key={species.speciesId} style={styles.speciesCard}>
-              <View
-                style={[styles.speciesAccent, { backgroundColor: accent }]}
-              />
-              <View style={styles.speciesHeader}>
-                <Text style={styles.speciesIndex}>
-                  {String(index + 1).padStart(2, "0")}
-                </Text>
-                <View style={styles.speciesFishStage}>
-                  {fish ? (
-                    <Image
-                      source={fish}
-                      style={[styles.speciesFish, { transform: [{ scale }] }]}
-                      resizeMode="contain"
-                    />
-                  ) : (
-                    <Ionicons
-                      name="fish-outline"
-                      size={30}
-                      color={paper.dashboardBlueLight}
-                    />
-                  )}
-                </View>
-                <View style={styles.speciesIdentity}>
-                  <Text style={styles.speciesName} numberOfLines={2}>
-                    {SPECIES_LABELS[species.speciesId]}
-                  </Text>
-                  <View
-                    style={[
-                      styles.speciesBandPill,
-                      {
-                        backgroundColor: pending
-                          ? "#E8EEF1"
-                          : band.chipBg,
-                      },
-                    ]}
-                  >
-                    <View
-                      style={[
-                        styles.speciesBandDot,
-                        { backgroundColor: accent },
-                      ]}
-                    />
-                    <Text
-                      style={[
-                        styles.speciesBandText,
-                        {
-                          color: pending
-                            ? DEFAULT_RANK_ACCENT.ink
-                            : band.verdictColor,
-                        },
-                      ]}
-                    >
-                      {ratingLabel.toUpperCase()}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.speciesScoreWrap}>
-                  <Text
-                    style={[
-                      styles.speciesScore,
-                      pending && styles.speciesScorePending,
-                      { color: accent },
-                    ]}
-                    allowFontScaling={false}
-                  >
-                    {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
-                  </Text>
-                  {!pending ? (
-                    <Text style={styles.speciesScoreMax}>/10</Text>
-                  ) : null}
-                </View>
-              </View>
-              <View style={styles.factorRow}>
-                <View style={styles.factor}>
-                  <View style={styles.factorLabelRow}>
-                    <Text style={styles.factorLabel}>SEASON</Text>
-                    <Text style={styles.factorValue}>
-                      {seasonalPotential?.toFixed(1) ?? "—"}
-                    </Text>
-                  </View>
-                  <PierCastMiniBar
-                    value={seasonalPotential}
-                    color={paper.dashboardBlue}
-                  />
-                </View>
-                <View style={styles.factor}>
-                  <View style={styles.factorLabelRow}>
-                    <Text style={styles.factorLabel} numberOfLines={1}>
-                      WATER TEMP FIT
-                    </Text>
-                    <Text style={styles.factorValue}>
-                      {suitabilityText(species.temperatureSuitabilityRange)}
-                    </Text>
-                  </View>
-                  <PierCastMiniBar
-                    value={suitability === null ? null : suitability * 10}
-                    color={accent}
-                  />
-                </View>
-              </View>
+      <View style={styles.speciesList}>
+        {mainSpecies.map(renderSpeciesCard)}
+      </View>
+      {moreSpecies.length > 0 ? (
+        <>
+          <Pressable
+            onPress={() => {
+              hapticSelection();
+              setMoreSpeciesExpanded((expanded) => !expanded);
+            }}
+            accessibilityRole="button"
+            accessibilityLabel="More species at this pier"
+            accessibilityState={{ expanded: moreSpeciesExpanded }}
+            style={styles.moreSpeciesToggle}
+          >
+            <Text style={styles.moreSpeciesToggleText}>
+              MORE SPECIES AT THIS PIER ({moreSpecies.length})
+            </Text>
+            <Ionicons
+              name={moreSpeciesExpanded ? "chevron-up" : "chevron-down"}
+              size={16}
+              color={paper.dashboardBlue}
+            />
+          </Pressable>
+          {moreSpeciesExpanded ? (
+            <View style={styles.speciesList}>
+              {moreSpecies.map((species, index) =>
+                renderSpeciesCard(species, mainSpecies.length + index)
+              )}
             </View>
-          );
-        })}
-      </ScrollView>
-      {speciesRows.length > 4 ? (
-        <View style={styles.speciesScrollHint}>
-          <Ionicons name="chevron-down" size={12} color={paper.dashboardBlue} />
-          <Text style={styles.speciesScrollHintText}>
-            {speciesRows.length - 4} MORE BELOW
-          </Text>
-        </View>
+          ) : null}
+        </>
       ) : null}
     </ReportSection>
   );
@@ -3132,7 +3146,11 @@ function CityReport({
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => setSelectedIndex(0), [city.cityId]);
-  const date = outlook?.dates[selectedIndex] ?? outlook?.dates[0] ?? null;
+  const displayDates = useMemo(
+    () => outlook?.dates.map(presentPierCastDate) ?? [],
+    [outlook],
+  );
+  const date = displayDates[selectedIndex] ?? displayDates[0] ?? null;
   const allPoints = useMemo(() => {
     const points = new Map<string, PierCastReviewTemperaturePointRead>();
     if (outlook?.temperatureTimeline?.length) {
@@ -3189,7 +3207,7 @@ function CityReport({
         badge="SCORE / 10"
       >
         <DailyForecastStrip
-          dates={outlook.dates}
+          dates={displayDates}
           selectedIndex={selectedIndex}
           weather={weather}
           onSelect={(index) => {
@@ -3199,9 +3217,9 @@ function CityReport({
           }}
         />
       </ReportSection>
-      <SpeciesBoard date={date} />
+      <SpeciesBoard key={`${city.cityId}:${date.localDate}`} date={date} />
       <HourlyConditions
-        dates={outlook.dates}
+        dates={displayDates}
         timeline={allPoints}
         weather={weather}
         conditionsUpdatedAt={conditionsUpdatedAt}
@@ -5396,21 +5414,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: paper.dashboardHair,
   },
-  speciesViewport: { maxHeight: 526 },
   speciesList: { gap: 8, paddingBottom: 1 },
-  speciesScrollHint: {
-    minHeight: 27,
+  moreSpeciesToggle: {
+    minHeight: 44,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 5,
-    marginTop: 9,
+    justifyContent: "space-between",
+    gap: 8,
+    marginVertical: 10,
+    paddingHorizontal: 12,
     borderRadius: 8,
     backgroundColor: "#EAF2F7",
   },
-  speciesScrollHintText: {
+  moreSpeciesToggleText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
+    fontSize: 9,
     letterSpacing: 0.65,
     color: paper.dashboardBlue,
   },

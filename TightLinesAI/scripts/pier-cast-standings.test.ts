@@ -18,6 +18,7 @@ function ownerReviewFixture(): PierCastReviewOutlookResponse {
   const date = {
     localDate: "2026-09-14",
     headline,
+    species: [],
   };
   const lockedCityIds = [
     "ludington_mi",

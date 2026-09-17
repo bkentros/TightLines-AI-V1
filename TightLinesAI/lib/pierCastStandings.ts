@@ -1,8 +1,10 @@
 import type {
   PierCastLeaderboardResponse,
+  PierCastReviewDateOutlookRead,
   PierCastReviewOutlookResponse,
   PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
+import { presentPierCastDate } from "./pierCastSpeciesPresentation";
 
 /** Build a headline-only owner leaderboard without weakening public isolation. */
 export function projectPierCastStandings(
@@ -23,16 +25,16 @@ export function projectPierCastStandings(
   >();
   const addCity = (
     cityId: string,
-    date: (
-      | PierCastReviewOutlookResponse
-      | PierCastV3ReviewOutlookResponse
-    )["cities"][number]["dates"][number]
-      | undefined,
+    date: PierCastReviewDateOutlookRead | undefined,
   ) => {
     if (!date) return;
+    const displayDate = presentPierCastDate(date);
     cities.set(cityId, {
       cityId,
-      dates: [{ localDate: date.localDate, headline: date.headline }],
+      dates: [{
+        localDate: displayDate.localDate,
+        headline: displayDate.headline,
+      }],
     });
   };
 
