@@ -657,6 +657,7 @@ function PierCastHero({
 
 function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
   const [moreSpeciesExpanded, setMoreSpeciesExpanded] = useState(false);
+  const [expandedTimeSpeciesId, setExpandedTimeSpeciesId] = useState<PierCastSpeciesId | null>(null);
   const pending = isDateScorePending(date);
   const regulationNotices = [
     ...new Map(
@@ -709,6 +710,8 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
           species.temperatureSuitabilityRange[1]) /
         2
       : null;
+    const timeExpanded = expandedTimeSpeciesId === species.speciesId;
+    const timeLabels = ["12 AM–6 AM", "6 AM–12 PM", "12 PM–6 PM", "6 PM–12 AM"];
     return (
       <View key={species.speciesId} style={styles.speciesCard}>
         <View style={[styles.speciesAccent, { backgroundColor: accent }]} />
@@ -794,6 +797,53 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
             />
           </View>
         </View>
+        {species.timeWindows?.length === 4 ? (
+          <>
+            <Pressable
+              onPress={() => {
+                hapticSelection();
+                setExpandedTimeSpeciesId(timeExpanded ? null : species.speciesId);
+              }}
+              accessibilityRole="button"
+              accessibilityLabel={`${SPECIES_LABELS[species.speciesId]} scores by time`}
+              accessibilityState={{ expanded: timeExpanded }}
+              style={styles.timeWindowToggle}
+            >
+              <Text style={styles.timeWindowToggleText}>SCORES BY TIME</Text>
+              <Ionicons
+                name={timeExpanded ? "chevron-up" : "chevron-down"}
+                size={15}
+                color={paper.dashboardBlue}
+              />
+            </Pressable>
+            {timeExpanded ? (
+              <View style={styles.timeWindowPanel}>
+                {species.timeWindows.map((slot) => {
+                  const slotScore = slot.biological.status === "available"
+                    ? slot.biological.displayScore.toFixed(1)
+                    : null;
+                  const status = slot.phase === "past" ? "PAST"
+                    : slotScore === null ? "UNAVAILABLE"
+                    : slot.phase === "current" ? "NOW" : "LATER";
+                  return (
+                    <View key={slot.slotIndex} style={styles.timeWindowRow}>
+                      <Text style={styles.timeWindowLabel}>
+                        {timeLabels[slot.slotIndex]}
+                      </Text>
+                      <Text style={styles.timeWindowStatus}>{status}</Text>
+                      <Text style={styles.timeWindowScore}>
+                        {slotScore === null ? "—" : `${slotScore}/10`}
+                      </Text>
+                    </View>
+                  );
+                })}
+                <Text style={styles.timeWindowFootnote}>
+                  Local time · Modeled water temperature and seasonal opportunity
+                </Text>
+              </View>
+            ) : null}
+          </>
+        ) : null}
       </View>
     );
   };
@@ -5528,6 +5578,66 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   factorRow: { flexDirection: "row", gap: 14, marginTop: 10 },
+  timeWindowToggle: {
+    minHeight: 40,
+    marginTop: 10,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderRadius: 7,
+    backgroundColor: "#EAF2F7",
+  },
+  timeWindowToggleText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 0.85,
+    color: paper.dashboardBlue,
+  },
+  timeWindowPanel: {
+    marginTop: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 7,
+    backgroundColor: "#FAFBFC",
+  },
+  timeWindowRow: {
+    minHeight: 34,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardHair,
+  },
+  timeWindowLabel: {
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+  },
+  timeWindowStatus: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 0.4,
+    color: paper.dashboardMuted,
+  },
+  timeWindowScore: {
+    width: 53,
+    textAlign: "right",
+    fontFamily: paperFonts.monoBold,
+    fontSize: 10,
+    color: paper.dashboardInk,
+  },
+  timeWindowFootnote: {
+    paddingTop: 7,
+    paddingBottom: 4,
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 13,
+    color: paper.dashboardMuted,
+  },
   factor: { flex: 1 },
   factorLabelRow: {
     flexDirection: "row",

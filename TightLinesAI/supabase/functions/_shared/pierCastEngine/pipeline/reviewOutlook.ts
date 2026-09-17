@@ -35,6 +35,7 @@ import {
 import { evaluatePierCastSeasonalOpportunity } from "../scoring/seasonal.ts";
 import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
 import { detectPierCastTemperatureEvents } from "../scoring/temperatureEvents.ts";
+import { buildPierCastSixHourScores } from "../scoring/timeWindows.ts";
 import { PIER_CAST_RUBRIC_VERSION } from "../scoring/rating.ts";
 import {
   PIER_CAST_MONTHS,
@@ -139,6 +140,7 @@ export function buildPierCastCohortReviewOutlook(input: {
           city,
           samples: timeline.samples,
           window,
+          evaluatedAt: evaluatedAt.toISOString(),
           formulaVersion: input.formulaVersion ?? PIER_CAST_FORMULA_VERSION,
           speciesIds: input.cohort.speciesIdsForCity(city.cityId),
           temperatureCurveForSpecies: input.cohort.temperatureCurveForSpecies,
@@ -295,7 +297,12 @@ export function applyPierCastDailyScoreSnapshot(
       return {
         ...date,
         headline: locked.date.headline,
-        species: locked.date.species,
+        species: locked.date.species.map((species) => ({
+          ...species,
+          timeWindows: date.species.find((liveSpecies) =>
+            liveSpecies.speciesId === species.speciesId
+          )?.timeWindows,
+        })),
       };
     });
     return { ...city, dates };
@@ -339,6 +346,10 @@ export function withholdPierCastCurrentDayScores(
             species: date.species.map((species) => ({
               ...species,
               biological: unavailableScore,
+              timeWindows: species.timeWindows?.map((slot) => ({
+                ...slot,
+                biological: unavailableScore,
+              })),
               promotion: {
                 status: "blocked" as const,
                 reasonCodes: [reasonCode],
@@ -402,6 +413,7 @@ function buildDateOutlook(input: {
   city: PierCastCityProfile;
   samples: readonly PierCastLmhofsSample[];
   window: PierCastDailyAssessmentWindow;
+  evaluatedAt?: string;
   formulaVersion: PierCastFormulaVersion;
   speciesIds: readonly PierCastSpeciesId[];
   temperatureCurveForSpecies: (
@@ -453,6 +465,7 @@ function buildDateOutlook(input: {
         seasonalCurve: citySpecies.seasonalOpportunityCurve,
         samples: input.samples,
         window: input.window,
+        evaluatedAt: input.evaluatedAt,
         formulaVersion: input.formulaVersion,
         temperatureCurve: input.temperatureCurveForSpecies(speciesId),
         admission: input.admissionForSpecies(speciesId),
@@ -496,6 +509,7 @@ function buildSpeciesOutlook(input: {
   >[0]["curve"];
   samples: readonly PierCastLmhofsSample[];
   window: PierCastDailyAssessmentWindow;
+  evaluatedAt?: string;
   formulaVersion: PierCastFormulaVersion;
 }): PierCastReviewSpeciesOutlook {
   if (input.configurationRatingEnabled) {
@@ -631,6 +645,15 @@ function buildSpeciesOutlook(input: {
       ? [Math.min(...suitabilityValues), Math.max(...suitabilityValues)]
       : null,
     biological: aggregate.biological,
+    ...(input.evaluatedAt
+      ? {
+        timeWindows: buildPierCastSixHourScores({
+          window: input.window,
+          evaluatedAt: input.evaluatedAt,
+          segments: scoredSegments,
+        }),
+      }
+      : {}),
     coverage: aggregate.coverage,
     targetingEligibility,
     promotion,

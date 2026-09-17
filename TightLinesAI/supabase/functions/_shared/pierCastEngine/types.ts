@@ -356,6 +356,16 @@ export type PierCastDailyAggregate = {
   coverage: PierCastCoverageRead;
 };
 
+export type PierCastSixHourScore = {
+  slotIndex: 0 | 1 | 2 | 3;
+  startAt: string;
+  endAt: string;
+  phase: "past" | "current" | "upcoming";
+  assessedInterval: PierCastInterval | null;
+  biological: PierCastScoreRead;
+  coverage: PierCastCoverageRead | null;
+};
+
 export type PierCastPromotionRead = {
   status: "eligible" | "limited" | "blocked" | "unknown";
   reasonCodes: string[];
@@ -444,6 +454,8 @@ export type PierCastReviewSpeciesOutlook = {
   temperatureCurveId: string | null;
   temperatureSuitabilityRange: readonly [number, number] | null;
   biological: PierCastScoreRead;
+  /** Omitted from immutable score snapshots; filled from the live cycle. */
+  timeWindows?: PierCastSixHourScore[];
   coverage: PierCastCoverageRead;
   targetingEligibility: "eligible" | "restricted" | "unknown";
   promotion: PierCastPromotionRead;

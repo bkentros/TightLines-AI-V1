@@ -202,6 +202,21 @@ export type PierCastReviewSpeciesOutlookRead = {
   temperatureCurveId: string | null;
   temperatureSuitabilityRange: [number, number] | null;
   biological: PierCastScoreRead;
+  /** Older saved city reports may not include these windows. */
+  timeWindows?: Array<{
+    slotIndex: 0 | 1 | 2 | 3;
+    startAt: string;
+    endAt: string;
+    phase: "past" | "current" | "upcoming";
+    assessedInterval: { start: string; end: string } | null;
+    biological: PierCastScoreRead;
+    coverage: {
+      status: "complete" | "partial" | "none";
+      coveredIntervals: Array<{ start: string; end: string }>;
+      fraction: number;
+      reasonCodes: string[];
+    } | null;
+  }>;
   coverage: {
     status: "complete" | "partial" | "none";
     coveredIntervals: Array<{ start: string; end: string }>;

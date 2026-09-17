@@ -285,6 +285,7 @@ Deno.test("v3 outlook never publishes a biological score inside the perch closur
       candidate.speciesId === "yellow_perch"
     )!;
     assertEquals(perch.biological.status, "unavailable");
+    assert(perch.timeWindows.every((slot) => slot.biological.status === "unavailable"));
     assert(perch.reasonCodes.includes("species_regulation_closed"));
   }
 
@@ -354,6 +355,8 @@ Deno.test("v3 twelve-city outlook requires one coherent issue and stays blocked"
           getPierCastV3SpeciesIdsForCity(city.cityId).length &&
         date.species.every((species) =>
           species.biological.status === "available" &&
+          species.timeWindows.length === 4 &&
+          species.timeWindows.every((slot, index) => slot.slotIndex === index) &&
           species.previewMode === "disabled_shadow_only" &&
           species.configurationRatingEnabled === false &&
           species.publicEnabled === false &&

@@ -30,6 +30,7 @@ import {
 import { calculatePierCastV3Opportunity } from "../scoring/opportunityV3.ts";
 import { evaluateTemperatureSuitability } from "../scoring/temperature.ts";
 import { detectPierCastTemperatureEvents } from "../scoring/temperatureEvents.ts";
+import { buildPierCastSixHourScores } from "../scoring/timeWindows.ts";
 import type {
   PierCastCityId,
   PierCastCityProfile,
@@ -39,6 +40,7 @@ import type {
   PierCastMonth,
   PierCastReviewDailyTemperature,
   PierCastScoredSegment,
+  PierCastSixHourScore,
   PierCastScoreRead,
   PierCastSpeciesId,
 } from "../types.ts";
@@ -64,6 +66,7 @@ export type PierCastV3ReviewSpeciesOutlook = {
   temperatureCurveId: string;
   temperatureSuitabilityRange: readonly [number, number] | null;
   biological: PierCastScoreRead;
+  timeWindows: PierCastSixHourScore[];
   coverage: PierCastCoverageRead;
   targetingEligibility: "eligible";
   promotion: {
@@ -211,7 +214,9 @@ export function buildPierCastV3ReviewOutlook(input: {
       representationDecision: "blocked_insufficient_evidence" as const,
       temperatureTimeline,
       temperatureEvents: detectPierCastTemperatureEvents(temperatureTimeline),
-      dates: windows.map((window) => buildDate(city, timeline.samples, window)),
+      dates: windows.map((window) =>
+        buildDate(city, timeline.samples, window, evaluatedAt.toISOString())
+      ),
     };
   });
   return {
@@ -255,6 +260,7 @@ function buildDate(
   city: PierCastCityProfile,
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
+  evaluatedAt: string,
 ) {
   const points = buildPierCastTemperaturePoints(samples, window);
   const temperatures = points.map((point) => point.temperatureC);
@@ -269,7 +275,7 @@ function buildDate(
     })),
   }).coverage;
   const species = getPierCastV3SpeciesIdsForCity(city.cityId).map((speciesId) =>
-    buildSpecies(city.cityId, speciesId, samples, window)
+    buildSpecies(city.cityId, speciesId, samples, window, evaluatedAt)
   );
   const headline = selectPierCastDailyHeadline(species.map((candidate) => ({
     speciesId: candidate.speciesId,
@@ -301,6 +307,7 @@ function buildSpecies(
   speciesId: PierCastSpeciesId,
   samples: readonly PierCastLmhofsSample[],
   window: PierCastDailyAssessmentWindow,
+  evaluatedAt: string,
 ): PierCastV3ReviewSpeciesOutlook {
   const pair = getPierCastV3PairCalibration(cityId, speciesId);
   const curve = getPierCastV3TemperatureCurve(speciesId);
@@ -414,6 +421,19 @@ function buildSpecies(
       ratingName: "FinFindr Opportunity Rating" as const,
     }
     : aggregate.biological;
+  const timeWindows = buildPierCastSixHourScores({
+    window,
+    evaluatedAt,
+    segments: scoredSegments,
+  }).map((slot) => regulationClosed ? {
+    ...slot,
+    biological: {
+      status: "unavailable" as const,
+      score: null,
+      reasonCodes: ["species_regulation_closed"],
+      ratingName: "FinFindr Opportunity Rating" as const,
+    },
+  } : slot);
   return {
     speciesId,
     previewMode: "disabled_shadow_only",
@@ -426,6 +446,7 @@ function buildSpecies(
       ? [Math.min(...suitability), Math.max(...suitability)]
       : null,
     biological,
+    timeWindows,
     coverage: aggregate.coverage,
     targetingEligibility: "eligible",
     promotion,
