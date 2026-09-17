@@ -2497,13 +2497,12 @@ function PierCastLanding({
     () => leaderboard.filter((entry) => entry.score !== null),
     [leaderboard],
   );
-  const [rankedCityLimit, setRankedCityLimit] = useState(5);
+  const [showingExpandedLeaderboard, setShowingExpandedLeaderboard] = useState(false);
   const visibleRankedLeaderboard = useMemo(
-    () => rankedLeaderboard.slice(0, rankedCityLimit),
-    [rankedCityLimit, rankedLeaderboard],
+    () => rankedLeaderboard.slice(0, showingExpandedLeaderboard ? undefined : 5),
+    [rankedLeaderboard, showingExpandedLeaderboard],
   );
   const hasMoreRankedCities = rankedLeaderboard.length > 5;
-  const showingExpandedLeaderboard = rankedCityLimit > 5;
   const pendingLeaderboard = useMemo(
     () => leaderboard.filter((entry) => entry.score === null),
     [leaderboard],
@@ -2616,14 +2615,12 @@ function PierCastLanding({
                   accessibilityHint={
                     showingExpandedLeaderboard
                       ? "Collapses the leaderboard to the top 5 cities"
-                      : `Shows the top ${Math.min(10, rankedLeaderboard.length)} cities`
+                      : `Shows all ${rankedLeaderboard.length} scored cities`
                   }
                   hitSlop={8}
                   onPress={() => {
                     hapticSelection();
-                    setRankedCityLimit((current) =>
-                      current > 5 ? 5 : 10,
-                    );
+                    setShowingExpandedLeaderboard((current) => !current);
                   }}
                   style={({ pressed }) => [
                     styles.standingsSeeMore,
