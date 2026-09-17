@@ -4,7 +4,7 @@ import type {
   PierCastReviewOutlookResponse,
   PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
-import { presentPierCastDate } from "./pierCastSpeciesPresentation";
+import { presentPierCastStandingsDate } from "./pierCastSpeciesPresentation";
 
 /** Build a headline-only owner leaderboard without weakening public isolation. */
 export function projectPierCastStandings(
@@ -28,7 +28,7 @@ export function projectPierCastStandings(
     date: PierCastReviewDateOutlookRead | undefined,
   ) => {
     if (!date) return;
-    const displayDate = presentPierCastDate(date);
+    const displayDate = presentPierCastStandingsDate(date);
     cities.set(cityId, {
       cityId,
       dates: [{

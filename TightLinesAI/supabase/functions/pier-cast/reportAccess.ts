@@ -1,5 +1,17 @@
-import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_PUBLIC_RELEASE } from "../_shared/pierCastEngine/config/publicRelease.ts";
+import {
+  PIER_CAST_PUBLIC_RELEASE,
+  PIER_CAST_RESEARCH_DISCLOSURE,
+} from "../_shared/pierCastEngine/config/publicRelease.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
+import { selectPierCastDailyHeadline } from "../_shared/pierCastEngine/scoring/headline.ts";
+
+const PRIMARY_SPECIES_IDS = new Set([
+  "coho_salmon",
+  "chinook_salmon",
+  "steelhead",
+  "brown_trout",
+  "freshwater_drum",
+]);
 
 export class PierCastAccessError extends Error {
   constructor(readonly code: string, message: string, readonly status: number) {
@@ -7,16 +19,35 @@ export class PierCastAccessError extends Error {
   }
 }
 export function leaderboardOnly(
-  outlook: Pick<
-    PierCastReviewOutlookResponse,
-    "generatedAt" | "dailyScoreSnapshot" | "cities"
-  >,
+  outlook:
+    & Pick<
+      PierCastReviewOutlookResponse,
+      "generatedAt" | "dailyScoreSnapshot"
+    >
+    & {
+      cities: Array<
+        Pick<
+          PierCastReviewOutlookResponse["cities"][number],
+          "cityId" | "dates"
+        >
+      >;
+    },
 ) {
   const cities = outlook.cities.map((city) => ({
     cityId: city.cityId,
     dates: city.dates.slice(0, 1).map((date) => ({
       localDate: date.localDate,
-      headline: date.headline,
+      headline: selectPierCastDailyHeadline(
+        date.species.filter((species) =>
+          PRIMARY_SPECIES_IDS.has(species.speciesId)
+        ).map((species) => ({
+          speciesId: species.speciesId,
+          biological: species.biological,
+          coverage: species.coverage,
+          targetingEligibility: species.targetingEligibility,
+          promotion: species.promotion,
+        })),
+      ),
     })),
   })).sort((a, b) =>
     (b.dates[0]?.headline.overall.score ?? -1) -

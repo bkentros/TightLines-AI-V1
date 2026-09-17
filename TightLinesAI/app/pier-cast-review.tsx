@@ -53,7 +53,10 @@ import {
   PierCastRequestError,
 } from "../lib/pierCast";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
-import { presentPierCastDate } from "../lib/pierCastSpeciesPresentation";
+import {
+  presentPierCastDate,
+  PRIMARY_PIER_CAST_SPECIES,
+} from "../lib/pierCastSpeciesPresentation";
 import { getPierCastSpeciesImage } from "../lib/pierCastSpeciesImages";
 import type {
   PierCastCatalogCityRead,
@@ -109,14 +112,6 @@ const SPECIES_LABELS: Record<PierCastSpeciesId, string> = {
   white_bass: "White Bass",
   bluegill: "Bluegill",
 };
-
-const PRIMARY_PIER_CAST_SPECIES = new Set<PierCastSpeciesId>([
-  "coho_salmon",
-  "chinook_salmon",
-  "steelhead",
-  "brown_trout",
-  "freshwater_drum",
-]);
 
 // Normalize the visible (non-transparent) fish artwork inside the species-card
 // stage. Source PNGs have different canvas aspect ratios and padding, so these
@@ -2405,7 +2400,7 @@ function PierCastLanding({
             THE STANDINGS
           </Text>
           <Text style={styles.standingsSubtitle}>
-            Every supported pier city, ranked by its strongest species rating.
+            Every supported pier city, ranked by its strongest main species rating.
           </Text>
           <Text
             style={[
@@ -2558,8 +2553,8 @@ function PierCastLanding({
               : standingsReady
               ? dailyScoreSnapshot
                 ? supplementalOutlooks.length > 0
-                  ? `Released cities use their locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} scores; shadow-review cities use their latest complete current-day score.`
-                  : `Each city is ranked by its single highest species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
+                  ? `Released cities use locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} main species ratings; shadow-review cities use their latest complete main species rating.`
+                  : `Each city is ranked by its strongest main species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
                 : "Every released city has a complete current score. Live pier conditions continue to refresh."
               : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "released city is" : "released cities are"} awaiting a complete score; every city remains listed in the finder.`}
           </Text>

@@ -18,7 +18,18 @@ function ownerReviewFixture(): PierCastReviewOutlookResponse {
   const date = {
     localDate: "2026-09-14",
     headline,
-    species: [],
+    species: [{
+      speciesId: "coho_salmon",
+      biological: {
+        ...headline.overall,
+        label: "Good",
+        ratingName: "FinFindr Opportunity Rating",
+        rubricVersion: "test",
+      },
+      coverage: { status: "complete" },
+      targetingEligibility: "eligible",
+      promotion: { status: "blocked", reasonCodes: [] },
+    }],
   };
   const lockedCityIds = [
     "ludington_mi",
@@ -88,7 +99,10 @@ function v3ReviewFixture(): PierCastV3ReviewOutlookResponse {
       cityId,
       dates: fixture.cities[0].dates.map((date) => ({
         ...date,
-        species: Array.from({ length: index % 3 + 4 }, () => ({})),
+        species: [
+          ...date.species,
+          ...Array.from({ length: index % 3 + 3 }, () => ({})),
+        ],
       })),
     })),
   } as unknown as PierCastV3ReviewOutlookResponse;
@@ -106,6 +120,7 @@ test("owner standings retain the locked snapshot and include every expansion cit
     setAt: "2026-09-14T00:35:00.000Z",
     publishAt: "2026-09-14T05:00:00.000Z",
   });
+  assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 7);
   assert.deepEqual(standings.cities.map((city) => city.cityId), [
     "ludington_mi",
     "grand_haven_mi",

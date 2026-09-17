@@ -4,7 +4,10 @@ import type {
   PierCastReviewDateOutlookRead,
   PierCastV3ReviewOutlookResponse,
 } from "../lib/pierCastContracts";
-import { presentPierCastDate } from "../lib/pierCastSpeciesPresentation";
+import {
+  presentPierCastDate,
+  presentPierCastStandingsDate,
+} from "../lib/pierCastSpeciesPresentation";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 
 test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
@@ -49,6 +52,10 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
   assert.equal(displayed.headline.overall.score, 7);
   assert.equal(date.headline.drivingSpeciesId, "bluegill");
 
+  const standingsDate = presentPierCastStandingsDate(date);
+  assert.equal(standingsDate.headline.drivingSpeciesId, "coho_salmon");
+  assert.equal(standingsDate.headline.overall.score, 6);
+
   const standings = projectPierCastStandings({
     mode: "v3_shadow_review",
     generatedAt: "2026-08-15T12:00:00.000Z",
@@ -56,7 +63,7 @@ test("hidden bluegill cannot lead or appear in a displayed forecast", () => {
   } as unknown as PierCastV3ReviewOutlookResponse);
   assert.equal(
     standings.cities[0]?.dates[0]?.headline.drivingSpeciesId,
-    "yellow_perch",
+    "coho_salmon",
   );
-  assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 7);
+  assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 6);
 });
