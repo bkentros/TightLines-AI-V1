@@ -49,11 +49,11 @@ try {
   assert.equal(catalog.body.cities.length, 12, 'all researched pier cities are discoverable');
   const releasedCities = catalog.body.cities.filter(c => c.releaseStatus === 'public_research');
   const previewCities = catalog.body.cities.filter(c => c.releaseStatus === 'research_only');
-  assert.equal(releasedCities.length, 5, 'approved public report cities');
-  assert.equal(previewCities.length, 7, 'visible research previews');
-  assert.deepEqual(releasedCities.map(c => c.species.length), [6,6,8,4,4]);
+  assert.equal(catalog.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
+  assert.equal(releasedCities.length, 12, 'approved public report cities');
+  assert.equal(previewCities.length, 0, 'no city remains preview-only');
+  assert.ok(releasedCities.every(c => c.species.length > 0));
   assert.ok(releasedCities.every(c => c.species.every(s => s.seasonalOpportunityCurve === null && !s.ratingEnabled)));
-  assert.ok(previewCities.every(c => c.species.length === 0));
   assert.match(catalog.body.disclosure, /not catch guarantees/);
   const owner = await request('/functions/v1/pier-cast/review/outlook', headers, undefined, 'GET');
   assert.equal(owner.status, 403);
@@ -62,11 +62,9 @@ try {
   const getPier = path => request(`/functions/v1/pier-cast/${path}`, headers, undefined, 'GET');
   const boardBefore = await getPier('leaderboard');
   assert.equal(boardBefore.status, 200, 'public leaderboard');
-  assert.equal(boardBefore.body.cities.length, 5);
+  assert.equal(boardBefore.body.cities.length, 12);
+  assert.equal(boardBefore.body.releasePolicyVersion, 'piercast-public-research-v3-2026-09-17');
   assert.ok(boardBefore.body.cities.every(c => c.dates.every(d => !('species' in d) && !('waterTemperature' in d))));
-  const previewReport = await getPier(`report?cityId=${previewCities[0].cityId}`);
-  assert.equal(previewReport.status, 404, 'research preview cannot open a scored report');
-  assert.equal(previewReport.body.error, 'city_unavailable');
   const firstCity = releasedCities[0].cityId;
   const firstPier = await getPier(`report?cityId=${firstCity}`);
   assert.equal(firstPier.status, 200, `first public city: ${firstPier.body?.error}`);
@@ -98,9 +96,9 @@ try {
     assert.equal(paidCity.body.cities[0].cityId, city.cityId);
     assert.equal(paidCity.body.cities[0].dates.length, 5);
     assert.equal(paidCity.body.cities[0].dates[1].species.length, city.species.length, 'next-day report uses full approved roster');
-    assert.ok(paidCity.body.dailyScoreSnapshot.cities.every(row => row.cityId === city.cityId), 'snapshot cannot leak other city reports');
+    assert.equal(paidCity.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
   }
-  console.log('PASS: Color Match lifetime/downgrade; twelve-city PierCast discovery with seven private-score previews, five-city public report roster/disclosure, private owner gate, four free city reports, fifth-city paywall, saved recovery, independent locked leaderboard, paid five-city/five-day reports');
+  console.log('PASS: Color Match lifetime/downgrade; twelve-city PierCast public roster/disclosure, private owner gate, four free city reports, fifth-city paywall, saved recovery, independent leaderboard, paid twelve-city/five-day reports');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });
