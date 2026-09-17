@@ -3611,6 +3611,14 @@ export default function PierCastReviewScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
+        {admin ? (
+          <View style={styles.ownerPreviewNotice}>
+            <Text style={styles.ownerPreviewTitle}>PRIVATE OWNER REVIEW · FORMULA V3</Text>
+            <Text style={styles.ownerPreviewCopy}>
+              Only your owner account sees these research scores. Public PierCast still uses Formula v2 for five released cities.
+            </Text>
+          </View>
+        ) : null}
         {!admin && catalog?.cities.length === 0 ? (
           <View style={styles.messageCard}>
             <Ionicons
@@ -6002,6 +6010,26 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
+  },
+  ownerPreviewNotice: {
+    gap: 5,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: "#D6B969",
+    borderRadius: 10,
+    backgroundColor: "#FFF8E8",
+  },
+  ownerPreviewTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1,
+    color: "#73591C",
+  },
+  ownerPreviewCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    lineHeight: 16,
+    color: paper.dashboardInk,
   },
   messageTitle: {
     fontFamily: paperFonts.display,
