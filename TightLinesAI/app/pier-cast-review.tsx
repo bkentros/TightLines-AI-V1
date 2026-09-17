@@ -838,7 +838,8 @@ function SpeciesBoard({ date }: { date: PierCastReviewDateOutlookRead }) {
                   );
                 })}
                 <Text style={styles.timeWindowFootnote}>
-                  Local time · Modeled water temperature and seasonal opportunity
+                  Local time · Current period covers remaining hours.{"\n"}
+                  Based on modeled water temperature and season.
                 </Text>
               </View>
             ) : null}
