@@ -1806,6 +1806,97 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
   );
 }
 
+function PreviewWeather({
+  city,
+  weather,
+  weatherLoading,
+}: {
+  city: PierCastCatalogCityRead;
+  weather: PierCastHourlyWeatherPoint[];
+  weatherLoading: boolean;
+}) {
+  const upcoming = useMemo(() => {
+    const now = localHourKey(new Date().toISOString(), city.timezone);
+    return weather.filter((point) => point.localTime >= now);
+  }, [city.timezone, weather]);
+  const current = upcoming[0] ?? null;
+  const days = useMemo(() => {
+    const grouped = new Map<string, PierCastHourlyWeatherPoint[]>();
+    for (const point of upcoming) {
+      const date = point.localTime.slice(0, 10);
+      if (!grouped.has(date) && grouped.size === 5) break;
+      const group = grouped.get(date) ?? [];
+      group.push(point);
+      grouped.set(date, group);
+    }
+    return [...grouped].map(([date, points]) => {
+      const temperatures = points
+        .map((point) => point.airTemperatureF)
+        .filter((value): value is number => value !== null);
+      const winds = points
+        .map((point) => point.windSpeedMph)
+        .filter((value): value is number => value !== null);
+      return {
+        date,
+        low: temperatures.length ? Math.round(Math.min(...temperatures)) : null,
+        high: temperatures.length ? Math.round(Math.max(...temperatures)) : null,
+        peakWind: winds.length ? Math.round(Math.max(...winds)) : null,
+      };
+    });
+  }, [upcoming]);
+  const direction = directionLabel(current?.windDirectionDegrees ?? null);
+
+  return (
+    <ReportSection eyebrow="RESEARCH PREVIEW" title="Nearby Air & Wind" badge="5 DAYS">
+      <View style={styles.nearshoreMetricGrid}>
+        <NearshoreMetricTile
+          icon="thermometer-outline"
+          label="AIR"
+          value={current?.airTemperatureF == null ? "—" : `${Math.round(current.airTemperatureF)}°F`}
+          detail="At the city reference point"
+          accent="#B65B2A"
+          tint="#FDF3ED"
+        />
+        <NearshoreMetricTile
+          icon="navigate"
+          label="WIND"
+          value={current?.windSpeedMph == null ? "—" : `${Math.round(current.windSpeedMph)} mph`}
+          detail={current?.windSpeedMph == null ? "Direction unavailable" : `From ${direction}`}
+          accent="#1E746B"
+          tint="#EDF6F4"
+        />
+      </View>
+      {days.length ? (
+        <View style={styles.previewWeatherDays}>
+          {days.map((day, index) => {
+            const parts = dateParts(day.date);
+            return (
+              <View key={day.date} style={styles.previewWeatherDay}>
+                <Text style={styles.previewWeatherDayName}>
+                  {index === 0 ? "TODAY" : parts.day} {parts.date}
+                </Text>
+                <Text style={styles.previewWeatherDayValue}>
+                  {day.low == null || day.high == null ? "Air —" : `Air ${day.low}–${day.high}°F`}
+                </Text>
+                <Text style={styles.previewWeatherDayWind}>
+                  {day.peakWind == null ? "Wind —" : `Wind up to ${day.peakWind} mph`}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      ) : (
+        <Text style={styles.previewWeatherNote}>
+          {weatherLoading ? "Loading nearby air and wind…" : "Nearby air and wind are unavailable right now."}
+        </Text>
+      )}
+      <Text style={styles.previewWeatherNote}>
+        Modeled air and wind at the city reference point. Pier water temperatures and fishing ratings are still under review.
+      </Text>
+    </ReportSection>
+  );
+}
+
 function RatingExplanation({
   winterNotice,
   showWinterNotice,
@@ -2452,7 +2543,7 @@ function PierCastLanding({
             THE STANDINGS
           </Text>
           <Text style={styles.standingsSubtitle}>
-            Every supported pier city, ranked by its strongest main species rating.
+            Released pier cities, ranked by their strongest main species rating.
           </Text>
           <Text
             style={[
@@ -2474,7 +2565,7 @@ function PierCastLanding({
             <View style={styles.standingsMetaCell}>
               <Text style={styles.standingsMetaLabel}>PIER CITIES SCORED</Text>
               <Text style={styles.standingsMetaValue}>
-                {`${String(rankedLeaderboard.length).padStart(2, "0")}/${String(leaderboard.length).padStart(2, "0")}`}
+                {`${String(rankedLeaderboard.length).padStart(2, "0")}/${String(catalog.cities.length).padStart(2, "0")}`}
               </Text>
             </View>
           </View>
@@ -3637,9 +3728,15 @@ export default function PierCastReviewScreen() {
                     <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
                     <Text style={styles.messageTitle}>{selectedCity.displayName}</Text>
                     <Text style={styles.messageCopy}>
-                      This city is in PierCast research preview. Its piers are listed below; daily ratings and reports are still being reviewed.
+                      This city is in PierCast research preview. Nearby air and wind are available below; daily fishing ratings are still being reviewed.
                     </Text>
                   </View>
+                  <PreviewWeather
+                    key={selectedCity.cityId}
+                    city={selectedCity}
+                    weather={weather}
+                    weatherLoading={weatherLoading}
+                  />
                   <PiersCovered city={selectedCity} />
                 </>
               ) : (
@@ -5656,6 +5753,43 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   nearshoreMetricGrid: { flexDirection: "row", gap: 7, marginBottom: 10 },
+  previewWeatherDays: {
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+  },
+  previewWeatherDay: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+  },
+  previewWeatherDayName: {
+    width: 65,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 0.7,
+    color: paper.dashboardBlue,
+  },
+  previewWeatherDayValue: {
+    flex: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+  },
+  previewWeatherDayWind: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.dashboardMuted,
+  },
+  previewWeatherNote: {
+    marginTop: 10,
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 15,
+    color: paper.dashboardMuted,
+  },
   freshnessStrip: {
     flexDirection: "row",
     alignItems: "center",
