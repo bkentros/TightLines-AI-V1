@@ -85,6 +85,9 @@ async function readV3Outlook() {
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
     database: archiveClient,
     now,
+    // Owner-only research previews can display a complete older cycle during
+    // a short NOAA outage. Public reports retain their 13-hour freshness gate.
+    maxAgeHours: 24,
   });
   if (!cohorts) return null;
   const batch = combinePierCastV3LmhofsBatches(

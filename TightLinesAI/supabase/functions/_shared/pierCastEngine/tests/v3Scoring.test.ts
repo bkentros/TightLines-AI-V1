@@ -373,6 +373,28 @@ Deno.test("v3 twelve-city outlook requires one coherent issue and stays blocked"
   );
 });
 
+Deno.test("a complete 18-hour-old owner cycle still ranks twelve cities", () => {
+  const primary = batch(PIER_CAST_CITY_PROFILES);
+  const expansion = batch(PIER_CAST_WISCONSIN_CITY_PROFILES);
+  const lakeHuron = batch(PIER_CAST_LAKE_HURON_CITY_PROFILES);
+  primary.cycleAgeHours = 18;
+  expansion.cycleAgeHours = 18;
+  lakeHuron.cycleAgeHours = 18;
+  const outlook = buildPierCastV3ReviewOutlook({
+    batch: combinePierCastV3LmhofsBatches(primary, expansion, lakeHuron),
+    evaluationTime: new Date(Date.parse(ISSUED_AT) + 18 * 3_600_000)
+      .toISOString(),
+  });
+  assertEquals(outlook.source.cycleAgeHours, 18);
+  assertEquals(outlook.cities.length, 12);
+  assertEquals(
+    outlook.cities.filter((city) =>
+      city.dates[0]?.headline.overall.status === "available"
+    ).length,
+    12,
+  );
+});
+
 Deno.test("v3 source selection bridges staggered fresh archive cycles without mixing issues", async () => {
   const primary00 = batch(
     PIER_CAST_CITY_PROFILES,

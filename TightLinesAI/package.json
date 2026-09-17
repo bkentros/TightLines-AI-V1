@@ -150,6 +150,7 @@
     "smoke:river-run:production": "deno run --env-file=.env --allow-env --allow-net scripts/river-run-production-smoke.ts",
     "smoke:river-run:live-conditions:production": "deno run --env-file=.env --allow-env --allow-net scripts/river-run-live-conditions-production-smoke.ts",
     "smoke:public-location-visibility:production": "node --env-file=.env scripts/public-location-visibility-production-smoke.mjs",
+    "qa:pier-cast:owner-v3:production": "deno run --env-file=.env --allow-env --allow-net scripts/pier-cast-owner-v3-production-qa.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
     "qa:auth-password": "tsx scripts/auth-password-qa.ts",

@@ -37,6 +37,7 @@ export type PierCastV3SourceCohorts = {
 export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   database: PierCastArchiveClient;
   now: Date;
+  maxAgeHours?: number;
   readPrimary?: CohortReader;
   readExpansion?: CohortReader;
   readLakeHuron?: CohortReader;
@@ -44,11 +45,19 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   if (!Number.isFinite(input.now.getTime())) {
     throw new Error("Formula v3 source time is invalid.");
   }
-  const readPrimary = input.readPrimary ?? readLatestFreshPierCastLmhofsBatch;
+  const maxAgeHours = input.maxAgeHours ?? 13;
+  if (!Number.isInteger(maxAgeHours) || maxAgeHours < 1 || maxAgeHours > 24) {
+    throw new Error("Formula v3 source freshness must be 1 through 24 hours.");
+  }
+  const readPrimary = input.readPrimary ??
+    ((database, now) =>
+      readLatestFreshPierCastLmhofsBatch(database, now, maxAgeHours));
   const readExpansion = input.readExpansion ??
-    readLatestFreshPierCastWisconsinLmhofsBatch;
+    ((database, now) =>
+      readLatestFreshPierCastWisconsinLmhofsBatch(database, now, maxAgeHours));
   const readLakeHuron = input.readLakeHuron ??
-    readLatestFreshPierCastLakeHuronLmhofsBatch;
+    ((database, now) =>
+      readLatestFreshPierCastLakeHuronLmhofsBatch(database, now, maxAgeHours));
   let [primary, expansion, lakeHuron] = await Promise.all([
     readPrimary(input.database, input.now),
     readExpansion(input.database, input.now),

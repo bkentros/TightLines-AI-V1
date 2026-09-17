@@ -2367,6 +2367,18 @@ function PierCastLanding({
   );
   const forecastDate = leaderboard[0]?.date?.localDate;
   const dailyScoreSnapshot = standingsOutlook.dailyScoreSnapshot ?? null;
+  const v3Source = "mode" in outlook && outlook.mode === "v3_shadow_review"
+    ? outlook.source
+    : null;
+  const v3SourceLabel = v3Source
+    ? new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(new Date(v3Source.issuedAt))
+    : null;
   const standingsReady =
     leaderboard.length > 0 &&
     leaderboard.every((entry) => entry.score !== null);
@@ -2538,7 +2550,9 @@ function PierCastLanding({
         <View style={styles.rankingNote}>
           <Ionicons name="ribbon-outline" size={13} color="#167B78" />
           <Text style={styles.rankingNoteText}>
-            {standingsReady
+            {v3Source
+              ? `Private Formula v3 research preview using the ${v3SourceLabel} UTC NOAA cycle (${Math.round(v3Source.cycleAgeHours)} hours old). Scores refresh with the next complete cycle.`
+              : standingsReady
               ? dailyScoreSnapshot
                 ? supplementalOutlooks.length > 0
                   ? `Released cities use their locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} scores; shadow-review cities use their latest complete current-day score.`
@@ -3215,16 +3229,6 @@ function CityReport({
   );
 }
 
-async function fetchPierCastVisibleLeaderboard(): Promise<PierCastLeaderboardResponse> {
-  try {
-    return await fetchPierCastLeaderboard();
-  } catch (caught) {
-    if (!(caught instanceof PierCastRequestError &&
-      caught.code === "pier_cast_unavailable")) throw caught;
-    return { generatedAt: new Date().toISOString(), cities: [] };
-  }
-}
-
 export default function PierCastReviewScreen() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
@@ -3248,11 +3252,8 @@ export default function PierCastReviewScreen() {
   const pageScrollRef = useRef<ScrollView>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [reportError, setReportError] = useState<string | null>(null);
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
-  const [reviewUnavailable, setReviewUnavailable] = useState(false);
-  const reviewMode = admin && catalog?.mode === "review";
 
   // Opening a city (or switching to a nearby port) should start the report at
   // its hero, not wherever the previous screen happened to be scrolled to.
@@ -3268,37 +3269,21 @@ export default function PierCastReviewScreen() {
       setError(null);
     }
     try {
-      let nextCatalog = silent ? null : await (admin ? fetchPierCastOwnerReviewCatalog() : fetchPierCastCatalog());
+      const nextCatalog = silent ? null : await (admin ? fetchPierCastOwnerReviewCatalog() : fetchPierCastCatalog());
       if (accountId.current !== userId) return;
-      if (!admin && nextCatalog?.cities.length === 0) { setCatalog(nextCatalog); setOutlook(null); return; }
-      let fallback = false;
-      let nextOutlook: PierCastV3ReviewOutlookResponse | PierCastLeaderboardResponse;
-      if (admin) {
-        try {
-          nextOutlook = await fetchPierCastOwnerV3ReviewOutlook();
-          if (silent && catalog?.mode === "public") {
-            nextCatalog = await fetchPierCastOwnerReviewCatalog();
-          }
-        } catch (caught) {
-          if (!(caught instanceof PierCastRequestError &&
-            (caught.code === "pier_cast_v3_outlook_unavailable" ||
-              caught.code === "pier_cast_v3_outlook_failed"))) throw caught;
-          fallback = true;
-          nextCatalog = await fetchPierCastCatalog();
-          nextOutlook = await fetchPierCastVisibleLeaderboard();
-        }
-      } else {
-        nextOutlook = await fetchPierCastVisibleLeaderboard();
-      }
+      if (nextCatalog) setCatalog(nextCatalog);
+      if (!admin && nextCatalog?.cities.length === 0) { setOutlook(null); return; }
+      const nextOutlook = await (admin
+        ? fetchPierCastOwnerV3ReviewOutlook()
+        : fetchPierCastLeaderboard());
       if (accountId.current !== userId) return;
-      if ((!admin || fallback) && userId && !silent) {
+      if (!admin && userId && !silent) {
         void fetchSavedPierCastReport().then(saved => {
           if (accountId.current === userId) setSavedReport(saved.report);
         }).catch(() => {});
       }
       if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
-      setReviewUnavailable(fallback);
       if (nextCatalog) {
         setSelectedCityId((current) =>
           nextCatalog.cities.some((city) => city.cityId === current)
@@ -3320,21 +3305,21 @@ export default function PierCastReviewScreen() {
     } finally {
       if (!silent) setLoading(false);
     }
-  }, [admin, catalog?.mode, user?.id]);
+  }, [admin, user?.id]);
 
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null); setSavedReport(null);
-    setOutlook(null); setCatalog(null); setPaywall(false); setReviewUnavailable(false); setReportError(null); requestedCity.current = null;
+    setOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
   }, [user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
-    if (reviewMode) { setSelectedCityId(cityId); return; }
+    if (admin) { setSelectedCityId(cityId); return; }
     const city = catalog?.cities.find(c => c.cityId === cityId);
     if (city?.releaseStatus === "research_only") {
       if (!silent) {
         setCityReport(null);
         setSelectedCityId(cityId);
-        setReportError(null);
+        setError(null);
       }
       return;
     }
@@ -3357,7 +3342,7 @@ export default function PierCastReviewScreen() {
         setCityReport(current => current?.cities[0]?.cityId === cityId ? report : current);
         return;
       }
-      setCityReport(report); setSelectedCityId(cityId); setReportError(null);
+      setCityReport(report); setSelectedCityId(cityId); setError(null);
       const auth = useAuthStore.getState();
       if (getEffectiveTier(auth.profile, auth.user?.email) === "free") setSavedReport(report);
       if (!silent) void fetchSavedPierCastReport().then(saved => {
@@ -3372,17 +3357,17 @@ export default function PierCastReviewScreen() {
             if (accountId.current === userId) setSavedReport(saved.report);
           }).catch(() => {});
         }
-      } else if (!silent) setReportError(caught instanceof Error ? caught.message : "Report could not load.");
+      } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
-  }, [reviewMode, user?.id, savedReport, catalog]);
+  }, [admin, user?.id, savedReport, catalog]);
   useEffect(() => {
-    if (reviewMode || !selectedCityId) return;
+    if (admin || !selectedCityId) return;
     // Refresh immediately when a report opens or the response contract changes;
     // the interval then keeps modeled conditions current in the background.
     void openCity(selectedCityId, true);
     const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);
     return () => clearInterval(timer);
-  }, [reviewMode, selectedCityId, openCity]);
+  }, [admin, selectedCityId, openCity]);
 
   useFocusEffect(
     useCallback(() => {
@@ -3398,7 +3383,7 @@ export default function PierCastReviewScreen() {
   const selectedCity =
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const selectedOutlook =
-    (reviewMode
+    (admin
       ? (outlook && "mode" in outlook ? outlook.cities : []).find(
           (city) => city.cityId === selectedCityId,
         )
@@ -3466,7 +3451,6 @@ export default function PierCastReviewScreen() {
               hapticSelection();
               requestedCity.current = null;
               setError(null);
-              setReportError(null);
               setSelectedCityId(null);
               return;
             }
@@ -3491,7 +3475,7 @@ export default function PierCastReviewScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        {!reviewMode && catalog?.cities.length === 0 ? (
+        {!admin && catalog?.cities.length === 0 ? (
           <View style={styles.messageCard}>
             <Ionicons
               name="lock-closed-outline"
@@ -3518,13 +3502,6 @@ export default function PierCastReviewScreen() {
         ) : catalog && outlook ? (
           selectedCity ? (
             <>
-              {reportError && <View style={styles.messageCard}>
-                <Text style={styles.messageTitle}>Report unavailable</Text>
-                <Text style={styles.messageCopy}>{reportError}</Text>
-              </View>}
-              {reviewUnavailable && <View style={styles.messageCard}>
-                <Text style={styles.messageCopy}>The private twelve-city review is waiting for a complete forecast cycle. Showing the public PierCast view.</Text>
-              </View>}
               <View style={styles.portSelector}>
                 <View style={styles.portHeading}>
                   <View style={styles.portHeadingIdentity}>
@@ -3593,7 +3570,7 @@ export default function PierCastReviewScreen() {
                           >
                             {selected
                               ? "CURRENT"
-                              : city.releaseStatus === "research_only" && !reviewMode
+                              : city.releaseStatus === "research_only" && !admin
                                 ? "RESEARCH PREVIEW"
                               : Number.isFinite(distance)
                                 ? `${Math.round(distance)} MI AWAY`
@@ -3606,7 +3583,7 @@ export default function PierCastReviewScreen() {
                 </ScrollView>
               </View>
               <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
-              {!reviewMode && selectedCity.releaseStatus === "research_only" ? (
+              {!admin && selectedCity.releaseStatus === "research_only" ? (
                 <>
                   <View style={styles.messageCard}>
                     <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
@@ -3624,7 +3601,7 @@ export default function PierCastReviewScreen() {
                     outlook={selectedOutlook}
                     weather={weather}
                     weatherLoading={weatherLoading}
-                    conditionsUpdatedAt={reviewMode
+                    conditionsUpdatedAt={admin
                       ? outlook.generatedAt
                       : cityReport?.generatedAt ?? outlook.generatedAt}
                   />
@@ -3647,14 +3624,7 @@ export default function PierCastReviewScreen() {
             </>
           ) : (
             <>
-              {reportError && <View style={styles.messageCard}>
-                <Text style={styles.messageTitle}>Report unavailable</Text>
-                <Text style={styles.messageCopy}>{reportError}</Text>
-              </View>}
-              {reviewUnavailable && <View style={styles.messageCard}>
-                <Text style={styles.messageCopy}>The private twelve-city review is waiting for a complete forecast cycle. Showing the public PierCast view.</Text>
-              </View>}
-              {!reviewMode && savedReport && <Pressable style={styles.retryButton} onPress={() => {
+              {!admin && savedReport && <Pressable style={styles.retryButton} onPress={() => {
                 const cityId = savedReport.cities[0]?.cityId;
                 if (cityId) { requestedCity.current = cityId; setCityReport(savedReport); setSelectedCityId(cityId); }
               }}><Text style={styles.retryButtonText}>OPEN SAVED REPORT · {savedReport.cities[0]?.dates[0]?.localDate}</Text></Pressable>}
