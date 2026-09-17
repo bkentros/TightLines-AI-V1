@@ -226,7 +226,8 @@
     "check:pier-cast:v3-pass2-config": "node --import tsx scripts/generate-pier-cast-v3-pass2-config.ts --check",
     "generate:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts",
     "check:pier-cast:v3-pass2-audit": "node --import tsx scripts/generate-pier-cast-v3-pass2-audit.ts --check",
-    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:lake-huron && npm run check:pier-cast:species-expansion && npm run qa:pier-cast:species-artwork && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts"
+    "qa:pier-cast:v3-pass2": "npm run qa:pier-cast:v3-pass1 && npm run check:pier-cast:v3-secondary && npm run check:pier-cast:lake-huron && npm run check:pier-cast:species-expansion && npm run qa:pier-cast:species-artwork && npm run check:pier-cast:v3-pass2-config && npm run check:pier-cast:v3-pass2-audit && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests/v3*.test.ts supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast-ingest/handler.test.ts",
+    "qa:pier-cast:public-v3:production": "deno run --env-file=.env --allow-env --allow-net scripts/pier-cast-public-v3-production-qa.ts"
   },
   "dependencies": {
     "@expo-google-fonts/bricolage-grotesque": "^0.4.1",

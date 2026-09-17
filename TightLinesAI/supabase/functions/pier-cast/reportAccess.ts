@@ -48,6 +48,7 @@ export function leaderboardOnly(
         >
       >;
     },
+  options?: { maxCities?: number; releasePolicyVersion?: string },
 ) {
   const cities = outlook.cities.map((city) => ({
     cityId: city.cityId,
@@ -59,12 +60,13 @@ export function leaderboardOnly(
     (b.dates[0]?.headline.overall.score ?? -1) -
       (a.dates[0]?.headline.overall.score ?? -1) ||
     a.cityId.localeCompare(b.cityId)
-  ).slice(0, 5);
+  ).slice(0, options?.maxCities ?? 5);
   const snapshot = outlook.dailyScoreSnapshot;
   return {
     generatedAt: outlook.generatedAt,
     disclosure: PIER_CAST_RESEARCH_DISCLOSURE,
-    releasePolicyVersion: PIER_CAST_PUBLIC_RELEASE.version,
+    releasePolicyVersion: options?.releasePolicyVersion ??
+      PIER_CAST_PUBLIC_RELEASE.version,
     ...(snapshot
       ? {
         dailyScoreSnapshot: {
@@ -155,7 +157,12 @@ export function createPierReportAccess(deps: {
       );
     }
     const outlook = await deps.readOutlook();
-    if (!outlook?.dailyScoreSnapshot) {
+    if (
+      !outlook ||
+      (outlook.formulaVersion !==
+          "piercast-opportunity-modes-bounded-temperature-v3" &&
+        !outlook.dailyScoreSnapshot)
+    ) {
       throw new PierCastAccessError(
         "report_unavailable",
         "Today's report is not ready yet.",

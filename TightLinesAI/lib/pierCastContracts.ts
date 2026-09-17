@@ -138,9 +138,9 @@ export type PierCastCatalogResponse = {
   mode: "public" | "review";
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";
-  formulaVersion: "seasonal-opportunity-bounded-temperature-v2";
-  formula:
-    "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))";
+  formulaVersion: "seasonal-opportunity-bounded-temperature-v2" |
+    "piercast-opportunity-modes-bounded-temperature-v3";
+  formula: string;
   winterOpenWaterNotice: string;
   disclosure: string;
   cities: PierCastCatalogCityRead[];
@@ -308,7 +308,8 @@ export type PierCastReviewOutlookResponse = {
   ratingDisplayFormat: "X.X/10";
   formulaVersion:
     | "seasonal-opportunity-bounded-temperature-v2"
-    | "seasonal-ceiling-x-temperature-v1";
+    | "seasonal-ceiling-x-temperature-v1"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
   disclosure: string;
   source: {
     status: "fresh_archived_complete_cycle";

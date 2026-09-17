@@ -35,6 +35,7 @@ import {
   withholdPierCastCurrentDayScores,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastHandler } from "./handler.ts";
+import { projectPublicV3Outlook } from "./publicV3.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -51,6 +52,12 @@ const archiveClient: PierCastArchiveClient = {
     };
   },
 };
+
+// Deployable with the existing public model; enable only when the replacement
+// store build is ready to serve all twelve cities and four free reports.
+const publicV3Enabled = Deno.env.get("PIER_CAST_PUBLIC_V3_ENABLED") === "true";
+const publicCatalog = () =>
+  buildPierCastCatalog("public", publicV3Enabled ? "v3" : "v2");
 
 async function readOutlook() {
   const now = new Date();
@@ -80,14 +87,14 @@ async function readExpansionOutlook() {
     })
     : null;
 }
-async function readV3Outlook() {
+async function readV3Outlook(maxAgeHours = 24) {
   const now = new Date();
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
     database: archiveClient,
     now,
     // Owner-only research previews can display a complete older cycle during
     // a short NOAA outage. Public reports retain their 13-hour freshness gate.
-    maxAgeHours: 24,
+    maxAgeHours,
   });
   if (!cohorts) return null;
   const batch = combinePierCastV3LmhofsBatches(
@@ -129,7 +136,11 @@ async function account(request: Request) {
   };
 }
 async function readPublicOutlook() {
-  const released = buildPierCastCatalog("public").cities.filter((city) =>
+  if (publicV3Enabled) {
+    const outlook = await readV3Outlook(13);
+    return outlook ? projectPublicV3Outlook(outlook) : null;
+  }
+  const released = publicCatalog().cities.filter((city) =>
     city.releaseStatus === "public_research"
   );
   if (!released.length) return null;
@@ -176,14 +187,15 @@ async function readPublicOutlook() {
 const readReport = createPierReportAccess({
   readOutlook: readPublicOutlook,
   cityTimezone: (cityId) =>
-    buildPierCastCatalog("public").cities.find((c) =>
+    publicCatalog().cities.find((c) =>
       c.cityId === cityId && c.releaseStatus === "public_research"
     )
       ?.timezone ?? null,
   readClaimKeys: async (userId) => {
-    const { data, error } = await database.from("pier_cast_report_claims").select(
-      "report_key",
-    ).eq("user_id", userId);
+    const { data, error } = await database.from("pier_cast_report_claims")
+      .select(
+        "report_key",
+      ).eq("user_id", userId);
     if (error) throw new Error("Trial lookup failed");
     return (data ?? []).map((row) => row.report_key);
   },
@@ -206,8 +218,18 @@ const readReport = createPierReportAccess({
 });
 
 const handler = createPierCastHandler({
+  readPublicCatalog: publicCatalog,
   readLeaderboard: async () => {
-    const released = buildPierCastCatalog("public").cities.filter((city) =>
+    if (publicV3Enabled) {
+      const outlook = await readPublicOutlook();
+      return outlook
+        ? leaderboardOnly(outlook, {
+          maxCities: 12,
+          releasePolicyVersion: outlook.releasePolicyVersion,
+        })
+        : null;
+    }
+    const released = publicCatalog().cities.filter((city) =>
       city.releaseStatus === "public_research"
     );
     if (!released.length) return null;
@@ -244,9 +266,11 @@ const handler = createPierCastHandler({
   },
   readSavedReport: async (request) => {
     const { userId } = await account(request);
-    const { data, error } = await database.from("pier_cast_report_claims").select(
-      "envelope",
-    ).eq("user_id", userId).order("used_at", { ascending: false }).limit(1).maybeSingle();
+    const { data, error } = await database.from("pier_cast_report_claims")
+      .select(
+        "envelope",
+      ).eq("user_id", userId).order("used_at", { ascending: false }).limit(1)
+      .maybeSingle();
     if (error) throw new Error("Trial lookup failed");
     return { report: data?.envelope ?? null };
   },
@@ -263,7 +287,7 @@ const handler = createPierCastHandler({
   },
   readReviewOutlook: readOutlook,
   readExpansionReviewOutlook: readExpansionOutlook,
-  readV3ReviewOutlook: readV3Outlook,
+  readV3ReviewOutlook: () => readV3Outlook(),
   readShadowReview: async () => {
     const [
       runs,

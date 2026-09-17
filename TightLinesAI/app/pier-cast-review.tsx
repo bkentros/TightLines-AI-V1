@@ -41,14 +41,11 @@ import {
   PierCastMiniBar,
   PierCastTemperatureChart,
 } from "../components/pier-cast/PierCastVisuals";
-import { isAdminEmail } from "../lib/adminAccess";
 import {
   fetchPierCastCatalog,
   fetchPierCastLeaderboard,
   fetchPierCastCityReport,
   fetchSavedPierCastReport,
-  fetchPierCastOwnerReviewCatalog,
-  fetchPierCastOwnerV3ReviewOutlook,
   PierCastRequestError,
 } from "../lib/pierCast";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
@@ -1847,7 +1844,7 @@ function PreviewWeather({
   const direction = directionLabel(current?.windDirectionDegrees ?? null);
 
   return (
-    <ReportSection eyebrow="RESEARCH PREVIEW" title="Nearby Air & Wind" badge="5 DAYS">
+    <ReportSection eyebrow="LOCAL CONDITIONS" title="Nearby Air & Wind" badge="5 DAYS">
       <View style={styles.nearshoreMetricGrid}>
         <NearshoreMetricTile
           icon="thermometer-outline"
@@ -2512,13 +2509,8 @@ function PierCastLanding({
     stateCities.find((city) => city.cityId === browseCityId) ??
     stateCities[0] ??
     null;
-  const selectedBrowseIsPreview = Boolean(
-    selectedBrowseCity?.releaseStatus === "research_only" &&
-      catalog.mode === "public",
-  );
   const forecastDate = leaderboard[0]?.date?.localDate;
   const dailyScoreSnapshot = standingsOutlook.dailyScoreSnapshot ?? null;
-  const isV3Review = "mode" in outlook && outlook.mode === "v3_shadow_review";
   const standingsReady =
     leaderboard.length > 0 &&
     leaderboard.every((entry) => entry.score !== null);
@@ -2542,7 +2534,7 @@ function PierCastLanding({
             THE STANDINGS
           </Text>
           <Text style={styles.standingsSubtitle}>
-            Released pier cities, ranked by their strongest main species rating.
+            Pier cities ranked by their strongest main species rating.
           </Text>
           <Text
             style={[
@@ -2688,15 +2680,11 @@ function PierCastLanding({
         <View style={styles.rankingNote}>
           <Ionicons name="ribbon-outline" size={13} color="#167B78" />
           <Text style={styles.rankingNoteText}>
-            {isV3Review
-              ? "Scores refresh daily as new lake forecasts become available."
-              : standingsReady
+            {standingsReady
               ? dailyScoreSnapshot
-                ? supplementalOutlooks.length > 0
-                  ? `Released cities use locked ${fullDateLabel(dailyScoreSnapshot.lakeDate)} main species ratings; shadow-review cities use their latest complete main species rating.`
-                  : `Each city is ranked by its strongest main species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
-                : "Every released city has a complete current score. Live pier conditions continue to refresh."
-              : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "released city is" : "released cities are"} awaiting a complete score; every city remains listed in the finder.`}
+                ? `Each city is ranked by its strongest main species rating for ${fullDateLabel(dailyScoreSnapshot.lakeDate)}. Live weather and water data keep refreshing.`
+                : "Scores refresh as new lake forecasts become available."
+              : `${pendingLeaderboard.length} ${pendingLeaderboard.length === 1 ? "city is" : "cities are"} awaiting a complete score; every city remains listed in the finder.`}
           </Text>
         </View>
       </View>
@@ -2882,7 +2870,7 @@ function PierCastLanding({
                   </Text>
                   <View style={styles.cityCardToplineSpacer} />
                   {isPreview ? (
-                    <Text style={styles.cityCardRank}>PREVIEW</Text>
+                    <Text style={styles.cityCardRank}>SOON</Text>
                   ) : cityRank !== null ? (
                     <Text style={styles.cityCardRank}>
                       #{cityRank}
@@ -2927,7 +2915,7 @@ function PierCastLanding({
                   ) : (
                     <View style={styles.cityCardScoreIdle}>
                       <Text style={styles.cityCardScoreIdleText}>
-                        {isPreview ? "SOON" : "—"}
+                        —
                       </Text>
                     </View>
                   )}
@@ -2956,7 +2944,7 @@ function PierCastLanding({
         >
           <Text style={styles.loadCityButtonText}>
             {selectedBrowseCity
-              ? `${selectedBrowseIsPreview ? "VIEW" : "OPEN"} ${selectedBrowseCity.displayName.toUpperCase()}${selectedBrowseIsPreview ? " PREVIEW" : ""}`
+              ? `OPEN ${selectedBrowseCity.displayName.toUpperCase()}`
               : "SELECT A CITY"}
           </Text>
           <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
@@ -3376,7 +3364,6 @@ export default function PierCastReviewScreen() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const profile = useAuthStore((state) => state.profile);
-  const admin = isAdminEmail(user?.email);
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
   const [outlook, setOutlook] = useState<
     | PierCastReviewOutlookResponse
@@ -3412,15 +3399,13 @@ export default function PierCastReviewScreen() {
       setError(null);
     }
     try {
-      const nextCatalog = silent ? null : await (admin ? fetchPierCastOwnerReviewCatalog() : fetchPierCastCatalog());
+      const nextCatalog = silent ? null : await fetchPierCastCatalog();
       if (accountId.current !== userId) return;
       if (nextCatalog) setCatalog(nextCatalog);
-      if (!admin && nextCatalog?.cities.length === 0) { setOutlook(null); return; }
-      const nextOutlook = await (admin
-        ? fetchPierCastOwnerV3ReviewOutlook()
-        : fetchPierCastLeaderboard());
+      if (nextCatalog?.cities.length === 0) { setOutlook(null); return; }
+      const nextOutlook = await fetchPierCastLeaderboard();
       if (accountId.current !== userId) return;
-      if (!admin && userId && !silent) {
+      if (userId && !silent) {
         void fetchSavedPierCastReport().then(saved => {
           if (accountId.current === userId) setSavedReport(saved.report);
         }).catch(() => {});
@@ -3448,7 +3433,7 @@ export default function PierCastReviewScreen() {
     } finally {
       if (!silent) setLoading(false);
     }
-  }, [admin, user?.id]);
+  }, [user?.id]);
 
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null); setSavedReport(null);
@@ -3456,7 +3441,6 @@ export default function PierCastReviewScreen() {
   }, [user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
-    if (admin) { setSelectedCityId(cityId); return; }
     const city = catalog?.cities.find(c => c.cityId === cityId);
     if (city?.releaseStatus === "research_only") {
       if (!silent) {
@@ -3495,15 +3479,15 @@ export default function PierCastReviewScreen() {
         }
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
-  }, [admin, user?.id, catalog]);
+  }, [user?.id, catalog]);
   useEffect(() => {
-    if (admin || !selectedCityId) return;
+    if (!selectedCityId) return;
     // Refresh immediately when a report opens or the response contract changes;
     // the interval then keeps modeled conditions current in the background.
     void openCity(selectedCityId, true);
     const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);
     return () => clearInterval(timer);
-  }, [admin, selectedCityId, openCity]);
+  }, [selectedCityId, openCity]);
 
   useFocusEffect(
     useCallback(() => {
@@ -3518,13 +3502,9 @@ export default function PierCastReviewScreen() {
 
   const selectedCity =
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
-  const selectedOutlook =
-    (admin
-      ? (outlook && "mode" in outlook ? outlook.cities : []).find(
-          (city) => city.cityId === selectedCityId,
-        )
-      : cityReport?.cities.find((city) => city.cityId === selectedCityId)) ??
-    null;
+  const selectedOutlook = cityReport?.cities.find((city) =>
+    city.cityId === selectedCityId
+  ) ?? null;
   const supplementalStandingsOutlooks: readonly PierCastReviewOutlookResponse[] = [];
   const nearbyCities = useMemo(
     () =>
@@ -3611,15 +3591,7 @@ export default function PierCastReviewScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        {admin ? (
-          <View style={styles.ownerPreviewNotice}>
-            <Text style={styles.ownerPreviewTitle}>PRIVATE OWNER REVIEW · FORMULA V3</Text>
-            <Text style={styles.ownerPreviewCopy}>
-              Only your owner account sees these research scores. Public PierCast still uses Formula v2 for five released cities.
-            </Text>
-          </View>
-        ) : null}
-        {!admin && catalog?.cities.length === 0 ? (
+        {catalog?.cities.length === 0 ? (
           <View style={styles.messageCard}>
             <Ionicons
               name="lock-closed-outline"
@@ -3714,8 +3686,8 @@ export default function PierCastReviewScreen() {
                           >
                             {selected
                               ? "CURRENT"
-                              : city.releaseStatus === "research_only" && !admin
-                                ? "RESEARCH PREVIEW"
+                              : city.releaseStatus === "research_only"
+                                ? "COMING SOON"
                               : Number.isFinite(distance)
                                 ? `${Math.round(distance)} MI AWAY`
                                 : city.stateCode}
@@ -3727,13 +3699,13 @@ export default function PierCastReviewScreen() {
                 </ScrollView>
               </View>
               <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
-              {!admin && selectedCity.releaseStatus === "research_only" ? (
+              {selectedCity.releaseStatus === "research_only" ? (
                 <>
                   <View style={styles.messageCard}>
                     <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
                     <Text style={styles.messageTitle}>{selectedCity.displayName}</Text>
                     <Text style={styles.messageCopy}>
-                      This city is in PierCast research preview. Nearby air and wind are available below; daily fishing ratings are still being reviewed.
+                      A full PierCast forecast is not available for this city yet. Nearby air and wind are available below.
                     </Text>
                   </View>
                   <PreviewWeather
@@ -3751,9 +3723,7 @@ export default function PierCastReviewScreen() {
                     outlook={selectedOutlook}
                     weather={weather}
                     weatherLoading={weatherLoading}
-                    conditionsUpdatedAt={admin
-                      ? outlook.generatedAt
-                      : cityReport?.generatedAt ?? outlook.generatedAt}
+                    conditionsUpdatedAt={cityReport?.generatedAt ?? outlook.generatedAt}
                   />
                   <RatingExplanation
                     winterNotice={catalog.winterOpenWaterNotice}
@@ -3774,7 +3744,7 @@ export default function PierCastReviewScreen() {
             </>
           ) : (
             <>
-              {!admin && savedReport && <Pressable style={styles.retryButton} onPress={() => {
+              {savedReport && <Pressable style={styles.retryButton} onPress={() => {
                 const cityId = savedReport.cities[0]?.cityId;
                 if (cityId) { requestedCity.current = cityId; setCityReport(savedReport); setSelectedCityId(cityId); }
               }}><Text style={styles.retryButtonText}>OPEN SAVED REPORT · {savedReport.cities[0]?.dates[0]?.localDate}</Text></Pressable>}
@@ -6010,26 +5980,6 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-  },
-  ownerPreviewNotice: {
-    gap: 5,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: "#D6B969",
-    borderRadius: 10,
-    backgroundColor: "#FFF8E8",
-  },
-  ownerPreviewTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1,
-    color: "#73591C",
-  },
-  ownerPreviewCopy: {
-    fontFamily: paperFonts.body,
-    fontSize: 11,
-    lineHeight: 16,
-    color: paper.dashboardInk,
   },
   messageTitle: {
     fontFamily: paperFonts.display,

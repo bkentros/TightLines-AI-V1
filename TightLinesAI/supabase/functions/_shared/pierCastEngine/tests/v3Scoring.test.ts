@@ -29,6 +29,8 @@ import {
   readLatestCoherentPierCastV3SourceCohorts,
   validatePierCastV3OpportunityMode,
 } from "../index.ts";
+import { projectPublicV3Outlook } from "../../../pier-cast/publicV3.ts";
+import { leaderboardOnly, cityReportOnly } from "../../../pier-cast/reportAccess.ts";
 
 const ISSUED_AT = "2026-09-14T12:00:00.000Z";
 type AvailableBatch = Extract<
@@ -348,6 +350,15 @@ Deno.test("v3 twelve-city outlook requires one coherent issue and stays blocked"
   assertEquals(outlook.cities.length, 12);
   assertEquals(outlook.promotion.status, "blocked");
   assertEquals(outlook.cities.every((city) => city.dates.length === 5), true);
+  const publicOutlook = projectPublicV3Outlook(outlook);
+  const publicLeaderboard = leaderboardOnly(publicOutlook, { maxCities: 12 });
+  const publicReport = cityReportOnly(publicOutlook, "ludington_mi");
+  assertEquals(publicOutlook.mode, "public_research");
+  assertEquals(publicOutlook.previewOnly, false);
+  assertEquals(publicOutlook.cities.length, 12);
+  assertEquals(publicLeaderboard.cities.length, 12);
+  assertEquals(publicReport.cities.length, 1);
+  assertEquals(publicReport.cities[0].dates.length, 5);
   assertEquals(
     outlook.cities.every((city) =>
       city.dates.every((date) =>

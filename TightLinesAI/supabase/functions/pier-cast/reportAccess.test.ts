@@ -137,6 +137,11 @@ Deno.test("public research authorization is exact-roster and does not claim scie
   assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4,0,0,0,0,0,0,0]);
   assertEquals(catalog.cities.filter(c => c.releaseStatus === "public_research").length, 5);
   assertEquals(catalog.cities.filter(c => c.releaseStatus === "research_only").length, 7);
+  const v3Catalog = buildPierCastCatalog("public", "v3");
+  assertEquals(v3Catalog.cities.length, 12);
+  assertEquals(v3Catalog.cities.every(c => c.releaseStatus === "public_research"), true);
+  assertEquals(v3Catalog.cities.every(c => c.species.length > 0), true);
+  assertEquals(v3Catalog.formulaVersion, "piercast-opportunity-modes-bounded-temperature-v3");
   assertEquals(catalog.cities.every(c => c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
 });
 

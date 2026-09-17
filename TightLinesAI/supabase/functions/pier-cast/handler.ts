@@ -32,6 +32,7 @@ function error(message: string, code: string, status: number): Response {
 }
 
 export type PierCastHandlerDependencies = {
+  readPublicCatalog?: () => ReturnType<typeof buildPierCastCatalog>;
   readLeaderboard?: () => Promise<ReturnType<typeof leaderboardOnly> | null>;
   readCityReport?: (request: Request, cityId: string) => Promise<unknown>;
   readSavedReport?: (request: Request) => Promise<unknown>;
@@ -247,7 +248,9 @@ export function createPierCastHandler(
     }
 
     if (url.pathname.endsWith("/catalog") && request.method === "GET") {
-      return json(buildPierCastCatalog("public"));
+      return json(
+        dependencies.readPublicCatalog?.() ?? buildPierCastCatalog("public"),
+      );
     }
 
     if (request.method !== "GET") {

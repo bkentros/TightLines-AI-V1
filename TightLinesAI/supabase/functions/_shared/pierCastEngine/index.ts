@@ -13,6 +13,7 @@ export * from "./config/portWashingtonShadow.ts";
 export * from "./config/wisconsinShadow.ts";
 export * from "./config/lakeHuronShadow.ts";
 export * from "./config/v3Calibration.ts";
+export * from "./config/publicV3Release.ts";
 export * from "./config/speciesExpansion.ts";
 export * from "./scoring/temperature.ts";
 export * from "./scoring/temperatureEvents.ts";
