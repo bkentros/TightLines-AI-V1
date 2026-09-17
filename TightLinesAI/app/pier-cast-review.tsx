@@ -2367,18 +2367,7 @@ function PierCastLanding({
   );
   const forecastDate = leaderboard[0]?.date?.localDate;
   const dailyScoreSnapshot = standingsOutlook.dailyScoreSnapshot ?? null;
-  const v3Source = "mode" in outlook && outlook.mode === "v3_shadow_review"
-    ? outlook.source
-    : null;
-  const v3SourceLabel = v3Source
-    ? new Intl.DateTimeFormat("en-US", {
-      timeZone: "UTC",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    }).format(new Date(v3Source.issuedAt))
-    : null;
+  const isV3Review = "mode" in outlook && outlook.mode === "v3_shadow_review";
   const standingsReady =
     leaderboard.length > 0 &&
     leaderboard.every((entry) => entry.score !== null);
@@ -2550,8 +2539,8 @@ function PierCastLanding({
         <View style={styles.rankingNote}>
           <Ionicons name="ribbon-outline" size={13} color="#167B78" />
           <Text style={styles.rankingNoteText}>
-            {v3Source
-              ? `Private Formula v3 research preview using the ${v3SourceLabel} UTC NOAA cycle (${Math.round(v3Source.cycleAgeHours)} hours old). Scores refresh with the next complete cycle.`
+            {isV3Review
+              ? "Scores refresh daily as new lake forecasts become available."
               : standingsReady
               ? dailyScoreSnapshot
                 ? supplementalOutlooks.length > 0
