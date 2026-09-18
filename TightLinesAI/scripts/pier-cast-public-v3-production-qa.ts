@@ -61,7 +61,7 @@ const leaderboard = leaderboardOnly(outlook, {
   releasePolicyVersion: outlook.releasePolicyVersion,
 });
 
-if (leaderboard.cities.length !== 17) {
+if (leaderboard.cities.length !== 16) {
   throw new Error(
     `Public leaderboard returned ${leaderboard.cities.length} cities.`,
   );
@@ -71,7 +71,6 @@ for (const cityId of [
   "kewaunee_wi",
   "algoma_wi",
   "manitowoc_wi",
-  "waukegan_il",
 ]) {
   if (!outlook.cities.some((city) => city.cityId === cityId)) {
     throw new Error(`Public outlook is missing ${cityId}.`);
@@ -90,7 +89,7 @@ for (const city of outlook.cities) {
 }
 
 console.log(
-  `PASS: public v3 projection yields 17 ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
+  `PASS: public v3 projection yields 16 ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
     review.source.cycleAgeHours.toFixed(1)
   } hours old).`,
 );

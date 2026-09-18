@@ -1,6 +1,6 @@
 # PierCast Five-City Onboarding Dossiers
 
-> **Five-city public release (2026-09-18):** The owner approved go-live for Two Rivers, Kewaunee, Algoma, Manitowoc, and Waukegan. The [release record](five-city-2026-09-release/RELEASE_REPORT.md) tracks the 17-city public manifest, client distribution, deployment, and production checks. The Pass 1–3 reports below are dated research and private-preview records; their pre-release visibility statements describe the state at the time of those passes.
+> **Four-city public release (2026-09-18):** The owner approved go-live for Two Rivers, Kewaunee, Algoma, Manitowoc, and Waukegan, then directed that the four Wisconsin cities be released first through the existing client. Waukegan remains private until an Illinois-capable app version is distributed. The [release record](five-city-2026-09-release/RELEASE_REPORT.md) tracks the 16-city public manifest, deployment, and production checks. The Pass 1–3 reports below are dated research and private-preview records; their pre-release visibility statements describe the state at the time of those passes.
 
 > **Required calibration method:** Every future PierCast city or species pass must begin with [CALIBRATION_AND_RESEARCH_STANDARD.md](CALIBRATION_AND_RESEARCH_STANDARD.md). It records the exact research hierarchy, pier-specific admission test, absolute cross-city scoring method, missing-evidence rule, full-year seasonal audit, and hard 10.0 cap. Evidence confidence must never suppress an admitted pair's fishery-strength ceiling.
 

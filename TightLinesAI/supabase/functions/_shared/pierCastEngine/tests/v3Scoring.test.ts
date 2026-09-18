@@ -383,12 +383,12 @@ Deno.test("v3 seventeen-city outlook requires one coherent issue and stays block
   assertEquals(outlook.promotion.status, "blocked");
   assertEquals(outlook.cities.every((city) => city.dates.length === 5), true);
   const publicOutlook = projectPublicV3Outlook(outlook);
-  const publicLeaderboard = leaderboardOnly(publicOutlook, { maxCities: 17 });
+  const publicLeaderboard = leaderboardOnly(publicOutlook, { maxCities: 16 });
   const publicReport = cityReportOnly(publicOutlook, "ludington_mi");
   assertEquals(publicOutlook.mode, "public_research");
   assertEquals(publicOutlook.previewOnly, false);
-  assertEquals(publicOutlook.cities.length, 17);
-  assertEquals(publicLeaderboard.cities.length, 17);
+  assertEquals(publicOutlook.cities.length, 16);
+  assertEquals(publicLeaderboard.cities.length, 16);
   assertEquals(publicReport.cities.length, 1);
   assertEquals(publicReport.cities[0].dates.length, 5);
   assertEquals(
