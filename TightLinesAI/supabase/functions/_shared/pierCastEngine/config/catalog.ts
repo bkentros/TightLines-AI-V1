@@ -15,6 +15,10 @@ import type { PierCastCatalogMode, PierCastCatalogResponse } from "../types.ts";
 import { PIER_CAST_CITY_PROFILES } from "./cities.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "./wisconsinShadow.ts";
 import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "./lakeHuronShadow.ts";
+import {
+  PIER_CAST_FIVE_CITY_IDS,
+  PIER_CAST_FIVE_CITY_PROFILES,
+} from "./fiveCityShadow.ts";
 
 export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
@@ -24,7 +28,13 @@ export function buildPierCastCatalog(
     ...PIER_CAST_CITY_PROFILES,
     ...PIER_CAST_WISCONSIN_CITY_PROFILES,
     ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
-  ];
+    ...PIER_CAST_FIVE_CITY_PROFILES,
+  ].filter((city) =>
+    mode === "review" ||
+    (publicModel === "v3"
+      ? isPierCastPublicV3City(city.cityId)
+      : !PIER_CAST_FIVE_CITY_IDS.some((id) => id === city.cityId))
+  );
   const cities = profiles
     .map((city) => ({
       cityId: city.cityId,
@@ -58,10 +68,10 @@ export function buildPierCastCatalog(
     mode,
     ratingName: "FinFindr Opportunity Rating",
     ratingDisplayFormat: "X.X/10",
-    formulaVersion: publicModel === "v3" && mode === "public"
+    formulaVersion: publicModel === "v3"
       ? PIER_CAST_PUBLIC_V3_RELEASE.formulaVersion
       : PIER_CAST_FORMULA_VERSION,
-    formula: publicModel === "v3" && mode === "public"
+    formula: publicModel === "v3"
       ? "1 + (seasonalPotential - 1) * (0.30 + 0.70 * temperatureSuitability)"
       : "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))",
     winterOpenWaterNotice: PIER_CAST_OPEN_WATER_NOTICE,

@@ -23,11 +23,11 @@
     "disabledConfigurationFailsClosedWithoutShadowOverride": true
   },
   "counts": {
-    "evaluatedScores": 171550,
-    "boundedScores": 171550,
-    "monotonicComparisons": 137240,
-    "ceilingComparisons": 171550,
-    "configurationPairs": 94,
-    "configurationModes": 179
+    "evaluatedScores": 215350,
+    "boundedScores": 215350,
+    "monotonicComparisons": 172280,
+    "ceilingComparisons": 215350,
+    "configurationPairs": 118,
+    "configurationModes": 239
   }
 }

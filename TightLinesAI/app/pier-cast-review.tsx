@@ -65,7 +65,6 @@ import type {
   PierCastSpeciesId,
   PierCastTemperatureEventRead,
   PierCastTemperatureEventSummaryRead,
-  PierCastV3ReviewOutlookResponse,
 } from "../lib/pierCastContracts";
 import {
   fetchPierCastHourlyWeather,
@@ -143,6 +142,7 @@ const SKELETON_FIVE = ["a", "b", "c", "d", "e"] as const;
 const STATE_LABELS: Record<PierCastCatalogCityRead["stateCode"], string> = {
   MI: "Michigan",
   WI: "Wisconsin",
+  IL: "Illinois",
 };
 
 function coreSpeciesImage(speciesId: PierCastSpeciesId) {
@@ -1742,10 +1742,15 @@ function WaterTemperatureShifts({
 
 function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
   const [expanded, setExpanded] = useState(false);
+  const hasReportedClosure = city.structures.some((item) =>
+    item.accessStatus === "reported_closed"
+  );
   const approved = city.structures.filter(
     (item) => item.disposition === "candidate",
   );
-  const structures = approved.length
+  const structures = hasReportedClosure
+    ? city.structures.filter((item) => item.disposition !== "excluded")
+    : approved.length
     ? approved
     : city.structures.filter((item) => item.disposition !== "excluded");
   const structureCountLabel = `${structures.length
@@ -1772,7 +1777,7 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
         <View style={styles.compactInfoBody}>
           <Text style={styles.compactInfoTitle}>Piers covered</Text>
           <Text style={styles.compactInfoSummary}>
-            {structureCountLabel}
+            {hasReportedClosure ? "ACCESS RESTRICTED · " : ""}{structureCountLabel}
           </Text>
         </View>
         <View style={styles.collapsibleChevron}>
@@ -1793,7 +1798,19 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
             {structures.map((item) => (
               <View key={item.structureId} style={styles.pierChip}>
                 <View style={styles.pierChipDot} />
-                <Text style={styles.pierChipText}>{item.displayName}</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.pierChipText}>
+                    {item.displayName} · {item.accessStatus === "reported_closed"
+                      ? "REPORTED CLOSED"
+                      : item.accessStatus === "route_unverified"
+                        ? "ROUTE UNVERIFIED"
+                        : "CHECK POSTED ACCESS"}
+                  </Text>
+                  {item.accessStatus === "reported_closed" ||
+                      item.accessStatus === "route_unverified"
+                    ? <Text style={styles.compactInfoCopy}>{item.limitation}</Text>
+                    : null}
+                </View>
               </View>
             ))}
           </View>
@@ -1985,6 +2002,12 @@ const STATE_ACCENTS: Record<
     accent: paper.rust,
     deep: "#994C17",
     tint: "#FBF1E8",
+    onAccent: "#FFFFFF",
+  },
+  IL: {
+    accent: paper.moss,
+    deep: paper.mossDk,
+    tint: "#EFF4E8",
     onAccent: "#FFFFFF",
   },
 };
@@ -2411,7 +2434,6 @@ function PierCastLanding({
   catalog: PierCastCatalogResponse;
   outlook:
     | PierCastReviewOutlookResponse
-    | PierCastV3ReviewOutlookResponse
     | PierCastLeaderboardResponse;
   supplementalOutlooks: readonly PierCastReviewOutlookResponse[];
   onOpenCity: (cityId: string) => void;
@@ -2450,9 +2472,7 @@ function PierCastLanding({
   const leaderboard = useMemo(
     () =>
       catalog.cities
-        .filter((city) =>
-          catalog.mode === "review" || city.releaseStatus === "public_research"
-        )
+        .filter((city) => city.releaseStatus === "public_research")
         .map((city) => {
           const cityOutlook = standingsOutlook.cities.find(
             (candidate) => candidate.cityId === city.cityId,
@@ -2470,7 +2490,7 @@ function PierCastLanding({
             (right.rankingScore ?? -1) - (left.rankingScore ?? -1) ||
             left.city.displayName.localeCompare(right.city.displayName),
         ),
-    [catalog.cities, catalog.mode, standingsOutlook.cities],
+    [catalog.cities, standingsOutlook.cities],
   );
 
   /** cityId → today's headline score, so the finder can echo the standings. */
@@ -2528,7 +2548,7 @@ function PierCastLanding({
             count={7}
           />
           <SectionEyebrow color={paper.gold} size={9} tracking={2.6}>
-            TODAY ON LAKE MICHIGAN
+            TODAY ON THE GREAT LAKES
           </SectionEyebrow>
           <Text style={styles.standingsTitle} allowFontScaling={false}>
             THE STANDINGS
@@ -2823,8 +2843,7 @@ function PierCastLanding({
         >
           {stateCities.map((city) => {
             const selected = city.cityId === selectedBrowseCity?.cityId;
-            const isPreview = city.releaseStatus === "research_only" &&
-              catalog.mode === "public";
+            const isPreview = city.releaseStatus === "research_only";
             const accent = stateAccent(city.stateCode);
             const pierCount = city.structures.filter(
               (structure) => structure.disposition !== "excluded",
@@ -3367,7 +3386,6 @@ export default function PierCastReviewScreen() {
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
   const [outlook, setOutlook] = useState<
     | PierCastReviewOutlookResponse
-    | PierCastV3ReviewOutlookResponse
     | PierCastLeaderboardResponse
     | null
   >(null);
@@ -3459,12 +3477,14 @@ export default function PierCastReviewScreen() {
       const report = await fetchPierCastCityReport(cityId);
       if (accountId.current !== userId || (!silent && requestedCity.current !== cityId)) return;
       if (silent) {
-        setCityReport(current => current?.cities[0]?.cityId === cityId ? report : current);
+        setCityReport(current => current?.cities.some((row) => row.cityId === cityId) ? report : current);
         return;
       }
       setCityReport(report); setSelectedCityId(cityId); setError(null);
       const auth = useAuthStore.getState();
-      if (getEffectiveTier(auth.profile, auth.user?.email) === "free") setSavedReport(report);
+      if (getEffectiveTier(auth.profile, auth.user?.email) === "free") {
+        setSavedReport(report);
+      }
       if (!silent) void fetchSavedPierCastReport().then(saved => {
         if (accountId.current === userId) setSavedReport(saved.report);
       }).catch(() => {});
@@ -3718,6 +3738,17 @@ export default function PierCastReviewScreen() {
                 </>
               ) : (
                 <>
+                  {selectedCity.structures.some((structure) =>
+                    structure.accessStatus === "reported_closed"
+                  ) ? (
+                    <View style={styles.messageCard}>
+                      <Ionicons name="warning-outline" size={23} color={paper.bandTough} />
+                      <Text style={styles.messageTitle}>Pier access reported closed</Text>
+                      <Text style={styles.messageCopy}>
+                        This report describes the fishery, not a place to fish now. Open “Piers covered” for the affected segment and current access limits.
+                      </Text>
+                    </View>
+                  ) : null}
                   <CityReport
                     city={selectedCity}
                     outlook={selectedOutlook}

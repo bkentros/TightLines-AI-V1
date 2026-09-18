@@ -1,15 +1,33 @@
 import {
   getPierCastV3SpeciesIdsForCity,
-  PIER_CAST_V3_CITY_IDS,
   PIER_CAST_V3_FORMULA_VERSION,
 } from "./v3Calibration.ts";
 import type { PierCastCityId } from "../types.ts";
 
 /** Owner-authorized public research scope; scientific validation remains ongoing. */
 export const PIER_CAST_PUBLIC_V3_RELEASE = {
-  version: "piercast-public-research-v3-2026-09-17",
+  version: "piercast-public-research-v3-2026-09-18-five-city",
   formulaVersion: PIER_CAST_V3_FORMULA_VERSION,
-  cityIds: PIER_CAST_V3_CITY_IDS,
+  // Frozen owner-authorized public city roster.
+  cityIds: [
+    "ludington_mi",
+    "grand_haven_mi",
+    "manistee_mi",
+    "frankfort_elberta_mi",
+    "sheboygan_wi",
+    "port_washington_wi",
+    "milwaukee_wi",
+    "racine_wi",
+    "kenosha_wi",
+    "harbor_beach_mi",
+    "oscoda_mi",
+    "port_sanilac_mi",
+    "two_rivers_wi",
+    "kewaunee_wi",
+    "algoma_wi",
+    "manitowoc_wi",
+    "waukegan_il",
+  ] as const satisfies readonly PierCastCityId[],
 } as const;
 
 export function isPierCastPublicV3City(

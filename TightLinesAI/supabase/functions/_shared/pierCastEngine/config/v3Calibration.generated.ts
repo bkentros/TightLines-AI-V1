@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-seasonal-research-v5" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "1104ba7cf093ac32d0efa629991da724afa6fe8a063e8a4c8519e4a8ca635ca3" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "e735d24d1f8bea5cce2c727a6e5528540cd8e753c47144b1fdd8a52b0dfbd8e2" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-seventeen-city-five-city-pass3-v7" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v6" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "7fbfad4e668c02bfda5af315e506bb5439d476b4394c40c56c96569d207e5b3d" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "5edc14705e4feb97c5b0adf7b4f46f0cae500c7df08b5a89e9841a65339bedac" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -2890,7 +2890,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__coho_salmon__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 7.7,
+        "fisheryStrength": 8.2,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -2947,7 +2947,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__coho_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 7.5,
+        "fisheryStrength": 8,
         "availabilityKnots": [
           {
             "monthDay": "06-10",
@@ -3004,7 +3004,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 7,
+        "fisheryStrength": 7.4,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -3071,7 +3071,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__steelhead__winter_spring_thermal_front__v3_pass1",
         "modeId": "winter_spring_thermal_front",
-        "fisheryStrength": 6.8,
+        "fisheryStrength": 7.3,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -3125,7 +3125,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
         "modeId": "summer_thermal_break_or_upwelling",
-        "fisheryStrength": 7.3,
+        "fisheryStrength": 7.8,
         "availabilityKnots": [
           {
             "monthDay": "05-20",
@@ -3179,7 +3179,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "sheboygan_wi__steelhead__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.3,
+        "fisheryStrength": 6.7,
         "availabilityKnots": [
           {
             "monthDay": "08-25",
@@ -3424,7 +3424,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 7.1,
+        "fisheryStrength": 8.5,
         "availabilityKnots": [
           {
             "monthDay": "06-01",
@@ -3477,7 +3477,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 7.2,
+        "fisheryStrength": 8.6,
         "availabilityKnots": [
           {
             "monthDay": "07-20",
@@ -3544,7 +3544,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__coho_salmon__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 7.8,
+        "fisheryStrength": 8.5,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -3597,7 +3597,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__coho_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 4.2,
+        "fisheryStrength": 4.5,
         "availabilityKnots": [
           {
             "monthDay": "06-10",
@@ -3650,7 +3650,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.8,
+        "fisheryStrength": 7.4,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -3713,7 +3713,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__steelhead__winter_spring_thermal_front__v3_pass1",
         "modeId": "winter_spring_thermal_front",
-        "fisheryStrength": 5.2,
+        "fisheryStrength": 6.6,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -3766,7 +3766,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
         "modeId": "summer_thermal_break_or_upwelling",
-        "fisheryStrength": 5,
+        "fisheryStrength": 6.3,
         "availabilityKnots": [
           {
             "monthDay": "05-20",
@@ -3829,7 +3829,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__brown_trout__winter_harbor_open_water__v3_pass1",
         "modeId": "winter_harbor_open_water",
-        "fisheryStrength": 4.1,
+        "fisheryStrength": 4.7,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -3882,7 +3882,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "port_washington_wi__brown_trout__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 7,
+        "fisheryStrength": 8.1,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -3945,7 +3945,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 7,
+        "fisheryStrength": 7.8,
         "availabilityKnots": [
           {
             "monthDay": "06-01",
@@ -3997,7 +3997,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 7,
+        "fisheryStrength": 7.8,
         "availabilityKnots": [
           {
             "monthDay": "07-20",
@@ -4063,7 +4063,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__coho_salmon__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 7.6,
+        "fisheryStrength": 8.2,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -4115,7 +4115,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__coho_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 4.4,
+        "fisheryStrength": 4.7,
         "availabilityKnots": [
           {
             "monthDay": "06-10",
@@ -4167,7 +4167,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.8,
+        "fisheryStrength": 7.3,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -4233,7 +4233,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__steelhead__winter_spring_thermal_front__v3_pass1",
         "modeId": "winter_spring_thermal_front",
-        "fisheryStrength": 4.6,
+        "fisheryStrength": 5.8,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -4285,7 +4285,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
         "modeId": "summer_thermal_break_or_upwelling",
-        "fisheryStrength": 4.4,
+        "fisheryStrength": 5.5,
         "availabilityKnots": [
           {
             "monthDay": "05-20",
@@ -4347,7 +4347,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__brown_trout__winter_harbor_open_water__v3_pass1",
         "modeId": "winter_harbor_open_water",
-        "fisheryStrength": 3.9,
+        "fisheryStrength": 4.3,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -4399,7 +4399,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "milwaukee_wi__brown_trout__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 6.6,
+        "fisheryStrength": 7.4,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -4461,7 +4461,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 7.3,
+        "fisheryStrength": 8,
         "availabilityKnots": [
           {
             "monthDay": "06-01",
@@ -4513,7 +4513,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 7.4,
+        "fisheryStrength": 8.1,
         "availabilityKnots": [
           {
             "monthDay": "07-20",
@@ -4575,7 +4575,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__coho_salmon__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 7.6,
+        "fisheryStrength": 8.5,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -4627,7 +4627,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__coho_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 4.8,
+        "fisheryStrength": 5.3,
         "availabilityKnots": [
           {
             "monthDay": "06-10",
@@ -4679,7 +4679,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 7.3,
+        "fisheryStrength": 8.2,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -4741,7 +4741,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__steelhead__winter_spring_thermal_front__v3_pass1",
         "modeId": "winter_spring_thermal_front",
-        "fisheryStrength": 5.3,
+        "fisheryStrength": 7.1,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -4793,7 +4793,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
         "modeId": "summer_thermal_break_or_upwelling",
-        "fisheryStrength": 5.7,
+        "fisheryStrength": 7.7,
         "availabilityKnots": [
           {
             "monthDay": "05-20",
@@ -4845,7 +4845,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__steelhead__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 2.5,
+        "fisheryStrength": 3.1,
         "availabilityKnots": [
           {
             "monthDay": "08-25",
@@ -4907,7 +4907,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__brown_trout__winter_harbor_open_water__v3_pass1",
         "modeId": "winter_harbor_open_water",
-        "fisheryStrength": 3.9,
+        "fisheryStrength": 4.2,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -4959,7 +4959,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "racine_wi__brown_trout__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 6.7,
+        "fisheryStrength": 7.3,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -5021,7 +5021,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 6.6,
+        "fisheryStrength": 7.3,
         "availabilityKnots": [
           {
             "monthDay": "06-01",
@@ -5073,7 +5073,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.7,
+        "fisheryStrength": 7.4,
         "availabilityKnots": [
           {
             "monthDay": "07-20",
@@ -5135,7 +5135,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__coho_salmon__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 8,
+        "fisheryStrength": 8.6,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -5187,7 +5187,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__coho_salmon__summer_coldwater_access__v3_pass1",
         "modeId": "summer_coldwater_access",
-        "fisheryStrength": 4.5,
+        "fisheryStrength": 4.8,
         "availabilityKnots": [
           {
             "monthDay": "06-10",
@@ -5239,7 +5239,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__coho_salmon__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 6.4,
+        "fisheryStrength": 6.9,
         "availabilityKnots": [
           {
             "monthDay": "08-01",
@@ -5301,7 +5301,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__steelhead__winter_spring_thermal_front__v3_pass1",
         "modeId": "winter_spring_thermal_front",
-        "fisheryStrength": 4.3,
+        "fisheryStrength": 5.6,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -5353,7 +5353,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
         "modeId": "summer_thermal_break_or_upwelling",
-        "fisheryStrength": 4.2,
+        "fisheryStrength": 5.5,
         "availabilityKnots": [
           {
             "monthDay": "05-20",
@@ -5405,7 +5405,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__steelhead__fall_harbor_staging__v3_pass1",
         "modeId": "fall_harbor_staging",
-        "fisheryStrength": 2.1,
+        "fisheryStrength": 2.5,
         "availabilityKnots": [
           {
             "monthDay": "08-25",
@@ -5467,7 +5467,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__brown_trout__winter_harbor_open_water__v3_pass1",
         "modeId": "winter_harbor_open_water",
-        "fisheryStrength": 3.5,
+        "fisheryStrength": 3.8,
         "availabilityKnots": [
           {
             "monthDay": "01-01",
@@ -5519,7 +5519,7 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
       {
         "modeCalibrationId": "kenosha_wi__brown_trout__spring_nearshore__v3_pass1",
         "modeId": "spring_nearshore",
-        "fisheryStrength": 5.8,
+        "fisheryStrength": 6.4,
         "availabilityKnots": [
           {
             "monthDay": "02-15",
@@ -10024,6 +10024,2976 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           "Weekly reports establish occurrence and timing but not standardized target effort.",
           "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
           "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "two_rivers_wi/chinook_salmon",
+    "cityId": "two_rivers_wi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "two_rivers_wi__chinook_salmon__spring_nearshore_transient__five_city_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.52,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "TWO_RIVERS_OUTDOOR_2019",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__chinook_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.33,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "08-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "TWO_RIVERS_OUTDOOR_2019",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__chinook_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 8.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.83
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "TWO_RIVERS_OUTDOOR_2019",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "two_rivers_wi/coho_salmon",
+    "cityId": "two_rivers_wi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "two_rivers_wi__coho_salmon__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 6.49,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_TWO_RIVERS_1969",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__coho_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_TWO_RIVERS_1969",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__coho_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_TWO_RIVERS_1969",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "two_rivers_wi/steelhead",
+    "cityId": "two_rivers_wi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "two_rivers_wi__steelhead__winter_spring_thermal_front__five_city_pass2",
+        "modeId": "winter_spring_thermal_front",
+        "fisheryStrength": 6.92,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.36
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Thermal Front",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "TWO_RIVERS_PARKS_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__steelhead__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.35,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "TWO_RIVERS_PARKS_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__steelhead__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "TWO_RIVERS_PARKS_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "two_rivers_wi/brown_trout",
+    "cityId": "two_rivers_wi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "two_rivers_wi__brown_trout__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.67
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "TWO_RIVERS_PARKS_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "two_rivers_wi__brown_trout__fall_harbor__five_city_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.34,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.7
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "TWO_RIVERS_PARKS_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "kewaunee_wi/chinook_salmon",
+    "cityId": "kewaunee_wi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "kewaunee_wi__chinook_salmon__spring_nearshore_transient__five_city_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.75,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "KEWAUNEE_PARKS_2025",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__chinook_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.83,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "08-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "KEWAUNEE_PARKS_2025",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__chinook_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 9.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.83
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "KEWAUNEE_PARKS_2025",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "kewaunee_wi/coho_salmon",
+    "cityId": "kewaunee_wi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "kewaunee_wi__coho_salmon__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 6.22,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__coho_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 5.76,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__coho_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "kewaunee_wi/steelhead",
+    "cityId": "kewaunee_wi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "kewaunee_wi__steelhead__winter_spring_thermal_front__five_city_pass2",
+        "modeId": "winter_spring_thermal_front",
+        "fisheryStrength": 7.39,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.36
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Thermal Front",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "UW_SEA_GRANT_WI_1981",
+          "MWO_2025_11",
+          "WI_WEEKS_2024_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__steelhead__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.78,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "UW_SEA_GRANT_WI_1981",
+          "MWO_2025_11",
+          "WI_WEEKS_2024_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__steelhead__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "UW_SEA_GRANT_WI_1981",
+          "MWO_2025_11",
+          "WI_WEEKS_2024_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "kewaunee_wi/brown_trout",
+    "cityId": "kewaunee_wi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "kewaunee_wi__brown_trout__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.67
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "KEWAUNEE_PARKS_2025",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__brown_trout__fall_harbor__five_city_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.48,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.7
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "KEWAUNEE_PARKS_2025",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "kewaunee_wi/lake_trout",
+    "cityId": "kewaunee_wi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "kewaunee_wi__lake_trout__cold_season_nearshore__five_city_pass2",
+        "modeId": "cold_season_nearshore",
+        "fisheryStrength": 4.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.55
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Cold Season Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_NORTH_LM_ARCHIVE",
+          "NOAA_WI_1981",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "kewaunee_wi__lake_trout__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 3.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_NORTH_LM_ARCHIVE",
+          "NOAA_WI_1981",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "algoma_wi/chinook_salmon",
+    "cityId": "algoma_wi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "algoma_wi__chinook_salmon__spring_nearshore_transient__five_city_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.72,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__chinook_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.76,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "08-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__chinook_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 9,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.83
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "algoma_wi/coho_salmon",
+    "cityId": "algoma_wi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "algoma_wi__coho_salmon__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 6.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__coho_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 5.92,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__coho_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MWO_2025_11",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "algoma_wi/steelhead",
+    "cityId": "algoma_wi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "algoma_wi__steelhead__winter_spring_thermal_front__five_city_pass2",
+        "modeId": "winter_spring_thermal_front",
+        "fisheryStrength": 7.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.36
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Thermal Front",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__steelhead__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__steelhead__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_CREEL_COUNTY_2024",
+          "WI_WEEKLY_2026_09_07",
+          "MWO_2025_11",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "algoma_wi/brown_trout",
+    "cityId": "algoma_wi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "algoma_wi__brown_trout__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.67
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "algoma_wi__brown_trout__fall_harbor__five_city_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.62,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.7
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/chinook_salmon",
+    "cityId": "manitowoc_wi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__chinook_salmon__spring_nearshore_transient__five_city_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.55,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__chinook_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "08-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__chinook_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 8.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.83
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_WEEKLY_2026_09_07",
+          "WI_CREEL_COUNTY_2024",
+          "MANITOWOC_OUTDOOR_2010",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/coho_salmon",
+    "cityId": "manitowoc_wi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__coho_salmon__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 6.58,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_COUNTY_SPECIES_2024",
+          "NOAA_WI_1981",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__coho_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.08,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_COUNTY_SPECIES_2024",
+          "NOAA_WI_1981",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__coho_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_CREEL_COUNTY_2024",
+          "UW_SEA_GRANT_WI_1981",
+          "WI_COUNTY_SPECIES_2024",
+          "NOAA_WI_1981",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/steelhead",
+    "cityId": "manitowoc_wi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__steelhead__winter_spring_thermal_front__five_city_pass2",
+        "modeId": "winter_spring_thermal_front",
+        "fisheryStrength": 6.83,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.36
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Thermal Front",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__steelhead__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 6.27,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__steelhead__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_STEELHEAD_PIER"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/brown_trout",
+    "cityId": "manitowoc_wi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__brown_trout__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.67
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__brown_trout__fall_harbor__five_city_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.34,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.7
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_CREEL_COUNTY_2024",
+          "WI_PIER_REPORT_2010_09",
+          "WI_COUNTY_SPECIES_2024",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/smallmouth_bass",
+    "cityId": "manitowoc_wi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__smallmouth_bass__warm_season_harbor__five_city_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 0.24
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.87
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_WEEKLY_2026_09_07",
+          "MANITOWOC_LIGHTHOUSE_PARK",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "manitowoc_wi/northern_pike",
+    "cityId": "manitowoc_wi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "manitowoc_wi__northern_pike__spring_harbor__five_city_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.86,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_WEEKLY_2026_09_07",
+          "MANITOWOC_LIGHTHOUSE_PARK",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024",
+          "WI_PIKE_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "manitowoc_wi__northern_pike__late_summer_fall_harbor__five_city_pass2",
+        "modeId": "late_summer_fall_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.62
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Late Summer Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WI_ACCESS_2023",
+          "WI_WEEKLY_2026_09_07",
+          "MANITOWOC_LIGHTHOUSE_PARK",
+          "WI_PIER_2022",
+          "WI_PIER_2023",
+          "WI_PIER_2024",
+          "WI_PIKE_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "waukegan_il/chinook_salmon",
+    "cityId": "waukegan_il",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "waukegan_il__chinook_salmon__spring_nearshore_transient__five_city_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.24,
+        "availabilityKnots": [
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "WAUKEGAN_2019_PIER",
+          "IL_STOCKING_2025"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__chinook_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 5.75,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "08-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "WAUKEGAN_2019_PIER",
+          "IL_STOCKING_2025"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__chinook_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "07-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.83
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "WAUKEGAN_2019_PIER",
+          "IL_STOCKING_2025"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "waukegan_il/coho_salmon",
+    "cityId": "waukegan_il",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "waukegan_il__coho_salmon__spring_nearshore__five_city_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 8.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "02-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_INHS_CREEL_2024",
+          "IL_DNR_SHORE_MAP",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__coho_salmon__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 4.9,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_INHS_CREEL_2024",
+          "IL_DNR_SHORE_MAP",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__coho_salmon__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6.62,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-10",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_INHS_CREEL_2024",
+          "IL_DNR_SHORE_MAP",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "waukegan_il/steelhead",
+    "cityId": "waukegan_il",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "waukegan_il__steelhead__winter_spring_thermal_front__five_city_pass2",
+        "modeId": "winter_spring_thermal_front",
+        "fisheryStrength": 6.45,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.36
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Thermal Front",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_LAKE_MICHIGAN_2026",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__steelhead__summer_coldwater_pulse__five_city_pass2",
+        "modeId": "summer_coldwater_pulse",
+        "fisheryStrength": 5.93,
+        "availabilityKnots": [
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Coldwater Pulse",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_LAKE_MICHIGAN_2026",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "waukegan_il__steelhead__fall_harbor_staging__five_city_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "WAUKEGAN_GOV_PIER_GUIDE",
+          "IL_DNR_LAKE_MICHIGAN_2026",
+          "IL_DNR_HARBOR_2025",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_PIER_GUIDE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "waukegan_il/brown_trout",
+    "cityId": "waukegan_il",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "waukegan_il__brown_trout__cold_season_harbor__five_city_pass2",
+        "modeId": "cold_season_harbor",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "02-10",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "04-30",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.85
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Cold Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_DNR_HARBOR_2024",
+          "IL_DNR_HARBOR_2025",
+          "WAUKEGAN_PIER_GUIDE",
+          "WAUKEGAN_2019_PIER",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "IL_SEASON_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "waukegan_il/yellow_perch",
+    "cityId": "waukegan_il",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "closedWindows": [
+      {
+        "startMonthDay": "05-01",
+        "endMonthDay": "06-15",
+        "reasonCode": "species_regulation_closed",
+        "evidenceIds": [
+          "IL_REGULATIONS_2026"
+        ]
+      }
+    ],
+    "modes": [
+      {
+        "modeCalibrationId": "waukegan_il__yellow_perch__spring_harbor_schooling__five_city_pass2",
+        "modeId": "spring_harbor_schooling",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "04-30",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-16",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0.15
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Spring Harbor Schooling",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IL_DNR_WAUKEGAN_2006",
+          "IL_DNR_SHORE_MAP",
+          "IL_INHS_CREEL_2023",
+          "WAUKEGAN_CITY_PIER_2019",
+          "IL_DNR_RULES_2026",
+          "INHS_2023_SITE",
+          "INHS_2024_SITE",
+          "WAUKEGAN_2019_PIER",
+          "IL_FISHERY_2026"
+        ],
+        "limitations": [
+          "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
+          "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
         ],
         "promotionEligible": false
       }

@@ -48,6 +48,15 @@ const speciesExpansionCalibrationPath = resolve(
   speciesExpansionDirectory,
   "mode-calibrations.json",
 );
+const fiveCityDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/five-city-2026-09-pass2",
+);
+const fiveCityDecisionPath = resolve(fiveCityDirectory, "pair-decisions.json");
+const fiveCityCalibrationPath = resolve(
+  fiveCityDirectory,
+  "private-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -70,6 +79,8 @@ const speciesExpansionCalibrationText = readFileSync(
   speciesExpansionCalibrationPath,
   "utf8",
 );
+const fiveCityDecisionText = readFileSync(fiveCityDecisionPath, "utf8");
+const fiveCityCalibrationText = readFileSync(fiveCityCalibrationPath, "utf8");
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
 const secondaryCandidateArtifact = JSON.parse(
@@ -90,6 +101,12 @@ const speciesExpansionCandidateArtifact = JSON.parse(
 const speciesExpansionCalibrationArtifact = JSON.parse(
   speciesExpansionCalibrationText,
 ) as CalibrationArtifact;
+const fiveCityDecisionArtifact = JSON.parse(
+  fiveCityDecisionText,
+) as FiveCityDecisionArtifact;
+const fiveCityCalibrationArtifact = JSON.parse(
+  fiveCityCalibrationText,
+) as FiveCityCalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
@@ -98,21 +115,57 @@ assertSpeciesExpansion(
   speciesExpansionCandidateArtifact,
   speciesExpansionCalibrationArtifact,
 );
+assertFiveCity(fiveCityDecisionArtifact, fiveCityCalibrationArtifact);
 const modesById = new Map(
   [
     ...calibrationArtifact.modes,
     ...secondaryCalibrationArtifact.modes,
     ...lakeHuronCalibrationArtifact.modes,
     ...speciesExpansionCalibrationArtifact.modes,
+    ...fiveCityCalibrationArtifact.modes.map((mode) => ({
+      ...mode,
+      modeName: mode.modeId.split("_").map((word) =>
+        word[0].toUpperCase() + word.slice(1)
+      ).join(" "),
+    })),
   ].map(
     (mode) => [mode.modeCalibrationId, mode],
   ),
 );
+const fiveCityPairs = fiveCityDecisionArtifact.decisions
+  .filter((decision) => decision.pass2Disposition === "numeric_shadow")
+  .map((decision) => ({
+    pairKey: decision.pairKey,
+    cityId: decision.cityId,
+    speciesId: decision.speciesId,
+    ratingEnabled: false as const,
+    ...(decision.pairKey === "waukegan_il/yellow_perch"
+      ? {
+        closedWindows: [{
+          startMonthDay: "05-01",
+          endMonthDay: "06-15",
+          reasonCode: "species_regulation_closed" as const,
+          evidenceIds: ["IL_REGULATIONS_2026"],
+        }],
+      }
+      : {}),
+    modes: fiveCityCalibrationArtifact.modes
+      .filter((mode) => mode.pairKey === decision.pairKey)
+      .map((mode) => ({
+        modeCalibrationId: mode.modeCalibrationId,
+        modeId: mode.modeId,
+        fisheryStrength: mode.fisheryStrength,
+        availabilityKnots: mode.availabilityKnots,
+        thermalCurveId: mode.thermalCurveId,
+      })),
+  }));
+
 const pairs = [
   ...candidateArtifact.candidates,
   ...secondaryCandidateArtifact.candidates,
   ...lakeHuronCandidateArtifact.candidates,
   ...speciesExpansionCandidateArtifact.candidates,
+  ...fiveCityPairs,
 ].map((pair) => ({
   ...pair,
   publicEnabled: false as const,
@@ -133,9 +186,9 @@ const pairs = [
   }),
 }));
 if (
-  pairs.length !== 94 ||
+  pairs.length !== 118 ||
   new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
-  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 179
+  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 239
 ) {
   throw new Error("Combined Formula v3 species manifest is incomplete.");
 }
@@ -148,19 +201,19 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twelve-city-seasonal-research-v5" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v4" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-seventeen-city-five-city-pass3-v7" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v6" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}`,
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}`,
     ),
   )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}`,
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}`,
     ),
   )
 } as const;
@@ -265,6 +318,36 @@ function assertSpeciesExpansion(
   }
 }
 
+function assertFiveCity(
+  decisions: FiveCityDecisionArtifact,
+  calibrations: FiveCityCalibrationArtifact,
+): void {
+  const admitted = decisions.decisions.filter((decision) =>
+    decision.pass2Disposition === "numeric_shadow"
+  );
+  if (
+    decisions.schemaVersion !== "piercast-five-city-pass2-pair-decisions-v2" ||
+    decisions.counts.numericShadow !== 24 ||
+    decisions.counts.researchHold !== 20 ||
+    admitted.length !== 24 ||
+    calibrations.schemaVersion !==
+      "piercast-five-city-pass2-mode-calibrations-v2" ||
+    calibrations.status !== "private_shadow_only" ||
+    calibrations.modes.length !== 60
+  ) throw new Error("Five-city Pass 2 handoff is incomplete.");
+  const pairKeys = new Set(admitted.map((decision) => decision.pairKey));
+  if (
+    pairKeys.size !== 24 ||
+    calibrations.modes.some((mode) =>
+      !pairKeys.has(mode.pairKey) || mode.evidenceGrade !== "B" ||
+      mode.fisheryStrength < 1 || mode.fisheryStrength > 10
+    ) ||
+    [...pairKeys].some((pairKey) =>
+      !calibrations.modes.some((mode) => mode.pairKey === pairKey)
+    )
+  ) throw new Error("Five-city modes do not match the admitted manifest.");
+}
+
 function assertPass1(
   candidates: CandidateArtifact,
   calibrations: CalibrationArtifact,
@@ -329,6 +412,33 @@ type CalibrationArtifact = {
     modeCalibrationId: string;
     modeName: string;
     evidenceGrade: "A" | "B";
+    fisheryEvidenceIds: string[];
+    limitations: string[];
+  }>;
+};
+
+type FiveCityDecisionArtifact = {
+  schemaVersion: string;
+  counts: { numericShadow: number; researchHold: number };
+  decisions: Array<{
+    pairKey: string;
+    cityId: string;
+    speciesId: string;
+    pass2Disposition: "numeric_shadow" | "research_hold" | "exclude";
+  }>;
+};
+
+type FiveCityCalibrationArtifact = {
+  schemaVersion: string;
+  status: "private_shadow_only";
+  modes: Array<{
+    modeCalibrationId: string;
+    pairKey: string;
+    modeId: string;
+    fisheryStrength: number;
+    evidenceGrade: "B";
+    availabilityKnots: Array<{ monthDay: string; availability: number }>;
+    thermalCurveId: string;
     fisheryEvidenceIds: string[];
     limitations: string[];
   }>;

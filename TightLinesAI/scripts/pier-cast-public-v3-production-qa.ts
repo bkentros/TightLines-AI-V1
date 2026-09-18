@@ -5,6 +5,7 @@ import {
   readLatestCoherentPierCastV3SourceCohorts,
 } from "../supabase/functions/_shared/pierCastEngine/index.ts";
 import { projectPublicV3Outlook } from "../supabase/functions/pier-cast/publicV3.ts";
+import { PIER_CAST_PUBLIC_V3_RELEASE } from "../supabase/functions/_shared/pierCastEngine/config/publicV3Release.ts";
 import {
   cityReportOnly,
   leaderboardOnly,
@@ -50,19 +51,34 @@ const review = buildPierCastV3ReviewOutlook({
     cohorts.primary,
     cohorts.expansion,
     cohorts.lakeHuron,
+    cohorts.fiveCity,
   ),
   evaluationTime: now.toISOString(),
 });
 const outlook = projectPublicV3Outlook(review);
 const leaderboard = leaderboardOnly(outlook, {
-  maxCities: 12,
+  maxCities: PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length,
   releasePolicyVersion: outlook.releasePolicyVersion,
 });
 
-if (leaderboard.cities.length !== 12) {
+if (leaderboard.cities.length !== 17) {
   throw new Error(
     `Public leaderboard returned ${leaderboard.cities.length} cities.`,
   );
+}
+for (const cityId of [
+  "two_rivers_wi",
+  "kewaunee_wi",
+  "algoma_wi",
+  "manitowoc_wi",
+  "waukegan_il",
+]) {
+  if (!outlook.cities.some((city) => city.cityId === cityId)) {
+    throw new Error(`Public outlook is missing ${cityId}.`);
+  }
+  if (!leaderboard.cities.some((city) => city.cityId === cityId)) {
+    throw new Error(`Public leaderboard is missing ${cityId}.`);
+  }
 }
 for (const city of outlook.cities) {
   const report = cityReportOnly(outlook, city.cityId);
@@ -74,7 +90,7 @@ for (const city of outlook.cities) {
 }
 
 console.log(
-  `PASS: public v3 projection yields 12 ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
+  `PASS: public v3 projection yields 17 ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
     review.source.cycleAgeHours.toFixed(1)
   } hours old).`,
 );

@@ -48,13 +48,24 @@ try {
   assert.equal(catalog.status, 200);
   assert.equal(catalog.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
   const cities = catalog.body.cities.filter(city => city.releaseStatus === 'public_research');
-  assert.equal(cities.length, 12);
+  assert.equal(cities.length, 17);
   assert.ok(cities.every(city => city.species.length > 0));
+  const onboardingCityIds = [
+    'two_rivers_wi',
+    'kewaunee_wi',
+    'algoma_wi',
+    'manitowoc_wi',
+    'waukegan_il',
+  ];
+  assert.ok(onboardingCityIds.every(cityId => cities.some(city => city.cityId === cityId)));
 
+  const forbiddenReview = await getPier('review/v3/outlook');
+  assert.equal(forbiddenReview.status, 403, 'normal user owner-review access');
   const leaderboard = await getPier('leaderboard');
   assert.equal(leaderboard.status, 200);
-  assert.equal(leaderboard.body.cities.length, 12);
-  assert.equal(leaderboard.body.releasePolicyVersion, 'piercast-public-research-v3-2026-09-17');
+  assert.equal(leaderboard.body.cities.length, 17);
+  assert.equal(leaderboard.body.releasePolicyVersion, 'piercast-public-research-v3-2026-09-18-five-city');
+  assert.ok(onboardingCityIds.every(cityId => leaderboard.body.cities.some(city => city.cityId === cityId)));
 
   for (const city of cities.slice(0, 4)) {
     const report = await getPier(`report?cityId=${city.cityId}`);
@@ -76,7 +87,7 @@ try {
     assert.equal(report.body.cities[0].dates.length, 5);
   }
 
-  console.log('PASS: live PierCast v3 exposes 12 cities, four free reports, fifth-report paywall, and 12 complete paid reports.');
+  console.log('PASS: live PierCast v3 exposes all 17 cities including the five new cities, retains the owner review gate, serves four free reports with a fifth-report paywall, and serves 17 complete paid reports.');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

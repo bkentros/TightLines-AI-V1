@@ -6550,8 +6550,8 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.7,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.2,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -6657,7 +6657,7 @@
         "W11"
       ],
       "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years, including 508 estimated pier coho in 2024, support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__coho_salmon__v0_4",
         "windowPeak": 7.7,
@@ -6681,7 +6681,7 @@
       "modeName": "Summer cold-water access",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.5,
+      "fisheryStrength": 8,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -6788,7 +6788,7 @@
         "W11"
       ],
       "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years, including 508 estimated pier coho in 2024, support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__coho_salmon__v0_4",
         "windowPeak": 7.5,
@@ -6812,7 +6812,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7,
+      "fisheryStrength": 7.4,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -6919,7 +6919,7 @@
         "W11"
       ],
       "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years, including 508 estimated pier coho in 2024, support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__coho_salmon__v0_4",
         "windowPeak": 7,
@@ -6943,7 +6943,7 @@
       "modeName": "Winter and spring thermal-front opportunity",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.8,
+      "fisheryStrength": 7.3,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -7054,7 +7054,7 @@
         "W8"
       ],
       "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Recent county-pier rainbow harvest rose from 23 in 2023 to 127 in 2024, supporting a strong peak comparable to the central-Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__steelhead__v0_4",
         "windowPeak": 6.8,
@@ -7077,7 +7077,7 @@
       "modeName": "Summer thermal break or upwelling",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.3,
+      "fisheryStrength": 7.8,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -7188,7 +7188,7 @@
         "W8"
       ],
       "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Recent county-pier rainbow harvest rose from 23 in 2023 to 127 in 2024, supporting a strong peak comparable to the central-Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__steelhead__v0_4",
         "windowPeak": 7.3,
@@ -7211,7 +7211,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.3,
+      "fisheryStrength": 6.7,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -7322,7 +7322,7 @@
         "W8"
       ],
       "evidenceInterpretation": "Fall harbor-mouth and nearshore opportunity calibrated independently from summer upwelling events.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Recent county-pier rainbow harvest rose from 23 in 2023 to 127 in 2024, supporting a strong peak comparable to the central-Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "sheboygan_wi__steelhead__v0_4",
         "windowPeak": 6.3,
@@ -7738,8 +7738,8 @@
       "modeName": "Summer cold-water access",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.1,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.5,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "06-01",
@@ -7840,7 +7840,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer pier opportunity when cold water and feeding fish are reachable from the harbor mouth.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier Chinook harvest was positive in all three reviewed years (533, 184, 25), placing Port Washington above the original strong-band ceiling. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__chinook_salmon__seasonal_v0_1",
         "windowPeak": 7.1,
@@ -7864,8 +7864,8 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.2,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.6,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "07-20",
@@ -7970,7 +7970,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Mature fish staging at or entering the harbor mouth; temperature remains secondary to the run window.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier Chinook harvest was positive in all three reviewed years (533, 184, 25), placing Port Washington above the original strong-band ceiling. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__chinook_salmon__seasonal_v0_1",
         "windowPeak": 7.2,
@@ -7994,8 +7994,8 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.8,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.5,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -8097,7 +8097,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier coho harvest was positive in all three reviewed years (105, 317, 418), with the strongest estimate in 2024. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 7.8,
@@ -8121,7 +8121,7 @@
       "modeName": "Summer cold-water access",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 4.2,
+      "fisheryStrength": 4.5,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -8224,7 +8224,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier coho harvest was positive in all three reviewed years (105, 317, 418), with the strongest estimate in 2024. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 4.2,
@@ -8248,7 +8248,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.8,
+      "fisheryStrength": 7.4,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -8351,7 +8351,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier coho harvest was positive in all three reviewed years (105, 317, 418), with the strongest estimate in 2024. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 6.8,
@@ -8375,8 +8375,8 @@
       "modeName": "Winter and spring thermal-front opportunity",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 5.2,
-      "strengthRubric": "ordinary",
+      "fisheryStrength": 6.6,
+      "strengthRubric": "strong",
       "availabilityKnots": [
         {
           "monthDay": "01-01",
@@ -8484,7 +8484,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact-pier target evidence plus positive county-pier harvest in 2022 and 2024 supports a strong recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__steelhead__seasonal_v0_1",
         "windowPeak": 5.2,
@@ -8508,8 +8508,8 @@
       "modeName": "Summer thermal break or upwelling",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 5,
-      "strengthRubric": "ordinary",
+      "fisheryStrength": 6.3,
+      "strengthRubric": "strong",
       "availabilityKnots": [
         {
           "monthDay": "05-20",
@@ -8617,7 +8617,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact-pier target evidence plus positive county-pier harvest in 2022 and 2024 supports a strong recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__steelhead__seasonal_v0_1",
         "windowPeak": 5,
@@ -8641,7 +8641,7 @@
       "modeName": "Winter harbor open water",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 4.1,
+      "fisheryStrength": 4.7,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -8744,7 +8744,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season harbor opportunity when public access and open water are independently available.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier brown-trout harvest recurred in all three years and reached 316 in 2024, supporting an excellent peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 4.1,
@@ -8768,8 +8768,8 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.1,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -8871,7 +8871,7 @@
         "PW_SEASON_2024"
       ],
       "evidenceInterpretation": "The primary recurring pier-mode brown-trout opportunity in both state evidence sets.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Ozaukee County pier brown-trout harvest recurred in all three years and reached 316 in 2024, supporting an excellent peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "port_washington_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 7,
@@ -8895,7 +8895,7 @@
       "modeName": "Summer cold-water access",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7,
+      "fisheryStrength": 7.8,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -8996,7 +8996,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer pier opportunity when cold water and feeding fish are reachable from the harbor mouth.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years and exact named-pier target evidence support a stronger recurring peak without claiming Racine or Port Washington magnitude. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__chinook_salmon__seasonal_v0_1",
         "windowPeak": 7,
@@ -9020,7 +9020,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7,
+      "fisheryStrength": 7.8,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -9125,7 +9125,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Mature fish staging at or entering the harbor mouth; temperature remains secondary to the run window.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years and exact named-pier target evidence support a stronger recurring peak without claiming Racine or Port Washington magnitude. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__chinook_salmon__seasonal_v0_1",
         "windowPeak": 7,
@@ -9149,8 +9149,8 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.6,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.2,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -9251,7 +9251,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive recent county-pier years plus repeated exact McKinley Pier reports support an excellent spring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 7.6,
@@ -9275,7 +9275,7 @@
       "modeName": "Summer cold-water access",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 4.4,
+      "fisheryStrength": 4.7,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -9377,7 +9377,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive recent county-pier years plus repeated exact McKinley Pier reports support an excellent spring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 4.4,
@@ -9401,7 +9401,7 @@
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.8,
+      "fisheryStrength": 7.3,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -9507,7 +9507,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive recent county-pier years plus repeated exact McKinley Pier reports support an excellent spring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__coho_salmon__seasonal_v0_1",
         "windowPeak": 6.2,
@@ -9531,7 +9531,7 @@
       "modeName": "Winter and spring thermal-front opportunity",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 4.6,
+      "fisheryStrength": 5.8,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -9639,7 +9639,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "The exact named-pier species listing and a current McKinley Pier rainbow observation establish a real targetable peak; survey zeros remain in confidence rather than lowering F. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__steelhead__seasonal_v0_1",
         "windowPeak": 4.6,
@@ -9663,7 +9663,7 @@
       "modeName": "Summer thermal break or upwelling",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 4.4,
+      "fisheryStrength": 5.5,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -9771,7 +9771,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "The exact named-pier species listing and a current McKinley Pier rainbow observation establish a real targetable peak; survey zeros remain in confidence rather than lowering F. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__steelhead__seasonal_v0_1",
         "windowPeak": 4.4,
@@ -9795,8 +9795,8 @@
       "modeName": "Winter harbor open water",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 3.9,
-      "strengthRubric": "limited",
+      "fisheryStrength": 4.3,
+      "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
           "monthDay": "01-01",
@@ -9897,7 +9897,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season harbor opportunity when public access and open water are independently available.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years plus repeated exact McKinley Pier brown-trout observations support a strong peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 3.9,
@@ -9921,7 +9921,7 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 6.6,
+      "fisheryStrength": 7.4,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -10023,7 +10023,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "The primary recurring pier-mode brown-trout opportunity in both state evidence sets.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Two positive recent county-pier years plus repeated exact McKinley Pier brown-trout observations support a strong peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "milwaukee_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 6.6,
@@ -10041,6 +10041,1282 @@
       "modeCalibrationId": "racine_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
       "cityId": "racine_wi",
       "cityName": "Racine",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8,
+      "strengthRubric": "strong",
+      "availabilityKnots": [
+        {
+          "monthDay": "06-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-29",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "07-24",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "08-10",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-14",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "08-17",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "chinook_salmon__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.6
+          },
+          {
+            "temperatureC": 7,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 9,
+            "suitability": 0.95
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.2
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T001",
+          "T006"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Summer pier opportunity when cold water and feeding fish are reachable from the harbor mouth.",
+      "calibrationBasis": "County-pier Chinook harvest was positive in all three years (203, 65, 60), supporting an excellent but sub-Port-Washington peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__chinook_salmon__seasonal_v0_1",
+        "windowPeak": 7.3,
+        "peakDate": "08-10"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.1,
+      "strengthRubric": "excellent",
+      "availabilityKnots": [
+        {
+          "monthDay": "07-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "07-30",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "08-09",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "08-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-11",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "10-10",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "11-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "chinook_salmon__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.6
+          },
+          {
+            "temperatureC": 7,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 9,
+            "suitability": 0.95
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.2
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T001",
+          "T006"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Mature fish staging at or entering the harbor mouth; temperature remains secondary to the run window.",
+      "calibrationBasis": "County-pier Chinook harvest was positive in all three years (203, 65, 60), supporting an excellent but sub-Port-Washington peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__chinook_salmon__seasonal_v0_1",
+        "windowPeak": 7.4,
+        "peakDate": "08-15"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__coho_salmon__spring_nearshore__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "modeId": "spring_nearshore",
+      "modeName": "Spring nearshore",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.5,
+      "strengthRubric": "excellent",
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-13",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "04-04",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "06-10",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-30",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "coho_salmon__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 7,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16.5,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 19,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 0.35
+          },
+          {
+            "temperatureC": 23,
+            "suitability": 0.15
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T002",
+          "T008",
+          "T013"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
+      "calibrationBasis": "Three positive county-pier years (176, 534, 120) and repeated exact shoreline/pier reports support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 7.6,
+        "peakDate": "04-20"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__coho_salmon__summer_coldwater_access__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "modeId": "summer_coldwater_access",
+      "modeName": "Summer cold-water access",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.3,
+      "strengthRubric": "ordinary",
+      "availabilityKnots": [
+        {
+          "monthDay": "06-10",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-26",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-02",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "08-15",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "coho_salmon__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 7,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16.5,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 19,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 0.35
+          },
+          {
+            "temperatureC": 23,
+            "suitability": 0.15
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T002",
+          "T008",
+          "T013"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
+      "calibrationBasis": "Three positive county-pier years (176, 534, 120) and repeated exact shoreline/pier reports support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 4.8,
+        "peakDate": "07-20"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__coho_salmon__fall_harbor_staging__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.2,
+      "strengthRubric": "excellent",
+      "availabilityKnots": [
+        {
+          "monthDay": "08-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-16",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "08-29",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "09-07",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-07",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "11-07",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "12-01",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "coho_salmon__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 4,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 7,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16.5,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 19,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 21,
+            "suitability": 0.35
+          },
+          {
+            "temperatureC": 23,
+            "suitability": 0.15
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T002",
+          "T008",
+          "T013"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
+      "calibrationBasis": "Three positive county-pier years (176, 534, 120) and repeated exact shoreline/pier reports support an excellent recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 7.3,
+        "peakDate": "09-07"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__steelhead__winter_spring_thermal_front__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "modeId": "winter_spring_thermal_front",
+      "modeName": "Winter and spring thermal-front opportunity",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.1,
+      "strengthRubric": "strong",
+      "availabilityKnots": [
+        {
+          "monthDay": "01-01",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "03-15",
+          "availability": 0.8
+        },
+        {
+          "monthDay": "04-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-15",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "06-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "12-31",
+          "availability": 0.55
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "steelhead__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 2,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 5,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.93
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.97
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.92
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.75
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.25
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T003",
+          "T007",
+          "T009",
+          "T010",
+          "T032"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
+      "calibrationBasis": "Three positive county-pier years (70, 9, 75) and direct summer shoreline reports support a strong peak comparable to other Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__steelhead__seasonal_v0_1",
+        "windowPeak": 5.3,
+        "peakDate": "04-15"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "modeId": "summer_thermal_break_or_upwelling",
+      "modeName": "Summer thermal break or upwelling",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.7,
+      "strengthRubric": "strong",
+      "availabilityKnots": [
+        {
+          "monthDay": "05-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "06-11",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "07-01",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "08-04",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "steelhead__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 2,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 5,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.93
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.97
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.92
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.75
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.25
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T003",
+          "T007",
+          "T009",
+          "T010",
+          "T032"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
+      "calibrationBasis": "Three positive county-pier years (70, 9, 75) and direct summer shoreline reports support a strong peak comparable to other Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__steelhead__seasonal_v0_1",
+        "windowPeak": 5.7,
+        "peakDate": "07-15"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__steelhead__fall_harbor_staging__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.1,
+      "strengthRubric": "limited",
+      "availabilityKnots": [
+        {
+          "monthDay": "08-25",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-28",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "08-30",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "09-01",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-08",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "11-16",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "steelhead__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.65
+          },
+          {
+            "temperatureC": 2,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 5,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.93
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 0.97
+          },
+          {
+            "temperatureC": 12,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 14,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 0.92
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.75
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.5
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.25
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.05
+          }
+        ],
+        "evidenceIds": [
+          "T003",
+          "T007",
+          "T009",
+          "T010",
+          "T032"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Fall harbor-mouth and nearshore opportunity calibrated independently from summer upwelling events.",
+      "calibrationBasis": "Three positive county-pier years (70, 9, 75) and direct summer shoreline reports support a strong peak comparable to other Wisconsin ports. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__steelhead__seasonal_v0_1",
+        "windowPeak": 2.5,
+        "peakDate": "09-01"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__brown_trout__winter_harbor_open_water__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "modeId": "winter_harbor_open_water",
+      "modeName": "Winter harbor open water",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.2,
+      "strengthRubric": "ordinary",
+      "availabilityKnots": [
+        {
+          "monthDay": "01-01",
+          "availability": 0.9
+        },
+        {
+          "monthDay": "01-15",
+          "availability": 1
+        },
+        {
+          "monthDay": "03-01",
+          "availability": 0.65
+        },
+        {
+          "monthDay": "04-01",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "12-31",
+          "availability": 0.9
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "brown_trout__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.6
+          },
+          {
+            "temperatureC": 3,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 6,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.92
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 24,
+            "suitability": 0.25
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.1
+          }
+        ],
+        "evidenceIds": [
+          "T004",
+          "T014",
+          "T015"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "Cold-season harbor opportunity when public access and open water are independently available.",
+      "calibrationBasis": "Positive county-pier harvest in all three years and an exact 2025 shore report support a stronger recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__brown_trout__seasonal_v0_1",
+        "windowPeak": 3.9,
+        "peakDate": "02-15"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "racine_wi__brown_trout__spring_nearshore__v3_pass1",
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "modeId": "spring_nearshore",
+      "modeName": "Spring nearshore",
+      "status": "disabled_pass2_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.3,
+      "strengthRubric": "strong",
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-05",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "03-21",
+          "availability": 0.72
+        },
+        {
+          "monthDay": "04-01",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-08",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "06-16",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "07-15",
+          "availability": 0
+        }
+      ],
+      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
+      "thermalResponse": {
+        "policy": "inherit_shared_species_response",
+        "curveId": "brown_trout__shared_temperature__v0_2",
+        "acceptedDomainC": [
+          0,
+          26
+        ],
+        "knots": [
+          {
+            "temperatureC": 0,
+            "suitability": 0.6
+          },
+          {
+            "temperatureC": 3,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 6,
+            "suitability": 0.82
+          },
+          {
+            "temperatureC": 8,
+            "suitability": 0.92
+          },
+          {
+            "temperatureC": 10,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 16,
+            "suitability": 1
+          },
+          {
+            "temperatureC": 18,
+            "suitability": 0.9
+          },
+          {
+            "temperatureC": 20,
+            "suitability": 0.7
+          },
+          {
+            "temperatureC": 22,
+            "suitability": 0.45
+          },
+          {
+            "temperatureC": 24,
+            "suitability": 0.25
+          },
+          {
+            "temperatureC": 26,
+            "suitability": 0.1
+          }
+        ],
+        "evidenceIds": [
+          "T004",
+          "T014",
+          "T015"
+        ],
+        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
+      },
+      "fisheryEvidenceIds": [
+        "WI_ACCESS_2026",
+        "WI_EXACT_PIER_SPECIES_2023",
+        "WI_COUNTY_MODE_1998_2024",
+        "WI_SEASON_2022",
+        "WI_SEASON_2023",
+        "WI_SEASON_2024"
+      ],
+      "evidenceInterpretation": "The primary recurring pier-mode brown-trout opportunity in both state evidence sets.",
+      "calibrationBasis": "Positive county-pier harvest in all three years and an exact 2025 shore report support a stronger recurring peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
+      "legacyComparator": {
+        "curveId": "racine_wi__brown_trout__seasonal_v0_1",
+        "windowPeak": 6.7,
+        "peakDate": "04-01"
+      },
+      "calibrationOverride": null,
+      "limitations": [
+        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
+        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
+        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "kenosha_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "chinook_salmon",
       "speciesName": "Chinook Salmon",
       "modeId": "summer_coldwater_access",
@@ -10148,10 +11424,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer pier opportunity when cold water and feeding fish are reachable from the harbor mouth.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "The exact two-pier species listing and a strong 2022 county-pier estimate support a strong but variable peak below Racine and Waukegan. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__chinook_salmon__seasonal_v0_1",
-        "windowPeak": 7.3,
+        "curveId": "kenosha_wi__chinook_salmon__seasonal_v0_1",
+        "windowPeak": 6.6,
         "peakDate": "08-10"
       },
       "calibrationOverride": null,
@@ -10163,9 +11439,9 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "chinook_salmon",
       "speciesName": "Chinook Salmon",
       "modeId": "fall_harbor_staging",
@@ -10273,10 +11549,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Mature fish staging at or entering the harbor mouth; temperature remains secondary to the run window.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "The exact two-pier species listing and a strong 2022 county-pier estimate support a strong but variable peak below Racine and Waukegan. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__chinook_salmon__seasonal_v0_1",
-        "windowPeak": 7.4,
+        "curveId": "kenosha_wi__chinook_salmon__seasonal_v0_1",
+        "windowPeak": 6.7,
         "peakDate": "08-15"
       },
       "calibrationOverride": null,
@@ -10288,17 +11564,17 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__coho_salmon__spring_nearshore__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__coho_salmon__spring_nearshore__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "coho_salmon",
       "speciesName": "Coho Salmon",
       "modeId": "spring_nearshore",
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.6,
-      "strengthRubric": "strong",
+      "fisheryStrength": 8.6,
+      "strengthRubric": "excellent",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -10399,10 +11675,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive county-pier years, including 783 in 2023, plus an exact 2025 shore report support an excellent southern-Lake-Michigan peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 7.6,
+        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 8,
         "peakDate": "04-20"
       },
       "calibrationOverride": null,
@@ -10414,9 +11690,9 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__coho_salmon__summer_coldwater_access__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__coho_salmon__summer_coldwater_access__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "coho_salmon",
       "speciesName": "Coho Salmon",
       "modeId": "summer_coldwater_access",
@@ -10525,10 +11801,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive county-pier years, including 783 in 2023, plus an exact 2025 shore report support an excellent southern-Lake-Michigan peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 4.8,
+        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 4.5,
         "peakDate": "07-20"
       },
       "calibrationOverride": null,
@@ -10540,16 +11816,16 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__coho_salmon__fall_harbor_staging__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__coho_salmon__fall_harbor_staging__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "coho_salmon",
       "speciesName": "Coho Salmon",
       "modeId": "fall_harbor_staging",
       "modeName": "Fall harbor staging",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 7.3,
+      "fisheryStrength": 6.9,
       "strengthRubric": "strong",
       "availabilityKnots": [
         {
@@ -10651,10 +11927,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Three positive county-pier years, including 783 in 2023, plus an exact 2025 shore report support an excellent southern-Lake-Michigan peak. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 7.3,
+        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
+        "windowPeak": 6.4,
         "peakDate": "09-07"
       },
       "calibrationOverride": null,
@@ -10666,16 +11942,16 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__steelhead__winter_spring_thermal_front__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__steelhead__winter_spring_thermal_front__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "steelhead",
       "speciesName": "Steelhead",
       "modeId": "winter_spring_thermal_front",
       "modeName": "Winter and spring thermal-front opportunity",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 5.3,
+      "fisheryStrength": 5.6,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -10783,10 +12059,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact named-pier target evidence and a positive recent county-pier year establish a real ordinary peak; uneven sampling remains a confidence limitation. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__steelhead__seasonal_v0_1",
-        "windowPeak": 5.3,
+        "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
+        "windowPeak": 4.3,
         "peakDate": "04-15"
       },
       "calibrationOverride": null,
@@ -10798,16 +12074,16 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "steelhead",
       "speciesName": "Steelhead",
       "modeId": "summer_thermal_break_or_upwelling",
       "modeName": "Summer thermal break or upwelling",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 5.7,
+      "fisheryStrength": 5.5,
       "strengthRubric": "ordinary",
       "availabilityKnots": [
         {
@@ -10915,10 +12191,10 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact named-pier target evidence and a positive recent county-pier year establish a real ordinary peak; uneven sampling remains a confidence limitation. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
-        "curveId": "racine_wi__steelhead__seasonal_v0_1",
-        "windowPeak": 5.7,
+        "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
+        "windowPeak": 4.2,
         "peakDate": "07-15"
       },
       "calibrationOverride": null,
@@ -10930,9 +12206,9 @@
       "promotionEligible": false
     },
     {
-      "modeCalibrationId": "racine_wi__steelhead__fall_harbor_staging__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
+      "modeCalibrationId": "kenosha_wi__steelhead__fall_harbor_staging__v3_pass1",
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
       "speciesId": "steelhead",
       "speciesName": "Steelhead",
       "modeId": "fall_harbor_staging",
@@ -11047,1283 +12323,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Fall harbor-mouth and nearshore opportunity calibrated independently from summer upwelling events.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "racine_wi__steelhead__seasonal_v0_1",
-        "windowPeak": 2.5,
-        "peakDate": "09-01"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "racine_wi__brown_trout__winter_harbor_open_water__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
-      "speciesId": "brown_trout",
-      "speciesName": "Brown Trout",
-      "modeId": "winter_harbor_open_water",
-      "modeName": "Winter harbor open water",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 3.9,
-      "strengthRubric": "limited",
-      "availabilityKnots": [
-        {
-          "monthDay": "01-01",
-          "availability": 0.9
-        },
-        {
-          "monthDay": "01-15",
-          "availability": 1
-        },
-        {
-          "monthDay": "03-01",
-          "availability": 0.65
-        },
-        {
-          "monthDay": "04-01",
-          "availability": 0
-        },
-        {
-          "monthDay": "10-15",
-          "availability": 0
-        },
-        {
-          "monthDay": "11-15",
-          "availability": 0.45
-        },
-        {
-          "monthDay": "12-31",
-          "availability": 0.9
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "brown_trout__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.6
-          },
-          {
-            "temperatureC": 3,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 6,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 8,
-            "suitability": 0.92
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 24,
-            "suitability": 0.25
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.1
-          }
-        ],
-        "evidenceIds": [
-          "T004",
-          "T014",
-          "T015"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Cold-season harbor opportunity when public access and open water are independently available.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "racine_wi__brown_trout__seasonal_v0_1",
-        "windowPeak": 3.9,
-        "peakDate": "02-15"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "racine_wi__brown_trout__spring_nearshore__v3_pass1",
-      "cityId": "racine_wi",
-      "cityName": "Racine",
-      "speciesId": "brown_trout",
-      "speciesName": "Brown Trout",
-      "modeId": "spring_nearshore",
-      "modeName": "Spring nearshore",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 6.7,
-      "strengthRubric": "strong",
-      "availabilityKnots": [
-        {
-          "monthDay": "02-15",
-          "availability": 0
-        },
-        {
-          "monthDay": "03-05",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "03-21",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "04-01",
-          "availability": 1
-        },
-        {
-          "monthDay": "05-08",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "06-16",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "07-15",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "brown_trout__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.6
-          },
-          {
-            "temperatureC": 3,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 6,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 8,
-            "suitability": 0.92
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 24,
-            "suitability": 0.25
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.1
-          }
-        ],
-        "evidenceIds": [
-          "T004",
-          "T014",
-          "T015"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "The primary recurring pier-mode brown-trout opportunity in both state evidence sets.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "racine_wi__brown_trout__seasonal_v0_1",
-        "windowPeak": 6.7,
-        "peakDate": "04-01"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "chinook_salmon",
-      "speciesName": "Chinook Salmon",
-      "modeId": "summer_coldwater_access",
-      "modeName": "Summer cold-water access",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 6.6,
-      "strengthRubric": "strong",
-      "availabilityKnots": [
-        {
-          "monthDay": "06-01",
-          "availability": 0
-        },
-        {
-          "monthDay": "06-29",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "07-24",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "08-10",
-          "availability": 1
-        },
-        {
-          "monthDay": "08-14",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "08-17",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "08-20",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "chinook_salmon__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 4,
-            "suitability": 0.6
-          },
-          {
-            "temperatureC": 7,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 9,
-            "suitability": 0.95
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.2
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T001",
-          "T006"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Summer pier opportunity when cold water and feeding fish are reachable from the harbor mouth.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__chinook_salmon__seasonal_v0_1",
-        "windowPeak": 6.6,
-        "peakDate": "08-10"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "chinook_salmon",
-      "speciesName": "Chinook Salmon",
-      "modeId": "fall_harbor_staging",
-      "modeName": "Fall harbor staging",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 6.7,
-      "strengthRubric": "strong",
-      "availabilityKnots": [
-        {
-          "monthDay": "07-20",
-          "availability": 0
-        },
-        {
-          "monthDay": "07-30",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "08-09",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "08-15",
-          "availability": 1
-        },
-        {
-          "monthDay": "09-11",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "10-10",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "11-01",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "chinook_salmon__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 4,
-            "suitability": 0.6
-          },
-          {
-            "temperatureC": 7,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 9,
-            "suitability": 0.95
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.45
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.2
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T001",
-          "T006"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Mature fish staging at or entering the harbor mouth; temperature remains secondary to the run window.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__chinook_salmon__seasonal_v0_1",
-        "windowPeak": 6.7,
-        "peakDate": "08-15"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__coho_salmon__spring_nearshore__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "coho_salmon",
-      "speciesName": "Coho Salmon",
-      "modeId": "spring_nearshore",
-      "modeName": "Spring nearshore",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 8,
-      "strengthRubric": "strong",
-      "availabilityKnots": [
-        {
-          "monthDay": "02-15",
-          "availability": 0
-        },
-        {
-          "monthDay": "03-13",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "04-04",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "04-20",
-          "availability": 1
-        },
-        {
-          "monthDay": "05-15",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "06-10",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "06-30",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "coho_salmon__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 4,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 7,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16.5,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 19,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 21,
-            "suitability": 0.35
-          },
-          {
-            "temperatureC": 23,
-            "suitability": 0.15
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T002",
-          "T008",
-          "T013"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Cold-water spring shoreline concentration documented in the pier-mode seasonal record.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 8,
-        "peakDate": "04-20"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__coho_salmon__summer_coldwater_access__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "coho_salmon",
-      "speciesName": "Coho Salmon",
-      "modeId": "summer_coldwater_access",
-      "modeName": "Summer cold-water access",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 4.5,
-      "strengthRubric": "ordinary",
-      "availabilityKnots": [
-        {
-          "monthDay": "06-10",
-          "availability": 0
-        },
-        {
-          "monthDay": "06-26",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "07-10",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "07-20",
-          "availability": 1
-        },
-        {
-          "monthDay": "08-02",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "08-15",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "08-25",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "coho_salmon__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 4,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 7,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16.5,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 19,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 21,
-            "suitability": 0.35
-          },
-          {
-            "temperatureC": 23,
-            "suitability": 0.15
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T002",
-          "T008",
-          "T013"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "A distinct summer window dependent on pier-reachable cold water rather than interpolation between spring and fall peaks.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 4.5,
-        "peakDate": "07-20"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__coho_salmon__fall_harbor_staging__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "coho_salmon",
-      "speciesName": "Coho Salmon",
-      "modeId": "fall_harbor_staging",
-      "modeName": "Fall harbor staging",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 6.4,
-      "strengthRubric": "strong",
-      "availabilityKnots": [
-        {
-          "monthDay": "08-01",
-          "availability": 0
-        },
-        {
-          "monthDay": "08-16",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "08-29",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "09-07",
-          "availability": 1
-        },
-        {
-          "monthDay": "10-07",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "11-07",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "12-01",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "coho_salmon__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 4,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 7,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16.5,
-            "suitability": 0.9
-          },
-          {
-            "temperatureC": 19,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 21,
-            "suitability": 0.35
-          },
-          {
-            "temperatureC": 23,
-            "suitability": 0.15
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T002",
-          "T008",
-          "T013"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Late-season harbor-mouth opportunity treated independently from spring coho.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__coho_salmon__seasonal_v0_1",
-        "windowPeak": 6.4,
-        "peakDate": "09-07"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__steelhead__winter_spring_thermal_front__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "steelhead",
-      "speciesName": "Steelhead",
-      "modeId": "winter_spring_thermal_front",
-      "modeName": "Winter and spring thermal-front opportunity",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 4.3,
-      "strengthRubric": "ordinary",
-      "availabilityKnots": [
-        {
-          "monthDay": "01-01",
-          "availability": 0.55
-        },
-        {
-          "monthDay": "03-15",
-          "availability": 0.8
-        },
-        {
-          "monthDay": "04-15",
-          "availability": 1
-        },
-        {
-          "monthDay": "05-15",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "06-01",
-          "availability": 0
-        },
-        {
-          "monthDay": "11-15",
-          "availability": 0
-        },
-        {
-          "monthDay": "12-31",
-          "availability": 0.55
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "steelhead__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 2,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 5,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 8,
-            "suitability": 0.93
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.97
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 0.92
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.75
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.25
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T003",
-          "T007",
-          "T009",
-          "T010",
-          "T032"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Cold-season open-water opportunity and spring thermal fronts, subject to a separate practical access gate.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
-        "windowPeak": 4.3,
-        "peakDate": "04-15"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "steelhead",
-      "speciesName": "Steelhead",
-      "modeId": "summer_thermal_break_or_upwelling",
-      "modeName": "Summer thermal break or upwelling",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 4.2,
-      "strengthRubric": "ordinary",
-      "availabilityKnots": [
-        {
-          "monthDay": "05-20",
-          "availability": 0
-        },
-        {
-          "monthDay": "06-11",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "07-01",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "07-15",
-          "availability": 1
-        },
-        {
-          "monthDay": "08-04",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "08-25",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "09-10",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "steelhead__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 2,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 5,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 8,
-            "suitability": 0.93
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.97
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 0.92
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.75
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.25
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T003",
-          "T007",
-          "T009",
-          "T010",
-          "T032"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Summer steelhead opportunity is isolated from spring and fall and requires pier-reachable cool water.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
-      "legacyComparator": {
-        "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
-        "windowPeak": 4.2,
-        "peakDate": "07-15"
-      },
-      "calibrationOverride": null,
-      "limitations": [
-        "City-harbor shadow candidate supported by exact Wisconsin DNR access/species guidance, county pier-mode recurrence, statewide pier temporal shape, and dated local reports. The numeric curve is a provisional FinFindr calibration.",
-        "No comparable city-specific pier effort denominator is published; the decimal is a bounded FinFindr calibration judgment.",
-        "Shared surface-temperature compatibility is provisional and is not the fish's experienced temperature."
-      ],
-      "promotionEligible": false
-    },
-    {
-      "modeCalibrationId": "kenosha_wi__steelhead__fall_harbor_staging__v3_pass1",
-      "cityId": "kenosha_wi",
-      "cityName": "Kenosha",
-      "speciesId": "steelhead",
-      "speciesName": "Steelhead",
-      "modeId": "fall_harbor_staging",
-      "modeName": "Fall harbor staging",
-      "status": "disabled_pass2_candidate",
-      "evidenceGrade": "B",
-      "fisheryStrength": 2.1,
-      "strengthRubric": "limited",
-      "availabilityKnots": [
-        {
-          "monthDay": "08-25",
-          "availability": 0
-        },
-        {
-          "monthDay": "08-28",
-          "availability": 0.35
-        },
-        {
-          "monthDay": "08-30",
-          "availability": 0.72
-        },
-        {
-          "monthDay": "09-01",
-          "availability": 1
-        },
-        {
-          "monthDay": "10-08",
-          "availability": 0.78
-        },
-        {
-          "monthDay": "11-16",
-          "availability": 0.32
-        },
-        {
-          "monthDay": "12-15",
-          "availability": 0
-        }
-      ],
-      "seasonalPotentialEquation": "1 + (fisheryStrength - 1) * seasonalAvailability",
-      "thermalResponse": {
-        "policy": "inherit_shared_species_response",
-        "curveId": "steelhead__shared_temperature__v0_2",
-        "acceptedDomainC": [
-          0,
-          26
-        ],
-        "knots": [
-          {
-            "temperatureC": 0,
-            "suitability": 0.65
-          },
-          {
-            "temperatureC": 2,
-            "suitability": 0.7
-          },
-          {
-            "temperatureC": 5,
-            "suitability": 0.82
-          },
-          {
-            "temperatureC": 8,
-            "suitability": 0.93
-          },
-          {
-            "temperatureC": 10,
-            "suitability": 0.97
-          },
-          {
-            "temperatureC": 12,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 14,
-            "suitability": 1
-          },
-          {
-            "temperatureC": 16,
-            "suitability": 0.92
-          },
-          {
-            "temperatureC": 18,
-            "suitability": 0.75
-          },
-          {
-            "temperatureC": 20,
-            "suitability": 0.5
-          },
-          {
-            "temperatureC": 22,
-            "suitability": 0.25
-          },
-          {
-            "temperatureC": 26,
-            "suitability": 0.05
-          }
-        ],
-        "evidenceIds": [
-          "T003",
-          "T007",
-          "T009",
-          "T010",
-          "T032"
-        ],
-        "modeSpecificDifferenceStatus": "not_supported_use_shared_species_hypothesis"
-      },
-      "fisheryEvidenceIds": [
-        "WI_ACCESS_2026",
-        "WI_EXACT_PIER_SPECIES_2023",
-        "WI_COUNTY_MODE_1998_2024",
-        "WI_SEASON_2022",
-        "WI_SEASON_2023",
-        "WI_SEASON_2024"
-      ],
-      "evidenceInterpretation": "Fall harbor-mouth and nearshore opportunity calibrated independently from summer upwelling events.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact named-pier target evidence and a positive recent county-pier year establish a real ordinary peak; uneven sampling remains a confidence limitation. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "kenosha_wi__steelhead__seasonal_v0_1",
         "windowPeak": 2.1,
@@ -12347,7 +12347,7 @@
       "modeName": "Winter harbor open water",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 3.5,
+      "fisheryStrength": 3.8,
       "strengthRubric": "limited",
       "availabilityKnots": [
         {
@@ -12449,7 +12449,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "Cold-season harbor opportunity when public access and open water are independently available.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact named-pier target evidence and renewed 2024 county-pier harvest support a low strong-band peak while preserving high variability. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "kenosha_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 3.5,
@@ -12473,8 +12473,8 @@
       "modeName": "Spring nearshore",
       "status": "disabled_pass2_candidate",
       "evidenceGrade": "B",
-      "fisheryStrength": 5.8,
-      "strengthRubric": "ordinary",
+      "fisheryStrength": 6.4,
+      "strengthRubric": "strong",
       "availabilityKnots": [
         {
           "monthDay": "02-15",
@@ -12575,7 +12575,7 @@
         "WI_SEASON_2024"
       ],
       "evidenceInterpretation": "The primary recurring pier-mode brown-trout opportunity in both state evidence sets.",
-      "calibrationBasis": "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+      "calibrationBasis": "Exact named-pier target evidence and renewed 2024 county-pier harvest support a low strong-band peak while preserving high variability. The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.",
       "legacyComparator": {
         "curveId": "kenosha_wi__brown_trout__seasonal_v0_1",
         "windowPeak": 5.8,

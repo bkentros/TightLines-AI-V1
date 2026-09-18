@@ -1,0 +1,2451 @@
+{
+  "schemaVersion": "piercast-five-city-pass2-pair-decisions-v2",
+  "calibrationStandardVersion": "piercast-absolute-cross-city-2026-09-17",
+  "reviewedAt": "2026-09-17",
+  "counts": {
+    "numericShadow": 24,
+    "researchHold": 20,
+    "exclude": 51,
+    "modes": 60,
+    "dailyRows": 8760
+  },
+  "decisions": [
+    {
+      "pairKey": "two_rivers_wi/chinook_salmon",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "chinook_salmon",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "A local 2019 outdoor report names a Chinook taken from the Two Rivers piers; Manitowoc County pier Chinook also recur. This establishes a research candidate, not a current catch rate.",
+      "sourceIds": [
+        "TWO_RIVERS_OUTDOOR_2019",
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Obtain current Two Rivers harbor-pier Chinook target/catch observations and site-level seasonal effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.4,
+      "evidenceIds": [
+        "TWO_RIVERS_OUTDOOR_2019",
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Recurring county pier Chinook plus exact Two Rivers fall reports, including a documented hit-or-miss window in which a morning produced six to eight salmon across the Two Rivers/Manitowoc piers. The peak is excellent but remains below Kewaunee, Algoma, and Sheboygan.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "two_rivers_wi/coho_salmon",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "coho_salmon",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Manitowoc County pier coho recur and coho are an established regional shore salmonid; the county totals cannot allocate the catch between Two Rivers and Manitowoc.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981"
+      ],
+      "nextEvidence": "Obtain Two Rivers pier coho target/catch records and magnitude, especially spring and fall.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.1,
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981",
+        "WI_TWO_RIVERS_1969",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_PIER_2022",
+        "WI_PIER_2023",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "Historic exact north-pier coho plus recurring recent county pier coho establish a strong prime window; city allocation remains the disclosed Grade B limitation, not a score discount.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "two_rivers_wi/steelhead",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "steelhead",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR associates rainbow trout with Two Rivers harbor pier/shore access; county pier rainbow harvest gives wider mode recurrence.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Separate lake-run rainbow from brown in local pier interviews and document the spring/fall window and strength.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.3,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "TWO_RIVERS_PARKS_2024",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_STEELHEAD_PIER"
+      ],
+      "evidenceReason": "DNR names rainbow at Two Rivers harbor access and county pier rainbow recurs, including 116 in 2024; calibrated below the corrected Sheboygan 7.8 and the strongest Michigan fall ports.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "two_rivers_wi/brown_trout",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "brown_trout",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR associates brown trout with Two Rivers harbor pier/shore access; county pier brown harvest recurs.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Obtain species-separated Two Rivers pier interviews and monthly effort to calibrate magnitude.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.2,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "TWO_RIVERS_PARKS_2024",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "DNR names brown at Two Rivers harbor access, exact fall pier reporting includes brown trout, and county pier brown recurs; calibrated below Port Washington 8.1 and Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "two_rivers_wi/lake_trout",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "lake_trout",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "Historical Manitowoc County pier lake-trout harvest recurs, including 2015 and 2019, although 2022-24 estimates are zero. County results cannot separate Two Rivers and Manitowoc.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Find direct recent Two Rivers pier lake-trout records and calibrate a likely weak, seasonal opportunity; do not transfer charter harvest.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "evidenceReason": "Historical Wisconsin county pier lake trout and offshore abundance establish occurrence, but 2022-24 county estimates are zero and the 2024 statewide pier estimate is only three. Illinois 2023-24 Waukegan pedestrian estimates are zero. No defensible current exact-pier annual magnitude; offshore catch is excluded.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/walleye",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "walleye",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring walleye target; lakewide or river/boat walleye evidence does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/smallmouth_bass",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "smallmouth_bass",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "DNR lists smallmouth on the West Twin River at Veterans Park, a separate river location, not the covered harbor pier.",
+      "sourceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "nextEvidence": "A named Two Rivers harbor-pier smallmouth target series, distinct from Veterans Park.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "evidenceReason": "A named Two Rivers harbor-pier smallmouth target series, distinct from Veterans Park.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/freshwater_drum",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "freshwater_drum",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring drum target; incidental or wider-lake presence does not suffice.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/yellow_perch",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "yellow_perch",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "No Two Rivers pier-specific perch series was found; regional pier perch harvest makes this worth checking rather than declaring absence.",
+      "sourceIds": [
+        "WI_CREEL_TIMING_2024"
+      ],
+      "nextEvidence": "Named Two Rivers harbor or pier perch catches in multiple periods.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_CREEL_TIMING_2024"
+      ],
+      "evidenceReason": "New DNR perch table finds 2022-24 county pier harvest 0/0/0 in Kewaunee and 0/0/3 in Manitowoc. Algoma 2026 perch report is river, not pier. Local common pier targeting is unproven.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/lake_whitefish",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "lake_whitefish",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring lake-whitefish target; open-lake presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/round_whitefish",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "round_whitefish",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring round-whitefish target; species identity and fishing mode are unproven.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/channel_catfish",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "channel_catfish",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier channel-catfish target; bullhead records are a different taxon.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/largemouth_bass",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "largemouth_bass",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring largemouth-bass target; inland and marina-basin evidence cannot transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/atlantic_salmon",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "atlantic_salmon",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring Atlantic-salmon target; occasional salmonid presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/northern_pike",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "northern_pike",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "Pike are a 2026 Manitowoc County pier catch, but no Two Rivers-specific pier record was found.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Two Rivers harbor-pier pike target/catch recurrence.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "evidenceReason": "Two Rivers harbor-pier pike target/catch recurrence.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/burbot",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "burbot",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring burbot target; a different Great Lakes port cannot establish this location.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/white_perch",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "white_perch",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-perch target; incidental or countywide presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/white_bass",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "white_bass",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-bass target; do not confuse white bass with white perch.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "two_rivers_wi/bluegill",
+      "cityId": "two_rivers_wi",
+      "cityName": "Two Rivers, WI",
+      "speciesId": "bluegill",
+      "accessStatus": "documented_public_approach; current pier signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring bluegill target; a river or inland-pond record does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "TWO_RIVERS_PARKS_2024"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/chinook_salmon",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "chinook_salmon",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR records Kewaunee harbor/pier salmon targeting and Chinook in the same local paragraph; county pier Chinook harvest recurs.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Separate south lighthouse pier from inner harbor and boats in site-level Chinook interviews; quantify effort/season.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 9.1,
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "KEWAUNEE_PARKS_2025",
+        "MWO_2025_11",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Repeated exact Kewaunee pier/harbor Chinook reports sit inside the county that led Wisconsin Chinook harvest in 2024. The recurring pier peak is elite, below Sheboygan 9.4 and the 9.5+ reference class.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "kewaunee_wi/coho_salmon",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "coho_salmon",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Kewaunee harbor/pier salmon targeting and recurring county pier coho justify season research; species-specific city-pier strength remains unquantified.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Separate Kewaunee south-pier coho from Algoma and measure spring/fall effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 6.8,
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07",
+        "MWO_2025_11",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Exact current pier coho and pooled county recurrence support a strong prime window, below the corrected 8.2-8.6 established Wisconsin spring-coho anchors.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "kewaunee_wi/steelhead",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "steelhead",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Kewaunee harbor/pier trout targeting, county pier rainbow recurrence, and the agency's description of regional shore rainbow fishing justify research.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07",
+        "UW_SEA_GRANT_WI_1981"
+      ],
+      "nextEvidence": "Species-specific Kewaunee south-pier rainbow/steelhead target records and seasonal effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.8,
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07",
+        "UW_SEA_GRANT_WI_1981",
+        "MWO_2025_11",
+        "WI_WEEKS_2024_09",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_STEELHEAD_PIER"
+      ],
+      "evidenceReason": "Exact 2024/25 pier rainbow/steelhead reports and 133 county pier rainbows in 2024 support an excellent local peak equal to corrected Sheboygan 7.8 and well below Michigan reference-class ports.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "kewaunee_wi/brown_trout",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "brown_trout",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR specifically associates brown trout with Kewaunee river-mouth breakwall access; county pier brown harvest recurs.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "South-pier versus inner-harbor brown-trout observations and month-level effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.4,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "KEWAUNEE_PARKS_2025",
+        "MWO_2025_11",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "DNR river-mouth access, exact 2025 pier brown trout, and recurring county pier harvest support a strong peak below Port Washington 8.1 and Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "kewaunee_wi/lake_trout",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "lake_trout",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Kewaunee County pier lake-trout harvest has positive historical years, including 2012, 2015 and 2016; 2022-24 estimates are zero and the two county ports are pooled.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981"
+      ],
+      "nextEvidence": "Find direct recent Kewaunee pier lake-trout catches and estimate a cautious seasonal magnitude.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.2,
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981",
+        "WI_NORTH_LM_ARCHIVE",
+        "NOAA_WI_1981",
+        "WI_PIER_2022",
+        "WI_PIER_2023",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "Historic exact Kewaunee pier targeting and older county pier recurrence establish an ordinary but real cold-season opportunity. Recent zero estimates prevent an offshore-derived high score but do not justify a hidden confidence penalty below comparable 3.6-4.0 Michigan pier modes.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "kewaunee_wi/walleye",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "walleye",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring walleye target; lakewide or river/boat walleye evidence does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/smallmouth_bass",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "smallmouth_bass",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "A 2010 outdoor report compiled from DNR and private observations names smallmouth caught at the Kewaunee pier; modern recurrence is unverified.",
+      "sourceIds": [
+        "MANITOWOC_OUTDOOR_2010",
+        "WI_ACCESS_2023"
+      ],
+      "nextEvidence": "Find modern Kewaunee south-pier smallmouth targeting and season strength.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "MANITOWOC_OUTDOOR_2010",
+        "WI_ACCESS_2023"
+      ],
+      "evidenceReason": "Find modern Kewaunee south-pier smallmouth targeting and season strength.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/freshwater_drum",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "freshwater_drum",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring drum target; incidental or wider-lake presence does not suffice.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/yellow_perch",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "yellow_perch",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "No Kewaunee south-pier perch series was found; statewide and countywide perch records are not an exact-city pier record.",
+      "sourceIds": [
+        "WI_CREEL_TIMING_2024"
+      ],
+      "nextEvidence": "Named Kewaunee south-pier or Harbor Point perch targeting in repeated periods.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_CREEL_TIMING_2024"
+      ],
+      "evidenceReason": "New DNR perch table finds 2022-24 county pier harvest 0/0/0 in Kewaunee and 0/0/3 in Manitowoc. Algoma 2026 perch report is river, not pier. Local common pier targeting is unproven.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/lake_whitefish",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "lake_whitefish",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring lake-whitefish target; open-lake presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/round_whitefish",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "round_whitefish",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring round-whitefish target; species identity and fishing mode are unproven.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/channel_catfish",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "channel_catfish",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier channel-catfish target; bullhead records are a different taxon.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/largemouth_bass",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "largemouth_bass",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring largemouth-bass target; inland and marina-basin evidence cannot transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/atlantic_salmon",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "atlantic_salmon",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring Atlantic-salmon target; occasional salmonid presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/northern_pike",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "northern_pike",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "DNR names pike at the Kewaunee river-mouth breakwall. This is enough for research, though not yet a numeric score.",
+      "sourceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "nextEvidence": "Repeat named-pier pike catch/target reports and determine seasonal strength.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "evidenceReason": "Repeat named-pier pike catch/target reports and determine seasonal strength.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/burbot",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "burbot",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring burbot target; a different Great Lakes port cannot establish this location.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/white_perch",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "white_perch",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-perch target; incidental or countywide presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/white_bass",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "white_bass",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-bass target; do not confuse white bass with white perch.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "kewaunee_wi/bluegill",
+      "cityId": "kewaunee_wi",
+      "cityName": "Kewaunee, WI",
+      "speciesId": "bluegill",
+      "accessStatus": "south_pier_pedestrian_access_supported; current fishing signage not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring bluegill target; a river or inland-pond record does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "KEWAUNEE_PARKS_2025"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/chinook_salmon",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "chinook_salmon",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Algoma pier anglers targeted salmon in September 2026, and Kewaunee County pier Chinook recur. Species-separated Algoma magnitude remains unresolved.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Find Algoma pier Chinook interviews and seasonal effort; retain construction status as report metadata.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 9,
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "MWO_2025_11",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Exact 2010, 2025, and 2026 pier targeting/catch reports plus leading Kewaunee County context support an elite recurring fall peak, just below Kewaunee 9.1 and Sheboygan 9.4.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "algoma_wi/coho_salmon",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "coho_salmon",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Algoma pier salmon targeting and recurring county pier coho justify research, although the county estimates pool Algoma with Kewaunee.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Find Algoma pier coho interviews, especially spring, and estimate site-level strength.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7,
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "MWO_2025_11",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Exact Algoma pier coho reports in 2010 and 2025 support a strong prime window; pooled county magnitude places it below the corrected 8.2-8.6 established Wisconsin spring-coho anchors.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "algoma_wi/steelhead",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "steelhead",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR lists rainbow trout at Algoma's Ahnapee mouth breakwall; a historical outdoor report names a south-pier rainbow, while county pier rainbow harvest and current trout targeting corroborate.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "MANITOWOC_OUTDOOR_2010",
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Obtain modern Algoma pier species-specific and seasonal rainbow/steelhead interviews; record construction separately.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.7,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "MANITOWOC_OUTDOOR_2010",
+        "WI_CREEL_COUNTY_2024",
+        "WI_WEEKLY_2026_09_07",
+        "MWO_2025_11",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "DNR breakwall rainbow association and exact 2025 pier rainbow, within Wisconsin's leading 2024 rainbow-harvest county, support an excellent peak just below Kewaunee and Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "algoma_wi/brown_trout",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "brown_trout",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Exact-city pier trout targeting, Algoma's nearby brown-trout listing, and recurring county pier brown harvest warrant research; none isolates breakwall brown catch.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Separate Algoma breakwall brown trout from Olson Park and estimate season and strength.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.6,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "An exact Algoma pier report describes many anglers catching a mixed bag that included brown trout, and current trout targeting plus county recurrence support a strong peak near Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "algoma_wi/lake_trout",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "lake_trout",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "Kewaunee County pier lake-trout harvest is positive in several historical years, including 2012, 2015 and 2016, but the county pools Algoma with Kewaunee and 2022-24 estimates are zero.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Find direct recent Algoma pier lake-trout records and calibrate a likely weak seasonal opportunity.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "evidenceReason": "Historical Wisconsin county pier lake trout and offshore abundance establish occurrence, but 2022-24 county estimates are zero and the 2024 statewide pier estimate is only three. Illinois 2023-24 Waukegan pedestrian estimates are zero. No defensible current exact-pier annual magnitude; offshore catch is excluded.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/walleye",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "walleye",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring walleye target; lakewide or river/boat walleye evidence does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/smallmouth_bass",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "smallmouth_bass",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "September 2026 smallmouth catch is reported for surveyed Ahnapee River anglers, not explicitly the pier.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Named breakwall smallmouth target records at an open segment.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "evidenceReason": "Named breakwall smallmouth target records at an open segment.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/freshwater_drum",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "freshwater_drum",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring drum target; incidental or wider-lake presence does not suffice.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/yellow_perch",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "yellow_perch",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "September 2026 perch anglers were on the Ahnapee River; the pier passage only says trout/salmon.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "nextEvidence": "Named open-pier yellow-perch targeting and repeat catches.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "evidenceReason": "New DNR perch table finds 2022-24 county pier harvest 0/0/0 in Kewaunee and 0/0/3 in Manitowoc. Algoma 2026 perch report is river, not pier. Local common pier targeting is unproven.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/lake_whitefish",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "lake_whitefish",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring lake-whitefish target; open-lake presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/round_whitefish",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "round_whitefish",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring round-whitefish target; species identity and fishing mode are unproven.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/channel_catfish",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "channel_catfish",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier channel-catfish target; bullhead records are a different taxon.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/largemouth_bass",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "largemouth_bass",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring largemouth-bass target; inland and marina-basin evidence cannot transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/atlantic_salmon",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "atlantic_salmon",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring Atlantic-salmon target; occasional salmonid presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/northern_pike",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "northern_pike",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "DNR identifies pike at the Algoma river-mouth breakwall, enough to research its season and strength.",
+      "sourceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "nextEvidence": "Find repeat Algoma breakwall pike catch/target evidence; retain construction status separately.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_ACCESS_2023"
+      ],
+      "evidenceReason": "Find repeat Algoma breakwall pike catch/target evidence; retain construction status separately.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/burbot",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "burbot",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring burbot target; a different Great Lakes port cannot establish this location.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/white_perch",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "white_perch",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-perch target; incidental or countywide presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/white_bass",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "white_bass",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-bass target; do not confuse white bass with white perch.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "algoma_wi/bluegill",
+      "cityId": "algoma_wi",
+      "cityName": "Algoma, WI",
+      "speciesId": "bluegill",
+      "accessStatus": "construction_hold; obtain current segment-specific USACE/city clearance",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring bluegill target; a river or inland-pond record does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "ALGOMA_USACE_STATUS",
+        "ALGOMA_USACE_EA"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/chinook_salmon",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "chinook_salmon",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "Manitowoc County piers produced about ten Chinook in a 2026 field week and county pier Chinook recur; a historical local report also names Manitowoc south-pier kings.",
+      "sourceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "MANITOWOC_OUTDOOR_2010"
+      ],
+      "nextEvidence": "Isolate Manitowoc public-pier Chinook effort from Two Rivers and update historical season evidence.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.5,
+      "evidenceIds": [
+        "WI_WEEKLY_2026_09_07",
+        "WI_CREEL_COUNTY_2024",
+        "MANITOWOC_OUTDOOR_2010",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024"
+      ],
+      "evidenceReason": "Exact south-pier reports, a six-to-eight-salmon peak morning across the paired city piers, and about ten county-pier Chinook in a 2026 week support an excellent recurring peak below Kewaunee, Algoma, and Sheboygan.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/coho_salmon",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "coho_salmon",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "County pier coho harvest recurs and historical UW Sea Grant overview names Manitowoc coho in a mixed breakwater/stream/trolling fishery; score magnitude needs mode separation.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981"
+      ],
+      "nextEvidence": "Find Manitowoc public-pier spring coho observations and effort separate from Two Rivers.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.2,
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024",
+        "UW_SEA_GRANT_WI_1981",
+        "WI_COUNTY_SPECIES_2024",
+        "NOAA_WI_1981",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "Historic exact breakwater association and county pier coho estimates of 20, 205, and 133 in 2022-24 support a strong prime window; the city split remains a Grade B disclosure.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/steelhead",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "steelhead",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR names rainbow trout at Manitowoc Marina pier and county pier rainbow harvest recurs; the grouped guide row is research evidence, not a score.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Species-separated Manitowoc pier interviews, season and effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.2,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_STEELHEAD_PIER"
+      ],
+      "evidenceReason": "DNR names rainbow at Manitowoc Marina pier and county pier rainbow recurs, including 116 in 2024; calibrated below corrected Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/brown_trout",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "brown_trout",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR names brown trout at Manitowoc Marina pier and county pier brown harvest recurs; the grouped guide row is research evidence, not a score.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Species-separated Manitowoc pier interviews with effort and seasonal coverage.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.2,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_CREEL_COUNTY_2024",
+        "WI_PIER_REPORT_2010_09",
+        "WI_COUNTY_SPECIES_2024",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "DNR names brown at the marina pier, exact paired-city fall reporting includes brown trout, and county pier brown recurs; calibrated below Port Washington 8.1 and Sheboygan 7.8.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/lake_trout",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "lake_trout",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "Manitowoc County pier lake-trout estimates recur historically, including 2015 and 2019, while 2022-24 estimates are zero. This supports research, not a strong current score.",
+      "sourceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "nextEvidence": "Find direct recent Manitowoc pier lake-trout records and estimate seasonal strength separately from Two Rivers.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "WI_CREEL_COUNTY_2024"
+      ],
+      "evidenceReason": "Historical Wisconsin county pier lake trout and offshore abundance establish occurrence, but 2022-24 county estimates are zero and the 2024 statewide pier estimate is only three. Illinois 2023-24 Waukegan pedestrian estimates are zero. No defensible current exact-pier annual magnitude; offshore catch is excluded.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/walleye",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "walleye",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring walleye target; lakewide or river/boat walleye evidence does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/smallmouth_bass",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "smallmouth_bass",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR names smallmouth at Manitowoc Marina pier access and 2026 county piers produced smallmouth.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Resolve exact pier point and obtain Manitowoc-specific repeated target/catch observations and seasonal effort.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.8,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK",
+        "WI_PIER_2022",
+        "WI_PIER_2023",
+        "WI_PIER_2024"
+      ],
+      "evidenceReason": "DNR exact marina-pier association plus current county pier catches support an ordinary but worthwhile warm-season fishery equal to Ludington 5.8 and below Grand Haven 7.0.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/freshwater_drum",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "freshwater_drum",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring drum target; incidental or wider-lake presence does not suffice.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/yellow_perch",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "yellow_perch",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "A historical local outdoor report names perch fishing at Manitowoc harbor and south pier; currency and strength need confirmation.",
+      "sourceIds": [
+        "MANITOWOC_OUTDOOR_2010"
+      ],
+      "nextEvidence": "Find modern Manitowoc harbor/south-pier perch target and catch records by season.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "MANITOWOC_OUTDOOR_2010"
+      ],
+      "evidenceReason": "New DNR perch table finds 2022-24 county pier harvest 0/0/0 in Kewaunee and 0/0/3 in Manitowoc. Algoma 2026 perch report is river, not pier. Local common pier targeting is unproven.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/lake_whitefish",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "lake_whitefish",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring lake-whitefish target; open-lake presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/round_whitefish",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "round_whitefish",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring round-whitefish target; species identity and fishing mode are unproven.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/channel_catfish",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "channel_catfish",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier channel-catfish target; bullhead records are a different taxon.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/largemouth_bass",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "largemouth_bass",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring largemouth-bass target; inland and marina-basin evidence cannot transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/atlantic_salmon",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "atlantic_salmon",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring Atlantic-salmon target; occasional salmonid presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/northern_pike",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "northern_pike",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "DNR names pike at Manitowoc Marina pier access and 2026 county piers produced pike.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Resolve exact pier point and obtain repeated Manitowoc-specific pike target/catch observations.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.2,
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK",
+        "WI_PIER_2022",
+        "WI_PIER_2023",
+        "WI_PIER_2024",
+        "WI_PIKE_SEASON_2026"
+      ],
+      "evidenceReason": "DNR exact marina-pier association plus current county pier catches support an ordinary peak equal to Ludington 5.2; no evidence supports an excellent pike rating.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "manitowoc_wi/burbot",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "burbot",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring burbot target; a different Great Lakes port cannot establish this location.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/white_perch",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "white_perch",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-perch target; incidental or countywide presence is insufficient.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/white_bass",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "white_bass",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-bass target; do not confuse white bass with white perch.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "manitowoc_wi/bluegill",
+      "cityId": "manitowoc_wi",
+      "cityName": "Manitowoc, WI",
+      "speciesId": "bluegill",
+      "accessStatus": "public_Lighthouse_Park_fishing_supported; exact DNR Lakeview pier approach unresolved",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring bluegill target; a river or inland-pond record does not transfer.",
+      "sourceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "WI_ACCESS_2023",
+        "WI_WEEKLY_2026_09_07",
+        "MANITOWOC_LIGHTHOUSE_PARK"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/chinook_salmon",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "chinook_salmon",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "An exact Government Pier specialist guide names spring and fall Chinook fishing; IDNR supports fall harbor salmon and harbor presence. Magnitude still needs pedestrian creel evidence.",
+      "sourceIds": [
+        "WAUKEGAN_GOV_PIER_GUIDE",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Extract Waukegan pedestrian Chinook rows; exclude North Harbor snagging.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7.6,
+      "evidenceIds": [
+        "WAUKEGAN_GOV_PIER_GUIDE",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_HARBOR_2025",
+        "INHS_2023_SITE",
+        "INHS_2024_SITE",
+        "WAUKEGAN_PIER_GUIDE",
+        "WAUKEGAN_2019_PIER",
+        "IL_STOCKING_2025"
+      ],
+      "evidenceReason": "Repeated Waukegan Harbor pedestrian harvest and exact Government Pier fall targeting support a strong staging peak above Kenosha 7.4 and below the excellent central-Wisconsin ports; October remains outside the quantitative survey.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "waukegan_il/coho_salmon",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "coho_salmon",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "IDNR explicitly names early-spring Waukegan Harbor coho; Waukegan pedestrian creel is a separately surveyed mode.",
+      "sourceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "IL_DNR_SHORE_MAP"
+      ],
+      "nextEvidence": "Extract Waukegan pedestrian coho harvest, target effort and seasonal rows from full INHS reports; check Government Pier fraction.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 8.8,
+      "evidenceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "IL_DNR_SHORE_MAP",
+        "INHS_2023_SITE",
+        "INHS_2024_SITE",
+        "WAUKEGAN_PIER_GUIDE",
+        "IL_SEASON_2026"
+      ],
+      "evidenceReason": "Repeated Waukegan Harbor pedestrian harvest of 2,493 and 1,893 coho with heavy salmon-directed effort supports an excellent spring fishery equal to Grand Haven 8.8 and above Kenosha 8.6.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "waukegan_il/steelhead",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "steelhead",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "An exact Government Pier specialist guide names steelhead in colder months and IDNR recognizes spring/fall shore rainbow fishing; score needs Waukegan pedestrian rows.",
+      "sourceIds": [
+        "WAUKEGAN_GOV_PIER_GUIDE",
+        "IL_DNR_LAKE_MICHIGAN_2026",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Extract Waukegan pedestrian steelhead/rainbow target rows and verify current guide timing.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 6.8,
+      "evidenceIds": [
+        "WAUKEGAN_GOV_PIER_GUIDE",
+        "IL_DNR_LAKE_MICHIGAN_2026",
+        "IL_DNR_HARBOR_2025",
+        "INHS_2023_SITE",
+        "INHS_2024_SITE",
+        "WAUKEGAN_PIER_GUIDE",
+        "IL_SEASON_2026"
+      ],
+      "evidenceReason": "Waukegan pedestrian estimates of 29 and 162 rainbows plus exact pier seasonal targeting support a strong 6.8 peak, above Port Washington 6.6 and below Oscoda 7.4 and Racine 7.7. Cold-month coverage remains a Grade B limitation rather than a score multiplier.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "waukegan_il/brown_trout",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "brown_trout",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "IDNR explicitly describes Waukegan Harbor early-spring brown trout shore angling; 2024/25 South Harbor surveys corroborate fish presence.",
+      "sourceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Extract Waukegan pedestrian brown-trout rows and separate Government Pier from other harbor shoreline.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 7,
+      "evidenceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025",
+        "WAUKEGAN_PIER_GUIDE",
+        "WAUKEGAN_2019_PIER",
+        "INHS_2023_SITE",
+        "INHS_2024_SITE",
+        "IL_SEASON_2026"
+      ],
+      "evidenceReason": "Exact Government Pier cold-season targeting and local catch reporting support a strong peak below corrected Port Washington 8.1; warm-season survey zeros do not measure the primary winter window.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "waukegan_il/lake_trout",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "lake_trout",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "IDNR says lake trout can reach some shoreline structures in winter, but has not identified Government Pier as one; Waukegan Reef is offshore.",
+      "sourceIds": [
+        "IL_DNR_LAKE_MICHIGAN_2026",
+        "IL_DNR_SHORE_MAP"
+      ],
+      "nextEvidence": "Find repeated Government Pier cold-season lake-trout catches and shore-specific effort before scoring.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_LAKE_MICHIGAN_2026",
+        "IL_DNR_SHORE_MAP"
+      ],
+      "evidenceReason": "Historical Wisconsin county pier lake trout and offshore abundance establish occurrence, but 2022-24 county estimates are zero and the 2024 statewide pier estimate is only three. Illinois 2023-24 Waukegan pedestrian estimates are zero. No defensible current exact-pier annual magnitude; offshore catch is excluded.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/walleye",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "walleye",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring walleye target; lakewide or river/boat walleye evidence does not transfer.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/smallmouth_bass",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "smallmouth_bass",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "not_approved",
+      "claim": "Repeated Waukegan South Harbor smallmouth detection plus IDNR's pier/riprap shore-fishing guidance justify research, but electrofishing CPUE is not angler CPUE.",
+      "sourceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025",
+        "IL_DNR_LAKE_MICHIGAN_2026"
+      ],
+      "nextEvidence": "Find Government Pier or adjacent public breakwall target interviews and legal-season treatment.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025",
+        "IL_DNR_LAKE_MICHIGAN_2026"
+      ],
+      "evidenceReason": "Find Government Pier or adjacent public breakwall target interviews and legal-season treatment.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/freshwater_drum",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "freshwater_drum",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "Incidental harbor electrofishing and statewide summer shore guidance suggest possible drum, without Government Pier target recurrence.",
+      "sourceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Government Pier drum target/catch series.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "evidenceReason": "Government Pier drum target/catch series.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/yellow_perch",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "yellow_perch",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "advance",
+      "numericAdmission": "private_formula_v3_estimate",
+      "claim": "IDNR names Waukegan Harbor perch; INHS says Waukegan supplied 55.4% of surveyed Illinois pedestrian perch harvest in 2023, though that harbor total is not Government Pier alone.",
+      "sourceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_SHORE_MAP",
+        "IL_INHS_CREEL_2023",
+        "WAUKEGAN_CITY_PIER_2019",
+        "IL_DNR_RULES_2026"
+      ],
+      "nextEvidence": "Extract multi-year Waukegan pedestrian perch effort/catch and Government Pier share; account for May 1–June 15 closure and population variability.",
+      "pass2Disposition": "numeric_shadow",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.4,
+      "evidenceIds": [
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_DNR_SHORE_MAP",
+        "IL_INHS_CREEL_2023",
+        "WAUKEGAN_CITY_PIER_2019",
+        "IL_DNR_RULES_2026",
+        "INHS_2023_SITE",
+        "INHS_2024_SITE",
+        "WAUKEGAN_2019_PIER",
+        "IL_FISHERY_2026"
+      ],
+      "evidenceReason": "A 460-fish pedestrian estimate in 2023, exact-area targeting, and a zero 2024 estimate support a variable ordinary peak equal to Kenosha 5.4; the May 1-June 15 closure remains hard-zero availability.",
+      "limitation": "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private."
+    },
+    {
+      "pairKey": "waukegan_il/lake_whitefish",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "lake_whitefish",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "Whitefish appear in Illinois Lake Michigan rules and Waukegan fish-consumption guidance, but neither establishes a Government Pier target.",
+      "sourceIds": [
+        "IL_DNR_RULES_2026",
+        "IL_WAUKEGAN_FISH_ADVISORY"
+      ],
+      "nextEvidence": "Verify species-separated lake-whitefish pier catches and distinguish round whitefish.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_RULES_2026",
+        "IL_WAUKEGAN_FISH_ADVISORY"
+      ],
+      "evidenceReason": "The Waukegan advisory/rule establishes presence or legal treatment, not repeated Government Pier targeting or seasonal catch.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/round_whitefish",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "round_whitefish",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "Illinois rules combine lake and round whitefish limits; no species-separated Government Pier record is established.",
+      "sourceIds": [
+        "IL_DNR_RULES_2026"
+      ],
+      "nextEvidence": "Verify exact Government Pier round-whitefish catches, distinct from lake whitefish.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_RULES_2026"
+      ],
+      "evidenceReason": "Combined whitefish regulation cannot identify a Government Pier round-whitefish fishery.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/channel_catfish",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "channel_catfish",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier channel-catfish target; bullhead records are a different taxon.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/largemouth_bass",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "largemouth_bass",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "South Harbor electrofishing detects largemouth; no Government Pier intentional target series is established.",
+      "sourceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Government Pier or adjacent legal public shore largemouth target/catch series.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "evidenceReason": "Government Pier or adjacent legal public shore largemouth target/catch series.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/atlantic_salmon",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "atlantic_salmon",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring Atlantic-salmon target; occasional salmonid presence is insufficient.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/northern_pike",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "northern_pike",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No recurring named city-pier target evidence in the reviewed primary sources.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/burbot",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "burbot",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring burbot target; a different Great Lakes port cannot establish this location.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/white_perch",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "white_perch",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-perch target; incidental or countywide presence is insufficient.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/white_bass",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "white_bass",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "exclude",
+      "numericAdmission": "not_approved",
+      "claim": "No named city-pier recurring white-bass target; do not confuse white bass with white perch.",
+      "sourceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "nextEvidence": "Reopen only for a new, recurring, named city-pier target record.",
+      "pass2Disposition": "exclude",
+      "evidenceGrade": "D",
+      "evidenceIds": [
+        "IL_DNR_SHORE_MAP",
+        "IL_DNR_WAUKEGAN_2006",
+        "IL_INHS_CREEL_2024",
+        "WAUKEGAN_CITY_PIER_2019"
+      ],
+      "evidenceReason": "Reopen only for a new, recurring, named city-pier target record.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    },
+    {
+      "pairKey": "waukegan_il/bluegill",
+      "cityId": "waukegan_il",
+      "cityName": "Waukegan, IL",
+      "speciesId": "bluegill",
+      "accessStatus": "Government_Pier_public_approach_supported; current fishing and parking signs not verified",
+      "decision": "hold",
+      "numericAdmission": "not_approved",
+      "claim": "South Harbor electrofishing detects bluegill; this is presence rather than pier angler targeting.",
+      "sourceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "nextEvidence": "Government Pier bluegill target/catch series rather than marina-basin presence.",
+      "pass2Disposition": "research_hold",
+      "evidenceGrade": "C",
+      "evidenceIds": [
+        "IL_DNR_HARBOR_2024",
+        "IL_DNR_HARBOR_2025"
+      ],
+      "evidenceReason": "Government Pier bluegill target/catch series rather than marina-basin presence.",
+      "limitation": "No numeric score is assigned from occurrence, stocking, offshore harvest, or unsplit neighboring-port data."
+    }
+  ]
+}

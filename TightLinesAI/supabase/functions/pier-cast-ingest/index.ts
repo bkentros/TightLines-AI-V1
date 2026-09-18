@@ -14,6 +14,7 @@ import {
   buildPierCastWisconsinReviewOutlook,
   combinePierCastV3LmhofsBatches,
   ingestPierCastCalibrationObservations,
+  ingestPierCastFiveCityShadowCycle,
   ingestPierCastLakeHuronShadowCycle,
   ingestPierCastPortWashingtonShadowCycle,
   ingestPierCastTemperatureCycle,
@@ -208,6 +209,33 @@ const handler = createPierCastIngestHandler({
       diagnostics: outcome.diagnostics,
     };
   },
+  ingestFiveCityShadow: async () => {
+    const outcome = await ingestPierCastFiveCityShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
   ingestV3Shadow: async () => {
     const now = new Date();
     const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
@@ -221,6 +249,7 @@ const handler = createPierCastIngestHandler({
       cohorts.primary,
       cohorts.expansion,
       cohorts.lakeHuron,
+      cohorts.fiveCity,
     );
     const outlook = buildPierCastV3ReviewOutlook({
       batch,
@@ -237,8 +266,8 @@ const handler = createPierCastIngestHandler({
       status: shadowForecast.status,
       source: "fresh_archived_complete_cycle" as const,
       issuedAt: batch.issuedAt,
-      cityCount: 12 as const,
-      sampleCount: 1452 as const,
+      cityCount: 17 as const,
+      sampleCount: 2057 as const,
       shadowForecast,
     };
   },

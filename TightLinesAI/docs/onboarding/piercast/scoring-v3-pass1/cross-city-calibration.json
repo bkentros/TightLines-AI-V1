@@ -653,7 +653,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 7.7,
+      "fisheryStrength": 8.2,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Legacy Sheboygan core curve has recurring pier evidence and Wisconsin mode-level timing, but lacks a comparable city-specific pier effort denominator. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -665,7 +665,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "summer_thermal_break_or_upwelling",
-      "fisheryStrength": 7.3,
+      "fisheryStrength": 7.8,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Legacy Sheboygan core curve has recurring pier evidence and Wisconsin mode-level timing, but lacks a comparable city-specific pier effort denominator. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -797,7 +797,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "fall_harbor_staging",
-      "fisheryStrength": 7.2,
+      "fisheryStrength": 8.6,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -809,7 +809,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 7.8,
+      "fisheryStrength": 8.5,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -821,7 +821,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "winter_spring_thermal_front",
-      "fisheryStrength": 5.2,
+      "fisheryStrength": 6.6,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -833,7 +833,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 7,
+      "fisheryStrength": 8.1,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -953,7 +953,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "summer_coldwater_access",
-      "fisheryStrength": 7,
+      "fisheryStrength": 7.8,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -965,7 +965,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 7.6,
+      "fisheryStrength": 8.2,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -977,7 +977,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "winter_spring_thermal_front",
-      "fisheryStrength": 4.6,
+      "fisheryStrength": 5.8,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -989,7 +989,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 6.6,
+      "fisheryStrength": 7.4,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1109,7 +1109,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "fall_harbor_staging",
-      "fisheryStrength": 7.4,
+      "fisheryStrength": 8.1,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1121,7 +1121,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 7.6,
+      "fisheryStrength": 8.5,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1133,7 +1133,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "summer_thermal_break_or_upwelling",
-      "fisheryStrength": 5.7,
+      "fisheryStrength": 7.7,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1145,7 +1145,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 6.7,
+      "fisheryStrength": 7.3,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1265,7 +1265,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "fall_harbor_staging",
-      "fisheryStrength": 6.7,
+      "fisheryStrength": 7.4,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1277,7 +1277,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 8,
+      "fisheryStrength": 8.6,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1289,7 +1289,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "winter_spring_thermal_front",
-      "fisheryStrength": 4.3,
+      "fisheryStrength": 5.6,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },
@@ -1301,7 +1301,7 @@
       "finalDisposition": "admit",
       "evidenceGrade": "B",
       "strongestModeId": "spring_nearshore",
-      "fisheryStrength": 5.8,
+      "fisheryStrength": 6.4,
       "calibrationStatus": "disabled_pass2_candidate",
       "rationale": "Wisconsin DNR identifies the species at the city pier context; county pier-mode recurrence and statewide pier timing support a provisional research curve without city-specific CPUE. The pairing clears the v3 Grade A/B research-calibration gate; magnitude remains a disabled FinFindr judgment rather than an agency score."
     },

@@ -103,18 +103,29 @@ Deno.test("owner-review catalog requires authorization", async () => {
   assertEquals(reads, 0);
 });
 
-Deno.test("authorized owner-review catalog includes Wisconsin and Lake Huron", async () => {
+Deno.test("authorized owner-review catalog includes all seventeen cities", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("review/catalog"));
   assertEquals(response.status, 200);
   const body = await response.json();
   assertEquals(body.mode, "review");
-  assertEquals(body.cities.length, 12);
+  assertEquals(body.cities.length, 17);
+  assertEquals(
+    body.formulaVersion,
+    "piercast-opportunity-modes-bounded-temperature-v3",
+  );
   assertEquals(
     ["port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi"].every(
       (cityId) =>
         body.cities.some((city: { cityId: string }) => city.cityId === cityId),
     ),
+    true,
+  );
+  assertEquals(
+    ["two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi", "waukegan_il"]
+      .every((cityId) =>
+        body.cities.some((city: { cityId: string }) => city.cityId === cityId)
+      ),
     true,
   );
   assertEquals(

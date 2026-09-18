@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "piercast-five-city-pass3-production-verification-v1",
+  "verifiedAt": "2026-09-18T14:44:48.603Z",
+  "environment": "production",
+  "run": {
+    "run_id": "adfcf3a5-0002-4ccf-a15f-717871b5c0b9",
+    "config_version": "piercast-v3-seventeen-city-five-city-pass3-v7",
+    "generated_at": "2026-09-18T14:41:34.317+00:00",
+    "source_issued_at": "2026-09-18T06:00:00+00:00",
+    "source_fetched_at": "2026-09-18T14:41:10.118+00:00",
+    "engine_version": "pier-cast-opportunity-modes-v3-shadow-v1.5.0",
+    "formula_version": "piercast-opportunity-modes-bounded-temperature-v3",
+    "preview_only": true,
+    "promotion_status": "blocked",
+    "forecast_count": 590
+  },
+  "actual": {
+    "storedForecastCount": 590,
+    "cityCount": 17,
+    "pairCount": 118,
+    "onboardingCityCount": 5,
+    "onboardingPairCount": 24,
+    "onboardingForecastCount": 120,
+    "minimumStoredScore": 1,
+    "maximumStoredScore": 8.1132714023772,
+    "onboardingSpecies": {
+      "two_rivers_wi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "steelhead"
+      ],
+      "kewaunee_wi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "lake_trout",
+        "steelhead"
+      ],
+      "algoma_wi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "steelhead"
+      ],
+      "manitowoc_wi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead"
+      ],
+      "waukegan_il": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "steelhead",
+        "yellow_perch"
+      ]
+    }
+  },
+  "checks": {
+    "runForecastCount": true,
+    "storedForecastCount": true,
+    "cityCount": true,
+    "pairCount": true,
+    "leadDays": true,
+    "onboardingCityCount": true,
+    "onboardingPairCount": true,
+    "onboardingForecastCount": true,
+    "previewOnly": true,
+    "promotionBlocked": true,
+    "scoreCap": true
+  },
+  "independentAcceptance": {
+    "ownerProductionQa": "PASS: 17 ranked cities from one coherent four-cohort issue.",
+    "publicProductionQa": "PASS: frozen 12-city projection and 12 complete five-day reports.",
+    "authenticatedNormalUserSmoke": "PASS: five onboarding cities absent from catalog and direct reports; owner review returns 403."
+  },
+  "result": "pass"
+}

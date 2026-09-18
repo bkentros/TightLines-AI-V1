@@ -124,7 +124,7 @@ export function createPierCastHandler(
       }
       if (reviewCatalog) {
         return request.method === "GET"
-          ? json(buildPierCastCatalog("review"))
+          ? json(buildPierCastCatalog("review", "v3"))
           : error("Method not allowed.", "method_not_allowed", 405);
       }
       if (expansionReviewOutlook) {
@@ -167,7 +167,7 @@ export function createPierCastHandler(
         try {
           const outlook = await dependencies.readV3ReviewOutlook();
           return outlook ? json(outlook) : error(
-            "No coherent same-issue twelve-city Formula v3 cycle is available.",
+            "No coherent same-issue seventeen-city Formula v3 cycle is available.",
             "pier_cast_v3_outlook_unavailable",
             503,
           );

@@ -401,7 +401,7 @@ Deno.test("all twelve cities are discoverable while only five have public report
     ),
     true,
   );
-  assertEquals(reviewCatalog.cities.length, 12);
+  assertEquals(reviewCatalog.cities.length, 17);
   assertEquals(
     publicCatalog.cities.find((city) => city.cityId === "port_washington_wi")
       ?.releaseStatus,

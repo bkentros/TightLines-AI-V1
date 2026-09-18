@@ -4,10 +4,6 @@ import type {
   PierCastCatalogResponse,
   PierCastLeaderboardResponse,
   PierCastReviewOutlookResponse,
-  PierCastShadowOutcomeCommit,
-  PierCastShadowOutcomeInput,
-  PierCastShadowReviewResponse,
-  PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -27,53 +23,6 @@ export class PierCastRequestError extends Error {
 
 export function fetchPierCastCatalog(): Promise<PierCastCatalogResponse> {
   return pierCastGet<PierCastCatalogResponse>("catalog", false);
-}
-
-export function fetchPierCastOwnerReviewCatalog(): Promise<
-  PierCastCatalogResponse
-> {
-  return pierCastGet<PierCastCatalogResponse>("review/catalog", true);
-}
-
-export function fetchPierCastOwnerReviewOutlook(): Promise<
-  PierCastReviewOutlookResponse
-> {
-  return pierCastGet<PierCastReviewOutlookResponse>("review/outlook", true);
-}
-
-export function fetchPierCastOwnerExpansionReviewOutlook(): Promise<
-  PierCastReviewOutlookResponse
-> {
-  return pierCastGet<PierCastReviewOutlookResponse>(
-    "review/expansion/outlook",
-    true,
-  );
-}
-
-export function fetchPierCastOwnerV3ReviewOutlook(): Promise<
-  PierCastV3ReviewOutlookResponse
-> {
-  return pierCastGet<PierCastV3ReviewOutlookResponse>(
-    "review/v3/outlook",
-    true,
-  );
-}
-
-export function fetchPierCastShadowReview(): Promise<
-  PierCastShadowReviewResponse
-> {
-  return pierCastGet<PierCastShadowReviewResponse>("review/shadow", true);
-}
-
-export function recordPierCastShadowOutcome(
-  outcome: PierCastShadowOutcomeInput,
-): Promise<PierCastShadowOutcomeCommit> {
-  return pierCastRequest<PierCastShadowOutcomeCommit>(
-    "review/outcomes",
-    true,
-    "POST",
-    outcome,
-  );
 }
 
 async function pierCastGet<ResponseType>(

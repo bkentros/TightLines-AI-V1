@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "piercast-five-city-pass2-measured-anchors-v1",
+  "interpretation": "Published creel estimates, not direct fish counts, CPUE by city, or PierCast ratings. Wisconsin county rows each combine two target ports. Illinois Waukegan Harbor pedestrian rows include Government Pier and other walk-in shoreline positions. Zero means estimated harvest of zero in sampled periods, not biological absence.",
+  "wisconsinCountyPierHarvest": {
+    "sourceId": "WI_COUNTY_SPECIES_2024",
+    "years": [2022, 2023, 2024],
+    "ManitowocCounty_TwoRiversPlusManitowoc": {
+      "chinook_salmon": [136, 497, 128],
+      "coho_salmon": [20, 205, 133],
+      "steelhead_rainbow_trout": [0, 0, 116],
+      "brown_trout": [20, 0, 50],
+      "lake_trout": [0, 0, 0],
+      "yellow_perch": [0, 0, 3]
+    },
+    "KewauneeCounty_AlgomaPlusKewaunee": {
+      "chinook_salmon": [28, 219, 53],
+      "coho_salmon": [0, 0, 24],
+      "steelhead_rainbow_trout": [0, 0, 133],
+      "brown_trout": [29, 13, 36],
+      "lake_trout": [0, 0, 0],
+      "yellow_perch": [0, 0, 0]
+    },
+    "yellowPerchSourceId": "WI_PERCH_COUNTY_2024"
+  },
+  "wisconsinStatewidePierHarvest": {
+    "sourceIdsByYear": {"2022":"WI_PIER_2022","2023":"WI_PIER_2023","2024":"WI_PIER_2024"},
+    "years": [2022, 2023, 2024],
+    "chinook_salmon": [1427, 1285, 931],
+    "coho_salmon": [565, 2085, 1459],
+    "steelhead_rainbow_trout": [79, 41, 493],
+    "brown_trout": [264, 90, 789],
+    "lake_trout": [84, 8, 3],
+    "yellow_perch": [2647, 2327, 1829],
+    "northern_pike": [106, 35, 90],
+    "smallmouth_bass": [457, 107, 203],
+    "coverageNote": "Combined Wisconsin survey areas; 2024 east-shore direct sample May-September, modeled March-April, no October or winter east-shore pier sample. Statewide numbers include Green Bay areas."
+  },
+  "waukeganHarborPedestrian": {
+    "sourceIdsByYear": {"2023":"INHS_2023_SITE","2024":"INHS_2024_SITE"},
+    "aprilThroughSeptember": {
+      "2023": {"totalAnglerHours":16274,"perchTargetHours":423,"salmonTargetHours":12894,"yellowPerchHarvest":460,"brownTroutHarvest":0,"rainbowTroutHarvest":29,"lakeTroutHarvest":0,"cohoSalmonHarvest":2493,"chinookSalmonHarvest":68},
+      "2024": {"totalAnglerHours":14069,"perchTargetHours":84,"salmonTargetHours":11912,"yellowPerchHarvest":0,"brownTroutHarvest":0,"rainbowTroutHarvest":162,"lakeTroutHarvest":0,"cohoSalmonHarvest":1893,"chinookSalmonHarvest":67}
+    },
+    "supplementalMarch": {
+      "2023":{"totalAnglerHours":1971,"salmonTargetHours":1886,"cohoSalmonHarvest":129,"allOtherListedSalmonidHarvest":0},
+      "2024":{"totalAnglerHours":722,"salmonTargetHours":675,"cohoSalmonHarvest":0,"allOtherListedSalmonidHarvest":0}
+    },
+    "notSurveyedForThisRow": "October-February Waukegan pedestrian activity, catch-and-release fish, smelt netting and individual Government Pier position."
+  }
+}

@@ -1999,7 +1999,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__coho_salmon__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 7.7,
+          "fisheryStrength": 8.2,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -2035,7 +2035,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__coho_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 7.5,
+          "fisheryStrength": 8,
           "availabilityKnots": [
             {
               "monthDay": "06-10",
@@ -2071,7 +2071,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 7,
+          "fisheryStrength": 7.4,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -2115,7 +2115,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__steelhead__winter_spring_thermal_front__v3_pass1",
           "modeId": "winter_spring_thermal_front",
-          "fisheryStrength": 6.8,
+          "fisheryStrength": 7.3,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -2151,7 +2151,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
           "modeId": "summer_thermal_break_or_upwelling",
-          "fisheryStrength": 7.3,
+          "fisheryStrength": 7.8,
           "availabilityKnots": [
             {
               "monthDay": "05-20",
@@ -2187,7 +2187,7 @@
         {
           "modeCalibrationId": "sheboygan_wi__steelhead__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.3,
+          "fisheryStrength": 6.7,
           "availabilityKnots": [
             {
               "monthDay": "08-25",
@@ -2347,7 +2347,7 @@
         {
           "modeCalibrationId": "port_washington_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 7.1,
+          "fisheryStrength": 8.5,
           "availabilityKnots": [
             {
               "monthDay": "06-01",
@@ -2383,7 +2383,7 @@
         {
           "modeCalibrationId": "port_washington_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 7.2,
+          "fisheryStrength": 8.6,
           "availabilityKnots": [
             {
               "monthDay": "07-20",
@@ -2431,7 +2431,7 @@
         {
           "modeCalibrationId": "port_washington_wi__coho_salmon__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 7.8,
+          "fisheryStrength": 8.5,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -2467,7 +2467,7 @@
         {
           "modeCalibrationId": "port_washington_wi__coho_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 4.2,
+          "fisheryStrength": 4.5,
           "availabilityKnots": [
             {
               "monthDay": "06-10",
@@ -2503,7 +2503,7 @@
         {
           "modeCalibrationId": "port_washington_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.8,
+          "fisheryStrength": 7.4,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -2547,7 +2547,7 @@
         {
           "modeCalibrationId": "port_washington_wi__steelhead__winter_spring_thermal_front__v3_pass1",
           "modeId": "winter_spring_thermal_front",
-          "fisheryStrength": 5.2,
+          "fisheryStrength": 6.6,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -2583,7 +2583,7 @@
         {
           "modeCalibrationId": "port_washington_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
           "modeId": "summer_thermal_break_or_upwelling",
-          "fisheryStrength": 5,
+          "fisheryStrength": 6.3,
           "availabilityKnots": [
             {
               "monthDay": "05-20",
@@ -2627,7 +2627,7 @@
         {
           "modeCalibrationId": "port_washington_wi__brown_trout__winter_harbor_open_water__v3_pass1",
           "modeId": "winter_harbor_open_water",
-          "fisheryStrength": 4.1,
+          "fisheryStrength": 4.7,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -2663,7 +2663,7 @@
         {
           "modeCalibrationId": "port_washington_wi__brown_trout__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 7,
+          "fisheryStrength": 8.1,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -2707,7 +2707,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 7,
+          "fisheryStrength": 7.8,
           "availabilityKnots": [
             {
               "monthDay": "06-01",
@@ -2743,7 +2743,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 7,
+          "fisheryStrength": 7.8,
           "availabilityKnots": [
             {
               "monthDay": "07-20",
@@ -2791,7 +2791,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__coho_salmon__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 7.6,
+          "fisheryStrength": 8.2,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -2827,7 +2827,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__coho_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 4.4,
+          "fisheryStrength": 4.7,
           "availabilityKnots": [
             {
               "monthDay": "06-10",
@@ -2863,7 +2863,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.8,
+          "fisheryStrength": 7.3,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -2911,7 +2911,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__steelhead__winter_spring_thermal_front__v3_pass1",
           "modeId": "winter_spring_thermal_front",
-          "fisheryStrength": 4.6,
+          "fisheryStrength": 5.8,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -2947,7 +2947,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
           "modeId": "summer_thermal_break_or_upwelling",
-          "fisheryStrength": 4.4,
+          "fisheryStrength": 5.5,
           "availabilityKnots": [
             {
               "monthDay": "05-20",
@@ -2991,7 +2991,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__brown_trout__winter_harbor_open_water__v3_pass1",
           "modeId": "winter_harbor_open_water",
-          "fisheryStrength": 3.9,
+          "fisheryStrength": 4.3,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -3027,7 +3027,7 @@
         {
           "modeCalibrationId": "milwaukee_wi__brown_trout__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 6.6,
+          "fisheryStrength": 7.4,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -3071,7 +3071,7 @@
         {
           "modeCalibrationId": "racine_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 7.3,
+          "fisheryStrength": 8,
           "availabilityKnots": [
             {
               "monthDay": "06-01",
@@ -3107,7 +3107,7 @@
         {
           "modeCalibrationId": "racine_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 7.4,
+          "fisheryStrength": 8.1,
           "availabilityKnots": [
             {
               "monthDay": "07-20",
@@ -3151,7 +3151,7 @@
         {
           "modeCalibrationId": "racine_wi__coho_salmon__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 7.6,
+          "fisheryStrength": 8.5,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -3187,7 +3187,7 @@
         {
           "modeCalibrationId": "racine_wi__coho_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 4.8,
+          "fisheryStrength": 5.3,
           "availabilityKnots": [
             {
               "monthDay": "06-10",
@@ -3223,7 +3223,7 @@
         {
           "modeCalibrationId": "racine_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 7.3,
+          "fisheryStrength": 8.2,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -3267,7 +3267,7 @@
         {
           "modeCalibrationId": "racine_wi__steelhead__winter_spring_thermal_front__v3_pass1",
           "modeId": "winter_spring_thermal_front",
-          "fisheryStrength": 5.3,
+          "fisheryStrength": 7.1,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -3303,7 +3303,7 @@
         {
           "modeCalibrationId": "racine_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
           "modeId": "summer_thermal_break_or_upwelling",
-          "fisheryStrength": 5.7,
+          "fisheryStrength": 7.7,
           "availabilityKnots": [
             {
               "monthDay": "05-20",
@@ -3339,7 +3339,7 @@
         {
           "modeCalibrationId": "racine_wi__steelhead__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 2.5,
+          "fisheryStrength": 3.1,
           "availabilityKnots": [
             {
               "monthDay": "08-25",
@@ -3383,7 +3383,7 @@
         {
           "modeCalibrationId": "racine_wi__brown_trout__winter_harbor_open_water__v3_pass1",
           "modeId": "winter_harbor_open_water",
-          "fisheryStrength": 3.9,
+          "fisheryStrength": 4.2,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -3419,7 +3419,7 @@
         {
           "modeCalibrationId": "racine_wi__brown_trout__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 6.7,
+          "fisheryStrength": 7.3,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -3463,7 +3463,7 @@
         {
           "modeCalibrationId": "kenosha_wi__chinook_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 6.6,
+          "fisheryStrength": 7.3,
           "availabilityKnots": [
             {
               "monthDay": "06-01",
@@ -3499,7 +3499,7 @@
         {
           "modeCalibrationId": "kenosha_wi__chinook_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.7,
+          "fisheryStrength": 7.4,
           "availabilityKnots": [
             {
               "monthDay": "07-20",
@@ -3543,7 +3543,7 @@
         {
           "modeCalibrationId": "kenosha_wi__coho_salmon__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 8,
+          "fisheryStrength": 8.6,
           "availabilityKnots": [
             {
               "monthDay": "02-15",
@@ -3579,7 +3579,7 @@
         {
           "modeCalibrationId": "kenosha_wi__coho_salmon__summer_coldwater_access__v3_pass1",
           "modeId": "summer_coldwater_access",
-          "fisheryStrength": 4.5,
+          "fisheryStrength": 4.8,
           "availabilityKnots": [
             {
               "monthDay": "06-10",
@@ -3615,7 +3615,7 @@
         {
           "modeCalibrationId": "kenosha_wi__coho_salmon__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 6.4,
+          "fisheryStrength": 6.9,
           "availabilityKnots": [
             {
               "monthDay": "08-01",
@@ -3659,7 +3659,7 @@
         {
           "modeCalibrationId": "kenosha_wi__steelhead__winter_spring_thermal_front__v3_pass1",
           "modeId": "winter_spring_thermal_front",
-          "fisheryStrength": 4.3,
+          "fisheryStrength": 5.6,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -3695,7 +3695,7 @@
         {
           "modeCalibrationId": "kenosha_wi__steelhead__summer_thermal_break_or_upwelling__v3_pass1",
           "modeId": "summer_thermal_break_or_upwelling",
-          "fisheryStrength": 4.2,
+          "fisheryStrength": 5.5,
           "availabilityKnots": [
             {
               "monthDay": "05-20",
@@ -3731,7 +3731,7 @@
         {
           "modeCalibrationId": "kenosha_wi__steelhead__fall_harbor_staging__v3_pass1",
           "modeId": "fall_harbor_staging",
-          "fisheryStrength": 2.1,
+          "fisheryStrength": 2.5,
           "availabilityKnots": [
             {
               "monthDay": "08-25",
@@ -3775,7 +3775,7 @@
         {
           "modeCalibrationId": "kenosha_wi__brown_trout__winter_harbor_open_water__v3_pass1",
           "modeId": "winter_harbor_open_water",
-          "fisheryStrength": 3.5,
+          "fisheryStrength": 3.8,
           "availabilityKnots": [
             {
               "monthDay": "01-01",
@@ -3811,7 +3811,7 @@
         {
           "modeCalibrationId": "kenosha_wi__brown_trout__spring_nearshore__v3_pass1",
           "modeId": "spring_nearshore",
-          "fisheryStrength": 5.8,
+          "fisheryStrength": 6.4,
           "availabilityKnots": [
             {
               "monthDay": "02-15",

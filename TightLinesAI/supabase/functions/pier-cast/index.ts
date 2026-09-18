@@ -1,10 +1,3 @@
-import { PIER_CAST_LEGACY_ROSTER_VERSION } from "../_shared/pierCastEngine/config/privateCalibration.ts";
-import {
-  isPierCastResearchRoster,
-  PIER_CAST_PUBLIC_RELEASE,
-  PIER_CAST_RESEARCH_DETAIL,
-  PIER_CAST_RESEARCH_DISCLOSURE,
-} from "../_shared/pierCastEngine/config/publicRelease.ts";
 import {
   createPierReportAccess,
   leaderboardOnly,
@@ -36,6 +29,7 @@ import {
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastHandler } from "./handler.ts";
 import { projectPublicV3Outlook } from "./publicV3.ts";
+import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -53,11 +47,8 @@ const archiveClient: PierCastArchiveClient = {
   },
 };
 
-// Deployable with the existing public model; enable only when the replacement
-// store build is ready to serve all twelve cities and four free reports.
-const publicV3Enabled = Deno.env.get("PIER_CAST_PUBLIC_V3_ENABLED") === "true";
-const publicCatalog = () =>
-  buildPierCastCatalog("public", publicV3Enabled ? "v3" : "v2");
+// The public release uses the reviewed v3 roster for every account.
+const publicCatalog = () => buildPierCastCatalog("public", "v3");
 
 async function readOutlook() {
   const now = new Date();
@@ -101,6 +92,7 @@ async function readV3Outlook(maxAgeHours = 24) {
     cohorts.primary,
     cohorts.expansion,
     cohorts.lakeHuron,
+    cohorts.fiveCity,
   );
   return buildPierCastV3ReviewOutlook({
     batch,
@@ -136,52 +128,8 @@ async function account(request: Request) {
   };
 }
 async function readPublicOutlook() {
-  if (publicV3Enabled) {
-    const outlook = await readV3Outlook(13);
-    return outlook ? projectPublicV3Outlook(outlook) : null;
-  }
-  const released = publicCatalog().cities.filter((city) =>
-    city.releaseStatus === "public_research"
-  );
-  if (!released.length) return null;
-  const outlook = await readOutlook();
-  if (!outlook) return null;
-  const allowed = new Set(
-    released.filter((city) => {
-      const report = outlook.cities.find((c) => c.cityId === city.cityId);
-      return !!report && report.dates.every((date) =>
-        isPierCastResearchRoster(
-          city.cityId,
-          date.species.map((s) => s.speciesId),
-          outlook.dailyScoreSnapshot?.cities.some((row) =>
-              row.cityId === city.cityId &&
-              row.date.localDate === date.localDate
-            )
-            ? outlook.dailyScoreSnapshot.speciesRosterVersion ??
-              PIER_CAST_LEGACY_ROSTER_VERSION
-            : PIER_CAST_PUBLIC_RELEASE.rosterVersion,
-        )
-      );
-    }).map((city) => city.cityId),
-  );
-  return {
-    ...outlook,
-    mode: "public_research" as const,
-    previewOnly: false,
-    releasePolicyVersion: PIER_CAST_PUBLIC_RELEASE.version,
-    disclosure: `${PIER_CAST_RESEARCH_DISCLOSURE} ${PIER_CAST_RESEARCH_DETAIL}`,
-    cities: outlook.cities.filter((city) => allowed.has(city.cityId)),
-    ...(outlook.dailyScoreSnapshot
-      ? {
-        dailyScoreSnapshot: {
-          ...outlook.dailyScoreSnapshot,
-          cities: outlook.dailyScoreSnapshot.cities.filter((city) =>
-            allowed.has(city.cityId)
-          ),
-        },
-      }
-      : {}),
-  };
+  const outlook = await readV3Outlook(13);
+  return outlook ? projectPublicV3Outlook(outlook) : null;
 }
 
 const readReport = createPierReportAccess({
@@ -220,49 +168,13 @@ const readReport = createPierReportAccess({
 const handler = createPierCastHandler({
   readPublicCatalog: publicCatalog,
   readLeaderboard: async () => {
-    if (publicV3Enabled) {
-      const outlook = await readPublicOutlook();
-      return outlook
-        ? leaderboardOnly(outlook, {
-          maxCities: 12,
-          releasePolicyVersion: outlook.releasePolicyVersion,
-        })
-        : null;
-    }
-    const released = publicCatalog().cities.filter((city) =>
-      city.releaseStatus === "public_research"
-    );
-    if (!released.length) return null;
-    const snapshot = await readPublishedPierCastDailyScoreSnapshot(
-      archiveClient,
-      new Date(),
-    );
-    if (!snapshot) return null;
-    // Reading the locked leaderboard never depends on a fresh conditions cycle or a trial claim.
-    const cities = snapshot.cities.flatMap((row) => {
-      const city = released.find((c) => c.cityId === row.cityId);
-      if (
-        !city ||
-        !isPierCastResearchRoster(
-          row.cityId,
-          row.date.species.map((s) => s.speciesId),
-          snapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION,
-        )
-      ) return [];
-      return [{
-        cityId: row.cityId,
-        displayName: city.displayName,
-        timezone: city.timezone,
-        representationDecision: "blocked_insufficient_evidence" as const,
-        temperatureTimeline: [],
-        dates: [row.date],
-      }];
-    });
-    return leaderboardOnly({
-      generatedAt: snapshot.setAt,
-      dailyScoreSnapshot: snapshot,
-      cities,
-    });
+    const outlook = await readPublicOutlook();
+    return outlook
+      ? leaderboardOnly(outlook, {
+        maxCities: PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length,
+        releasePolicyVersion: outlook.releasePolicyVersion,
+      })
+      : null;
   },
   readSavedReport: async (request) => {
     const { userId } = await account(request);

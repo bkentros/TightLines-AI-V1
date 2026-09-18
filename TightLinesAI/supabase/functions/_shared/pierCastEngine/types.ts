@@ -48,7 +48,12 @@ export type PierCastCityId =
   | "kenosha_wi"
   | "harbor_beach_mi"
   | "oscoda_mi"
-  | "port_sanilac_mi";
+  | "port_sanilac_mi"
+  | "two_rivers_wi"
+  | "kewaunee_wi"
+  | "algoma_wi"
+  | "manitowoc_wi"
+  | "waukegan_il";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -147,7 +152,8 @@ export type PierCastCityTemperatureSource = {
       coordinateSource:
         | "NOAA Coast Pilot 6"
         | "NOAA Aids to Navigation"
-        | "Michigan Water Trails";
+        | "Michigan Water Trails"
+        | "U.S. Coast Guard Light List";
     };
     gridCellStatus: "candidate" | "approved_for_pilot";
   } | null;
@@ -171,7 +177,7 @@ export type PierCastCityTemperatureSource = {
 export type PierCastCityProfile = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   publicEnabled: false;
@@ -185,7 +191,7 @@ export type PierCastCatalogMode = "public" | "review";
 export type PierCastCatalogCity = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";

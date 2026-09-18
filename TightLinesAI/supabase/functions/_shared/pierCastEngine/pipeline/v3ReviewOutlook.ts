@@ -14,6 +14,7 @@ import {
 } from "../config/v3Calibration.ts";
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../config/wisconsinShadow.ts";
 import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "../config/lakeHuronShadow.ts";
+import { PIER_CAST_FIVE_CITY_PROFILES } from "../config/fiveCityShadow.ts";
 import { getPierCastV3RegulationNotices } from "../config/speciesExpansion.ts";
 import { pierCastOpenWaterNoticeApplies } from "../copy/openWater.ts";
 import type {
@@ -40,8 +41,8 @@ import type {
   PierCastMonth,
   PierCastReviewDailyTemperature,
   PierCastScoredSegment,
-  PierCastSixHourScore,
   PierCastScoreRead,
+  PierCastSixHourScore,
   PierCastSpeciesId,
 } from "../types.ts";
 import {
@@ -99,8 +100,8 @@ export type PierCastV3ReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 12;
-    sampleCount: 1452;
+    cityCount: 17;
+    sampleCount: 2057;
   };
   cities: Array<{
     cityId: PierCastCityId;
@@ -126,36 +127,54 @@ export function combinePierCastV3LmhofsBatches(
   primary: AvailableBatch,
   expansion: AvailableBatch,
   lakeHuron: AvailableBatch,
+  fiveCity: AvailableBatch,
 ): AvailableBatch {
   if (
     primary.status !== "available" || expansion.status !== "available" ||
     primary.issuedAt !== expansion.issuedAt ||
     primary.issuedAt !== lakeHuron.issuedAt ||
+    primary.issuedAt !== fiveCity.issuedAt ||
     primary.requestedForecastHours.length !== 121 ||
     expansion.requestedForecastHours.length !== 121 ||
     lakeHuron.status !== "available" ||
     lakeHuron.requestedForecastHours.length !== 121 ||
+    fiveCity.status !== "available" ||
+    fiveCity.requestedForecastHours.length !== 121 ||
     primary.requestedForecastHours.some((hour, index) =>
       hour !== expansion.requestedForecastHours[index] ||
-      hour !== lakeHuron.requestedForecastHours[index]
+      hour !== lakeHuron.requestedForecastHours[index] ||
+      hour !== fiveCity.requestedForecastHours[index]
     )
   ) {
     throw new Error(
       "Formula v3 requires coherent complete same-issue LMHOFS cohorts.",
     );
   }
-  const cities = [...primary.cities, ...expansion.cities, ...lakeHuron.cities];
+  const cities = [
+    ...primary.cities,
+    ...expansion.cities,
+    ...lakeHuron.cities,
+    ...fiveCity.cities,
+  ];
   const actual = new Set(cities.map((city) => city.cityId));
   if (
-    cities.length !== 12 || actual.size !== 12 ||
+    cities.length !== 17 || actual.size !== 17 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
-  ) throw new Error("Formula v3 requires all twelve complete city timelines.");
-  const fetchedAt =
-    [primary.fetchedAt, expansion.fetchedAt, lakeHuron.fetchedAt]
-      .sort((a, b) => Date.parse(b) - Date.parse(a))[0];
+  ) {
+    throw new Error(
+      "Formula v3 requires all seventeen complete city timelines.",
+    );
+  }
+  const fetchedAt = [
+    primary.fetchedAt,
+    expansion.fetchedAt,
+    lakeHuron.fetchedAt,
+    fiveCity.fetchedAt,
+  ]
+    .sort((a, b) => Date.parse(b) - Date.parse(a))[0];
   return {
     status: "available",
     issuedAt: primary.issuedAt,
@@ -164,6 +183,7 @@ export function combinePierCastV3LmhofsBatches(
       primary.cycleAgeHours,
       expansion.cycleAgeHours,
       lakeHuron.cycleAgeHours,
+      fiveCity.cycleAgeHours,
     ),
     fullHorizonRequested: true,
     requestedForecastHours: [...primary.requestedForecastHours],
@@ -172,6 +192,7 @@ export function combinePierCastV3LmhofsBatches(
       ...primary.diagnostics,
       ...expansion.diagnostics,
       ...lakeHuron.diagnostics,
+      ...fiveCity.diagnostics,
     ],
   };
 }
@@ -189,6 +210,7 @@ export function buildPierCastV3ReviewOutlook(input: {
     ...PIER_CAST_CITY_PROFILES,
     ...PIER_CAST_WISCONSIN_CITY_PROFILES,
     ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
+    ...PIER_CAST_FIVE_CITY_PROFILES,
   ];
   const byId = new Map(profiles.map((city) => [city.cityId, city]));
   const cities = PIER_CAST_V3_CITY_IDS.map((cityId) => {
@@ -249,8 +271,8 @@ export function buildPierCastV3ReviewOutlook(input: {
       issuedAt: input.batch.issuedAt,
       fetchedAt: input.batch.fetchedAt,
       cycleAgeHours: input.batch.cycleAgeHours,
-      cityCount: 12,
-      sampleCount: 1452,
+      cityCount: 17,
+      sampleCount: 2057,
     },
     cities,
   };
@@ -425,15 +447,19 @@ function buildSpecies(
     window,
     evaluatedAt,
     segments: scoredSegments,
-  }).map((slot) => regulationClosed ? {
-    ...slot,
-    biological: {
-      status: "unavailable" as const,
-      score: null,
-      reasonCodes: ["species_regulation_closed"],
-      ratingName: "FinFindr Opportunity Rating" as const,
-    },
-  } : slot);
+  }).map((slot) =>
+    regulationClosed
+      ? {
+        ...slot,
+        biological: {
+          status: "unavailable" as const,
+          score: null,
+          reasonCodes: ["species_regulation_closed"],
+          ratingName: "FinFindr Opportunity Rating" as const,
+        },
+      }
+      : slot
+  );
   return {
     speciesId,
     previewMode: "disabled_shadow_only",
@@ -462,11 +488,15 @@ function buildSpecies(
 function validateBatch(batch: AvailableBatch): void {
   const actual = new Set(batch.cities.map((city) => city.cityId));
   if (
-    batch.status !== "available" || batch.cities.length !== 12 ||
-    actual.size !== 12 ||
+    batch.status !== "available" || batch.cities.length !== 17 ||
+    actual.size !== 17 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     batch.cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
-  ) throw new Error("Formula v3 review requires a complete twelve-city cycle.");
+  ) {
+    throw new Error(
+      "Formula v3 review requires a complete seventeen-city cycle.",
+    );
+  }
 }

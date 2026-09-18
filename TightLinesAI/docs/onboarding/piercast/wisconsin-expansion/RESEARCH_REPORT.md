@@ -1,5 +1,7 @@
 # Wisconsin PierCast expansion: evidence and year-round calibration report
 
+> **Calibration correction, September 17, 2026:** The score magnitudes in the original report below were superseded by the [all-city common-species audit](../all-city-common-species-audit-2026-09/AUDIT_REPORT.md). The original analysis incorrectly converted missing city-level effort and magnitude precision into lower `F` ceilings. Species admission, access, timing evidence and source limitations remain valid. Corrected private peaks are Milwaukee 7.8/8.2/5.8/7.4, Racine 8.1/8.5/7.7/7.3 and Kenosha 7.4/8.6/5.6/6.4 for Chinook/coho/steelhead/brown trout. Confidence stays in the Grade B field and must never reduce `F` by itself.
+
 Prepared September 14, 2026
 
 Scope: Milwaukee, Racine, and Kenosha; Port Washington is retained in the same private Wisconsin shadow cohort
@@ -10,7 +12,7 @@ Decision state: implemented for owner-only shadow review; not approved for publi
 
 Milwaukee, Racine, and Kenosha are suitable for complete private PierCast onboarding with four scored species: Coho Salmon, Chinook Salmon, Steelhead, and Brown Trout. Wisconsin DNR names those species at the principal public Lake Michigan pier/shore accesses in every city, including McKinley and Cupertino in Milwaukee, North and South piers in Racine, and North and South piers in Kenosha.[^1][^2] The DNR county-by-mode harvest series supplies a second, independent recurrence layer through 2024, while the 2022–2024 statewide pier-mode reports supply the only consistent recent month-bucket effort denominator.[^3][^4][^5][^6]
 
-The resulting year-round values are intentionally conservative FinFindr calibrations. They are not DNR scores, measured catch probabilities, or structure-specific predictions. Confidence is high that the broad seasonal pattern is directionally correct for the four admitted species; confidence is moderate in city-to-city magnitude and low for precise winter values. That distinction is encoded operationally: every new city and curve is `provisional`, `ratingEnabled` remains false, temperature representation is blocked, and forecasts live only in an owner-only shadow archive.
+The resulting year-round values are FinFindr calibrations. They are not DNR scores, measured catch probabilities, or structure-specific predictions. Confidence is high that the broad seasonal pattern is directionally correct for the four admitted species; confidence is moderate in city-to-city magnitude and low for precise winter values. That distinction is encoded operationally: every new city and curve is `provisional`, `ratingEnabled` remains false, temperature representation is blocked, and forecasts live only in an owner-only shadow archive. The later all-city audit corrected the original ceilings while retaining this confidence disclosure.
 
 Yellow perch is a genuine Racine and Kenosha summer pier lead. DNR reports repeatedly document perch at Kenosha piers/harbor and on the Racine shoreline in July and August 2024.[^7][^8][^9] It is deliberately not scored. The recent published monthly pier table combines all Wisconsin Lake Michigan and Green Bay survey areas, which makes its perch temporal shape unsafe to transfer to these southern Lake Michigan cities; moreover, the 2026–27 rules close Lake Michigan yellow perch from May 1 through June 15, and the current expansion evaluator does not yet implement species-specific closed-season gating.[^6][^12] Perch appears in owner review as a conditional, unscored lead. Lake trout and all remaining registry species are likewise unscored unless a future evidence packet establishes recurring pier opportunity and a defensible local seasonal calibration.
 
@@ -54,10 +56,10 @@ The county-mode series is consistent with meaningful coho and brown trout recurr
 
 Calibration implications:
 
-- Coho receives a strong late-March through May profile, with a May knot of 7.6 because two separate years include direct Milwaukee pier support.
-- Chinook peaks at 7.0 in August and remains strong in early September, but stays below Racine because recent county recurrence is less consistent.
-- Steelhead is capped at 4.6 in spring and 4.4 in July. This recognizes exact local occurrence without pretending the recent annual survey produced a stable Milwaukee pier estimate.
-- Brown trout peaks at 6.6 in April and remains 5.8 in mid-May, supported by two positive recent county years and exact May/June McKinley observations.
+- Coho reaches a corrected 8.2 spring peak because all three recent county-pier years are positive and two separate years include direct Milwaukee pier support.
+- Chinook reaches a corrected 7.8 peak and remains below Racine because recent county recurrence is less consistent.
+- Steelhead reaches a corrected 5.8 spring peak. Exact named-pier target evidence and the 2025 McKinley observation establish real opportunity; the recent survey zeros remain in Grade B confidence rather than lowering `F`.
+- Brown trout reaches a corrected 7.4 spring peak, supported by two positive recent county years and exact May/June McKinley observations.
 
 Overall score confidence: high for species admission and broad seasonal order; moderate for coho and brown magnitude; moderate-low for Chinook and steelhead magnitude; low for November–February precision.
 
@@ -69,10 +71,10 @@ County pier estimates are positive in all three recent years for all four scored
 
 Calibration implications:
 
-- Coho has two strong windows: spring (7.6 in April, 7.4 in May) and the early September return (7.3), with moderate July opportunity supported by direct shoreline reports.
-- Chinook reaches 7.4 in August and 7.2 in early September. County pier harvest is positive in all three years, so Racine is the least conservatively suppressed of the three fall Chinook profiles.
-- Steelhead reaches 5.7 in July and 5.3 in April, reflecting both statewide timing and direct July/August Racine shore observations.
-- Brown trout reaches 6.7 in April and 5.5 in May, supported by annual recurrence and the May 2025 report.
+- Coho has corrected peaks of 8.5 in spring and 8.2 in the early September return, with moderate July opportunity supported by direct shoreline reports.
+- Chinook reaches a corrected 8.1 fall peak. County pier harvest is positive in all three years.
+- Steelhead reaches a corrected 7.7 summer peak and 7.1 spring peak, reflecting both statewide timing and direct July/August Racine shore observations.
+- Brown trout reaches a corrected 7.3 spring peak, supported by annual recurrence and the May 2025 report.
 
 Overall score confidence: high for species admission and broad pattern; moderate-high for relative city ranking; moderate for seasonal magnitude; low for winter precision.
 
@@ -80,14 +82,14 @@ Overall score confidence: high for species admission and broad pattern; moderate
 
 DNR identifies North Pier near Simmons Island and South Pier, with steelhead, brown trout, and Chinook/Coho listed at both.[^1][^2] The May 2025 report records coho success from shore. July–August 2024 reports repeatedly identify perch from Kenosha piers and harbor, which supports the conditional perch lead but does not establish a salmonid month on its own.[^7][^8][^9][^10]
 
-The county pier estimates are strong but uneven: coho 100/783/53, Chinook 177/0/0, steelhead 0/9/0, and brown trout 0/0/48 for 2022/2023/2024.[^3] The exact named-pier species guide is therefore essential. The safest interpretation is that all four are valid recurring targets, but only coho supports a high local peak from the recent quantitative record. The other three are bounded below Racine until prospective outcomes improve the calibration.
+The county pier estimates are strong but uneven: coho 100/783/53, Chinook 177/0/0, steelhead 0/9/0, and brown trout 0/0/48 for 2022/2023/2024.[^3] The exact named-pier species guide is therefore essential. All four are valid recurring targets. Coho supports an excellent local peak; the other three remain below Racine based on observed recurrence and event magnitude. Missing precision remains in Grade B rather than lowering `F`.
 
 Calibration implications:
 
-- Coho receives the cohort’s strongest spring peak at 8.0 in April, with 7.5 in May, supported by the 2023 annual estimate and direct 2025 shore report.
-- Chinook peaks at 6.7 in August, lower than Milwaukee and Racine because two recent annual pier estimates were zero.
-- Steelhead peaks at 4.3 in April and 4.2 in July, deliberately restrained despite exact DNR pier-level admission.
-- Brown trout peaks at 5.8 in April and 4.8 in May; the curve acknowledges 2024 recurrence while avoiding strength unsupported in 2022–2023.
+- Coho reaches the cohort's corrected 8.6 spring peak, supported by three positive recent county-pier years and the direct 2025 shore report.
+- Chinook reaches a corrected 7.4 fall peak, below Milwaukee and Racine because two recent annual pier estimates were zero.
+- Steelhead reaches a corrected 5.6 spring peak and 5.5 summer peak. Exact DNR pier-level target evidence supports an ordinary fishery while sparse harvest constrains magnitude.
+- Brown trout reaches a corrected 6.4 spring peak; the 2024 recurrence supports the low strong band while 2022-2023 zeros retain variability.
 
 Overall score confidence: high for species admission; moderate-high for coho shape; moderate-low for the precise magnitude of Chinook, steelhead, and brown trout; low for winter precision.
 

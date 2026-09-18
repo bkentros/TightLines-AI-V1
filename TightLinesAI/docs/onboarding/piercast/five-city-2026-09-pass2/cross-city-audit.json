@@ -1,0 +1,1355 @@
+{
+  "schemaVersion": "piercast-five-city-pass2-audit-v2",
+  "calibrationStandardVersion": "piercast-absolute-cross-city-2026-09-17",
+  "reviewedAt": "2026-09-17",
+  "status": "private_shadow_only",
+  "formula": "1+(F-1)*A*(0.30+0.70*T)",
+  "temperatureScenarios": "Thermal fit T=0,0.5,1; not observed water temperatures",
+  "counts": {
+    "numericShadow": 24,
+    "researchHold": 20,
+    "exclude": 51,
+    "modes": 60,
+    "dailyRows": 8760
+  },
+  "summary": [
+    {
+      "pairKey": "two_rivers_wi/chinook_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 5.8,
+      "fisheryStrength": 8.4,
+      "strengthChange": 2.6,
+      "peakDate": "2027-09-05",
+      "idealPeak": 8.4,
+      "goodDays": 22,
+      "excellentDays": 6,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "two_rivers_wi/coho_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 4.5,
+      "fisheryStrength": 7.1,
+      "strengthChange": 2.6,
+      "peakDate": "2027-10-05",
+      "idealPeak": 7.1,
+      "goodDays": 2,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "two_rivers_wi/steelhead",
+      "evidenceGrade": "B",
+      "priorStrength": 5.2,
+      "fisheryStrength": 7.3,
+      "strengthChange": 2.1,
+      "peakDate": "2027-10-25",
+      "idealPeak": 7.3,
+      "goodDays": 7,
+      "excellentDays": 0,
+      "minimumIdeal": 1.936,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "two_rivers_wi/brown_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 5.1,
+      "fisheryStrength": 7.2,
+      "strengthChange": 2.1,
+      "peakDate": "2027-04-10",
+      "idealPeak": 7.2,
+      "goodDays": 7,
+      "excellentDays": 0,
+      "minimumIdeal": 1.329,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "kewaunee_wi/chinook_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 6.4,
+      "fisheryStrength": 9.1,
+      "strengthChange": 2.7,
+      "peakDate": "2027-09-05",
+      "idealPeak": 9.1,
+      "goodDays": 27,
+      "excellentDays": 16,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "kewaunee_wi/coho_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 4.8,
+      "fisheryStrength": 6.8,
+      "strengthChange": 2,
+      "peakDate": "2027-10-05",
+      "idealPeak": 6.8,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "kewaunee_wi/steelhead",
+      "evidenceGrade": "B",
+      "priorStrength": 5.1,
+      "fisheryStrength": 7.8,
+      "strengthChange": 2.7,
+      "peakDate": "2027-10-25",
+      "idealPeak": 7.8,
+      "goodDays": 31,
+      "excellentDays": 0,
+      "minimumIdeal": 2.011,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "kewaunee_wi/brown_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 5.2,
+      "fisheryStrength": 7.4,
+      "strengthChange": 2.2,
+      "peakDate": "2027-04-10",
+      "idealPeak": 7.4,
+      "goodDays": 13,
+      "excellentDays": 0,
+      "minimumIdeal": 1.34,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "kewaunee_wi/lake_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 3.2,
+      "fisheryStrength": 4.2,
+      "strengthChange": 1,
+      "peakDate": "2027-10-25",
+      "idealPeak": 4.2,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "algoma_wi/chinook_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 6,
+      "fisheryStrength": 9,
+      "strengthChange": 3,
+      "peakDate": "2027-09-05",
+      "idealPeak": 9,
+      "goodDays": 27,
+      "excellentDays": 16,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "algoma_wi/coho_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 4.7,
+      "fisheryStrength": 7,
+      "strengthChange": 2.3,
+      "peakDate": "2027-10-05",
+      "idealPeak": 7,
+      "goodDays": 1,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "algoma_wi/steelhead",
+      "evidenceGrade": "B",
+      "priorStrength": 5.1,
+      "fisheryStrength": 7.7,
+      "strengthChange": 2.6,
+      "peakDate": "2027-10-25",
+      "idealPeak": 7.7,
+      "goodDays": 26,
+      "excellentDays": 0,
+      "minimumIdeal": 1.998,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "algoma_wi/brown_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 4.4,
+      "fisheryStrength": 7.6,
+      "strengthChange": 3.2,
+      "peakDate": "2027-04-10",
+      "idealPeak": 7.6,
+      "goodDays": 19,
+      "excellentDays": 0,
+      "minimumIdeal": 1.35,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/chinook_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 6.2,
+      "fisheryStrength": 8.5,
+      "strengthChange": 2.3,
+      "peakDate": "2027-09-05",
+      "idealPeak": 8.5,
+      "goodDays": 23,
+      "excellentDays": 8,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/coho_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 5,
+      "fisheryStrength": 7.2,
+      "strengthChange": 2.2,
+      "peakDate": "2027-10-05",
+      "idealPeak": 7.2,
+      "goodDays": 4,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/steelhead",
+      "evidenceGrade": "B",
+      "priorStrength": 5.1,
+      "fisheryStrength": 7.2,
+      "strengthChange": 2.1,
+      "peakDate": "2027-10-25",
+      "idealPeak": 7.2,
+      "goodDays": 4,
+      "excellentDays": 0,
+      "minimumIdeal": 1.922,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/brown_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 5,
+      "fisheryStrength": 7.2,
+      "strengthChange": 2.2,
+      "peakDate": "2027-04-10",
+      "idealPeak": 7.2,
+      "goodDays": 7,
+      "excellentDays": 0,
+      "minimumIdeal": 1.329,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/smallmouth_bass",
+      "evidenceGrade": "B",
+      "priorStrength": 4.6,
+      "fisheryStrength": 5.8,
+      "strengthChange": 1.2,
+      "peakDate": "2027-06-20",
+      "idealPeak": 5.8,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "manitowoc_wi/northern_pike",
+      "evidenceGrade": "B",
+      "priorStrength": 4.2,
+      "fisheryStrength": 5.2,
+      "strengthChange": 1,
+      "peakDate": "2027-09-20",
+      "idealPeak": 5.2,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1.772,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "waukegan_il/chinook_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 6.1,
+      "fisheryStrength": 7.6,
+      "strengthChange": 1.5,
+      "peakDate": "2027-09-05",
+      "idealPeak": 7.6,
+      "goodDays": 12,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "waukegan_il/coho_salmon",
+      "evidenceGrade": "B",
+      "priorStrength": 8,
+      "fisheryStrength": 8.8,
+      "strengthChange": 0.8,
+      "peakDate": "2027-04-20",
+      "idealPeak": 8.8,
+      "goodDays": 41,
+      "excellentDays": 18,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "waukegan_il/steelhead",
+      "evidenceGrade": "B",
+      "priorStrength": 5.2,
+      "fisheryStrength": 6.8,
+      "strengthChange": 1.6,
+      "peakDate": "2027-10-25",
+      "idealPeak": 6.8,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1.863,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "waukegan_il/brown_trout",
+      "evidenceGrade": "B",
+      "priorStrength": 4.7,
+      "fisheryStrength": 7,
+      "strengthChange": 2.3,
+      "peakDate": "2027-11-20",
+      "idealPeak": 7,
+      "goodDays": 1,
+      "excellentDays": 0,
+      "minimumIdeal": 1,
+      "closedDays": 0
+    },
+    {
+      "pairKey": "waukegan_il/yellow_perch",
+      "evidenceGrade": "B",
+      "priorStrength": 4.3,
+      "fisheryStrength": 5.4,
+      "strengthChange": 1.1,
+      "peakDate": "2027-04-15",
+      "idealPeak": 5.4,
+      "goodDays": 0,
+      "excellentDays": 0,
+      "minimumIdeal": 1.66,
+      "closedDays": 46
+    }
+  ],
+  "placementChecks": [
+    {
+      "label": "Chinook corrected order",
+      "pairs": [
+        "sheboygan_wi/chinook_salmon",
+        "kewaunee_wi/chinook_salmon",
+        "algoma_wi/chinook_salmon",
+        "port_washington_wi/chinook_salmon",
+        "manitowoc_wi/chinook_salmon",
+        "two_rivers_wi/chinook_salmon",
+        "ludington_mi/chinook_salmon",
+        "racine_wi/chinook_salmon",
+        "waukegan_il/chinook_salmon",
+        "kenosha_wi/chinook_salmon"
+      ],
+      "relation": "descending",
+      "values": [
+        {
+          "pairKey": "sheboygan_wi/chinook_salmon",
+          "peakScore": 9.4
+        },
+        {
+          "pairKey": "kewaunee_wi/chinook_salmon",
+          "peakScore": 9.1
+        },
+        {
+          "pairKey": "algoma_wi/chinook_salmon",
+          "peakScore": 9
+        },
+        {
+          "pairKey": "port_washington_wi/chinook_salmon",
+          "peakScore": 8.6
+        },
+        {
+          "pairKey": "manitowoc_wi/chinook_salmon",
+          "peakScore": 8.5
+        },
+        {
+          "pairKey": "two_rivers_wi/chinook_salmon",
+          "peakScore": 8.4
+        },
+        {
+          "pairKey": "ludington_mi/chinook_salmon",
+          "peakScore": 8.3
+        },
+        {
+          "pairKey": "racine_wi/chinook_salmon",
+          "peakScore": 8.1
+        },
+        {
+          "pairKey": "waukegan_il/chinook_salmon",
+          "peakScore": 7.6
+        },
+        {
+          "pairKey": "kenosha_wi/chinook_salmon",
+          "peakScore": 7.4
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Coho corrected order",
+      "pairs": [
+        "waukegan_il/coho_salmon",
+        "grand_haven_mi/coho_salmon",
+        "kenosha_wi/coho_salmon",
+        "port_washington_wi/coho_salmon",
+        "racine_wi/coho_salmon",
+        "sheboygan_wi/coho_salmon",
+        "milwaukee_wi/coho_salmon",
+        "manitowoc_wi/coho_salmon",
+        "two_rivers_wi/coho_salmon",
+        "algoma_wi/coho_salmon",
+        "kewaunee_wi/coho_salmon"
+      ],
+      "relation": "coho_corrected",
+      "values": [
+        {
+          "pairKey": "waukegan_il/coho_salmon",
+          "peakScore": 8.8
+        },
+        {
+          "pairKey": "grand_haven_mi/coho_salmon",
+          "peakScore": 8.8
+        },
+        {
+          "pairKey": "kenosha_wi/coho_salmon",
+          "peakScore": 8.6
+        },
+        {
+          "pairKey": "port_washington_wi/coho_salmon",
+          "peakScore": 8.5
+        },
+        {
+          "pairKey": "racine_wi/coho_salmon",
+          "peakScore": 8.5
+        },
+        {
+          "pairKey": "sheboygan_wi/coho_salmon",
+          "peakScore": 8.2
+        },
+        {
+          "pairKey": "milwaukee_wi/coho_salmon",
+          "peakScore": 8.2
+        },
+        {
+          "pairKey": "manitowoc_wi/coho_salmon",
+          "peakScore": 7.2
+        },
+        {
+          "pairKey": "two_rivers_wi/coho_salmon",
+          "peakScore": 7.1
+        },
+        {
+          "pairKey": "algoma_wi/coho_salmon",
+          "peakScore": 7
+        },
+        {
+          "pairKey": "kewaunee_wi/coho_salmon",
+          "peakScore": 6.8
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Steelhead corrected order",
+      "pairs": [
+        "ludington_mi/steelhead",
+        "kewaunee_wi/steelhead",
+        "sheboygan_wi/steelhead",
+        "algoma_wi/steelhead",
+        "racine_wi/steelhead",
+        "oscoda_mi/steelhead",
+        "two_rivers_wi/steelhead",
+        "manitowoc_wi/steelhead",
+        "waukegan_il/steelhead",
+        "port_washington_wi/steelhead"
+      ],
+      "relation": "steelhead_corrected",
+      "values": [
+        {
+          "pairKey": "ludington_mi/steelhead",
+          "peakScore": 8.1
+        },
+        {
+          "pairKey": "kewaunee_wi/steelhead",
+          "peakScore": 7.8
+        },
+        {
+          "pairKey": "sheboygan_wi/steelhead",
+          "peakScore": 7.8
+        },
+        {
+          "pairKey": "algoma_wi/steelhead",
+          "peakScore": 7.7
+        },
+        {
+          "pairKey": "racine_wi/steelhead",
+          "peakScore": 7.7
+        },
+        {
+          "pairKey": "oscoda_mi/steelhead",
+          "peakScore": 7.4
+        },
+        {
+          "pairKey": "two_rivers_wi/steelhead",
+          "peakScore": 7.3
+        },
+        {
+          "pairKey": "manitowoc_wi/steelhead",
+          "peakScore": 7.2
+        },
+        {
+          "pairKey": "waukegan_il/steelhead",
+          "peakScore": 6.8
+        },
+        {
+          "pairKey": "port_washington_wi/steelhead",
+          "peakScore": 6.6
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Brown trout corrected order",
+      "pairs": [
+        "port_washington_wi/brown_trout",
+        "sheboygan_wi/brown_trout",
+        "algoma_wi/brown_trout",
+        "ludington_mi/brown_trout",
+        "kewaunee_wi/brown_trout",
+        "milwaukee_wi/brown_trout",
+        "racine_wi/brown_trout",
+        "two_rivers_wi/brown_trout",
+        "manitowoc_wi/brown_trout",
+        "waukegan_il/brown_trout"
+      ],
+      "relation": "brown_corrected",
+      "values": [
+        {
+          "pairKey": "port_washington_wi/brown_trout",
+          "peakScore": 8.1
+        },
+        {
+          "pairKey": "sheboygan_wi/brown_trout",
+          "peakScore": 7.8
+        },
+        {
+          "pairKey": "algoma_wi/brown_trout",
+          "peakScore": 7.6
+        },
+        {
+          "pairKey": "ludington_mi/brown_trout",
+          "peakScore": 7.6
+        },
+        {
+          "pairKey": "kewaunee_wi/brown_trout",
+          "peakScore": 7.4
+        },
+        {
+          "pairKey": "milwaukee_wi/brown_trout",
+          "peakScore": 7.4
+        },
+        {
+          "pairKey": "racine_wi/brown_trout",
+          "peakScore": 7.3
+        },
+        {
+          "pairKey": "two_rivers_wi/brown_trout",
+          "peakScore": 7.2
+        },
+        {
+          "pairKey": "manitowoc_wi/brown_trout",
+          "peakScore": 7.2
+        },
+        {
+          "pairKey": "waukegan_il/brown_trout",
+          "peakScore": 7
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Lake trout: Oscoda > Kewaunee > Manistee",
+      "pairs": [
+        "oscoda_mi/lake_trout",
+        "kewaunee_wi/lake_trout",
+        "manistee_mi/lake_trout"
+      ],
+      "relation": "descending",
+      "values": [
+        {
+          "pairKey": "oscoda_mi/lake_trout",
+          "peakScore": 4.6
+        },
+        {
+          "pairKey": "kewaunee_wi/lake_trout",
+          "peakScore": 4.2
+        },
+        {
+          "pairKey": "manistee_mi/lake_trout",
+          "peakScore": 4
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Waukegan perch equals Kenosha perch",
+      "pairs": [
+        "waukegan_il/yellow_perch",
+        "kenosha_wi/yellow_perch"
+      ],
+      "relation": "equal",
+      "values": [
+        {
+          "pairKey": "waukegan_il/yellow_perch",
+          "peakScore": 5.4
+        },
+        {
+          "pairKey": "kenosha_wi/yellow_perch",
+          "peakScore": 5.4
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Manitowoc smallmouth equals Ludington smallmouth",
+      "pairs": [
+        "manitowoc_wi/smallmouth_bass",
+        "ludington_mi/smallmouth_bass"
+      ],
+      "relation": "equal",
+      "values": [
+        {
+          "pairKey": "manitowoc_wi/smallmouth_bass",
+          "peakScore": 5.8
+        },
+        {
+          "pairKey": "ludington_mi/smallmouth_bass",
+          "peakScore": 5.8
+        }
+      ],
+      "pass": true
+    },
+    {
+      "label": "Manitowoc pike equals Ludington pike",
+      "pairs": [
+        "manitowoc_wi/northern_pike",
+        "ludington_mi/northern_pike"
+      ],
+      "relation": "equal",
+      "values": [
+        {
+          "pairKey": "manitowoc_wi/northern_pike",
+          "peakScore": 5.2
+        },
+        {
+          "pairKey": "ludington_mi/northern_pike",
+          "peakScore": 5.2
+        }
+      ],
+      "pass": true
+    }
+  ],
+  "comparisons": [
+    {
+      "pairKey": "ludington_mi/chinook_salmon",
+      "cityId": "ludington_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 8.3,
+      "peakDate": "2027-08-30",
+      "goodDays": 38,
+      "excellentDays": 6,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/coho_salmon",
+      "cityId": "ludington_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 5.6,
+      "peakDate": "2027-10-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/steelhead",
+      "cityId": "ludington_mi",
+      "speciesId": "steelhead",
+      "peakScore": 8.1,
+      "peakDate": "2027-10-20",
+      "goodDays": 38,
+      "excellentDays": 2,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/brown_trout",
+      "cityId": "ludington_mi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.6,
+      "peakDate": "2027-04-05",
+      "goodDays": 47,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/chinook_salmon",
+      "cityId": "grand_haven_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 7.8,
+      "peakDate": "2027-09-08",
+      "goodDays": 32,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/coho_salmon",
+      "cityId": "grand_haven_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.8,
+      "peakDate": "2027-09-10",
+      "goodDays": 72,
+      "excellentDays": 17,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/steelhead",
+      "cityId": "grand_haven_mi",
+      "speciesId": "steelhead",
+      "peakScore": 9.2,
+      "peakDate": "2027-10-30",
+      "goodDays": 135,
+      "excellentDays": 35,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/brown_trout",
+      "cityId": "grand_haven_mi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.6,
+      "peakDate": "2027-04-15",
+      "goodDays": 46,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/chinook_salmon",
+      "cityId": "manistee_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 9.5,
+      "peakDate": "2027-08-30",
+      "goodDays": 64,
+      "excellentDays": 24,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/coho_salmon",
+      "cityId": "manistee_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.2,
+      "peakDate": "2027-10-05",
+      "goodDays": 41,
+      "excellentDays": 4,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/steelhead",
+      "cityId": "manistee_mi",
+      "speciesId": "steelhead",
+      "peakScore": 10,
+      "peakDate": "2027-10-28",
+      "goodDays": 79,
+      "excellentDays": 30,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/brown_trout",
+      "cityId": "manistee_mi",
+      "speciesId": "brown_trout",
+      "peakScore": 8.2,
+      "peakDate": "2027-04-10",
+      "goodDays": 55,
+      "excellentDays": 6,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/chinook_salmon",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 9.7,
+      "peakDate": "2027-08-16",
+      "goodDays": 80,
+      "excellentDays": 47,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/coho_salmon",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.6,
+      "peakDate": "2027-09-15",
+      "goodDays": 62,
+      "excellentDays": 17,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/steelhead",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "steelhead",
+      "peakScore": 9.8,
+      "peakDate": "2027-10-16",
+      "goodDays": 85,
+      "excellentDays": 29,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/brown_trout",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.5,
+      "peakDate": "2027-04-05",
+      "goodDays": 45,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "sheboygan_wi/chinook_salmon",
+      "cityId": "sheboygan_wi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 9.4,
+      "peakDate": "2027-08-31",
+      "goodDays": 66,
+      "excellentDays": 22,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "sheboygan_wi/coho_salmon",
+      "cityId": "sheboygan_wi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.2,
+      "peakDate": "2027-04-15",
+      "goodDays": 111,
+      "excellentDays": 5,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "sheboygan_wi/steelhead",
+      "cityId": "sheboygan_wi",
+      "speciesId": "steelhead",
+      "peakScore": 7.8,
+      "peakDate": "2027-07-15",
+      "goodDays": 95,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "sheboygan_wi/brown_trout",
+      "cityId": "sheboygan_wi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.8,
+      "peakDate": "2027-04-15",
+      "goodDays": 50,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_washington_wi/chinook_salmon",
+      "cityId": "port_washington_wi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 8.6,
+      "peakDate": "2027-08-15",
+      "goodDays": 70,
+      "excellentDays": 37,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_washington_wi/coho_salmon",
+      "cityId": "port_washington_wi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.5,
+      "peakDate": "2027-04-20",
+      "goodDays": 88,
+      "excellentDays": 11,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_washington_wi/steelhead",
+      "cityId": "port_washington_wi",
+      "speciesId": "steelhead",
+      "peakScore": 6.6,
+      "peakDate": "2027-04-15",
+      "goodDays": 29,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_washington_wi/brown_trout",
+      "cityId": "port_washington_wi",
+      "speciesId": "brown_trout",
+      "peakScore": 8.1,
+      "peakDate": "2027-04-01",
+      "goodDays": 55,
+      "excellentDays": 3,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "milwaukee_wi/chinook_salmon",
+      "cityId": "milwaukee_wi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 7.8,
+      "peakDate": "2027-08-10",
+      "goodDays": 63,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "milwaukee_wi/coho_salmon",
+      "cityId": "milwaukee_wi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.2,
+      "peakDate": "2027-05-20",
+      "goodDays": 81,
+      "excellentDays": 4,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "milwaukee_wi/steelhead",
+      "cityId": "milwaukee_wi",
+      "speciesId": "steelhead",
+      "peakScore": 5.8,
+      "peakDate": "2027-04-15",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "milwaukee_wi/brown_trout",
+      "cityId": "milwaukee_wi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.4,
+      "peakDate": "2027-04-01",
+      "goodDays": 45,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "racine_wi/chinook_salmon",
+      "cityId": "racine_wi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 8.1,
+      "peakDate": "2027-08-15",
+      "goodDays": 54,
+      "excellentDays": 2,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "racine_wi/coho_salmon",
+      "cityId": "racine_wi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.5,
+      "peakDate": "2027-04-20",
+      "goodDays": 96,
+      "excellentDays": 15,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "racine_wi/steelhead",
+      "cityId": "racine_wi",
+      "speciesId": "steelhead",
+      "peakScore": 7.7,
+      "peakDate": "2027-07-15",
+      "goodDays": 70,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "racine_wi/brown_trout",
+      "cityId": "racine_wi",
+      "speciesId": "brown_trout",
+      "peakScore": 7.3,
+      "peakDate": "2027-04-01",
+      "goodDays": 43,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "kenosha_wi/chinook_salmon",
+      "cityId": "kenosha_wi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 7.4,
+      "peakDate": "2027-08-15",
+      "goodDays": 44,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "kenosha_wi/coho_salmon",
+      "cityId": "kenosha_wi",
+      "speciesId": "coho_salmon",
+      "peakScore": 8.6,
+      "peakDate": "2027-04-20",
+      "goodDays": 76,
+      "excellentDays": 13,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "kenosha_wi/steelhead",
+      "cityId": "kenosha_wi",
+      "speciesId": "steelhead",
+      "peakScore": 5.6,
+      "peakDate": "2027-04-15",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "kenosha_wi/brown_trout",
+      "cityId": "kenosha_wi",
+      "speciesId": "brown_trout",
+      "peakScore": 6.4,
+      "peakDate": "2027-04-01",
+      "goodDays": 15,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/lake_trout",
+      "cityId": "ludington_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 3.8,
+      "peakDate": "2027-10-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/smallmouth_bass",
+      "cityId": "ludington_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 5.8,
+      "peakDate": "2027-06-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/yellow_perch",
+      "cityId": "ludington_mi",
+      "speciesId": "yellow_perch",
+      "peakScore": 7.6,
+      "peakDate": "2027-07-12",
+      "goodDays": 52,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/lake_trout",
+      "cityId": "grand_haven_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 3.6,
+      "peakDate": "2027-10-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/smallmouth_bass",
+      "cityId": "grand_haven_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 7,
+      "peakDate": "2027-06-25",
+      "goodDays": 80,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "grand_haven_mi/yellow_perch",
+      "cityId": "grand_haven_mi",
+      "speciesId": "yellow_perch",
+      "peakScore": 7.2,
+      "peakDate": "2027-08-05",
+      "goodDays": 74,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/lake_trout",
+      "cityId": "manistee_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 4,
+      "peakDate": "2027-10-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/smallmouth_bass",
+      "cityId": "manistee_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 5,
+      "peakDate": "2027-06-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/yellow_perch",
+      "cityId": "manistee_mi",
+      "speciesId": "yellow_perch",
+      "peakScore": 7.2,
+      "peakDate": "2027-04-20",
+      "goodDays": 77,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/lake_trout",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 4,
+      "peakDate": "2027-10-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "racine_wi/yellow_perch",
+      "cityId": "racine_wi",
+      "speciesId": "yellow_perch",
+      "peakScore": 4.8,
+      "peakDate": "2027-07-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "kenosha_wi/yellow_perch",
+      "cityId": "kenosha_wi",
+      "speciesId": "yellow_perch",
+      "peakScore": 5.4,
+      "peakDate": "2027-07-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "harbor_beach_mi/coho_salmon",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 5.8,
+      "peakDate": "2027-04-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "harbor_beach_mi/smallmouth_bass",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 4.9,
+      "peakDate": "2027-07-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/steelhead",
+      "cityId": "oscoda_mi",
+      "speciesId": "steelhead",
+      "peakScore": 7.4,
+      "peakDate": "2027-04-20",
+      "goodDays": 33,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/lake_trout",
+      "cityId": "oscoda_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 4.6,
+      "peakDate": "2027-04-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/coho_salmon",
+      "cityId": "oscoda_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 6.5,
+      "peakDate": "2027-09-18",
+      "goodDays": 9,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/chinook_salmon",
+      "cityId": "oscoda_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 5.5,
+      "peakDate": "2027-09-18",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/smallmouth_bass",
+      "cityId": "oscoda_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 4.5,
+      "peakDate": "2027-07-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/coho_salmon",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "coho_salmon",
+      "peakScore": 6.4,
+      "peakDate": "2027-04-20",
+      "goodDays": 12,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/steelhead",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "steelhead",
+      "peakScore": 4.5,
+      "peakDate": "2027-04-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/northern_pike",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 5.1,
+      "peakDate": "2027-07-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "harbor_beach_mi/steelhead",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "steelhead",
+      "peakScore": 5.6,
+      "peakDate": "2027-04-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "harbor_beach_mi/lake_trout",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 5.3,
+      "peakDate": "2027-05-01",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "harbor_beach_mi/northern_pike",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 4.6,
+      "peakDate": "2027-09-15",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "oscoda_mi/northern_pike",
+      "cityId": "oscoda_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 5,
+      "peakDate": "2027-04-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/chinook_salmon",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "chinook_salmon",
+      "peakScore": 5,
+      "peakDate": "2027-09-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/brown_trout",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "brown_trout",
+      "peakScore": 4.8,
+      "peakDate": "2027-04-20",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/lake_trout",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "lake_trout",
+      "peakScore": 5.5,
+      "peakDate": "2027-05-01",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/yellow_perch",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "yellow_perch",
+      "peakScore": 5,
+      "peakDate": "2027-08-01",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "port_sanilac_mi/smallmouth_bass",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "smallmouth_bass",
+      "peakScore": 5.4,
+      "peakDate": "2027-07-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "ludington_mi/northern_pike",
+      "cityId": "ludington_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 5.2,
+      "peakDate": "2027-08-15",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "manistee_mi/northern_pike",
+      "cityId": "manistee_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 5,
+      "peakDate": "2027-05-15",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    },
+    {
+      "pairKey": "frankfort_elberta_mi/northern_pike",
+      "cityId": "frankfort_elberta_mi",
+      "speciesId": "northern_pike",
+      "peakScore": 4.5,
+      "peakDate": "2027-04-25",
+      "goodDays": 0,
+      "excellentDays": 0,
+      "source": "2026-09 current ideal temperature baseline"
+    }
+  ]
+}

@@ -226,6 +226,41 @@ const STRENGTH_OVERRIDES = new Map<string, {
   ],
 ]);
 
+/**
+ * September 2026 all-city common-species audit.
+ *
+ * The first Wisconsin expansion encoded missing city-level effort denominators as
+ * lower mode ceilings. That mixed evidence confidence into fishery strength. These
+ * pair-level corrections restore the absolute cross-city placement supported by
+ * the 2022-2024 Wisconsin DNR county-by-pier harvest series and exact-pier reports.
+ * Mode-to-mode proportions are preserved on the Formula v3 distance-from-one scale,
+ * so seasonal timing remains in availability and confidence remains in the grade.
+ */
+const PAIR_PEAK_RECALIBRATIONS = new Map<string, {
+  priorPeak: number;
+  revisedPeak: number;
+  rationale: string;
+}>([
+  ["sheboygan_wi/coho_salmon", { priorPeak: 7.7, revisedPeak: 8.2, rationale: "Two positive recent county-pier years, including 508 estimated pier coho in 2024, support an excellent recurring peak." }],
+  ["sheboygan_wi/steelhead", { priorPeak: 7.3, revisedPeak: 7.8, rationale: "Recent county-pier rainbow harvest rose from 23 in 2023 to 127 in 2024, supporting a strong peak comparable to the central-Wisconsin ports." }],
+  ["port_washington_wi/chinook_salmon", { priorPeak: 7.2, revisedPeak: 8.6, rationale: "Ozaukee County pier Chinook harvest was positive in all three reviewed years (533, 184, 25), placing Port Washington above the original strong-band ceiling." }],
+  ["port_washington_wi/coho_salmon", { priorPeak: 7.8, revisedPeak: 8.5, rationale: "Ozaukee County pier coho harvest was positive in all three reviewed years (105, 317, 418), with the strongest estimate in 2024." }],
+  ["port_washington_wi/steelhead", { priorPeak: 5.2, revisedPeak: 6.6, rationale: "Exact-pier target evidence plus positive county-pier harvest in 2022 and 2024 supports a strong recurring peak." }],
+  ["port_washington_wi/brown_trout", { priorPeak: 7.0, revisedPeak: 8.1, rationale: "Ozaukee County pier brown-trout harvest recurred in all three years and reached 316 in 2024, supporting an excellent peak." }],
+  ["milwaukee_wi/chinook_salmon", { priorPeak: 7.0, revisedPeak: 7.8, rationale: "Two positive recent county-pier years and exact named-pier target evidence support a stronger recurring peak without claiming Racine or Port Washington magnitude." }],
+  ["milwaukee_wi/coho_salmon", { priorPeak: 7.6, revisedPeak: 8.2, rationale: "Three positive recent county-pier years plus repeated exact McKinley Pier reports support an excellent spring peak." }],
+  ["milwaukee_wi/steelhead", { priorPeak: 4.6, revisedPeak: 5.8, rationale: "The exact named-pier species listing and a current McKinley Pier rainbow observation establish a real targetable peak; survey zeros remain in confidence rather than lowering F." }],
+  ["milwaukee_wi/brown_trout", { priorPeak: 6.6, revisedPeak: 7.4, rationale: "Two positive recent county-pier years plus repeated exact McKinley Pier brown-trout observations support a strong peak." }],
+  ["racine_wi/chinook_salmon", { priorPeak: 7.4, revisedPeak: 8.1, rationale: "County-pier Chinook harvest was positive in all three years (203, 65, 60), supporting an excellent but sub-Port-Washington peak." }],
+  ["racine_wi/coho_salmon", { priorPeak: 7.6, revisedPeak: 8.5, rationale: "Three positive county-pier years (176, 534, 120) and repeated exact shoreline/pier reports support an excellent recurring peak." }],
+  ["racine_wi/steelhead", { priorPeak: 5.7, revisedPeak: 7.7, rationale: "Three positive county-pier years (70, 9, 75) and direct summer shoreline reports support a strong peak comparable to other Wisconsin ports." }],
+  ["racine_wi/brown_trout", { priorPeak: 6.7, revisedPeak: 7.3, rationale: "Positive county-pier harvest in all three years and an exact 2025 shore report support a stronger recurring peak." }],
+  ["kenosha_wi/chinook_salmon", { priorPeak: 6.7, revisedPeak: 7.4, rationale: "The exact two-pier species listing and a strong 2022 county-pier estimate support a strong but variable peak below Racine and Waukegan." }],
+  ["kenosha_wi/coho_salmon", { priorPeak: 8.0, revisedPeak: 8.6, rationale: "Three positive county-pier years, including 783 in 2023, plus an exact 2025 shore report support an excellent southern-Lake-Michigan peak." }],
+  ["kenosha_wi/steelhead", { priorPeak: 4.3, revisedPeak: 5.6, rationale: "Exact named-pier target evidence and a positive recent county-pier year establish a real ordinary peak; uneven sampling remains a confidence limitation." }],
+  ["kenosha_wi/brown_trout", { priorPeak: 5.8, revisedPeak: 6.4, rationale: "Exact named-pier target evidence and renewed 2024 county-pier harvest support a low strong-band peak while preserving high variability." }],
+]);
+
 const AVAILABILITY_OVERRIDES = new Map<string, {
   knots: AvailabilityKnot[];
   rationale: string;
@@ -759,7 +794,25 @@ async function main(): Promise<void> {
       if (legacyPeak.fisheryStrength < 2.1) continue;
       const overrideKey = `${decision.cityId}/${decision.speciesId}/${definition.modeId}`;
       const override = STRENGTH_OVERRIDES.get(overrideKey);
-      const fisheryStrength = override?.fisheryStrength ?? legacyPeak.fisheryStrength;
+      const originalStrength = override?.fisheryStrength ?? legacyPeak.fisheryStrength;
+      const pairKey = `${decision.cityId}/${decision.speciesId}`;
+      const peakRecalibration = PAIR_PEAK_RECALIBRATIONS.get(pairKey);
+      const fisheryStrength = peakRecalibration
+        ? round(
+          1 +
+            (peakRecalibration.revisedPeak - 1) *
+              ((originalStrength - 1) / (peakRecalibration.priorPeak - 1)),
+          1,
+        )
+        : originalStrength;
+      if (
+        !Number.isFinite(fisheryStrength) || fisheryStrength < 2.1 ||
+        fisheryStrength > 10
+      ) {
+        throw new Error(
+          `Fishery strength outside the 2.1-10 rubric for ${overrideKey}: ${fisheryStrength}`,
+        );
+      }
       const availabilityOverride = AVAILABILITY_OVERRIDES.get(overrideKey);
       const availabilityKnots = availabilityOverride?.knots ?? (definition.availability.kind === "fixed"
         ? definition.availability.knots
@@ -805,7 +858,9 @@ async function main(): Promise<void> {
         fisheryEvidenceIds: decision.evidenceIds,
         evidenceInterpretation: definition.evidenceInterpretation,
         calibrationBasis:
-          "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
+          peakRecalibration
+            ? `${peakRecalibration.rationale} The all-city audit preserves this mode's prior within-pair proportion while keeping evidence confidence separate from fishery strength.`
+            : "The mode ceiling is the maximum of the frozen evidence-reviewed annual envelope inside this mode's evidence window. Availability is reconstructed as a separate continuous mode curve; no city bonus or blanket uplift is applied.",
         legacyComparator: {
           curveId: legacyCurve.curveId,
           windowPeak: legacyPeak.fisheryStrength,

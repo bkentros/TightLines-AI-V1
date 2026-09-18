@@ -11,14 +11,17 @@ import type {
 export function projectPublicV3Outlook(
   outlook: PierCastV3ReviewOutlookResponse,
 ): PierCastReviewOutlookResponse {
+  const publicCities = outlook.cities.filter((city) =>
+    PIER_CAST_PUBLIC_V3_RELEASE.cityIds.some((id) => id === city.cityId)
+  );
   if (
-    outlook.cities.length !== PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length ||
-    outlook.cities.some((city) =>
+    publicCities.length !== PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length ||
+    publicCities.some((city) =>
       !PIER_CAST_PUBLIC_V3_RELEASE.cityIds.some((id) => id === city.cityId) ||
       city.dates.length !== 5 ||
       city.dates[0]?.headline.overall.status !== "available"
     )
-  ) throw new Error("Complete twelve-city public outlook is required.");
+  ) throw new Error("Complete frozen public outlook is required.");
 
   return {
     mode: "public_research",
@@ -30,7 +33,7 @@ export function projectPublicV3Outlook(
     formulaVersion: outlook.formulaVersion,
     disclosure: PIER_CAST_RESEARCH_DISCLOSURE,
     source: outlook.source,
-    cities: outlook.cities.map((city) => ({
+    cities: publicCities.map((city) => ({
       cityId: city.cityId,
       displayName: city.displayName,
       timezone: city.timezone,

@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "piercast-five-city-pass3-acceptance-v1",
+  "evaluatedAt": "2026-09-18",
+  "configVersion": "piercast-v3-seventeen-city-five-city-pass3-v7",
+  "expected": {
+    "ownerCityCount": 17,
+    "publicCityCount": 12,
+    "fiveCityCount": 5,
+    "admittedPairCount": 24,
+    "researchHoldCount": 20,
+    "excludedDecisionCount": 51,
+    "fiveDateForecastRows": 590
+  },
+  "actual": {
+    "ownerCityCount": 17,
+    "publicV2CityCount": 12,
+    "publicV3CityCount": 12,
+    "onboardingCitiesInOwnerCatalog": 5,
+    "onboardingCitiesInPublicV2": 0,
+    "onboardingCitiesInPublicV3": 0,
+    "publicReleaseCityCount": 12,
+    "admittedPairCount": 24,
+    "researchHoldCount": 20,
+    "excludedDecisionCount": 51,
+    "fiveDateForecastRows": 590,
+    "fixtureCityCount": 5,
+    "fixtureDateCount": 25,
+    "fixtureSpeciesDateRows": 120
+  },
+  "access": [
+    {
+      "cityId": "two_rivers_wi",
+      "structures": [
+        {
+          "structureId": "two_rivers_north_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_TWO_RIVERS_CITY_PLAN"
+          ],
+          "limitation": "The public land approach is documented. Current signs, temporary closures, construction, waves, weather, and ice control access."
+        }
+      ]
+    },
+    {
+      "cityId": "kewaunee_wi",
+      "structures": [
+        {
+          "structureId": "kewaunee_south_lighthouse_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_KEWAUNEE_CITY_PLAN"
+          ],
+          "limitation": "Published materials support a pedestrian route. Current signs, construction, temporary closures, waves, weather, and ice control access."
+        },
+        {
+          "structureId": "kewaunee_harbor_point_fishing_piers",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_KEWAUNEE_HARBOR_POINT"
+          ],
+          "limitation": "This is an inner-harbor subarea and must not be described as interchangeable with the exposed lighthouse pier. Current posted rules control."
+        }
+      ]
+    },
+    {
+      "cityId": "algoma_wi",
+      "structures": [
+        {
+          "structureId": "algoma_south_breakwater",
+          "disposition": "candidate",
+          "accessStatus": "reported_closed",
+          "liveAccessStatus": "reported_closed",
+          "evidenceIds": [
+            "FIVE_ACCESS_ALGOMA_USACE_2026"
+          ],
+          "limitation": "USACE reports south-breakwater construction with tentative completion in April 2027, and project materials prohibit breakwater fishing during construction. The forecast describes the fishery and is not an access recommendation."
+        },
+        {
+          "structureId": "algoma_north_pier",
+          "disposition": "unresolved",
+          "accessStatus": "route_unverified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_ALGOMA_USACE_NORTH"
+          ],
+          "limitation": "North-breakwater work is in planning and the currently legal public segment has not been mapped. Do not infer access from the report."
+        }
+      ]
+    },
+    {
+      "cityId": "manitowoc_wi",
+      "structures": [
+        {
+          "structureId": "manitowoc_lighthouse_park_pier",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_MANITOWOC_LIGHTHOUSE_PARK"
+          ],
+          "limitation": "The city lists fishing, parking, and 6 a.m.–11 p.m. park hours. Current signs, temporary closures, waves, weather, and ice control access."
+        }
+      ]
+    },
+    {
+      "cityId": "waukegan_il",
+      "structures": [
+        {
+          "structureId": "waukegan_government_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "FIVE_ACCESS_WAUKEGAN_GOVERNMENT_PIER"
+          ],
+          "limitation": "The city documented the south pier reopening and continued public event use. Current fishing signs, parking rules, temporary closures, waves, weather, and ice control access."
+        }
+      ]
+    }
+  ],
+  "result": "pass"
+}

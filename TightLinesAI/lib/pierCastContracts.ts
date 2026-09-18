@@ -79,7 +79,7 @@ export type PierCastScoreRead =
 export type PierCastCatalogCityRead = {
   cityId: string;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";
@@ -110,7 +110,8 @@ export type PierCastCatalogCityRead = {
         coordinateSource:
           | "NOAA Coast Pilot 6"
           | "NOAA Aids to Navigation"
-          | "Michigan Water Trails";
+          | "Michigan Water Trails"
+          | "U.S. Coast Guard Light List";
       };
       gridCellStatus: "candidate" | "approved_for_pilot";
     } | null;

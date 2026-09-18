@@ -20,7 +20,11 @@ export function calculatePierCastV3ModeScore(input: {
   ) return null;
   const modifier = PIER_CAST_V3_THERMAL_FLOOR +
     PIER_CAST_V3_THERMAL_WEIGHT * temperatureSuitability;
-  return 1 + (mode.seasonalPotential - 1) * modifier;
+  const score = 1 + (mode.seasonalPotential - 1) * modifier;
+  // Valid inputs are already mathematically bounded by fisheryStrength <= 10.
+  // Keep the explicit clamp as a final rubric boundary against floating-point
+  // drift or a future formula change.
+  return Math.min(10, Math.max(1, score));
 }
 
 export function calculatePierCastV3Opportunity(input: {

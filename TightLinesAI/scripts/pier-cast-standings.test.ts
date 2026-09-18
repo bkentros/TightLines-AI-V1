@@ -89,6 +89,11 @@ function v3ReviewFixture(): PierCastV3ReviewOutlookResponse {
     "harbor_beach_mi",
     "oscoda_mi",
     "port_sanilac_mi",
+    "two_rivers_wi",
+    "kewaunee_wi",
+    "algoma_wi",
+    "manitowoc_wi",
+    "waukegan_il",
   ];
   return {
     mode: "v3_shadow_review",
@@ -144,12 +149,12 @@ test("owner standings still include all live review cities without a snapshot", 
   );
 });
 
-test("v3 owner standings include all twelve cities with variable species rosters", () => {
+test("v3 owner standings include all seventeen cities with variable species rosters", () => {
   const outlook = v3ReviewFixture();
   const standings = projectPierCastStandings(outlook);
 
   assert.equal(standings.generatedAt, outlook.generatedAt);
-  assert.equal(standings.cities.length, 12);
+  assert.equal(standings.cities.length, 17);
   assert.deepEqual(
     standings.cities.map((city) => city.cityId),
     outlook.cities.map((city) => city.cityId),

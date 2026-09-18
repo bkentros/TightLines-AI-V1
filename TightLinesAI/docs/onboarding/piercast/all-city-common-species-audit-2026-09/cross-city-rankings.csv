@@ -1,0 +1,78 @@
+speciesId,speciesName,rank,cityId,cityName,pairKey,auditedPeak,disposition
+chinook_salmon,Chinook Salmon,1,frankfort_elberta_mi,Frankfort–Elberta,frankfort_elberta_mi/chinook_salmon,9.7,numeric_retained
+chinook_salmon,Chinook Salmon,2,manistee_mi,Manistee,manistee_mi/chinook_salmon,9.5,numeric_retained
+chinook_salmon,Chinook Salmon,3,sheboygan_wi,Sheboygan,sheboygan_wi/chinook_salmon,9.4,numeric_retained
+chinook_salmon,Chinook Salmon,4,kewaunee_wi,Kewaunee,kewaunee_wi/chinook_salmon,9.1,numeric_retained
+chinook_salmon,Chinook Salmon,5,algoma_wi,Algoma,algoma_wi/chinook_salmon,9,numeric_retained
+chinook_salmon,Chinook Salmon,6,port_washington_wi,Port Washington,port_washington_wi/chinook_salmon,8.6,numeric_revised
+chinook_salmon,Chinook Salmon,7,manitowoc_wi,Manitowoc,manitowoc_wi/chinook_salmon,8.5,numeric_retained
+chinook_salmon,Chinook Salmon,8,two_rivers_wi,Two Rivers,two_rivers_wi/chinook_salmon,8.4,numeric_retained
+chinook_salmon,Chinook Salmon,9,ludington_mi,Ludington,ludington_mi/chinook_salmon,8.3,numeric_retained
+chinook_salmon,Chinook Salmon,10,racine_wi,Racine,racine_wi/chinook_salmon,8.1,numeric_revised
+chinook_salmon,Chinook Salmon,11,grand_haven_mi,Grand Haven,grand_haven_mi/chinook_salmon,7.8,numeric_retained
+chinook_salmon,Chinook Salmon,12,milwaukee_wi,Milwaukee,milwaukee_wi/chinook_salmon,7.8,numeric_revised
+chinook_salmon,Chinook Salmon,13,waukegan_il,Waukegan,waukegan_il/chinook_salmon,7.6,numeric_retained
+chinook_salmon,Chinook Salmon,14,kenosha_wi,Kenosha,kenosha_wi/chinook_salmon,7.4,numeric_revised
+chinook_salmon,Chinook Salmon,15,oscoda_mi,Oscoda,oscoda_mi/chinook_salmon,5.5,numeric_retained
+chinook_salmon,Chinook Salmon,16,port_sanilac_mi,Port Sanilac,port_sanilac_mi/chinook_salmon,5,numeric_retained
+coho_salmon,Coho Salmon,1,grand_haven_mi,Grand Haven,grand_haven_mi/coho_salmon,8.8,numeric_retained
+coho_salmon,Coho Salmon,2,waukegan_il,Waukegan,waukegan_il/coho_salmon,8.8,numeric_retained
+coho_salmon,Coho Salmon,3,frankfort_elberta_mi,Frankfort–Elberta,frankfort_elberta_mi/coho_salmon,8.6,numeric_retained
+coho_salmon,Coho Salmon,4,kenosha_wi,Kenosha,kenosha_wi/coho_salmon,8.6,numeric_revised
+coho_salmon,Coho Salmon,5,port_washington_wi,Port Washington,port_washington_wi/coho_salmon,8.5,numeric_revised
+coho_salmon,Coho Salmon,6,racine_wi,Racine,racine_wi/coho_salmon,8.5,numeric_revised
+coho_salmon,Coho Salmon,7,manistee_mi,Manistee,manistee_mi/coho_salmon,8.2,numeric_retained
+coho_salmon,Coho Salmon,8,milwaukee_wi,Milwaukee,milwaukee_wi/coho_salmon,8.2,numeric_revised
+coho_salmon,Coho Salmon,9,sheboygan_wi,Sheboygan,sheboygan_wi/coho_salmon,8.2,numeric_revised
+coho_salmon,Coho Salmon,10,manitowoc_wi,Manitowoc,manitowoc_wi/coho_salmon,7.2,numeric_retained
+coho_salmon,Coho Salmon,11,two_rivers_wi,Two Rivers,two_rivers_wi/coho_salmon,7.1,numeric_retained
+coho_salmon,Coho Salmon,12,algoma_wi,Algoma,algoma_wi/coho_salmon,7,numeric_retained
+coho_salmon,Coho Salmon,13,kewaunee_wi,Kewaunee,kewaunee_wi/coho_salmon,6.8,numeric_retained
+coho_salmon,Coho Salmon,14,oscoda_mi,Oscoda,oscoda_mi/coho_salmon,6.5,numeric_retained
+coho_salmon,Coho Salmon,15,port_sanilac_mi,Port Sanilac,port_sanilac_mi/coho_salmon,6.4,numeric_retained
+coho_salmon,Coho Salmon,16,harbor_beach_mi,Harbor Beach,harbor_beach_mi/coho_salmon,5.8,numeric_retained
+coho_salmon,Coho Salmon,17,ludington_mi,Ludington,ludington_mi/coho_salmon,5.6,numeric_retained
+steelhead,Steelhead,1,manistee_mi,Manistee,manistee_mi/steelhead,10,numeric_retained
+steelhead,Steelhead,2,frankfort_elberta_mi,Frankfort–Elberta,frankfort_elberta_mi/steelhead,9.8,numeric_retained
+steelhead,Steelhead,3,grand_haven_mi,Grand Haven,grand_haven_mi/steelhead,9.2,numeric_retained
+steelhead,Steelhead,4,ludington_mi,Ludington,ludington_mi/steelhead,8.1,numeric_retained
+steelhead,Steelhead,5,kewaunee_wi,Kewaunee,kewaunee_wi/steelhead,7.8,numeric_retained
+steelhead,Steelhead,6,sheboygan_wi,Sheboygan,sheboygan_wi/steelhead,7.8,numeric_revised
+steelhead,Steelhead,7,algoma_wi,Algoma,algoma_wi/steelhead,7.7,numeric_retained
+steelhead,Steelhead,8,racine_wi,Racine,racine_wi/steelhead,7.7,numeric_revised
+steelhead,Steelhead,9,oscoda_mi,Oscoda,oscoda_mi/steelhead,7.4,numeric_retained
+steelhead,Steelhead,10,two_rivers_wi,Two Rivers,two_rivers_wi/steelhead,7.3,numeric_retained
+steelhead,Steelhead,11,manitowoc_wi,Manitowoc,manitowoc_wi/steelhead,7.2,numeric_retained
+steelhead,Steelhead,12,waukegan_il,Waukegan,waukegan_il/steelhead,6.8,numeric_retained
+steelhead,Steelhead,13,port_washington_wi,Port Washington,port_washington_wi/steelhead,6.6,numeric_revised
+steelhead,Steelhead,14,milwaukee_wi,Milwaukee,milwaukee_wi/steelhead,5.8,numeric_revised
+steelhead,Steelhead,15,harbor_beach_mi,Harbor Beach,harbor_beach_mi/steelhead,5.6,numeric_retained
+steelhead,Steelhead,16,kenosha_wi,Kenosha,kenosha_wi/steelhead,5.6,numeric_revised
+steelhead,Steelhead,17,port_sanilac_mi,Port Sanilac,port_sanilac_mi/steelhead,4.5,numeric_retained
+brown_trout,Brown Trout,1,manistee_mi,Manistee,manistee_mi/brown_trout,8.2,numeric_retained
+brown_trout,Brown Trout,2,port_washington_wi,Port Washington,port_washington_wi/brown_trout,8.1,numeric_revised
+brown_trout,Brown Trout,3,sheboygan_wi,Sheboygan,sheboygan_wi/brown_trout,7.8,numeric_retained
+brown_trout,Brown Trout,4,algoma_wi,Algoma,algoma_wi/brown_trout,7.6,numeric_retained
+brown_trout,Brown Trout,5,grand_haven_mi,Grand Haven,grand_haven_mi/brown_trout,7.6,numeric_retained
+brown_trout,Brown Trout,6,ludington_mi,Ludington,ludington_mi/brown_trout,7.6,numeric_retained
+brown_trout,Brown Trout,7,frankfort_elberta_mi,Frankfort–Elberta,frankfort_elberta_mi/brown_trout,7.5,numeric_retained
+brown_trout,Brown Trout,8,kewaunee_wi,Kewaunee,kewaunee_wi/brown_trout,7.4,numeric_retained
+brown_trout,Brown Trout,9,milwaukee_wi,Milwaukee,milwaukee_wi/brown_trout,7.4,numeric_revised
+brown_trout,Brown Trout,10,racine_wi,Racine,racine_wi/brown_trout,7.3,numeric_revised
+brown_trout,Brown Trout,11,manitowoc_wi,Manitowoc,manitowoc_wi/brown_trout,7.2,numeric_retained
+brown_trout,Brown Trout,12,two_rivers_wi,Two Rivers,two_rivers_wi/brown_trout,7.2,numeric_retained
+brown_trout,Brown Trout,13,waukegan_il,Waukegan,waukegan_il/brown_trout,7,numeric_retained
+brown_trout,Brown Trout,14,kenosha_wi,Kenosha,kenosha_wi/brown_trout,6.4,numeric_revised
+brown_trout,Brown Trout,15,port_sanilac_mi,Port Sanilac,port_sanilac_mi/brown_trout,4.8,numeric_retained
+lake_trout,Lake Trout,1,port_sanilac_mi,Port Sanilac,port_sanilac_mi/lake_trout,5.5,numeric_retained
+lake_trout,Lake Trout,2,harbor_beach_mi,Harbor Beach,harbor_beach_mi/lake_trout,5.3,numeric_retained
+lake_trout,Lake Trout,3,oscoda_mi,Oscoda,oscoda_mi/lake_trout,4.6,numeric_retained
+lake_trout,Lake Trout,4,kewaunee_wi,Kewaunee,kewaunee_wi/lake_trout,4.2,numeric_retained
+lake_trout,Lake Trout,5,frankfort_elberta_mi,Frankfort–Elberta,frankfort_elberta_mi/lake_trout,4,numeric_retained
+lake_trout,Lake Trout,6,manistee_mi,Manistee,manistee_mi/lake_trout,4,numeric_retained
+lake_trout,Lake Trout,7,ludington_mi,Ludington,ludington_mi/lake_trout,3.8,numeric_retained
+lake_trout,Lake Trout,8,grand_haven_mi,Grand Haven,grand_haven_mi/lake_trout,3.6,numeric_retained
+freshwater_drum,Freshwater Drum,1,grand_haven_mi,Grand Haven,grand_haven_mi/freshwater_drum,7.2,numeric_retained
+freshwater_drum,Freshwater Drum,2,ludington_mi,Ludington,ludington_mi/freshwater_drum,5,numeric_retained
+freshwater_drum,Freshwater Drum,3,manistee_mi,Manistee,manistee_mi/freshwater_drum,4.7,numeric_retained
+freshwater_drum,Freshwater Drum,4,oscoda_mi,Oscoda,oscoda_mi/freshwater_drum,3.9,numeric_retained

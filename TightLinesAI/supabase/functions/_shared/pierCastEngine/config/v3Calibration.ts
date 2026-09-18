@@ -25,6 +25,11 @@ export const PIER_CAST_V3_CITY_IDS = [
   "harbor_beach_mi",
   "oscoda_mi",
   "port_sanilac_mi",
+  "two_rivers_wi",
+  "kewaunee_wi",
+  "algoma_wi",
+  "manitowoc_wi",
+  "waukegan_il",
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "piercast-five-city-pass1-out-of-catalog-leads-v1",
+  "reviewedAt": "2026-09-17",
+  "status": "research_only_no_runtime_or_numeric_score",
+  "leads": [
+    {
+      "cityId": "waukegan_il",
+      "species": "rainbow smelt",
+      "scientificName": "Osmerus mordax",
+      "decision": "method_aware_catalog_research",
+      "fishingMode": "dip_net_gill_net_or_seine; verify current Government Pier permission",
+      "legalSeason": "March 1 through April 30 under Illinois rules; verify current regulations",
+      "sourceIds": ["WAUKEGAN_GOV_PIER_GUIDE", "IL_DNR_SHORE_MAP", "IL_DNR_SMELT_GUIDE"],
+      "limits": "Government Pier guide names smelt but is undated and incorrectly includes May. IDNR identifies Waukegan-area beaches, not proven Government Pier netting intensity. Current PierCast catalog and score assume rod-and-reel species."
+    },
+    {
+      "cityId": "two_rivers_wi",
+      "species": "bullhead and common carp",
+      "decision": "catalog_extension_lead",
+      "sourceIds": ["WI_ACCESS_2023"],
+      "limits": "DNR names these at Two Rivers harbor, but neither is represented by channel catfish or another current catalog entry."
+    },
+    {
+      "cityId": "algoma_wi",
+      "species": "common carp and bullhead",
+      "decision": "catalog_extension_lead",
+      "sourceIds": ["WI_ACCESS_2023"],
+      "limits": "DNR's common-carp question mark at the Ahnapee mouth and bullhead at Olson Park do not establish a current breakwall target."
+    },
+    {
+      "cityId": "kewaunee_wi",
+      "species": "yellow bullhead",
+      "decision": "catalog_extension_lead",
+      "sourceIds": ["WI_WEEKLY_2026_09_07"],
+      "limits": "Named in a dated Kewaunee harbor/pier report; not channel catfish and not an annual target rate."
+    }
+  ]
+}

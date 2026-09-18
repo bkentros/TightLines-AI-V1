@@ -1,0 +1,73 @@
+speciesId,rank,cityId,cityName,peakFisheryStrength,evidenceGrades,calibrationLineage
+atlantic_salmon,1,oscoda_mi,Oscoda,8.4,A,lake_huron
+atlantic_salmon,2,port_sanilac_mi,Port Sanilac,6.3,A+B,species_expansion
+atlantic_salmon,3,harbor_beach_mi,Harbor Beach,5.2,B,species_expansion
+bluegill,1,grand_haven_mi,Grand Haven,5.8,A,species_expansion
+brown_trout,1,manistee_mi,Manistee,8.2,A,core
+brown_trout,2,grand_haven_mi,Grand Haven,7.6,A,core
+brown_trout,3,ludington_mi,Ludington,7.6,A,core
+brown_trout,4,frankfort_elberta_mi,Frankfort–Elberta,7.5,A,core
+brown_trout,5,port_sanilac_mi,Port Sanilac,4.8,B,species_expansion
+burbot,1,ludington_mi,Ludington,4.6,B,species_expansion
+burbot,2,manistee_mi,Manistee,4.5,B,species_expansion
+channel_catfish,1,grand_haven_mi,Grand Haven,6.8,A,secondary
+channel_catfish,2,oscoda_mi,Oscoda,4.2,B,lake_huron
+chinook_salmon,1,frankfort_elberta_mi,Frankfort–Elberta,9.7,A,core
+chinook_salmon,2,manistee_mi,Manistee,9.5,A,core
+chinook_salmon,3,ludington_mi,Ludington,8.3,A,core
+chinook_salmon,4,grand_haven_mi,Grand Haven,7.8,A,core
+chinook_salmon,5,oscoda_mi,Oscoda,5.5,B,lake_huron
+chinook_salmon,6,port_sanilac_mi,Port Sanilac,5,B,species_expansion
+coho_salmon,1,grand_haven_mi,Grand Haven,8.8,A,core
+coho_salmon,2,frankfort_elberta_mi,Frankfort–Elberta,8.6,A,core
+coho_salmon,3,manistee_mi,Manistee,8.2,A,core
+coho_salmon,4,oscoda_mi,Oscoda,6.5,B,lake_huron
+coho_salmon,5,port_sanilac_mi,Port Sanilac,6.4,A,lake_huron
+coho_salmon,6,harbor_beach_mi,Harbor Beach,5.8,B,lake_huron
+coho_salmon,7,ludington_mi,Ludington,5.6,A,core
+freshwater_drum,1,grand_haven_mi,Grand Haven,7.2,A,secondary
+freshwater_drum,2,ludington_mi,Ludington,5,B,secondary
+freshwater_drum,3,manistee_mi,Manistee,4.7,B,secondary
+freshwater_drum,4,oscoda_mi,Oscoda,3.9,B,lake_huron
+lake_trout,1,port_sanilac_mi,Port Sanilac,5.5,A,species_expansion
+lake_trout,2,harbor_beach_mi,Harbor Beach,5.3,B,species_expansion
+lake_trout,3,oscoda_mi,Oscoda,4.6,B,lake_huron
+lake_trout,4,frankfort_elberta_mi,Frankfort–Elberta,4,B,secondary
+lake_trout,5,manistee_mi,Manistee,4,B,secondary
+lake_trout,6,ludington_mi,Ludington,3.8,B,secondary
+lake_trout,7,grand_haven_mi,Grand Haven,3.6,B,secondary
+lake_whitefish,1,grand_haven_mi,Grand Haven,4,B,species_expansion
+largemouth_bass,1,grand_haven_mi,Grand Haven,7.4,A,secondary
+northern_pike,1,ludington_mi,Ludington,5.2,A,species_expansion
+northern_pike,2,port_sanilac_mi,Port Sanilac,5.1,B,lake_huron
+northern_pike,3,manistee_mi,Manistee,5,A,species_expansion
+northern_pike,4,oscoda_mi,Oscoda,5,B,species_expansion
+northern_pike,5,harbor_beach_mi,Harbor Beach,4.6,B,species_expansion
+northern_pike,6,frankfort_elberta_mi,Frankfort–Elberta,4.5,B,species_expansion
+round_whitefish,1,manistee_mi,Manistee,4.1,B,secondary
+round_whitefish,2,grand_haven_mi,Grand Haven,3.8,B,secondary
+smallmouth_bass,1,grand_haven_mi,Grand Haven,7,B,secondary
+smallmouth_bass,2,ludington_mi,Ludington,5.8,B,secondary
+smallmouth_bass,3,port_sanilac_mi,Port Sanilac,5.4,A,species_expansion
+smallmouth_bass,4,manistee_mi,Manistee,5,B,secondary
+smallmouth_bass,5,harbor_beach_mi,Harbor Beach,4.9,B,lake_huron
+smallmouth_bass,6,oscoda_mi,Oscoda,4.5,B,lake_huron
+steelhead,1,manistee_mi,Manistee,10,A,core
+steelhead,2,frankfort_elberta_mi,Frankfort–Elberta,9.8,A,core
+steelhead,3,grand_haven_mi,Grand Haven,9.2,A,core
+steelhead,4,ludington_mi,Ludington,8.1,A,core
+steelhead,5,oscoda_mi,Oscoda,7.4,A,lake_huron
+steelhead,6,harbor_beach_mi,Harbor Beach,5.6,B,species_expansion
+steelhead,7,port_sanilac_mi,Port Sanilac,4.5,B,lake_huron
+walleye,1,oscoda_mi,Oscoda,6.8,A,lake_huron
+walleye,2,port_sanilac_mi,Port Sanilac,6.2,A,species_expansion
+walleye,3,harbor_beach_mi,Harbor Beach,6,A,species_expansion
+walleye,4,frankfort_elberta_mi,Frankfort–Elberta,4.5,B,species_expansion
+walleye,5,manistee_mi,Manistee,4.2,B,secondary
+white_bass,1,grand_haven_mi,Grand Haven,5.2,B,species_expansion
+white_bass,2,port_sanilac_mi,Port Sanilac,4.5,B,species_expansion
+white_perch,1,grand_haven_mi,Grand Haven,5.6,A,species_expansion
+yellow_perch,1,ludington_mi,Ludington,7.6,A,secondary
+yellow_perch,2,grand_haven_mi,Grand Haven,7.2,A,secondary
+yellow_perch,3,manistee_mi,Manistee,7.2,A,secondary
+yellow_perch,4,port_sanilac_mi,Port Sanilac,5,B,species_expansion
