@@ -14,10 +14,10 @@ Algoma's south breakwater remains recorded as reported closed during constructio
 | Local Formula v3/Pass 3 checks and TypeScript checks | Passed September 18, 2026 |
 | Current production NOAA source projection | 16 ranked public cities, five complete dates each, all four Wisconsin additions present; coherent September 18 06:00 UTC issue |
 | App client | Existing 1.12 client supports MI/WI; Illinois presentation is committed for a future build |
-| Production Edge Function deployment | Pending |
+| Production Edge Function deployment | `pier-cast` version 47, active, original JWT setting preserved |
 | iOS and Android store distribution | No new build requested for this four-city stage |
-| Authenticated normal-user production smoke | Pending production deployment |
+| Authenticated normal-user production smoke | Passed: 16 public cities, four Wisconsin additions, five-day paid reports, four free reports, fifth-report paywall, Waukegan 404, owner route 403 |
 
-The existing MI/WI client can show the four Wisconsin cities when the production backend is deployed. Waukegan must stay out of the public API until a store client containing Illinois support is available. The currently installed 1.12 client predates that support and cannot receive an over-the-air update because this project does not include `expo-updates`. A Git push alone does not change the live app.
+The existing MI/WI client can now show the four Wisconsin cities through the deployed production backend. Waukegan must stay out of the public API until a store client containing Illinois support is available. The currently installed 1.12 client predates that support and cannot receive an over-the-air update because this project does not include `expo-updates`. The unrequested Android 1.13 build was canceled before completion; no new app binary was distributed for this stage.
 
 The [Pass 3 acceptance](../five-city-2026-09-pass3/acceptance.json) and [production verification](../five-city-2026-09-pass3/production-verification.json) are historical pre-release records. Their 12-city public counts and private archive flags are intentional snapshots and must not be mistaken for post-release production checks.
