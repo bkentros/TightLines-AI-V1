@@ -1,0 +1,3265 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-pass2-pair-decisions-v1",
+  "reviewedAt": "2026-09-19",
+  "status": "complete_private_research_only",
+  "cityCount": 5,
+  "speciesCount": 19,
+  "decisionCount": 95,
+  "dispositionCounts": {
+    "numeric_private": 55,
+    "research_hold_unscored": 23,
+    "exclude_unscored": 17
+  },
+  "policy": {
+    "numeric": "Grade A or B recurring intentional covered-structure/port opportunity with defensible magnitude and annual shape.",
+    "hold": "Grade C lead remains unscored. No placeholder score is allowed.",
+    "exclude": "Grade D/mismatched evidence remains unscored and does not mean biological absence.",
+    "confidence": "Evidence grade never multiplies fishery strength, seasonal availability, temperature suitability, or final score."
+  },
+  "decisions": [
+    {
+      "pairKey": "chicago_il/chinook_salmon",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "chinook_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Montrose pedestrian creel recorded Chinook in September 2024 and current Horseshoe reports recur in the fall.",
+      "sourceIds": [
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure chinook_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Montrose has direct September pedestrian creel catch and recurring current Horseshoe targeting. The measured magnitude is below Waukegan and the major Wisconsin staging ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "muskegon_mi/chinook_salmon",
+          "cityName": "Muskegon, Michigan",
+          "peak": 6.5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "kenosha_wi/chinook_salmon",
+          "cityName": "Kenosha",
+          "peak": 7.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "7 is at/above Muskegon, Michigan 6.5 and at/below Kenosha 7.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/coho_salmon",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "coho_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Montrose has direct spring and fall coho creel evidence, with strong regional spring shore context.",
+      "sourceIds": [
+        "CHI_INHS_CREEL_2023",
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure coho_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 8.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_INHS_CREEL_2023",
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Direct Montrose pedestrian estimates and repeat current reports establish an excellent spring shore fishery with a smaller fall return; Waukegan remains the stronger measured Illinois anchor.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "manistee_mi/coho_salmon",
+          "cityName": "Manistee",
+          "peak": 8.2,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "manistee_mi/coho_salmon",
+          "cityName": "Manistee",
+          "peak": 8.2,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "8.2 is at/above Manistee 8.2 and at/below Manistee 8.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/steelhead",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "steelhead",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Current Montrose reports name steelhead in the harbor; citywide agency guidance supports cold-season shore trout.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure steelhead season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Recurring exact-harbor reports and the agency cold-season shore calendar support a strong but not elite opportunity; exact seasonal effort remains missing.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "alpena_mi/steelhead",
+          "cityName": "Alpena, Michigan",
+          "peak": 5.8,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "port_washington_wi/steelhead",
+          "cityName": "Port Washington",
+          "peak": 6.6,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "6.5 is at/above Alpena, Michigan 5.8 and at/below Port Washington 6.6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/brown_trout",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "brown_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Montrose pedestrian creel recorded brown trout in April and May 2024, corroborated by current shore reports.",
+      "sourceIds": [
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure brown_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_INHS_CREEL_2024",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Montrose recorded brown trout in both April and May 2024, corroborated by current shoreline reports; observed magnitude remains below established Wisconsin brown-trout ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "michigan_city_in/brown_trout",
+          "cityName": "Michigan City, Indiana",
+          "peak": 6,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "kenosha_wi/brown_trout",
+          "cityName": "Kenosha",
+          "peak": 6.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "6.2 is at/above Michigan City, Indiana 6 and at/below Kenosha 6.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/lake_trout",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "lake_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Navy Pier and the Chicago winter lakefront have repeated expert/specialist lake-trout reports; this winter opportunity requires Pass 2 quantification rather than a fall-only model.",
+      "sourceIds": [
+        "CHI_LAKE_TROUT_2023",
+        "CHI_MWO_WINTER_2025",
+        "CHI_IDNR_LAKE_MICHIGAN"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_LAKE_TROUT_2023",
+        "CHI_MWO_WINTER_2025",
+        "CHI_IDNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Repeated expert and specialist reporting describes an increasingly targeted, decent-to-good winter shore fishery with limit catches at Chicago structures. That qualitative magnitude places Chicago between Harbor Beach and Port Sanilac; missing standardized effort remains a Grade B limitation only.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "harbor_beach_mi/lake_trout",
+          "cityName": "Harbor Beach",
+          "peak": 5.3,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "port_sanilac_mi/lake_trout",
+          "cityName": "Port Sanilac",
+          "peak": 5.5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "5.4 is at/above Harbor Beach 5.3 and at/below Port Sanilac 5.5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/walleye",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "walleye",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure walleye evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "chicago_il/smallmouth_bass",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "smallmouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure smallmouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026",
+        "CHI_IDNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Current Montrose Horseshoe and wall reports repeatedly describe good smallmouth fishing, and Illinois documents the growing Chicago shore fishery. The resulting strong peak sits between Whitehall and Muskegon; missing standardized effort remains a Grade B limitation only.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "whitehall_mi/smallmouth_bass",
+          "cityName": "Whitehall, Michigan",
+          "peak": 6.3,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "muskegon_mi/smallmouth_bass",
+          "cityName": "Muskegon, Michigan",
+          "peak": 6.6,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "6.5 is at/above Whitehall, Michigan 6.3 and at/below Muskegon, Michigan 6.6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/freshwater_drum",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "freshwater_drum",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure freshwater_drum season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "The city agency calendar and recurring Montrose reports establish intentional summer drum fishing; magnitude is placed between Ludington and Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "whitehall_mi/freshwater_drum",
+          "cityName": "Whitehall, Michigan",
+          "peak": 5.6,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "whitehall_mi/freshwater_drum",
+          "cityName": "Whitehall, Michigan",
+          "peak": 5.6,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.6 is at/above Whitehall, Michigan 5.6 and at/below Whitehall, Michigan 5.6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/yellow_perch",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "yellow_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Montrose summer and Navy Pier winter pedestrian data establish two major, distinct seasonal windows.",
+      "sourceIds": [
+        "CHI_INHS_CREEL_2023",
+        "CHI_INHS_CREEL_2024",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure yellow_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 8.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_INHS_CREEL_2023",
+        "CHI_INHS_CREEL_2024",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Direct Montrose summer estimates and the large Navy Pier share of the measured winter fishery support an excellent two-season ceiling. The legal May 1-June 15 closure remains unavailable.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "whitehall_mi/yellow_perch",
+          "cityName": "Whitehall, Michigan",
+          "peak": 8,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": null,
+        "placement": "8.4 is at/above Whitehall, Michigan 8 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/lake_whitefish",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "lake_whitefish",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "An exact Montrose record fish is a credible occurrence, but no recurring target series was found.",
+      "sourceIds": [
+        "CHI_RARE_2017",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific lake_whitefish target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_RARE_2017",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. An exact Montrose record fish is a credible occurrence, but no recurring target series was found.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "chicago_il/round_whitefish",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "round_whitefish",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure round_whitefish evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "chicago_il/channel_catfish",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "channel_catfish",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "A credible local occurrence or nearby-mode lead exists, but recurring intentional fishing at the covered structure is not yet established.",
+      "sourceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific channel_catfish target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. A credible local occurrence or nearby-mode lead exists, but recurring intentional fishing at the covered structure is not yet established.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "chicago_il/largemouth_bass",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "largemouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS"
+      ],
+      "nextEvidence": "Quantify covered-structure largemouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "chicago_il/atlantic_salmon",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "atlantic_salmon",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure atlantic_salmon evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "chicago_il/northern_pike",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "northern_pike",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Quantify covered-structure northern_pike season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 4.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Recurring current Montrose harbor reports establish a modest targeted pike opportunity without enough magnitude evidence for a strong-band score.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "harbor_beach_mi/northern_pike",
+          "cityName": "Harbor Beach",
+          "peak": 4.6,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "muskegon_mi/northern_pike",
+          "cityName": "Muskegon, Michigan",
+          "peak": 4.8,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "4.7 is at/above Harbor Beach 4.6 and at/below Muskegon, Michigan 4.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "chicago_il/burbot",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "burbot",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "An exact Montrose state-record catch establishes occurrence only.",
+      "sourceIds": [
+        "CHI_RARE_2017"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific burbot target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_RARE_2017"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. An exact Montrose state-record catch establishes occurrence only.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "chicago_il/white_perch",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "white_perch",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure white_perch evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "chicago_il/white_bass",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "white_bass",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The city page's 'silver bass' wording is taxonomically ambiguous and cannot be treated as white-bass proof.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific white_bass target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_CPD_FISHING_AREAS"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. The city page's 'silver bass' wording is taxonomically ambiguous and cannot be treated as white-bass proof.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "chicago_il/bluegill",
+      "cityId": "chicago_il",
+      "cityName": "Chicago, Illinois",
+      "speciesId": "bluegill",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "A credible local occurrence or nearby-mode lead exists, but recurring intentional fishing at the covered structure is not yet established.",
+      "sourceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific bluegill target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "CHI_PARK_BAIT_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. A credible local occurrence or nearby-mode lead exists, but recurring intentional fishing at the covered structure is not yet established.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/chinook_salmon",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "chinook_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Agency guidance gives a May and mid-July-through-September pier window, and a current Michigan City shore report confirms September fish.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE",
+        "IN_DNR_REPORT_2026_09"
+      ],
+      "nextEvidence": "Quantify covered-structure chinook_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 7.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE",
+        "IN_DNR_REPORT_2026_09"
+      ],
+      "calibrationRationale": "Agency guidance characterizes Chinook as a 'some pier' opportunity and the current report describes only a few shore fish. Those direct qualitative magnitude constraints place Michigan City with Kenosha, below Waukegan and Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "kenosha_wi/chinook_salmon",
+          "cityName": "Kenosha",
+          "peak": 7.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "kenosha_wi/chinook_salmon",
+          "cityName": "Kenosha",
+          "peak": 7.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "7.4 is at/above Kenosha 7.4 and at/below Kenosha 7.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/coho_salmon",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "coho_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Washington Park and the inner harbor are named spring-coho sites, with March described as the most consistent shore month.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_DNR_REPORT_2026_09"
+      ],
+      "nextEvidence": "Quantify covered-structure coho_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 8.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_DNR_REPORT_2026_09"
+      ],
+      "calibrationRationale": "Washington Park and the inner harbor are agency-named spring-coho sites with March identified as the most consistent shore period; the peak sits just below Grand Haven and Waukegan.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "frankfort_elberta_mi/coho_salmon",
+          "cityName": "Frankfort–Elberta",
+          "peak": 8.6,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/coho_salmon",
+          "cityName": "Grand Haven",
+          "peak": 8.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "8.7 is at/above Frankfort–Elberta 8.6 and at/below Grand Haven 8.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/steelhead",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "steelhead",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Agency guidance gives both a mid-June-to-mid-August Skamania pier window and a late-October-to-March winter-run window.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure steelhead season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 8.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "The agency documents both a summer Skamania pier fishery and a late-fall/winter run, supporting an excellent multi-window ceiling below Grand Haven and above Ludington.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "ludington_mi/steelhead",
+          "cityName": "Ludington",
+          "peak": 8.1,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "whitehall_mi/steelhead",
+          "cityName": "Whitehall, Michigan",
+          "peak": 8.7,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "8.5 is at/above Ludington 8.1 and at/below Whitehall, Michigan 8.7."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/brown_trout",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "brown_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The exact-site coho guide identifies brown trout as plausible bottom-rig catch, with broader pier timing support.",
+      "sourceIds": [
+        "IN_DNR_COHO_GUIDE",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure brown_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_COHO_GUIDE",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "Exact-site agency guidance names brown trout as a recurring cold-water pier catch, but lacks a magnitude series; placement remains below Kenosha and Chicago.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "alpena_mi/brown_trout",
+          "cityName": "Alpena, Michigan",
+          "peak": 5.4,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/brown_trout",
+          "cityName": "Chicago, Illinois",
+          "peak": 6.2,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "6 is at/above Alpena, Michigan 5.4 and at/below Chicago, Illinois 6.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/lake_trout",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "lake_trout",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency shore guide characterizes lake trout as a boat fishery; retain only as an occurrence lead pending repeat East Pier evidence.",
+      "sourceIds": [
+        "IN_DNR_SHORE_GUIDE",
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific lake_trout target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "IN_DNR_SHORE_GUIDE",
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. The agency shore guide characterizes lake trout as a boat fishery; retain only as an occurrence lead pending repeat East Pier evidence.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/walleye",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "walleye",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific walleye target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/smallmouth_bass",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "smallmouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure smallmouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "Agency guidance repeatedly assigns bass to protected pier and marina habitat; the ordinary ceiling stays just below Ludington because exact-city catch magnitude is missing.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/smallmouth_bass",
+          "cityName": "Port Sanilac",
+          "peak": 5.4,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "ludington_mi/smallmouth_bass",
+          "cityName": "Ludington",
+          "peak": 5.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "5.7 is at/above Port Sanilac 5.4 and at/below Ludington 5.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/freshwater_drum",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "freshwater_drum",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific freshwater_drum target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/yellow_perch",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "yellow_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure yellow_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "Indiana DNR identifies a recurring June-through-mid-September pier fishery but describes shore availability as limited. That magnitude language places Michigan City below the quantitative Grand Haven and Manistee anchors.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "muskegon_mi/yellow_perch",
+          "cityName": "Muskegon, Michigan",
+          "peak": 5.2,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/yellow_perch",
+          "cityName": "Grand Haven",
+          "peak": 7.2,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "6.2 is at/above Muskegon, Michigan 5.2 and at/below Grand Haven 7.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/lake_whitefish",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "lake_whitefish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The exact-site coho guide names whitefish as possible bottom-rig catch; Pass 2 must establish recurrence and strength.",
+      "sourceIds": [
+        "IN_DNR_COHO_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_whitefish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "IN_DNR_COHO_GUIDE"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. The exact-site coho guide names whitefish as possible bottom-rig catch; Pass 2 must establish recurrence and strength.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/round_whitefish",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "round_whitefish",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure round_whitefish evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/channel_catfish",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "channel_catfish",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific channel_catfish target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Available agency shore evidence points to the separate NIPSCO discharge rather than Washington Park East Pier.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "michigan_city_in/largemouth_bass",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "largemouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure largemouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "Agency shore guidance supports intentional bass fishing in the protected Washington Park marina setting; no exact catch series supports a higher value.",
+      "anchorPlacement": {
+        "weakerOrEqual": null,
+        "strongerOrEqual": {
+          "pairKey": "muskegon_mi/largemouth_bass",
+          "cityName": "Muskegon, Michigan",
+          "peak": 6.5,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.5 is below no reviewed same-species value and at/below Muskegon, Michigan 6.5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "michigan_city_in/atlantic_salmon",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "atlantic_salmon",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure atlantic_salmon evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/northern_pike",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "northern_pike",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure northern_pike evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/burbot",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "burbot",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure burbot evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/white_perch",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "white_perch",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure white_perch evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/white_bass",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "white_bass",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure white_bass evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "michigan_city_in/bluegill",
+      "cityId": "michigan_city_in",
+      "cityName": "Michigan City, Indiana",
+      "speciesId": "bluegill",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Named agency or recurring exact-area evidence supports this species as a Pass 2 research candidate; no numeric admission is implied.",
+      "sourceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "nextEvidence": "Quantify covered-structure bluegill season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_SHORE_GUIDE"
+      ],
+      "calibrationRationale": "The agency shore guide describes bluegill and other sunfish as common at Washington Park marina, supporting an ordinary summer fishery equal to Whitehall and below Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "whitehall_mi/bluegill",
+          "cityName": "Whitehall, Michigan",
+          "peak": 5.2,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "whitehall_mi/bluegill",
+          "cityName": "Whitehall, Michigan",
+          "peak": 5.2,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.2 is at/above Whitehall, Michigan 5.2 and at/below Whitehall, Michigan 5.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/chinook_salmon",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "chinook_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure chinook_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Fifteen historical positive Pier/Dock years and exact channel guidance establish a real fall fishery, but the modern series falls to 47 fish and the recent series to one fish with four surveyed fall zeros. That observed current weakness supports a strong-band floor rather than placement beside Grand Haven and Waukegan.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/chinook_salmon",
+          "cityName": "Oscoda",
+          "peak": 5.5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/chinook_salmon",
+          "cityName": "Chicago, Illinois",
+          "peak": 7,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "6.5 is at/above Oscoda 5.5 and at/below Chicago, Illinois 7."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/coho_salmon",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "coho_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure coho_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT"
+      ],
+      "calibrationRationale": "Fourteen positive port years through 2021 establish recurring spring and fall opportunity; measured catch strength remains below the stronger Wisconsin and southern Lake Michigan coho ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/coho_salmon",
+          "cityName": "Port Sanilac",
+          "peak": 6.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "port_sanilac_mi/coho_salmon",
+          "cityName": "Port Sanilac",
+          "peak": 6.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "6.4 is at/above Port Sanilac 6.4 and at/below Port Sanilac 6.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/steelhead",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "steelhead",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure steelhead season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Twenty-seven positive port years through 2022 and exact channel guidance support an excellent spring/fall ceiling immediately below Ludington.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "kewaunee_wi/steelhead",
+          "cityName": "Kewaunee",
+          "peak": 7.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "ludington_mi/steelhead",
+          "cityName": "Ludington",
+          "peak": 8.1,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "8 is at/above Kewaunee 7.8 and at/below Ludington 8.1."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/brown_trout",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "brown_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure brown_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT"
+      ],
+      "calibrationRationale": "Twenty-six positive port years through 2022 support a strong recurring spring fishery; measured magnitude remains below the top Michigan and Wisconsin brown-trout ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "waukegan_il/brown_trout",
+          "cityName": "Waukegan",
+          "peak": 7,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "waukegan_il/brown_trout",
+          "cityName": "Waukegan",
+          "peak": 7,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "7 is at/above Waukegan 7 and at/below Waukegan 7."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/lake_trout",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "lake_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Port-level Pier/Dock estimates are positive only in 1993 and 2015; advance for careful Pass 2 testing as a sparse seasonal fishery, never as a presumed primary.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Port-level Pier/Dock estimates are positive only in 1993 and 2015; advance for careful Pass 2 testing as a sparse seasonal fishery, never as a presumed primary.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "muskegon_mi/walleye",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "walleye",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure walleye season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT"
+      ],
+      "calibrationRationale": "Seventeen of eighteen surveyed years are positive through 2022 and channel guidance names walleye, supporting a strong ceiling below Alpena and Oscoda.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/walleye",
+          "cityName": "Port Sanilac",
+          "peak": 6.2,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "oscoda_mi/walleye",
+          "cityName": "Oscoda",
+          "peak": 6.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "6.4 is at/above Port Sanilac 6.2 and at/below Oscoda 6.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/smallmouth_bass",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "smallmouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_LAKE_SFR_2025",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure smallmouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_LAKE_SFR_2025"
+      ],
+      "calibrationRationale": "Fourteen of fifteen port years are positive through 2022 and the current fishery report names channel/pierhead habitat, placing Muskegon below Grand Haven and above Chicago.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "chicago_il/smallmouth_bass",
+          "cityName": "Chicago, Illinois",
+          "peak": 6.5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/smallmouth_bass",
+          "cityName": "Grand Haven",
+          "peak": 7,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "6.6 is at/above Chicago, Illinois 6.5 and at/below Grand Haven 7."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/freshwater_drum",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "freshwater_drum",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure freshwater_drum season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT"
+      ],
+      "calibrationRationale": "Ten of eleven surveyed years are positive through 2022 with substantial warm-season catch, placing the port below Grand Haven but above Chicago and Ludington.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "chicago_il/freshwater_drum",
+          "cityName": "Chicago, Illinois",
+          "peak": 5.6,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/freshwater_drum",
+          "cityName": "Grand Haven",
+          "peak": 7.2,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "6.2 is at/above Chicago, Illinois 5.6 and at/below Grand Haven 7.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/yellow_perch",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "yellow_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure yellow_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Historical recurrence and exact channel guidance establish a real fishery, but the modern 2012-22 Catch series is only 52 fish over 27,515 matched hours with many in-season zeros. That observed weakness places the ceiling between Port Sanilac and Kenosha.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/yellow_perch",
+          "cityName": "Port Sanilac",
+          "peak": 5,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "michigan_city_in/yellow_perch",
+          "cityName": "Michigan City, Indiana",
+          "peak": 6.2,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.2 is at/above Port Sanilac 5 and at/below Michigan City, Indiana 6.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/lake_whitefish",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "lake_whitefish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Agency channel guidance and recent port estimates agree on a cold-season fishery; November sampling and regulation boundaries need special care.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_whitefish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_BETTER_WATERS",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "calibrationRationale": "Exact channel guidance and the November protection rule establish an intentional cold-season opportunity. Michigan DNR says much of the port harvest was snagged, so the large creel totals cannot measure lawful bite strength; the defensible lawful calibration is the same ordinary 4.0 anchor used at Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "grand_haven_mi/lake_whitefish",
+          "cityName": "Grand Haven",
+          "peak": 4,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/lake_whitefish",
+          "cityName": "Grand Haven",
+          "peak": 4,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "4 is at/above Grand Haven 4 and at/below Grand Haven 4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/round_whitefish",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "round_whitefish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Port Pier/Dock estimates recur historically and again in 2022, but species identity and magnitude need review.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure round_whitefish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Port Pier/Dock estimates recur historically and again in 2022, but species identity and magnitude need review.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "muskegon_mi/channel_catfish",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "channel_catfish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure channel_catfish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_DNR_CENTRAL_UNIT"
+      ],
+      "calibrationRationale": "Thirteen of fourteen surveyed years are positive through 2022 and exact channel guidance names catfish; magnitude remains below Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "whitehall_mi/channel_catfish",
+          "cityName": "Whitehall, Michigan",
+          "peak": 5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/channel_catfish",
+          "cityName": "Grand Haven",
+          "peak": 6.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "6 is at/above Whitehall, Michigan 5 and at/below Grand Haven 6.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/largemouth_bass",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "largemouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure largemouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Nine of ten surveyed port years are positive through 2022; direct recurrence supports a strong warm-season value below Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "michigan_city_in/largemouth_bass",
+          "cityName": "Michigan City, Indiana",
+          "peak": 5.5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "whitehall_mi/largemouth_bass",
+          "cityName": "Whitehall, Michigan",
+          "peak": 7.1,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "6.5 is at/above Michigan City, Indiana 5.5 and at/below Whitehall, Michigan 7.1."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/atlantic_salmon",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "atlantic_salmon",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_STATE_PARK",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure atlantic_salmon evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_STATE_PARK",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "muskegon_mi/northern_pike",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "northern_pike",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure northern_pike season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 4.8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Five positive port years through 2021 support an ordinary harbor opportunity near the established Michigan pike cohort.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "chicago_il/northern_pike",
+          "cityName": "Chicago, Illinois",
+          "peak": 4.7,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "whitehall_mi/northern_pike",
+          "cityName": "Whitehall, Michigan",
+          "peak": 4.9,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "4.8 is at/above Chicago, Illinois 4.7 and at/below Whitehall, Michigan 4.9."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/burbot",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "burbot",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_STATE_PARK",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure burbot evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_STATE_PARK",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "muskegon_mi/white_perch",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "white_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port Pier/Dock estimates recur from 2016 through 2020; exact structure allocation is unresolved.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure white_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Five consecutive positive port years from 2016 through 2020 and substantial catch support a recurring warm-season fishery just above Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "grand_haven_mi/white_perch",
+          "cityName": "Grand Haven",
+          "peak": 5.6,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": null,
+        "placement": "5.7 is at/above Grand Haven 5.6 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "muskegon_mi/white_bass",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "white_bass",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Only 2017 and 2018 port Pier/Dock positives were found, insufficient for direct admission without current exact-segment support.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific white_bass target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Only 2017 and 2018 port Pier/Dock positives were found, insufficient for direct admission without current exact-segment support.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "muskegon_mi/bluegill",
+      "cityId": "muskegon_mi",
+      "cityName": "Muskegon, Michigan",
+      "speciesId": "bluegill",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure bluegill season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Ten of twelve port years are positive through 2022 with a strong summer concentration, slightly above the Grand Haven reference.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "grand_haven_mi/bluegill",
+          "cityName": "Grand Haven",
+          "peak": 5.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": null,
+        "placement": "6 is at/above Grand Haven 5.8 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/chinook_salmon",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "chinook_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure chinook_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 9.3,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Sixteen of seventeen port years are positive with high fall catch magnitude, placing this elite run below Sheboygan and above Kewaunee. Port allocation uncertainty is disclosed rather than multiplied into strength.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "kewaunee_wi/chinook_salmon",
+          "cityName": "Kewaunee",
+          "peak": 9.1,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "sheboygan_wi/chinook_salmon",
+          "cityName": "Sheboygan",
+          "peak": 9.4,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "9.3 is at/above Kewaunee 9.1 and at/below Sheboygan 9.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/coho_salmon",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "coho_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure coho_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Twelve of thirteen port years are positive through 2018, with fall stronger than spring, supporting a strong peak above Manitowoc.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "manitowoc_wi/coho_salmon",
+          "cityName": "Manitowoc",
+          "peak": 7.2,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/coho_salmon",
+          "cityName": "Chicago, Illinois",
+          "peak": 8.2,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "7.4 is at/above Manitowoc 7.2 and at/below Chicago, Illinois 8.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/steelhead",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "steelhead",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure steelhead season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 8.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "All fifteen surveyed port years are positive through 2018 with strong April and October catch, placing Whitehall above Ludington and below Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "michigan_city_in/steelhead",
+          "cityName": "Michigan City, Indiana",
+          "peak": 8.5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/steelhead",
+          "cityName": "Grand Haven",
+          "peak": 9.2,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "8.7 is at/above Michigan City, Indiana 8.5 and at/below Grand Haven 9.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/brown_trout",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "brown_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure brown_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7.7,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "All seventeen surveyed port years are positive through 2018, supporting a strong spring peak between Algoma and Sheboygan.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "algoma_wi/brown_trout",
+          "cityName": "Algoma",
+          "peak": 7.6,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "sheboygan_wi/brown_trout",
+          "cityName": "Sheboygan",
+          "peak": 7.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "7.7 is at/above Algoma 7.6 and at/below Sheboygan 7.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/lake_trout",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "lake_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Port Pier/Dock positives occur only in 2008 and 2015, so Pass 2 must test a weak, narrow opportunity.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Port Pier/Dock positives occur only in 2008 and 2015, so Pass 2 must test a weak, narrow opportunity.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "whitehall_mi/walleye",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "walleye",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure walleye season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "All twelve surveyed port years are positive through 2018, but magnitude is below the stronger Alpena, Oscoda, and Muskegon placements.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "frankfort_elberta_mi/walleye",
+          "cityName": "Frankfort–Elberta",
+          "peak": 4.5,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "harbor_beach_mi/walleye",
+          "cityName": "Harbor Beach",
+          "peak": 6,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "5.8 is at/above Frankfort–Elberta 4.5 and at/below Harbor Beach 6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/smallmouth_bass",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "smallmouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "nextEvidence": "Quantify covered-structure smallmouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 6.3,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "calibrationRationale": "Thirteen of fourteen surveyed port years are positive through 2018, supporting a strong value between Chicago and Muskegon.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "ludington_mi/smallmouth_bass",
+          "cityName": "Ludington",
+          "peak": 5.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/smallmouth_bass",
+          "cityName": "Chicago, Illinois",
+          "peak": 6.5,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "6.3 is at/above Ludington 5.8 and at/below Chicago, Illinois 6.5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/freshwater_drum",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "freshwater_drum",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure freshwater_drum season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "All nine surveyed port years are positive through 2018, supporting a strong recurring summer fishery equal to Chicago and below Muskegon.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "chicago_il/freshwater_drum",
+          "cityName": "Chicago, Illinois",
+          "peak": 5.6,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/freshwater_drum",
+          "cityName": "Chicago, Illinois",
+          "peak": 5.6,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.6 is at/above Chicago, Illinois 5.6 and at/below Chicago, Illinois 5.6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/yellow_perch",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "yellow_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure yellow_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Eight of ten surveyed years are positive with high summer magnitude. July is the recurring peak; the extraordinary September estimate occurs in only one sampled year and 2018 is zero, so the ceiling remains below current Chicago evidence.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "alpena_mi/yellow_perch",
+          "cityName": "Alpena, Michigan",
+          "peak": 7.6,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "chicago_il/yellow_perch",
+          "cityName": "Chicago, Illinois",
+          "peak": 8.4,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "8 is at/above Alpena, Michigan 7.6 and at/below Chicago, Illinois 8.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/lake_whitefish",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "lake_whitefish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency names White Lake pier/channel waters for whitefish and protects the November fishery even though reviewed dashboard strata were zero in 2012 and 2018.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_WHITEFISH_HOOK_RULE",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_whitefish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_WHITEFISH_HOOK_RULE",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "The current agency names White Lake pier/channel waters and the November rule confirms an intentional seasonal opportunity. With no positive port catch row and DNR warning that much port harvest was snagged, no lawful magnitude above Grand Haven's ordinary 4.0 anchor is defensible.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "grand_haven_mi/lake_whitefish",
+          "cityName": "Grand Haven",
+          "peak": 4,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/lake_whitefish",
+          "cityName": "Grand Haven",
+          "peak": 4,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "4 is at/above Grand Haven 4 and at/below Grand Haven 4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/round_whitefish",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "round_whitefish",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Port positives occur only in 2000 and 2005; current recurrence is unproven.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific round_whitefish target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Port positives occur only in 2000 and 2005; current recurrence is unproven.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "whitehall_mi/channel_catfish",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "channel_catfish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure channel_catfish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Five of six surveyed port years are positive through 2018; observed magnitude supports an ordinary fishery below Muskegon and Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/channel_catfish",
+          "cityName": "Oscoda",
+          "peak": 4.2,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "muskegon_mi/channel_catfish",
+          "cityName": "Muskegon, Michigan",
+          "peak": 6,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5 is at/above Oscoda 4.2 and at/below Muskegon, Michigan 6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/largemouth_bass",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "largemouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "nextEvidence": "Quantify covered-structure largemouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7.1,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "calibrationRationale": "Twelve of thirteen surveyed port years are positive with strong summer catch, just below Grand Haven's established 7.4 reference.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "muskegon_mi/largemouth_bass",
+          "cityName": "Muskegon, Michigan",
+          "peak": 6.5,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "grand_haven_mi/largemouth_bass",
+          "cityName": "Grand Haven",
+          "peak": 7.4,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "7.1 is at/above Muskegon, Michigan 6.5 and at/below Grand Haven 7.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/atlantic_salmon",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "atlantic_salmon",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "A single positive port estimate in 2001 is an occurrence lead, not a current fishery.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific atlantic_salmon target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. A single positive port estimate in 2001 is an occurrence lead, not a current fishery.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "whitehall_mi/northern_pike",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "northern_pike",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "nextEvidence": "Quantify covered-structure northern_pike season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 4.9,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "calibrationRationale": "Seven of eight surveyed port years are positive through 2018, supporting an ordinary ceiling within the established Michigan pike band.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "muskegon_mi/northern_pike",
+          "cityName": "Muskegon, Michigan",
+          "peak": 4.8,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "manistee_mi/northern_pike",
+          "cityName": "Manistee",
+          "peak": 5,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "4.9 is at/above Muskegon, Michigan 4.8 and at/below Manistee 5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "whitehall_mi/burbot",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "burbot",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "MEDBERY_ACCESS",
+        "MI_BETTER_WATERS",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure burbot evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MEDBERY_ACCESS",
+        "MI_BETTER_WATERS",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "whitehall_mi/white_perch",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "white_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Two positive port years, 2016 and 2018, justify research but require exact Medbery confirmation.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure white_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Two positive port years, 2016 and 2018, justify research but require exact Medbery confirmation.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "whitehall_mi/white_bass",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "white_bass",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Only one positive port year, 2015, was found.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific white_bass target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Only one positive port year, 2015, was found.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "whitehall_mi/bluegill",
+      "cityId": "whitehall_mi",
+      "cityName": "Whitehall, Michigan",
+      "speciesId": "bluegill",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "nextEvidence": "Quantify covered-structure bluegill season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ],
+      "calibrationRationale": "Five of six surveyed port years are positive through 2018 with a clear summer concentration, below Grand Haven and Muskegon.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "michigan_city_in/bluegill",
+          "cityName": "Michigan City, Indiana",
+          "peak": 5.2,
+          "cohort": "new_private_pass2"
+        },
+        "strongerOrEqual": {
+          "pairKey": "michigan_city_in/bluegill",
+          "cityName": "Michigan City, Indiana",
+          "peak": 5.2,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.2 is at/above Michigan City, Indiana 5.2 and at/below Michigan City, Indiana 5.2."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/chinook_salmon",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "chinook_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure chinook_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Two positive port years and the current exact-harbor agency listing support a limited fall fishery equal to the lower Lake Huron cohort; old recurrence prevents a stronger value.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/chinook_salmon",
+          "cityName": "Port Sanilac",
+          "peak": 5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "oscoda_mi/chinook_salmon",
+          "cityName": "Oscoda",
+          "peak": 5.5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "5.4 is at/above Port Sanilac 5 and at/below Oscoda 5.5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/coho_salmon",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "coho_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency names coho for Alpena Harbor, while reviewed port Pier/Dock rows are explicit zeros; current exact-breakwall magnitude is unknown.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure coho_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 6.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_STOCKING_DATABASE_2026",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Michigan DNR lists coho for Alpena Harbor and has stocked 31,464 to 94,892 coho annually into the connected Thunder Bay River in each of 2023-26. With no positive modern Pier/Dock creel row, the ceiling is held to Oscoda's 6.5 rather than placed with stronger Lake Michigan ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/coho_salmon",
+          "cityName": "Oscoda",
+          "peak": 6.5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "oscoda_mi/coho_salmon",
+          "cityName": "Oscoda",
+          "peak": 6.5,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "6.5 is at/above Oscoda 6.5 and at/below Oscoda 6.5."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/steelhead",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "steelhead",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency names steelhead for Alpena Harbor, while reviewed port Pier/Dock rows are explicit zeros; current exact-breakwall magnitude is unknown.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure steelhead season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_LH_ROADMAP_2019",
+        "MI_STOCKING_DATABASE_2026",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Michigan DNR lists steelhead for Alpena Harbor and as a spring and fall Alpena target, while annual 2023-26 Thunder Bay River stocking confirms current local support. The roughly 20,000 annual release is materially below the Au Sable program, and zero modern Pier/Dock rows keep Alpena below Oscoda's 7.4.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "milwaukee_wi/steelhead",
+          "cityName": "Milwaukee",
+          "peak": 5.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "milwaukee_wi/steelhead",
+          "cityName": "Milwaukee",
+          "peak": 5.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "5.8 is at/above Milwaukee 5.8 and at/below Milwaukee 5.8."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/brown_trout",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "brown_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure brown_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Three positive port years through 2018 plus the current exact-harbor listing establish a real spring opportunity above Port Sanilac but below stronger Lake Michigan ports.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/brown_trout",
+          "cityName": "Port Sanilac",
+          "peak": 4.8,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "michigan_city_in/brown_trout",
+          "cityName": "Michigan City, Indiana",
+          "peak": 6,
+          "cohort": "new_private_pass2"
+        },
+        "placement": "5.4 is at/above Port Sanilac 4.8 and at/below Michigan City, Indiana 6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/lake_trout",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "lake_trout",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Agency harbor guidance is positive, but port Pier/Dock evidence has only one positive year (2007); treat as a priority sparse candidate.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_trout season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_LH_ROADMAP_2019",
+        "MI_CREEL_DASHBOARD",
+        "MI_RULES_2026_LAKE_TROUT"
+      ],
+      "calibrationRationale": "Michigan DNR lists lake trout for Alpena Harbor and identifies summer and early-fall Alpena opportunity; the Pier/Dock series includes a positive April 2007 catch. Six later zero years and mixed boat context keep the ceiling below Harbor Beach and Port Sanilac, while the MH-2 October-December closure is enforced separately.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/lake_trout",
+          "cityName": "Oscoda",
+          "peak": 4.6,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "harbor_beach_mi/lake_trout",
+          "cityName": "Harbor Beach",
+          "peak": 5.3,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "5 is at/above Oscoda 4.6 and at/below Harbor Beach 5.3."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/walleye",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "walleye",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure walleye season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7.4,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Five positive port years through 2019 with high effort-normalized catch and a current harbor listing support the strongest walleye ceiling in the current pier cohort.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/walleye",
+          "cityName": "Oscoda",
+          "peak": 6.8,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": null,
+        "placement": "7.4 is at/above Oscoda 6.8 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/smallmouth_bass",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "smallmouth_bass",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure smallmouth_bass season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 8,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Ten positive port years through 2020 and very high catch magnitude support an excellent harbor fishery above Grand Haven.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "grand_haven_mi/smallmouth_bass",
+          "cityName": "Grand Haven",
+          "peak": 7,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": null,
+        "placement": "8 is at/above Grand Haven 7 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/freshwater_drum",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "freshwater_drum",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port Pier/Dock estimates recur in 2012, 2013, and 2015, though the current agency harbor list omits drum.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure freshwater_drum season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 4.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Three positive port years from 2012-15 establish recurring low-magnitude opportunity just above Oscoda; the current agency harbor list omits drum, preventing a higher placement.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "oscoda_mi/freshwater_drum",
+          "cityName": "Oscoda",
+          "peak": 3.9,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "manistee_mi/freshwater_drum",
+          "cityName": "Manistee",
+          "peak": 4.7,
+          "cohort": "established_or_prior_private_common_species"
+        },
+        "placement": "4.2 is at/above Oscoda 3.9 and at/below Manistee 4.7."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/yellow_perch",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "yellow_perch",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure yellow_perch season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 7.6,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Ten historical positive port years and several exceptional fall catches establish a strong fishery, while the last positive year is 2015 and the prime October stratum is zero in 2018, 2020, and 2021. The current agency listing supports retention, but the observed modern weakness places Alpena with Ludington rather than above current Chicago evidence.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "ludington_mi/yellow_perch",
+          "cityName": "Ludington",
+          "peak": 7.6,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "ludington_mi/yellow_perch",
+          "cityName": "Ludington",
+          "peak": 7.6,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "7.6 is at/above Ludington 7.6 and at/below Ludington 7.6."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/lake_whitefish",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "lake_whitefish",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency names lake whitefish for Alpena Harbor, while reviewed port Pier/Dock rows are explicit zeros; current exact-breakwall magnitude is unknown.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure lake_whitefish season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. The agency names lake whitefish for Alpena Harbor, while reviewed port Pier/Dock rows are explicit zeros; current exact-breakwall magnitude is unknown.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "alpena_mi/round_whitefish",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "round_whitefish",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure round_whitefish evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "alpena_mi/channel_catfish",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "channel_catfish",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port estimates occur in 2012 and 2013 only and are not corroborated by the current named-harbor list.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific channel_catfish target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Positive port estimates occur in 2012 and 2013 only and are not corroborated by the current named-harbor list.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "alpena_mi/largemouth_bass",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "largemouth_bass",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port estimates occur in 2012 and 2020 only and are not corroborated by the current named-harbor list.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific largemouth_bass target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Positive port estimates occur in 2012 and 2020 only and are not corroborated by the current named-harbor list.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    },
+    {
+      "pairKey": "alpena_mi/atlantic_salmon",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "atlantic_salmon",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "The agency names Atlantic salmon for Alpena Harbor, while reviewed port Pier/Dock rows are explicit zeros; advance only to resolve that conflict in Pass 2.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure atlantic_salmon season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "B",
+      "peakFisheryStrength": 7.2,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_BETTER_WATERS",
+        "MI_LH_ROADMAP_2019",
+        "MI_STOCKING_DATABASE_2026",
+        "MI_ATLANTIC_SALMON_SPECIES",
+        "MI_MASTER_ANGLER_2024"
+      ],
+      "calibrationRationale": "Michigan DNR lists Atlantic salmon for Alpena Harbor, maintains annual Thunder Bay River stocking comparable to the Au Sable program, and recorded 2024 Master Angler fish in both Thunder Bay and the river. Exact breakwall effort remains unmeasured, so the peak stays below Oscoda's 8.4.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "port_sanilac_mi/atlantic_salmon",
+          "cityName": "Port Sanilac",
+          "peak": 6.3,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": {
+          "pairKey": "oscoda_mi/atlantic_salmon",
+          "cityName": "Oscoda",
+          "peak": 8.4,
+          "cohort": "established_michigan_all_species"
+        },
+        "placement": "7.2 is at/above Port Sanilac 6.3 and at/below Oscoda 8.4."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/northern_pike",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "northern_pike",
+      "decision": "research_candidate",
+      "evidenceStatus": "candidate_for_pass_2_quantification",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Positive port-level Pier/Dock estimates recur in the reviewed Michigan DNR export; exact structure, season, effort, and magnitude remain Pass 2 questions.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Quantify covered-structure northern_pike season, intentional effort, catch recurrence, uncertainty, and mode transfer risk in Pass 2.",
+      "pass2Disposition": "numeric_private",
+      "evidenceGrade": "A",
+      "peakFisheryStrength": 5.5,
+      "peakMeaning": "Formula v3 ceiling under full recurring availability and ideal thermal suitability; not annual average, catch probability, or agency rating.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibrationRationale": "Five positive port years plus the current harbor listing support the top value in the current pike cohort, modestly above Ludington.",
+      "anchorPlacement": {
+        "weakerOrEqual": {
+          "pairKey": "ludington_mi/northern_pike",
+          "cityName": "Ludington",
+          "peak": 5.2,
+          "cohort": "established_michigan_all_species"
+        },
+        "strongerOrEqual": null,
+        "placement": "5.5 is at/above Ludington 5.2 and above the reviewed same-species cohort."
+      },
+      "confidenceTreatment": "Evidence grade is disclosed and is not a multiplier on F, A, T, or score."
+    },
+    {
+      "pairKey": "alpena_mi/burbot",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "burbot",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure burbot evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "alpena_mi/white_perch",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "white_perch",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure white_perch evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "alpena_mi/white_bass",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "white_bass",
+      "decision": "exclude",
+      "evidenceStatus": "no_reviewed_covered_structure_lead",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "sourceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "nextEvidence": "Reopen only if new covered-structure white_bass evidence is found; do not interpret this row as proof of absence.",
+      "pass2Disposition": "exclude_unscored",
+      "evidenceGrade": "D",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. No credible recurring lead for the covered public structure was found in the reviewed sources. This is an evidence disposition, not a biological absence claim.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade D remains unscored."
+    },
+    {
+      "pairKey": "alpena_mi/bluegill",
+      "cityId": "alpena_mi",
+      "cityName": "Alpena, Michigan",
+      "speciesId": "bluegill",
+      "decision": "hold",
+      "evidenceStatus": "occurrence_lead_requires_more_evidence",
+      "numericAdmission": "not_assessed_in_pass_1",
+      "claim": "Only one positive port year, 2012, was found.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "nextEvidence": "Find repeated, current, species-specific bluegill target/catch evidence at the covered structure before numeric consideration.",
+      "pass2Disposition": "research_hold_unscored",
+      "evidenceGrade": "C",
+      "peakFisheryStrength": null,
+      "peakMeaning": "No score. This is not a low rating or a claim of biological absence.",
+      "evidenceIds": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibrationRationale": "Pass 2 reopened this cell but the reviewed record still lacks recurring intentional covered-structure opportunity, defensible magnitude, or a complete annual shape. Only one positive port year, 2012, was found.",
+      "anchorPlacement": null,
+      "confidenceTreatment": "Grade C remains an explicit unscored hold; no placeholder score is permitted."
+    }
+  ]
+}

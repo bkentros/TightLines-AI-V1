@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-lmhofs-cell-audit-v1",
+  "auditedAt": "2026-09-19",
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "sourceCycle": "2026-09-18T06:00:00.000Z",
+  "method": "Independently opened the official LMHOFS regular-grid OPeNDAP product and verified mask=1, finite bathymetry, row/column coordinates, and distance from the covered harbor reference.",
+  "cells": [
+    {
+      "cityId": "chicago_il",
+      "sourceId": "chicago_il__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 36,
+      "gridColumn": 44,
+      "latitude": 41.96,
+      "longitude": -87.62,
+      "modelBathymetryM": 6.240518811142804,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "montrose_harbor_entrance",
+        "displayName": "Montrose Harbor entrance",
+        "latitude": 41.963,
+        "longitude": -87.634,
+        "distanceM": 1210,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "michigan_city_in",
+      "sourceId": "michigan_city_in__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 13,
+      "gridColumn": 115,
+      "latitude": 41.73,
+      "longitude": -86.91,
+      "modelBathymetryM": 7.934386401701683,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "michigan_city_east_pier_light",
+        "displayName": "Michigan City East Pierhead Light",
+        "latitude": 41.728,
+        "longitude": -86.9126,
+        "distanceM": 310,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "muskegon_mi",
+      "sourceId": "muskegon_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 162,
+      "gridColumn": 172,
+      "latitude": 43.22,
+      "longitude": -86.34,
+      "modelBathymetryM": 5.344793646368055,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "muskegon_south_pierhead",
+        "displayName": "Muskegon South Pierhead Light",
+        "latitude": 43.226771,
+        "longitude": -86.337539,
+        "distanceM": 780,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "whitehall_mi",
+      "sourceId": "whitehall_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 178,
+      "gridColumn": 163,
+      "latitude": 43.38,
+      "longitude": -86.43,
+      "modelBathymetryM": 3.292929960135789,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "white_lake_channel_medbery",
+        "displayName": "White Lake channel at Medbery Park",
+        "latitude": 43.379,
+        "longitude": -86.425,
+        "distanceM": 420,
+        "coordinateSource": "Michigan Water Trails"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "alpena_mi",
+      "sourceId": "alpena_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 346,
+      "gridColumn": 464,
+      "latitude": 45.06,
+      "longitude": -83.42,
+      "modelBathymetryM": 2.5854971595624217,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "alpena_harbor_light",
+        "displayName": "Alpena Harbor Light",
+        "latitude": 45.060342,
+        "longitude": -83.422999,
+        "distanceM": 240,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    }
+  ],
+  "limitations": [
+    "A model surface cell is general harbor context, not a pier thermometer.",
+    "The model cannot resolve pier-scale mixing, river plumes, depth, waves, ice, or access.",
+    "Alpena remains in its own five-city archive cohort so Lake Huron cannot inherit a Lake Michigan timeline."
+  ],
+  "result": "pass"
+}

@@ -6,6 +6,7 @@ import {
 import { readLatestFreshPierCastWisconsinLmhofsBatch } from "./wisconsinLmhofsArchive.ts";
 import { readLatestFreshPierCastLakeHuronLmhofsBatch } from "./lakeHuronLmhofsArchive.ts";
 import { readLatestFreshPierCastFiveCityLmhofsBatch } from "./fiveCityLmhofsArchive.ts";
+import { readLatestFreshPierCastChicagoAlpenaLmhofsBatch } from "./chicagoAlpenaLmhofsArchive.ts";
 
 type AvailableBatch = Extract<
   PierCastLmhofsBatch,
@@ -22,12 +23,13 @@ export type PierCastV3SourceCohorts = {
   expansion: AvailableBatch;
   lakeHuron: AvailableBatch;
   fiveCity: AvailableBatch;
+  chicagoAlpena: AvailableBatch;
   issuedAt: string;
   usedCommonCycleFallback: boolean;
 };
 
 /**
- * Select the newest cycle that is fresh and complete in all four archives.
+ * Select the newest cycle that is fresh and complete in all five archives.
  *
  * The primary and expansion jobs intentionally run a few minutes apart. During
  * that window their individually newest cycles can differ. We first require
@@ -44,6 +46,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   readExpansion?: CohortReader;
   readLakeHuron?: CohortReader;
   readFiveCity?: CohortReader;
+  readChicagoAlpena?: CohortReader;
 }): Promise<PierCastV3SourceCohorts | null> {
   if (!Number.isFinite(input.now.getTime())) {
     throw new Error("Formula v3 source time is invalid.");
@@ -64,31 +67,44 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   const readFiveCity = input.readFiveCity ??
     ((database, now) =>
       readLatestFreshPierCastFiveCityLmhofsBatch(database, now, maxAgeHours));
-  let [primary, expansion, lakeHuron, fiveCity] = await Promise.all([
-    readPrimary(input.database, input.now),
-    readExpansion(input.database, input.now),
-    readLakeHuron(input.database, input.now),
-    readFiveCity(input.database, input.now),
-  ]);
-  if (!primary || !expansion || !lakeHuron || !fiveCity) return null;
+  const readChicagoAlpena = input.readChicagoAlpena ??
+    ((database, now) =>
+      readLatestFreshPierCastChicagoAlpenaLmhofsBatch(
+        database,
+        now,
+        maxAgeHours,
+      ));
+  let [primary, expansion, lakeHuron, fiveCity, chicagoAlpena] = await Promise
+    .all([
+      readPrimary(input.database, input.now),
+      readExpansion(input.database, input.now),
+      readLakeHuron(input.database, input.now),
+      readFiveCity(input.database, input.now),
+      readChicagoAlpena(input.database, input.now),
+    ]);
+  if (!primary || !expansion || !lakeHuron || !fiveCity || !chicagoAlpena) {
+    return null;
+  }
   if (
     primary.issuedAt === expansion.issuedAt &&
     primary.issuedAt === lakeHuron.issuedAt &&
-    primary.issuedAt === fiveCity.issuedAt
+    primary.issuedAt === fiveCity.issuedAt &&
+    primary.issuedAt === chicagoAlpena.issuedAt
   ) {
     return {
       primary,
       expansion,
       lakeHuron,
       fiveCity,
+      chicagoAlpena,
       issuedAt: primary.issuedAt,
       usedCommonCycleFallback: false,
     };
   }
 
-  const issues = [primary, expansion, lakeHuron, fiveCity].map((batch) =>
-    Date.parse(batch.issuedAt)
-  );
+  const issues = [primary, expansion, lakeHuron, fiveCity, chicagoAlpena].map((
+    batch,
+  ) => Date.parse(batch.issuedAt));
   if (issues.some((issue) => !Number.isFinite(issue))) {
     throw new Error("Formula v3 source issue is invalid.");
   }
@@ -105,11 +121,15 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   if (issues[3] > commonIssue.getTime()) {
     fiveCity = await readFiveCity(input.database, commonIssue);
   }
+  if (issues[4] > commonIssue.getTime()) {
+    chicagoAlpena = await readChicagoAlpena(input.database, commonIssue);
+  }
   if (
-    !primary || !expansion || !lakeHuron || !fiveCity ||
+    !primary || !expansion || !lakeHuron || !fiveCity || !chicagoAlpena ||
     primary.issuedAt !== expansion.issuedAt ||
     primary.issuedAt !== lakeHuron.issuedAt ||
-    primary.issuedAt !== fiveCity.issuedAt
+    primary.issuedAt !== fiveCity.issuedAt ||
+    primary.issuedAt !== chicagoAlpena.issuedAt
   ) {
     return null;
   }
@@ -118,6 +138,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
     expansion,
     lakeHuron,
     fiveCity,
+    chicagoAlpena,
     issuedAt: primary.issuedAt,
     usedCommonCycleFallback: true,
   };

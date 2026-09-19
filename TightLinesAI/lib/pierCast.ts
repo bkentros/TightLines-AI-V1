@@ -4,6 +4,7 @@ import type {
   PierCastCatalogResponse,
   PierCastLeaderboardResponse,
   PierCastReviewOutlookResponse,
+  PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
@@ -23,6 +24,14 @@ export class PierCastRequestError extends Error {
 
 export function fetchPierCastCatalog(): Promise<PierCastCatalogResponse> {
   return pierCastGet<PierCastCatalogResponse>("catalog", false);
+}
+
+export function fetchPierCastOwnerReviewCatalog(): Promise<PierCastCatalogResponse> {
+  return pierCastGet<PierCastCatalogResponse>("review/catalog", true);
+}
+
+export function fetchPierCastOwnerV3ReviewOutlook(): Promise<PierCastV3ReviewOutlookResponse> {
+  return pierCastGet<PierCastV3ReviewOutlookResponse>("review/v3/outlook", true);
 }
 
 async function pierCastGet<ResponseType>(

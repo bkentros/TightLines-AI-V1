@@ -103,13 +103,13 @@ Deno.test("owner-review catalog requires authorization", async () => {
   assertEquals(reads, 0);
 });
 
-Deno.test("authorized owner-review catalog includes all seventeen cities", async () => {
+Deno.test("authorized owner-review catalog includes all twenty-two cities", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("review/catalog"));
   assertEquals(response.status, 200);
   const body = await response.json();
   assertEquals(body.mode, "review");
-  assertEquals(body.cities.length, 17);
+  assertEquals(body.cities.length, 22);
   assertEquals(
     body.formulaVersion,
     "piercast-opportunity-modes-bounded-temperature-v3",
@@ -122,7 +122,18 @@ Deno.test("authorized owner-review catalog includes all seventeen cities", async
     true,
   );
   assertEquals(
-    ["two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi", "waukegan_il"]
+    [
+      "two_rivers_wi",
+      "kewaunee_wi",
+      "algoma_wi",
+      "manitowoc_wi",
+      "waukegan_il",
+      "chicago_il",
+      "michigan_city_in",
+      "muskegon_mi",
+      "whitehall_mi",
+      "alpena_mi",
+    ]
       .every((cityId) =>
         body.cities.some((city: { cityId: string }) => city.cityId === cityId)
       ),

@@ -52,6 +52,7 @@ const review = buildPierCastV3ReviewOutlook({
     cohorts.expansion,
     cohorts.lakeHuron,
     cohorts.fiveCity,
+    cohorts.chicagoAlpena,
   ),
   evaluationTime: now.toISOString(),
 });
@@ -66,17 +67,38 @@ if (leaderboard.cities.length !== 16) {
     `Public leaderboard returned ${leaderboard.cities.length} cities.`,
   );
 }
-for (const cityId of [
-  "two_rivers_wi",
-  "kewaunee_wi",
-  "algoma_wi",
-  "manitowoc_wi",
-]) {
+for (
+  const cityId of [
+    "two_rivers_wi",
+    "kewaunee_wi",
+    "algoma_wi",
+    "manitowoc_wi",
+  ]
+) {
   if (!outlook.cities.some((city) => city.cityId === cityId)) {
     throw new Error(`Public outlook is missing ${cityId}.`);
   }
   if (!leaderboard.cities.some((city) => city.cityId === cityId)) {
     throw new Error(`Public leaderboard is missing ${cityId}.`);
+  }
+}
+for (
+  const cityId of [
+    "waukegan_il",
+    "chicago_il",
+    "michigan_city_in",
+    "muskegon_mi",
+    "whitehall_mi",
+    "alpena_mi",
+  ]
+) {
+  if (
+    outlook.cities.some((city) => city.cityId === cityId) ||
+    leaderboard.cities.some((city) => city.cityId === cityId)
+  ) {
+    throw new Error(
+      `Private city ${cityId} leaked into the public projection.`,
+    );
   }
 }
 for (const city of outlook.cities) {

@@ -57,6 +57,18 @@ const fiveCityCalibrationPath = resolve(
   fiveCityDirectory,
   "private-mode-calibrations.json",
 );
+const chicagoAlpenaDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/chicago-alpena-2026-09-pass2",
+);
+const chicagoAlpenaDecisionPath = resolve(
+  chicagoAlpenaDirectory,
+  "pair-decisions.json",
+);
+const chicagoAlpenaCalibrationPath = resolve(
+  chicagoAlpenaDirectory,
+  "private-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -81,6 +93,14 @@ const speciesExpansionCalibrationText = readFileSync(
 );
 const fiveCityDecisionText = readFileSync(fiveCityDecisionPath, "utf8");
 const fiveCityCalibrationText = readFileSync(fiveCityCalibrationPath, "utf8");
+const chicagoAlpenaDecisionText = readFileSync(
+  chicagoAlpenaDecisionPath,
+  "utf8",
+);
+const chicagoAlpenaCalibrationText = readFileSync(
+  chicagoAlpenaCalibrationPath,
+  "utf8",
+);
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
 const secondaryCandidateArtifact = JSON.parse(
@@ -107,6 +127,12 @@ const fiveCityDecisionArtifact = JSON.parse(
 const fiveCityCalibrationArtifact = JSON.parse(
   fiveCityCalibrationText,
 ) as FiveCityCalibrationArtifact;
+const chicagoAlpenaDecisionArtifact = JSON.parse(
+  chicagoAlpenaDecisionText,
+) as ChicagoAlpenaDecisionArtifact;
+const chicagoAlpenaCalibrationArtifact = JSON.parse(
+  chicagoAlpenaCalibrationText,
+) as ChicagoAlpenaCalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
@@ -116,6 +142,10 @@ assertSpeciesExpansion(
   speciesExpansionCalibrationArtifact,
 );
 assertFiveCity(fiveCityDecisionArtifact, fiveCityCalibrationArtifact);
+assertChicagoAlpena(
+  chicagoAlpenaDecisionArtifact,
+  chicagoAlpenaCalibrationArtifact,
+);
 const modesById = new Map(
   [
     ...calibrationArtifact.modes,
@@ -123,6 +153,12 @@ const modesById = new Map(
     ...lakeHuronCalibrationArtifact.modes,
     ...speciesExpansionCalibrationArtifact.modes,
     ...fiveCityCalibrationArtifact.modes.map((mode) => ({
+      ...mode,
+      modeName: mode.modeId.split("_").map((word) =>
+        word[0].toUpperCase() + word.slice(1)
+      ).join(" "),
+    })),
+    ...chicagoAlpenaCalibrationArtifact.modes.map((mode) => ({
       ...mode,
       modeName: mode.modeId.split("_").map((word) =>
         word[0].toUpperCase() + word.slice(1)
@@ -159,6 +195,33 @@ const fiveCityPairs = fiveCityDecisionArtifact.decisions
         thermalCurveId: mode.thermalCurveId,
       })),
   }));
+const chicagoAlpenaPairs = chicagoAlpenaDecisionArtifact.decisions
+  .filter((decision) => decision.pass2Disposition === "numeric_private")
+  .map((decision) => ({
+    pairKey: decision.pairKey,
+    cityId: decision.cityId,
+    speciesId: decision.speciesId,
+    ratingEnabled: false as const,
+    ...(decision.pairKey === "chicago_il/yellow_perch"
+      ? {
+        closedWindows: [{
+          startMonthDay: "05-01",
+          endMonthDay: "06-15",
+          reasonCode: "species_regulation_closed" as const,
+          evidenceIds: ["IL_RULES_2026"],
+        }],
+      }
+      : {}),
+    modes: chicagoAlpenaCalibrationArtifact.modes
+      .filter((mode) => mode.pairKey === decision.pairKey)
+      .map((mode) => ({
+        modeCalibrationId: mode.modeCalibrationId,
+        modeId: mode.modeId,
+        fisheryStrength: mode.fisheryStrength,
+        availabilityKnots: mode.availabilityKnots,
+        thermalCurveId: mode.thermalCurveId,
+      })),
+  }));
 
 const pairs = [
   ...candidateArtifact.candidates,
@@ -166,8 +229,21 @@ const pairs = [
   ...lakeHuronCandidateArtifact.candidates,
   ...speciesExpansionCandidateArtifact.candidates,
   ...fiveCityPairs,
+  ...chicagoAlpenaPairs,
 ].map((pair) => ({
   ...pair,
+  ...(["frankfort_elberta_mi/lake_trout", "oscoda_mi/lake_trout", "alpena_mi/lake_trout"].includes(
+      pair.pairKey,
+    )
+    ? {
+      closedWindows: [{
+        startMonthDay: "10-01",
+        endMonthDay: "12-31",
+        reasonCode: "species_regulation_closed" as const,
+        evidenceIds: ["MI_RULES_2026_LAKE_TROUT"],
+      }],
+    }
+    : {}),
   publicEnabled: false as const,
   promotionEligible: false as const,
   modes: pair.modes.map((mode) => {
@@ -186,9 +262,9 @@ const pairs = [
   }),
 }));
 if (
-  pairs.length !== 118 ||
+  pairs.length !== 173 ||
   new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
-  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 239
+  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 322
 ) {
   throw new Error("Combined Formula v3 species manifest is incomplete.");
 }
@@ -201,19 +277,19 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-seventeen-city-five-city-pass3-v7" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v6" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v7" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}`,
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}\n${chicagoAlpenaDecisionText}`,
     ),
   )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}`,
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}\n${chicagoAlpenaCalibrationText}`,
     ),
   )
 } as const;
@@ -339,13 +415,51 @@ function assertFiveCity(
   if (
     pairKeys.size !== 24 ||
     calibrations.modes.some((mode) =>
-      !pairKeys.has(mode.pairKey) || mode.evidenceGrade !== "B" ||
+      !pairKeys.has(mode.pairKey) ||
+      !["A", "B"].includes(mode.evidenceGrade) ||
       mode.fisheryStrength < 1 || mode.fisheryStrength > 10
     ) ||
     [...pairKeys].some((pairKey) =>
       !calibrations.modes.some((mode) => mode.pairKey === pairKey)
     )
   ) throw new Error("Five-city modes do not match the admitted manifest.");
+}
+
+function assertChicagoAlpena(
+  decisions: ChicagoAlpenaDecisionArtifact,
+  calibrations: ChicagoAlpenaCalibrationArtifact,
+): void {
+  const admitted = decisions.decisions.filter((decision) =>
+    decision.pass2Disposition === "numeric_private"
+  );
+  if (
+    decisions.schemaVersion !==
+      "piercast-chicago-alpena-pass2-pair-decisions-v1" ||
+    decisions.dispositionCounts.numeric_private !== 55 ||
+    decisions.dispositionCounts.research_hold_unscored !== 23 ||
+    decisions.dispositionCounts.exclude_unscored !== 17 ||
+    admitted.length !== 55 ||
+    calibrations.schemaVersion !==
+      "piercast-chicago-alpena-pass2-mode-calibrations-v1" ||
+    calibrations.status !== "complete_private_shadow_only" ||
+    calibrations.ratingEnabled !== false ||
+    calibrations.publicEnabled !== false ||
+    calibrations.numericPairCount !== 55 ||
+    calibrations.modeCount !== 83 ||
+    calibrations.modes.length !== 83
+  ) throw new Error("Chicago-Alpena Pass 2 handoff is incomplete.");
+  const pairKeys = new Set(admitted.map((decision) => decision.pairKey));
+  if (
+    pairKeys.size !== 55 ||
+    calibrations.modes.some((mode) =>
+      !pairKeys.has(mode.pairKey) ||
+      !["A", "B"].includes(mode.evidenceGrade) ||
+      mode.fisheryStrength < 1 || mode.fisheryStrength > 10
+    ) ||
+    [...pairKeys].some((pairKey) =>
+      !calibrations.modes.some((mode) => mode.pairKey === pairKey)
+    )
+  ) throw new Error("Chicago-Alpena modes do not match the admitted manifest.");
 }
 
 function assertPass1(
@@ -411,7 +525,7 @@ type CalibrationArtifact = {
   modes: Array<{
     modeCalibrationId: string;
     modeName: string;
-    evidenceGrade: "A" | "B";
+    evidenceGrade: "B";
     fisheryEvidenceIds: string[];
     limitations: string[];
   }>;
@@ -436,7 +550,45 @@ type FiveCityCalibrationArtifact = {
     pairKey: string;
     modeId: string;
     fisheryStrength: number;
-    evidenceGrade: "B";
+    evidenceGrade: "A" | "B";
+    availabilityKnots: Array<{ monthDay: string; availability: number }>;
+    thermalCurveId: string;
+    fisheryEvidenceIds: string[];
+    limitations: string[];
+  }>;
+};
+
+type ChicagoAlpenaDecisionArtifact = {
+  schemaVersion: string;
+  dispositionCounts: {
+    numeric_private: number;
+    research_hold_unscored: number;
+    exclude_unscored: number;
+  };
+  decisions: Array<{
+    pairKey: string;
+    cityId: string;
+    speciesId: string;
+    pass2Disposition:
+      | "numeric_private"
+      | "research_hold_unscored"
+      | "exclude_unscored";
+  }>;
+};
+
+type ChicagoAlpenaCalibrationArtifact = {
+  schemaVersion: string;
+  status: "complete_private_shadow_only";
+  ratingEnabled: false;
+  publicEnabled: false;
+  numericPairCount: number;
+  modeCount: number;
+  modes: Array<{
+    modeCalibrationId: string;
+    pairKey: string;
+    modeId: string;
+    fisheryStrength: number;
+    evidenceGrade: "A" | "B";
     availabilityKnots: Array<{ monthDay: string; availability: number }>;
     thermalCurveId: string;
     fisheryEvidenceIds: string[];

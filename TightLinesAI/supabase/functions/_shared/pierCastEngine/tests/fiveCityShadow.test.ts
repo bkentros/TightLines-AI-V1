@@ -46,13 +46,18 @@ Deno.test("four Wisconsin onboarding cities are public in v3; Waukegan waits for
   const review = buildPierCastCatalog("review");
   const publicV2 = buildPierCastCatalog("public");
   const publicV3 = buildPierCastCatalog("public", "v3");
-  assertEquals(review.cities.length, 17);
+  assertEquals(review.cities.length, 22);
   assertEquals(publicV2.cities.length, 12);
   assertEquals(publicV3.cities.length, 16);
   for (const cityId of PIER_CAST_FIVE_CITY_IDS) {
     assert(review.cities.some((city) => city.cityId === cityId));
     assert(!publicV2.cities.some((city) => city.cityId === cityId));
-    assertEquals(publicV3.cities.some((city) => city.cityId === cityId && city.releaseStatus === "public_research"), cityId !== "waukegan_il");
+    assertEquals(
+      publicV3.cities.some((city) =>
+        city.cityId === cityId && city.releaseStatus === "public_research"
+      ),
+      cityId !== "waukegan_il",
+    );
     assert(
       PIER_CAST_PUBLIC_V3_RELEASE.cityIds.some((id) =>
         String(id) === String(cityId)

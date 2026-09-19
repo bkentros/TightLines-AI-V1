@@ -15,6 +15,7 @@ import {
 import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../config/wisconsinShadow.ts";
 import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "../config/lakeHuronShadow.ts";
 import { PIER_CAST_FIVE_CITY_PROFILES } from "../config/fiveCityShadow.ts";
+import { PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES } from "../config/chicagoAlpenaShadow.ts";
 import { getPierCastV3RegulationNotices } from "../config/speciesExpansion.ts";
 import { pierCastOpenWaterNoticeApplies } from "../copy/openWater.ts";
 import type {
@@ -100,8 +101,8 @@ export type PierCastV3ReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 17;
-    sampleCount: 2057;
+    cityCount: 22;
+    sampleCount: 2662;
   };
   cities: Array<{
     cityId: PierCastCityId;
@@ -128,22 +129,27 @@ export function combinePierCastV3LmhofsBatches(
   expansion: AvailableBatch,
   lakeHuron: AvailableBatch,
   fiveCity: AvailableBatch,
+  chicagoAlpena: AvailableBatch,
 ): AvailableBatch {
   if (
     primary.status !== "available" || expansion.status !== "available" ||
     primary.issuedAt !== expansion.issuedAt ||
     primary.issuedAt !== lakeHuron.issuedAt ||
     primary.issuedAt !== fiveCity.issuedAt ||
+    primary.issuedAt !== chicagoAlpena.issuedAt ||
     primary.requestedForecastHours.length !== 121 ||
     expansion.requestedForecastHours.length !== 121 ||
     lakeHuron.status !== "available" ||
     lakeHuron.requestedForecastHours.length !== 121 ||
     fiveCity.status !== "available" ||
     fiveCity.requestedForecastHours.length !== 121 ||
+    chicagoAlpena.status !== "available" ||
+    chicagoAlpena.requestedForecastHours.length !== 121 ||
     primary.requestedForecastHours.some((hour, index) =>
       hour !== expansion.requestedForecastHours[index] ||
       hour !== lakeHuron.requestedForecastHours[index] ||
-      hour !== fiveCity.requestedForecastHours[index]
+      hour !== fiveCity.requestedForecastHours[index] ||
+      hour !== chicagoAlpena.requestedForecastHours[index]
     )
   ) {
     throw new Error(
@@ -155,17 +161,18 @@ export function combinePierCastV3LmhofsBatches(
     ...expansion.cities,
     ...lakeHuron.cities,
     ...fiveCity.cities,
+    ...chicagoAlpena.cities,
   ];
   const actual = new Set(cities.map((city) => city.cityId));
   if (
-    cities.length !== 17 || actual.size !== 17 ||
+    cities.length !== 22 || actual.size !== 22 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
   ) {
     throw new Error(
-      "Formula v3 requires all seventeen complete city timelines.",
+      "Formula v3 requires all twenty-two complete city timelines.",
     );
   }
   const fetchedAt = [
@@ -173,6 +180,7 @@ export function combinePierCastV3LmhofsBatches(
     expansion.fetchedAt,
     lakeHuron.fetchedAt,
     fiveCity.fetchedAt,
+    chicagoAlpena.fetchedAt,
   ]
     .sort((a, b) => Date.parse(b) - Date.parse(a))[0];
   return {
@@ -184,6 +192,7 @@ export function combinePierCastV3LmhofsBatches(
       expansion.cycleAgeHours,
       lakeHuron.cycleAgeHours,
       fiveCity.cycleAgeHours,
+      chicagoAlpena.cycleAgeHours,
     ),
     fullHorizonRequested: true,
     requestedForecastHours: [...primary.requestedForecastHours],
@@ -193,6 +202,7 @@ export function combinePierCastV3LmhofsBatches(
       ...expansion.diagnostics,
       ...lakeHuron.diagnostics,
       ...fiveCity.diagnostics,
+      ...chicagoAlpena.diagnostics,
     ],
   };
 }
@@ -211,6 +221,7 @@ export function buildPierCastV3ReviewOutlook(input: {
     ...PIER_CAST_WISCONSIN_CITY_PROFILES,
     ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
     ...PIER_CAST_FIVE_CITY_PROFILES,
+    ...PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
   ];
   const byId = new Map(profiles.map((city) => [city.cityId, city]));
   const cities = PIER_CAST_V3_CITY_IDS.map((cityId) => {
@@ -271,8 +282,8 @@ export function buildPierCastV3ReviewOutlook(input: {
       issuedAt: input.batch.issuedAt,
       fetchedAt: input.batch.fetchedAt,
       cycleAgeHours: input.batch.cycleAgeHours,
-      cityCount: 17,
-      sampleCount: 2057,
+      cityCount: 22,
+      sampleCount: 2662,
     },
     cities,
   };
@@ -488,15 +499,15 @@ function buildSpecies(
 function validateBatch(batch: AvailableBatch): void {
   const actual = new Set(batch.cities.map((city) => city.cityId));
   if (
-    batch.status !== "available" || batch.cities.length !== 17 ||
-    actual.size !== 17 ||
+    batch.status !== "available" || batch.cities.length !== 22 ||
+    actual.size !== 22 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     batch.cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
   ) {
     throw new Error(
-      "Formula v3 review requires a complete seventeen-city cycle.",
+      "Formula v3 review requires a complete twenty-two-city cycle.",
     );
   }
 }

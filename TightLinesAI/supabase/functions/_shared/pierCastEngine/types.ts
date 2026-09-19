@@ -53,7 +53,12 @@ export type PierCastCityId =
   | "kewaunee_wi"
   | "algoma_wi"
   | "manitowoc_wi"
-  | "waukegan_il";
+  | "waukegan_il"
+  | "chicago_il"
+  | "michigan_city_in"
+  | "muskegon_mi"
+  | "whitehall_mi"
+  | "alpena_mi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -177,7 +182,7 @@ export type PierCastCityTemperatureSource = {
 export type PierCastCityProfile = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI" | "IL";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   publicEnabled: false;
@@ -191,7 +196,7 @@ export type PierCastCatalogMode = "public" | "review";
 export type PierCastCatalogCity = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI" | "IL";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";

@@ -79,7 +79,7 @@ export type PierCastScoreRead =
 export type PierCastCatalogCityRead = {
   cityId: string;
   displayName: string;
-  stateCode: "MI" | "WI" | "IL";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";
@@ -139,8 +139,9 @@ export type PierCastCatalogResponse = {
   mode: "public" | "review";
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";
-  formulaVersion: "seasonal-opportunity-bounded-temperature-v2" |
-    "piercast-opportunity-modes-bounded-temperature-v3";
+  formulaVersion:
+    | "seasonal-opportunity-bounded-temperature-v2"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
   formula: string;
   winterOpenWaterNotice: string;
   disclosure: string;

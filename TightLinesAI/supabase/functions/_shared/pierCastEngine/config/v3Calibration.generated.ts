@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-seventeen-city-five-city-pass3-v7" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v6" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "7fbfad4e668c02bfda5af315e506bb5439d476b4394c40c56c96569d207e5b3d" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "5edc14705e4feb97c5b0adf7b4f46f0cae500c7df08b5a89e9841a65339bedac" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v7" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "3985623f5f8c489dc6f40d1a8e5688267357375b7a6b62af298b5cc0aaddac2b" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "6cfc4eb37657d6db163207f69c8ac42a7003c8a0aa4cef7355407101678a855c" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -6926,7 +6926,16 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
     "cityId": "frankfort_elberta_mi",
     "speciesId": "lake_trout",
     "ratingEnabled": false,
-    "closedWindows": [],
+    "closedWindows": [
+      {
+        "startMonthDay": "10-01",
+        "endMonthDay": "12-31",
+        "reasonCode": "species_regulation_closed",
+        "evidenceIds": [
+          "MI_RULES_2026_LAKE_TROUT"
+        ]
+      }
+    ],
     "modes": [
       {
         "modeCalibrationId": "frankfort_elberta_mi__lake_trout__cold_season_nearshore__v3_secondary_v1",
@@ -7643,7 +7652,16 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
     "ratingEnabled": false,
     "publicEnabled": false,
     "promotionEligible": false,
-    "closedWindows": [],
+    "closedWindows": [
+      {
+        "startMonthDay": "10-01",
+        "endMonthDay": "12-31",
+        "reasonCode": "species_regulation_closed",
+        "evidenceIds": [
+          "MI_RULES_2026_LAKE_TROUT"
+        ]
+      }
+    ],
     "modes": [
       {
         "modeCalibrationId": "oscoda_mi__lake_trout__spring_coldwater_pier__v3_lake_huron_v1",
@@ -12994,6 +13012,4669 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "limitations": [
           "City pier effort and exact-structure allocation are unresolved unless the row has direct site data; all scores are estimates and stay private.",
           "Curve knot dates are bounded recurring-season estimates from broad pier timing and city evidence, not observed daily catch rates."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/chinook_salmon",
+    "cityId": "chicago_il",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__chinook_salmon__spring_nearshore_transient__chicago_alpena_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.88,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__chinook_salmon__fall_harbor_staging__chicago_alpena_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-22",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/coho_salmon",
+    "cityId": "chicago_il",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__coho_salmon__spring_nearshore__chicago_alpena_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 8.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.62
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2023",
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__coho_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.18,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.52
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2023",
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/steelhead",
+    "cityId": "chicago_il",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__steelhead__winter_spring_pier__chicago_alpena_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_CPD_FISHING_AREAS",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__steelhead__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 6.28,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_CPD_FISHING_AREAS",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/brown_trout",
+    "cityId": "chicago_il",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__brown_trout__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__brown_trout__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.74,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2024",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/lake_trout",
+    "cityId": "chicago_il",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__lake_trout__winter_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_nearshore",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.78
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Winter Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_LAKE_TROUT_2023",
+          "CHI_MWO_WINTER_2025",
+          "CHI_IDNR_LAKE_MICHIGAN"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/smallmouth_bass",
+    "cityId": "chicago_il",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__smallmouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_CPD_FISHING_AREAS",
+          "CHI_PARK_BAIT_2026",
+          "CHI_IDNR_LAKE_MICHIGAN"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/freshwater_drum",
+    "cityId": "chicago_il",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__freshwater_drum__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_CPD_FISHING_AREAS",
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/yellow_perch",
+    "cityId": "chicago_il",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "closedWindows": [
+      {
+        "startMonthDay": "05-01",
+        "endMonthDay": "06-15",
+        "reasonCode": "species_regulation_closed",
+        "evidenceIds": [
+          "IL_RULES_2026"
+        ]
+      }
+    ],
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__yellow_perch__summer_montrose_schooling__chicago_alpena_pass2",
+        "modeId": "summer_montrose_schooling",
+        "fisheryStrength": 7.81,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-16",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Montrose Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2023",
+          "CHI_INHS_CREEL_2024",
+          "IL_RULES_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__yellow_perch__winter_navy_pier_schooling__chicago_alpena_pass2",
+        "modeId": "winter_navy_pier_schooling",
+        "fisheryStrength": 8.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "02-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "04-30",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.82
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Winter Navy Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "CHI_INHS_CREEL_2023",
+          "CHI_INHS_CREEL_2024",
+          "IL_RULES_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "chicago_il/northern_pike",
+    "cityId": "chicago_il",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "chicago_il__northern_pike__spring_harbor__chicago_alpena_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "chicago_il__northern_pike__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "CHI_PARK_BAIT_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/chinook_salmon",
+    "cityId": "michigan_city_in",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__chinook_salmon__spring_nearshore_transient__chicago_alpena_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 4.07,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE",
+          "IN_DNR_REPORT_2026_09"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "michigan_city_in__chinook_salmon__fall_harbor_staging__chicago_alpena_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-22",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE",
+          "IN_DNR_REPORT_2026_09"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/coho_salmon",
+    "cityId": "michigan_city_in",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__coho_salmon__spring_nearshore__chicago_alpena_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 8.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.62
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_COHO_GUIDE",
+          "IN_DNR_REPORT_2026_09"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "michigan_city_in__coho_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.54,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.52
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_COHO_GUIDE",
+          "IN_DNR_REPORT_2026_09"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/steelhead",
+    "cityId": "michigan_city_in",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__steelhead__winter_spring_pier__chicago_alpena_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 7.75,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.6
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "michigan_city_in__steelhead__summer_skamania_pier__chicago_alpena_pass2",
+        "modeId": "summer_skamania_pier",
+        "fisheryStrength": 8.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.48
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Skamania Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "michigan_city_in__steelhead__late_fall_winter_pier__chicago_alpena_pass2",
+        "modeId": "late_fall_winter_pier",
+        "fisheryStrength": 7.75,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "03-31",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.75
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Late Fall Winter Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/brown_trout",
+    "cityId": "michigan_city_in",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__brown_trout__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_COHO_GUIDE",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "michigan_city_in__brown_trout__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_COHO_GUIDE",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/smallmouth_bass",
+    "cityId": "michigan_city_in",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__smallmouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/yellow_perch",
+    "cityId": "michigan_city_in",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__yellow_perch__summer_pier_schooling__chicago_alpena_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.88
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/largemouth_bass",
+    "cityId": "michigan_city_in",
+    "speciesId": "largemouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__largemouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "michigan_city_in/bluegill",
+    "cityId": "michigan_city_in",
+    "speciesId": "bluegill",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "michigan_city_in__bluegill__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.52
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "IN_DNR_LAKE_MICHIGAN",
+          "IN_DNR_SHORE_GUIDE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/chinook_salmon",
+    "cityId": "muskegon_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__chinook_salmon__spring_nearshore_transient__chicago_alpena_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 3.64,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__chinook_salmon__fall_harbor_staging__chicago_alpena_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-22",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/coho_salmon",
+    "cityId": "muskegon_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__coho_salmon__spring_nearshore__chicago_alpena_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 6.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__coho_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.13,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/steelhead",
+    "cityId": "muskegon_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__steelhead__winter_spring_pier__chicago_alpena_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__steelhead__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 7.72,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/brown_trout",
+    "cityId": "muskegon_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__brown_trout__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__brown_trout__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.32,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/walleye",
+    "cityId": "muskegon_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__walleye__spring_low_light__chicago_alpena_pass2",
+        "modeId": "spring_low_light",
+        "fisheryStrength": 6.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.08
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Spring Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/smallmouth_bass",
+    "cityId": "muskegon_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__smallmouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MUSKEGON_LAKE_SFR_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/freshwater_drum",
+    "cityId": "muskegon_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__freshwater_drum__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/yellow_perch",
+    "cityId": "muskegon_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__yellow_perch__spring_channel_schooling__chicago_alpena_pass2",
+        "modeId": "spring_channel_schooling",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.1
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Spring Channel Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__yellow_perch__summer_channel_schooling__chicago_alpena_pass2",
+        "modeId": "summer_channel_schooling",
+        "fisheryStrength": 4.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Channel Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/lake_whitefish",
+    "cityId": "muskegon_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__lake_whitefish__late_fall_channel__chicago_alpena_pass2",
+        "modeId": "late_fall_channel",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.08
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT",
+          "MI_BETTER_WATERS",
+          "MI_WHITEFISH_HOOK_RULE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/channel_catfish",
+    "cityId": "muskegon_mi",
+    "speciesId": "channel_catfish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__channel_catfish__warm_season_channel__chicago_alpena_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_DNR_CENTRAL_UNIT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/largemouth_bass",
+    "cityId": "muskegon_mi",
+    "speciesId": "largemouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__largemouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/northern_pike",
+    "cityId": "muskegon_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__northern_pike__spring_harbor__chicago_alpena_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "muskegon_mi__northern_pike__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/white_perch",
+    "cityId": "muskegon_mi",
+    "speciesId": "white_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__white_perch__warm_season_schooling__chicago_alpena_pass2",
+        "modeId": "warm_season_schooling",
+        "fisheryStrength": 5.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "white_perch__shared_temperature__v0_1_research",
+        "modeName": "Warm Season Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "muskegon_mi/bluegill",
+    "cityId": "muskegon_mi",
+    "speciesId": "bluegill",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "muskegon_mi__bluegill__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.52
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/chinook_salmon",
+    "cityId": "whitehall_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__chinook_salmon__spring_nearshore_transient__chicago_alpena_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 4.98,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "whitehall_mi__chinook_salmon__fall_harbor_staging__chicago_alpena_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 9.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-22",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/coho_salmon",
+    "cityId": "whitehall_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__coho_salmon__spring_nearshore__chicago_alpena_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 5.61,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "whitehall_mi__coho_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 7.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/steelhead",
+    "cityId": "whitehall_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__steelhead__winter_spring_pier__chicago_alpena_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 8.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.32
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.38
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "whitehall_mi__steelhead__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 8.39,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/brown_trout",
+    "cityId": "whitehall_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__brown_trout__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 7.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "whitehall_mi__brown_trout__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.82,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/walleye",
+    "cityId": "whitehall_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__walleye__summer_low_light__chicago_alpena_pass2",
+        "modeId": "summer_low_light",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Summer Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/smallmouth_bass",
+    "cityId": "whitehall_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__smallmouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "WHITE_LAKE_SFR_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/freshwater_drum",
+    "cityId": "whitehall_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__freshwater_drum__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/yellow_perch",
+    "cityId": "whitehall_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__yellow_perch__summer_channel_schooling__chicago_alpena_pass2",
+        "modeId": "summer_channel_schooling",
+        "fisheryStrength": 8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Channel Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/lake_whitefish",
+    "cityId": "whitehall_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__lake_whitefish__late_fall_channel__chicago_alpena_pass2",
+        "modeId": "late_fall_channel",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.08
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_WHITEFISH_HOOK_RULE",
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/channel_catfish",
+    "cityId": "whitehall_mi",
+    "speciesId": "channel_catfish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__channel_catfish__warm_season_channel__chicago_alpena_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/largemouth_bass",
+    "cityId": "whitehall_mi",
+    "speciesId": "largemouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__largemouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 7.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "WHITE_LAKE_SFR_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/northern_pike",
+    "cityId": "whitehall_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__northern_pike__spring_harbor__chicago_alpena_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.9,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "WHITE_LAKE_SFR_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "whitehall_mi__northern_pike__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.59,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "WHITE_LAKE_SFR_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "whitehall_mi/bluegill",
+    "cityId": "whitehall_mi",
+    "speciesId": "bluegill",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "whitehall_mi__bluegill__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.52
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "WHITE_LAKE_SFR_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/chinook_salmon",
+    "cityId": "alpena_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__chinook_salmon__fall_harbor_staging__chicago_alpena_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/coho_salmon",
+    "cityId": "alpena_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__coho_salmon__spring_nearshore__chicago_alpena_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 4.85,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__coho_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.68
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/steelhead",
+    "cityId": "alpena_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__steelhead__spring_harbor__chicago_alpena_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.25
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__steelhead__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.56,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-30",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/brown_trout",
+    "cityId": "alpena_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__brown_trout__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__brown_trout__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.17,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/lake_trout",
+    "cityId": "alpena_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__lake_trout__spring_coldwater_pier__chicago_alpena_pass2",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 4.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.25
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_CREEL_DASHBOARD",
+          "MI_RULES_2026_LAKE_TROUT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__lake_trout__summer_early_fall_nearshore__chicago_alpena_pass2",
+        "modeId": "summer_early_fall_nearshore",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-30",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Summer Early Fall Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_CREEL_DASHBOARD",
+          "MI_RULES_2026_LAKE_TROUT"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "closedWindows": [
+      {
+        "startMonthDay": "10-01",
+        "endMonthDay": "12-31",
+        "reasonCode": "species_regulation_closed",
+        "evidenceIds": [
+          "MI_RULES_2026_LAKE_TROUT"
+        ]
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/walleye",
+    "cityId": "alpena_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__walleye__spring_low_light__chicago_alpena_pass2",
+        "modeId": "spring_low_light",
+        "fisheryStrength": 7.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.08
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Spring Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/smallmouth_bass",
+    "cityId": "alpena_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__smallmouth_bass__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.78
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/freshwater_drum",
+    "cityId": "alpena_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__freshwater_drum__warm_season_harbor__chicago_alpena_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 4.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/yellow_perch",
+    "cityId": "alpena_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__yellow_perch__fall_harbor_schooling__chicago_alpena_pass2",
+        "modeId": "fall_harbor_schooling",
+        "fisheryStrength": 7.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.68
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Fall Harbor Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/atlantic_salmon",
+    "cityId": "alpena_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__atlantic_salmon__winter_spring_nearshore__chicago_alpena_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.68
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.76
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.9
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.68
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.68
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_ATLANTIC_SALMON_SPECIES",
+          "MI_MASTER_ANGLER_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__atlantic_salmon__fall_harbor_return__chicago_alpena_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.27,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.28
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.62
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.28
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_LH_ROADMAP_2019",
+          "MI_STOCKING_DATABASE_2026",
+          "MI_ATLANTIC_SALMON_SPECIES",
+          "MI_MASTER_ANGLER_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "alpena_mi/northern_pike",
+    "cityId": "alpena_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "alpena_mi__northern_pike__spring_harbor__chicago_alpena_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "alpena_mi__northern_pike__fall_harbor__chicago_alpena_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.14,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
+          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
+          "Modes compete by maximum seasonalPotential and never stack."
         ],
         "promotionEligible": false
       }

@@ -5,6 +5,7 @@ import {
   calculatePierCastV3Opportunity,
   evaluatePierCastSeasonalOpportunity,
   evaluatePierCastV3ModePotentials,
+  PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
   PIER_CAST_CITY_PROFILES,
   PIER_CAST_FIVE_CITY_PROFILES,
   PIER_CAST_LAKE_HURON_CITY_PROFILES,
@@ -25,6 +26,7 @@ const profiles = [
   ...PIER_CAST_WISCONSIN_CITY_PROFILES,
   ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
   ...PIER_CAST_FIVE_CITY_PROFILES,
+  ...PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
 ];
 
 const invariantCounts = {
@@ -55,7 +57,11 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
   for (let day = 0; day < 365; day += 1) {
     const date = new Date(Date.UTC(referenceYear, 0, 1 + day)).toISOString()
       .slice(0, 10);
-    if (pierCastV3RegulationClosureApplies({ localDate: date, pair })) {
+    const regulationClosed = pierCastV3RegulationClosureApplies({
+      localDate: date,
+      pair,
+    });
+    if (regulationClosed) {
       regulatedUnavailableDays += 1;
     }
     const modes = evaluatePierCastV3ModePotentials({
@@ -97,7 +103,7 @@ for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
       }
       invariantCounts.ceilingComparisons += 1;
       previous = score.score;
-      if (fit === 1 && score.score > peak.score) {
+      if (fit === 1 && !regulationClosed && score.score > peak.score) {
         peak = {
           score: score.score,
           date,
@@ -218,7 +224,7 @@ const gates = {
     { gate: "formula_and_configuration_implementation", status: "pass" },
     { gate: "deterministic_full_year_invariants", status: "pass" },
     {
-      gate: "same_issue_twelve_city_shadow_archive",
+      gate: "same_issue_twenty_two_city_shadow_archive",
       status: "pass",
     },
     { gate: "effort_aware_prospective_evaluator", status: "pass" },

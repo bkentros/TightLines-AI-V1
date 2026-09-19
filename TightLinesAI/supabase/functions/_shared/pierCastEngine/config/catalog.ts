@@ -19,6 +19,10 @@ import {
   PIER_CAST_FIVE_CITY_IDS,
   PIER_CAST_FIVE_CITY_PROFILES,
 } from "./fiveCityShadow.ts";
+import {
+  PIER_CAST_CHICAGO_ALPENA_CITY_IDS,
+  PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
+} from "./chicagoAlpenaShadow.ts";
 
 export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
@@ -29,11 +33,13 @@ export function buildPierCastCatalog(
     ...PIER_CAST_WISCONSIN_CITY_PROFILES,
     ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
     ...PIER_CAST_FIVE_CITY_PROFILES,
+    ...PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
   ].filter((city) =>
     mode === "review" ||
-    (publicModel === "v3"
-      ? isPierCastPublicV3City(city.cityId)
-      : !PIER_CAST_FIVE_CITY_IDS.some((id) => id === city.cityId))
+    (publicModel === "v3" ? isPierCastPublicV3City(city.cityId) : ![
+      ...PIER_CAST_FIVE_CITY_IDS,
+      ...PIER_CAST_CHICAGO_ALPENA_CITY_IDS,
+    ].some((id) => id === city.cityId))
   );
   const cities = profiles
     .map((city) => ({

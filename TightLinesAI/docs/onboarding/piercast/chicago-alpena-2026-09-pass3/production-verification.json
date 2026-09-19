@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-pass3-production-verification-v1",
+  "verifiedAt": "2026-09-19T19:08:23.291Z",
+  "environment": "production",
+  "run": {
+    "run_id": "4ad14fff-628e-4cb2-8300-6c3487a77a18",
+    "config_version": "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9",
+    "generated_at": "2026-09-19T18:57:19.549+00:00",
+    "source_issued_at": "2026-09-19T12:00:00+00:00",
+    "source_fetched_at": "2026-09-19T18:54:00.91+00:00",
+    "engine_version": "pier-cast-opportunity-modes-v3-shadow-v1.7.0",
+    "formula_version": "piercast-opportunity-modes-bounded-temperature-v3",
+    "preview_only": true,
+    "promotion_status": "blocked",
+    "forecast_count": 865
+  },
+  "actual": {
+    "storedForecastCount": 865,
+    "cityCount": 22,
+    "pairCount": 173,
+    "onboardingCityCount": 5,
+    "onboardingPairCount": 55,
+    "onboardingForecastCount": 275,
+    "minimumStoredScore": 1,
+    "maximumStoredScore": 8.04653143027689,
+    "onboardingSpecies": {
+      "chicago_il": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_trout",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead",
+        "yellow_perch"
+      ],
+      "michigan_city_in": [
+        "bluegill",
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "largemouth_bass",
+        "smallmouth_bass",
+        "steelhead",
+        "yellow_perch"
+      ],
+      "muskegon_mi": [
+        "bluegill",
+        "brown_trout",
+        "channel_catfish",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_whitefish",
+        "largemouth_bass",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "white_perch",
+        "yellow_perch"
+      ],
+      "whitehall_mi": [
+        "bluegill",
+        "brown_trout",
+        "channel_catfish",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_whitefish",
+        "largemouth_bass",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "yellow_perch"
+      ],
+      "alpena_mi": [
+        "atlantic_salmon",
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_trout",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "yellow_perch"
+      ]
+    }
+  },
+  "checks": {
+    "runForecastCount": true,
+    "storedForecastCount": true,
+    "cityCount": true,
+    "pairCount": true,
+    "leadDays": true,
+    "onboardingCityCount": true,
+    "onboardingPairCount": true,
+    "onboardingForecastCount": true,
+    "previewOnly": true,
+    "promotionBlocked": true,
+    "scoreCap": true
+  },
+  "independentAcceptance": {
+    "ownerProductionQa": "PASS: 22 ranked cities from one coherent five-cohort issue.",
+    "publicProductionQa": "PASS: frozen 16-city projection and 16 complete five-day reports.",
+    "authenticatedNormalUserSmoke": "PASS: five onboarding cities absent from catalog and direct reports; owner review returns 403; quota, saved refresh, and paid reports pass."
+  },
+  "result": "pass"
+}

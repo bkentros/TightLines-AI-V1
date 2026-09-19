@@ -57,13 +57,23 @@ try {
     'manitowoc_wi',
   ];
   assert.ok(onboardingCityIds.every(cityId => cities.some(city => city.cityId === cityId)));
-  assert.ok(!cities.some(city => city.cityId === 'waukegan_il'));
+  const privateCityIds = [
+    'waukegan_il',
+    'chicago_il',
+    'michigan_city_in',
+    'muskegon_mi',
+    'whitehall_mi',
+    'alpena_mi',
+  ];
+  assert.ok(privateCityIds.every(cityId => !cities.some(city => city.cityId === cityId)));
 
   const forbiddenReview = await getPier('review/v3/outlook');
   assert.equal(forbiddenReview.status, 403, 'normal user owner-review access');
-  const waukegan = await getPier('report?cityId=waukegan_il');
-  assert.equal(waukegan.status, 404, 'Waukegan awaits an Illinois-capable store client');
-  assert.equal(waukegan.body.error, 'city_unavailable');
+  for (const cityId of privateCityIds) {
+    const privateReport = await getPier(`report?cityId=${cityId}`);
+    assert.equal(privateReport.status, 404, `${cityId} remains private`);
+    assert.equal(privateReport.body.error, 'city_unavailable');
+  }
   const leaderboard = await getPier('leaderboard');
   assert.equal(leaderboard.status, 200);
   assert.equal(leaderboard.body.cities.length, 16);
@@ -90,7 +100,7 @@ try {
     assert.equal(report.body.cities[0].dates.length, 5);
   }
 
-  console.log('PASS: live PierCast v3 exposes 16 cities including four new Wisconsin cities, keeps Waukegan private pending client support, serves four free reports with a fifth-report paywall, and serves 16 complete paid reports.');
+  console.log('PASS: live PierCast v3 exposes the frozen 16-city roster, keeps Waukegan and all five Chicago-Alpena cities private, serves four free reports with a fifth-report paywall and saved refresh, and serves 16 complete paid reports.');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "piercast-five-city-site-boundaries-v1",
+  "reviewedAt": "2026-09-18",
+  "sites": {
+    "chicago_il": {
+      "name": "Chicago, Illinois",
+      "reportArea": "Two explicitly labeled subareas: Montrose Harbor fishing pier/Horseshoe/contiguous public harbor edge, and the legal north-side Navy Pier/Marina fishing area.",
+      "included": [
+        "Montrose Harbor fishing pier west of the boat launch, Horseshoe, harbor mouth, and contiguous public wall where current signs permit fishing.",
+        "North side of Navy Pier and the pass-controlled Navy Pier Marina fishing area when open."
+      ],
+      "excluded": [
+        "Chicago's other harbors, beaches, 85th Street, Calumet Harbor, boats, charter trips, and offshore reefs.",
+        "The south side of Navy Pier and any construction, security, or event closure zone."
+      ],
+      "ownershipAndRoute": "Chicago Park District governs lakefront fishing rules; Navy Pier Marina administers its seasonal pass area. Use the Montrose park approach or the currently posted Navy Pier fishing entrance.",
+      "currentGate": "Lakefront/harbor fishing is generally 6 a.m.-11 p.m.; closed-harbor docks require the winter pass from Nov. 15-Mar. 31. Navy Pier is north-side-only. Marina hours and construction routing are separately controlled.",
+      "verifyBeforeRelease": "Confirm Montrose winter-pass status, Navy Pier Marina season/hours, construction routing, and posted weather/security closures.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "CHI_CPD_MONTROSE_PIER",
+        "CHI_NAVY_PASS",
+        "IL_RULES_2026"
+      ]
+    },
+    "michigan_city_in": {
+      "name": "Michigan City, Indiana",
+      "reportArea": "Washington Park East Pier/lighthouse pier, the immediate Washington Park basin edge, and the public DNR/Coast Guard inner-harbor edge only when explicitly labeled.",
+      "included": [
+        "Walk-out East Pier at Washington Park and contiguous legal public basin edge.",
+        "DNR/Coast Guard inner-harbor shore access as a separately labeled subarea."
+      ],
+      "excluded": [
+        "Trail Creek upstream, the NIPSCO warm-water discharge, Port of Indiana, boats, charter trips, and beaches away from the covered pier/basin."
+      ],
+      "ownershipAndRoute": "The city owns the Washington Park pier/basin approach; Indiana DNR and the U.S. Coast Guard control the separately named inner-harbor access context.",
+      "currentGate": "Park hours, parking/beach fees, waves, ice, repairs, and posted closures control practical access.",
+      "verifyBeforeRelease": "Confirm East Pier opening, park hours/fees, lighthouse construction, and the precise legal inner-harbor route.",
+      "sourceIds": [
+        "MC_CITY_WASHINGTON_PARK",
+        "IN_DNR_LAKE_MICHIGAN",
+        "IN_DNR_COHO_GUIDE",
+        "IN_RULES_2026"
+      ]
+    },
+    "muskegon_mi": {
+      "name": "Muskegon, Michigan",
+      "reportArea": "Lake Michigan outlet channel public walls/platforms, north fishing decks, and the public south-pier approach as separately labeled segments.",
+      "included": [
+        "Public south-side channel wall/pier approach near 43.226771, -86.3375392.",
+        "North-side accessible platforms near 43.231649, -86.333334 and the state-park channel walkway when officially open."
+      ],
+      "excluded": [
+        "Muskegon River upstream, interior Muskegon Lake shore sites, Snug Harbor, boats, charter trips, and offshore Lake Michigan."
+      ],
+      "ownershipAndRoute": "The south and north segments have different approaches and managers; the DNR unit page supplies the exact channel routes and coordinates.",
+      "currentGate": "The state-park page still carries a north-walkway closure through Aug. 2026 and only anticipates a fall reopening. Treat the north segment as unverified until a live status check confirms it.",
+      "verifyBeforeRelease": "Obtain current state-park confirmation for the north walkway/decks and inspect posted channel and pier closures.",
+      "sourceIds": [
+        "MI_DNR_CENTRAL_UNIT",
+        "MUSKEGON_STATE_PARK",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ]
+    },
+    "whitehall_mi": {
+      "name": "Whitehall, Michigan",
+      "reportArea": "White Lake outlet channel edge at Medbery Park and its contiguous legal public fishing frontage; city label retained for PierCast discovery.",
+      "included": [
+        "Medbery Park north-channel frontage at 7340 Life Guard Road and its accessible fishing edge."
+      ],
+      "excluded": [
+        "White Lake interior shore sites, White River upstream, the opposite channel side unless separately verified, boats, charters, and offshore Lake Michigan."
+      ],
+      "ownershipAndRoute": "The covered site is in White River Township, outside Whitehall city limits, and is owned by the City of Montague. The report must disclose that relationship.",
+      "currentGate": "Published park hours are 6 a.m.-11 p.m.; November hook restrictions apply in the named port water as defined by the current regulations.",
+      "verifyBeforeRelease": "Confirm Medbery Park hours, parking, posted channel closures, exact November rule boundary, and any seasonal restroom/access change.",
+      "sourceIds": [
+        "MEDBERY_ACCESS",
+        "MI_BETTER_WATERS",
+        "MI_RULES_2026",
+        "MI_WHITEFISH_HOOK_RULE"
+      ]
+    },
+    "alpena_mi": {
+      "name": "Alpena, Michigan",
+      "reportArea": "Municipal breakwall and fishing platform adjacent to Bay View Park, plus contiguous legal Alpena Harbor edge only when separately labeled.",
+      "included": [
+        "The lighted municipal breakwall walkway, fishing platform, and legal public harbor edge reached from Bay View Park."
+      ],
+      "excluded": [
+        "The closed lighthouse tower, Thunder Bay open water, boats, charter trips, other Alpena shore parks, and Thunder Bay River upstream."
+      ],
+      "ownershipAndRoute": "Approach from Bay View Park near Prentiss Street/South Harbor Drive; lighthouse coordinates are approximately 45°03′37.23″N, 83°25′22.80″W.",
+      "currentGate": "Municipal harbor fishing is subject to posted rules, security, privacy, weather, and temporary closure controls.",
+      "verifyBeforeRelease": "Confirm current breakwall opening, lighting/railing condition, parking route, and posted marina/security restrictions.",
+      "sourceIds": [
+        "ALPENA_BREAKWALL_ACCESS",
+        "ALPENA_CITY_PLAN",
+        "ALPENA_CITY_FISHING_RULE",
+        "MI_RULES_2026"
+      ]
+    }
+  }
+}

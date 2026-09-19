@@ -45,6 +45,8 @@ import {
   fetchPierCastCatalog,
   fetchPierCastLeaderboard,
   fetchPierCastCityReport,
+  fetchPierCastOwnerReviewCatalog,
+  fetchPierCastOwnerV3ReviewOutlook,
   fetchSavedPierCastReport,
   PierCastRequestError,
 } from "../lib/pierCast";
@@ -65,6 +67,7 @@ import type {
   PierCastSpeciesId,
   PierCastTemperatureEventRead,
   PierCastTemperatureEventSummaryRead,
+  PierCastV3ReviewOutlookResponse,
 } from "../lib/pierCastContracts";
 import {
   fetchPierCastHourlyWeather,
@@ -143,6 +146,7 @@ const STATE_LABELS: Record<PierCastCatalogCityRead["stateCode"], string> = {
   MI: "Michigan",
   WI: "Wisconsin",
   IL: "Illinois",
+  IN: "Indiana",
 };
 
 function coreSpeciesImage(speciesId: PierCastSpeciesId) {
@@ -2010,6 +2014,12 @@ const STATE_ACCENTS: Record<
     tint: "#EFF4E8",
     onAccent: "#FFFFFF",
   },
+  IN: {
+    accent: paper.gold,
+    deep: "#80620F",
+    tint: "#FBF5E3",
+    onAccent: "#FFFFFF",
+  },
 };
 
 const STATE_ACCENT_FALLBACK = {
@@ -2429,13 +2439,16 @@ function PierCastLanding({
   catalog,
   outlook,
   supplementalOutlooks,
+  ownerReview,
   onOpenCity,
 }: {
   catalog: PierCastCatalogResponse;
   outlook:
     | PierCastReviewOutlookResponse
+    | PierCastV3ReviewOutlookResponse
     | PierCastLeaderboardResponse;
   supplementalOutlooks: readonly PierCastReviewOutlookResponse[];
+  ownerReview: boolean;
   onOpenCity: (cityId: string) => void;
 }) {
   const standingsOutlook = useMemo(
@@ -2472,7 +2485,9 @@ function PierCastLanding({
   const leaderboard = useMemo(
     () =>
       catalog.cities
-        .filter((city) => city.releaseStatus === "public_research")
+        .filter((city) =>
+          ownerReview || city.releaseStatus === "public_research"
+        )
         .map((city) => {
           const cityOutlook = standingsOutlook.cities.find(
             (candidate) => candidate.cityId === city.cityId,
@@ -2490,7 +2505,7 @@ function PierCastLanding({
             (right.rankingScore ?? -1) - (left.rankingScore ?? -1) ||
             left.city.displayName.localeCompare(right.city.displayName),
         ),
-    [catalog.cities, standingsOutlook.cities],
+    [catalog.cities, ownerReview, standingsOutlook.cities],
   );
 
   /** cityId → today's headline score, so the finder can echo the standings. */
@@ -2843,7 +2858,8 @@ function PierCastLanding({
         >
           {stateCities.map((city) => {
             const selected = city.cityId === selectedBrowseCity?.cityId;
-            const isPreview = city.releaseStatus === "research_only";
+            const isPreview =
+              !ownerReview && city.releaseStatus === "research_only";
             const accent = stateAccent(city.stateCode);
             const pierCount = city.structures.filter(
               (structure) => structure.disposition !== "excluded",
@@ -3386,6 +3402,7 @@ export default function PierCastReviewScreen() {
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
   const [outlook, setOutlook] = useState<
     | PierCastReviewOutlookResponse
+    | PierCastV3ReviewOutlookResponse
     | PierCastLeaderboardResponse
     | null
   >(null);
@@ -3402,6 +3419,7 @@ export default function PierCastReviewScreen() {
   const [error, setError] = useState<string | null>(null);
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
+  const [ownerReview, setOwnerReview] = useState(false);
 
   // Opening a city (or switching to a nearby port) should start the report at
   // its hero, not wherever the previous screen happened to be scrolled to.
@@ -3417,26 +3435,41 @@ export default function PierCastReviewScreen() {
       setError(null);
     }
     try {
-      const nextCatalog = silent ? null : await fetchPierCastCatalog();
+      let nextCatalog: PierCastCatalogResponse;
+      let nextOutlook:
+        | PierCastV3ReviewOutlookResponse
+        | PierCastLeaderboardResponse;
+      let loadedOwnerReview = false;
+      if (__DEV__ && userId) {
+        try {
+          [nextCatalog, nextOutlook] = await Promise.all([
+            fetchPierCastOwnerReviewCatalog(),
+            fetchPierCastOwnerV3ReviewOutlook(),
+          ]);
+          loadedOwnerReview = true;
+        } catch {
+          nextCatalog = await fetchPierCastCatalog();
+          nextOutlook = await fetchPierCastLeaderboard();
+        }
+      } else {
+        nextCatalog = await fetchPierCastCatalog();
+        nextOutlook = await fetchPierCastLeaderboard();
+      }
       if (accountId.current !== userId) return;
-      if (nextCatalog) setCatalog(nextCatalog);
-      if (nextCatalog?.cities.length === 0) { setOutlook(null); return; }
-      const nextOutlook = await fetchPierCastLeaderboard();
-      if (accountId.current !== userId) return;
-      if (userId && !silent) {
+      setOwnerReview(loadedOwnerReview);
+      setCatalog(nextCatalog);
+      if (nextCatalog.cities.length === 0) { setOutlook(null); return; }
+      if (userId && !silent && !loadedOwnerReview) {
         void fetchSavedPierCastReport().then(saved => {
           if (accountId.current === userId) setSavedReport(saved.report);
         }).catch(() => {});
       }
-      if (nextCatalog) setCatalog(nextCatalog);
       setOutlook(nextOutlook);
-      if (nextCatalog) {
-        setSelectedCityId((current) =>
-          nextCatalog.cities.some((city) => city.cityId === current)
-            ? current
-            : null,
-        );
-      }
+      setSelectedCityId((current) =>
+        nextCatalog.cities.some((city) => city.cityId === current)
+          ? current
+          : null,
+      );
       setError(null);
     } catch (caught) {
       if (!silent) {
@@ -3455,11 +3488,20 @@ export default function PierCastReviewScreen() {
 
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null); setSavedReport(null);
-    setOutlook(null); setCatalog(null); setPaywall(false); requestedCity.current = null;
+    setOutlook(null); setCatalog(null); setOwnerReview(false); setPaywall(false); requestedCity.current = null;
   }, [user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
     const city = catalog?.cities.find(c => c.cityId === cityId);
+    if (ownerReview && outlook && "mode" in outlook) {
+      if (!outlook.cities.some((candidate) => candidate.cityId === cityId)) return;
+      if (!silent) {
+        setCityReport(null);
+        setSelectedCityId(cityId);
+        setError(null);
+      }
+      return;
+    }
     if (city?.releaseStatus === "research_only") {
       if (!silent) {
         setCityReport(null);
@@ -3499,7 +3541,7 @@ export default function PierCastReviewScreen() {
         }
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
-  }, [user?.id, catalog]);
+  }, [user?.id, catalog, outlook, ownerReview]);
   useEffect(() => {
     if (!selectedCityId) return;
     // Refresh immediately when a report opens or the response contract changes;
@@ -3522,9 +3564,9 @@ export default function PierCastReviewScreen() {
 
   const selectedCity =
     catalog?.cities.find((city) => city.cityId === selectedCityId) ?? null;
-  const selectedOutlook = cityReport?.cities.find((city) =>
-    city.cityId === selectedCityId
-  ) ?? null;
+  const selectedOutlook = (
+    ownerReview && outlook && "mode" in outlook ? outlook : cityReport
+  )?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const supplementalStandingsOutlooks: readonly PierCastReviewOutlookResponse[] = [];
   const nearbyCities = useMemo(
     () =>
@@ -3600,7 +3642,11 @@ export default function PierCastReviewScreen() {
           <Ionicons name="chevron-back" size={25} color="#FFFFFF" />
         </Pressable>
         <View style={styles.navTitleWrap} pointerEvents="none">
-          <Text style={styles.navEyebrow}>GREAT LAKES · PIER FORECAST</Text>
+          <Text style={styles.navEyebrow}>
+            {ownerReview
+              ? `PRIVATE OWNER REVIEW · ${catalog?.cities.length ?? 0} CITIES`
+              : "GREAT LAKES · PIER FORECAST"}
+          </Text>
           <Text style={styles.navTitle}>PIERCAST</Text>
         </View>
         <View style={styles.navSpacer} />
@@ -3706,7 +3752,7 @@ export default function PierCastReviewScreen() {
                           >
                             {selected
                               ? "CURRENT"
-                              : city.releaseStatus === "research_only"
+                              : !ownerReview && city.releaseStatus === "research_only"
                                 ? "COMING SOON"
                               : Number.isFinite(distance)
                                 ? `${Math.round(distance)} MI AWAY`
@@ -3719,7 +3765,7 @@ export default function PierCastReviewScreen() {
                 </ScrollView>
               </View>
               <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
-              {selectedCity.releaseStatus === "research_only" ? (
+              {!ownerReview && selectedCity.releaseStatus === "research_only" ? (
                 <>
                   <View style={styles.messageCard}>
                     <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
@@ -3754,7 +3800,9 @@ export default function PierCastReviewScreen() {
                     outlook={selectedOutlook}
                     weather={weather}
                     weatherLoading={weatherLoading}
-                    conditionsUpdatedAt={cityReport?.generatedAt ?? outlook.generatedAt}
+                    conditionsUpdatedAt={
+                      ownerReview ? outlook.generatedAt : cityReport?.generatedAt ?? outlook.generatedAt
+                    }
                   />
                   <RatingExplanation
                     winterNotice={catalog.winterOpenWaterNotice}
@@ -3783,6 +3831,7 @@ export default function PierCastReviewScreen() {
                 catalog={catalog}
                 outlook={outlook}
                 supplementalOutlooks={supplementalStandingsOutlooks}
+                ownerReview={ownerReview}
                 onOpenCity={(cityId) => {
                   hapticSelection();
                   void openCity(cityId);

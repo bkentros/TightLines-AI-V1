@@ -30,6 +30,11 @@ export const PIER_CAST_V3_CITY_IDS = [
   "algoma_wi",
   "manitowoc_wi",
   "waukegan_il",
+  "chicago_il",
+  "michigan_city_in",
+  "muskegon_mi",
+  "whitehall_mi",
+  "alpena_mi",
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [

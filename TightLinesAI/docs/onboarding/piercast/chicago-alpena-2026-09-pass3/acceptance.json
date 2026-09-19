@@ -1,0 +1,403 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-pass3-acceptance-v1",
+  "evaluatedAt": "2026-09-19",
+  "configVersion": "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9",
+  "expected": {
+    "ownerCityCount": 22,
+    "publicV2CityCount": 12,
+    "publicV3CityCount": 16,
+    "publicReleaseCityCount": 16,
+    "onboardingCityCount": 5,
+    "admittedPairCount": 55,
+    "researchHoldCount": 23,
+    "excludedDecisionCount": 17,
+    "totalPairCount": 173,
+    "fiveDateForecastRows": 865,
+    "onboardingFixtureSpeciesDateRows": 275,
+    "lakeTroutCityDecisions": 22
+  },
+  "actual": {
+    "ownerCityCount": 22,
+    "publicV2CityCount": 12,
+    "publicV3CityCount": 16,
+    "publicReleaseCityCount": 16,
+    "onboardingCitiesInOwnerCatalog": 5,
+    "onboardingCitiesInPublicV2": 0,
+    "onboardingCitiesInPublicV3": 0,
+    "admittedPairCount": 55,
+    "researchHoldCount": 23,
+    "excludedDecisionCount": 17,
+    "totalPairCount": 173,
+    "fiveDateForecastRows": 865,
+    "fixtureCityCount": 5,
+    "fixtureDateCount": 25,
+    "fixtureSpeciesDateRows": 275,
+    "lakeTroutCityDecisions": 22,
+    "auditedNoaaCells": 5,
+    "primarySpeciesChecks": [
+      {
+        "cityId": "chicago_il",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "chicago_il",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "michigan_city_in",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "lake_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "muskegon_mi",
+        "speciesId": "channel_catfish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "lake_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "whitehall_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "atlantic_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "northern_pike",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "alpena_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      }
+    ]
+  },
+  "access": [
+    {
+      "cityId": "chicago_il",
+      "structures": [
+        {
+          "structureId": "chicago_montrose_harbor_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "CHI_CPD_MONTROSE_PIER"
+          ],
+          "limitation": "Use only legal public walls and the fishing pier. Posted hours, winter-pass rules, construction, weather, waves, and ice control access."
+        },
+        {
+          "structureId": "chicago_navy_pier_north_fishing_area",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "CHI_CPD_FISHING_AREAS",
+            "CHI_NAVY_PASS"
+          ],
+          "limitation": "Only the legal north-side/pass-controlled area is covered. Marina hours, pass rules, construction, security, events, weather, waves, and ice control access."
+        }
+      ]
+    },
+    {
+      "cityId": "michigan_city_in",
+      "structures": [
+        {
+          "structureId": "michigan_city_washington_park_east_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "MC_CITY_WASHINGTON_PARK",
+            "IN_DNR_LAKE_MICHIGAN"
+          ],
+          "limitation": "Trail Creek upstream, NIPSCO, Port of Indiana, boats, and unrelated beach shore are outside this report. Park fees, repairs, signs, waves, weather, and ice control access."
+        },
+        {
+          "structureId": "michigan_city_dnr_inner_harbor_edge",
+          "disposition": "candidate",
+          "accessStatus": "route_unverified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "IN_DNR_COHO_GUIDE"
+          ],
+          "limitation": "This subarea is separate from East Pier. The precise current legal route and posted Coast Guard restrictions require live confirmation."
+        }
+      ]
+    },
+    {
+      "cityId": "muskegon_mi",
+      "structures": [
+        {
+          "structureId": "muskegon_south_channel_pier",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "MI_DNR_CENTRAL_UNIT"
+          ],
+          "limitation": "Only the public Lake Michigan outlet-channel frontage is covered. Posted closures, weather, waves, and ice control access."
+        },
+        {
+          "structureId": "muskegon_north_channel_platforms",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "MUSKEGON_STATE_PARK"
+          ],
+          "limitation": "The published construction notice anticipated reopening after August 2026 but did not confirm it. Treat this segment as unverified until the land manager or current signs confirm access."
+        }
+      ]
+    },
+    {
+      "cityId": "whitehall_mi",
+      "structures": [
+        {
+          "structureId": "whitehall_medbery_park_channel_edge",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "MEDBERY_ACCESS"
+          ],
+          "limitation": "The discovery label is Whitehall, but this City of Montague property is in White River Township. Published hours are 6 a.m.–11 p.m.; current signs, weather, waves, and ice control access."
+        }
+      ]
+    },
+    {
+      "cityId": "alpena_mi",
+      "structures": [
+        {
+          "structureId": "alpena_bay_view_breakwall_platform",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "ALPENA_BREAKWALL_ACCESS",
+            "ALPENA_CITY_PLAN"
+          ],
+          "limitation": "The lighthouse tower, open-water Thunder Bay, boats, other shore parks, and Thunder Bay River are excluded. Posted marina, security, weather, wave, and ice restrictions control access."
+        }
+      ]
+    }
+  ],
+  "result": "pass"
+}

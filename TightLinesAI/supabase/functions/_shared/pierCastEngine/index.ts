@@ -13,6 +13,7 @@ export * from "./config/portWashingtonShadow.ts";
 export * from "./config/wisconsinShadow.ts";
 export * from "./config/lakeHuronShadow.ts";
 export * from "./config/fiveCityShadow.ts";
+export * from "./config/chicagoAlpenaShadow.ts";
 export * from "./config/v3Calibration.ts";
 export * from "./config/publicV3Release.ts";
 export * from "./config/speciesExpansion.ts";
@@ -35,6 +36,7 @@ export * from "./archive/portWashingtonLmhofsArchive.ts";
 export * from "./archive/wisconsinLmhofsArchive.ts";
 export * from "./archive/lakeHuronLmhofsArchive.ts";
 export * from "./archive/fiveCityLmhofsArchive.ts";
+export * from "./archive/chicagoAlpenaLmhofsArchive.ts";
 export * from "./archive/temperatureObservations.ts";
 export * from "./archive/fieldTemperatureObservations.ts";
 export * from "./archive/shadowForecasts.ts";
@@ -49,10 +51,11 @@ export * from "./pipeline/portWashingtonShadow.ts";
 export * from "./pipeline/wisconsinShadow.ts";
 export * from "./pipeline/lakeHuronShadow.ts";
 export * from "./pipeline/fiveCityShadow.ts";
+export * from "./pipeline/chicagoAlpenaShadow.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./pipeline/v3ReviewOutlook.ts";
 export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
 export const PIER_CAST_V3_ENGINE_VERSION =
-  "pier-cast-opportunity-modes-v3-shadow-v1.5.0";
+  "pier-cast-opportunity-modes-v3-shadow-v1.7.0";

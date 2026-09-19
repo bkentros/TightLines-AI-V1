@@ -7,6 +7,7 @@ export const PRIMARY_PIER_CAST_SPECIES: ReadonlySet<PierCastSpeciesId> =
   new Set([
     "coho_salmon",
     "chinook_salmon",
+    "atlantic_salmon",
     "steelhead",
     "brown_trout",
     "lake_trout",
