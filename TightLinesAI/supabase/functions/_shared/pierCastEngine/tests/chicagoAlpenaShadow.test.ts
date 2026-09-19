@@ -55,17 +55,21 @@ Deno.test("Chicago-Alpena profiles are complete, private, and mapped to audited 
   }
 });
 
-Deno.test("all five cities remain owner-only in both public catalog projections", () => {
+Deno.test("all five cities are public in v3 and remain absent from legacy v2", () => {
   const review = buildPierCastCatalog("review");
   const publicV2 = buildPierCastCatalog("public");
   const publicV3 = buildPierCastCatalog("public", "v3");
   assertEquals(review.cities.length, 22);
   assertEquals(publicV2.cities.length, 12);
-  assertEquals(publicV3.cities.length, 16);
+  assertEquals(publicV3.cities.length, 22);
   for (const cityId of PIER_CAST_CHICAGO_ALPENA_CITY_IDS) {
     assert(review.cities.some((city) => city.cityId === cityId));
     assert(!publicV2.cities.some((city) => city.cityId === cityId));
-    assert(!publicV3.cities.some((city) => city.cityId === cityId));
+    assert(
+      publicV3.cities.some((city) =>
+        city.cityId === cityId && city.releaseStatus === "public_research"
+      ),
+    );
   }
 });
 

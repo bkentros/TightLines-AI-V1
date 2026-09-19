@@ -62,17 +62,14 @@ const leaderboard = leaderboardOnly(outlook, {
   releasePolicyVersion: outlook.releasePolicyVersion,
 });
 
-if (leaderboard.cities.length !== 16) {
+if (leaderboard.cities.length !== PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length) {
   throw new Error(
     `Public leaderboard returned ${leaderboard.cities.length} cities.`,
   );
 }
 for (
   const cityId of [
-    "two_rivers_wi",
-    "kewaunee_wi",
-    "algoma_wi",
-    "manitowoc_wi",
+    ...PIER_CAST_PUBLIC_V3_RELEASE.cityIds,
   ]
 ) {
   if (!outlook.cities.some((city) => city.cityId === cityId)) {
@@ -80,25 +77,6 @@ for (
   }
   if (!leaderboard.cities.some((city) => city.cityId === cityId)) {
     throw new Error(`Public leaderboard is missing ${cityId}.`);
-  }
-}
-for (
-  const cityId of [
-    "waukegan_il",
-    "chicago_il",
-    "michigan_city_in",
-    "muskegon_mi",
-    "whitehall_mi",
-    "alpena_mi",
-  ]
-) {
-  if (
-    outlook.cities.some((city) => city.cityId === cityId) ||
-    leaderboard.cities.some((city) => city.cityId === cityId)
-  ) {
-    throw new Error(
-      `Private city ${cityId} leaked into the public projection.`,
-    );
   }
 }
 for (const city of outlook.cities) {
@@ -111,7 +89,7 @@ for (const city of outlook.cities) {
 }
 
 console.log(
-  `PASS: public v3 projection yields 16 ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
+  `PASS: public v3 projection yields ${PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length} ranked cities and complete five-day reports from ${cohorts.issuedAt} (${
     review.source.cycleAgeHours.toFixed(1)
   } hours old).`,
 );
@@ -122,14 +100,20 @@ for (const city of leaderboard.cities) {
   )?.dates[0];
   const projectedSpecies = date?.headline.drivingSpeciesId ?? "none";
   const modelSpecies = modelDate?.headline.drivingSpeciesId ?? "none";
+  const modelScore = modelDate?.headline.overall;
+  const projectedScore = date?.headline.overall;
   const projectionNote = projectedSpecies === modelSpecies
     ? ""
     : ` (model top: ${
-      modelDate?.headline.overall.displayScore?.toFixed(1) ?? "unavailable"
+      modelScore?.status === "available"
+        ? modelScore.displayScore.toFixed(1)
+        : "unavailable"
     } ${modelSpecies})`;
   console.log(
     `${city.cityId}: ${
-      date?.headline.overall.displayScore?.toFixed(1) ?? "unavailable"
+      projectedScore?.status === "available"
+        ? projectedScore.displayScore.toFixed(1)
+        : "unavailable"
     } ${projectedSpecies}${projectionNote}`,
   );
 }

@@ -6,7 +6,7 @@ import type { PierCastCityId } from "../types.ts";
 
 /** Owner-authorized public research scope; scientific validation remains ongoing. */
 export const PIER_CAST_PUBLIC_V3_RELEASE = {
-  version: "piercast-public-research-v3-2026-09-18-four-wisconsin-city",
+  version: "piercast-public-research-v3-2026-09-19-twenty-two-city",
   formulaVersion: PIER_CAST_V3_FORMULA_VERSION,
   // Frozen owner-authorized public city roster.
   cityIds: [
@@ -26,6 +26,12 @@ export const PIER_CAST_PUBLIC_V3_RELEASE = {
     "kewaunee_wi",
     "algoma_wi",
     "manitowoc_wi",
+    "waukegan_il",
+    "chicago_il",
+    "michigan_city_in",
+    "muskegon_mi",
+    "whitehall_mi",
+    "alpena_mi",
   ] as const satisfies readonly PierCastCityId[],
 } as const;
 

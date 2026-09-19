@@ -90,9 +90,9 @@ const artifact = {
     ownerProductionQa:
       "PASS: 22 ranked cities from one coherent five-cohort issue.",
     publicProductionQa:
-      "PASS: frozen 16-city projection and 16 complete five-day reports.",
+      "PASS: all 22 cities are in the public projection with complete five-day reports.",
     authenticatedNormalUserSmoke:
-      "PASS: five onboarding cities absent from catalog and direct reports; owner review returns 403; quota, saved refresh, and paid reports pass.",
+      "PASS: all 22 cities are visible to a normal user; owner review remains 403; quota, saved refresh, and paid reports pass.",
   },
   result: "pass",
 };
@@ -106,7 +106,7 @@ await writeFile(
   `${JSON.stringify(artifact, null, 2)}\n`,
 );
 console.log(
-  `PASS: production run ${run.run_id} contains 865 rows, 22 cities, 173 pairs, and all five private onboarding reports.`,
+  `PASS: production run ${run.run_id} contains 865 rows, 22 cities, 173 pairs, and all five onboarding reports.`,
 );
 
 async function get(path) {

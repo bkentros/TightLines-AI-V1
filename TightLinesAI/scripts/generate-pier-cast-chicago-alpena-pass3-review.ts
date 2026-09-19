@@ -192,8 +192,8 @@ async function main() {
     expected: {
       ownerCityCount: 22,
       publicV2CityCount: 12,
-      publicV3CityCount: 16,
-      publicReleaseCityCount: 16,
+      publicV3CityCount: 22,
+      publicReleaseCityCount: 22,
       onboardingCityCount: 5,
       admittedPairCount: 55,
       researchHoldCount: 23,
@@ -273,11 +273,11 @@ async function main() {
   if (
     acceptance.actual.ownerCityCount !== 22 ||
     acceptance.actual.publicV2CityCount !== 12 ||
-    acceptance.actual.publicV3CityCount !== 16 ||
-    acceptance.actual.publicReleaseCityCount !== 16 ||
+    acceptance.actual.publicV3CityCount !== 22 ||
+    acceptance.actual.publicReleaseCityCount !== 22 ||
     acceptance.actual.onboardingCitiesInOwnerCatalog !== 5 ||
     acceptance.actual.onboardingCitiesInPublicV2 !== 0 ||
-    acceptance.actual.onboardingCitiesInPublicV3 !== 0 ||
+    acceptance.actual.onboardingCitiesInPublicV3 !== 5 ||
     acceptance.actual.admittedPairCount !== 55 ||
     acceptance.actual.researchHoldCount !== 23 ||
     acceptance.actual.excludedDecisionCount !== 17 ||
