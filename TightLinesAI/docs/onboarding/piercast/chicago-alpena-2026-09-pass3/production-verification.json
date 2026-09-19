@@ -1,6 +1,6 @@
 {
   "schemaVersion": "piercast-chicago-alpena-pass3-production-verification-v1",
-  "verifiedAt": "2026-09-19T19:08:23.291Z",
+  "verifiedAt": "2026-09-19T20:40:18.928Z",
   "environment": "production",
   "run": {
     "run_id": "4ad14fff-628e-4cb2-8300-6c3487a77a18",
@@ -106,8 +106,8 @@
   },
   "independentAcceptance": {
     "ownerProductionQa": "PASS: 22 ranked cities from one coherent five-cohort issue.",
-    "publicProductionQa": "PASS: frozen 16-city projection and 16 complete five-day reports.",
-    "authenticatedNormalUserSmoke": "PASS: five onboarding cities absent from catalog and direct reports; owner review returns 403; quota, saved refresh, and paid reports pass."
+    "publicProductionQa": "PASS: all 22 cities are in the public projection with complete five-day reports.",
+    "authenticatedNormalUserSmoke": "PASS: all 22 cities are visible to a normal user; owner review remains 403; quota, saved refresh, and paid reports pass."
   },
   "result": "pass"
 }
