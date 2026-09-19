@@ -570,10 +570,10 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 24);
-  assertEquals(runIds.length, 75);
-  assertEquals(new Set(riverIds).size, 23);
-  assertEquals(new Set(runIds).size, 72);
+  assertEquals(riverIds.length, 26);
+  assertEquals(runIds.length, 81);
+  assertEquals(new Set(riverIds).size, 25);
+  assertEquals(new Set(runIds).size, 78);
   for (
     const riverId of [
       "grand",
@@ -594,6 +594,8 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "clackamas",
       "manitowoc",
       "oswego",
+      "bear_creek_manistee",
+      "rogue_mi",
     ]
   ) {
     assertEquals(riverIds.includes(riverId), true);
@@ -637,6 +639,12 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "lower_genesee_fall_chinook",
       "lower_genesee_fall_steelhead",
       "lower_genesee_fall_brown_trout",
+      "bear_creek_manistee_fall_chinook",
+      "bear_creek_manistee_fall_coho",
+      "bear_creek_manistee_fall_steelhead",
+      "rogue_mi_fall_chinook",
+      "rogue_mi_fall_coho",
+      "rogue_mi_fall_steelhead",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);
@@ -671,7 +679,7 @@ Deno.test("runtime release gate can keep approved runs out of the live catalog",
   assertEquals((await json(unreleased)).error, "river_run_not_found");
 });
 
-Deno.test("production defaults to the previously released catalog", async () => {
+Deno.test("production defaults include the released Bear Creek and Rogue runs", async () => {
   const response = await handleRiverRunRequestBase(request("/rivers"), {
     publicEnabled: true,
   });
@@ -685,10 +693,22 @@ Deno.test("production defaults to the previously released catalog", async () => 
   );
 
   assertEquals(response.status, 200);
-  assertEquals(rivers.length, 9);
-  assertEquals(runIds.length, 27);
-  assertEquals(new Set(runIds).size, 24);
+  assertEquals(rivers.length, 11);
+  assertEquals(runIds.length, 33);
+  assertEquals(new Set(runIds).size, 30);
   assertEquals(runIds.includes("big_manistee_fall_brown_trout"), false);
+  for (
+    const runId of [
+      "bear_creek_manistee_fall_chinook",
+      "bear_creek_manistee_fall_coho",
+      "bear_creek_manistee_fall_steelhead",
+      "rogue_mi_fall_chinook",
+      "rogue_mi_fall_coho",
+      "rogue_mi_fall_steelhead",
+    ]
+  ) {
+    assertEquals(runIds.includes(runId), true);
+  }
   assertEquals(
     runIds.some((runId: string) => runId.startsWith("milwaukee_")),
     false,

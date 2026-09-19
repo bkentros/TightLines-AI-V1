@@ -508,6 +508,36 @@ export type HistoricalWaterTemperatureSourceConfig = {
   }>;
 };
 
+/**
+ * Sparse, historical hydraulic observations exposed as archive context only.
+ * This source never satisfies a live-hydraulics contract and never participates
+ * in Activity, Push, Fishability, or any other scored primitive.
+ */
+export type HistoricalHydraulicSourceConfig = {
+  sourceId: string;
+  provider: "USGS";
+  siteId: string;
+  name: string;
+  metric: "flow_cfs";
+  historicalStartYear: number;
+  historicalEndYear: number;
+  baselineVersion: string;
+  reachNotes: string;
+  attribution: string;
+  coverageNote: string;
+  normal: {
+    average: number;
+    p10: number;
+    p25: number;
+    median: number;
+    p75: number;
+    p90: number;
+    historicalYears: number;
+    sampleCount: number;
+    years: readonly number[];
+  };
+};
+
 export type RiverLiveMetricId =
   | "flow_cfs"
   | "gage_height_ft"
@@ -552,7 +582,8 @@ export type RiverLiveSeasonalContext = {
     | "usgs_approved_exact_date_archive"
     | "usgs_approved_calendar_window_archive"
     | "state_agency_calendar_window_archive"
-    | "usgs_approved_fixed_period_archive";
+    | "usgs_approved_fixed_period_archive"
+    | "usgs_approved_field_measurement_archive";
 };
 
 export type FixedFlowSeasonalNormal = {
@@ -766,6 +797,8 @@ export type RiverProfile = {
   fishCountSources?: FishCountSourceConfig[];
   /** Optional historical-only context; never a current measured reading. */
   historicalWaterTemperatureSource?: HistoricalWaterTemperatureSourceConfig;
+  /** Optional sparse historical flow context; never a current measured reading. */
+  historicalHydraulicSource?: HistoricalHydraulicSourceConfig;
   /** Optional fixed-era flow context used when the modern gauge regime is the accepted comparison. */
   fixedFlowSeasonalBaseline?: FixedFlowSeasonalBaseline;
   weatherPoints: WeatherPointConfig[];

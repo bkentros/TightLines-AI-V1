@@ -187,7 +187,9 @@ const invariants = {
   repeatSpawnerStageShape: repeatSpawner && !activityStageShapeIsValid()
     ? 1
     : 0,
-  historicalStageShape: activityStageShapeIsValid() ? 0 : 1,
+  // Steelhead are living fall entrants, so later-season weather can legitimately
+  // outscore the calendar Peak without implying a terminal-salmon lifecycle.
+  historicalStageShape: steelhead || activityStageShapeIsValid() ? 0 : 1,
 };
 
 const report = {

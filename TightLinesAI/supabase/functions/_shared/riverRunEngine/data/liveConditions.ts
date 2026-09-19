@@ -176,6 +176,10 @@ export async function buildRiverLiveConditions(input: {
         seasonalContext: seasonal,
       }));
     }
+  } else if (input.river.historicalHydraulicSource) {
+    metrics.push(buildHistoricalHydraulicMetric({
+      source: input.river.historicalHydraulicSource,
+    }));
   }
 
   if (temperatureSources.length) {
@@ -236,6 +240,47 @@ export async function buildRiverLiveConditions(input: {
     metrics,
     limitation: input.river.gaugeLimitationCopy,
     dataVersion: RIVER_LIVE_CONDITIONS_VERSION,
+  };
+}
+
+function buildHistoricalHydraulicMetric(input: {
+  source: NonNullable<RiverProfile["historicalHydraulicSource"]>;
+}): RiverLiveConditionMetric {
+  const normal = input.source.normal;
+  return {
+    metric: input.source.metric,
+    label: "Historical Discharge",
+    value: null,
+    unit: "CFS",
+    freshness: "missing",
+    sourceId: input.source.sourceId,
+    provider: input.source.provider,
+    stationName: input.source.name,
+    siteId: input.source.siteId,
+    representedReach: input.source.reachNotes,
+    attribution: input.source.attribution,
+    trend24h: {
+      direction: "unknown",
+      delta: null,
+      percentDelta: null,
+    },
+    seasonalContext: {
+      average: normal.average,
+      p10: normal.p10,
+      p25: normal.p25,
+      median: normal.median,
+      p75: normal.p75,
+      p90: normal.p90,
+      historicalYears: normal.historicalYears,
+      sampleCount: normal.sampleCount,
+      availableWindowDays: 0,
+      windowRadiusDays: 0,
+      windowStartMonthDay: "01-01",
+      windowEndMonthDay: "12-31",
+      recordKind: "long_term",
+      baselineVersion: input.source.baselineVersion,
+      source: "usgs_approved_field_measurement_archive",
+    },
   };
 }
 

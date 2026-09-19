@@ -3,8 +3,7 @@ import type {
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
-
-/** Every completed candidate is public; the owner-review registry is empty. */
+/** Hidden owner-review candidates; these never enter the public registry here. */
 export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [];
 
 export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [];
@@ -24,3 +23,4 @@ export * from "./washington.ts";
 export * from "./newYork.ts";
 export * from "./midwest.ts";
 export * from "./fall2026.ts";
+export * from "./bearRogue.ts";

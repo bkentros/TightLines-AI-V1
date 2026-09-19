@@ -754,6 +754,41 @@ function validateHydraulicSources(
   river: RiverProfile,
   issues: RiverRunValidationIssue[],
 ): void {
+  const historical = river.historicalHydraulicSource;
+  if (historical) {
+    const normal = historical.normal;
+    if (
+      historical.provider !== "USGS" ||
+      historical.metric !== "flow_cfs" ||
+      !hasText(historical.sourceId) || !hasText(historical.siteId) ||
+      !hasText(historical.name) || !hasText(historical.baselineVersion) ||
+      !hasText(historical.reachNotes) || !hasText(historical.attribution) ||
+      !hasText(historical.coverageNote) ||
+      !Number.isInteger(historical.historicalStartYear) ||
+      !Number.isInteger(historical.historicalEndYear) ||
+      historical.historicalEndYear < historical.historicalStartYear ||
+      !normal || !hasNumber(normal.average) || !hasNumber(normal.p10) ||
+      !hasNumber(normal.p25) || !hasNumber(normal.median) ||
+      !hasNumber(normal.p75) || !hasNumber(normal.p90) ||
+      !Number.isInteger(normal.historicalYears) ||
+      normal.historicalYears < 2 || !Number.isInteger(normal.sampleCount) ||
+      normal.sampleCount < normal.historicalYears ||
+      !Array.isArray(normal.years) ||
+      normal.years.length !== normal.historicalYears ||
+      !(
+        normal.p10 <= normal.p25 && normal.p25 <= normal.median &&
+        normal.median <= normal.p75 && normal.p75 <= normal.p90
+      )
+    ) {
+      issues.push(
+        issue(
+          "historicalHydraulicSource",
+          "Historical-only hydraulics require an audited USGS identity, fixed years, provenance, ordered statistics, and at least two qualifying years.",
+          "config_source_invalid",
+        ),
+      );
+    }
+  }
   const capability = river.conditionDataCapabilities?.hydraulics;
   if (capability?.status === "unavailable") {
     if (

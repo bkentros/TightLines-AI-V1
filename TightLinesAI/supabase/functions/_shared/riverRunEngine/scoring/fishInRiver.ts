@@ -1238,6 +1238,10 @@ function onboardingRiverName(riverId: string): string {
       return "Milwaukee";
     case "sheboygan":
       return "Sheboygan";
+    case "bear_creek_manistee":
+      return "Bear Creek";
+    case "rogue_mi":
+      return "Rogue";
     default:
       return riverId;
   }

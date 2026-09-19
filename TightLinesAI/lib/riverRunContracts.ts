@@ -266,7 +266,8 @@ export type RiverRunLiveSeasonalContext = {
     | "usgs_approved_exact_date_archive"
     | "usgs_approved_calendar_window_archive"
     | "state_agency_calendar_window_archive"
-    | "usgs_approved_fixed_period_archive";
+    | "usgs_approved_fixed_period_archive"
+    | "usgs_approved_field_measurement_archive";
 };
 
 export type RiverRunLiveConditionMetric = {

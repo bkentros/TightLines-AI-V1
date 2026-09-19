@@ -64,8 +64,14 @@ Deno.test("Washington foundations validate and are publicly released", () => {
     );
     assert(RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId));
   }
-  assertEquals(RIVER_RUN_DRAFT_RIVER_PROFILES.length, 0);
-  assertEquals(RIVER_RUN_DRAFT_RUN_PROFILES.length, 0);
+  assertEquals(
+    RIVER_RUN_DRAFT_RIVER_PROFILES.map((river) => river.riverId).sort(),
+    [],
+  );
+  assertEquals(
+    RIVER_RUN_DRAFT_RUN_PROFILES.map((run) => run.runId).sort(),
+    [],
+  );
 });
 
 Deno.test("Green Fishability is an Auburn/Big Soos presentation read only", () => {

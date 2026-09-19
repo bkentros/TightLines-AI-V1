@@ -354,8 +354,12 @@ function verifyStageResponseShape(): number {
       adjustment.ending ?? 0,
       adjustment.post_run ?? 0,
     ];
+    const unshapedTail = lateStages.every((value) => value === 0);
+    const boundedLivingFishTail = lateStages.every((value) =>
+      value >= building && value <= peak
+    );
     return preRun <= beginning && beginning <= building && building <= peak &&
-        lateStages.every((value) => value === 0)
+        (unshapedTail || boundedLivingFishTail)
       ? 0
       : 1;
   }

@@ -241,6 +241,12 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "white_fall_chinook",
   "white_fall_coho",
   "white_fall_steelhead",
+  "bear_creek_manistee_fall_chinook",
+  "bear_creek_manistee_fall_coho",
+  "bear_creek_manistee_fall_steelhead",
+  "rogue_mi_fall_chinook",
+  "rogue_mi_fall_coho",
+  "rogue_mi_fall_steelhead",
 ]);
 
 type ConditionRefreshRow = {

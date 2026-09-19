@@ -7,6 +7,7 @@ import {
   riverRunStateChoices,
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
+import type { RiverAccessSection } from "../lib/riverRunSpotFinder";
 import {
   resolveRiverSpotFinderRecommendedSections,
   RIVER_ACCESS_GENERAL_WARNING,
@@ -118,6 +119,53 @@ const manisteeBrownChoices = riverRunRiverChoices(
   "lake_run_brown_trout",
 );
 assert.equal(manisteeBrownChoices.length, 9);
+
+const newMichiganRiverCatalog = {
+  states: [{
+    state: "MI",
+    displayName: "Michigan",
+    rivers: [
+      {
+        riverId: "bear_creek_manistee",
+        displayName: "Bear Creek (Manistee)",
+        runs: [{
+          runId: "bear_creek_manistee_fall_chinook",
+          displayName: "Fall Chinook",
+          species: "chinook_salmon",
+          season: "fall",
+          supportStatus: "beta",
+        }],
+      },
+      {
+        riverId: "rogue_mi",
+        displayName: "Rogue River",
+        runs: [{
+          runId: "rogue_mi_fall_chinook",
+          displayName: "Fall Chinook",
+          species: "chinook_salmon",
+          season: "fall",
+          supportStatus: "beta",
+        }],
+      },
+    ],
+  }],
+} as RiverRunCatalogResponse;
+const newMichiganRiverChoices = riverRunRiverChoices(
+  newMichiganRiverCatalog,
+  "MI",
+  "fall",
+  "chinook_salmon",
+);
+assert.equal(
+  newMichiganRiverChoices.at(-1)?.id,
+  "au_sable",
+  "Au Sable must remain the final Michigan river while it is Coming later",
+);
+assert.equal(
+  newMichiganRiverChoices.at(-1)?.disabled,
+  true,
+  "Au Sable must remain disabled while it is Coming later",
+);
 
 const midwestReviewCatalog = {
   states: [
@@ -251,6 +299,8 @@ for (
     ["salmon_ny", "medium"],
     ["oak_orchard", "small"],
     ["lower_genesee", "large"],
+    ["bear_creek_manistee", "small"],
+    ["rogue_mi", "medium"],
   ]
 ) {
   assert.match(
@@ -623,6 +673,8 @@ for (
     "green",
     "puyallup",
     "cowlitz",
+    "bear_creek_manistee",
+    "rogue_mi",
   ]
 ) {
   const finder = RIVER_RUN_SPOT_FINDERS[riverId];
@@ -691,6 +743,9 @@ for (
         "ci.castle-rock.wa.us",
         "www.ci.castle-rock.wa.us",
         "www.toledowa.us",
+        "www.kentcountymi.gov",
+        "www.plainfieldmi.org",
+        "cms7files1.revize.com",
       ].includes(new URL(spot.sourceUrl).hostname),
       `${spot.id} must use an approved government, land-manager, or regional public-access source`,
     );
@@ -714,6 +769,8 @@ const michiganSpotCounts = {
   st_joseph: 15,
   grand: 28,
   white: 10,
+  bear_creek_manistee: 2,
+  rogue_mi: 3,
 } as const;
 const allSpotIds = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
   finder.sections.flatMap((section) => section.spots.map((spot) => spot.id))
@@ -725,8 +782,8 @@ assert.equal(
 );
 assert.equal(
   allSpotIds.length,
-  220,
-  "The source-audited River Run inventory must contain 220 public access points",
+  225,
+  "The source-audited River Run inventory must contain 225 public access points",
 );
 for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
   const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
@@ -741,8 +798,8 @@ for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
 }
 assert.equal(
   Object.values(michiganSpotCounts).reduce((total, count) => total + count, 0),
-  97,
-  "The audited Michigan River Run inventory must contain 97 access points",
+  102,
+  "The audited Michigan River Run inventory must contain 102 access points",
 );
 
 for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
@@ -1105,7 +1162,9 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
             `${run.runId}/${presentation.state}/${localDate} must shift away from its Beginning approach reach during Building`,
           );
         }
-        const expected = finder.sections.filter((section) =>
+        const expected: RiverAccessSection[] = finder.sections.filter((
+          section,
+        ) =>
           section.foundationReachIds.some((reachId) =>
             seasonalZone.foundationReachIds.includes(reachId)
           )

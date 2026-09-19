@@ -1145,6 +1145,130 @@ function onboardingCorridorRoute(input: {
     };
   }
 
+  if (input.riverId === "bear_creek_manistee") {
+    const limit =
+      "Bear Creek guidance covers only the 6.5-mile Coates Highway-to-Manistee confluence corridor. Section names are seasonal orientation, not verified access, parking, or safe-entry recommendations.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "The Manistee River near the Bear Creek confluence; use Lower Bear Creek only with direct fish evidence.",
+          limit,
+          tip:
+            "Treat the receiving-river connection as approach context and verify legal access independently.",
+        }
+        : {
+          whereToStart:
+            "The Manistee River near the Bear Creek confluence—not inland Bear Creek sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Bear Creek corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") return {
+      whereToStart:
+        "Lower Bear Creek from the Manistee confluence toward the River Road area.",
+      limit,
+      tip:
+        "Keep this as broad seasonal orientation and verify public access before choosing a fishing location.",
+    };
+    if (stage === "building") return {
+      whereToStart:
+        "Upper designated Bear Creek from the River Road area toward Coates Highway, with the Lower reach as a comparison.",
+      limit,
+      tip:
+        "Do not infer equal distribution or public access from the seasonal shift upstream.",
+    };
+    if (stage === "peak") return {
+      whereToStart:
+        "Lower and Upper designated Bear Creek between the Manistee confluence and Coates Highway.",
+      limit,
+      tip:
+        "Compare the two broad reaches, verify access independently, and leave visible spawners and redds undisturbed.",
+    };
+    if (stage === "tapering" || stage === "ending") return {
+      whereToStart: input.fallEntry
+        ? "Established holding water in either designated Bear Creek reach."
+        : "Established Upper designated Bear Creek water below Coates Highway.",
+      limit,
+      tip: input.fallEntry
+        ? "Fewer fresh entrants do not mean Steelhead have left; verify access before fishing."
+        : "Narrow the seasonal search and leave visible spawners and redds undisturbed.",
+    };
+    return {
+      whereToStart: "No active Bear Creek starting reach in this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain beyond this model."
+        : "Do not build a Bear Creek trip around isolated fish outside the modeled run.",
+    };
+  }
+
+  if (input.riverId === "rogue_mi") {
+    const limit =
+      "Rogue River guidance covers only the Grand River confluence to Rockford Dam. USGS 04118500 represents the Lower Rogue only, and section names do not establish public access or safe wading.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "The Grand River near the Rogue confluence; use the Lower Rogue only with direct fish evidence.",
+          limit,
+          tip:
+            "Treat the Grand confluence as approach context, not a verified access point or proof of river entry.",
+        }
+        : {
+          whereToStart:
+            "The Grand River near the Rogue confluence—not inland Rogue River sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Rogue corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") return {
+      whereToStart:
+        "Lower Rogue from the Grand River confluence toward Packer Drive.",
+      limit,
+      tip:
+        "Keep the first search lower-river weighted and verify public access independently.",
+    };
+    if (stage === "building" && !input.establishedBuildingContext) return {
+      whereToStart:
+        "Middle Rogue from Packer Drive toward 10 Mile Road, with the Lower reach as a comparison.",
+      limit,
+      tip: "Do not extend the lower-reach gauge reading to this entire section.",
+    };
+    if (stage === "building") return {
+      whereToStart:
+        "Middle Rogue and the Rockford tailwater below the dam, with the Lower reach checked for newer arrivals.",
+      limit,
+      tip:
+        "Stop below Rockford Dam and treat every section as seasonal orientation rather than equal distribution.",
+    };
+    if (stage === "peak") return {
+      whereToStart:
+        "Lower and Middle Rogue plus the Rockford tailwater below the dam.",
+      limit,
+      tip:
+        "Compare broad reaches, verify access independently, and leave visible spawners and redds undisturbed.",
+    };
+    if (stage === "tapering" || stage === "ending") return {
+      whereToStart: input.fallEntry
+        ? "Established holding water across the Rogue corridor below Rockford Dam."
+        : "Established Middle Rogue and Rockford tailwater water below the dam.",
+      limit,
+      tip: input.fallEntry
+        ? "Fewer fresh entrants do not mean Steelhead have left the Rogue."
+        : "Narrow the seasonal search and leave visible spawners and redds undisturbed.",
+    };
+    return {
+      whereToStart: "No active Rogue River starting reach in this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain beyond this model."
+        : "Do not build a Rogue River trip around isolated fish outside the modeled run.",
+    };
+  }
+
   if (input.riverId === "trail_creek") {
     const limit =
       "Trail Creek guidance stays inside the ten-site public corridor. Obey the Springland barrier closure and posted fishway operations; a gauge reading never proves passage, and most adjoining tributary frontage is private.";

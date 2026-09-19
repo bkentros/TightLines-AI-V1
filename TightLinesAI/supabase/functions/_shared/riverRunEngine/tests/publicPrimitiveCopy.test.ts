@@ -27,8 +27,8 @@ Deno.test("all public primitive copy excludes retired primitives", () => {
     document.runs
   );
 
-  assertEquals(RIVER_RUN_CONFIGURATION_DOCUMENTS.length, 23);
-  assertEquals(runs.length, 72);
+  assertEquals(RIVER_RUN_CONFIGURATION_DOCUMENTS.length, 25);
+  assertEquals(runs.length, 78);
   assertEquals(
     new Set(runs.map((run) => run.species)),
     new Set([

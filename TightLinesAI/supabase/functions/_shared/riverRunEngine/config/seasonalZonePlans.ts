@@ -779,6 +779,7 @@ export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {
 }
 
 export function withSeasonalZonePlan<T extends RiverRunProfile>(run: T): T {
+  if (run.seasonalZonePlan) return run;
   return {
     ...run,
     seasonalZonePlan: seasonalZonePlanForRun(run.runId),

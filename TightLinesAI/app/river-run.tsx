@@ -1587,10 +1587,14 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
   const hasMeasurements = conditions.metrics.some((metric) =>
     metric.value != null
   );
+  const historicalOnlyMetrics = conditions.metrics.length > 0 &&
+    conditions.metrics.every(isHistoricalOnlyMetric);
   const readableMetrics = conditions.metrics.filter((metric) =>
     metric.value != null
   );
-  const displayStatus = conditions.metrics.length > 0 && !hasMeasurements
+  const displayStatus = historicalOnlyMetrics
+    ? "archive"
+    : conditions.metrics.length > 0 && !hasMeasurements
     ? "unreadable"
     : conditions.status === "partial"
     ? "partial"
@@ -1627,16 +1631,22 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
         </View>
         <View style={styles.liveConditionsHeadingCopy}>
           <Text style={styles.liveConditionsEyebrow}>
-            LIVE RIVER CONDITIONS
+            {historicalOnlyMetrics
+              ? "HISTORICAL RIVER CONTEXT"
+              : "LIVE RIVER CONDITIONS"}
           </Text>
-          <Text style={styles.liveConditionsTitle}>Gauge Read</Text>
+          <Text style={styles.liveConditionsTitle}>
+            {historicalOnlyMetrics ? "Archive Read" : "Gauge Read"}
+          </Text>
           <Text
             style={styles.liveConditionsSubtitle}
             numberOfLines={1}
             adjustsFontSizeToFit
             minimumFontScale={0.88}
           >
-            Real provider readings · observation age shown.
+            {historicalOnlyMetrics
+              ? "Official archive · no live sensor."
+              : "Real provider readings · observation age shown."}
           </Text>
         </View>
         <View
@@ -1644,13 +1654,16 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
             styles.liveConditionsStatus,
             displayStatus === "current"
               ? styles.liveConditionsStatusAvailable
-              : displayStatus === "partial" || displayStatus === "delayed"
+              : displayStatus === "partial" || displayStatus === "delayed" ||
+                  displayStatus === "archive"
               ? styles.liveConditionsStatusPartial
               : styles.liveConditionsStatusUnavailable,
           ]}
         >
           <Text style={styles.liveConditionsStatusText}>
-            {displayStatus === "current"
+            {displayStatus === "archive"
+              ? "ARCHIVE"
+              : displayStatus === "current"
               ? "CURRENT"
               : displayStatus === "partial"
               ? "PARTIAL"
@@ -1837,7 +1850,7 @@ function LiveRiverConditionsCard({ conditions, fishingShape }: {
                 )
                 ? "Turbidity is a raw optical reading in FNU. It is not visibility depth or a clear/stained/muddy rating and does not affect River Run scores. Provider readings may be revised."
                 : orderedMetrics.some(isHistoricalOnlyMetric)
-                ? "Flow typical ranges use the same calendar date ±3 days. Historical-only water temperature shows its labeled archival calendar window and qualifying-year count; it is not today's temperature. Provider readings may be revised."
+                ? "Historical-only metrics show their labeled archival sample and qualifying-year count. They are not current conditions and never affect River Run scores. Provider records may be revised."
                 : "Typical ranges and medians use approved observations from the same calendar date ±3 days across prior years. Provider readings may be revised."}
             </Text>
           </View>
@@ -2457,7 +2470,10 @@ function LiveMetricTile({
         {turbidity
           ? "OPTICAL SENSOR · RAW FNU"
           : historicalOnly
-          ? "HISTORICAL DATE AVG"
+          ? metric.seasonalContext?.source ===
+              "usgs_approved_field_measurement_archive"
+            ? "HISTORICAL ARCHIVE AVG"
+            : "HISTORICAL DATE AVG"
           : `Typical · ${typicalRange ?? "Unavailable"}`}
       </Text>
       {turbidity
@@ -2645,8 +2661,7 @@ function liveMetricFreshnessLabel(
 }
 
 function isHistoricalOnlyMetric(metric: RiverRunLiveConditionMetric): boolean {
-  return metric.metric === "water_temp_f" &&
-    metric.value == null &&
+  return metric.value == null &&
     metric.seasonalContext?.source.endsWith("_archive") === true;
 }
 
@@ -2662,6 +2677,9 @@ function liveMetricBaselineCopy(metric: RiverRunLiveConditionMetric): string {
   const context = metric.seasonalContext;
   if (!context) return "Historical context unavailable";
   if (isHistoricalOnlyMetric(metric)) {
+    if (context.source === "usgs_approved_field_measurement_archive") {
+      return `${context.historicalYears}-year sparse field archive · ${context.sampleCount} measurements`;
+    }
     return context.windowRadiusDays === 0
       ? `${context.historicalYears}-year exact-date average · ${
         formatMonthDay(context.windowStartMonthDay)
@@ -2698,7 +2716,10 @@ function liveMetricFreshnessCopy(
   metric: RiverRunLiveConditionMetric,
 ): string {
   if (isHistoricalOnlyMetric(metric)) {
-    return "Current measured reading unavailable; historical date context only";
+    return metric.seasonalContext?.source ===
+        "usgs_approved_field_measurement_archive"
+      ? "No live sensor; sparse historical field-measurement context only"
+      : "Current measured reading unavailable; historical date context only";
   }
   if (!metric.observedAt || metric.freshness === "missing") {
     return "Provider reading currently unreadable";

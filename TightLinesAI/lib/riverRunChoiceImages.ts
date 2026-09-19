@@ -34,6 +34,8 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   clackamas: "large",
   manitowoc: "medium",
   oswego: "large",
+  bear_creek_manistee: "small",
+  rogue_mi: "medium",
 };
 
 export function getRiverRunRiverSize(

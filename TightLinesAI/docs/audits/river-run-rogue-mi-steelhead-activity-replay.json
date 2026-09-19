@@ -1,0 +1,1802 @@
+{
+  "runId": "rogue_mi_fall_steelhead",
+  "rulesVersion": "rogue_mi_fall_steelhead-lower-rogue-flow-activity-v2",
+  "replayYears": "2019-2025",
+  "method": "Historical mechanical steelhead replay using Rogue River near Rockford, MI USGS 04118500 daily mean discharge, no measured-temperature score; the configured temperature weight is zero because no multi-season daily record passed replay, and each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1008,
+  "usableDays": 1008,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 0,
+    "temperatureHistory": 0,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 8,
+    "p10": 31,
+    "median": 59,
+    "p90": 68,
+    "max": 69,
+    "mean": 53.5
+  },
+  "blockScore": {
+    "min": 6,
+    "p10": 29,
+    "median": 58,
+    "p90": 68,
+    "max": 69,
+    "mean": 52.64
+  },
+  "uniqueDayScores": 52,
+  "uniqueBlockScores": 60,
+  "dayLabels": {
+    "Active": 489,
+    "Inactive": 65,
+    "Moderate": 349,
+    "Reserved": 105
+  },
+  "blockLabels": {
+    "Active": 1804,
+    "Inactive": 265,
+    "Moderate": 1508,
+    "Reserved": 455
+  },
+  "daysAtLeast90": 0,
+  "blocksAtLeast90": 0,
+  "byStage": {
+    "beginning": {
+      "days": 105,
+      "scores": {
+        "min": 24,
+        "p10": 27,
+        "median": 51,
+        "p90": 59,
+        "max": 62,
+        "mean": 45.07
+      },
+      "labels": {
+        "Active": 8,
+        "Moderate": 56,
+        "Reserved": 41
+      }
+    },
+    "building": {
+      "days": 420,
+      "scores": {
+        "min": 8,
+        "p10": 35,
+        "median": 59,
+        "p90": 66,
+        "max": 69,
+        "mean": 52.74
+      },
+      "labels": {
+        "Active": 199,
+        "Inactive": 27,
+        "Moderate": 149,
+        "Reserved": 45
+      }
+    },
+    "ending": {
+      "days": 112,
+      "scores": {
+        "min": 10,
+        "p10": 50,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 61.77
+      },
+      "labels": {
+        "Active": 84,
+        "Inactive": 2,
+        "Moderate": 26
+      }
+    },
+    "peak": {
+      "days": 112,
+      "scores": {
+        "min": 12,
+        "p10": 46,
+        "median": 63,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.33
+      },
+      "labels": {
+        "Active": 70,
+        "Inactive": 4,
+        "Moderate": 36,
+        "Reserved": 2
+      }
+    },
+    "post_run": {
+      "days": 105,
+      "scores": {
+        "min": 9,
+        "p10": 10,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 54.04
+      },
+      "labels": {
+        "Active": 68,
+        "Inactive": 18,
+        "Moderate": 18,
+        "Reserved": 1
+      }
+    },
+    "pre_run": {
+      "days": 49,
+      "scores": {
+        "min": 23,
+        "p10": 28,
+        "median": 45,
+        "p90": 52,
+        "max": 56,
+        "mean": 41.94
+      },
+      "labels": {
+        "Moderate": 34,
+        "Reserved": 15
+      }
+    },
+    "tapering": {
+      "days": 105,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 63,
+        "p90": 68,
+        "max": 69,
+        "mean": 54.76
+      },
+      "labels": {
+        "Active": 60,
+        "Inactive": 14,
+        "Moderate": 30,
+        "Reserved": 1
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "05-09",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 25,
+        "p10": 29,
+        "median": 52,
+        "p90": 60,
+        "max": 63,
+        "mean": 45.7
+      },
+      "labelShares": {
+        "Active": 10.48,
+        "Moderate": 52.38,
+        "Reserved": 37.14
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-13",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 20,
+        "p10": 23,
+        "median": 47,
+        "p90": 59,
+        "max": 62,
+        "mean": 42.26
+      },
+      "labelShares": {
+        "Active": 7.62,
+        "Moderate": 50.48,
+        "Reserved": 41.9
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "13-17",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 19,
+        "p10": 23,
+        "median": 47,
+        "p90": 58,
+        "max": 62,
+        "mean": 42.63
+      },
+      "labelShares": {
+        "Active": 4.76,
+        "Inactive": 1.9,
+        "Moderate": 54.29,
+        "Reserved": 39.05
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "17-21",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 25,
+        "p10": 29,
+        "median": 52,
+        "p90": 58,
+        "max": 61,
+        "mean": 45.35
+      },
+      "labelShares": {
+        "Active": 4.76,
+        "Moderate": 57.14,
+        "Reserved": 38.1
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 105,
+      "samples": 420,
+      "scores": {
+        "min": 19,
+        "p10": 26,
+        "median": 48,
+        "p90": 59,
+        "max": 63,
+        "mean": 43.98
+      },
+      "labelShares": {
+        "Active": 6.9,
+        "Inactive": 0.48,
+        "Moderate": 53.57,
+        "Reserved": 39.05
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "05-09",
+      "usableDays": 420,
+      "samples": 420,
+      "scores": {
+        "min": 8,
+        "p10": 36,
+        "median": 60,
+        "p90": 66,
+        "max": 69,
+        "mean": 52.92
+      },
+      "labelShares": {
+        "Active": 50.71,
+        "Inactive": 6.43,
+        "Moderate": 32.86,
+        "Reserved": 10
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "09-13",
+      "usableDays": 420,
+      "samples": 420,
+      "scores": {
+        "min": 6,
+        "p10": 31,
+        "median": 56,
+        "p90": 66,
+        "max": 69,
+        "mean": 50.58
+      },
+      "labelShares": {
+        "Active": 31.67,
+        "Inactive": 6.43,
+        "Moderate": 48.1,
+        "Reserved": 13.81
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "13-17",
+      "usableDays": 420,
+      "samples": 420,
+      "scores": {
+        "min": 6,
+        "p10": 30,
+        "median": 55,
+        "p90": 67,
+        "max": 69,
+        "mean": 50.72
+      },
+      "labelShares": {
+        "Active": 33.33,
+        "Inactive": 6.43,
+        "Moderate": 46.19,
+        "Reserved": 14.05
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "17-21",
+      "usableDays": 420,
+      "samples": 420,
+      "scores": {
+        "min": 8,
+        "p10": 36,
+        "median": 59,
+        "p90": 67,
+        "max": 69,
+        "mean": 52.72
+      },
+      "labelShares": {
+        "Active": 49.52,
+        "Inactive": 6.43,
+        "Moderate": 32.86,
+        "Reserved": 11.19
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 420,
+      "samples": 1680,
+      "scores": {
+        "min": 6,
+        "p10": 32,
+        "median": 56,
+        "p90": 67,
+        "max": 69,
+        "mean": 51.74
+      },
+      "labelShares": {
+        "Active": 41.31,
+        "Inactive": 6.43,
+        "Moderate": 40,
+        "Reserved": 12.26
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "05-09",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 9,
+        "p10": 51,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 61.54
+      },
+      "labelShares": {
+        "Active": 75,
+        "Inactive": 1.79,
+        "Moderate": 23.21
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "09-13",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 10,
+        "p10": 50,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 60.93
+      },
+      "labelShares": {
+        "Active": 70.54,
+        "Inactive": 1.79,
+        "Moderate": 26.79,
+        "Reserved": 0.89
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "13-17",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 9,
+        "p10": 46,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 60.81
+      },
+      "labelShares": {
+        "Active": 73.21,
+        "Inactive": 1.79,
+        "Moderate": 24.11,
+        "Reserved": 0.89
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "17-21",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 10,
+        "p10": 49,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 61.4
+      },
+      "labelShares": {
+        "Active": 75,
+        "Inactive": 1.79,
+        "Moderate": 23.21
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 112,
+      "samples": 448,
+      "scores": {
+        "min": 9,
+        "p10": 48,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 61.17
+      },
+      "labelShares": {
+        "Active": 73.44,
+        "Inactive": 1.79,
+        "Moderate": 24.33,
+        "Reserved": 0.45
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "05-09",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 11,
+        "p10": 46,
+        "median": 64,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.1
+      },
+      "labelShares": {
+        "Active": 60.71,
+        "Inactive": 3.57,
+        "Moderate": 33.93,
+        "Reserved": 1.79
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "09-13",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 11,
+        "p10": 44,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 57.63
+      },
+      "labelShares": {
+        "Active": 50,
+        "Inactive": 3.57,
+        "Moderate": 43.75,
+        "Reserved": 2.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "13-17",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 12,
+        "p10": 44,
+        "median": 60,
+        "p90": 69,
+        "max": 69,
+        "mean": 58.29
+      },
+      "labelShares": {
+        "Active": 51.79,
+        "Inactive": 3.57,
+        "Moderate": 41.07,
+        "Reserved": 3.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "17-21",
+      "usableDays": 112,
+      "samples": 112,
+      "scores": {
+        "min": 12,
+        "p10": 47,
+        "median": 64,
+        "p90": 69,
+        "max": 69,
+        "mean": 59.3
+      },
+      "labelShares": {
+        "Active": 64.29,
+        "Inactive": 3.57,
+        "Moderate": 29.46,
+        "Reserved": 2.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 112,
+      "samples": 448,
+      "scores": {
+        "min": 11,
+        "p10": 44,
+        "median": 62,
+        "p90": 69,
+        "max": 69,
+        "mean": 58.58
+      },
+      "labelShares": {
+        "Active": 56.7,
+        "Inactive": 3.57,
+        "Moderate": 37.05,
+        "Reserved": 2.68
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "05-09",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 9,
+        "p10": 10,
+        "median": 65,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.94
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Inactive": 17.14,
+        "Moderate": 16.19
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "09-13",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 8,
+        "p10": 10,
+        "median": 64,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.33
+      },
+      "labelShares": {
+        "Active": 63.81,
+        "Inactive": 17.14,
+        "Moderate": 19.05
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "13-17",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 7,
+        "p10": 10,
+        "median": 63,
+        "p90": 69,
+        "max": 69,
+        "mean": 53.04
+      },
+      "labelShares": {
+        "Active": 58.1,
+        "Inactive": 17.14,
+        "Moderate": 23.81,
+        "Reserved": 0.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "17-21",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 9,
+        "p10": 10,
+        "median": 64,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.61
+      },
+      "labelShares": {
+        "Active": 66.67,
+        "Inactive": 17.14,
+        "Moderate": 15.24,
+        "Reserved": 0.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "post_run",
+      "block": "all_blocks",
+      "usableDays": 105,
+      "samples": 420,
+      "scores": {
+        "min": 7,
+        "p10": 10,
+        "median": 64,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.48
+      },
+      "labelShares": {
+        "Active": 63.81,
+        "Inactive": 17.14,
+        "Moderate": 18.57,
+        "Reserved": 0.48
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "05-09",
+      "usableDays": 49,
+      "samples": 49,
+      "scores": {
+        "min": 24,
+        "p10": 29,
+        "median": 45,
+        "p90": 51,
+        "max": 59,
+        "mean": 42.45
+      },
+      "labelShares": {
+        "Moderate": 69.39,
+        "Reserved": 30.61
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "09-13",
+      "usableDays": 49,
+      "samples": 49,
+      "scores": {
+        "min": 19,
+        "p10": 24,
+        "median": 42,
+        "p90": 51,
+        "max": 56,
+        "mean": 39.67
+      },
+      "labelShares": {
+        "Inactive": 2.04,
+        "Moderate": 57.14,
+        "Reserved": 40.82
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "13-17",
+      "usableDays": 49,
+      "samples": 49,
+      "scores": {
+        "min": 17,
+        "p10": 24,
+        "median": 41,
+        "p90": 52,
+        "max": 57,
+        "mean": 39.14
+      },
+      "labelShares": {
+        "Inactive": 4.08,
+        "Moderate": 61.22,
+        "Reserved": 34.69
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "17-21",
+      "usableDays": 49,
+      "samples": 49,
+      "scores": {
+        "min": 24,
+        "p10": 29,
+        "median": 44,
+        "p90": 51,
+        "max": 57,
+        "mean": 41.86
+      },
+      "labelShares": {
+        "Moderate": 71.43,
+        "Reserved": 28.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "pre_run",
+      "block": "all_blocks",
+      "usableDays": 49,
+      "samples": 196,
+      "scores": {
+        "min": 17,
+        "p10": 25,
+        "median": 43,
+        "p90": 52,
+        "max": 59,
+        "mean": 40.78
+      },
+      "labelShares": {
+        "Inactive": 1.53,
+        "Moderate": 64.8,
+        "Reserved": 33.67
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "05-09",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 9,
+        "p10": 11,
+        "median": 63,
+        "p90": 68,
+        "max": 69,
+        "mean": 54.56
+      },
+      "labelShares": {
+        "Active": 58.1,
+        "Inactive": 13.33,
+        "Moderate": 28.57
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-13",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 60,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.73
+      },
+      "labelShares": {
+        "Active": 51.43,
+        "Inactive": 13.33,
+        "Moderate": 34.29,
+        "Reserved": 0.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "13-17",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 9,
+        "p10": 11,
+        "median": 60,
+        "p90": 68,
+        "max": 69,
+        "mean": 53.9
+      },
+      "labelShares": {
+        "Active": 51.43,
+        "Inactive": 13.33,
+        "Moderate": 34.29,
+        "Reserved": 0.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "17-21",
+      "usableDays": 105,
+      "samples": 105,
+      "scores": {
+        "min": 9,
+        "p10": 11,
+        "median": 62,
+        "p90": 68,
+        "max": 69,
+        "mean": 54.44
+      },
+      "labelShares": {
+        "Active": 58.1,
+        "Inactive": 13.33,
+        "Moderate": 27.62,
+        "Reserved": 0.95
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 105,
+      "samples": 420,
+      "scores": {
+        "min": 9,
+        "p10": 11,
+        "median": 61,
+        "p90": 68,
+        "max": 69,
+        "mean": 54.16
+      },
+      "labelShares": {
+        "Active": 54.76,
+        "Inactive": 13.33,
+        "Moderate": 31.19,
+        "Reserved": 0.71
+      },
+      "capConfidenceNotes": "Confidence remains Limited even with hourly weather and measured Rogue River near Rockford, MI hydraulics because this audited hydraulic-only model omits measured water temperature from scoring."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "status": "not_scored",
+    "reason": "insufficient_multi_season_record"
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 12,
+        "percent": 7
+      },
+      "meaningfulRise24h": {
+        "absolute": 32,
+        "percent": 16
+      },
+      "sharpRise24h": {
+        "absolute": 63,
+        "percent": 33
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 0.1,
+      "p10": 1,
+      "median": 13,
+      "p90": 69,
+      "max": 583,
+      "mean": 31.87
+    },
+    "positivePercentChange": {
+      "min": 0.13,
+      "p10": 0.91,
+      "median": 7.05,
+      "p90": 32.88,
+      "max": 172.93,
+      "mean": 13.65
+    },
+    "signals": {
+      "falling": 60,
+      "meaningful_rise": 43,
+      "rising": 87,
+      "sharp_rise": 25,
+      "stable": 793
+    }
+  },
+  "bestBlocks": {
+    "05-09": 582,
+    "09-13": 137,
+    "13-17": 144,
+    "17-21": 145
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 5,
+    "p90": 9,
+    "max": 15,
+    "mean": 4.54
+  },
+  "daysWithSpreadAtLeast10": 81,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2019-08-27",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 53,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 161,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "flowAbsoluteChange24h": 23,
+      "flowPercentChange24h": 16.67,
+      "temperatureSignal": "neutral_missing",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 64,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "building",
+      "staging": false,
+      "score": 39,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 92.5,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -1,
+      "flowPercentChange24h": -1.07,
+      "temperatureSignal": "neutral_missing",
+      "spread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 36,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 61,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 30,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 36,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2020-09-02",
+      "stage": "beginning",
+      "staging": false,
+      "score": 52,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 199,
+      "flowBand": "ideal",
+      "flowSignal": "falling",
+      "flowAbsoluteChange24h": -41,
+      "flowPercentChange24h": -17.08,
+      "temperatureSignal": "neutral_missing",
+      "spread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 94,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 21,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 44,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2021-09-02",
+      "stage": "beginning",
+      "staging": false,
+      "score": 33,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 103,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -4,
+      "flowPercentChange24h": -3.74,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 32,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 27,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 25,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 38,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "building",
+      "staging": false,
+      "score": 61,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 139,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 3,
+      "flowPercentChange24h": 2.21,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2025-11-03",
+      "stage": "building",
+      "staging": false,
+      "score": 48,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 116,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 1,
+      "flowPercentChange24h": 0.87,
+      "temperatureSignal": "neutral_missing",
+      "spread": 13,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 45,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 43,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 41,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2019-09-21",
+      "stage": "building",
+      "staging": false,
+      "score": 63,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 188,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -13,
+      "flowPercentChange24h": -6.47,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 52,
+          "precipitationIn": 0.16,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.07,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2019-09-30",
+      "stage": "building",
+      "staging": false,
+      "score": 37,
+      "label": "Reserved",
+      "waterTempF": null,
+      "flowCfs": 428,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -23,
+      "flowPercentChange24h": -5.1,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 40,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 39,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 28,
+          "activityLabel": "Reserved",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 34,
+          "activityLabel": "Reserved",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 13,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is reserved.",
+      "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2021-12-26",
+      "stage": "ending",
+      "staging": false,
+      "score": 63,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 200,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 2,
+      "flowPercentChange24h": 1.01,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. This read uses current conditions without measuring water temperature and does not impose a terminal biological decline. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as hydraulic and weather context only; water temperature is not measured, and the fall read remains separate from winter holding."
+    },
+    {
+      "date": "2022-01-02",
+      "stage": "post_run",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 196,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.03,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 78,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 67,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Compare the four time windows as hydraulic and weather context only; water temperature is not measured, and the fall read remains separate from winter holding."
+    },
+    {
+      "date": "2022-09-18",
+      "stage": "building",
+      "staging": false,
+      "score": 62,
+      "label": "Active",
+      "waterTempF": null,
+      "flowCfs": 152,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 0,
+      "flowPercentChange24h": 0,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0.13,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 69,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 12,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "building",
+      "staging": false,
+      "score": 59,
+      "label": "Moderate",
+      "waterTempF": null,
+      "flowCfs": 255,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -12,
+      "flowPercentChange24h": -4.49,
+      "temperatureSignal": "neutral_missing",
+      "spread": 12,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 16,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 14,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 9 AM–1 PM: The river level and its recent change are favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This Limited read combines measured Packer Drive discharge with modeled light and precipitation for the lower Rogue only. It does not directly describe the middle reach, Rockford tailwater, clarity, temperature, fish passage, abundance, access, or safety. This is a hydraulic-only read using the current river level and hourly weather. Measured water temperature is unavailable and has zero influence, so confidence remains Limited.",
+      "tip": "Start with 9 AM–1 PM. If conditions change, favor the best hydraulic and light window while treating water temperature as unknown."
+    }
+  ]
+}

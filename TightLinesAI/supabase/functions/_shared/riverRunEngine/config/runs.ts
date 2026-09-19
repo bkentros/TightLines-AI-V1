@@ -2,6 +2,10 @@ import type {
   AuditedObservedRiverRunProfile,
   AuditedRiverRunProfile,
 } from "../types.ts";
+import {
+  BEAR_CREEK_MANISTEE_RUNS,
+  ROGUE_MI_RUNS,
+} from "./onboarding/bearRogue.ts";
 import { BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE } from "./onboarding/bigManisteeBrown.ts";
 import {
   BOIS_BRULE_FALL_BROWN_TROUT_RUN_PROFILE,
@@ -2431,6 +2435,8 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  ...BEAR_CREEK_MANISTEE_RUNS,
+  ...ROGUE_MI_RUNS,
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
