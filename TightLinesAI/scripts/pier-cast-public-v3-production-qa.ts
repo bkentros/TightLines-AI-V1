@@ -53,6 +53,7 @@ const review = buildPierCastV3ReviewOutlook({
     cohorts.lakeHuron,
     cohorts.fiveCity,
     cohorts.chicagoAlpena,
+    cohorts.stJosephHarrisville,
   ),
   evaluationTime: now.toISOString(),
 });

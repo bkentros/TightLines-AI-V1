@@ -94,6 +94,7 @@ async function readV3Outlook(maxAgeHours = 24) {
     cohorts.lakeHuron,
     cohorts.fiveCity,
     cohorts.chicagoAlpena,
+    cohorts.stJosephHarrisville,
   );
   return buildPierCastV3ReviewOutlook({
     batch,

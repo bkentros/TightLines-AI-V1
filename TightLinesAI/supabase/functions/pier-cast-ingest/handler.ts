@@ -90,12 +90,23 @@ export type PierCastIngestHandlerDependencies = {
     sampleCount: number;
     diagnostics: string[];
   }>;
+  ingestStJosephHarrisvilleShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
   ingestV3Shadow?: () => Promise<{
     status: "committed" | "already_committed";
     source: "fresh_archived_complete_cycle";
     issuedAt: string;
-    cityCount: 22;
-    sampleCount: 2662;
+    cityCount: 27;
+    sampleCount: 3267;
     shadowForecast: PierCastV3ShadowCommitSummary;
   }>;
 };
@@ -195,6 +206,23 @@ export function createPierCastIngestHandler(
       } catch {
         return json(
           { error: "pier_cast_chicago_alpena_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "st-joseph-harrisville-shadow") {
+      if (!dependencies.ingestStJosephHarrisvilleShadow) {
+        return json(
+          { error: "pier_cast_st_joseph_harrisville_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestStJosephHarrisvilleShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_st_joseph_harrisville_shadow_ingest_failed" },
           503,
         );
       }

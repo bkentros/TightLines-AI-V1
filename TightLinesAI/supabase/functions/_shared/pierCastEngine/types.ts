@@ -58,7 +58,12 @@ export type PierCastCityId =
   | "michigan_city_in"
   | "muskegon_mi"
   | "whitehall_mi"
-  | "alpena_mi";
+  | "alpena_mi"
+  | "st_joseph_mi"
+  | "south_haven_mi"
+  | "holland_mi"
+  | "lexington_mi"
+  | "harrisville_mi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"

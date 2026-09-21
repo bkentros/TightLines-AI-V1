@@ -69,6 +69,18 @@ const chicagoAlpenaCalibrationPath = resolve(
   chicagoAlpenaDirectory,
   "private-mode-calibrations.json",
 );
+const stJosephHarrisvilleDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/st-joseph-harrisville-2026-09-pass2",
+);
+const stJosephHarrisvilleDecisionPath = resolve(
+  stJosephHarrisvilleDirectory,
+  "pair-decisions.json",
+);
+const stJosephHarrisvilleCalibrationPath = resolve(
+  stJosephHarrisvilleDirectory,
+  "private-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -99,6 +111,14 @@ const chicagoAlpenaDecisionText = readFileSync(
 );
 const chicagoAlpenaCalibrationText = readFileSync(
   chicagoAlpenaCalibrationPath,
+  "utf8",
+);
+const stJosephHarrisvilleDecisionText = readFileSync(
+  stJosephHarrisvilleDecisionPath,
+  "utf8",
+);
+const stJosephHarrisvilleCalibrationText = readFileSync(
+  stJosephHarrisvilleCalibrationPath,
   "utf8",
 );
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
@@ -133,6 +153,12 @@ const chicagoAlpenaDecisionArtifact = JSON.parse(
 const chicagoAlpenaCalibrationArtifact = JSON.parse(
   chicagoAlpenaCalibrationText,
 ) as ChicagoAlpenaCalibrationArtifact;
+const stJosephHarrisvilleDecisionArtifact = JSON.parse(
+  stJosephHarrisvilleDecisionText,
+) as StJosephHarrisvilleDecisionArtifact;
+const stJosephHarrisvilleCalibrationArtifact = JSON.parse(
+  stJosephHarrisvilleCalibrationText,
+) as StJosephHarrisvilleCalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
@@ -145,6 +171,10 @@ assertFiveCity(fiveCityDecisionArtifact, fiveCityCalibrationArtifact);
 assertChicagoAlpena(
   chicagoAlpenaDecisionArtifact,
   chicagoAlpenaCalibrationArtifact,
+);
+assertStJosephHarrisville(
+  stJosephHarrisvilleDecisionArtifact,
+  stJosephHarrisvilleCalibrationArtifact,
 );
 const modesById = new Map(
   [
@@ -161,6 +191,23 @@ const modesById = new Map(
     ...chicagoAlpenaCalibrationArtifact.modes.map((mode) => ({
       ...mode,
       modeName: mode.modeId.split("_").map((word) =>
+        word[0].toUpperCase() + word.slice(1)
+      ).join(" "),
+    })),
+    ...stJosephHarrisvilleCalibrationArtifact.modes.map((mode) => ({
+      modeCalibrationId: mode.mode_calibration_id,
+      modeId: mode.mode_id,
+      pairKey: mode.pair_key,
+      fisheryStrength: mode.fishery_strength,
+      evidenceGrade: mode.evidence_grade,
+      availabilityKnots: mode.availability_knots.map((knot) => ({
+        monthDay: knot.month_day,
+        availability: knot.availability,
+      })),
+      thermalCurveId: mode.thermal_curve_id,
+      fisheryEvidenceIds: mode.fishery_evidence_ids,
+      limitations: mode.limitations,
+      modeName: mode.mode_id.split("_").map((word) =>
         word[0].toUpperCase() + word.slice(1)
       ).join(" "),
     })),
@@ -222,6 +269,26 @@ const chicagoAlpenaPairs = chicagoAlpenaDecisionArtifact.decisions
         thermalCurveId: mode.thermalCurveId,
       })),
   }));
+const stJosephHarrisvillePairs = stJosephHarrisvilleDecisionArtifact.decisions
+  .filter((decision) => decision.pass2_disposition === "numeric_private")
+  .map((decision) => ({
+    pairKey: decision.pair_key,
+    cityId: decision.city_id,
+    speciesId: decision.species_id,
+    ratingEnabled: false as const,
+    modes: stJosephHarrisvilleCalibrationArtifact.modes
+      .filter((mode) => mode.pair_key === decision.pair_key)
+      .map((mode) => ({
+        modeCalibrationId: mode.mode_calibration_id,
+        modeId: mode.mode_id,
+        fisheryStrength: mode.fishery_strength,
+        availabilityKnots: mode.availability_knots.map((knot) => ({
+          monthDay: knot.month_day,
+          availability: knot.availability,
+        })),
+        thermalCurveId: mode.thermal_curve_id,
+      })),
+  }));
 
 const pairs = [
   ...candidateArtifact.candidates,
@@ -230,6 +297,7 @@ const pairs = [
   ...speciesExpansionCandidateArtifact.candidates,
   ...fiveCityPairs,
   ...chicagoAlpenaPairs,
+  ...stJosephHarrisvillePairs,
 ].map((pair) => ({
   ...pair,
   ...(["frankfort_elberta_mi/lake_trout", "oscoda_mi/lake_trout", "alpena_mi/lake_trout"].includes(
@@ -262,9 +330,9 @@ const pairs = [
   }),
 }));
 if (
-  pairs.length !== 173 ||
+  pairs.length !== 222 ||
   new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
-  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 322
+  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 403
 ) {
   throw new Error("Combined Formula v3 species manifest is incomplete.");
 }
@@ -277,19 +345,19 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v7" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v8" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}\n${chicagoAlpenaDecisionText}`,
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}\n${chicagoAlpenaDecisionText}\n${stJosephHarrisvilleDecisionText}`,
     ),
   )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}\n${chicagoAlpenaCalibrationText}`,
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}\n${chicagoAlpenaCalibrationText}\n${stJosephHarrisvilleCalibrationText}`,
     ),
   )
 } as const;
@@ -462,6 +530,43 @@ function assertChicagoAlpena(
   ) throw new Error("Chicago-Alpena modes do not match the admitted manifest.");
 }
 
+function assertStJosephHarrisville(
+  decisions: StJosephHarrisvilleDecisionArtifact,
+  calibrations: StJosephHarrisvilleCalibrationArtifact,
+): void {
+  const admitted = decisions.decisions.filter((decision) =>
+    decision.pass2_disposition === "numeric_private"
+  );
+  if (
+    decisions.schema_version !==
+      "piercast-st-joseph-harrisville-pass2-pair-decisions-v1" ||
+    decisions.disposition_counts.numeric_private !== 49 ||
+    decisions.disposition_counts.research_hold_unscored !== 20 ||
+    decisions.disposition_counts.exclude_unscored !== 26 ||
+    admitted.length !== 49 ||
+    calibrations.schema_version !==
+      "piercast-st-joseph-harrisville-pass2-mode-calibrations-v1" ||
+    calibrations.status !== "complete_private_shadow_only" ||
+    calibrations.rating_enabled !== false ||
+    calibrations.public_enabled !== false ||
+    calibrations.numeric_pair_count !== 49 ||
+    calibrations.mode_count !== 81 ||
+    calibrations.modes.length !== 81
+  ) throw new Error("St. Joseph–Harrisville Pass 2 handoff is incomplete.");
+  const pairKeys = new Set(admitted.map((decision) => decision.pair_key));
+  if (
+    pairKeys.size !== 49 ||
+    calibrations.modes.some((mode) =>
+      !pairKeys.has(mode.pair_key) ||
+      !["A", "B"].includes(mode.evidence_grade) ||
+      mode.fishery_strength < 1 || mode.fishery_strength > 10
+    ) ||
+    [...pairKeys].some((pairKey) =>
+      !calibrations.modes.some((mode) => mode.pair_key === pairKey)
+    )
+  ) throw new Error("St. Joseph–Harrisville modes do not match the admitted manifest.");
+}
+
 function assertPass1(
   candidates: CandidateArtifact,
   calibrations: CalibrationArtifact,
@@ -592,6 +697,44 @@ type ChicagoAlpenaCalibrationArtifact = {
     availabilityKnots: Array<{ monthDay: string; availability: number }>;
     thermalCurveId: string;
     fisheryEvidenceIds: string[];
+    limitations: string[];
+  }>;
+};
+
+type StJosephHarrisvilleDecisionArtifact = {
+  schema_version: string;
+  disposition_counts: {
+    numeric_private: number;
+    research_hold_unscored: number;
+    exclude_unscored: number;
+  };
+  decisions: Array<{
+    pair_key: string;
+    city_id: string;
+    species_id: string;
+    pass2_disposition:
+      | "numeric_private"
+      | "research_hold_unscored"
+      | "exclude_unscored";
+  }>;
+};
+
+type StJosephHarrisvilleCalibrationArtifact = {
+  schema_version: string;
+  status: "complete_private_shadow_only";
+  rating_enabled: false;
+  public_enabled: false;
+  numeric_pair_count: number;
+  mode_count: number;
+  modes: Array<{
+    mode_calibration_id: string;
+    pair_key: string;
+    mode_id: string;
+    fishery_strength: number;
+    evidence_grade: "A" | "B";
+    availability_knots: Array<{ month_day: string; availability: number }>;
+    thermal_curve_id: string;
+    fishery_evidence_ids: string[];
     limitations: string[];
   }>;
 };

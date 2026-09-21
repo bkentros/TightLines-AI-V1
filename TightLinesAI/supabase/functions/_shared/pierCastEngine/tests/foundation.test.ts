@@ -382,7 +382,7 @@ Deno.test("known construction and identity limitations stay encoded", () => {
   assertEquals(stub.disposition, "unresolved");
 });
 
-Deno.test("all twelve cities are discoverable while only five have public reports", () => {
+Deno.test("legacy v2 keeps twelve discoverable cities while owner review expands independently", () => {
   const publicCatalog = buildPierCastCatalog("public");
   const reviewCatalog = buildPierCastCatalog("review");
   assertEquals(publicCatalog.cities.length, 12);
@@ -401,7 +401,7 @@ Deno.test("all twelve cities are discoverable while only five have public report
     ),
     true,
   );
-  assertEquals(reviewCatalog.cities.length, 17);
+  assertEquals(reviewCatalog.cities.length, 27);
   assertEquals(
     publicCatalog.cities.find((city) => city.cityId === "port_washington_wi")
       ?.releaseStatus,

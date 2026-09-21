@@ -6,7 +6,7 @@ import type { PierCastCityId } from "../types.ts";
 
 /** Owner-authorized public research scope; scientific validation remains ongoing. */
 export const PIER_CAST_PUBLIC_V3_RELEASE = {
-  version: "piercast-public-research-v3-2026-09-19-twenty-two-city",
+  version: "piercast-public-research-v3-2026-09-20-twenty-seven-city",
   formulaVersion: PIER_CAST_V3_FORMULA_VERSION,
   // Frozen owner-authorized public city roster.
   cityIds: [
@@ -32,6 +32,11 @@ export const PIER_CAST_PUBLIC_V3_RELEASE = {
     "muskegon_mi",
     "whitehall_mi",
     "alpena_mi",
+    "st_joseph_mi",
+    "south_haven_mi",
+    "holland_mi",
+    "lexington_mi",
+    "harrisville_mi",
   ] as const satisfies readonly PierCastCityId[],
 } as const;
 

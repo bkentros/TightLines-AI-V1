@@ -1,0 +1,2419 @@
+{
+  "schema_version": "piercast-pass1-creel-reduction-v1",
+  "source_last_refreshed": "2025-04-23",
+  "raw_sha256": "121135f4e693617e9c1dabe87aceeeaf7a3e9f362e95bb8c113792ee03e4131c",
+  "rules": [
+    "Catch and Harvest remain separate estimate types.",
+    "Positive estimates identify leads; they do not admit a numeric calibration.",
+    "Port Pier/Dock rows may pool structures, and unsampled months or sampled zeros do not establish absence."
+  ],
+  "city_coverage": [
+    {
+      "city_id": "st_joseph_mi",
+      "matched_port_labels": [],
+      "raw_rows": 0,
+      "survey_years": [],
+      "first_year": null,
+      "last_year": null
+    },
+    {
+      "city_id": "south_haven_mi",
+      "matched_port_labels": [
+        "SOUTH HAVEN"
+      ],
+      "raw_rows": 2926,
+      "survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "first_year": 1992,
+      "last_year": 2022
+    },
+    {
+      "city_id": "holland_mi",
+      "matched_port_labels": [
+        "HOLLAND"
+      ],
+      "raw_rows": 796,
+      "survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2005,
+        2012,
+        2013,
+        2020
+      ],
+      "first_year": 1992,
+      "last_year": 2020
+    },
+    {
+      "city_id": "lexington_mi",
+      "matched_port_labels": [
+        "LEXINGTON"
+      ],
+      "raw_rows": 3559,
+      "survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "first_year": 1992,
+      "last_year": 2022
+    },
+    {
+      "city_id": "harrisville_mi",
+      "matched_port_labels": [
+        "HARRISVILLE"
+      ],
+      "raw_rows": 133,
+      "survey_years": [
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2012
+      ],
+      "first_year": 1998,
+      "last_year": 2012
+    }
+  ],
+  "rows": [
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "chinook_salmon",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments.",
+      "city_survey_years": []
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "coho_salmon",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "steelhead",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "brown_trout",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "lake_trout",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "walleye",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "smallmouth_bass",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "freshwater_drum",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "yellow_perch",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "lake_whitefish",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "round_whitefish",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "channel_catfish",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "largemouth_bass",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "atlantic_salmon",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "northern_pike",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "burbot",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "white_perch",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "white_bass",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "bluegill",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "chinook_salmon",
+      "dashboard_labels": [
+        "Chinook Salmon"
+      ],
+      "raw_row_count": 142,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2018,
+        2019,
+        2020,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 1834,
+      "harvest_estimate_sum": 1937,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments.",
+      "city_survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ]
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "coho_salmon",
+      "dashboard_labels": [
+        "Coho Salmon"
+      ],
+      "raw_row_count": 140,
+      "positive_estimate_years": [
+        1993,
+        1994,
+        1996,
+        1997,
+        1998,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2008,
+        2009,
+        2011,
+        2012,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 2797,
+      "harvest_estimate_sum": 3070,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "steelhead",
+      "dashboard_labels": [
+        "Steelhead"
+      ],
+      "raw_row_count": 199,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 7594,
+      "harvest_estimate_sum": 6710,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "brown_trout",
+      "dashboard_labels": [
+        "Brown Trout"
+      ],
+      "raw_row_count": 141,
+      "positive_estimate_years": [
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2013,
+        2014,
+        2015,
+        2016,
+        2018,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 1404,
+      "harvest_estimate_sum": 1259,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "lake_trout",
+      "dashboard_labels": [
+        "Lean Lake Trout"
+      ],
+      "raw_row_count": 91,
+      "positive_estimate_years": [
+        1995,
+        1999,
+        2003,
+        2006,
+        2007,
+        2014,
+        2015,
+        2021
+      ],
+      "positive_estimate_months": [
+        5,
+        7,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 134,
+      "harvest_estimate_sum": 52,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "walleye",
+      "dashboard_labels": [
+        "Walleye"
+      ],
+      "raw_row_count": 92,
+      "positive_estimate_years": [
+        2000,
+        2006,
+        2007,
+        2008,
+        2017,
+        2018
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 167,
+      "harvest_estimate_sum": 82,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "smallmouth_bass",
+      "dashboard_labels": [
+        "Smallmouth Bass"
+      ],
+      "raw_row_count": 94,
+      "positive_estimate_years": [
+        1999,
+        2004,
+        2006,
+        2008,
+        2009,
+        2011,
+        2013,
+        2016,
+        2018,
+        2019,
+        2021
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 614,
+      "harvest_estimate_sum": 170,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "freshwater_drum",
+      "dashboard_labels": [
+        "Drum"
+      ],
+      "raw_row_count": 134,
+      "positive_estimate_years": [
+        1992,
+        1995,
+        2001,
+        2004,
+        2006,
+        2007,
+        2008,
+        2009,
+        2011,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 8234,
+      "harvest_estimate_sum": 3919,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "yellow_perch",
+      "dashboard_labels": [
+        "Yellow Perch"
+      ],
+      "raw_row_count": 136,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1999,
+        2000,
+        2001,
+        2003,
+        2004,
+        2010,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 3573,
+      "harvest_estimate_sum": 72851,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "lake_whitefish",
+      "dashboard_labels": [
+        "Lake Whitefish"
+      ],
+      "raw_row_count": 101,
+      "positive_estimate_years": [
+        1995,
+        1997,
+        1998,
+        2001,
+        2002,
+        2003,
+        2006,
+        2007
+      ],
+      "positive_estimate_months": [
+        3,
+        4,
+        10
+      ],
+      "catch_estimate_sum": 1120,
+      "harvest_estimate_sum": 1128,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "round_whitefish",
+      "dashboard_labels": [
+        "Round Whitefish"
+      ],
+      "raw_row_count": 91,
+      "positive_estimate_years": [
+        1996,
+        2002,
+        2011,
+        2013,
+        2014,
+        2018,
+        2019,
+        2020
+      ],
+      "positive_estimate_months": [
+        4,
+        10
+      ],
+      "catch_estimate_sum": 321,
+      "harvest_estimate_sum": 329,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "channel_catfish",
+      "dashboard_labels": [
+        "Channel Catfish"
+      ],
+      "raw_row_count": 103,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1996,
+        2002,
+        2008,
+        2010,
+        2011,
+        2013,
+        2014,
+        2015,
+        2016,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 904,
+      "harvest_estimate_sum": 225,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "largemouth_bass",
+      "dashboard_labels": [
+        "Largemouth Bass"
+      ],
+      "raw_row_count": 83,
+      "positive_estimate_years": [
+        2011,
+        2018
+      ],
+      "positive_estimate_months": [
+        7,
+        8
+      ],
+      "catch_estimate_sum": 198,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "atlantic_salmon",
+      "dashboard_labels": [
+        "Atlantic Salmon"
+      ],
+      "raw_row_count": 42,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "northern_pike",
+      "dashboard_labels": [
+        "Northern Pike"
+      ],
+      "raw_row_count": 92,
+      "positive_estimate_years": [
+        2001,
+        2009,
+        2011,
+        2013,
+        2015,
+        2017,
+        2021
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 206,
+      "harvest_estimate_sum": 126,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "burbot",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "white_perch",
+      "dashboard_labels": [
+        "White Perch"
+      ],
+      "raw_row_count": 84,
+      "positive_estimate_years": [
+        2004
+      ],
+      "positive_estimate_months": [
+        6
+      ],
+      "catch_estimate_sum": 9,
+      "harvest_estimate_sum": 9,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "white_bass",
+      "dashboard_labels": [
+        "White Bass"
+      ],
+      "raw_row_count": 70,
+      "positive_estimate_years": [
+        2001
+      ],
+      "positive_estimate_months": [
+        9
+      ],
+      "catch_estimate_sum": 99,
+      "harvest_estimate_sum": 99,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "bluegill",
+      "dashboard_labels": [
+        "Bluegill"
+      ],
+      "raw_row_count": 86,
+      "positive_estimate_years": [
+        1992,
+        1999,
+        2010,
+        2021
+      ],
+      "positive_estimate_months": [
+        6,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 332,
+      "harvest_estimate_sum": 364,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "chinook_salmon",
+      "dashboard_labels": [
+        "Chinook Salmon"
+      ],
+      "raw_row_count": 47,
+      "positive_estimate_years": [
+        1994,
+        1995,
+        1997,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2005,
+        2012,
+        2013
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        7,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 744,
+      "harvest_estimate_sum": 859,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments.",
+      "city_survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2005,
+        2012,
+        2013,
+        2020
+      ]
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "coho_salmon",
+      "dashboard_labels": [
+        "Coho Salmon"
+      ],
+      "raw_row_count": 33,
+      "positive_estimate_years": [
+        1993,
+        1994,
+        1995,
+        1997,
+        2000,
+        2002,
+        2005
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 331,
+      "harvest_estimate_sum": 366,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "steelhead",
+      "dashboard_labels": [
+        "Steelhead"
+      ],
+      "raw_row_count": 53,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1999,
+        2001,
+        2002,
+        2003,
+        2005,
+        2013,
+        2020
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 651,
+      "harvest_estimate_sum": 1057,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "brown_trout",
+      "dashboard_labels": [
+        "Brown Trout"
+      ],
+      "raw_row_count": 45,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2005,
+        2012
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 1183,
+      "harvest_estimate_sum": 684,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "lake_trout",
+      "dashboard_labels": [
+        "Lean Lake Trout"
+      ],
+      "raw_row_count": 16,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "walleye",
+      "dashboard_labels": [
+        "Walleye"
+      ],
+      "raw_row_count": 34,
+      "positive_estimate_years": [
+        1992,
+        1994,
+        1995,
+        1999,
+        2000,
+        2003
+      ],
+      "positive_estimate_months": [
+        4,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 115,
+      "harvest_estimate_sum": 327,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "smallmouth_bass",
+      "dashboard_labels": [
+        "Smallmouth Bass"
+      ],
+      "raw_row_count": 32,
+      "positive_estimate_years": [
+        1992,
+        1994,
+        1997,
+        2001,
+        2003,
+        2005,
+        2013,
+        2020
+      ],
+      "positive_estimate_months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 139,
+      "harvest_estimate_sum": 152,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "freshwater_drum",
+      "dashboard_labels": [
+        "Drum"
+      ],
+      "raw_row_count": 34,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        2001,
+        2003,
+        2012,
+        2020
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 2103,
+      "harvest_estimate_sum": 356,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "yellow_perch",
+      "dashboard_labels": [
+        "Yellow Perch"
+      ],
+      "raw_row_count": 74,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        2000,
+        2001,
+        2002,
+        2005,
+        2012,
+        2013,
+        2020
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 11784,
+      "harvest_estimate_sum": 73571,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "lake_whitefish",
+      "dashboard_labels": [
+        "Lake Whitefish"
+      ],
+      "raw_row_count": 28,
+      "positive_estimate_years": [
+        1997,
+        1999,
+        2000,
+        2001,
+        2002
+      ],
+      "positive_estimate_months": [
+        4,
+        10
+      ],
+      "catch_estimate_sum": 326,
+      "harvest_estimate_sum": 326,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "round_whitefish",
+      "dashboard_labels": [
+        "Round Whitefish"
+      ],
+      "raw_row_count": 22,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        2000,
+        2002
+      ],
+      "positive_estimate_months": [
+        4,
+        10
+      ],
+      "catch_estimate_sum": 272,
+      "harvest_estimate_sum": 280,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "channel_catfish",
+      "dashboard_labels": [
+        "Channel Catfish"
+      ],
+      "raw_row_count": 18,
+      "positive_estimate_years": [
+        2005,
+        2020
+      ],
+      "positive_estimate_months": [
+        6,
+        9
+      ],
+      "catch_estimate_sum": 139,
+      "harvest_estimate_sum": 17,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "largemouth_bass",
+      "dashboard_labels": [
+        "Largemouth Bass"
+      ],
+      "raw_row_count": 24,
+      "positive_estimate_years": [
+        1992,
+        1994,
+        2012,
+        2020
+      ],
+      "positive_estimate_months": [
+        4,
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 153,
+      "harvest_estimate_sum": 36,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "atlantic_salmon",
+      "dashboard_labels": [
+        "Atlantic Salmon"
+      ],
+      "raw_row_count": 4,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "northern_pike",
+      "dashboard_labels": [
+        "Northern Pike"
+      ],
+      "raw_row_count": 16,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "burbot",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "white_perch",
+      "dashboard_labels": [
+        "White Perch"
+      ],
+      "raw_row_count": 16,
+      "positive_estimate_years": [
+        2012
+      ],
+      "positive_estimate_months": [
+        5
+      ],
+      "catch_estimate_sum": 751,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "white_bass",
+      "dashboard_labels": [
+        "White Bass"
+      ],
+      "raw_row_count": 16,
+      "positive_estimate_years": [
+        2012,
+        2020
+      ],
+      "positive_estimate_months": [
+        4,
+        9
+      ],
+      "catch_estimate_sum": 61,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "bluegill",
+      "dashboard_labels": [
+        "Bluegill"
+      ],
+      "raw_row_count": 21,
+      "positive_estimate_years": [
+        1993,
+        1995,
+        2005
+      ],
+      "positive_estimate_months": [
+        8,
+        9
+      ],
+      "catch_estimate_sum": 17,
+      "harvest_estimate_sum": 545,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "chinook_salmon",
+      "dashboard_labels": [
+        "Chinook Salmon"
+      ],
+      "raw_row_count": 168,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "positive_estimate_months": [
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 6452,
+      "harvest_estimate_sum": 11789,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments.",
+      "city_survey_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ]
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "coho_salmon",
+      "dashboard_labels": [
+        "Coho Salmon"
+      ],
+      "raw_row_count": 116,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1998,
+        2004,
+        2009,
+        2011,
+        2012,
+        2013,
+        2015,
+        2016,
+        2017,
+        2018,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 674,
+      "harvest_estimate_sum": 744,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "steelhead",
+      "dashboard_labels": [
+        "Steelhead"
+      ],
+      "raw_row_count": 192,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "catch_estimate_sum": 4983,
+      "harvest_estimate_sum": 3357,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "brown_trout",
+      "dashboard_labels": [
+        "Brown Trout"
+      ],
+      "raw_row_count": 150,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2006,
+        2007,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2017
+      ],
+      "positive_estimate_months": [
+        4,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "catch_estimate_sum": 690,
+      "harvest_estimate_sum": 882,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "lake_trout",
+      "dashboard_labels": [
+        "Lean Lake Trout"
+      ],
+      "raw_row_count": 95,
+      "positive_estimate_years": [
+        2009,
+        2018
+      ],
+      "positive_estimate_months": [
+        4
+      ],
+      "catch_estimate_sum": 82,
+      "harvest_estimate_sum": 70,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "walleye",
+      "dashboard_labels": [
+        "Walleye"
+      ],
+      "raw_row_count": 118,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        2002,
+        2003,
+        2005,
+        2007,
+        2008,
+        2011,
+        2014,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 295,
+      "harvest_estimate_sum": 331,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "smallmouth_bass",
+      "dashboard_labels": [
+        "Smallmouth Bass"
+      ],
+      "raw_row_count": 134,
+      "positive_estimate_years": [
+        1993,
+        1999,
+        2000,
+        2003,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2019,
+        2022
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 2107,
+      "harvest_estimate_sum": 418,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "freshwater_drum",
+      "dashboard_labels": [
+        "Drum"
+      ],
+      "raw_row_count": 107,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        2008,
+        2009,
+        2010,
+        2013,
+        2014,
+        2016,
+        2018
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 736,
+      "harvest_estimate_sum": 511,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "yellow_perch",
+      "dashboard_labels": [
+        "Yellow Perch"
+      ],
+      "raw_row_count": 217,
+      "positive_estimate_years": [
+        1992,
+        1993,
+        1994,
+        1995,
+        1999,
+        2000,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "catch_estimate_sum": 74123,
+      "harvest_estimate_sum": 33640,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "lake_whitefish",
+      "dashboard_labels": [
+        "Lake Whitefish"
+      ],
+      "raw_row_count": 94,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "round_whitefish",
+      "dashboard_labels": [
+        "Round Whitefish"
+      ],
+      "raw_row_count": 39,
+      "positive_estimate_years": [
+        2013
+      ],
+      "positive_estimate_months": [
+        5
+      ],
+      "catch_estimate_sum": 14,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "channel_catfish",
+      "dashboard_labels": [
+        "Channel Catfish"
+      ],
+      "raw_row_count": 111,
+      "positive_estimate_years": [
+        1994,
+        2000,
+        2002,
+        2010,
+        2011,
+        2016,
+        2021
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        7,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 180,
+      "harvest_estimate_sum": 290,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "largemouth_bass",
+      "dashboard_labels": [
+        "Largemouth Bass"
+      ],
+      "raw_row_count": 106,
+      "positive_estimate_years": [
+        1999,
+        2002,
+        2009,
+        2010,
+        2013,
+        2017,
+        2019
+      ],
+      "positive_estimate_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 908,
+      "harvest_estimate_sum": 282,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "atlantic_salmon",
+      "dashboard_labels": [
+        "Atlantic Salmon"
+      ],
+      "raw_row_count": 102,
+      "positive_estimate_years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 906,
+      "harvest_estimate_sum": 782,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "northern_pike",
+      "dashboard_labels": [
+        "Northern Pike"
+      ],
+      "raw_row_count": 162,
+      "positive_estimate_years": [
+        1993,
+        1994,
+        1995,
+        1996,
+        2002,
+        2003,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_estimate_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 4040,
+      "harvest_estimate_sum": 940,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "burbot",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "white_perch",
+      "dashboard_labels": [
+        "White Perch"
+      ],
+      "raw_row_count": 94,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "white_bass",
+      "dashboard_labels": [
+        "White Bass"
+      ],
+      "raw_row_count": 102,
+      "positive_estimate_years": [
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2018
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        8
+      ],
+      "catch_estimate_sum": 4759,
+      "harvest_estimate_sum": 770,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "bluegill",
+      "dashboard_labels": [
+        "Bluegill"
+      ],
+      "raw_row_count": 147,
+      "positive_estimate_years": [
+        1992,
+        1994,
+        1995,
+        2002,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2019,
+        2020,
+        2021
+      ],
+      "positive_estimate_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "catch_estimate_sum": 8838,
+      "harvest_estimate_sum": 5418,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "chinook_salmon",
+      "dashboard_labels": [
+        "Chinook Salmon"
+      ],
+      "raw_row_count": 24,
+      "positive_estimate_years": [
+        1998,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005
+      ],
+      "positive_estimate_months": [
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 553,
+      "harvest_estimate_sum": 553,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments.",
+      "city_survey_years": [
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2012
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "coho_salmon",
+      "dashboard_labels": [
+        "Coho Salmon"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "steelhead",
+      "dashboard_labels": [
+        "Steelhead"
+      ],
+      "raw_row_count": 4,
+      "positive_estimate_years": [
+        2002
+      ],
+      "positive_estimate_months": [
+        9
+      ],
+      "catch_estimate_sum": 8,
+      "harvest_estimate_sum": 8,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "brown_trout",
+      "dashboard_labels": [
+        "Brown Trout"
+      ],
+      "raw_row_count": 6,
+      "positive_estimate_years": [
+        1998,
+        2004
+      ],
+      "positive_estimate_months": [
+        5,
+        10
+      ],
+      "catch_estimate_sum": 8,
+      "harvest_estimate_sum": 8,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "lake_trout",
+      "dashboard_labels": [
+        "Lean Lake Trout"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "walleye",
+      "dashboard_labels": [
+        "Walleye"
+      ],
+      "raw_row_count": 4,
+      "positive_estimate_years": [
+        2003
+      ],
+      "positive_estimate_months": [
+        5
+      ],
+      "catch_estimate_sum": 11,
+      "harvest_estimate_sum": 11,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "smallmouth_bass",
+      "dashboard_labels": [
+        "Smallmouth Bass"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "freshwater_drum",
+      "dashboard_labels": [
+        "Drum"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "yellow_perch",
+      "dashboard_labels": [
+        "Yellow Perch"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "lake_whitefish",
+      "dashboard_labels": [
+        "Lake Whitefish"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "round_whitefish",
+      "dashboard_labels": [
+        "Round Whitefish"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "channel_catfish",
+      "dashboard_labels": [
+        "Channel Catfish"
+      ],
+      "raw_row_count": 4,
+      "positive_estimate_years": [
+        2003
+      ],
+      "positive_estimate_months": [
+        9
+      ],
+      "catch_estimate_sum": 6,
+      "harvest_estimate_sum": 6,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "largemouth_bass",
+      "dashboard_labels": [
+        "Largemouth Bass"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "atlantic_salmon",
+      "dashboard_labels": [
+        "Atlantic Salmon"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "northern_pike",
+      "dashboard_labels": [
+        "Northern Pike"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "burbot",
+      "dashboard_labels": [],
+      "raw_row_count": 0,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "white_perch",
+      "dashboard_labels": [
+        "White Perch"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "white_bass",
+      "dashboard_labels": [
+        "White Bass"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "bluegill",
+      "dashboard_labels": [
+        "Bluegill"
+      ],
+      "raw_row_count": 2,
+      "positive_estimate_years": [],
+      "positive_estimate_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0,
+      "caution": "Sums preserve dashboard estimate types across surveyed port-month-years and are not structure-specific totals, rates, scores, or confidence adjustments."
+    }
+  ]
+}

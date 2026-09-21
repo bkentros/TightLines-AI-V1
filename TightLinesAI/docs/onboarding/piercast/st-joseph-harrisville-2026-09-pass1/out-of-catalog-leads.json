@@ -1,0 +1,1113 @@
+{
+  "schema_version": "piercast-pass1-out-of-catalog-leads-v1",
+  "reviewed_at": "2026-09-19",
+  "scoring_status": "leads_only_no_catalog_or_runtime_change",
+  "required_global_leads": [
+    "pink_salmon",
+    "rainbow_smelt",
+    "splake",
+    "cisco_lake_herring",
+    "common_carp"
+  ],
+  "mandatory_city_leads": {
+    "st_joseph_mi": [
+      "rainbow_smelt"
+    ],
+    "south_haven_mi": [
+      "rainbow_smelt"
+    ],
+    "holland_mi": [
+      "rainbow_smelt"
+    ],
+    "lexington_mi": [
+      "pink_salmon",
+      "rainbow_smelt"
+    ],
+    "harrisville_mi": [
+      "pink_salmon",
+      "rainbow_smelt"
+    ]
+  },
+  "leads": [
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "pink_salmon",
+      "aliases_reviewed": [
+        "pink salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "rainbow_smelt",
+      "aliases_reviewed": [
+        "rainbow smelt"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A required lead was reviewed, but no recurring exact covered-structure target fishery was established.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "splake",
+      "aliases_reviewed": [
+        "splake"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "cisco_lake_herring",
+      "aliases_reviewed": [
+        "cisco",
+        "lake herring"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "common_carp",
+      "aliases_reviewed": [
+        "common carp"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "pink_salmon",
+      "aliases_reviewed": [
+        "pink salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "One positive 2002 October port Pier/Dock estimate is preserved; too sparse and old for catalog action.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "rainbow_smelt",
+      "aliases_reviewed": [
+        "rainbow smelt"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A required lead was reviewed, but no recurring exact covered-structure target fishery was established.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "splake",
+      "aliases_reviewed": [
+        "splake"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "cisco_lake_herring",
+      "aliases_reviewed": [
+        "cisco",
+        "lake herring"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "common_carp",
+      "aliases_reviewed": [
+        "common carp"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "pink_salmon",
+      "aliases_reviewed": [
+        "pink salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "rainbow_smelt",
+      "aliases_reviewed": [
+        "rainbow smelt"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A required lead was reviewed, but no recurring exact covered-structure target fishery was established.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "splake",
+      "aliases_reviewed": [
+        "splake"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "cisco_lake_herring",
+      "aliases_reviewed": [
+        "cisco",
+        "lake herring"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "common_carp",
+      "aliases_reviewed": [
+        "common carp"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "pink_salmon",
+      "aliases_reviewed": [
+        "pink salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "catalog_action": "none_in_pass_1",
+      "claim": "The Lake Huron roadmap names spring/summer pink salmon at Lexington; exact-breakwater recurrence remains to quantify.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "rainbow_smelt",
+      "aliases_reviewed": [
+        "rainbow smelt"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A required lead was reviewed, but no recurring exact covered-structure target fishery was established.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "splake",
+      "aliases_reviewed": [
+        "splake"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "cisco_lake_herring",
+      "aliases_reviewed": [
+        "cisco",
+        "lake herring"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "common_carp",
+      "aliases_reviewed": [
+        "common carp"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A single 2013 July port Pier/Dock estimate is preserved; recurring targeting is unresolved.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "pink_salmon",
+      "aliases_reviewed": [
+        "pink salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "rainbow_smelt",
+      "aliases_reviewed": [
+        "rainbow smelt"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "Advisory records describe smelt as forage in the broader port fishery, not a documented covered-structure target.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "splake",
+      "aliases_reviewed": [
+        "splake"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "cisco_lake_herring",
+      "aliases_reviewed": [
+        "cisco",
+        "lake herring"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "common_carp",
+      "aliases_reviewed": [
+        "common carp"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "No credible recurring covered-structure lead was found in the reviewed record; this is not biological absence.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_step": "Reopen only through the global new-species process; do not silently add to runtime types, artwork, contracts, or calibrations."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "rock_bass",
+      "aliases_reviewed": [
+        "rock bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "One recent survey year provides a sparse Pier/Dock lead.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "pumpkinseed",
+      "aliases_reviewed": [
+        "pumpkinseed"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A single historical port estimate is preserved.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "rock_bass",
+      "aliases_reviewed": [
+        "rock bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "A single historical port estimate is preserved.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "rock_bass",
+      "aliases_reviewed": [
+        "rock bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "catalog_action": "none_in_pass_1",
+      "claim": "Recurring port Pier/Dock estimates span many years and months.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "pumpkinseed",
+      "aliases_reviewed": [
+        "pumpkinseed"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "catalog_action": "none_in_pass_1",
+      "claim": "Recurring port Pier/Dock estimates span multiple years.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "muskellunge",
+      "aliases_reviewed": [
+        "muskellunge"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "catalog_action": "none_in_pass_1",
+      "claim": "One 2018 port Pier/Dock estimate is preserved.",
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "suckers_rock_bass_crappie_complex",
+      "aliases_reviewed": [
+        "suckers rock bass crappie complex"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "catalog_action": "none_in_pass_1",
+      "claim": "Connected-water/general-lake review did not establish a covered-pier target fishery.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_step": "Reopen only through the global new-species process."
+    }
+  ]
+}

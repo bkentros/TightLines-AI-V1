@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "piercast-st-joseph-harrisville-lmhofs-cell-audit-v1",
+  "auditedAt": "2026-09-19",
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "sourceCycle": "2026-09-20T18:00:00.000Z",
+  "method": "Independently opened the official LMHOFS regular-grid OPeNDAP product and verified mask=1, finite bathymetry, row/column coordinates, and distance from the covered harbor reference.",
+  "hourlyCoverage": {
+    "firstForecastHour": 0,
+    "lastForecastHour": 120,
+    "hoursPerCity": 121,
+    "totalSamples": 605
+  },
+  "liveFullHorizonValidation": {
+    "fetchedAt": "2026-09-21T01:31:54.041Z",
+    "cycleAgeHours": 7.530434444444444,
+    "status": "available",
+    "missingForecastHours": 0,
+    "temperatureRangeCByCity": {
+      "st_joseph_mi": [
+        8.41391,
+        12.968726
+      ],
+      "south_haven_mi": [
+        6.9315004,
+        11.940658
+      ],
+      "holland_mi": [
+        7.1514864,
+        15.0791
+      ],
+      "lexington_mi": [
+        16.742176,
+        19.097557
+      ],
+      "harrisville_mi": [
+        14.810061,
+        16.694342
+      ]
+    }
+  },
+  "cells": [
+    {
+      "cityId": "st_joseph_mi",
+      "sourceId": "st_joseph_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 52,
+      "gridColumn": 156,
+      "latitude": 42.12,
+      "longitude": -86.5,
+      "modelBathymetryM": 8.135563111894864,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "st_joseph_south_pierhead_light",
+        "displayName": "St. Joseph South Pierhead Light",
+        "latitude": 42.115275,
+        "longitude": -86.494285,
+        "distanceM": 706,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "south_haven_mi",
+      "sourceId": "south_haven_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 80,
+      "gridColumn": 177,
+      "latitude": 42.4,
+      "longitude": -86.29,
+      "modelBathymetryM": 5.038883071746686,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "south_haven_south_pierhead_light",
+        "displayName": "South Haven South Pierhead Light",
+        "latitude": 42.40135,
+        "longitude": -86.287964,
+        "distanceM": 225,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "holland_mi",
+      "sourceId": "holland_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 117,
+      "gridColumn": 184,
+      "latitude": 42.77,
+      "longitude": -86.22,
+      "modelBathymetryM": 7.974799442363687,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "holland_north_breakwater_light",
+        "displayName": "Holland North Breakwater Light",
+        "latitude": 42.773453,
+        "longitude": -86.215814,
+        "distanceM": 514,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "lexington_mi",
+      "sourceId": "lexington_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 167,
+      "gridColumn": 554,
+      "latitude": 43.27,
+      "longitude": -82.52,
+      "modelBathymetryM": 2.3938175035609333,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "lexington_east_breakwater_light",
+        "displayName": "Lexington East Breakwater Light 2",
+        "latitude": 43.26662,
+        "longitude": -82.522849,
+        "distanceM": 441,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "harrisville_mi",
+      "sourceId": "harrisville_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 306,
+      "gridColumn": 478,
+      "latitude": 44.66,
+      "longitude": -83.28,
+      "modelBathymetryM": 3.8277593190159034,
+      "mask": 1,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "gridCellStatus": "candidate",
+      "referencePoint": {
+        "referenceId": "harrisville_east_breakwater_light",
+        "displayName": "Harrisville East Breakwater Light 3",
+        "latitude": 44.661398,
+        "longitude": -83.281813,
+        "distanceM": 211,
+        "coordinateSource": "U.S. Coast Guard Light List"
+      },
+      "result": "pass_candidate"
+    }
+  ],
+  "limitations": [
+    "A model surface cell is general harbor context, not a pier thermometer.",
+    "The model cannot resolve pier-scale mixing, river plumes, depth, waves, ice, or access.",
+    "Lake Huron and Lake Michigan cities share one issue time but retain their own audited city cells and isolated archive cohort."
+  ],
+  "result": "pass"
+}

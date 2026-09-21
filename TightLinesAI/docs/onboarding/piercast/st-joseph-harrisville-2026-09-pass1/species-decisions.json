@@ -1,0 +1,5613 @@
+{
+  "schema_version": "piercast-five-city-pass1-species-decisions-v1",
+  "reviewed_at": "2026-09-19",
+  "scoring_status": "research_only_no_numeric_scores",
+  "rule": "Research candidate queues Pass 2 quantification; hold preserves a credible unresolved lead; exclude means no reviewed covered-structure lead, not biological absence.",
+  "city_count": 5,
+  "species_count": 19,
+  "decision_count": 95,
+  "counts": {
+    "research_candidate": 57,
+    "hold": 15,
+    "exclude": 23
+  },
+  "decisions": [
+    {
+      "pair_key": "st_joseph_mi/chinook_salmon",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "chinook_salmon",
+      "aliases_reviewed": [
+        "Chinook salmon",
+        "king salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR names St. Joseph Pier and Berrien County names the South Pier fishery; both pierheads are retained as separate subareas.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/coho_salmon",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "coho_salmon",
+      "aliases_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR and Berrien County name coho at the St. Joseph pier fishery; quantify north/south allocation in Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/steelhead",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "steelhead",
+      "aliases_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR and Berrien County name steelhead/rainbow trout at the St. Joseph pier fishery.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/brown_trout",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "brown_trout",
+      "aliases_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR and Berrien County name brown trout at St. Joseph Pier/South Pier.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/lake_trout",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "lake_trout",
+      "aliases_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR explicitly names lake trout at St. Joseph Pier; seasonal port guidance includes cold-water months.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/walleye",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "walleye",
+      "aliases_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/smallmouth_bass",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "smallmouth_bass",
+      "aliases_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "sm bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/freshwater_drum",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "freshwater_drum",
+      "aliases_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/yellow_perch",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "yellow_perch",
+      "aliases_reviewed": [
+        "yellow perch",
+        "perch",
+        "lake perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR names yellow perch at St. Joseph Pier and the county describes lake perch at the South Pier.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/lake_whitefish",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "lake_whitefish",
+      "aliases_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR explicitly names lake whitefish at St. Joseph Pier; the county's generic whitefish wording is only corroboration.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "st_joseph_mi/round_whitefish",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "round_whitefish",
+      "aliases_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/channel_catfish",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "channel_catfish",
+      "aliases_reviewed": [
+        "channel catfish",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/largemouth_bass",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "largemouth_bass",
+      "aliases_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "st_joseph_mi/atlantic_salmon",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "atlantic_salmon",
+      "aliases_reviewed": [
+        "Atlantic salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "st_joseph_mi/northern_pike",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "northern_pike",
+      "aliases_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "st_joseph_mi/burbot",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "burbot",
+      "aliases_reviewed": [
+        "burbot",
+        "lawyer"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "st_joseph_mi/white_perch",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "white_perch",
+      "aliases_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "st_joseph_mi/white_bass",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "white_bass",
+      "aliases_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "st_joseph_mi/bluegill",
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "species_id": "bluegill",
+      "aliases_reviewed": [
+        "bluegill"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "south_haven_mi/chinook_salmon",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "chinook_salmon",
+      "aliases_reviewed": [
+        "Chinook salmon",
+        "king salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive chinook_salmon estimates in 28 survey year(s) across month numbers 4, 5, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 142,
+        "positive_estimate_year_count": 28,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2017,
+          2018,
+          2019,
+          2020,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/coho_salmon",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "coho_salmon",
+      "aliases_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive coho_salmon estimates in 23 survey year(s) across month numbers 3, 4, 5, 7, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 140,
+        "positive_estimate_year_count": 23,
+        "positive_estimate_years": [
+          1993,
+          1994,
+          1996,
+          1997,
+          1998,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2006,
+          2008,
+          2009,
+          2011,
+          2012,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          3,
+          4,
+          5,
+          7,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/steelhead",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "steelhead",
+      "aliases_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive steelhead estimates in 29 survey year(s) across month numbers 3, 4, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 199,
+        "positive_estimate_year_count": 29,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/brown_trout",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "brown_trout",
+      "aliases_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive brown_trout estimates in 25 survey year(s) across month numbers 3, 4, 5, 6, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 141,
+        "positive_estimate_year_count": 25,
+        "positive_estimate_years": [
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2016,
+          2018,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          3,
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/lake_trout",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "lake_trout",
+      "aliases_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive lake_trout estimates in 8 survey year(s) across month numbers 5, 7, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 91,
+        "positive_estimate_year_count": 8,
+        "positive_estimate_years": [
+          1995,
+          1999,
+          2003,
+          2006,
+          2007,
+          2014,
+          2015,
+          2021
+        ],
+        "positive_estimate_months": [
+          5,
+          7,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/walleye",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "walleye",
+      "aliases_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive walleye estimates in 6 survey year(s) across month numbers 4, 5, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 92,
+        "positive_estimate_year_count": 6,
+        "positive_estimate_years": [
+          2000,
+          2006,
+          2007,
+          2008,
+          2017,
+          2018
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/smallmouth_bass",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "smallmouth_bass",
+      "aliases_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "sm bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive smallmouth_bass estimates in 11 survey year(s) across month numbers 4, 5, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 94,
+        "positive_estimate_year_count": 11,
+        "positive_estimate_years": [
+          1999,
+          2004,
+          2006,
+          2008,
+          2009,
+          2011,
+          2013,
+          2016,
+          2018,
+          2019,
+          2021
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/freshwater_drum",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "freshwater_drum",
+      "aliases_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive freshwater_drum estimates in 19 survey year(s) across month numbers 3, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 134,
+        "positive_estimate_year_count": 19,
+        "positive_estimate_years": [
+          1992,
+          1995,
+          2001,
+          2004,
+          2006,
+          2007,
+          2008,
+          2009,
+          2011,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          3,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/yellow_perch",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "yellow_perch",
+      "aliases_reviewed": [
+        "yellow perch",
+        "perch",
+        "lake perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive yellow_perch estimates in 18 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 136,
+        "positive_estimate_year_count": 18,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1999,
+          2000,
+          2001,
+          2003,
+          2004,
+          2010,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/lake_whitefish",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "lake_whitefish",
+      "aliases_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive lake_whitefish estimates in 8 survey year(s) across month numbers 3, 4, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 101,
+        "positive_estimate_year_count": 8,
+        "positive_estimate_years": [
+          1995,
+          1997,
+          1998,
+          2001,
+          2002,
+          2003,
+          2006,
+          2007
+        ],
+        "positive_estimate_months": [
+          3,
+          4,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/round_whitefish",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "round_whitefish",
+      "aliases_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive round_whitefish estimates in 8 survey year(s) across month numbers 4, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 91,
+        "positive_estimate_year_count": 8,
+        "positive_estimate_years": [
+          1996,
+          2002,
+          2011,
+          2013,
+          2014,
+          2018,
+          2019,
+          2020
+        ],
+        "positive_estimate_months": [
+          4,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/channel_catfish",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "channel_catfish",
+      "aliases_reviewed": [
+        "channel catfish",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive channel_catfish estimates in 15 survey year(s) across month numbers 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 103,
+        "positive_estimate_year_count": 15,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1996,
+          2002,
+          2008,
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2016,
+          2018,
+          2019,
+          2020,
+          2021
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/largemouth_bass",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "largemouth_bass",
+      "aliases_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive largemouth_bass estimates in 2 survey year(s) across month numbers 7, 8. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 83,
+        "positive_estimate_year_count": 2,
+        "positive_estimate_years": [
+          2011,
+          2018
+        ],
+        "positive_estimate_months": [
+          7,
+          8
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/atlantic_salmon",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "atlantic_salmon",
+      "aliases_reviewed": [
+        "Atlantic salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 42,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "south_haven_mi/northern_pike",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "northern_pike",
+      "aliases_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive northern_pike estimates in 7 survey year(s) across month numbers 4, 5, 6, 7, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 92,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          2001,
+          2009,
+          2011,
+          2013,
+          2015,
+          2017,
+          2021
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "south_haven_mi/burbot",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "burbot",
+      "aliases_reviewed": [
+        "burbot",
+        "lawyer"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "south_haven_mi/white_perch",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "white_perch",
+      "aliases_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive white_perch estimates in 1 survey year(s) across month numbers 6. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 84,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2004
+        ],
+        "positive_estimate_months": [
+          6
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "south_haven_mi/white_bass",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "white_bass",
+      "aliases_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive white_bass estimates in 1 survey year(s) across month numbers 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 70,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2001
+        ],
+        "positive_estimate_months": [
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "south_haven_mi/bluegill",
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "species_id": "bluegill",
+      "aliases_reviewed": [
+        "bluegill"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official South Haven port Pier/Dock estimates preserve positive bluegill estimates in 4 survey year(s) across month numbers 6, 8, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 86,
+        "positive_estimate_year_count": 4,
+        "positive_estimate_years": [
+          1992,
+          1999,
+          2010,
+          2021
+        ],
+        "positive_estimate_months": [
+          6,
+          8,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/chinook_salmon",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "chinook_salmon",
+      "aliases_reviewed": [
+        "Chinook salmon",
+        "king salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive chinook_salmon estimates in 11 survey year(s) across month numbers 4, 5, 7, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 47,
+        "positive_estimate_year_count": 11,
+        "positive_estimate_years": [
+          1994,
+          1995,
+          1997,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2005,
+          2012,
+          2013
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          7,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/coho_salmon",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "coho_salmon",
+      "aliases_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive coho_salmon estimates in 7 survey year(s) across month numbers 4, 5, 6, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 33,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          1993,
+          1994,
+          1995,
+          1997,
+          2000,
+          2002,
+          2005
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/steelhead",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "steelhead",
+      "aliases_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive steelhead estimates in 13 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 53,
+        "positive_estimate_year_count": 13,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1999,
+          2001,
+          2002,
+          2003,
+          2005,
+          2013,
+          2020
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/brown_trout",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "brown_trout",
+      "aliases_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive brown_trout estimates in 13 survey year(s) across month numbers 4, 5, 6, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 45,
+        "positive_estimate_year_count": 13,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2005,
+          2012
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/lake_trout",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "lake_trout",
+      "aliases_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Michigan DNR lists lake trout for grouped Grand Haven/Holland piers and the roadmap lists Holland/Port Sheldon across cold and warm seasons; Pass 2 must resolve grouping/allocation.",
+      "quantitative_summary": {
+        "raw_row_count": 16,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/walleye",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "walleye",
+      "aliases_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive walleye estimates in 6 survey year(s) across month numbers 4, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 34,
+        "positive_estimate_year_count": 6,
+        "positive_estimate_years": [
+          1992,
+          1994,
+          1995,
+          1999,
+          2000,
+          2003
+        ],
+        "positive_estimate_months": [
+          4,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/smallmouth_bass",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "smallmouth_bass",
+      "aliases_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "sm bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive smallmouth_bass estimates in 8 survey year(s) across month numbers 6, 7, 8, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 32,
+        "positive_estimate_year_count": 8,
+        "positive_estimate_years": [
+          1992,
+          1994,
+          1997,
+          2001,
+          2003,
+          2005,
+          2013,
+          2020
+        ],
+        "positive_estimate_months": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/freshwater_drum",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "freshwater_drum",
+      "aliases_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive freshwater_drum estimates in 7 survey year(s) across month numbers 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 34,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          2001,
+          2003,
+          2012,
+          2020
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/yellow_perch",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "yellow_perch",
+      "aliases_reviewed": [
+        "yellow perch",
+        "perch",
+        "lake perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive yellow_perch estimates in 13 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 74,
+        "positive_estimate_year_count": 13,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          2000,
+          2001,
+          2002,
+          2005,
+          2012,
+          2013,
+          2020
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/lake_whitefish",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "lake_whitefish",
+      "aliases_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive lake_whitefish estimates in 5 survey year(s) across month numbers 4, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 28,
+        "positive_estimate_year_count": 5,
+        "positive_estimate_years": [
+          1997,
+          1999,
+          2000,
+          2001,
+          2002
+        ],
+        "positive_estimate_months": [
+          4,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/round_whitefish",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "round_whitefish",
+      "aliases_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive round_whitefish estimates in 4 survey year(s) across month numbers 4, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 22,
+        "positive_estimate_year_count": 4,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          2000,
+          2002
+        ],
+        "positive_estimate_months": [
+          4,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/channel_catfish",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "channel_catfish",
+      "aliases_reviewed": [
+        "channel catfish",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive channel_catfish estimates in 2 survey year(s) across month numbers 6, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 18,
+        "positive_estimate_year_count": 2,
+        "positive_estimate_years": [
+          2005,
+          2020
+        ],
+        "positive_estimate_months": [
+          6,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/largemouth_bass",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "largemouth_bass",
+      "aliases_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive largemouth_bass estimates in 4 survey year(s) across month numbers 4, 6, 7, 8, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 24,
+        "positive_estimate_year_count": 4,
+        "positive_estimate_years": [
+          1992,
+          1994,
+          2012,
+          2020
+        ],
+        "positive_estimate_months": [
+          4,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/atlantic_salmon",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "atlantic_salmon",
+      "aliases_reviewed": [
+        "Atlantic salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 4,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "holland_mi/northern_pike",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "northern_pike",
+      "aliases_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 16,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "holland_mi/burbot",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "burbot",
+      "aliases_reviewed": [
+        "burbot",
+        "lawyer"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "holland_mi/white_perch",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "white_perch",
+      "aliases_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive white_perch estimates in 1 survey year(s) across month numbers 5. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 16,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2012
+        ],
+        "positive_estimate_months": [
+          5
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "holland_mi/white_bass",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "white_bass",
+      "aliases_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive white_bass estimates in 2 survey year(s) across month numbers 4, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 16,
+        "positive_estimate_year_count": 2,
+        "positive_estimate_years": [
+          2012,
+          2020
+        ],
+        "positive_estimate_months": [
+          4,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "holland_mi/bluegill",
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "species_id": "bluegill",
+      "aliases_reviewed": [
+        "bluegill"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Holland port Pier/Dock estimates preserve positive bluegill estimates in 3 survey year(s) across month numbers 8, 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 21,
+        "positive_estimate_year_count": 3,
+        "positive_estimate_years": [
+          1993,
+          1995,
+          2005
+        ],
+        "positive_estimate_months": [
+          8,
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/chinook_salmon",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "chinook_salmon",
+      "aliases_reviewed": [
+        "Chinook salmon",
+        "king salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive chinook_salmon estimates in 21 survey year(s) across month numbers 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 168,
+        "positive_estimate_year_count": 21,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2010,
+          2011,
+          2012,
+          2013
+        ],
+        "positive_estimate_months": [
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/coho_salmon",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "coho_salmon",
+      "aliases_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive coho_salmon estimates in 15 survey year(s) across month numbers 4, 5, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 116,
+        "positive_estimate_year_count": 15,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1998,
+          2004,
+          2009,
+          2011,
+          2012,
+          2013,
+          2015,
+          2016,
+          2017,
+          2018,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/steelhead",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "steelhead",
+      "aliases_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive steelhead estimates in 27 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10, 11, 12. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 192,
+        "positive_estimate_year_count": 27,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/brown_trout",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "brown_trout",
+      "aliases_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive brown_trout estimates in 19 survey year(s) across month numbers 4, 6, 9, 10, 11, 12. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 150,
+        "positive_estimate_year_count": 19,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1996,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2006,
+          2007,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2017
+        ],
+        "positive_estimate_months": [
+          4,
+          6,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/lake_trout",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "lake_trout",
+      "aliases_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive lake_trout estimates in 2 survey year(s) across month numbers 4. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 95,
+        "positive_estimate_year_count": 2,
+        "positive_estimate_years": [
+          2009,
+          2018
+        ],
+        "positive_estimate_months": [
+          4
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/walleye",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "walleye",
+      "aliases_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive walleye estimates in 13 survey year(s) across month numbers 5, 6, 7, 8, 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 118,
+        "positive_estimate_year_count": 13,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          2002,
+          2003,
+          2005,
+          2007,
+          2008,
+          2011,
+          2014,
+          2016,
+          2017,
+          2018,
+          2019
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/smallmouth_bass",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "smallmouth_bass",
+      "aliases_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "sm bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive smallmouth_bass estimates in 19 survey year(s) across month numbers 5, 6, 7, 8, 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 134,
+        "positive_estimate_year_count": 19,
+        "positive_estimate_years": [
+          1993,
+          1999,
+          2000,
+          2003,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2019,
+          2022
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/freshwater_drum",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "freshwater_drum",
+      "aliases_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive freshwater_drum estimates in 9 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 107,
+        "positive_estimate_year_count": 9,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          2008,
+          2009,
+          2010,
+          2013,
+          2014,
+          2016,
+          2018
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/yellow_perch",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "yellow_perch",
+      "aliases_reviewed": [
+        "yellow perch",
+        "perch",
+        "lake perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive yellow_perch estimates in 27 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10, 11, 12. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 217,
+        "positive_estimate_year_count": 27,
+        "positive_estimate_years": [
+          1992,
+          1993,
+          1994,
+          1995,
+          1999,
+          2000,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/lake_whitefish",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "lake_whitefish",
+      "aliases_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 94,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "lexington_mi/round_whitefish",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "round_whitefish",
+      "aliases_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive round_whitefish estimates in 1 survey year(s) across month numbers 5. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 39,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2013
+        ],
+        "positive_estimate_months": [
+          5
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "lexington_mi/channel_catfish",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "channel_catfish",
+      "aliases_reviewed": [
+        "channel catfish",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive channel_catfish estimates in 7 survey year(s) across month numbers 4, 5, 7, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 111,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          1994,
+          2000,
+          2002,
+          2010,
+          2011,
+          2016,
+          2021
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          7,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/largemouth_bass",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "largemouth_bass",
+      "aliases_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive largemouth_bass estimates in 7 survey year(s) across month numbers 6, 7, 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 106,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          1999,
+          2002,
+          2009,
+          2010,
+          2013,
+          2017,
+          2019
+        ],
+        "positive_estimate_months": [
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/atlantic_salmon",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "atlantic_salmon",
+      "aliases_reviewed": [
+        "Atlantic salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive atlantic_salmon estimates in 6 survey year(s) across month numbers 4, 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 102,
+        "positive_estimate_year_count": 6,
+        "positive_estimate_years": [
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR",
+        "LEX_ATLANTIC_DNR",
+        "LEX_ATLANTIC_STOCK_2024",
+        "LEX_ENFORCEMENT_2024"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/northern_pike",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "northern_pike",
+      "aliases_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive northern_pike estimates in 24 survey year(s) across month numbers 4, 5, 6, 7, 8, 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 162,
+        "positive_estimate_year_count": 24,
+        "positive_estimate_years": [
+          1993,
+          1994,
+          1995,
+          1996,
+          2002,
+          2003,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_estimate_months": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/burbot",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "burbot",
+      "aliases_reviewed": [
+        "burbot",
+        "lawyer"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "lexington_mi/white_perch",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "white_perch",
+      "aliases_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 94,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "lexington_mi/white_bass",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "white_bass",
+      "aliases_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive white_bass estimates in 6 survey year(s) across month numbers 5, 6, 8. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 102,
+        "positive_estimate_year_count": 6,
+        "positive_estimate_years": [
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2018
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          8
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "lexington_mi/bluegill",
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "species_id": "bluegill",
+      "aliases_reviewed": [
+        "bluegill"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Lexington port Pier/Dock estimates preserve positive bluegill estimates in 21 survey year(s) across month numbers 5, 6, 7, 8, 9, 10, 11. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 147,
+        "positive_estimate_year_count": 21,
+        "positive_estimate_years": [
+          1992,
+          1994,
+          1995,
+          2002,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2019,
+          2020,
+          2021
+        ],
+        "positive_estimate_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "LEX_CLOSURE_2026",
+        "LEX_STATE_HARBOR"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/chinook_salmon",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "chinook_salmon",
+      "aliases_reviewed": [
+        "Chinook salmon",
+        "king salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Harrisville port Pier/Dock estimates preserve positive chinook_salmon estimates in 7 survey year(s) across month numbers 8, 9, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 24,
+        "positive_estimate_year_count": 7,
+        "positive_estimate_years": [
+          1998,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005
+        ],
+        "positive_estimate_months": [
+          8,
+          9,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/coho_salmon",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "coho_salmon",
+      "aliases_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "DNR advisory minutes report coho caught from permitted unoccupied Harrisville docks in fall 2025 and through harbor ice in 2022.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_LHCFAC_2022"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/steelhead",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "steelhead",
+      "aliases_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Harrisville port Pier/Dock estimates preserve positive steelhead estimates in 1 survey year(s) across month numbers 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 4,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2002
+        ],
+        "positive_estimate_months": [
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_STEELHEAD_STOCK_2025"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/brown_trout",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "brown_trout",
+      "aliases_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Harrisville port Pier/Dock estimates preserve positive brown_trout estimates in 2 survey year(s) across month numbers 5, 10. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 6,
+        "positive_estimate_year_count": 2,
+        "positive_estimate_years": [
+          1998,
+          2004
+        ],
+        "positive_estimate_months": [
+          5,
+          10
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_LHCFAC_2023"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/lake_trout",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "lake_trout",
+      "aliases_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "A named-port, connected-water, stocking, generic-taxon, or sparse Pier/Dock lead exists, but recurring intentional opportunity at the covered structure remains unresolved.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "harrisville_mi/walleye",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "walleye",
+      "aliases_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Harrisville port Pier/Dock estimates preserve positive walleye estimates in 1 survey year(s) across month numbers 5. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 4,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2003
+        ],
+        "positive_estimate_months": [
+          5
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "harrisville_mi/smallmouth_bass",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "smallmouth_bass",
+      "aliases_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "sm bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/freshwater_drum",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "freshwater_drum",
+      "aliases_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/yellow_perch",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "yellow_perch",
+      "aliases_reviewed": [
+        "yellow perch",
+        "perch",
+        "lake perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/lake_whitefish",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "lake_whitefish",
+      "aliases_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/round_whitefish",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "round_whitefish",
+      "aliases_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/channel_catfish",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "channel_catfish",
+      "aliases_reviewed": [
+        "channel catfish",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "hold",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Official Harrisville port Pier/Dock estimates preserve positive channel_catfish estimates in 1 survey year(s) across month numbers 9. Structure allocation and numeric admission remain for Pass 2.",
+      "quantitative_summary": {
+        "raw_row_count": 4,
+        "positive_estimate_year_count": 1,
+        "positive_estimate_years": [
+          2003
+        ],
+        "positive_estimate_months": [
+          9
+        ]
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2; seek recurring exact-structure targeting and resolve generic taxonomy, sparse years, or mode/geography mismatch."
+    },
+    {
+      "pair_key": "harrisville_mi/largemouth_bass",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "largemouth_bass",
+      "aliases_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/atlantic_salmon",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "atlantic_salmon",
+      "aliases_reviewed": [
+        "Atlantic salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "research_candidate",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "Lake Huron roadmap and advisory records support a recurring exact-harbor Atlantic lead, but proposed Harrisville stocking must not be treated as implemented.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_LHCFAC_2022_OCT"
+      ],
+      "next_evidence": "In Pass 2, test recurring intentional covered-structure opportunity, effort denominator, annual shape, mode/structure allocation, and evidence grade before any numeric admission."
+    },
+    {
+      "pair_key": "harrisville_mi/northern_pike",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "northern_pike",
+      "aliases_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": true,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/burbot",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "burbot",
+      "aliases_reviewed": [
+        "burbot",
+        "lawyer"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 0,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/white_perch",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "white_perch",
+      "aliases_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/white_bass",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "white_bass",
+      "aliases_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    },
+    {
+      "pair_key": "harrisville_mi/bluegill",
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "species_id": "bluegill",
+      "aliases_reviewed": [
+        "bluegill"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_channels_reviewed": [
+        "current agency inventory",
+        "historical/current Pier/Dock estimates",
+        "port seasonal guides",
+        "stocking/management records",
+        "exact access/structure sources",
+        "connected-water evidence kept separate"
+      ],
+      "mandatory_lead": false,
+      "decision": "exclude",
+      "numeric_admission": "not_assessed_in_pass_1",
+      "claim": "The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "quantitative_summary": {
+        "raw_row_count": 2,
+        "positive_estimate_year_count": 0,
+        "positive_estimate_years": [],
+        "positive_estimate_months": []
+      },
+      "source_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "next_evidence": "Reopen in Pass 2 and change only if new covered-structure evidence appears; never treat this row as proof of biological absence."
+    }
+  ]
+}

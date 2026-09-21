@@ -16,6 +16,7 @@ import { PIER_CAST_WISCONSIN_CITY_PROFILES } from "../config/wisconsinShadow.ts"
 import { PIER_CAST_LAKE_HURON_CITY_PROFILES } from "../config/lakeHuronShadow.ts";
 import { PIER_CAST_FIVE_CITY_PROFILES } from "../config/fiveCityShadow.ts";
 import { PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES } from "../config/chicagoAlpenaShadow.ts";
+import { PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES } from "../config/stJosephHarrisvilleShadow.ts";
 import { getPierCastV3RegulationNotices } from "../config/speciesExpansion.ts";
 import { pierCastOpenWaterNoticeApplies } from "../copy/openWater.ts";
 import type {
@@ -101,8 +102,8 @@ export type PierCastV3ReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 22;
-    sampleCount: 2662;
+    cityCount: 27;
+    sampleCount: 3267;
   };
   cities: Array<{
     cityId: PierCastCityId;
@@ -130,6 +131,7 @@ export function combinePierCastV3LmhofsBatches(
   lakeHuron: AvailableBatch,
   fiveCity: AvailableBatch,
   chicagoAlpena: AvailableBatch,
+  stJosephHarrisville: AvailableBatch,
 ): AvailableBatch {
   if (
     primary.status !== "available" || expansion.status !== "available" ||
@@ -137,6 +139,7 @@ export function combinePierCastV3LmhofsBatches(
     primary.issuedAt !== lakeHuron.issuedAt ||
     primary.issuedAt !== fiveCity.issuedAt ||
     primary.issuedAt !== chicagoAlpena.issuedAt ||
+    primary.issuedAt !== stJosephHarrisville.issuedAt ||
     primary.requestedForecastHours.length !== 121 ||
     expansion.requestedForecastHours.length !== 121 ||
     lakeHuron.status !== "available" ||
@@ -145,11 +148,14 @@ export function combinePierCastV3LmhofsBatches(
     fiveCity.requestedForecastHours.length !== 121 ||
     chicagoAlpena.status !== "available" ||
     chicagoAlpena.requestedForecastHours.length !== 121 ||
+    stJosephHarrisville.status !== "available" ||
+    stJosephHarrisville.requestedForecastHours.length !== 121 ||
     primary.requestedForecastHours.some((hour, index) =>
       hour !== expansion.requestedForecastHours[index] ||
       hour !== lakeHuron.requestedForecastHours[index] ||
       hour !== fiveCity.requestedForecastHours[index] ||
-      hour !== chicagoAlpena.requestedForecastHours[index]
+      hour !== chicagoAlpena.requestedForecastHours[index] ||
+      hour !== stJosephHarrisville.requestedForecastHours[index]
     )
   ) {
     throw new Error(
@@ -162,17 +168,18 @@ export function combinePierCastV3LmhofsBatches(
     ...lakeHuron.cities,
     ...fiveCity.cities,
     ...chicagoAlpena.cities,
+    ...stJosephHarrisville.cities,
   ];
   const actual = new Set(cities.map((city) => city.cityId));
   if (
-    cities.length !== 22 || actual.size !== 22 ||
+    cities.length !== 27 || actual.size !== 27 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
   ) {
     throw new Error(
-      "Formula v3 requires all twenty-two complete city timelines.",
+      "Formula v3 requires all twenty-seven complete city timelines.",
     );
   }
   const fetchedAt = [
@@ -181,6 +188,7 @@ export function combinePierCastV3LmhofsBatches(
     lakeHuron.fetchedAt,
     fiveCity.fetchedAt,
     chicagoAlpena.fetchedAt,
+    stJosephHarrisville.fetchedAt,
   ]
     .sort((a, b) => Date.parse(b) - Date.parse(a))[0];
   return {
@@ -193,6 +201,7 @@ export function combinePierCastV3LmhofsBatches(
       lakeHuron.cycleAgeHours,
       fiveCity.cycleAgeHours,
       chicagoAlpena.cycleAgeHours,
+      stJosephHarrisville.cycleAgeHours,
     ),
     fullHorizonRequested: true,
     requestedForecastHours: [...primary.requestedForecastHours],
@@ -203,6 +212,7 @@ export function combinePierCastV3LmhofsBatches(
       ...lakeHuron.diagnostics,
       ...fiveCity.diagnostics,
       ...chicagoAlpena.diagnostics,
+      ...stJosephHarrisville.diagnostics,
     ],
   };
 }
@@ -222,6 +232,7 @@ export function buildPierCastV3ReviewOutlook(input: {
     ...PIER_CAST_LAKE_HURON_CITY_PROFILES,
     ...PIER_CAST_FIVE_CITY_PROFILES,
     ...PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
+    ...PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
   ];
   const byId = new Map(profiles.map((city) => [city.cityId, city]));
   const cities = PIER_CAST_V3_CITY_IDS.map((cityId) => {
@@ -282,8 +293,8 @@ export function buildPierCastV3ReviewOutlook(input: {
       issuedAt: input.batch.issuedAt,
       fetchedAt: input.batch.fetchedAt,
       cycleAgeHours: input.batch.cycleAgeHours,
-      cityCount: 22,
-      sampleCount: 2662,
+      cityCount: 27,
+      sampleCount: 3267,
     },
     cities,
   };
@@ -499,15 +510,15 @@ function buildSpecies(
 function validateBatch(batch: AvailableBatch): void {
   const actual = new Set(batch.cities.map((city) => city.cityId));
   if (
-    batch.status !== "available" || batch.cities.length !== 22 ||
-    actual.size !== 22 ||
+    batch.status !== "available" || batch.cities.length !== 27 ||
+    actual.size !== 27 ||
     PIER_CAST_V3_CITY_IDS.some((cityId) => !actual.has(cityId)) ||
     batch.cities.some((city) =>
       city.status !== "available" || city.samples.length !== 121
     )
   ) {
     throw new Error(
-      "Formula v3 review requires a complete twenty-two-city cycle.",
+      "Formula v3 review requires a complete twenty-seven-city cycle.",
     );
   }
 }

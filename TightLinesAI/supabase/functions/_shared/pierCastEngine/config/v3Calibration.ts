@@ -35,6 +35,11 @@ export const PIER_CAST_V3_CITY_IDS = [
   "muskegon_mi",
   "whitehall_mi",
   "alpena_mi",
+  "st_joseph_mi",
+  "south_haven_mi",
+  "holland_mi",
+  "lexington_mi",
+  "harrisville_mi",
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [

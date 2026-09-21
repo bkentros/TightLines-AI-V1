@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-two-city-chicago-alpena-pass3-v9" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v7" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "3985623f5f8c489dc6f40d1a8e5688267357375b7a6b62af298b5cc0aaddac2b" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "6cfc4eb37657d6db163207f69c8ac42a7003c8a0aa4cef7355407101678a855c" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v8" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "e66eab25abd99774a51724c9a4a6618552e929e254550f4a27b0687efdbeccb3" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "f8570806e3b52f323afeaefc11b00aee6cc9bbe043f607d09a310fe21a554876" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -17675,6 +17675,4392 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
           "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
           "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
           "Modes compete by maximum seasonalPotential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/chinook_salmon",
+    "cityId": "st_joseph_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__chinook_salmon__spring_nearshore__stj_harrisville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 5.52,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__chinook_salmon__summer_pier__stj_harrisville_pass2",
+        "modeId": "summer_pier",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Summer Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/coho_salmon",
+    "cityId": "st_joseph_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 8.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH",
+          "MI_COHO_SPECIES"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 6.47,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH",
+          "MI_COHO_SPECIES"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/steelhead",
+    "cityId": "st_joseph_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__steelhead__winter_spring_pier__stj_harrisville_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 7.12,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.55
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__steelhead__summer_skamania_pier__stj_harrisville_pass2",
+        "modeId": "summer_skamania_pier",
+        "fisheryStrength": 7.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Skamania Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/brown_trout",
+    "cityId": "st_joseph_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.96,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/lake_trout",
+    "cityId": "st_joseph_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__lake_trout__winter_spring_pier__stj_harrisville_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 4.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.75
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+        "modeId": "fall_nearshore",
+        "fisheryStrength": 3.67,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Fall Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "STJ_BERRIEN_FISH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/yellow_perch",
+    "cityId": "st_joseph_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "STJ_BERRIEN_FISH",
+          "MI_GL_SURVEY_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "st_joseph_mi/lake_whitefish",
+    "cityId": "st_joseph_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "st_joseph_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 3.16,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "st_joseph_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+        "modeId": "late_fall_pier",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/chinook_salmon",
+    "cityId": "south_haven_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__chinook_salmon__spring_nearshore_transient__stj_harrisville_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 4.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/coho_salmon",
+    "cityId": "south_haven_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 5.9,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/steelhead",
+    "cityId": "south_haven_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__steelhead__spring_pier__stj_harrisville_pass2",
+        "modeId": "spring_pier",
+        "fisheryStrength": 6.62,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__steelhead__summer_skamania_pier__stj_harrisville_pass2",
+        "modeId": "summer_skamania_pier",
+        "fisheryStrength": 8.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Skamania Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 7.86,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/brown_trout",
+    "cityId": "south_haven_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.96,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/lake_trout",
+    "cityId": "south_haven_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__lake_trout__spring_coldwater_pier__stj_harrisville_pass2",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 3.02,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+        "modeId": "fall_nearshore",
+        "fisheryStrength": 3.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Fall Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/walleye",
+    "cityId": "south_haven_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__walleye__spring_low_light__stj_harrisville_pass2",
+        "modeId": "spring_low_light",
+        "fisheryStrength": 4.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.08
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Spring Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/smallmouth_bass",
+    "cityId": "south_haven_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "SOUTH_HAVEN_FISHING"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/freshwater_drum",
+    "cityId": "south_haven_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/yellow_perch",
+    "cityId": "south_haven_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_LMCFAC_2024",
+          "MI_GL_SURVEY_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__yellow_perch__fall_pier_schooling__stj_harrisville_pass2",
+        "modeId": "fall_pier_schooling",
+        "fisheryStrength": 4.61,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Fall Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_LMCFAC_2024",
+          "MI_GL_SURVEY_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/lake_whitefish",
+    "cityId": "south_haven_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 3.16,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+        "modeId": "late_fall_pier",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/round_whitefish",
+    "cityId": "south_haven_mi",
+    "speciesId": "round_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__round_whitefish__spring_channel__stj_harrisville_pass2",
+        "modeId": "spring_channel",
+        "fisheryStrength": 2.84,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Spring Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__round_whitefish__fall_channel__stj_harrisville_pass2",
+        "modeId": "fall_channel",
+        "fisheryStrength": 3.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "round_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Fall Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/channel_catfish",
+    "cityId": "south_haven_mi",
+    "speciesId": "channel_catfish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__channel_catfish__warm_season_channel__stj_harrisville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "SOUTH_HAVEN_FISHING"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "south_haven_mi/northern_pike",
+    "cityId": "south_haven_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "south_haven_mi__northern_pike__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "south_haven_mi__northern_pike__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/chinook_salmon",
+    "cityId": "holland_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__chinook_salmon__spring_nearshore_transient__stj_harrisville_pass2",
+        "modeId": "spring_nearshore_transient",
+        "fisheryStrength": 4.74,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore Transient",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/coho_salmon",
+    "cityId": "holland_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 5.32,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/steelhead",
+    "cityId": "holland_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__steelhead__spring_pier__stj_harrisville_pass2",
+        "modeId": "spring_pier",
+        "fisheryStrength": 5.91,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-10",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__steelhead__summer_pier__stj_harrisville_pass2",
+        "modeId": "summer_pier",
+        "fisheryStrength": 7.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 6.17,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP",
+          "MI_LMCFAC_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/brown_trout",
+    "cityId": "holland_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.46,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/lake_trout",
+    "cityId": "holland_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__lake_trout__winter_spring_pier__stj_harrisville_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 3.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.75
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_HOLLAND_GMP",
+          "MI_CREEL_DASHBOARD",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+        "modeId": "fall_nearshore",
+        "fisheryStrength": 3.41,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Fall Nearshore",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM",
+          "MI_HOLLAND_GMP",
+          "MI_CREEL_DASHBOARD",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/walleye",
+    "cityId": "holland_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__walleye__summer_low_light__stj_harrisville_pass2",
+        "modeId": "summer_low_light",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Summer Low Light",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/smallmouth_bass",
+    "cityId": "holland_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/freshwater_drum",
+    "cityId": "holland_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/yellow_perch",
+    "cityId": "holland_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 7.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_HOLLAND_GMP"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "holland_mi/lake_whitefish",
+    "cityId": "holland_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "holland_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+        "modeId": "spring_coldwater_pier",
+        "fisheryStrength": 3.16,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "holland_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+        "modeId": "late_fall_pier",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/chinook_salmon",
+    "cityId": "lexington_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/coho_salmon",
+    "cityId": "lexington_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__coho_salmon__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-10",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__coho_salmon__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.76,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/steelhead",
+    "cityId": "lexington_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__steelhead__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 8.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 8.02,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.25
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/brown_trout",
+    "cityId": "lexington_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__brown_trout__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/lake_trout",
+    "cityId": "lexington_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__lake_trout__spring_coldwater_harbor__stj_harrisville_pass2",
+        "modeId": "spring_coldwater_harbor",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/walleye",
+    "cityId": "lexington_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__walleye__summer_low_light__stj_harrisville_pass2",
+        "modeId": "summer_low_light",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Summer Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/smallmouth_bass",
+    "cityId": "lexington_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/freshwater_drum",
+    "cityId": "lexington_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 4.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/yellow_perch",
+    "cityId": "lexington_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__yellow_perch__spring_harbor_schooling__stj_harrisville_pass2",
+        "modeId": "spring_harbor_schooling",
+        "fisheryStrength": 7.45,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.15
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Spring Harbor Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__yellow_perch__fall_harbor_schooling__stj_harrisville_pass2",
+        "modeId": "fall_harbor_schooling",
+        "fisheryStrength": 8.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Fall Harbor Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/channel_catfish",
+    "cityId": "lexington_mi",
+    "speciesId": "channel_catfish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__channel_catfish__warm_season_channel__stj_harrisville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 4.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/largemouth_bass",
+    "cityId": "lexington_mi",
+    "speciesId": "largemouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__largemouth_bass__warm_season_harbor__stj_harrisville_pass2",
+        "modeId": "warm_season_harbor",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "largemouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/atlantic_salmon",
+    "cityId": "lexington_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__atlantic_salmon__spring_stocked_harbor__stj_harrisville_pass2",
+        "modeId": "spring_stocked_harbor",
+        "fisheryStrength": 6.04,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.25
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Spring Stocked Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH",
+          "LEX_ATLANTIC_DNR",
+          "LEX_ATLANTIC_STOCK_2024",
+          "LEX_ENFORCEMENT_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__atlantic_salmon__fall_harbor_return__stj_harrisville_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH",
+          "LEX_ATLANTIC_DNR",
+          "LEX_ATLANTIC_STOCK_2024",
+          "LEX_ENFORCEMENT_2024"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/northern_pike",
+    "cityId": "lexington_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__northern_pike__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.22
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "lexington_mi__northern_pike__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "lexington_mi/white_bass",
+    "cityId": "lexington_mi",
+    "speciesId": "white_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "lexington_mi__white_bass__warm_season_schooling__stj_harrisville_pass2",
+        "modeId": "warm_season_schooling",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "white_bass__shared_temperature__v0_1_research",
+        "modeName": "Warm Season Schooling",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harrisville_mi/chinook_salmon",
+    "cityId": "harrisville_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harrisville_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "HARRISVILLE_LHCFAC_2022_OCT",
+          "HARRISVILLE_LHCFAC_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harrisville_mi/coho_salmon",
+    "cityId": "harrisville_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harrisville_mi__coho_salmon__winter_harbor__stj_harrisville_pass2",
+        "modeId": "winter_harbor",
+        "fisheryStrength": 5.06,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.8
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Winter Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "HARRISVILLE_LHCFAC_2022",
+          "HARRISVILLE_LHCFAC_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "harrisville_mi__coho_salmon__fall_docks__stj_harrisville_pass2",
+        "modeId": "fall_docks",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.7
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Docks",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "HARRISVILLE_LHCFAC_2022",
+          "HARRISVILLE_LHCFAC_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harrisville_mi/steelhead",
+    "cityId": "harrisville_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harrisville_mi__steelhead__spring_harbor__stj_harrisville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.7,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH",
+          "HARRISVILLE_LHCFAC_2025",
+          "HARRISVILLE_STEELHEAD_STOCK_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "harrisville_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.14,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH",
+          "HARRISVILLE_LHCFAC_2025",
+          "HARRISVILLE_STEELHEAD_STOCK_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harrisville_mi/brown_trout",
+    "cityId": "harrisville_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harrisville_mi__brown_trout__late_fall_winter_harbor__stj_harrisville_pass2",
+        "modeId": "late_fall_winter_harbor",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.8
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Late Fall Winter Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "HARRISVILLE_LHCFAC_2023"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "harrisville_mi/atlantic_salmon",
+    "cityId": "harrisville_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "harrisville_mi__atlantic_salmon__winter_harbor__stj_harrisville_pass2",
+        "modeId": "winter_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "03-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.82
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Winter Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_ROADMAP_LH",
+          "HARRISVILLE_LHCFAC_2022_OCT",
+          "HARRISVILLE_LHCFAC_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "harrisville_mi__atlantic_salmon__fall_harbor__stj_harrisville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.94,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_ROADMAP_LH",
+          "HARRISVILLE_LHCFAC_2022_OCT",
+          "HARRISVILLE_LHCFAC_2025"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+          "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
         ],
         "promotionEligible": false
       }

@@ -167,7 +167,7 @@ export function createPierCastHandler(
         try {
           const outlook = await dependencies.readV3ReviewOutlook();
           return outlook ? json(outlook) : error(
-            "No coherent same-issue twenty-two-city Formula v3 cycle is available.",
+            "No coherent same-issue twenty-seven-city Formula v3 cycle is available.",
             "pier_cast_v3_outlook_unavailable",
             503,
           );

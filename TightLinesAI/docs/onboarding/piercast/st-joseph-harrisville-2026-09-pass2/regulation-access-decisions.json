@@ -1,0 +1,78 @@
+{
+  "schema_version": "piercast-st-joseph-harrisville-pass2-regulation-access-v1",
+  "reviewed_at": "2026-09-19",
+  "rule": "Biological opportunity, fishing regulation, physical access, and private-release readiness are independent gates.",
+  "regulation_source_ids": [
+    "MI_REGS_2026",
+    "MI_HARBOR_RULES"
+  ],
+  "regulation_findings": [
+    {
+      "scope": "st_joseph_mi|south_haven_mi|holland_mi",
+      "water": "Lake Michigan MM 6-8",
+      "finding": "Lake trout and splake possession season is open all year under the reviewed 2026 guide."
+    },
+    {
+      "scope": "lexington_mi|harrisville_mi",
+      "water": "Lake Huron MH 3-6",
+      "finding": "Lake trout and splake possession season is open all year under the reviewed 2026 guide."
+    },
+    {
+      "scope": "all five cities",
+      "water": "Great Lakes waters",
+      "finding": "Bass catch-and-immediate-release opportunity is distinguished from the 2026 possession season; this is a method/harvest distinction, not a biological closure."
+    },
+    {
+      "scope": "all five cities",
+      "water": "covered waters",
+      "finding": "No admitted pair received a species-season closure in the reviewed 2026 guide. Emergency orders and posted local rules still control."
+    }
+  ],
+  "city_access_gates": [
+    {
+      "city_id": "st_joseph_mi",
+      "status": "published_open_subject_to_live_gate",
+      "finding": "Both pierheads are covered separately; dawn-to-dusk park approach, parking rules, waves, ice, barricades, and posted closures control.",
+      "source_ids": [
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ]
+    },
+    {
+      "city_id": "south_haven_mi",
+      "status": "published_open_subject_to_live_gate",
+      "finding": "Both piers are covered separately and may be closed under red-flag/high-wave policy; lower Harborwalk remains separately labeled.",
+      "source_ids": [
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ]
+    },
+    {
+      "city_id": "holland_mi",
+      "status": "north_only_subject_to_live_gate",
+      "finding": "North pier and state-park channel walkway are covered; the south route remains excluded because no public walkway is available.",
+      "source_ids": [
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ]
+    },
+    {
+      "city_id": "lexington_mi",
+      "status": "construction_closed",
+      "finding": "The entire marina is closed September 8, 2026 through May 28, 2027; biological calibrations remain research-only and cannot imply current access.",
+      "source_ids": [
+        "LEX_CLOSURE_2026",
+        "MI_HARBOR_RULES"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "status": "conditional_unverified",
+      "finding": "Fishing is limited to designated areas and unoccupied docks; current signs, occupancy, off-season policy, and breakwater access require direct confirmation.",
+      "source_ids": [
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ]
+    }
+  ]
+}

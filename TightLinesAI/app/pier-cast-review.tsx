@@ -50,6 +50,7 @@ import {
   fetchSavedPierCastReport,
   PierCastRequestError,
 } from "../lib/pierCast";
+import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 import {
   presentPierCastDate,
@@ -1746,17 +1747,7 @@ function WaterTemperatureShifts({
 
 function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
   const [expanded, setExpanded] = useState(false);
-  const hasReportedClosure = city.structures.some((item) =>
-    item.accessStatus === "reported_closed"
-  );
-  const approved = city.structures.filter(
-    (item) => item.disposition === "candidate",
-  );
-  const structures = hasReportedClosure
-    ? city.structures.filter((item) => item.disposition !== "excluded")
-    : approved.length
-    ? approved
-    : city.structures.filter((item) => item.disposition !== "excluded");
+  const structures = selectPierCastCoveredStructures(city.structures);
   const structureCountLabel = `${structures.length
     .toString()
     .padStart(2, "0")} ${structures.length === 1 ? "PIER" : "PIERS"}`;
@@ -1781,7 +1772,7 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
         <View style={styles.compactInfoBody}>
           <Text style={styles.compactInfoTitle}>Piers covered</Text>
           <Text style={styles.compactInfoSummary}>
-            {hasReportedClosure ? "ACCESS RESTRICTED · " : ""}{structureCountLabel}
+            {structureCountLabel}
           </Text>
         </View>
         <View style={styles.collapsibleChevron}>
@@ -1802,7 +1793,7 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
             {structures.map((item) => (
               <View key={item.structureId} style={styles.pierChip}>
                 <View style={styles.pierChipDot} />
-                <View style={{ flex: 1 }}>
+                <View style={styles.pierChipBody}>
                   <Text style={styles.pierChipText}>
                     {item.displayName} · {item.accessStatus === "reported_closed"
                       ? "REPORTED CLOSED"
@@ -1820,6 +1811,25 @@ function PiersCovered({ city }: { city: PierCastCatalogCityRead }) {
           </View>
         </View>
       ) : null}
+    </View>
+  );
+}
+
+function PierAccessNotice({ city }: { city: PierCastCatalogCityRead }) {
+  const closedStructures = city.structures.filter((structure) =>
+    structure.disposition !== "excluded" &&
+    structure.accessStatus === "reported_closed"
+  );
+  if (closedStructures.length === 0) return null;
+  return (
+    <View style={styles.accessNotice}>
+      <Ionicons name="warning-outline" size={16} color="#95651D" />
+      <View style={styles.accessNoticeBody}>
+        <Text style={styles.accessNoticeTitle}>Access note</Text>
+        <Text style={styles.accessNoticeCopy}>
+          {closedStructures.map((structure) => structure.displayName).join(", ")} {closedStructures.length === 1 ? "is" : "are"} reported closed. The forecast describes fishery conditions, not current access; check posted notices before visiting.
+        </Text>
+      </View>
     </View>
   );
 }
@@ -3784,17 +3794,6 @@ export default function PierCastReviewScreen() {
                 </>
               ) : (
                 <>
-                  {selectedCity.structures.some((structure) =>
-                    structure.accessStatus === "reported_closed"
-                  ) ? (
-                    <View style={styles.messageCard}>
-                      <Ionicons name="warning-outline" size={23} color={paper.bandTough} />
-                      <Text style={styles.messageTitle}>Pier access reported closed</Text>
-                      <Text style={styles.messageCopy}>
-                        This report describes the fishery, not a place to fish now. Open “Piers covered” for the affected segment and current access limits.
-                      </Text>
-                    </View>
-                  ) : null}
                   <CityReport
                     city={selectedCity}
                     outlook={selectedOutlook}
@@ -3814,6 +3813,7 @@ export default function PierCastReviewScreen() {
                   />
                 </>
               )}
+              <PierAccessNotice city={selectedCity} />
               <PierCastCoverageRequest
                 profile={profile}
                 user={user}
@@ -5961,6 +5961,35 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: "#68767D",
   },
+  accessNotice: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+    paddingHorizontal: 13,
+    paddingVertical: 11,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "rgba(149,101,29,0.22)",
+    backgroundColor: "#FFF9EC",
+  },
+  accessNoticeBody: {
+    flex: 1,
+  },
+  accessNoticeTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    lineHeight: 11,
+    letterSpacing: 0.8,
+    color: "#795018",
+    textTransform: "uppercase",
+  },
+  accessNoticeCopy: {
+    marginTop: 2,
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: "#6E5A36",
+  },
   collapsibleChevron: {
     width: 31,
     height: 31,
@@ -5972,25 +6001,34 @@ const styles = StyleSheet.create({
   collapsiblePressed: {
     opacity: 0.68,
   },
-  pierChips: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 9 },
+  pierChips: {
+    gap: 6,
+    marginTop: 9,
+  },
   pierChip: {
     flexDirection: "row",
-    alignItems: "center",
-    gap: 5,
+    alignItems: "flex-start",
+    gap: 7,
     paddingHorizontal: 9,
-    paddingVertical: 5,
+    paddingVertical: 7,
     borderRadius: 12,
     backgroundColor: "#F1F4EF",
+  },
+  pierChipBody: {
+    flex: 1,
+    minWidth: 0,
   },
   pierChipDot: {
     width: 6,
     height: 6,
+    marginTop: 4,
     borderRadius: 3,
     backgroundColor: paper.bandGood,
   },
   pierChipText: {
     fontFamily: paperFonts.bodySemiBold,
     fontSize: 10,
+    lineHeight: 14,
     color: paper.dashboardInk,
   },
   ratingExplanation: {

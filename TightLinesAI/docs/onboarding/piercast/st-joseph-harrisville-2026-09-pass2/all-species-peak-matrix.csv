@@ -1,0 +1,96 @@
+city_id,city_name,species_id,species_name,pass2_disposition,evidence_grade,annual_peak_score,status
+st_joseph_mi,St. Joseph,chinook_salmon,Chinook salmon,numeric_private,B,6.8,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,coho_salmon,Coho salmon,numeric_private,B,8.6,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,steelhead,Steelhead,numeric_private,B,7.8,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,brown_trout,Brown trout,numeric_private,B,6.5,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,lake_trout,Lake trout,numeric_private,B,4.1,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,walleye,Walleye,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,smallmouth_bass,Smallmouth bass,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,freshwater_drum,Freshwater drum,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,yellow_perch,Yellow perch,numeric_private,B,6,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,lake_whitefish,Lake whitefish,numeric_private,B,4,PRIVATE_NUMERIC
+st_joseph_mi,St. Joseph,round_whitefish,Round whitefish,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,channel_catfish,Channel catfish,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,largemouth_bass,Largemouth bass,exclude_unscored,D,,UNSCORED
+st_joseph_mi,St. Joseph,atlantic_salmon,Atlantic salmon,exclude_unscored,D,,UNSCORED
+st_joseph_mi,St. Joseph,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+st_joseph_mi,St. Joseph,burbot,Burbot,exclude_unscored,D,,UNSCORED
+st_joseph_mi,St. Joseph,white_perch,White perch,exclude_unscored,D,,UNSCORED
+st_joseph_mi,St. Joseph,white_bass,White bass,exclude_unscored,D,,UNSCORED
+st_joseph_mi,St. Joseph,bluegill,Bluegill,exclude_unscored,D,,NOT_USER_FACING
+south_haven_mi,South Haven,chinook_salmon,Chinook salmon,numeric_private,A,7,PRIVATE_NUMERIC
+south_haven_mi,South Haven,coho_salmon,Coho salmon,numeric_private,A,7.8,PRIVATE_NUMERIC
+south_haven_mi,South Haven,steelhead,Steelhead,numeric_private,A,8.8,PRIVATE_NUMERIC
+south_haven_mi,South Haven,brown_trout,Brown trout,numeric_private,A,6.5,PRIVATE_NUMERIC
+south_haven_mi,South Haven,lake_trout,Lake trout,numeric_private,A,3.8,PRIVATE_NUMERIC
+south_haven_mi,South Haven,walleye,Walleye,numeric_private,A,4.3,PRIVATE_NUMERIC
+south_haven_mi,South Haven,smallmouth_bass,Smallmouth bass,numeric_private,A,5.2,PRIVATE_NUMERIC
+south_haven_mi,South Haven,freshwater_drum,Freshwater drum,numeric_private,A,6.5,PRIVATE_NUMERIC
+south_haven_mi,South Haven,yellow_perch,Yellow perch,numeric_private,A,5.4,PRIVATE_NUMERIC
+south_haven_mi,South Haven,lake_whitefish,Lake whitefish,numeric_private,B,4,PRIVATE_NUMERIC
+south_haven_mi,South Haven,round_whitefish,Round whitefish,numeric_private,B,3.7,PRIVATE_NUMERIC
+south_haven_mi,South Haven,channel_catfish,Channel catfish,numeric_private,A,5.2,PRIVATE_NUMERIC
+south_haven_mi,South Haven,largemouth_bass,Largemouth bass,research_hold_unscored,C,,UNSCORED
+south_haven_mi,South Haven,atlantic_salmon,Atlantic salmon,exclude_unscored,D,,UNSCORED
+south_haven_mi,South Haven,northern_pike,Northern pike,numeric_private,A,4.8,PRIVATE_NUMERIC
+south_haven_mi,South Haven,burbot,Burbot,exclude_unscored,D,,UNSCORED
+south_haven_mi,South Haven,white_perch,White perch,research_hold_unscored,C,,UNSCORED
+south_haven_mi,South Haven,white_bass,White bass,research_hold_unscored,C,,UNSCORED
+south_haven_mi,South Haven,bluegill,Bluegill,exclude_unscored,D,,NOT_USER_FACING
+holland_mi,Holland,chinook_salmon,Chinook salmon,numeric_private,A,7.8,PRIVATE_NUMERIC
+holland_mi,Holland,coho_salmon,Coho salmon,numeric_private,B,7,PRIVATE_NUMERIC
+holland_mi,Holland,steelhead,Steelhead,numeric_private,A,7.3,PRIVATE_NUMERIC
+holland_mi,Holland,brown_trout,Brown trout,numeric_private,A,7.2,PRIVATE_NUMERIC
+holland_mi,Holland,lake_trout,Lake trout,numeric_private,B,3.8,PRIVATE_NUMERIC
+holland_mi,Holland,walleye,Walleye,numeric_private,B,4.5,PRIVATE_NUMERIC
+holland_mi,Holland,smallmouth_bass,Smallmouth bass,numeric_private,B,5.2,PRIVATE_NUMERIC
+holland_mi,Holland,freshwater_drum,Freshwater drum,numeric_private,B,5.8,PRIVATE_NUMERIC
+holland_mi,Holland,yellow_perch,Yellow perch,numeric_private,A,7.6,PRIVATE_NUMERIC
+holland_mi,Holland,lake_whitefish,Lake whitefish,numeric_private,B,4,PRIVATE_NUMERIC
+holland_mi,Holland,round_whitefish,Round whitefish,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,channel_catfish,Channel catfish,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,largemouth_bass,Largemouth bass,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,atlantic_salmon,Atlantic salmon,exclude_unscored,D,,UNSCORED
+holland_mi,Holland,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,burbot,Burbot,exclude_unscored,D,,UNSCORED
+holland_mi,Holland,white_perch,White perch,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,white_bass,White bass,research_hold_unscored,C,,UNSCORED
+holland_mi,Holland,bluegill,Bluegill,exclude_unscored,D,,NOT_USER_FACING
+lexington_mi,Lexington,chinook_salmon,Chinook salmon,numeric_private,A,5.6,PRIVATE_NUMERIC
+lexington_mi,Lexington,coho_salmon,Coho salmon,numeric_private,A,6.8,PRIVATE_NUMERIC
+lexington_mi,Lexington,steelhead,Steelhead,numeric_private,A,8.8,PRIVATE_NUMERIC
+lexington_mi,Lexington,brown_trout,Brown trout,numeric_private,A,5,PRIVATE_NUMERIC
+lexington_mi,Lexington,lake_trout,Lake trout,numeric_private,B,4.8,PRIVATE_NUMERIC
+lexington_mi,Lexington,walleye,Walleye,numeric_private,A,5.8,PRIVATE_NUMERIC
+lexington_mi,Lexington,smallmouth_bass,Smallmouth bass,numeric_private,A,6,PRIVATE_NUMERIC
+lexington_mi,Lexington,freshwater_drum,Freshwater drum,numeric_private,A,4.8,PRIVATE_NUMERIC
+lexington_mi,Lexington,yellow_perch,Yellow perch,numeric_private,A,8.5,PRIVATE_NUMERIC
+lexington_mi,Lexington,lake_whitefish,Lake whitefish,research_hold_unscored,C,,UNSCORED
+lexington_mi,Lexington,round_whitefish,Round whitefish,research_hold_unscored,C,,UNSCORED
+lexington_mi,Lexington,channel_catfish,Channel catfish,numeric_private,B,4.3,PRIVATE_NUMERIC
+lexington_mi,Lexington,largemouth_bass,Largemouth bass,numeric_private,A,5.6,PRIVATE_NUMERIC
+lexington_mi,Lexington,atlantic_salmon,Atlantic salmon,numeric_private,A,8,PRIVATE_NUMERIC
+lexington_mi,Lexington,northern_pike,Northern pike,numeric_private,A,6,PRIVATE_NUMERIC
+lexington_mi,Lexington,burbot,Burbot,exclude_unscored,D,,UNSCORED
+lexington_mi,Lexington,white_perch,White perch,exclude_unscored,D,,UNSCORED
+lexington_mi,Lexington,white_bass,White bass,numeric_private,B,5.5,PRIVATE_NUMERIC
+lexington_mi,Lexington,bluegill,Bluegill,exclude_unscored,D,,NOT_USER_FACING
+harrisville_mi,Harrisville,chinook_salmon,Chinook salmon,numeric_private,A,6.6,PRIVATE_NUMERIC
+harrisville_mi,Harrisville,coho_salmon,Coho salmon,numeric_private,B,6.2,PRIVATE_NUMERIC
+harrisville_mi,Harrisville,steelhead,Steelhead,numeric_private,B,5.7,PRIVATE_NUMERIC
+harrisville_mi,Harrisville,brown_trout,Brown trout,numeric_private,B,5,PRIVATE_NUMERIC
+harrisville_mi,Harrisville,lake_trout,Lake trout,research_hold_unscored,C,,UNSCORED
+harrisville_mi,Harrisville,walleye,Walleye,research_hold_unscored,C,,UNSCORED
+harrisville_mi,Harrisville,smallmouth_bass,Smallmouth bass,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,freshwater_drum,Freshwater drum,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,yellow_perch,Yellow perch,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,lake_whitefish,Lake whitefish,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,round_whitefish,Round whitefish,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,channel_catfish,Channel catfish,research_hold_unscored,C,,UNSCORED
+harrisville_mi,Harrisville,largemouth_bass,Largemouth bass,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,atlantic_salmon,Atlantic salmon,numeric_private,B,5.8,PRIVATE_NUMERIC
+harrisville_mi,Harrisville,northern_pike,Northern pike,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,burbot,Burbot,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,white_perch,White perch,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,white_bass,White bass,exclude_unscored,D,,UNSCORED
+harrisville_mi,Harrisville,bluegill,Bluegill,exclude_unscored,D,,NOT_USER_FACING

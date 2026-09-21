@@ -1,0 +1,467 @@
+{
+  "schema_version": "piercast-pass1-site-boundaries-v1",
+  "reviewed_at": "2026-09-19",
+  "rule": "Biological opportunity and access are separate. A structure is not publishable unless its current legal route is verified, even when port-level biological evidence is strong.",
+  "cities": [
+    {
+      "city_id": "st_joseph_mi",
+      "display_name": "St. Joseph",
+      "report_boundary": "Two separately labeled covered subareas: South Pier from Silver Beach and North Pier from Tiscornia Beach.",
+      "excluded_geographies": [
+        "St. Joseph River upstream of the pierheads",
+        "Paw Paw River",
+        "Marina Island",
+        "boats and charters",
+        "beaches away from the harbor mouth",
+        "offshore Lake Michigan"
+      ]
+    },
+    {
+      "city_id": "south_haven_mi",
+      "display_name": "South Haven",
+      "report_boundary": "North Pier, South Pier, and the lower pier-to-pier Harborwalk seawalls only when separately labeled and posted for fishing.",
+      "excluded_geographies": [
+        "Black River Park platform",
+        "SHOUT Park platform",
+        "Black River upstream fishing",
+        "boats and charters",
+        "beaches away from the harbor mouth"
+      ]
+    },
+    {
+      "city_id": "holland_mi",
+      "display_name": "Holland",
+      "report_boundary": "North pier and contiguous public channel walkway reached through Holland State Park; south pier excluded.",
+      "excluded_geographies": [
+        "south pier/Big Red pedestrian route",
+        "Lake Macatawa sites",
+        "boats and charters",
+        "offshore Lake Michigan"
+      ]
+    },
+    {
+      "city_id": "lexington_mi",
+      "display_name": "Lexington",
+      "report_boundary": "Prospective state-harbor east/west breakwater surfaces only if DNR confirms lawful public fishing after construction; no marina dock is silently included.",
+      "excluded_geographies": [
+        "private Lexington Marina",
+        "offshore charter fishing",
+        "other Thumb ports",
+        "marina docks or edges not affirmatively posted for fishing"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "display_name": "Harrisville",
+      "report_boundary": "Designated/unoccupied municipal-marina docks and any separately verified public harbor-edge or breakwater segment; each remains individually access-gated.",
+      "excluded_geographies": [
+        "occupied or undesignated docks",
+        "Harrisville State Park beach",
+        "boats and charters",
+        "Oscoda, Alpena, Rogers City, and other ports"
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "city_id": "st_joseph_mi",
+      "structure_id": "south_pier_silver_beach",
+      "structure_name": "South Pier via Silver Beach",
+      "municipality_owner": "City of St. Joseph; approach operated by Berrien County; navigation pier maintained by USACE",
+      "route_address": "Silver Beach County Park north lot, 101 Broad Street, St. Joseph, MI 49085",
+      "coordinates": {
+        "latitude": 42.115275,
+        "longitude": -86.494285,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "South Pierhead Light"
+      },
+      "disposition": "covered_separate_subarea",
+      "published_access_status": "Public access allowed at own risk from paved park walkways.",
+      "live_access_status": "Published open route found; no physical observation. Check weather, ice, and posted barricades.",
+      "hours_passes_fees": "Approach park dawn-dusk daily, year-round; no overnight parking; May-September vehicle fee $8 county resident/$15 nonresident; $40 annual county permit; walk-in free.",
+      "seasonal_restrictions": "Restrooms early May-mid-October; stay off during ice, storms, or high seas.",
+      "construction_closure": "No current construction closure found in reviewed operator sources.",
+      "source_ids": [
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "USACE pier is outside county park property and has no lifeguards; live barricade status must be checked."
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "structure_id": "north_pier_tiscornia",
+      "structure_name": "North Pier and lighthouse walkway via Tiscornia Beach",
+      "municipality_owner": "City of St. Joseph approach; federal navigation structure",
+      "route_address": "Tiscornia Beach, 80 Ridgeway Street, St. Joseph, MI 49085",
+      "coordinates": {
+        "latitude": 42.116416,
+        "longitude": -86.494542,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "North Pierhead Light"
+      },
+      "disposition": "covered_separate_subarea",
+      "published_access_status": "City facility page lists status Open and identifies the walkway as a fishing location.",
+      "live_access_status": "Published status Open on review date; no physical observation. Weather/ice gates remain.",
+      "hours_passes_fees": "Parking terms are published by the city facility; exact park operating hours were not established from the reviewed page.",
+      "seasonal_restrictions": "Restroom and parking operations can be seasonal; dangerous wave and ice conditions supersede access.",
+      "construction_closure": "No current construction closure found in reviewed operator sources.",
+      "source_ids": [
+        "STJ_TISCORNIA",
+        "STJ_SILVER_BEACH",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Confirm current parking fee/hours and posted pier status before release."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "structure_id": "south_pier",
+      "structure_name": "South Pier and lighthouse",
+      "municipality_owner": "Federal navigation structure with City of South Haven public approach/control",
+      "route_address": "South Beach, 60 Water Street, South Haven, MI 49090",
+      "coordinates": {
+        "latitude": 42.40135,
+        "longitude": -86.287964,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "South Haven South Pierhead Light"
+      },
+      "disposition": "covered_separate_subarea",
+      "published_access_status": "Public pierhead access; city may close the pier during red-flag/high-wave conditions.",
+      "live_access_status": "No physical observation; consult same-day city beach status and barricades.",
+      "hours_passes_fees": "Paid beach parking is reported by local visitor sources; a current authoritative all-season hour schedule was not established.",
+      "seasonal_restrictions": "Flag program May 15-September 15; red flag closes beach water and piers; year-round waves/ice can close access.",
+      "construction_closure": "No current construction closure found in reviewed sources.",
+      "source_ids": [
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Obtain current city parking/hours page and same-day closure status before release."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "structure_id": "north_pier",
+      "structure_name": "North Pier",
+      "municipality_owner": "Federal navigation structure with City of South Haven public approach/control",
+      "route_address": "North Beach, 45 Lakeshore Drive, South Haven, MI 49090",
+      "coordinates": {
+        "latitude": 42.401897,
+        "longitude": -86.288203,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "South Haven North Pier Light"
+      },
+      "disposition": "covered_separate_subarea",
+      "published_access_status": "Public pierhead access; city may close the pier during red-flag/high-wave conditions.",
+      "live_access_status": "No physical observation; consult same-day city beach status and barricades.",
+      "hours_passes_fees": "Paid beach parking is reported by local visitor sources; a current authoritative all-season hour schedule was not established.",
+      "seasonal_restrictions": "Flag program May 15-September 15; red flag closes beach water and piers; year-round waves/ice can close access.",
+      "construction_closure": "No current construction closure found in reviewed sources.",
+      "source_ids": [
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Obtain current city parking/hours page and same-day closure status before release."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "structure_id": "lower_harborwalk",
+      "structure_name": "Lower Harborwalk channel seawalls",
+      "municipality_owner": "City of South Haven public waterfront route",
+      "route_address": "Pier-to-pier Harborwalk; only lower-channel legal seawalls are in scope",
+      "coordinates": {
+        "latitude": 42.40315,
+        "longitude": -86.27618,
+        "source_id": "SOUTH_HAVEN_WATER_TRAILS",
+        "point": "published Harborwalk GPS"
+      },
+      "disposition": "covered_only_as_separately_labeled_subarea",
+      "published_access_status": "Public pedestrian route; visitor bureau documents fishing along seawalls.",
+      "live_access_status": "No segment-by-segment posted fishing inspection completed.",
+      "hours_passes_fees": "No unified fee established for walking route; adjacent parking rules vary.",
+      "seasonal_restrictions": "Obey barricades, vessel operations, and posted no-fishing segments.",
+      "construction_closure": "No current systemwide closure found.",
+      "source_ids": [
+        "SOUTH_HAVEN_WATER_TRAILS",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "unresolved_limitations": "Pass 3 must map the exact western seawall segments where casting is lawful; do not merge upstream Black River evidence."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "structure_id": "black_river_park_platform",
+      "structure_name": "Black River Park fishing platform/seawall",
+      "municipality_owner": "City of South Haven",
+      "route_address": "132 Dunkley Avenue, South Haven, MI 49090",
+      "coordinates": {
+        "latitude": 42.40888,
+        "longitude": -86.2719,
+        "source_id": "BLACK_RIVER_PARK",
+        "point": "published marina GPS"
+      },
+      "disposition": "excluded_upstream_structure",
+      "published_access_status": "Public fishing access/platform exists.",
+      "live_access_status": "Not physically observed; facility operations may be seasonal.",
+      "hours_passes_fees": "$7 parking inside launch gate; free parking outside gate; public facilities described by operator source.",
+      "seasonal_restrictions": "Marina/restrooms can be seasonal.",
+      "construction_closure": "No current closure identified.",
+      "source_ids": [
+        "BLACK_RIVER_PARK",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "unresolved_limitations": "About one mile upstream; retained as a separate River structure and cannot supply PierCast pier magnitude."
+    },
+    {
+      "city_id": "south_haven_mi",
+      "structure_id": "shout_park_platform",
+      "structure_name": "SHOUT Park fishing platform",
+      "municipality_owner": "City of South Haven public park",
+      "route_address": "625 Dunkley Avenue, South Haven, MI 49090",
+      "coordinates": {
+        "latitude": 42.4097,
+        "longitude": -86.272,
+        "source_id": "SOUTH_HAVEN_FISHING",
+        "point": "operator listing/address map point"
+      },
+      "disposition": "excluded_upstream_structure",
+      "published_access_status": "Universally accessible public fishing platform.",
+      "live_access_status": "Not physically observed.",
+      "hours_passes_fees": "No current fee or hour restriction found in reviewed source.",
+      "seasonal_restrictions": "Posted park rules control.",
+      "construction_closure": "No current closure identified.",
+      "source_ids": [
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "unresolved_limitations": "Upstream Black River setting; not part of the pier report."
+    },
+    {
+      "city_id": "holland_mi",
+      "structure_id": "north_pier",
+      "structure_name": "Holland Harbor North Pier/breakwater",
+      "municipality_owner": "USACE navigation structure; public approach through Michigan DNR Holland State Park",
+      "route_address": "Holland State Park, 2459 Ottawa Beach Road, Holland, MI 49424",
+      "coordinates": {
+        "latitude": 42.773453,
+        "longitude": -86.215814,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "North Breakwater Light"
+      },
+      "disposition": "covered_structure",
+      "published_access_status": "Public state-park route; agency and tourism sources identify pier/breakwall fishing.",
+      "live_access_status": "Published open context; no physical observation or same-day wave inspection.",
+      "hours_passes_fees": "State-park day-use baseline 8 a.m.-10 p.m.; Recreation Passport required for vehicle entry.",
+      "seasonal_restrictions": "Weather, waves, ice, park closures, and posted barricades control.",
+      "construction_closure": "No current closure found in reviewed sources.",
+      "source_ids": [
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_TOURISM_FISH",
+        "MI_STATE_PARK_RULES",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Confirm same-day pier gate and any park-specific hour change."
+    },
+    {
+      "city_id": "holland_mi",
+      "structure_id": "north_channel_walkway",
+      "structure_name": "North channel walkway",
+      "municipality_owner": "Michigan DNR Holland State Park / federal channel edge",
+      "route_address": "Channel-side walkway from Holland State Park to North Pier",
+      "coordinates": {
+        "latitude": 42.7733,
+        "longitude": -86.212718,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "North Pierhead Light"
+      },
+      "disposition": "covered_separate_subarea",
+      "published_access_status": "DNR identifies the channel walkway as a popular fishing location.",
+      "live_access_status": "Published access context only; no physical observation.",
+      "hours_passes_fees": "State-park day-use baseline 8 a.m.-10 p.m.; Recreation Passport required for vehicle entry.",
+      "seasonal_restrictions": "Park/weather/ice restrictions apply.",
+      "construction_closure": "No current closure found.",
+      "source_ids": [
+        "HOLLAND_DNR_PARK",
+        "MI_STATE_PARK_RULES",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Keep Lake Macatawa boardwalk fishing separate from this Lake Michigan channel subarea."
+    },
+    {
+      "city_id": "holland_mi",
+      "structure_id": "south_pier_big_red",
+      "structure_name": "South Pier / Big Red route",
+      "municipality_owner": "Federal navigation/light structure; pedestrian approaches surrounded by private property",
+      "route_address": "South side of Holland Harbor; no lawful public walkway route established",
+      "coordinates": {
+        "latitude": 42.772536,
+        "longitude": -86.215814,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "South Breakwater Light"
+      },
+      "disposition": "excluded_no_public_route",
+      "published_access_status": "Lighthouse commission states there is currently no walkway access and private property surrounds pedestrian access points.",
+      "live_access_status": "Excluded; do not route users through gates, private roads, beaches, or informal shoreline paths.",
+      "hours_passes_fees": "Not applicable because no lawful public pedestrian route was established.",
+      "seasonal_restrictions": "Not applicable.",
+      "construction_closure": "No access pending a formally published public route.",
+      "source_ids": [
+        "HOLLAND_BIG_RED",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "A future official route may change this disposition; reverify independently before any inclusion."
+    },
+    {
+      "city_id": "lexington_mi",
+      "structure_id": "east_breakwater",
+      "structure_name": "Lexington Harbor East Breakwater",
+      "municipality_owner": "USACE/Michigan DNR state-harbor project",
+      "route_address": "Lexington State Harbor, 7411 Huron Bay Boulevard, Lexington, MI 48450",
+      "coordinates": {
+        "latitude": 43.26662,
+        "longitude": -82.522849,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "East Breakwater Light 2"
+      },
+      "disposition": "prospective_covered_access_hold",
+      "published_access_status": "Existence confirmed; no reviewed source affirmatively designates the walking surface for fishing.",
+      "live_access_status": "Unsafe to represent as open: entire marina closed 2026-09-08 through 2027-05-28 and project notice does not resolve pedestrian breakwater access.",
+      "hours_passes_fees": "Normal harbor season/hours are superseded by construction closure.",
+      "seasonal_restrictions": "Active construction; state-harbor fishing prohibited unless otherwise posted.",
+      "construction_closure": "In-water replacement closure through 2027-05-28; later intermittent 2027 work expected.",
+      "source_ids": [
+        "LEX_STATE_HARBOR",
+        "LEX_CLOSURE_2026",
+        "LEX_VILLAGE",
+        "MI_HARBOR_RULES",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Direct DNR confirmation and post-construction signage inspection required."
+    },
+    {
+      "city_id": "lexington_mi",
+      "structure_id": "west_breakwater",
+      "structure_name": "Lexington Harbor West Breakwater",
+      "municipality_owner": "USACE/Michigan DNR state-harbor project",
+      "route_address": "Lexington State Harbor/Tierney Park waterfront",
+      "coordinates": {
+        "latitude": 43.267459,
+        "longitude": -82.523549,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "West Breakwater Light 3"
+      },
+      "disposition": "prospective_covered_access_hold",
+      "published_access_status": "Existence confirmed; legal public fishing surface not affirmatively mapped.",
+      "live_access_status": "Unsafe to represent as open during active harbor construction closure.",
+      "hours_passes_fees": "Normal harbor season/hours are superseded by construction closure.",
+      "seasonal_restrictions": "Active construction; state-harbor fishing prohibited unless otherwise posted.",
+      "construction_closure": "In-water replacement closure through 2027-05-28; later intermittent 2027 work expected.",
+      "source_ids": [
+        "LEX_CLOSURE_2026",
+        "LEX_VILLAGE",
+        "MI_HARBOR_RULES",
+        "USCG_LIGHT_LIST_2025"
+      ],
+      "unresolved_limitations": "Confirm whether Tierney Park supplies a lawful route and which breakwater surface permits fishing."
+    },
+    {
+      "city_id": "lexington_mi",
+      "structure_id": "marina_edges_docks",
+      "structure_name": "State-harbor marina edges and docks",
+      "municipality_owner": "Michigan DNR state harbor",
+      "route_address": "7411 Huron Bay Boulevard, Lexington, MI 48450",
+      "coordinates": {
+        "latitude": 43.263889,
+        "longitude": -82.516667,
+        "source_id": "LEX_STATE_HARBOR",
+        "point": "published harbor coordinate"
+      },
+      "disposition": "excluded_unless_affirmatively_posted",
+      "published_access_status": "Default state-harbor rule prohibits fishing unless posted; no permitted-edge map found.",
+      "live_access_status": "Entire marina closed 2026-09-08 through 2027-05-28.",
+      "hours_passes_fees": "Closed during project period.",
+      "seasonal_restrictions": "Construction and normal marina operations.",
+      "construction_closure": "Full marina closure through 2027-05-28.",
+      "source_ids": [
+        "LEX_STATE_HARBOR",
+        "LEX_CLOSURE_2026",
+        "MI_HARBOR_RULES"
+      ],
+      "unresolved_limitations": "Do not infer fishing permission from creel rows, fish-cleaning infrastructure, or historical angling."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "structure_id": "unoccupied_marina_docks",
+      "structure_name": "Designated unoccupied marina docks",
+      "municipality_owner": "City of Harrisville municipal marina",
+      "route_address": "Harrisville Harbor, 1 E Harbor Lane, Harrisville, MI 48740",
+      "coordinates": {
+        "latitude": 44.661944,
+        "longitude": -83.280556,
+        "source_id": "HARRISVILLE_HARBOR_GUIDE",
+        "point": "published marina coordinate"
+      },
+      "disposition": "prospective_covered_conditional",
+      "published_access_status": "2025 DNR advisory minutes say unoccupied-dock fishing is permitted; operator rules limit fishing to designated areas.",
+      "live_access_status": "Conditional and not physically verified; ask harbormaster and follow current signs/occupancy.",
+      "hours_passes_fees": "Normal marina operation mid-May to mid-October; no source established year-round dock access or an angler fee.",
+      "seasonal_restrictions": "Occupied slips, vessel movements, ice, and off-season dock configuration control access.",
+      "construction_closure": "No current project closure found.",
+      "source_ids": [
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_REC_PLAN",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_HARBOR_GUIDE"
+      ],
+      "unresolved_limitations": "Obtain current designated-area map and off-season policy; marina season is not proof of year-round dock access."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "structure_id": "east_breakwater",
+      "structure_name": "Harrisville East Breakwater",
+      "municipality_owner": "Federal/municipal harbor structure",
+      "route_address": "Outer Harrisville Harbor",
+      "coordinates": {
+        "latitude": 44.661398,
+        "longitude": -83.281813,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "East Breakwater Light 3"
+      },
+      "disposition": "access_hold_not_covered_yet",
+      "published_access_status": "Structure confirmed; no lawful pedestrian fishing route found in reviewed operator sources.",
+      "live_access_status": "Do not represent as open pending direct confirmation.",
+      "hours_passes_fees": "Unknown for pedestrian fishing.",
+      "seasonal_restrictions": "Navigation and weather hazards apply.",
+      "construction_closure": "No current closure found, but absence of a closure is not proof of access.",
+      "source_ids": [
+        "USCG_LIGHT_LIST_2025",
+        "HARRISVILLE_HARBOR_RULES",
+        "HARRISVILLE_REC_PLAN"
+      ],
+      "unresolved_limitations": "Direct municipal/USACE route and surface permission required."
+    },
+    {
+      "city_id": "harrisville_mi",
+      "structure_id": "west_breakwater_and_harbor_edge",
+      "structure_name": "Harrisville West Breakwater and other harbor-edge fishing areas",
+      "municipality_owner": "Federal/City of Harrisville harbor property",
+      "route_address": "Outer and inner Harrisville Harbor",
+      "coordinates": {
+        "latitude": 44.660787,
+        "longitude": -83.283258,
+        "source_id": "USCG_LIGHT_LIST_2025",
+        "point": "West Breakwater Light 4"
+      },
+      "disposition": "access_hold_separate_from_docks",
+      "published_access_status": "Municipal plan confirms a designated fishing program but no segment map was found.",
+      "live_access_status": "Do not represent as open until signs and route are verified.",
+      "hours_passes_fees": "Unknown outside normal marina operations.",
+      "seasonal_restrictions": "Navigation, weather, ice, occupancy, and posted restrictions apply.",
+      "construction_closure": "No current closure found.",
+      "source_ids": [
+        "USCG_LIGHT_LIST_2025",
+        "HARRISVILLE_REC_PLAN",
+        "HARRISVILLE_HARBOR_RULES"
+      ],
+      "unresolved_limitations": "Map the designated harbor-edge segments independently; do not transfer dock permission to the breakwater."
+    }
+  ]
+}

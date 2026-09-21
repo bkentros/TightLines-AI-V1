@@ -1,0 +1,564 @@
+{
+  "schemaVersion": "piercast-st-joseph-harrisville-pass3-acceptance-v1",
+  "evaluatedAt": "2026-09-19",
+  "configVersion": "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10",
+  "expected": {
+    "ownerCityCount": 27,
+    "publicV2CityCount": 12,
+    "publicV3CityCount": 27,
+    "publicReleaseCityCount": 27,
+    "onboardingCityCount": 5,
+    "admittedPairCount": 49,
+    "researchHoldCount": 20,
+    "excludedDecisionCount": 26,
+    "totalPairCount": 222,
+    "totalModeCount": 403,
+    "onboardingModeCount": 81,
+    "totalSourceSampleCount": 3267,
+    "onboardingSourceSampleCount": 605,
+    "bluegillPolicyExclusionCount": 5,
+    "fiveDateForecastRows": 1110,
+    "onboardingFixtureSpeciesDateRows": 245,
+    "lakeTroutCityDecisions": 27
+  },
+  "actual": {
+    "ownerCityCount": 27,
+    "publicV2CityCount": 12,
+    "publicV3CityCount": 27,
+    "publicReleaseCityCount": 27,
+    "onboardingCitiesInOwnerCatalog": 5,
+    "onboardingCitiesInPublicV2": 0,
+    "onboardingCitiesInPublicV3": 5,
+    "admittedPairCount": 49,
+    "researchHoldCount": 20,
+    "excludedDecisionCount": 26,
+    "totalPairCount": 222,
+    "totalModeCount": 403,
+    "onboardingModeCount": 81,
+    "totalSourceSampleCount": 3267,
+    "onboardingSourceSampleCount": 605,
+    "bluegillPolicyExclusionCount": 5,
+    "fiveDateForecastRows": 1110,
+    "fixtureCityCount": 5,
+    "fixtureDateCount": 25,
+    "fixtureSpeciesDateRows": 245,
+    "lakeTroutCityDecisions": 27,
+    "auditedNoaaCells": 5,
+    "primarySpeciesChecks": [
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "st_joseph_mi",
+        "speciesId": "lake_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "lake_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "round_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "channel_catfish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "south_haven_mi",
+        "speciesId": "northern_pike",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "holland_mi",
+        "speciesId": "lake_whitefish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "lake_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "walleye",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "smallmouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "freshwater_drum",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "yellow_perch",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "channel_catfish",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "largemouth_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "atlantic_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "northern_pike",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "lexington_mi",
+        "speciesId": "white_bass",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "harrisville_mi",
+        "speciesId": "chinook_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "harrisville_mi",
+        "speciesId": "coho_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "harrisville_mi",
+        "speciesId": "steelhead",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "harrisville_mi",
+        "speciesId": "brown_trout",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      },
+      {
+        "cityId": "harrisville_mi",
+        "speciesId": "atlantic_salmon",
+        "numericCalibrationPresent": true,
+        "presentInFiveDayReport": true
+      }
+    ]
+  },
+  "access": [
+    {
+      "cityId": "st_joseph_mi",
+      "structures": [
+        {
+          "structureId": "south_pier_silver_beach",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "STJ_BERRIEN_FISH",
+            "STJ_SILVER_BEACH",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Approach park dawn-dusk daily, year-round; no overnight parking; May-September vehicle fee $8 county resident/$15 nonresident; $40 annual county permit; walk-in free. Restrooms early May-mid-October; stay off during ice, storms, or high seas. No current construction closure found in reviewed operator sources. USACE pier is outside county park property and has no lifeguards; live barricade status must be checked."
+        },
+        {
+          "structureId": "north_pier_tiscornia",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "STJ_TISCORNIA",
+            "STJ_SILVER_BEACH",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Parking terms are published by the city facility; exact park operating hours were not established from the reviewed page. Restroom and parking operations can be seasonal; dangerous wave and ice conditions supersede access. No current construction closure found in reviewed operator sources. Confirm current parking fee/hours and posted pier status before release."
+        }
+      ]
+    },
+    {
+      "cityId": "south_haven_mi",
+      "structures": [
+        {
+          "structureId": "south_pier",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "SOUTH_HAVEN_SAFETY",
+            "SOUTH_HAVEN_FISHING",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Paid beach parking is reported by local visitor sources; a current authoritative all-season hour schedule was not established. Flag program May 15-September 15; red flag closes beach water and piers; year-round waves/ice can close access. No current construction closure found in reviewed sources. Obtain current city parking/hours page and same-day closure status before release."
+        },
+        {
+          "structureId": "north_pier",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "SOUTH_HAVEN_SAFETY",
+            "SOUTH_HAVEN_FISHING",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Paid beach parking is reported by local visitor sources; a current authoritative all-season hour schedule was not established. Flag program May 15-September 15; red flag closes beach water and piers; year-round waves/ice can close access. No current construction closure found in reviewed sources. Obtain current city parking/hours page and same-day closure status before release."
+        },
+        {
+          "structureId": "lower_harborwalk",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "SOUTH_HAVEN_WATER_TRAILS",
+            "SOUTH_HAVEN_FISHING"
+          ],
+          "limitation": "No unified fee established for walking route; adjacent parking rules vary. Obey barricades, vessel operations, and posted no-fishing segments. No current systemwide closure found. Pass 3 must map the exact western seawall segments where casting is lawful; do not merge upstream Black River evidence."
+        },
+        {
+          "structureId": "black_river_park_platform",
+          "disposition": "excluded",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "BLACK_RIVER_PARK",
+            "SOUTH_HAVEN_FISHING"
+          ],
+          "limitation": "$7 parking inside launch gate; free parking outside gate; public facilities described by operator source. Marina/restrooms can be seasonal. No current closure identified. About one mile upstream; retained as a separate River structure and cannot supply PierCast pier magnitude."
+        },
+        {
+          "structureId": "shout_park_platform",
+          "disposition": "excluded",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "SOUTH_HAVEN_FISHING"
+          ],
+          "limitation": "No current fee or hour restriction found in reviewed source. Posted park rules control. No current closure identified. Upstream Black River setting; not part of the pier report."
+        }
+      ]
+    },
+    {
+      "cityId": "holland_mi",
+      "structures": [
+        {
+          "structureId": "north_pier",
+          "disposition": "candidate",
+          "accessStatus": "open_by_published_rules",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "HOLLAND_DNR_PARK",
+            "HOLLAND_TOURISM_FISH",
+            "MI_STATE_PARK_RULES",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "State-park day-use baseline 8 a.m.-10 p.m.; Recreation Passport required for vehicle entry. Weather, waves, ice, park closures, and posted barricades control. No current closure found in reviewed sources. Confirm same-day pier gate and any park-specific hour change."
+        },
+        {
+          "structureId": "north_channel_walkway",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "HOLLAND_DNR_PARK",
+            "MI_STATE_PARK_RULES",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "State-park day-use baseline 8 a.m.-10 p.m.; Recreation Passport required for vehicle entry. Park/weather/ice restrictions apply. No current closure found. Keep Lake Macatawa boardwalk fishing separate from this Lake Michigan channel subarea."
+        },
+        {
+          "structureId": "south_pier_big_red",
+          "disposition": "excluded",
+          "accessStatus": "route_unverified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "HOLLAND_BIG_RED",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Not applicable because no lawful public pedestrian route was established. Not applicable. No access pending a formally published public route. A future official route may change this disposition; reverify independently before any inclusion."
+        }
+      ]
+    },
+    {
+      "cityId": "lexington_mi",
+      "structures": [
+        {
+          "structureId": "east_breakwater",
+          "disposition": "unresolved",
+          "accessStatus": "reported_closed",
+          "liveAccessStatus": "reported_closed",
+          "evidenceIds": [
+            "LEX_STATE_HARBOR",
+            "LEX_CLOSURE_2026",
+            "LEX_VILLAGE",
+            "MI_HARBOR_RULES",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Normal harbor season/hours are superseded by construction closure. Active construction; state-harbor fishing prohibited unless otherwise posted. In-water replacement closure through 2027-05-28; later intermittent 2027 work expected. Direct DNR confirmation and post-construction signage inspection required."
+        },
+        {
+          "structureId": "west_breakwater",
+          "disposition": "unresolved",
+          "accessStatus": "reported_closed",
+          "liveAccessStatus": "reported_closed",
+          "evidenceIds": [
+            "LEX_CLOSURE_2026",
+            "LEX_VILLAGE",
+            "MI_HARBOR_RULES",
+            "USCG_LIGHT_LIST_2025"
+          ],
+          "limitation": "Normal harbor season/hours are superseded by construction closure. Active construction; state-harbor fishing prohibited unless otherwise posted. In-water replacement closure through 2027-05-28; later intermittent 2027 work expected. Confirm whether Tierney Park supplies a lawful route and which breakwater surface permits fishing."
+        },
+        {
+          "structureId": "marina_edges_docks",
+          "disposition": "excluded",
+          "accessStatus": "reported_closed",
+          "liveAccessStatus": "reported_closed",
+          "evidenceIds": [
+            "LEX_STATE_HARBOR",
+            "LEX_CLOSURE_2026",
+            "MI_HARBOR_RULES"
+          ],
+          "limitation": "Closed during project period. Construction and normal marina operations. Full marina closure through 2027-05-28. Do not infer fishing permission from creel rows, fish-cleaning infrastructure, or historical angling."
+        }
+      ]
+    },
+    {
+      "cityId": "harrisville_mi",
+      "structures": [
+        {
+          "structureId": "unoccupied_marina_docks",
+          "disposition": "candidate",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "HARRISVILLE_LHCFAC_2025",
+            "HARRISVILLE_REC_PLAN",
+            "HARRISVILLE_HARBOR_RULES",
+            "HARRISVILLE_HARBOR_GUIDE"
+          ],
+          "limitation": "Normal marina operation mid-May to mid-October; no source established year-round dock access or an angler fee. Occupied slips, vessel movements, ice, and off-season dock configuration control access. No current project closure found. Obtain current designated-area map and off-season policy; marina season is not proof of year-round dock access."
+        },
+        {
+          "structureId": "east_breakwater",
+          "disposition": "unresolved",
+          "accessStatus": "route_unverified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "USCG_LIGHT_LIST_2025",
+            "HARRISVILLE_HARBOR_RULES",
+            "HARRISVILLE_REC_PLAN"
+          ],
+          "limitation": "Unknown for pedestrian fishing. Navigation and weather hazards apply. No current closure found, but absence of a closure is not proof of access. Direct municipal/USACE route and surface permission required."
+        },
+        {
+          "structureId": "west_breakwater_and_harbor_edge",
+          "disposition": "unresolved",
+          "accessStatus": "not_live_verified",
+          "liveAccessStatus": "not_live_checked",
+          "evidenceIds": [
+            "USCG_LIGHT_LIST_2025",
+            "HARRISVILLE_REC_PLAN",
+            "HARRISVILLE_HARBOR_RULES"
+          ],
+          "limitation": "Unknown outside normal marina operations. Navigation, weather, ice, occupancy, and posted restrictions apply. No current closure found. Map the designated harbor-edge segments independently; do not transfer dock permission to the breakwater."
+        }
+      ]
+    }
+  ],
+  "result": "pass"
+}

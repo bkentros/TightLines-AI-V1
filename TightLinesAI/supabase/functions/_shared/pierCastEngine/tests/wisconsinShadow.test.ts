@@ -86,7 +86,7 @@ Deno.test("Wisconsin cohort is discoverable without public scores", () => {
   assertEquals(PIER_CAST_WISCONSIN_CITY_PROFILES.length, 4);
   const publicCatalog = buildPierCastCatalog("public");
   const review = buildPierCastCatalog("review");
-  assertEquals(review.cities.length, 17);
+  assertEquals(review.cities.length, 27);
   for (const cityId of PIER_CAST_WISCONSIN_CITY_IDS) {
     const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
     assertEquals(publicCity?.releaseStatus, "research_only");

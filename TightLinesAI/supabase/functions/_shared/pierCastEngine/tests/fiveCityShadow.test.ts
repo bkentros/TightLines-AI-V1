@@ -46,9 +46,9 @@ Deno.test("all five onboarding cities are public in v3", () => {
   const review = buildPierCastCatalog("review");
   const publicV2 = buildPierCastCatalog("public");
   const publicV3 = buildPierCastCatalog("public", "v3");
-  assertEquals(review.cities.length, 22);
+  assertEquals(review.cities.length, 27);
   assertEquals(publicV2.cities.length, 12);
-  assertEquals(publicV3.cities.length, 22);
+  assertEquals(publicV3.cities.length, 27);
   for (const cityId of PIER_CAST_FIVE_CITY_IDS) {
     assert(review.cities.some((city) => city.cityId === cityId));
     assert(!publicV2.cities.some((city) => city.cityId === cityId));
