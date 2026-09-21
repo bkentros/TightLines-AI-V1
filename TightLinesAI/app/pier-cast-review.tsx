@@ -52,6 +52,7 @@ import {
 } from "../lib/pierCast";
 import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
+import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import {
   presentPierCastDate,
   PRIMARY_PIER_CAST_SPECIES,
@@ -342,9 +343,9 @@ function suitabilityText(range: [number, number] | null): string {
  *
  * The previous meter normalized each city's own min/max, so a 70°F hour in
  * Frankfort and a 54°F hour in Sheboygan drew an identical bar — the meter
- * read swing, not temperature. This fixed 38–78°F domain covers Lake Michigan
+ * read swing, not temperature. This fixed 38–78°F domain covers Great Lakes
  * nearshore surface water year-round, so a given height and color mean the
- * same thing on every report.
+ * same thing on every Great Lakes report.
  */
 const WATER_SCALE_MIN_F = 38;
 const WATER_SCALE_MAX_F = 78;
@@ -562,7 +563,7 @@ function PierCastHero({
           count={7}
         />
         <SectionEyebrow color={paper.gold} size={9} tracking={2.6}>
-          LAKE MICHIGAN PIER FORECAST
+          {`${pierCastWaterBodyName(city.cityId).toUpperCase()} PIER FORECAST`}
         </SectionEyebrow>
         <Text style={styles.heroCity} allowFontScaling={false}>
           {city.displayName.toUpperCase()}
@@ -2717,7 +2718,7 @@ function PierCastLanding({
             </Text>
             <Text style={styles.standingsPendingCopy}>
               No city is ranked until every released city score is complete
-              for the Lake Michigan day.
+              for the Great Lakes day.
             </Text>
           </View>
         )}

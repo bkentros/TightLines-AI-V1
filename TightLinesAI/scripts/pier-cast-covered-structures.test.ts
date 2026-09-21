@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import test from "node:test";
 
 import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
+import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import { buildPierCastCatalog } from "../supabase/functions/_shared/pierCastEngine/config/catalog.ts";
 
 const root = resolve(import.meta.dirname, "..");
@@ -38,6 +39,36 @@ test("Manistee shows North Pier without the excluded South Breakwater", () => {
       structure.displayName
     ),
     ["North Pier"],
+  );
+});
+
+test("all 27 cities use an explicit lake label and every Lake Huron city is covered", () => {
+  const catalog = buildPierCastCatalog("review", "v3");
+  const lakeHuronCities = catalog.cities
+    .filter((city) => pierCastWaterBodyName(city.cityId) === "Lake Huron")
+    .map((city) => city.cityId)
+    .sort();
+
+  assert.deepEqual(lakeHuronCities, [
+    "alpena_mi",
+    "harbor_beach_mi",
+    "harrisville_mi",
+    "lexington_mi",
+    "oscoda_mi",
+    "port_sanilac_mi",
+  ]);
+  assert.equal(
+    catalog.cities.filter((city) =>
+      pierCastWaterBodyName(city.cityId) === "Lake Michigan"
+    ).length,
+    21,
+  );
+  assert.equal(
+    catalog.cities.filter((city) =>
+      pierCastWaterBodyName(city.cityId) === "Great Lakes"
+    ).length,
+    0,
+    "every released city must have an explicit lake assignment",
   );
 });
 
