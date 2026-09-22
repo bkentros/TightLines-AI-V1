@@ -10,6 +10,11 @@ export const REVENUECAT_CONFIGURATION_RETRY_DELAYS_MS = [
 
 type Pause = (milliseconds: number) => Promise<void>;
 
+export type RevenueCatNativeState = {
+  configured: boolean;
+  appUserId: string | null;
+};
+
 const pause: Pause = (milliseconds) =>
   new Promise((resolve) => setTimeout(resolve, milliseconds));
 
@@ -36,6 +41,46 @@ export async function waitForRevenueCatConfiguration(
   }
 
   return false;
+}
+
+/**
+ * Determine whether the native singleton already exists without relying on a
+ * single bridge method. Development/Fast Refresh can temporarily pair newer
+ * JavaScript with an older installed native SDK; in that state `isConfigured`
+ * may throw even though `getAppUserID` can prove the singleton is alive.
+ * Treating that throw as "not configured" would call `configure` twice and
+ * raise an iOS HostFunction exception.
+ */
+export async function detectRevenueCatNativeState(
+  isConfigured: () => Promise<boolean>,
+  getAppUserId: () => Promise<string>,
+): Promise<RevenueCatNativeState> {
+  let configured: boolean | null = null;
+  try {
+    configured = await isConfigured();
+  } catch {
+    // Fall through to the stable identity probe below.
+  }
+
+  if (configured === false || configured === null) {
+    try {
+      return {
+        configured: true,
+        appUserId: await getAppUserId(),
+      };
+    } catch {
+      return { configured: false, appUserId: null };
+    }
+  }
+
+  try {
+    return {
+      configured: true,
+      appUserId: await getAppUserId(),
+    };
+  } catch {
+    return { configured: true, appUserId: null };
+  }
 }
 
 /**

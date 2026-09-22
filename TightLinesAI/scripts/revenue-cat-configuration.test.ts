@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  detectRevenueCatNativeState,
   revenueCatUserNeedsLogin,
   waitForRevenueCatConfiguration,
 } from '../lib/revenueCatConfiguration';
@@ -71,4 +72,29 @@ test('logs in when the native RevenueCat user differs from the signed-in user', 
     revenueCatUserNeedsLogin('finfindr-user-old', 'finfindr-user-new'),
     true,
   );
+});
+
+test('uses the native user probe when isConfigured throws across a JS/native version boundary', async () => {
+  const state = await detectRevenueCatNativeState(
+    async () => {
+      throw new Error('Exception in HostFunction: <unknown>');
+    },
+    async () => 'finfindr-user-123',
+  );
+
+  assert.deepEqual(state, {
+    configured: true,
+    appUserId: 'finfindr-user-123',
+  });
+});
+
+test('reports unconfigured only when neither native probe can find the singleton', async () => {
+  const state = await detectRevenueCatNativeState(
+    async () => false,
+    async () => {
+      throw new Error('There is no singleton instance');
+    },
+  );
+
+  assert.deepEqual(state, { configured: false, appUserId: null });
 });

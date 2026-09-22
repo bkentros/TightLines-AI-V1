@@ -15,6 +15,7 @@ import type { SubscriptionTier, UserProfile } from "../lib/types";
 import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 import { captureAnalytics } from "../lib/analytics";
 import {
+  detectRevenueCatNativeState,
   revenueCatUserNeedsLogin,
   waitForRevenueCatConfiguration,
 } from "../lib/revenueCatConfiguration";
@@ -332,19 +333,26 @@ function ensureRevenueCatConfigured(
       }
     }
 
-    let nativeConfigured = await Purchases.isConfigured().catch(() => false);
-    if (!nativeConfigured) {
+    let nativeState = await detectRevenueCatNativeState(
+      () => Purchases.isConfigured(),
+      () => Purchases.getAppUserID(),
+    );
+    if (!nativeState.configured) {
       Purchases.configure({ apiKey, appUserID: userId });
-      nativeConfigured = await waitForRevenueCatConfiguration(() =>
-        Purchases.isConfigured()
+      const ready = await waitForRevenueCatConfiguration(async () =>
+        (await detectRevenueCatNativeState(
+          () => Purchases.isConfigured(),
+          () => Purchases.getAppUserID(),
+        )).configured
       );
-      if (!nativeConfigured) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
+      if (!ready) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
       configuredUserId = userId;
     } else if (configuredUserId !== userId) {
       // Native configuration survives a JS/Fast Refresh reload, but the
       // module-scoped marker above does not. Ask RevenueCat which user is
       // actually active so we never issue a redundant TurboModule logIn.
-      const nativeUserId = await Purchases.getAppUserID();
+      const nativeUserId = nativeState.appUserId;
+      if (!nativeUserId) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
       if (revenueCatUserNeedsLogin(nativeUserId, userId)) {
         await Purchases.logIn(userId);
       }
@@ -353,8 +361,11 @@ function ensureRevenueCatConfigured(
 
     // Keep this final guard even after logIn: paywalls live in a separate
     // native module and must never be asked to resolve an absent singleton.
-    const ready = await waitForRevenueCatConfiguration(() =>
-      Purchases.isConfigured()
+    const ready = await waitForRevenueCatConfiguration(async () =>
+      (await detectRevenueCatNativeState(
+        () => Purchases.isConfigured(),
+        () => Purchases.getAppUserID(),
+      )).configured
     );
     if (!ready) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
 
