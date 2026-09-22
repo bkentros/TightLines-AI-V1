@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "piercast-major-species-all-city-audit-v2",
+  "reviewedAt": "2026-09-22",
+  "configVersion": "piercast-v3-thirty-two-city-caseville-species-v12",
+  "cityCount": 32,
+  "speciesCount": 7,
+  "cellCount": 224,
+  "numericPairCount": 156,
+  "numericRetained": 156,
+  "numericRevised": 0,
+  "unscoredCellCount": 68,
+  "modeCount": 329,
+  "fullYearPairDateCount": 56940,
+  "monthlyPairCheckpointCount": 1872,
+  "annualWindowSummaryCount": 156,
+  "invariantChecks": 170820,
+  "modeDateChecks": 120085,
+  "citiesWithGoodMajorSpeciesPeak": 29,
+  "citiesWithoutGoodMajorSpeciesPeak": [
+    "harbor_beach_mi",
+    "tawas_city_mi",
+    "caseville_mi"
+  ],
+  "confidenceMultiplierFound": false,
+  "casevilleSeptember22": [
+    {
+      "speciesId": "coho_salmon",
+      "pairPeakF": 5,
+      "idealTemperatureSeasonalPotential": 2.902
+    },
+    {
+      "speciesId": "steelhead",
+      "pairPeakF": 4.5,
+      "idealTemperatureSeasonalPotential": 2.786
+    },
+    {
+      "speciesId": "lake_trout",
+      "pairPeakF": 4.6,
+      "idealTemperatureSeasonalPotential": 1.553
+    }
+  ]
+}

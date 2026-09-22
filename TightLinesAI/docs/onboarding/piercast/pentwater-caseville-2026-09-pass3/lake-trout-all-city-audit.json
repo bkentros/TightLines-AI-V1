@@ -71,7 +71,7 @@
       "displayName": "Harbor Beach",
       "disposition": "numeric_private",
       "runtimePairPresent": true,
-      "limitation": "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured."
+      "limitation": "Evidence-admitted Formula v3 species-expansion private-shadow candidate; a numeric calibration exists, while user-facing rating and promotion remain disabled."
     },
     {
       "cityId": "oscoda_mi",
@@ -85,7 +85,7 @@
       "displayName": "Port Sanilac",
       "disposition": "numeric_private",
       "runtimePairPresent": true,
-      "limitation": "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured."
+      "limitation": "Evidence-admitted Formula v3 species-expansion private-shadow candidate; a numeric calibration exists, while user-facing rating and promotion remain disabled."
     },
     {
       "cityId": "two_rivers_wi",

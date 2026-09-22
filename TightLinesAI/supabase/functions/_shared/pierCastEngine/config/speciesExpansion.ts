@@ -51,8 +51,11 @@ export function applyPierCastSpeciesExpansionDispositions(
         ...profile,
         inheritance: "candidate",
         ratingEnabled: false,
-        limitation: profile.limitation ??
-          "Evidence-admitted Formula v3 species-expansion private-shadow candidate; numeric scoring remains disabled and promotion-blocked.",
+        // An expansion admission supersedes the older base-profile disposition.
+        // Retaining that text could claim that no numeric calibration exists even
+        // though the pair is present in the Formula v3 shadow manifest.
+        limitation:
+          "Evidence-admitted Formula v3 species-expansion private-shadow candidate; a numeric calibration exists, while user-facing rating and promotion remain disabled.",
       }
       : { ...profile };
   });
@@ -110,7 +113,7 @@ function admittedProfile(
     seasonalOpportunityCurve: null,
     ratingEnabled: false,
     limitation:
-      "Evidence-admitted Formula v3 species-expansion private-shadow candidate; numeric scoring remains disabled and promotion-blocked.",
+      "Evidence-admitted Formula v3 species-expansion private-shadow candidate; a numeric calibration exists, while user-facing rating and promotion remain disabled.",
   };
 }
 

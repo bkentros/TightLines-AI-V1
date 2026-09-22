@@ -21,11 +21,36 @@ const match = generated.match(
 );
 if (!match) throw new Error("Formula v3 generated manifest could not be parsed.");
 const pairs = JSON.parse(match[1]);
+const stageCityIds = new Set([
+  "ludington_mi", "grand_haven_mi", "manistee_mi",
+  "frankfort_elberta_mi", "sheboygan_wi", "port_washington_wi",
+  "milwaukee_wi", "racine_wi", "kenosha_wi", "harbor_beach_mi",
+  "oscoda_mi", "port_sanilac_mi", "two_rivers_wi", "kewaunee_wi",
+  "algoma_wi", "manitowoc_wi", "waukegan_il", "chicago_il",
+  "michigan_city_in", "muskegon_mi", "whitehall_mi", "alpena_mi",
+]);
+const stagePairs = pairs.filter((pair) => stageCityIds.has(pair.cityId));
+// These bluegill rows belong to the frozen historical manifest and were
+// removed by a later product-policy migration.
+const legacyBluegillAfter = new Map([
+  ["grand_haven_mi/white_bass", "grand_haven_mi"],
+  ["michigan_city_in/largemouth_bass", "michigan_city_in"],
+  ["muskegon_mi/white_perch", "muskegon_mi"],
+  ["whitehall_mi/northern_pike", "whitehall_mi"],
+]);
+const historicalPairs = stagePairs.flatMap((pair) => {
+  const cityId = legacyBluegillAfter.get(pair.pairKey);
+  return cityId
+    ? [pair, { cityId, speciesId: "bluegill", pairKey: `${cityId}/bluegill` }]
+    : [pair];
+});
 if (
-  pairs.length !== 173 || new Set(pairs.map((pair) => pair.pairKey)).size !== 173
+  new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
+  historicalPairs.length !== 173 ||
+  new Set(historicalPairs.map((pair) => pair.pairKey)).size !== 173
 ) throw new Error("Formula v3 Pass 3 pair manifest is incomplete.");
 
-const expectedPairs = pairs.map((pair) =>
+const expectedPairs = historicalPairs.map((pair) =>
   `    ('${pair.cityId}','${pair.speciesId}')`
 ).join(",\n");
 
@@ -311,5 +336,5 @@ if (process.argv.includes("--check")) {
   console.log("Chicago-Alpena Pass 3 migration is current.");
 } else {
   writeFileSync(outputPath, output);
-  console.log(`Generated ${outputPath} with ${pairs.length} expected pairs.`);
+  console.log(`Generated ${outputPath} with ${historicalPairs.length} expected pairs.`);
 }

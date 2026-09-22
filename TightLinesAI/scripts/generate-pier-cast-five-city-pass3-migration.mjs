@@ -21,11 +21,32 @@ const match = generated.match(
 );
 if (!match) throw new Error("Formula v3 generated manifest could not be parsed.");
 const pairs = JSON.parse(match[1]);
+const stageCityIds = new Set([
+  "ludington_mi", "grand_haven_mi", "manistee_mi",
+  "frankfort_elberta_mi", "sheboygan_wi", "port_washington_wi",
+  "milwaukee_wi", "racine_wi", "kenosha_wi", "harbor_beach_mi",
+  "oscoda_mi", "port_sanilac_mi", "two_rivers_wi", "kewaunee_wi",
+  "algoma_wi", "manitowoc_wi", "waukegan_il",
+]);
+const stagePairs = pairs.filter((pair) => stageCityIds.has(pair.cityId));
+// Bluegill was still present in this historical manifest and was removed by a
+// later product-policy migration. Reinsert only that frozen historical key.
+const historicalPairs = stagePairs.flatMap((pair) =>
+  pair.pairKey === "grand_haven_mi/white_bass"
+    ? [pair, {
+      cityId: "grand_haven_mi",
+      speciesId: "bluegill",
+      pairKey: "grand_haven_mi/bluegill",
+    }]
+    : [pair]
+);
 if (
-  pairs.length !== 118 || new Set(pairs.map((pair) => pair.pairKey)).size !== 118
+  new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
+  historicalPairs.length !== 118 ||
+  new Set(historicalPairs.map((pair) => pair.pairKey)).size !== 118
 ) throw new Error("Formula v3 Pass 3 pair manifest is incomplete.");
 
-const expectedPairs = pairs.map((pair) =>
+const expectedPairs = historicalPairs.map((pair) =>
   `    ('${pair.cityId}','${pair.speciesId}')`
 ).join(",\n");
 
@@ -290,5 +311,5 @@ if (process.argv.includes("--check")) {
   console.log("Five-city Pass 3 migration is current.");
 } else {
   writeFileSync(outputPath, output);
-  console.log(`Generated ${outputPath} with ${pairs.length} expected pairs.`);
+  console.log(`Generated ${outputPath} with ${historicalPairs.length} expected pairs.`);
 }

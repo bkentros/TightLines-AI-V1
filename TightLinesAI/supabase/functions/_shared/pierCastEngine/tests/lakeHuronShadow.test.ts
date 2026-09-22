@@ -81,7 +81,9 @@ Deno.test("Lake Huron profiles are private, complete, and use unique audited cel
     buildPierCastCatalog("review").cities.map((c) => c.cityId),
   );
   for (const cityId of PIER_CAST_LAKE_HURON_CITY_IDS) {
-    const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
+    const publicCity = publicCatalog.cities.find((city) =>
+      city.cityId === cityId
+    );
     assertEquals(publicCity?.releaseStatus, "research_only");
     assertEquals(publicCity?.species, []);
     assert(reviewIds.has(cityId));
@@ -111,6 +113,33 @@ Deno.test("Lake Huron profiles are private, complete, and use unique audited cel
     ).length,
     28,
   );
+});
+
+Deno.test("species-expansion admissions replace stale no-score catalog text", () => {
+  const catalog = buildPierCastCatalog("review", "v3");
+  for (
+    const pairKey of [
+      "harbor_beach_mi/atlantic_salmon",
+      "harbor_beach_mi/steelhead",
+      "harbor_beach_mi/lake_trout",
+      "port_sanilac_mi/brown_trout",
+    ]
+  ) {
+    const [cityId, speciesId] = pairKey.split("/");
+    const city = catalog.cities.find((candidate) =>
+      candidate.cityId === cityId
+    );
+    const species = city?.species.find((candidate) =>
+      candidate.speciesId === speciesId
+    );
+    assert(species, `Missing review-catalog admission ${pairKey}.`);
+    assertEquals(species.inheritance, "candidate");
+    assert(species.limitation?.includes("a numeric calibration exists"));
+    assertEquals(
+      species.limitation?.includes("no numeric city-pier score"),
+      false,
+    );
+  }
 });
 
 Deno.test("Lake Huron archive commits exactly 363 samples and fails partial input closed", async () => {

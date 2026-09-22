@@ -1,0 +1,157 @@
+cityId,cityName,stateCode,speciesId,speciesName,pairKey,peakF,peakMonths,strongMonths,shoulderMonths,offSeasonMonths,decision
+ludington_mi,Ludington,MI,chinook_salmon,Chinook salmon,ludington_mi/chinook_salmon,8.3,Aug|Sep,,Apr|May|Jun|Jul|Oct,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+ludington_mi,Ludington,MI,coho_salmon,Coho salmon,ludington_mi/coho_salmon,5.6,Oct,Sep|Nov,Mar|Apr|May|Jul|Aug,Jan|Feb|Jun|Dec,retain_no_numerical_change
+ludington_mi,Ludington,MI,steelhead,Steelhead,ludington_mi/steelhead,8.1,Oct|Nov,Mar|Apr|Sep,Jan|Feb|May|Jun|Dec,Jul|Aug,retain_no_numerical_change
+ludington_mi,Ludington,MI,brown_trout,Brown trout,ludington_mi/brown_trout,7.6,Mar|Apr,May,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,chinook_salmon,Chinook salmon,grand_haven_mi/chinook_salmon,7.8,Sep,Aug|Oct,Apr|May|Jun|Jul,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,coho_salmon,Coho salmon,grand_haven_mi/coho_salmon,8.8,Sep,Apr|May|Aug|Oct,Mar|Jun|Jul|Nov,Jan|Feb|Dec,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,steelhead,Steelhead,grand_haven_mi/steelhead,9.2,Jun|Oct|Nov,Mar|Apr|Jul,Jan|Feb|May|Aug|Sep|Dec,,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,brown_trout,Brown trout,grand_haven_mi/brown_trout,7.6,Apr|May,Jan|Mar,Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+manistee_mi,Manistee,MI,chinook_salmon,Chinook salmon,manistee_mi/chinook_salmon,9.5,Aug|Sep,May|Jun,Apr|Jul|Oct,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+manistee_mi,Manistee,MI,coho_salmon,Coho salmon,manistee_mi/coho_salmon,8.2,Sep|Oct,Nov,Apr|May|Jun|Jul|Aug,Jan|Feb|Mar|Dec,retain_no_numerical_change
+manistee_mi,Manistee,MI,steelhead,Steelhead,manistee_mi/steelhead,10,Oct|Nov,Apr,Jan|Feb|Mar|May|Jun|Jul|Aug|Sep|Dec,,retain_no_numerical_change
+manistee_mi,Manistee,MI,brown_trout,Brown trout,manistee_mi/brown_trout,8.2,Apr|May,Mar,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+frankfort_elberta_mi,Frankfort,MI,chinook_salmon,Chinook salmon,frankfort_elberta_mi/chinook_salmon,9.7,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+frankfort_elberta_mi,Frankfort,MI,coho_salmon,Coho salmon,frankfort_elberta_mi/coho_salmon,8.6,Sep|Oct,Aug,Jul|Nov,Jan|Feb|Mar|Apr|May|Jun|Dec,retain_no_numerical_change
+frankfort_elberta_mi,Frankfort,MI,steelhead,Steelhead,frankfort_elberta_mi/steelhead,9.8,Oct,Mar|Apr|Sep|Nov,Jan|Feb|May|Jun|Jul|Aug|Dec,,retain_no_numerical_change
+frankfort_elberta_mi,Frankfort,MI,brown_trout,Brown trout,frankfort_elberta_mi/brown_trout,7.5,Mar|Apr,Jan|May,Feb|Jun|Oct|Nov|Dec,Jul|Aug|Sep,retain_no_numerical_change
+sheboygan_wi,Sheboygan,WI,chinook_salmon,Chinook salmon,sheboygan_wi/chinook_salmon,9.4,Aug|Sep,Jul|Oct,Jun,Jan|Feb|Mar|Apr|May|Nov|Dec,retain_no_numerical_change
+sheboygan_wi,Sheboygan,WI,coho_salmon,Coho salmon,sheboygan_wi/coho_salmon,8.2,Apr|May|Jul|Sep,Mar|Aug|Oct,Jun|Nov,Jan|Feb|Dec,retain_no_numerical_change
+sheboygan_wi,Sheboygan,WI,steelhead,Steelhead,sheboygan_wi/steelhead,7.8,Apr|Jul,Jan|Feb|Mar|May|Jun|Aug|Sep|Oct|Nov,Dec,,retain_no_numerical_change
+sheboygan_wi,Sheboygan,WI,brown_trout,Brown trout,sheboygan_wi/brown_trout,7.8,Apr|May,Jan|Mar|Dec,Feb|Jun|Aug|Sep|Oct|Nov,Jul,retain_no_numerical_change
+port_washington_wi,Port Washington,WI,chinook_salmon,Chinook salmon,port_washington_wi/chinook_salmon,8.6,Aug|Sep,Jul,Jun|Oct,Jan|Feb|Mar|Apr|May|Nov|Dec,retain_no_numerical_change
+port_washington_wi,Port Washington,WI,coho_salmon,Coho salmon,port_washington_wi/coho_salmon,8.5,Apr|May|Sep,Mar|Aug|Oct,Jun|Jul|Nov,Jan|Feb|Dec,retain_no_numerical_change
+port_washington_wi,Port Washington,WI,steelhead,Steelhead,port_washington_wi/steelhead,6.6,Mar|Apr|Jul,Jan|Feb|May|Jun|Aug,Dec,Sep|Oct|Nov,retain_no_numerical_change
+port_washington_wi,Port Washington,WI,brown_trout,Brown trout,port_washington_wi/brown_trout,8.1,Mar|Apr,May,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+milwaukee_wi,Milwaukee,WI,chinook_salmon,Chinook salmon,milwaukee_wi/chinook_salmon,7.8,Aug|Sep,Jul,Jun|Oct,Jan|Feb|Mar|Apr|May|Nov|Dec,retain_no_numerical_change
+milwaukee_wi,Milwaukee,WI,coho_salmon,Coho salmon,milwaukee_wi/coho_salmon,8.2,May|Sep,Apr|Jun|Aug|Oct,Mar|Jul|Nov,Jan|Feb|Dec,retain_no_numerical_change
+milwaukee_wi,Milwaukee,WI,steelhead,Steelhead,milwaukee_wi/steelhead,5.8,Mar|Apr|Jul,Jan|Feb|May|Jun|Aug,Dec,Sep|Oct|Nov,retain_no_numerical_change
+milwaukee_wi,Milwaukee,WI,brown_trout,Brown trout,milwaukee_wi/brown_trout,7.4,Mar|Apr,May,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+racine_wi,Racine,WI,chinook_salmon,Chinook salmon,racine_wi/chinook_salmon,8.1,Aug|Sep,Jul,Jun|Oct,Jan|Feb|Mar|Apr|May|Nov|Dec,retain_no_numerical_change
+racine_wi,Racine,WI,coho_salmon,Coho salmon,racine_wi/coho_salmon,8.5,Apr|May|Sep,Mar|Aug|Oct,Jun|Jul|Nov,Jan|Feb|Dec,retain_no_numerical_change
+racine_wi,Racine,WI,steelhead,Steelhead,racine_wi/steelhead,7.7,Apr|Jul,Feb|Mar|Jun|Aug,Jan|May|Sep|Oct|Dec,Nov,retain_no_numerical_change
+racine_wi,Racine,WI,brown_trout,Brown trout,racine_wi/brown_trout,7.3,Mar|Apr,May,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+kenosha_wi,Kenosha,WI,chinook_salmon,Chinook salmon,kenosha_wi/chinook_salmon,7.4,Aug|Sep,Jul,Jun|Oct,Jan|Feb|Mar|Apr|May|Nov|Dec,retain_no_numerical_change
+kenosha_wi,Kenosha,WI,coho_salmon,Coho salmon,kenosha_wi/coho_salmon,8.6,Apr|May,Mar|Aug|Sep|Oct,Jun|Jul|Nov,Jan|Feb|Dec,retain_no_numerical_change
+kenosha_wi,Kenosha,WI,steelhead,Steelhead,kenosha_wi/steelhead,5.6,Mar|Apr|Jul,Jan|Feb|May|Jun|Aug,Sep|Oct|Dec,Nov,retain_no_numerical_change
+kenosha_wi,Kenosha,WI,brown_trout,Brown trout,kenosha_wi/brown_trout,6.4,Mar|Apr,May,Jan|Feb|Jun|Nov|Dec,Jul|Aug|Sep|Oct,retain_no_numerical_change
+ludington_mi,Ludington,MI,lake_trout,Lake trout,ludington_mi/lake_trout,3.8,Jul|Oct|Nov,Jan|Feb|Mar|Jun|Aug|Dec,Apr|May|Sep,,retain_no_numerical_change
+ludington_mi,Ludington,MI,freshwater_drum,Freshwater drum,ludington_mi/freshwater_drum,5,Jun|Jul|Aug,May|Sep,Apr|Oct,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,lake_trout,Lake trout,grand_haven_mi/lake_trout,3.6,Jul|Oct|Nov,Jan|Feb|Mar|Jun|Aug|Dec,Apr|May|Sep,,retain_no_numerical_change
+grand_haven_mi,Grand Haven,MI,freshwater_drum,Freshwater drum,grand_haven_mi/freshwater_drum,7.2,May|Jun|Jul|Aug|Sep,Apr|Oct,,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+manistee_mi,Manistee,MI,lake_trout,Lake trout,manistee_mi/lake_trout,4,Jul|Oct|Nov,Jan|Feb|Mar|Jun|Aug|Dec,Apr|May|Sep,,retain_no_numerical_change
+manistee_mi,Manistee,MI,freshwater_drum,Freshwater drum,manistee_mi/freshwater_drum,4.7,Jun|Jul|Aug,May|Sep,Apr|Oct,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+frankfort_elberta_mi,Frankfort,MI,lake_trout,Lake trout,frankfort_elberta_mi/lake_trout,4,Jul|Oct|Nov,Jan|Feb|Mar|Jun|Aug|Dec,Apr|May|Sep,,retain_no_numerical_change
+harbor_beach_mi,Harbor Beach,MI,coho_salmon,Coho salmon,harbor_beach_mi/coho_salmon,5.8,Apr,Mar|May|Sep|Oct,Feb|Jun|Aug,Jan|Jul|Nov|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,atlantic_salmon,Atlantic salmon,oscoda_mi/atlantic_salmon,8.4,Apr,Mar|May|Sep,Feb|Jun|Aug|Oct,Jan|Jul|Nov|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,steelhead,Steelhead,oscoda_mi/steelhead,7.4,Apr,Mar|May|Sep,Feb|Jun|Aug|Oct,Jan|Jul|Nov|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,lake_trout,Lake trout,oscoda_mi/lake_trout,4.6,Apr,Mar|May,Feb|Jun,Jan|Jul|Aug|Sep|Oct|Nov|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,coho_salmon,Coho salmon,oscoda_mi/coho_salmon,6.5,Sep,Apr|Oct,Mar|May|Aug|Nov,Jan|Feb|Jun|Jul|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,chinook_salmon,Chinook salmon,oscoda_mi/chinook_salmon,5.5,Sep,Oct,Aug|Nov,Jan|Feb|Mar|Apr|May|Jun|Jul|Dec,retain_no_numerical_change
+oscoda_mi,Oscoda,MI,freshwater_drum,Freshwater drum,oscoda_mi/freshwater_drum,3.9,Jun|Jul|Aug,May|Sep,Apr|Oct,Jan|Feb|Mar|Nov|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,coho_salmon,Coho salmon,port_sanilac_mi/coho_salmon,6.4,Apr|Sep,Mar|May|Oct,Feb|Jun|Aug|Nov,Jan|Jul|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,steelhead,Steelhead,port_sanilac_mi/steelhead,4.5,Apr|Sep,Mar|May|Oct,Feb|Jun|Aug|Nov,Jan|Jul|Dec,retain_no_numerical_change
+harbor_beach_mi,Harbor Beach,MI,atlantic_salmon,Atlantic salmon,harbor_beach_mi/atlantic_salmon,5.2,Apr|May|Sep,Oct,Mar|Jun|Aug|Nov,Jan|Feb|Jul|Dec,retain_no_numerical_change
+harbor_beach_mi,Harbor Beach,MI,steelhead,Steelhead,harbor_beach_mi/steelhead,5.6,Apr|May|Oct,Jun|Sep,Mar|Jul|Aug|Nov,Jan|Feb|Dec,retain_no_numerical_change
+harbor_beach_mi,Harbor Beach,MI,lake_trout,Lake trout,harbor_beach_mi/lake_trout,5.3,Apr|May,Jun|Sep|Oct|Nov,Mar|Jul|Aug,Jan|Feb|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,atlantic_salmon,Atlantic salmon,port_sanilac_mi/atlantic_salmon,6.3,Apr|May,Jun|Sep|Oct,Mar|Aug|Nov,Jan|Feb|Jul|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,chinook_salmon,Chinook salmon,port_sanilac_mi/chinook_salmon,5,Apr|May|Sep,Oct,Mar|Jun|Aug,Jan|Feb|Jul|Nov|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,brown_trout,Brown trout,port_sanilac_mi/brown_trout,4.8,Apr|May|Oct,Mar|Sep|Nov,Jun|Aug,Jan|Feb|Jul|Dec,retain_no_numerical_change
+port_sanilac_mi,Port Sanilac,MI,lake_trout,Lake trout,port_sanilac_mi/lake_trout,5.5,Apr|May,Jun|Sep|Oct,Mar|Jul|Aug|Nov,Jan|Feb|Dec,retain_no_numerical_change
+two_rivers_wi,Two Rivers,WI,chinook_salmon,Chinook salmon,two_rivers_wi/chinook_salmon,8.4,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+two_rivers_wi,Two Rivers,WI,coho_salmon,Coho salmon,two_rivers_wi/coho_salmon,7.1,Apr|Sep|Oct,May|Jul|Aug,Mar|Jun|Nov,Jan|Feb|Dec,retain_no_numerical_change
+two_rivers_wi,Two Rivers,WI,steelhead,Steelhead,two_rivers_wi/steelhead,7.3,Apr|Oct|Nov,Mar|May|Jul|Aug,Jan|Feb|Jun|Sep|Dec,,retain_no_numerical_change
+two_rivers_wi,Two Rivers,WI,brown_trout,Brown trout,two_rivers_wi/brown_trout,7.2,Mar|Apr,Feb|May|Nov,Jan|Jun|Oct|Dec,Jul|Aug|Sep,retain_no_numerical_change
+kewaunee_wi,Kewaunee,WI,chinook_salmon,Chinook salmon,kewaunee_wi/chinook_salmon,9.1,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+kewaunee_wi,Kewaunee,WI,coho_salmon,Coho salmon,kewaunee_wi/coho_salmon,6.8,Apr|Sep|Oct,May|Jul|Aug,Mar|Jun|Nov,Jan|Feb|Dec,retain_no_numerical_change
+kewaunee_wi,Kewaunee,WI,steelhead,Steelhead,kewaunee_wi/steelhead,7.8,Apr|Jul|Oct|Nov,Mar|May|Aug,Jan|Feb|Jun|Sep|Dec,,retain_no_numerical_change
+kewaunee_wi,Kewaunee,WI,brown_trout,Brown trout,kewaunee_wi/brown_trout,7.4,Mar|Apr,Feb|May|Nov,Jan|Jun|Oct|Dec,Jul|Aug|Sep,retain_no_numerical_change
+kewaunee_wi,Kewaunee,WI,lake_trout,Lake trout,kewaunee_wi/lake_trout,4.2,Oct|Nov,Jan|Feb|Mar|Apr|Jul|Aug|Dec,May|Jun|Sep,,retain_no_numerical_change
+algoma_wi,Algoma,WI,chinook_salmon,Chinook salmon,algoma_wi/chinook_salmon,9,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+algoma_wi,Algoma,WI,coho_salmon,Coho salmon,algoma_wi/coho_salmon,7,Apr|Sep|Oct,May|Jul|Aug,Mar|Jun|Nov,Jan|Feb|Dec,retain_no_numerical_change
+algoma_wi,Algoma,WI,steelhead,Steelhead,algoma_wi/steelhead,7.7,Apr|Jul|Oct|Nov,Mar|May|Aug,Jan|Feb|Jun|Sep|Dec,,retain_no_numerical_change
+algoma_wi,Algoma,WI,brown_trout,Brown trout,algoma_wi/brown_trout,7.6,Mar|Apr,Feb|May|Nov,Jan|Jun|Oct|Dec,Jul|Aug|Sep,retain_no_numerical_change
+manitowoc_wi,Manitowoc,WI,chinook_salmon,Chinook salmon,manitowoc_wi/chinook_salmon,8.5,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+manitowoc_wi,Manitowoc,WI,coho_salmon,Coho salmon,manitowoc_wi/coho_salmon,7.2,Apr|Sep|Oct,May|Jul|Aug,Mar|Jun|Nov,Jan|Feb|Dec,retain_no_numerical_change
+manitowoc_wi,Manitowoc,WI,steelhead,Steelhead,manitowoc_wi/steelhead,7.2,Apr|Oct|Nov,Mar|May|Jul|Aug,Jan|Feb|Jun|Sep|Dec,,retain_no_numerical_change
+manitowoc_wi,Manitowoc,WI,brown_trout,Brown trout,manitowoc_wi/brown_trout,7.2,Mar|Apr,Feb|May|Nov,Jan|Jun|Oct|Dec,Jul|Aug|Sep,retain_no_numerical_change
+waukegan_il,Waukegan,IL,chinook_salmon,Chinook salmon,waukegan_il/chinook_salmon,7.6,Aug|Sep,Jul,May|Jun|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+waukegan_il,Waukegan,IL,coho_salmon,Coho salmon,waukegan_il/coho_salmon,8.8,Apr|May,Mar|Sep|Oct,Jun|Jul|Aug|Nov,Jan|Feb|Dec,retain_no_numerical_change
+waukegan_il,Waukegan,IL,steelhead,Steelhead,waukegan_il/steelhead,6.8,Apr|Jul|Oct|Nov,Mar|May|Aug,Jan|Feb|Jun|Sep|Dec,,retain_no_numerical_change
+waukegan_il,Waukegan,IL,brown_trout,Brown trout,waukegan_il/brown_trout,7,Feb|Nov|Dec,Jan|Mar|Oct,Apr|Sep,May|Jun|Jul|Aug,retain_no_numerical_change
+chicago_il,Chicago,IL,chinook_salmon,Chinook salmon,chicago_il/chinook_salmon,7,Aug|Sep,,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+chicago_il,Chicago,IL,coho_salmon,Coho salmon,chicago_il/coho_salmon,8.2,Apr|May,Mar|Oct,Jan|Feb|Jun|Sep|Nov,Jul|Aug|Dec,retain_no_numerical_change
+chicago_il,Chicago,IL,steelhead,Steelhead,chicago_il/steelhead,6.5,Mar|Apr|Oct|Nov,Feb|May|Dec,Jan|Jun|Sep,Jul|Aug,retain_no_numerical_change
+chicago_il,Chicago,IL,brown_trout,Brown trout,chicago_il/brown_trout,6.2,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+chicago_il,Chicago,IL,lake_trout,Lake trout,chicago_il/lake_trout,5.4,Jan|Feb|Mar,Nov|Dec,Apr,May|Jun|Jul|Aug|Sep|Oct,retain_no_numerical_change
+chicago_il,Chicago,IL,freshwater_drum,Freshwater drum,chicago_il/freshwater_drum,5.6,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+michigan_city_in,Michigan City,IN,chinook_salmon,Chinook salmon,michigan_city_in/chinook_salmon,7.4,Aug|Sep,,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+michigan_city_in,Michigan City,IN,coho_salmon,Coho salmon,michigan_city_in/coho_salmon,8.7,Apr|May,Mar|Oct,Jan|Feb|Jun|Sep|Nov,Jul|Aug|Dec,retain_no_numerical_change
+michigan_city_in,Michigan City,IN,steelhead,Steelhead,michigan_city_in/steelhead,8.5,Mar|Jul|Nov,Jan|Feb|Apr|Jun|Aug|Dec,May|Sep|Oct,,retain_no_numerical_change
+michigan_city_in,Michigan City,IN,brown_trout,Brown trout,michigan_city_in/brown_trout,6,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+muskegon_mi,Muskegon,MI,chinook_salmon,Chinook salmon,muskegon_mi/chinook_salmon,6.5,Aug|Sep,,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+muskegon_mi,Muskegon,MI,coho_salmon,Coho salmon,muskegon_mi/coho_salmon,6.4,Apr|Oct,Mar|May|Sep,Aug|Nov,Jan|Feb|Jun|Jul|Dec,retain_no_numerical_change
+muskegon_mi,Muskegon,MI,steelhead,Steelhead,muskegon_mi/steelhead,8,Mar|Apr|Oct|Nov,Feb|May|Dec,Jan|Jun|Sep,Jul|Aug,retain_no_numerical_change
+muskegon_mi,Muskegon,MI,brown_trout,Brown trout,muskegon_mi/brown_trout,7,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+muskegon_mi,Muskegon,MI,freshwater_drum,Freshwater drum,muskegon_mi/freshwater_drum,6.2,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+whitehall_mi,Whitehall,MI,chinook_salmon,Chinook salmon,whitehall_mi/chinook_salmon,9.3,Aug|Sep,,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+whitehall_mi,Whitehall,MI,coho_salmon,Coho salmon,whitehall_mi/coho_salmon,7.4,Sep|Oct,Apr,Mar|May|Aug|Nov,Jan|Feb|Jun|Jul|Dec,retain_no_numerical_change
+whitehall_mi,Whitehall,MI,steelhead,Steelhead,whitehall_mi/steelhead,8.7,Mar|Apr|Oct|Nov,Feb|May|Dec,Jan|Jun|Sep,Jul|Aug,retain_no_numerical_change
+whitehall_mi,Whitehall,MI,brown_trout,Brown trout,whitehall_mi/brown_trout,7.7,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+whitehall_mi,Whitehall,MI,freshwater_drum,Freshwater drum,whitehall_mi/freshwater_drum,5.6,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+alpena_mi,Alpena,MI,chinook_salmon,Chinook salmon,alpena_mi/chinook_salmon,5.4,Sep|Oct,,,Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Nov|Dec,retain_no_numerical_change
+alpena_mi,Alpena,MI,coho_salmon,Coho salmon,alpena_mi/coho_salmon,6.5,Oct,Apr|Sep,Mar|May|Aug|Nov,Jan|Feb|Jun|Jul|Dec,retain_no_numerical_change
+alpena_mi,Alpena,MI,steelhead,Steelhead,alpena_mi/steelhead,5.8,Apr|May|Oct,Mar|Sep|Nov,Jan|Feb|Jun|Dec,Jul|Aug,retain_no_numerical_change
+alpena_mi,Alpena,MI,brown_trout,Brown trout,alpena_mi/brown_trout,5.4,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+alpena_mi,Alpena,MI,lake_trout,Lake trout,alpena_mi/lake_trout,5,Aug|Sep,Mar|Apr|May|Jul,Jan|Feb|Jun,Oct|Nov|Dec,retain_no_numerical_change
+alpena_mi,Alpena,MI,freshwater_drum,Freshwater drum,alpena_mi/freshwater_drum,4.2,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+alpena_mi,Alpena,MI,atlantic_salmon,Atlantic salmon,alpena_mi/atlantic_salmon,7.2,Mar|Apr|May,Jan|Feb|Sep|Oct|Nov|Dec,Jun,Jul|Aug,retain_no_numerical_change
+st_joseph_mi,St. Joseph,MI,chinook_salmon,Chinook salmon,st_joseph_mi/chinook_salmon,6.8,Jul,Apr|May|Jun|Aug,Mar|Sep,Jan|Feb|Oct|Nov|Dec,retain_no_numerical_change
+st_joseph_mi,St. Joseph,MI,coho_salmon,Coho salmon,st_joseph_mi/coho_salmon,8.6,Apr,Mar|May|Oct,Jan|Feb|Jun|Sep|Nov,Jul|Aug|Dec,retain_no_numerical_change
+st_joseph_mi,St. Joseph,MI,steelhead,Steelhead,st_joseph_mi/steelhead,7.8,Apr|Jul,Feb|Mar|May|Jun|Aug,Jan|Oct|Nov|Dec,Sep,retain_no_numerical_change
+st_joseph_mi,St. Joseph,MI,brown_trout,Brown trout,st_joseph_mi/brown_trout,6.5,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+st_joseph_mi,St. Joseph,MI,lake_trout,Lake trout,st_joseph_mi/lake_trout,4.1,Jan|Feb|Mar|Apr|Nov,May|Oct|Dec,Jun|Sep,Jul|Aug,retain_no_numerical_change
+south_haven_mi,South Haven,MI,chinook_salmon,Chinook salmon,south_haven_mi/chinook_salmon,7,Sep,Aug,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+south_haven_mi,South Haven,MI,coho_salmon,Coho salmon,south_haven_mi/coho_salmon,7.8,Apr,Mar|May|Oct,Jan|Feb|Jun|Sep|Nov,Jul|Aug|Dec,retain_no_numerical_change
+south_haven_mi,South Haven,MI,steelhead,Steelhead,south_haven_mi/steelhead,8.8,Jun|Jul|Oct,Apr|Aug|Nov,Jan|Feb|Mar|May|Sep|Dec,,retain_no_numerical_change
+south_haven_mi,South Haven,MI,brown_trout,Brown trout,south_haven_mi/brown_trout,6.5,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+south_haven_mi,South Haven,MI,lake_trout,Lake trout,south_haven_mi/lake_trout,3.8,Oct|Nov,Apr|May|Sep|Dec,Jan|Feb|Mar,Jun|Jul|Aug,retain_no_numerical_change
+south_haven_mi,South Haven,MI,freshwater_drum,Freshwater drum,south_haven_mi/freshwater_drum,6.5,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+holland_mi,Holland,MI,chinook_salmon,Chinook salmon,holland_mi/chinook_salmon,7.8,Sep,Aug,Apr|May|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+holland_mi,Holland,MI,coho_salmon,Coho salmon,holland_mi/coho_salmon,7,Apr,Mar|May|Oct,Jan|Feb|Jun|Sep|Nov,Jul|Aug|Dec,retain_no_numerical_change
+holland_mi,Holland,MI,steelhead,Steelhead,holland_mi/steelhead,7.3,Jul,Mar|Apr|May|Jun|Aug|Oct|Nov,Jan|Feb|Sep|Dec,,retain_no_numerical_change
+holland_mi,Holland,MI,brown_trout,Brown trout,holland_mi/brown_trout,7.2,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+holland_mi,Holland,MI,lake_trout,Lake trout,holland_mi/lake_trout,3.8,Jan|Feb|Mar|Apr|Nov,May|Oct|Dec,Jun|Sep,Jul|Aug,retain_no_numerical_change
+holland_mi,Holland,MI,freshwater_drum,Freshwater drum,holland_mi/freshwater_drum,5.8,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+lexington_mi,Lexington,MI,chinook_salmon,Chinook salmon,lexington_mi/chinook_salmon,5.6,Sep|Oct,,Aug|Nov,Jan|Feb|Mar|Apr|May|Jun|Jul|Dec,retain_no_numerical_change
+lexington_mi,Lexington,MI,coho_salmon,Coho salmon,lexington_mi/coho_salmon,6.8,Apr,Mar|May|Oct,Sep|Nov,Jan|Feb|Jun|Jul|Aug|Dec,retain_no_numerical_change
+lexington_mi,Lexington,MI,steelhead,Steelhead,lexington_mi/steelhead,8.8,Apr|May|Oct,Mar|Nov,Jan|Feb|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+lexington_mi,Lexington,MI,brown_trout,Brown trout,lexington_mi/brown_trout,5,Mar|Apr|Oct,Feb|May|Nov,Jan|Sep|Dec,Jun|Jul|Aug,retain_no_numerical_change
+lexington_mi,Lexington,MI,lake_trout,Lake trout,lexington_mi/lake_trout,4.8,Apr,Mar|May,Jan|Feb|Nov|Dec,Jun|Jul|Aug|Sep|Oct,retain_no_numerical_change
+lexington_mi,Lexington,MI,freshwater_drum,Freshwater drum,lexington_mi/freshwater_drum,4.8,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+lexington_mi,Lexington,MI,atlantic_salmon,Atlantic salmon,lexington_mi/atlantic_salmon,8,Oct|Nov,Apr|Sep|Dec,Jan|Feb|Mar|May,Jun|Jul|Aug,retain_no_numerical_change
+harrisville_mi,Harrisville,MI,chinook_salmon,Chinook salmon,harrisville_mi/chinook_salmon,6.6,Sep|Oct,,Aug|Nov,Jan|Feb|Mar|Apr|May|Jun|Jul|Dec,retain_no_numerical_change
+harrisville_mi,Harrisville,MI,coho_salmon,Coho salmon,harrisville_mi/coho_salmon,6.2,Sep|Oct,Jan|Feb|Dec,Mar|Nov,Apr|May|Jun|Jul|Aug,retain_no_numerical_change
+harrisville_mi,Harrisville,MI,steelhead,Steelhead,harrisville_mi/steelhead,5.7,Apr|May|Oct,Mar|Sep|Nov,Jan|Feb|Jun|Dec,Jul|Aug,retain_no_numerical_change
+harrisville_mi,Harrisville,MI,brown_trout,Brown trout,harrisville_mi/brown_trout,5,Nov|Dec,Jan|Feb|Oct,Mar|Apr,May|Jun|Jul|Aug|Sep,retain_no_numerical_change
+harrisville_mi,Harrisville,MI,atlantic_salmon,Atlantic salmon,harrisville_mi/atlantic_salmon,5.8,Jan|Feb,Mar|Oct|Nov|Dec,Apr|Sep,May|Jun|Jul|Aug,retain_no_numerical_change
+pentwater_mi,Pentwater,MI,chinook_salmon,Chinook salmon,pentwater_mi/chinook_salmon,7.5,Sep,May|Aug,Apr|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+pentwater_mi,Pentwater,MI,coho_salmon,Coho salmon,pentwater_mi/coho_salmon,7.2,Apr,Mar|May|Oct,Feb|Jun|Sep|Nov,Jan|Jul|Aug|Dec,retain_no_numerical_change
+pentwater_mi,Pentwater,MI,steelhead,Steelhead,pentwater_mi/steelhead,8.3,Jul|Oct,Mar|Apr|May|Jun|Aug|Nov,Jan|Feb|Sep|Dec,,retain_no_numerical_change
+pentwater_mi,Pentwater,MI,brown_trout,Brown trout,pentwater_mi/brown_trout,7.3,Mar|Apr,Feb|May|Oct|Nov,Jan|Jun|Sep|Dec,Jul|Aug,retain_no_numerical_change
+pentwater_mi,Pentwater,MI,freshwater_drum,Freshwater drum,pentwater_mi/freshwater_drum,5.4,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+rogers_city_mi,Rogers City,MI,chinook_salmon,Chinook salmon,rogers_city_mi/chinook_salmon,6,Sep|Oct,,Aug|Nov,Jan|Feb|Mar|Apr|May|Jun|Jul|Dec,retain_no_numerical_change
+rogers_city_mi,Rogers City,MI,steelhead,Steelhead,rogers_city_mi/steelhead,6,Apr|May|Oct,Mar|Sep|Nov,Jan|Feb|Jun|Dec,Jul|Aug,retain_no_numerical_change
+rogers_city_mi,Rogers City,MI,brown_trout,Brown trout,rogers_city_mi/brown_trout,5.8,Mar|Apr|Oct,Feb|May|Nov,Jan|Sep|Dec,Jun|Jul|Aug,retain_no_numerical_change
+rogers_city_mi,Rogers City,MI,lake_trout,Lake trout,rogers_city_mi/lake_trout,5.1,Apr,Mar|May,Jan|Feb|Nov|Dec,Jun|Jul|Aug|Sep|Oct,retain_no_numerical_change
+rogers_city_mi,Rogers City,MI,atlantic_salmon,Atlantic salmon,rogers_city_mi/atlantic_salmon,6.8,Mar|Apr|Oct,Jan|Feb|May|Sep|Nov|Dec,,Jun|Jul|Aug,retain_no_numerical_change
+tawas_city_mi,Tawas City,MI,coho_salmon,Coho salmon,tawas_city_mi/coho_salmon,5.8,Apr|May,Mar|Oct,Feb|Sep|Nov,Jan|Jun|Jul|Aug|Dec,retain_no_numerical_change
+tawas_city_mi,Tawas City,MI,steelhead,Steelhead,tawas_city_mi/steelhead,5.8,Apr|May|Oct,Mar|Sep|Nov,Jan|Feb|Jun|Dec,Jul|Aug,retain_no_numerical_change
+tawas_city_mi,Tawas City,MI,lake_trout,Lake trout,tawas_city_mi/lake_trout,5.1,Apr,Mar|May,Jan|Feb|Nov|Dec,Jun|Jul|Aug|Sep|Oct,retain_no_numerical_change
+charlevoix_mi,Charlevoix,MI,chinook_salmon,Chinook salmon,charlevoix_mi/chinook_salmon,7.2,Sep,May|Aug,Apr|Jun|Oct,Jan|Feb|Mar|Jul|Nov|Dec,retain_no_numerical_change
+charlevoix_mi,Charlevoix,MI,steelhead,Steelhead,charlevoix_mi/steelhead,7.5,Jul|Oct,Mar|Apr|May|Jun|Aug|Nov,Jan|Feb|Sep|Dec,,retain_no_numerical_change
+charlevoix_mi,Charlevoix,MI,lake_trout,Lake trout,charlevoix_mi/lake_trout,5,Jan|Feb|Mar|Apr|Nov,May|Oct|Dec,Jun|Sep,Jul|Aug,retain_no_numerical_change
+charlevoix_mi,Charlevoix,MI,freshwater_drum,Freshwater drum,charlevoix_mi/freshwater_drum,5.4,Jul|Aug,Jun|Sep,May|Oct,Jan|Feb|Mar|Apr|Nov|Dec,retain_no_numerical_change
+caseville_mi,Caseville,MI,coho_salmon,Coho salmon,caseville_mi/coho_salmon,5,Apr|May,Mar|Oct,Feb|Sep|Nov,Jan|Jun|Jul|Aug|Dec,retain_no_numerical_change
+caseville_mi,Caseville,MI,steelhead,Steelhead,caseville_mi/steelhead,4.5,Apr|May|Oct,Mar|Sep|Nov,Jan|Feb|Jun|Dec,Jul|Aug,retain_no_numerical_change
+caseville_mi,Caseville,MI,lake_trout,Lake trout,caseville_mi/lake_trout,4.6,Apr,Mar|May,Jan|Feb|Nov|Dec,Jun|Jul|Aug|Sep|Oct,retain_no_numerical_change
