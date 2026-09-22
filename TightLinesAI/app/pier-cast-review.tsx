@@ -3304,14 +3304,117 @@ function PierCastReportSkeleton() {
   );
 }
 
+function NearbyPortSelector({
+  selectedCity,
+  cities,
+  ownerReview,
+  onOpenCity,
+}: {
+  selectedCity: PierCastCatalogCityRead;
+  cities: readonly PierCastCatalogCityRead[];
+  ownerReview: boolean;
+  onOpenCity: (cityId: string) => void;
+}) {
+  const nearbyCities = useMemo(
+    () =>
+      [...cities].sort(
+        (left, right) =>
+          distanceBetweenCities(selectedCity, left) -
+            distanceBetweenCities(selectedCity, right) ||
+          left.displayName.localeCompare(right.displayName),
+      ),
+    [cities, selectedCity],
+  );
+
+  return (
+    <View style={styles.portSelector}>
+      <View style={styles.portHeading}>
+        <View style={styles.portHeadingIdentity}>
+          <View style={styles.portHeadingIcon}>
+            <Ionicons name="navigate-outline" size={17} color="#167B78" />
+          </View>
+          <View>
+            <Text style={styles.eyebrow}>NEARBY PORTS</Text>
+            <Text style={styles.portTitle}>Explore the shoreline</Text>
+          </View>
+        </View>
+        <View style={styles.portCountPill}>
+          <Text style={styles.portCount}>
+            {String(nearbyCities.length).padStart(2, "0")} PORTS
+          </Text>
+        </View>
+      </View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.cityRail}
+      >
+        {nearbyCities.map((city) => {
+          const selected = city.cityId === selectedCity.cityId;
+          const distance = distanceBetweenCities(selectedCity, city);
+          return (
+            <Pressable
+              key={city.cityId}
+              style={[styles.cityChip, selected && styles.cityChipSelected]}
+              onPress={() => {
+                if (selected) return;
+                hapticSelection();
+                onOpenCity(city.cityId);
+              }}
+              accessibilityRole="button"
+              accessibilityState={{ selected }}
+            >
+              <Ionicons
+                name={selected ? "location" : "location-outline"}
+                size={12}
+                color={selected ? "#FFFFFF" : "#167B78"}
+              />
+              <View>
+                <Text
+                  style={[
+                    styles.cityChipText,
+                    selected && styles.cityChipTextSelected,
+                  ]}
+                >
+                  {city.displayName}
+                </Text>
+                <Text
+                  style={[
+                    styles.cityChipDistance,
+                    selected && styles.cityChipDistanceSelected,
+                  ]}
+                >
+                  {selected
+                    ? "CURRENT"
+                    : !ownerReview && city.releaseStatus === "research_only"
+                      ? "UNAVAILABLE"
+                      : Number.isFinite(distance)
+                        ? `${Math.round(distance)} MI AWAY`
+                        : city.stateCode}
+                </Text>
+              </View>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
+    </View>
+  );
+}
+
 function CityReport({
   city,
+  cities,
+  ownerReview,
+  onOpenCity,
   outlook,
   weather,
   weatherLoading,
   conditionsUpdatedAt,
 }: {
   city: PierCastCatalogCityRead;
+  cities: readonly PierCastCatalogCityRead[];
+  ownerReview: boolean;
+  onOpenCity: (cityId: string) => void;
   outlook: PierCastReviewCityOutlookRead | null;
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
@@ -3408,6 +3511,12 @@ function CityReport({
         summary={outlook.temperatureEvents}
         timezone={outlook.timezone}
         referenceAt={conditionsUpdatedAt}
+      />
+      <NearbyPortSelector
+        selectedCity={city}
+        cities={cities}
+        ownerReview={ownerReview}
+        onOpenCity={onOpenCity}
       />
       <PiersCovered city={city} />
     </>
@@ -3571,19 +3680,6 @@ export default function PierCastReviewScreen() {
     ownerReview && outlook && "mode" in outlook ? outlook : cityReport
   )?.cities.find((city) => city.cityId === selectedCityId) ?? null;
   const supplementalStandingsOutlooks: readonly PierCastReviewOutlookResponse[] = [];
-  const nearbyCities = useMemo(
-    () =>
-      selectedCity && catalog
-        ? [...catalog.cities].sort(
-            (left, right) =>
-              distanceBetweenCities(selectedCity, left) -
-                distanceBetweenCities(selectedCity, right) ||
-              left.displayName.localeCompare(right.displayName),
-          )
-        : [],
-    [catalog, selectedCity],
-  );
-
   useEffect(() => {
     const location = selectedCity?.waterTemperatureSource?.configuredLocation;
     if (!location) {
@@ -3683,86 +3779,6 @@ export default function PierCastReviewScreen() {
         ) : catalog && outlook ? (
           selectedCity ? (
             <>
-              <View style={styles.portSelector}>
-                <View style={styles.portHeading}>
-                  <View style={styles.portHeadingIdentity}>
-                    <View style={styles.portHeadingIcon}>
-                      <Ionicons
-                        name="navigate-outline"
-                        size={17}
-                        color="#167B78"
-                      />
-                    </View>
-                    <View>
-                      <Text style={styles.eyebrow}>NEARBY PORTS</Text>
-                      <Text style={styles.portTitle}>
-                        Explore the shoreline
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={styles.portCountPill}>
-                    <Text style={styles.portCount}>
-                      {String(nearbyCities.length).padStart(2, "0")} PORTS
-                    </Text>
-                  </View>
-                </View>
-                <ScrollView
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={styles.cityRail}
-                >
-                  {nearbyCities.map((city) => {
-                    const selected = city.cityId === selectedCity.cityId;
-                    const distance = distanceBetweenCities(selectedCity, city);
-                    return (
-                      <Pressable
-                        key={city.cityId}
-                        style={[
-                          styles.cityChip,
-                          selected && styles.cityChipSelected,
-                        ]}
-                        onPress={() => {
-                          if (selected) return;
-                          hapticSelection();
-                          void openCity(city.cityId);
-                        }}
-                        accessibilityRole="button"
-                        accessibilityState={{ selected }}
-                      >
-                        <Ionicons
-                          name={selected ? "location" : "location-outline"}
-                          size={12}
-                          color={selected ? "#FFFFFF" : "#167B78"}
-                        />
-                        <View>
-                          <Text
-                            style={[
-                              styles.cityChipText,
-                              selected && styles.cityChipTextSelected,
-                            ]}
-                          >
-                            {city.displayName}
-                          </Text>
-                          <Text
-                            style={[
-                              styles.cityChipDistance,
-                              selected && styles.cityChipDistanceSelected,
-                            ]}
-                          >
-                            {selected
-                              ? "CURRENT"
-                              : !ownerReview && city.releaseStatus === "research_only"
-                                ? "UNAVAILABLE"
-                              : Number.isFinite(distance)
-                                ? `${Math.round(distance)} MI AWAY`
-                                : city.stateCode}
-                          </Text>
-                        </View>
-                      </Pressable>
-                    );
-                  })}
-                </ScrollView>
-              </View>
               <Text style={styles.ratingExplanationCopy}>{PIER_CAST_RESEARCH_DISCLOSURE}</Text>
               {!ownerReview && selectedCity.releaseStatus === "research_only" ? (
                 <>
@@ -3779,12 +3795,21 @@ export default function PierCastReviewScreen() {
                     weather={weather}
                     weatherLoading={weatherLoading}
                   />
+                  <NearbyPortSelector
+                    selectedCity={selectedCity}
+                    cities={catalog.cities}
+                    ownerReview={ownerReview}
+                    onOpenCity={(cityId) => void openCity(cityId)}
+                  />
                   <PiersCovered city={selectedCity} />
                 </>
               ) : (
                 <>
                   <CityReport
                     city={selectedCity}
+                    cities={catalog.cities}
+                    ownerReview={ownerReview}
+                    onOpenCity={(cityId) => void openCity(cityId)}
                     outlook={selectedOutlook}
                     weather={weather}
                     weatherLoading={weatherLoading}

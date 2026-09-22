@@ -95,6 +95,21 @@ test("expanded city access keeps the standard user-facing PierCast header", () =
   assert.doesNotMatch(screen, /PRIVATE OWNER REVIEW/);
 });
 
+test("city reports place nearby ports between temperature shifts and piers covered", () => {
+  const screen = readFileSync(resolve(root, "app/pier-cast-review.tsx"), "utf8");
+  const cityReport = screen.slice(
+    screen.indexOf("function CityReport("),
+    screen.indexOf("export default function PierCastReviewScreen()"),
+  );
+  const temperatureShifts = cityReport.indexOf("<WaterTemperatureShifts");
+  const nearbyPorts = cityReport.indexOf("<NearbyPortSelector");
+  const piersCovered = cityReport.indexOf("<PiersCovered");
+
+  assert.ok(temperatureShifts >= 0, "Water Temperature Shifts is missing");
+  assert.ok(nearbyPorts > temperatureShifts, "nearby ports must follow temperature shifts");
+  assert.ok(piersCovered > nearbyPorts, "Piers Covered must follow nearby ports");
+});
+
 test("pier labels use full-width wrapping rows instead of auto-sized flex chips", () => {
   const screen = readFileSync(resolve(root, "app/pier-cast-review.tsx"), "utf8");
   assert.match(screen, /style=\{styles\.pierChipBody\}/);
