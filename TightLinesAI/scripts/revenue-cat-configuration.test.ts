@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { waitForRevenueCatConfiguration } from '../lib/revenueCatConfiguration';
+import {
+  revenueCatUserNeedsLogin,
+  waitForRevenueCatConfiguration,
+} from '../lib/revenueCatConfiguration';
 
 test('waits for RevenueCat native configuration instead of failing the first check', async () => {
   let checks = 0;
@@ -54,4 +57,18 @@ test('returns false only after the bounded readiness window is exhausted', async
   assert.equal(configured, false);
   assert.equal(checks, 4);
   assert.equal(waits, 3);
+});
+
+test('does not log in again when native RevenueCat already has the requested user', () => {
+  assert.equal(
+    revenueCatUserNeedsLogin('finfindr-user-123', 'finfindr-user-123'),
+    false,
+  );
+});
+
+test('logs in when the native RevenueCat user differs from the signed-in user', () => {
+  assert.equal(
+    revenueCatUserNeedsLogin('finfindr-user-old', 'finfindr-user-new'),
+    true,
+  );
 });

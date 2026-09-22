@@ -37,3 +37,17 @@ export async function waitForRevenueCatConfiguration(
 
   return false;
 }
+
+/**
+ * The native RevenueCat singleton survives a JavaScript/Fast Refresh reload,
+ * while module-scoped JavaScript state does not. Trust the SDK's native App
+ * User ID before deciding to call `logIn`; repeating `logIn` for the same user
+ * is unnecessary and has triggered iOS TurboModule failures in some SDK/RN
+ * combinations.
+ */
+export function revenueCatUserNeedsLogin(
+  nativeUserId: string,
+  requestedUserId: string,
+): boolean {
+  return nativeUserId !== requestedUserId;
+}

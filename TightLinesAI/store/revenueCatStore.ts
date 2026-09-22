@@ -14,7 +14,10 @@ import { useAuthStore } from "./authStore";
 import type { SubscriptionTier, UserProfile } from "../lib/types";
 import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 import { captureAnalytics } from "../lib/analytics";
-import { waitForRevenueCatConfiguration } from "../lib/revenueCatConfiguration";
+import {
+  revenueCatUserNeedsLogin,
+  waitForRevenueCatConfiguration,
+} from "../lib/revenueCatConfiguration";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
 const STORE_NAME = Platform.OS === "android" ? "Google Play" : "App Store";
@@ -118,6 +121,9 @@ function errorMessage(err: unknown): string {
         message.includes("configure Purchases")
       ) {
         return REVENUECAT_CONNECTING_MESSAGE;
+      }
+      if (message.includes("Exception in HostFunction")) {
+        return "The App Store purchase module hit an unexpected iOS error. Close and reopen FinFindr, then try again.";
       }
       if (
         message.includes("RevenueCatUI") ||
@@ -335,7 +341,13 @@ function ensureRevenueCatConfigured(
       if (!nativeConfigured) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
       configuredUserId = userId;
     } else if (configuredUserId !== userId) {
-      await Purchases.logIn(userId);
+      // Native configuration survives a JS/Fast Refresh reload, but the
+      // module-scoped marker above does not. Ask RevenueCat which user is
+      // actually active so we never issue a redundant TurboModule logIn.
+      const nativeUserId = await Purchases.getAppUserID();
+      if (revenueCatUserNeedsLogin(nativeUserId, userId)) {
+        await Purchases.logIn(userId);
+      }
       configuredUserId = userId;
     }
 
@@ -513,6 +525,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set) => ({
       entitlement_id: ANGLER_ENTITLEMENT_ID,
     });
     set({ presentingPaywall: true, error: null });
+    let paywallStage = "configuration";
     try {
       const userId = useAuthStore.getState().user?.id;
       if (!userId) {
@@ -522,6 +535,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set) => ({
       await ensureRevenueCatConfigured(userId, set);
       set({ configured: true });
 
+      paywallStage = "offerings";
       const offerings = await Purchases.getOfferings();
       const offering = offerings.current ?? null;
       if (!offering || offering.availablePackages.length === 0) {
@@ -530,6 +544,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set) => ({
       }
       set({ offering, error: null });
 
+      paywallStage = "presentation";
       const result = await RevenueCatUI.presentPaywallIfNeeded({
         requiredEntitlementIdentifier: ANGLER_ENTITLEMENT_ID,
         // Use the exact offering whose packages were just fetched. Without
@@ -544,6 +559,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set) => ({
       const shouldRefreshAccess = checkoutCompleted ||
         result === PAYWALL_RESULT.NOT_PRESENTED;
 
+      paywallStage = "customer_info";
       let customerInfo = await Purchases.getCustomerInfo();
       let hasAngler = hasEffectiveAnglerAccess(customerInfo);
 
@@ -600,9 +616,13 @@ export const useRevenueCatStore = create<RevenueCatState>((set) => ({
       return hasAngler;
     } catch (err) {
       const message = errorMessage(err);
+      if (__DEV__) {
+        console.error(`[RevenueCat] paywall failed during ${paywallStage}`, err);
+      }
       if (message) set({ error: message });
       captureAnalytics("paywall_failed", {
         reason: classifyRevenueCatError(message),
+        stage: paywallStage,
       });
       return false;
     } finally {
