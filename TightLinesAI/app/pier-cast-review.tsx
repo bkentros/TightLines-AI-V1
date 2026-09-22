@@ -1,5 +1,4 @@
 import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_RESEARCH_DETAIL } from "../lib/pierCastDisclosure";
-import { getEffectiveTier } from "../lib/subscription";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -47,7 +46,6 @@ import {
   fetchPierCastCityReport,
   fetchPierCastOwnerReviewCatalog,
   fetchPierCastOwnerV3ReviewOutlook,
-  fetchSavedPierCastReport,
   PierCastRequestError,
 } from "../lib/pierCast";
 import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
@@ -3428,7 +3426,6 @@ export default function PierCastReviewScreen() {
     | null
   >(null);
   const [cityReport, setCityReport] = useState<PierCastReviewOutlookResponse | null>(null);
-  const [savedReport, setSavedReport] = useState<PierCastReviewOutlookResponse | null>(null);
   const [paywall, setPaywall] = useState(false);
   const requestedCity = useRef<string | null>(null);
   const openingCity = useRef(false);
@@ -3480,11 +3477,6 @@ export default function PierCastReviewScreen() {
       setOwnerReview(loadedOwnerReview);
       setCatalog(nextCatalog);
       if (nextCatalog.cities.length === 0) { setOutlook(null); return; }
-      if (userId && !silent && !loadedOwnerReview) {
-        void fetchSavedPierCastReport().then(saved => {
-          if (accountId.current === userId) setSavedReport(saved.report);
-        }).catch(() => {});
-      }
       setOutlook(nextOutlook);
       setSelectedCityId((current) =>
         nextCatalog.cities.some((city) => city.cityId === current)
@@ -3508,7 +3500,7 @@ export default function PierCastReviewScreen() {
   }, [user?.id]);
 
   useEffect(() => {
-    setSelectedCityId(null); setCityReport(null); setSavedReport(null);
+    setSelectedCityId(null); setCityReport(null);
     setOutlook(null); setCatalog(null); setOwnerReview(false); setPaywall(false); requestedCity.current = null;
   }, [user?.id]);
 
@@ -3544,21 +3536,11 @@ export default function PierCastReviewScreen() {
         return;
       }
       setCityReport(report); setSelectedCityId(cityId); setError(null);
-      const auth = useAuthStore.getState();
-      if (getEffectiveTier(auth.profile, auth.user?.email) === "free") {
-        setSavedReport(report);
-      }
-      if (!silent) void fetchSavedPierCastReport().then(saved => {
-        if (accountId.current === userId) setSavedReport(saved.report);
-      }).catch(() => {});
     } catch (caught) {
       if (accountId.current !== userId || (!silent && requestedCity.current !== cityId)) return;
       if (caught instanceof PierCastRequestError && caught.code === "subscription_required") {
         if (!silent) {
           setPaywall(true);
-          void fetchSavedPierCastReport().then(saved => {
-            if (accountId.current === userId) setSavedReport(saved.report);
-          }).catch(() => {});
         }
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
@@ -3830,10 +3812,6 @@ export default function PierCastReviewScreen() {
             </>
           ) : (
             <>
-              {savedReport && <Pressable style={styles.retryButton} onPress={() => {
-                const cityId = savedReport.cities[0]?.cityId;
-                if (cityId) { requestedCity.current = cityId; setCityReport(savedReport); setSelectedCityId(cityId); }
-              }}><Text style={styles.retryButtonText}>OPEN SAVED REPORT · {savedReport.cities[0]?.dates[0]?.localDate}</Text></Pressable>}
               <PierCastLanding
                 catalog={catalog}
                 outlook={outlook}
