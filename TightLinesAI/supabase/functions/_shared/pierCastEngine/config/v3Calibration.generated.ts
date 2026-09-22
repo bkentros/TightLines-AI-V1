@@ -6,10 +6,10 @@
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v8" as const;
-export const PIER_CAST_V3_SOURCE_SHA256 = "e66eab25abd99774a51724c9a4a6618552e929e254550f4a27b0687efdbeccb3" as const;
-export const PIER_CAST_V3_CALIBRATION_SHA256 = "f8570806e3b52f323afeaefc11b00aee6cc9bbe043f607d09a310fe21a554876" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-thirty-two-city-caseville-species-v12" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v9" as const;
+export const PIER_CAST_V3_SOURCE_SHA256 = "1c05954a3b5a37ab72ac71945e3d626da3aa9de8649ce696e98b692a0000833b" as const;
+export const PIER_CAST_V3_CALIBRATION_SHA256 = "5b76d7a4175e05ca2a29839395896dbd408b6a147b80e97ba3d1da189095191f" as const;
 export const PIER_CAST_V3_RATING_ENABLED = false as const;
 export const PIER_CAST_V3_PUBLIC_ENABLED = false as const;
 
@@ -9548,65 +9548,6 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
     "promotionEligible": false
   },
   {
-    "pairKey": "grand_haven_mi/bluegill",
-    "cityId": "grand_haven_mi",
-    "speciesId": "bluegill",
-    "ratingEnabled": false,
-    "modes": [
-      {
-        "modeCalibrationId": "grand_haven_mi__bluegill__warm_season_pier__v3_species_expansion_v1",
-        "modeId": "warm_season_pier",
-        "fisheryStrength": 5.8,
-        "availabilityKnots": [
-          {
-            "monthDay": "04-01",
-            "availability": 0
-          },
-          {
-            "monthDay": "05-20",
-            "availability": 0.1
-          },
-          {
-            "monthDay": "06-20",
-            "availability": 0.45
-          },
-          {
-            "monthDay": "07-20",
-            "availability": 0.75
-          },
-          {
-            "monthDay": "08-15",
-            "availability": 1
-          },
-          {
-            "monthDay": "09-20",
-            "availability": 0.45
-          },
-          {
-            "monthDay": "10-15",
-            "availability": 0
-          }
-        ],
-        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
-        "modeName": "Warm-season pier fishery",
-        "evidenceGrade": "A",
-        "fisheryEvidenceIds": [
-          "EXP_MI_CREEL",
-          "EXP_GH_BLUEGILL_2021"
-        ],
-        "limitations": [
-          "FisheryStrength is an ordinal calibration ceiling, not catch probability, fish abundance or a government rating.",
-          "Weekly reports establish occurrence and timing but not standardized target effort.",
-          "Surface temperature is a bounded compatibility modifier and may not equal fish-experienced temperature.",
-          "All modes remain private and promotion-blocked until Pass 2 implementation tests and owner review are complete."
-        ],
-        "promotionEligible": false
-      }
-    ],
-    "publicEnabled": false,
-    "promotionEligible": false
-  },
-  {
     "pairKey": "grand_haven_mi/lake_whitefish",
     "cityId": "grand_haven_mi",
     "speciesId": "lake_whitefish",
@@ -14530,68 +14471,6 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
     "promotionEligible": false
   },
   {
-    "pairKey": "michigan_city_in/bluegill",
-    "cityId": "michigan_city_in",
-    "speciesId": "bluegill",
-    "ratingEnabled": false,
-    "modes": [
-      {
-        "modeCalibrationId": "michigan_city_in__bluegill__warm_season_harbor__chicago_alpena_pass2",
-        "modeId": "warm_season_harbor",
-        "fisheryStrength": 5.2,
-        "availabilityKnots": [
-          {
-            "monthDay": "01-01",
-            "availability": 0
-          },
-          {
-            "monthDay": "04-20",
-            "availability": 0
-          },
-          {
-            "monthDay": "06-01",
-            "availability": 0.35
-          },
-          {
-            "monthDay": "07-20",
-            "availability": 0.82
-          },
-          {
-            "monthDay": "08-15",
-            "availability": 1
-          },
-          {
-            "monthDay": "09-20",
-            "availability": 0.52
-          },
-          {
-            "monthDay": "10-15",
-            "availability": 0
-          },
-          {
-            "monthDay": "12-31",
-            "availability": 0
-          }
-        ],
-        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
-        "modeName": "Warm Season Harbor",
-        "evidenceGrade": "B",
-        "fisheryEvidenceIds": [
-          "IN_DNR_LAKE_MICHIGAN",
-          "IN_DNR_SHORE_GUIDE"
-        ],
-        "limitations": [
-          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
-          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
-          "Modes compete by maximum seasonalPotential and never stack."
-        ],
-        "promotionEligible": false
-      }
-    ],
-    "publicEnabled": false,
-    "promotionEligible": false
-  },
-  {
     "pairKey": "muskegon_mi/chinook_salmon",
     "cityId": "muskegon_mi",
     "speciesId": "chinook_salmon",
@@ -15655,67 +15534,6 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
     "promotionEligible": false
   },
   {
-    "pairKey": "muskegon_mi/bluegill",
-    "cityId": "muskegon_mi",
-    "speciesId": "bluegill",
-    "ratingEnabled": false,
-    "modes": [
-      {
-        "modeCalibrationId": "muskegon_mi__bluegill__warm_season_harbor__chicago_alpena_pass2",
-        "modeId": "warm_season_harbor",
-        "fisheryStrength": 6,
-        "availabilityKnots": [
-          {
-            "monthDay": "01-01",
-            "availability": 0
-          },
-          {
-            "monthDay": "04-20",
-            "availability": 0
-          },
-          {
-            "monthDay": "06-01",
-            "availability": 0.35
-          },
-          {
-            "monthDay": "07-20",
-            "availability": 0.82
-          },
-          {
-            "monthDay": "08-15",
-            "availability": 1
-          },
-          {
-            "monthDay": "09-20",
-            "availability": 0.52
-          },
-          {
-            "monthDay": "10-15",
-            "availability": 0
-          },
-          {
-            "monthDay": "12-31",
-            "availability": 0
-          }
-        ],
-        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
-        "modeName": "Warm Season Harbor",
-        "evidenceGrade": "A",
-        "fisheryEvidenceIds": [
-          "MI_CREEL_DASHBOARD"
-        ],
-        "limitations": [
-          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
-          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
-          "Modes compete by maximum seasonalPotential and never stack."
-        ],
-        "promotionEligible": false
-      }
-    ],
-    "publicEnabled": false,
-    "promotionEligible": false
-  },
-  {
     "pairKey": "whitehall_mi/chinook_salmon",
     "cityId": "whitehall_mi",
     "speciesId": "chinook_salmon",
@@ -16653,68 +16471,6 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         ],
         "thermalCurveId": "northern_pike__shared_temperature__v0_1",
         "modeName": "Fall Harbor",
-        "evidenceGrade": "A",
-        "fisheryEvidenceIds": [
-          "MI_CREEL_DASHBOARD",
-          "WHITE_LAKE_SFR_2024"
-        ],
-        "limitations": [
-          "F is an ordinal prime-condition ceiling, not catch probability or fish abundance.",
-          "Availability knots describe recurring seasonal shape and are not daily observed catch rates.",
-          "Modes compete by maximum seasonalPotential and never stack."
-        ],
-        "promotionEligible": false
-      }
-    ],
-    "publicEnabled": false,
-    "promotionEligible": false
-  },
-  {
-    "pairKey": "whitehall_mi/bluegill",
-    "cityId": "whitehall_mi",
-    "speciesId": "bluegill",
-    "ratingEnabled": false,
-    "modes": [
-      {
-        "modeCalibrationId": "whitehall_mi__bluegill__warm_season_harbor__chicago_alpena_pass2",
-        "modeId": "warm_season_harbor",
-        "fisheryStrength": 5.2,
-        "availabilityKnots": [
-          {
-            "monthDay": "01-01",
-            "availability": 0
-          },
-          {
-            "monthDay": "04-20",
-            "availability": 0
-          },
-          {
-            "monthDay": "06-01",
-            "availability": 0.35
-          },
-          {
-            "monthDay": "07-20",
-            "availability": 0.82
-          },
-          {
-            "monthDay": "08-15",
-            "availability": 1
-          },
-          {
-            "monthDay": "09-20",
-            "availability": 0.52
-          },
-          {
-            "monthDay": "10-15",
-            "availability": 0
-          },
-          {
-            "monthDay": "12-31",
-            "availability": 0
-          }
-        ],
-        "thermalCurveId": "bluegill__shared_temperature__v0_1_research",
-        "modeName": "Warm Season Harbor",
         "evidenceGrade": "A",
         "fisheryEvidenceIds": [
           "MI_CREEL_DASHBOARD",
@@ -22060,6 +21816,2901 @@ export const PIER_CAST_V3_PAIR_CALIBRATIONS = [
         "limitations": [
           "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
           "Availability knots describe recurring seasonal shape, not observed daily catch.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/chinook_salmon",
+    "cityId": "pentwater_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__chinook_salmon__spring_nearshore__pentwater_caseville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 5.03,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "pentwater_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/coho_salmon",
+    "cityId": "pentwater_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__coho_salmon__spring_nearshore__pentwater_caseville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.1
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.1
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "pentwater_mi__coho_salmon__fall_harbor_return__pentwater_caseville_pass2",
+        "modeId": "fall_harbor_return",
+        "fisheryStrength": 5.46,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Return",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/steelhead",
+    "cityId": "pentwater_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__steelhead__spring_pier__pentwater_caseville_pass2",
+        "modeId": "spring_pier",
+        "fisheryStrength": 6.99,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "pentwater_mi__steelhead__summer_skamania__pentwater_caseville_pass2",
+        "modeId": "summer_skamania",
+        "fisheryStrength": 8.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Skamania",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "pentwater_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 7.42,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/brown_trout",
+    "cityId": "pentwater_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__brown_trout__winter_spring_nearshore__pentwater_caseville_pass2",
+        "modeId": "winter_spring_nearshore",
+        "fisheryStrength": 7.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.42
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 0.58
+          },
+          {
+            "monthDay": "04-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "06-25",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0.38
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.42
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Winter Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "pentwater_mi__brown_trout__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.54,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/walleye",
+    "cityId": "pentwater_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+        "modeId": "warm_season_low_light",
+        "fisheryStrength": 4.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Low Light",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/smallmouth_bass",
+    "cityId": "pentwater_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 6.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/freshwater_drum",
+    "cityId": "pentwater_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__freshwater_drum__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "pentwater_mi/yellow_perch",
+    "cityId": "pentwater_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "pentwater_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 7.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/chinook_salmon",
+    "cityId": "rogers_city_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-01",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "10-05",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/steelhead",
+    "cityId": "rogers_city_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "rogers_city_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/brown_trout",
+    "cityId": "rogers_city_mi",
+    "speciesId": "brown_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__brown_trout__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.45
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "rogers_city_mi__brown_trout__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.32,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "brown_trout__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/lake_trout",
+    "cityId": "rogers_city_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_coldwater_harbor",
+        "fisheryStrength": 5.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/walleye",
+    "cityId": "rogers_city_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+        "modeId": "warm_season_low_light",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Low Light",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/smallmouth_bass",
+    "cityId": "rogers_city_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "rogers_city_mi/atlantic_salmon",
+    "cityId": "rogers_city_mi",
+    "speciesId": "atlantic_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "rogers_city_mi__atlantic_salmon__winter_spring_harbor__pentwater_caseville_pass2",
+        "modeId": "winter_spring_harbor",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "02-20",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.65
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Winter Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE",
+          "MI_ROADMAP_LH",
+          "LHCFAC_2026",
+          "ATLANTIC_PROGRAM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "rogers_city_mi__atlantic_salmon__fall_breakwall__pentwater_caseville_pass2",
+        "modeId": "fall_breakwall",
+        "fisheryStrength": 5.99,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.25
+          }
+        ],
+        "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+        "modeName": "Fall Breakwall",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE",
+          "MI_ROADMAP_LH",
+          "LHCFAC_2026",
+          "ATLANTIC_PROGRAM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/coho_salmon",
+    "cityId": "tawas_city_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__coho_salmon__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "tawas_city_mi__coho_salmon__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.94,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/steelhead",
+    "cityId": "tawas_city_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "tawas_city_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 5.22,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/lake_trout",
+    "cityId": "tawas_city_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_coldwater_harbor",
+        "fisheryStrength": 5.1,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/walleye",
+    "cityId": "tawas_city_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+        "modeId": "warm_season_low_light",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Low Light",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/smallmouth_bass",
+    "cityId": "tawas_city_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/yellow_perch",
+    "cityId": "tawas_city_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 6.8,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/lake_whitefish",
+    "cityId": "tawas_city_mi",
+    "speciesId": "lake_whitefish",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__lake_whitefish__late_fall_winter_pier__pentwater_caseville_pass2",
+        "modeId": "late_fall_winter_pier",
+        "fisheryStrength": 4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "05-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.8
+          }
+        ],
+        "thermalCurveId": "lake_whitefish__additional_thermal_research__v0_1",
+        "modeName": "Late Fall Winter Pier",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_WEEKLY_ARCHIVE",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/northern_pike",
+    "cityId": "tawas_city_mi",
+    "speciesId": "northern_pike",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__northern_pike__spring_fall_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_fall_harbor",
+        "fisheryStrength": 5.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "11-05",
+            "availability": 0.8
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+        "modeName": "Spring Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "tawas_city_mi/burbot",
+    "cityId": "tawas_city_mi",
+    "speciesId": "burbot",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "tawas_city_mi__burbot__cold_season_night__pentwater_caseville_pass2",
+        "modeId": "cold_season_night",
+        "fisheryStrength": 4.3,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "02-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.75
+          }
+        ],
+        "thermalCurveId": "burbot__shared_temperature__v0_1_research",
+        "modeName": "Cold Season Night",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_WEEKLY_ARCHIVE",
+          "MI_BETTER_WATERS",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/chinook_salmon",
+    "cityId": "charlevoix_mi",
+    "speciesId": "chinook_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__chinook_salmon__spring_nearshore__pentwater_caseville_pass2",
+        "modeId": "spring_nearshore",
+        "fisheryStrength": 4.84,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "charlevoix_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+        "modeId": "fall_harbor_staging",
+        "fisheryStrength": 7.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-15",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "10-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor Staging",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/steelhead",
+    "cityId": "charlevoix_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__steelhead__spring_pier__pentwater_caseville_pass2",
+        "modeId": "spring_pier",
+        "fisheryStrength": 6.33,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "charlevoix_mi__steelhead__summer_skamania__pentwater_caseville_pass2",
+        "modeId": "summer_skamania",
+        "fisheryStrength": 7.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.6
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "09-10",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Summer Skamania",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "charlevoix_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 6.72,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/lake_trout",
+    "cityId": "charlevoix_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__lake_trout__winter_spring_pier__pentwater_caseville_pass2",
+        "modeId": "winter_spring_pier",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.75
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.45
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "10-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.75
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Winter Spring Pier",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "charlevoix_mi__lake_trout__fall_nearshore__pentwater_caseville_pass2",
+        "modeId": "fall_nearshore",
+        "fisheryStrength": 4.44,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.4
+          },
+          {
+            "monthDay": "06-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "11-10",
+            "availability": 1
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.4
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Fall Nearshore",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_ROADMAP_LM",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/walleye",
+    "cityId": "charlevoix_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+        "modeId": "warm_season_low_light",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Low Light",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/smallmouth_bass",
+    "cityId": "charlevoix_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 8.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/freshwater_drum",
+    "cityId": "charlevoix_mi",
+    "speciesId": "freshwater_drum",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__freshwater_drum__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 5.4,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-20",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0.85
+          },
+          {
+            "monthDay": "09-25",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "charlevoix_mi/yellow_perch",
+    "cityId": "charlevoix_mi",
+    "speciesId": "yellow_perch",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "charlevoix_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+        "modeId": "summer_pier_schooling",
+        "fisheryStrength": 6.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.5
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "yellow_perch__additional_thermal_research__v0_1",
+        "modeName": "Summer Pier Schooling",
+        "evidenceGrade": "A",
+        "fisheryEvidenceIds": [
+          "MI_CREEL_DASHBOARD",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "caseville_mi/coho_salmon",
+    "cityId": "caseville_mi",
+    "speciesId": "coho_salmon",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "caseville_mi__coho_salmon__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-01",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.08
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.12
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_WEEKLY_ARCHIVE",
+          "MI_ROADMAP_LH",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "caseville_mi__coho_salmon__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.28,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "12-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_WEEKLY_ARCHIVE",
+          "MI_ROADMAP_LH",
+          "MI_STOCKING_CSV"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "caseville_mi/steelhead",
+    "cityId": "caseville_mi",
+    "speciesId": "steelhead",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "caseville_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_harbor",
+        "fisheryStrength": 4.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-25",
+            "availability": 1
+          },
+          {
+            "monthDay": "06-10",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "07-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.22
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.3
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Spring Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_STOCKING_CSV",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      },
+      {
+        "modeCalibrationId": "caseville_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+        "modeId": "fall_harbor",
+        "fisheryStrength": 4.08,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.2
+          },
+          {
+            "monthDay": "08-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "10-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "11-25",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.2
+          }
+        ],
+        "thermalCurveId": "steelhead__shared_temperature__v0_2",
+        "modeName": "Fall Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_STOCKING_CSV",
+          "MI_ROADMAP_LH"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "caseville_mi/lake_trout",
+    "cityId": "caseville_mi",
+    "speciesId": "lake_trout",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "caseville_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+        "modeId": "spring_coldwater_harbor",
+        "fisheryStrength": 4.6,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.35
+          },
+          {
+            "monthDay": "03-01",
+            "availability": 0.55
+          },
+          {
+            "monthDay": "04-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "05-25",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0
+          },
+          {
+            "monthDay": "11-20",
+            "availability": 0.25
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.35
+          }
+        ],
+        "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+        "modeName": "Spring Coldwater Harbor",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_REGS_2026"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "caseville_mi/walleye",
+    "cityId": "caseville_mi",
+    "speciesId": "walleye",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "caseville_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+        "modeId": "warm_season_low_light",
+        "fisheryStrength": 6.2,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0.05
+          },
+          {
+            "monthDay": "03-15",
+            "availability": 0.18
+          },
+          {
+            "monthDay": "05-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "07-15",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-15",
+            "availability": 0.65
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0.12
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0.05
+          }
+        ],
+        "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Low Light",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_ROADMAP_LH",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
+          "Modes compete by maximum seasonal potential and never stack."
+        ],
+        "promotionEligible": false
+      }
+    ],
+    "publicEnabled": false,
+    "promotionEligible": false
+  },
+  {
+    "pairKey": "caseville_mi/smallmouth_bass",
+    "cityId": "caseville_mi",
+    "speciesId": "smallmouth_bass",
+    "ratingEnabled": false,
+    "modes": [
+      {
+        "modeCalibrationId": "caseville_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+        "modeId": "warm_season_channel",
+        "fisheryStrength": 5.5,
+        "availabilityKnots": [
+          {
+            "monthDay": "01-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "04-01",
+            "availability": 0
+          },
+          {
+            "monthDay": "05-10",
+            "availability": 0.3
+          },
+          {
+            "monthDay": "06-20",
+            "availability": 0.82
+          },
+          {
+            "monthDay": "07-20",
+            "availability": 1
+          },
+          {
+            "monthDay": "09-20",
+            "availability": 0.72
+          },
+          {
+            "monthDay": "10-25",
+            "availability": 0.15
+          },
+          {
+            "monthDay": "11-15",
+            "availability": 0
+          },
+          {
+            "monthDay": "12-31",
+            "availability": 0
+          }
+        ],
+        "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+        "modeName": "Warm Season Channel",
+        "evidenceGrade": "B",
+        "fisheryEvidenceIds": [
+          "MI_BETTER_WATERS",
+          "MI_WEEKLY_ARCHIVE"
+        ],
+        "limitations": [
+          "F is an ordinal prime-condition ceiling.",
+          "A contains recurring seasonal timing.",
           "Modes compete by maximum seasonal potential and never stack."
         ],
         "promotionEligible": false

@@ -50,9 +50,9 @@ Deno.test("new cities are public in v3 and remain absent from legacy v2", () => 
   const review = buildPierCastCatalog("review");
   const publicV2 = buildPierCastCatalog("public");
   const publicV3 = buildPierCastCatalog("public", "v3");
-  assertEquals(review.cities.length, 27);
+  assertEquals(review.cities.length, 32);
   assertEquals(publicV2.cities.length, 12);
-  assertEquals(publicV3.cities.length, 27);
+  assertEquals(publicV3.cities.length, 32);
   for (const cityId of PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_IDS) {
     assert(review.cities.some((city) => city.cityId === cityId));
     assert(!publicV2.cities.some((city) => city.cityId === cityId));

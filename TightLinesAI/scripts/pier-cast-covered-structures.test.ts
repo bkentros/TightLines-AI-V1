@@ -4,14 +4,14 @@ import { resolve } from "node:path";
 import test from "node:test";
 
 import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
-import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
+import { pierCastParentGreatLakeName, pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import { buildPierCastCatalog } from "../supabase/functions/_shared/pierCastEngine/config/catalog.ts";
 
 const root = resolve(import.meta.dirname, "..");
 
 test("every owner-review city renders named, non-excluded pier rows", () => {
   const catalog = buildPierCastCatalog("review", "v3");
-  assert.equal(catalog.cities.length, 27);
+  assert.equal(catalog.cities.length, 32);
 
   for (const city of catalog.cities) {
     const structures = selectPierCastCoveredStructures(city.structures);
@@ -42,7 +42,7 @@ test("Manistee shows North Pier without the excluded South Breakwater", () => {
   );
 });
 
-test("all 27 cities use an explicit lake label and every Lake Huron city is covered", () => {
+test("all 32 owner cities use an explicit water label and Caseville retains Lake Huron parentage", () => {
   const catalog = buildPierCastCatalog("review", "v3");
   const lakeHuronCities = catalog.cities
     .filter((city) => pierCastWaterBodyName(city.cityId) === "Lake Huron")
@@ -56,12 +56,14 @@ test("all 27 cities use an explicit lake label and every Lake Huron city is cove
     "lexington_mi",
     "oscoda_mi",
     "port_sanilac_mi",
+    "rogers_city_mi",
+    "tawas_city_mi",
   ]);
   assert.equal(
     catalog.cities.filter((city) =>
       pierCastWaterBodyName(city.cityId) === "Lake Michigan"
     ).length,
-    21,
+    23,
   );
   assert.equal(
     catalog.cities.filter((city) =>
@@ -70,6 +72,27 @@ test("all 27 cities use an explicit lake label and every Lake Huron city is cove
     0,
     "every released city must have an explicit lake assignment",
   );
+  assert.equal(pierCastWaterBodyName("caseville_mi"), "Saginaw Bay");
+  assert.equal(pierCastParentGreatLakeName("caseville_mi"), "Lake Huron");
+  assert.equal(
+    catalog.cities.filter((city) => pierCastWaterBodyName(city.cityId) === "Saginaw Bay").length,
+    1,
+  );
+});
+
+test("mixed-city standings use neutral Great Lakes copy", () => {
+  const screen = readFileSync(resolve(root, "app/pier-cast-review.tsx"), "utf8");
+  assert.match(screen, /TODAY ON THE GREAT LAKES/);
+  assert.doesNotMatch(screen, /TODAY ON LAKE MICHIGAN/);
+});
+
+test("expanded city access keeps the standard user-facing PierCast header", () => {
+  const screen = readFileSync(resolve(root, "app/pier-cast-review.tsx"), "utf8");
+  assert.match(
+    screen,
+    /<Text style=\{styles\.navEyebrow\}>GREAT LAKES · PIER FORECAST<\/Text>/,
+  );
+  assert.doesNotMatch(screen, /PRIVATE OWNER REVIEW/);
 });
 
 test("pier labels use full-width wrapping rows instead of auto-sized flex chips", () => {

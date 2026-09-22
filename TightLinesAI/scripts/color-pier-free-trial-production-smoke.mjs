@@ -56,11 +56,11 @@ try {
   assert.ok(pierClaimsDenied.status >= 400, 'PierCast claims must not be client readable');
   const catalog = await request('/functions/v1/pier-cast/catalog', headers, undefined, 'GET');
   assert.equal(catalog.status, 200);
-  assert.equal(catalog.body.cities.length, 27, 'all released pier cities are discoverable');
+  assert.equal(catalog.body.cities.length, 32, 'all released pier cities are discoverable');
   const releasedCities = catalog.body.cities.filter(c => c.releaseStatus === 'public_research');
   const previewCities = catalog.body.cities.filter(c => c.releaseStatus === 'research_only');
   assert.equal(catalog.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
-  assert.equal(releasedCities.length, 27, 'approved public report cities');
+  assert.equal(releasedCities.length, 32, 'approved public report cities');
   assert.equal(previewCities.length, 0, 'no city remains preview-only');
   assert.ok(releasedCities.every(c => c.species.length > 0));
   assert.ok(releasedCities.every(c => c.species.every(s => s.seasonalOpportunityCurve === null && !s.ratingEnabled)));
@@ -72,8 +72,8 @@ try {
   const getPier = path => request(`/functions/v1/pier-cast/${path}`, headers, undefined, 'GET');
   const boardBefore = await getPier('leaderboard');
   assert.equal(boardBefore.status, 200, 'public leaderboard');
-  assert.equal(boardBefore.body.cities.length, 27);
-  assert.equal(boardBefore.body.releasePolicyVersion, 'piercast-public-research-v3-2026-09-20-twenty-seven-city');
+  assert.equal(boardBefore.body.cities.length, 32);
+  assert.equal(boardBefore.body.releasePolicyVersion, 'piercast-public-v3-2026-09-22-thirty-two-city');
   assert.ok(boardBefore.body.cities.every(c => c.dates.every(d => !('species' in d) && !('waterTemperature' in d))));
   const firstCity = releasedCities[0].cityId;
   const firstPier = await getPier(`report?cityId=${firstCity}`);
@@ -112,7 +112,7 @@ try {
     assert.equal(paidCity.body.cities[0].dates[1].species.length, city.species.length, 'next-day report uses full approved roster');
     assert.equal(paidCity.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
   }
-  console.log('PASS: Color Match lifetime/downgrade; 27-city PierCast public roster/disclosure, owner gate, four free city reports, fifth-city paywall, saved recovery, independent leaderboard, paid 27-city/five-day reports');
+  console.log('PASS: Color Match lifetime/downgrade; 32-city PierCast public roster/disclosure, owner gate, four free city reports, fifth-city paywall, saved recovery, independent leaderboard, paid 32-city/five-day reports');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

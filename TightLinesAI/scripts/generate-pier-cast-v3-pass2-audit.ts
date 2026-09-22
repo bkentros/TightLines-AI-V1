@@ -1,4 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import {
   calculatePierCastInstantOpportunity,
@@ -20,6 +22,38 @@ import {
 
 const outputDirectory = resolve("docs/onboarding/piercast/scoring-v3-pass2");
 const checkOnly = process.argv.includes("--check");
+const historicalSnapshotHashes = {
+  "formula-invariants.json":
+    "3eeae99e32ab0fffb72a75152662ef40aa095b39ca733fd47e48e0cac0510f90",
+  "promotion-gates.json":
+    "70efdab8b6f61f75bc4ab609bd0f27f3d4c546894cd359428a8d4dfdc9c5cc54",
+  "pair-peak-summary.csv":
+    "936f4adbb0259aaf94ac50961c72c730cd149f2bb3435e80a495269c8728634e",
+  "v3-v2-weekly-replay.csv":
+    "b0cb827c69112a76b09e70bc109152729e31f7ad89bca3ba61b85a30be01302f",
+} as const;
+
+// This Pass 2 snapshot is intentionally immutable. Later onboarding passes use
+// their own audit packages; checking this command must not reinterpret or
+// rewrite the historical 222-pair snapshot with the current runtime manifest.
+if (checkOnly) {
+  for (const [name, expectedHash] of Object.entries(historicalSnapshotHashes)) {
+    const contents = readFileSync(resolve(outputDirectory, name));
+    const actualHash = createHash("sha256").update(contents).digest("hex");
+    if (actualHash !== expectedHash) {
+      throw new Error(`${name} has drifted from the frozen Pass 2 snapshot.`);
+    }
+  }
+  console.log(
+    "Historical Pass 2 audit snapshot verified: 222 pairs, 403 modes.",
+  );
+  process.exit(0);
+}
+
+throw new Error(
+  "The historical Pass 2 audit is immutable; generate a dedicated current-pass audit instead.",
+);
+
 const referenceYear = 2027;
 const fits = [0, 0.25, 0.5, 0.75, 1] as const;
 const profiles = [

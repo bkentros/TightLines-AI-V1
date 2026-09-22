@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "piercast-lake-trout-all-city-audit-v2",
+  "evaluatedAt": "2026-09-21",
+  "interpretation": "Numeric rows are city-pier opportunity estimates; holds and exclusions do not assert biological absence.",
+  "cities": [
+    {
+      "cityId": "ludington_mi",
+      "displayName": "Ludington",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "excluded: Scattered April/October port estimates do not establish a recurring intentional North Breakwater fishery. Offshore lake-trout abundance is inapplicable. Recent harbor and reef stocking is confirmed, but stocked numbers do not demonstrate a major adult pier target."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "displayName": "Grand Haven",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "excluded: Sparse cold-season port catches and offshore fisheries do not establish a repeatable major South Pier target. A grouped Grand Haven/Holland agency listing cannot identify the productive port, structure or mode."
+    },
+    {
+      "cityId": "manistee_mi",
+      "displayName": "Manistee",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Explicit pier catches in April 2023 while the South Pier was closed, corroborated by another year and Pier/Dock evidence, support provisional North Pier attribution. Offshore summer catches are not transferred."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "displayName": "Frankfort",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "excluded: Sparse port-mode cold-season catches do not establish intentional fishing from either covered breakwater. Current reports place the productive lake-trout fishery offshore at depth. Point Betsie stocking is outside the two covered breakwaters."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "displayName": "Sheboygan",
+      "disposition": "exclude_unscored",
+      "runtimePairPresent": false,
+      "limitation": "excluded: Wisconsin's tiny regional pier harvest cannot be assigned to Sheboygan. The stocking summary explicitly puts lake trout offshore on Sheboygan Reef, not at either covered pier. Boat success and reef stocking do not establish pier catchability."
+    },
+    {
+      "cityId": "port_washington_wi",
+      "displayName": "Port Washington",
+      "disposition": "exclude_unscored",
+      "runtimePairPresent": false,
+      "limitation": "County or regional occurrence does not establish a repeatable city-pier seasonal opportunity."
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "displayName": "Milwaukee",
+      "disposition": "exclude_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Regional and boat occurrence does not establish repeatable city-pier opportunity."
+    },
+    {
+      "cityId": "racine_wi",
+      "displayName": "Racine",
+      "disposition": "exclude_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Regional and boat occurrence does not establish repeatable city-pier opportunity."
+    },
+    {
+      "cityId": "kenosha_wi",
+      "displayName": "Kenosha",
+      "disposition": "exclude_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Regional and boat occurrence does not establish repeatable city-pier opportunity."
+    },
+    {
+      "cityId": "harbor_beach_mi",
+      "displayName": "Harbor Beach",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured."
+    },
+    {
+      "cityId": "oscoda_mi",
+      "displayName": "Oscoda",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Evidence-admitted Formula v3 Lake Huron private-shadow candidate; numeric scoring remains disabled and promotion-blocked."
+    },
+    {
+      "cityId": "port_sanilac_mi",
+      "displayName": "Port Sanilac",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Explicitly deferred or excluded by the Lake Huron candidate decision matrix; no numeric city-pier score is configured."
+    },
+    {
+      "cityId": "two_rivers_wi",
+      "displayName": "Two Rivers",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but the evidence does not support a numeric city-pier estimate."
+    },
+    {
+      "cityId": "kewaunee_wi",
+      "displayName": "Kewaunee",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-harbor estimate. Available only in the owner Formula v3 review; it is not a catch probability or a public rating."
+    },
+    {
+      "cityId": "algoma_wi",
+      "displayName": "Algoma",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but the evidence does not support a numeric city-pier estimate."
+    },
+    {
+      "cityId": "manitowoc_wi",
+      "displayName": "Manitowoc",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but the evidence does not support a numeric city-pier estimate."
+    },
+    {
+      "cityId": "waukegan_il",
+      "displayName": "Waukegan",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but the evidence does not support a numeric city-pier estimate."
+    },
+    {
+      "cityId": "chicago_il",
+      "displayName": "Chicago",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "michigan_city_in",
+      "displayName": "Michigan City",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but covered-structure recurrence does not support a numeric estimate."
+    },
+    {
+      "cityId": "muskegon_mi",
+      "displayName": "Muskegon",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but covered-structure recurrence does not support a numeric estimate."
+    },
+    {
+      "cityId": "whitehall_mi",
+      "displayName": "Whitehall",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Research hold. Local occurrence is plausible or documented, but covered-structure recurrence does not support a numeric estimate."
+    },
+    {
+      "cityId": "alpena_mi",
+      "displayName": "Alpena",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "st_joseph_mi",
+      "displayName": "St. Joseph",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "south_haven_mi",
+      "displayName": "South Haven",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade A city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "holland_mi",
+      "displayName": "Holland",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "lexington_mi",
+      "displayName": "Lexington",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B city-pier estimate. Available only in owner Formula v3 review; it is not catch probability or a public rating."
+    },
+    {
+      "cityId": "harrisville_mi",
+      "displayName": "Harrisville",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Grade C research hold: The current advisory calls the broader summer/boat fishery very good, but neither the roadmap nor advisory allocates recurring lake-trout catch to the covered docks or harbor edge. No placeholder score is permitted."
+    },
+    {
+      "cityId": "pentwater_mi",
+      "displayName": "Pentwater",
+      "disposition": "research_hold_unscored",
+      "runtimePairPresent": false,
+      "limitation": "Grade C research hold: Only one positive catch year was resolved; stocking and one measured occurrence do not establish recurrence. No placeholder score is permitted."
+    },
+    {
+      "cityId": "rogers_city_mi",
+      "displayName": "Rogers City",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B private city-pier estimate: Four positive spring catch years plus current local guidance establish modest recurring nearshore opportunity between Alpena and Harbor Beach."
+    },
+    {
+      "cityId": "tawas_city_mi",
+      "displayName": "Tawas City",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B private city-pier estimate: Current exact-city/bay guidance establishes cold-water local opportunity. With no resolved structure-level magnitude, the corrected peak matches Rogers City and remains below Harbor Beach; stocking only corroborates occurrence."
+    },
+    {
+      "cityId": "charlevoix_mi",
+      "displayName": "Charlevoix",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade A private city-pier estimate: Six positive years, all measured catch occurring in the modern period, establish the strongest reviewed Lake Michigan onboarding peak below Rogers City and above Lexington."
+    },
+    {
+      "cityId": "caseville_mi",
+      "displayName": "Caseville",
+      "disposition": "numeric_private",
+      "runtimePairPresent": true,
+      "limitation": "Pass 2 Grade B private city-pier estimate: Michigan DNR's exact Caseville fishery inventory names lake trout and the Lake Huron roadmap identifies spring trout opportunity. With no quantitative Caseville series, the conservative peak matches Oscoda and remains below Lexington."
+    }
+  ],
+  "result": "pass"
+}

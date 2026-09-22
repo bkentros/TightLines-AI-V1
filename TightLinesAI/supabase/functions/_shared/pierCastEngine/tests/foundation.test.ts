@@ -401,7 +401,7 @@ Deno.test("legacy v2 keeps twelve discoverable cities while owner review expands
     ),
     true,
   );
-  assertEquals(reviewCatalog.cities.length, 27);
+  assertEquals(reviewCatalog.cities.length, 32);
   assertEquals(
     publicCatalog.cities.find((city) => city.cityId === "port_washington_wi")
       ?.releaseStatus,

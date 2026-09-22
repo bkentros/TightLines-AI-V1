@@ -16,6 +16,7 @@ import {
   PIER_CAST_FIVE_CITY_PROFILES,
   PIER_CAST_LAKE_HURON_CITY_PROFILES,
   PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
+  PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
   PIER_CAST_V3_CITY_IDS,
   PIER_CAST_V3_FORECAST_COUNT,
   PIER_CAST_V3_FORMULA_VERSION,
@@ -47,20 +48,21 @@ type AvailableBatch = Extract<
 Deno.test("v3 generated config is the complete core and secondary handoff", () => {
   assertEquals(PIER_CAST_V3_RATING_ENABLED, false);
   assertEquals(PIER_CAST_V3_PUBLIC_ENABLED, false);
-  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 222);
-  assertEquals(PIER_CAST_V3_PAIR_COUNT, 222);
+  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.length, 254);
+  assertEquals(PIER_CAST_V3_PAIR_COUNT, 254);
   assertEquals(
     PIER_CAST_V3_PAIR_CALIBRATIONS.reduce(
       (sum, pair) => sum + pair.modes.length,
       0,
     ),
-    403,
+    451,
   );
   assertEquals(
     new Set(PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.pairKey)).size,
-    222,
+    254,
   );
-  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 19);
+  assertEquals(PIER_CAST_V3_SPECIES_IDS.length, 18);
+  assertEquals(PIER_CAST_V3_PAIR_CALIBRATIONS.some((pair) => String(pair.speciesId) === "bluegill"), false);
   for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
     assertEquals(
       getPierCastV3PairCalibration(pair.cityId, pair.speciesId)?.pairKey,
@@ -75,10 +77,10 @@ Deno.test("v3 generated config is the complete core and secondary handoff", () =
   }
 });
 
-Deno.test("v3 private review exposes the exact 222-pair city roster", () => {
+Deno.test("v3 private review exposes the exact 254-pair city roster", () => {
   const expected: Record<string, number> = {
     ludington_mi: 10,
-    grand_haven_mi: 15,
+    grand_haven_mi: 14,
     manistee_mi: 12,
     frankfort_elberta_mi: 7,
     sheboygan_wi: 4,
@@ -95,15 +97,20 @@ Deno.test("v3 private review exposes the exact 222-pair city roster", () => {
     manitowoc_wi: 6,
     waukegan_il: 5,
     chicago_il: 9,
-    michigan_city_in: 8,
-    muskegon_mi: 14,
-    whitehall_mi: 13,
+    michigan_city_in: 7,
+    muskegon_mi: 13,
+    whitehall_mi: 12,
     alpena_mi: 11,
     st_joseph_mi: 7,
     south_haven_mi: 13,
     holland_mi: 10,
     lexington_mi: 14,
     harrisville_mi: 5,
+    pentwater_mi: 8,
+    rogers_city_mi: 7,
+    tawas_city_mi: 9,
+    charlevoix_mi: 7,
+    caseville_mi: 5,
   };
   for (const cityId of PIER_CAST_V3_CITY_IDS) {
     assertEquals(
@@ -116,7 +123,6 @@ Deno.test("v3 private review exposes the exact 222-pair city roster", () => {
       "burbot",
       "white_perch",
       "white_bass",
-      "bluegill",
     ] as const
   ) {
     const profile = getPierCastSpeciesProfile(speciesId);
@@ -242,7 +248,7 @@ Deno.test("v3 is bounded, monotonic, non-stacking, and reaches a researched 10",
       }
     }
   }
-  assertEquals(evaluated, 222 * 365 * 5);
+  assertEquals(evaluated, 254 * 365 * 5);
 
   const reference = getPierCastV3PairCalibration("manistee_mi", "steelhead")!;
   const modes = evaluatePierCastV3ModePotentials({
@@ -356,6 +362,7 @@ Deno.test("v3 outlook never publishes a biological score inside the perch closur
       batch(PIER_CAST_FIVE_CITY_PROFILES, closedIssue),
       batch(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES, closedIssue),
       batch(PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES, closedIssue),
+      batch(PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES, closedIssue),
     ),
     evaluationTime: "2027-05-01T12:15:00.000Z",
   });
@@ -384,6 +391,7 @@ Deno.test("v3 outlook never publishes a biological score inside the perch closur
       batch(PIER_CAST_FIVE_CITY_PROFILES, openIssue),
       batch(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES, openIssue),
       batch(PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES, openIssue),
+      batch(PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES, openIssue),
     ),
     evaluationTime: "2027-06-16T12:15:00.000Z",
   });
@@ -417,13 +425,14 @@ Deno.test("v3 recurring availability is continuous across the year seam", () => 
   }
 });
 
-Deno.test("v3 twenty-seven-city outlook requires one coherent issue and stays blocked", () => {
+Deno.test("v3 thirty-two-city outlook requires one coherent issue and stays blocked", () => {
   const primary = batch(PIER_CAST_CITY_PROFILES);
   const expansion = batch(PIER_CAST_WISCONSIN_CITY_PROFILES);
   const lakeHuron = batch(PIER_CAST_LAKE_HURON_CITY_PROFILES);
   const fiveCity = batch(PIER_CAST_FIVE_CITY_PROFILES);
   const chicagoAlpena = batch(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES);
   const stJosephHarrisville = batch(PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES);
+  const pentwaterCaseville = batch(PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES);
   const combined = combinePierCastV3LmhofsBatches(
     primary,
     expansion,
@@ -431,6 +440,7 @@ Deno.test("v3 twenty-seven-city outlook requires one coherent issue and stays bl
     fiveCity,
     chicagoAlpena,
     stJosephHarrisville,
+    pentwaterCaseville,
   );
   const outlook = buildPierCastV3ReviewOutlook({
     batch: combined,
@@ -438,18 +448,18 @@ Deno.test("v3 twenty-seven-city outlook requires one coherent issue and stays bl
   });
   assertEquals(outlook.formulaVersion, PIER_CAST_V3_FORMULA_VERSION);
   assertEquals(outlook.mode, "v3_shadow_review");
-  assertEquals(outlook.source.cityCount, 27);
-  assertEquals(outlook.source.sampleCount, 3267);
-  assertEquals(outlook.cities.length, 27);
+  assertEquals(outlook.source.cityCount, 32);
+  assertEquals(outlook.source.sampleCount, 3872);
+  assertEquals(outlook.cities.length, 32);
   assertEquals(outlook.promotion.status, "blocked");
   assertEquals(outlook.cities.every((city) => city.dates.length === 5), true);
   const publicOutlook = projectPublicV3Outlook(outlook);
-  const publicLeaderboard = leaderboardOnly(publicOutlook, { maxCities: 27 });
+  const publicLeaderboard = leaderboardOnly(publicOutlook, { maxCities: 32 });
   const publicReport = cityReportOnly(publicOutlook, "ludington_mi");
   assertEquals(publicOutlook.mode, "public_research");
   assertEquals(publicOutlook.previewOnly, false);
-  assertEquals(publicOutlook.cities.length, 27);
-  assertEquals(publicLeaderboard.cities.length, 27);
+  assertEquals(publicOutlook.cities.length, 32);
+  assertEquals(publicLeaderboard.cities.length, 32);
   assertEquals(publicReport.cities.length, 1);
   assertEquals(publicReport.cities[0].dates.length, 5);
   assertEquals(
@@ -484,25 +494,28 @@ Deno.test("v3 twenty-seven-city outlook requires one coherent issue and stays bl
         fiveCity,
         chicagoAlpena,
         stJosephHarrisville,
+        pentwaterCaseville,
       ),
     Error,
     "same-issue",
   );
 });
 
-Deno.test("a complete 18-hour-old owner cycle still ranks twenty-seven cities", () => {
+Deno.test("a complete 18-hour-old owner cycle still ranks thirty-two cities", () => {
   const primary = batch(PIER_CAST_CITY_PROFILES);
   const expansion = batch(PIER_CAST_WISCONSIN_CITY_PROFILES);
   const lakeHuron = batch(PIER_CAST_LAKE_HURON_CITY_PROFILES);
   const fiveCity = batch(PIER_CAST_FIVE_CITY_PROFILES);
   const chicagoAlpena = batch(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES);
   const stJosephHarrisville = batch(PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES);
+  const pentwaterCaseville = batch(PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES);
   primary.cycleAgeHours = 18;
   expansion.cycleAgeHours = 18;
   lakeHuron.cycleAgeHours = 18;
   fiveCity.cycleAgeHours = 18;
   chicagoAlpena.cycleAgeHours = 18;
   stJosephHarrisville.cycleAgeHours = 18;
+  pentwaterCaseville.cycleAgeHours = 18;
   const outlook = buildPierCastV3ReviewOutlook({
     batch: combinePierCastV3LmhofsBatches(
       primary,
@@ -511,17 +524,18 @@ Deno.test("a complete 18-hour-old owner cycle still ranks twenty-seven cities", 
       fiveCity,
       chicagoAlpena,
       stJosephHarrisville,
+      pentwaterCaseville,
     ),
     evaluationTime: new Date(Date.parse(ISSUED_AT) + 18 * 3_600_000)
       .toISOString(),
   });
   assertEquals(outlook.source.cycleAgeHours, 18);
-  assertEquals(outlook.cities.length, 27);
+  assertEquals(outlook.cities.length, 32);
   assertEquals(
     outlook.cities.filter((city) =>
       city.dates[0]?.headline.overall.status === "available"
     ).length,
-    27,
+    32,
   );
 });
 
@@ -554,6 +568,10 @@ Deno.test("v3 source selection bridges staggered fresh archive cycles without mi
     PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
     "2026-09-15T00:00:00.000Z",
   );
+  const pentwaterCaseville00 = batch(
+    PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
   let primaryReads = 0;
   let expansionReads = 0;
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
@@ -573,6 +591,7 @@ Deno.test("v3 source selection bridges staggered fresh archive cycles without mi
     readFiveCity: () => Promise.resolve(fiveCity00),
     readChicagoAlpena: () => Promise.resolve(chicagoAlpena00),
     readStJosephHarrisville: () => Promise.resolve(stJosephHarrisville00),
+    readPentwaterCaseville: () => Promise.resolve(pentwaterCaseville00),
   });
 
   assert(cohorts);
@@ -582,6 +601,7 @@ Deno.test("v3 source selection bridges staggered fresh archive cycles without mi
   assertEquals(cohorts.primary.issuedAt, cohorts.fiveCity.issuedAt);
   assertEquals(cohorts.primary.issuedAt, cohorts.chicagoAlpena.issuedAt);
   assertEquals(cohorts.primary.issuedAt, cohorts.stJosephHarrisville.issuedAt);
+  assertEquals(cohorts.primary.issuedAt, cohorts.pentwaterCaseville.issuedAt);
   assertEquals(cohorts.usedCommonCycleFallback, true);
   assertEquals(primaryReads, 2);
   assertEquals(expansionReads, 1);
@@ -612,6 +632,10 @@ Deno.test("v3 source selection fails closed when no common fresh cycle exists", 
     PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
     "2026-09-15T00:00:00.000Z",
   );
+  const pentwaterCaseville00 = batch(
+    PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
+    "2026-09-15T00:00:00.000Z",
+  );
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
     database: { rpc: () => Promise.resolve({ data: null, error: null }) },
     now: new Date("2026-09-15T12:40:00.000Z"),
@@ -624,12 +648,13 @@ Deno.test("v3 source selection fails closed when no common fresh cycle exists", 
     readFiveCity: () => Promise.resolve(fiveCity00),
     readChicagoAlpena: () => Promise.resolve(chicagoAlpena00),
     readStJosephHarrisville: () => Promise.resolve(stJosephHarrisville00),
+    readPentwaterCaseville: () => Promise.resolve(pentwaterCaseville00),
   });
 
   assertEquals(cohorts, null);
 });
 
-Deno.test("v3 archive freezes the exact 1110-row pair manifest", async () => {
+Deno.test("v3 archive freezes the exact 1270-row pair manifest", async () => {
   const combined = combinePierCastV3LmhofsBatches(
     batch(PIER_CAST_CITY_PROFILES),
     batch(PIER_CAST_WISCONSIN_CITY_PROFILES),
@@ -637,6 +662,7 @@ Deno.test("v3 archive freezes the exact 1110-row pair manifest", async () => {
     batch(PIER_CAST_FIVE_CITY_PROFILES),
     batch(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES),
     batch(PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES),
+    batch(PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES),
   );
   const outlook = buildPierCastV3ReviewOutlook({
     batch: combined,
@@ -649,8 +675,8 @@ Deno.test("v3 archive freezes the exact 1110-row pair manifest", async () => {
     engineVersion: "v3-test-engine",
   });
   assertEquals(payload.forecasts.length, PIER_CAST_V3_FORECAST_COUNT);
-  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 1110);
-  assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 27);
+  assertEquals(PIER_CAST_V3_FORECAST_COUNT, 1270);
+  assertEquals(new Set(payload.forecasts.map((row) => row.cityId)).size, 32);
   assertEquals(
     payload.forecasts.every((row) =>
       row.modeCalibrationId !== null && row.seasonalPotential !== null &&
@@ -706,7 +732,7 @@ Deno.test("v3 species-expansion migration enforces the exact manifest and preser
   assert(expectedPairsFunction, "Expected-pairs SQL function was not found.");
   const sqlPairs = [...expectedPairsFunction.matchAll(
     /\('([a-z_]+)','([a-z_]+)'\)/g,
-  )].map((match) => `${match[1]}/${match[2]}`).sort();
+  )].map((match) => `${match[1]}/${match[2]}`).filter((pair) => !pair.endsWith("/bluegill")).sort();
   const generatedPairs = PIER_CAST_V3_PAIR_CALIBRATIONS
     .filter((pair) =>
       !PIER_CAST_FIVE_CITY_PROFILES.some((city) =>
@@ -716,6 +742,9 @@ Deno.test("v3 species-expansion migration enforces the exact manifest and preser
         city.cityId === pair.cityId
       ) &&
       !PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES.some((city) =>
+        city.cityId === pair.cityId
+      ) &&
+      !PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES.some((city) =>
         city.cityId === pair.cityId
       )
     )
@@ -779,7 +808,7 @@ Deno.test("five-city Pass 3 migration enforces the 17-city private manifest", as
   assert(expectedPairsFunction);
   const sqlPairs = [...expectedPairsFunction.matchAll(
     /\('([a-z_]+)','([a-z_]+)'\)/g,
-  )].map((match) => `${match[1]}/${match[2]}`).sort();
+  )].map((match) => `${match[1]}/${match[2]}`).filter((pair) => !pair.endsWith("/bluegill")).sort();
   assertEquals(
     sqlPairs,
     PIER_CAST_V3_PAIR_CALIBRATIONS
@@ -788,6 +817,9 @@ Deno.test("five-city Pass 3 migration enforces the 17-city private manifest", as
           city.cityId === pair.cityId
         ) &&
         !PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES.some((city) =>
+          city.cityId === pair.cityId
+        ) &&
+        !PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES.some((city) =>
           city.cityId === pair.cityId
         )
       )
@@ -826,11 +858,14 @@ Deno.test("Chicago-Alpena Pass 3 migration enforces the exact 22-city private ma
   assert(expectedPairsFunction);
   const sqlPairs = [...expectedPairsFunction.matchAll(
     /\('([a-z_]+)','([a-z_]+)'\)/g,
-  )].map((match) => `${match[1]}/${match[2]}`).sort();
+  )].map((match) => `${match[1]}/${match[2]}`).filter((pair) => !pair.endsWith("/bluegill")).sort();
   assertEquals(
     sqlPairs,
     PIER_CAST_V3_PAIR_CALIBRATIONS.filter((pair) =>
       !PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES.some((city) =>
+        city.cityId === pair.cityId
+      ) &&
+      !PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES.some((city) =>
         city.cityId === pair.cityId
       )
     ).map((pair) => pair.pairKey).sort(),
@@ -859,8 +894,10 @@ Deno.test("St. Joseph-Harrisville Pass 3 migration enforces the exact 27-city pr
   )?.[0];
   assert(expectedPairsFunction);
   const sqlPairs = [...expectedPairsFunction.matchAll(/\('([a-z_]+)','([a-z_]+)'\)/g)]
-    .map((match) => `${match[1]}/${match[2]}`).sort();
-  assertEquals(sqlPairs, PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) => pair.pairKey).sort());
+    .map((match) => `${match[1]}/${match[2]}`).filter((pair) => !pair.endsWith("/bluegill")).sort();
+  assertEquals(sqlPairs, PIER_CAST_V3_PAIR_CALIBRATIONS.filter((pair) =>
+    !PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES.some((city) => city.cityId === pair.cityId)
+  ).map((pair) => pair.pairKey).sort());
 
   const scheduleFix = await Deno.readTextFile(
     new URL(

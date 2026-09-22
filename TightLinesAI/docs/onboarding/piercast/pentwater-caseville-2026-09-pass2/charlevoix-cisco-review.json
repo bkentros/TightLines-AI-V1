@@ -1,0 +1,17 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-charlevoix-cisco-v1",
+  "reviewed_at": "2026-09-21",
+  "city_id": "charlevoix_mi",
+  "species_lead": "cisco_lake_herring",
+  "evidence": "Recurring 2014-2022 exact-port Pier/Dock rows and exact-pier agency reports establish a strong biological/product lead.",
+  "decision": "out_of_catalog_product_contract_hold",
+  "numeric_score": null,
+  "modes": [],
+  "ranked": false,
+  "user_facing": false,
+  "reason": "The complete species product contract was not authorized in Pass 2; strong evidence cannot silently add a new catalog species.",
+  "source_ids": [
+    "MI_CREEL_DASHBOARD",
+    "MI_WEEKLY_ARCHIVE"
+  ]
+}

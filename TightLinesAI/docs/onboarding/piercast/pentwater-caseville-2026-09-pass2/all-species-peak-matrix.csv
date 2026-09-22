@@ -1,0 +1,91 @@
+city_id,city_name,species_id,species_name,pass2_disposition,evidence_grade,annual_peak_score,status
+pentwater_mi,Pentwater,chinook_salmon,Chinook salmon,numeric_private,A,7.5,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,coho_salmon,Coho salmon,numeric_private,A,7.2,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,steelhead,Steelhead / rainbow trout,numeric_private,A,8.3,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,brown_trout,Brown trout,numeric_private,A,7.3,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,lake_trout,Lake trout,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,walleye,Walleye,numeric_private,B,4.4,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,smallmouth_bass,Smallmouth bass,numeric_private,A,6.4,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,freshwater_drum,Freshwater drum,numeric_private,B,5.4,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,yellow_perch,Yellow perch,numeric_private,A,7.8,PRIVATE_NUMERIC
+pentwater_mi,Pentwater,lake_whitefish,Lake whitefish,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,round_whitefish,Round whitefish,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,channel_catfish,Channel catfish,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,largemouth_bass,Largemouth bass,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,atlantic_salmon,Atlantic salmon,exclude_unscored,D,,UNSCORED
+pentwater_mi,Pentwater,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+pentwater_mi,Pentwater,burbot,Burbot,exclude_unscored,D,,UNSCORED
+pentwater_mi,Pentwater,white_perch,White perch,exclude_unscored,D,,UNSCORED
+pentwater_mi,Pentwater,white_bass,White bass,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,chinook_salmon,Chinook salmon,numeric_private,B,6,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,coho_salmon,Coho salmon,research_hold_unscored,C,,UNSCORED
+rogers_city_mi,Rogers City,steelhead,Steelhead / rainbow trout,numeric_private,B,6,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,brown_trout,Brown trout,numeric_private,A,5.8,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,lake_trout,Lake trout,numeric_private,B,5.1,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,walleye,Walleye,numeric_private,B,5.5,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,smallmouth_bass,Smallmouth bass,numeric_private,B,6.5,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,freshwater_drum,Freshwater drum,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,yellow_perch,Yellow perch,research_hold_unscored,C,,UNSCORED
+rogers_city_mi,Rogers City,lake_whitefish,Lake whitefish,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,round_whitefish,Round whitefish,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,channel_catfish,Channel catfish,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,largemouth_bass,Largemouth bass,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,atlantic_salmon,Atlantic salmon,numeric_private,B,6.8,PRIVATE_NUMERIC
+rogers_city_mi,Rogers City,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+rogers_city_mi,Rogers City,burbot,Burbot,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,white_perch,White perch,exclude_unscored,D,,UNSCORED
+rogers_city_mi,Rogers City,white_bass,White bass,exclude_unscored,D,,UNSCORED
+tawas_city_mi,Tawas City,chinook_salmon,Chinook salmon,research_hold_unscored,C,,UNSCORED
+tawas_city_mi,Tawas City,coho_salmon,Coho salmon,numeric_private,B,5.8,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,steelhead,Steelhead / rainbow trout,numeric_private,B,5.8,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,brown_trout,Brown trout,research_hold_unscored,C,,UNSCORED
+tawas_city_mi,Tawas City,lake_trout,Lake trout,numeric_private,B,5.1,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,walleye,Walleye,numeric_private,B,6.5,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,smallmouth_bass,Smallmouth bass,numeric_private,B,6.2,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,freshwater_drum,Freshwater drum,research_hold_unscored,C,,UNSCORED
+tawas_city_mi,Tawas City,yellow_perch,Yellow perch,numeric_private,B,6.8,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,lake_whitefish,Lake whitefish,numeric_private,B,4,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,round_whitefish,Round whitefish,exclude_unscored,D,,UNSCORED
+tawas_city_mi,Tawas City,channel_catfish,Channel catfish,exclude_unscored,D,,UNSCORED
+tawas_city_mi,Tawas City,largemouth_bass,Largemouth bass,research_hold_unscored,C,,UNSCORED
+tawas_city_mi,Tawas City,atlantic_salmon,Atlantic salmon,research_hold_unscored,C,,UNSCORED
+tawas_city_mi,Tawas City,northern_pike,Northern pike,numeric_private,B,5.2,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,burbot,Burbot,numeric_private,B,4.3,PRIVATE_NUMERIC
+tawas_city_mi,Tawas City,white_perch,White perch,exclude_unscored,D,,UNSCORED
+tawas_city_mi,Tawas City,white_bass,White bass,exclude_unscored,D,,UNSCORED
+charlevoix_mi,Charlevoix,chinook_salmon,Chinook salmon,numeric_private,A,7.2,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,coho_salmon,Coho salmon,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,steelhead,Steelhead / rainbow trout,numeric_private,A,7.5,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,brown_trout,Brown trout,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,lake_trout,Lake trout,numeric_private,A,5,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,walleye,Walleye,numeric_private,A,5.5,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,smallmouth_bass,Smallmouth bass,numeric_private,A,8.4,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,freshwater_drum,Freshwater drum,numeric_private,A,5.4,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,yellow_perch,Yellow perch,numeric_private,A,6.5,PRIVATE_NUMERIC
+charlevoix_mi,Charlevoix,lake_whitefish,Lake whitefish,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,round_whitefish,Round whitefish,exclude_unscored,D,,UNSCORED
+charlevoix_mi,Charlevoix,channel_catfish,Channel catfish,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,largemouth_bass,Largemouth bass,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,atlantic_salmon,Atlantic salmon,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+charlevoix_mi,Charlevoix,burbot,Burbot,exclude_unscored,D,,UNSCORED
+charlevoix_mi,Charlevoix,white_perch,White perch,exclude_unscored,D,,UNSCORED
+charlevoix_mi,Charlevoix,white_bass,White bass,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,chinook_salmon,Chinook salmon,research_hold_unscored,C,,UNSCORED
+caseville_mi,Caseville,coho_salmon,Coho salmon,numeric_private,B,5,PRIVATE_NUMERIC
+caseville_mi,Caseville,steelhead,Steelhead / rainbow trout,numeric_private,B,4.5,PRIVATE_NUMERIC
+caseville_mi,Caseville,brown_trout,Brown trout,research_hold_unscored,C,,UNSCORED
+caseville_mi,Caseville,lake_trout,Lake trout,numeric_private,B,4.6,PRIVATE_NUMERIC
+caseville_mi,Caseville,walleye,Walleye,numeric_private,B,6.2,PRIVATE_NUMERIC
+caseville_mi,Caseville,smallmouth_bass,Smallmouth bass,numeric_private,B,5.5,PRIVATE_NUMERIC
+caseville_mi,Caseville,freshwater_drum,Freshwater drum,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,yellow_perch,Yellow perch,research_hold_unscored,C,,UNSCORED
+caseville_mi,Caseville,lake_whitefish,Lake whitefish,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,round_whitefish,Round whitefish,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,channel_catfish,Channel catfish,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,largemouth_bass,Largemouth bass,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,atlantic_salmon,Atlantic salmon,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,northern_pike,Northern pike,research_hold_unscored,C,,UNSCORED
+caseville_mi,Caseville,burbot,Burbot,research_hold_unscored,C,,UNSCORED
+caseville_mi,Caseville,white_perch,White perch,exclude_unscored,D,,UNSCORED
+caseville_mi,Caseville,white_bass,White bass,exclude_unscored,D,,UNSCORED

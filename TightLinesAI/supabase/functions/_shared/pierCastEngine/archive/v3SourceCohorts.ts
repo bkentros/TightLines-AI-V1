@@ -8,6 +8,7 @@ import { readLatestFreshPierCastLakeHuronLmhofsBatch } from "./lakeHuronLmhofsAr
 import { readLatestFreshPierCastFiveCityLmhofsBatch } from "./fiveCityLmhofsArchive.ts";
 import { readLatestFreshPierCastChicagoAlpenaLmhofsBatch } from "./chicagoAlpenaLmhofsArchive.ts";
 import { readLatestFreshPierCastStJosephHarrisvilleLmhofsBatch } from "./stJosephHarrisvilleLmhofsArchive.ts";
+import { readLatestFreshPierCastPentwaterCasevilleLmhofsBatch } from "./pentwaterCasevilleLmhofsArchive.ts";
 
 type AvailableBatch = Extract<
   PierCastLmhofsBatch,
@@ -26,12 +27,13 @@ export type PierCastV3SourceCohorts = {
   fiveCity: AvailableBatch;
   chicagoAlpena: AvailableBatch;
   stJosephHarrisville: AvailableBatch;
+  pentwaterCaseville: AvailableBatch;
   issuedAt: string;
   usedCommonCycleFallback: boolean;
 };
 
 /**
- * Select the newest cycle that is fresh and complete in all six archives.
+ * Select the newest cycle that is fresh and complete in all seven archives.
  *
  * The primary and expansion jobs intentionally run a few minutes apart. During
  * that window their individually newest cycles can differ. We first require
@@ -50,6 +52,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   readFiveCity?: CohortReader;
   readChicagoAlpena?: CohortReader;
   readStJosephHarrisville?: CohortReader;
+  readPentwaterCaseville?: CohortReader;
 }): Promise<PierCastV3SourceCohorts | null> {
   if (!Number.isFinite(input.now.getTime())) {
     throw new Error("Formula v3 source time is invalid.");
@@ -84,7 +87,14 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
         now,
         maxAgeHours,
       ));
-  let [primary, expansion, lakeHuron, fiveCity, chicagoAlpena, stJosephHarrisville] = await Promise
+  const readPentwaterCaseville = input.readPentwaterCaseville ??
+    ((database, now) =>
+      readLatestFreshPierCastPentwaterCasevilleLmhofsBatch(
+        database,
+        now,
+        maxAgeHours,
+      ));
+  let [primary, expansion, lakeHuron, fiveCity, chicagoAlpena, stJosephHarrisville, pentwaterCaseville] = await Promise
     .all([
       readPrimary(input.database, input.now),
       readExpansion(input.database, input.now),
@@ -92,8 +102,9 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
       readFiveCity(input.database, input.now),
       readChicagoAlpena(input.database, input.now),
       readStJosephHarrisville(input.database, input.now),
+      readPentwaterCaseville(input.database, input.now),
     ]);
-  if (!primary || !expansion || !lakeHuron || !fiveCity || !chicagoAlpena || !stJosephHarrisville) {
+  if (!primary || !expansion || !lakeHuron || !fiveCity || !chicagoAlpena || !stJosephHarrisville || !pentwaterCaseville) {
     return null;
   }
   if (
@@ -102,6 +113,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
     primary.issuedAt === fiveCity.issuedAt &&
     primary.issuedAt === chicagoAlpena.issuedAt &&
     primary.issuedAt === stJosephHarrisville.issuedAt
+    && primary.issuedAt === pentwaterCaseville.issuedAt
   ) {
     return {
       primary,
@@ -110,12 +122,13 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
       fiveCity,
       chicagoAlpena,
       stJosephHarrisville,
+      pentwaterCaseville,
       issuedAt: primary.issuedAt,
       usedCommonCycleFallback: false,
     };
   }
 
-  const issues = [primary, expansion, lakeHuron, fiveCity, chicagoAlpena, stJosephHarrisville].map((
+  const issues = [primary, expansion, lakeHuron, fiveCity, chicagoAlpena, stJosephHarrisville, pentwaterCaseville].map((
     batch,
   ) => Date.parse(batch.issuedAt));
   if (issues.some((issue) => !Number.isFinite(issue))) {
@@ -140,14 +153,19 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
   if (issues[5] > commonIssue.getTime()) {
     stJosephHarrisville = await readStJosephHarrisville(input.database, commonIssue);
   }
+  if (issues[6] > commonIssue.getTime()) {
+    pentwaterCaseville = await readPentwaterCaseville(input.database, commonIssue);
+  }
   if (
     !primary || !expansion || !lakeHuron || !fiveCity || !chicagoAlpena ||
     !stJosephHarrisville ||
+    !pentwaterCaseville ||
     primary.issuedAt !== expansion.issuedAt ||
     primary.issuedAt !== lakeHuron.issuedAt ||
     primary.issuedAt !== fiveCity.issuedAt ||
     primary.issuedAt !== chicagoAlpena.issuedAt ||
-    primary.issuedAt !== stJosephHarrisville.issuedAt
+    primary.issuedAt !== stJosephHarrisville.issuedAt ||
+    primary.issuedAt !== pentwaterCaseville.issuedAt
   ) {
     return null;
   }
@@ -158,6 +176,7 @@ export async function readLatestCoherentPierCastV3SourceCohorts(input: {
     fiveCity,
     chicagoAlpena,
     stJosephHarrisville,
+    pentwaterCaseville,
     issuedAt: primary.issuedAt,
     usedCommonCycleFallback: true,
   };

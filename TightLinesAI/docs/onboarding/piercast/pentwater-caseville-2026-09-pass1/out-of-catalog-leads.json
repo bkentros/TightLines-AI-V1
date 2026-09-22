@@ -1,0 +1,158 @@
+{
+  "schema_version": "piercast-pass1-out-of-catalog-v1",
+  "review_date": "2026-09-21",
+  "leads": [
+    {
+      "city_id": "pentwater_mi",
+      "lead_id": "pink_salmon",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "No target-county stocking record and no exact-pier occurrence resolved; keep exclusion lead auditable.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "lead_id": "rainbow_smelt",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Plausible harbor forage/seasonal lead but no repeated exact covered-structure evidence resolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "lead_id": "rock_bass",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Exact port Pier/Dock and channel reports support a meaningful future product review.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "lead_id": "pumpkinseed_sunfish",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "An exact-port historic row exists; not a current PierCast catalog species.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "lead_id": "pink_salmon",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Current DNR management reports occasional Rogers City pink salmon, primarily offshore; no catalog contract.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "lead_id": "cisco_lake_herring",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Regional Lake Huron lead; exact breakwall recurrence unresolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "lead_id": "rock_bass",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "DNR Better Fishing Waters names rock bass for Rogers City Harbor; no catalog contract.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "lead_id": "pink_salmon",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "No target-county stocking record and no exact Tawas pier occurrence resolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "lead_id": "rainbow_smelt",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Known seasonal Lake Huron forage-fish lead; exact covered-structure recurrence unresolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "lead_id": "splake",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Historical Tawas City stocking records exist; no catalog contract or current exact-pier recurrence.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "lead_id": "pink_salmon",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "No target-county stocking record or exact-channel occurrence resolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "lead_id": "cisco_lake_herring",
+      "disposition": "product_contract_review_priority",
+      "conclusion": "Strong recurring exact-pier/channel evidence, including 2014-2022 Pier/Dock rows and agency reports; high-priority future product decision.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "lead_id": "common_carp",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Local channel lead but no complete catalog contract.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "lead_id": "suckers",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Positive exact-port records exist for common white sucker; no catalog contract.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "lead_id": "rock_bass",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Long-running exact-port records; no catalog contract.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "lead_id": "pink_salmon",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "No Huron County stocking record and no exact Pointe Park occurrence resolved.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "lead_id": "common_carp",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Saginaw Bay/river lead without exact Pointe Park recurrence.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "lead_id": "suckers",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Nearby Pinnebog reports are not Caseville pier evidence.",
+      "user_facing": false,
+      "score": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "lead_id": "rock_bass",
+      "disposition": "preserve_for_later_product_review",
+      "conclusion": "Connected-river possibility but no exact Pointe Park recurrence.",
+      "user_facing": false,
+      "score": null
+    }
+  ]
+}

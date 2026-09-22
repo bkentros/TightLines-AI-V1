@@ -63,7 +63,12 @@ export type PierCastCityId =
   | "south_haven_mi"
   | "holland_mi"
   | "lexington_mi"
-  | "harrisville_mi";
+  | "harrisville_mi"
+  | "pentwater_mi"
+  | "rogers_city_mi"
+  | "tawas_city_mi"
+  | "charlevoix_mi"
+  | "caseville_mi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -159,11 +164,7 @@ export type PierCastCityTemperatureSource = {
       latitude: number;
       longitude: number;
       distanceM: number;
-      coordinateSource:
-        | "NOAA Coast Pilot 6"
-        | "NOAA Aids to Navigation"
-        | "Michigan Water Trails"
-        | "U.S. Coast Guard Light List";
+      coordinateSource: string;
     };
     gridCellStatus: "candidate" | "approved_for_pilot";
   } | null;

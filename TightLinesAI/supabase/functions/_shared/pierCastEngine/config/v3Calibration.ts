@@ -40,6 +40,11 @@ export const PIER_CAST_V3_CITY_IDS = [
   "holland_mi",
   "lexington_mi",
   "harrisville_mi",
+  "pentwater_mi",
+  "rogers_city_mi",
+  "tawas_city_mi",
+  "charlevoix_mi",
+  "caseville_mi",
 ] as const satisfies readonly PierCastCityId[];
 
 export const PIER_CAST_V3_SPECIES_IDS = [

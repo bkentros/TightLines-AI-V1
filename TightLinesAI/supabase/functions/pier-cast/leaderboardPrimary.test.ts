@@ -4,7 +4,11 @@ import { cityReportOnly, leaderboardOnly } from "./reportAccess.ts";
 
 Deno.test("public standings rank by primary species and never expose secondary scores", () => {
   const candidate = (
-    speciesId: "yellow_perch" | "coho_salmon" | "lake_trout",
+    speciesId:
+      | "yellow_perch"
+      | "coho_salmon"
+      | "atlantic_salmon"
+      | "lake_trout",
     score: number,
   ) => ({
     speciesId,
@@ -44,25 +48,41 @@ Deno.test("public standings rank by primary species and never expose secondary s
           ],
         }],
       },
+      {
+        cityId: "rogers_city_mi",
+        dates: [{
+          localDate: "2026-09-16",
+          headline: { overall: { status: "available" } },
+          species: [
+            candidate("yellow_perch", 9),
+            candidate("atlantic_salmon", 8.5),
+          ],
+        }],
+      },
     ],
   } as unknown as Parameters<typeof leaderboardOnly>[0];
 
   const leaderboard = leaderboardOnly(outlook);
   assertEquals(leaderboard.cities.map((city) => city.cityId), [
+    "rogers_city_mi",
     "grand_haven_mi",
     "ludington_mi",
   ]);
   assertEquals(
-    leaderboard.cities[1].dates[0].headline.drivingSpeciesId,
+    leaderboard.cities[2].dates[0].headline.drivingSpeciesId,
     "coho_salmon",
   );
-  assertEquals(leaderboard.cities[1].dates[0].headline.overall.score, 6);
+  assertEquals(leaderboard.cities[2].dates[0].headline.overall.score, 6);
   assertEquals(
-    leaderboard.cities[0].dates[0].headline.drivingSpeciesId,
+    leaderboard.cities[1].dates[0].headline.drivingSpeciesId,
     "lake_trout",
   );
-  assertEquals(leaderboard.cities[0].dates[0].headline.overall.score, 8);
+  assertEquals(leaderboard.cities[1].dates[0].headline.overall.score, 8);
   assertEquals("species" in leaderboard.cities[1].dates[0], false);
+  assertEquals(
+    leaderboard.cities[0].dates[0].headline.drivingSpeciesId,
+    "atlantic_salmon",
+  );
 
   const cityOutlook = {
     ...outlook,

@@ -14,6 +14,12 @@ export const PRIMARY_PIER_CAST_SPECIES: ReadonlySet<PierCastSpeciesId> =
     "freshwater_drum",
   ]);
 
+export function isPrimaryPierCastSpecies(
+  speciesId: PierCastSpeciesId,
+): boolean {
+  return PRIMARY_PIER_CAST_SPECIES.has(speciesId);
+}
+
 function headlineForSpecies(
   species: PierCastReviewDateOutlookRead["species"],
 ): PierCastReviewDateOutlookRead["headline"] {
@@ -67,7 +73,9 @@ export function presentPierCastDate(
     species,
     headline: date.headline.overall.status === "available"
       ? headlineForSpecies(
-        species.filter((row) => PRIMARY_PIER_CAST_SPECIES.has(row.speciesId)),
+        species.filter((row) =>
+          isPrimaryPierCastSpecies(row.speciesId)
+        ),
       )
       : date.headline,
   };

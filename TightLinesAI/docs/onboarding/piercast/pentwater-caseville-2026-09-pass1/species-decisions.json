@@ -1,0 +1,6343 @@
+{
+  "schema_version": "piercast-pass1-species-decisions-v1",
+  "review_date": "2026-09-21",
+  "user_facing_species_count": 18,
+  "city_count": 5,
+  "decision_count": 90,
+  "decisions": [
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "alternate_names_reviewed": [
+        "Chinook salmon",
+        "king salmon",
+        "king"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 21 positive estimate rows across 2000, 2001, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 and months 4, 7, 8, 9.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 21,
+        "positive_years": [
+          2000,
+          2001,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014
+        ],
+        "positive_months": [
+          4,
+          7,
+          8,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "alternate_names_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 25 positive estimate rows across 2000, 2001, 2008, 2009, 2012, 2013, 2014, 2017, 2018 and months 4, 7, 8, 9, 10.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 25,
+        "positive_years": [
+          2000,
+          2001,
+          2008,
+          2009,
+          2012,
+          2013,
+          2014,
+          2017,
+          2018
+        ],
+        "positive_months": [
+          4,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "alternate_names_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 50 positive estimate rows across 2000, 2001, 2003, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2018 and months 4, 6, 7, 8, 9, 10. Stocking review found 166 target-county records (1980-2026), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 50,
+        "positive_years": [
+          2000,
+          2001,
+          2003,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2018
+        ],
+        "positive_months": [
+          4,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 166,
+        "first_year": 1980,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "alternate_names_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 30 positive estimate rows across 2000, 2003, 2005, 2006, 2007, 2009, 2011, 2012, 2014, 2015, 2016, 2018 and months 4, 5, 6, 8, 9, 10. Stocking review found 121 target-county records (1979-2018), including connected-water, exact relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 30,
+        "positive_years": [
+          2000,
+          2003,
+          2005,
+          2006,
+          2007,
+          2009,
+          2011,
+          2012,
+          2014,
+          2015,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          4,
+          5,
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 121,
+        "first_year": 1979,
+        "last_year": 2018
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "alternate_names_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2015 and months 4. Stocking review found 31 target-county records (1981-2007), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2015
+        ],
+        "positive_months": [
+          4
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 31,
+        "first_year": 1981,
+        "last_year": 2007
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "walleye",
+      "species_name": "Walleye",
+      "alternate_names_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 5 positive estimate rows across 2001, 2016, 2018 and months 4, 7. All 67 target-county stocking records (1979-2026) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 5,
+        "positive_years": [
+          2001,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          4,
+          7
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 67,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "smallmouth_bass",
+      "species_name": "Smallmouth bass",
+      "alternate_names_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "smallie"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 19 positive estimate rows across 1998, 2000, 2006, 2013, 2014, 2015, 2016, 2018 and months 5, 6, 7, 8, 9. All 1 target-county stocking records (1988-1988) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 19,
+        "positive_years": [
+          1998,
+          2000,
+          2006,
+          2013,
+          2014,
+          2015,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 1988,
+        "last_year": 1988
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "freshwater_drum",
+      "species_name": "Freshwater drum",
+      "alternate_names_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 7 positive estimate rows across 2004, 2009, 2015, 2016 and months 6, 7, 8.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 7,
+        "positive_years": [
+          2004,
+          2009,
+          2015,
+          2016
+        ],
+        "positive_months": [
+          6,
+          7,
+          8
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "yellow_perch",
+      "species_name": "Yellow perch",
+      "alternate_names_reviewed": [
+        "yellow perch",
+        "perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 18 positive estimate rows across 2008, 2009, 2010, 2012, 2013, 2014, 2016 and months 6, 7, 8, 9.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 18,
+        "positive_years": [
+          2008,
+          2009,
+          2010,
+          2012,
+          2013,
+          2014,
+          2016
+        ],
+        "positive_months": [
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "lake_whitefish",
+      "species_name": "Lake whitefish",
+      "alternate_names_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 1 positive estimate rows across 2012 and months 7.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 1,
+        "positive_years": [
+          2012
+        ],
+        "positive_months": [
+          7
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "round_whitefish",
+      "species_name": "Round whitefish",
+      "alternate_names_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2010 and months 10.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2010
+        ],
+        "positive_months": [
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "channel_catfish",
+      "species_name": "Channel catfish",
+      "alternate_names_reviewed": [
+        "channel catfish",
+        "channel cat",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR weekly reports identify channel catfish in the Pentwater Lake channel; structure allocation inside the harbor still needs Pass 2 quantification. All 2 target-county stocking records (1988-1989) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 2,
+        "first_year": 1988,
+        "last_year": 1989
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "largemouth_bass",
+      "species_name": "Largemouth bass",
+      "alternate_names_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2014, 2018 and months 5, 9. All 2 target-county stocking records (1981-1988) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2014,
+          2018
+        ],
+        "positive_months": [
+          5,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 2,
+        "first_year": 1981,
+        "last_year": 1988
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "alternate_names_reviewed": [
+        "Atlantic salmon",
+        "Atlantic"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "northern_pike",
+      "species_name": "Northern pike",
+      "alternate_names_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 4 positive estimate rows across 2014 and months 4, 6. All 4 target-county stocking records (1988-1990) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 4,
+        "positive_years": [
+          2014
+        ],
+        "positive_months": [
+          4,
+          6
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 4,
+        "first_year": 1988,
+        "last_year": 1990
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "burbot",
+      "species_name": "Burbot",
+      "alternate_names_reviewed": [
+        "burbot",
+        "lawyer",
+        "eelpout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "white_perch",
+      "species_name": "White perch",
+      "alternate_names_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "pentwater_mi",
+      "display_name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "white_bass",
+      "species_name": "White bass",
+      "alternate_names_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "alternate_names_reviewed": [
+        "Chinook salmon",
+        "king salmon",
+        "king"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 8 positive estimate rows across 2003, 2006, 2010, 2011 and months 9, 10. Stocking review found 162 target-county records (1979-2026), including connected-water, exact relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 8,
+        "positive_years": [
+          2003,
+          2006,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 162,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "alternate_names_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Current management and weekly reports show recurring Rogers City coho, but reviewed evidence is mostly boat/offshore and no positive Pier/Dock row resolved. Stocking review found 15 target-county records (1983-1985), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 15,
+        "first_year": 1983,
+        "last_year": 1985
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "alternate_names_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR Pier/Dock extract has 7 positive estimate rows across 1989, 2007, 2009, 2010, 2011 and months 4, 5. Stocking review found 229 target-county records (1979-2026), including exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 7,
+        "positive_years": [
+          1989,
+          2007,
+          2009,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          4,
+          5
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 229,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "alternate_names_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 20 positive estimate rows across 1994, 2005, 2006, 2007, 2008, 2009, 2010, 2011 and months 4, 5, 6, 9, 10. Stocking review found 173 target-county records (1979-2021), including exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 20,
+        "positive_years": [
+          1994,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 173,
+        "first_year": 1979,
+        "last_year": 2021
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "alternate_names_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 5 positive estimate rows across 2006, 2007, 2008, 2009 and months 4. Stocking review found 116 target-county records (1981-2026), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 5,
+        "positive_years": [
+          2006,
+          2007,
+          2008,
+          2009
+        ],
+        "positive_months": [
+          4
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 116,
+        "first_year": 1981,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "walleye",
+      "species_name": "Walleye",
+      "alternate_names_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 6 positive estimate rows across 2005, 2008, 2009 and months 4, 5, 6. All 72 target-county stocking records (1986-2026) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 6,
+        "positive_years": [
+          2005,
+          2008,
+          2009
+        ],
+        "positive_months": [
+          4,
+          5,
+          6
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 72,
+        "first_year": 1986,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "smallmouth_bass",
+      "species_name": "Smallmouth bass",
+      "alternate_names_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "smallie"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "freshwater_drum",
+      "species_name": "Freshwater drum",
+      "alternate_names_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "yellow_perch",
+      "species_name": "Yellow perch",
+      "alternate_names_reviewed": [
+        "yellow perch",
+        "perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 1 positive estimate rows across 2010 and months 7. All 6 target-county stocking records (1979-2023) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 1,
+        "positive_years": [
+          2010
+        ],
+        "positive_months": [
+          7
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 6,
+        "first_year": 1979,
+        "last_year": 2023
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_whitefish",
+      "species_name": "Lake whitefish",
+      "alternate_names_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "round_whitefish",
+      "species_name": "Round whitefish",
+      "alternate_names_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "channel_catfish",
+      "species_name": "Channel catfish",
+      "alternate_names_reviewed": [
+        "channel catfish",
+        "channel cat",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "largemouth_bass",
+      "species_name": "Largemouth bass",
+      "alternate_names_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "All 5 target-county stocking records (1979-2020) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 5,
+        "first_year": 1979,
+        "last_year": 2020
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "alternate_names_reviewed": [
+        "Atlantic salmon",
+        "Atlantic"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2008 and months 6. DNR reports direct anglers to cast from the breakwall for Atlantic salmon; 2008 Pier/Dock positives and 2026 LHCFAC recurrence corroborate.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2008
+        ],
+        "positive_months": [
+          6
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "northern_pike",
+      "species_name": "Northern pike",
+      "alternate_names_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 3 positive estimate rows across 1990, 2008, 2010 and months 6, 9, 10. All 31 target-county stocking records (1979-2000) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 3,
+        "positive_years": [
+          1990,
+          2008,
+          2010
+        ],
+        "positive_months": [
+          6,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 31,
+        "first_year": 1979,
+        "last_year": 2000
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "burbot",
+      "species_name": "Burbot",
+      "alternate_names_reviewed": [
+        "burbot",
+        "lawyer",
+        "eelpout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_perch",
+      "species_name": "White perch",
+      "alternate_names_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "display_name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_bass",
+      "species_name": "White bass",
+      "alternate_names_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "alternate_names_reviewed": [
+        "Chinook salmon",
+        "king salmon",
+        "king"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Historical exact-city stocking and current mixed Tawas-area occurrence create a lead, but the agency's current Tawas City/Bay inventory omits Chinook and exact-pier recurrence is unresolved. Stocking review found 114 target-county records (1979-2011), including exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 114,
+        "first_year": 1979,
+        "last_year": 2011
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "alternate_names_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 41 target-county records (1979-2026), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 41,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "alternate_names_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 442 target-county records (1979-2026), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 442,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "alternate_names_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Substantial historical Tawas Bay/Tawas Point stocking exists, but it ended in the reviewed exact area and current exact-pier recurrence is unresolved. Stocking review found 156 target-county records (1979-2026), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 156,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "alternate_names_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 47 target-county records (1981-2017), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 47,
+        "first_year": 1981,
+        "last_year": 2017
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "walleye",
+      "species_name": "Walleye",
+      "alternate_names_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 186 target-county records (1979-2026), including connected-water, exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 186,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "smallmouth_bass",
+      "species_name": "Smallmouth bass",
+      "alternate_names_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "smallie"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "freshwater_drum",
+      "species_name": "Freshwater drum",
+      "alternate_names_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "DNR weekly reports document freshwater drum in the Tawas River, which reaches the bay at covered Gateway Park, but recurring intentional pier targeting is unresolved.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "yellow_perch",
+      "species_name": "Yellow perch",
+      "alternate_names_reviewed": [
+        "yellow perch",
+        "perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 17 target-county records (1979-2021), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 17,
+        "first_year": 1979,
+        "last_year": 2021
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_whitefish",
+      "species_name": "Lake whitefish",
+      "alternate_names_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. DNR weekly guidance explicitly describes targeting lake whitefish from the Tawas wall/state dock in late fall.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "round_whitefish",
+      "species_name": "Round whitefish",
+      "alternate_names_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "channel_catfish",
+      "species_name": "Channel catfish",
+      "alternate_names_reviewed": [
+        "channel catfish",
+        "channel cat",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "All 7 target-county stocking records (1997-2016) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 7,
+        "first_year": 1997,
+        "last_year": 2016
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "largemouth_bass",
+      "species_name": "Largemouth bass",
+      "alternate_names_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. All 4 target-county stocking records (1981-1984) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 4,
+        "first_year": 1981,
+        "last_year": 1984
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "alternate_names_reviewed": [
+        "Atlantic salmon",
+        "Atlantic"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 24 target-county records (2013-2026), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 24,
+        "first_year": 2013,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "northern_pike",
+      "species_name": "Northern pike",
+      "alternate_names_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 1 target-county records (1989-1989), including exact relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 1989,
+        "last_year": 1989
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "burbot",
+      "species_name": "Burbot",
+      "alternate_names_reviewed": [
+        "burbot",
+        "lawyer",
+        "eelpout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. A DNR weekly report records anglers taking burbot from the Tawas state dock.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_perch",
+      "species_name": "White perch",
+      "alternate_names_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "display_name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_bass",
+      "species_name": "White bass",
+      "alternate_names_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "alternate_names_reviewed": [
+        "Chinook salmon",
+        "king salmon",
+        "king"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 21 positive estimate rows across 1990, 1991, 1994, 2005, 2007, 2008, 2010, 2012, 2014, 2015, 2016, 2018 and months 6, 8, 9, 10. Stocking review found 69 target-county records (1984-2026), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 21,
+        "positive_years": [
+          1990,
+          1991,
+          1994,
+          2005,
+          2007,
+          2008,
+          2010,
+          2012,
+          2014,
+          2015,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 69,
+        "first_year": 1984,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "alternate_names_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Recent Medusa Creek stocking creates a local Lake Michigan pathway, but no positive Charlevoix Pier/Dock coho row or exact-channel recurrence was resolved. Stocking review found 4 target-county records (2017-2023), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 4,
+        "first_year": 2017,
+        "last_year": 2023
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "alternate_names_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 17 positive estimate rows across 1998, 1999, 2000, 2004, 2008, 2009, 2010, 2014, 2016, 2017, 2020 and months 5, 6, 7, 8, 9, 10. Stocking review found 233 target-county records (1979-2026), including connected-water, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 17,
+        "positive_years": [
+          1998,
+          1999,
+          2000,
+          2004,
+          2008,
+          2009,
+          2010,
+          2014,
+          2016,
+          2017,
+          2020
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 233,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "alternate_names_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2001 and months 7. Stocking review found 222 target-county records (1979-2026), including connected-water, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2001
+        ],
+        "positive_months": [
+          7
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 222,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "alternate_names_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 17 positive estimate rows across 2015, 2016, 2017, 2019, 2020, 2021 and months 5, 6, 8, 10. Stocking review found 725 target-county records (1979-2026), including connected-water, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 17,
+        "positive_years": [
+          2015,
+          2016,
+          2017,
+          2019,
+          2020,
+          2021
+        ],
+        "positive_months": [
+          5,
+          6,
+          8,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 725,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "walleye",
+      "species_name": "Walleye",
+      "alternate_names_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 39 positive estimate rows across 1995, 1996, 1997, 1998, 1999, 2000, 2002, 2006, 2007, 2010, 2011, 2012, 2015, 2016, 2021 and months 5, 6, 7, 8, 9. Stocking review found 87 target-county records (1984-2026), including connected-water, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 39,
+        "positive_years": [
+          1995,
+          1996,
+          1997,
+          1998,
+          1999,
+          2000,
+          2002,
+          2006,
+          2007,
+          2010,
+          2011,
+          2012,
+          2015,
+          2016,
+          2021
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 87,
+        "first_year": 1984,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "smallmouth_bass",
+      "species_name": "Smallmouth bass",
+      "alternate_names_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "smallie"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 191 positive estimate rows across 1989, 1991, 1992, 1995, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 and months 5, 6, 7, 8, 9, 10. Long-running Pier/Dock positives and repeated DNR channel reports establish an exact channel fishery. All 1 target-county stocking records (2023-2023) are classified regional-only and do not establish the target-city structure fishery.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 191,
+        "positive_years": [
+          1989,
+          1991,
+          1992,
+          1995,
+          1998,
+          1999,
+          2000,
+          2001,
+          2002,
+          2003,
+          2004,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 2023,
+        "last_year": 2023
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "freshwater_drum",
+      "species_name": "Freshwater drum",
+      "alternate_names_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 21 positive estimate rows across 2001, 2005, 2010, 2013, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022 and months 6, 7, 8. Recurring Pier/Dock positives and DNR channel reports establish direct channel evidence.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 21,
+        "positive_years": [
+          2001,
+          2005,
+          2010,
+          2013,
+          2015,
+          2016,
+          2017,
+          2018,
+          2019,
+          2020,
+          2021,
+          2022
+        ],
+        "positive_months": [
+          6,
+          7,
+          8
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "yellow_perch",
+      "species_name": "Yellow perch",
+      "alternate_names_reviewed": [
+        "yellow perch",
+        "perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 18 positive estimate rows across 1989, 2000, 2006, 2012, 2015, 2017, 2018, 2019, 2021 and months 5, 6, 7, 8, 9. Stocking review found 1 target-county records (1997-1997), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 18,
+        "positive_years": [
+          1989,
+          2000,
+          2006,
+          2012,
+          2015,
+          2017,
+          2018,
+          2019,
+          2021
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 1997,
+        "last_year": 1997
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "lake_whitefish",
+      "species_name": "Lake whitefish",
+      "alternate_names_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 2 positive estimate rows across 2003 and months 6. Stocking review found 1 target-county records (2024-2024), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2003
+        ],
+        "positive_months": [
+          6
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 2024,
+        "last_year": 2024
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "round_whitefish",
+      "species_name": "Round whitefish",
+      "alternate_names_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "channel_catfish",
+      "species_name": "Channel catfish",
+      "alternate_names_reviewed": [
+        "channel catfish",
+        "channel cat",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 1 positive estimate rows across 1994 and months 9.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 1,
+        "positive_years": [
+          1994
+        ],
+        "positive_months": [
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "largemouth_bass",
+      "species_name": "Largemouth bass",
+      "alternate_names_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "DNR Pier/Dock extract has 1 positive estimate rows across 1992 and months 9. Stocking review found 1 target-county records (2017-2017), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 1,
+        "positive_years": [
+          1992
+        ],
+        "positive_months": [
+          9
+        ]
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 2017,
+        "last_year": 2017
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "alternate_names_reviewed": [
+        "Atlantic salmon",
+        "Atlantic"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "A 1986 Lake Charlevoix stocking and occasional modern offshore reports create a historical/local lead, not an exact-pier fishery. Stocking review found 1 target-county records (1986-1986), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 1986,
+        "last_year": 1986
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "northern_pike",
+      "species_name": "Northern pike",
+      "alternate_names_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Archived DNR reports document northern pike in the Charlevoix channel; Pass 2 must determine recurrence and intentional targeting along covered public segments.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "burbot",
+      "species_name": "Burbot",
+      "alternate_names_reviewed": [
+        "burbot",
+        "lawyer",
+        "eelpout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "white_perch",
+      "species_name": "White perch",
+      "alternate_names_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "display_name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "species_id": "white_bass",
+      "species_name": "White bass",
+      "alternate_names_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "alternate_names_reviewed": [
+        "Chinook salmon",
+        "king salmon",
+        "king"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Historical and recent stocking exists at neighboring Huron County ports, but no exact Caseville/Pointe Park catch record was resolved. Stocking review found 114 target-county records (1979-2011), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 114,
+        "first_year": 1979,
+        "last_year": 2011
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "alternate_names_reviewed": [
+        "coho salmon",
+        "silver salmon"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "An archived DNR weekly report records one coho caught by Caseville pier anglers; sparse but exact-mode evidence is sufficient for Pass 2 quantification, not a score. Stocking review found 29 target-county records (1979-2026), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 29,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "alternate_names_reviewed": [
+        "steelhead",
+        "rainbow trout",
+        "Skamania"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Rainbow trout were stocked at the exact connected Pigeon River/Caseville site through 2022, but exact Pointe Park recurrence remains unresolved. Stocking review found 248 target-county records (1980-2026), including exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 248,
+        "first_year": 1980,
+        "last_year": 2026
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "alternate_names_reviewed": [
+        "brown trout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Historical brown trout stocking at Pigeon River/Caseville ended in 1999; no current exact-pier recurrence was established. Stocking review found 157 target-county records (1982-2011), including exact, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 157,
+        "first_year": 1982,
+        "last_year": 2011
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "alternate_names_reviewed": [
+        "lake trout",
+        "lean lake trout",
+        "laker"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 176 target-county records (1981-2017), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 176,
+        "first_year": 1981,
+        "last_year": 2017
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "walleye",
+      "species_name": "Walleye",
+      "alternate_names_reviewed": [
+        "walleye"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 9 target-county records (1982-2004), including connected-water, neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 9,
+        "first_year": 1982,
+        "last_year": 2004
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "smallmouth_bass",
+      "species_name": "Smallmouth bass",
+      "alternate_names_reviewed": [
+        "smallmouth bass",
+        "smallmouth",
+        "smallie"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "freshwater_drum",
+      "species_name": "Freshwater drum",
+      "alternate_names_reviewed": [
+        "freshwater drum",
+        "drum",
+        "sheepshead"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "yellow_perch",
+      "species_name": "Yellow perch",
+      "alternate_names_reviewed": [
+        "yellow perch",
+        "perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "lake_whitefish",
+      "species_name": "Lake whitefish",
+      "alternate_names_reviewed": [
+        "lake whitefish",
+        "whitefish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "round_whitefish",
+      "species_name": "Round whitefish",
+      "alternate_names_reviewed": [
+        "round whitefish",
+        "Menominee"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "channel_catfish",
+      "species_name": "Channel catfish",
+      "alternate_names_reviewed": [
+        "channel catfish",
+        "channel cat",
+        "catfish"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "largemouth_bass",
+      "species_name": "Largemouth bass",
+      "alternate_names_reviewed": [
+        "largemouth bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "alternate_names_reviewed": [
+        "Atlantic salmon",
+        "Atlantic"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "northern_pike",
+      "species_name": "Northern pike",
+      "alternate_names_reviewed": [
+        "northern pike",
+        "pike"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "hold",
+      "rationale": "Stocking review found 5 target-county records (1993-1997), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 5,
+        "first_year": 1993,
+        "last_year": 1997
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "burbot",
+      "species_name": "Burbot",
+      "alternate_names_reviewed": [
+        "burbot",
+        "lawyer",
+        "eelpout"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "research_candidate",
+      "rationale": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_perch",
+      "species_name": "White perch",
+      "alternate_names_reviewed": [
+        "white perch"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": false,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    },
+    {
+      "city_id": "caseville_mi",
+      "display_name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "species_id": "white_bass",
+      "species_name": "White bass",
+      "alternate_names_reviewed": [
+        "white bass"
+      ],
+      "months_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "evidence_dimensions_reviewed": [
+        "current",
+        "historical",
+        "exact-pier",
+        "harbor/breakwall",
+        "named-port Pier/Dock",
+        "connected-water",
+        "neighboring-port kept separate",
+        "weekly reports",
+        "management documents",
+        "stocking",
+        "alternate names",
+        "winter and shoulder seasons",
+        "boat/charter kept separate"
+      ],
+      "mandatory_lead": true,
+      "disposition": "exclude",
+      "rationale": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "exact_port_creel": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "stocking": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "unresolved_requirement": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "numeric_score": null,
+      "seasonal_mode": null
+    }
+  ]
+}

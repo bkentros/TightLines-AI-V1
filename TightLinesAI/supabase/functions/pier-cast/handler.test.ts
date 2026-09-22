@@ -103,13 +103,13 @@ Deno.test("owner-review catalog requires authorization", async () => {
   assertEquals(reads, 0);
 });
 
-Deno.test("authorized owner-review catalog includes all twenty-seven cities", async () => {
+Deno.test("authorized owner-review catalog includes all thirty-two cities", async () => {
   const handler = createPierCastHandler(dependencies());
   const response = await handler(request("review/catalog"));
   assertEquals(response.status, 200);
   const body = await response.json();
   assertEquals(body.mode, "review");
-  assertEquals(body.cities.length, 27);
+  assertEquals(body.cities.length, 32);
   assertEquals(
     body.formulaVersion,
     "piercast-opportunity-modes-bounded-temperature-v3",

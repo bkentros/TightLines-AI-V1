@@ -47,15 +47,16 @@ const outlook = buildPierCastV3ReviewOutlook({
     cohorts.fiveCity,
     cohorts.chicagoAlpena,
     cohorts.stJosephHarrisville,
+    cohorts.pentwaterCaseville,
   ),
   evaluationTime: now.toISOString(),
 });
 const rankedCities = outlook.cities.filter((city) =>
   city.dates[0]?.headline.overall.status === "available"
 );
-if (outlook.cities.length !== 27 || rankedCities.length !== 27) {
+if (outlook.cities.length !== 32 || rankedCities.length !== 32) {
   throw new Error(
-    `Owner review returned ${outlook.cities.length} cities and ${rankedCities.length} ranked cities; expected 27 each.`,
+    `Owner review returned ${outlook.cities.length} cities and ${rankedCities.length} ranked cities; expected 32 each.`,
   );
 }
 console.log(

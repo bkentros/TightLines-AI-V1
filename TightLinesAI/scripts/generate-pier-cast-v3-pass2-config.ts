@@ -81,6 +81,18 @@ const stJosephHarrisvilleCalibrationPath = resolve(
   stJosephHarrisvilleDirectory,
   "private-mode-calibrations.json",
 );
+const pentwaterCasevilleDirectory = resolve(
+  root,
+  "docs/onboarding/piercast/pentwater-caseville-2026-09-pass2",
+);
+const pentwaterCasevilleDecisionPath = resolve(
+  pentwaterCasevilleDirectory,
+  "pair-decisions.json",
+);
+const pentwaterCasevilleCalibrationPath = resolve(
+  pentwaterCasevilleDirectory,
+  "private-mode-calibrations.json",
+);
 const outputPath = resolve(
   root,
   "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
@@ -121,6 +133,14 @@ const stJosephHarrisvilleCalibrationText = readFileSync(
   stJosephHarrisvilleCalibrationPath,
   "utf8",
 );
+const pentwaterCasevilleDecisionText = readFileSync(
+  pentwaterCasevilleDecisionPath,
+  "utf8",
+);
+const pentwaterCasevilleCalibrationText = readFileSync(
+  pentwaterCasevilleCalibrationPath,
+  "utf8",
+);
 const candidateArtifact = JSON.parse(candidateText) as CandidateArtifact;
 const calibrationArtifact = JSON.parse(calibrationText) as CalibrationArtifact;
 const secondaryCandidateArtifact = JSON.parse(
@@ -159,6 +179,12 @@ const stJosephHarrisvilleDecisionArtifact = JSON.parse(
 const stJosephHarrisvilleCalibrationArtifact = JSON.parse(
   stJosephHarrisvilleCalibrationText,
 ) as StJosephHarrisvilleCalibrationArtifact;
+const pentwaterCasevilleDecisionArtifact = JSON.parse(
+  pentwaterCasevilleDecisionText,
+) as StJosephHarrisvilleDecisionArtifact;
+const pentwaterCasevilleCalibrationArtifact = JSON.parse(
+  pentwaterCasevilleCalibrationText,
+) as StJosephHarrisvilleCalibrationArtifact;
 
 assertPass1(candidateArtifact, calibrationArtifact);
 assertSecondary(secondaryCandidateArtifact, secondaryCalibrationArtifact);
@@ -175,6 +201,10 @@ assertChicagoAlpena(
 assertStJosephHarrisville(
   stJosephHarrisvilleDecisionArtifact,
   stJosephHarrisvilleCalibrationArtifact,
+);
+assertPentwaterCaseville(
+  pentwaterCasevilleDecisionArtifact,
+  pentwaterCasevilleCalibrationArtifact,
 );
 const modesById = new Map(
   [
@@ -195,6 +225,23 @@ const modesById = new Map(
       ).join(" "),
     })),
     ...stJosephHarrisvilleCalibrationArtifact.modes.map((mode) => ({
+      modeCalibrationId: mode.mode_calibration_id,
+      modeId: mode.mode_id,
+      pairKey: mode.pair_key,
+      fisheryStrength: mode.fishery_strength,
+      evidenceGrade: mode.evidence_grade,
+      availabilityKnots: mode.availability_knots.map((knot) => ({
+        monthDay: knot.month_day,
+        availability: knot.availability,
+      })),
+      thermalCurveId: mode.thermal_curve_id,
+      fisheryEvidenceIds: mode.fishery_evidence_ids,
+      limitations: mode.limitations,
+      modeName: mode.mode_id.split("_").map((word) =>
+        word[0].toUpperCase() + word.slice(1)
+      ).join(" "),
+    })),
+    ...pentwaterCasevilleCalibrationArtifact.modes.map((mode) => ({
       modeCalibrationId: mode.mode_calibration_id,
       modeId: mode.mode_id,
       pairKey: mode.pair_key,
@@ -289,6 +336,26 @@ const stJosephHarrisvillePairs = stJosephHarrisvilleDecisionArtifact.decisions
         thermalCurveId: mode.thermal_curve_id,
       })),
   }));
+const pentwaterCasevillePairs = pentwaterCasevilleDecisionArtifact.decisions
+  .filter((decision) => decision.pass2_disposition === "numeric_private")
+  .map((decision) => ({
+    pairKey: decision.pair_key,
+    cityId: decision.city_id,
+    speciesId: decision.species_id,
+    ratingEnabled: false as const,
+    modes: pentwaterCasevilleCalibrationArtifact.modes
+      .filter((mode) => mode.pair_key === decision.pair_key)
+      .map((mode) => ({
+        modeCalibrationId: mode.mode_calibration_id,
+        modeId: mode.mode_id,
+        fisheryStrength: mode.fishery_strength,
+        availabilityKnots: mode.availability_knots.map((knot) => ({
+          monthDay: knot.month_day,
+          availability: knot.availability,
+        })),
+        thermalCurveId: inheritedThermalCurveId(decision.species_id),
+      })),
+  }));
 
 const pairs = [
   ...candidateArtifact.candidates,
@@ -298,7 +365,8 @@ const pairs = [
   ...fiveCityPairs,
   ...chicagoAlpenaPairs,
   ...stJosephHarrisvillePairs,
-].map((pair) => ({
+  ...pentwaterCasevillePairs,
+].filter((pair) => pair.speciesId !== "bluegill").map((pair) => ({
   ...pair,
   ...(["frankfort_elberta_mi/lake_trout", "oscoda_mi/lake_trout", "alpena_mi/lake_trout"].includes(
       pair.pairKey,
@@ -330,11 +398,12 @@ const pairs = [
   }),
 }));
 if (
-  pairs.length !== 222 ||
+  pairs.length !== 254 ||
   new Set(pairs.map((pair) => pair.pairKey)).size !== pairs.length ||
-  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 403
+  pairs.reduce((sum, pair) => sum + pair.modes.length, 0) !== 451 ||
+  pairs.some((pair) => pair.speciesId === "bluegill")
 ) {
-  throw new Error("Combined Formula v3 species manifest is incomplete.");
+  throw new Error(`Combined Formula v3 species manifest is incomplete: ${pairs.length} pairs, ${new Set(pairs.map((pair) => pair.pairKey)).size} unique, ${pairs.reduce((sum, pair) => sum + pair.modes.length, 0)} modes, ${pairs.filter((pair) => pair.speciesId === "bluegill").length} bluegill.`);
 }
 
 const generated = `/* eslint-disable */
@@ -345,19 +414,19 @@ const generated = `/* eslint-disable */
  */
 import type { PierCastV3PairCalibration } from "./v3Calibration.ts";
 
-export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10" as const;
-export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v8" as const;
+export const PIER_CAST_V3_CONFIG_VERSION = "piercast-v3-thirty-two-city-caseville-species-v12" as const;
+export const PIER_CAST_V3_SOURCE_SCHEMA_VERSION = "piercast-v3-composite-source-v9" as const;
 export const PIER_CAST_V3_SOURCE_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}\n${chicagoAlpenaDecisionText}\n${stJosephHarrisvilleDecisionText}`,
+      `${candidateText}\n${secondaryCandidateText}\n${lakeHuronCandidateText}\n${speciesExpansionCandidateText}\n${fiveCityDecisionText}\n${chicagoAlpenaDecisionText}\n${stJosephHarrisvilleDecisionText}\n${pentwaterCasevilleDecisionText}`,
     ),
   )
 } as const;
 export const PIER_CAST_V3_CALIBRATION_SHA256 = ${
   JSON.stringify(
     sha256(
-      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}\n${chicagoAlpenaCalibrationText}\n${stJosephHarrisvilleCalibrationText}`,
+      `${calibrationText}\n${secondaryCalibrationText}\n${lakeHuronCalibrationText}\n${speciesExpansionCalibrationText}\n${fiveCityCalibrationText}\n${chicagoAlpenaCalibrationText}\n${stJosephHarrisvilleCalibrationText}\n${pentwaterCasevilleCalibrationText}`,
     ),
   )
 } as const;
@@ -567,6 +636,44 @@ function assertStJosephHarrisville(
   ) throw new Error("St. Joseph–Harrisville modes do not match the admitted manifest.");
 }
 
+function assertPentwaterCaseville(
+  decisions: StJosephHarrisvilleDecisionArtifact,
+  calibrations: StJosephHarrisvilleCalibrationArtifact,
+): void {
+  const admitted = decisions.decisions.filter((decision) =>
+    decision.pass2_disposition === "numeric_private"
+  );
+  if (
+    decisions.schema_version !==
+      "piercast-pentwater-caseville-pass2-pair-decisions-v1" ||
+    decisions.disposition_counts.numeric_private !== 36 ||
+    decisions.disposition_counts.research_hold_unscored !== 26 ||
+    decisions.disposition_counts.exclude_unscored !== 28 ||
+    admitted.length !== 36 ||
+    calibrations.schema_version !==
+      "piercast-pentwater-caseville-pass2-mode-calibrations-v1" ||
+    calibrations.status !== "complete_private_shadow_only" ||
+    calibrations.rating_enabled !== false ||
+    calibrations.public_enabled !== false ||
+    calibrations.numeric_pair_count !== 36 ||
+    calibrations.mode_count !== 52 ||
+    calibrations.modes.length !== 52
+  ) throw new Error("Pentwater–Caseville Pass 2 handoff is incomplete.");
+  const pairKeys = new Set(admitted.map((decision) => decision.pair_key));
+  if (
+    pairKeys.size !== 36 ||
+    calibrations.modes.some((mode) =>
+      !pairKeys.has(mode.pair_key) ||
+      !["A", "B"].includes(mode.evidence_grade) ||
+      mode.fishery_strength < 1 || mode.fishery_strength > 10
+    ) ||
+    [...pairKeys].some((pairKey) =>
+      !calibrations.modes.some((mode) => mode.pair_key === pairKey)
+    ) ||
+    admitted.some((decision) => decision.species_id === "bluegill")
+  ) throw new Error("Pentwater–Caseville modes do not match the admitted manifest.");
+}
+
 function assertPass1(
   candidates: CandidateArtifact,
   calibrations: CalibrationArtifact,
@@ -597,6 +704,27 @@ function assertPass1(
 
 function sha256(value: string): string {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function inheritedThermalCurveId(speciesId: string): string {
+  const curveIds: Record<string, string> = {
+    chinook_salmon: "chinook_salmon__shared_temperature__v0_2",
+    coho_salmon: "coho_salmon__shared_temperature__v0_2",
+    steelhead: "steelhead__shared_temperature__v0_2",
+    brown_trout: "brown_trout__shared_temperature__v0_2",
+    lake_trout: "lake_trout__additional_thermal_research__v0_1",
+    walleye: "walleye__additional_thermal_research__v0_1",
+    smallmouth_bass: "smallmouth_bass__additional_thermal_research__v0_1",
+    freshwater_drum: "freshwater_drum__additional_thermal_research__v0_1",
+    yellow_perch: "yellow_perch__additional_thermal_research__v0_1",
+    lake_whitefish: "lake_whitefish__additional_thermal_research__v0_1",
+    atlantic_salmon: "atlantic_salmon__shared_temperature__v0_1",
+    northern_pike: "northern_pike__shared_temperature__v0_1",
+    burbot: "burbot__shared_temperature__v0_1_research",
+  };
+  const curveId = curveIds[speciesId];
+  if (!curveId) throw new Error(`No inherited Formula v3 thermal curve for ${speciesId}.`);
+  return curveId;
 }
 
 type CandidateArtifact = {

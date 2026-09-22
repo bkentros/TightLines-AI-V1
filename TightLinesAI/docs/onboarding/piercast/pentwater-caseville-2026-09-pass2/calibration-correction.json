@@ -1,0 +1,212 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-calibration-correction-v1",
+  "reviewed_at": "2026-09-21",
+  "status": "complete_private_correction",
+  "trigger": "Owner-authorized focused correction after post-Pass-2 calibration review.",
+  "rule": "Qualitative city occurrence remains a research lead, but a numeric peak requires recurring covered-structure or defensibly allocated local shore evidence plus a supportable magnitude and annual shape.",
+  "corrected_pairs": [
+    {
+      "pair_key": "tawas_city_mi/atlantic_salmon",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 6.4
+      },
+      "corrected": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "reason": "Exact-city occurrence is credible, but reviewed evidence is mode-mixed/offshore and does not establish recurring covered-structure targeting."
+    },
+    {
+      "pair_key": "tawas_city_mi/largemouth_bass",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 5.5
+      },
+      "corrected": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "reason": "The location inventory lacks a species-resolved recurring covered-shore magnitude record."
+    },
+    {
+      "pair_key": "caseville_mi/coho_salmon",
+      "prior": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 5
+      },
+      "reason": "The product reports city fishing conditions centered around the covered piers; an exact Caseville-pier catch plus official city salmon guidance supports conservative admission without claiming pier-specific recurrence."
+    },
+    {
+      "pair_key": "caseville_mi/steelhead",
+      "prior": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 4.5
+      },
+      "reason": "The city-condition boundary permits the exact connected Pigeon River/Caseville stocking pathway and official city trout guidance to support a conservative score without claiming Pointe Park-specific catch frequency."
+    },
+    {
+      "pair_key": "caseville_mi/lake_trout",
+      "prior": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 4.6
+      },
+      "reason": "The exact DNR Caseville lake-trout inventory supports a conservative city-condition calibration; the score is intentionally below stronger quantified Lake Huron ports."
+    },
+    {
+      "pair_key": "caseville_mi/yellow_perch",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 7
+      },
+      "corrected": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "reason": "A strong numeric peak was not supportable without recurring exact pier/shore catch evidence."
+    },
+    {
+      "pair_key": "caseville_mi/burbot",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 4.2
+      },
+      "corrected": {
+        "disposition": "research_hold_unscored",
+        "grade": "C",
+        "peak": null
+      },
+      "reason": "The city inventory establishes a lead but not recurring covered-structure targetability and magnitude."
+    },
+    {
+      "pair_key": "tawas_city_mi/steelhead",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 6.2
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 5.8
+      },
+      "reason": "Reviewed weekly evidence is largely boat/offshore or incidental and did not support placement above measured Rogers City evidence."
+    },
+    {
+      "pair_key": "tawas_city_mi/lake_trout",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 5.3
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 5.1
+      },
+      "reason": "The corrected value matches Rogers City while preserving the unresolved structure-level magnitude limitation."
+    },
+    {
+      "pair_key": "tawas_city_mi/walleye",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 6.8
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 6.5
+      },
+      "reason": "Strong recurring bay opportunity remains, but mostly boat-oriented magnitude did not justify equality with Oscoda."
+    },
+    {
+      "pair_key": "tawas_city_mi/yellow_perch",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 7.4
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 6.8
+      },
+      "reason": "The exact-city inventory supports admission, while reports of small fish and missing structure magnitude do not support the prior upper-tier peak."
+    },
+    {
+      "pair_key": "tawas_city_mi/lake_whitefish",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 4.3
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "B",
+        "peak": 4
+      },
+      "reason": "Exact wall/dock targeting supports admission but not a new high above the established lawful pier cohort."
+    },
+    {
+      "pair_key": "charlevoix_mi/smallmouth_bass",
+      "prior": {
+        "disposition": "numeric_private",
+        "grade": "A",
+        "peak": 8.8
+      },
+      "corrected": {
+        "disposition": "numeric_private",
+        "grade": "A",
+        "peak": 8.4
+      },
+      "reason": "Charlevoix remains the strongest reviewed smallmouth fishery, but 8.4 better reflects the cross-city evidence without an over-wide leap above Alpena."
+    }
+  ],
+  "challenged_pairs_reviewed_unchanged": [
+    {
+      "pair_key": "rogers_city_mi/atlantic_salmon",
+      "disposition": "numeric_private",
+      "grade": "B",
+      "peak": 6.8,
+      "reason": "Retained because exact breakwall guidance, exact-port historical catch, and current recurrence jointly satisfy Grade B."
+    },
+    {
+      "pair_key": "tawas_city_mi/burbot",
+      "disposition": "numeric_private",
+      "grade": "B",
+      "peak": 4.3,
+      "reason": "Retained because current Tawas Bay listing and an exact state-dock catch/targeting report jointly establish the cold-season mode."
+    }
+  ],
+  "summary": {
+    "numeric_to_hold": 4,
+    "numeric_peak_revisions": 6,
+    "unchanged_after_challenge": 2
+  }
+}

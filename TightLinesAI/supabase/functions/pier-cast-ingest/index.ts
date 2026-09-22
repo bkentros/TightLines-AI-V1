@@ -16,6 +16,7 @@ import {
   ingestPierCastCalibrationObservations,
   ingestPierCastChicagoAlpenaShadowCycle,
   ingestPierCastStJosephHarrisvilleShadowCycle,
+  ingestPierCastPentwaterCasevilleShadowCycle,
   ingestPierCastFiveCityShadowCycle,
   ingestPierCastLakeHuronShadowCycle,
   ingestPierCastPortWashingtonShadowCycle,
@@ -292,6 +293,33 @@ const handler = createPierCastIngestHandler({
       diagnostics: outcome.diagnostics,
     };
   },
+  ingestPentwaterCasevilleShadow: async () => {
+    const outcome = await ingestPierCastPentwaterCasevilleShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
   ingestV3Shadow: async () => {
     const now = new Date();
     const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
@@ -308,6 +336,7 @@ const handler = createPierCastIngestHandler({
       cohorts.fiveCity,
       cohorts.chicagoAlpena,
       cohorts.stJosephHarrisville,
+      cohorts.pentwaterCaseville,
     );
     const outlook = buildPierCastV3ReviewOutlook({
       batch,
@@ -324,8 +353,8 @@ const handler = createPierCastIngestHandler({
       status: shadowForecast.status,
       source: "fresh_archived_complete_cycle" as const,
       issuedAt: batch.issuedAt,
-      cityCount: 27 as const,
-      sampleCount: 3267 as const,
+      cityCount: 32 as const,
+      sampleCount: 3872 as const,
       shadowForecast,
     };
   },

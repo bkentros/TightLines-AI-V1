@@ -4,11 +4,11 @@ import {
 } from "./v3Calibration.ts";
 import type { PierCastCityId } from "../types.ts";
 
-/** Owner-authorized public research scope; scientific validation remains ongoing. */
+/** Owner-authorized live PierCast scope. */
 export const PIER_CAST_PUBLIC_V3_RELEASE = {
-  version: "piercast-public-research-v3-2026-09-20-twenty-seven-city",
+  version: "piercast-public-v3-2026-09-22-thirty-two-city",
   formulaVersion: PIER_CAST_V3_FORMULA_VERSION,
-  // Frozen owner-authorized public city roster.
+  // Live owner-authorized public city roster.
   cityIds: [
     "ludington_mi",
     "grand_haven_mi",
@@ -37,6 +37,11 @@ export const PIER_CAST_PUBLIC_V3_RELEASE = {
     "holland_mi",
     "lexington_mi",
     "harrisville_mi",
+    "pentwater_mi",
+    "rogers_city_mi",
+    "tawas_city_mi",
+    "charlevoix_mi",
+    "caseville_mi",
   ] as const satisfies readonly PierCastCityId[],
 } as const;
 

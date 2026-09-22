@@ -27,6 +27,10 @@ import {
   PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_IDS,
   PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
 } from "./stJosephHarrisvilleShadow.ts";
+import {
+  PIER_CAST_PENTWATER_CASEVILLE_CITY_IDS,
+  PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
+} from "./pentwaterCasevilleShadow.ts";
 
 export function buildPierCastCatalog(
   mode: PierCastCatalogMode,
@@ -39,12 +43,14 @@ export function buildPierCastCatalog(
     ...PIER_CAST_FIVE_CITY_PROFILES,
     ...PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
     ...PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
+    ...PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
   ].filter((city) =>
     mode === "review" ||
     (publicModel === "v3" ? isPierCastPublicV3City(city.cityId) : ![
       ...PIER_CAST_FIVE_CITY_IDS,
       ...PIER_CAST_CHICAGO_ALPENA_CITY_IDS,
       ...PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_IDS,
+      ...PIER_CAST_PENTWATER_CASEVILLE_CITY_IDS,
     ].some((id) => id === city.cityId))
   );
   const cities = profiles
@@ -63,12 +69,12 @@ export function buildPierCastCatalog(
       waterTemperatureSource: city.waterTemperatureSource,
       structures: city.structures.map((structure) => ({ ...structure })),
       species: city.species.filter((species) =>
-        mode === "review" ||
+        species.speciesId !== "bluegill" && (mode === "review" ||
         (publicModel === "v3"
           ? isPierCastPublicV3City(city.cityId) &&
             publicV3Species(city.cityId).includes(species.speciesId)
           : isPierCastResearchCity(city.cityId) &&
-            publicResearchSpecies(city.cityId).includes(species.speciesId))
+            publicResearchSpecies(city.cityId).includes(species.speciesId)))
       ).map((species) => ({
         ...species,
         // Public discovery must not expose the full seasonal score configuration.

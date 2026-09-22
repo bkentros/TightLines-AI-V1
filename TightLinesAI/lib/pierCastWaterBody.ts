@@ -1,4 +1,7 @@
-export type PierCastWaterBodyName = "Lake Michigan" | "Lake Huron";
+export type PierCastWaterBodyName =
+  | "Lake Michigan"
+  | "Lake Huron"
+  | "Saginaw Bay";
 
 const PIER_CAST_WATER_BODY_BY_CITY_ID: Readonly<
   Record<string, PierCastWaterBodyName>
@@ -30,7 +33,20 @@ const PIER_CAST_WATER_BODY_BY_CITY_ID: Readonly<
   holland_mi: "Lake Michigan",
   lexington_mi: "Lake Huron",
   harrisville_mi: "Lake Huron",
+  pentwater_mi: "Lake Michigan",
+  rogers_city_mi: "Lake Huron",
+  tawas_city_mi: "Lake Huron",
+  charlevoix_mi: "Lake Michigan",
+  caseville_mi: "Saginaw Bay",
 };
+
+export function pierCastParentGreatLakeName(
+  cityId: string,
+): "Lake Michigan" | "Lake Huron" | "Great Lakes" {
+  const waterBody = PIER_CAST_WATER_BODY_BY_CITY_ID[cityId];
+  if (waterBody === "Saginaw Bay") return "Lake Huron";
+  return waterBody ?? "Great Lakes";
+}
 
 export function pierCastWaterBodyName(
   cityId: string,

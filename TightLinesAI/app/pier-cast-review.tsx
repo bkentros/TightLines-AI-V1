@@ -54,8 +54,8 @@ import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructure
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import {
+  isPrimaryPierCastSpecies,
   presentPierCastDate,
-  PRIMARY_PIER_CAST_SPECIES,
 } from "../lib/pierCastSpeciesPresentation";
 import { getPierCastSpeciesImage } from "../lib/pierCastSpeciesImages";
 import type {
@@ -659,7 +659,13 @@ function PierCastHero({
   );
 }
 
-function SpeciesBoard({ date, isToday }: { date: PierCastReviewDateOutlookRead; isToday: boolean }) {
+function SpeciesBoard({
+  date,
+  isToday,
+}: {
+  date: PierCastReviewDateOutlookRead;
+  isToday: boolean;
+}) {
   const [moreSpeciesExpanded, setMoreSpeciesExpanded] = useState(false);
   const [expandedTimeSpeciesId, setExpandedTimeSpeciesId] = useState<PierCastSpeciesId | null>(null);
   const pending = isDateScorePending(date);
@@ -684,10 +690,10 @@ function SpeciesBoard({ date, isToday }: { date: PierCastReviewDateOutlookRead; 
     );
   });
   const mainSpecies = speciesRows.filter((species) =>
-    PRIMARY_PIER_CAST_SPECIES.has(species.speciesId)
+    isPrimaryPierCastSpecies(species.speciesId)
   );
   const moreSpecies = speciesRows.filter((species) =>
-    !PRIMARY_PIER_CAST_SPECIES.has(species.speciesId)
+    !isPrimaryPierCastSpecies(species.speciesId)
   );
   const renderSpeciesCard = (
     species: (typeof speciesRows)[number],
@@ -1920,7 +1926,7 @@ function PreviewWeather({
         </Text>
       )}
       <Text style={styles.previewWeatherNote}>
-        Modeled air and wind at the city reference point. Pier water temperatures and fishing ratings are still under review.
+        Modeled air and wind at the city reference point. A complete fishing rating is currently unavailable.
       </Text>
     </ReportSection>
   );
@@ -3316,7 +3322,7 @@ function CityReport({
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => setSelectedIndex(0), [city.cityId]);
   const displayDates = useMemo(
-    () => outlook?.dates.map(presentPierCastDate) ?? [],
+    () => outlook?.dates.map((date) => presentPierCastDate(date)) ?? [],
     [outlook],
   );
   const date = displayDates[selectedIndex] ?? displayDates[0] ?? null;
@@ -3387,7 +3393,11 @@ function CityReport({
           }}
         />
       </ReportSection>
-      <SpeciesBoard key={`${city.cityId}:${date.localDate}`} date={date} isToday={isToday} />
+      <SpeciesBoard
+        key={`${city.cityId}:${date.localDate}`}
+        date={date}
+        isToday={isToday}
+      />
       <HourlyConditions
         dates={displayDates}
         timeline={allPoints}
@@ -3653,11 +3663,7 @@ export default function PierCastReviewScreen() {
           <Ionicons name="chevron-back" size={25} color="#FFFFFF" />
         </Pressable>
         <View style={styles.navTitleWrap} pointerEvents="none">
-          <Text style={styles.navEyebrow}>
-            {ownerReview
-              ? `PRIVATE OWNER REVIEW · ${catalog?.cities.length ?? 0} CITIES`
-              : "GREAT LAKES · PIER FORECAST"}
-          </Text>
+          <Text style={styles.navEyebrow}>GREAT LAKES · PIER FORECAST</Text>
           <Text style={styles.navTitle}>PIERCAST</Text>
         </View>
         <View style={styles.navSpacer} />
@@ -3764,7 +3770,7 @@ export default function PierCastReviewScreen() {
                             {selected
                               ? "CURRENT"
                               : !ownerReview && city.releaseStatus === "research_only"
-                                ? "COMING SOON"
+                                ? "UNAVAILABLE"
                               : Number.isFinite(distance)
                                 ? `${Math.round(distance)} MI AWAY`
                                 : city.stateCode}
@@ -3782,7 +3788,7 @@ export default function PierCastReviewScreen() {
                     <Ionicons name="compass-outline" size={24} color={paper.dashboardBlue} />
                     <Text style={styles.messageTitle}>{selectedCity.displayName}</Text>
                     <Text style={styles.messageCopy}>
-                      A full PierCast forecast is not available for this city yet. Nearby air and wind are available below.
+                      A complete PierCast forecast is currently unavailable for this city. Nearby air and wind are available below.
                     </Text>
                   </View>
                   <PreviewWeather

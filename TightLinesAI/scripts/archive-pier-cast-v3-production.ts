@@ -36,6 +36,7 @@ const batch = combinePierCastV3LmhofsBatches(
   cohorts.fiveCity,
   cohorts.chicagoAlpena,
   cohorts.stJosephHarrisville,
+  cohorts.pentwaterCaseville,
 );
 const outlook = buildPierCastV3ReviewOutlook({ batch, evaluationTime: now.toISOString() });
 const result = await archivePierCastV3ShadowForecast({

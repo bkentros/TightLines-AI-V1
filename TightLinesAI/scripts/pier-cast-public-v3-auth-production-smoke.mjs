@@ -12,12 +12,16 @@ const admin = { apikey: service, Authorization: `Bearer ${service}`, 'Content-Ty
 let userId;
 
 async function request(path, headers, body, method = 'POST') {
-  const response = await fetch(`${base}${path}`, {
-    method,
-    headers,
-    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
-  });
-  return { status: response.status, body: await response.json().catch(() => null) };
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const response = await fetch(`${base}${path}`, {
+      method,
+      headers,
+      ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+    });
+    const result = { status: response.status, body: await response.json().catch(() => null) };
+    if (response.status < 500 || attempt === 2) return result;
+    await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+  }
 }
 
 try {
@@ -48,7 +52,7 @@ try {
   assert.equal(catalog.status, 200);
   assert.equal(catalog.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
   const cities = catalog.body.cities.filter(city => city.releaseStatus === 'public_research');
-  assert.equal(cities.length, 27);
+  assert.equal(cities.length, 32);
   assert.ok(cities.every(city => city.species.length > 0));
   const onboardingCityIds = [
     'two_rivers_wi',
@@ -74,16 +78,25 @@ try {
     'harrisville_mi',
   ];
   assert.ok(newlyReleasedCityIds.every(cityId => cities.some(city => city.cityId === cityId)));
+  const latestReleasedCityIds = [
+    'pentwater_mi',
+    'rogers_city_mi',
+    'tawas_city_mi',
+    'charlevoix_mi',
+    'caseville_mi',
+  ];
+  assert.ok(latestReleasedCityIds.every(cityId => cities.some(city => city.cityId === cityId)));
 
   const forbiddenReview = await getPier('review/v3/outlook');
   assert.equal(forbiddenReview.status, 403, 'normal user owner-review access');
   const leaderboard = await getPier('leaderboard');
   assert.equal(leaderboard.status, 200);
-  assert.equal(leaderboard.body.cities.length, 27);
-  assert.equal(leaderboard.body.releasePolicyVersion, 'piercast-public-research-v3-2026-09-20-twenty-seven-city');
+  assert.equal(leaderboard.body.cities.length, 32);
+  assert.equal(leaderboard.body.releasePolicyVersion, 'piercast-public-v3-2026-09-22-thirty-two-city');
   assert.ok(onboardingCityIds.every(cityId => leaderboard.body.cities.some(city => city.cityId === cityId)));
   assert.ok(previouslyReleasedCityIds.every(cityId => leaderboard.body.cities.some(city => city.cityId === cityId)));
   assert.ok(newlyReleasedCityIds.every(cityId => leaderboard.body.cities.some(city => city.cityId === cityId)));
+  assert.ok(latestReleasedCityIds.every(cityId => leaderboard.body.cities.some(city => city.cityId === cityId)));
 
   for (const city of cities.slice(0, 4)) {
     const report = await getPier(`report?cityId=${city.cityId}`);
@@ -103,9 +116,10 @@ try {
     assert.equal(report.status, 200, `paid report ${city.cityId}: ${report.body?.error}`);
     assert.equal(report.body.cities[0].cityId, city.cityId);
     assert.equal(report.body.cities[0].dates.length, 5);
+    await new Promise(resolve => setTimeout(resolve, 250));
   }
 
-  console.log('PASS: live PierCast v3 exposes all 27 cities to a normal user, serves four free reports with a fifth-report paywall and saved refresh, and serves 27 complete paid reports.');
+  console.log('PASS: live PierCast v3 exposes all 32 cities to a normal user, serves four free reports with a fifth-report paywall and saved refresh, and serves 32 complete paid reports.');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

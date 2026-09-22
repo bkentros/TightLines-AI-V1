@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "piercast-pentwater-caseville-lmhofs-cell-audit-v1",
+  "auditedAt": "2026-09-21",
+  "modelDomain": "NOAA LMHOFS regular grid",
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "sourceCycle": "2026-09-21T12:00:00.000Z",
+  "method": "Official LMHOFS OPeNDAP row/column windows verified Latitude, Longitude, mask=1, finite positive h, and surface temp; then all 121 forecast hours were fetched for all five cells from one issue.",
+  "liveFullHorizonValidation": {
+    "status": "available",
+    "fetchedAt": "2026-09-21T18:18:32.729Z",
+    "cycleAgeHours": 6.308518888888889,
+    "firstForecastHour": 0,
+    "lastForecastHour": 120,
+    "hoursPerCity": 121,
+    "totalSamples": 605,
+    "temperatureRangeCByCity": {
+      "pentwater_mi": [
+        10.983375,
+        17.702385
+      ],
+      "rogers_city_mi": [
+        8.737995,
+        12.645109
+      ],
+      "tawas_city_mi": [
+        15.340569,
+        17.218462
+      ],
+      "charlevoix_mi": [
+        12.268557,
+        13.733909
+      ],
+      "caseville_mi": [
+        13.550522,
+        14.8625
+      ]
+    }
+  },
+  "cells": [
+    {
+      "cityId": "pentwater_mi",
+      "waterBody": "Lake Michigan",
+      "parentGreatLake": "Lake Michigan",
+      "sourceId": "pentwater_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 218,
+      "gridColumn": 161,
+      "latitude": 43.78,
+      "longitude": -86.45,
+      "waterMask": 1,
+      "modelBathymetryM": 6.438171178218563,
+      "bathymetryFinitePositive": true,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "issueCycle": "2026-09-21T12:00:00.000Z",
+      "hourlyCoverage": 121,
+      "structures": [
+        {
+          "structureId": "mears_accessible_fishing_pier",
+          "displayName": "Charles Mears State Park accessible fishing pier",
+          "disposition": "covered",
+          "coordinateSource": "MEARS_PARK",
+          "latitude": 43.7823,
+          "longitude": -86.4432,
+          "distanceM": 603
+        },
+        {
+          "structureId": "north_navigation_pier",
+          "displayName": "Pentwater north navigation pier",
+          "disposition": "covered",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 43.782329,
+          "longitude": -86.443616,
+          "distanceM": 574
+        },
+        {
+          "structureId": "south_navigation_pier",
+          "displayName": "Pentwater south navigation pier",
+          "disposition": "covered",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 43.781548,
+          "longitude": -86.444145,
+          "distanceM": 501
+        }
+      ],
+      "limitation": "One audited wet LMHOFS surface cell supplies general city conditions. It is not a pier thermometer. Pentwater Lake, channel exchange, river-plume mixing, protected water, and open Lake Michigan can differ materially. The model does not establish depth-specific temperature, waves, ice, construction, or access.",
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "rogers_city_mi",
+      "waterBody": "Lake Huron",
+      "parentGreatLake": "Lake Huron",
+      "sourceId": "rogers_city_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 382,
+      "gridColumn": 426,
+      "latitude": 45.42,
+      "longitude": -83.8,
+      "waterMask": 1,
+      "modelBathymetryM": 3.2471046795913714,
+      "bathymetryFinitePositive": true,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "issueCycle": "2026-09-21T12:00:00.000Z",
+      "hourlyCoverage": 121,
+      "structures": [
+        {
+          "structureId": "outer_breakwall_light_8_side",
+          "displayName": "Rogers City outer breakwall ending at Harbor Channel Light 8",
+          "disposition": "covered",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 45.422917,
+          "longitude": -83.809222,
+          "distanceM": 789
+        },
+        {
+          "structureId": "outer_breakwall_light_9_side",
+          "displayName": "Rogers City outer breakwall ending at Harbor Channel Light 9",
+          "disposition": "covered",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 45.422472,
+          "longitude": -83.809722,
+          "distanceM": 807
+        },
+        {
+          "structureId": "marina_basin_designated_areas",
+          "displayName": "Rogers City marina basin designated fishing areas",
+          "disposition": "covered_conditionally",
+          "coordinateSource": "ROGERS_ORD",
+          "latitude": 45.4215,
+          "longitude": -83.817,
+          "distanceM": 1337
+        }
+      ],
+      "limitation": "One audited wet LMHOFS surface cell supplies general city conditions. It is not a pier thermometer. The selected lakeward cell does not resolve municipal-harbor protection or breakwall-scale mixing. The model does not establish depth-specific temperature, waves, ice, construction, or access.",
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "tawas_city_mi",
+      "waterBody": "Lake Huron",
+      "parentGreatLake": "Lake Huron",
+      "sourceId": "tawas_city_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 267,
+      "gridColumn": 456,
+      "latitude": 44.27,
+      "longitude": -83.5,
+      "waterMask": 1,
+      "modelBathymetryM": 3.254482711748127,
+      "bathymetryFinitePositive": true,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "issueCycle": "2026-09-21T12:00:00.000Z",
+      "hourlyCoverage": 121,
+      "structures": [
+        {
+          "structureId": "gateway_park_pier",
+          "displayName": "Gateway Park fishing pier",
+          "disposition": "covered",
+          "coordinateSource": "TAWAS_GATEWAY",
+          "latitude": 44.2691,
+          "longitude": -83.5199,
+          "distanceM": 1588
+        },
+        {
+          "structureId": "gateway_river_edge_boardwalk",
+          "displayName": "Gateway Park Tawas River-edge walkway/boardwalk",
+          "disposition": "not_separately_admitted_from_gateway_pier",
+          "coordinateSource": "TAWAS_GATEWAY",
+          "latitude": 44.269,
+          "longitude": -83.5194,
+          "distanceM": 1549
+        },
+        {
+          "structureId": "shoreline_park_pier",
+          "displayName": "Shoreline Park L-shaped fishing pier",
+          "disposition": "covered",
+          "coordinateSource": "TAWAS_PLAN",
+          "latitude": 44.2794,
+          "longitude": -83.4865,
+          "distanceM": 1499
+        }
+      ],
+      "limitation": "One audited wet LMHOFS surface cell supplies general city conditions. It is not a pier thermometer. Tawas Bay is shallow; wind-driven mixing, river influence, seiches, and nearshore heating can make pier water differ materially. The model does not establish depth-specific temperature, waves, ice, construction, or access.",
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "charlevoix_mi",
+      "waterBody": "Lake Michigan",
+      "parentGreatLake": "Lake Michigan",
+      "sourceId": "charlevoix_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 372,
+      "gridColumn": 278,
+      "latitude": 45.32,
+      "longitude": -85.28,
+      "waterMask": 1,
+      "modelBathymetryM": 13.46508358810818,
+      "bathymetryFinitePositive": true,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "issueCycle": "2026-09-21T12:00:00.000Z",
+      "hourlyCoverage": 121,
+      "structures": [
+        {
+          "structureId": "pine_river_channel_walkway",
+          "displayName": "Bridge Park and Pine River Channel fishing walkway",
+          "disposition": "covered",
+          "coordinateSource": "CHARLEVOIX_PLAN",
+          "latitude": 45.3198,
+          "longitude": -85.2588,
+          "distanceM": 1658
+        },
+        {
+          "structureId": "municipal_marina_designated_areas",
+          "displayName": "Charlevoix municipal marina designated fishing areas",
+          "disposition": "covered_conditionally",
+          "coordinateSource": "CHARLEVOIX_RULES",
+          "latitude": 45.3186,
+          "longitude": -85.258,
+          "distanceM": 1727
+        },
+        {
+          "structureId": "south_navigation_pier",
+          "displayName": "Charlevoix south navigation pier and lighthouse",
+          "disposition": "covered",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 45.3228,
+          "longitude": -85.2697,
+          "distanceM": 863
+        },
+        {
+          "structureId": "north_navigation_pier",
+          "displayName": "Charlevoix north navigation pier",
+          "disposition": "access_hold_separate_from_south_pier",
+          "coordinateSource": "USCG_LIGHT_LIST",
+          "latitude": 45.3232,
+          "longitude": -85.2689,
+          "distanceM": 938
+        }
+      ],
+      "limitation": "One audited wet LMHOFS surface cell supplies general city conditions. It is not a pier thermometer. The lakeward cell deliberately avoids treating Pine River, Round Lake, and protected marina water as open Lake Michigan. The model does not establish depth-specific temperature, waves, ice, construction, or access.",
+      "result": "pass_candidate"
+    },
+    {
+      "cityId": "caseville_mi",
+      "waterBody": "Saginaw Bay",
+      "parentGreatLake": "Lake Huron",
+      "sourceId": "caseville_mi__lmhofs_nearshore_surface__v0_1",
+      "gridRow": 235,
+      "gridColumn": 478,
+      "latitude": 43.95,
+      "longitude": -83.28,
+      "waterMask": 1,
+      "modelBathymetryM": 1.7294217870130457,
+      "bathymetryFinitePositive": true,
+      "depthIndex": 0,
+      "verticalSelection": "surface",
+      "issueCycle": "2026-09-21T12:00:00.000Z",
+      "hourlyCoverage": 121,
+      "structures": [
+        {
+          "structureId": "pointe_park_breakwall",
+          "displayName": "Pointe Park boardwalk and breakwall fishing pier",
+          "disposition": "covered",
+          "coordinateSource": "CASEVILLE_PLAN",
+          "latitude": 43.9456,
+          "longitude": -83.2718,
+          "distanceM": 819
+        },
+        {
+          "structureId": "municipal_harbor_designated_areas",
+          "displayName": "Caseville municipal harbor designated fishing areas",
+          "disposition": "access_hold_separate_from_pointe_park",
+          "coordinateSource": "CASEVILLE_PLAN",
+          "latitude": 43.9439,
+          "longitude": -83.271,
+          "distanceM": 990
+        }
+      ],
+      "limitation": "One audited wet LMHOFS surface cell supplies general city conditions. It is not a pier thermometer. Saginaw Bay is shallow; the selected wet bay cell does not resolve the Pigeon River plume, harbor protection, or breakwall-scale water. The model does not establish depth-specific temperature, waves, ice, construction, or access.",
+      "result": "pass_candidate"
+    }
+  ],
+  "result": "pass"
+}

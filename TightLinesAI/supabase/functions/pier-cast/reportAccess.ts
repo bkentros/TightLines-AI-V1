@@ -7,6 +7,7 @@ import { selectPierCastDailyHeadline } from "../_shared/pierCastEngine/scoring/h
 import type { PierCastReviewDateOutlook } from "../_shared/pierCastEngine/types.ts";
 
 const PRIMARY_SPECIES_IDS = new Set([
+  "atlantic_salmon",
   "coho_salmon",
   "chinook_salmon",
   "steelhead",

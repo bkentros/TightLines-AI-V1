@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "piercast-pentwater-caseville-pass3-production-verification-v1",
+  "verifiedAt": "2026-09-22T12:11:55.000Z",
+  "visibility": "public_all_users",
+  "source": {
+    "issuedAt": "2026-09-22T00:00:00.000Z",
+    "cohortCount": 7,
+    "cityCount": 32,
+    "sampleCount": 3872,
+    "onboardingCityCount": 5,
+    "onboardingSampleCount": 605
+  },
+  "forecastLedger": {
+    "runId": "e004d672-95ae-410a-aff1-96da4b8274a7",
+    "configVersion": "piercast-v3-thirty-two-city-caseville-species-v12",
+    "pairCount": 254,
+    "forecastCount": 1270
+  },
+  "migrations": [
+    "20260921230000_pier_cast_pentwater_caseville_private_pass3_v11.sql",
+    "20260922003000_pier_cast_pentwater_caseville_v11_forecast_count_fix.sql",
+    "20260922120000_pier_cast_caseville_species_v12.sql"
+  ],
+  "checks": {
+    "migrationHistoryApplied": true,
+    "edgeFunctionsDeployed": true,
+    "coherentSourceCycle": true,
+    "modelThirtyTwoRankedCities": true,
+    "publicProjectionThirtyTwoRankedCities": true,
+    "normalUserAdministrativeRouteDenied": true,
+    "fourFreeReportsAndFifthPaywall": true,
+    "savedReportRefresh": true,
+    "paidPublicReportsComplete": true,
+    "onboardingCitiesPublic": true,
+    "bluegillAbsentRuntimeAndSerialization": true
+  },
+  "note": "The V12 model contains 32 cities, 254 pairs, and 1,270 five-day forecast rows. The 2026-09-22 public policy promotes all 32 cities without changing the four-free/fifth-paywall access contract.",
+  "result": "pass"
+}

@@ -5,6 +5,7 @@ import type {
   PierCastV3ReviewOutlookResponse,
 } from "../lib/pierCastContracts";
 import {
+  isPrimaryPierCastSpecies,
   presentPierCastDate,
   PRIMARY_PIER_CAST_SPECIES,
 } from "../lib/pierCastSpeciesPresentation";
@@ -72,4 +73,55 @@ test("city and standings headlines use primary species, including lake trout", (
     "lake_trout",
   );
   assert.equal(standings.cities[0]?.dates[0]?.headline.overall.score, 7);
+});
+
+test("warm-water species never drive a city or leaderboard headline", () => {
+  const available = (score: number) => ({
+    status: "available" as const,
+    score,
+    displayScore: score,
+    displayText: `${score}/10` as `${number}/10`,
+    label: "Fair" as const,
+    ratingName: "FinFindr Opportunity Rating" as const,
+    rubricVersion: "test",
+  });
+  const species = (
+    speciesId: "bluegill" | "walleye" | "smallmouth_bass" | "steelhead",
+    score: number,
+  ) => ({
+    speciesId,
+    biological: available(score),
+    coverage: { status: "complete" as const },
+    targetingEligibility: "eligible" as const,
+    promotion: { status: "blocked" as const, reasonCodes: [] },
+  });
+  const date = {
+    localDate: "2026-09-21",
+    headline: {
+      overall: available(9),
+      drivingSpeciesId: "bluegill",
+    },
+    species: [
+      species("bluegill", 9),
+      species("smallmouth_bass", 4.4),
+      species("walleye", 4.3),
+      species("steelhead", 3.2),
+    ],
+  } as unknown as PierCastReviewDateOutlookRead;
+
+  const tawas = presentPierCastDate(date);
+  assert.equal(tawas.headline.drivingSpeciesId, "steelhead");
+  assert.equal(tawas.headline.overall.displayScore, 3.2);
+  assert.equal(tawas.species.some((row) => row.speciesId === "bluegill"), false);
+
+  const caseville = presentPierCastDate({
+    ...date,
+    species: date.species.filter((row) => row.speciesId !== "steelhead"),
+  });
+  assert.equal(caseville.headline.drivingSpeciesId, null);
+  assert.equal(caseville.headline.overall.status, "unavailable");
+
+  assert.equal(isPrimaryPierCastSpecies("walleye"), false);
+  assert.equal(isPrimaryPierCastSpecies("smallmouth_bass"), false);
+  assert.equal(isPrimaryPierCastSpecies("freshwater_drum"), true);
 });

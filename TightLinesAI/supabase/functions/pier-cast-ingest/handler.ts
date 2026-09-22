@@ -101,12 +101,23 @@ export type PierCastIngestHandlerDependencies = {
     sampleCount: number;
     diagnostics: string[];
   }>;
+  ingestPentwaterCasevilleShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
   ingestV3Shadow?: () => Promise<{
     status: "committed" | "already_committed";
     source: "fresh_archived_complete_cycle";
     issuedAt: string;
-    cityCount: 27;
-    sampleCount: 3267;
+    cityCount: 32;
+    sampleCount: 3872;
     shadowForecast: PierCastV3ShadowCommitSummary;
   }>;
 };
@@ -223,6 +234,23 @@ export function createPierCastIngestHandler(
       } catch {
         return json(
           { error: "pier_cast_st_joseph_harrisville_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "pentwater-caseville-shadow") {
+      if (!dependencies.ingestPentwaterCasevilleShadow) {
+        return json(
+          { error: "pier_cast_pentwater_caseville_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestPentwaterCasevilleShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_pentwater_caseville_shadow_ingest_failed" },
           503,
         );
       }
