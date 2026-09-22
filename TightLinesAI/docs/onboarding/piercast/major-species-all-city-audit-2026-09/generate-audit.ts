@@ -43,7 +43,9 @@ const catalog = buildPierCastCatalog("review", "v3");
 const pairs = PIER_CAST_V3_PAIR_CALIBRATIONS.filter((pair) =>
   targetSpeciesIds.has(pair.speciesId as (typeof targetSpecies)[number][0])
 );
-const pairByKey = new Map(pairs.map((pair) => [pair.pairKey, pair]));
+const pairByKey = new Map<string, (typeof pairs)[number]>(
+  pairs.map((pair) => [pair.pairKey, pair]),
+);
 
 if (catalog.cities.length !== 32) {
   throw new Error(`Expected 32 PierCast cities; got ${catalog.cities.length}.`);
