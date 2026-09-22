@@ -1208,11 +1208,8 @@ export default function RecommenderScreen() {
       } catch (err: unknown) {
         if (isRecommenderSubscriptionError(err)) {
           if (isInlineRefresh) {
-            Alert.alert(
-              "Angler feature",
-              "Subscribe to refresh picks or start a new Tackle Box session.",
-            );
             setIsRefreshing(false);
+            setShowSubscribePrompt(true);
           } else {
             setShowSubscribePrompt(true);
             setScreenState("setup");
