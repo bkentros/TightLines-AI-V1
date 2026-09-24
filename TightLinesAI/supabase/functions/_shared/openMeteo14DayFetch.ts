@@ -48,13 +48,18 @@ function parseOpenMeteoUnixSeconds(t: unknown): number | null {
   return null;
 }
 
-function unixSecToLocalDateYmd(unixSec: number, timeZone: string): string {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date(unixSec * 1000));
+/** Daily UNIX axes use the provider's fixed offset, even across a DST change.
+ * https://open-meteo.com/en/docs#api-documentation (timeformat)
+ * Hourly samples and sunrise/sunset remain real instants and use the IANA zone.
+ */
+export function openMeteoDailyDate(
+  unixSec: number,
+  utcOffsetSeconds: number,
+): string {
+  return new Date((unixSec + utcOffsetSeconds) * 1000).toISOString().slice(
+    0,
+    10,
+  );
 }
 
 function unixSecToLocalHHMM(unixSec: number, timeZone: string): string {
@@ -460,7 +465,7 @@ export async function fetchOpenMeteo14Day(
   ) {
     const dayUnix = parseOpenMeteoUnixSeconds(dailyTimeAxis[d]);
     if (dayUnix == null) continue;
-    const dateStr = unixSecToLocalDateYmd(dayUnix, timezone);
+    const dateStr = openMeteoDailyDate(dayUnix, tzOffsetHours * 3600);
     const srU = parseOpenMeteoUnixSeconds(sunriseArr[d]);
     const ssU = parseOpenMeteoUnixSeconds(sunsetArr[d]);
     const sr = srU != null ? unixSecToLocalHHMM(srU, timezone) : "";

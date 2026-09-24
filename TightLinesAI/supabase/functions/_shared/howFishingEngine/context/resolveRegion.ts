@@ -4,7 +4,10 @@
  */
 
 import { resolveStateFromCoords } from "./usStateBounds.ts";
-import { regionKeyFromLatLon, regionKeyFromState } from "../config/stateToRegion.ts";
+import {
+  regionKeyFromLatLon,
+  regionKeyFromState,
+} from "../config/stateToRegion.ts";
 import type { RegionKey } from "../contracts/mod.ts";
 
 export type ResolvedRegion = {
@@ -14,12 +17,12 @@ export type ResolvedRegion = {
 
 export function resolveRegionForCoordinates(
   latitude: number,
-  longitude: number
+  longitude: number,
 ): ResolvedRegion {
   const state_code = resolveStateFromCoords(latitude, longitude);
   // lat/lon is the primary precision layer — always use it when coordinates exist.
   // regionKeyFromState is the last-resort fallback only when coordinates fail entirely.
-  const region_key =
-    regionKeyFromLatLon(latitude, longitude) ?? regionKeyFromState(state_code) ?? "midwest_interior";
+  const region_key = regionKeyFromLatLon(latitude, longitude, state_code) ??
+    regionKeyFromState(state_code) ?? "midwest_interior";
   return { state_code, region_key };
 }

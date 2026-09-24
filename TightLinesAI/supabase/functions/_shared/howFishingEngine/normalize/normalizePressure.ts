@@ -12,7 +12,7 @@ export type PressureNormalizeResult = {
 /**
  * Rolling ~3h pressure swing: assume hourly samples when length 8–49; else scale lag to ~3h span.
  */
-function maxRolling3hSwingMb(series: number[]): number {
+function maxRolling3hSwingMb(series: (number | null)[]): number {
   const n = series.length;
   if (n < 2) return 0;
   const lag = n >= 8 && n <= 49
@@ -20,7 +20,12 @@ function maxRolling3hSwingMb(series: number[]): number {
     : Math.max(1, Math.min(n - 1, Math.round((3 * (n - 1)) / 24)));
   let max = 0;
   for (let i = 0; i + lag < n; i++) {
-    max = Math.max(max, Math.abs(series[i + lag]! - series[i]!));
+    if (
+      Number.isFinite(series[i]) && Number.isFinite(series[i + lag]) &&
+      series[i]! > 0 && series[i + lag]! > 0
+    ) {
+      max = Math.max(max, Math.abs(series[i + lag]! - series[i]!));
+    }
   }
   return max;
 }
@@ -52,10 +57,13 @@ function smoothstep(edge0: number, edge1: number, value: number): number {
 }
 
 export function normalizePressureDetailed(
-  pressureHistoryMb: number[] | null | undefined,
+  pressureHistoryMb: (number | null)[] | null | undefined,
 ): PressureNormalizeResult | null {
-  const series = (pressureHistoryMb ?? []).filter((x) =>
-    typeof x === "number" && !Number.isNaN(x)
+  // Hourly provider histories include 48 readings. A 24-hour interval needs
+  // 25 endpoints. Trim BEFORE removing gaps so yesterday cannot fill missing hours.
+  const window = (pressureHistoryMb ?? []).slice(-25);
+  const series = window.filter((x): x is number =>
+    typeof x === "number" && Number.isFinite(x) && x > 0
   );
   if (series.length < 2) return null;
 
@@ -69,7 +77,7 @@ export function normalizePressureDetailed(
   const oldest = series[0]!;
   const delta24 = latest - oldest;
   const range24 = Math.max(...series) - Math.min(...series);
-  const max3hSwing = maxRolling3hSwingMb(series);
+  const max3hSwing = maxRolling3hSwingMb(window);
 
   let directionChanges = 0;
   if (series.length >= 3) {
@@ -96,9 +104,11 @@ export function normalizePressureDetailed(
       // Post-front settling often still fishes well; neutral (0) avoids systematic Fair caps on
       // legitimate "clearing" days while keeping full -2 for ongoing volatile windows.
       if (series.length >= 6) {
-        const recentSlice = series.slice(-4);
+        const recentSlice = window.slice(-4).filter((x): x is number =>
+          typeof x === "number" && Number.isFinite(x) && x > 0
+        );
         const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
-        if (recentRange < 1.5) {
+        if (recentSlice.length === 4 && recentRange < 1.5) {
           const taper = Math.max(
             smoothstep(7.5, 8.5, range24),
             smoothstep(3.5, 4.5, max3hSwing),
@@ -217,7 +227,7 @@ export function normalizePressureDetailed(
 
 /** @deprecated use normalizePressureDetailed for quality-aware reliability */
 export function normalizePressure(
-  pressureHistoryMb: number[] | null | undefined,
+  pressureHistoryMb: (number | null)[] | null | undefined,
 ): VariableState | null {
   const r = normalizePressureDetailed(pressureHistoryMb);
   return r?.state ?? null;

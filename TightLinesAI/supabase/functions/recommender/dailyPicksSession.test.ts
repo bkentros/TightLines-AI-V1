@@ -1,3 +1,4 @@
+import { CONDITION_MODEL_VERSION } from "../_shared/conditionModelVersion.ts";
 import { assert, assertEquals } from "jsr:@std/assert";
 import type { RecommenderRequest } from "../_shared/recommenderEngine/contracts/input.ts";
 import {
@@ -165,6 +166,8 @@ function mockClient(options: {
       let updatePatch: Record<string, unknown> | null = null;
       const builder = {
         select: () => builder,
+        order: () => builder,
+        limit: () => builder,
         eq: (column: string, value: unknown) => {
           filters[column] = value;
           return builder;
@@ -176,7 +179,12 @@ function mockClient(options: {
         maybeSingle: async () => {
           const matches = (candidate: Record<string, unknown>) =>
             Object.entries(filters).every(([column, value]) =>
-              candidate[column] === value
+              (column.includes("->>")
+                ? ((candidate[column.split("->>")[0]] as Record<
+                  string,
+                  unknown
+                >)?.[column.split("->>")[1]] ?? null)
+                : candidate[column]) === value
             );
           if (updatePatch) {
             const row = [...dailySessions.values()].find(matches);
@@ -701,4 +709,181 @@ Deno.test("default recommender endpoint no longer imports legacy session modules
   assert(!indexText.includes("./dailySession"));
   assert(!indexText.includes("./recentHistory"));
   assert(!indexText.includes("runRecommenderRebuildSurface"));
+});
+
+Deno.test("Pass 3: local-midnight expiry respects spring/fall DST and midnight hour", () => {
+  assertEquals(
+    dailyPicksLocationLocalMidnightIso(
+      "America/New_York",
+      new Date("2026-03-08T05:30:00Z"),
+    ),
+    "2026-03-09T04:00:00.000Z",
+  );
+  assertEquals(
+    dailyPicksLocationLocalMidnightIso(
+      "America/New_York",
+      new Date("2026-11-01T04:30:00Z"),
+    ),
+    "2026-11-02T05:00:00.000Z",
+  );
+  assertEquals(
+    dailyPicksLocationLocalMidnightIso(
+      "America/New_York",
+      new Date("2026-07-18T04:01:00Z"),
+    ),
+    "2026-07-19T04:00:00.000Z",
+  );
+});
+
+for (const refreshed of [false, true]) {
+  Deno.test(`Pass 3: upgrade retained ${refreshed ? "A+B" : "A"} without resetting refresh entitlement`, async () => {
+    const rows = new Map<string, Record<string, unknown>>();
+    const supabase = mockClient({ dailySessions: rows });
+    const spy = generatorSpy();
+    const args = {
+      supabase,
+      userId: "migration-user",
+      req: baseReq(),
+      refreshRequested: false,
+      seed: "migration",
+      now: NOW,
+      generateVariant: spy.generate,
+    };
+    await resolveDailyPicksSession(args);
+    if (refreshed) {
+      await resolveDailyPicksSession({ ...args, refreshRequested: true });
+    }
+    const row = [...rows.values()][0];
+    const expires = row.cache_expires_at;
+    for (const field of ["variant_a_response", "variant_b_response"]) {
+      const response = row[field] as Record<string, unknown> | null;
+      if (response) delete response.condition_model_version;
+    }
+    spy.calls.length = 0;
+    const migrated = await resolveDailyPicksSession(args);
+    assertEquals(
+      spy.calls.map((c) => c.variant),
+      refreshed ? ["A", "B"] : ["A"],
+    );
+    assertEquals(migrated.generatedVariant, null);
+    assertEquals(
+      migrated.result.condition_model_version,
+      CONDITION_MODEL_VERSION,
+    );
+    assertEquals(
+      migrated.result.recommendation_session.refreshes_remaining,
+      refreshed ? 0 : 1,
+    );
+    assertEquals(
+      migrated.result.recommendation_session.variant,
+      refreshed ? "B" : "A",
+    );
+    assertEquals(migrated.result.cache_expires_at, expires);
+    assertEquals(rows.size, 1);
+    spy.calls.length = 0;
+    await resolveDailyPicksSession(args);
+    assertEquals(spy.calls.length, 0);
+    if (refreshed) {
+      await resolveDailyPicksSession({ ...args, refreshRequested: true });
+      assertEquals(spy.calls.length, 0);
+    }
+  });
+}
+
+Deno.test("Pass 3: corrected routing reuses the existing session and spent refresh", async () => {
+  const rows = new Map<string, Record<string, unknown>>();
+  const supabase = mockClient({ dailySessions: rows });
+  const spy = generatorSpy();
+  const args = {
+    supabase,
+    userId: "routing-user",
+    req: baseReq(),
+    refreshRequested: false,
+    seed: "routing",
+    now: NOW,
+    generateVariant: spy.generate,
+  };
+  await resolveDailyPicksSession(args);
+  await resolveDailyPicksSession({ ...args, refreshRequested: true });
+  const row = [...rows.values()][0];
+  delete (row.variant_a_response as Record<string, unknown>)
+    .condition_model_version;
+  delete (row.variant_b_response as Record<string, unknown>)
+    .condition_model_version;
+  const req = baseReq({
+    location: {
+      ...baseReq().location,
+      state_code: "GA",
+      region_key: "southeast_atlantic",
+    },
+  });
+  const result = await resolveDailyPicksSession({
+    ...args,
+    req,
+    refreshRequested: true,
+  });
+  assertEquals(rows.size, 1);
+  assertEquals(result.result.recommendation_session.refreshes_remaining, 0);
+});
+
+Deno.test("Pass 3: failed upgrade leaves saved sets and entitlement intact", async () => {
+  const rows = new Map<string, Record<string, unknown>>();
+  const supabase = mockClient({ dailySessions: rows });
+  const args = {
+    supabase,
+    userId: "failed-upgrade",
+    req: baseReq(),
+    refreshRequested: false,
+    seed: "failure",
+    now: NOW,
+    generateVariant: generatorSpy().generate,
+  };
+  await resolveDailyPicksSession(args);
+  const row = [...rows.values()][0];
+  delete (row.variant_a_response as Record<string, unknown>)
+    .condition_model_version;
+  const before = JSON.stringify([...rows.values()]);
+  let failed = false;
+  try {
+    await resolveDailyPicksSession({
+      ...args,
+      generateVariant: () => {
+        throw Error("generation failed");
+      },
+    });
+  } catch {
+    failed = true;
+  }
+  assert(failed);
+  assertEquals(JSON.stringify([...rows.values()]), before);
+});
+
+Deno.test("Pass 3: concurrent upgrades preserve a single session and refresh allowance", async () => {
+  const rows = new Map<string, Record<string, unknown>>();
+  const supabase = mockClient({ dailySessions: rows });
+  const args = {
+    supabase,
+    userId: "race-upgrade",
+    req: baseReq(),
+    refreshRequested: false,
+    seed: "race",
+    now: NOW,
+    generateVariant: generatorSpy().generate,
+  };
+  await resolveDailyPicksSession(args);
+  const row = [...rows.values()][0];
+  delete (row.variant_a_response as Record<string, unknown>)
+    .condition_model_version;
+  const results = await Promise.all([
+    resolveDailyPicksSession(args),
+    resolveDailyPicksSession({ ...args, refreshRequested: true }),
+  ]);
+  assertEquals(rows.size, 1);
+  assertEquals([...rows.values()][0].refreshes_used, 1);
+  for (const result of results) {
+    assertEquals(
+      result.result.condition_model_version,
+      CONDITION_MODEL_VERSION,
+    );
+  }
 });

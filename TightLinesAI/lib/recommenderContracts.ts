@@ -288,6 +288,7 @@ export type DailyPicksRecommendationSession = {
 };
 
 export type DailyPicksResponse = {
+  condition_model_version?: string;
   feature: typeof DAILY_PICKS_RESPONSE_FEATURE;
   engine_version: typeof DAILY_PICKS_RESPONSE_VERSION;
   species: DailyPicksSpecies;

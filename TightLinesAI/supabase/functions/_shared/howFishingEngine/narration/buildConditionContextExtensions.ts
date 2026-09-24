@@ -13,9 +13,12 @@ import { isScoredVariableKey } from "../contracts/variables.ts";
 import type { ActiveVariableScore } from "../score/types.ts";
 
 function summarizePressureHistory(
-  mb: number[] | null | undefined,
+  history: (number | null)[] | null | undefined,
 ): PressureHistorySummary | null {
-  if (!mb || mb.length === 0) return null;
+  const mb = (history ?? []).slice(-25).filter((v): v is number =>
+    typeof v === "number" && Number.isFinite(v) && v > 0
+  );
+  if (mb.length === 0) return null;
   const first = mb[0]!;
   const last = mb[mb.length - 1]!;
   let min = first;
@@ -133,7 +136,8 @@ function buildCompositeContributions(
     variable_key: c.key,
     normalized_score: c.score,
     weight: c.weight,
-    weight_percent: Math.round(c.weight * 10_000) / 100,
+    // Active weights already use a 0..100 scale.
+    weight_percent: Math.round(c.weight * 100) / 100,
     weighted_contribution: c.weightedContribution,
   }));
 }

@@ -1,0 +1,32 @@
+/tmp/bite-fix-suite.log
+fly() throws when surface column is not a SURFACE_FLY_IDS_V4 id (G2/P13) ... ok (0ms)
+popper_fly: rejects invalid species token in species_allowed (G7) ... ok (0ms)
+frog_fly: rejects smallmouth_bass (G7) ... ok (0ms)
+mouse_fly: accepts bass and trout (G7) ... ok (0ms)
+mouse_fly: rejects pike-only species_allowed (G7) ... ok (0ms)
+foam_gurgler_fly: accepts bass and pike but rejects trout (G7) ... ok (0ms)
+popper_fly: accepts bass, pike, and/or trout surface fly (G7) ... ok (0ms)
+
+ok | 591 passed | 0 failed (16s)
+
+
+/tmp/bite-fix-client.log
+✔ forecast cache revision isolates old chips, subscription range and snapshot requirement (99.853561ms)
+✔ recommendation cache revision isolates prior model, owner and variants without changing DB session identity (44.230505ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 957.740913
+
+/tmp/bite-fix-check.log
+Check supabase/functions/how-fishing/index.ts
+Check supabase/functions/forecast-scores/index.ts
+Check supabase/functions/recommender/index.ts
+Check supabase/functions/get-environment/index.ts
+Check scripts/audit/todays-bite-pass3/evaluate-regional-weather.ts
+
+/tmp/bite-fix-tsc.log

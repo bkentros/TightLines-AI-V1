@@ -1,0 +1,13 @@
+{
+  "experiment": "Reduce base pressure weights by 25%; renormalize remaining contributions. Synthetic sensitivity, not outcome validation.",
+  "decision": "Retain production pressure weights pending catch-outcome validation.",
+  "fixtures": 21880,
+  "changed_scores": 6141,
+  "max_absolute_change": 8,
+  "absolute_delta_sum": 8129,
+  "crossed_activity_70": 246,
+  "crossed_prime_80": 167,
+  "recommendation_sets": 9252,
+  "changed_picks": 77,
+  "changed_activity": 178
+}

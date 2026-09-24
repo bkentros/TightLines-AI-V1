@@ -1,0 +1,1769 @@
+{
+  "version_order": [
+    "original",
+    "pass1",
+    "final"
+  ],
+  "provider_snapshots": 27,
+  "cases": 756,
+  "recommendation_sets": 1764,
+  "original_to_final": {
+    "cases": 756,
+    "changed_scores": 550,
+    "mean_delta": -0.4312169312169312,
+    "max_increase": 26,
+    "max_decrease": -31,
+    "changed_bands": 208
+  },
+  "pass1_to_final": {
+    "cases": 756,
+    "changed_scores": 442,
+    "mean_delta": 0.16666666666666666,
+    "max_increase": 15,
+    "max_decrease": -14,
+    "changed_bands": 88
+  },
+  "original_recommendations": {
+    "matched": 1764,
+    "added": 0,
+    "changed_picks": 654,
+    "changed_activity": 270,
+    "changed_surface": 44,
+    "changed_colors": 10
+  },
+  "pass1_recommendations": {
+    "matched": 1764,
+    "added": 0,
+    "changed_picks": 221,
+    "changed_activity": 104,
+    "changed_surface": 22,
+    "changed_colors": 0
+  },
+  "calendar_counterfactual": [
+    {
+      "mean": 0.43253968253968256,
+      "max": 21,
+      "p95": 3,
+      "over10": 8
+    },
+    {
+      "mean": 0.5013227513227513,
+      "max": 22,
+      "p95": 3,
+      "over10": 13
+    },
+    {
+      "mean": 0.10978835978835978,
+      "max": 9,
+      "p95": 1,
+      "over10": 0
+    }
+  ],
+  "by_city": {
+    "Tallahassee": {
+      "cases": 84,
+      "changed_scores": 75,
+      "mean_delta": 2.607142857142857,
+      "max_increase": 12,
+      "max_decrease": -8,
+      "changed_bands": 27
+    },
+    "Tampa": {
+      "cases": 84,
+      "changed_scores": 59,
+      "mean_delta": 2.0357142857142856,
+      "max_increase": 16,
+      "max_decrease": -16,
+      "changed_bands": 23
+    },
+    "Miami": {
+      "cases": 84,
+      "changed_scores": 49,
+      "mean_delta": 0.8809523809523809,
+      "max_increase": 16,
+      "max_decrease": -11,
+      "changed_bands": 10
+    },
+    "Dallas": {
+      "cases": 84,
+      "changed_scores": 58,
+      "mean_delta": 1.9642857142857142,
+      "max_increase": 24,
+      "max_decrease": -14,
+      "changed_bands": 24
+    },
+    "Houston": {
+      "cases": 84,
+      "changed_scores": 54,
+      "mean_delta": -0.9285714285714286,
+      "max_increase": 7,
+      "max_decrease": -12,
+      "changed_bands": 10
+    },
+    "Brownsville": {
+      "cases": 84,
+      "changed_scores": 45,
+      "mean_delta": 0.39285714285714285,
+      "max_increase": 10,
+      "max_decrease": -10,
+      "changed_bands": 13
+    },
+    "Montgomery": {
+      "cases": 84,
+      "changed_scores": 74,
+      "mean_delta": -6.642857142857143,
+      "max_increase": 26,
+      "max_decrease": -21,
+      "changed_bands": 44
+    },
+    "Jackson": {
+      "cases": 84,
+      "changed_scores": 69,
+      "mean_delta": -5.166666666666667,
+      "max_increase": 15,
+      "max_decrease": -31,
+      "changed_bands": 38
+    },
+    "Detroit": {
+      "cases": 84,
+      "changed_scores": 67,
+      "mean_delta": 0.9761904761904762,
+      "max_increase": 18,
+      "max_decrease": -10,
+      "changed_bands": 19
+    }
+  },
+  "by_season": {
+    "fall_boundary": {
+      "cases": 252,
+      "changed_scores": 205,
+      "mean_delta": -1.0515873015873016,
+      "max_increase": 24,
+      "max_decrease": -21,
+      "changed_bands": 74
+    },
+    "winter": {
+      "cases": 252,
+      "changed_scores": 200,
+      "mean_delta": -0.8968253968253969,
+      "max_increase": 19,
+      "max_decrease": -31,
+      "changed_bands": 79
+    },
+    "late_winter": {
+      "cases": 252,
+      "changed_scores": 145,
+      "mean_delta": 0.6547619047619048,
+      "max_increase": 26,
+      "max_decrease": -18,
+      "changed_bands": 55
+    }
+  },
+  "violations": [],
+  "largest_changes": [
+    {
+      "id": "Jackson|2026-01-20|freshwater_lake_pond",
+      "city": "Jackson",
+      "season": "winter",
+      "date": "2026-01-20",
+      "context": "freshwater_lake_pond",
+      "offset": 5,
+      "air_mean_f": 41.6,
+      "prior_air_mean_f": 38.75,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 89,
+          "band": "Prime",
+          "region": "midwest_interior",
+          "state": "MS",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 41.6,
+            "band_label": "optimal",
+            "band_score": 0.9333,
+            "trend_label": "warming",
+            "trend_adjustment": 0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.54
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 11.4 mb, now settling (recent range 0.7 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 60,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "MS",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 41.6,
+            "band_label": "near_optimal",
+            "band_score": -0.7333,
+            "trend_label": "warming",
+            "trend_adjustment": 0.5206850000000001,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.1393
+          },
+          "pressure": {
+            "label": "rising_fast",
+            "score": -0.3833,
+            "detail": "+4.5 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 58,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "MS",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.9204301075268818,
+            "measurement_value_f": 41.6,
+            "band_label": "near_optimal",
+            "band_score": -0.8150258064516128,
+            "trend_label": "warming",
+            "trend_adjustment": 0.5041229032258064,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -0.2294
+          },
+          "pressure": {
+            "label": "rising_fast",
+            "score": -0.3833,
+            "detail": "+4.5 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "late_winter",
+      "date": "2026-03-04",
+      "context": "freshwater_lake_pond",
+      "offset": 4,
+      "air_mean_f": 66.6,
+      "prior_air_mean_f": 64.05,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 67,
+          "band": "Good",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.6,
+            "band_label": "very_warm",
+            "band_score": 1.48,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.382
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.35,
+            "detail": "range 6.4 mb, 3h swing 2.7"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 90,
+          "band": "Prime",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.6,
+            "band_label": "warm",
+            "band_score": 1.94,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.796
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.574,
+            "detail": "-1.2 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 93,
+          "band": "Prime",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0,
+            "measurement_value_f": 66.6,
+            "band_label": "warm",
+            "band_score": 1.9164285714285714,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 1.7748
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.574,
+            "detail": "-1.2 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Dallas|2025-10-28|freshwater_lake_pond",
+      "city": "Dallas",
+      "season": "fall_boundary",
+      "date": "2025-10-28",
+      "context": "freshwater_lake_pond",
+      "offset": 0,
+      "air_mean_f": 66.3,
+      "prior_air_mean_f": 69.75,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 47,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.075,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0675
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.35,
+            "detail": "range 6.0 mb, 3h swing 3.8"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 65,
+          "band": "Good",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.075,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0675
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.702,
+            "detail": "-1.6 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 71,
+          "band": "Good",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.29220430107526935,
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.7858064516129032,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 0.7072
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.702,
+            "detail": "-1.6 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2025-11-03|coastal_flats_estuary",
+      "city": "Montgomery",
+      "season": "fall_boundary",
+      "date": "2025-11-03",
+      "context": "coastal_flats_estuary",
+      "offset": 6,
+      "air_mean_f": 52.349999999999994,
+      "prior_air_mean_f": 55.9,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 63,
+          "band": "Fair",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "optimal",
+            "band_score": 0.0583,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0525
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 9.4 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 43,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "cool",
+            "band_score": -1.8042,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -1.6238
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 42,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "very_cold",
+            "band_score": -1.8799935483870969,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -1.692
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": [
+            "tide_current_movement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2025-11-03|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "fall_boundary",
+      "date": "2025-11-03",
+      "context": "freshwater_lake_pond",
+      "offset": 6,
+      "air_mean_f": 52.349999999999994,
+      "prior_air_mean_f": 55.9,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 62,
+          "band": "Fair",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "optimal",
+            "band_score": 0.725,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.6525
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 9.4 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 40,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "near_optimal",
+            "band_score": -0.9125,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.8212
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 42,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "cool",
+            "band_score": -1.3199193548387096,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -1.1879
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Dallas|2026-01-18|freshwater_lake_pond",
+      "city": "Dallas",
+      "season": "winter",
+      "date": "2026-01-18",
+      "context": "freshwater_lake_pond",
+      "offset": 3,
+      "air_mean_f": 41.15,
+      "prior_air_mean_f": 42.9,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 28,
+          "band": "Tough",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 41.15,
+            "band_label": "near_optimal",
+            "band_score": -0.8083,
+            "trend_label": "cooling",
+            "trend_adjustment": -0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -1.4275
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -2,
+            "detail": "range 16.3 mb, 3h swing 4.4"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 43,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 41.15,
+            "band_label": "near_optimal",
+            "band_score": -0.8083,
+            "trend_label": "cooling",
+            "trend_adjustment": -0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -1.4275
+          },
+          "pressure": {
+            "label": "falling_moderate",
+            "score": 0.4033,
+            "detail": "-4.6 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 47,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.9364247311827961,
+            "measurement_value_f": 41.15,
+            "band_label": "near_optimal",
+            "band_score": -0.8544322580645162,
+            "trend_label": "cooling",
+            "trend_adjustment": -0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -1.469
+          },
+          "pressure": {
+            "label": "falling_moderate",
+            "score": 0.4033,
+            "detail": "-4.6 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2025-11-03|coastal",
+      "city": "Montgomery",
+      "season": "fall_boundary",
+      "date": "2025-11-03",
+      "context": "coastal",
+      "offset": 6,
+      "air_mean_f": 52.349999999999994,
+      "prior_air_mean_f": 55.9,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 64,
+          "band": "Fair",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "optimal",
+            "band_score": 0.0583,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0525
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 9.4 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 46,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "cool",
+            "band_score": -1.8042,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -1.6238
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 45,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 52.349999999999994,
+            "band_label": "very_cold",
+            "band_score": -1.8799935483870969,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -1.692
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.4042,
+            "detail": "range 8.5 mb, 3h swing 2.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2026-01-17|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "winter",
+      "date": "2026-01-17",
+      "context": "freshwater_lake_pond",
+      "offset": 2,
+      "air_mean_f": 49.4,
+      "prior_air_mean_f": 41.75,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 94,
+          "band": "Prime",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 49.4,
+            "band_label": "warm",
+            "band_score": 1.74,
+            "trend_label": "warming",
+            "trend_adjustment": 0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 2
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 5.9 mb, now settling (recent range 1.4 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 74,
+          "band": "Good",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 49.4,
+            "band_label": "optimal",
+            "band_score": 0.5667,
+            "trend_label": "warming",
+            "trend_adjustment": 0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.01
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 5.9 mb, now settling (recent range 0.6 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 75,
+          "band": "Good",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.2381720430107528,
+            "measurement_value_f": 49.4,
+            "band_label": "optimal",
+            "band_score": 0.5236870967741936,
+            "trend_label": "warming",
+            "trend_adjustment": 0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 0.9713
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 5.9 mb, now settling (recent range 0.6 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2025-11-02|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "fall_boundary",
+      "date": "2025-11-02",
+      "context": "freshwater_lake_pond",
+      "offset": 5,
+      "air_mean_f": 55.9,
+      "prior_air_mean_f": 53.65,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 70,
+          "band": "Good",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 55.9,
+            "band_label": "warm",
+            "band_score": 1.19,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.121
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 5.8 mb, now settling (recent range 0.8 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 57,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 55.9,
+            "band_label": "optimal",
+            "band_score": -0.025,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.0225
+          },
+          "pressure": {
+            "label": "stable_neutral",
+            "score": 0,
+            "detail": "0.0 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 52,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 55.9,
+            "band_label": "cool",
+            "band_score": -0.6896774193548386,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -0.6207
+          },
+          "pressure": {
+            "label": "stable_neutral",
+            "score": 0,
+            "detail": "0.0 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Jackson|2026-02-28|coastal_flats_estuary",
+      "city": "Jackson",
+      "season": "late_winter",
+      "date": "2026-02-28",
+      "context": "coastal_flats_estuary",
+      "offset": 0,
+      "air_mean_f": 59.05,
+      "prior_air_mean_f": 64.35,
+      "calendar_delta": [
+        0,
+        5,
+        0
+      ],
+      "versions": [
+        {
+          "score": 64,
+          "band": "Fair",
+          "region": "midwest_interior",
+          "state": "MS",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 59.05,
+            "band_label": "very_warm",
+            "band_score": 1.79,
+            "trend_label": "cooling",
+            "trend_adjustment": 0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 2
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 10.8 mb, now settling (recent range 0.3 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 49,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "MS",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 59.05,
+            "band_label": "optimal",
+            "band_score": -0.4917,
+            "trend_label": "cooling",
+            "trend_adjustment": -0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -1.1425
+          },
+          "pressure": {
+            "label": "rising_slow",
+            "score": -0.054,
+            "detail": "+2.4 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        },
+        {
+          "score": 46,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "MS",
+          "reliability": "low",
+          "temperature": {
+            "context_group": "coastal",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 59.05,
+            "band_label": "cool",
+            "band_score": -0.9575178571428572,
+            "trend_label": "cooling",
+            "trend_adjustment": -0.7,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -1.5618
+          },
+          "pressure": {
+            "label": "rising_slow",
+            "score": -0.054,
+            "detail": "+2.4 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": [
+            "tide_current_movement"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Detroit|2025-10-28|freshwater_lake_pond",
+      "city": "Detroit",
+      "season": "fall_boundary",
+      "date": "2025-10-28",
+      "context": "freshwater_lake_pond",
+      "offset": 0,
+      "air_mean_f": 50.45,
+      "prior_air_mean_f": 47.05,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 50,
+          "band": "Fair",
+          "region": "great_lakes_upper_midwest",
+          "state": "MI",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 50.45,
+            "band_label": "optimal",
+            "band_score": -0.3875,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.3487
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 8.2 mb, now settling (recent range 0.4 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 59,
+          "band": "Fair",
+          "region": "great_lakes_upper_midwest",
+          "state": "MI",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 50.45,
+            "band_label": "optimal",
+            "band_score": -0.3875,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.3487
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.99,
+            "detail": "-2.5 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 68,
+          "band": "Good",
+          "region": "great_lakes_upper_midwest",
+          "state": "MI",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.37647849462365574,
+            "measurement_value_f": 50.45,
+            "band_label": "optimal",
+            "band_score": 0.29709677419354846,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 0.2674
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.99,
+            "detail": "-2.5 mb/24h"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Dallas|2025-10-28|freshwater_river",
+      "city": "Dallas",
+      "season": "fall_boundary",
+      "date": "2025-10-28",
+      "context": "freshwater_river",
+      "offset": 0,
+      "air_mean_f": 66.3,
+      "prior_air_mean_f": 69.75,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 48,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.075,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0675
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.35,
+            "detail": "range 6.0 mb, 3h swing 3.8"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 59,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.075,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.0675
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.702,
+            "detail": "-1.6 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 65,
+          "band": "Good",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.29220430107526935,
+            "measurement_value_f": 66.3,
+            "band_label": "optimal",
+            "band_score": 0.7858064516129032,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 0.7072
+          },
+          "pressure": {
+            "label": "falling_slow",
+            "score": 0.702,
+            "detail": "-1.6 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Dallas|2026-01-21|freshwater_lake_pond",
+      "city": "Dallas",
+      "season": "winter",
+      "date": "2026-01-21",
+      "context": "freshwater_lake_pond",
+      "offset": 6,
+      "air_mean_f": 57.5,
+      "prior_air_mean_f": 42.5,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 51,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 57.5,
+            "band_label": "warm",
+            "band_score": 1.55,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_warmup",
+            "shock_adjustment": -1,
+            "final_score": 0.295
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.8267,
+            "detail": "range 12.4 mb, 3h swing 4.6"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 68,
+          "band": "Good",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 57.5,
+            "band_label": "warm",
+            "band_score": 1.55,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_warmup",
+            "shock_adjustment": -1,
+            "final_score": 0.295
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 10.5 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 68,
+          "band": "Good",
+          "region": "south_central",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0,
+            "measurement_value_f": 57.5,
+            "band_label": "warm",
+            "band_score": 1.4725806451612904,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_warmup",
+            "shock_adjustment": -1,
+            "regional_calibration_adjustment": 0,
+            "final_score": 0.2253
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 10.5 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2026-01-15|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "winter",
+      "date": "2026-01-15",
+      "context": "freshwater_lake_pond",
+      "offset": 0,
+      "air_mean_f": 38.55,
+      "prior_air_mean_f": 48.8,
+      "calendar_delta": [
+        0,
+        0,
+        0
+      ],
+      "versions": [
+        {
+          "score": 49,
+          "band": "Poor",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 38.55,
+            "band_label": "optimal",
+            "band_score": 0.425,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_cooldown",
+            "shock_adjustment": -1,
+            "final_score": -0.8675
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 13.7 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 32,
+          "band": "Tough",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 38.55,
+            "band_label": "cool",
+            "band_score": -1.145,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_cooldown",
+            "shock_adjustment": -1,
+            "final_score": -2
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.5883,
+            "detail": "range 10.2 mb, 3h swing 2.9"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        },
+        {
+          "score": 32,
+          "band": "Tough",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 1,
+            "measurement_value_f": 38.55,
+            "band_label": "cool",
+            "band_score": -1.145,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "sharp_cooldown",
+            "shock_adjustment": -1,
+            "regional_calibration_adjustment": 0,
+            "final_score": -2
+          },
+          "pressure": {
+            "label": "volatile",
+            "score": -1.5883,
+            "detail": "range 10.2 mb, 3h swing 2.9"
+          },
+          "timing": "early_late_low_light",
+          "missing": []
+        }
+      ]
+    },
+    {
+      "id": "Montgomery|2026-01-20|freshwater_lake_pond",
+      "city": "Montgomery",
+      "season": "winter",
+      "date": "2026-01-20",
+      "context": "freshwater_lake_pond",
+      "offset": 5,
+      "air_mean_f": 40.85,
+      "prior_air_mean_f": 39.1,
+      "calendar_delta": [
+        0,
+        0,
+        1
+      ],
+      "versions": [
+        {
+          "score": 69,
+          "band": "Good",
+          "region": "midwest_interior",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 40.85,
+            "band_label": "optimal",
+            "band_score": 0.8083,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 0.7275
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 13.2 mb, now settling (recent range 0.9 mb)"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 49,
+          "band": "Poor",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 40.85,
+            "band_label": "near_optimal",
+            "band_score": -0.8583,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": -0.7725
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.2249,
+            "detail": "prior range 8.4 mb, now settling (recent range 1.2 mb)"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 52,
+          "band": "Fair",
+          "region": "south_central",
+          "state": "AL",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0.9829301075268818,
+            "measurement_value_f": 40.85,
+            "band_label": "near_optimal",
+            "band_score": -0.9319612903225806,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": -0.8388
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.2249,
+            "detail": "prior range 8.4 mb, now settling (recent range 1.2 mb)"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        }
+      ]
+    }
+  ],
+  "calendar_worse": [
+    {
+      "id": "Brownsville|2026-02-28|freshwater_lake_pond",
+      "city": "Brownsville",
+      "season": "late_winter",
+      "date": "2026-02-28",
+      "context": "freshwater_lake_pond",
+      "offset": 0,
+      "air_mean_f": 74.9,
+      "prior_air_mean_f": 76.55000000000001,
+      "calendar_delta": [
+        4,
+        4,
+        9
+      ],
+      "versions": [
+        {
+          "score": 89,
+          "band": "Prime",
+          "region": "gulf_coast",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 74.9,
+            "band_label": "warm",
+            "band_score": 1.89,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.751
+          },
+          "pressure": {
+            "label": "recently_stabilizing",
+            "score": 0.25,
+            "detail": "prior range 11.0 mb, now settling (recent range 1.3 mb)"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 89,
+          "band": "Prime",
+          "region": "gulf_coast",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "measurement_value_f": 74.9,
+            "band_label": "warm",
+            "band_score": 1.89,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "final_score": 1.751
+          },
+          "pressure": {
+            "label": "rising_slow",
+            "score": 0.17,
+            "detail": "+1.0 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        },
+        {
+          "score": 88,
+          "band": "Prime",
+          "region": "gulf_coast",
+          "state": "TX",
+          "reliability": "high",
+          "temperature": {
+            "context_group": "freshwater",
+            "measurement_source": "air_daily_mean",
+            "source_quality": "daily_air_proxy",
+            "history_span_hours": 48,
+            "cold_light_relief": 0,
+            "measurement_value_f": 74.9,
+            "band_label": "warm",
+            "band_score": 1.8064285714285713,
+            "trend_label": "stable",
+            "trend_adjustment": 0,
+            "shock_label": "none",
+            "shock_adjustment": 0,
+            "regional_calibration_adjustment": 0,
+            "final_score": 1.6758
+          },
+          "pressure": {
+            "label": "rising_slow",
+            "score": 0.17,
+            "detail": "+1.0 mb/24h"
+          },
+          "timing": "warmest_part_may_help",
+          "missing": []
+        }
+      ]
+    }
+  ]
+}

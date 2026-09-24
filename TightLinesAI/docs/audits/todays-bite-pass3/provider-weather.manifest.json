@@ -1,0 +1,16 @@
+{
+  "sha256": "5c67c1659abb806f291a0930a8e546b3c79009fde5971d3188df0c3d321c6924",
+  "bytes": 20106,
+  "source": "https://archive-api.open-meteo.com/v1/archive",
+  "latitude": 30.4383,
+  "longitude": -84.2807,
+  "start_date": "2025-10-20",
+  "end_date": "2025-11-10",
+  "timezone": "America/New_York",
+  "timeformat": "unixtime",
+  "temperature_unit": "fahrenheit",
+  "wind_speed_unit": "mph",
+  "precipitation_unit": "mm",
+  "kind": "historical reanalysis",
+  "downloaded_during": "Pass 3 approved first public sample request"
+}

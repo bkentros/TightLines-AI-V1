@@ -1,0 +1,15 @@
+{
+  "lib/howFishing.ts": "71dddca43a8d3804cb5ea4e9f69027c864b3bf8b52289be7d0e7671a4c734638",
+  "lib/forecastScores.ts": "58a64483f0965927f8b6475ee2a383a01f24265d5b3fb105c3334c8b0328c27e",
+  "lib/recommender.ts": "539b6e2c304401975ad2c617ff12dcffb8d26843acd2d1926b710f865f118aaa",
+  "lib/recommenderContracts.ts": "34e42e9bb19330767d566a812e3389bbdebaf8ebe576ef405b47a815fdd83417",
+  "tsconfig.json": "d299719a851a021715cd0d1e58ae873ef39c4c06980f146fc0d8d4cde6faa584",
+  "supabase/functions/_shared/conditionModelVersion.ts": "d777c48955d63c39af4ca39a65209196cdf5575b87b0bac808bb30ce03273ca0",
+  "supabase/functions/_shared/openMeteo14DayFetch.ts": "9165427e8ab6fff872548b0bcf065e3ab045ffe9f27ad65d731aed0c60defc4a",
+  "supabase/functions/_shared/openMeteoDailyDate.test.ts": "7562437e34522672891d0ba067318997360aaac1a0f6c8da943966ed464e84a4",
+  "supabase/functions/recommender/dailyPicksSession.ts": "abe419f733737130ab68093a36d85e22c8a051efd2fd61c31c7e943d07ea9859",
+  "supabase/functions/recommender/dailyPicksSession.test.ts": "12fe602ae0ec0f70f4d013e7b5b28c5468d2e26d605b106eac87df21e87c5c74",
+  "supabase/functions/recommender/index.test.ts": "4b159c6cf3c339a49a49b7a40853d39409d090c7e9ab972cc754cd0caacf8e4a",
+  "supabase/functions/how-fishing/index.ts": "737a053b70301670453d9201ef94a2c91ee1e710903b5f76cc1b90ef45a6ede9",
+  "supabase/functions/forecast-scores/index.ts": "517b52bf660cc73723a7e626994a8a81ffedc263c671f6bee05b133d9210a6d0"
+}

@@ -1,3 +1,4 @@
+import { CONDITION_MODEL_VERSION } from "../_shared/conditionModelVersion.ts";
 /**
  * forecast-scores — Supabase Edge Function
  *
@@ -49,7 +50,7 @@ const MAX_TIDE_STATION_CANDIDATES = 8;
 const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
 const SNAPSHOT_UNITS = "imperial";
-const SNAPSHOT_CACHE_VERSION = "v2";
+const SNAPSHOT_CACHE_VERSION = `v3:${CONDITION_MODEL_VERSION}`;
 const NOAA_STATIONS_TIMEOUT_MS = 4_500;
 const NOAA_PREDICTIONS_TIMEOUT_MS = 4_500;
 const TIDE_SNAPSHOT_BUDGET_MS = 9_000;

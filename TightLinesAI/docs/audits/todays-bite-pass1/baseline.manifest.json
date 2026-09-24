@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "baseline_commit": "7c245d2ca84f6c4c9d73bd87d45695656ab6ef1e",
+  "fixtures": 21880,
+  "recommendation_sets": 9216,
+  "missing_seasonal_rows": 1762,
+  "sha256": "bc7330107ada3929cf03330d52369948ee7d46180aa5481fc03e7752128e5516",
+  "bytes": 14989016,
+  "scope": "Synthetic direct-engine fixtures; all 18 regions, 12 months, 4 contexts, offsets 0..6, southern Sep-Mar sequences and city routing. Raw request-builder forecast coverage is tested separately."
+}

@@ -1,3 +1,4 @@
+import { CONDITION_MODEL_VERSION } from "../supabase/functions/_shared/conditionModelVersion";
 /**
  * How's Fishing rebuild contracts and cache helpers.
  *
@@ -46,7 +47,7 @@ function rebuildCacheKey(
   ctx: EngineContextKey,
   ownerKey?: string | null,
 ): string {
-  return `how_fishing_rebuild_v4_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
+  return `how_fishing_rebuild_v5_${CONDITION_MODEL_VERSION}_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
 }
 
 function forecastCacheKey(
@@ -56,7 +57,7 @@ function forecastCacheKey(
   ctx: EngineContextKey,
   ownerKey?: string | null,
 ): string {
-  return `how_fishing_forecast_v4_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
+  return `how_fishing_forecast_v5_${CONDITION_MODEL_VERSION}_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
 }
 
 interface ReportCacheReadOptions {

@@ -249,7 +249,8 @@ Deno.test("buildFromEnvData: calendar-day profile for today (opt) matches foreca
   const hourly_pressure_mb: Array<{ time_utc: string; value: number }> = [];
   for (let i = 0; i <= targetNoonIdx; i++) {
     hourly_pressure_mb.push({
-      time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000)
+      // Start at local midnight, matching the provider contract.
+      time_utc: new Date(Date.UTC(2026, 5, 1, 4, 0, 0) + i * 3600 * 1000)
         .toISOString(),
       value: 1000 + i,
     });
@@ -333,7 +334,8 @@ Deno.test("buildFromEnvData: dayOffset>0 uses target-day hourly aggregates, not 
   const hourly_pressure_mb: Array<{ time_utc: string; value: number }> = [];
   for (let i = 0; i <= targetNoonIdx; i++) {
     hourly_pressure_mb.push({
-      time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000)
+      // June 16 is today in this offset-1 fixture; history starts June 2 local midnight.
+      time_utc: new Date(Date.UTC(2026, 5, 2, 4, 0, 0) + i * 3600 * 1000)
         .toISOString(),
       value: 1000 + i,
     });

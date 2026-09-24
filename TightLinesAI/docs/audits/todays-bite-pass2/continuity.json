@@ -1,0 +1,231 @@
+{
+  "pairs": 22464,
+  "before": {
+    "mean": 3.534633190883191,
+    "p95": 17,
+    "max": 35,
+    "over10": 3671
+  },
+  "after": {
+    "mean": 0.10296474358974358,
+    "p95": 1,
+    "max": 3,
+    "over10": 0
+  },
+  "thermalBefore": {
+    "mean": 0.3627403846153873,
+    "p95": 1.6875,
+    "max": 3.35,
+    "over10": 0
+  },
+  "thermalAfter": {
+    "mean": 0.011666755698005704,
+    "p95": 0.048,
+    "max": 0.1575,
+    "over10": 0
+  },
+  "largest_remaining": [
+    {
+      "region": "gulf_coast",
+      "month": 11,
+      "context": "coastal",
+      "temperature": 73,
+      "before": 18,
+      "after": 3,
+      "thermalBefore": 2.12,
+      "thermalAfter": 0.10020000000000007
+    },
+    {
+      "region": "south_central",
+      "month": 11,
+      "context": "coastal",
+      "temperature": 73,
+      "before": 18,
+      "after": 3,
+      "thermalBefore": 2.12,
+      "thermalAfter": 0.10020000000000007
+    },
+    {
+      "region": "mountain_west",
+      "month": 11,
+      "context": "coastal",
+      "temperature": 73,
+      "before": 4,
+      "after": 3,
+      "thermalBefore": 1.22,
+      "thermalAfter": 0.10020000000000007
+    },
+    {
+      "region": "florida",
+      "month": 4,
+      "context": "freshwater_river",
+      "temperature": 69,
+      "before": 15,
+      "after": 2,
+      "thermalBefore": 2.25,
+      "thermalAfter": 0.1575
+    },
+    {
+      "region": "gulf_coast",
+      "month": 3,
+      "context": "coastal",
+      "temperature": 81,
+      "before": 12,
+      "after": 2,
+      "thermalBefore": 1.04,
+      "thermalAfter": 0.08189999999999997
+    },
+    {
+      "region": "great_lakes_upper_midwest",
+      "month": 3,
+      "context": "freshwater_lake_pond",
+      "temperature": 77,
+      "before": 5,
+      "after": 2,
+      "thermalBefore": 0.36,
+      "thermalAfter": 0.0116
+    },
+    {
+      "region": "great_lakes_upper_midwest",
+      "month": 8,
+      "context": "freshwater_lake_pond",
+      "temperature": 69,
+      "before": 19,
+      "after": 2,
+      "thermalBefore": 1.085,
+      "thermalAfter": 0.033399999999999874
+    },
+    {
+      "region": "great_lakes_upper_midwest",
+      "month": 4,
+      "context": "freshwater_river",
+      "temperature": 81,
+      "before": 14,
+      "after": 2,
+      "thermalBefore": 1.26,
+      "thermalAfter": 0.04200000000000001
+    },
+    {
+      "region": "midwest_interior",
+      "month": 9,
+      "context": "freshwater_lake_pond",
+      "temperature": 67,
+      "before": 22,
+      "after": 2,
+      "thermalBefore": 1.6957,
+      "thermalAfter": 0.1049
+    },
+    {
+      "region": "midwest_interior",
+      "month": 11,
+      "context": "freshwater_lake_pond",
+      "temperature": 53,
+      "before": 22,
+      "after": 2,
+      "thermalBefore": 1.01,
+      "thermalAfter": 0.03200000000000003
+    },
+    {
+      "region": "south_central",
+      "month": 3,
+      "context": "coastal",
+      "temperature": 81,
+      "before": 12,
+      "after": 2,
+      "thermalBefore": 1.04,
+      "thermalAfter": 0.08189999999999997
+    },
+    {
+      "region": "south_central",
+      "month": 4,
+      "context": "coastal_flats_estuary",
+      "temperature": 85,
+      "before": 0,
+      "after": 2,
+      "thermalBefore": 0.26999999999999996,
+      "thermalAfter": 0.014000000000000012
+    },
+    {
+      "region": "mountain_west",
+      "month": 4,
+      "context": "freshwater_lake_pond",
+      "temperature": 47,
+      "before": 19,
+      "after": 2,
+      "thermalBefore": 2.25,
+      "thermalAfter": 0.14909999999999998
+    },
+    {
+      "region": "mountain_west",
+      "month": 3,
+      "context": "coastal",
+      "temperature": 81,
+      "before": 2,
+      "after": 2,
+      "thermalBefore": 1.04,
+      "thermalAfter": 0.08189999999999997
+    },
+    {
+      "region": "mountain_west",
+      "month": 4,
+      "context": "coastal_flats_estuary",
+      "temperature": 85,
+      "before": 1,
+      "after": 2,
+      "thermalBefore": 0.26999999999999996,
+      "thermalAfter": 0.014000000000000012
+    },
+    {
+      "region": "southwest_desert",
+      "month": 3,
+      "context": "coastal",
+      "temperature": 81,
+      "before": 12,
+      "after": 2,
+      "thermalBefore": 1.04,
+      "thermalAfter": 0.08189999999999997
+    },
+    {
+      "region": "southwest_desert",
+      "month": 11,
+      "context": "coastal",
+      "temperature": 73,
+      "before": 18,
+      "after": 2,
+      "thermalBefore": 2.12,
+      "thermalAfter": 0.10020000000000007
+    },
+    {
+      "region": "southwest_desert",
+      "month": 4,
+      "context": "coastal_flats_estuary",
+      "temperature": 85,
+      "before": 1,
+      "after": 2,
+      "thermalBefore": 0.26999999999999996,
+      "thermalAfter": 0.014000000000000012
+    },
+    {
+      "region": "southwest_high_desert",
+      "month": 3,
+      "context": "freshwater_lake_pond",
+      "temperature": 85,
+      "before": 5,
+      "after": 2,
+      "thermalBefore": 0.36,
+      "thermalAfter": 0.0116
+    },
+    {
+      "region": "southwest_high_desert",
+      "month": 11,
+      "context": "freshwater_lake_pond",
+      "temperature": 55,
+      "before": 22,
+      "after": 2,
+      "thermalBefore": 1.01,
+      "thermalAfter": 0.03200000000000003
+    }
+  ],
+  "regressions": 0,
+  "worse_by_more_than_3": []
+}

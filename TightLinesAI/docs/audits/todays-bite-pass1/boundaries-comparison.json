@@ -1,0 +1,67 @@
+{
+  "stats": {
+    "fixtures": 2352,
+    "unchanged_reports": 0,
+    "changed_reports": 2352,
+    "changed_scores": 1749,
+    "changed_bands": 675,
+    "changed_timing": 666,
+    "changed_reliability": 0,
+    "geographic_changes": 2352,
+    "pressure_window_changes": 2352,
+    "unaffected_reports_exact": 0,
+    "report_counterfactual_exact": 2352,
+    "baseline_recommendations": 756,
+    "candidate_recommendations": 882,
+    "added_recommendations": 126,
+    "lost_recommendations": 0,
+    "changed_recommendation_responses": 672,
+    "changed_selected_picks": 643,
+    "recommendations_matching_corrected_inputs": 854,
+    "recommendations_changed_by_thermal_semantics": 28,
+    "unexplained_changes": 0
+  },
+  "geographic_changes": {
+    "Montgomery": {
+      "before": {
+        "state": "AL",
+        "region": "midwest_interior"
+      },
+      "after": {
+        "state": "AL",
+        "region": "south_central"
+      }
+    },
+    "Jackson": {
+      "before": {
+        "state": "MS",
+        "region": "midwest_interior"
+      },
+      "after": {
+        "state": "MS",
+        "region": "south_central"
+      }
+    },
+    "Tallahassee": {
+      "before": {
+        "state": "GA",
+        "region": "florida"
+      },
+      "after": {
+        "state": "FL",
+        "region": "florida"
+      }
+    },
+    "Valdosta": {
+      "before": {
+        "state": "GA",
+        "region": "florida"
+      },
+      "after": {
+        "state": "GA",
+        "region": "southeast_atlantic"
+      }
+    }
+  },
+  "examples": []
+}

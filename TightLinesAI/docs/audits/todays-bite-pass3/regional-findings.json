@@ -1,0 +1,1025 @@
+{
+  "freshwater": {
+    "cases": 378,
+    "score_means": [
+      57.939,
+      57.91,
+      58.114
+    ],
+    "changed_scores": 320,
+    "changed_regions": 84,
+    "changed_pressure": 376
+  },
+  "coastal_air_without_tides": {
+    "cases": 378,
+    "score_means": [
+      56.778,
+      55.611,
+      55.741
+    ],
+    "changed_scores": 230,
+    "changed_regions": 84,
+    "changed_pressure": 376
+  },
+  "by_city_freshwater": {
+    "Brownsville": {
+      "cases": 42,
+      "score_means": [
+        64.476,
+        64.976,
+        65.69
+      ],
+      "changed_scores": 32,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    },
+    "Dallas": {
+      "cases": 42,
+      "score_means": [
+        58.0,
+        60.595,
+        60.167
+      ],
+      "changed_scores": 36,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    },
+    "Detroit": {
+      "cases": 42,
+      "score_means": [
+        50.714,
+        50.81,
+        52.357
+      ],
+      "changed_scores": 31,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    },
+    "Houston": {
+      "cases": 42,
+      "score_means": [
+        62.214,
+        60.952,
+        61.476
+      ],
+      "changed_scores": 35,
+      "changed_regions": 0,
+      "changed_pressure": 40
+    },
+    "Jackson": {
+      "cases": 42,
+      "score_means": [
+        59.738,
+        56.333,
+        56.214
+      ],
+      "changed_scores": 37,
+      "changed_regions": 42,
+      "changed_pressure": 42
+    },
+    "Miami": {
+      "cases": 42,
+      "score_means": [
+        63.714,
+        64.714,
+        64.952
+      ],
+      "changed_scores": 35,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    },
+    "Montgomery": {
+      "cases": 42,
+      "score_means": [
+        59.762,
+        54.262,
+        55.119
+      ],
+      "changed_scores": 39,
+      "changed_regions": 42,
+      "changed_pressure": 42
+    },
+    "Tallahassee": {
+      "cases": 42,
+      "score_means": [
+        48.143,
+        52.214,
+        49.952
+      ],
+      "changed_scores": 39,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    },
+    "Tampa": {
+      "cases": 42,
+      "score_means": [
+        54.69,
+        56.333,
+        57.095
+      ],
+      "changed_scores": 36,
+      "changed_regions": 0,
+      "changed_pressure": 42
+    }
+  },
+  "favorable_warmth_heat_conflicts": [
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Dallas|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 72.55000000000001
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 59.849999999999994
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-03|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 64.05
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Montgomery|2026-03-04|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 66.6
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 59.05
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_lake_pond",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "largemouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "smallmouth_bass",
+      "goal": "big_fish",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "pike_musky",
+      "goal": "all_purpose",
+      "temperature": 64.95
+    },
+    {
+      "version": 0,
+      "id": "Jackson|2026-03-02|freshwater_river",
+      "species": "pike_musky",
+      "goal": "big_fish",
+      "temperature": 64.95
+    }
+  ],
+  "temperature_range_f": [
+    6.75,
+    83.95
+  ],
+  "cooling_at_least_10f_cases": 44,
+  "calendar_examples": [
+    {
+      "id": "Tallahassee|2026-02-28|coastal",
+      "air_mean_f": 61.25,
+      "calendar_delta": [
+        3,
+        5,
+        1
+      ]
+    },
+    {
+      "id": "Tallahassee|2026-02-28|coastal_flats_estuary",
+      "air_mean_f": 61.25,
+      "calendar_delta": [
+        3,
+        4,
+        0
+      ]
+    },
+    {
+      "id": "Tampa|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 69.8,
+      "calendar_delta": [
+        3,
+        4,
+        0
+      ]
+    },
+    {
+      "id": "Tampa|2026-02-28|freshwater_river",
+      "air_mean_f": 69.8,
+      "calendar_delta": [
+        8,
+        9,
+        0
+      ]
+    },
+    {
+      "id": "Miami|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 70.65,
+      "calendar_delta": [
+        12,
+        9,
+        0
+      ]
+    },
+    {
+      "id": "Miami|2025-10-31|freshwater_river",
+      "air_mean_f": 70.65,
+      "calendar_delta": [
+        11,
+        9,
+        1
+      ]
+    },
+    {
+      "id": "Miami|2025-10-31|coastal",
+      "air_mean_f": 70.65,
+      "calendar_delta": [
+        9,
+        8,
+        0
+      ]
+    },
+    {
+      "id": "Miami|2025-10-31|coastal_flats_estuary",
+      "air_mean_f": 70.65,
+      "calendar_delta": [
+        9,
+        7,
+        1
+      ]
+    },
+    {
+      "id": "Miami|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 75.6,
+      "calendar_delta": [
+        9,
+        12,
+        0
+      ]
+    },
+    {
+      "id": "Miami|2026-02-28|freshwater_river",
+      "air_mean_f": 75.6,
+      "calendar_delta": [
+        2,
+        13,
+        0
+      ]
+    },
+    {
+      "id": "Dallas|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 55.35,
+      "calendar_delta": [
+        10,
+        12,
+        1
+      ]
+    },
+    {
+      "id": "Dallas|2025-10-31|freshwater_river",
+      "air_mean_f": 55.35,
+      "calendar_delta": [
+        11,
+        11,
+        0
+      ]
+    },
+    {
+      "id": "Houston|2026-02-28|coastal",
+      "air_mean_f": 68.5,
+      "calendar_delta": [
+        4,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Houston|2026-02-28|coastal_flats_estuary",
+      "air_mean_f": 68.5,
+      "calendar_delta": [
+        6,
+        7,
+        0
+      ]
+    },
+    {
+      "id": "Brownsville|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 66.25,
+      "calendar_delta": [
+        14,
+        14,
+        1
+      ]
+    },
+    {
+      "id": "Brownsville|2025-10-31|freshwater_river",
+      "air_mean_f": 66.25,
+      "calendar_delta": [
+        13,
+        18,
+        0
+      ]
+    },
+    {
+      "id": "Brownsville|2025-10-31|coastal",
+      "air_mean_f": 66.25,
+      "calendar_delta": [
+        7,
+        7,
+        0
+      ]
+    },
+    {
+      "id": "Brownsville|2025-10-31|coastal_flats_estuary",
+      "air_mean_f": 66.25,
+      "calendar_delta": [
+        7,
+        7,
+        1
+      ]
+    },
+    {
+      "id": "Brownsville|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 74.9,
+      "calendar_delta": [
+        4,
+        4,
+        9
+      ]
+    },
+    {
+      "id": "Montgomery|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 53.3,
+      "calendar_delta": [
+        11,
+        3,
+        0
+      ]
+    },
+    {
+      "id": "Montgomery|2025-10-31|freshwater_river",
+      "air_mean_f": 53.3,
+      "calendar_delta": [
+        5,
+        6,
+        0
+      ]
+    },
+    {
+      "id": "Montgomery|2025-10-31|coastal",
+      "air_mean_f": 53.3,
+      "calendar_delta": [
+        8,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "Montgomery|2025-10-31|coastal_flats_estuary",
+      "air_mean_f": 53.3,
+      "calendar_delta": [
+        9,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "Montgomery|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 59.849999999999994,
+      "calendar_delta": [
+        0,
+        15,
+        1
+      ]
+    },
+    {
+      "id": "Montgomery|2026-02-28|freshwater_river",
+      "air_mean_f": 59.849999999999994,
+      "calendar_delta": [
+        0,
+        10,
+        0
+      ]
+    },
+    {
+      "id": "Montgomery|2026-02-28|coastal",
+      "air_mean_f": 59.849999999999994,
+      "calendar_delta": [
+        0,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Montgomery|2026-02-28|coastal_flats_estuary",
+      "air_mean_f": 59.849999999999994,
+      "calendar_delta": [
+        0,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 52.25,
+      "calendar_delta": [
+        10,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2025-10-31|freshwater_river",
+      "air_mean_f": 52.25,
+      "calendar_delta": [
+        7,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2025-10-31|coastal",
+      "air_mean_f": 52.25,
+      "calendar_delta": [
+        8,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2025-10-31|coastal_flats_estuary",
+      "air_mean_f": 52.25,
+      "calendar_delta": [
+        7,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 59.05,
+      "calendar_delta": [
+        0,
+        16,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2026-02-28|freshwater_river",
+      "air_mean_f": 59.05,
+      "calendar_delta": [
+        1,
+        17,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2026-02-28|coastal",
+      "air_mean_f": 59.05,
+      "calendar_delta": [
+        0,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Jackson|2026-02-28|coastal_flats_estuary",
+      "air_mean_f": 59.05,
+      "calendar_delta": [
+        0,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Detroit|2025-10-31|freshwater_lake_pond",
+      "air_mean_f": 45.5,
+      "calendar_delta": [
+        21,
+        22,
+        0
+      ]
+    },
+    {
+      "id": "Detroit|2025-10-31|freshwater_river",
+      "air_mean_f": 45.5,
+      "calendar_delta": [
+        18,
+        18,
+        0
+      ]
+    },
+    {
+      "id": "Detroit|2025-10-31|coastal",
+      "air_mean_f": 45.5,
+      "calendar_delta": [
+        5,
+        5,
+        0
+      ]
+    },
+    {
+      "id": "Detroit|2025-10-31|coastal_flats_estuary",
+      "air_mean_f": 45.5,
+      "calendar_delta": [
+        6,
+        5,
+        1
+      ]
+    },
+    {
+      "id": "Detroit|2026-02-28|freshwater_lake_pond",
+      "air_mean_f": 35.85,
+      "calendar_delta": [
+        9,
+        12,
+        1
+      ]
+    },
+    {
+      "id": "Detroit|2026-02-28|freshwater_river",
+      "air_mean_f": 35.85,
+      "calendar_delta": [
+        8,
+        11,
+        0
+      ]
+    },
+    {
+      "id": "Detroit|2026-02-28|coastal",
+      "air_mean_f": 35.85,
+      "calendar_delta": [
+        7,
+        6,
+        1
+      ]
+    },
+    {
+      "id": "Detroit|2026-02-28|coastal_flats_estuary",
+      "air_mean_f": 35.85,
+      "calendar_delta": [
+        5,
+        6,
+        0
+      ]
+    }
+  ]
+}

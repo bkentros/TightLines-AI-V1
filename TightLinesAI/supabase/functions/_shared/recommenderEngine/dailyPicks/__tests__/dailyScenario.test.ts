@@ -639,6 +639,7 @@ Deno.test("DailyScenario bass heat-limited no-light surface downgrades to cautio
       score: 80,
       lightLabel: "bright",
       temperatureBand: "very_warm",
+      temperatureFinalScore: -1,
     }),
     seasonalRow: baseRow(),
   });
@@ -711,6 +712,7 @@ Deno.test("DailyScenario closes northern pike surface during heat-limited mixed-
       score: 80,
       lightLabel: "mixed",
       temperatureBand: "very_warm",
+      temperatureFinalScore: -1,
     }),
     seasonalRow: baseRow({ species: "northern_pike" }),
   });
@@ -736,6 +738,7 @@ Deno.test("DailyScenario keeps exceptional low-light active northern pike heat s
       score: 80,
       lightLabel: "low_light",
       temperatureBand: "very_warm",
+      temperatureFinalScore: -1,
     }),
     seasonalRow: baseRow({ species: "northern_pike" }),
   });
@@ -831,7 +834,10 @@ Deno.test("DailyScenario maps thermal states without turning trend alone into co
   });
   const heat = buildDailyScenario({
     req: baseReq(),
-    analysis: analysis({ temperatureBand: "very_warm" }),
+    analysis: analysis({
+      temperatureBand: "very_warm",
+      temperatureFinalScore: -1,
+    }),
     seasonalRow: baseRow(),
   });
 
@@ -1060,4 +1066,33 @@ Deno.test("DailyScenario preserves recommendation_goal without changing scenario
   assertEquals(allPurpose.month, 6);
   assertEquals(allPurpose.scenario_tags, bigFish.scenario_tags);
   assertEquals(allPurpose.surface_daily_gate, bigFish.surface_daily_gate);
+});
+
+Deno.test("DailyScenario favorable southern winter warmth is not heat stress", () => {
+  for (const month of [1, 2, 3, 9, 10, 11, 12]) {
+    for (const trend of ["stable", "warming", "cooling"]) {
+      const req = baseReq();
+      req.location.month = month;
+      req.location.region_key = "gulf_coast";
+      const scenario = buildDailyScenario({
+        req,
+        seasonalRow: baseRow(),
+        analysis: analysis({
+          temperatureBand: "very_warm",
+          temperatureFinalScore: 1.3,
+          temperatureTrend: trend,
+          score: 75,
+        }),
+      });
+      assertEquals(
+        scenario.thermal_mode,
+        trend === "warming"
+          ? "warming"
+          : trend === "cooling"
+          ? "cooling_or_shock"
+          : "stable",
+      );
+      assert(!scenario.scenario_tags.includes("heat_finesse"));
+    }
+  }
 });

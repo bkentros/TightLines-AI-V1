@@ -112,6 +112,8 @@ export function buildSharedNormalizedOutput(
     hasDailyMean ? e.prior_day_mean_air_temp_f : null,
     hasDailyMean ? e.day_minus_2_mean_air_temp_f : null,
     {
+      localDate: req.local_date,
+      currentAirFallback: !hasDailyMean,
       measuredWaterTempF: e.measured_water_temp_f,
       measuredWaterTemp24hAgoF: e.measured_water_temp_24h_ago_f,
       measuredWaterTemp72hAgoF: e.measured_water_temp_72h_ago_f,
@@ -127,6 +129,7 @@ export function buildSharedNormalizedOutput(
   const wind = normalizeWind(e.wind_speed_mph, req.context);
   const light = normalizeLight(e.cloud_cover_pct, req.context, {
     temperatureBandLabel: temp?.band_label ?? undefined,
+    coldRelief: temp?.cold_light_relief,
     windMph: e.wind_speed_mph,
   });
 
@@ -248,9 +251,10 @@ export function buildSharedNormalizedOutput(
   );
 
   if (
-    isCoastalFamilyContext(req.context) &&
     temp != null &&
-    temp.measurement_source === "air_daily_mean"
+    ((isCoastalFamilyContext(req.context) &&
+      temp.measurement_source === "air_daily_mean") ||
+      temp.source_quality === "current_air_fallback")
   ) {
     reliability = downgradeOnce(reliability);
   }

@@ -1,3 +1,4 @@
+import { nextMidnightInTimeZoneMs } from "../../../lib/forecastSnapshot.ts";
 /**
  * how-fishing — Supabase Edge Function
  *
@@ -48,30 +49,7 @@ function corsHeaders() {
 }
 
 function locationLocalMidnightIso(timezone: string, now = new Date()): string {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  const parts = Object.fromEntries(
-    formatter.formatToParts(now).map((p) => [p.type, p.value]),
-  );
-  const y = Number(parts.year);
-  const m = Number(parts.month);
-  const d = Number(parts.day);
-  const hh = Number(parts.hour);
-  const mm = Number(parts.minute);
-  const ss = Number(parts.second);
-  const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
-  const offsetMillis = localNowUtcMillis - now.getTime();
-  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) -
-    offsetMillis;
-  return new Date(nextLocalMidnightUtcMillis).toISOString();
+  return new Date(nextMidnightInTimeZoneMs(timezone, now.getTime())).toISOString();
 }
 
 function extractTimezone(envData: Record<string, unknown>): string {

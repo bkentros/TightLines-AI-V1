@@ -24,6 +24,7 @@
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { resolveStateFromCoords } from "../_shared/howFishingEngine/context/usStateBounds.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   buildSharedEngineRequestFromEnvData,
@@ -48,8 +49,8 @@ import {
   toRecommenderV4Species,
 } from "../_shared/recommenderEngine/v4/scope.ts";
 import {
-  DailyPicksVariantUnavailableError,
   dailyPicksSessionExists,
+  DailyPicksVariantUnavailableError,
   resolveDailyPicksSession,
 } from "./dailyPicksSession.ts";
 import {
@@ -62,8 +63,8 @@ import {
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 import {
   FREE_TRIAL_PROFILE_SELECT,
-  type FreeTrialProfileRow,
   freeRecommenderTrialAvailable,
+  type FreeTrialProfileRow,
   markFreeRecommenderTrialUsed,
 } from "../_shared/freeTrialAccess.ts";
 
@@ -154,9 +155,8 @@ function buildRecommenderEnvData(
 export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
-  const state_code = typeof body.state_code === "string"
-    ? body.state_code.toUpperCase()
-    : "";
+  const state_code = resolveStateFromCoords(lat, lon) ??
+    (typeof body.state_code === "string" ? body.state_code.toUpperCase() : "");
   const species = body.species as SpeciesGroup;
   const context = body.context as EngineContext;
   const water_clarity = body.water_clarity as WaterClarity;
@@ -342,16 +342,18 @@ export async function handleRecommenderRequest(
     );
   }
 
+  const resolvedState = resolveStateFromCoords(lat, lon) ?? state_code;
+
   // ── State × species gate ──────────────────────────────────────────────────
   if (
     !isSpeciesValidForState(
-      state_code,
+      resolvedState,
       species as SpeciesGroup,
       context as EngineContext,
     )
   ) {
     return jsonError(
-      `Species '${species}' is not available in ${state_code} for context '${context}'.`,
+      `Species '${species}' is not available in ${resolvedState} for context '${context}'.`,
       "species_not_available",
       422,
     );

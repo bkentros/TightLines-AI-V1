@@ -1,3 +1,4 @@
+import { seasonalBracket } from "../config/seasonalInterpolation.ts";
 import type { EngineContext, ScoredVariableKey } from "../contracts/mod.ts";
 import { BASE_WEIGHTS } from "../config/baseWeights.ts";
 import { getMonthModifiers } from "../config/monthModifiers.ts";
@@ -44,12 +45,20 @@ export function computeActiveWeights(
   context: EngineContext,
   region: RegionKey,
   localDate: string,
-  availableKeys: Set<string>
+  availableKeys: Set<string>,
 ): WeightedVariable[] {
-  const month = parseInt(localDate.slice(5, 7), 10) || 1;
-  const keys = activeKeysForContext(context).filter((k) => availableKeys.has(k));
+  const { from, to, fraction } = seasonalBracket(localDate);
+  const keys = activeKeysForContext(context).filter((k) =>
+    availableKeys.has(k)
+  );
   const baseMap = BASE_WEIGHTS[context]!;
-  const monthMod = getMonthModifiers(context, month);
+  const first = getMonthModifiers(context, from);
+  const second = getMonthModifiers(context, to);
+  const monthMod = Object.fromEntries(
+    Object.keys(first).map(
+      (key) => [key, first[key] + (second[key] - first[key]) * fraction],
+    ),
+  );
   const regionMod = getRegionModifiers(context, region);
 
   const raw: WeightedVariable[] = keys.map((key) => {
@@ -57,7 +66,7 @@ export function computeActiveWeights(
     const fw = applyFinalWeightClamp(
       base,
       monthMod[key] ?? 0,
-      regionMod[key] ?? 0
+      regionMod[key] ?? 0,
     );
     return { key, base, finalWeight: fw };
   });

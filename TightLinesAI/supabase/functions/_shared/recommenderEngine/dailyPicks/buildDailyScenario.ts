@@ -1,3 +1,4 @@
+import { ENGINE_SCORE_EPSILON } from "../../howFishingEngine/score/engineScoreMath.ts";
 import type { SharedConditionAnalysis } from "../../howFishingEngine/analyzeSharedConditions.ts";
 import {
   hourlyPointsTo24ArrayForLocalDate,
@@ -256,9 +257,13 @@ function thermalModeFromLabels(args: {
     : null;
   const summer = args.month >= 6 && args.month <= 8;
 
-  // The band describes the actual daily thermal lane. Let hard metabolic
-  // extremes win before trend/shock so hot cooldowns don't read as cold fishing.
-  if (args.temperatureBand === "very_warm") return "heat_limited";
+  // Bands are relative to region and month. A favorable warm winter day
+  // is not heat stress. Match Today's Bite's metabolic score gate; retain
+  // conservative behavior if a legacy caller has no temperature score.
+  if (
+    args.temperatureBand === "very_warm" &&
+    (finalScore == null || finalScore <= ENGINE_SCORE_EPSILON)
+  ) return "heat_limited";
   if (
     args.species === "trout" &&
     args.dailyHighAirTempF != null &&
@@ -301,7 +306,8 @@ function thermalModeFromLabels(args: {
     finalScore >= 0 &&
     (args.temperatureBand === "near_optimal" ||
       args.temperatureBand === "optimal" ||
-      args.temperatureBand === "warm")
+      args.temperatureBand === "warm" ||
+      args.temperatureBand === "very_warm")
   ) {
     return "warming";
   }

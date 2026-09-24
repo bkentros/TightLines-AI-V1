@@ -26,8 +26,9 @@ export type LightVariableState = VariableState & { label: LightLabel };
  *
  * Macro `label` stays stable for tips/timing; `detail` carries % and mixed sub-hint.
  *
- * opts.temperatureBandLabel: when "very_cold" or "cool", bright/clear sky on freshwater
- * is scored neutral (0) rather than negative — cold-water fish are not harmed by sun.
+ * opts.coldRelief smoothly reduces negative freshwater light scores as thermal
+ * conditions cool. The categorical temperatureBandLabel remains a compatibility
+ * fallback for callers without a continuous thermal signal.
  *
  * Phase 6C Light V2 score-only wiring: heavy overcast is still helpful in calm
  * conditions, but strong wind caps it so cloud cover cannot create a false
@@ -37,7 +38,11 @@ export type LightVariableState = VariableState & { label: LightLabel };
 export function normalizeLight(
   cloudPct: number | null | undefined,
   context: EngineContext,
-  opts?: { temperatureBandLabel?: string; windMph?: number | null },
+  opts?: {
+    temperatureBandLabel?: string;
+    coldRelief?: number;
+    windMph?: number | null;
+  },
 ): LightVariableState | null {
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
@@ -47,50 +52,54 @@ export function normalizeLight(
 
   const inColdBand = opts?.temperatureBandLabel === "very_cold" ||
     opts?.temperatureBandLabel === "cool";
-  const strongWind = opts?.windMph != null &&
-    Number.isFinite(opts.windMph) &&
-    opts.windMph >= 18;
+  const coldRelief = Math.max(
+    0,
+    Math.min(1, opts?.coldRelief ?? (inColdBand ? 1 : 0)),
+  );
+  const windMix = opts?.windMph != null && Number.isFinite(opts.windMph)
+    ? Math.max(0, Math.min(1, (opts.windMph - 14) / 4))
+    : 0;
+  const windBlend = (calm: number, strong: number) =>
+    calm + (strong - calm) * windMix;
 
   let score: number;
   if (freshwater) {
     if (c <= 25) {
-      if (inColdBand) {
-        // Cold-band neutralization: clear sky is not a glare suppressor in cold water
-        score = 0;
-      } else {
-        score = pieceLinear(c, 0, 25, -1.0, -0.55);
-      }
+      score = pieceLinear(c, 0, 25, -1.0, -0.55);
     } else if (c <= 69) {
       score = pieceLinear(c, 25, 69, -0.55, 0.55);
     } else if (c <= 85) {
-      score = pieceLinear(c, 69, 85, 0.55, 0.95);
+      score = pieceLinear(c, 69, 85, 0.55, 0.70);
     } else {
-      score = strongWind
-        ? pieceLinear(c, 85, 100, 0.70, 0.35)
-        : pieceLinear(c, 85, 100, 0.70, 0.82);
+      score = windBlend(
+        pieceLinear(c, 85, 100, 0.70, 0.82),
+        pieceLinear(c, 85, 100, 0.70, 0.35),
+      );
     }
   } else if (c <= 50) {
     if (isFlats && c <= 20) {
       // Flats-specific glare penalty: shallow clear water makes sun visibility a real issue
-      score = pieceLinear(c, 0, 20, -0.35, -0.15);
+      score = pieceLinear(c, 0, 20, -0.35, 0);
     } else {
       score = 0;
     }
   } else if (c <= 75) {
     score = pieceLinear(c, 50, 75, 0, 0.4);
   } else if (c <= 90) {
-    score = pieceLinear(c, 75, 90, 0.4, 0.9);
+    score = pieceLinear(c, 75, 90, 0.4, 0.60);
   } else {
-    score = strongWind
-      ? pieceLinear(c, 90, 100, 0.60, 0.20)
-      : pieceLinear(c, 90, 100, 0.60, 0.68);
+    score = windBlend(
+      pieceLinear(c, 90, 100, 0.60, 0.68),
+      pieceLinear(c, 90, 100, 0.60, 0.20),
+    );
   }
 
+  if (freshwater && score < 0) score *= 1 - coldRelief;
   score = clampEngineScore(score);
 
   let label: "glare" | "bright" | "mixed" | "low_light" | "heavy_overcast";
   // In cold band, suppress "glare" label even at very low cloud cover — no penalty word
-  if (c < 10) label = (freshwater && inColdBand) ? "bright" : "glare";
+  if (c < 10) label = (freshwater && coldRelief >= 1) ? "bright" : "glare";
   else if (c <= 25) label = "bright";
   else if (c <= 69) label = "mixed";
   else if (c <= 85) label = "low_light";

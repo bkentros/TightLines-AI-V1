@@ -1,3 +1,4 @@
+import { CONDITION_MODEL_VERSION } from "../supabase/functions/_shared/conditionModelVersion";
 /**
  * Recommender client — AsyncStorage + in-memory cache layer.
  *
@@ -88,6 +89,7 @@ function cacheKey(
   return [
     // Prefix must change when the edge response contract or selection rules change.
     DAILY_PICKS_SESSION_ENGINE_VERSION,
+    CONDITION_MODEL_VERSION,
     `user_${ownerId}`,
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
@@ -143,6 +145,7 @@ function isCachedResultValid(result: RecommenderResponse): boolean {
   if (!isDailyPicksResponse(result)) return false;
   if (result.feature !== DAILY_PICKS_RESPONSE_FEATURE) return false;
   if (result.engine_version !== DAILY_PICKS_RESPONSE_VERSION) return false;
+  if (result.condition_model_version !== CONDITION_MODEL_VERSION) return false;
   if (
     result.recommendation_goal !== 'all_purpose' &&
     result.recommendation_goal !== 'big_fish'

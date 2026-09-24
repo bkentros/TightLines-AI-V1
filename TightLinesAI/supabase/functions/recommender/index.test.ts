@@ -186,17 +186,15 @@ function mockClient(options: {
           select: () => ({
             eq: () => ({
               single: async () => ({
-                data: options.subscriptionTier === undefined
-                  ? null
-                  : {
-                    subscription_tier: options.subscriptionTier,
-                    free_recommender_trial_used_at:
-                      options.freeRecommenderTrialUsed
-                        ? "2026-01-01T00:00:00.000Z"
-                        : null,
-                    free_water_read_trial_used_at: null,
-                    free_today_bite_full_used_at: null,
-                  },
+                data: options.subscriptionTier === undefined ? null : {
+                  subscription_tier: options.subscriptionTier,
+                  free_recommender_trial_used_at:
+                    options.freeRecommenderTrialUsed
+                      ? "2026-01-01T00:00:00.000Z"
+                      : null,
+                  free_water_read_trial_used_at: null,
+                  free_today_bite_full_used_at: null,
+                },
               }),
             }),
           }),
@@ -213,6 +211,8 @@ function mockClient(options: {
         let updatePatch: Record<string, unknown> | null = null;
         const builder = {
           select: () => builder,
+          order: () => builder,
+          limit: () => builder,
           eq: (column: string, value: unknown) => {
             filters[column] = value;
             return builder;
@@ -224,7 +224,12 @@ function mockClient(options: {
           maybeSingle: async () => {
             const matches = (candidate: Record<string, unknown>) =>
               Object.entries(filters).every(([column, value]) =>
-                candidate[column] === value
+                (column.includes("->>")
+                  ? ((candidate[column.split("->>")[0]] as Record<
+                    string,
+                    unknown
+                  >)?.[column.split("->>")[1]] ?? null)
+                  : candidate[column]) === value
               );
             if (updatePatch) {
               const row = [...dailySessions.values()].find(matches);
@@ -443,6 +448,8 @@ Deno.test("recommender handler rejects invalid state-species-context combos", as
     makeRequest(
       validBody({
         state_code: "FL",
+        latitude: 30.4383,
+        longitude: -84.2807,
         species: "river_trout",
         context: "freshwater_river",
       }),
@@ -1163,4 +1170,13 @@ Deno.test("recommender handler rejects invalid view_variant", async () => {
   assertEquals(response.status, 400);
   const json = await response.json();
   assertEquals(json.error, "invalid_view_variant");
+});
+
+Deno.test("recommender uses coordinate state consistently with shared scoring", () => {
+  const { engineReq, shared_req } = buildRecommenderEngineRequest(
+    validBody({ state_code: "TN", latitude: 35.5951, longitude: -82.5515 }),
+  );
+  assertEquals(engineReq.location.state_code, "NC");
+  assertEquals(shared_req.state_code, "NC");
+  assertEquals(engineReq.location.region_key, "appalachian");
 });

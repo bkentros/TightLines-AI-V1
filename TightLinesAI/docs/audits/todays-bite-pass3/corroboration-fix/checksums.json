@@ -1,0 +1,14 @@
+{
+  "continuity.json": "d89af9747edee32871ce6262d6b51d3c382a65b4aa9f948397267f10fb311620",
+  "candidate.jsonl.gz": "1753ca3179129d9b11246cb41da3158875cff2391d3fa23ce52fb31b60f97d78",
+  "fix-comparison.json": "a55464f3ff284c3e2a6a3014d9fd5ae87feef2725133f1a722e14ec18db27a89",
+  "regional-evaluation.json": "78860199151b1a1f0525e6ccdae2af635766c5bb48bb8df02f496204087990f5",
+  "regional-fix-comparison.json": "0b74dd6620f903288a760b8fa32e201a7465b22248be824110deb34ac1146a77",
+  "candidate.manifest.json": "e221c4aa005007f18a45131ec99954544497b79f985ec80f5989f39258556916",
+  "boundaries-candidate.manifest.json": "8e532a183b7474d1c7a70d15abe456560f46ff2f259c987891c5376756e06c2f",
+  "comparison.json": "7f3cc945272f1350e4acd9219e9a4d08ac2c7bc10e665dfed041b7684293350b",
+  "validation.txt": "a258ad6d74ab878d6edcc7afd2b1f21396601414194dc4fa1c9cca49d70aa41a",
+  "README.md": "da70a657568b876a81170a9a15c3bfceefa367112beaaf1c45f2016f4d79a748",
+  "boundaries-candidate.jsonl.gz": "03eaf40bdf5aa1195a54d743a8870284b6a65cd583d096916581c380dd069fd3",
+  "regional-evaluation-detail.json.gz": "8b42cbff81dc89615e44a8340fdc3419bf98a92036365e2ff9eb56e0fe1f8607"
+}

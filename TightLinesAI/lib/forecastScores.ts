@@ -1,3 +1,4 @@
+import { CONDITION_MODEL_VERSION } from "../supabase/functions/_shared/conditionModelVersion";
 /**
  * forecastScores — 7-day deterministic fishing score forecast
  *
@@ -25,8 +26,8 @@ const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 const FORECAST_REQUEST_TIMEOUT_MS = 15_000;
 
-/** v10 drops degraded fallback snapshots after enabling customer Open-Meteo. */
-const CACHE_KEY_PREFIX = "forecast_scores_v10";
+/** Isolate scores produced by the current shared calibration. */
+const CACHE_KEY_PREFIX = `forecast_scores_v11_${CONDITION_MODEL_VERSION}`;
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v1",
@@ -39,6 +40,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v8",
   "forecast_scores_v9",
   "forecast_scores_v10",
+  "forecast_scores_v11",
 ] as const;
 
 function isSignedOutError(err: unknown): boolean {

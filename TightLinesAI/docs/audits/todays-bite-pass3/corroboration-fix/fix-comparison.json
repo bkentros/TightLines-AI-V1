@@ -1,0 +1,26 @@
+{
+  "main": {
+    "cases": 21880,
+    "changed_scores": 0,
+    "changed_bands": 0,
+    "recommendation_sets": 9252,
+    "changed_picks": 0,
+    "changed_surface_gates": 0,
+    "changed_activity": 0,
+    "max_reduction": 0,
+    "contract_violations": 0,
+    "examples": []
+  },
+  "boundaries-": {
+    "cases": 2352,
+    "changed_scores": 0,
+    "changed_bands": 0,
+    "recommendation_sets": 882,
+    "changed_picks": 0,
+    "changed_surface_gates": 0,
+    "changed_activity": 0,
+    "max_reduction": 0,
+    "contract_violations": 0,
+    "examples": []
+  }
+}
