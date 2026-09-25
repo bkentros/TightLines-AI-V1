@@ -20,10 +20,12 @@ export type ActivityWeatherHour = {
   shortwave_w_m2: number | null;
   clear_sky_shortwave_w_m2?: number | null;
   precipitation_in: number | null;
+  temperature_2m_f?: number | null;
+  is_day?: number | null;
 };
 
 export type ActivityBlock = {
-  id: "05-09" | "09-13" | "13-17" | "17-21";
+  id: string;
   label: string;
   score: number;
   activityLabel: string;
@@ -59,13 +61,14 @@ const BLOCKS = [
   { id: "17-21", label: "5–9 PM", start: 17, end: 21, lightBase: 70 },
 ] as const;
 
-export function scoreActivity(input: {
+export type ActivityScoreInput = {
   rules: ActivityRules;
   requestDate: string;
   runStage: RunStage;
   staging: boolean;
   targetDate: string;
   waterTempF: number | null;
+  waterTemperatureFreshness?: GaugeFreshness;
   temperatureTrend: RawTemperatureTrendSignal;
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
@@ -80,7 +83,12 @@ export function scoreActivity(input: {
   fallEntryComplete?: boolean;
   seasonNotStarted?: boolean;
   monitoringStartDate?: string;
-}): ActivityResult {
+};
+
+export function scoreActivity(input: ActivityScoreInput): ActivityResult {
+  if (input.rules.profile === "steelhead_winter_holding") {
+    return scoreWinterSteelheadActivity(input);
+  }
   if (input.seasonNotStarted) {
     const river = input.copyStrategy === "betsie_homestead"
       ? "Betsie"
@@ -593,6 +601,327 @@ export function scoreActivity(input: {
     blocks,
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function scoreWinterSteelheadActivity(
+  input: ActivityScoreInput,
+): ActivityResult {
+  const tomorrow = input.targetDate !== input.requestDate;
+  const inactive = input.seasonNotStarted || input.runStage === "pre_run" ||
+    input.runStage === "post_run";
+  if (inactive) {
+    return {
+      score: null,
+      maximum: 100,
+      label: input.runStage === "post_run"
+        ? "Winter holding complete"
+        : "Not active yet",
+      headline: input.runStage === "post_run"
+        ? "Winter Steelhead Activity is complete."
+        : "Winter Steelhead Activity has not started.",
+      detail: input.runStage === "post_run"
+        ? "The winter model ends February 28 and does not infer spring-run responsiveness."
+        : "The winter model remains off until the fall-entry pathway reaches its exact endpoint.",
+      tip: input.runStage === "post_run"
+        ? "Use the separately researched spring pathway when it becomes available."
+        : "Use the active fall pathway until winter holding begins.",
+      reasonCodes: [
+        input.runStage === "post_run"
+          ? "stage_winter_complete"
+          : "stage_pre_run",
+      ],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: tomorrow ? "Tomorrow" : "Today",
+      confidence: "Limited",
+      conditionalPresence: false,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+
+  const targetWeather = input.hourlyWeather.filter((hour) =>
+    hour.time_local.startsWith(input.targetDate)
+  );
+  const daylightHours = targetWeather.filter((hour) =>
+    hour.is_day === 1 ||
+    (hour.is_day == null && (hour.shortwave_w_m2 ?? 0) > 5)
+  );
+  const hasWeather = input.weatherFreshness !== "missing" &&
+    daylightHours.length > 0;
+  const temperatureFreshness = input.waterTemperatureFreshness ??
+    (input.waterTempF == null ? "missing" : "fresh");
+  const hasTemperature = input.waterTempF != null &&
+    temperatureFreshness === "fresh";
+  const hasRiver = input.gaugeFreshness === "fresh" && !!input.flowBand;
+  if (!hasWeather || (!hasTemperature && !hasRiver)) {
+    const missing = !hasWeather
+      ? "Daylight-aware hourly weather is unavailable."
+      : "Both measured water temperature and measured river behavior are unavailable.";
+    return {
+      score: null,
+      maximum: 100,
+      label: "Unavailable",
+      headline: `${
+        tomorrow ? "Tomorrow’s" : "Today’s"
+      } Winter Steelhead Activity is unavailable.`,
+      detail:
+        `${missing} The model does not replace failed river observations with air temperature or neutral values. ${
+          input.rules.scopeCopy ?? ""
+        }`.trim(),
+      tip:
+        "Check again after the required sources resume, and verify ice, access, and safety conditions directly.",
+      reasonCodes: [
+        "activity_winter_holding",
+        "activity_confidence_limited",
+        tomorrow ? "activity_tomorrow" : "activity_today",
+      ],
+      rulesVersion: input.rules.version,
+      targetDate: input.targetDate,
+      targetDayLabel: tomorrow ? "Tomorrow" : "Today",
+      confidence: "Limited",
+      conditionalPresence: false,
+      blocks: [],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+
+  const daylightClockHours = [
+    ...new Set(
+      daylightHours.map((hour) => Number(hour.time_local.slice(11, 13))),
+    ),
+  ].filter(Number.isFinite).toSorted((a, b) => a - b);
+  const daylightStart = daylightClockHours[0];
+  const daylightEnd = daylightClockHours.at(-1)! + 1;
+  const duration = Math.max(1, daylightEnd - daylightStart);
+  const segmentCount = Math.min(3, duration);
+  const segments = Array.from({ length: segmentCount }, (_, index) => {
+    const start = daylightStart + Math.floor(index * duration / segmentCount);
+    const end = daylightStart +
+      Math.floor((index + 1) * duration / segmentCount);
+    return {
+      id: `${String(start).padStart(2, "0")}-${String(end).padStart(2, "0")}`,
+      label: `${formatHour(start)}–${formatHour(end)}`,
+      start,
+      end,
+      index,
+    };
+  });
+  const refreshMinutes = parseRefreshMinutes(input.refreshSlot ?? "04:00");
+  const thermalScore = winterTemperatureScore(
+    hasTemperature ? input.waterTempF : null,
+  );
+  const trendScore = winterTrendScore(
+    hasTemperature ? input.temperatureTrend : "neutral_missing",
+  );
+  const hydraulicScore = riverScore(
+    input.rules.profile,
+    input.flowBand,
+    input.flowSignal,
+    hasRiver,
+    input.currentHydraulicValue,
+    input.fishabilityBands,
+  );
+  const confidence: ActivityConfidence = hasTemperature && hasRiver &&
+      input.weatherFreshness === "fresh" && !tomorrow
+    ? "Full"
+    : hasTemperature || hasRiver
+    ? "Moderate"
+    : "Limited";
+  const blocks: ActivityBlock[] = segments.map((segment) => {
+    const hours = daylightHours.filter((hour) => {
+      const hourNumber = Number(hour.time_local.slice(11, 13));
+      return hourNumber >= segment.start && hourNumber < segment.end;
+    });
+    const cloud = average(hours.map((hour) => hour.cloud_cover_pct));
+    const precipitation = sum(hours.map((hour) => hour.precipitation_in));
+    const light = winterDaylightScore(hours, segment.index, segmentCount);
+    const availableWeights = {
+      temperature: hasTemperature ? input.rules.weights.waterTemperature : 0,
+      trend: hasTemperature ? input.rules.weights.temperatureTrend ?? 0 : 0,
+      light: input.rules.weights.light,
+      river: hasRiver ? input.rules.weights.riverBehavior : 0,
+    };
+    const totalWeight = Object.values(availableWeights).reduce(
+      (a, b) => a + b,
+      0,
+    );
+    let score = Math.round(
+      (
+        thermalScore * availableWeights.temperature +
+        trendScore * availableWeights.trend +
+        light * availableWeights.light +
+        hydraulicScore * availableWeights.river
+      ) / Math.max(0.01, totalWeight),
+    );
+    if (!hasTemperature) score = Math.min(score, 59);
+    if (!hasRiver) score = Math.min(score, 69);
+    if (input.waterTempF != null && input.waterTempF <= 33.5) {
+      score = Math.min(score, 29);
+    } else if (input.waterTempF != null && input.waterTempF < 35) {
+      score = Math.min(score, 49);
+    }
+    if (input.flowBand === "blown_out") score = Math.min(score, 19);
+    if (confidence === "Limited") score = Math.min(score, 59);
+    const status = tomorrow
+      ? "upcoming" as const
+      : refreshMinutes >= segment.end * 60
+      ? "ended" as const
+      : refreshMinutes >= segment.start * 60
+      ? "current" as const
+      : "upcoming" as const;
+    const previousBlock = status === "ended" &&
+        input.previousActivity?.targetDate === input.targetDate
+      ? input.previousActivity.blocks.find((candidate) =>
+        candidate.id === segment.id
+      )
+      : undefined;
+    const thermalDriver = hasTemperature && thermalScore >= 68
+      ? "Measured water temperature supports winter responsiveness."
+      : input.temperatureTrend === "warming"
+      ? "A gradual measured-water warming trend improves the response window."
+      : light >= 70
+      ? "Cloud-filtered daylight improves presentation without relying on darkness."
+      : "The daylight window remains workable.";
+    const limit = !hasTemperature
+      ? "Fresh measured water temperature is unavailable; air temperature is not substituted."
+      : (input.waterTempF ?? 99) <= 35
+      ? "Near-freezing water strongly limits metabolic response."
+      : input.temperatureTrend === "strong_warming" ||
+          input.temperatureTrend === "strong_cooling"
+      ? "A large measured-water temperature swing reduces confidence in a sustained response."
+      : !hasRiver
+      ? "Current measured river behavior is unavailable."
+      : input.flowBand === "blown_out"
+      ? "The measured reach is in its blown-out hydraulic band."
+      : light < 60
+      ? "Bright daylight provides limited cover."
+      : "Winter response may still be brief and selective.";
+    return {
+      id: segment.id,
+      label: segment.label,
+      score: previousBlock?.score ?? score,
+      activityLabel: previousBlock?.activityLabel ?? activityLabel(score),
+      positiveDriver: previousBlock?.positiveDriver ?? thermalDriver,
+      limitingFactor: previousBlock?.limitingFactor ?? limit,
+      cloudCoverPct: previousBlock?.cloudCoverPct ??
+        (cloud == null ? null : Math.round(cloud)),
+      precipitationIn: previousBlock?.precipitationIn ??
+        (precipitation == null ? null : round2(precipitation)),
+      status,
+      lockedAt: status === "ended"
+        ? previousBlock?.lockedAt ??
+          `${input.targetDate}T${String(segment.end).padStart(2, "0")}:00:00`
+        : null,
+    };
+  });
+  const sorted = [...blocks].sort((a, b) => b.score - a.score);
+  const averageScore = blocks.reduce((total, block) => total + block.score, 0) /
+    blocks.length;
+  const score = Math.round(
+    averageScore * 0.5 + sorted[0].score * 0.25 +
+      (sorted[1]?.score ?? sorted[0].score) * 0.25,
+  );
+  const best = sorted[0];
+  const airContext =
+    tomorrow && targetWeather.some((hour) => hour.temperature_2m_f != null)
+      ? " Forecast air temperature provides context only; the score retains the latest fresh measured-water state and does not convert air to water temperature."
+      : "";
+  const trendCopy = input.temperatureTrend === "warming"
+    ? "A gradual measured-water warm-up is favorable."
+    : input.temperatureTrend === "neutral"
+    ? "Stable measured water avoids a swing penalty."
+    : input.temperatureTrend === "strong_warming" ||
+        input.temperatureTrend === "strong_cooling"
+    ? "The large measured-water swing is penalized."
+    : input.temperatureTrend === "cooling"
+    ? "Cooling water reduces expected response."
+    : "The measured-water trend adds no positive signal.";
+  return {
+    score,
+    maximum: 100,
+    label: activityLabel(score),
+    headline: `${
+      tomorrow ? "Tomorrow’s" : "Today’s"
+    } Winter Steelhead Activity is ${activityLabel(score).toLowerCase()}.`,
+    detail:
+      `${trendCopy} The strongest daylight window is ${best.label}. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score.${airContext} ${
+        input.rules.scopeCopy ?? ""
+      }`.trim(),
+    tip:
+      `Start with ${best.label} in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability.`,
+    reasonCodes: [
+      "activity_winter_holding",
+      "activity_winter_daylight",
+      tomorrow ? "activity_tomorrow" : "activity_today",
+      input.temperatureTrend === "warming"
+        ? "activity_winter_warming"
+        : input.temperatureTrend === "neutral"
+        ? "activity_winter_stable"
+        : "activity_winter_cooling",
+      ...((input.waterTempF ?? 99) <= 33.5
+        ? ["activity_winter_near_freezing_cap"]
+        : []),
+    ],
+    rulesVersion: input.rules.version,
+    targetDate: input.targetDate,
+    targetDayLabel: tomorrow ? "Tomorrow" : "Today",
+    confidence,
+    conditionalPresence: false,
+    blocks,
+    copyVersion: RIVER_RUN_COPY_VERSION,
+  };
+}
+
+function winterTemperatureScore(temp: number | null): number {
+  if (temp == null) return 50;
+  if (temp <= 32.5) return 8;
+  if (temp < 34) return interpolateClamped(temp, 32.5, 34, 8, 24);
+  if (temp < 36) return interpolateClamped(temp, 34, 36, 24, 45);
+  if (temp < 38) return interpolateClamped(temp, 36, 38, 45, 68);
+  if (temp < 42) return interpolateClamped(temp, 38, 42, 68, 90);
+  if (temp <= 45) return interpolateClamped(temp, 42, 45, 90, 95);
+  if (temp < 50) return interpolateClamped(temp, 45, 50, 95, 78);
+  return interpolateClamped(temp, 50, 60, 78, 45);
+}
+
+function winterTrendScore(trend: RawTemperatureTrendSignal): number {
+  return ({
+    strong_cooling: 15,
+    cooling: 35,
+    neutral: 64,
+    warming: 86,
+    strong_warming: 42,
+    neutral_missing: 45,
+  } as const)[trend];
+}
+
+function winterDaylightScore(
+  hours: ActivityWeatherHour[],
+  segmentIndex: number,
+  segmentCount: number,
+): number {
+  const edge = segmentIndex === 0 || segmentIndex === segmentCount - 1;
+  const base = edge ? 66 : 52;
+  const ratios = hours.flatMap((hour) => {
+    const clear = hour.clear_sky_shortwave_w_m2;
+    if (clear == null || clear < 20 || hour.shortwave_w_m2 == null) return [];
+    return [Math.max(0, Math.min(1.1, hour.shortwave_w_m2 / clear))];
+  });
+  if (ratios.length) {
+    const transmission = ratios.reduce((sum, value) => sum + value, 0) /
+      ratios.length;
+    return clamp(base + Math.max(0, 1 - transmission) * (94 - base));
+  }
+  const cloud = average(hours.map((hour) => hour.cloud_cover_pct));
+  return cloud == null ? base : clamp(base + cloud / 100 * (94 - base));
+}
+
+function formatHour(hour: number): string {
+  const normalized = ((hour % 24) + 24) % 24;
+  const suffix = normalized >= 12 ? "PM" : "AM";
+  const clock = normalized % 12 || 12;
+  return `${clock} ${suffix}`;
 }
 
 function remainingWindowCopy<

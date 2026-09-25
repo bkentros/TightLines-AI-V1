@@ -41,10 +41,11 @@ export function unavailableActivity(input: {
 }
 
 export function unavailableMigrationTiming(
-  _reason: PrimitiveUnavailableReason,
+  reason: PrimitiveUnavailableReason,
   copyStrategy?: RunStageCopyStrategy,
 ): ConditionsSuggestResult {
   const betsie = copyStrategy === "betsie_homestead";
+  const holding = reason === "not_applicable_to_holding";
   return {
     score: null,
     label: "Unavailable",
@@ -61,13 +62,19 @@ export function unavailableMigrationTiming(
     historicalYears: 0,
     sourceDates: [],
     sourceRefreshSlots: {},
-    headline: betsie
+    headline: holding
+      ? "Migration Timing is not used for winter holding."
+      : betsie
       ? "Migration Timing is not available for the Betsie."
       : "Migration Timing is not available for this river.",
-    detail: betsie
+    detail: holding
+      ? "These Steelhead are tracked as fish already retained from fall entry, so an early, typical, or delayed migration comparison would misstate the winter model."
+      : betsie
       ? "The Betsie does not have a long-term flow and measured water-temperature record reliable enough for an early, typical, or delayed comparison."
       : "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-    tip: betsie
+    tip: holding
+      ? "Use Winter Phase, Fish In River, Activity, and Fishability."
+      : betsie
       ? "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches."
       : "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
     reasonCodes: ["primitive_migration_timing_unavailable_for_river"],
@@ -76,20 +83,27 @@ export function unavailableMigrationTiming(
 }
 
 export function unavailablePush(
-  _reason: PrimitiveUnavailableReason,
+  reason: PrimitiveUnavailableReason,
   copyStrategy?: RunStageCopyStrategy,
 ): PushScoreResult {
   const betsie = copyStrategy === "betsie_homestead";
+  const holding = reason === "not_applicable_to_holding";
   return {
     score: null,
     label: "Unavailable",
-    headline: betsie
+    headline: holding
+      ? "Push is not used for winter holding."
+      : betsie
       ? "Push is not available for the Betsie."
       : "Push is not available for this river.",
-    detail: betsie
+    detail: holding
+      ? "Winter Activity evaluates the responsiveness of Steelhead already holding in the river. It does not turn rain, flow change, or warming into a claim of fresh migration."
+      : betsie
       ? "The Betsie lacks representative live flow and measured water temperature for a current movement read."
       : "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-    tip: betsie
+    tip: holding
+      ? "Use Activity for current response conditions and Fishability for presentation shape."
+      : betsie
       ? "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements."
       : "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
     reasonCodes: ["primitive_push_unavailable_for_river"],

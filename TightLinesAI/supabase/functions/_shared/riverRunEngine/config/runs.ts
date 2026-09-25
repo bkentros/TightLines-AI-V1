@@ -18,6 +18,7 @@ import {
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
+  GRAND_WINTER_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/grand.ts";
 import {
   MILWAUKEE_FALL_BROWN_TROUT_RUN_PROFILE,
@@ -51,6 +52,7 @@ import {
 } from "./onboarding/white.ts";
 import { WASHINGTON_DRAFT_RUNS } from "./onboarding/washington.ts";
 import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
+import { buildMichiganWinterSteelheadProfile } from "./winterSteelhead.ts";
 
 export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
   AuditedObservedRiverRunProfile = {
@@ -2418,20 +2420,136 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
     },
   };
 
+export const PERE_MARQUETTE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-23",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.875,
+    coreFraction: 0.86,
+    springApproachFraction: 0.82,
+    endFraction: 0.8,
+    inputReach: {
+      reachIds: [
+        "pm_lower_mainstem",
+        "pm_middle_mainstem",
+        "pm_upper_mainstem",
+      ],
+      hydraulicSourceIds: ["pm_scottville_usgs"],
+      waterTemperatureSourceIds: [
+        "pm_maple_leaf_temperature",
+        "pm_bowman_temperature",
+        "pm_m37_temperature",
+      ],
+      weatherPointIds: ["pm_baldwin_watershed_weather"],
+      notes:
+        "Scottville flow represents the Lower river while prioritized PMTU temperatures represent explicitly labeled Lower, Middle, and Upper locations. The read never treats them as one co-located measurement.",
+    },
+    preferredStartReachIds: ["pm_middle_mainstem", "pm_upper_mainstem"],
+    scopeCopy:
+      "PM flow is measured at Scottville; water temperature follows the labeled PMTU station priority. Conditions and ice can differ among reaches.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology; Workman, Hayes, and Coon adult Steelhead telemetry in the Pere Marquette and St. Joseph rivers; USGS 04122500; PMTU measured-water stations. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
+  });
+
+export const BIG_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-23",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.875,
+    coreFraction: 0.86,
+    springApproachFraction: 0.82,
+    endFraction: 0.8,
+    inputReach: {
+      reachIds: ["big_manistee_tippy_tailwater"],
+      hydraulicSourceIds: ["big_manistee_wellston_usgs"],
+      waterTemperatureSourceIds: ["big_manistee_wellston_temperature"],
+      weatherPointIds: ["big_manistee_wellston_weather"],
+      notes:
+        "The winter read is bound to same-station Wellston flow and water temperature below Tippy Dam plus the Wellston weather point.",
+    },
+    preferredStartReachIds: ["big_manistee_tippy_tailwater"],
+    scopeCopy:
+      "Measured conditions describe the Wellston/Tippy tailwater and cannot be assumed throughout the long river below Tippy Dam.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology and Manistee River fishery material; Michigan DNR Little Manistee River weir operations; USGS 04125550. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
+  });
+
+export const MUSKEGON_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-23",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.89,
+    coreFraction: 0.87,
+    springApproachFraction: 0.83,
+    endFraction: 0.8,
+    inputReach: {
+      reachIds: ["muskegon_croton_tailwater"],
+      hydraulicSourceIds: ["muskegon_croton_usgs"],
+      waterTemperatureSourceIds: ["muskegon_croton_temperature"],
+      weatherPointIds: ["muskegon_croton_weather"],
+      notes:
+        "The winter read is bound to same-station Croton tailwater flow and water temperature plus the Croton weather point.",
+    },
+    preferredStartReachIds: ["muskegon_croton_tailwater"],
+    scopeCopy:
+      "Measured conditions represent the Croton tailwater, not the full Muskegon corridor to Muskegon Lake.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology and Central Lake Michigan Management Unit Muskegon fishery description; USGS 04121970. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
+  });
+
+export const ST_JOSEPH_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-23",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.9,
+    coreFraction: 0.88,
+    springApproachFraction: 0.85,
+    endFraction: 0.82,
+    inputReach: {
+      reachIds: ["st_joseph_niles"],
+      hydraulicSourceIds: ["st_joseph_niles_usgs"],
+      waterTemperatureSourceIds: ["st_joseph_niles_temperature"],
+      weatherPointIds: ["st_joseph_niles_weather"],
+      notes:
+        "The winter read is bound to same-station Niles flow and water temperature plus the Niles weather point.",
+    },
+    preferredStartReachIds: ["st_joseph_niles"],
+    scopeCopy:
+      "Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology; Workman, Hayes, and Coon adult Steelhead telemetry in the Pere Marquette and St. Joseph rivers; USGS 04101500. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
+  });
+
 export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+  PERE_MARQUETTE_WINTER_STEELHEAD_RUN_PROFILE,
   BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
   BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
   BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
+  BIG_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE,
   BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE,
   MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
   MUSKEGON_FALL_COHO_RUN_PROFILE,
   MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  MUSKEGON_WINTER_STEELHEAD_RUN_PROFILE,
   ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
   ST_JOSEPH_FALL_COHO_RUN_PROFILE,
   ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_WINTER_STEELHEAD_RUN_PROFILE,
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,
@@ -2440,6 +2558,7 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   GRAND_FALL_CHINOOK_RUN_PROFILE,
   GRAND_FALL_COHO_RUN_PROFILE,
   GRAND_FALL_STEELHEAD_RUN_PROFILE,
+  GRAND_WINTER_STEELHEAD_RUN_PROFILE,
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,

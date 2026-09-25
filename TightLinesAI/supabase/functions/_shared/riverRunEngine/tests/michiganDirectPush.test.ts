@@ -34,6 +34,9 @@ const qualified = [
   GRAND_CONFIGURATION_DOCUMENT,
   WHITE_CONFIGURATION_DOCUMENT,
 ];
+const qualifiedFallRuns = qualified.flatMap((document) =>
+  document.runs.filter((run) => run.season === "fall")
+);
 
 const sameReachTemperatureRivers = new Set([
   "big_manistee",
@@ -42,11 +45,11 @@ const sameReachTemperatureRivers = new Set([
 ]);
 
 Deno.test("every qualified Michigan fall run uses the direct event model and validates", () => {
-  const runs = qualified.flatMap((document) => document.runs);
+  const runs = qualifiedFallRuns;
   assertEquals(runs.length, 19);
 
   for (const document of qualified) {
-    for (const run of document.runs) {
+    for (const run of document.runs.filter((run) => run.season === "fall")) {
       const validation = validateRunProfile(run, document.river);
       assertEquals(
         validation.valid,
@@ -76,7 +79,7 @@ Deno.test("every qualified Michigan fall run uses the direct event model and val
 });
 
 Deno.test("every qualified Michigan run can detect a river-specific flow event without temperature", () => {
-  for (const run of qualified.flatMap((document) => document.runs)) {
+  for (const run of qualifiedFallRuns) {
     const rules = run.push!;
     const low = Math.max(rules.hydraulic.lowValue * 1.1, 10);
     const absolute = rules.hydraulic.sharpRise24h.absolute * 1.1;
@@ -121,7 +124,7 @@ Deno.test("unsupported Michigan reaches remain fail-closed", () => {
       PLATTE_CONFIGURATION_DOCUMENT,
     ]
   ) {
-    for (const run of document.runs) {
+    for (const run of document.runs.filter((run) => run.season === "fall")) {
       assertEquals(
         run.primitiveCapabilities.push.status,
         "unavailable",
@@ -140,7 +143,7 @@ Deno.test("flow-only Michigan Push configurations disclose their single-reach sc
       WHITE_CONFIGURATION_DOCUMENT,
     ]
   ) {
-    for (const run of document.runs) {
+    for (const run of document.runs.filter((run) => run.season === "fall")) {
       assertEquals(run.push?.directEvent?.temperature, "disabled", run.runId);
       assert(
         /only|excluded|hydraulic response/i.test(run.push?.evidenceNotes ?? ""),

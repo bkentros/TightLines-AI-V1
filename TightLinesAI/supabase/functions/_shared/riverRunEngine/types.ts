@@ -174,7 +174,8 @@ export type PrimitiveUnavailableReason =
   | "no_accepted_water_temperature_source"
   | "no_accepted_hydraulic_or_water_temperature_source"
   | "no_accepted_historical_baseline"
-  | "no_accepted_activity_calibration";
+  | "no_accepted_activity_calibration"
+  | "not_applicable_to_holding";
 
 export type PrimitiveCapability =
   | { status: "available" }
@@ -210,7 +211,8 @@ export type ActivityRules = {
     | "chinook_fall_reaction"
     | "coho_fall_reaction"
     | "steelhead_feeding"
-    | "brown_trout_fall_reaction";
+    | "brown_trout_fall_reaction"
+    | "steelhead_winter_holding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
   /**
@@ -237,6 +239,8 @@ export type ActivityRules = {
   weights: {
     light: number;
     waterTemperature: number;
+    /** Winter holding only: recent measured-water direction and stability. */
+    temperatureTrend?: number;
     riverBehavior: number;
     weather: number;
   };
@@ -846,6 +850,16 @@ export type SeasonalZonePlan = {
    */
   earlyApproach?: {
     label: string;
+    sourceNotes: string;
+  };
+  /**
+   * Winter-only access orientation. Every phase reach remains viable; these
+   * reaches identify the best place to start because the Activity inputs and
+   * accepted holding-water evidence are strongest there.
+   */
+  winterHoldingGuidance?: {
+    preferredStartReachIds: string[];
+    activityScopeCopy: string;
     sourceNotes: string;
   };
   phases: SeasonalZonePhasePlan;

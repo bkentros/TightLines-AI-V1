@@ -73,6 +73,22 @@ const SPECIES_RULES: Record<
     },
     ending: 100,
   },
+  steelhead_winter_holding: {
+    weights: {
+      light: 0.7,
+      waterTemperature: 0,
+      riverBehavior: 0,
+      weather: 0.3,
+    },
+    temperature: {
+      coldF: 33.5,
+      preferredMinF: 38,
+      preferredMaxF: 45,
+      warmF: 50,
+      barrierF: 68,
+    },
+    ending: 100,
+  },
   brown_trout_fall_reaction: {
     weights: {
       light: 0.7,

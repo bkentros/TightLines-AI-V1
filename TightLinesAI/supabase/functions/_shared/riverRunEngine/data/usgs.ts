@@ -263,6 +263,14 @@ function hasEquipmentFaultQualifier(qualifier: string): boolean {
     .some((part) => part.toUpperCase() === "EQUIP");
 }
 
+export function hasIceAffectedQualifier(
+  qualifier: string | undefined,
+): boolean {
+  if (!qualifier) return false;
+  const normalized = qualifier.toUpperCase().replace(/[_-]+/g, " ");
+  return /(^|\s)(ICE|BKW|BACKWATER)(\s|$)/.test(normalized);
+}
+
 export function selectLatestUsableGaugeObservation(
   observations: readonly NormalizedGaugeObservation[],
   metric: RiverMetric,
@@ -325,6 +333,7 @@ export function normalizeGaugeRead(input: {
     input.observations,
     input.primaryMetric,
   );
+  const iceAffected = hasIceAffectedQualifier(current?.qualifier);
   const prior24h = current
     ? selectClosestObservationAtOrBefore(
       input.observations,
@@ -341,20 +350,26 @@ export function normalizeGaugeRead(input: {
         ) <= comparisonToleranceHours * 60 * 60 * 1000
     ? prior24h
     : null;
-  const gaugeFreshness = computeGaugeFreshness({
-    observation: current,
-    refreshAtUtc: input.refreshAtUtc,
-    maxAgeHours: input.maxAgeHours,
-  });
+  const gaugeFreshness = iceAffected
+    ? "missing" as const
+    : computeGaugeFreshness({
+      observation: current,
+      refreshAtUtc: input.refreshAtUtc,
+      maxAgeHours: input.maxAgeHours,
+    });
   const flowTrend = resolveFlowTrendSignal({
-    currentValue: current ? metricValue(current, input.primaryMetric) : null,
-    value24hAgo: usablePrior24h
+    currentValue: current && !iceAffected
+      ? metricValue(current, input.primaryMetric)
+      : null,
+    value24hAgo: usablePrior24h && !iceAffected
       ? metricValue(usablePrior24h, input.primaryMetric)
       : null,
     ...input.riseThresholds,
   });
   const changes = ([12, 24, 48] as const).map((hours) => {
-    if (!current) return { hours, absolute: null, percent: null };
+    if (!current || iceAffected) {
+      return { hours, absolute: null, percent: null };
+    }
     const targetMs = Date.parse(current.observedAt) - hours * 60 * 60 * 1000;
     const prior = selectClosestObservationAtOrBefore(
       input.observations,
@@ -375,7 +390,7 @@ export function normalizeGaugeRead(input: {
     const absolute = currentValue - priorValue;
     return { hours, absolute, percent: absolute / priorValue * 100 };
   });
-  const fourHourSeries = buildDirectEventSeries({
+  const fourHourSeries = iceAffected ? [] : buildDirectEventSeries({
     observations: input.observations,
     refreshAtUtc: input.refreshAtUtc,
     observedAt: (observation) => observation.observedAt,
@@ -391,7 +406,11 @@ export function normalizeGaugeRead(input: {
     flowTrend,
     changes,
     fourHourSeries,
-    reasonCodes: [gaugeReasonCode(gaugeFreshness), ...flowTrend.reasonCodes],
+    reasonCodes: [
+      gaugeReasonCode(gaugeFreshness),
+      ...(iceAffected ? ["gauge_ice_affected" as const] : []),
+      ...flowTrend.reasonCodes,
+    ],
   };
 }
 

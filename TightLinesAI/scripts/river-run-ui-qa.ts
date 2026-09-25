@@ -557,6 +557,11 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
+  /WINTER CORRIDOR[\s\S]*?Best measured start:[\s\S]*?Every audited section remains viable winter water[\s\S]*?winterGuidance\.activityScopeCopy[\s\S]*?BEST MEASURED START[\s\S]*?ALSO VIABLE WINTER WATER/,
+  "Winter Spot Finder must separate measured starting water from the rest of the viable corridor and disclose Activity scope",
+);
+assert.match(
+  riverRunScreen,
   /Sections describe the supported migration corridor, not the\s+entire river\. \{finder\.orientationNote\}/,
   "Spot Finder must distinguish run-corridor position from whole-river geography",
 );
@@ -1101,10 +1106,23 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
       run.seasonalZonePlan,
       `${run.runId} needs an audited Seasonal Zone plan`,
     );
-    assert(
-      run.seasonalZonePlan.earlyApproach?.label,
-      `${run.runId} needs river-specific early approach context`,
-    );
+    if (run.runType === "holding") {
+      assert.equal(
+        run.seasonalZonePlan.earlyApproach,
+        undefined,
+        `${run.runId} must not imply a new lake-to-river approach`,
+      );
+      assert(
+        run.seasonalZonePlan.winterHoldingGuidance
+          ?.preferredStartReachIds.length,
+        `${run.runId} needs at least one audited preferred winter starting reach`,
+      );
+    } else {
+      assert(
+        run.seasonalZonePlan.earlyApproach?.label,
+        `${run.runId} needs river-specific early approach context`,
+      );
+    }
     for (
       const [phase, reachIds] of Object.entries(run.seasonalZonePlan.phases)
     ) {
@@ -1134,14 +1152,14 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
           seasonalZone,
         );
         recommendationMatrixCases += 1;
-        if (stage.stage === "pre_run") {
+        if (stage.stage === "pre_run" && run.runType !== "holding") {
           assert.equal(
             seasonalZone.earlyApproach?.phase,
             "before_migration",
             `${run.runId}/${presentation.state}/${localDate} must show early direction throughout Before Migration`,
           );
         }
-        if (stage.stage === "beginning") {
+        if (stage.stage === "beginning" && run.runType !== "holding") {
           assert.equal(
             seasonalZone.earlyApproach?.phase,
             "beginning",
@@ -1154,13 +1172,24 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
             undefined,
             `${run.runId}/${presentation.state}/${localDate} must remove lake/harbor/mouth direction during Building`,
           );
-          assert.equal(
-            seasonalZone.foundationReachIds.some((reachId) =>
-              run.seasonalZonePlan!.phases.beginning.includes(reachId)
-            ),
-            false,
-            `${run.runId}/${presentation.state}/${localDate} must shift away from its Beginning approach reach during Building`,
-          );
+          if (run.runType === "holding") {
+            assert.deepEqual(
+              seasonalZone.foundationReachIds,
+              run.seasonalZonePlan.phases.beginning.filter((reachId) =>
+                !presentation.foundationReachIds ||
+                presentation.foundationReachIds.includes(reachId)
+              ),
+              `${run.runId}/${presentation.state}/${localDate} must retain its complete presentation-specific holding corridor`,
+            );
+          } else {
+            assert.equal(
+              seasonalZone.foundationReachIds.some((reachId) =>
+                run.seasonalZonePlan!.phases.beginning.includes(reachId)
+              ),
+              false,
+              `${run.runId}/${presentation.state}/${localDate} must shift away from its Beginning approach reach during Building`,
+            );
+          }
         }
         const expected: RiverAccessSection[] = finder.sections.filter((
           section,
@@ -1183,6 +1212,41 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
           expected.map((section) => section.id),
           `${run.runId}/${presentation.state}/${localDate} must map the engine's seasonal-zone reaches exactly`,
         );
+        if (run.runType === "holding") {
+          assert.deepEqual(
+            result.recommendedSections.map((section) => section.id),
+            finder.sections.map((section) => section.id),
+            `${run.runId}/${presentation.state}/${localDate} must recommend every audited holding-corridor section`,
+          );
+          assert.deepEqual(result.otherSections, []);
+          const expectedPreferredSections = finder.sections.filter((section) =>
+            section.foundationReachIds.some((reachId) =>
+              seasonalZone.winterHoldingGuidance?.preferredStartReachIds
+                .includes(reachId)
+            )
+          );
+          assert.deepEqual(
+            result.preferredStartSections.map((section) => section.id),
+            expectedPreferredSections.map((section) => section.id),
+            `${run.runId}/${presentation.state}/${localDate} must expose its evidence-ranked winter starting water`,
+          );
+          assert.deepEqual(
+            result.viableWinterSections.map((section) => section.id),
+            finder.sections
+              .filter((section) =>
+                !expectedPreferredSections.some((preferred) =>
+                  preferred.id === section.id
+                )
+              )
+              .map((section) => section.id),
+            `${run.runId}/${presentation.state}/${localDate} must retain every non-primary holding section as viable winter water`,
+          );
+          assert.equal(
+            seasonalZone.winterHoldingGuidance?.activityScopeCopy,
+            run.activity?.scopeCopy,
+            `${run.runId}/${presentation.state}/${localDate} must carry the measured-reach Activity limitation into Spot Finder`,
+          );
+        }
         assert.equal(result.hasRecommendation, true);
         for (const section of result.recommendedSections) {
           assert.equal(

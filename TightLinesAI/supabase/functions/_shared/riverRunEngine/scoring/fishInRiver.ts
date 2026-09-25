@@ -61,6 +61,63 @@ export function scoreFishInRiver(
     run.historicalPresence,
   );
   const riverCeiling = run.historicalPresence.maximum * 10;
+  if (run.runType === "holding") {
+    const active = stage !== "pre_run" && stage !== "post_run";
+    const curveFraction = active
+      ? historicalPresenceFraction({
+        localDate,
+        startDate: window.startDate,
+        lateEndDate: window.lateEndDate,
+        historicalPresence: run.historicalPresence,
+      })
+      : 0;
+    const score = active
+      ? clamp(Math.round(curveFraction * riverCeiling), 0, riverCeiling)
+      : null;
+    const riverName = winterRiverName(run.riverId);
+    const label = stage === "pre_run"
+      ? "Not active yet"
+      : stage === "post_run"
+      ? "Winter holding complete"
+      : "Retained winter presence";
+    return {
+      score,
+      displayScore: score ?? undefined,
+      scoreIsApproximate: score != null,
+      stage,
+      maximum: 100,
+      riverCeiling,
+      historicalRunStrength: opportunity.strength,
+      curveFraction,
+      curveDirection: active ? "falling" : "outside",
+      winterHoldingContext: active,
+      label,
+      headline: active
+        ? `${riverName} Steelhead remain present in the supported winter corridor.`
+        : stage === "pre_run"
+        ? `${riverName} Winter Steelhead has not started.`
+        : `${riverName} winter holding tracking is complete.`,
+      detail: active
+        ? "This value carries the fall endpoint into a slow winter plateau/decline. It is seasonal opportunity context—not a fish count, an activity score, a claim of equal distribution, or evidence of a new run."
+        : stage === "pre_run"
+        ? "The winter presence curve remains inactive until the fall-entry pathway ends."
+        : "The winter curve ends February 28 and does not estimate the spring run.",
+      tip: active
+        ? "Pair this retained-presence context with current Activity and Fishability; verify the exact reach, ice, access, and safety conditions."
+        : stage === "pre_run"
+        ? `Check back on ${window.startDate}.`
+        : "Use the separately researched spring pathway when it becomes available.",
+      reasonCodes: [
+        active
+          ? "stage_winter_holding"
+          : stage === "pre_run"
+          ? "stage_pre_run"
+          : "stage_winter_complete",
+        "historical_presence_curve",
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
     run.runStageCopyStrategy !== "pere_marquette" &&
     run.runStageCopyStrategy !== "big_manistee_tailwater" &&
@@ -310,6 +367,20 @@ export function scoreFishInRiver(
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function winterRiverName(riverId: string): string {
+  return riverId === "pere_marquette"
+    ? "Pere Marquette"
+    : riverId === "big_manistee"
+    ? "Big Manistee"
+    : riverId === "muskegon"
+    ? "Muskegon"
+    : riverId === "st_joseph"
+    ? "St. Joseph"
+    : riverId === "grand"
+    ? "Grand"
+    : "River";
 }
 
 export function historicalPresenceFraction(input: {

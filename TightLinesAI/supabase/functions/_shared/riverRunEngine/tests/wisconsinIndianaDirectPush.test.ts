@@ -44,6 +44,9 @@ const qualified = [
   kewaunee,
   ST_JOSEPH_CONFIGURATION_DOCUMENT,
 ];
+const qualifiedFallRuns = qualified.flatMap((document) =>
+  document.runs.filter((run) => run.season === "fall")
+);
 const lowerConfidenceProxies = [
   ROOT_CONFIGURATION_DOCUMENT,
   BOIS_BRULE_CONFIGURATION_DOCUMENT,
@@ -63,7 +66,7 @@ const expectedHydraulics = new Map([
 ]);
 
 Deno.test("every qualified Wisconsin and Indiana fall run validates with river-specific direct Push", () => {
-  const runs = qualified.flatMap((document) => document.runs);
+  const runs = qualifiedFallRuns;
   assertEquals(runs.length, 19);
 
   for (const document of qualified) {
@@ -81,7 +84,7 @@ Deno.test("every qualified Wisconsin and Indiana fall run validates with river-s
       revisionIssues.map((issue) => issue.message).join("\n"),
     );
     const expected = expectedHydraulics.get(document.river.riverId)!;
-    for (const run of document.runs) {
+    for (const run of document.runs.filter((run) => run.season === "fall")) {
       const validation = validateRunProfile(run, document.river);
       assertEquals(
         validation.valid,
@@ -125,7 +128,7 @@ Deno.test("every qualified Wisconsin and Indiana fall run validates with river-s
 });
 
 Deno.test("every qualified Wisconsin and Indiana run detects its local flow event", () => {
-  for (const run of qualified.flatMap((document) => document.runs)) {
+  for (const run of qualifiedFallRuns) {
     const rules = run.push!;
     const low = Math.max(rules.hydraulic.lowValue * 1.1, 10);
     const absolute = rules.hydraulic.sharpRise24h.absolute * 1.1;

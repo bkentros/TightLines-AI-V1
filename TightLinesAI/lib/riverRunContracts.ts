@@ -115,6 +115,11 @@ export type RiverRunSeasonalZone = {
     phase: "before_migration" | "beginning";
     accessRecommendation: false;
   };
+  winterHoldingGuidance?: {
+    preferredStartReachIds: string[];
+    activityScopeCopy: string;
+    allCorridorSectionsViable: true;
+  };
   basis: "seasonal_calendar";
   orientationOnly: true;
 };

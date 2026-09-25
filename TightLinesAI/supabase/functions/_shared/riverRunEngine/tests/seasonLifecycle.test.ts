@@ -103,7 +103,7 @@ Deno.test("all configured runs distinguish the upcoming cycle from the completed
 
       assertEquals(
         upcoming.daily.runStage.label,
-        "Before migration",
+        run.runType === "holding" ? "Not active yet" : "Before migration",
         `${run.runId} upcoming Stage`,
       );
       assertEquals(
@@ -115,7 +115,7 @@ Deno.test("all configured runs distinguish the upcoming cycle from the completed
       );
       assertEquals(
         upcoming.daily.fishInRiver.label,
-        "Not expected yet",
+        run.runType === "holding" ? "Not active yet" : "Not expected yet",
         `${run.runId} upcoming Presence`,
       );
       assertEquals(
@@ -147,7 +147,8 @@ Deno.test("all configured runs distinguish the upcoming cycle from the completed
       assert(
         completed.daily.runStage.label === "Fall run complete" ||
           completed.daily.runStage.label === "Fall entry complete" ||
-          completed.daily.runStage.label === "Fall migration complete",
+          completed.daily.runStage.label === "Fall migration complete" ||
+          completed.daily.runStage.label === "Winter holding complete",
         `${run.runId} post-run Stage must remain complete immediately after its terminal window`,
       );
     }
@@ -160,7 +161,9 @@ Deno.test("PM Fall Steelhead completes fall primitives without claiming fish lef
   assertEquals(early.daily.runStage.label, "Before migration");
   assertEquals(early.daily.conditionsSuggest.label, "Evaluating");
   assertEquals(early.refresh.push.label, "Waiting for migration");
-  assert(early.refresh.push.detail.includes("not scored as a fresh-movement event"));
+  assert(
+    early.refresh.push.detail.includes("not scored as a fresh-movement event"),
+  );
   assertEquals(
     early.refresh.push.headline.includes("Fish have not started entering"),
     false,

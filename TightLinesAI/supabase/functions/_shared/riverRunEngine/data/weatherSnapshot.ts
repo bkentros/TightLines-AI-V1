@@ -23,6 +23,8 @@ export type RiverRunEnvironmentSnapshot = {
     shortwave_w_m2: number | null;
     clear_sky_shortwave_w_m2: number | null;
     precipitation_in: number | null;
+    temperature_2m_f?: number | null;
+    is_day?: number | null;
   }>;
   forecast_daily?: Array<Record<string, unknown>>;
 };
@@ -54,9 +56,10 @@ export async function fetchRiverRunWeatherSnapshot(input: {
     latitude: String(input.lat),
     longitude: String(input.lon),
     hourly:
-      "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky",
+      "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky,temperature_2m,is_day",
     daily: "precipitation_probability_max",
     precipitation_unit: "inch",
+    temperature_unit: "fahrenheit",
     timezone: "auto",
     past_days: "4",
     forecast_days: "3",
@@ -70,6 +73,8 @@ export async function fetchRiverRunWeatherSnapshot(input: {
       cloud_cover?: Array<number | null>;
       shortwave_radiation?: Array<number | null>;
       shortwave_radiation_clear_sky?: Array<number | null>;
+      temperature_2m?: Array<number | null>;
+      is_day?: Array<number | null>;
     };
     daily?: {
       time?: string[];
@@ -131,6 +136,8 @@ export async function fetchRiverRunWeatherSnapshot(input: {
         payload.hourly?.shortwave_radiation_clear_sky?.[index],
       ),
       precipitation_in: numberOrNull(hourlyPrecip[index]),
+      temperature_2m_f: numberOrNull(payload.hourly?.temperature_2m?.[index]),
+      is_day: numberOrNull(payload.hourly?.is_day?.[index]),
     })),
     forecast_daily: dailyTimes.map((date, index) => ({
       date,

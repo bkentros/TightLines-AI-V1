@@ -17,6 +17,11 @@ export type RiverAccessSectionPosition = "lower" | "middle" | "upper";
 export type RiverAccessSeasonalZone = {
   status: "not_started" | "active" | "complete";
   foundationReachIds: readonly string[];
+  winterHoldingGuidance?: {
+    preferredStartReachIds: readonly string[];
+    activityScopeCopy: string;
+    allCorridorSectionsViable: true;
+  };
 };
 
 export type RiverAccessSpot = {
@@ -64,6 +69,10 @@ export type RiverSpotFinder = {
 export type RiverSpotFinderRecommendedSections = {
   /** Audited sections overlapping the engine-owned seasonal zone. */
   recommendedSections: RiverAccessSection[];
+  /** Winter sections with the strongest accepted measured-condition coverage. */
+  preferredStartSections: RiverAccessSection[];
+  /** Other audited sections that remain viable throughout the winter corridor. */
+  viableWinterSections: RiverAccessSection[];
   /** Audited access sections outside the active seasonal zone. */
   otherSections: RiverAccessSection[];
   /** False outside an active run or when no audited section overlaps. */
@@ -81,6 +90,8 @@ export function resolveRiverSpotFinderRecommendedSections(
   ) {
     return {
       recommendedSections: [],
+      preferredStartSections: [],
+      viableWinterSections: [],
       otherSections: finder.sections,
       hasRecommendation: false,
     };
@@ -92,6 +103,8 @@ export function resolveRiverSpotFinderRecommendedSections(
   if (recommendedSections.length === 0) {
     return {
       recommendedSections: [],
+      preferredStartSections: [],
+      viableWinterSections: [],
       otherSections: finder.sections,
       hasRecommendation: false,
     };
@@ -99,8 +112,26 @@ export function resolveRiverSpotFinderRecommendedSections(
   const recommendedSectionIds = new Set(
     recommendedSections.map((section) => section.id),
   );
+  const preferredStartReachIds = new Set(
+    seasonalZone.winterHoldingGuidance?.preferredStartReachIds ?? [],
+  );
+  const preferredStartSections = recommendedSections.filter((section) =>
+    section.foundationReachIds.some((reachId) =>
+      preferredStartReachIds.has(reachId)
+    )
+  );
+  const preferredStartSectionIds = new Set(
+    preferredStartSections.map((section) => section.id),
+  );
+  const viableWinterSections = seasonalZone.winterHoldingGuidance
+    ? recommendedSections.filter((section) =>
+      !preferredStartSectionIds.has(section.id)
+    )
+    : [];
   return {
     recommendedSections,
+    preferredStartSections,
+    viableWinterSections,
     otherSections: finder.sections.filter(
       (section) => !recommendedSectionIds.has(section.id),
     ),

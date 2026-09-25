@@ -1,0 +1,1347 @@
+{
+  "schemaVersion": "michigan-winter-steelhead-pass1-review-v1",
+  "generatedFrom": "deterministic engine inputs; no live provider data",
+  "disclaimer": "Pass 1 verifies lifecycle, handoff continuity, scoring direction, daylight windows, and fail-safes. Historical calibration is reserved for Pass 2.",
+  "rivers": [
+    {
+      "riverId": "pere_marquette",
+      "runId": "pere_marquette_winter_steelhead",
+      "activation": "2026-12-23",
+      "capabilities": {
+        "migrationStage": {
+          "status": "available"
+        },
+        "activity": {
+          "status": "available"
+        },
+        "fishInRiver": {
+          "status": "available"
+        },
+        "fishability": {
+          "status": "available"
+        },
+        "migrationTiming": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "This experience follows retained overwintering fish and does not infer migration timing."
+        },
+        "push": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "Winter holding Activity does not claim a fresh migratory push."
+        }
+      },
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-22",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-23",
+          "phase": "Winter transition",
+          "presence": 70
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 69
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 66
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 64
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing_cloudy",
+          "waterTempF": 33,
+          "trend": "warming",
+          "cloudCoverPct": 100,
+          "flowBand": "ideal",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ]
+        },
+        {
+          "id": "stable_suitable_clear",
+          "waterTempF": 40,
+          "trend": "neutral",
+          "cloudCoverPct": 0,
+          "flowBand": "ideal",
+          "score": 76,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 76
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 76
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ]
+        },
+        {
+          "id": "warming_suitable_cloudy",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 84,
+          "label": "Highly active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 84
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 83
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 84
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "waterTempF": 40,
+          "trend": "strong_warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 75
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        },
+        {
+          "id": "blown_out",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "missing_water_temperature",
+          "waterTempF": null,
+          "trend": "neutral_missing",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 59,
+          "label": "Moderate",
+          "confidence": "Moderate",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 59
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        }
+      ]
+    },
+    {
+      "riverId": "big_manistee",
+      "runId": "big_manistee_winter_steelhead",
+      "activation": "2026-12-23",
+      "capabilities": {
+        "migrationStage": {
+          "status": "available"
+        },
+        "activity": {
+          "status": "available"
+        },
+        "fishInRiver": {
+          "status": "available"
+        },
+        "fishability": {
+          "status": "available"
+        },
+        "migrationTiming": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "This experience follows retained overwintering fish and does not infer migration timing."
+        },
+        "push": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "Winter holding Activity does not claim a fresh migratory push."
+        }
+      },
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-22",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-23",
+          "phase": "Winter transition",
+          "presence": 70
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 69
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 66
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 64
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing_cloudy",
+          "waterTempF": 33,
+          "trend": "warming",
+          "cloudCoverPct": 100,
+          "flowBand": "ideal",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ]
+        },
+        {
+          "id": "stable_suitable_clear",
+          "waterTempF": 40,
+          "trend": "neutral",
+          "cloudCoverPct": 0,
+          "flowBand": "ideal",
+          "score": 76,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 76
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 76
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ]
+        },
+        {
+          "id": "warming_suitable_cloudy",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 84,
+          "label": "Highly active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 84
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 83
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 84
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "waterTempF": 40,
+          "trend": "strong_warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 75
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        },
+        {
+          "id": "blown_out",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "missing_water_temperature",
+          "waterTempF": null,
+          "trend": "neutral_missing",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 59,
+          "label": "Moderate",
+          "confidence": "Moderate",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 59
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        }
+      ]
+    },
+    {
+      "riverId": "muskegon",
+      "runId": "muskegon_winter_steelhead",
+      "activation": "2026-12-23",
+      "capabilities": {
+        "migrationStage": {
+          "status": "available"
+        },
+        "activity": {
+          "status": "available"
+        },
+        "fishInRiver": {
+          "status": "available"
+        },
+        "fishability": {
+          "status": "available"
+        },
+        "migrationTiming": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "This experience follows retained overwintering fish and does not infer migration timing."
+        },
+        "push": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "Winter holding Activity does not claim a fresh migratory push."
+        }
+      },
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-22",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-23",
+          "phase": "Winter transition",
+          "presence": 80
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 78
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 75
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 72
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing_cloudy",
+          "waterTempF": 33,
+          "trend": "warming",
+          "cloudCoverPct": 100,
+          "flowBand": "ideal",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ]
+        },
+        {
+          "id": "stable_suitable_clear",
+          "waterTempF": 40,
+          "trend": "neutral",
+          "cloudCoverPct": 0,
+          "flowBand": "ideal",
+          "score": 76,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 76
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 76
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ]
+        },
+        {
+          "id": "warming_suitable_cloudy",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 84,
+          "label": "Highly active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 84
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 83
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 84
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "waterTempF": 40,
+          "trend": "strong_warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 75
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        },
+        {
+          "id": "blown_out",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "missing_water_temperature",
+          "waterTempF": null,
+          "trend": "neutral_missing",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 59,
+          "label": "Moderate",
+          "confidence": "Moderate",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 59
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        }
+      ]
+    },
+    {
+      "riverId": "st_joseph",
+      "runId": "st_joseph_winter_steelhead",
+      "activation": "2026-12-23",
+      "capabilities": {
+        "migrationStage": {
+          "status": "available"
+        },
+        "activity": {
+          "status": "available"
+        },
+        "fishInRiver": {
+          "status": "available"
+        },
+        "fishability": {
+          "status": "available"
+        },
+        "migrationTiming": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "This experience follows retained overwintering fish and does not infer migration timing."
+        },
+        "push": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "Winter holding Activity does not claim a fresh migratory push."
+        }
+      },
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-22",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-23",
+          "phase": "Winter transition",
+          "presence": 81
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 79
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 77
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 74
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing_cloudy",
+          "waterTempF": 33,
+          "trend": "warming",
+          "cloudCoverPct": 100,
+          "flowBand": "ideal",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ]
+        },
+        {
+          "id": "stable_suitable_clear",
+          "waterTempF": 40,
+          "trend": "neutral",
+          "cloudCoverPct": 0,
+          "flowBand": "ideal",
+          "score": 76,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 76
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 76
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ]
+        },
+        {
+          "id": "warming_suitable_cloudy",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 84,
+          "label": "Highly active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 84
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 83
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 84
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "waterTempF": 40,
+          "trend": "strong_warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 75
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        },
+        {
+          "id": "blown_out",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "missing_water_temperature",
+          "waterTempF": null,
+          "trend": "neutral_missing",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 59,
+          "label": "Moderate",
+          "confidence": "Moderate",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 59
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        }
+      ]
+    },
+    {
+      "riverId": "grand",
+      "runId": "grand_winter_steelhead",
+      "activation": "2027-01-01",
+      "capabilities": {
+        "migrationStage": {
+          "status": "available"
+        },
+        "activity": {
+          "status": "available"
+        },
+        "fishInRiver": {
+          "status": "available"
+        },
+        "fishability": {
+          "status": "available"
+        },
+        "migrationTiming": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "This experience follows retained overwintering fish and does not infer migration timing."
+        },
+        "push": {
+          "status": "unavailable",
+          "reason": "not_applicable_to_holding",
+          "notes": "Winter holding Activity does not claim a fresh migratory push."
+        }
+      },
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-31",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2027-01-01",
+          "phase": "Winter transition",
+          "presence": 43
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 43
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 41
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 39
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing_cloudy",
+          "waterTempF": 33,
+          "trend": "warming",
+          "cloudCoverPct": 100,
+          "flowBand": "ideal",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ]
+        },
+        {
+          "id": "stable_suitable_clear",
+          "waterTempF": 40,
+          "trend": "neutral",
+          "cloudCoverPct": 0,
+          "flowBand": "ideal",
+          "score": 76,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 76
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 76
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ]
+        },
+        {
+          "id": "warming_suitable_cloudy",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 84,
+          "label": "Highly active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 84
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 83
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 84
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "waterTempF": 40,
+          "trend": "strong_warming",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 75
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        },
+        {
+          "id": "blown_out",
+          "waterTempF": 40,
+          "trend": "warming",
+          "cloudCoverPct": 90,
+          "flowBand": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ]
+        },
+        {
+          "id": "missing_water_temperature",
+          "waterTempF": null,
+          "trend": "neutral_missing",
+          "cloudCoverPct": 90,
+          "flowBand": "ideal",
+          "score": 59,
+          "label": "Moderate",
+          "confidence": "Moderate",
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 59
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ],
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ]
+        }
+      ]
+    }
+  ]
+}

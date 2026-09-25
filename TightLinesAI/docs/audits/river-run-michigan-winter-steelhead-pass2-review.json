@@ -1,0 +1,268 @@
+{
+  "auditVersion": "michigan-winter-steelhead-pass2-v1",
+  "completedOn": "2026-09-25",
+  "status": "accepted",
+  "scope": {
+    "state": "Michigan",
+    "species": "Steelhead",
+    "pathway": "Winter holding",
+    "rivers": [
+      "pere_marquette_winter_steelhead",
+      "big_manistee_winter_steelhead",
+      "muskegon_winter_steelhead",
+      "st_joseph_winter_steelhead",
+      "grand_winter_steelhead"
+    ],
+    "replayYears": "2021-2025 winter starts (December-start seasons continue into the following February)"
+  },
+  "method": "Mechanical replay of every model-active winter date using accepted USGS/PMTU measured-water records and archived hourly weather. Hourly weather is requested in UTC and converted with America/Detroit historical timezone rules before daylight blocks are scored; this avoids the archive provider's fixed-offset historical labeling. The replay evaluates model behavior, confidence, scope copy, and safety caps. It does not estimate catch probability or validate fish abundance.",
+  "sourceRecords": [
+    {
+      "role": "biology_and_season",
+      "source": "Michigan DNR Steelhead species profile",
+      "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead"
+    },
+    {
+      "role": "temperature_led_movement_context",
+      "source": "Workman, Hayes, and Coon (2002), Transactions of the American Fisheries Society",
+      "url": "https://doi.org/10.1577/1548-8659(2002)131%3C0463:AMOSMI%3E2.0.CO;2"
+    },
+    {
+      "role": "winter_run_strain_context",
+      "source": "Michigan DNR Little Manistee River Weir",
+      "url": "https://www.michigan.gov/dnr/managing-resources/fisheries/hatcheries/little-manistee-river-weir"
+    },
+    {
+      "role": "flow_and_water_temperature",
+      "source": "USGS Water Data for the Nation: 04122500, 04125550, 04121970, 04101500, 04119000, and 04118564",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/"
+    },
+    {
+      "role": "pere_marquette_water_temperature",
+      "source": "Pere Marquette Trout Unlimited stations via Monitor My Watershed",
+      "url": "https://monitormywatershed.org/"
+    },
+    {
+      "role": "hourly_light_and_cloud_archive",
+      "source": "Open-Meteo Historical Weather API",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api"
+    }
+  ],
+  "replay": {
+    "expectedRiverDays": 1655,
+    "usableRiverDays": 1610,
+    "coveragePercent": 97.28,
+    "minimumRiverCoveragePercent": 90.88,
+    "scoredDaylightBlocks": 4830,
+    "stratifiedReviewRows": 500,
+    "favorableMeasuredWaterDays38To45F": 248,
+    "colderMeasuredWaterDaysBelow38F": 1357,
+    "maximumObservedWithinDayBlockSpread": 8,
+    "invariantFailures": [],
+    "rivers": [
+      {
+        "runId": "pere_marquette_winter_steelhead",
+        "rulesVersion": "pere_marquette-winter-steelhead-activity-v1",
+        "expectedDays": 340,
+        "usableDays": 309,
+        "coveragePercent": 90.88,
+        "dayScore": {
+          "min": 29,
+          "p10": 29,
+          "median": 63,
+          "p90": 81,
+          "max": 91,
+          "mean": 58.09
+        },
+        "labels": {
+          "Active": 130,
+          "Highly active": 38,
+          "Moderate": 65,
+          "Reserved": 76
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "temperature": 13,
+          "temperatureHistory": 31,
+          "weather": 0
+        },
+        "maximumBlockSpread": 8
+      },
+      {
+        "runId": "big_manistee_winter_steelhead",
+        "rulesVersion": "big_manistee-winter-steelhead-activity-v1",
+        "expectedDays": 340,
+        "usableDays": 340,
+        "coveragePercent": 100,
+        "dayScore": {
+          "min": 29,
+          "p10": 29,
+          "median": 49,
+          "p90": 69,
+          "max": 78,
+          "mean": 52.84
+        },
+        "labels": {
+          "Active": 122,
+          "Moderate": 172,
+          "Reserved": 46
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "temperature": 0,
+          "temperatureHistory": 0,
+          "weather": 0
+        },
+        "maximumBlockSpread": 8
+      },
+      {
+        "runId": "muskegon_winter_steelhead",
+        "rulesVersion": "muskegon-winter-steelhead-activity-v1",
+        "expectedDays": 340,
+        "usableDays": 340,
+        "coveragePercent": 100,
+        "dayScore": {
+          "min": 29,
+          "p10": 48,
+          "median": 49,
+          "p90": 68,
+          "max": 82,
+          "mean": 52.41
+        },
+        "labels": {
+          "Active": 81,
+          "Highly active": 7,
+          "Moderate": 220,
+          "Reserved": 32
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "temperature": 0,
+          "temperatureHistory": 0,
+          "weather": 0
+        },
+        "maximumBlockSpread": 7
+      },
+      {
+        "runId": "st_joseph_winter_steelhead",
+        "rulesVersion": "st_joseph-winter-steelhead-activity-v1",
+        "expectedDays": 340,
+        "usableDays": 332,
+        "coveragePercent": 97.65,
+        "dayScore": {
+          "min": 19,
+          "p10": 29,
+          "median": 49,
+          "p90": 82,
+          "max": 92,
+          "mean": 53.01
+        },
+        "labels": {
+          "Active": 105,
+          "Highly active": 46,
+          "Inactive": 24,
+          "Moderate": 59,
+          "Reserved": 98
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "temperature": 5,
+          "temperatureHistory": 8,
+          "weather": 0
+        },
+        "maximumBlockSpread": 8
+      },
+      {
+        "runId": "grand_winter_steelhead",
+        "rulesVersion": "grand-winter-steelhead-activity-v1",
+        "expectedDays": 295,
+        "usableDays": 289,
+        "coveragePercent": 97.97,
+        "dayScore": {
+          "min": 19,
+          "p10": 19,
+          "median": 29,
+          "p90": 70,
+          "max": 91,
+          "mean": 38.85
+        },
+        "labels": {
+          "Active": 56,
+          "Highly active": 5,
+          "Inactive": 32,
+          "Moderate": 30,
+          "Reserved": 166
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "temperature": 3,
+          "temperatureHistory": 6,
+          "weather": 0
+        },
+        "maximumBlockSpread": 8
+      }
+    ]
+  },
+  "calibrationDecision": {
+    "result": "retain_pass1_thresholds_and_weights",
+    "reasons": [
+      "Measured water temperature cleanly separates the 38–45°F band from colder winter water across every river while near-freezing and blown-out caps remain intact.",
+      "Gradual measured-water warming remains more favorable than stable, cooling, or sharp-swing counterfactuals; air temperature is never substituted for measured water.",
+      "Cloud-filtered daylight changes block ranking by a useful but bounded amount, while rain contributes no independent positive score.",
+      "River-specific score distributions reflect observed thermal and hydraulic differences instead of a forced statewide baseline.",
+      "No lifecycle adjustment is added: winter phase labels describe the seasonal handoff, while Activity remains driven by current conditions."
+    ],
+    "unchangedWeights": {
+      "waterTemperature": 0.45,
+      "temperatureTrend": 0.2,
+      "daylightAndCloud": 0.2,
+      "hydraulics": 0.15,
+      "independentRain": 0
+    },
+    "unchangedSeasonBoundary": {
+      "pereMarquette": "December 23 through February 28",
+      "bigManistee": "December 23 through February 28",
+      "muskegon": "December 23 through February 28",
+      "stJoseph": "December 23 through February 28",
+      "grand": "January 1 through February 28",
+      "march1": "inactive; reserved for a separately researched spring pathway"
+    }
+  },
+  "acceptance": {
+    "allFiveRunsPresent": true,
+    "everyRiverAtLeast90PercentCoverage": true,
+    "aggregateCoverageAtLeast95Percent": true,
+    "allMechanicalInvariantsPass": true,
+    "oneHundredStratifiedRowsPerRiver": true,
+    "reviewCsvShapesValid": true,
+    "measuredTemperatureSeparatesFavorableWater": true,
+    "cloudsRankWindowsWithoutDominatingDailyScore": true
+  },
+  "limitations": [
+    "Scores are mechanistic responsiveness estimates, not catch-rate predictions.",
+    "Pere Marquette temperature uses the configured priority chain across three labeled PMTU stations; it is not a single co-located lower-river record.",
+    "Grand River combines Fulton Street flow with North Park measured temperature and is restricted to the documented downtown scope.",
+    "Each remaining USGS model describes its named gauge reach, not the entire river.",
+    "Historical replay cannot validate ice access or personal safety; ice-affected live readings remain excluded from scoring."
+  ]
+}

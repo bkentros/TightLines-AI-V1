@@ -763,6 +763,7 @@ export default function RiverRunScreen() {
                       snapshot={resultSnapshot}
                       activePrimitive={activePrimitive}
                       species={resultSpecies}
+                      season={resultSeason}
                     />
                     <FeedbackCard
                       featureName="River Migration Coverage"
@@ -1461,13 +1462,17 @@ function ResultHero({
       />
       <CornerMarkSet color={paper.red} size={16} thickness={2} inset={11} />
       <SectionEyebrow color={paper.red} size={10.5}>
-        {`${formatRiverRunSeason(season).toUpperCase()} MIGRATION`}
+        {season === "winter"
+          ? "WINTER HOLDING"
+          : `${formatRiverRunSeason(season).toUpperCase()} MIGRATION`}
       </SectionEyebrow>
       <Text style={styles.resultHeroTitle} allowFontScaling={false}>
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of migration stage, activity, seasonal presence
+        Today&apos;s read of{" "}
+        {season === "winter" ? "winter phase" : "migration stage"}, activity,
+        seasonal presence
         {snapshot?.push.model === "direct_event_state" ? ", Push Watch," : ","}
         {" "}
         and river conditions.
@@ -1883,6 +1888,13 @@ function SpotFinderCard({
     () => resolveRiverSpotFinderRecommendedSections(finder, seasonalZone),
     [finder, seasonalZone],
   );
+  const winterHolding = runStage?.winterHoldingContext === true;
+  const winterGuidance = winterHolding
+    ? seasonalZone?.winterHoldingGuidance
+    : undefined;
+  const preferredStartSummary = recommendation.preferredStartSections
+    .map((section) => riverAccessSectionLabel(section.position))
+    .join(" + ");
   const recommendationSignature = recommendation.recommendedSections
     .map((section) => section.id)
     .join(":");
@@ -1930,8 +1942,17 @@ function SpotFinderCard({
 
   const renderSection = (
     section: RiverAccessSection,
-    recommended: boolean,
+    kind: "recommended" | "preferred" | "viable" | "other",
   ) => {
+    const recommended = kind === "recommended" || kind === "preferred";
+    const viable = kind === "viable";
+    const badgeLabel = kind === "preferred"
+      ? "BEST MEASURED START"
+      : kind === "viable"
+      ? "WINTER VIABLE"
+      : kind === "recommended"
+      ? "RECOMMENDED"
+      : undefined;
     const sectionOpen = expandedSectionIds.includes(section.id);
     const sectionLabel = riverAccessSectionLabel(section.position);
     return (
@@ -1940,8 +1961,10 @@ function SpotFinderCard({
         style={[
           styles.spotFinderSection,
           recommended && styles.spotFinderSectionRecommended,
+          viable && styles.spotFinderSectionViable,
           sectionOpen && styles.spotFinderSectionOpen,
           recommended && sectionOpen && styles.spotFinderSectionRecommendedOpen,
+          viable && sectionOpen && styles.spotFinderSectionViableOpen,
         ]}
       >
         <Pressable
@@ -1955,16 +1978,31 @@ function SpotFinderCard({
           accessibilityLabel={`${sectionLabel}. ${section.rangeLabel}. ${section.spots.length} source-listed access ${
             section.spots.length === 1 ? "name" : "names"
           }. ${
-            recommended ? "Recommended section for this migration stage. " : ""
+            kind === "preferred"
+              ? "Best measured starting section for this winter corridor. "
+              : viable
+              ? "Viable winter section outside the primary measured starting water. "
+              : recommended
+              ? "Recommended section for this migration stage. "
+              : ""
           }${sectionOpen ? "Collapse" : "Expand"}.`}
         >
           <View style={styles.spotFinderSectionCopy}>
-            {recommended
+            {badgeLabel
               ? (
-                <View style={styles.spotFinderRecommendedBadge}>
-                  <Ionicons name="checkmark" size={9} color="#FFFFFF" />
+                <View
+                  style={[
+                    styles.spotFinderRecommendedBadge,
+                    viable && styles.spotFinderViableBadge,
+                  ]}
+                >
+                  <Ionicons
+                    name={viable ? "water-outline" : "checkmark"}
+                    size={9}
+                    color="#FFFFFF"
+                  />
                   <Text style={styles.spotFinderRecommendedLabel}>
-                    RECOMMENDED
+                    {badgeLabel}
                   </Text>
                 </View>
               )
@@ -1995,7 +2033,7 @@ function SpotFinderCard({
           <Ionicons
             name={sectionOpen ? "chevron-up" : "chevron-down"}
             size={17}
-            color={recommended ? "#167B78" : paper.dashboardBlue}
+            color={recommended || viable ? "#167B78" : paper.dashboardBlue}
           />
         </Pressable>
 
@@ -2147,7 +2185,9 @@ function SpotFinderCard({
         <View style={styles.spotFinderHeaderCopy}>
           <Text style={styles.spotFinderTitle}>Spot Finder</Text>
           <Text style={styles.spotFinderSubtitle}>
-            Recommended run sections and public access
+            {winterHolding
+              ? "Winter holding sections and public access"
+              : "Recommended run sections and public access"}
           </Text>
         </View>
         <Ionicons
@@ -2199,17 +2239,26 @@ function SpotFinderCard({
                   <View style={styles.spotFinderRecommendationIntroHeading}>
                     <Ionicons name="leaf-outline" size={16} color="#167B78" />
                     <Text style={styles.spotFinderRecommendationIntroLabel}>
-                      RECOMMENDED{" "}
-                      {recommendation.recommendedSections.length === 1
-                        ? "SECTION"
-                        : "SECTIONS"}
+                      {winterGuidance
+                        ? "WINTER CORRIDOR"
+                        : `RECOMMENDED ${
+                          recommendation.recommendedSections.length === 1
+                            ? "SECTION"
+                            : "SECTIONS"
+                        }`}
                     </Text>
                   </View>
                   <Text style={styles.spotFinderRecommendationIntroTitle}>
-                    Current phase: {runStage?.label}
+                    {winterGuidance
+                      ? `Best measured start: ${preferredStartSummary}`
+                      : `Current phase: ${runStage?.label}`}
                   </Text>
                   <Text style={styles.spotFinderRecommendationIntroText}>
-                    Broad starting areas—not a live fish-location report.
+                    {winterGuidance
+                      ? `Every audited section remains viable winter water; the highlighted start is where this outlook has its strongest direct coverage. ${winterGuidance.activityScopeCopy}`
+                      : winterHolding
+                      ? "Every audited section in the supported winter corridor—not a claim of equal fish distribution or river-wide measured conditions."
+                      : "Broad starting areas—not a live fish-location report."}
                   </Text>
                 </View>
               )
@@ -2230,7 +2279,42 @@ function SpotFinderCard({
                 </View>
               )}
 
-            {recommendation.hasRecommendation
+            {recommendation.hasRecommendation && winterGuidance
+              ? (
+                <>
+                  <View
+                    style={[
+                      styles.spotFinderSectionGroup,
+                      styles.spotFinderRecommendedSectionGroup,
+                    ]}
+                  >
+                    <Text style={styles.spotFinderGroupLabel}>
+                      BEST MEASURED START
+                    </Text>
+                    {recommendation.preferredStartSections.map((section) =>
+                      renderSection(section, "preferred")
+                    )}
+                  </View>
+                  {recommendation.viableWinterSections.length > 0
+                    ? (
+                      <View
+                        style={[
+                          styles.spotFinderSectionGroup,
+                          styles.spotFinderOtherSectionGroup,
+                        ]}
+                      >
+                        <Text style={styles.spotFinderGroupLabel}>
+                          ALSO VIABLE WINTER WATER
+                        </Text>
+                        {recommendation.viableWinterSections.map((section) =>
+                          renderSection(section, "viable")
+                        )}
+                      </View>
+                    )
+                    : null}
+                </>
+              )
+              : recommendation.hasRecommendation
               ? (
                 <View
                   style={[
@@ -2239,7 +2323,7 @@ function SpotFinderCard({
                   ]}
                 >
                   {recommendation.recommendedSections.map((section) =>
-                    renderSection(section, true)
+                    renderSection(section, "recommended")
                   )}
                 </View>
               )
@@ -2254,7 +2338,7 @@ function SpotFinderCard({
                     ALL RIVER ACCESS
                   </Text>
                   {recommendation.otherSections.map((section) =>
-                    renderSection(section, false)
+                    renderSection(section, "other")
                   )}
                 </View>
               )}
@@ -2272,7 +2356,7 @@ function SpotFinderCard({
                     OTHER RIVER ACCESS
                   </Text>
                   {recommendation.otherSections.map((section) =>
-                    renderSection(section, false)
+                    renderSection(section, "other")
                   )}
                 </View>
               )
@@ -2904,10 +2988,12 @@ function SnapshotView({
   snapshot,
   activePrimitive,
   species,
+  season,
 }: {
   snapshot: RiverRunSnapshotResponse;
   activePrimitive: PrimitiveTabId;
   species: string;
+  season: RiverRunSeason;
 }) {
   const tabs = primitiveTabsForSnapshot(snapshot);
   const tab = tabs.find((item) => item.id === activePrimitive) ?? tabs[0];
@@ -2917,9 +3003,12 @@ function SnapshotView({
       <ActivePrimitivePanel key={tab.id}>
         <PrimitiveSection
           index={tab.index}
-          title={tab.cardTitle}
+          title={season === "winter" && tab.id === "run_stage"
+            ? "Winter Phase"
+            : tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
+          winterHolding={season === "winter"}
           contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
             : tab.id === "push"
@@ -3436,7 +3525,19 @@ function activityBlockColor(score: number): string {
 
 function migrationStageSummary(
   primitive: RiverRunSnapshotResponse["runStage"],
+  winterHolding = false,
 ): string {
+  if (winterHolding) {
+    return primitive.label === "Winter transition"
+      ? "Fall-entry fish are settling into winter holding water; this is not a new migratory push."
+      : primitive.label === "Core winter hold"
+      ? "The retained population is in its core winter holding period."
+      : primitive.label === "Spring approach"
+      ? "Winter holding continues through February 28 without inferring spring movement."
+      : primitive.label === "Not active yet"
+      ? "The winter pathway remains off until the fall-entry pathway ends."
+      : "The winter holding pathway is complete and does not extend into the spring model.";
+  }
   switch (primitive.stage) {
     case "pre_run":
       return "The river is ahead of its dependable migration window; occasional early arrivals can occur before the run is established.";
@@ -3467,6 +3568,7 @@ function PrimitiveSection({
   headerMeta,
   contextLine,
   contextContent,
+  winterHolding = false,
 }: {
   index: string;
   title: string;
@@ -3475,6 +3577,7 @@ function PrimitiveSection({
   headerMeta?: string;
   contextLine?: string;
   contextContent?: ReactNode;
+  winterHolding?: boolean;
 }) {
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
@@ -3484,12 +3587,17 @@ function PrimitiveSection({
   });
   const stageOnly = visualKind === "run_stage";
   const publicHeadline = stageOnly
-    ? migrationStageSummary(primitive as RiverRunSnapshotResponse["runStage"])
+    ? migrationStageSummary(
+      primitive as RiverRunSnapshotResponse["runStage"],
+      winterHolding,
+    )
     : visualKind === "activity" && unavailable
     ? primitive.headline
     : undefined;
   const scopeNote = visualKind === "run_stage"
-    ? "Seasonal timing context · not live movement or a fish-location report"
+    ? winterHolding
+      ? "Seasonal holding context · not a new run or a fish-location report"
+      : "Seasonal timing context · not live movement or a fish-location report"
     : visualKind === "activity"
     ? "Expected responsiveness if fish are present · not abundance or catch probability"
     : visualKind === "push"
@@ -4735,6 +4843,11 @@ const styles = StyleSheet.create({
     borderLeftColor: "#2E9B97",
     backgroundColor: "#F1FAF7",
   },
+  spotFinderSectionViable: {
+    borderLeftWidth: 3,
+    borderLeftColor: "#6D8F8B",
+    backgroundColor: "#F7FAF9",
+  },
   spotFinderSectionOpen: {
     borderColor: "rgba(27,75,104,0.42)",
     backgroundColor: "#F9FBFC",
@@ -4743,6 +4856,11 @@ const styles = StyleSheet.create({
     borderColor: "rgba(22,123,120,0.72)",
     borderLeftColor: "#167B78",
     backgroundColor: "#EDF8F5",
+  },
+  spotFinderSectionViableOpen: {
+    borderColor: "rgba(72,112,108,0.5)",
+    borderLeftColor: "#48706C",
+    backgroundColor: "#F2F7F5",
   },
   spotFinderSectionToggle: {
     minHeight: 55,
@@ -4766,6 +4884,9 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     borderRadius: 8,
     backgroundColor: "#167B78",
+  },
+  spotFinderViableBadge: {
+    backgroundColor: "#5C7D79",
   },
   spotFinderRecommendedLabel: {
     fontFamily: paperFonts.metaMonoBold,

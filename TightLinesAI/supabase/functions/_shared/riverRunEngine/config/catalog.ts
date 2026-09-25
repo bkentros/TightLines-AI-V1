@@ -30,15 +30,19 @@ import {
   BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
   BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
   BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
+  BIG_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE,
   MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
   MUSKEGON_FALL_COHO_RUN_PROFILE,
   MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  MUSKEGON_WINTER_STEELHEAD_RUN_PROFILE,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+  PERE_MARQUETTE_WINTER_STEELHEAD_RUN_PROFILE,
   ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
   ST_JOSEPH_FALL_COHO_RUN_PROFILE,
   ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_WINTER_STEELHEAD_RUN_PROFILE,
 } from "./runs.ts";
 import {
   BIG_MANISTEE_CHINOOK_BIOLOGY_PROFILE,
@@ -46,6 +50,7 @@ import {
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   MUSKEGON_CHINOOK_BIOLOGY_PROFILE,
   RIVER_RUN_SPECIES_BIOLOGY_PROFILES,
   ST_JOSEPH_CHINOOK_BIOLOGY_PROFILE,
@@ -60,10 +65,12 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-09-03-pm-direct-push-v1+seasonal-zone-v3",
+    configVersion:
+      "2026-09-25-pm-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
+      getMovementEngineDefinition("stable_cool_holding").version,
     ].join("+"),
     river: PERE_MARQUETTE_RIVER_PROFILE,
     biologyProfiles: RIVER_RUN_SPECIES_BIOLOGY_PROFILES,
@@ -71,6 +78,7 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
       PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
       PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
       PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+      PERE_MARQUETTE_WINTER_STEELHEAD_RUN_PROFILE,
     ],
   };
 
@@ -99,11 +107,13 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-09-03-big-manistee-direct-push-v1+seasonal-zone-v3",
+    configVersion:
+      "2026-09-25-big-manistee-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
       getMovementEngineDefinition("fall_repeat_spawner_cooling").version,
+      getMovementEngineDefinition("stable_cool_holding").version,
     ].join("+"),
     river: BIG_MANISTEE_RIVER_PROFILE,
     biologyProfiles: [
@@ -111,53 +121,63 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
       GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
       GREAT_LAKES_COHO_BIOLOGY_PROFILE,
       GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+      GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
       GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
     ],
     runs: [
       BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
       BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
       BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
+      BIG_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE,
       BIG_MANISTEE_FALL_BROWN_TROUT_RUN_PROFILE,
     ],
   };
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-03-muskegon-direct-push-v1+seasonal-zone-v3",
+  configVersion:
+    "2026-09-25-muskegon-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: MUSKEGON_RIVER_PROFILE,
   biologyProfiles: [
     MUSKEGON_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
     MUSKEGON_FALL_COHO_RUN_PROFILE,
     MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+    MUSKEGON_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };
 
 export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3",
+  configVersion:
+    "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: ST_JOSEPH_RIVER_PROFILE,
   biologyProfiles: [
     ST_JOSEPH_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
     ST_JOSEPH_FALL_COHO_RUN_PROFILE,
     ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
+    ST_JOSEPH_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };
 

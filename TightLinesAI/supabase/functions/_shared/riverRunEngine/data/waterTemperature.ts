@@ -531,6 +531,7 @@ function filterTemperatureObservations(input: {
     )
   ) {
     if (
+      hasEquipmentFaultQualifier(candidate.qualifier) ||
       candidate.waterTempF < input.source.minValidF ||
       candidate.waterTempF > input.source.maxValidF
     ) {
@@ -553,6 +554,12 @@ function filterTemperatureObservations(input: {
     observations.push(candidate);
   }
   return { observations, rejectedObservationCount };
+}
+
+function hasEquipmentFaultQualifier(qualifier: string | undefined): boolean {
+  return (qualifier ?? "")
+    .split(/[\s,;|]+/)
+    .some((part) => part.toUpperCase() === "EQUIP");
 }
 
 function median(values: number[]): number | null {

@@ -1424,6 +1424,21 @@ function validateSeasonalZonePlan(
       "config_source_invalid",
     ));
   }
+  if (
+    plan.winterHoldingGuidance &&
+    (run.runType !== "holding" ||
+      plan.winterHoldingGuidance.preferredStartReachIds.length === 0 ||
+      new Set(plan.winterHoldingGuidance.preferredStartReachIds).size !==
+        plan.winterHoldingGuidance.preferredStartReachIds.length ||
+      !hasText(plan.winterHoldingGuidance.activityScopeCopy) ||
+      !hasText(plan.winterHoldingGuidance.sourceNotes))
+  ) {
+    issues.push(issue(
+      "seasonalZonePlan.winterHoldingGuidance",
+      "Winter holding guidance requires unique preferred reaches, public scope copy, source notes, and a holding run.",
+      "config_source_invalid",
+    ));
+  }
   const foundation = new Map(
     (river?.foundation?.reaches ?? []).map((reach) => [reach.reachId, reach]),
   );
@@ -1457,14 +1472,47 @@ function validateSeasonalZonePlan(
     }
   }
   const beginningReachIds = new Set(plan.phases.beginning);
-  for (
-    const phase of [
-      "buildingEarly",
-      "buildingEstablished",
-      "buildingBroad",
-    ] as const
+  if (
+    plan.winterHoldingGuidance?.preferredStartReachIds.some((reachId) =>
+      !beginningReachIds.has(reachId) ||
+      !foundation.has(reachId) ||
+      foundation.get(reachId)?.role === "mouth_context"
+    )
   ) {
-    if (plan.phases[phase].some((reachId) => beginningReachIds.has(reachId))) {
+    issues.push(issue(
+      "seasonalZonePlan.winterHoldingGuidance.preferredStartReachIds",
+      "Preferred winter starting reaches must remain inside the active audited holding corridor.",
+      "config_source_reference_missing",
+    ));
+  }
+  if (run.runType === "holding") {
+    for (const [phase, reachIds] of Object.entries(plan.phases)) {
+      if (
+        reachIds.length !== plan.phases.beginning.length ||
+        reachIds.some((reachId, index) =>
+          reachId !== plan.phases.beginning[index]
+        )
+      ) {
+        issues.push(issue(
+          `seasonalZonePlan.phases.${phase}`,
+          "Holding plans must retain the same audited corridor through every active phase.",
+          "config_invalid_value",
+        ));
+      }
+    }
+  } else {
+    for (
+      const phase of [
+        "buildingEarly",
+        "buildingEstablished",
+        "buildingBroad",
+      ] as const
+    ) {
+      if (
+        !plan.phases[phase].some((reachId) => beginningReachIds.has(reachId))
+      ) {
+        continue;
+      }
       issues.push(issue(
         `seasonalZonePlan.phases.${phase}`,
         "Building must shift away from every Before Migration/Beginning approach reach.",
@@ -1495,7 +1543,9 @@ function validateActivityRules(
   > = {
     chinook_salmon: "chinook_fall_reaction",
     coho_salmon: "coho_fall_reaction",
-    steelhead: "steelhead_feeding",
+    steelhead: run.runType === "holding"
+      ? "steelhead_winter_holding"
+      : "steelhead_feeding",
     lake_run_brown_trout: "brown_trout_fall_reaction",
   };
   const expectedProfile = expectedProfileBySpecies[run.species];
@@ -1839,6 +1889,7 @@ function validatePrimitiveCapabilities(
     "no_accepted_hydraulic_or_water_temperature_source",
     "no_accepted_historical_baseline",
     "no_accepted_activity_calibration",
+    "not_applicable_to_holding",
   ]);
   for (
     const field of [
@@ -2884,7 +2935,8 @@ export function validateConfigurationRevision(
         ),
       );
     }
-    const expectedPurpose = run.runType === "fall_entry"
+    const expectedPurpose = run.runType === "fall_entry" ||
+        run.runType === "holding"
       ? "pre_spawn_overwintering"
       : "spawning";
     if (biology.migrationPurpose !== expectedPurpose) {

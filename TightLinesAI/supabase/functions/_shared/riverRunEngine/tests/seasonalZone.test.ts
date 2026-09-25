@@ -53,10 +53,18 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
   for (const document of RIVER_RUN_CONFIGURATION_DOCUMENTS) {
     for (const run of document.runs) {
       assert(run.seasonalZonePlan, `${run.runId} needs a Seasonal Zone plan`);
-      assert(
-        run.seasonalZonePlan.earlyApproach?.label.length,
-        `${run.runId} needs early approach context`,
-      );
+      if (run.runType === "holding") {
+        assertEquals(
+          run.seasonalZonePlan.earlyApproach,
+          undefined,
+          `${run.runId} must not imply a new lake-to-river approach`,
+        );
+      } else {
+        assert(
+          run.seasonalZonePlan.earlyApproach?.label.length,
+          `${run.runId} needs early approach context`,
+        );
+      }
       for (
         const [phase, reachIds] of Object.entries(
           run.seasonalZonePlan.phases,
@@ -74,13 +82,21 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
           "buildingBroad",
         ] as const
       ) {
-        assertEquals(
-          run.seasonalZonePlan.phases[phase].some((reachId) =>
-            beginningReachIds.has(reachId)
-          ),
-          false,
-          `${run.runId}/${phase} retained its Beginning approach reach`,
-        );
+        if (run.runType === "holding") {
+          assertEquals(
+            run.seasonalZonePlan.phases[phase],
+            run.seasonalZonePlan.phases.beginning,
+            `${run.runId}/${phase} must retain its full holding corridor`,
+          );
+        } else {
+          assertEquals(
+            run.seasonalZonePlan.phases[phase].some((reachId) =>
+              beginningReachIds.has(reachId)
+            ),
+            false,
+            `${run.runId}/${phase} retained its Beginning approach reach`,
+          );
+        }
       }
 
       for (
@@ -97,15 +113,19 @@ Deno.test("every catalog run carries audited approach and phase geography", () =
           localDate,
         });
         assertEquals(beforeMigration.status, "not_started", run.runId);
-        assertEquals(
-          beforeMigration.earlyApproach?.phase,
-          "before_migration",
-          `${run.runId}/${localDate}`,
-        );
-        assertEquals(
-          beforeMigration.earlyApproach?.accessRecommendation,
-          false,
-        );
+        if (run.runType === "holding") {
+          assertEquals(beforeMigration.earlyApproach, undefined);
+        } else {
+          assertEquals(
+            beforeMigration.earlyApproach?.phase,
+            "before_migration",
+            `${run.runId}/${localDate}`,
+          );
+          assertEquals(
+            beforeMigration.earlyApproach?.accessRecommendation,
+            false,
+          );
+        }
         assertEquals(beforeMigration.foundationReachIds, []);
       }
     }

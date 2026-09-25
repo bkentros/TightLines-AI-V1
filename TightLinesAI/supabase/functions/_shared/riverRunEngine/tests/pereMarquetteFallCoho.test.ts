@@ -181,5 +181,6 @@ Deno.test("production catalog exposes accepted Coho", () => {
     "pere_marquette_fall_chinook",
     "pere_marquette_fall_coho",
     "pere_marquette_fall_steelhead",
+    "pere_marquette_winter_steelhead",
   ]);
 });

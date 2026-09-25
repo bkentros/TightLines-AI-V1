@@ -2,6 +2,7 @@ export const RIVER_RUN_REASON_CODES = [
   "gauge_fresh",
   "gauge_stale",
   "gauge_missing",
+  "gauge_ice_affected",
   "gauge_older_than_24h",
   "gauge_metric_missing",
   "gauge_reach_limited",
@@ -86,6 +87,10 @@ export const RIVER_RUN_REASON_CODES = [
   "stage_post_run",
   "stage_offseason",
   "stage_winter_holding",
+  "stage_winter_transition",
+  "stage_core_winter_holding",
+  "stage_spring_approach",
+  "stage_winter_complete",
   "conditions_ahead",
   "conditions_typical",
   "conditions_delayed",
@@ -129,6 +134,12 @@ export const RIVER_RUN_REASON_CODES = [
   "peak_delayed_conditions",
   "post_run_residual_presence",
   "winter_holding_read_required",
+  "activity_winter_holding",
+  "activity_winter_warming",
+  "activity_winter_stable",
+  "activity_winter_cooling",
+  "activity_winter_near_freezing_cap",
+  "activity_winter_daylight",
 ] as const;
 
 export type RiverRunReasonCode = typeof RIVER_RUN_REASON_CODES[number];

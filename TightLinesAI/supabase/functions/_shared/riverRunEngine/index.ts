@@ -18,6 +18,7 @@ export * from "./metrics/rain.ts";
 export * from "./metrics/flow.ts";
 export * from "./metrics/temperature.ts";
 export * from "./metrics/directEvent.ts";
+export * from "./metrics/seasonalAvailability.ts";
 export * from "./scoring/runStage.ts";
 export * from "./scoring/fishInRiver.ts";
 export * from "./scoring/activity.ts";

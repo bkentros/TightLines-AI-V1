@@ -20,6 +20,7 @@ import {
   getPushConditionsForDate,
   getRecentDailyPushConditions,
   getRunTemperatureSources,
+  isRunSeasonallyActive,
   type LastSupportivePushConditions,
   listPublishedConfigurations,
   listVisibleRiverRuns,
@@ -220,21 +221,26 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "pere_marquette_fall_chinook",
   "pere_marquette_fall_coho",
   "pere_marquette_fall_steelhead",
+  "pere_marquette_winter_steelhead",
   "betsie_fall_chinook",
   "betsie_fall_coho",
   "betsie_fall_steelhead",
   "big_manistee_fall_chinook",
   "big_manistee_fall_coho",
   "big_manistee_fall_steelhead",
+  "big_manistee_winter_steelhead",
   "muskegon_fall_chinook",
   "muskegon_fall_coho",
   "muskegon_fall_steelhead",
+  "muskegon_winter_steelhead",
   "st_joseph_fall_chinook",
   "st_joseph_fall_coho",
   "st_joseph_fall_steelhead",
+  "st_joseph_winter_steelhead",
   "grand_fall_chinook",
   "grand_fall_coho",
   "grand_fall_steelhead",
+  "grand_winter_steelhead",
   "platte_fall_chinook",
   "platte_fall_coho",
   "platte_fall_steelhead",
@@ -482,8 +488,17 @@ export async function handleRiverRunRequest(
   }
 
   if (url.pathname.endsWith("/rivers")) {
+    const activeRuns = runs.filter((run) => {
+      const river = rivers.find((candidate) =>
+        candidate.riverId === run.riverId
+      );
+      return river && isRunSeasonallyActive(
+        run,
+        localDateInTz(river.timezone, deps.now ?? new Date()),
+      );
+    });
     return jsonResponse({
-      states: publicEnabled ? listVisibleRiverRuns(rivers, runs) : [],
+      states: publicEnabled ? listVisibleRiverRuns(rivers, activeRuns) : [],
     });
   }
   if (!url.pathname.endsWith("/snapshot")) {
@@ -506,6 +521,18 @@ export async function handleRiverRunRequest(
       "River Run profile not found.",
       "river_run_not_found",
       404,
+    );
+  }
+  if (
+    !isRunSeasonallyActive(
+      run,
+      localDateInTz(river.timezone, deps.now ?? new Date()),
+    )
+  ) {
+    return jsonError(
+      "This seasonal River Run pathway is not active today.",
+      "river_run_season_inactive",
+      409,
     );
   }
   const presentation = resolveSnapshotPresentation(
@@ -1289,7 +1316,12 @@ async function handleInternalRefresh(
   const targets = deps.runs.flatMap((run) => {
     if (!visibleRunIds.has(run.runId)) return [];
     const river = deps.rivers.find((item) => item.riverId === run.riverId);
-    return river ? [{ river, run }] : [];
+    return river && isRunSeasonallyActive(
+        run,
+        localDateInTz(river.timezone, now),
+      )
+      ? [{ river, run }]
+      : [];
   });
   const results: Array<Record<string, unknown>> = [];
   let failed = 0;
