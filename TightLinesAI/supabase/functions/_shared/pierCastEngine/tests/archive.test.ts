@@ -199,6 +199,31 @@ Deno.test("temperature ingestion schedule is private, authenticated, and cycle-a
   );
 });
 
+Deno.test("all PierCast ingestion jobs wait for a complete LMHOFS cycle and preserve cohort order", async () => {
+  const migration = await Deno.readTextFile(
+    new URL(
+      "../../../../migrations/20260925183000_pier_cast_complete_cycle_cadence.sql",
+      import.meta.url,
+    ),
+  );
+  const expectedSchedules = [
+    ["pier-cast-temperature-ingestion", "35 3,9,15,21 * * *"],
+    ["pier-cast-wisconsin-shadow-ingestion", "45 3,9,15,21 * * *"],
+    ["pier-cast-lake-huron-shadow-ingestion", "50 3,9,15,21 * * *"],
+    ["pier-cast-pentwater-caseville-shadow-ingestion", "52 3,9,15,21 * * *"],
+    ["pier-cast-five-city-shadow-ingestion", "54 3,9,15,21 * * *"],
+    ["pier-cast-chicago-alpena-shadow-ingestion", "54 3,9,15,21 * * *"],
+    ["pier-cast-st-joseph-harrisville-shadow-ingestion", "55 3,9,15,21 * * *"],
+    ["pier-cast-v3-shadow-ingestion", "58 3,9,15,21 * * *"],
+  ] as const;
+
+  for (const [jobName, cadence] of expectedSchedules) {
+    assertStringIncludes(migration, `'${jobName}', '${cadence}'`);
+  }
+  assertStringIncludes(migration, "cron.unschedule(existing_job_id)");
+  assertStringIncludes(migration, "scheduled_job.command_sql");
+});
+
 Deno.test("calibration observation archive is private, QC-gated, and validation-only", async () => {
   const migration = await Deno.readTextFile(
     new URL(

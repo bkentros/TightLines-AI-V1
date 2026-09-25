@@ -46,6 +46,16 @@ const LMHOFS_WMS_ROOT =
   "https://opendap.co-ops.nos.noaa.gov/thredds/wms/NOAA/LMHOFS/MODELS";
 const LMHOFS_MAX_FORECAST_HOUR = 120;
 
+/**
+ * LMHOFS resolves parts of the nearshore grid down to tens of metres. Let the
+ * camera and WMS source request shoreline-scale tiles instead of stopping at
+ * the regional zoom used by the overview.
+ */
+export const PIER_CAST_MAP_MIN_ZOOM = 3.2;
+export const PIER_CAST_MAP_MAX_ZOOM = 14;
+export const PIER_CAST_TEMPERATURE_RASTER_MAX_ZOOM = 14;
+export const PIER_CAST_MAP_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
+
 export const PIER_CAST_ACTIVE_MAP_BOUNDS: PierCastMapBounds = [
   -88.45,
   41.35,

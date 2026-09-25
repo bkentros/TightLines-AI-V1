@@ -50,6 +50,7 @@ import {
 } from "../lib/pierCast";
 import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructures";
 import { projectPierCastStandings } from "../lib/pierCastStandings";
+import { PIER_CAST_MAP_REFRESH_INTERVAL_MS } from "../lib/pierCastMap";
 import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import {
   formatPierCastModeId,
@@ -147,8 +148,6 @@ const FISH_SCALE: Record<PierCastSpeciesId, number> = {
   white_bass: 1.2,
   bluegill: 1.16,
 };
-
-const PIER_CAST_CONDITIONS_REFRESH_MS = 15 * 60 * 1000;
 
 const SKELETON_THREE = ["a", "b", "c"] as const;
 const SKELETON_FOUR = ["a", "b", "c", "d"] as const;
@@ -3725,7 +3724,10 @@ export default function PierCastReviewScreen() {
     // Refresh immediately when a report opens or the response contract changes;
     // the interval then keeps modeled conditions current in the background.
     void openCity(selectedCityId, true);
-    const timer = setInterval(() => void openCity(selectedCityId, true), PIER_CAST_CONDITIONS_REFRESH_MS);
+    const timer = setInterval(
+      () => void openCity(selectedCityId, true),
+      PIER_CAST_MAP_REFRESH_INTERVAL_MS,
+    );
     return () => clearInterval(timer);
   }, [selectedCityId, openCity]);
 
@@ -3734,7 +3736,7 @@ export default function PierCastReviewScreen() {
       void load();
       const refreshTimer = setInterval(
         () => void load({ silent: true }),
-        PIER_CAST_CONDITIONS_REFRESH_MS,
+        PIER_CAST_MAP_REFRESH_INTERVAL_MS,
       );
       return () => clearInterval(refreshTimer);
     }, [load]),

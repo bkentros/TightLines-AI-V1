@@ -9,6 +9,10 @@ import {
   closestPierCastTemperatureTime,
   filterPierCastMapCities,
   PIER_CAST_ACTIVE_MAP_BOUNDS,
+  PIER_CAST_MAP_MAX_ZOOM,
+  PIER_CAST_MAP_MIN_ZOOM,
+  PIER_CAST_MAP_REFRESH_INTERVAL_MS,
+  PIER_CAST_TEMPERATURE_RASTER_MAX_ZOOM,
   pierCastTemperatureHorizonLabel,
   pierCastTemperatureRasterValidTimes,
   pierCastTemperatureValidTimes,
@@ -162,6 +166,13 @@ test("PierCast map state filters and camera bounds stay deterministic", () => {
   );
   assert.deepEqual(pierCastMapBoundsForFilter("ALL"), PIER_CAST_ACTIVE_MAP_BOUNDS);
   assert.deepEqual(pierCastMapBoundsForFilter("MI"), PIER_CAST_STATE_MAP_BOUNDS.MI);
+});
+
+test("PierCast map supports shoreline-scale temperature inspection", () => {
+  assert.equal(PIER_CAST_MAP_MIN_ZOOM, 3.2);
+  assert.ok(PIER_CAST_MAP_MAX_ZOOM >= 14);
+  assert.ok(PIER_CAST_TEMPERATURE_RASTER_MAX_ZOOM >= PIER_CAST_MAP_MAX_ZOOM);
+  assert.equal(PIER_CAST_MAP_REFRESH_INTERVAL_MS, 15 * 60 * 1000);
 });
 
 const temperatureMap: PierCastTemperatureMapResponse = {
