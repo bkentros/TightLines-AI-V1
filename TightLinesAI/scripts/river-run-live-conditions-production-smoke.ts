@@ -13,6 +13,8 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
   muskegon: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   st_joseph: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   grand: ["flow_cfs", "gage_height_ft", "water_temp_f", "turbidity_fnu"],
+  bear_creek_manistee: ["flow_cfs"],
+  rogue_mi: ["flow_cfs", "gage_height_ft"],
   platte: ["flow_cfs", "gage_height_ft"],
   white: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   milwaukee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -54,6 +56,8 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   muskegon: ["flow_cfs", "water_temp_f"],
   st_joseph: ["flow_cfs", "water_temp_f"],
   grand: ["flow_cfs"],
+  bear_creek_manistee: [],
+  rogue_mi: ["flow_cfs"],
   platte: ["flow_cfs"],
   white: ["flow_cfs"],
   milwaukee: ["flow_cfs"],
@@ -189,7 +193,7 @@ for (const target of targets) {
       ),
     )
   );
-  if (target.riverId === "betsie") {
+  if (["betsie", "bear_creek_manistee"].includes(target.riverId)) {
     if (stringField(firstConditions, "status") !== "unavailable") {
       throw new Error(
         `${target.riverId} must retain its honest unavailable gauge state.`,
@@ -382,7 +386,15 @@ function auditMetric(
     const baselineVersion = stringField(seasonal, "baselineVersion") ?? "";
     const isExactDateArchive = windowRadiusDays === 0 &&
       baselineVersion.includes("exact-date");
-    if (windowRadiusDays !== 3 && !isExactDateArchive) {
+    const isLongTermFieldArchive = value == null &&
+      windowRadiusDays === 0 &&
+      stringField(seasonal, "recordKind") === "long_term" &&
+      stringField(seasonal, "source") ===
+        "usgs_approved_field_measurement_archive";
+    if (
+      windowRadiusDays !== 3 && !isExactDateArchive &&
+      !isLongTermFieldArchive
+    ) {
       throw new Error(
         `${riverId} ${id} has an unsupported seasonal-context window.`,
       );
