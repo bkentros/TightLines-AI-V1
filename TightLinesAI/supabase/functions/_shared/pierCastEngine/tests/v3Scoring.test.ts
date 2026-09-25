@@ -1,5 +1,6 @@
 import { assert, assertEquals, assertThrows } from "jsr:@std/assert";
 import {
+  analyzePierCastV3SeasonalContinuity,
   archivePierCastV3ShadowForecast,
   buildPierCastV3ReviewOutlook,
   buildPierCastV3ShadowForecastPayload,
@@ -423,6 +424,79 @@ Deno.test("v3 recurring availability is continuous across the year seam", () => 
       );
     }
   }
+});
+
+Deno.test("v3 seasonal curves enforce reviewed daily continuity and explain displayed turns", () => {
+  const reports = [2027, 2028].flatMap((year) =>
+    PIER_CAST_V3_PAIR_CALIBRATIONS.map((pair) =>
+      analyzePierCastV3SeasonalContinuity({ pair, year })
+    )
+  );
+  const issues = reports.flatMap((report) => report.issues);
+  assertEquals(issues, []);
+  assertEquals(reports.length, 508);
+  assert(
+    reports.every((report) => report.openDailyComparisonCount >= 250),
+    "Every pair must retain a substantial open-season continuity sample after regulation closures.",
+  );
+  assert(reports.some((report) => report.modeHandoffReversalCount > 0));
+  assert(reports.some((report) => report.knotReversalCount > 0));
+
+  const manisteeCoho = getPierCastV3PairCalibration(
+    "manistee_mi",
+    "coho_salmon",
+  )!;
+  const displayed = [24, 25, 26, 27, 28].map((day) => {
+    const modes = evaluatePierCastV3ModePotentials({
+      localDate: `2027-09-${day}`,
+      modes: manisteeCoho.modes,
+    });
+    return Number(
+      Math.max(...modes.map((mode) => mode.seasonalPotential)).toFixed(1),
+    );
+  });
+  assertEquals(displayed, [6.8, 6.9, 7.1, 7.2, 7.3]);
+
+  const primarySpecies = new Set([
+    "coho_salmon",
+    "chinook_salmon",
+    "atlantic_salmon",
+    "steelhead",
+    "brown_trout",
+    "lake_trout",
+    "freshwater_drum",
+  ]);
+  const manisteePrimaryPairs = PIER_CAST_V3_PAIR_CALIBRATIONS.filter((pair) =>
+    pair.cityId === "manistee_mi" && primarySpecies.has(pair.speciesId)
+  );
+  const dailyLeaders = [24, 25, 26, 27, 28].map((day) =>
+    manisteePrimaryPairs.map((pair) => ({
+      speciesId: pair.speciesId,
+      seasonalPotential: Math.max(
+        ...evaluatePierCastV3ModePotentials({
+          localDate: `2027-09-${day}`,
+          modes: pair.modes,
+        }).map((mode) => mode.seasonalPotential),
+      ),
+    })).sort((left, right) =>
+      right.seasonalPotential - left.seasonalPotential ||
+      left.speciesId.localeCompare(right.speciesId)
+    )[0]
+  );
+  assertEquals(
+    dailyLeaders.map((leader) => leader.speciesId),
+    [
+      "chinook_salmon",
+      "chinook_salmon",
+      "coho_salmon",
+      "coho_salmon",
+      "coho_salmon",
+    ],
+  );
+  assertEquals(
+    dailyLeaders.map((leader) => Number(leader.seasonalPotential.toFixed(1))),
+    [7.1, 7.0, 7.1, 7.2, 7.3],
+  );
 });
 
 Deno.test("v3 thirty-two-city outlook requires one coherent issue and stays blocked", () => {

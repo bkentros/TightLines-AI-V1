@@ -35,6 +35,51 @@ export class PierCastAccessError extends Error {
     super(message);
   }
 }
+
+/** Public map projection: modeled temperature only, never scores or species. */
+export function temperatureMapOnly(outlook: PierCastReviewOutlookResponse) {
+  const cities = outlook.cities.map((city) => ({
+    cityId: city.cityId,
+    points: (city.temperatureTimeline ?? []).map((point) => ({
+      validAt: point.validAt,
+      temperatureC: point.temperatureC,
+    })),
+  }));
+  const expectedPointCount = cities[0]?.points.length ?? 0;
+  const expectedTimes = cities[0]?.points.map((point) => point.validAt) ?? [];
+  const timelineIsOrdered = expectedTimes.every((validAt, index) => {
+    const parsed = Date.parse(validAt);
+    return Number.isFinite(parsed) &&
+      (index === 0 || parsed > Date.parse(expectedTimes[index - 1]!));
+  });
+  if (
+    cities.length === 0 ||
+    expectedPointCount === 0 ||
+    !timelineIsOrdered ||
+    cities.some((city) =>
+      city.points.length !== expectedPointCount ||
+      city.points.some((point, index) =>
+        point.validAt !== expectedTimes[index] ||
+        !Number.isFinite(point.temperatureC)
+      )
+    )
+  ) {
+    throw new Error("A complete coherent temperature map cycle is required.");
+  }
+  return {
+    mode: "nearshore_temperature_map" as const,
+    generatedAt: outlook.generatedAt,
+    disclosure:
+      "Modeled NOAA LMHOFS surface guidance at audited nearshore cells. It is not a pier thermometer and may not resolve harbor mixing, depth, river plumes, waves, or ice.",
+    source: {
+      productId: outlook.source.productId,
+      issuedAt: outlook.source.issuedAt,
+      fetchedAt: outlook.source.fetchedAt,
+      cycleAgeHours: outlook.source.cycleAgeHours,
+    },
+    cities,
+  };
+}
 export function leaderboardOnly(
   outlook:
     & Pick<

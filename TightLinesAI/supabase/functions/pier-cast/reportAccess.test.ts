@@ -1,9 +1,10 @@
-import { assertEquals, assertRejects } from "jsr:@std/assert";
+import { assertEquals, assertRejects, assertThrows } from "jsr:@std/assert";
 import {
   cityReportOnly,
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  temperatureMapOnly,
 } from "./reportAccess.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
 
@@ -58,6 +59,36 @@ Deno.test("leaderboard and city projections cannot leak another city's report", 
   ]);
   assertEquals(report.cities[0].additionalSpeciesResearch, undefined);
   assertEquals(report.cities[0].temperatureEvents?.events.length, 1);
+});
+Deno.test("temperature map exposes only coherent modeled timelines and provenance", () => {
+  const outlook = fixture();
+  outlook.source = {
+    status: "fresh_archived_complete_cycle",
+    productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+    issuedAt: "2026-09-25T06:00:00Z",
+    fetchedAt: "2026-09-25T08:00:00Z",
+    cycleAgeHours: 6,
+    cityCount: 2,
+    sampleCount: 4,
+  };
+  outlook.cities.forEach((city, cityIndex) => {
+    city.temperatureTimeline = [
+      { validAt: "2026-09-25T12:00:00Z", temperatureC: 12 + cityIndex },
+      { validAt: "2026-09-25T13:00:00Z", temperatureC: 13 + cityIndex },
+    ];
+  });
+  const projected = temperatureMapOnly(outlook);
+  assertEquals(projected.mode, "nearshore_temperature_map");
+  assertEquals(projected.source.productId, "NOAA_NOS_LMHOFS_REGULARGRID");
+  assertEquals(projected.cities.length, 2);
+  assertEquals(
+    projected.cities.every((city) => city.points.length === 2),
+    true,
+  );
+  assertEquals(JSON.stringify(projected).includes("secret"), false);
+
+  outlook.cities[1].temperatureTimeline?.pop();
+  assertThrows(() => temperatureMapOnly(outlook), Error, "complete coherent");
 });
 Deno.test("four lifetime city/day reports, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
   const claims = new Map<string, string[]>();

@@ -2,6 +2,7 @@ import {
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  temperatureMapOnly,
 } from "./reportAccess.ts";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -178,6 +179,10 @@ const handler = createPierCastHandler({
         releasePolicyVersion: outlook.releasePolicyVersion,
       })
       : null;
+  },
+  readTemperatureMap: async () => {
+    const outlook = await readPublicOutlook();
+    return outlook ? temperatureMapOnly(outlook) : null;
   },
   readSavedReport: async (request) => {
     const { userId } = await account(request);

@@ -20,7 +20,7 @@ The seven covered structures, numeric seasonal curves, thermal profiles, formula
 
 This wording appears on the leaderboard and city reports. The rating explanation also states:
 
-“Ratings combine published research with FinFindr's judgment about seasonal pier opportunity and temperature suitability. They are not measured catch probabilities. NOAA water temperatures are modeled estimates, not measurements at the pier; accuracy has not been verified at each covered pier. Evidence is stronger for some species and seasons than others.”
+“Ratings combine published research with FinFindr's judgment about seasonal pier opportunity and temperature suitability. Season potential is a date-specific estimate interpolated from broader seasonal evidence; its displayed tenths help compare targets and are not daily measurements or catch probabilities. NOAA water temperatures are modeled estimates, not measurements at the pier; accuracy has not been verified at each covered pier. Evidence is stronger for some species and seasons than others.”
 
 The public API includes disclosure and release-policy metadata. Scientific calibration/representation approvals remain unchanged. Public discovery does not expose numeric seasonal curves, and public city reports exclude additional research drafts. The disclosure communicates uncertainty; it is not a representation of legal immunity.
 

@@ -523,6 +523,10 @@ export default function RootLayout() {
             name="pier-cast-review"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="pier-cast-map"
+            options={{ headerShown: false }}
+          />
           {/*
           The following screens used to render the system Stack header
           (a thin grey bar with a default Back button) which clashed with

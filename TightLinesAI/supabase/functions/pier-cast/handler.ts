@@ -1,4 +1,8 @@
-import { leaderboardOnly, PierCastAccessError } from "./reportAccess.ts";
+import {
+  leaderboardOnly,
+  PierCastAccessError,
+  temperatureMapOnly,
+} from "./reportAccess.ts";
 import {
   buildPierCastCatalog,
   parsePierCastShadowOutcomeInput,
@@ -34,6 +38,9 @@ function error(message: string, code: string, status: number): Response {
 export type PierCastHandlerDependencies = {
   readPublicCatalog?: () => ReturnType<typeof buildPierCastCatalog>;
   readLeaderboard?: () => Promise<ReturnType<typeof leaderboardOnly> | null>;
+  readTemperatureMap?: () => Promise<
+    ReturnType<typeof temperatureMapOnly> | null
+  >;
   readCityReport?: (request: Request, cityId: string) => Promise<unknown>;
   readSavedReport?: (request: Request) => Promise<unknown>;
   authorizeReview: (request: Request) => Promise<boolean>;
@@ -58,6 +65,7 @@ export function createPierCastHandler(
     const url = new URL(request.url);
     if (
       url.pathname.endsWith("/leaderboard") ||
+      url.pathname.endsWith("/temperature-map") ||
       url.pathname.endsWith("/report") || url.pathname.endsWith("/saved-report")
     ) {
       if (request.method !== "GET") {
@@ -73,6 +81,14 @@ export function createPierCastHandler(
             return error("Choose a city.", "invalid_city", 400);
           }
           return json(await dependencies.readCityReport(request, cityId));
+        }
+        if (url.pathname.endsWith("/temperature-map")) {
+          const temperatureMap = await dependencies.readTemperatureMap?.();
+          return temperatureMap ? json(temperatureMap) : error(
+            "PierCast temperatures are not available right now.",
+            "pier_cast_temperature_map_unavailable",
+            503,
+          );
         }
         if (!url.pathname.endsWith("/leaderboard")) {
           return error("Route unavailable.", "not_found", 404);

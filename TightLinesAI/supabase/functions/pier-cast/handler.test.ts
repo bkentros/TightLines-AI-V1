@@ -2,7 +2,10 @@ import { assertEquals } from "jsr:@std/assert";
 import { buildPierCastReviewOutlook } from "../_shared/pierCastEngine/index.ts";
 import type { PierCastV3ReviewOutlookResponse } from "../_shared/pierCastEngine/pipeline/v3ReviewOutlook.ts";
 import { completeLmhofsBatch } from "../_shared/pierCastEngine/tests/fixtures/lmhofs.ts";
-import { createPierCastHandler } from "./handler.ts";
+import {
+  createPierCastHandler,
+  type PierCastHandlerDependencies,
+} from "./handler.ts";
 
 function request(path: string, method = "GET", body?: unknown): Request {
   return new Request(`https://example.test/functions/v1/pier-cast/${path}`, {
@@ -21,6 +24,7 @@ function dependencies(input?: {
     ReturnType<typeof reviewOutlook> | null
   >;
   readV3ReviewOutlook?: () => Promise<PierCastV3ReviewOutlookResponse | null>;
+  readTemperatureMap?: PierCastHandlerDependencies["readTemperatureMap"];
 }) {
   return {
     authorizeReview: () => Promise.resolve(input?.authorized ?? true),
@@ -30,6 +34,7 @@ function dependencies(input?: {
       (() => Promise.resolve(null)),
     readV3ReviewOutlook: input?.readV3ReviewOutlook ??
       (() => Promise.resolve(null)),
+    readTemperatureMap: input?.readTemperatureMap,
     readShadowReview: () =>
       Promise.resolve({
         status: "private_shadow_validation" as const,
@@ -386,6 +391,46 @@ Deno.test("PierCast handler enforces route and method boundaries", async () => {
   const options = await handler(request("catalog", "OPTIONS"));
   assertEquals(options.status, 200);
   assertEquals(options.headers.get("access-control-allow-origin"), "*");
+});
+
+Deno.test("public temperature map is read-only, anonymous, and independently unavailable", async () => {
+  const body: NonNullable<
+    Awaited<
+      ReturnType<
+        NonNullable<PierCastHandlerDependencies["readTemperatureMap"]>
+      >
+    >
+  > = {
+    mode: "nearshore_temperature_map",
+    generatedAt: "2026-09-25T12:00:00Z",
+    disclosure: "Modeled guidance.",
+    source: {
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+      issuedAt: "2026-09-25T06:00:00Z",
+      fetchedAt: "2026-09-25T08:00:00Z",
+      cycleAgeHours: 6,
+    },
+    cities: [{
+      cityId: "ludington_mi",
+      points: [{ validAt: "2026-09-25T12:00:00Z", temperatureC: 15 }],
+    }],
+  };
+  const handler = createPierCastHandler(dependencies({
+    authorized: false,
+    readTemperatureMap: () => Promise.resolve(body),
+  }));
+  const response = await handler(request("temperature-map"));
+  assertEquals(response.status, 200);
+  assertEquals(await response.json(), body);
+  assertEquals((await handler(request("temperature-map", "POST"))).status, 405);
+
+  const unavailable = createPierCastHandler(dependencies());
+  const unavailableResponse = await unavailable(request("temperature-map"));
+  assertEquals(unavailableResponse.status, 503);
+  assertEquals(
+    (await unavailableResponse.json()).error,
+    "pier_cast_temperature_map_unavailable",
+  );
 });
 
 Deno.test("public standings are independent of account access and cannot expose reports", async () => {

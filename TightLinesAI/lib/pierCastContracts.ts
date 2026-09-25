@@ -153,6 +153,22 @@ export type PierCastReviewTemperaturePointRead = {
   temperatureC: number;
 };
 
+export type PierCastTemperatureMapResponse = {
+  mode: "nearshore_temperature_map";
+  generatedAt: string;
+  disclosure: string;
+  source: {
+    productId: "NOAA_NOS_LMHOFS_REGULARGRID";
+    issuedAt: string;
+    fetchedAt: string;
+    cycleAgeHours: number;
+  };
+  cities: Array<{
+    cityId: string;
+    points: PierCastReviewTemperaturePointRead[];
+  }>;
+};
+
 export type PierCastTemperatureEventRead = {
   eventId: string;
   direction: "cooling" | "warming";

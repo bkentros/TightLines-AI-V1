@@ -1,6 +1,6 @@
 import { PIER_CAST_RESEARCH_DISCLOSURE, PIER_CAST_RESEARCH_DETAIL } from "../lib/pierCastDisclosure";
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   type ReactNode,
@@ -52,8 +52,14 @@ import { selectPierCastCoveredStructures } from "../lib/pierCastCoveredStructure
 import { projectPierCastStandings } from "../lib/pierCastStandings";
 import { pierCastWaterBodyName } from "../lib/pierCastWaterBody";
 import {
+  formatPierCastModeId,
+  formatPierCastSeasonalPotential,
   isPrimaryPierCastSpecies,
+  pierCastSeasonalPotential,
+  pierCastSeasonalTrend,
+  pierCastSpeciesShortLabel,
   presentPierCastDate,
+  sortPierCastSpeciesByOpportunity,
 } from "../lib/pierCastSpeciesPresentation";
 import { getPierCastSpeciesImage } from "../lib/pierCastSpeciesImages";
 import type {
@@ -85,6 +91,12 @@ import {
   orderPierCastTemperatureEvents,
   pierCastTemperatureEventTimingLabel,
 } from "../lib/pierCastTemperatureEventPresentation";
+import {
+  formatPierCastWaterScaleEnd,
+  pierCastWaterTemperatureColor,
+  pierCastWaterTemperatureFraction,
+} from "../lib/pierCastTemperatureScale";
+import { PierCastTemperatureGradient } from "../components/pier-cast/PierCastTemperatureGradient";
 import { hapticSelection } from "../lib/safeHaptics";
 import { usePaperBonePulse } from "../lib/usePaperBonePulse";
 import { useAuthStore } from "../store/authStore";
@@ -336,48 +348,6 @@ function suitabilityText(range: [number, number] | null): string {
   return low === high ? `${low}%` : `${low}–${high}%`;
 }
 
-/**
- * Absolute water-temperature scale, shared by every city.
- *
- * The previous meter normalized each city's own min/max, so a 70°F hour in
- * Frankfort and a 54°F hour in Sheboygan drew an identical bar — the meter
- * read swing, not temperature. This fixed 38–78°F domain covers Great Lakes
- * nearshore surface water year-round, so a given height and color mean the
- * same thing on every Great Lakes report.
- */
-const WATER_SCALE_MIN_F = 38;
-const WATER_SCALE_MAX_F = 78;
-
-const WATER_SCALE_STOPS = [
-  { limit: 45, tone: "#1E5C80" },
-  { limit: 52, tone: "#2A6E96" },
-  { limit: 60, tone: "#3E8FB0" },
-  { limit: 68, tone: "#C98A3A" },
-  { limit: Infinity, tone: "#C05F1C" },
-] as const;
-
-/** Absolute color for a water temperature in °F. */
-function waterTone(fahrenheitValue: number): string {
-  if (!Number.isFinite(fahrenheitValue)) return paper.dashboardBlue;
-  return (
-    WATER_SCALE_STOPS.find((stop) => fahrenheitValue < stop.limit)?.tone ??
-    "#C05F1C"
-  );
-}
-
-/** Position of a water temperature on the fixed scale, 0–1. */
-function waterFraction(fahrenheitValue: number): number {
-  if (!Number.isFinite(fahrenheitValue)) return 0;
-  return Math.max(
-    0,
-    Math.min(
-      1,
-      (fahrenheitValue - WATER_SCALE_MIN_F) /
-        (WATER_SCALE_MAX_F - WATER_SCALE_MIN_F),
-    ),
-  );
-}
-
 /** Exactly five hours fill the rail, so one swipe reveals the next five. */
 const HOURS_PER_PAGE = 5;
 const HOURS_PER_PAGE_GAPS = HOURS_PER_PAGE - 1;
@@ -389,16 +359,15 @@ function WaterScaleLegend() {
   return (
     <View style={styles.scaleLegend}>
       <Text style={styles.scaleLegendLabel}>WATER</Text>
-      <Text style={styles.scaleLegendEnd}>{WATER_SCALE_MIN_F}°</Text>
+      <Text style={styles.scaleLegendEnd}>
+        {formatPierCastWaterScaleEnd("minimum")}
+      </Text>
       <View style={styles.scaleLegendBar}>
-        {WATER_SCALE_STOPS.map((stop) => (
-          <View
-            key={stop.tone}
-            style={[styles.scaleLegendSegment, { backgroundColor: stop.tone }]}
-          />
-        ))}
+        <PierCastTemperatureGradient />
       </View>
-      <Text style={styles.scaleLegendEnd}>{WATER_SCALE_MAX_F}°</Text>
+      <Text style={styles.scaleLegendEnd}>
+        {formatPierCastWaterScaleEnd("maximum")}
+      </Text>
     </View>
   );
 }
@@ -473,6 +442,10 @@ function DailyForecastStrip({
         const parts = dateParts(date.localDate);
         const score = scoreValue(date);
         const pending = isDateScorePending(date);
+        const topSpeciesId = date.headline.drivingSpeciesId;
+        const topSpeciesLabel = topSpeciesId
+          ? pierCastSpeciesShortLabel(topSpeciesId)
+          : null;
         const accent = score === null ? "#AAB2B6" : scoreAccentColor(score);
         const band = score === null ? null : dashboardBandStyleForScore(score);
         const selected = index === selectedIndex;
@@ -488,7 +461,7 @@ function DailyForecastStrip({
             onPress={() => onSelect(index)}
             accessibilityRole="button"
             accessibilityState={{ selected }}
-            accessibilityLabel={`${index === 0 ? "Today" : parts.day}, ${parts.month} ${parts.date}, ${pending ? "rating pending" : score === null ? "rating unavailable" : `${score.toFixed(1)} out of 10`}`}
+            accessibilityLabel={`${index === 0 ? "Today" : parts.day}, ${parts.month} ${parts.date}, ${pending ? "rating pending" : score === null ? "rating unavailable" : `${score.toFixed(1)} out of 10${topSpeciesId ? `, top target ${SPECIES_LABELS[topSpeciesId]}` : ""}`}`}
           >
             <Text
               style={[
@@ -514,6 +487,18 @@ function DailyForecastStrip({
                 allowFontScaling={false}
               >
                 {pending ? "PENDING" : score?.toFixed(1) ?? "—"}
+              </Text>
+              <Text
+                style={styles.forecastTileSpecies}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.72}
+              >
+                {pending
+                  ? "TOP TARGET —"
+                  : topSpeciesLabel
+                    ? `TOP ${topSpeciesLabel}`
+                    : "NO TOP TARGET"}
               </Text>
             </View>
             <Text style={styles.forecastTileHiLo}>
@@ -659,9 +644,13 @@ function PierCastHero({
 
 function SpeciesBoard({
   date,
+  dates,
+  selectedIndex,
   isToday,
 }: {
   date: PierCastReviewDateOutlookRead;
+  dates: readonly PierCastReviewDateOutlookRead[];
+  selectedIndex: number;
   isToday: boolean;
 }) {
   const [moreSpeciesExpanded, setMoreSpeciesExpanded] = useState(false);
@@ -674,19 +663,7 @@ function SpeciesBoard({
       ),
     ).values(),
   ];
-  const speciesRows = [...date.species].sort((left, right) => {
-    const leftScore =
-      left.biological.status === "available"
-        ? left.biological.displayScore
-        : -1;
-    const rightScore =
-      right.biological.status === "available"
-        ? right.biological.displayScore
-        : -1;
-    return (
-      rightScore - leftScore || left.speciesId.localeCompare(right.speciesId)
-    );
-  });
+  const speciesRows = sortPierCastSpeciesByOpportunity(date.species);
   const mainSpecies = speciesRows.filter((species) =>
     isPrimaryPierCastSpecies(species.speciesId)
   );
@@ -697,8 +674,17 @@ function SpeciesBoard({
     species: (typeof speciesRows)[number],
     index: number,
   ) => {
-    const seasonalPotential = species.seasonalRating ??
-      species.activeMode?.seasonalPotential ?? null;
+    const seasonalPotential = pierCastSeasonalPotential(species);
+    const seasonalTrend = pierCastSeasonalTrend({
+      dates,
+      selectedIndex,
+      speciesId: species.speciesId,
+    });
+    const seasonalContext = [
+      seasonalTrend.label,
+      seasonalTrend.modeShift ? "MODE SHIFT" : null,
+      formatPierCastModeId(species.activeMode?.modeId),
+    ].filter(Boolean).join(" · ");
     const score =
       species.biological.status === "available"
         ? species.biological.displayScore
@@ -780,15 +766,23 @@ function SpeciesBoard({
         <View style={styles.factorRow}>
           <View style={styles.factor}>
             <View style={styles.factorLabelRow}>
-              <Text style={styles.factorLabel}>SEASON</Text>
-              <Text style={styles.factorValue}>
-                {seasonalPotential?.toFixed(1) ?? "—"}
+              <Text style={styles.factorLabel}>SEASON POTENTIAL</Text>
+              <Text
+                style={styles.factorValue}
+                accessibilityLabel={seasonalPotential === null
+                  ? "Season potential unavailable"
+                  : `Estimated season potential ${seasonalPotential.toFixed(1)} out of 10`}
+              >
+                {formatPierCastSeasonalPotential(seasonalPotential)}
               </Text>
             </View>
             <PierCastMiniBar
               value={seasonalPotential}
               color={paper.dashboardBlue}
             />
+            <Text style={styles.factorContext} numberOfLines={2}>
+              {seasonalContext}
+            </Text>
           </View>
           <View style={styles.factor}>
             <View style={styles.factorLabelRow}>
@@ -803,6 +797,9 @@ function SpeciesBoard({
               value={suitability === null ? null : suitability * 10}
               color={accent}
             />
+            <Text style={styles.factorContext} numberOfLines={2}>
+              MODELED NEARSHORE RANGE
+            </Text>
           </View>
         </View>
         {species.timeWindows?.length === 4 ? (
@@ -1000,8 +997,8 @@ function HourColumn({
   /** Air and wind still loading; water is already known. */
   pending?: boolean;
 }) {
-  const tone = waterTone(water);
-  const fraction = waterFraction(water);
+  const tone = pierCastWaterTemperatureColor(water);
+  const fraction = pierCastWaterTemperatureFraction(water);
   const direction = directionLabel(weather?.windDirectionDegrees ?? null);
   return (
     <View style={[styles.hourColumn, { width }, isNow && styles.hourColumnNow]}>
@@ -1428,13 +1425,19 @@ function TemperaturePanel({
       <View style={styles.chartLegend}>
         <View style={styles.chartLegendItem}>
           <View
-            style={[styles.chartLegendSwatch, { backgroundColor: "#CC6A22" }]}
+            style={[
+              styles.chartLegendSwatch,
+              { backgroundColor: pierCastWaterTemperatureColor(78) },
+            ]}
           />
           <Text style={styles.chartLegendText}>WARMER</Text>
         </View>
         <View style={styles.chartLegendItem}>
           <View
-            style={[styles.chartLegendSwatch, { backgroundColor: "#1E5C80" }]}
+            style={[
+              styles.chartLegendSwatch,
+              { backgroundColor: pierCastWaterTemperatureColor(32) },
+            ]}
           />
           <Text style={styles.chartLegendText}>COOLER</Text>
         </View>
@@ -2456,6 +2459,7 @@ function PierCastLanding({
   supplementalOutlooks,
   ownerReview,
   onOpenCity,
+  onOpenMap,
 }: {
   catalog: PierCastCatalogResponse;
   outlook:
@@ -2465,6 +2469,7 @@ function PierCastLanding({
   supplementalOutlooks: readonly PierCastReviewOutlookResponse[];
   ownerReview: boolean;
   onOpenCity: (cityId: string) => void;
+  onOpenMap: () => void;
 }) {
   const standingsOutlook = useMemo(
     () => projectPierCastStandings(outlook, supplementalOutlooks),
@@ -2685,6 +2690,35 @@ function PierCastLanding({
                 <View style={styles.standingsSeeMoreRule} />
               </View>
             ) : null}
+
+            <View style={styles.visualMapActionWrap}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Open visual PierCast map"
+                accessibilityHint="Shows every scored PierCast city on an interactive Great Lakes map"
+                onPress={() => {
+                  hapticSelection();
+                  onOpenMap();
+                }}
+                style={({ pressed }) => [
+                  styles.visualMapAction,
+                  pressed && styles.visualMapActionPressed,
+                ]}
+              >
+                <View style={styles.visualMapActionIcon}>
+                  <Ionicons name="map-outline" size={18} color="#FFFFFF" />
+                </View>
+                <View style={styles.visualMapActionCopy}>
+                  <Text style={styles.visualMapActionText}>
+                    OPEN VISUAL MAP
+                  </Text>
+                  <Text style={styles.visualMapActionSubtext}>
+                    SEE EVERY SCORE ON THE GREAT LAKES
+                  </Text>
+                </View>
+                <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+              </Pressable>
+            </View>
 
             {pendingLeaderboard.length > 0 ? (
               <>
@@ -3497,6 +3531,8 @@ function CityReport({
       <SpeciesBoard
         key={`${city.cityId}:${date.localDate}`}
         date={date}
+        dates={displayDates}
+        selectedIndex={selectedIndex}
         isToday={isToday}
       />
       <HourlyConditions
@@ -3525,6 +3561,16 @@ function CityReport({
 
 export default function PierCastReviewScreen() {
   const router = useRouter();
+  const routeParams = useLocalSearchParams<{
+    cityId?: string | string[];
+    from?: string | string[];
+  }>();
+  const routeCityId = Array.isArray(routeParams.cityId)
+    ? routeParams.cityId[0]
+    : routeParams.cityId;
+  const returnToMap = (Array.isArray(routeParams.from)
+    ? routeParams.from[0]
+    : routeParams.from) === "map";
   const user = useAuthStore((state) => state.user);
   const profile = useAuthStore((state) => state.profile);
   const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
@@ -3547,6 +3593,10 @@ export default function PierCastReviewScreen() {
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [ownerReview, setOwnerReview] = useState(false);
+  const routeOpenedCity = useRef<string | null>(null);
+  const [routeReportLoading, setRouteReportLoading] = useState(
+    Boolean(routeCityId),
+  );
 
   // Opening a city (or switching to a nearby port) should start the report at
   // its hero, not wherever the previous screen happened to be scrolled to.
@@ -3595,6 +3645,7 @@ export default function PierCastReviewScreen() {
       setError(null);
     } catch (caught) {
       if (!silent) {
+        setRouteReportLoading(false);
         setError(
           caught instanceof PierCastRequestError
             ? caught.message
@@ -3611,7 +3662,9 @@ export default function PierCastReviewScreen() {
   useEffect(() => {
     setSelectedCityId(null); setCityReport(null);
     setOutlook(null); setCatalog(null); setOwnerReview(false); setPaywall(false); requestedCity.current = null;
-  }, [user?.id]);
+    routeOpenedCity.current = null;
+    setRouteReportLoading(Boolean(routeCityId));
+  }, [routeCityId, user?.id]);
 
   const openCity = useCallback(async (cityId: string, silent = false) => {
     const city = catalog?.cities.find(c => c.cityId === cityId);
@@ -3654,6 +3707,19 @@ export default function PierCastReviewScreen() {
       } else if (!silent) setError(caught instanceof Error ? caught.message : "Report could not load.");
     } finally { if (!silent) openingCity.current = false; }
   }, [user?.id, catalog, outlook, ownerReview]);
+  useEffect(() => {
+    if (!routeCityId || !catalog || !outlook) return;
+    if (routeOpenedCity.current === routeCityId) return;
+    if (!catalog.cities.some((city) => city.cityId === routeCityId)) {
+      routeOpenedCity.current = routeCityId;
+      setRouteReportLoading(false);
+      setError("This PierCast city is not available.");
+      return;
+    }
+    routeOpenedCity.current = routeCityId;
+    setRouteReportLoading(true);
+    void openCity(routeCityId).finally(() => setRouteReportLoading(false));
+  }, [catalog, openCity, outlook, routeCityId]);
   useEffect(() => {
     if (!selectedCityId) return;
     // Refresh immediately when a report opens or the response contract changes;
@@ -3726,6 +3792,10 @@ export default function PierCastReviewScreen() {
           onPress={() => {
             if (selectedCityId) {
               hapticSelection();
+              if (returnToMap) {
+                router.back();
+                return;
+              }
               requestedCity.current = null;
               setError(null);
               setSelectedCityId(null);
@@ -3735,7 +3805,13 @@ export default function PierCastReviewScreen() {
           }}
           accessibilityRole="button"
           accessibilityLabel={
-            selectedCityId ? "Back to PierCast leaderboard" : "Back"
+            selectedCityId
+              ? returnToMap
+                ? "Back to PierCast visual map"
+                : "Back to PierCast leaderboard"
+              : returnToMap
+                ? "Back to PierCast visual map"
+                : "Back"
           }
         >
           <Ionicons name="chevron-back" size={25} color="#FFFFFF" />
@@ -3761,7 +3837,7 @@ export default function PierCastReviewScreen() {
             />
             <Text style={styles.messageTitle}>PierCast is coming soon</Text>
           </View>
-        ) : loading ? (
+        ) : loading || routeReportLoading ? (
           <PierCastReportSkeleton />
         ) : error ? (
           <View style={styles.messageCard}>
@@ -3846,6 +3922,7 @@ export default function PierCastReviewScreen() {
                   hapticSelection();
                   void openCity(cityId);
                 }}
+                onOpenMap={() => router.push("/pier-cast-map")}
               />
               <PierCastCoverageRequest
                 profile={profile}
@@ -4257,13 +4334,8 @@ const styles = StyleSheet.create({
   },
   scaleLegendBar: {
     flex: 1,
-    flexDirection: "row",
     height: 5,
-    gap: 2,
-  },
-  scaleLegendSegment: {
-    flex: 1,
-    height: "100%",
+    overflow: "hidden",
     borderRadius: 2.5,
   },
 
@@ -5074,6 +5146,55 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     color: paper.dashboardMuted,
   },
+  visualMapActionWrap: {
+    marginTop: 2,
+  },
+  visualMapAction: {
+    minHeight: 56,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.22)",
+    borderRadius: 10,
+    backgroundColor: paper.dashboardBlue,
+    ...paperShadows.lift,
+  },
+  visualMapActionPressed: {
+    opacity: 0.84,
+    transform: [{ scale: 0.995 }],
+  },
+  visualMapActionIcon: {
+    width: 34,
+    height: 34,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.3)",
+    borderRadius: 17,
+    backgroundColor: "rgba(255,255,255,0.12)",
+  },
+  visualMapActionCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
+  visualMapActionText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    lineHeight: 15,
+    letterSpacing: 1.3,
+    color: "#FFFFFF",
+  },
+  visualMapActionSubtext: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMono,
+    fontSize: 7.5,
+    lineHeight: 10,
+    letterSpacing: 0.75,
+    color: "rgba(255,255,255,0.72)",
+  },
   standingRow: {
     position: "relative",
     overflow: "hidden",
@@ -5590,9 +5711,10 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   forecastTileScoreBlock: {
-    height: 40,
+    height: 48,
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: 2,
   },
   forecastTileScore: {
     fontFamily: paperFonts.display,
@@ -5606,6 +5728,17 @@ const styles = StyleSheet.create({
     fontSize: 6.5,
     lineHeight: 10,
     letterSpacing: 0.45,
+  },
+  forecastTileSpecies: {
+    width: "100%",
+    marginTop: 1,
+    paddingHorizontal: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.5,
+    lineHeight: 7,
+    letterSpacing: 0.25,
+    textAlign: "center",
+    color: "rgba(255,255,255,0.88)",
   },
   forecastTileHiLo: {
     paddingVertical: 5,
@@ -5816,6 +5949,15 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.monoBold,
     fontSize: 9.5,
     color: paper.dashboardInk,
+  },
+  factorContext: {
+    minHeight: 18,
+    marginTop: 5,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    lineHeight: 8,
+    letterSpacing: 0.45,
+    color: paper.dashboardMuted,
   },
   nearshoreMetricGrid: { flexDirection: "row", gap: 7, marginBottom: 10 },
   previewWeatherDays: {

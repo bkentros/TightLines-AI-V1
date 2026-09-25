@@ -4,6 +4,7 @@ import type {
   PierCastCatalogResponse,
   PierCastLeaderboardResponse,
   PierCastReviewOutlookResponse,
+  PierCastTemperatureMapResponse,
   PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
 
@@ -149,6 +150,9 @@ function readErrorMessage(parsed: unknown, status: number): string {
 
 export function fetchPierCastLeaderboard(): Promise<PierCastLeaderboardResponse> {
   return pierCastGet("leaderboard", false);
+}
+export function fetchPierCastTemperatureMap(): Promise<PierCastTemperatureMapResponse> {
+  return pierCastGet("temperature-map", false);
 }
 export function fetchPierCastCityReport(cityId: string): Promise<PierCastReviewOutlookResponse> {
   return pierCastGet(`report?cityId=${encodeURIComponent(cityId)}`, true);

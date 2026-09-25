@@ -11,6 +11,7 @@ import Svg, {
 } from "react-native-svg";
 
 import type { PierCastReviewTemperaturePointRead } from "../../lib/pierCastContracts";
+import { pierCastWaterTemperatureColor } from "../../lib/pierCastTemperatureScale";
 import { paper, paperFonts, scoreAccentColor } from "../../lib/theme";
 
 function celsiusToFahrenheit(value: number): number {
@@ -160,8 +161,8 @@ type AxisTick = {
  *
  * Design notes:
  *  - The stroke carries a VERTICAL gradient, so color encodes temperature:
- *    warm rust at the top of the plot, cool blue at the bottom. Reading the
- *    line's color tells you the same thing as reading its height.
+ *    the shared NOAA-style water palette at the top, middle, and bottom.
+ *    Reading the line's color tells you the same thing as reading its height.
  *  - Day boundaries are drawn as hairlines with their own labels, so a
  *    five-day series stops reading as one undifferentiated squiggle.
  *  - The warmest and coolest hours are annotated in place — the two values
@@ -187,6 +188,9 @@ export function PierCastTemperatureChart({
   const low = Math.floor((rawMin - 1) / 2) * 2;
   const high = Math.max(low + 4, Math.ceil((rawMax + 1) / 2) * 2);
   const range = high - low;
+  const highColor = pierCastWaterTemperatureColor(high);
+  const middleColor = pierCastWaterTemperatureColor((high + low) / 2);
+  const lowColor = pierCastWaterTemperatureColor(low);
   const coordinates = values.map((value, index) => ({
     x:
       plot.left +
@@ -357,9 +361,9 @@ export function PierCastTemperatureChart({
             y2={baseline}
             gradientUnits="userSpaceOnUse"
           >
-            <Stop offset="0" stopColor="#CC6A22" />
-            <Stop offset="0.45" stopColor="#3E8FB0" />
-            <Stop offset="1" stopColor="#1E5C80" />
+            <Stop offset="0" stopColor={highColor} />
+            <Stop offset="0.5" stopColor={middleColor} />
+            <Stop offset="1" stopColor={lowColor} />
           </LinearGradient>
         </Defs>
 
@@ -427,7 +431,7 @@ export function PierCastTemperatureChart({
         {extremes.map(({ index, value, warm }) => {
           const coordinate = coordinates[index];
           if (!coordinate) return null;
-          const color = warm ? "#C05F1C" : "#1E5C80";
+          const color = pierCastWaterTemperatureColor(value);
           const labelY = warm
             ? Math.max(plot.top - 8, coordinate.y - 11)
             : Math.min(baseline + 13, coordinate.y + 16);

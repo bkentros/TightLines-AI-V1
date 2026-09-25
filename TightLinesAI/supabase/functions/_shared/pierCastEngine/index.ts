@@ -24,6 +24,7 @@ export * from "./scoring/temperatureEvents.ts";
 export * from "./scoring/seasonal.ts";
 export * from "./scoring/opportunity.ts";
 export * from "./scoring/modesV3.ts";
+export * from "./scoring/seasonalContinuity.ts";
 export * from "./scoring/opportunityV3.ts";
 export * from "./scoring/rating.ts";
 export * from "./scoring/daily.ts";
