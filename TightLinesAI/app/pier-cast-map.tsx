@@ -658,6 +658,8 @@ export default function PierCastMapScreen() {
               logo={false}
               compass
               compassPosition={{ bottom: mapBottomInset + 8, right: 12 }}
+              scaleBar={!usingOfflineBaseMap}
+              scaleBarPosition={{ top: 100, left: 10 }}
               dragPan
               touchZoom
               doubleTapZoom
@@ -697,7 +699,7 @@ export default function PierCastMapScreen() {
                   type="line"
                   style={{ lineColor: "#8E816F", lineWidth: 1, lineOpacity: 0.78 }}
                 /> : null}
-                {selectedState !== "ALL" ? (
+                {selectedState !== "ALL" && mode === "score" ? (
                   <Layer
                     id="selected-pier-cast-state"
                     type="line"
