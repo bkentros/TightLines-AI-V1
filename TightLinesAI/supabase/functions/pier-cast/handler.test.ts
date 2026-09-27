@@ -25,6 +25,7 @@ function dependencies(input?: {
   >;
   readV3ReviewOutlook?: () => Promise<PierCastV3ReviewOutlookResponse | null>;
   readTemperatureMap?: PierCastHandlerDependencies["readTemperatureMap"];
+  readMapFoundation?: PierCastHandlerDependencies["readMapFoundation"];
 }) {
   return {
     authorizeReview: () => Promise.resolve(input?.authorized ?? true),
@@ -35,6 +36,7 @@ function dependencies(input?: {
     readV3ReviewOutlook: input?.readV3ReviewOutlook ??
       (() => Promise.resolve(null)),
     readTemperatureMap: input?.readTemperatureMap,
+    readMapFoundation: input?.readMapFoundation,
     readShadowReview: () =>
       Promise.resolve({
         status: "private_shadow_validation" as const,
@@ -430,6 +432,69 @@ Deno.test("public temperature map is read-only, anonymous, and independently una
   assertEquals(
     (await unavailableResponse.json()).error,
     "pier_cast_temperature_map_unavailable",
+  );
+});
+
+Deno.test("public map foundation is anonymous, cacheable, and independently unavailable", async () => {
+  const validTimes = Array.from(
+    { length: 121 },
+    (_, hour) => new Date(Date.UTC(2026, 8, 25, hour)).toISOString(),
+  );
+  const body = {
+    mode: "great_lakes_map_foundation" as const,
+    schemaVersion: "pier-cast-map-foundation-v1" as const,
+    generatedAt: "2026-09-25T01:00:00.000Z",
+    cacheStatus: "fresh" as const,
+    timeline: {
+      startsAt: validTimes[0],
+      endsAt: validTimes[120],
+      stepHours: 1 as const,
+      frameCount: 121 as const,
+      validTimes,
+    },
+    temperature: {
+      provider: "NOAA NOS" as const,
+      cycleIssuedAt: validTimes[0],
+      models: [],
+      disclosure: "Modeled guidance.",
+    },
+    wind: {
+      provider: "Open-Meteo" as const,
+      model: "best_match" as const,
+      fetchedAt: "2026-09-25T01:00:00.000Z",
+      forecastStart: validTimes[0],
+      forecastEnd: validTimes[120],
+      temporalResolutionHours: 1 as const,
+      nodeSpacingDegrees: 0.4,
+      nodes: [],
+      disclosure: "Modeled guidance.",
+    },
+    bathymetry: {
+      static: true as const,
+      sources: [],
+      disclosure: "Not for navigation.",
+    },
+    diagnostics: [],
+  };
+  const handler = createPierCastHandler(dependencies({
+    authorized: false,
+    readMapFoundation: () => Promise.resolve(body),
+  }));
+  const response = await handler(request("map-foundation"));
+  assertEquals(response.status, 200);
+  assertEquals(await response.json(), body);
+  assertEquals(
+    response.headers.get("cache-control"),
+    "public, max-age=300, s-maxage=900, stale-while-revalidate=21600",
+  );
+  assertEquals((await handler(request("map-foundation", "POST"))).status, 405);
+
+  const unavailable = createPierCastHandler(dependencies());
+  const unavailableResponse = await unavailable(request("map-foundation"));
+  assertEquals(unavailableResponse.status, 503);
+  assertEquals(
+    (await unavailableResponse.json()).error,
+    "pier_cast_map_foundation_unavailable",
   );
 });
 

@@ -3,6 +3,7 @@ import { getValidAccessToken } from "./supabase";
 import type {
   PierCastCatalogResponse,
   PierCastLeaderboardResponse,
+  PierCastMapFoundationResponse,
   PierCastReviewOutlookResponse,
   PierCastTemperatureMapResponse,
   PierCastV3ReviewOutlookResponse,
@@ -27,19 +28,33 @@ export function fetchPierCastCatalog(): Promise<PierCastCatalogResponse> {
   return pierCastGet<PierCastCatalogResponse>("catalog", false);
 }
 
-export function fetchPierCastOwnerReviewCatalog(): Promise<PierCastCatalogResponse> {
+export function fetchPierCastOwnerReviewCatalog(): Promise<
+  PierCastCatalogResponse
+> {
   return pierCastGet<PierCastCatalogResponse>("review/catalog", true);
 }
 
-export function fetchPierCastOwnerV3ReviewOutlook(): Promise<PierCastV3ReviewOutlookResponse> {
-  return pierCastGet<PierCastV3ReviewOutlookResponse>("review/v3/outlook", true);
+export function fetchPierCastOwnerV3ReviewOutlook(): Promise<
+  PierCastV3ReviewOutlookResponse
+> {
+  return pierCastGet<PierCastV3ReviewOutlookResponse>(
+    "review/v3/outlook",
+    true,
+  );
 }
 
 async function pierCastGet<ResponseType>(
   path: string,
   requireAuth: boolean,
+  timeoutMs = CLIENT_TIMEOUT_MS,
 ): Promise<ResponseType> {
-  return pierCastRequest<ResponseType>(path, requireAuth, "GET");
+  return pierCastRequest<ResponseType>(
+    path,
+    requireAuth,
+    "GET",
+    undefined,
+    timeoutMs,
+  );
 }
 
 async function pierCastRequest<ResponseType>(
@@ -47,6 +62,7 @@ async function pierCastRequest<ResponseType>(
   requireAuth: boolean,
   method: "GET" | "POST",
   body?: unknown,
+  timeoutMs = CLIENT_TIMEOUT_MS,
 ): Promise<ResponseType> {
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error("Missing Supabase configuration for PierCast.");
@@ -61,7 +77,7 @@ async function pierCastRequest<ResponseType>(
 
   const startedAt = Date.now();
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   let failureTracked = false;
   captureAnalytics("pier_cast_request_started", { path });
   try {
@@ -148,15 +164,30 @@ function readErrorMessage(parsed: unknown, status: number): string {
   return `PierCast request failed with status ${status}.`;
 }
 
-export function fetchPierCastLeaderboard(): Promise<PierCastLeaderboardResponse> {
+export function fetchPierCastLeaderboard(): Promise<
+  PierCastLeaderboardResponse
+> {
   return pierCastGet("leaderboard", false);
 }
-export function fetchPierCastTemperatureMap(): Promise<PierCastTemperatureMapResponse> {
+export function fetchPierCastTemperatureMap(): Promise<
+  PierCastTemperatureMapResponse
+> {
   return pierCastGet("temperature-map", false);
 }
-export function fetchPierCastCityReport(cityId: string): Promise<PierCastReviewOutlookResponse> {
+export function fetchPierCastMapFoundation(): Promise<
+  PierCastMapFoundationResponse
+> {
+  // A cold Edge isolate must synchronize four NOAA systems and five paid wind
+  // batches before its first response; warm and CDN-cached reads remain fast.
+  return pierCastGet("map-foundation", false, 30_000);
+}
+export function fetchPierCastCityReport(
+  cityId: string,
+): Promise<PierCastReviewOutlookResponse> {
   return pierCastGet(`report?cityId=${encodeURIComponent(cityId)}`, true);
 }
-export function fetchSavedPierCastReport(): Promise<{ report: PierCastReviewOutlookResponse | null }> {
+export function fetchSavedPierCastReport(): Promise<
+  { report: PierCastReviewOutlookResponse | null }
+> {
   return pierCastGet("saved-report", true);
 }

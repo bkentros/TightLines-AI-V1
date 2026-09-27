@@ -2,17 +2,25 @@ import type {
   PierCastCatalogCityRead,
   PierCastCatalogResponse,
   PierCastLeaderboardResponse,
+  PierCastMapFoundationResponse,
   PierCastReviewDateOutlookRead,
   PierCastTemperatureMapResponse,
 } from "./pierCastContracts";
+import {
+  buildPierCastOfsDatasetUrl,
+  PIER_CAST_GREAT_LAKES_MODELS,
+  type PierCastGreatLakeId,
+  type PierCastGreatLakesOfsId,
+  type PierCastMapRegionCode,
+} from "./pierCastGreatLakes";
 import {
   PIER_CAST_WATER_SCALE_MAX_F,
   PIER_CAST_WATER_SCALE_MIN_F,
 } from "./pierCastTemperatureScale";
 
-export type PierCastMapStateCode = PierCastCatalogCityRead["stateCode"];
+export type PierCastMapStateCode = PierCastMapRegionCode;
 export type PierCastMapFilter = "ALL" | PierCastMapStateCode;
-export type PierCastMapMode = "score" | "temperature";
+export type PierCastMapMode = "score" | "temperature" | "bathymetry";
 export type PierCastMapBounds = [
   west: number,
   south: number,
@@ -42,6 +50,20 @@ export type PierCastTemperatureRasterFrame = {
   tileUrl: string;
 };
 
+export type PierCastGreatLakesTemperatureRasterFrame =
+  & PierCastTemperatureRasterFrame
+  & {
+    ofsId: PierCastGreatLakesOfsId;
+    lakeIds: readonly PierCastGreatLakeId[];
+  };
+
+export type PierCastBathymetryRasterFrame = {
+  lakeIds: readonly PierCastGreatLakeId[];
+  ofsId: PierCastGreatLakesOfsId;
+  rasterTileUrl: string;
+  contourTileUrl: string;
+};
+
 const LMHOFS_WMS_ROOT =
   "https://opendap.co-ops.nos.noaa.gov/thredds/wms/NOAA/LMHOFS/MODELS";
 const LMHOFS_MAX_FORECAST_HOUR = 120;
@@ -56,19 +78,15 @@ export const PIER_CAST_MAP_MAX_ZOOM = 14;
 export const PIER_CAST_TEMPERATURE_RASTER_MAX_ZOOM = 14;
 export const PIER_CAST_MAP_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
 
-export const PIER_CAST_ACTIVE_MAP_BOUNDS: PierCastMapBounds = [
-  -88.45,
-  41.35,
-  -82.05,
-  45.82,
-];
-
 export const PIER_CAST_GREAT_LAKES_BOUNDS: PierCastMapBounds = [
   -93.15,
   39.75,
   -74.25,
   49.25,
 ];
+
+export const PIER_CAST_ACTIVE_MAP_BOUNDS: PierCastMapBounds =
+  PIER_CAST_GREAT_LAKES_BOUNDS;
 
 export const PIER_CAST_STATE_MAP_BOUNDS: Record<
   PierCastMapStateCode,
@@ -78,6 +96,11 @@ export const PIER_CAST_STATE_MAP_BOUNDS: Record<
   WI: [-88.2, 42.45, -87.25, 45.2],
   IL: [-88.12, 41.65, -87.28, 42.82],
   IN: [-87.18, 41.55, -86.45, 42.15],
+  MN: [-92.35, 46.55, -89.3, 48.25],
+  OH: [-83.55, 41.25, -80.45, 42.25],
+  PA: [-80.55, 41.75, -79.7, 42.35],
+  NY: [-79.95, 42.0, -75.85, 44.25],
+  ON: [-92.3, 41.55, -76.0, 49.25],
 };
 
 function displayScore(
@@ -110,15 +133,17 @@ export function buildPierCastMapCities(
       const point = location?.referencePoint ?? location;
       if (!point) return [];
       const date = standings.get(city.cityId) ?? null;
-      return [{
-        city,
-        latitude: point.latitude,
-        longitude: point.longitude,
-        date,
-        score: displayScore(date),
-        rankingScore: rankingScore(date),
-        rank: null,
-      } satisfies PierCastMapCity];
+      return [
+        {
+          city,
+          latitude: point.latitude,
+          longitude: point.longitude,
+          date,
+          score: displayScore(date),
+          rankingScore: rankingScore(date),
+          rank: null,
+        } satisfies PierCastMapCity,
+      ];
     });
 
   const ranked = entries
@@ -159,6 +184,12 @@ export function pierCastMapBoundsForFilter(
   return filter === "ALL"
     ? PIER_CAST_ACTIVE_MAP_BOUNDS
     : PIER_CAST_STATE_MAP_BOUNDS[filter];
+}
+
+export function pierCastMapRegionFeatureCode(
+  region: PierCastMapStateCode,
+): string {
+  return region === "ON" ? "CA-ON" : `US-${region}`;
 }
 
 export function celsiusToFahrenheit(celsius: number): number {
@@ -224,8 +255,7 @@ export function buildPierCastTemperatureRasterFrame(
   const cycle = pad2(issuedAt.getUTCHours());
   const dateStamp = `${year}${month}${day}`;
   const forecastStamp = String(forecastHour).padStart(3, "0");
-  const datasetUrl =
-    `${LMHOFS_WMS_ROOT}/${year}/${month}/${day}/` +
+  const datasetUrl = `${LMHOFS_WMS_ROOT}/${year}/${month}/${day}/` +
     `lmhofs.t${cycle}z.${dateStamp}.regulargrid.f${forecastStamp}.nc`;
   const parameters = [
     "service=WMS",
@@ -240,7 +270,9 @@ export function buildPierCastTemperatureRasterFrame(
     "width=256",
     "height=256",
     "elevation=0",
-    `colorscalerange=${fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MIN_F)},${fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MAX_F)}`,
+    `colorscalerange=${fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MIN_F)},${
+      fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MAX_F)
+    }`,
     "numcolorbands=250",
     "belowmincolor=extend",
     "abovemaxcolor=extend",
@@ -252,6 +284,156 @@ export function buildPierCastTemperatureRasterFrame(
   };
 }
 
+/** Build the four synchronized NOAA temperature rasters used by the five-lake map. */
+export function buildPierCastGreatLakesTemperatureRasterFrames(
+  response: Pick<PierCastMapFoundationResponse, "timeline" | "temperature">,
+  validAt: string,
+): PierCastGreatLakesTemperatureRasterFrame[] {
+  if (!response.timeline.validTimes.includes(validAt)) return [];
+  return response.temperature.models.flatMap((source) => {
+    const model = PIER_CAST_GREAT_LAKES_MODELS.find((entry) =>
+      entry.ofsId === source.ofsId && entry.productId === source.productId
+    );
+    if (!model) return [];
+    const issuedAt = new Date(source.issuedAt);
+    const validAtMs = Date.parse(validAt);
+    const rawLeadHours = (validAtMs - issuedAt.getTime()) / 3_600_000;
+    const forecastHour = Math.round(rawLeadHours);
+    if (
+      !Number.isFinite(issuedAt.getTime()) ||
+      !Number.isFinite(validAtMs) ||
+      forecastHour < 0 ||
+      forecastHour > model.forecastHorizonHours ||
+      Math.abs(rawLeadHours - forecastHour) >= 1e-6
+    ) {
+      return [];
+    }
+    const datasetUrl = buildPierCastOfsDatasetUrl(
+      model,
+      issuedAt,
+      forecastHour,
+      "wms",
+    );
+    const parameters = [
+      "service=WMS",
+      "version=1.1.1",
+      "request=GetMap",
+      "layers=temp",
+      "styles=default-scalar/x-Sst",
+      "format=image/png",
+      "transparent=true",
+      "srs=EPSG:3857",
+      "bbox={bbox-epsg-3857}",
+      "width=256",
+      "height=256",
+      "elevation=0",
+      `colorscalerange=${fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MIN_F)},${
+        fahrenheitToCelsius(PIER_CAST_WATER_SCALE_MAX_F)
+      }`,
+      "numcolorbands=250",
+      "belowmincolor=extend",
+      "abovemaxcolor=extend",
+    ];
+    return [
+      {
+        ofsId: source.ofsId,
+        lakeIds: source.lakeIds,
+        forecastHour,
+        validAt,
+        tileUrl: `${datasetUrl}?${parameters.join("&")}`,
+      } satisfies PierCastGreatLakesTemperatureRasterFrame,
+    ];
+  });
+}
+
+export function pierCastMapFoundationValidTimes(
+  response: PierCastMapFoundationResponse | null,
+): string[] {
+  if (!response || response.timeline.frameCount !== 121) return [];
+  return response.timeline.validTimes.length === 121
+    ? [...response.timeline.validTimes]
+    : [];
+}
+
+/** Static depth rasters and contours, sourced from each synchronized NOAA model grid. */
+export function buildPierCastBathymetryRasterFrames(
+  response: Pick<PierCastMapFoundationResponse, "temperature" | "bathymetry">,
+): PierCastBathymetryRasterFrame[] {
+  const issuedAt = new Date(response.temperature.cycleIssuedAt);
+  if (!Number.isFinite(issuedAt.getTime())) return [];
+  return PIER_CAST_GREAT_LAKES_MODELS.flatMap((model) => {
+    const sources = response.bathymetry.sources.filter((source) =>
+      source.renderModelId === model.ofsId
+    );
+    if (sources.length === 0) return [];
+    const depthMaximumM = Math.max(
+      ...sources.map((source) => source.renderDepthRangeM[1]),
+    );
+    const source = sources[0]!;
+    const datasetUrl = buildPierCastOfsDatasetUrl(model, issuedAt, 0, "wms");
+    const common = [
+      "service=WMS",
+      "version=1.1.1",
+      "request=GetMap",
+      `layers=${source.renderLayer}`,
+      "format=image/png",
+      "transparent=true",
+      "srs=EPSG:3857",
+      "bbox={bbox-epsg-3857}",
+      "width=256",
+      "height=256",
+      `colorscalerange=0,${depthMaximumM}`,
+      "numcolorbands=120",
+    ];
+    return [
+      {
+        lakeIds: sources.map((entry) => entry.lakeId),
+        ofsId: source.renderModelId,
+        rasterTileUrl: `${datasetUrl}?${
+          [
+            ...common,
+            "styles=default-scalar/default",
+          ].join("&")
+        }`,
+        contourTileUrl: `${datasetUrl}?${
+          [
+            ...common,
+            "styles=contours",
+          ].join("&")
+        }`,
+      } satisfies PierCastBathymetryRasterFrame,
+    ];
+  });
+}
+
+export function pierCastWindFrame(
+  response: PierCastMapFoundationResponse | null,
+  validAt: string,
+) {
+  if (!response?.timeline.validTimes.includes(validAt)) return [];
+  const index = response.timeline.validTimes.indexOf(validAt);
+  if (index < 0) return [];
+  return response.wind.nodes.flatMap((node) => {
+    const speedMph = node.speedMph[index];
+    const directionDegrees = node.directionDegrees[index];
+    const gustMph = node.gustMph[index];
+    return Number.isFinite(speedMph) &&
+        Number.isFinite(directionDegrees) &&
+        Number.isFinite(gustMph)
+      ? [{
+        nodeId: node.nodeId,
+        lakeId: node.lakeId,
+        latitude: node.latitude,
+        longitude: node.longitude,
+        validAt,
+        speedMph: speedMph!,
+        directionDegrees: directionDegrees!,
+        gustMph: gustMph!,
+      }]
+      : [];
+  });
+}
+
 export function closestPierCastTemperatureTime(
   validTimes: readonly string[],
   target: string | number | Date,
@@ -260,8 +442,8 @@ export function closestPierCastTemperatureTime(
   const targetMs = target instanceof Date
     ? target.getTime()
     : typeof target === "number"
-      ? target
-      : Date.parse(target);
+    ? target
+    : Date.parse(target);
   if (!Number.isFinite(targetMs)) return validTimes[0] ?? null;
   return validTimes.reduce((closest, candidate) =>
     Math.abs(Date.parse(candidate) - targetMs) <
@@ -300,11 +482,13 @@ export function buildPierCastTemperatureMapCities(
   return cities.flatMap((city) => {
     const point = temperatureByCityId.get(city.city.cityId);
     if (!point || !Number.isFinite(point.temperatureC)) return [];
-    return [{
-      ...city,
-      temperatureC: point.temperatureC,
-      temperatureF: celsiusToFahrenheit(point.temperatureC),
-      validAt: point.validAt,
-    } satisfies PierCastTemperatureMapCity];
+    return [
+      {
+        ...city,
+        temperatureC: point.temperatureC,
+        temperatureF: celsiusToFahrenheit(point.temperatureC),
+        validAt: point.validAt,
+      } satisfies PierCastTemperatureMapCity,
+    ];
   });
 }

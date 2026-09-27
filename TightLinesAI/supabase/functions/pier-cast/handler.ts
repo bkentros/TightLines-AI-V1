@@ -12,6 +12,7 @@ import {
   type PierCastShadowReviewResponse,
 } from "../_shared/pierCastEngine/index.ts";
 import type { PierCastV3ReviewOutlookResponse } from "../_shared/pierCastEngine/pipeline/v3ReviewOutlook.ts";
+import type { PierCastMapFoundationResponse } from "../../../lib/pierCastContracts.ts";
 
 export const PIER_CAST_CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -20,12 +21,16 @@ export const PIER_CAST_CORS_HEADERS = {
     "Content-Type, Authorization, apikey, x-user-token",
 };
 
-function json(body: unknown, status = 200): Response {
+function json(
+  body: unknown,
+  status = 200,
+  cacheControl = "no-store",
+): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: {
       "Content-Type": "application/json",
-      "Cache-Control": "no-store",
+      "Cache-Control": cacheControl,
       ...PIER_CAST_CORS_HEADERS,
     },
   });
@@ -41,6 +46,7 @@ export type PierCastHandlerDependencies = {
   readTemperatureMap?: () => Promise<
     ReturnType<typeof temperatureMapOnly> | null
   >;
+  readMapFoundation?: () => Promise<PierCastMapFoundationResponse | null>;
   readCityReport?: (request: Request, cityId: string) => Promise<unknown>;
   readSavedReport?: (request: Request) => Promise<unknown>;
   authorizeReview: (request: Request) => Promise<boolean>;
@@ -66,6 +72,7 @@ export function createPierCastHandler(
     if (
       url.pathname.endsWith("/leaderboard") ||
       url.pathname.endsWith("/temperature-map") ||
+      url.pathname.endsWith("/map-foundation") ||
       url.pathname.endsWith("/report") || url.pathname.endsWith("/saved-report")
     ) {
       if (request.method !== "GET") {
@@ -89,6 +96,20 @@ export function createPierCastHandler(
             "pier_cast_temperature_map_unavailable",
             503,
           );
+        }
+        if (url.pathname.endsWith("/map-foundation")) {
+          const foundation = await dependencies.readMapFoundation?.();
+          return foundation
+            ? json(
+              foundation,
+              200,
+              "public, max-age=300, s-maxage=900, stale-while-revalidate=21600",
+            )
+            : error(
+              "Great Lakes map data are not available right now.",
+              "pier_cast_map_foundation_unavailable",
+              503,
+            );
         }
         if (!url.pathname.endsWith("/leaderboard")) {
           return error("Route unavailable.", "not_found", 404);

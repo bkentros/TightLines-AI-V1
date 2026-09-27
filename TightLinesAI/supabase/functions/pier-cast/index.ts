@@ -31,6 +31,7 @@ import {
 import { createPierCastHandler } from "./handler.ts";
 import { projectPublicV3Outlook } from "./publicV3.ts";
 import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
+import { createPierCastMapFoundationReader } from "../_shared/pierCastMapFoundation.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -47,6 +48,12 @@ const archiveClient: PierCastArchiveClient = {
     };
   },
 };
+
+const readMapFoundation = createPierCastMapFoundationReader({
+  openMeteoApiKey: Deno.env.get("OPEN_METEO_API_KEY"),
+  openMeteoBaseUrl: Deno.env.get("OPEN_METEO_BASE_URL"),
+  requirePaidOpenMeteo: true,
+});
 
 // The public release uses the reviewed v3 roster for every account.
 const publicCatalog = () => buildPierCastCatalog("public", "v3");
@@ -184,6 +191,7 @@ const handler = createPierCastHandler({
     const outlook = await readPublicOutlook();
     return outlook ? temperatureMapOnly(outlook) : null;
   },
+  readMapFoundation,
   readSavedReport: async (request) => {
     const { userId } = await account(request);
     const { data, error } = await database.from("pier_cast_report_claims")

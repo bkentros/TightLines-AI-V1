@@ -169,6 +169,93 @@ export type PierCastTemperatureMapResponse = {
   }>;
 };
 
+export type PierCastMapTemperatureModelRead = {
+  ofsId: "LSOFS" | "LMHOFS" | "LEOFS" | "LOOFS";
+  productId:
+    | "NOAA_NOS_LSOFS_REGULARGRID"
+    | "NOAA_NOS_LMHOFS_REGULARGRID"
+    | "NOAA_NOS_LEOFS_REGULARGRID"
+    | "NOAA_NOS_LOOFS_REGULARGRID";
+  lakeIds: Array<"superior" | "michigan" | "huron" | "erie" | "ontario">;
+  issuedAt: string;
+  forecastStart: string;
+  forecastEnd: string;
+  forecastHorizonHours: 120;
+  temporalResolutionHours: 1;
+  status: "available";
+};
+
+export type PierCastMapBathymetryRead = {
+  lakeId: "superior" | "michigan" | "huron" | "erie" | "ontario";
+  displayName: string;
+  provider: "NOAA NCEI";
+  renderProvider: "NOAA NOS OFS";
+  renderModelId: "LSOFS" | "LMHOFS" | "LEOFS" | "LOOFS";
+  renderLayer: "h";
+  renderDepthRangeM: readonly [0, number];
+  coverage: "complete_grid_and_contours" | "incomplete_grid_only";
+  gridUrl: string;
+  contourUrl: string | null;
+  gridResolutionM: number | null;
+  contourIntervalM: number | null;
+  verticalUnit: "m";
+  verticalDatum: "lake_low_water_datum";
+  navigationUse: false;
+  limitation: string;
+};
+
+export type PierCastMapWindNodeRead = {
+  nodeId: string;
+  lakeId: "superior" | "michigan" | "huron" | "erie" | "ontario";
+  latitude: number;
+  longitude: number;
+  /** Arrays use the shared response.timeline.validTimes indexes. */
+  speedMph: number[];
+  directionDegrees: number[];
+  gustMph: number[];
+};
+
+export type PierCastMapFoundationResponse = {
+  mode: "great_lakes_map_foundation";
+  schemaVersion: "pier-cast-map-foundation-v1";
+  generatedAt: string;
+  cacheStatus: "fresh" | "stale";
+  timeline: {
+    startsAt: string;
+    endsAt: string;
+    stepHours: 1;
+    frameCount: 121;
+    validTimes: string[];
+  };
+  temperature: {
+    provider: "NOAA NOS";
+    cycleIssuedAt: string;
+    models: PierCastMapTemperatureModelRead[];
+    disclosure: string;
+  };
+  wind: {
+    provider: "Open-Meteo";
+    model: "best_match";
+    fetchedAt: string;
+    forecastStart: string;
+    forecastEnd: string;
+    temporalResolutionHours: 1;
+    nodeSpacingDegrees: number;
+    nodes: PierCastMapWindNodeRead[];
+    disclosure: string;
+  };
+  bathymetry: {
+    static: true;
+    sources: PierCastMapBathymetryRead[];
+    disclosure: string;
+  };
+  diagnostics: Array<{
+    source: "PIER_CAST_MAP" | "NOAA_NOS" | "OPEN_METEO";
+    code: string;
+    message: string;
+  }>;
+};
+
 export type PierCastTemperatureEventRead = {
   eventId: string;
   direction: "cooling" | "warming";
