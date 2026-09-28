@@ -97,7 +97,9 @@ import {
 import {
   buildPierCastWindFlowGeoJson,
   buildPierCastWindArrowGeoJson,
+  filterPierCastWindPointsForView,
   PIER_CAST_WIND_SCALE_STOPS,
+  pierCastWindFlowIntervalMs,
   pierCastWindBandLabel,
   pierCastWindCompassDirection,
   summarizePierCastWindFrame,
@@ -436,11 +438,12 @@ function WindFlowLayer({
       setPhase(0);
       return;
     }
+    const intervalMs = pierCastWindFlowIntervalMs(zoom);
     const timer = setInterval(() => {
-      setPhase((current) => (current + 0.02) % 1);
-    }, 64);
+      setPhase((current) => (current + 0.02 * intervalMs / 64) % 1);
+    }, intervalMs);
     return () => clearInterval(timer);
-  }, [points, visible]);
+  }, [points, visible, zoom]);
   const particles = useMemo(
     () => buildPierCastWindFlowGeoJson(points, zoom, phase),
     [phase, points, zoom],
@@ -695,6 +698,8 @@ export default function PierCastMapScreen() {
   const [mapFocused, setMapFocused] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [panelExpanded, setPanelExpanded] = useState(true);
+  const [topControlInset, setTopControlInset] = useState(188);
+  const [measuredBottomHeight, setMeasuredBottomHeight] = useState(0);
   const [timelineWidth, setTimelineWidth] = useState(0);
   const [lastCheckedAt, setLastCheckedAt] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
@@ -981,9 +986,17 @@ export default function PierCastMapScreen() {
     () => activeValidAt ? pierCastWindFrame(foundation, activeValidAt) : [],
     [activeValidAt, foundation],
   );
+  const renderWindPoints = useMemo(
+    () => filterPierCastWindPointsForView(
+      windPoints,
+      savedView.center,
+      savedView.zoom,
+    ),
+    [savedView.center, savedView.zoom, windPoints],
+  );
   const windArrows = useMemo(
-    () => buildPierCastWindArrowGeoJson(windPoints, savedView.zoom),
-    [savedView.zoom, windPoints],
+    () => buildPierCastWindArrowGeoJson(renderWindPoints, savedView.zoom),
+    [renderWindPoints, savedView.zoom],
   );
   const windSummary = useMemo(
     () => summarizePierCastWindFrame(windPoints),
@@ -1039,7 +1052,7 @@ export default function PierCastMapScreen() {
     },
     [validTimes],
   );
-  const baseMapBottomInset = panelExpanded
+  const estimatedMapBottomInset = panelExpanded
     ? mode === "temperature" || mode === "match"
       ? timeMode === "forecast"
         ? windVisible ? 380 : 290
@@ -1050,8 +1063,11 @@ export default function PierCastMapScreen() {
       ? 220
       : 190
     : 66;
-  const mapBottomInset = baseMapBottomInset +
-    (panelExpanded && observedStationsVisible ? 26 : 0);
+  const mapBottomInset = Math.max(
+    estimatedMapBottomInset +
+      (panelExpanded && observedStationsVisible ? 26 : 0),
+    measuredBottomHeight + 16,
+  );
   const markerDensity: MarkerDensity = savedView.zoom < 5
     ? "overview"
     : savedView.zoom < 6.3 || savedView.zoom > 9.5
@@ -1205,21 +1221,21 @@ export default function PierCastMapScreen() {
     setSelectedState(filter);
     captureAnalytics("pier_cast_visual_map_filtered", { state: filter });
     cameraRef.current?.fitBounds(pierCastMapBoundsForFilter(filter), {
-      padding: { top: 188, right: 64, bottom: mapBottomInset, left: 64 },
+      padding: { top: topControlInset + 10, right: 64, bottom: mapBottomInset, left: 64 },
       duration: 550,
       easing: "ease",
     });
-  }, [mapBottomInset, setSelectedState]);
+  }, [mapBottomInset, setSelectedState, topControlInset]);
 
   const showAllLakes = useCallback(() => {
     hapticSelection();
     setSelectedState("ALL");
     cameraRef.current?.fitBounds(PIER_CAST_GREAT_LAKES_BOUNDS, {
-      padding: { top: 174, right: 24, bottom: mapBottomInset, left: 24 },
+      padding: { top: topControlInset + 10, right: 24, bottom: mapBottomInset, left: 24 },
       duration: 650,
       easing: "ease",
     });
-  }, [mapBottomInset, setSelectedState]);
+  }, [mapBottomInset, setSelectedState, topControlInset]);
 
   const changeZoom = useCallback((delta: number) => {
     const nextZoom = Math.max(
@@ -1309,8 +1325,8 @@ export default function PierCastMapScreen() {
                 logo={false}
                 compass
                 compassPosition={{ bottom: mapBottomInset + 8, right: 12 }}
-                scaleBar={!usingOfflineBaseMap}
-                scaleBarPosition={{ top: 177, left: 10 }}
+                scaleBar={!usingOfflineBaseMap && !targetPromptVisible}
+                scaleBarPosition={{ top: topControlInset, left: 10 }}
                 dragPan
                 touchZoom
                 doubleTapZoom
@@ -1591,7 +1607,7 @@ export default function PierCastMapScreen() {
                   : null}
 
                 <WindFlowLayer
-                  points={windPoints}
+                  points={renderWindPoints}
                   zoom={savedView.zoom}
                   visible={windVisible && windFlowActive}
                   mode={mode}
@@ -1660,7 +1676,16 @@ export default function PierCastMapScreen() {
                   : null}
               </Map>
 
-              <View style={styles.topOverlay} pointerEvents="box-none">
+              <View
+                style={styles.topOverlay}
+                pointerEvents="box-none"
+                onLayout={(event) => {
+                  const next = Math.ceil(
+                    event.nativeEvent.layout.y + event.nativeEvent.layout.height + 8,
+                  );
+                  setTopControlInset((current) => current === next ? current : next);
+                }}
+              >
                 <View style={styles.timeModeRow}>
                   {(["now", "forecast"] as const).map((candidate) => {
                     const selected = timeMode === candidate;
@@ -1964,7 +1989,11 @@ export default function PierCastMapScreen() {
               </View>
 
               <View
-                style={[styles.mapTools, targetPromptVisible && styles.mapToolsHidden]}
+                style={[
+                  styles.mapTools,
+                  { top: topControlInset },
+                  targetPromptVisible && styles.mapToolsHidden,
+                ]}
                 pointerEvents={targetPromptVisible ? "none" : "box-none"}
               >
                 <Pressable
@@ -2245,7 +2274,13 @@ export default function PierCastMapScreen() {
                 </View>
               </View>
 
-              <View style={styles.bottomOverlay}>
+              <View
+                style={styles.bottomOverlay}
+                onLayout={(event) => {
+                  const next = Math.ceil(event.nativeEvent.layout.height);
+                  setMeasuredBottomHeight((current) => current === next ? current : next);
+                }}
+              >
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel={panelExpanded
@@ -2900,12 +2935,13 @@ const styles = StyleSheet.create({
   },
   timeModeTab: {
     minWidth: 72,
-    height: 28,
+    minHeight: 28,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
     paddingHorizontal: 9,
+    paddingVertical: 6,
     borderRadius: 6,
   },
   timeModeTabActive: { backgroundColor: paper.dashboardBlue },
@@ -2921,11 +2957,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   modeTab: {
-    height: 34,
+    minHeight: 34,
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
     paddingHorizontal: 9,
+    paddingVertical: 7,
     borderRadius: 7,
     ...paperShadows.lift,
   },
@@ -2950,9 +2987,10 @@ const styles = StyleSheet.create({
   datePill: {
     minWidth: 0,
     flex: 1,
-    height: 34,
+    minHeight: 34,
     justifyContent: "center",
     paddingHorizontal: 9,
+    paddingVertical: 5,
     borderRadius: 7,
     backgroundColor: "rgba(10,27,46,0.9)",
   },
@@ -2993,11 +3031,12 @@ const styles = StyleSheet.create({
   targetControlChip: {
     minWidth: 0,
     maxWidth: 166,
-    height: 23,
+    minHeight: 23,
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
     paddingHorizontal: 7,
+    paddingVertical: 4,
     borderWidth: 1,
     borderColor: "rgba(124,184,218,0.5)",
     borderRadius: 5,
@@ -3050,12 +3089,13 @@ const styles = StyleSheet.create({
   targetPromptRetryText: { fontFamily: paperFonts.metaMonoBold, fontSize: 7, letterSpacing: 0.8, color: "#FFFFFF" },
   stateChip: {
     minWidth: 55,
-    height: 32,
+    minHeight: 32,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 6,
     paddingHorizontal: 9,
+    paddingVertical: 7,
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.45)",
     borderRadius: 16,
@@ -3077,7 +3117,6 @@ const styles = StyleSheet.create({
   stateChipCountSelected: { color: "rgba(10,27,46,0.68)" },
   mapTools: {
     position: "absolute",
-    top: 177,
     right: 10,
     alignItems: "flex-end",
     gap: 7,

@@ -3,9 +3,10 @@
 Status: confirmed follow-up work for the next development/production build
 
 Implementation update: species thermal calibration (Pass 1), leaderboard and
-city-report refinement (Pass 2), and the premium map target/wind work (Pass 3)
-are complete on the next-build branch. Native review and release readiness
-remain in Pass 4; nothing in this checklist authorizes deployment.
+city-report refinement (Pass 2), premium map target/wind work (Pass 3), and the
+Pass 4 engineering/release audit are complete on the next-build branch. The
+fresh-native-client device matrix remains an explicit external release gate;
+nothing in this checklist authorizes deployment.
 
 The six-pass renovation and production backend rollout are complete. These
 refinements must preserve the established visual language, the legacy live-app

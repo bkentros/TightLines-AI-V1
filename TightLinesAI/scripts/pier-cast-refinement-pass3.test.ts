@@ -104,7 +104,8 @@ test("wind particles preserve exact frame metadata and travel direction", () => 
 test("animated wind is isolated, synchronized, and has accessibility and power fallbacks", () => {
   assert.match(map, /function WindFlowLayer/);
   assert.match(map, /buildPierCastWindFlowGeoJson\(points, zoom, phase\)/);
-  assert.match(map, /setInterval[\s\S]*64/);
+  assert.match(map, /pierCastWindFlowIntervalMs\(zoom\)/);
+  assert.match(map, /setInterval[\s\S]*intervalMs/);
   assert.match(map, /pierCastWindFrame\(foundation, activeValidAt\)/);
   assert.match(map, /pier-cast-wind-flow-particles/);
   assert.match(map, /pier-cast-wind-arrow-color/);

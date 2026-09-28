@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "piercast-refinement-pass4-release-evidence-v1",
+  "reviewedAt": "2026-09-28",
+  "branch": "develop/cross-platform-next",
+  "automated": {
+    "typecheck": "passed",
+    "pierCastRegressionSuite": "passed_113_client_35_backend",
+    "iosBundle": "passed",
+    "androidBundle": "passed",
+    "diffCheck": "passed",
+    "runtimeContractValidation": "implemented",
+    "tenMinuteWindAllocationSimulation": "implemented"
+  },
+  "nativeConfiguration": {
+    "mapLibrePackage": "11.4.0",
+    "expoPluginConfigured": true,
+    "prebuildConfigResolved": true,
+    "easRequiresCommittedSource": true,
+    "expoDoctor": "18_of_20_checks_passed",
+    "expoDoctorNotes": [
+      "The current local Deno-linked node_modules tree duplicates two identical Expo transitive modules; EAS installs from package-lock in a clean workspace.",
+      "Local Xcode 15.2 cannot build Expo SDK 55, which requires Xcode 26 or newer."
+    ]
+  },
+  "externalGates": [
+    {
+      "id": "fresh_native_client",
+      "status": "pending_external",
+      "reason": "The installed development client predates MapLibre and the EAS build allowance does not reset until October 1."
+    },
+    {
+      "id": "physical_device_matrix",
+      "status": "pending_external",
+      "reason": "Animation smoothness, thermal behavior, memory growth, Reduce Motion, and screenshots require the fresh MapLibre-capable native client."
+    },
+    {
+      "id": "coordinated_backend_cutover",
+      "status": "pending_release_authorization",
+      "reason": "Catalog v2 and conditions v4 must be deployed before or with the new native build; this pass does not authorize deployment."
+    }
+  ],
+  "releaseDecision": "hold_pending_native_device_evidence",
+  "liveAppChanged": false
+}

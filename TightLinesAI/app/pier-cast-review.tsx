@@ -46,6 +46,14 @@ import {
 import { paper, paperFonts } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 
+function citySupportsSpecies(
+  city: PierCastConditionsCatalogResponseV4["cities"][number],
+  speciesId: PierCastSpeciesId,
+): boolean {
+  return Array.isArray(city.supportedSpeciesIds) &&
+    city.supportedSpeciesIds.includes(speciesId);
+}
+
 export default function PierCastReviewScreen() {
   const router = useRouter();
   const routeParams = useLocalSearchParams<{
@@ -274,7 +282,7 @@ export default function PierCastReviewScreen() {
     speciesId: PierCastSpeciesId,
   ) => {
     const city = catalog?.cities.find((candidate) => candidate.cityId === cityId);
-    if (!city || !city.supportedSpeciesIds.includes(speciesId)) {
+    if (!city || !citySupportsSpecies(city, speciesId)) {
       setError("This target species is not available for the selected PierCast city.");
       return;
     }

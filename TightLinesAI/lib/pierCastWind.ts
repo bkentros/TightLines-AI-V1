@@ -37,6 +37,9 @@ export const PIER_CAST_WIND_SCALE_STOPS = [
   { speedMph: 35, tone: "#F0529C", label: "HARD" },
 ] as const;
 
+export const PIER_CAST_WIND_FLOW_OVERVIEW_INTERVAL_MS = 96;
+export const PIER_CAST_WIND_FLOW_DETAIL_INTERVAL_MS = 64;
+
 const EARTH_RADIUS_M = 6_371_008.8;
 
 function clamp(value: number, minimum: number, maximum: number): number {
@@ -131,6 +134,38 @@ function nodePhaseOffset(nodeId: string): number {
     hash = (hash * 31 + nodeId.charCodeAt(index)) % 997;
   }
   return hash / 997;
+}
+
+export function pierCastWindFlowIntervalMs(zoom: number): number {
+  return Number.isFinite(zoom) && zoom >= 7
+    ? PIER_CAST_WIND_FLOW_DETAIL_INTERVAL_MS
+    : PIER_CAST_WIND_FLOW_OVERVIEW_INTERVAL_MS;
+}
+
+/**
+ * Keeps the full five-lake wind field at regional zoom and adds a generous
+ * viewport buffer at closer zooms. This avoids sending off-screen particle
+ * geometry over the native bridge on every animation frame.
+ */
+export function filterPierCastWindPointsForView(
+  points: readonly PierCastWindFramePoint[],
+  center: readonly [longitude: number, latitude: number],
+  zoom: number,
+): PierCastWindFramePoint[] {
+  if (!Number.isFinite(zoom) || zoom < 5.5) return [...points];
+  const [longitude, latitude] = center;
+  if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return [];
+  const worldPixels = 256 * 2 ** clamp(zoom, 3, 14);
+  const longitudeRadius = clamp(430 * 360 / worldPixels / 2 + 0.6, 0.8, 8);
+  const latitudeRadius = clamp(
+    932 * 360 / worldPixels / 2 * Math.cos(latitude * Math.PI / 180) + 0.6,
+    0.8,
+    8,
+  );
+  return points.filter((point) =>
+    Math.abs(point.longitude - longitude) <= longitudeRadius &&
+    Math.abs(point.latitude - latitude) <= latitudeRadius
+  );
 }
 
 /**
