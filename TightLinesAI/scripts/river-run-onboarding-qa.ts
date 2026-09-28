@@ -45,10 +45,19 @@ const expectedRivers = new Set([
   "rogue_mi",
 ]);
 const expectedSpeciesCounts = new Map([
-  ["big_manistee", 4],
-  ["milwaukee", 4],
-  ["sheboygan", 4],
-  ["root", 4],
+  ["pere_marquette", 4],
+  ["betsie", 4],
+  ["big_manistee", 5],
+  ["muskegon", 4],
+  ["st_joseph", 4],
+  ["grand", 4],
+  ["platte", 4],
+  ["white", 4],
+  ["bear_creek_manistee", 4],
+  ["rogue_mi", 4],
+  ["milwaukee", 6],
+  ["sheboygan", 6],
+  ["root", 6],
   ["bois_brule", 4],
   ["salmon_ny", 4],
   ["oak_orchard", 4],
@@ -57,49 +66,63 @@ const expectedSpeciesCounts = new Map([
   ["puyallup", 2],
   ["cowlitz", 2],
   ["trail_creek", 2],
-  ["kewaunee_river", 3],
+  ["kewaunee_river", 6],
   ["clackamas", 2],
-  ["manitowoc", 3],
+  ["manitowoc", 6],
   ["oswego", 4],
 ]);
 const expectedRunIds = new Set([
   "pere_marquette_fall_chinook",
   "pere_marquette_fall_coho",
   "pere_marquette_fall_steelhead",
+  "pere_marquette_winter_steelhead",
   "big_manistee_fall_chinook",
   "big_manistee_fall_coho",
   "big_manistee_fall_steelhead",
   "big_manistee_fall_brown_trout",
+  "big_manistee_winter_steelhead",
   "muskegon_fall_chinook",
   "muskegon_fall_coho",
   "muskegon_fall_steelhead",
+  "muskegon_winter_steelhead",
   "st_joseph_fall_chinook",
   "st_joseph_fall_coho",
   "st_joseph_fall_steelhead",
+  "st_joseph_winter_steelhead",
   "betsie_fall_chinook",
   "betsie_fall_coho",
   "betsie_fall_steelhead",
+  "betsie_winter_steelhead",
   "grand_fall_chinook",
   "grand_fall_coho",
   "grand_fall_steelhead",
+  "grand_winter_steelhead",
   "platte_fall_chinook",
   "platte_fall_coho",
   "platte_fall_steelhead",
+  "platte_winter_steelhead",
   "white_fall_chinook",
   "white_fall_coho",
   "white_fall_steelhead",
+  "white_winter_steelhead",
   "milwaukee_fall_chinook",
   "milwaukee_fall_coho",
   "milwaukee_fall_steelhead",
   "milwaukee_fall_brown_trout",
+  "milwaukee_winter_steelhead",
+  "milwaukee_winter_brown_trout",
   "sheboygan_fall_chinook",
   "sheboygan_fall_coho",
   "sheboygan_fall_steelhead",
   "sheboygan_fall_brown_trout",
+  "sheboygan_winter_steelhead",
+  "sheboygan_winter_brown_trout",
   "root_fall_chinook",
   "root_fall_coho",
   "root_fall_steelhead",
   "root_fall_brown_trout",
+  "root_winter_steelhead",
+  "root_winter_brown_trout",
   "bois_brule_fall_chinook",
   "bois_brule_fall_coho",
   "bois_brule_fall_steelhead",
@@ -125,12 +148,18 @@ const expectedRunIds = new Set([
   "trail_creek_fall_coho",
   "kewaunee_river_fall_chinook",
   "kewaunee_river_fall_coho",
+  "kewaunee_river_fall_steelhead",
   "kewaunee_river_fall_brown_trout",
+  "kewaunee_river_winter_steelhead",
+  "kewaunee_river_winter_brown_trout",
   "clackamas_fall_chinook",
   "clackamas_fall_coho",
   "manitowoc_fall_chinook",
   "manitowoc_fall_coho",
+  "manitowoc_fall_steelhead",
   "manitowoc_fall_brown_trout",
+  "manitowoc_winter_steelhead",
+  "manitowoc_winter_brown_trout",
   "oswego_fall_chinook",
   "oswego_fall_coho",
   "oswego_fall_steelhead",
@@ -138,9 +167,11 @@ const expectedRunIds = new Set([
   "bear_creek_manistee_fall_chinook",
   "bear_creek_manistee_fall_coho",
   "bear_creek_manistee_fall_steelhead",
+  "bear_creek_manistee_winter_steelhead",
   "rogue_mi_fall_chinook",
   "rogue_mi_fall_coho",
   "rogue_mi_fall_steelhead",
+  "rogue_mi_winter_steelhead",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -157,8 +188,8 @@ assert(
   `Expected 25 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 78,
-  `Expected 78 runs, received ${report.runCount}.`,
+  report.runCount === 100,
+  `Expected 100 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(
@@ -191,10 +222,12 @@ for (const river of report.rivers) {
       profile?.seasonalZonePlan,
       `${run.runId} is missing its phase plan.`,
     );
-    assert(
-      profile.seasonalZonePlan.earlyApproach?.label,
-      `${run.runId} is missing early-approach orientation.`,
-    );
+    if (profile.runType !== "holding") {
+      assert(
+        profile.seasonalZonePlan.earlyApproach?.label,
+        `${run.runId} is missing early-approach orientation.`,
+      );
+    }
   }
   if (river.riverId === "betsie") {
     assert(
@@ -246,6 +279,7 @@ for (const run of RIVER_RUN_DRAFT_RUN_PROFILES) {
 for (
   const run of [...RIVER_RUN_RUN_PROFILES, ...RIVER_RUN_DRAFT_RUN_PROFILES]
 ) {
+  if (run.runType === "holding") continue;
   const river = [
     ...RIVER_RUN_RIVER_PROFILES,
     ...RIVER_RUN_DRAFT_RIVER_PROFILES,

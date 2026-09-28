@@ -15,6 +15,19 @@ const MICHIGAN_WINTER_STEELHEAD_RIVERS = new Set([
   "white",
 ]);
 
+const WISCONSIN_FALL_TO_WINTER_RUN_IDS = new Set([
+  "milwaukee_fall_steelhead",
+  "milwaukee_fall_brown_trout",
+  "sheboygan_fall_steelhead",
+  "sheboygan_fall_brown_trout",
+  "root_fall_steelhead",
+  "root_fall_brown_trout",
+  "kewaunee_river_fall_steelhead",
+  "kewaunee_river_fall_brown_trout",
+  "manitowoc_fall_steelhead",
+  "manitowoc_fall_brown_trout",
+]);
+
 /**
  * Winter holding profiles are intentionally absent outside their exact
  * seasonal window. Other run types retain their established availability
@@ -32,6 +45,11 @@ export function isRunSeasonallyActive(
     run.season === "fall" && run.runType === "fall_entry" &&
     run.species === "steelhead" &&
     MICHIGAN_WINTER_STEELHEAD_RIVERS.has(run.riverId)
+  ) {
+    return compareLocalDates(localDate, stage.window.endDate) <= 0;
+  }
+  if (
+    run.season === "fall" && WISCONSIN_FALL_TO_WINTER_RUN_IDS.has(run.runId)
   ) {
     return compareLocalDates(localDate, stage.window.endDate) <= 0;
   }

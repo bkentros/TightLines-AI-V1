@@ -255,10 +255,41 @@ export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE:
       "Wisconsin DNR 2026 Fishing Report; Wisconsin DNR Lake Michigan trout and salmon questions; Wisconsin DNR Seeforellen brood program. Temperature values are conservative Great Lakes fall-migration defaults pending river-specific Activity replay.",
   };
 
+export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_WINTER_HOLDING_BIOLOGY_PROFILE:
+  SpeciesBiologyProfile = {
+    biologyProfileId: "great_lakes_lake_run_brown_trout_winter_holding_v1",
+    species: "lake_run_brown_trout",
+    commonName: "Lake-run brown trout",
+    scientificName: "Salmo trutta",
+    region: "great_lakes",
+    movementEngineId: "stable_cool_holding",
+    migrationPurpose: "post_spawn_winter_feeding",
+    semelparous: false,
+    adultMigrationTemperature: {
+      coldHoldingF: 34,
+      supportiveMinF: 37,
+      preferredMinF: 39,
+      supportiveMaxF: 47,
+      tooWarmF: 52,
+      migrationBarrierF: 68,
+    },
+    environmentalResponse: {
+      risingFlow: "not_used_by_current_public_primitives",
+      precipitation: "precursor_only",
+      strongSignalRequiresMeasuredGaugeResponse: true,
+      peakFloodIsAutomaticallyPositive: false,
+    },
+    evidenceNotes:
+      "Wisconsin lake-run Brown Trout can remain around tributary mouths, harbors, and warmer nearshore water through winter after the fall spawning period. This profile represents a conservative lower-river holding and feeding opportunity, not a discrete winter migration or a claim that every fall fish remains. Stable mild conditions and cloud-filtered daylight can improve a feeding window; rain receives no independent positive credit.",
+    sourceNotes:
+      "Wisconsin DNR A Year of Fishing https://dnr.wisconsin.gov/topic/Fishing/outreach/yearoffishing.html ; Wisconsin DNR 2026 Fishing Report https://dnr.wisconsin.gov/topic/Fishing/outreach/wifishingreport ; Wisconsin DNR trout and salmon seasons https://dnr.wisconsin.gov/topic/Fishing/seasons/trout . Exact Activity response curves are conservative product hypotheses accepted only after fixed-period historical replay.",
+  };
+
 export const RIVER_RUN_SPECIES_BIOLOGY_PROFILES: SpeciesBiologyProfile[] = [
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
+  GREAT_LAKES_LAKE_RUN_BROWN_TROUT_WINTER_HOLDING_BIOLOGY_PROFILE,
 ];

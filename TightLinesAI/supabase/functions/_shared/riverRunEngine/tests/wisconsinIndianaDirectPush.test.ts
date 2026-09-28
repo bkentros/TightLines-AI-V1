@@ -67,7 +67,7 @@ const expectedHydraulics = new Map([
 
 Deno.test("every qualified Wisconsin and Indiana fall run validates with river-specific direct Push", () => {
   const runs = qualifiedFallRuns;
-  assertEquals(runs.length, 19);
+  assertEquals(runs.length, 21);
 
   for (const document of qualified) {
     const revisionIssues = validateConfigurationRevision({

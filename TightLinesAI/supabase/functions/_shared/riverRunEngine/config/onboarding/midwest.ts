@@ -13,6 +13,7 @@ import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
 
@@ -206,7 +207,7 @@ export const KEWAUNEE_RIVER_PROFILE: RiverProfile = {
     provider: "WISCONSIN_DNR_BESADNY",
     facilityName: "C.D. Besadny Anadromous Fish Facility",
     observationType: "trap_recovery",
-    eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+    eligibleSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
     sourceUrl:
       "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/BesadnyFacilityReport",
     updateCadence: "weekly",
@@ -235,7 +236,12 @@ export const KEWAUNEE_RIVER_PROFILE: RiverProfile = {
     downstreamTerminus: "Kewaunee harbor mouth at Lake Michigan",
     upstreamTerminus:
       "Third Highway C bridge crossing shown on the Wisconsin DNR access map",
-    targetSpecies: ["chinook_salmon", "coho_salmon", "lake_run_brown_trout"],
+    targetSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "kewaunee_lower_river",
@@ -254,7 +260,7 @@ export const KEWAUNEE_RIVER_PROFILE: RiverProfile = {
         role: "middle",
         gaugeRepresented: true,
         notes:
-          "Includes the County F hydraulic context and the operated facility. Chinook and coho product geography stops at the downstream face of the facility structure.",
+          "Includes the County F hydraulic context and the operated facility. Chinook and coho product geography stops at the downstream face of the facility structure; DNR processing records support Steelhead passage through the facility.",
         sourceNotes:
           "Wisconsin DNR access map and facility pages; USGS 04085200 metadata.",
       },
@@ -265,7 +271,7 @@ export const KEWAUNEE_RIVER_PROFILE: RiverProfile = {
         role: "terminal",
         gaugeRepresented: false,
         notes:
-          "Used only for lake-run brown-trout orientation because DNR documents brown trout passed upstream. Public markers do not make intervening private frontage public.",
+          "Used for lake-run Brown Trout and Steelhead orientation because DNR documents those living repeat-spawning fish being passed upstream. Public markers do not make intervening private frontage public.",
         sourceNotes:
           "Wisconsin DNR access map and 2024 Lake Michigan weir report.",
       },
@@ -290,7 +296,7 @@ export const KEWAUNEE_RIVER_PROFILE: RiverProfile = {
         "Wisconsin DNR 2026-2027 regulations and Besadny facility material; recheck at release.",
     }],
     evidenceNotes:
-      "Official facility timing, annual weir reporting, stocking records, and the DNR access map support three independently calibrated runs. Besadny brown-trout totals are excluded from Fish Counts because adults are collected from several rivers and transferred to the facility.",
+      "Official facility timing, annual weir reporting, stocking records, and the DNR access map support Chinook, Coho, Steelhead, and lake-run Brown Trout independently. The 2024 facility report processed 279 fall Steelhead and 1,493 spring Steelhead; those are bounded operational samples, not total-river abundance. Besadny Brown Trout totals remain excluded from Fish Counts because adults are collected from several rivers and transferred to the facility.",
   },
   conditionRefreshSchedule: {
     activeSlots: ACTIVE_SLOTS,
@@ -798,6 +804,88 @@ export const KEWAUNEE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     "Owner-review candidate with an independent Coho calendar and facility endpoint.",
   sourceNotes: "docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
 };
+export const KEWAUNEE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
+  ...kewauneeShared,
+  runId: "kewaunee_river_fall_steelhead",
+  biologyProfileId: "great_lakes_steelhead_fall_entry_v1",
+  displayName: "Fall Steelhead",
+  species: "steelhead",
+  runType: "fall_entry",
+  movementEngineId: "fall_entry_cooling",
+  seasonalZoneReachIds: [
+    "kewaunee_lower_river",
+    "kewaunee_besadny_reach",
+    "kewaunee_upper_access",
+  ],
+  runWindow: {
+    preRunStart: "08-15",
+    stagingStart: "09-01",
+    start: "09-15",
+    beginningEnd: "09-30",
+    buildingEstablishedStart: "10-01",
+    buildingBroadStart: "10-15",
+    peakStart: "11-01",
+    peak: "11-15",
+    peakEnd: "12-01",
+    taperingEnd: "12-08",
+    end: "12-15",
+    lateEnd: "12-31",
+    postRunLateCopyEnd: "01-15",
+  },
+  historicalPresence: presence(
+    7,
+    "kewaunee-steelhead-fall-presence-pass1-v1",
+    [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
+      { dayOffsetFromStart: 15, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 30, fractionOfMaximum: .55 },
+      { dayOffsetFromStart: 45, fractionOfMaximum: .85 },
+      { dayOffsetFromStart: 61, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 76, fractionOfMaximum: .85 },
+      { dayOffsetFromStart: 91, fractionOfMaximum: .62 },
+    ],
+    "A conservative 7/10 sectional ceiling reflects Kewaunee's brood-river role, recurring strain-specific stocking, 279 Steelhead processed during the bounded Oct. 12-Dec. 12, 2024 fall facility period, and a distinct 1,493-fish spring 2024 sample. The curve models fall entry only; it is not a facility census, catch rate, winter score, or spring score.",
+    "Wisconsin DNR 2025 Lake Michigan GLFC report, Besadny facility reports, Lake Michigan Steelhead strain guide, 2024 stocking summary, current regulations, and Kewaunee access map.",
+  ),
+  activity: kewauneeWeather({
+    version: "kewaunee-steelhead-weather-activity-pass1-v1",
+    profile: "steelhead_feeding",
+    reaches: [
+      "kewaunee_lower_river",
+      "kewaunee_besadny_reach",
+      "kewaunee_upper_access",
+    ],
+  }),
+  push: midwestPush({
+    version: "kewaunee-fall-steelhead-direct-push-v1",
+    fishability: kewauneeFishability,
+    hydraulicTrend: KEWAUNEE_HYDRAULIC_TREND,
+    profile: "steelhead_feeding",
+    temperature: {
+      coldHoldingF: 39,
+      preferredMinF: 46,
+      supportiveMinF: 40,
+      supportiveMaxF: 52,
+      tooWarmF: 60,
+      migrationBarrierF: 70,
+    },
+    evidenceNotes:
+      "Fresh Push Watch uses only the measured County F hydraulic response. The short 2026 co-located temperature record may constrain an event by absolute biological limits but cannot create a positive event or establish a multi-season trend. Precipitation and wind are unscored.",
+    sourceNotes:
+      "USGS 04085200 approved daily discharge for fixed 2019-2025 fall windows and provisional co-located temperature beginning May 4, 2026. The signal represents County F / Besadny, not Kewaunee Harbor or the upper access corridor.",
+  }),
+  waterTemperature: KEWAUNEE_TEMPERATURE_POLICY,
+  researchNotes:
+    "Wisconsin winter Pass 1 prerequisite. This independently supported fall-entry profile ends December 15 so a future winter Steelhead experience can begin December 16 without overlap. It is committed for configuration and review only; production release remains controlled by the explicit run allowlist.",
+  sourceNotes:
+    "docs/onboarding/river-run/wisconsin-winter-2026-pass1.md and docs/onboarding/river-run/kewaunee_river/river-onboarding.md",
+  publicAudit: {
+    isEnabled: true,
+    auditVersion: "kewaunee-fall-steelhead-pass1-foundation-v1",
+    notes:
+      "Pass 1 accepts recurrence, lifecycle, calendar, corridor, and source contracts. Historical Activity replay and release authorization remain later gates.",
+  },
+};
 export const KEWAUNEE_FALL_BROWN_TROUT_RUN_PROFILE: AuditedRiverRunProfile = {
   ...kewauneeShared,
   runId: "kewaunee_river_fall_brown_trout",
@@ -894,6 +982,7 @@ export const MIDWEST_DRAFT_RUNS = [
   TRAIL_CREEK_FALL_COHO_RUN_PROFILE,
   KEWAUNEE_FALL_CHINOOK_RUN_PROFILE,
   KEWAUNEE_FALL_COHO_RUN_PROFILE,
+  KEWAUNEE_FALL_STEELHEAD_RUN_PROFILE,
   KEWAUNEE_FALL_BROWN_TROUT_RUN_PROFILE,
 ];
 export const MIDWEST_DRAFT_CONFIGURATION_DOCUMENTS:
@@ -915,20 +1004,23 @@ export const MIDWEST_DRAFT_CONFIGURATION_DOCUMENTS:
     },
     {
       schemaVersion: "river-run-config-v1",
-      configVersion: "2026-09-03-kewaunee-direct-push-v1",
+      configVersion: "2026-09-28-kewaunee-winter-pass1-foundation-v1",
       movementEngineVersion: [
         getMovementEngineDefinition("fall_cooling").version,
+        getMovementEngineDefinition("fall_entry_cooling").version,
         getMovementEngineDefinition("fall_repeat_spawner_cooling").version,
       ].join("+"),
       river: KEWAUNEE_RIVER_PROFILE,
       biologyProfiles: [
         GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
         GREAT_LAKES_COHO_BIOLOGY_PROFILE,
+        GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
         GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
       ],
       runs: [
         KEWAUNEE_FALL_CHINOOK_RUN_PROFILE,
         KEWAUNEE_FALL_COHO_RUN_PROFILE,
+        KEWAUNEE_FALL_STEELHEAD_RUN_PROFILE,
         KEWAUNEE_FALL_BROWN_TROUT_RUN_PROFILE,
       ],
     },

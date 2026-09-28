@@ -212,7 +212,8 @@ export type ActivityRules = {
     | "coho_fall_reaction"
     | "steelhead_feeding"
     | "brown_trout_fall_reaction"
-    | "steelhead_winter_holding";
+    | "steelhead_winter_holding"
+    | "brown_trout_winter_holding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
   /** Winter holding only: measured water when available, otherwise an explicitly limited multi-day air-temperature context. */
@@ -875,7 +876,10 @@ export type SpeciesBiologyProfile = {
   scientificName: string;
   region: RiverRunRegion;
   movementEngineId: MovementEngineId;
-  migrationPurpose: "spawning" | "pre_spawn_overwintering";
+  migrationPurpose:
+    | "spawning"
+    | "pre_spawn_overwintering"
+    | "post_spawn_winter_feeding";
   semelparous: boolean;
   adultMigrationTemperature: {
     coldHoldingF?: number;

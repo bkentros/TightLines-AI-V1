@@ -55,6 +55,7 @@ import {
 import { WASHINGTON_DRAFT_RUNS } from "./onboarding/washington.ts";
 import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
 import { buildMichiganWinterSteelheadProfile } from "./winterSteelhead.ts";
+import { WISCONSIN_WINTER_RUN_PROFILES } from "./wisconsinWinterProfiles.ts";
 
 export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
   AuditedObservedRiverRunProfile = {
@@ -2610,6 +2611,7 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   ROOT_FALL_COHO_RUN_PROFILE,
   ROOT_FALL_STEELHEAD_RUN_PROFILE,
   ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
+  ...WISCONSIN_WINTER_RUN_PROFILES,
   BOIS_BRULE_FALL_CHINOOK_RUN_PROFILE,
   BOIS_BRULE_FALL_COHO_RUN_PROFILE,
   BOIS_BRULE_FALL_STEELHEAD_RUN_PROFILE,

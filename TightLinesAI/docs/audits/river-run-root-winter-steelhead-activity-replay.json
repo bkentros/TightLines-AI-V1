@@ -1,0 +1,167 @@
+{
+  "auditVersion": "root_winter_steelhead-wisconsin-winter-pass2-replay-v1",
+  "runId": "root_winter_steelhead",
+  "species": "steelhead",
+  "rulesVersion": "root_winter_steelhead-activity-pass3-v1",
+  "mode": "air_temperature_proxy",
+  "replayYears": "2021-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly light, cloud, precipitation, and 2 m air temperature at root_horlick_weather; UTC observations are converted through America/Chicago historical timezone rules.",
+    "hydraulics": "No hydraulic series is scored; weather does not infer river level or clarity.",
+    "waterTemperature": "No measured-water series is accepted. A capped multi-day air-temperature pattern is used only as Limited proxy context and is never labeled water temperature."
+  },
+  "expectedDays": 295,
+  "usableDays": 294,
+  "coveragePercent": 99.66,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "measuredWaterTemperature": 0,
+    "measuredWaterHistory": 0,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 1
+  },
+  "dayScore": {
+    "min": 10,
+    "p10": 11,
+    "median": 21,
+    "p90": 51,
+    "max": 60,
+    "mean": 26.63
+  },
+  "blockScore": {
+    "min": 8,
+    "p10": 11,
+    "median": 21,
+    "p90": 51,
+    "max": 61,
+    "mean": 26.3
+  },
+  "dayLabels": {
+    "Active": 3,
+    "Inactive": 121,
+    "Moderate": 71,
+    "Reserved": 99
+  },
+  "byMonth": {
+    "01": {
+      "days": 155,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 21,
+        "p90": 51,
+        "max": 58,
+        "mean": 27.26
+      }
+    },
+    "02": {
+      "days": 139,
+      "scores": {
+        "min": 10,
+        "p10": 12,
+        "median": 21,
+        "p90": 50,
+        "max": 60,
+        "mean": 25.93
+      }
+    }
+  },
+  "byAirPattern": {
+    "cooling": {
+      "days": 17,
+      "scores": {
+        "min": 31,
+        "p10": 32,
+        "median": 39,
+        "p90": 44,
+        "max": 46,
+        "mean": 39.35
+      }
+    },
+    "gradual_warming": {
+      "days": 34,
+      "scores": {
+        "min": 44,
+        "p10": 46,
+        "median": 51,
+        "p90": 57,
+        "max": 60,
+        "mean": 51.44
+      }
+    },
+    "large_swing": {
+      "days": 153,
+      "scores": {
+        "min": 10,
+        "p10": 10,
+        "median": 17,
+        "p90": 26,
+        "max": 31,
+        "mean": 17.61
+      }
+    },
+    "persistent_cold": {
+      "days": 58,
+      "scores": {
+        "min": 13,
+        "p10": 14,
+        "median": 20,
+        "p90": 24,
+        "max": 27,
+        "mean": 19.93
+      }
+    },
+    "stable": {
+      "days": 15,
+      "scores": {
+        "min": 42,
+        "p10": 43,
+        "median": 51,
+        "p90": 55,
+        "max": 57,
+        "mean": 49.93
+      }
+    },
+    "variable": {
+      "days": 17,
+      "scores": {
+        "min": 41,
+        "p10": 41,
+        "median": 49,
+        "p90": 52,
+        "max": 55,
+        "mean": 47.71
+      }
+    }
+  },
+  "byFlowBand": null,
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 2,
+    "p90": 5,
+    "max": 9,
+    "mean": 2.05
+  },
+  "counterfactuals": {
+    "cold": 20,
+    "favorable": 54,
+    "gradualWarming": 53,
+    "largeSwing": 26
+  },
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "proxyConfidenceNotLimited": 0,
+    "proxyCeilingBroken": 0,
+    "scopeCopyMissing": 0,
+    "rainReceivedIndependentCredit": 0,
+    "wrongSpeciesCopy": 0
+  },
+  "reviewSampleSize": 100,
+  "limitations": [
+    "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+    "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+  ]
+}

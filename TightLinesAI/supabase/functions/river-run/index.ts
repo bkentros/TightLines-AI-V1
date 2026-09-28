@@ -93,7 +93,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.19.0";
+const ENGINE_VERSION = "river-run-v1.20.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -258,6 +258,36 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "rogue_mi_fall_coho",
   "rogue_mi_fall_steelhead",
   "rogue_mi_winter_steelhead",
+  "milwaukee_fall_chinook",
+  "milwaukee_fall_coho",
+  "milwaukee_fall_steelhead",
+  "milwaukee_fall_brown_trout",
+  "milwaukee_winter_steelhead",
+  "milwaukee_winter_brown_trout",
+  "sheboygan_fall_chinook",
+  "sheboygan_fall_coho",
+  "sheboygan_fall_steelhead",
+  "sheboygan_fall_brown_trout",
+  "sheboygan_winter_steelhead",
+  "sheboygan_winter_brown_trout",
+  "root_fall_chinook",
+  "root_fall_coho",
+  "root_fall_steelhead",
+  "root_fall_brown_trout",
+  "root_winter_steelhead",
+  "root_winter_brown_trout",
+  "kewaunee_river_fall_chinook",
+  "kewaunee_river_fall_coho",
+  "kewaunee_river_fall_steelhead",
+  "kewaunee_river_fall_brown_trout",
+  "kewaunee_river_winter_steelhead",
+  "kewaunee_river_winter_brown_trout",
+  "manitowoc_fall_chinook",
+  "manitowoc_fall_coho",
+  "manitowoc_fall_steelhead",
+  "manitowoc_fall_brown_trout",
+  "manitowoc_winter_steelhead",
+  "manitowoc_winter_brown_trout",
 ]);
 
 type ConditionRefreshRow = {

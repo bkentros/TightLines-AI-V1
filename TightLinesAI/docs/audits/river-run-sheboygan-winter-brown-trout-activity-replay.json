@@ -1,0 +1,167 @@
+{
+  "auditVersion": "sheboygan_winter_brown_trout-wisconsin-winter-pass2-replay-v1",
+  "runId": "sheboygan_winter_brown_trout",
+  "species": "lake_run_brown_trout",
+  "rulesVersion": "sheboygan_winter_brown_trout-activity-pass3-v1",
+  "mode": "air_temperature_proxy",
+  "replayYears": "2021-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly light, cloud, precipitation, and 2 m air temperature at sheboygan_i43_weather; UTC observations are converted through America/Chicago historical timezone rules.",
+    "hydraulics": "No hydraulic series is scored; weather does not infer river level or clarity.",
+    "waterTemperature": "No measured-water series is accepted. A capped multi-day air-temperature pattern is used only as Limited proxy context and is never labeled water temperature."
+  },
+  "expectedDays": 220,
+  "usableDays": 219,
+  "coveragePercent": 99.55,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "measuredWaterTemperature": 0,
+    "measuredWaterHistory": 0,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 1
+  },
+  "dayScore": {
+    "min": 10,
+    "p10": 12,
+    "median": 19,
+    "p90": 47,
+    "max": 61,
+    "mean": 23.79
+  },
+  "blockScore": {
+    "min": 8,
+    "p10": 11,
+    "median": 19,
+    "p90": 47,
+    "max": 61,
+    "mean": 23.46
+  },
+  "dayLabels": {
+    "Active": 2,
+    "Inactive": 112,
+    "Moderate": 35,
+    "Reserved": 70
+  },
+  "byMonth": {
+    "01": {
+      "days": 80,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 18,
+        "p90": 49,
+        "max": 57,
+        "mean": 23.81
+      }
+    },
+    "02": {
+      "days": 139,
+      "scores": {
+        "min": 10,
+        "p10": 13,
+        "median": 20,
+        "p90": 45,
+        "max": 61,
+        "mean": 23.78
+      }
+    }
+  },
+  "byAirPattern": {
+    "cooling": {
+      "days": 11,
+      "scores": {
+        "min": 32,
+        "p10": 34,
+        "median": 38,
+        "p90": 45,
+        "max": 46,
+        "mean": 39.64
+      }
+    },
+    "gradual_warming": {
+      "days": 16,
+      "scores": {
+        "min": 46,
+        "p10": 47,
+        "median": 52,
+        "p90": 57,
+        "max": 61,
+        "mean": 52.56
+      }
+    },
+    "large_swing": {
+      "days": 133,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 16,
+        "p90": 26,
+        "max": 30,
+        "mean": 17.28
+      }
+    },
+    "persistent_cold": {
+      "days": 42,
+      "scores": {
+        "min": 11,
+        "p10": 15,
+        "median": 20,
+        "p90": 24,
+        "max": 27,
+        "mean": 19.76
+      }
+    },
+    "stable": {
+      "days": 6,
+      "scores": {
+        "min": 42,
+        "p10": 42,
+        "median": 47,
+        "p90": 49,
+        "max": 53,
+        "mean": 47.67
+      }
+    },
+    "variable": {
+      "days": 11,
+      "scores": {
+        "min": 39,
+        "p10": 42,
+        "median": 45,
+        "p90": 54,
+        "max": 56,
+        "mean": 47.18
+      }
+    }
+  },
+  "byFlowBand": null,
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 2,
+    "p90": 4,
+    "max": 9,
+    "mean": 2.06
+  },
+  "counterfactuals": {
+    "cold": 20,
+    "favorable": 54,
+    "gradualWarming": 53,
+    "largeSwing": 26
+  },
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "proxyConfidenceNotLimited": 0,
+    "proxyCeilingBroken": 0,
+    "scopeCopyMissing": 0,
+    "rainReceivedIndependentCredit": 0,
+    "wrongSpeciesCopy": 0
+  },
+  "reviewSampleSize": 100,
+  "limitations": [
+    "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+    "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+  ]
+}

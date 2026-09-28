@@ -14,7 +14,7 @@ import {
 
 Deno.test("Midwest onboarding documents validate and are publicly released", () => {
   assertEquals(MIDWEST_DRAFT_RIVERS.length, 2);
-  assertEquals(MIDWEST_DRAFT_RUNS.length, 5);
+  assertEquals(MIDWEST_DRAFT_RUNS.length, 6);
   assertEquals(
     MIDWEST_DRAFT_RUNS.map((
       run,
@@ -24,6 +24,7 @@ Deno.test("Midwest onboarding documents validate and are publicly released", () 
       ["trail_creek_fall_coho", 7],
       ["kewaunee_river_fall_chinook", 8],
       ["kewaunee_river_fall_coho", 8],
+      ["kewaunee_river_fall_steelhead", 7],
       ["kewaunee_river_fall_brown_trout", 7],
     ],
   );

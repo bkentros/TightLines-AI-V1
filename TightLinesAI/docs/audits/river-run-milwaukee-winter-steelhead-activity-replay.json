@@ -1,0 +1,178 @@
+{
+  "auditVersion": "milwaukee_winter_steelhead-wisconsin-winter-pass2-replay-v1",
+  "runId": "milwaukee_winter_steelhead",
+  "species": "steelhead",
+  "rulesVersion": "milwaukee_winter_steelhead-activity-pass3-v1",
+  "mode": "measured_water",
+  "replayYears": "2021-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly light, cloud, precipitation, and 2 m air temperature at milwaukee_estabrook_weather; UTC observations are converted through America/Chicago historical timezone rules.",
+    "hydraulics": "USGS 04087000 approved daily mean discharge, used only for milwaukee_urban_greenway.",
+    "waterTemperature": "USGS 04087000 daily mean water temperature. The configured series starts in 2026, so the 2021-2025 replay truthfully records missing measured-water history and does not backfill it from air."
+  },
+  "expectedDays": 375,
+  "usableDays": 302,
+  "coveragePercent": 80.53,
+  "missing": {
+    "flow": 71,
+    "priorFlow": 72,
+    "measuredWaterTemperature": 225,
+    "measuredWaterHistory": 225,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 0
+  },
+  "dayScore": {
+    "min": 19,
+    "p10": 49,
+    "median": 59,
+    "p90": 59,
+    "max": 66,
+    "mean": 56.42
+  },
+  "blockScore": {
+    "min": 19,
+    "p10": 49,
+    "median": 59,
+    "p90": 59,
+    "max": 66,
+    "mean": 56.29
+  },
+  "dayLabels": {
+    "Active": 18,
+    "Inactive": 4,
+    "Moderate": 278,
+    "Reserved": 2
+  },
+  "byMonth": {
+    "12": {
+      "days": 64,
+      "scores": {
+        "min": 55,
+        "p10": 59,
+        "median": 59,
+        "p90": 62,
+        "max": 66,
+        "mean": 59.39
+      }
+    },
+    "01": {
+      "days": 124,
+      "scores": {
+        "min": 45,
+        "p10": 49,
+        "median": 59,
+        "p90": 59,
+        "max": 62,
+        "mean": 56.93
+      }
+    },
+    "02": {
+      "days": 114,
+      "scores": {
+        "min": 19,
+        "p10": 47,
+        "median": 59,
+        "p90": 59,
+        "max": 59,
+        "mean": 54.2
+      }
+    }
+  },
+  "byAirPattern": null,
+  "byFlowBand": {
+    "blown_out": {
+      "days": 4,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 19,
+        "p90": 19,
+        "max": 19,
+        "mean": 19
+      }
+    },
+    "high_fishable": {
+      "days": 44,
+      "scores": {
+        "min": 56,
+        "p10": 59,
+        "median": 59,
+        "p90": 59,
+        "max": 62,
+        "mean": 59.11
+      }
+    },
+    "ideal": {
+      "days": 136,
+      "scores": {
+        "min": 29,
+        "p10": 49,
+        "median": 59,
+        "p90": 59,
+        "max": 66,
+        "mean": 57.84
+      }
+    },
+    "low": {
+      "days": 99,
+      "scores": {
+        "min": 45,
+        "p10": 48,
+        "median": 59,
+        "p90": 59,
+        "max": 59,
+        "mean": 54.85
+      }
+    },
+    "very_high": {
+      "days": 13,
+      "scores": {
+        "min": 47,
+        "p10": 48,
+        "median": 58,
+        "p90": 59,
+        "max": 59,
+        "mean": 56.08
+      }
+    },
+    "very_low": {
+      "days": 6,
+      "scores": {
+        "min": 45,
+        "p10": 45,
+        "median": 58,
+        "p90": 59,
+        "max": 59,
+        "mean": 56.17
+      }
+    }
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 0,
+    "p90": 3,
+    "max": 15,
+    "mean": 0.71
+  },
+  "counterfactuals": {
+    "cold": 29,
+    "favorable": 81,
+    "gradualWarming": 86,
+    "largeSwing": 77
+  },
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "proxyConfidenceNotLimited": 0,
+    "proxyCeilingBroken": 0,
+    "scopeCopyMissing": 0,
+    "rainReceivedIndependentCredit": 0,
+    "wrongSpeciesCopy": 0
+  },
+  "reviewSampleSize": 100,
+  "limitations": [
+    "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+    "The historical archive predates the accepted 2026 measured-water series; thermal ordering is accepted through deterministic measured-water counterfactuals, while historical days audit available flow/light behavior only."
+  ]
+}

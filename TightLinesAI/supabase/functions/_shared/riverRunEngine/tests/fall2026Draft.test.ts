@@ -18,7 +18,7 @@ import type {
 
 Deno.test("fall 2026 rivers and runs validate and are publicly released", () => {
   assertEquals(FALL_2026_DRAFT_RIVERS.length, 3);
-  assertEquals(FALL_2026_DRAFT_RUNS.length, 9);
+  assertEquals(FALL_2026_DRAFT_RUNS.length, 10);
   for (const river of FALL_2026_DRAFT_RIVERS) {
     const result = validateRiverProfile(river);
     assertEquals(

@@ -1546,7 +1546,9 @@ function validateActivityRules(
     steelhead: run.runType === "holding"
       ? "steelhead_winter_holding"
       : "steelhead_feeding",
-    lake_run_brown_trout: "brown_trout_fall_reaction",
+    lake_run_brown_trout: run.runType === "holding"
+      ? "brown_trout_winter_holding"
+      : "brown_trout_fall_reaction",
   };
   const expectedProfile = expectedProfileBySpecies[run.species];
   if (expectedProfile && rules.profile !== expectedProfile) {
@@ -2734,7 +2736,11 @@ export function validateSpeciesBiologyProfile(
     !hasText(profile?.scientificName) ||
     !isValidRegion(profile?.region) ||
     !includes(MOVEMENT_ENGINES, profile?.movementEngineId) ||
-    !["spawning", "pre_spawn_overwintering"].includes(
+    ![
+      "spawning",
+      "pre_spawn_overwintering",
+      "post_spawn_winter_feeding",
+    ].includes(
       profile?.migrationPurpose,
     ) ||
     typeof profile?.semelparous !== "boolean" ||
@@ -2935,11 +2941,12 @@ export function validateConfigurationRevision(
         ),
       );
     }
-    const expectedPurpose = run.runType === "fall_entry" ||
-        run.runType === "holding"
-      ? "pre_spawn_overwintering"
-      : "spawning";
-    if (biology.migrationPurpose !== expectedPurpose) {
+    const acceptedPurposes = run.runType === "fall_entry"
+      ? ["pre_spawn_overwintering"]
+      : run.runType === "holding"
+      ? ["pre_spawn_overwintering", "post_spawn_winter_feeding"]
+      : ["spawning"];
+    if (!acceptedPurposes.includes(biology.migrationPurpose)) {
       issues.push(
         issue(
           `runs.${run.runId}.biologyProfileId`,

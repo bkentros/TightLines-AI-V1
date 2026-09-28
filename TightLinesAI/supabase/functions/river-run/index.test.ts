@@ -23,6 +23,7 @@ import {
   serializeConditionRefresh,
   serializeDailySnapshot,
   type SupabaseLikeClient,
+  WISCONSIN_WINTER_PASS1_DECISIONS,
 } from "../_shared/riverRunEngine/index.ts";
 
 class MockQuery {
@@ -455,6 +456,19 @@ function request(
 async function productionMichiganRunsAt(
   localDate: string,
 ): Promise<Set<string>> {
+  return await productionRunsAt(localDate, "MI");
+}
+
+async function productionWisconsinRunsAt(
+  localDate: string,
+): Promise<Set<string>> {
+  return await productionRunsAt(localDate, "WI");
+}
+
+async function productionRunsAt(
+  localDate: string,
+  stateCode: string,
+): Promise<Set<string>> {
   const response = await handleRiverRunRequestBase(request("/rivers"), {
     publicEnabled: true,
     now: new Date(`${localDate}T17:00:00.000Z`),
@@ -467,7 +481,7 @@ async function productionMichiganRunsAt(
         state: string;
         rivers: Array<{ runs: Array<{ runId: string }> }>;
       }) =>
-        state.state === "MI"
+        state.state === stateCode
           ? state.rivers.flatMap((river) => river.runs.map((run) => run.runId))
           : [],
     ),
@@ -593,9 +607,11 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
   assertEquals(riverIds.length, 26);
-  assertEquals(runIds.length, 81);
+  assertEquals(runIds.length, 83);
   assertEquals(new Set(riverIds).size, 25);
-  assertEquals(new Set(runIds).size, 78);
+  assertEquals(new Set(runIds).size, 80);
+  assertEquals(runIds.includes("kewaunee_river_fall_steelhead"), true);
+  assertEquals(runIds.includes("manitowoc_fall_steelhead"), true);
   for (
     const riverId of [
       "grand",
@@ -715,9 +731,9 @@ Deno.test("production defaults include the released Bear Creek and Rogue runs", 
   );
 
   assertEquals(response.status, 200);
-  assertEquals(rivers.length, 11);
-  assertEquals(runIds.length, 33);
-  assertEquals(new Set(runIds).size, 30);
+  assertEquals(rivers.length, 16);
+  assertEquals(runIds.length, 53);
+  assertEquals(new Set(runIds).size, 50);
   assertEquals(runIds.includes("big_manistee_fall_brown_trout"), false);
   for (
     const runId of [
@@ -731,10 +747,50 @@ Deno.test("production defaults include the released Bear Creek and Rogue runs", 
   ) {
     assertEquals(runIds.includes(runId), true);
   }
-  assertEquals(
-    runIds.some((runId: string) => runId.startsWith("milwaukee_")),
-    false,
-  );
+  assertEquals(runIds.includes("milwaukee_fall_steelhead"), true);
+  assertEquals(runIds.includes("manitowoc_fall_steelhead"), true);
+});
+
+Deno.test("production defaults release Wisconsin winter profiles but keep them hidden before activation", async () => {
+  for (const river of WISCONSIN_WINTER_PASS1_DECISIONS) {
+    for (const species of river.species) {
+      const before = await handleRiverRunRequestBase(
+        request(
+          `/snapshot?riverId=${river.riverId}&runId=${species.futureRunId}&presentationState=WI`,
+        ),
+        {
+          publicEnabled: true,
+          now: new Date("2026-11-15T17:00:00.000Z"),
+        },
+      );
+      assertEquals(before.status, 409, species.futureRunId);
+      assertEquals((await json(before)).error, "river_run_season_inactive");
+    }
+  }
+});
+
+Deno.test("production catalog switches every Wisconsin Steelhead and Brown Trout pathway without overlap", async () => {
+  for (const river of WISCONSIN_WINTER_PASS1_DECISIONS) {
+    for (const species of river.species) {
+      const year = species.activationMonthDay.startsWith("12-") ? 2026 : 2027;
+      const activation = `${year}-${species.activationMonthDay}`;
+      const prior = addDays(activation, -1);
+      const priorRuns = await productionWisconsinRunsAt(prior);
+      const activeRuns = await productionWisconsinRunsAt(activation);
+      assertEquals(priorRuns.has(species.fallRunId), true, species.fallRunId);
+      assertEquals(
+        priorRuns.has(species.futureRunId),
+        false,
+        species.futureRunId,
+      );
+      assertEquals(activeRuns.has(species.fallRunId), false, species.fallRunId);
+      assertEquals(
+        activeRuns.has(species.futureRunId),
+        true,
+        species.futureRunId,
+      );
+    }
+  }
 });
 
 Deno.test("production defaults expose all ten Michigan winter Steelhead pathways in season", async () => {

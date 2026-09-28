@@ -75,6 +75,10 @@ export function scoreFishInRiver(
       ? clamp(Math.round(curveFraction * riverCeiling), 0, riverCeiling)
       : null;
     const riverName = winterRiverName(run.riverId);
+    const speciesName = anglerSpeciesName(run.species);
+    const winterName = run.species === "lake_run_brown_trout"
+      ? "Winter Brown Trout"
+      : "Winter Steelhead";
     const label = stage === "pre_run"
       ? "Not active yet"
       : stage === "post_run"
@@ -93,14 +97,16 @@ export function scoreFishInRiver(
       winterHoldingContext: active,
       label,
       headline: active
-        ? `${riverName} Steelhead remain present in the supported winter corridor.`
+        ? `${riverName} ${speciesName} remain present in the supported winter corridor.`
         : stage === "pre_run"
-        ? `${riverName} Winter Steelhead has not started.`
+        ? `${riverName} ${winterName} has not started.`
         : `${riverName} winter holding tracking is complete.`,
       detail: active
         ? "This value carries the fall endpoint into a slow winter plateau/decline. It is seasonal opportunity context—not a fish count, an activity score, a claim of equal distribution, or evidence of a new run."
         : stage === "pre_run"
-        ? "The winter presence curve remains inactive until the fall-entry pathway ends."
+        ? "The winter presence curve remains inactive until the fall pathway ends."
+        : run.species === "lake_run_brown_trout"
+        ? "The winter curve ends February 28 and does not invent a March Brown Trout run."
         : "The winter curve ends February 28 and does not estimate the spring run.",
       tip: active
         ? "Pair this retained-presence context with current Activity and Fishability; verify the exact reach, ice, access, and safety conditions."
@@ -380,6 +386,16 @@ function winterRiverName(riverId: string): string {
     ? "St. Joseph"
     : riverId === "grand"
     ? "Grand"
+    : riverId === "milwaukee"
+    ? "Milwaukee"
+    : riverId === "sheboygan"
+    ? "Sheboygan"
+    : riverId === "root"
+    ? "Root"
+    : riverId === "kewaunee_river"
+    ? "Kewaunee"
+    : riverId === "manitowoc"
+    ? "Manitowoc"
     : "River";
 }
 

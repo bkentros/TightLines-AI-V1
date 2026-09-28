@@ -62,14 +62,19 @@ export function resolveRunStage(
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
   if (run.runType === "holding") {
     const riverName = winterRiverName(run.riverId);
+    const speciesName = anglerSpeciesName(run.species);
+    const winterName = run.species === "lake_run_brown_trout"
+      ? "Winter Brown Trout"
+      : "Winter Steelhead";
+    const brownTrout = run.species === "lake_run_brown_trout";
     const active = stage !== "pre_run" && stage !== "post_run";
     const winterPhase = stage === "beginning"
       ? {
         label: "Winter transition",
         headline:
-          `${riverName} Steelhead are settling into winter holding water.`,
+          `${riverName} ${speciesName} are settling into winter holding water.`,
         detail:
-          "The tracked population is retained from fall entry. This phase does not claim a new run or fresh upstream movement.",
+          `The tracked population is retained from the fall pathway. This phase does not claim a new run or fresh upstream movement.`,
         tip:
           "Use the Activity and Fishability reads to choose a daylight window and controlled holding-water presentation.",
         reason: "stage_winter_transition" as const,
@@ -78,9 +83,10 @@ export function resolveRunStage(
       ? {
         label: "Core winter hold",
         headline:
-          `${riverName} Steelhead are in the core winter holding period.`,
-        detail:
-          "Presence changes slowly now; measured water temperature, its recent trend, daylight, clouds, and hydraulic shape drive the daily response read.",
+          `${riverName} ${speciesName} are in the core winter holding period.`,
+        detail: brownTrout
+          ? "Presence changes slowly now; the explicitly scoped winter Activity inputs rank conditional feeding windows without turning harbor weather into measured river temperature."
+          : "Presence changes slowly now; measured water temperature, its recent trend, daylight, clouds, and hydraulic shape drive the daily response read.",
         tip:
           "Favor stable or gradually warming water and verify the exact reach, ice, access, and safety conditions before fishing.",
         reason: "stage_core_winter_holding" as const,
@@ -89,29 +95,33 @@ export function resolveRunStage(
       ? {
         label: "Spring approach",
         headline:
-          `${riverName} Steelhead remain in winter holding as spring approaches.`,
-        detail:
-          "This remains the winter holding model through February 28. It does not infer spring spawning movement or extend the winter score into March.",
-        tip:
-          "Continue using the winter Activity read; treat any spring movement as outside this model until the spring pathway begins.",
+          `${riverName} ${speciesName} remain in winter holding as March approaches.`,
+        detail: brownTrout
+          ? "This lower-river winter opportunity ends February 28. It does not invent a spring Brown Trout run or extend the winter score into March."
+          : "This remains the winter holding model through February 28. It does not infer spring spawning movement or extend the winter score into March.",
+        tip: brownTrout
+          ? "Continue using the winter Activity read through February and verify the mouth or harbor conditions directly."
+          : "Continue using the winter Activity read; treat any spring movement as outside this model until the spring pathway begins.",
         reason: "stage_spring_approach" as const,
       }
       : stage === "pre_run"
       ? {
         label: "Not active yet",
-        headline: `${riverName} Winter Steelhead has not started.`,
+        headline: `${riverName} ${winterName} has not started.`,
         detail:
-          "The fall-entry pathway remains authoritative until its final date. Winter holding will activate at the exact handoff without overlapping scores.",
+          "The fall pathway remains authoritative until its final date. Winter holding will activate at the exact handoff without overlapping scores.",
         tip: `Check back on ${window.startDate}.`,
         reason: "stage_pre_run" as const,
       }
       : {
         label: "Winter holding complete",
-        headline: `${riverName} Winter Steelhead is complete.`,
-        detail:
-          "The winter model ends February 28 and does not infer March spring-run conditions.",
-        tip:
-          "Use the separately researched spring pathway when it becomes available.",
+        headline: `${riverName} ${winterName} is complete.`,
+        detail: brownTrout
+          ? "The winter model ends February 28 and does not infer a March Brown Trout run."
+          : "The winter model ends February 28 and does not infer March spring-run conditions.",
+        tip: brownTrout
+          ? "Use current regulations and other species pathways for March conditions."
+          : "Use the separately researched spring pathway when it becomes available.",
         reason: "stage_winter_complete" as const,
       };
     return {
@@ -524,6 +534,16 @@ function winterRiverName(riverId: string): string {
     ? "St. Joseph"
     : riverId === "grand"
     ? "Grand"
+    : riverId === "milwaukee"
+    ? "Milwaukee"
+    : riverId === "sheboygan"
+    ? "Sheboygan"
+    : riverId === "root"
+    ? "Root"
+    : riverId === "kewaunee_river"
+    ? "Kewaunee"
+    : riverId === "manitowoc"
+    ? "Manitowoc"
     : "River";
 }
 

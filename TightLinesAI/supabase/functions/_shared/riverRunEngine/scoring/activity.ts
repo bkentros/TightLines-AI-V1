@@ -86,8 +86,11 @@ export type ActivityScoreInput = {
 };
 
 export function scoreActivity(input: ActivityScoreInput): ActivityResult {
-  if (input.rules.profile === "steelhead_winter_holding") {
-    return scoreWinterSteelheadActivity(input);
+  if (
+    input.rules.profile === "steelhead_winter_holding" ||
+    input.rules.profile === "brown_trout_winter_holding"
+  ) {
+    return scoreWinterHoldingActivity(input);
   }
   if (input.seasonNotStarted) {
     const river = input.copyStrategy === "betsie_homestead"
@@ -603,9 +606,12 @@ export function scoreActivity(input: ActivityScoreInput): ActivityResult {
   };
 }
 
-function scoreWinterSteelheadActivity(
+function scoreWinterHoldingActivity(
   input: ActivityScoreInput,
 ): ActivityResult {
+  const winterName = input.rules.profile === "brown_trout_winter_holding"
+    ? "Winter Brown Trout"
+    : "Winter Steelhead";
   const tomorrow = input.targetDate !== input.requestDate;
   const inactive = input.seasonNotStarted || input.runStage === "pre_run" ||
     input.runStage === "post_run";
@@ -617,8 +623,8 @@ function scoreWinterSteelheadActivity(
         ? "Winter holding complete"
         : "Not active yet",
       headline: input.runStage === "post_run"
-        ? "Winter Steelhead Activity is complete."
-        : "Winter Steelhead Activity has not started.",
+        ? `${winterName} Activity is complete.`
+        : `${winterName} Activity has not started.`,
       detail: input.runStage === "post_run"
         ? "The winter model ends February 28 and does not infer spring-run responsiveness."
         : "The winter model remains off until the fall-entry pathway reaches its exact endpoint.",
@@ -674,7 +680,7 @@ function scoreWinterSteelheadActivity(
       label: "Unavailable",
       headline: `${
         tomorrow ? "Tomorrow’s" : "Today’s"
-      } Winter Steelhead Activity is unavailable.`,
+      } ${winterName} Activity is unavailable.`,
       detail: `${missing} ${
         airProxy
           ? "The model does not invent water temperature or river state from incomplete weather."
@@ -721,7 +727,10 @@ function scoreWinterSteelheadActivity(
   const refreshMinutes = parseRefreshMinutes(input.refreshSlot ?? "04:00");
   const thermalScore = airProxy
     ? airTemperatureContext!.score
-    : winterTemperatureScore(hasTemperature ? input.waterTempF : null);
+    : winterTemperatureScore(
+      hasTemperature ? input.waterTempF : null,
+      input.rules.profile,
+    );
   const trendScore = winterTrendScore(
     hasTemperature ? input.temperatureTrend : "neutral_missing",
   );
@@ -780,24 +789,22 @@ function scoreWinterSteelheadActivity(
     }
     if (input.flowBand === "blown_out") score = Math.min(score, 19);
     if (confidence === "Limited" && !airProxy) score = Math.min(score, 59);
-    if (airProxy && input.rules.dataMode !== "weather_only") {
-      score = Math.min(score, 69);
-    }
-    if (
-      airProxy &&
-      (airTemperatureContext!.largeSwing ||
-        airTemperatureContext!.signal === "cold")
-    ) {
-      score = Math.min(score, 39);
-    }
-    if (airProxy && input.rules.dataMode === "weather_only") {
-      score = Math.min(
-        score,
-        tomorrow
-          ? input.rules.caps.weatherOnlyTomorrowMaximum ??
-            input.rules.caps.weatherOnlyMaximum ?? 64
-          : input.rules.caps.weatherOnlyMaximum ?? 64,
+    if (airProxy) {
+      const proxyCeiling = Math.min(
+        input.rules.dataMode === "weather_only"
+          ? tomorrow
+            ? input.rules.caps.weatherOnlyTomorrowMaximum ??
+              input.rules.caps.weatherOnlyMaximum ?? 64
+            : input.rules.caps.weatherOnlyMaximum ?? 64
+          : 69,
+        airTemperatureContext!.largeSwing ||
+          airTemperatureContext!.signal === "cold"
+          ? 39
+          : 100,
       );
+      // Scale rather than flatten at the evidence ceiling so cloud-filtered
+      // daylight can still rank otherwise similar legal winter windows.
+      score = proportionalCeiling(score, proxyCeiling);
     }
     const status = tomorrow
       ? "upcoming" as const
@@ -892,7 +899,7 @@ function scoreWinterSteelheadActivity(
     label: activityLabel(score),
     headline: `${
       tomorrow ? "Tomorrow’s" : "Today’s"
-    } Winter Steelhead Activity is ${activityLabel(score).toLowerCase()}.`,
+    } ${winterName} Activity is ${activityLabel(score).toLowerCase()}.`,
     detail:
       `${trendCopy} The strongest daylight window is ${best.label}. Clouds shape the time-window ranking, but cannot override ${
         airProxy
@@ -1023,8 +1030,20 @@ function meanNumber(values: number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
-function winterTemperatureScore(temp: number | null): number {
+function winterTemperatureScore(
+  temp: number | null,
+  profile: ActivityRules["profile"],
+): number {
   if (temp == null) return 50;
+  if (profile === "brown_trout_winter_holding") {
+    if (temp <= 32.5) return 8;
+    if (temp < 34) return interpolateClamped(temp, 32.5, 34, 8, 22);
+    if (temp < 37) return interpolateClamped(temp, 34, 37, 22, 60);
+    if (temp < 40) return interpolateClamped(temp, 37, 40, 60, 86);
+    if (temp <= 47) return interpolateClamped(temp, 40, 47, 86, 94);
+    if (temp < 52) return interpolateClamped(temp, 47, 52, 94, 76);
+    return interpolateClamped(temp, 52, 60, 76, 44);
+  }
   if (temp <= 32.5) return 8;
   if (temp < 34) return interpolateClamped(temp, 32.5, 34, 8, 24);
   if (temp < 36) return interpolateClamped(temp, 34, 36, 24, 45);
@@ -1926,9 +1945,11 @@ function conditionalCohoFloor(score: number): number {
 function activitySpecies(profile: ActivityRules["profile"]): string {
   return profile === "coho_fall_reaction"
     ? "Coho"
-    : profile === "steelhead_feeding"
+    : profile === "steelhead_feeding" ||
+        profile === "steelhead_winter_holding"
     ? "Steelhead"
-    : profile === "brown_trout_fall_reaction"
+    : profile === "brown_trout_fall_reaction" ||
+        profile === "brown_trout_winter_holding"
     ? "lake-run Brown Trout"
     : "Chinook";
 }

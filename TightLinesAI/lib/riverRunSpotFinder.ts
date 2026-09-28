@@ -2107,7 +2107,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         foundationReachIds: ["kewaunee_upper_access"],
         position: "upper",
         rangeLabel: "Besadny facility to third Highway C bridge crossing",
-        eligibleSpecies: ["lake_run_brown_trout"],
+        eligibleSpecies: ["lake_run_brown_trout", "steelhead"],
         spots: [
           sourceMappedSpot(
             "kewaunee_second_highway_c",

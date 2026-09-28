@@ -1223,11 +1223,16 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
         if (run.runType === "holding") {
           assert.deepEqual(
             result.recommendedSections.map((section) => section.id),
-            finder.sections.map((section) => section.id),
-            `${run.runId}/${presentation.state}/${localDate} must recommend every audited holding-corridor section`,
+            expected.map((section) => section.id),
+            `${run.runId}/${presentation.state}/${localDate} must recommend every species-specific audited holding-corridor section`,
           );
-          assert.deepEqual(result.otherSections, []);
-          const expectedPreferredSections = finder.sections.filter((section) =>
+          assert.deepEqual(
+            result.otherSections.map((section) => section.id),
+            finder.sections.filter((section) =>
+              !expected.some((candidate) => candidate.id === section.id)
+            ).map((section) => section.id),
+          );
+          const expectedPreferredSections = expected.filter((section) =>
             section.foundationReachIds.some((reachId) =>
               seasonalZone.winterHoldingGuidance?.preferredStartReachIds
                 .includes(reachId)
@@ -1240,7 +1245,7 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
           );
           assert.deepEqual(
             result.viableWinterSections.map((section) => section.id),
-            finder.sections
+            expected
               .filter((section) =>
                 !expectedPreferredSections.some((preferred) =>
                   preferred.id === section.id
