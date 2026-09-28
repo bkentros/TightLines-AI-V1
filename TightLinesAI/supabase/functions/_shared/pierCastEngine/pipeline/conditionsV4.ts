@@ -30,7 +30,9 @@ import {
   evaluatePierCastSeasonalOutlookV4,
   evaluatePierCastThermalMatchV4,
 } from "../scoring/conditionsV4.ts";
-import type { PierCastSpeciesId } from "../types.ts";
+import type { PierCastCityId, PierCastSpeciesId } from "../types.ts";
+import type { PierCastLmhofsSample } from "../providers/lmhofs.ts";
+import { buildPierCastRollingTemperatureTimeline } from "./reviewOutlook.ts";
 import type { PierCastV3ReviewOutlookResponse } from "./v3ReviewOutlook.ts";
 
 export const PIER_CAST_V4_DISCLOSURE =
@@ -59,6 +61,71 @@ export type PierCastConditionsV4SourceOutlook = {
     }
   >;
 };
+
+export type PierCastConditionsV4SourceBatch = {
+  issuedAt: string;
+  fetchedAt: string;
+  cycleAgeHours: number;
+  cities: ReadonlyArray<{
+    cityId: PierCastCityId;
+    status: "available" | "unavailable";
+    samples: readonly PierCastLmhofsSample[];
+  }>;
+};
+
+/**
+ * Builds the v4 source projection directly from the already validated,
+ * coherent NOAA cohort. V4 needs only the rolling temperature timelines and
+ * today's local date; constructing the full legacy five-day scoring outlook
+ * here wastes enough Edge CPU to exceed the selected-map execution budget.
+ */
+export function buildPierCastConditionsV4OutlookFromBatch(input: {
+  batch: PierCastConditionsV4SourceBatch;
+  evaluationTime: string;
+}): PierCastConditionsOutlookV4 {
+  const evaluatedAt = new Date(input.evaluationTime);
+  if (!Number.isFinite(evaluatedAt.getTime())) {
+    throw new Error("PierCast v4 evaluation time is invalid.");
+  }
+  return buildPierCastConditionsV4Outlook({
+    generatedAt: evaluatedAt.toISOString(),
+    source: {
+      status: "fresh_archived_complete_cycle",
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+      issuedAt: input.batch.issuedAt,
+      fetchedAt: input.batch.fetchedAt,
+      cycleAgeHours: input.batch.cycleAgeHours,
+      cityCount: input.batch.cities.length,
+      sampleCount: input.batch.cities.reduce(
+        (total, city) => total + city.samples.length,
+        0,
+      ),
+    },
+    cities: input.batch.cities.map((timeline) => {
+      if (timeline.status !== "available") {
+        throw new Error(
+          `PierCast v4 city input is unavailable: ${timeline.cityId}.`,
+        );
+      }
+      const city = getPierCastV4CityDefinition(timeline.cityId);
+      if (!city) {
+        throw new Error(
+          `PierCast v4 city is not configured: ${timeline.cityId}.`,
+        );
+      }
+      return {
+        cityId: timeline.cityId,
+        temperatureTimeline: buildPierCastRollingTemperatureTimeline(
+          timeline.samples,
+          evaluatedAt,
+        ),
+        dates: [{
+          localDate: localDateAt(evaluatedAt.toISOString(), city.timezone),
+        }],
+      };
+    }),
+  });
+}
 
 export function buildPierCastConditionsV4Outlook(
   legacy: PierCastConditionsV4SourceOutlook,

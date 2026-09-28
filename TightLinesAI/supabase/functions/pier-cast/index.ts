@@ -17,6 +17,7 @@ import {
   buildPierCastCatalog,
   buildPierCastConditionsShadowComparisonV4,
   buildPierCastConditionsV4Outlook,
+  buildPierCastConditionsV4OutlookFromBatch,
   buildPierCastReviewOutlook,
   buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
@@ -98,6 +99,16 @@ async function readExpansionOutlook() {
 }
 async function readV3Outlook(maxAgeHours = 24) {
   const now = new Date();
+  const batch = await readV3Batch(now, maxAgeHours);
+  return batch
+    ? buildPierCastV3ReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
+}
+
+async function readV3Batch(now: Date, maxAgeHours: number) {
   const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
     database: archiveClient,
     now,
@@ -106,7 +117,7 @@ async function readV3Outlook(maxAgeHours = 24) {
     maxAgeHours,
   });
   if (!cohorts) return null;
-  const batch = combinePierCastV3LmhofsBatches(
+  return combinePierCastV3LmhofsBatches(
     cohorts.primary,
     cohorts.expansion,
     cohorts.lakeHuron,
@@ -115,10 +126,6 @@ async function readV3Outlook(maxAgeHours = 24) {
     cohorts.stJosephHarrisville,
     cohorts.pentwaterCaseville,
   );
-  return buildPierCastV3ReviewOutlook({
-    batch,
-    evaluationTime: now.toISOString(),
-  });
 }
 async function account(request: Request) {
   const token = request.headers.get("x-user-token") ??
@@ -154,8 +161,14 @@ async function readPublicOutlook() {
 }
 
 async function readConditionsOutlook(maxAgeHours = 13) {
-  const legacy = await readV3Outlook(maxAgeHours);
-  return legacy ? buildPierCastConditionsV4Outlook(legacy) : null;
+  const now = new Date();
+  const batch = await readV3Batch(now, maxAgeHours);
+  return batch
+    ? buildPierCastConditionsV4OutlookFromBatch({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
 }
 
 async function readClaimKeys(userId: string) {

@@ -15,7 +15,9 @@ import type {
 } from "../lib/pierCastContracts";
 import {
   buildPierCastConditionsV4Outlook,
+  buildPierCastConditionsV4OutlookFromBatch,
   projectPierCastConditionsMapV4,
+  type PierCastConditionsV4SourceBatch,
   type PierCastConditionsV4SourceOutlook,
 } from "../supabase/functions/_shared/pierCastEngine/pipeline/conditionsV4";
 
@@ -48,6 +50,47 @@ const source: PierCastConditionsV4SourceOutlook = {
     })),
   }],
 };
+
+test("v4 builds directly from the validated NOAA cohort without legacy scoring", () => {
+  const batch: PierCastConditionsV4SourceBatch = {
+    issuedAt: validTimes[0]!,
+    fetchedAt: "2026-09-27T12:00:00.000Z",
+    cycleAgeHours: 6,
+    cities: [{
+      cityId: "grand_haven_mi",
+      status: "available",
+      samples: validTimes.map((validAt, index) => ({
+        cityId: "grand_haven_mi",
+        sourceId: "lmhofs",
+        productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+        issuedAt: validTimes[0]!,
+        forecastHour: index,
+        validAt,
+        temperatureC: 10 + index / 100,
+        rawUnit: "C",
+        verticalSelection: "surface",
+        depthIndex: 0,
+        gridRow: 1,
+        gridColumn: 1,
+        latitude: 43.0631,
+        longitude: -86.2284,
+        sourceUrl: "https://example.invalid/lmhofs",
+      })),
+    }],
+  };
+  const outlook = buildPierCastConditionsV4OutlookFromBatch({
+    batch,
+    evaluationTime: source.generatedAt,
+  });
+  assert.equal(outlook.cities.length, 1);
+  assert.equal(outlook.cities[0]?.cityId, "grand_haven_mi");
+  assert.ok(outlook.cities[0]?.species.length);
+  assert.equal(outlook.source.issuedAt, batch.issuedAt);
+  assert.ok(outlook.cities[0]?.temperatureTimeline.length);
+  assert.ok(outlook.cities[0]?.temperatureTimeline.every((point) =>
+    Date.parse(point.validAt) >= Date.parse(source.generatedAt)
+  ));
+});
 
 test("public map projection is useful without a target and never invents a match", () => {
   const response = projectPierCastConditionsMapV4(
