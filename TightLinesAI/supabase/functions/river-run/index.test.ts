@@ -1453,7 +1453,7 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v6",
+    "river-live-conditions-v7",
   );
   assertEquals(
     body.riverConditions.metrics.some(

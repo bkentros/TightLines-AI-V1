@@ -52,7 +52,7 @@ import {
   resolveTurbidityRead,
 } from "./turbidity.ts";
 
-export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v6";
+export const RIVER_LIVE_CONDITIONS_VERSION = "river-live-conditions-v7";
 const USGS_ATTRIBUTION =
   "U.S. Geological Survey Water Data for the Nation; values may be provisional and subject to revision.";
 

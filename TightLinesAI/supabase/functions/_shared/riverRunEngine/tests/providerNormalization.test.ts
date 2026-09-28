@@ -154,7 +154,7 @@ Deno.test("USGS continuous fetch follows pagination before selecting latest high
           links: pageTwo ? [] : [{
             rel: "next",
             href:
-              "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items?offset=1000",
+              "https://api.waterdata.usgs.gov/ogcapi/v1/collections/continuous/items?offset=1000",
           }],
         }),
       };

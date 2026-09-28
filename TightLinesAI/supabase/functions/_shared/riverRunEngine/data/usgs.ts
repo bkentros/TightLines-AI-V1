@@ -52,7 +52,10 @@ export type NormalizedGaugeRead = {
 const USGS_CONTINUOUS_URL =
   "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items";
 const USGS_CONTINUOUS_ORIGIN = "https://api.waterdata.usgs.gov";
-const USGS_CONTINUOUS_PATH = "/ogcapi/v0/collections/continuous/items";
+const USGS_CONTINUOUS_PATHS = new Set([
+  "/ogcapi/v0/collections/continuous/items",
+  "/ogcapi/v1/collections/continuous/items",
+]);
 const USGS_PARAMETER_CODES: Record<RiverMetric, string> = {
   flow_cfs: "00060",
   gage_height_ft: "00065",
@@ -156,7 +159,7 @@ function isAcceptedContinuousPageUrl(value: string): boolean {
   try {
     const url = new URL(value);
     return url.origin === USGS_CONTINUOUS_ORIGIN &&
-      url.pathname === USGS_CONTINUOUS_PATH;
+      USGS_CONTINUOUS_PATHS.has(url.pathname);
   } catch {
     return false;
   }
