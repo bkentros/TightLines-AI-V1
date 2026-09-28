@@ -1,8 +1,8 @@
 # PierCast Renovation — Passes 1–6 Final Audit
 
 Audit date: **2026-09-28**
-Audit result: **Code-complete with no known automated or static defects**
-Release status: **Not deployed; native visual approval remains scheduled for October 1**
+Audit result: **Deployed with no known automated, static, or production-smoke defects**
+Release status: **Production rollout complete; native visual approval remains scheduled for October 1**
 
 ## Audit method
 
@@ -52,6 +52,14 @@ renovation, foundation, map, type, bundle, and whitespace gates.
    intentionally outside the current 18-species v4 roster. It is now treated
    as no selection, allowing the user to choose a supported target.
 9. Long city/report headings received additional shrink/wrap protection.
+10. The observed-temperature migration used the reserved word `constraint` as
+    a PostgreSQL catalog alias. The alias was corrected before the migration
+    changed production, and the migration then applied successfully.
+11. The selected-species map route built the complete legacy v3 scoring
+    outlook before discarding it for v4, exceeding the Edge worker compute
+    budget in production. V4 now builds directly from the same validated,
+    coherent 32-city NOAA cohort. The public contract and results are
+    unchanged; the production Chinook map now returns successfully.
 
 Regression assertions were added for the corrected score-free disclosure,
 release copy, unsupported targets, restricted Match colors, request races,
@@ -59,26 +67,34 @@ map target restoration, and obsolete preferences.
 
 ## Final verification
 
-- `npm run qa:pier-cast:renovation-pass6`: **76 Node + 35 Deno passed**.
+- `npm run qa:pier-cast:renovation-pass6`: **77 Node + 35 Deno passed**.
 - `npm run qa:pier-cast:foundation`: **11 Node + 256 Deno passed**.
 - `npm run qa:pier-cast:map`: **21 Node passed**.
 - `npx tsc --noEmit`: **passed**.
 - `npx expo export --platform ios`: **passed**, 2,020 modules bundled.
 - `git diff --check`: **passed**.
 
-## Remaining release actions
+## Production rollout verification
 
-These are not missing product implementation:
+- Migration `20260927120000_publish_pier_cast_observed_temperature_map.sql`
+  was applied to production and local/remote migration history was reconciled.
+- `pier-cast-ingest` was deployed before `pier-cast`, with gateway JWT
+  verification retained.
+- Anonymous production checks returned HTTP 200 for the 32-city catalog,
+  unselected and Chinook leaderboards, unselected and Chinook maps, and the
+  observed-temperature station layer.
+- The selected Chinook map returned all 32 cities and 3,306 synchronized
+  species frames after the workload correction.
+- A disposable free account verified HTTP 200 for v4 report creation,
+  saved-report recovery, and repeat access; the account was deleted afterward.
+- The release branch was committed and pushed with a clean working tree.
 
-1. Apply `20260927120000_publish_pier_cast_observed_temperature_map.sql`.
-2. Deploy `pier-cast-ingest`, then `pier-cast`, before shipping the app binary.
-3. Smoke the deployed anonymous conditions/catalog, leaderboard, map, and
-   observations reads plus authenticated report/saved-report reads.
-4. Capture the frozen native visual matrix on or after October 1 when a
+## Remaining follow-up
+
+These are not missing product implementation or deployment work:
+
+1. Capture the frozen native visual matrix on or after October 1 when a
    compatible simulator build is available. No screenshot is currently marked
    approved.
-5. Monitor `pier_cast_legacy_api_used` before eventually retiring old client
+2. Monitor `pier_cast_legacy_api_used` before eventually retiring old client
    compatibility routes.
-
-The current repository is ready for those release actions. No deployment or
-production mutation was performed by this audit.
