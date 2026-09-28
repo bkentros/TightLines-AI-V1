@@ -174,7 +174,7 @@ Deno.test("conditions v4 routes require species only where ranking/report needs 
 Deno.test("conditions catalog omits retired score metadata and is cacheable", async () => {
   const handler = createPierCastHandler(dependencies({
     readConditionsCatalog: () => ({
-      schemaVersion: "piercast-conditions-catalog-v1",
+      schemaVersion: "piercast-conditions-catalog-v2",
       disclosure: "test",
       cities: [],
     }),
@@ -187,7 +187,7 @@ Deno.test("conditions catalog omits retired score metadata and is cacheable", as
     response.headers.get("Cache-Control"),
     "public, max-age=3600, s-maxage=21600, stale-while-revalidate=86400",
   );
-  assertEquals(body.schemaVersion, "piercast-conditions-catalog-v1");
+  assertEquals(body.schemaVersion, "piercast-conditions-catalog-v2");
   assertEquals("ratingName" in body, false);
   assertEquals("formulaVersion" in body, false);
 });

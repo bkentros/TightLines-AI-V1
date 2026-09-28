@@ -19,7 +19,7 @@ export const PIER_CAST_RANKING_VERSION =
 export const PIER_CAST_SAVED_REPORT_ENVELOPE_VERSION =
   "piercast-saved-report-v4" as const;
 export const PIER_CAST_CONDITIONS_CATALOG_SCHEMA_VERSION =
-  "piercast-conditions-catalog-v1" as const;
+  "piercast-conditions-catalog-v2" as const;
 export const PIER_CAST_COMMON_TARGET_MINIMUM_SEASONAL_BAND = "fair" as const;
 export const PIER_CAST_REGIONAL_SEASONAL_PROFILE_SCHEMA_VERSION =
   "piercast-regional-seasonal-profile-v1" as const;
@@ -63,7 +63,10 @@ export type PierCastGreatLakeIdV4 =
 export type PierCastConditionsCatalogCityV4 = Omit<
   PierCastCatalogCityRead,
   "species"
->;
+> & {
+  /** Discovery-only roster. No retired score or calibration fields are exposed. */
+  supportedSpeciesIds: PierCastSpeciesId[];
+};
 
 export type PierCastConditionsCatalogResponseV4 = {
   schemaVersion: typeof PIER_CAST_CONDITIONS_CATALOG_SCHEMA_VERSION;

@@ -52,7 +52,7 @@ test("current conditions routes declare the v4 response contract", () => {
   assert.match(handler, /observedTemperatureMap/);
   assert.match(handler, /Access-Control-Expose-Headers/);
   assert.match(handler, /conditions\/catalog/);
-  assert.match(client, /piercast-conditions-catalog-v1|conditions\/catalog/);
+  assert.match(client, /piercast-conditions-catalog-v2|conditions\/catalog/);
   assert.match(edge, /disclosure: PIER_CAST_V4_DISCLOSURE/);
   assert.doesNotMatch(edge, /disclosure: catalog\.disclosure/);
 });
@@ -68,9 +68,10 @@ test("release copy describes target conditions instead of a universal numeric ra
   assert.doesNotMatch(pierCastGuide, /1\\u201310 rating|1–10 rating|score/i);
 });
 
-test("unsupported city targets are disabled and report requests reject stale target state", () => {
-  assert.match(conditionsUi, /disabled=\{!targetAvailable\}/);
-  assert.match(conditionsUi, /selected target not available/);
+test("unsupported city targets route through a supported-target chooser and stale requests are rejected", () => {
+  assert.match(conditionsUi, /choose a supported target/);
+  assert.match(conditionsUi, /citySupportedSpeciesIds/);
+  assert.match(screen, /city\.supportedSpeciesIds\.includes\(speciesId\)/);
   assert.match(conditionsUi, /RESTRICTED/);
   assert.match(screen, /leaderboard\?\.selectedSpeciesId !== target/);
   assert.match(screen, /selectedSpeciesRef\.current !== target/);

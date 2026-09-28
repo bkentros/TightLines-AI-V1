@@ -56,8 +56,8 @@ test("missing and restricted inputs remain explicitly unranked", () => {
 });
 
 test("city report keeps seasonal outlook and thermal match independent", () => {
-  assert.match(conditionsUi, /TYPICAL SEASONAL OUTLOOK/);
-  assert.match(conditionsUi, /CURRENT TEMPERATURE MATCH/);
+  assert.match(conditionsUi, /TYPICAL TARGET TIMING/);
+  assert.match(conditionsUi, /MODELED SURFACE TEMP FIT/);
   assert.match(conditionsUi, /Two truths, kept separate/);
   assert.match(conditionsUi, /one favorable input cannot hide the other/);
   assert.match(conditionsUi, /never boosts a city’s ranking/);

@@ -212,8 +212,8 @@ test("PierCast UI exposes species-specific seasonal and temperature handoffs", (
   );
 
   assert.match(source, /SPECIES-SPECIFIC RANKING/);
-  assert.match(source, /TYPICAL SEASONAL OUTLOOK/);
-  assert.match(source, /CURRENT TEMPERATURE MATCH/);
+  assert.match(source, /TYPICAL TARGET TIMING/);
+  assert.match(source, /MODELED SURFACE TEMP FIT/);
   assert.match(source, /PIER_CAST_SPECIES_LABELS/);
   assert.match(source, /formatSeasonTrend/);
   assert.match(source, /formatDistanceFromOptimum/);

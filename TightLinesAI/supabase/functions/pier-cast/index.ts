@@ -229,11 +229,14 @@ const handler = createPierCastHandler({
   readConditionsCatalog: () => {
     const catalog = publicCatalog();
     return {
-      schemaVersion: "piercast-conditions-catalog-v1",
+      schemaVersion: "piercast-conditions-catalog-v2",
       disclosure: PIER_CAST_V4_DISCLOSURE,
       cities: catalog.cities.map((
-        { species: _retiredSpeciesConfig, ...city },
-      ) => city),
+        { species, ...city },
+      ) => ({
+        ...city,
+        supportedSpeciesIds: species.map(({ speciesId }) => speciesId),
+      })),
     };
   },
   readLeaderboard: async () => {

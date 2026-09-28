@@ -1,11 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Image,
   Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
@@ -52,6 +53,10 @@ const MEDAL_COLORS = [paper.medalGold, paper.medalSilver, paper.medalBronze];
 
 type ConditionsBand = PierCastSeasonalBandV4 | PierCastThermalBandV4;
 
+function citySupportedSpeciesIds(city: PierCastConditionsCatalogCityV4): PierCastSpeciesId[] {
+  return Array.isArray(city.supportedSpeciesIds) ? city.supportedSpeciesIds : [];
+}
+
 function bandTheme(band: ConditionsBand | null) {
   return band ? CONDITION_COLORS[band] : {
     fill: paper.dashboardMuted,
@@ -90,6 +95,30 @@ function ConditionPill({ band, kind }: {
     <View style={[styles.conditionPill, { backgroundColor: theme.wash, borderColor: theme.fill }]}>
       <View style={[styles.conditionDot, { backgroundColor: theme.fill }]} />
       <Text style={[styles.conditionPillText, { color: theme.ink }]}>{label}</Text>
+    </View>
+  );
+}
+
+function TemperatureFitIndicator({ band, temperatureC }: {
+  band: PierCastThermalBandV4 | null;
+  temperatureC?: number | null;
+}) {
+  const theme = bandTheme(band);
+  const label = band ? thermalBandLabel(band) : "Unavailable";
+  return (
+    <View
+      style={styles.temperatureFit}
+      accessible
+      accessibilityLabel={`Temperature fit ${label}${temperatureC == null ? "" : `, modeled water ${formatWaterTemperature(temperatureC)}`}`}
+    >
+      <Text style={styles.temperatureFitEyebrow}>TEMP FIT</Text>
+      <View style={styles.temperatureFitValueRow}>
+        <View style={[styles.temperatureFitSwatch, { backgroundColor: theme.fill }]} />
+        <Text style={[styles.temperatureFitLabel, { color: theme.ink }]}>{label.toUpperCase()}</Text>
+      </View>
+      {temperatureC == null ? null : (
+        <Text style={styles.temperatureFitTemperature}>{formatWaterTemperature(temperatureC)} · MODELED</Text>
+      )}
     </View>
   );
 }
@@ -228,13 +257,12 @@ function StandingRow({ row, onOpen }: {
     : row.targetingEligibility === "restricted"
     ? "Targeting restricted"
     : "Seasonal outlook unavailable";
-  const temperature = row.thermalMatch.status === "available"
-    ? formatWaterTemperature(row.thermalMatch.temperatureC)
-    : "No current temperature";
+  const seasonalLabel = seasonalBand ? seasonalBandLabel(seasonalBand) : "unavailable";
+  const thermalLabel = thermalBand ? thermalBandLabel(thermalBand) : "unavailable";
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`Open ${row.displayName} conditions`}
+      accessibilityLabel={`${row.rank ? `Rank ${row.rank}, ` : ""}${row.displayName}. Seasonal outlook ${seasonalLabel}. Temperature fit ${thermalLabel}. Open conditions.`}
       onPress={() => {
         hapticSelection();
         onOpen();
@@ -248,15 +276,12 @@ function StandingRow({ row, onOpen }: {
         <Text style={styles.standingState}>{PIER_CAST_STATE_LABELS[row.stateCode]?.toUpperCase() ?? row.stateCode}</Text>
         <Text style={styles.standingCity} numberOfLines={2}>{row.displayName}</Text>
         <Text style={styles.standingMeta} numberOfLines={1}>{seasonal}</Text>
-        <View style={styles.standingPills}>
-          <ConditionPill band={seasonalBand} kind="seasonal" />
-          <ConditionPill band={thermalBand} kind="thermal" />
-        </View>
+        <View style={styles.standingPills}><ConditionPill band={seasonalBand} kind="seasonal" /></View>
       </View>
-      <View style={styles.temperatureReadout}>
-        <Text style={styles.temperatureValue}>{temperature}</Text>
-        <Text style={styles.temperatureLabel}>MODELED</Text>
-      </View>
+      <TemperatureFitIndicator
+        band={thermalBand}
+        temperatureC={row.thermalMatch.status === "available" ? row.thermalMatch.temperatureC : null}
+      />
       <Ionicons name="chevron-forward" size={15} color={paper.dashboardMuted} />
     </Pressable>
   );
@@ -272,6 +297,8 @@ function LeaderSpotlight({ row, onOpen }: {
   const thermalBand = row.thermalMatch.status === "available"
     ? row.thermalMatch.band
     : null;
+  const seasonalLabel = seasonalBand ? seasonalBandLabel(seasonalBand) : "unavailable";
+  const thermalLabel = thermalBand ? thermalBandLabel(thermalBand) : "unavailable";
   return (
     <Pressable
       onPress={() => {
@@ -280,7 +307,7 @@ function LeaderSpotlight({ row, onOpen }: {
       }}
       style={({ pressed }) => [styles.leaderSpotlight, pressed && styles.pressed]}
       accessibilityRole="button"
-      accessibilityLabel={`Open number one city, ${row.displayName}`}
+      accessibilityLabel={`Rank 1, ${row.displayName}. Seasonal outlook ${seasonalLabel}. Temperature fit ${thermalLabel}. Open conditions.`}
     >
       <CornerMarkSet color={paper.medalGold} inset={9} />
       <View style={styles.leaderRankWrap}>
@@ -294,7 +321,10 @@ function LeaderSpotlight({ row, onOpen }: {
         <Text style={styles.leaderSpecies}>{PIER_CAST_SPECIES_LABELS[row.speciesId]}</Text>
         <View style={styles.leaderPills}>
           <ConditionPill band={seasonalBand} kind="seasonal" />
-          <ConditionPill band={thermalBand} kind="thermal" />
+          <TemperatureFitIndicator
+            band={thermalBand}
+            temperatureC={row.thermalMatch.status === "available" ? row.thermalMatch.temperatureC : null}
+          />
         </View>
       </View>
       <Ionicons name="arrow-forward-circle" size={28} color={paper.dashboardBlue} />
@@ -309,6 +339,7 @@ export function PierCastConditionsLanding({
   selectionLoading,
   onSelectSpecies,
   onOpenCity,
+  onOpenCityForSpecies,
   onOpenMap,
 }: {
   catalog: PierCastConditionsCatalogResponseV4;
@@ -317,18 +348,50 @@ export function PierCastConditionsLanding({
   selectionLoading: boolean;
   onSelectSpecies: (speciesId: PierCastSpeciesId) => void;
   onOpenCity: (cityId: string) => void;
+  onOpenCityForSpecies: (cityId: string, speciesId: PierCastSpeciesId) => void;
   onOpenMap: () => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedState, setSelectedState] = useState<string>("ALL");
+  const [finderQuery, setFinderQuery] = useState("");
+  const [pendingCityId, setPendingCityId] = useState<string | null>(null);
   const ranked = leaderboard.cities.filter((city) => city.rankingDisposition === "ranked");
   const unavailable = leaderboard.cities.filter((city) => city.rankingDisposition !== "ranked");
   const visible = ranked.slice(0, expanded ? ranked.length : 5);
   const finderCities = catalog.cities
     .filter((city) => selectedState === "ALL" || city.stateCode === selectedState)
+    .filter((city) => {
+      const query = finderQuery.trim().toLocaleLowerCase();
+      if (!query) return true;
+      return `${city.displayName} ${PIER_CAST_STATE_LABELS[city.stateCode] ?? city.stateCode} ${city.stateCode}`
+        .toLocaleLowerCase()
+        .includes(query);
+    })
     .sort((a, b) => a.displayName.localeCompare(b.displayName));
   const states = [...new Set(catalog.cities.map((city) => city.stateCode))].sort();
   const selectedLabel = selectedSpeciesId ? PIER_CAST_SPECIES_LABELS[selectedSpeciesId] : null;
+  const pendingCity = catalog.cities.find((city) => city.cityId === pendingCityId) ?? null;
+  const pendingOptions = pendingCity
+    ? leaderboard.targetSpecies.filter((option) => citySupportedSpeciesIds(pendingCity).includes(option.speciesId))
+    : [];
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [selectedSpeciesId]);
+
+  useEffect(() => {
+    if (pendingCityId && !catalog.cities.some((city) => city.cityId === pendingCityId)) {
+      setPendingCityId(null);
+    }
+  }, [catalog.cities, pendingCityId]);
+
+  const chooseCity = (city: PierCastConditionsCatalogCityV4) => {
+    if (selectedSpeciesId && citySupportedSpeciesIds(city).includes(selectedSpeciesId)) {
+      onOpenCity(city.cityId);
+      return;
+    }
+    setPendingCityId(city.cityId);
+  };
 
   return (
     <>
@@ -414,16 +477,42 @@ export function PierCastConditionsLanding({
 
       <View style={styles.finderCard}>
         <CornerMarkSet />
-        <SectionEyebrow>FIND YOUR PIER</SectionEyebrow>
-        <Text style={styles.finderTitle}>Browse every city</Text>
-        {!selectedSpeciesId ? (
-          <Text style={styles.finderPrompt}>Choose a target above before opening a conditions report.</Text>
-        ) : null}
+        <SectionEyebrow>SELECT YOUR PIERCAST</SectionEyebrow>
+        <Text style={styles.finderTitle}>Find a city report</Text>
+        <Text style={styles.finderPrompt}>Search directly—no leaderboard selection required.</Text>
+        <View style={styles.finderSearch}>
+          <Ionicons name="search" size={17} color={paper.dashboardMuted} />
+          <TextInput
+            value={finderQuery}
+            onChangeText={setFinderQuery}
+            placeholder="Search city or state"
+            placeholderTextColor={paper.dashboardMuted}
+            autoCapitalize="words"
+            autoCorrect={false}
+            clearButtonMode="while-editing"
+            returnKeyType="search"
+            style={styles.finderSearchInput}
+            accessibilityLabel="Search PierCast cities"
+          />
+          {finderQuery.length > 0 ? (
+            <Pressable
+              onPress={() => setFinderQuery("")}
+              accessibilityRole="button"
+              accessibilityLabel="Clear city search"
+              hitSlop={8}
+            >
+              <Ionicons name="close-circle" size={18} color={paper.dashboardMuted} />
+            </Pressable>
+          ) : null}
+        </View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.stateRail}>
           {["ALL", ...states].map((state) => (
             <Pressable
               key={state}
               onPress={() => setSelectedState(state)}
+              accessibilityRole="button"
+              accessibilityState={{ selected: selectedState === state }}
+              accessibilityLabel={state === "ALL" ? "All states" : PIER_CAST_STATE_LABELS[state] ?? state}
               style={[styles.stateChip, selectedState === state && styles.stateChipSelected]}
             >
               <Text style={[styles.stateChipText, selectedState === state && styles.stateChipTextSelected]}>
@@ -432,20 +521,58 @@ export function PierCastConditionsLanding({
             </Pressable>
           ))}
         </ScrollView>
+        {pendingCity ? (
+          <View style={styles.cityTargetPrompt} accessibilityRole="summary">
+            <View style={styles.cityTargetPromptHead}>
+              <View style={styles.cityTargetPromptCopy}>
+                <Text style={styles.cityTargetPromptEyebrow}>CHOOSE A TARGET FOR</Text>
+                <Text style={styles.cityTargetPromptTitle}>{pendingCity.displayName}</Text>
+              </View>
+              <Pressable
+                onPress={() => setPendingCityId(null)}
+                accessibilityRole="button"
+                accessibilityLabel="Close target selection"
+                hitSlop={8}
+              >
+                <Ionicons name="close" size={20} color={paper.dashboardInk} />
+              </Pressable>
+            </View>
+            <Text style={styles.cityTargetPromptBody}>Pick a species supported at this city to open its full conditions report.</Text>
+            <View style={styles.cityTargetOptions}>
+              {pendingOptions.map((option) => (
+                <Pressable
+                  key={option.speciesId}
+                  onPress={() => {
+                    hapticSelection();
+                    setPendingCityId(null);
+                    onOpenCityForSpecies(pendingCity.cityId, option.speciesId);
+                  }}
+                  accessibilityRole="button"
+                  accessibilityLabel={`Open ${pendingCity.displayName} report for ${option.displayName}`}
+                  style={({ pressed }) => [styles.cityTargetOption, pressed && styles.pressed]}
+                >
+                  <SpeciesFish speciesId={option.speciesId} compact />
+                  <Text style={styles.cityTargetOptionText}>{option.displayName}</Text>
+                  <Ionicons name="arrow-forward" size={14} color={paper.dashboardBlue} />
+                </Pressable>
+              ))}
+              {pendingOptions.length === 0 ? (
+                <Text style={styles.cityTargetUnavailable}>Target choices are temporarily unavailable. Refresh PierCast and try again.</Text>
+              ) : null}
+            </View>
+          </View>
+        ) : null}
         <View style={styles.finderGrid}>
           {finderCities.map((city) => {
             const row = leaderboard.cities.find((candidate) => candidate.cityId === city.cityId);
-            const targetAvailable = Boolean(selectedSpeciesId && row);
             const restricted = row?.targetingEligibility === "restricted";
             return (
               <Pressable
                 key={city.cityId}
-                disabled={!targetAvailable}
-                onPress={() => onOpenCity(city.cityId)}
+                onPress={() => chooseCity(city)}
                 accessibilityRole="button"
-                accessibilityState={{ disabled: !targetAvailable }}
-                accessibilityLabel={`${city.displayName}${!selectedSpeciesId ? ", choose a target first" : !row ? ", selected target not available" : restricted ? ", targeting restricted" : ", open conditions"}`}
-                style={({ pressed }) => [styles.finderRow, !targetAvailable && styles.disabled, pressed && targetAvailable && styles.pressed]}
+                accessibilityLabel={`${city.displayName}${selectedSpeciesId && citySupportedSpeciesIds(city).includes(selectedSpeciesId) ? restricted ? ", targeting restricted" : ", open conditions" : ", choose a supported target"}`}
+                style={({ pressed }) => [styles.finderRow, pressed && styles.pressed]}
               >
                 <View style={styles.finderPin}><Ionicons name="location" size={15} color={paper.dashboardBlue} /></View>
                 <View style={styles.finderIdentity}>
@@ -456,11 +583,22 @@ export function PierCastConditionsLanding({
                   <Text style={styles.finderRestricted}>RESTRICTED</Text>
                 ) : row?.seasonalOutlook.status === "available" ? (
                   <ConditionPill band={row.seasonalOutlook.band} kind="seasonal" />
-                ) : <Text style={styles.finderUnavailable}>{selectedSpeciesId ? "NOT AVAILABLE" : "—"}</Text>}
+                ) : selectedSpeciesId && !citySupportedSpeciesIds(city).includes(selectedSpeciesId) ? (
+                  <Text style={styles.finderUnavailable}>CHOOSE TARGET</Text>
+                ) : !selectedSpeciesId ? (
+                  <Text style={styles.finderUnavailable}>{citySupportedSpeciesIds(city).length} TARGETS</Text>
+                ) : <Text style={styles.finderUnavailable}>NOT AVAILABLE</Text>}
                 <Ionicons name="chevron-forward" size={14} color={paper.dashboardMuted} />
               </Pressable>
             );
           })}
+          {finderCities.length === 0 ? (
+            <View style={styles.finderEmpty}>
+              <Ionicons name="search-outline" size={22} color={paper.dashboardMuted} />
+              <Text style={styles.finderEmptyTitle}>No matching cities</Text>
+              <Text style={styles.finderEmptyCopy}>Try another city, state, or state filter.</Text>
+            </View>
+          ) : null}
         </View>
       </View>
     </>
@@ -538,7 +676,10 @@ function SpeciesConditionRow({ species, selected, onSelect }: {
       </View>
       <View style={styles.speciesPills}>
         <ConditionPill band={seasonalBand} kind="seasonal" />
-        <ConditionPill band={thermalBand} kind="thermal" />
+        <TemperatureFitIndicator
+          band={thermalBand}
+          temperatureC={species.thermalMatch.status === "available" ? species.thermalMatch.temperatureC : null}
+        />
       </View>
       <Ionicons name={selected ? "checkmark-circle" : "chevron-forward"} size={17} color={selected ? paper.dashboardBlue : paper.dashboardMuted} />
     </Pressable>
@@ -590,13 +731,13 @@ export function PierCastConditionsCityReport({
     ? "Targeting restricted"
     : "Outlook unavailable";
   const seasonalDetail = selected.seasonalOutlook.status === "available"
-    ? "Typical regional availability for this date."
+    ? "Typical target timing for this date and lake region."
     : "No usable seasonal profile is available; this is not a poor rating.";
   const thermalHeadline = selected.thermalMatch.status === "available"
     ? formatWaterTemperature(selected.thermalMatch.temperatureC)
     : "Temperature unavailable";
   const thermalDetail = selected.thermalMatch.status === "available"
-    ? `${formatDistanceFromOptimum(selected.thermalMatch.distanceFromOptimumC)} · Optimum ${formatOptimumRange(selected.thermalMatch.optimumRangeC)}`
+    ? `${formatDistanceFromOptimum(selected.thermalMatch.distanceFromOptimumC)} · Optimum ${formatOptimumRange(selected.thermalMatch.optimumRangeC)} · Surface compatibility, not fish presence.`
     : "The model input is missing, stale, or outside the supported domain.";
 
   return (
@@ -634,7 +775,7 @@ export function PierCastConditionsCityReport({
         </View>
         <View style={styles.outlookGrid}>
           <OutlookPanel
-            eyebrow="TYPICAL SEASONAL OUTLOOK"
+            eyebrow="TYPICAL TARGET TIMING"
             icon="calendar-outline"
             band={seasonalBand}
             kind="seasonal"
@@ -642,7 +783,7 @@ export function PierCastConditionsCityReport({
             detail={seasonalDetail}
           />
           <OutlookPanel
-            eyebrow="CURRENT TEMPERATURE MATCH"
+            eyebrow="MODELED SURFACE TEMP FIT"
             icon="thermometer-outline"
             band={thermalBand}
             kind="thermal"
@@ -723,11 +864,11 @@ export function PierCastConditionsCityReport({
         <Text style={styles.cardTitle}>Two truths, kept separate</Text>
         <View style={styles.explanationRow}>
           <View style={styles.explanationNumber}><Text style={styles.explanationNumberText}>1</Text></View>
-          <Text style={styles.explanationText}><Text style={styles.explanationStrong}>Typical Seasonal Outlook</Text> describes when the species is usually targetable in this lake region.</Text>
+          <Text style={styles.explanationText}><Text style={styles.explanationStrong}>Typical Seasonal Outlook</Text> describes when the species is usually targetable in this lake region and sets the leaderboard group.</Text>
         </View>
         <View style={styles.explanationRow}>
           <View style={styles.explanationNumber}><Text style={styles.explanationNumberText}>2</Text></View>
-          <Text style={styles.explanationText}><Text style={styles.explanationStrong}>Current Temperature Match</Text> compares modeled nearshore surface temperature with the species’ thermal profile.</Text>
+          <Text style={styles.explanationText}><Text style={styles.explanationStrong}>Current Temperature Match</Text> compares modeled nearshore surface temperature with the species’ thermal profile and orders cities within the same seasonal group. It does not claim fish are present or at the surface.</Text>
         </View>
         <View style={styles.explanationRow}>
           <View style={styles.explanationNumber}><Text style={styles.explanationNumberText}>3</Text></View>
@@ -741,7 +882,6 @@ export function PierCastConditionsCityReport({
 
 const styles = StyleSheet.create({
   pressed: { opacity: 0.78, transform: [{ scale: 0.995 }] },
-  disabled: { opacity: 0.45 },
   masthead: { overflow: "hidden", backgroundColor: paper.dashboardInk, borderRadius: 12, paddingHorizontal: 20, paddingTop: 24, paddingBottom: 21, borderWidth: 2, borderColor: paper.dashboardInk, ...paperShadows.lift },
   mastheadTitle: { marginTop: 7, color: "#FFFFFF", fontFamily: paperFonts.display, fontSize: 32, lineHeight: 36, textAlign: "center" },
   mastheadCopy: { color: "rgba(255,255,255,0.72)", fontFamily: paperFonts.body, fontSize: 13, lineHeight: 19, textAlign: "center", marginTop: 7 },
@@ -786,7 +926,7 @@ const styles = StyleSheet.create({
   leaderKicker: { color: paper.goldDk, fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 1 },
   leaderCity: { color: paper.dashboardInk, fontFamily: paperFonts.display, fontSize: 21, lineHeight: 24, marginTop: 2 },
   leaderSpecies: { color: paper.dashboardMuted, fontFamily: paperFonts.bodyMedium, fontSize: 11, marginTop: 2 },
-  leaderPills: { flexDirection: "row", flexWrap: "wrap", gap: 5, marginTop: 8 },
+  leaderPills: { flexDirection: "row", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 7, marginTop: 8 },
   conditionPill: { flexDirection: "row", alignItems: "center", alignSelf: "flex-start", gap: 5, minHeight: 23, paddingHorizontal: 7, borderWidth: 1, borderRadius: 4 },
   conditionDot: { width: 6, height: 6, borderRadius: 3 },
   conditionPillText: { fontFamily: paperFonts.bodyBold, fontSize: 9, letterSpacing: 0.25 },
@@ -802,15 +942,20 @@ const styles = StyleSheet.create({
   standingCity: { color: paper.dashboardInk, fontFamily: paperFonts.display, fontSize: 17, lineHeight: 20 },
   standingMeta: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 9.5, marginTop: 1 },
   standingPills: { flexDirection: "row", flexWrap: "wrap", gap: 4, marginTop: 5 },
-  temperatureReadout: { alignItems: "flex-end", minWidth: 48 },
-  temperatureValue: { color: paper.dashboardInk, fontFamily: paperFonts.monoBold, fontSize: 13 },
-  temperatureLabel: { color: paper.dashboardMuted, fontFamily: paperFonts.metaMono, fontSize: 6.5, letterSpacing: 0.6, marginTop: 2 },
+  temperatureFit: { alignItems: "flex-start", minWidth: 65, maxWidth: 82 },
+  temperatureFitEyebrow: { color: paper.dashboardMuted, fontFamily: paperFonts.metaMonoBold, fontSize: 6.3, letterSpacing: 0.65 },
+  temperatureFitValueRow: { flexDirection: "row", alignItems: "center", gap: 4, marginTop: 3 },
+  temperatureFitSwatch: { width: 9, height: 9, borderRadius: 2, borderWidth: 1, borderColor: "rgba(15,35,48,0.18)" },
+  temperatureFitLabel: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 7.2, letterSpacing: 0.25 },
+  temperatureFitTemperature: { color: paper.dashboardMuted, fontFamily: paperFonts.mono, fontSize: 6.4, marginTop: 3 },
   outlineButton: { flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 7, marginTop: 11, borderWidth: 1.5, borderColor: paper.dashboardInk, borderRadius: 7, paddingVertical: 11 },
   outlineButtonText: { color: paper.dashboardInk, fontFamily: paperFonts.bodyBold, fontSize: 10, letterSpacing: 1 },
   unavailableNote: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 10, lineHeight: 15, textAlign: "center", marginTop: 11 },
   finderCard: { overflow: "hidden", marginTop: 18, padding: 18, backgroundColor: paper.dashboardWhite, borderWidth: 2, borderColor: paper.dashboardInk, borderRadius: 11, ...paperShadows.hard },
   finderTitle: { color: paper.dashboardInk, fontFamily: paperFonts.display, fontSize: 23, textAlign: "center", marginTop: 5 },
   finderPrompt: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 11, textAlign: "center", marginTop: 5 },
+  finderSearch: { minHeight: 44, flexDirection: "row", alignItems: "center", gap: 8, marginTop: 13, paddingHorizontal: 11, backgroundColor: paper.dashboardCream, borderWidth: 1.5, borderColor: paper.dashboardInk, borderRadius: 7 },
+  finderSearchInput: { flex: 1, minWidth: 0, paddingVertical: 10, color: paper.dashboardInk, fontFamily: paperFonts.body, fontSize: 13 },
   stateRail: { gap: 7, paddingVertical: 13 },
   stateChip: { borderWidth: 1.5, borderColor: paper.dashboardInk, borderRadius: 4, paddingHorizontal: 12, paddingVertical: 7, backgroundColor: paper.dashboardCream },
   stateChipSelected: { backgroundColor: paper.dashboardInk },
@@ -824,6 +969,19 @@ const styles = StyleSheet.create({
   finderState: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 9 },
   finderUnavailable: { color: paper.dashboardMuted, fontFamily: paperFonts.monoBold, fontSize: 13 },
   finderRestricted: { color: paper.bandTough, fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 0.55 },
+  cityTargetPrompt: { marginBottom: 13, padding: 13, backgroundColor: "#EEF6FA", borderWidth: 1.5, borderColor: paper.dashboardBlue, borderRadius: 8 },
+  cityTargetPromptHead: { flexDirection: "row", alignItems: "flex-start", gap: 10 },
+  cityTargetPromptCopy: { flex: 1, minWidth: 0 },
+  cityTargetPromptEyebrow: { color: paper.dashboardBlue, fontFamily: paperFonts.metaMonoBold, fontSize: 7.5, letterSpacing: 1 },
+  cityTargetPromptTitle: { color: paper.dashboardInk, fontFamily: paperFonts.display, fontSize: 19, lineHeight: 22, marginTop: 2 },
+  cityTargetPromptBody: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 10.5, lineHeight: 15, marginTop: 5 },
+  cityTargetOptions: { gap: 7, marginTop: 11 },
+  cityTargetOption: { minHeight: 47, flexDirection: "row", alignItems: "center", gap: 8, paddingHorizontal: 9, backgroundColor: paper.dashboardWhite, borderWidth: 1, borderColor: paper.dashboardLine, borderRadius: 7 },
+  cityTargetOptionText: { flex: 1, color: paper.dashboardInk, fontFamily: paperFonts.bodyBold, fontSize: 11 },
+  cityTargetUnavailable: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 10.5, lineHeight: 15, textAlign: "center", paddingVertical: 8 },
+  finderEmpty: { alignItems: "center", gap: 4, paddingVertical: 24 },
+  finderEmptyTitle: { color: paper.dashboardInk, fontFamily: paperFonts.bodyBold, fontSize: 12 },
+  finderEmptyCopy: { color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 10, textAlign: "center" },
   savedBanner: { flexDirection: "row", alignItems: "flex-start", gap: 8, padding: 11, backgroundColor: "#EAF4F9", borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 8, marginBottom: 12 },
   savedBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.body, fontSize: 11, lineHeight: 16 },
   reportHero: { overflow: "hidden", backgroundColor: paper.dashboardInk, borderWidth: 2, borderColor: paper.dashboardInk, borderRadius: 12, padding: 18, ...paperShadows.lift },
