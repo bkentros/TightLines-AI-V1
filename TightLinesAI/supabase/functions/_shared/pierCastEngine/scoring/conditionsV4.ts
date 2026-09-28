@@ -1,4 +1,5 @@
 import {
+  PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
   type PierCastRegionalSeasonalProfileV4,
   pierCastSeasonalBandV4,
   type PierCastSeasonalOutlookReadV4,
@@ -117,6 +118,15 @@ export function validatePierCastV4ThermalProfile(
   const [minimum, maximum] = profile.acceptedDomainC;
   const [optimumMinimum, optimumMaximum] = profile.optimumRangeC;
   if (
+    profile.schemaVersion !== PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION ||
+    !profile.calibrationVersion.trim() ||
+    profile.context !== "modeled_nearshore_surface" ||
+    profile.interpretation !==
+      "surface_temperature_compatibility_not_fish_presence" ||
+    profile.evidenceIds.length < 2 ||
+    profile.evidenceIds.some((evidenceId) => !evidenceId.trim())
+  ) issues.push("temperature_curve_invalid");
+  if (
     !profile.curveId.trim() || !Number.isFinite(minimum) ||
     !Number.isFinite(maximum) || minimum >= maximum
   ) issues.push("temperature_curve_invalid");
@@ -139,6 +149,38 @@ export function validatePierCastV4ThermalProfile(
   if (
     profile.knots.length < 2 || profile.knots[0]?.temperatureC !== minimum ||
     profile.knots.at(-1)?.temperatureC !== maximum
+  ) issues.push("temperature_curve_invalid");
+  const optimumMinimumKnot = profile.knots.find((knot) =>
+    knot.temperatureC === optimumMinimum
+  );
+  const optimumMaximumKnot = profile.knots.find((knot) =>
+    knot.temperatureC === optimumMaximum
+  );
+  if (
+    optimumMinimumKnot?.suitability !== 1 ||
+    optimumMaximumKnot?.suitability !== 1 ||
+    profile.knots.some((knot) =>
+      knot.temperatureC > optimumMinimum &&
+      knot.temperatureC < optimumMaximum && knot.suitability !== 1
+    ) ||
+    profile.knots.some((knot) =>
+      (knot.temperatureC < optimumMinimum ||
+        knot.temperatureC > optimumMaximum) && knot.suitability === 1
+    )
+  ) issues.push("temperature_curve_invalid");
+  const coldSide = profile.knots.filter((knot) =>
+    knot.temperatureC <= optimumMinimum
+  );
+  const warmSide = profile.knots.filter((knot) =>
+    knot.temperatureC >= optimumMaximum
+  );
+  if (
+    coldSide.some((knot, index) =>
+      index > 0 && knot.suitability < coldSide[index - 1]!.suitability
+    ) ||
+    warmSide.some((knot, index) =>
+      index > 0 && knot.suitability > warmSide[index - 1]!.suitability
+    )
   ) issues.push("temperature_curve_invalid");
   return [...new Set(issues)];
 }

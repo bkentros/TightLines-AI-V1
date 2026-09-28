@@ -1,6 +1,5 @@
 import {
   PIER_CAST_REGIONAL_SEASONAL_PROFILE_SCHEMA_VERSION,
-  PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
   type PierCastGreatLakeIdV4,
   type PierCastRegionalSeasonalProfileV4,
   type PierCastSeasonStageV4,
@@ -8,16 +7,18 @@ import {
 } from "../../../../../lib/pierCastConditionsV4.ts";
 import type { PierCastCityId, PierCastSpeciesId } from "../types.ts";
 import {
-  getPierCastV3TemperatureCurve,
   PIER_CAST_V3_CALIBRATION_SHA256,
   PIER_CAST_V3_CITY_IDS,
   PIER_CAST_V3_CONFIG_VERSION,
   PIER_CAST_V3_PAIR_CALIBRATIONS,
-  PIER_CAST_V3_SPECIES_IDS,
   type PierCastV3PairCalibration,
 } from "./v3Calibration.ts";
 import { buildPierCastCatalog } from "./catalog.ts";
-import { getPierCastSpeciesProfile } from "./species.ts";
+export {
+  PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
+  PIER_CAST_V4_THERMAL_PROFILES,
+} from "./conditionsV4Thermal.ts";
+import { PIER_CAST_V4_THERMAL_PROFILES } from "./conditionsV4Thermal.ts";
 
 export const PIER_CAST_V4_REGIONAL_PROFILE_VERSION =
   "piercast-regional-seasonal-derived-v1" as const;
@@ -139,35 +140,6 @@ export function getPierCastV4CityDefinition(
   return PIER_CAST_V4_CITY_DEFINITIONS.find((city) => city.cityId === cityId) ??
     null;
 }
-
-export const PIER_CAST_V4_THERMAL_PROFILES:
-  readonly PierCastThermalProfileV4[] = PIER_CAST_V3_SPECIES_IDS.map(
-    (speciesId) => {
-      const curve = getPierCastV3TemperatureCurve(speciesId);
-      if (!curve) {
-        throw new Error(`PierCast v4 thermal curve missing: ${speciesId}.`);
-      }
-      const maximum = Math.max(...curve.knots.map((knot) => knot.suitability));
-      const optimum = curve.knots.filter((knot) =>
-        knot.suitability === maximum
-      );
-      const species = getPierCastSpeciesProfile(speciesId);
-      return {
-        schemaVersion: PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
-        curveId: curve.curveId,
-        speciesId,
-        context: "modeled_nearshore_surface",
-        acceptedDomainC: [...curve.acceptedDomainC],
-        optimumRangeC: [
-          optimum[0]!.temperatureC,
-          optimum.at(-1)!.temperatureC,
-        ],
-        knots: curve.knots.map((knot) => ({ ...knot })),
-        evidenceIds: [...(species?.evidenceIds ?? [])],
-        calibrationStatus: "provisional",
-      };
-    },
-  );
 
 export function getPierCastV4ThermalProfile(
   speciesId: PierCastSpeciesId,

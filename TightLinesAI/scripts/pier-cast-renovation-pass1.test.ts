@@ -121,7 +121,7 @@ test("Pass 1 freezes distinct versioned conditions contracts", () => {
   );
   assert.equal(
     PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
-    "piercast-thermal-profile-v1",
+    "piercast-thermal-profile-v2",
   );
 });
 

@@ -24,7 +24,7 @@ export const PIER_CAST_COMMON_TARGET_MINIMUM_SEASONAL_BAND = "fair" as const;
 export const PIER_CAST_REGIONAL_SEASONAL_PROFILE_SCHEMA_VERSION =
   "piercast-regional-seasonal-profile-v1" as const;
 export const PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION =
-  "piercast-thermal-profile-v1" as const;
+  "piercast-thermal-profile-v2" as const;
 
 export const PIER_CAST_SEASONAL_BANDS = [
   "excellent",
@@ -99,9 +99,11 @@ export type PierCastRegionalSeasonalProfileV4 = {
 
 export type PierCastThermalProfileV4 = {
   schemaVersion: typeof PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION;
+  calibrationVersion: string;
   curveId: string;
   speciesId: PierCastSpeciesId;
   context: "modeled_nearshore_surface";
+  interpretation: "surface_temperature_compatibility_not_fish_presence";
   acceptedDomainC: readonly [minimumC: number, maximumC: number];
   optimumRangeC: readonly [minimumC: number, maximumC: number];
   knots: readonly {

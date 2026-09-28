@@ -97,7 +97,7 @@ test("all regional and thermal profiles are versioned, bounded, and valid", () =
   }
   for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
     assert.deepEqual(validatePierCastV4ThermalProfile(profile), []);
-    assert.equal(profile.schemaVersion, "piercast-thermal-profile-v1");
+    assert.equal(profile.schemaVersion, "piercast-thermal-profile-v2");
     assert.ok(profile.optimumRangeC[0] <= profile.optimumRangeC[1]);
   }
 });
