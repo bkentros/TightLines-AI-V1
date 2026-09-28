@@ -1,4 +1,3 @@
-import type { PierCastMapCity } from "./pierCastMap";
 import {
   pierCastWindCompassDirection,
   type PierCastWindFramePoint,
@@ -105,7 +104,11 @@ function setupLabel(
 }
 
 export function buildPierCastCityWindInsights(
-  cities: readonly PierCastMapCity[],
+  cities: ReadonlyArray<{
+    city: { cityId: string };
+    latitude: number;
+    longitude: number;
+  }>,
   windPoints: readonly PierCastWindFramePoint[],
 ): Map<string, PierCastCityWindInsight> {
   const insights = new Map<string, PierCastCityWindInsight>();

@@ -25,7 +25,22 @@ function dependencies(input?: {
   >;
   readV3ReviewOutlook?: () => Promise<PierCastV3ReviewOutlookResponse | null>;
   readTemperatureMap?: PierCastHandlerDependencies["readTemperatureMap"];
+  readLeaderboard?: PierCastHandlerDependencies["readLeaderboard"];
+  readCityReport?: PierCastHandlerDependencies["readCityReport"];
+  readSavedReport?: PierCastHandlerDependencies["readSavedReport"];
+  recordLegacyRouteUse?: PierCastHandlerDependencies["recordLegacyRouteUse"];
   readMapFoundation?: PierCastHandlerDependencies["readMapFoundation"];
+  readConditionsLeaderboard?:
+    PierCastHandlerDependencies["readConditionsLeaderboard"];
+  readConditionsCatalog?: PierCastHandlerDependencies["readConditionsCatalog"];
+  readConditionsMap?: PierCastHandlerDependencies["readConditionsMap"];
+  readObservedTemperatureMap?:
+    PierCastHandlerDependencies["readObservedTemperatureMap"];
+  readConditionsCityReport?:
+    PierCastHandlerDependencies["readConditionsCityReport"];
+  readSavedConditionsReport?:
+    PierCastHandlerDependencies["readSavedConditionsReport"];
+  readV4ReviewOutlook?: PierCastHandlerDependencies["readV4ReviewOutlook"];
 }) {
   return {
     authorizeReview: () => Promise.resolve(input?.authorized ?? true),
@@ -36,7 +51,18 @@ function dependencies(input?: {
     readV3ReviewOutlook: input?.readV3ReviewOutlook ??
       (() => Promise.resolve(null)),
     readTemperatureMap: input?.readTemperatureMap,
+    readLeaderboard: input?.readLeaderboard,
+    readCityReport: input?.readCityReport,
+    readSavedReport: input?.readSavedReport,
+    recordLegacyRouteUse: input?.recordLegacyRouteUse,
     readMapFoundation: input?.readMapFoundation,
+    readConditionsLeaderboard: input?.readConditionsLeaderboard,
+    readConditionsCatalog: input?.readConditionsCatalog,
+    readConditionsMap: input?.readConditionsMap,
+    readObservedTemperatureMap: input?.readObservedTemperatureMap,
+    readConditionsCityReport: input?.readConditionsCityReport,
+    readSavedConditionsReport: input?.readSavedConditionsReport,
+    readV4ReviewOutlook: input?.readV4ReviewOutlook,
     readShadowReview: () =>
       Promise.resolve({
         status: "private_shadow_validation" as const,
@@ -55,6 +81,195 @@ function dependencies(input?: {
       }),
   };
 }
+
+Deno.test("conditions v4 routes require species only where ranking/report needs it", async () => {
+  const leaderboardReads: Array<string | null> = [];
+  const mapReads: Array<string | null> = [];
+  const reportReads: Array<[string, string]> = [];
+  const handler = createPierCastHandler(dependencies({
+    readConditionsLeaderboard: (speciesId) => {
+      leaderboardReads.push(speciesId);
+      return Promise.resolve({
+        schemaVersion: "piercast-conditions-v4",
+        formulaVersion: "seasonal-outlook-plus-thermal-match-v1",
+        rankingVersion: "species-seasonal-band-then-thermal-v1",
+        generatedAt: "2026-09-27T12:00:00Z",
+        selectedSpeciesId: speciesId,
+        selectionRequired: speciesId === null,
+        targetSpecies: [],
+        cities: [],
+        disclosure: "test",
+      } as never);
+    },
+    readConditionsCityReport: (_request, cityId, speciesId) => {
+      reportReads.push([cityId, speciesId]);
+      return Promise.resolve({ status: "ok" });
+    },
+    readConditionsMap: (speciesId) => {
+      mapReads.push(speciesId);
+      return Promise.resolve({
+        schemaVersion: "piercast-conditions-v4",
+        selectedSpeciesId: speciesId,
+        selectionRequiredForMatch: speciesId === null,
+        targetSpecies: [],
+        cities: [],
+      } as never);
+    },
+    readSavedConditionsReport: (_request, speciesId) =>
+      Promise.resolve({ status: "empty", envelope: null, speciesId }),
+  }));
+
+  const unselected = await handler(request("conditions/leaderboard"));
+  assertEquals(unselected.status, 200);
+  assertEquals(unselected.headers.get("X-PierCast-Contract"), "conditions-v4");
+  assertEquals(unselected.headers.get("Deprecation"), null);
+  assertEquals((await unselected.json()).selectionRequired, true);
+  const selected = await handler(request(
+    "conditions/leaderboard?speciesId=chinook_salmon",
+  ));
+  assertEquals(selected.status, 200);
+  assertEquals(leaderboardReads, [null, "chinook_salmon"]);
+  const unselectedMap = await handler(request("conditions/map"));
+  assertEquals(unselectedMap.status, 200);
+  assertEquals((await unselectedMap.json()).selectionRequiredForMatch, true);
+  const selectedMap = await handler(request(
+    "conditions/map?speciesId=coho_salmon",
+  ));
+  assertEquals(selectedMap.status, 200);
+  assertEquals(
+    selectedMap.headers.get("Cache-Control"),
+    "public, max-age=300, s-maxage=900, stale-while-revalidate=21600",
+  );
+  assertEquals(mapReads, [null, "coho_salmon"]);
+
+  assertEquals(
+    (await handler(request("conditions/report?cityId=grand_haven_mi"))).status,
+    400,
+  );
+  const report = await handler(request(
+    "conditions/report?cityId=grand_haven_mi&speciesId=chinook_salmon",
+  ));
+  assertEquals(report.status, 200);
+  assertEquals(reportReads, [["grand_haven_mi", "chinook_salmon"]]);
+  assertEquals(
+    (await handler(request("conditions/leaderboard?speciesId=bad-value")))
+      .status,
+    400,
+  );
+  assertEquals(
+    (await handler(request("conditions/map?speciesId=bad-value"))).status,
+    400,
+  );
+  assertEquals(
+    (await handler(request("conditions/saved-report?speciesId=coho_salmon")))
+      .status,
+    200,
+  );
+  assertEquals(
+    (await handler(request("conditions/leaderboard", "POST"))).status,
+    405,
+  );
+});
+
+Deno.test("conditions catalog omits retired score metadata and is cacheable", async () => {
+  const handler = createPierCastHandler(dependencies({
+    readConditionsCatalog: () => ({
+      schemaVersion: "piercast-conditions-catalog-v1",
+      disclosure: "test",
+      cities: [],
+    }),
+  }));
+  const response = await handler(request("conditions/catalog"));
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(response.headers.get("X-PierCast-Contract"), "conditions-v4");
+  assertEquals(
+    response.headers.get("Cache-Control"),
+    "public, max-age=3600, s-maxage=21600, stale-while-revalidate=86400",
+  );
+  assertEquals(body.schemaVersion, "piercast-conditions-catalog-v1");
+  assertEquals("ratingName" in body, false);
+  assertEquals("formulaVersion" in body, false);
+});
+
+Deno.test("legacy score routes stay compatible, declare deprecation, and emit telemetry", async () => {
+  const events: string[] = [];
+  const handler = createPierCastHandler(dependencies({
+    readLeaderboard: () => Promise.resolve({ mode: "legacy" } as never),
+    readTemperatureMap: () => Promise.resolve({ mode: "legacy" } as never),
+    readCityReport: () => Promise.resolve({ mode: "legacy" }),
+    readSavedReport: () => Promise.resolve({ report: null }),
+    recordLegacyRouteUse: (route) => {
+      events.push(route);
+    },
+  }));
+
+  for (
+    const path of [
+      "leaderboard",
+      "temperature-map",
+      "report?cityId=grand_haven_mi",
+      "saved-report",
+    ]
+  ) {
+    const response = await handler(request(path));
+    assertEquals(response.status, 200);
+    assertEquals(response.headers.get("Deprecation"), "true");
+    assertEquals(
+      response.headers.get("X-PierCast-Contract"),
+      "score-v3-compatibility",
+    );
+    assertEquals(
+      response.headers.get("X-PierCast-Replacement"),
+      "conditions-v4",
+    );
+  }
+  assertEquals(events, [
+    "leaderboard",
+    "temperature-map",
+    "report",
+    "saved-report",
+  ]);
+});
+
+Deno.test("legacy telemetry failure never breaks compatibility reads", async () => {
+  const handler = createPierCastHandler(dependencies({
+    readLeaderboard: () => Promise.resolve({ mode: "legacy" } as never),
+    recordLegacyRouteUse: () => {
+      throw new Error("monitor unavailable");
+    },
+  }));
+  const response = await handler(request("leaderboard"));
+  assertEquals(response.status, 200);
+  assertEquals(response.headers.get("Deprecation"), "true");
+});
+
+Deno.test("conditions v4 shadow review is owner-only and additive to v3", async () => {
+  let reads = 0;
+  const forbidden = createPierCastHandler(dependencies({
+    authorized: false,
+    readV4ReviewOutlook: () => {
+      reads += 1;
+      return Promise.resolve({} as never);
+    },
+  }));
+  assertEquals((await forbidden(request("review/v4/outlook"))).status, 403);
+  assertEquals(reads, 0);
+
+  const allowed = createPierCastHandler(dependencies({
+    readV4ReviewOutlook: () => {
+      reads += 1;
+      return Promise.resolve({
+        outlook: { schemaVersion: "piercast-conditions-v4" },
+        shadowComparison: { comparedPairCount: 254 },
+      } as never);
+    },
+  }));
+  const response = await allowed(request("review/v4/outlook"));
+  assertEquals(response.status, 200);
+  assertEquals((await response.json()).shadowComparison.comparedPairCount, 254);
+  assertEquals(reads, 1);
+});
 
 function reviewOutlook() {
   return buildPierCastReviewOutlook({
@@ -432,6 +647,44 @@ Deno.test("public temperature map is read-only, anonymous, and independently una
   assertEquals(
     (await unavailableResponse.json()).error,
     "pier_cast_temperature_map_unavailable",
+  );
+});
+
+Deno.test("observed station map is anonymous, cacheable, and isolated from modeled layers", async () => {
+  const body = {
+    schemaVersion: "piercast-observed-temperature-map-v1" as const,
+    generatedAt: "2026-09-27T12:00:00.000Z",
+    stations: [],
+    cacheStatus: "fresh" as const,
+    disclosure: "Point observations only.",
+    diagnostics: [],
+  };
+  const handler = createPierCastHandler(dependencies({
+    authorized: false,
+    readObservedTemperatureMap: () => Promise.resolve(body),
+  }));
+  const response = await handler(request("observations/temperature-map"));
+  assertEquals(response.status, 200);
+  assertEquals(await response.json(), body);
+  assertEquals(
+    response.headers.get("cache-control"),
+    "public, max-age=300, s-maxage=900, stale-while-revalidate=21600",
+  );
+  assertEquals(
+    (await handler(request("observations/temperature-map", "POST"))).status,
+    405,
+  );
+
+  const unavailable = createPierCastHandler(dependencies({
+    readObservedTemperatureMap: () => Promise.resolve(null),
+  }));
+  const unavailableResponse = await unavailable(
+    request("observations/temperature-map"),
+  );
+  assertEquals(unavailableResponse.status, 503);
+  assertEquals(
+    (await unavailableResponse.json()).error,
+    "pier_cast_observations_unavailable",
   );
 });
 

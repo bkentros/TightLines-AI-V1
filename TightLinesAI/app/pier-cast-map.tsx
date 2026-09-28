@@ -9,13 +9,14 @@ import {
   type StyleSpecification,
 } from "@maplibre/maplibre-react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   AppState,
   type AppStateStatus,
+  Linking,
   PanResponder,
   Pressable,
   ScrollView,
@@ -32,34 +33,54 @@ import { PierCastTemperatureGradient } from "../components/pier-cast/PierCastTem
 import { PierCastWindGradient } from "../components/pier-cast/PierCastWindGradient";
 import { captureAnalytics } from "../lib/analytics";
 import {
-  fetchPierCastCatalog,
-  fetchPierCastLeaderboard,
+  fetchPierCastConditionsCatalog,
+  fetchPierCastConditionsMap,
   fetchPierCastMapFoundation,
+  fetchPierCastObservedTemperatureMap,
   PierCastRequestError,
 } from "../lib/pierCast";
 import {
   buildPierCastBathymetryRasterFrames,
+  buildPierCastConditionsMapCities,
   buildPierCastGreatLakesTemperatureRasterFrames,
-  buildPierCastMapCities,
   closestPierCastTemperatureTime,
-  filterPierCastMapCities,
+  filterPierCastConditionsMapCities,
   PIER_CAST_GREAT_LAKES_BOUNDS,
   PIER_CAST_MAP_MAX_ZOOM,
   PIER_CAST_MAP_MIN_ZOOM,
   PIER_CAST_MAP_REFRESH_INTERVAL_MS,
+  pierCastAvailableMapMatchBand,
   pierCastMapBoundsForFilter,
-  type PierCastMapCity,
+  type PierCastConditionsMapCity,
   type PierCastMapFilter,
-  pierCastMapFoundationValidTimes,
+  pierCastForecastMapValidTimes,
+  pierCastSynchronizedConditionsMapValidTimes,
   pierCastMapRegionFeatureCode,
   pierCastTemperatureHorizonLabel,
   pierCastWindFrame,
 } from "../lib/pierCastMap";
 import type {
-  PierCastCatalogResponse,
-  PierCastLeaderboardResponse,
   PierCastMapFoundationResponse,
+  PierCastSpeciesId,
 } from "../lib/pierCastContracts";
+import type {
+  PierCastConditionsCatalogResponseV4,
+  PierCastConditionsMapResponseV4,
+  PierCastObservedTemperatureMapResponseV1,
+  PierCastObservedTemperatureStationReadV1,
+  PierCastThermalBandV4,
+} from "../lib/pierCastConditionsV4";
+import {
+  PIER_CAST_SPECIES_LABELS,
+  seasonStageLabel,
+  seasonalBandLabel,
+  thermalBandLabel,
+} from "../lib/pierCastConditionsPresentation";
+import {
+  parsePierCastTargetSpecies,
+  readPierCastTargetPreference,
+  writePierCastTargetPreference,
+} from "../lib/pierCastTargetPreference";
 import {
   buildPierCastCityWindInsights,
   type PierCastCityWindInsight,
@@ -70,6 +91,7 @@ import {
   PIER_CAST_WATER_SCALE_MAX_F,
   PIER_CAST_WATER_SCALE_MIN_F,
   PIER_CAST_WATER_SCALE_STOPS,
+  pierCastWaterTemperatureColor,
 } from "../lib/pierCastTemperatureScale";
 import {
   buildPierCastWindArrowGeoJson,
@@ -80,8 +102,6 @@ import {
 } from "../lib/pierCastWind";
 import { hapticSelection } from "../lib/safeHaptics";
 import {
-  dashboardBandColor,
-  dashboardBandStyleForScore,
   paper,
   paperFonts,
   paperShadows,
@@ -145,29 +165,20 @@ const LAKE_LABELS = [
   { label: "ONTARIO", coordinate: [-77.55, 43.65] as [number, number] },
 ] as const;
 
-const SCORE_LEGEND = [
-  dashboardBandColor.Tough,
-  dashboardBandColor.Poor,
-  dashboardBandColor.Fair,
-  dashboardBandColor.Good,
-  dashboardBandColor.Prime,
-] as const;
+const MATCH_LEGEND: ReadonlyArray<{
+  band: PierCastThermalBandV4;
+  label: string;
+  color: string;
+}> = [
+  { band: "poor", label: "Poor", color: paper.bandPoor },
+  { band: "fair", label: "Fair", color: paper.bandFair },
+  { band: "good", label: "Good", color: paper.bandGood },
+  { band: "excellent", label: "Excellent", color: paper.bandPrime },
+];
 
 const TEMPERATURE_TIME_STEP = 1;
 const PLAYBACK_OVERVIEW_STEP = 3;
 type MarkerDensity = "overview" | "compact" | "detail";
-
-function forecastDateLabel(localDate: string | undefined): string {
-  if (!localDate) return "TODAY";
-  const [year, month, day] = localDate.split("-").map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day));
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date).toUpperCase();
-}
 
 function temperatureTimeLabel(validAt: string | null): {
   date: string;
@@ -221,7 +232,7 @@ function modelCycleLabel(issuedAt: string | undefined): string {
   return `NOAA ${String(date.getUTCHours()).padStart(2, "0")}Z`;
 }
 
-function markerLabelSide(entry: PierCastMapCity): "left" | "right" {
+function markerLabelSide(entry: PierCastConditionsMapCity): "left" | "right" {
   if (entry.city.stateCode === "WI" || entry.city.stateCode === "IL") {
     return "left";
   }
@@ -232,23 +243,37 @@ function markerLabelSide(entry: PierCastMapCity): "left" | "right" {
 function CityMarker({
   entry,
   density,
+  mode,
+  selectedSpeciesId,
   onOpen,
 }: {
-  entry: PierCastMapCity;
+  entry: PierCastConditionsMapCity;
   density: MarkerDensity;
+  mode: "match" | "temperature" | "bathymetry";
+  selectedSpeciesId: PierCastSpeciesId | null;
   onOpen: () => void;
 }) {
-  const band = entry.score === null
-    ? null
-    : dashboardBandStyleForScore(entry.score);
+  const thermalBand = pierCastAvailableMapMatchBand(entry.speciesFrame);
+  const markerColor = mode === "match"
+    ? MATCH_LEGEND.find((item) => item.band === thermalBand)?.color ?? "#8E9AA1"
+    : mode === "temperature" && entry.temperatureF !== null
+    ? pierCastWaterTemperatureColor(entry.temperatureF)
+    : mode === "bathymetry"
+    ? paper.dashboardBlue
+    : "#8E9AA1";
+  const markerValue = mode === "bathymetry"
+    ? "PIER"
+    : entry.temperatureF === null ? "—" : `${Math.round(entry.temperatureF)}°`;
   const side = markerLabelSide(entry);
-  const accessibilityLabel = entry.score === null
-    ? `${entry.city.displayName}, ${
-      STATE_NAMES[entry.city.stateCode]
-    }, score pending`
-    : `${entry.city.displayName}, ${STATE_NAMES[entry.city.stateCode]}, ${
-      entry.score.toFixed(1)
-    } out of 10, ${band?.label ?? "rated"}`;
+  const seasonal = entry.speciesFrame?.seasonalOutlook;
+  const matchUnavailableLabel = entry.speciesFrame?.targetingEligibility === "restricted"
+    ? "targeting restricted"
+    : "temperature match unavailable";
+  const accessibilityLabel = mode === "match"
+    ? `${entry.city.displayName}, ${entry.temperatureF === null ? "modeled temperature unavailable" : `${Math.round(entry.temperatureF)} degrees Fahrenheit`}, ${thermalBand ? `${thermalBandLabel(thermalBand)} temperature match` : matchUnavailableLabel}${seasonal?.status === "available" ? `, ${seasonalBandLabel(seasonal.band)} seasonal outlook, ${seasonStageLabel(seasonal.stage)} stage` : ""}`
+    : mode === "temperature"
+    ? `${entry.city.displayName}, ${entry.temperatureF === null ? "modeled temperature unavailable" : `${Math.round(entry.temperatureF)} degrees Fahrenheit modeled surface water`}`
+    : `${entry.city.displayName} pier city on the depth map`;
   return (
     <Marker
       id={`pier-cast-${entry.city.cityId}`}
@@ -271,24 +296,24 @@ function CityMarker({
       >
         <View
           style={[
-            styles.markerScore,
-            density === "compact" && styles.markerScoreCompact,
-            density === "overview" && styles.markerScoreOverview,
+            styles.markerBadge,
+            density === "compact" && styles.markerBadgeCompact,
+            density === "overview" && styles.markerBadgeOverview,
             {
-              backgroundColor: band?.bg ?? "#8E9AA1",
-              borderColor: band ? "#FFFFFF" : "rgba(255,255,255,0.72)",
+              backgroundColor: markerColor,
+              borderColor: "rgba(255,255,255,0.88)",
             },
           ]}
         >
           <Text
             allowFontScaling={false}
             style={[
-              styles.markerScoreText,
-              density !== "detail" && styles.markerScoreTextCompact,
-              { color: band?.fg ?? "#FFFFFF" },
+              styles.markerBadgeText,
+              density !== "detail" && styles.markerBadgeTextCompact,
+              { color: mode === "match" && thermalBand !== "poor" ? paper.dashboardInk : "#FFFFFF" },
             ]}
           >
-            {entry.score?.toFixed(1) ?? "—"}
+            {markerValue}
           </Text>
         </View>
         {density === "detail"
@@ -302,12 +327,82 @@ function CityMarker({
                 {entry.city.displayName.toUpperCase()}
               </Text>
               <Text allowFontScaling={false} style={styles.markerState}>
-                {entry.city.stateCode}
-                {entry.rank ? ` · #${entry.rank}` : " · PENDING"}
+                {mode === "match" && selectedSpeciesId
+                  ? `${PIER_CAST_SPECIES_LABELS[selectedSpeciesId]} · ${entry.speciesFrame?.targetingEligibility === "restricted" ? "TARGETING RESTRICTED" : seasonal?.status === "available" ? seasonStageLabel(seasonal.stage).toUpperCase() : "MATCH UNAVAILABLE"}`
+                  : mode === "temperature"
+                  ? `${entry.city.stateCode} · MODELED`
+                  : `${entry.city.stateCode} · DEPTH CONTEXT`}
               </Text>
             </View>
           )
           : null}
+      </View>
+    </Marker>
+  );
+}
+
+function observedTemperatureF(station: PierCastObservedTemperatureStationReadV1) {
+  return station.temperatureC * 9 / 5 + 32;
+}
+
+function observationClockLabel(observedAt: string): string {
+  const date = new Date(observedAt);
+  if (!Number.isFinite(date.getTime())) return "TIME UNAVAILABLE";
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  }).format(date).toUpperCase();
+}
+
+function ObservedTemperatureMarker({
+  station,
+  selected,
+  onSelect,
+}: {
+  station: PierCastObservedTemperatureStationReadV1;
+  selected: boolean;
+  onSelect: () => void;
+}) {
+  const temperatureF = observedTemperatureF(station);
+  const freshnessLabel = station.freshness === "fresh"
+    ? "live observation"
+    : `${station.freshness} observation`;
+  return (
+    <Marker
+      id={`pier-cast-observed-${station.stationId}`}
+      lngLat={[station.longitude, station.latitude]}
+      anchor="center"
+      onPress={() => {
+        hapticSelection();
+        onSelect();
+      }}
+    >
+      <View
+        accessible
+        accessibilityRole="button"
+        accessibilityState={{ selected }}
+        accessibilityLabel={`${station.displayName}, ${Math.round(temperatureF)} degrees Fahrenheit, ${freshnessLabel}, measured ${observationClockLabel(station.observedAt)}, quality ${station.quality === "passed" ? "passed" : "not evaluated"}`}
+        style={styles.observationMarkerWrap}
+      >
+        <View
+          style={[
+            styles.observationMarker,
+            selected && styles.observationMarkerSelected,
+            station.freshness === "stale" && styles.observationMarkerStale,
+          ]}
+        >
+          <Text allowFontScaling={false} style={styles.observationMarkerValue}>
+            {Math.round(temperatureF)}°
+          </Text>
+        </View>
+        <View style={styles.observationMarkerTag}>
+          <Text allowFontScaling={false} style={styles.observationMarkerTagText}>
+            {station.freshness === "fresh" ? "LIVE OBS" : "OBS"}
+          </Text>
+        </View>
       </View>
     </Marker>
   );
@@ -425,9 +520,23 @@ function DepthLegend({
 
 export default function PierCastMapScreen() {
   const router = useRouter();
+  const routeParams = useLocalSearchParams<{ speciesId?: string | string[] }>();
+  const routeSpeciesId = parsePierCastTargetSpecies(
+    Array.isArray(routeParams.speciesId)
+      ? routeParams.speciesId[0]
+      : routeParams.speciesId,
+  );
+  const [selectedSpeciesId, setSelectedSpeciesId] = useState(routeSpeciesId);
+  const selectedSpeciesRef = useRef<PierCastSpeciesId | null>(routeSpeciesId);
+  const [targetHydrated, setTargetHydrated] = useState(Boolean(routeSpeciesId));
+  const [targetPromptVisible, setTargetPromptVisible] = useState(false);
+  const initializedMapSemantics = useRef(false);
+  const lastAppliedRouteSpecies = useRef<PierCastSpeciesId | null>(null);
   const cameraRef = useRef<CameraRef>(null);
   const hasLoaded = useRef(false);
+  const hasConditionsMap = useRef(false);
   const loadInFlight = useRef(false);
+  const conditionsRequest = useRef(0);
   const appState = useRef<AppStateStatus>(AppState.currentState);
   const selectedState = usePierCastMapStore((state) => state.selectedState);
   const setSelectedState = usePierCastMapStore((state) =>
@@ -435,23 +544,42 @@ export default function PierCastMapScreen() {
   );
   const mode = usePierCastMapStore((state) => state.mode);
   const setMode = usePierCastMapStore((state) => state.setMode);
+  const timeMode = usePierCastMapStore((state) => state.timeMode);
+  const setTimeMode = usePierCastMapStore((state) => state.setTimeMode);
   const windVisible = usePierCastMapStore((state) => state.windVisible);
   const setWindVisible = usePierCastMapStore((state) => state.setWindVisible);
+  const observationsVisible = usePierCastMapStore((state) =>
+    state.observationsVisible
+  );
+  const setObservationsVisible = usePierCastMapStore((state) =>
+    state.setObservationsVisible
+  );
   const selectedValidAt = usePierCastMapStore((state) => state.selectedValidAt);
   const setSelectedValidAt = usePierCastMapStore((state) =>
     state.setSelectedValidAt
   );
   const savedView = usePierCastMapStore((state) => state.view);
   const setSavedView = usePierCastMapStore((state) => state.setView);
-  const [catalog, setCatalog] = useState<PierCastCatalogResponse | null>(null);
-  const [leaderboard, setLeaderboard] = useState<
-    PierCastLeaderboardResponse | null
+  const [catalog, setCatalog] = useState<PierCastConditionsCatalogResponseV4 | null>(null);
+  const [conditionsMap, setConditionsMap] = useState<
+    PierCastConditionsMapResponseV4 | null
   >(null);
   const [foundation, setFoundation] = useState<
     PierCastMapFoundationResponse | null
   >(null);
   const [foundationLoading, setFoundationLoading] = useState(true);
   const [foundationError, setFoundationError] = useState<string | null>(null);
+  const [conditionsError, setConditionsError] = useState<string | null>(null);
+  const [observations, setObservations] = useState<
+    PierCastObservedTemperatureMapResponseV1 | null
+  >(null);
+  const [observationsError, setObservationsError] = useState<string | null>(
+    null,
+  );
+  const [observationsLoading, setObservationsLoading] = useState(true);
+  const [selectedObservationId, setSelectedObservationId] = useState<
+    string | null
+  >(null);
   const [selectedWindNodeId, setSelectedWindNodeId] = useState<string | null>(
     null,
   );
@@ -462,9 +590,11 @@ export default function PierCastMapScreen() {
   const [lastCheckedAt, setLastCheckedAt] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [targetLoading, setTargetLoading] = useState(false);
   const lastScrubbedIndex = useRef(-1);
 
   const load = useCallback(async (options?: { silent?: boolean }) => {
+    if (!targetHydrated) return;
     if (loadInFlight.current) return;
     loadInFlight.current = true;
     const silent = options?.silent === true;
@@ -473,13 +603,31 @@ export default function PierCastMapScreen() {
       setError(null);
     }
     setFoundationLoading(true);
+    const requestedTarget = selectedSpeciesRef.current;
+    const conditionsRequestId = ++conditionsRequest.current;
     try {
-      const [catalogResult, leaderboardResult, foundationResult] = await Promise
+      const [
+        catalogResult,
+        conditionsResult,
+        foundationResult,
+        observationsResult,
+      ] = await Promise
         .allSettled([
-          fetchPierCastCatalog(),
-          fetchPierCastLeaderboard(),
+          fetchPierCastConditionsCatalog(),
+          fetchPierCastConditionsMap(requestedTarget ?? undefined),
           fetchPierCastMapFoundation(),
+          fetchPierCastObservedTemperatureMap(),
         ]);
+      if (observationsResult.status === "fulfilled") {
+        setObservations(observationsResult.value);
+        setObservationsError(null);
+      } else {
+        setObservationsError(
+          observationsResult.reason instanceof Error
+            ? observationsResult.reason.message
+            : "Observed station temperatures could not be loaded.",
+        );
+      }
       if (foundationResult.status === "fulfilled") {
         setFoundation(foundationResult.value);
         setFoundationError(null);
@@ -493,11 +641,30 @@ export default function PierCastMapScreen() {
         );
       }
       if (catalogResult.status === "rejected") throw catalogResult.reason;
-      if (leaderboardResult.status === "rejected") {
-        throw leaderboardResult.reason;
-      }
       setCatalog(catalogResult.value);
-      setLeaderboard(leaderboardResult.value);
+      if (
+        conditionsResult.status === "fulfilled" &&
+        conditionsRequest.current === conditionsRequestId &&
+        selectedSpeciesRef.current === requestedTarget
+      ) {
+        setConditionsMap(conditionsResult.value);
+        hasConditionsMap.current = true;
+        setConditionsError(null);
+      } else if (
+        conditionsResult.status === "rejected" &&
+        conditionsRequest.current === conditionsRequestId &&
+        selectedSpeciesRef.current === requestedTarget
+      ) {
+        setConditionsError(
+          conditionsResult.reason instanceof Error
+            ? conditionsResult.reason.message
+            : "City conditions are temporarily unavailable.",
+        );
+        if (!hasConditionsMap.current && requestedTarget) {
+          setMode("temperature");
+          setTargetPromptVisible(true);
+        }
+      }
       hasLoaded.current = true;
       setError(null);
     } catch (caught) {
@@ -513,8 +680,85 @@ export default function PierCastMapScreen() {
     } finally {
       setLastCheckedAt(new Date());
       setFoundationLoading(false);
+      setObservationsLoading(false);
       if (!silent) setLoading(false);
       loadInFlight.current = false;
+    }
+  }, [targetHydrated]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        routeSpeciesId &&
+        lastAppliedRouteSpecies.current !== routeSpeciesId
+      ) {
+        lastAppliedRouteSpecies.current = routeSpeciesId;
+        selectedSpeciesRef.current = routeSpeciesId;
+        setSelectedSpeciesId(routeSpeciesId);
+        setTargetHydrated(true);
+        setMode("match");
+        void writePierCastTargetPreference(routeSpeciesId);
+        return;
+      }
+      let active = true;
+      void readPierCastTargetPreference().then((remembered) => {
+        if (!active) return;
+        selectedSpeciesRef.current = remembered;
+        setSelectedSpeciesId(remembered);
+        setTargetHydrated(true);
+      });
+      return () => { active = false; };
+    }, [routeSpeciesId, setMode]),
+  );
+
+  useEffect(() => {
+    if (!targetHydrated) return;
+    const requestedTarget = selectedSpeciesId;
+    const requestId = ++conditionsRequest.current;
+    setTargetLoading(true);
+    setConditionsError(null);
+    void fetchPierCastConditionsMap(requestedTarget ?? undefined)
+      .then((response) => {
+        if (
+          conditionsRequest.current !== requestId ||
+          selectedSpeciesRef.current !== requestedTarget
+        ) return;
+        hasConditionsMap.current = true;
+        setConditionsMap(response);
+      })
+      .catch((caught) => {
+        if (
+          conditionsRequest.current !== requestId ||
+          selectedSpeciesRef.current !== requestedTarget
+        ) return;
+        setConditionsError(
+          caught instanceof Error
+            ? caught.message
+            : "Species match conditions could not be loaded.",
+        );
+        if (requestedTarget) {
+          setMode("temperature");
+          setTargetPromptVisible(true);
+        }
+      })
+      .finally(() => {
+        if (conditionsRequest.current === requestId) setTargetLoading(false);
+      });
+  }, [selectedSpeciesId, setMode, targetHydrated]);
+
+  const retryObservations = useCallback(async () => {
+    setObservationsLoading(true);
+    setObservationsError(null);
+    try {
+      setObservations(await fetchPierCastObservedTemperatureMap());
+    } catch (caught) {
+      setObservationsError(
+        caught instanceof Error
+          ? caught.message
+          : "Observed station temperatures could not be loaded.",
+      );
+    } finally {
+      setObservationsLoading(false);
     }
   }, []);
 
@@ -556,27 +800,42 @@ export default function PierCastMapScreen() {
     }, [load]),
   );
 
-  const cities = useMemo(
-    () =>
-      catalog && leaderboard
-        ? buildPierCastMapCities(catalog, leaderboard)
-        : [],
-    [catalog, leaderboard],
+  useEffect(() => {
+    if (!targetHydrated || initializedMapSemantics.current) return;
+    initializedMapSemantics.current = true;
+    setMode(selectedSpeciesRef.current ? "match" : "temperature");
+    setTimeMode("now");
+  }, [setMode, setTimeMode, targetHydrated]);
+
+  const synchronizedValidTimes = useMemo(() => {
+    return pierCastSynchronizedConditionsMapValidTimes(foundation, conditionsMap);
+  }, [conditionsMap, foundation]);
+  const nowValidAt = useMemo(
+    () => closestPierCastTemperatureTime(synchronizedValidTimes, Date.now()),
+    [synchronizedValidTimes],
   );
-  const visibleCities = useMemo(
-    () => filterPierCastMapCities(cities, selectedState),
-    [cities, selectedState],
-  );
-  const validTimes = useMemo(
-    () => pierCastMapFoundationValidTimes(foundation),
-    [foundation],
-  );
+  const validTimes = useMemo(() => {
+    if (timeMode === "now") return nowValidAt ? [nowValidAt] : [];
+    return pierCastForecastMapValidTimes(synchronizedValidTimes, nowValidAt);
+  }, [nowValidAt, synchronizedValidTimes, timeMode]);
   const activeValidAt = useMemo(() => {
+    if (timeMode === "now") return nowValidAt;
     if (selectedValidAt && validTimes.includes(selectedValidAt)) {
       return selectedValidAt;
     }
-    return closestPierCastTemperatureTime(validTimes, Date.now());
-  }, [selectedValidAt, validTimes]);
+    return validTimes[0] ?? nowValidAt;
+  }, [nowValidAt, selectedValidAt, timeMode, validTimes]);
+  const cities = useMemo(
+    () =>
+      catalog && conditionsMap
+        ? buildPierCastConditionsMapCities(catalog, conditionsMap, activeValidAt)
+        : [],
+    [activeValidAt, catalog, conditionsMap],
+  );
+  const visibleCities = useMemo(
+    () => filterPierCastConditionsMapCities(cities, selectedState),
+    [cities, selectedState],
+  );
   const temperatureRasterFrames = useMemo(
     () =>
       foundation && activeValidAt
@@ -612,31 +871,46 @@ export default function PierCastMapScreen() {
       windPoints.find((point) => point.nodeId === selectedWindNodeId) ?? null,
     [selectedWindNodeId, windPoints],
   );
+  const observedStationsVisible = timeMode === "now" && observationsVisible;
+  const selectedObservation = useMemo(
+    () =>
+      observations?.stations.find((station) =>
+        station.readingId === selectedObservationId
+      ) ?? null,
+    [observations, selectedObservationId],
+  );
   const selectedTimeIndex = activeValidAt
     ? validTimes.indexOf(activeValidAt)
     : -1;
   const timeLabel = temperatureTimeLabel(activeValidAt);
   const horizonLabel = pierCastTemperatureHorizonLabel(validTimes);
   const timelineTicks = useMemo(
-    () =>
-      [0, 24, 48, 72, 96, 120].flatMap((hour, index) => {
+    () => {
+      const indexes = [0, 24, 48, 72, 96].filter((index) => index < validTimes.length);
+      const lastIndex = Math.max(0, validTimes.length - 1);
+      if (!indexes.includes(lastIndex)) indexes.push(lastIndex);
+      return indexes.flatMap((hour, index) => {
         const validAt = validTimes[hour];
         return validAt
           ? [{ hour, label: forecastDayTickLabel(validAt, index) }]
           : [];
-      }),
+      });
+    },
     [validTimes],
   );
-  const forecastDate = leaderboard?.cities[0]?.dates[0]?.localDate;
-  const mapBottomInset = panelExpanded
-    ? mode === "temperature"
-      ? windVisible ? 380 : 290
+  const baseMapBottomInset = panelExpanded
+    ? mode === "temperature" || mode === "match"
+      ? timeMode === "forecast"
+        ? windVisible ? 380 : 290
+        : windVisible ? 305 : 225
       : mode === "bathymetry"
       ? windVisible ? 360 : 265
       : windVisible
       ? 220
       : 190
     : 66;
+  const mapBottomInset = baseMapBottomInset +
+    (panelExpanded && observedStationsVisible ? 26 : 0);
   const markerDensity: MarkerDensity = savedView.zoom < 5
     ? "overview"
     : savedView.zoom < 6.3 || savedView.zoom > 9.5
@@ -650,6 +924,33 @@ export default function PierCastMapScreen() {
     hapticSelection();
     setSelectedValidAt(validAt);
   }, [setSelectedValidAt, validTimes]);
+
+  const chooseTimeMode = useCallback((nextMode: "now" | "forecast") => {
+    hapticSelection();
+    setPlaying(false);
+    if (nextMode === "forecast") setSelectedObservationId(null);
+    setTimeMode(nextMode);
+    if (nextMode === "now") {
+      setSelectedValidAt(nowValidAt);
+    } else if (!selectedValidAt || !synchronizedValidTimes.includes(selectedValidAt)) {
+      setSelectedValidAt(nowValidAt);
+    }
+    captureAnalytics("pier_cast_visual_map_time_mode_changed", {
+      time_mode: nextMode,
+    });
+  }, [nowValidAt, selectedValidAt, setSelectedValidAt, setTimeMode, synchronizedValidTimes]);
+
+  const selectTarget = useCallback((speciesId: PierCastSpeciesId) => {
+    selectedSpeciesRef.current = speciesId;
+    setSelectedSpeciesId(speciesId);
+    setTargetPromptVisible(false);
+    setTargetLoading(true);
+    setError(null);
+    setConditionsError(null);
+    setMode("match");
+    router.setParams({ speciesId });
+    void writePierCastTargetPreference(speciesId);
+  }, [router, setMode]);
 
   const scrubTimeline = useCallback((locationX: number) => {
     if (timelineWidth <= 0 || validTimes.length === 0) return;
@@ -679,7 +980,7 @@ export default function PierCastMapScreen() {
     }), [scrubTimeline]);
 
   useEffect(() => {
-    if (!playing || validTimes.length === 0) return;
+    if (timeMode !== "forecast" || !playing || validTimes.length === 0) return;
     const timer = setInterval(() => {
       const currentIndex = activeValidAt
         ? validTimes.indexOf(activeValidAt)
@@ -700,24 +1001,28 @@ export default function PierCastMapScreen() {
     playing,
     savedView.zoom,
     setSelectedValidAt,
+    timeMode,
     validTimes,
   ]);
 
-  const openCity = useCallback((entry: PierCastMapCity) => {
+  const openCity = useCallback((entry: PierCastConditionsMapCity) => {
     captureAnalytics("pier_cast_visual_map_city_opened", {
       city_id: entry.city.cityId,
       state: entry.city.stateCode,
-      score: entry.score,
+      layer: mode,
+      time_mode: timeMode,
+      species_id: selectedSpeciesId,
     });
     router.push({
       pathname: "/pier-cast-review",
       params: {
         cityId: entry.city.cityId,
         from: "map",
+        ...(selectedSpeciesId ? { speciesId: selectedSpeciesId } : {}),
         entry: String(Date.now()),
       },
     });
-  }, [router]);
+  }, [mode, router, selectedSpeciesId, timeMode]);
 
   const chooseState = useCallback((filter: PierCastMapFilter) => {
     hapticSelection();
@@ -791,7 +1096,7 @@ export default function PierCastMapScreen() {
               <ActivityIndicator color={paper.dashboardBlue} />
               <Text style={styles.messageTitle}>Charting the shoreline</Text>
               <Text style={styles.messageCopy}>
-                Loading today&apos;s city scores…
+                Loading modeled Great Lakes conditions…
               </Text>
             </View>
           )
@@ -916,7 +1221,7 @@ export default function PierCastMapScreen() {
                       />
                     )
                     : null}
-                  {!usingOfflineBaseMap && mode === "score"
+                  {!usingOfflineBaseMap && mode === "match"
                     ? (
                       <Layer
                         id="great-lakes-water-tint"
@@ -942,7 +1247,7 @@ export default function PierCastMapScreen() {
                     : null}
                 </GeoJSONSource>
 
-                {mode === "temperature"
+                {mode !== "bathymetry"
                   ? temperatureRasterFrames.map((frame) => (
                     <RasterSource
                       key={`temperature-${frame.ofsId}`}
@@ -1034,7 +1339,7 @@ export default function PierCastMapScreen() {
                   ))
                   : null}
 
-                {mode !== "score"
+                {mode !== "bathymetry"
                   ? (
                     <GeoJSONSource
                       id="great-lakes-temperature-land-mask"
@@ -1098,7 +1403,7 @@ export default function PierCastMapScreen() {
                         style={{
                           lineColor: ["get", "tone"],
                           lineWidth: ["get", "width"],
-                          lineOpacity: mode === "score" ? 0.7 : 0.92,
+                          lineOpacity: mode === "match" ? 0.78 : 0.92,
                           lineCap: "round",
                           lineJoin: "round",
                         }}
@@ -1138,50 +1443,100 @@ export default function PierCastMapScreen() {
                     key={entry.city.cityId}
                     entry={entry}
                     density={markerDensity}
+                    mode={mode}
+                    selectedSpeciesId={selectedSpeciesId}
                     onOpen={() => openCity(entry)}
                   />
                 ))}
+                {observedStationsVisible
+                  ? observations?.stations.map((station) => (
+                    <ObservedTemperatureMarker
+                      key={station.readingId}
+                      station={station}
+                      selected={station.readingId === selectedObservationId}
+                      onSelect={() => {
+                        setSelectedObservationId(station.readingId);
+                        captureAnalytics(
+                          "pier_cast_observed_temperature_opened",
+                          {
+                            station_id: station.stationId,
+                            dataset_id: station.datasetId,
+                            freshness: station.freshness,
+                            quality: station.quality,
+                          },
+                        );
+                      }}
+                    />
+                  ))
+                  : null}
               </Map>
 
               <View style={styles.topOverlay} pointerEvents="box-none">
+                <View style={styles.timeModeRow}>
+                  {(["now", "forecast"] as const).map((candidate) => {
+                    const selected = timeMode === candidate;
+                    return (
+                      <Pressable
+                        key={candidate}
+                        accessibilityRole="button"
+                        accessibilityState={{ selected }}
+                        accessibilityLabel={`Show ${candidate === "now" ? "current modeled conditions" : "forecast model timeline"}`}
+                        onPress={() => chooseTimeMode(candidate)}
+                        style={({ pressed }) => [
+                          styles.timeModeTab,
+                          selected && styles.timeModeTabActive,
+                          pressed && styles.pressed,
+                        ]}
+                      >
+                        <View style={[styles.timeModeDot, selected && styles.timeModeDotActive]} />
+                        <Text style={[styles.timeModeText, selected && styles.timeModeTextActive]}>
+                          {candidate === "now" ? "NOW" : "FORECAST"}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                  <Text style={styles.timeModeDisclosure} numberOfLines={1}>
+                    {timeMode === "now" ? "CLOSEST MODEL HOUR" : "HOURLY MODEL GUIDANCE"}
+                  </Text>
+                </View>
                 <View style={styles.modeRow}>
                   <Pressable
                     accessibilityRole="button"
-                    accessibilityState={{ selected: mode === "score" }}
-                    accessibilityLabel="Show PierCast scores"
+                    accessibilityState={{ selected: mode === "match" }}
+                    accessibilityLabel="Show species temperature match"
                     onPress={() => {
                       hapticSelection();
-                      setPlaying(false);
-                      setSelectedValidAt(
-                        closestPierCastTemperatureTime(validTimes, Date.now()),
-                      );
-                      if (mode !== "score") setPanelExpanded(true);
-                      setMode("score");
+                      if (!selectedSpeciesId) {
+                        setTargetPromptVisible(true);
+                        return;
+                      }
+                      if (mode !== "match") setPanelExpanded(true);
+                      setMode("match");
                       captureAnalytics("pier_cast_visual_map_layer_changed", {
-                        layer: "score",
+                        layer: "match",
                       });
                     }}
                     style={({ pressed }) => [
                       styles.modeTab,
-                      mode === "score"
+                      mode === "match"
                         ? styles.modeTabActive
                         : styles.modeTabInactive,
                       pressed && styles.pressed,
                     ]}
                   >
                     <Ionicons
-                      name="ribbon-outline"
+                      name="fish-outline"
                       size={13}
-                      color={mode === "score"
+                      color={mode === "match"
                         ? "#FFFFFF"
                         : paper.dashboardMuted}
                     />
                     <Text
-                      style={mode === "score"
+                      style={mode === "match"
                         ? styles.modeTabActiveText
                         : styles.modeTabInactiveText}
                     >
-                      SCORE
+                      MATCH
                     </Text>
                   </Pressable>
                   <Pressable
@@ -1257,14 +1612,14 @@ export default function PierCastMapScreen() {
                   </Pressable>
                   <View style={styles.datePill}>
                     <Text style={styles.datePillLabel}>
-                      {mode === "bathymetry" ? "STATIC LAYER" : "FORECAST"}
+                      {mode === "bathymetry"
+                        ? "STATIC LAYER"
+                        : timeMode === "now" ? "NOW · MODELED" : "FORECAST · MODELED"}
                     </Text>
                     <Text style={styles.datePillValue} numberOfLines={1}>
-                      {mode === "temperature"
+                      {mode !== "bathymetry"
                         ? `${timeLabel.date} · ${timeLabel.eastern}`
-                        : mode === "bathymetry"
-                        ? "ALL FIVE GREAT LAKES"
-                        : forecastDateLabel(forecastDate)}
+                        : "ALL FIVE GREAT LAKES"}
                     </Text>
                   </View>
                 </View>
@@ -1315,9 +1670,222 @@ export default function PierCastMapScreen() {
                     );
                   })}
                 </ScrollView>
+                {targetPromptVisible ? (
+                  <View style={styles.targetPrompt}>
+                    <View style={styles.targetPromptHead}>
+                      <View style={styles.targetPromptCopy}>
+                        <Text style={styles.targetPromptEyebrow}>MATCH REQUIRES A TARGET</Text>
+                        <Text style={styles.targetPromptTitle}>What are you targeting?</Text>
+                      </View>
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Close species selector"
+                        onPress={() => setTargetPromptVisible(false)}
+                        style={styles.targetPromptClose}
+                      >
+                        <Ionicons name="close" size={18} color={paper.dashboardInk} />
+                      </Pressable>
+                    </View>
+                    <Text style={styles.targetPromptDetail}>
+                      {conditionsError ?? "Choose one species to translate modeled water temperature into a match. The camera will not move."}
+                    </Text>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.targetPromptRail}>
+                      {conditionsMap?.targetSpecies.map((option) => (
+                        <Pressable
+                          key={option.speciesId}
+                          accessibilityRole="button"
+                          accessibilityLabel={`Show ${option.displayName} temperature match`}
+                          onPress={() => selectTarget(option.speciesId)}
+                          style={({ pressed }) => [styles.targetPromptChip, pressed && styles.pressed]}
+                        >
+                          <Text style={styles.targetPromptChipText}>{option.displayName}</Text>
+                          <Text style={styles.targetPromptChipMeta}>
+                            {option.placement === "commonly_targeted_now" ? "COMMON NOW" : "ALL SPECIES"}
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </ScrollView>
+                    {conditionsError && !conditionsMap ? (
+                      <Pressable
+                        accessibilityRole="button"
+                        accessibilityLabel="Retry target species"
+                        onPress={() => void load({ silent: true })}
+                        style={({ pressed }) => [styles.targetPromptRetry, pressed && styles.pressed]}
+                      >
+                        <Text style={styles.targetPromptRetryText}>RETRY TARGETS</Text>
+                      </Pressable>
+                    ) : null}
+                  </View>
+                ) : null}
               </View>
 
-              <View style={styles.mapTools} pointerEvents="box-none">
+              <View
+                style={[styles.mapTools, targetPromptVisible && styles.mapToolsHidden]}
+                pointerEvents={targetPromptVisible ? "none" : "box-none"}
+              >
+                <Pressable
+                  accessibilityRole="switch"
+                  accessibilityState={{
+                    checked: observedStationsVisible,
+                    disabled: timeMode !== "now",
+                  }}
+                  accessibilityLabel={timeMode === "now"
+                    ? `${observationsVisible ? "Hide" : "Show"} observed station temperatures`
+                    : "Observed station temperatures are available in Now mode only"}
+                  disabled={timeMode !== "now"}
+                  onPress={() => {
+                    hapticSelection();
+                    const visible = !observationsVisible;
+                    setObservationsVisible(visible);
+                    if (!visible) setSelectedObservationId(null);
+                    captureAnalytics(
+                      "pier_cast_observed_temperature_toggled",
+                      { visible },
+                    );
+                  }}
+                  style={({ pressed }) => [
+                    styles.observationToggle,
+                    observedStationsVisible && styles.observationToggleActive,
+                    timeMode !== "now" && styles.observationToggleDisabled,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <Ionicons
+                    name="radio-outline"
+                    size={14}
+                    color={observedStationsVisible
+                      ? paper.dashboardInk
+                      : "#FFFFFF"}
+                  />
+                  <View>
+                    <Text
+                      style={[
+                        styles.windToggleLabel,
+                        observedStationsVisible && styles.windToggleLabelActive,
+                      ]}
+                    >
+                      OBS {timeMode === "now"
+                        ? observationsVisible ? "ON" : "OFF"
+                        : "NOW ONLY"}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.windToggleValue,
+                        observedStationsVisible && styles.windToggleValueActive,
+                      ]}
+                    >
+                      {observationsLoading
+                        ? "LOADING"
+                        : observationsError
+                        ? observations ? "REFRESH FAILED" : "UNAVAILABLE"
+                        : observations?.cacheStatus === "stale"
+                        ? "ARCHIVE STALE"
+                        : `${observations?.stations.length ?? 0} STATIONS`}
+                    </Text>
+                  </View>
+                </Pressable>
+                {observedStationsVisible && observationsError
+                  ? (
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel="Retry observed station temperatures"
+                      onPress={() => void retryObservations()}
+                      style={({ pressed }) => [
+                        styles.observationReadout,
+                        pressed && styles.pressed,
+                      ]}
+                    >
+                      <Text style={styles.observationReadoutEyebrow}>
+                        {observations
+                          ? "STATION REFRESH FAILED"
+                          : "OBSERVATIONS UNAVAILABLE"}
+                      </Text>
+                      <Text style={styles.observationReadoutMeta}>
+                        {observations
+                          ? "LAST ARCHIVED POINTS SHOWN · TAP TO RETRY"
+                          : "MODELED LAYERS STILL WORK · TAP TO RETRY"}
+                      </Text>
+                    </Pressable>
+                  )
+                  : null}
+                {observedStationsVisible && !observationsError &&
+                    !observationsLoading && observations?.stations.length === 0
+                  ? (
+                    <View style={styles.observationReadout}>
+                      <Text style={styles.observationReadoutEyebrow}>
+                        NO QUALIFYING READINGS
+                      </Text>
+                      <Text style={styles.observationReadoutMeta}>
+                        STATIONS MAY BE SEASONAL OR FAILING QUALITY CHECKS
+                      </Text>
+                    </View>
+                  )
+                  : null}
+                {observedStationsVisible && selectedObservation
+                  ? (
+                    <View
+                      accessible
+                      accessibilityLabel={`${selectedObservation.displayName}. ${Math.round(observedTemperatureF(selectedObservation))} degrees Fahrenheit. ${selectedObservation.measurementDepthM === null ? "Sensor depth not reported" : `Sensor depth ${selectedObservation.measurementDepthM} meters`}. Quality ${selectedObservation.quality === "passed" ? "passed" : "not evaluated"}. Point observation, not a pier or lake-wide temperature.`}
+                      style={styles.observationReadout}
+                    >
+                      <View style={styles.observationReadoutHeader}>
+                        <Text
+                          numberOfLines={2}
+                          style={styles.observationReadoutEyebrow}
+                        >
+                          {selectedObservation.freshness === "fresh"
+                            ? "LIVE OBSERVATION"
+                            : `${selectedObservation.freshness.toUpperCase()} OBSERVATION`}
+                          {" · "}{selectedObservation.displayName.toUpperCase()}
+                        </Text>
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Close observed temperature details"
+                          hitSlop={8}
+                          onPress={() => setSelectedObservationId(null)}
+                        >
+                          <Ionicons name="close" size={14} color="#FFFFFF" />
+                        </Pressable>
+                      </View>
+                      <Text style={styles.observationReadoutValue}>
+                        {Math.round(observedTemperatureF(selectedObservation))}°F
+                      </Text>
+                      <Text style={styles.observationReadoutMeta}>
+                        {observationClockLabel(selectedObservation.observedAt)} ·{" "}
+                        {selectedObservation.measurementDepthM === null
+                          ? "DEPTH NOT REPORTED"
+                          : `${selectedObservation.measurementDepthM}M DEPTH`}
+                      </Text>
+                      <Text style={styles.observationReadoutMeta}>
+                        QC {selectedObservation.quality === "passed"
+                          ? "PASSED"
+                          : "NOT EVALUATED"} · {selectedObservation.datasetId.toUpperCase()}
+                      </Text>
+                      <Text style={styles.observationReadoutCaution}>
+                        POINT READING · NOT A PIER, HARBOR, OR LAKE-WIDE TEMPERATURE
+                      </Text>
+                      <Pressable
+                        accessibilityRole="link"
+                        accessibilityLabel={`Open ${selectedObservation.provider} source`}
+                        onPress={() =>
+                          void Linking.openURL(selectedObservation.sourceUrl)}
+                        style={({ pressed }) => [
+                          styles.observationSourceButton,
+                          pressed && styles.pressed,
+                        ]}
+                      >
+                        <Text style={styles.observationSourceText}>
+                          VIEW GLOS / SEAGULL SOURCE
+                        </Text>
+                        <Ionicons
+                          name="open-outline"
+                          size={11}
+                          color={paper.gold}
+                        />
+                      </Pressable>
+                    </View>
+                  )
+                  : null}
                 <Pressable
                   accessibilityRole="switch"
                   accessibilityState={{ checked: windVisible }}
@@ -1450,15 +2018,17 @@ export default function PierCastMapScreen() {
                 >
                   <View style={styles.legendHeadingCopy}>
                     <Text style={styles.legendEyebrow}>
-                      {mode === "score"
-                        ? "TODAY'S OPPORTUNITY"
+                      {mode === "match"
+                        ? "SPECIES TEMPERATURE MATCH"
                         : mode === "temperature"
                         ? "NOAA MODELED SURFACE WATER"
                         : "NOAA GREAT LAKES BATHYMETRY"}
                     </Text>
                     <Text style={styles.legendTitle}>
-                      {mode === "score"
-                        ? "Tap any score to open its report."
+                      {mode === "match"
+                        ? selectedSpeciesId
+                          ? `${PIER_CAST_SPECIES_LABELS[selectedSpeciesId]} · ${timeLabel.date} · ${timeLabel.eastern}`
+                          : "Choose a target species to interpret temperature."
                         : mode === "temperature"
                         ? `${timeLabel.date} · ${timeLabel.eastern} / ${timeLabel.central}`
                         : "Read structure, breaks, and basin shape before choosing a pier."}
@@ -1477,24 +2047,7 @@ export default function PierCastMapScreen() {
                     />
                   </View>
                 </Pressable>
-                {panelExpanded && mode === "score"
-                  ? (
-                    <View style={styles.legendRow}>
-                      {SCORE_LEGEND.map((band) => (
-                        <View key={band.label} style={styles.legendItem}>
-                          <View
-                            style={[styles.legendSwatch, {
-                              backgroundColor: band.bg,
-                            }]}
-                          />
-                          <Text style={styles.legendLabel}>
-                            {band.label.toUpperCase()}
-                          </Text>
-                        </View>
-                      ))}
-                    </View>
-                  )
-                  : panelExpanded && foundationLoading && !foundation
+                {panelExpanded && foundationLoading && !foundation
                   ? (
                     <View style={styles.temperatureStatusRow}>
                       <ActivityIndicator size="small" color={paper.gold} />
@@ -1525,14 +2078,14 @@ export default function PierCastMapScreen() {
                       </Pressable>
                     </View>
                   )
-                  : panelExpanded && mode === "temperature"
+                  : panelExpanded && (mode === "temperature" || mode === "match")
                   ? (
                     <>
                       <View style={styles.modelStatusRow}>
                         <View
                           style={[
                             styles.liveDot,
-                            (foundationError ||
+                            (foundationError || conditionsError ||
                               foundation?.cacheStatus === "stale") &&
                             styles.liveDotWarning,
                           ]}
@@ -1546,7 +2099,9 @@ export default function PierCastMapScreen() {
                             : ""}
                           {foundationLoading
                             ? " · REFRESHING"
-                            : " · 6H NOAA / HOURLY WIND"}
+                            : targetLoading
+                            ? " · UPDATING TARGET"
+                            : " · HOURLY TEMP + WIND FRAMES"}
                         </Text>
                       </View>
                       {(foundationError ||
@@ -1579,42 +2134,93 @@ export default function PierCastMapScreen() {
                           </Pressable>
                         )
                         : null}
-                      <View
-                        accessibilityLabel="Water temperature color scale from 32 degrees to 78 degrees and warmer"
-                        style={styles.temperatureLegend}
-                      >
-                        <View style={styles.temperatureLegendSegments}>
-                          <PierCastTemperatureGradient />
+                      {conditionsError ? (
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel="Retry city condition markers"
+                          onPress={() => void load({ silent: true })}
+                          style={({ pressed }) => [styles.staleNotice, pressed && styles.pressed]}
+                        >
+                          <Ionicons name="alert-circle-outline" size={12} color={paper.gold} />
+                          <Text numberOfLines={1} style={styles.staleNoticeText}>
+                            CITY MARKERS UNAVAILABLE · RAW MAP LAYERS STILL WORK · TAP TO RETRY
+                          </Text>
+                        </Pressable>
+                      ) : null}
+                      {observedStationsVisible && !observationsError ? (
+                        <View style={styles.observationDisclosureRow}>
+                          <Ionicons
+                            name="radio-outline"
+                            size={11}
+                            color={paper.gold}
+                          />
+                          <Text style={styles.observationDisclosureText}>
+                            COLORED SURFACE = MODELED · OUTLINED POINTS = OBSERVED STATIONS · OBSERVATIONS NEVER AFFECT RANKING
+                          </Text>
                         </View>
-                        <View style={styles.temperatureLegendLabels}>
-                          {PIER_CAST_WATER_SCALE_LABELS.map((label, index) => {
-                            const stop = PIER_CAST_WATER_SCALE_STOPS[index]!;
-                            const fraction =
-                              (stop.valueF - PIER_CAST_WATER_SCALE_MIN_F) /
-                              (PIER_CAST_WATER_SCALE_MAX_F -
-                                PIER_CAST_WATER_SCALE_MIN_F);
-                            return (
-                              <Text
-                                key={label}
-                                style={[
-                                  styles.temperatureLegendLabel,
-                                  index === 0
-                                    ? styles.temperatureLegendLabelFirst
-                                    : index ===
-                                        PIER_CAST_WATER_SCALE_LABELS.length - 1
-                                    ? styles.temperatureLegendLabelLast
-                                    : {
-                                      left: `${fraction * 100}%`,
-                                      marginLeft: -17,
-                                    },
-                                ]}
-                              >
-                                {label}
-                              </Text>
-                            );
-                          })}
+                      ) : null}
+                      {mode === "match" ? (
+                        <View style={styles.matchLegendWrap}>
+                          <Pressable
+                            accessibilityRole="button"
+                            accessibilityLabel={`Change target species from ${selectedSpeciesId ? PIER_CAST_SPECIES_LABELS[selectedSpeciesId] : "none"}`}
+                            onPress={() => {
+                              hapticSelection();
+                              setTargetPromptVisible(true);
+                            }}
+                            style={({ pressed }) => [styles.matchTargetButton, pressed && styles.pressed]}
+                          >
+                            <Ionicons name="fish-outline" size={12} color={paper.dashboardBlueLight} />
+                            <Text style={styles.matchTargetName} numberOfLines={1}>
+                              {selectedSpeciesId ? PIER_CAST_SPECIES_LABELS[selectedSpeciesId].toUpperCase() : "CHOOSE TARGET"}
+                            </Text>
+                            <Text style={styles.matchTargetChange}>CHANGE</Text>
+                          </Pressable>
+                          <View style={styles.legendRow}>
+                            {MATCH_LEGEND.map((item) => (
+                              <View key={item.band} style={styles.legendItem}>
+                                <View style={[styles.legendSwatch, { backgroundColor: item.color }]} />
+                                <Text style={styles.legendLabel}>{item.label.toUpperCase()}</Text>
+                              </View>
+                            ))}
+                          </View>
+                          <Text style={styles.matchLegendNote}>
+                            MARKER FILL = TEMPERATURE MATCH · CENTER = MODELED °F · SEASON SHOWN SEPARATELY
+                          </Text>
                         </View>
-                      </View>
+                      ) : (
+                        <View
+                          accessibilityLabel="Water temperature color scale from 32 degrees to 78 degrees and warmer"
+                          style={styles.temperatureLegend}
+                        >
+                          <View style={styles.temperatureLegendSegments}>
+                            <PierCastTemperatureGradient />
+                          </View>
+                          <View style={styles.temperatureLegendLabels}>
+                            {PIER_CAST_WATER_SCALE_LABELS.map((label, index) => {
+                              const stop = PIER_CAST_WATER_SCALE_STOPS[index]!;
+                              const fraction =
+                                (stop.valueF - PIER_CAST_WATER_SCALE_MIN_F) /
+                                (PIER_CAST_WATER_SCALE_MAX_F - PIER_CAST_WATER_SCALE_MIN_F);
+                              return (
+                                <Text
+                                  key={label}
+                                  style={[
+                                    styles.temperatureLegendLabel,
+                                    index === 0
+                                      ? styles.temperatureLegendLabelFirst
+                                      : index === PIER_CAST_WATER_SCALE_LABELS.length - 1
+                                      ? styles.temperatureLegendLabelLast
+                                      : { left: `${fraction * 100}%`, marginLeft: -17 },
+                                  ]}
+                                >
+                                  {label}
+                                </Text>
+                              );
+                            })}
+                          </View>
+                        </View>
+                      )}
                       {windVisible
                         ? (
                           <WindLegend
@@ -1623,6 +2229,7 @@ export default function PierCastMapScreen() {
                           />
                         )
                         : null}
+                      {timeMode === "forecast" ? (
                       <View style={styles.timelineRow}>
                         <Pressable
                           accessibilityRole="button"
@@ -1770,6 +2377,14 @@ export default function PierCastMapScreen() {
                           />
                         </Pressable>
                       </View>
+                      ) : (
+                        <View style={styles.nowModeNotice}>
+                          <Ionicons name="time-outline" size={12} color={paper.gold} />
+                          <Text style={styles.nowModeNoticeText}>
+                            NOW USES THE CLOSEST COHERENT MODEL HOUR · SWITCH TO FORECAST TO SCRUB OR PLAY
+                          </Text>
+                        </View>
+                      )}
                     </>
                   )
                   : panelExpanded && mode === "bathymetry" && foundation
@@ -1805,10 +2420,16 @@ export default function PierCastMapScreen() {
                       contentContainerStyle={styles.cityRail}
                       accessibilityLabel="PierCast cities on the map"
                     >
-                      {visibleCities.map((entry: PierCastMapCity) => {
-                        const band = entry.score === null
-                          ? null
-                          : dashboardBandStyleForScore(entry.score);
+                      {visibleCities.map((entry: PierCastConditionsMapCity) => {
+                        const thermalBand = pierCastAvailableMapMatchBand(
+                          entry.speciesFrame,
+                        );
+                        const seasonal = entry.speciesFrame?.seasonalOutlook;
+                        const accent = mode === "match"
+                          ? MATCH_LEGEND.find((item) => item.band === thermalBand)?.color ?? "#8E9AA1"
+                          : mode === "temperature" && entry.temperatureF !== null
+                          ? pierCastWaterTemperatureColor(entry.temperatureF)
+                          : paper.dashboardBlue;
                         const windInsight = cityWindInsights.get(
                           entry.city.cityId,
                         );
@@ -1817,10 +2438,10 @@ export default function PierCastMapScreen() {
                             key={entry.city.cityId}
                             accessibilityRole="button"
                             accessibilityLabel={`Open ${entry.city.displayName} PierCast${
-                              entry.score === null
-                                ? ", score pending"
-                                : `, ${entry.score.toFixed(1)} out of 10`
-                            }${
+                              entry.temperatureF === null
+                                ? ", modeled temperature unavailable"
+                                : `, ${Math.round(entry.temperatureF)} degrees Fahrenheit`
+                            }${mode === "match" ? thermalBand ? `, ${thermalBandLabel(thermalBand)} temperature match` : entry.speciesFrame?.targetingEligibility === "restricted" ? ", targeting restricted" : ", temperature match unavailable" : ""}${
                               windVisible && windInsight
                                 ? `, wind from ${windInsight.windFrom} at ${windInsight.speedMph} miles per hour, ${windInsight.setupLabel.toLowerCase()}${
                                   windInsight.caution === "rough_water"
@@ -1843,7 +2464,7 @@ export default function PierCastMapScreen() {
                             <View
                               style={[
                                 styles.cityRailBand,
-                                { backgroundColor: band?.bg ?? "#8E9AA1" },
+                                { backgroundColor: accent },
                               ]}
                             />
                             <View style={styles.cityRailCopy}>
@@ -1854,11 +2475,15 @@ export default function PierCastMapScreen() {
                                 {entry.city.displayName}
                               </Text>
                               <Text style={styles.cityRailMeta}>
-                                {`${entry.city.stateCode}${
-                                  entry.rank
-                                    ? ` · #${entry.rank}`
-                                    : " · PENDING"
-                                }`}
+                                {mode === "match"
+                                  ? entry.speciesFrame?.targetingEligibility === "restricted"
+                                    ? `${entry.city.stateCode} · TARGETING RESTRICTED`
+                                    : thermalBand && seasonal?.status === "available"
+                                    ? `${entry.city.stateCode} · SEASON ${seasonalBandLabel(seasonal.band).toUpperCase()} · ${seasonStageLabel(seasonal.stage).toUpperCase()}`
+                                    : `${entry.city.stateCode} · MATCH UNAVAILABLE`
+                                  : mode === "temperature"
+                                  ? `${entry.city.stateCode} · MODELED SURFACE`
+                                  : `${entry.city.stateCode} · STATIC DEPTH`}
                               </Text>
                               {windVisible && windInsight
                                 ? (
@@ -1885,15 +2510,13 @@ export default function PierCastMapScreen() {
                             </View>
                             <Text
                               allowFontScaling={false}
-                              style={[
-                                styles.cityRailScore,
-                                {
-                                  color: band?.verdictColor ??
-                                    paper.dashboardMuted,
-                                },
-                              ]}
+                              style={[styles.cityRailScore, { color: accent }]}
                             >
-                              {entry.score?.toFixed(1) ?? "—"}
+                              {mode === "bathymetry"
+                                ? "OPEN"
+                                : entry.temperatureF === null
+                                ? "—"
+                                : `${Math.round(entry.temperatureF)}°`}
                             </Text>
                           </Pressable>
                         );
@@ -1904,7 +2527,9 @@ export default function PierCastMapScreen() {
                 {panelExpanded
                   ? (
                     <Text style={styles.attribution} numberOfLines={2}>
-                      {mode === "temperature"
+                      {mode === "match"
+                        ? `${conditionsMap?.disclosure ?? "Species match uses modeled nearshore temperature."} Wind: Open-Meteo · ${mapGeometry.attribution}`
+                        : mode === "temperature"
                         ? `${
                           foundation?.temperature.disclosure ??
                             "Modeled NOAA Great Lakes surface guidance."
@@ -2009,6 +2634,35 @@ const styles = StyleSheet.create({
   },
   pressed: { opacity: 0.72 },
   topOverlay: { position: "absolute", top: 10, left: 0, right: 0 },
+  timeModeRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    marginHorizontal: 10,
+    marginBottom: 7,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.22)",
+    borderRadius: 9,
+    backgroundColor: "rgba(10,27,46,0.92)",
+    ...paperShadows.lift,
+  },
+  timeModeTab: {
+    minWidth: 72,
+    height: 28,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+    paddingHorizontal: 9,
+    borderRadius: 6,
+  },
+  timeModeTabActive: { backgroundColor: paper.dashboardBlue },
+  timeModeDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: "rgba(255,255,255,0.4)" },
+  timeModeDotActive: { backgroundColor: paper.bandPrime },
+  timeModeText: { fontFamily: paperFonts.metaMonoBold, fontSize: 7.5, letterSpacing: 0.9, color: "rgba(255,255,255,0.65)" },
+  timeModeTextActive: { color: "#FFFFFF" },
+  timeModeDisclosure: { minWidth: 0, flex: 1, textAlign: "right", paddingRight: 6, fontFamily: paperFonts.metaMonoBold, fontSize: 5.5, letterSpacing: 0.45, color: paper.gold },
   modeRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -2065,6 +2719,28 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   stateRail: { gap: 7, paddingHorizontal: 10, paddingTop: 8, paddingBottom: 4 },
+  targetPrompt: {
+    marginHorizontal: 10,
+    marginTop: 7,
+    padding: 12,
+    borderWidth: 2,
+    borderColor: paper.dashboardInk,
+    borderRadius: 10,
+    backgroundColor: "rgba(255,252,245,0.98)",
+    ...paperShadows.lift,
+  },
+  targetPromptHead: { flexDirection: "row", alignItems: "flex-start", gap: 8 },
+  targetPromptCopy: { flex: 1 },
+  targetPromptEyebrow: { fontFamily: paperFonts.metaMonoBold, fontSize: 7, letterSpacing: 1, color: paper.dashboardBlue },
+  targetPromptTitle: { marginTop: 2, fontFamily: paperFonts.display, fontSize: 19, lineHeight: 22, color: paper.dashboardInk },
+  targetPromptClose: { width: 30, height: 30, alignItems: "center", justifyContent: "center", borderRadius: 15, backgroundColor: paper.dashboardCream },
+  targetPromptDetail: { marginTop: 5, fontFamily: paperFonts.body, fontSize: 10, lineHeight: 15, color: paper.dashboardMuted },
+  targetPromptRail: { gap: 7, paddingTop: 10, paddingRight: 10 },
+  targetPromptChip: { minWidth: 126, paddingHorizontal: 10, paddingVertical: 8, borderWidth: 1.5, borderColor: paper.dashboardInk, borderRadius: 7, backgroundColor: "#FFFFFF" },
+  targetPromptChipText: { fontFamily: paperFonts.bodyBold, fontSize: 10, color: paper.dashboardInk },
+  targetPromptChipMeta: { marginTop: 2, fontFamily: paperFonts.metaMonoBold, fontSize: 5.5, letterSpacing: 0.45, color: paper.dashboardBlue },
+  targetPromptRetry: { alignSelf: "flex-start", marginTop: 9, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 6, backgroundColor: paper.dashboardBlue },
+  targetPromptRetryText: { fontFamily: paperFonts.metaMonoBold, fontSize: 7, letterSpacing: 0.8, color: "#FFFFFF" },
   stateChip: {
     minWidth: 55,
     height: 32,
@@ -2094,10 +2770,95 @@ const styles = StyleSheet.create({
   stateChipCountSelected: { color: "rgba(10,27,46,0.68)" },
   mapTools: {
     position: "absolute",
-    top: 100,
+    top: 141,
     right: 10,
     alignItems: "flex-end",
     gap: 7,
+  },
+  mapToolsHidden: { opacity: 0 },
+  observationToggle: {
+    minWidth: 112,
+    minHeight: 42,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.25)",
+    borderRadius: 9,
+    backgroundColor: "rgba(10,27,46,0.9)",
+    ...paperShadows.lift,
+  },
+  observationToggleActive: {
+    borderColor: "rgba(255,255,255,0.92)",
+    backgroundColor: "rgba(241,211,107,0.96)",
+  },
+  observationToggleDisabled: { opacity: 0.48 },
+  observationReadout: {
+    width: 205,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: "rgba(241,211,107,0.58)",
+    borderRadius: 9,
+    backgroundColor: "rgba(10,27,46,0.96)",
+    ...paperShadows.lift,
+  },
+  observationReadoutHeader: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: 6,
+  },
+  observationReadoutEyebrow: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6,
+    lineHeight: 8,
+    letterSpacing: 0.55,
+    color: paper.gold,
+  },
+  observationReadoutValue: {
+    marginTop: 3,
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    lineHeight: 22,
+    color: "#FFFFFF",
+  },
+  observationReadoutMeta: {
+    marginTop: 2,
+    fontFamily: paperFonts.monoBold,
+    fontSize: 5.8,
+    lineHeight: 8,
+    letterSpacing: 0.25,
+    color: "rgba(255,255,255,0.7)",
+  },
+  observationReadoutCaution: {
+    marginTop: 5,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.3,
+    lineHeight: 7.5,
+    letterSpacing: 0.35,
+    color: "rgba(255,255,255,0.55)",
+  },
+  observationSourceButton: {
+    marginTop: 6,
+    minHeight: 25,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 7,
+    borderWidth: 1,
+    borderColor: "rgba(241,211,107,0.38)",
+    borderRadius: 5,
+    backgroundColor: "rgba(241,211,107,0.08)",
+  },
+  observationSourceText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.7,
+    letterSpacing: 0.45,
+    color: paper.gold,
   },
   windToggle: {
     minWidth: 112,
@@ -2217,6 +2978,51 @@ const styles = StyleSheet.create({
     letterSpacing: 1.7,
     color: "rgba(220,245,252,0.48)",
   },
+  observationMarkerWrap: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  observationMarker: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 3,
+    borderColor: paper.gold,
+    borderRadius: 20,
+    backgroundColor: "rgba(10,27,46,0.95)",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.32,
+    shadowRadius: 4,
+    elevation: 7,
+  },
+  observationMarkerSelected: {
+    borderColor: "#FFFFFF",
+    transform: [{ scale: 1.08 }],
+  },
+  observationMarkerStale: { opacity: 0.68 },
+  observationMarkerValue: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 10,
+    lineHeight: 12,
+    color: "#FFFFFF",
+  },
+  observationMarkerTag: {
+    marginTop: -3,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: paper.gold,
+    borderRadius: 4,
+    backgroundColor: paper.dashboardInk,
+  },
+  observationMarkerTagText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5,
+    letterSpacing: 0.45,
+    color: paper.gold,
+  },
   marker: {
     minWidth: 92,
     minHeight: 38,
@@ -2231,7 +3037,7 @@ const styles = StyleSheet.create({
     gap: 0,
   },
   markerReverse: { flexDirection: "row-reverse" },
-  markerScore: {
+  markerBadge: {
     width: 38,
     height: 38,
     alignItems: "center",
@@ -2244,23 +3050,23 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 5,
   },
-  markerScoreCompact: {
+  markerBadgeCompact: {
     width: 32,
     height: 32,
     borderRadius: 16,
   },
-  markerScoreOverview: {
+  markerBadgeOverview: {
     width: 25,
     height: 25,
     borderWidth: 1.5,
     borderRadius: 12.5,
   },
-  markerScoreText: {
+  markerBadgeText: {
     fontFamily: paperFonts.monoBold,
     fontSize: 11,
     lineHeight: 14,
   },
-  markerScoreTextCompact: {
+  markerBadgeTextCompact: {
     fontSize: 7.5,
     lineHeight: 10,
   },
@@ -2352,6 +3158,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11,
     paddingTop: 7,
   },
+  matchLegendWrap: { paddingTop: 2 },
+  matchTargetButton: { flexDirection: "row", alignItems: "center", gap: 6, marginHorizontal: 11, paddingHorizontal: 8, paddingVertical: 6, borderWidth: 1, borderColor: "rgba(124,184,218,0.38)", borderRadius: 6, backgroundColor: "rgba(42,110,150,0.12)" },
+  matchTargetName: { minWidth: 0, flex: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 6.5, letterSpacing: 0.55, color: "#FFFFFF" },
+  matchTargetChange: { fontFamily: paperFonts.metaMonoBold, fontSize: 5.8, letterSpacing: 0.7, color: paper.gold },
+  matchLegendNote: { paddingHorizontal: 11, paddingTop: 6, fontFamily: paperFonts.metaMonoBold, fontSize: 5.3, lineHeight: 8, letterSpacing: 0.35, color: "rgba(255,255,255,0.52)" },
   legendItem: { flexDirection: "row", alignItems: "center", gap: 3 },
   legendSwatch: { width: 8, height: 8, borderRadius: 4 },
   legendLabel: {
@@ -2415,6 +3226,29 @@ const styles = StyleSheet.create({
     fontSize: 5.8,
     letterSpacing: 0.55,
     color: "rgba(255,255,255,0.7)",
+  },
+  observationDisclosureRow: {
+    minHeight: 24,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginHorizontal: 11,
+    marginTop: 7,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "rgba(241,211,107,0.3)",
+    borderRadius: 6,
+    backgroundColor: "rgba(241,211,107,0.07)",
+  },
+  observationDisclosureText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.4,
+    lineHeight: 8,
+    letterSpacing: 0.35,
+    color: "rgba(255,255,255,0.67)",
   },
   staleNotice: {
     minHeight: 25,
@@ -2606,6 +3440,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 7,
   },
+  nowModeNotice: { flexDirection: "row", alignItems: "center", gap: 6, marginHorizontal: 11, marginTop: 8, paddingTop: 7, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: "rgba(255,255,255,0.18)" },
+  nowModeNoticeText: { flex: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 5.4, lineHeight: 8, letterSpacing: 0.35, color: "rgba(255,255,255,0.55)" },
   timelineButton: {
     width: 32,
     height: 32,

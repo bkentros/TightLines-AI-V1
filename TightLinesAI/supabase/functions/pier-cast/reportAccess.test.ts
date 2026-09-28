@@ -1,12 +1,15 @@
 import { assertEquals, assertRejects, assertThrows } from "jsr:@std/assert";
 import {
   cityReportOnly,
+  createPierConditionsReportAccess,
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  readPierCastSavedReportV4,
   temperatureMapOnly,
 } from "./reportAccess.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
+import { buildPierCastConditionsV4Outlook } from "../_shared/pierCastEngine/pipeline/conditionsV4.ts";
 
 function fixture() {
   const date = {
@@ -134,6 +137,80 @@ Deno.test("four lifetime city/day reports, refreshing conditions, upgrade, user 
   );
   assertEquals(claims.has("c"), false);
   assertEquals(commits, 4);
+});
+
+Deno.test("v4 reports use the existing city/day entitlement and store a versioned envelope", async () => {
+  const legacySource = {
+    generatedAt: "2026-09-20T15:00:00Z",
+    source: {
+      status: "fresh_archived_complete_cycle" as const,
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID" as const,
+      issuedAt: "2026-09-20T12:00:00Z",
+      fetchedAt: "2026-09-20T12:10:00Z",
+      cycleAgeHours: 3,
+      cityCount: 1,
+      sampleCount: 2,
+    },
+    cities: [{
+      cityId: "grand_haven_mi" as const,
+      dates: [{ localDate: "2026-09-20" }],
+      temperatureTimeline: [
+        { validAt: "2026-09-20T15:00:00Z", temperatureC: 12 },
+        { validAt: "2026-09-20T16:00:00Z", temperatureC: 12.2 },
+      ],
+    }],
+  };
+  const outlook = buildPierCastConditionsV4Outlook(legacySource);
+  const claims = new Map<string, string[]>();
+  const committed: unknown[] = [];
+  const read = createPierConditionsReportAccess({
+    readOutlook: () => Promise.resolve(outlook),
+    readClaimKeys: (userId) => Promise.resolve(claims.get(userId) ?? []),
+    cityTimezone: (cityId) =>
+      cityId === "grand_haven_mi" ? "America/Detroit" : null,
+    now: () => new Date("2026-09-20T15:30:00Z"),
+    claim: (userId, key, envelope) => {
+      claims.set(userId, [...new Set([...(claims.get(userId) ?? []), key])]);
+      committed.push(envelope);
+      return Promise.resolve(envelope);
+    },
+  });
+  const first = await read(
+    "user-a",
+    true,
+    "grand_haven_mi",
+    "chinook_salmon",
+  ) as {
+    envelopeVersion: string;
+    reportKey: string;
+    report: { species: unknown[] };
+  };
+  assertEquals(first.envelopeVersion, "piercast-saved-report-v4");
+  assertEquals(first.reportKey, "grand_haven_mi:2026-09-20");
+  assertEquals(first.report.species.length, 14);
+  await read("user-a", true, "grand_haven_mi", "coho_salmon");
+  await assertRejects(
+    () => read("user-a", true, "grand_haven_mi", "atlantic_salmon"),
+    PierCastAccessError,
+    "species",
+  );
+  assertEquals(claims.get("user-a"), ["grand_haven_mi:2026-09-20"]);
+  assertEquals(committed.length, 2);
+});
+
+Deno.test("saved v4 reads never fabricate conditions from incomplete legacy reports", () => {
+  const archived = readPierCastSavedReportV4(
+    { formulaVersion: "seasonal-opportunity-bounded-temperature-v2" },
+    "chinook_salmon",
+  );
+  assertEquals(archived.status, "archived_legacy");
+  if (archived.status === "archived_legacy") {
+    assertEquals(archived.refreshAvailable, true);
+  }
+  assertEquals(readPierCastSavedReportV4(null, null), {
+    status: "empty",
+    envelope: null,
+  });
 });
 
 Deno.test("fifth distinct city/date is blocked; one of four saved reports can refresh", async () => {

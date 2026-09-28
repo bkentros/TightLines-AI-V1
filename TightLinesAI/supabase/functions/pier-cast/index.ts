@@ -1,7 +1,9 @@
 import {
+  createPierConditionsReportAccess,
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  readPierCastSavedReportV4,
   temperatureMapOnly,
 } from "./reportAccess.ts";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
@@ -13,21 +15,29 @@ import {
 import {
   applyPierCastDailyScoreSnapshot,
   buildPierCastCatalog,
+  buildPierCastConditionsShadowComparisonV4,
+  buildPierCastConditionsV4Outlook,
   buildPierCastReviewOutlook,
   buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
   combinePierCastV3LmhofsBatches,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
+  PIER_CAST_V4_DISCLOSURE,
+  PIER_CAST_V3_SPECIES_IDS,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
+  projectPierCastConditionsLeaderboardV4,
+  projectPierCastConditionsMapV4,
   readLatestCoherentPierCastV3SourceCohorts,
   readLatestFreshPierCastLmhofsBatch,
   readLatestFreshPierCastWisconsinLmhofsBatch,
+  readPierCastObservedTemperatureMap,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
   withholdPierCastCurrentDayScores,
 } from "../_shared/pierCastEngine/index.ts";
+import type { PierCastSpeciesId } from "../_shared/pierCastEngine/types.ts";
 import { createPierCastHandler } from "./handler.ts";
 import { projectPublicV3Outlook } from "./publicV3.ts";
 import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
@@ -143,6 +153,35 @@ async function readPublicOutlook() {
   return outlook ? projectPublicV3Outlook(outlook) : null;
 }
 
+async function readConditionsOutlook(maxAgeHours = 13) {
+  const legacy = await readV3Outlook(maxAgeHours);
+  return legacy ? buildPierCastConditionsV4Outlook(legacy) : null;
+}
+
+async function readClaimKeys(userId: string) {
+  const { data, error } = await database.from("pier_cast_report_claims")
+    .select("report_key").eq("user_id", userId);
+  if (error) throw new Error("Trial lookup failed");
+  return (data ?? []).map((row) => row.report_key);
+}
+
+async function claimReport(userId: string, key: string, envelope: unknown) {
+  const { data, error } = await database.rpc("claim_pier_cast_report", {
+    p_user_id: userId,
+    p_report_key: key,
+    p_envelope: envelope,
+  });
+  if (error?.message === "subscription_required") {
+    throw new PierCastAccessError(
+      "subscription_required",
+      "Your four free PierCast reports have been used. Upgrade for another report.",
+      403,
+    );
+  }
+  if (error) throw new Error("Trial claim failed");
+  return data;
+}
+
 const readReport = createPierReportAccess({
   readOutlook: readPublicOutlook,
   cityTimezone: (cityId) =>
@@ -150,34 +189,40 @@ const readReport = createPierReportAccess({
       c.cityId === cityId && c.releaseStatus === "public_research"
     )
       ?.timezone ?? null,
-  readClaimKeys: async (userId) => {
-    const { data, error } = await database.from("pier_cast_report_claims")
-      .select(
-        "report_key",
-      ).eq("user_id", userId);
-    if (error) throw new Error("Trial lookup failed");
-    return (data ?? []).map((row) => row.report_key);
-  },
-  claim: async (userId, key, report) => {
-    const { data, error } = await database.rpc("claim_pier_cast_report", {
-      p_user_id: userId,
-      p_report_key: key,
-      p_envelope: report,
-    });
-    if (error?.message === "subscription_required") {
-      throw new PierCastAccessError(
-        "subscription_required",
-        "Your four free PierCast reports have been used. Upgrade for another report.",
-        403,
-      );
-    }
-    if (error) throw new Error("Trial claim failed");
-    return data;
-  },
+  readClaimKeys,
+  claim: claimReport,
+});
+
+const readConditionsReport = createPierConditionsReportAccess({
+  readOutlook: readConditionsOutlook,
+  cityTimezone: (cityId) =>
+    publicCatalog().cities.find((city) =>
+      city.cityId === cityId && city.releaseStatus === "public_research"
+    )?.timezone ?? null,
+  readClaimKeys,
+  claim: claimReport,
 });
 
 const handler = createPierCastHandler({
+  recordLegacyRouteUse: (route) => {
+    console.warn(JSON.stringify({
+      event: "pier_cast_legacy_api_used",
+      route,
+      replacement: "conditions-v4",
+      observedAt: new Date().toISOString(),
+    }));
+  },
   readPublicCatalog: publicCatalog,
+  readConditionsCatalog: () => {
+    const catalog = publicCatalog();
+    return {
+      schemaVersion: "piercast-conditions-catalog-v1",
+      disclosure: PIER_CAST_V4_DISCLOSURE,
+      cities: catalog.cities.map((
+        { species: _retiredSpeciesConfig, ...city },
+      ) => city),
+    };
+  },
   readLeaderboard: async () => {
     const outlook = await readPublicOutlook();
     return outlook
@@ -192,6 +237,44 @@ const handler = createPierCastHandler({
     return outlook ? temperatureMapOnly(outlook) : null;
   },
   readMapFoundation,
+  readConditionsLeaderboard: async (speciesId) => {
+    const outlook = await readConditionsOutlook();
+    if (!outlook) return null;
+    return projectPierCastConditionsLeaderboardV4(
+      outlook,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
+    );
+  },
+  readConditionsMap: async (speciesId) => {
+    const outlook = await readConditionsOutlook();
+    if (!outlook) return null;
+    return projectPierCastConditionsMapV4(
+      outlook,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
+    );
+  },
+  readObservedTemperatureMap: () =>
+    readPierCastObservedTemperatureMap(archiveClient),
+  readConditionsCityReport: async (request, cityId, speciesId) => {
+    const { userId, free } = await account(request);
+    return await readConditionsReport(
+      userId,
+      free,
+      cityId,
+      pierCastSpeciesId(speciesId),
+    );
+  },
+  readSavedConditionsReport: async (request, speciesId) => {
+    const { userId } = await account(request);
+    const { data, error } = await database.from("pier_cast_report_claims")
+      .select("envelope").eq("user_id", userId)
+      .order("used_at", { ascending: false }).limit(1).maybeSingle();
+    if (error) throw new Error("Trial lookup failed");
+    return readPierCastSavedReportV4(
+      data?.envelope ?? null,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
+    );
+  },
   readSavedReport: async (request) => {
     const { userId } = await account(request);
     const { data, error } = await database.from("pier_cast_report_claims")
@@ -216,6 +299,18 @@ const handler = createPierCastHandler({
   readReviewOutlook: readOutlook,
   readExpansionReviewOutlook: readExpansionOutlook,
   readV3ReviewOutlook: () => readV3Outlook(),
+  readV4ReviewOutlook: async () => {
+    const legacy = await readV3Outlook();
+    if (!legacy) return null;
+    const outlook = buildPierCastConditionsV4Outlook(legacy);
+    return {
+      outlook,
+      shadowComparison: buildPierCastConditionsShadowComparisonV4(
+        legacy,
+        outlook,
+      ),
+    };
+  },
   readShadowReview: async () => {
     const [
       runs,
@@ -387,4 +482,15 @@ function mapShadowOutcome(
     notes: row.notes === null ? null : String(row.notes),
     createdAt: String(row.created_at),
   };
+}
+
+function pierCastSpeciesId(value: string): PierCastSpeciesId {
+  if (!(PIER_CAST_V3_SPECIES_IDS as readonly string[]).includes(value)) {
+    throw new PierCastAccessError(
+      "species_unavailable",
+      "This species is not available in PierCast.",
+      404,
+    );
+  }
+  return value as PierCastSpeciesId;
 }

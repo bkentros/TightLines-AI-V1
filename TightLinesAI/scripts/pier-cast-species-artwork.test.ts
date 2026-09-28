@@ -12,8 +12,12 @@ const imagesModule = readFileSync(
   resolve(root, "lib/pierCastSpeciesImages.ts"),
   "utf8",
 );
-const reviewScreen = readFileSync(
-  resolve(root, "app/pier-cast-review.tsx"),
+const presentation = readFileSync(
+  resolve(root, "lib/pierCastConditionsPresentation.ts"),
+  "utf8",
+);
+const conditionsUi = readFileSync(
+  resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"),
   "utf8",
 );
 
@@ -26,8 +30,8 @@ const speciesIds = [...speciesType[1].matchAll(/"([a-z_]+)"/g)].map(
 );
 
 function recordBody(name: string): string {
-  const match = reviewScreen.match(
-    new RegExp(`const ${name}:[\\s\\S]*?= \\{([\\s\\S]*?)\\n\\};`),
+  const match = presentation.match(
+    new RegExp(`const ${name}(?:\\s*:[^=]+)?\\s*=\\s*\\{([\\s\\S]*?)\\n\\} as const;`),
   );
   assert(match, `${name} record was not found`);
   return match[1];
@@ -37,7 +41,7 @@ function recordKeys(body: string): string[] {
   return [...body.matchAll(/^\s{2}([a-z_]+):/gm)].map((match) => match[1]);
 }
 
-test("every PierCast species has one transparent PNG and one UI label/scale", () => {
+test("every PierCast species has one transparent PNG and one conditions UI label", () => {
   assert.equal(speciesIds.length, 19);
   assert.equal(new Set(speciesIds).size, speciesIds.length);
 
@@ -49,11 +53,7 @@ test("every PierCast species has one transparent PNG and one UI label/scale", ()
     [...speciesIds].sort(),
   );
   assert.deepEqual(
-    recordKeys(recordBody("SPECIES_LABELS")).sort(),
-    [...speciesIds].sort(),
-  );
-  assert.deepEqual(
-    recordKeys(recordBody("FISH_SCALE")).sort(),
+    recordKeys(recordBody("PIER_CAST_SPECIES_LABELS")).sort(),
     [...speciesIds].sort(),
   );
 
@@ -93,7 +93,7 @@ test("every PierCast species has one transparent PNG and one UI label/scale", ()
   }
 });
 
-test("new species assets and the Atlantic Salmon size correction stay normalized", () => {
+test("new species assets and all conditions fish art stay normalized", () => {
   for (const speciesId of ["burbot", "white_perch", "white_bass", "bluegill"]) {
     const match = imagesModule.match(
       new RegExp(
@@ -106,13 +106,7 @@ test("new species assets and the Atlantic Salmon size correction stay normalized
     assert.equal(bytes.readUInt32BE(20), 1254, `${speciesId} height drifted`);
   }
 
-  const scales = recordBody("FISH_SCALE");
-  const atlanticScale = Number(
-    scales.match(/^\s{2}atlantic_salmon:\s*([\d.]+),$/m)?.[1],
-  );
-  assert(Number.isFinite(atlanticScale));
-  assert(
-    atlanticScale <= 1.1,
-    `Atlantic Salmon card scale regressed above 1.10: ${atlanticScale}`,
-  );
+  assert.match(conditionsUi, /resizeMode="contain"/);
+  assert.match(conditionsUi, /fishHero:/);
+  assert.match(conditionsUi, /fishCompact:/);
 });

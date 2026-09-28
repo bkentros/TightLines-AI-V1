@@ -151,13 +151,13 @@ const FEATURE_GUIDES: FeatureGuide[] = [
     iconColor: "#20665E",
     tint: "#EDF7F5",
     whenToUse:
-      "You fish Great Lakes piers and want to know which port is best today \u2014 and whether any of them are worth the drive.",
+      "You fish Great Lakes piers and want to compare conditions for the species you are targeting \u2014 and decide which port is worth a closer look.",
     howItWorks:
-      "Every supported pier city gets a 1\u201310 rating built from two things: how present a species should be that week of the season, and how well the nearshore water temperature suits it. You get the standings across all cities, then hour-by-hour water, air and wind for five days at whichever pier you open.",
+      "Choose a target species first. PierCast ranks comparable cities by their typical seasonal outlook, then their current modeled temperature match, while keeping those two signals visibly separate. Open a city for five-day nearshore temperature guidance, nearby air and wind, local context and source details; open the map to compare observed station readings with modeled Now and Forecast views.",
     bestFor: {
       primary: ["Chinook", "Coho", "Steelhead", "Brown Trout"],
       note:
-        "Lake Michigan pier cities: Ludington, Manistee, Frankfort\u2013Elberta, Grand Haven and Sheboygan.",
+        "Current coverage spans 32 researched pier cities on Lake Michigan and Lake Huron, with additional Great Lakes expansion designed into the regional model.",
     },
   },
   {

@@ -17,6 +17,7 @@ export * from "./config/chicagoAlpenaShadow.ts";
 export * from "./config/stJosephHarrisvilleShadow.ts";
 export * from "./config/pentwaterCasevilleShadow.ts";
 export * from "./config/v3Calibration.ts";
+export * from "./config/conditionsV4.ts";
 export * from "./config/publicV3Release.ts";
 export * from "./config/speciesExpansion.ts";
 export * from "./scoring/temperature.ts";
@@ -26,6 +27,7 @@ export * from "./scoring/opportunity.ts";
 export * from "./scoring/modesV3.ts";
 export * from "./scoring/seasonalContinuity.ts";
 export * from "./scoring/opportunityV3.ts";
+export * from "./scoring/conditionsV4.ts";
 export * from "./scoring/rating.ts";
 export * from "./scoring/daily.ts";
 export * from "./scoring/headline.ts";
@@ -61,8 +63,11 @@ export * from "./pipeline/stJosephHarrisvilleShadow.ts";
 export * from "./pipeline/pentwaterCasevilleShadow.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./pipeline/v3ReviewOutlook.ts";
+export * from "./pipeline/conditionsV4.ts";
 export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";
 export const PIER_CAST_V3_ENGINE_VERSION =
   "pier-cast-opportunity-modes-v3-shadow-v1.9.0";
+export const PIER_CAST_V4_ENGINE_VERSION =
+  "pier-cast-seasonal-thermal-conditions-v4-shadow-v1.0.0";

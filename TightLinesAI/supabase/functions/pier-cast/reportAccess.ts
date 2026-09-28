@@ -5,6 +5,17 @@ import {
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
 import { selectPierCastDailyHeadline } from "../_shared/pierCastEngine/scoring/headline.ts";
 import type { PierCastReviewDateOutlook } from "../_shared/pierCastEngine/types.ts";
+import {
+  PIER_CAST_SAVED_REPORT_ENVELOPE_VERSION,
+  type PierCastConditionsOutlookV4,
+  type PierCastSavedReportEnvelopeV4,
+} from "../../../lib/pierCastConditionsV4.ts";
+import {
+  buildPierCastConditionsV4Outlook,
+  type PierCastConditionsV4SourceOutlook,
+  projectPierCastConditionsCityReportV4,
+} from "../_shared/pierCastEngine/pipeline/conditionsV4.ts";
+import type { PierCastSpeciesId } from "../_shared/pierCastEngine/types.ts";
 
 const PRIMARY_SPECIES_IDS = new Set([
   "atlantic_salmon",
@@ -225,4 +236,213 @@ export function createPierReportAccess(deps: {
     }
     return free ? await deps.claim(userId, key, report) : report;
   };
+}
+
+export function createPierConditionsReportAccess(deps: {
+  readOutlook: () => Promise<PierCastConditionsOutlookV4 | null>;
+  readClaimKeys: (userId: string) => Promise<string[]>;
+  cityTimezone: (cityId: string) => string | null;
+  claim: (
+    userId: string,
+    key: string,
+    envelope: PierCastSavedReportEnvelopeV4,
+  ) => Promise<unknown>;
+  now?: () => Date;
+}) {
+  return async (
+    userId: string,
+    free: boolean,
+    cityId: string,
+    selectedSpeciesId: PierCastSpeciesId,
+  ) => {
+    const claimKeys = free ? await deps.readClaimKeys(userId) : [];
+    const timezone = deps.cityTimezone(cityId);
+    if (!timezone) {
+      throw new PierCastAccessError(
+        "city_unavailable",
+        "This city is not publicly available yet.",
+        404,
+      );
+    }
+    const localDate = new Intl.DateTimeFormat("en-CA", {
+      timeZone: timezone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(deps.now?.() ?? new Date());
+    const key = `${cityId}:${localDate}`;
+    if (claimKeys.length >= 4 && !claimKeys.includes(key)) {
+      throw new PierCastAccessError(
+        "subscription_required",
+        "Your four free PierCast reports have been used. Upgrade for another report.",
+        403,
+      );
+    }
+    const outlook = await deps.readOutlook();
+    if (!outlook) {
+      throw new PierCastAccessError(
+        "report_unavailable",
+        "Today's report is not ready yet.",
+        503,
+      );
+    }
+    let report;
+    try {
+      report = projectPierCastConditionsCityReportV4(
+        outlook,
+        cityId,
+        selectedSpeciesId,
+      );
+    } catch (caught) {
+      const speciesUnavailable = caught instanceof RangeError &&
+        !caught.message.startsWith("Unknown PierCast city:");
+      throw new PierCastAccessError(
+        speciesUnavailable ? "species_unavailable" : "city_unavailable",
+        speciesUnavailable
+          ? "This species is not available for the selected city."
+          : "This city is not available.",
+        404,
+      );
+    }
+    const selected = report.species.find((species) =>
+      species.speciesId === selectedSpeciesId
+    );
+    if (selected?.seasonalOutlook.localDate !== localDate) {
+      throw new PierCastAccessError(
+        "report_unavailable",
+        "Today's report is not ready yet.",
+        503,
+      );
+    }
+    const envelope: PierCastSavedReportEnvelopeV4 = {
+      envelopeVersion: PIER_CAST_SAVED_REPORT_ENVELOPE_VERSION,
+      reportKey: key,
+      generatedAt: outlook.generatedAt,
+      report,
+      migration: { source: "native_v4", legacyFormulaVersion: null },
+    };
+    return free ? await deps.claim(userId, key, envelope) : envelope;
+  };
+}
+
+export type PierCastSavedReportReadV4 =
+  | { status: "available"; envelope: PierCastSavedReportEnvelopeV4 }
+  | {
+    status: "archived_legacy";
+    envelope: null;
+    reason: string;
+    refreshAvailable: true;
+  }
+  | { status: "empty"; envelope: null };
+
+export function readPierCastSavedReportV4(
+  value: unknown,
+  selectedSpeciesId: PierCastSpeciesId | null,
+): PierCastSavedReportReadV4 {
+  if (value === null || value === undefined) {
+    return { status: "empty", envelope: null };
+  }
+  if (isNativeSavedReportV4(value)) {
+    return { status: "available", envelope: value };
+  }
+  if (!selectedSpeciesId || !isAdaptableLegacyReport(value)) {
+    return {
+      status: "archived_legacy",
+      envelope: null,
+      reason:
+        "This saved report uses the retired score format and cannot be translated without inventing conditions. Refresh the city to create a current report.",
+      refreshAvailable: true,
+    };
+  }
+  try {
+    const outlook = buildPierCastConditionsV4Outlook(value);
+    const legacyFormulaVersion = typeof (value as Record<string, unknown>)
+        .formulaVersion === "string"
+      ? (value as Record<string, unknown>).formulaVersion as string
+      : null;
+    const cityId = value.cities[0]!.cityId;
+    const report = projectPierCastConditionsCityReportV4(
+      outlook,
+      cityId,
+      selectedSpeciesId,
+    );
+    const selected = report.species.find((species) =>
+      species.speciesId === selectedSpeciesId
+    );
+    if (
+      !selected || selected.seasonalOutlook.status !== "available" ||
+      selected.thermalMatch.status !== "available"
+    ) {
+      throw new Error("Legacy conditions are incomplete.");
+    }
+    return {
+      status: "available",
+      envelope: {
+        envelopeVersion: PIER_CAST_SAVED_REPORT_ENVELOPE_VERSION,
+        reportKey: `${cityId}:${selected.seasonalOutlook.localDate}`,
+        generatedAt: outlook.generatedAt,
+        report,
+        migration: { source: "adapted_legacy", legacyFormulaVersion },
+      },
+    };
+  } catch {
+    return {
+      status: "archived_legacy",
+      envelope: null,
+      reason:
+        "This saved report does not contain enough source data for the new seasonal and temperature labels. Refresh the city to create a current report.",
+      refreshAvailable: true,
+    };
+  }
+}
+
+function isNativeSavedReportV4(
+  value: unknown,
+): value is PierCastSavedReportEnvelopeV4 {
+  if (!isRecord(value)) return false;
+  return value.envelopeVersion === PIER_CAST_SAVED_REPORT_ENVELOPE_VERSION &&
+    typeof value.reportKey === "string" &&
+    typeof value.generatedAt === "string" &&
+    Number.isFinite(Date.parse(value.generatedAt)) &&
+    isRecord(value.report) &&
+    value.report.schemaVersion === "piercast-conditions-v4" &&
+    value.report.formulaVersion === "seasonal-outlook-plus-thermal-match-v1" &&
+    typeof value.report.cityId === "string" &&
+    typeof value.report.selectedSpeciesId === "string" &&
+    Array.isArray(value.report.species) &&
+    Array.isArray(value.report.temperatureTimeline);
+}
+
+function isAdaptableLegacyReport(
+  value: unknown,
+): value is PierCastConditionsV4SourceOutlook {
+  if (
+    !isRecord(value) || typeof value.generatedAt !== "string" ||
+    !Number.isFinite(Date.parse(value.generatedAt)) ||
+    !isRecord(value.source) ||
+    value.source.status !== "fresh_archived_complete_cycle" ||
+    value.source.productId !== "NOAA_NOS_LMHOFS_REGULARGRID" ||
+    typeof value.source.issuedAt !== "string" ||
+    !Number.isFinite(Date.parse(value.source.issuedAt)) ||
+    typeof value.source.fetchedAt !== "string" ||
+    !Number.isFinite(Date.parse(value.source.fetchedAt)) ||
+    !Number.isFinite(value.source.cycleAgeHours) ||
+    !Array.isArray(value.cities) || value.cities.length !== 1
+  ) return false;
+  const city = value.cities[0];
+  return isRecord(city) && typeof city.cityId === "string" &&
+    Array.isArray(city.temperatureTimeline) &&
+    city.temperatureTimeline.length > 0 &&
+    city.temperatureTimeline.every((point) =>
+      isRecord(point) &&
+      typeof point.validAt === "string" &&
+      Number.isFinite(Date.parse(point.validAt)) &&
+      Number.isFinite(point.temperatureC)
+    ) &&
+    Array.isArray(city.dates) && isRecord(city.dates[0]) &&
+    typeof city.dates[0].localDate === "string";
+}
+
+function isRecord(value: unknown): value is Record<string, any> {
+  return typeof value === "object" && value !== null;
 }

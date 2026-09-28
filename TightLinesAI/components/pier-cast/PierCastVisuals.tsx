@@ -10,119 +10,12 @@ import Svg, {
   Text as SvgText,
 } from "react-native-svg";
 
-import type { PierCastReviewTemperaturePointRead } from "../../lib/pierCastContracts";
+import type { PierCastModeledTemperaturePointV4 } from "../../lib/pierCastConditionsV4";
 import { pierCastWaterTemperatureColor } from "../../lib/pierCastTemperatureScale";
-import { paper, paperFonts, scoreAccentColor } from "../../lib/theme";
+import { paper, paperFonts } from "../../lib/theme";
 
 function celsiusToFahrenheit(value: number): number {
   return (value * 9) / 5 + 32;
-}
-
-export function PierCastScoreGauge({
-  score,
-  label,
-  size = 132,
-}: {
-  score: number | null;
-  label: string;
-  size?: number;
-}) {
-  const accent = score === null ? "#8A969E" : scoreAccentColor(score);
-  const compact = size < 90;
-  const medium = size >= 70 && size < 110;
-  const strokeWidth = compact ? 5 : 10;
-  const radius = (size - strokeWidth - 4) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const progress = score === null ? 0 : Math.max(0, Math.min(1, score / 10));
-
-  return (
-    <View
-      style={[styles.gauge, { width: size, height: size }]}
-      accessible
-      accessibilityRole="image"
-      accessibilityLabel={
-        score === null
-          ? `${label}. Rating unavailable.`
-          : `${label}. ${score.toFixed(1)} out of 10.`
-      }
-    >
-      <Svg width={size} height={size} style={StyleSheet.absoluteFill}>
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="#FFFFFF"
-          stroke="rgba(10,27,46,0.09)"
-          strokeWidth={strokeWidth}
-        />
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke={accent}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeDasharray={`${circumference} ${circumference}`}
-          strokeDashoffset={circumference * (1 - progress)}
-          rotation={-90}
-          origin={`${size / 2}, ${size / 2}`}
-        />
-        {Array.from({ length: 10 }).map((_, index) => {
-          const angle = ((index * 36 - 90) * Math.PI) / 180;
-          const inner = radius - (compact ? 9 : 15);
-          const outer = radius - (compact ? 7 : 12);
-          return (
-            <Line
-              key={index}
-              x1={size / 2 + Math.cos(angle) * inner}
-              y1={size / 2 + Math.sin(angle) * inner}
-              x2={size / 2 + Math.cos(angle) * outer}
-              y2={size / 2 + Math.sin(angle) * outer}
-              stroke="rgba(10,27,46,0.19)"
-              strokeWidth={1}
-            />
-          );
-        })}
-      </Svg>
-      <View
-        style={[styles.gaugeReadout, compact && styles.gaugeReadoutCompact]}
-        pointerEvents="none"
-      >
-        <View style={styles.gaugeValueRow}>
-          <Text
-            style={[
-              styles.gaugeValue,
-              compact && styles.gaugeValueCompact,
-              medium && styles.gaugeValueMedium,
-              { color: accent },
-            ]}
-          >
-            {score === null ? "—" : score.toFixed(1)}
-          </Text>
-          <Text
-            style={[
-              styles.gaugeMaximum,
-              compact && styles.gaugeMaximumCompact,
-              medium && styles.gaugeMaximumMedium,
-            ]}
-          >
-            /10
-          </Text>
-        </View>
-        <Text
-          style={[
-            styles.gaugeLabel,
-            compact && styles.gaugeLabelCompact,
-            medium && styles.gaugeLabelMedium,
-          ]}
-          numberOfLines={1}
-        >
-          {label}
-        </Text>
-      </View>
-    </View>
-  );
 }
 
 type ChartPoint = { x: number; y: number };
@@ -173,7 +66,7 @@ export function PierCastTemperatureChart({
   timezone,
   xAxisMode = "hours",
 }: {
-  points: PierCastReviewTemperaturePointRead[];
+  points: PierCastModeledTemperaturePointV4[];
   timezone: string;
   xAxisMode?: "hours" | "days";
 }) {
@@ -506,64 +399,7 @@ export function PierCastTemperatureChart({
   );
 }
 
-export function PierCastMiniBar({
-  value,
-  color,
-}: {
-  value: number | null;
-  color: string;
-}) {
-  const percent = value === null ? 0 : Math.max(0, Math.min(100, value * 10));
-  return (
-    <View style={styles.miniTrack}>
-      <View
-        style={[
-          styles.miniFill,
-          {
-            width: `${percent}%`,
-            backgroundColor: color,
-          },
-        ]}
-      />
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  gauge: { alignItems: "center", justifyContent: "center" },
-  gaugeReadout: {
-    position: "absolute",
-    left: 12,
-    right: 12,
-    alignItems: "center",
-  },
-  gaugeReadoutCompact: { left: 5, right: 5 },
-  gaugeValueRow: { flexDirection: "row", alignItems: "baseline" },
-  gaugeValue: {
-    fontFamily: paperFonts.display,
-    fontSize: 34,
-    lineHeight: 38,
-    letterSpacing: -1.2,
-  },
-  gaugeValueCompact: { fontSize: 15, lineHeight: 18, letterSpacing: -0.4 },
-  gaugeValueMedium: { fontSize: 23, lineHeight: 27, letterSpacing: -0.8 },
-  gaugeMaximum: {
-    color: "rgba(10,27,46,0.48)",
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 0.25,
-  },
-  gaugeMaximumCompact: { fontSize: 4.5, letterSpacing: 0 },
-  gaugeMaximumMedium: { fontSize: 6 },
-  gaugeLabel: {
-    marginTop: 1,
-    color: "rgba(10,27,46,0.64)",
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
-    letterSpacing: 0.9,
-  },
-  gaugeLabelCompact: { marginTop: 0, fontSize: 4.2, letterSpacing: 0.35 },
-  gaugeLabelMedium: { fontSize: 5.4, letterSpacing: 0.5 },
   chartShell: { height: 212, overflow: "hidden" },
   emptyChart: {
     height: 170,
@@ -580,11 +416,4 @@ const styles = StyleSheet.create({
     fontSize: 8,
     letterSpacing: 0.9,
   },
-  miniTrack: {
-    height: 6,
-    overflow: "hidden",
-    borderRadius: 3,
-    backgroundColor: "rgba(10,27,46,0.09)",
-  },
-  miniFill: { height: "100%", borderRadius: 3 },
 });

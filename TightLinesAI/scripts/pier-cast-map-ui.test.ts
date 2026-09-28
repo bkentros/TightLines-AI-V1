@@ -29,20 +29,24 @@ test("Pass 2 map consumes the synchronized five-lake foundation", () => {
   assert.match(mapScreen, /bathymetryRasterFrames\.map/);
 });
 
-test("Pass 2 exposes clean base layers, optional wind, and a true drag timeline", () => {
-  assert.match(mapScreen, /setMode\("score"\)/);
+test("map exposes v4 condition layers, optional wind, and a true drag timeline", () => {
+  assert.match(mapScreen, /setMode\("match"\)/);
   assert.match(mapScreen, /setMode\("temperature"\)/);
   assert.match(mapScreen, /setMode\("bathymetry"\)/);
+  assert.match(mapScreen, /chooseTimeMode/);
+  assert.match(mapScreen, /"now", "forecast"/);
   assert.match(mapScreen, /accessibilityRole="switch"/);
   assert.match(mapScreen, /pier-cast-wind-arrow-color/);
   assert.match(mapScreen, /PanResponder\.create/);
   assert.match(mapScreen, /onPanResponderMove/);
-  assert.match(mapScreen, /\[0, 24, 48, 72, 96, 120\]/);
+  assert.match(mapScreen, /\[0, 24, 48, 72, 96\]/);
   assert.match(mapStore, /windVisible: true/);
+  assert.match(mapStore, /mode: "temperature"/);
+  assert.match(mapStore, /timeMode: "now"/);
   assert.match(mapStore, /zoom: 3\.35/);
 });
 
-test("Pass 3 adds shoreline wind intelligence without changing map scoring", () => {
+test("shoreline wind intelligence remains independent of map conditions", () => {
   assert.match(mapScreen, /buildPierCastCityWindInsights/);
   assert.match(mapScreen, /ANGLER WIND LENS/);
   assert.match(mapScreen, /windInsight\.setupLabel/);
@@ -56,6 +60,6 @@ test("map and report retain the required dedicated-screen back stack", () => {
   assert.match(mapScreen, /pathname: "\/pier-cast-review"/);
   assert.match(mapScreen, /from: "map"/);
   assert.match(reportScreen, /returnToMap/);
-  assert.match(reportScreen, /Back to PierCast visual map/);
+  assert.match(reportScreen, /Back to PierCast conditions map/);
   assert.match(reportScreen, /router\.back\(\)/);
 });

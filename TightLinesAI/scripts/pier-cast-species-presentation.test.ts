@@ -205,16 +205,16 @@ test("season presentation identifies trend, mode handoff, and estimated precisio
   assert.equal(pierCastSpeciesShortLabel("chinook_salmon"), "CHINOOK");
 });
 
-test("PierCast UI exposes top-target handoffs and estimated seasonal context", () => {
+test("PierCast UI exposes species-specific seasonal and temperature handoffs", () => {
   const source = readFileSync(
-    new URL("../app/pier-cast-review.tsx", import.meta.url),
+    new URL("../components/pier-cast/PierCastConditionsUI.tsx", import.meta.url),
     "utf8",
   );
 
-  assert.match(source, /`TOP \$\{topSpeciesLabel\}`/);
-  assert.match(source, /top target \$\{SPECIES_LABELS\[topSpeciesId\]\}/);
-  assert.match(source, /sortPierCastSpeciesByOpportunity\(date\.species\)/);
-  assert.match(source, />SEASON POTENTIAL</);
-  assert.match(source, /formatPierCastSeasonalPotential\(seasonalPotential\)/);
-  assert.match(source, /seasonalTrend\.modeShift \? "MODE SHIFT"/);
+  assert.match(source, /SPECIES-SPECIFIC RANKING/);
+  assert.match(source, /TYPICAL SEASONAL OUTLOOK/);
+  assert.match(source, /CURRENT TEMPERATURE MATCH/);
+  assert.match(source, /PIER_CAST_SPECIES_LABELS/);
+  assert.match(source, /formatSeasonTrend/);
+  assert.match(source, /formatDistanceFromOptimum/);
 });

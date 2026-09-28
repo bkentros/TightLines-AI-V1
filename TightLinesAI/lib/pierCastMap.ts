@@ -6,6 +6,13 @@ import type {
   PierCastReviewDateOutlookRead,
   PierCastTemperatureMapResponse,
 } from "./pierCastContracts";
+import type {
+  PierCastConditionsCatalogResponseV4,
+  PierCastConditionsCatalogCityV4,
+  PierCastConditionsMapResponseV4,
+  PierCastMapSpeciesFrameReadV4,
+  PierCastThermalBandV4,
+} from "./pierCastConditionsV4";
 import {
   buildPierCastOfsDatasetUrl,
   PIER_CAST_GREAT_LAKES_MODELS,
@@ -20,7 +27,7 @@ import {
 
 export type PierCastMapStateCode = PierCastMapRegionCode;
 export type PierCastMapFilter = "ALL" | PierCastMapStateCode;
-export type PierCastMapMode = "score" | "temperature" | "bathymetry";
+export type PierCastMapMode = "match" | "temperature" | "bathymetry";
 export type PierCastMapBounds = [
   west: number,
   south: number,
@@ -43,6 +50,31 @@ export type PierCastTemperatureMapCity = PierCastMapCity & {
   temperatureF: number;
   validAt: string;
 };
+
+export type PierCastConditionsMapCity = {
+  city: PierCastConditionsCatalogCityV4;
+  latitude: number;
+  longitude: number;
+  temperatureC: number | null;
+  temperatureF: number | null;
+  validAt: string | null;
+  speciesFrame: PierCastMapSpeciesFrameReadV4 | null;
+};
+
+/**
+ * Match colors are a fishing interpretation, so they are only valid when the
+ * complete species frame is eligible and rankable. A restricted, unsupported,
+ * or incomplete city must stay neutral even when raw temperature is present.
+ */
+export function pierCastAvailableMapMatchBand(
+  frame: PierCastMapSpeciesFrameReadV4 | null,
+): PierCastThermalBandV4 | null {
+  return frame?.rankingDisposition === "ranked" &&
+      frame.targetingEligibility === "eligible" &&
+      frame.thermalMatch.status === "available"
+    ? frame.thermalMatch.band
+    : null;
+}
 
 export type PierCastTemperatureRasterFrame = {
   forecastHour: number;
@@ -173,6 +205,56 @@ export function filterPierCastMapCities(
   cities: readonly PierCastMapCity[],
   filter: PierCastMapFilter,
 ): PierCastMapCity[] {
+  return filter === "ALL"
+    ? [...cities]
+    : cities.filter((entry) => entry.city.stateCode === filter);
+}
+
+export function buildPierCastConditionsMapCities(
+  catalog: Pick<PierCastConditionsCatalogResponseV4, "cities">,
+  response: PierCastConditionsMapResponseV4,
+  validAt: string | null,
+): PierCastConditionsMapCity[] {
+  const byCityId = new Map(
+    response.cities.map((city) => [city.cityId, city]),
+  );
+  return catalog.cities
+    .filter((city) => city.releaseStatus === "public_research")
+    .flatMap((city) => {
+      const conditions = byCityId.get(city.cityId);
+      if (!conditions) return [];
+      const temperature = validAt
+        ? conditions.temperatureTimeline.find((point) =>
+          point.validAt === validAt
+        ) ?? null
+        : null;
+      const speciesFrame = validAt
+        ? conditions.selectedSpecies?.frames.find((frame) =>
+          frame.validAt === validAt
+        ) ?? null
+        : null;
+      return [{
+        city,
+        latitude: conditions.latitude,
+        longitude: conditions.longitude,
+        temperatureC: temperature?.temperatureC ?? null,
+        temperatureF: temperature
+          ? celsiusToFahrenheit(temperature.temperatureC)
+          : null,
+        validAt: temperature?.validAt ?? null,
+        speciesFrame,
+      } satisfies PierCastConditionsMapCity];
+    })
+    .sort((left, right) =>
+      left.city.displayName.localeCompare(right.city.displayName) ||
+      left.city.cityId.localeCompare(right.city.cityId)
+    );
+}
+
+export function filterPierCastConditionsMapCities(
+  cities: readonly PierCastConditionsMapCity[],
+  filter: PierCastMapFilter,
+): PierCastConditionsMapCity[] {
   return filter === "ALL"
     ? [...cities]
     : cities.filter((entry) => entry.city.stateCode === filter);
@@ -353,6 +435,33 @@ export function pierCastMapFoundationValidTimes(
   return response.timeline.validTimes.length === 121
     ? [...response.timeline.validTimes]
     : [];
+}
+
+export function pierCastSynchronizedConditionsMapValidTimes(
+  foundation: PierCastMapFoundationResponse | null,
+  conditions: PierCastConditionsMapResponseV4 | null,
+): string[] {
+  const foundationTimes = pierCastMapFoundationValidTimes(foundation);
+  if (!conditions || conditions.cities.length === 0) return foundationTimes;
+  const cityTimes = conditions.cities.map((city) =>
+    new Set(city.temperatureTimeline.map((point) => point.validAt))
+  );
+  return foundationTimes.filter((validAt) =>
+    cityTimes.every((times) => times.has(validAt))
+  );
+}
+
+export function pierCastForecastMapValidTimes(
+  synchronizedValidTimes: readonly string[],
+  nowValidAt: string | null,
+): string[] {
+  if (!nowValidAt) return [];
+  const nowMs = Date.parse(nowValidAt);
+  if (!Number.isFinite(nowMs)) return [];
+  return synchronizedValidTimes.filter((validAt) => {
+    const validAtMs = Date.parse(validAt);
+    return Number.isFinite(validAtMs) && validAtMs >= nowMs;
+  });
 }
 
 /** Static depth rasters and contours, sourced from each synchronized NOAA model grid. */

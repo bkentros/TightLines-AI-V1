@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "piercast-renovation-visual-baseline-v1",
+  "capturedOn": "2026-09-27",
+  "basis": "source-structure-and-design-token-freeze",
+  "renderedReferenceStatus": "deferred_to_pass6_device_matrix",
+  "renderedReferenceNote": "The local Xcode installation has device definitions but no installed iOS simulator runtime. Pass 1 therefore freezes the exact source and design system; Pass 6 requires rendered-device approval before release.",
+  "sources": [
+    {
+      "path": "app/pier-cast-review.tsx",
+      "sha256": "5aa2ba4f7e560247110195e3b3f0429fd227cc0078932d1a6332289657447f1d"
+    },
+    {
+      "path": "app/pier-cast-map.tsx",
+      "sha256": "5270df279221fc3b35da062dc404dfe48c54c5d09c12540082217f75dbd58fa0"
+    },
+    {
+      "path": "components/pier-cast/PierCastVisuals.tsx",
+      "sha256": "c5194ddfb8d92d194789727199d3d6824c013cce8154137bd437e89ab08d58bc"
+    },
+    {
+      "path": "components/pier-cast/PierCastTemperatureGradient.tsx",
+      "sha256": "5d2c838bc4187098ead10c977d8a6d17b51ba81a9aa6181f0362ecfa445771ac"
+    },
+    {
+      "path": "lib/theme.ts",
+      "sha256": "ff3b9da33441a3d7a8d770a1d073f063b844c47da361b3310dc6c2a3e8a8097f"
+    }
+  ],
+  "designTokens": {
+    "paper": "#E8DFC9",
+    "ink": "#1C2419",
+    "dashboardInk": "#0A1B2E",
+    "dashboardCream": "#F4F4F1",
+    "dashboardBlue": "#2A6E96",
+    "dashboardBlueLight": "#7CB8DA",
+    "dashboardBlueSky": "#C9E4F2",
+    "gold": "#E8A02E",
+    "bandPoor": "#E89647",
+    "bandFair": "#E8C547",
+    "bandGood": "#7CC36A",
+    "bandPrime": "#3DA85F",
+    "displayFont": "Fraunces_700Bold",
+    "bodyFont": "DMSans_400Regular",
+    "numericFont": "SpaceMono_400Regular",
+    "metadataFont": "JetBrainsMono_500Medium",
+    "cardRadius": 10,
+    "chipRadius": 2
+  },
+  "requiredMotifs": [
+    "paper cards with ink structure",
+    "Fraunces display hierarchy",
+    "monospaced metadata and numerics",
+    "gold and dashboard-blue accents",
+    "struck rank medallions after species selection",
+    "corner marks and topographic decoration",
+    "temperature, depth, and wind gradients",
+    "smooth raster transitions",
+    "collapsible map information panel",
+    "dedicated map and report back stack"
+  ]
+}

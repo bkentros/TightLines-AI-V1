@@ -1,0 +1,231 @@
+{
+  "schemaVersion": "piercast-renovation-pass1-golden-v1",
+  "notice": "Synthetic product-contract fixtures only; values are not biological calibration findings.",
+  "rankingScenarios": [
+    {
+      "id": "frankfort_ideal_temperature_but_late",
+      "speciesId": "coho_salmon",
+      "candidates": [
+        {
+          "cityId": "frankfort_elberta_mi",
+          "displayName": "Frankfort / Elberta",
+          "seasonalValue": 0.32,
+          "stage": "fading",
+          "thermalValue": 0.96,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "grand_haven_mi",
+          "displayName": "Grand Haven",
+          "seasonalValue": 0.82,
+          "stage": "active",
+          "thermalValue": 0.72,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["grand_haven_mi", "frankfort_elberta_mi"],
+      "expectedBands": {
+        "frankfort_elberta_mi": ["fair", "excellent"],
+        "grand_haven_mi": ["excellent", "good"]
+      }
+    },
+    {
+      "id": "same_season_band_uses_exact_thermal_fit",
+      "speciesId": "coho_salmon",
+      "candidates": [
+        {
+          "cityId": "holland_mi",
+          "displayName": "Holland",
+          "seasonalValue": 0.61,
+          "stage": "active",
+          "thermalValue": 0.7,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "south_haven_mi",
+          "displayName": "South Haven",
+          "seasonalValue": 0.74,
+          "stage": "active",
+          "thermalValue": 0.9,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["south_haven_mi", "holland_mi"],
+      "expectedBands": {
+        "holland_mi": ["good", "good"],
+        "south_haven_mi": ["good", "excellent"]
+      }
+    },
+    {
+      "id": "ideal_temperature_never_overrides_offseason",
+      "speciesId": "chinook_salmon",
+      "candidates": [
+        {
+          "cityId": "active_city",
+          "displayName": "Active City",
+          "seasonalValue": 0.55,
+          "stage": "active",
+          "thermalValue": 0.4,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "offseason_city",
+          "displayName": "Offseason City",
+          "seasonalValue": 0.02,
+          "stage": "off",
+          "thermalValue": 1,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["active_city", "offseason_city"],
+      "expectedBands": {
+        "active_city": ["good", "fair"],
+        "offseason_city": ["usually_off", "excellent"]
+      }
+    },
+    {
+      "id": "missing_temperature_is_unranked_not_poor",
+      "speciesId": "steelhead",
+      "candidates": [
+        {
+          "cityId": "complete_city",
+          "displayName": "Complete City",
+          "seasonalValue": 0.26,
+          "stage": "early",
+          "thermalValue": 0.35,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "missing_city",
+          "displayName": "Missing City",
+          "seasonalValue": 0.9,
+          "stage": "active",
+          "thermalValue": null,
+          "rankingDisposition": "unranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["complete_city", "missing_city"],
+      "expectedBands": {
+        "complete_city": ["fair", "fair"],
+        "missing_city": ["excellent", null]
+      }
+    },
+    {
+      "id": "regulation_blocked_city_is_never_ranked",
+      "speciesId": "lake_trout",
+      "candidates": [
+        {
+          "cityId": "eligible_city",
+          "displayName": "Eligible City",
+          "seasonalValue": 0.5,
+          "stage": "active",
+          "thermalValue": 0.65,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "restricted_city",
+          "displayName": "Restricted City",
+          "seasonalValue": 1,
+          "stage": "active",
+          "thermalValue": 1,
+          "rankingDisposition": "blocked",
+          "targetingEligibility": "restricted"
+        }
+      ],
+      "expectedOrder": ["eligible_city", "restricted_city"],
+      "expectedBands": {
+        "eligible_city": ["good", "good"],
+        "restricted_city": ["excellent", "excellent"]
+      }
+    },
+    {
+      "id": "southern_active_window_beats_northern_fading_window",
+      "speciesId": "coho_salmon",
+      "candidates": [
+        {
+          "cityId": "northern_city",
+          "displayName": "Northern City",
+          "seasonalValue": 0.4,
+          "stage": "fading",
+          "thermalValue": 0.95,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "southern_city",
+          "displayName": "Southern City",
+          "seasonalValue": 0.8,
+          "stage": "active",
+          "thermalValue": 0.68,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["southern_city", "northern_city"],
+      "expectedBands": {
+        "northern_city": ["fair", "excellent"],
+        "southern_city": ["excellent", "good"]
+      }
+    },
+    {
+      "id": "exact_condition_tie_is_stable",
+      "speciesId": "yellow_perch",
+      "candidates": [
+        {
+          "cityId": "zeta_city",
+          "displayName": "Zeta City",
+          "seasonalValue": 0.75,
+          "stage": "active",
+          "thermalValue": 0.85,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        },
+        {
+          "cityId": "alpha_city",
+          "displayName": "Alpha City",
+          "seasonalValue": 1,
+          "stage": "active",
+          "thermalValue": 0.85,
+          "rankingDisposition": "ranked",
+          "targetingEligibility": "eligible"
+        }
+      ],
+      "expectedOrder": ["alpha_city", "zeta_city"],
+      "expectedBands": {
+        "zeta_city": ["excellent", "excellent"],
+        "alpha_city": ["excellent", "excellent"]
+      }
+    }
+  ],
+  "engineScenarios": [
+    {
+      "id": "mixed_species_leaderboard_rejected",
+      "expectation": "A leaderboard request for one species rejects any candidate carrying another species ID."
+    },
+    {
+      "id": "year_boundary_is_continuous",
+      "expectation": "The recurring seasonal evaluator has no artificial discontinuity between December 31 and January 1."
+    },
+    {
+      "id": "city_local_date_controls_season",
+      "expectation": "The same forecast instant is evaluated using each city's configured local calendar date."
+    },
+    {
+      "id": "month_boundary_is_continuous",
+      "expectation": "Changing calendar month does not create a step unless the versioned profile itself contains one."
+    },
+    {
+      "id": "observations_never_create_ranking_advantage",
+      "expectation": "A city with a nearby station and an otherwise identical city without one retain identical ranking inputs."
+    }
+  ]
+}
