@@ -13,6 +13,7 @@ import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  AccessibilityInfo,
   ActivityIndicator,
   AppState,
   type AppStateStatus,
@@ -94,11 +95,13 @@ import {
   pierCastWaterTemperatureColor,
 } from "../lib/pierCastTemperatureScale";
 import {
+  buildPierCastWindFlowGeoJson,
   buildPierCastWindArrowGeoJson,
   PIER_CAST_WIND_SCALE_STOPS,
   pierCastWindBandLabel,
   pierCastWindCompassDirection,
   summarizePierCastWindFrame,
+  type PierCastWindFramePoint,
 } from "../lib/pierCastWind";
 import { hapticSelection } from "../lib/safeHaptics";
 import {
@@ -179,6 +182,12 @@ const MATCH_LEGEND: ReadonlyArray<{
 const TEMPERATURE_TIME_STEP = 1;
 const PLAYBACK_OVERVIEW_STEP = 3;
 type MarkerDensity = "overview" | "compact" | "detail";
+
+function mapCitySupportedSpeciesIds(
+  city: PierCastConditionsCatalogResponseV4["cities"][number],
+): PierCastSpeciesId[] {
+  return Array.isArray(city.supportedSpeciesIds) ? city.supportedSpeciesIds : [];
+}
 
 function temperatureTimeLabel(validAt: string | null): {
   date: string;
@@ -408,12 +417,84 @@ function ObservedTemperatureMarker({
   );
 }
 
+function WindFlowLayer({
+  points,
+  zoom,
+  visible,
+  mode,
+  onSelect,
+}: {
+  points: readonly PierCastWindFramePoint[];
+  zoom: number;
+  visible: boolean;
+  mode: "match" | "temperature" | "bathymetry";
+  onSelect: (nodeId: string) => void;
+}) {
+  const [phase, setPhase] = useState(0);
+  useEffect(() => {
+    if (!visible || points.length === 0) {
+      setPhase(0);
+      return;
+    }
+    const timer = setInterval(() => {
+      setPhase((current) => (current + 0.02) % 1);
+    }, 64);
+    return () => clearInterval(timer);
+  }, [points, visible]);
+  const particles = useMemo(
+    () => buildPierCastWindFlowGeoJson(points, zoom, phase),
+    [phase, points, zoom],
+  );
+  if (!visible || particles.features.length === 0) return null;
+  return (
+    <GeoJSONSource
+      id="pier-cast-wind-flow"
+      data={particles}
+      hitbox={{ top: 14, right: 14, bottom: 14, left: 14 }}
+      onPress={(event) => {
+        const nodeId = event.nativeEvent.features[0]?.properties?.nodeId;
+        if (typeof nodeId === "string") onSelect(nodeId);
+      }}
+    >
+      <Layer
+        id="pier-cast-wind-flow-glow"
+        type="line"
+        style={{
+          lineColor: ["get", "tone"],
+          lineWidth: ["+", ["get", "width"], 3.2],
+          lineOpacity: mode === "match" ? 0.2 : 0.28,
+          lineBlur: 2.2,
+          lineCap: "round",
+          lineJoin: "round",
+        }}
+      />
+      <Layer
+        id="pier-cast-wind-flow-particles"
+        type="line"
+        style={{
+          lineColor: ["get", "tone"],
+          lineWidth: ["get", "width"],
+          lineOpacity: mode === "match" ? 0.88 : 0.98,
+          lineCap: "round",
+          lineJoin: "round",
+        }}
+      />
+    </GeoJSONSource>
+  );
+}
+
 function WindLegend({
   summary,
   validAt,
+  flowActive,
+  reduceMotion,
+  onTogglePresentation,
 }: {
   summary: ReturnType<typeof summarizePierCastWindFrame>;
   validAt: string | null;
+  flowActive: boolean;
+  reduceMotion: boolean;
+  onTogglePresentation: () => void;
 }) {
   const label = temperatureTimeLabel(validAt);
   return (
@@ -423,12 +504,32 @@ function WindLegend({
     >
       <View style={styles.windLegendHeader}>
         <Text style={styles.windLegendTitle}>WIND · MPH · {label.eastern}</Text>
-        <Text style={styles.windLegendSummary}>
-          {summary
-            ? `AVG ${summary.averageMph} · PEAK ${summary.strongestMph} · GUST ${summary.strongestGustMph}`
-            : "ARROWS SHOW TRAVEL DIRECTION"}
-        </Text>
+        <Pressable
+          accessibilityRole="button"
+          hitSlop={10}
+          accessibilityState={{ disabled: reduceMotion }}
+          accessibilityLabel={reduceMotion
+            ? "Wind uses static arrows because Reduce Motion is enabled"
+            : `Switch wind to ${flowActive ? "static arrows" : "animated flow"}`}
+          disabled={reduceMotion}
+          onPress={onTogglePresentation}
+          style={({ pressed }) => [
+            styles.windPresentationButton,
+            reduceMotion && styles.windPresentationButtonDisabled,
+            pressed && styles.pressed,
+          ]}
+        >
+          <Ionicons name={flowActive ? "pulse" : "navigate"} size={9} color="#67E8D1" />
+          <Text style={styles.windPresentationText}>
+            {flowActive ? "FLOW" : reduceMotion ? "ARROWS · REDUCED MOTION" : "ARROWS"}
+          </Text>
+        </Pressable>
       </View>
+      <Text style={styles.windLegendSummary}>
+        {summary
+          ? `AVG ${summary.averageMph} · PEAK ${summary.strongestMph} · GUST ${summary.strongestGustMph}`
+          : "WIND FRAME UNAVAILABLE"}
+      </Text>
       <View style={styles.windLegendGradient}>
         <PierCastWindGradient />
       </View>
@@ -441,7 +542,7 @@ function WindLegend({
         ))}
       </View>
       <Text style={styles.windDirectionNote}>
-        PUSH = TOWARD PIER · DRIFT = ALONG SHORE · PULL = OFFSHORE
+        {flowActive ? "PARTICLES SHOW WHERE WIND TRAVELS" : "ARROWS SHOW WHERE WIND TRAVELS"} · PUSH = TOWARD PIER · DRIFT = ALONG SHORE · PULL = OFFSHORE
       </Text>
     </View>
   );
@@ -530,6 +631,7 @@ export default function PierCastMapScreen() {
   const selectedSpeciesRef = useRef<PierCastSpeciesId | null>(routeSpeciesId);
   const [targetHydrated, setTargetHydrated] = useState(Boolean(routeSpeciesId));
   const [targetPromptVisible, setTargetPromptVisible] = useState(false);
+  const [pendingReportCityId, setPendingReportCityId] = useState<string | null>(null);
   const initializedMapSemantics = useRef(false);
   const lastAppliedRouteSpecies = useRef<PierCastSpeciesId | null>(null);
   const cameraRef = useRef<CameraRef>(null);
@@ -548,6 +650,10 @@ export default function PierCastMapScreen() {
   const setTimeMode = usePierCastMapStore((state) => state.setTimeMode);
   const windVisible = usePierCastMapStore((state) => state.windVisible);
   const setWindVisible = usePierCastMapStore((state) => state.setWindVisible);
+  const windPresentation = usePierCastMapStore((state) => state.windPresentation);
+  const setWindPresentation = usePierCastMapStore((state) =>
+    state.setWindPresentation
+  );
   const observationsVisible = usePierCastMapStore((state) =>
     state.observationsVisible
   );
@@ -584,6 +690,9 @@ export default function PierCastMapScreen() {
     null,
   );
   const [usingOfflineBaseMap, setUsingOfflineBaseMap] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(true);
+  const [mapIsActive, setMapIsActive] = useState(AppState.currentState === "active");
+  const [mapFocused, setMapFocused] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [panelExpanded, setPanelExpanded] = useState(true);
   const [timelineWidth, setTimelineWidth] = useState(0);
@@ -592,6 +701,21 @@ export default function PierCastMapScreen() {
   const [error, setError] = useState<string | null>(null);
   const [targetLoading, setTargetLoading] = useState(false);
   const lastScrubbedIndex = useRef(-1);
+
+  useEffect(() => {
+    let mounted = true;
+    void AccessibilityInfo.isReduceMotionEnabled().then((enabled) => {
+      if (mounted) setReduceMotion(enabled);
+    });
+    const subscription = AccessibilityInfo.addEventListener(
+      "reduceMotionChanged",
+      setReduceMotion,
+    );
+    return () => {
+      mounted = false;
+      subscription.remove();
+    };
+  }, []);
 
   const load = useCallback(async (options?: { silent?: boolean }) => {
     if (!targetHydrated) return;
@@ -783,6 +907,7 @@ export default function PierCastMapScreen() {
 
   useFocusEffect(
     useCallback(() => {
+      setMapFocused(true);
       captureAnalytics("pier_cast_visual_map_viewed");
       const refresh = () => void load({ silent: hasLoaded.current });
       refresh();
@@ -790,9 +915,11 @@ export default function PierCastMapScreen() {
       const subscription = AppState.addEventListener("change", (nextState) => {
         const wasBackgrounded = /inactive|background/.test(appState.current);
         appState.current = nextState;
+        setMapIsActive(nextState === "active");
         if (wasBackgrounded && nextState === "active") refresh();
       });
       return () => {
+        setMapFocused(false);
         clearInterval(timer);
         subscription.remove();
         setPlaying(false);
@@ -862,6 +989,8 @@ export default function PierCastMapScreen() {
     () => summarizePierCastWindFrame(windPoints),
     [windPoints],
   );
+  const windFlowActive = windPresentation === "flow" && !reduceMotion &&
+    mapIsActive && mapFocused;
   const cityWindInsights = useMemo(
     () => buildPierCastCityWindInsights(visibleCities, windPoints),
     [visibleCities, windPoints],
@@ -879,6 +1008,18 @@ export default function PierCastMapScreen() {
       ) ?? null,
     [observations, selectedObservationId],
   );
+  const targetPromptOptions = useMemo(() => {
+    const options = conditionsMap?.targetSpecies ?? [];
+    if (!pendingReportCityId) return options;
+    const city = catalog?.cities.find((candidate) =>
+      candidate.cityId === pendingReportCityId
+    );
+    return city
+      ? options.filter((option) =>
+        mapCitySupportedSpeciesIds(city).includes(option.speciesId)
+      )
+      : [];
+  }, [catalog, conditionsMap?.targetSpecies, pendingReportCityId]);
   const selectedTimeIndex = activeValidAt
     ? validTimes.indexOf(activeValidAt)
     : -1;
@@ -941,16 +1082,39 @@ export default function PierCastMapScreen() {
   }, [nowValidAt, selectedValidAt, setSelectedValidAt, setTimeMode, synchronizedValidTimes]);
 
   const selectTarget = useCallback((speciesId: PierCastSpeciesId) => {
+    const reportCityId = pendingReportCityId;
     selectedSpeciesRef.current = speciesId;
     setSelectedSpeciesId(speciesId);
     setTargetPromptVisible(false);
+    setPendingReportCityId(null);
     setTargetLoading(true);
     setError(null);
     setConditionsError(null);
     setMode("match");
     router.setParams({ speciesId });
     void writePierCastTargetPreference(speciesId);
-  }, [router, setMode]);
+    if (reportCityId) {
+      router.push({
+        pathname: "/pier-cast-review",
+        params: {
+          cityId: reportCityId,
+          from: "map",
+          speciesId,
+          entry: String(Date.now()),
+        },
+      });
+    }
+  }, [pendingReportCityId, router, setMode]);
+
+  const toggleWindPresentation = useCallback(() => {
+    if (reduceMotion) return;
+    hapticSelection();
+    const next = windPresentation === "flow" ? "arrows" : "flow";
+    setWindPresentation(next);
+    captureAnalytics("pier_cast_visual_map_wind_presentation_changed", {
+      presentation: next,
+    });
+  }, [reduceMotion, setWindPresentation, windPresentation]);
 
   const scrubTimeline = useCallback((locationX: number) => {
     if (timelineWidth <= 0 || validTimes.length === 0) return;
@@ -1006,6 +1170,18 @@ export default function PierCastMapScreen() {
   ]);
 
   const openCity = useCallback((entry: PierCastConditionsMapCity) => {
+    if (
+      !selectedSpeciesId ||
+      !mapCitySupportedSpeciesIds(entry.city).includes(selectedSpeciesId)
+    ) {
+      setPendingReportCityId(entry.city.cityId);
+      setTargetPromptVisible(true);
+      captureAnalytics("pier_cast_visual_map_city_target_required", {
+        city_id: entry.city.cityId,
+        species_id: selectedSpeciesId,
+      });
+      return;
+    }
     captureAnalytics("pier_cast_visual_map_city_opened", {
       city_id: entry.city.cityId,
       state: entry.city.stateCode,
@@ -1029,7 +1205,7 @@ export default function PierCastMapScreen() {
     setSelectedState(filter);
     captureAnalytics("pier_cast_visual_map_filtered", { state: filter });
     cameraRef.current?.fitBounds(pierCastMapBoundsForFilter(filter), {
-      padding: { top: 120, right: 64, bottom: mapBottomInset, left: 64 },
+      padding: { top: 188, right: 64, bottom: mapBottomInset, left: 64 },
       duration: 550,
       easing: "ease",
     });
@@ -1039,7 +1215,7 @@ export default function PierCastMapScreen() {
     hapticSelection();
     setSelectedState("ALL");
     cameraRef.current?.fitBounds(PIER_CAST_GREAT_LAKES_BOUNDS, {
-      padding: { top: 105, right: 24, bottom: mapBottomInset, left: 24 },
+      padding: { top: 174, right: 24, bottom: mapBottomInset, left: 24 },
       duration: 650,
       easing: "ease",
     });
@@ -1134,7 +1310,7 @@ export default function PierCastMapScreen() {
                 compass
                 compassPosition={{ bottom: mapBottomInset + 8, right: 12 }}
                 scaleBar={!usingOfflineBaseMap}
-                scaleBarPosition={{ top: 100, left: 10 }}
+                scaleBarPosition={{ top: 177, left: 10 }}
                 dragPan
                 touchZoom
                 doubleTapZoom
@@ -1392,7 +1568,7 @@ export default function PierCastMapScreen() {
                         style={{
                           lineColor: "rgba(3,18,30,0.72)",
                           lineWidth: ["+", ["get", "width"], 2.1],
-                          lineOpacity: 0.72,
+                          lineOpacity: windFlowActive ? 0.3 : 0.72,
                           lineCap: "round",
                           lineJoin: "round",
                         }}
@@ -1403,7 +1579,9 @@ export default function PierCastMapScreen() {
                         style={{
                           lineColor: ["get", "tone"],
                           lineWidth: ["get", "width"],
-                          lineOpacity: mode === "match" ? 0.78 : 0.92,
+                          lineOpacity: windFlowActive
+                            ? mode === "match" ? 0.28 : 0.34
+                            : mode === "match" ? 0.78 : 0.92,
                           lineCap: "round",
                           lineJoin: "round",
                         }}
@@ -1411,6 +1589,17 @@ export default function PierCastMapScreen() {
                     </GeoJSONSource>
                   )
                   : null}
+
+                <WindFlowLayer
+                  points={windPoints}
+                  zoom={savedView.zoom}
+                  visible={windVisible && windFlowActive}
+                  mode={mode}
+                  onSelect={(nodeId) => {
+                    hapticSelection();
+                    setSelectedWindNodeId(nodeId);
+                  }}
+                />
 
                 {usingOfflineBaseMap && savedView.zoom < 7.2
                   ? REGION_LABELS.map((label) => (
@@ -1502,11 +1691,13 @@ export default function PierCastMapScreen() {
                 <View style={styles.modeRow}>
                   <Pressable
                     accessibilityRole="button"
+                    hitSlop={10}
                     accessibilityState={{ selected: mode === "match" }}
                     accessibilityLabel="Show species temperature match"
                     onPress={() => {
                       hapticSelection();
                       if (!selectedSpeciesId) {
+                        setPendingReportCityId(null);
                         setTargetPromptVisible(true);
                         return;
                       }
@@ -1541,6 +1732,7 @@ export default function PierCastMapScreen() {
                   </Pressable>
                   <Pressable
                     accessibilityRole="button"
+                    hitSlop={10}
                     accessibilityState={{ selected: mode === "temperature" }}
                     accessibilityLabel="Show modeled nearshore water temperatures"
                     onPress={() => {
@@ -1623,6 +1815,41 @@ export default function PierCastMapScreen() {
                     </Text>
                   </View>
                 </View>
+                <View style={styles.targetControlRow}>
+                  <Text style={styles.targetControlEyebrow}>MATCH TARGET</Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    hitSlop={10}
+                    accessibilityLabel={`${selectedSpeciesId ? `Selected target ${PIER_CAST_SPECIES_LABELS[selectedSpeciesId]}` : "No target selected"}. Open species selector without moving the map or forecast hour.`}
+                    onPress={() => {
+                      hapticSelection();
+                      setPendingReportCityId(null);
+                      setTargetPromptVisible(true);
+                    }}
+                    style={({ pressed }) => [
+                      styles.targetControlChip,
+                      mode === "match" && styles.targetControlChipActive,
+                      pressed && styles.pressed,
+                    ]}
+                  >
+                    <Ionicons
+                      name="fish-outline"
+                      size={12}
+                      color={mode === "match" ? "#FFFFFF" : paper.dashboardBlueLight}
+                    />
+                    <Text style={styles.targetControlName} numberOfLines={1}>
+                      {selectedSpeciesId
+                        ? PIER_CAST_SPECIES_LABELS[selectedSpeciesId].toUpperCase()
+                        : "CHOOSE SPECIES"}
+                    </Text>
+                    {targetLoading
+                      ? <ActivityIndicator size="small" color={paper.gold} />
+                      : <Ionicons name="chevron-down" size={11} color={paper.gold} />}
+                  </Pressable>
+                  <Text style={styles.targetControlHint} numberOfLines={1}>
+                    {mode === "match" ? "COLORS CITY TEMP FIT" : "USED BY MATCH"}
+                  </Text>
+                </View>
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -1674,23 +1901,34 @@ export default function PierCastMapScreen() {
                   <View style={styles.targetPrompt}>
                     <View style={styles.targetPromptHead}>
                       <View style={styles.targetPromptCopy}>
-                        <Text style={styles.targetPromptEyebrow}>MATCH REQUIRES A TARGET</Text>
-                        <Text style={styles.targetPromptTitle}>What are you targeting?</Text>
+                        <Text style={styles.targetPromptEyebrow}>
+                          {pendingReportCityId ? "CHOOSE A SUPPORTED TARGET" : "MATCH REQUIRES A TARGET"}
+                        </Text>
+                        <Text style={styles.targetPromptTitle}>
+                          {pendingReportCityId
+                            ? `Open ${catalog?.cities.find((city) => city.cityId === pendingReportCityId)?.displayName ?? "city"}`
+                            : "What are you targeting?"}
+                        </Text>
                       </View>
                       <Pressable
                         accessibilityRole="button"
                         accessibilityLabel="Close species selector"
-                        onPress={() => setTargetPromptVisible(false)}
+                        onPress={() => {
+                          setTargetPromptVisible(false);
+                          setPendingReportCityId(null);
+                        }}
                         style={styles.targetPromptClose}
                       >
                         <Ionicons name="close" size={18} color={paper.dashboardInk} />
                       </Pressable>
                     </View>
                     <Text style={styles.targetPromptDetail}>
-                      {conditionsError ?? "Choose one species to translate modeled water temperature into a match. The camera will not move."}
+                      {conditionsError ?? (pendingReportCityId
+                        ? "Choose a species supported at this city. Its report will open without changing the saved map view."
+                        : "Choose one species to translate modeled water temperature into a match. The camera will not move.")}
                     </Text>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.targetPromptRail}>
-                      {conditionsMap?.targetSpecies.map((option) => (
+                      {targetPromptOptions.map((option) => (
                         <Pressable
                           key={option.speciesId}
                           accessibilityRole="button"
@@ -1705,7 +1943,13 @@ export default function PierCastMapScreen() {
                         </Pressable>
                       ))}
                     </ScrollView>
-                    {conditionsError && !conditionsMap ? (
+                    {!targetLoading && targetPromptOptions.length === 0 ? (
+                      <Text style={styles.targetPromptUnavailable}>
+                        TARGET OPTIONS ARE TEMPORARILY UNAVAILABLE · RETRY BELOW
+                      </Text>
+                    ) : null}
+                    {(conditionsError && !conditionsMap) ||
+                        (!targetLoading && targetPromptOptions.length === 0) ? (
                       <Pressable
                         accessibilityRole="button"
                         accessibilityLabel="Retry target species"
@@ -1927,7 +2171,7 @@ export default function PierCastMapScreen() {
                       ]}
                     >
                       {windSummary
-                        ? `AVG ${windSummary.averageMph} MPH`
+                        ? `${windFlowActive ? "FLOW" : "ARROWS"} · AVG ${windSummary.averageMph} MPH`
                         : "FORECAST"}
                     </Text>
                   </View>
@@ -2166,6 +2410,7 @@ export default function PierCastMapScreen() {
                             accessibilityLabel={`Change target species from ${selectedSpeciesId ? PIER_CAST_SPECIES_LABELS[selectedSpeciesId] : "none"}`}
                             onPress={() => {
                               hapticSelection();
+                              setPendingReportCityId(null);
                               setTargetPromptVisible(true);
                             }}
                             style={({ pressed }) => [styles.matchTargetButton, pressed && styles.pressed]}
@@ -2226,6 +2471,9 @@ export default function PierCastMapScreen() {
                           <WindLegend
                             summary={windSummary}
                             validAt={activeValidAt}
+                            flowActive={windFlowActive}
+                            reduceMotion={reduceMotion}
+                            onTogglePresentation={toggleWindPresentation}
                           />
                         )
                         : null}
@@ -2403,6 +2651,9 @@ export default function PierCastMapScreen() {
                           <WindLegend
                             summary={windSummary}
                             validAt={activeValidAt}
+                            flowActive={windFlowActive}
+                            reduceMotion={reduceMotion}
+                            onTogglePresentation={toggleWindPresentation}
                           />
                         )
                         : null}
@@ -2718,6 +2969,61 @@ const styles = StyleSheet.create({
     letterSpacing: 0.35,
     color: "#FFFFFF",
   },
+  targetControlRow: {
+    minHeight: 28,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    marginHorizontal: 10,
+    marginTop: 7,
+    paddingLeft: 8,
+    paddingRight: 5,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.2)",
+    borderRadius: 7,
+    backgroundColor: "rgba(10,27,46,0.9)",
+    ...paperShadows.lift,
+  },
+  targetControlEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.7,
+    letterSpacing: 0.7,
+    color: "rgba(255,255,255,0.58)",
+  },
+  targetControlChip: {
+    minWidth: 0,
+    maxWidth: 166,
+    height: 23,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+    paddingHorizontal: 7,
+    borderWidth: 1,
+    borderColor: "rgba(124,184,218,0.5)",
+    borderRadius: 5,
+    backgroundColor: "rgba(42,110,150,0.2)",
+  },
+  targetControlChipActive: {
+    borderColor: paper.dashboardBlueLight,
+    backgroundColor: paper.dashboardBlue,
+  },
+  targetControlName: {
+    minWidth: 0,
+    flexShrink: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.8,
+    letterSpacing: 0.5,
+    color: "#FFFFFF",
+  },
+  targetControlHint: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.2,
+    letterSpacing: 0.35,
+    textAlign: "right",
+    color: paper.gold,
+  },
   stateRail: { gap: 7, paddingHorizontal: 10, paddingTop: 8, paddingBottom: 4 },
   targetPrompt: {
     marginHorizontal: 10,
@@ -2739,6 +3045,7 @@ const styles = StyleSheet.create({
   targetPromptChip: { minWidth: 126, paddingHorizontal: 10, paddingVertical: 8, borderWidth: 1.5, borderColor: paper.dashboardInk, borderRadius: 7, backgroundColor: "#FFFFFF" },
   targetPromptChipText: { fontFamily: paperFonts.bodyBold, fontSize: 10, color: paper.dashboardInk },
   targetPromptChipMeta: { marginTop: 2, fontFamily: paperFonts.metaMonoBold, fontSize: 5.5, letterSpacing: 0.45, color: paper.dashboardBlue },
+  targetPromptUnavailable: { marginTop: 9, fontFamily: paperFonts.metaMonoBold, fontSize: 6, lineHeight: 9, letterSpacing: 0.45, color: paper.bandTough },
   targetPromptRetry: { alignSelf: "flex-start", marginTop: 9, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 6, backgroundColor: paper.dashboardBlue },
   targetPromptRetryText: { fontFamily: paperFonts.metaMonoBold, fontSize: 7, letterSpacing: 0.8, color: "#FFFFFF" },
   stateChip: {
@@ -2770,7 +3077,7 @@ const styles = StyleSheet.create({
   stateChipCountSelected: { color: "rgba(10,27,46,0.68)" },
   mapTools: {
     position: "absolute",
-    top: 141,
+    top: 177,
     right: 10,
     alignItems: "flex-end",
     gap: 7,
@@ -3314,10 +3621,29 @@ const styles = StyleSheet.create({
     color: "#67E8D1",
   },
   windLegendSummary: {
+    marginTop: 3,
     fontFamily: paperFonts.monoBold,
     fontSize: 5.5,
     letterSpacing: 0.3,
     color: "rgba(255,255,255,0.68)",
+  },
+  windPresentationButton: {
+    minHeight: 21,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 7,
+    borderWidth: 1,
+    borderColor: "rgba(103,232,209,0.34)",
+    borderRadius: 5,
+    backgroundColor: "rgba(103,232,209,0.08)",
+  },
+  windPresentationButtonDisabled: { opacity: 0.72 },
+  windPresentationText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.4,
+    letterSpacing: 0.45,
+    color: "#67E8D1",
   },
   windLegendGradient: {
     height: 6,

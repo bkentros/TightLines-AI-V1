@@ -28,6 +28,7 @@ import {
 export type PierCastMapStateCode = PierCastMapRegionCode;
 export type PierCastMapFilter = "ALL" | PierCastMapStateCode;
 export type PierCastMapMode = "match" | "temperature" | "bathymetry";
+export type PierCastWindPresentation = "flow" | "arrows";
 export type PierCastMapBounds = [
   west: number,
   south: number,

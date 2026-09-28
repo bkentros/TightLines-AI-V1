@@ -16,12 +16,17 @@ export type PierCastWindFramePoint = {
 export type PierCastWindArrowProperties = {
   nodeId: string;
   lakeId: PierCastGreatLakeId;
+  validAt: string;
   speedMph: number;
   gustMph: number;
   directionDegrees: number;
   travelDirectionDegrees: number;
   tone: string;
   width: number;
+};
+
+export type PierCastWindFlowProperties = PierCastWindArrowProperties & {
+  particleCount: number;
 };
 
 export const PIER_CAST_WIND_SCALE_STOPS = [
@@ -115,6 +120,19 @@ function destination(
   return [degrees(longitude2), degrees(latitude2)];
 }
 
+function normalizedPhase(value: number): number {
+  if (!Number.isFinite(value)) return 0;
+  return ((value % 1) + 1) % 1;
+}
+
+function nodePhaseOffset(nodeId: string): number {
+  let hash = 0;
+  for (let index = 0; index < nodeId.length; index += 1) {
+    hash = (hash * 31 + nodeId.charCodeAt(index)) % 997;
+  }
+  return hash / 997;
+}
+
 /**
  * Produces native-map arrow geometry instead of hundreds of React markers.
  * Arrow length is held near a readable screen size at every zoom while speed
@@ -169,6 +187,7 @@ export function buildPierCastWindArrowGeoJson(
         properties: {
           nodeId: point.nodeId,
           lakeId: point.lakeId,
+          validAt: point.validAt,
           speedMph: point.speedMph,
           gustMph: point.gustMph,
           directionDegrees: point.directionDegrees,
@@ -183,6 +202,85 @@ export function buildPierCastWindArrowGeoJson(
             [headLeft, end],
             [headRight, end],
           ],
+        },
+      }];
+    }),
+  };
+}
+
+/**
+ * Builds short native line particles that travel along each exact-hour wind
+ * vector. Animation changes only particle position; it never interpolates or
+ * fabricates wind values between forecast frames.
+ */
+export function buildPierCastWindFlowGeoJson(
+  points: readonly PierCastWindFramePoint[],
+  zoom: number,
+  phase: number,
+): FeatureCollection<MultiLineString, PierCastWindFlowProperties> {
+  const safeZoom = clamp(Number.isFinite(zoom) ? zoom : 4, 3, 14);
+  const framePhase = normalizedPhase(phase);
+  return {
+    type: "FeatureCollection",
+    features: points.flatMap((point) => {
+      if (
+        !Number.isFinite(point.latitude) ||
+        !Number.isFinite(point.longitude) ||
+        !Number.isFinite(point.speedMph) ||
+        !Number.isFinite(point.gustMph) ||
+        !Number.isFinite(point.directionDegrees)
+      ) return [];
+      const travelDirectionDegrees = pierCastWindTravelDirection(
+        point.directionDegrees,
+      );
+      const metresPerPixel = 156_543.03392 *
+        Math.cos(point.latitude * Math.PI / 180) /
+        2 ** safeZoom;
+      const distanceM = clamp(28 + point.speedMph * 0.65, 28, 52) *
+        metresPerPixel;
+      const speedFactor = clamp(0.55 + point.speedMph / 24, 0.55, 2);
+      const basePhase = normalizedPhase(
+        framePhase * speedFactor + nodePhaseOffset(point.nodeId),
+      );
+      const trailFraction = clamp(0.11 + point.speedMph / 260, 0.11, 0.23);
+      const coordinates: [number, number][][] = [];
+      for (const offset of [0, 0.5]) {
+        const head = normalizedPhase(basePhase + offset);
+        const tail = head - trailFraction;
+        if (tail >= 0) {
+          coordinates.push([
+            destination(point.longitude, point.latitude, travelDirectionDegrees, distanceM * tail),
+            destination(point.longitude, point.latitude, travelDirectionDegrees, distanceM * head),
+          ]);
+        } else {
+          coordinates.push([
+            [point.longitude, point.latitude],
+            destination(point.longitude, point.latitude, travelDirectionDegrees, distanceM * head),
+          ]);
+          coordinates.push([
+            destination(point.longitude, point.latitude, travelDirectionDegrees, distanceM * (1 + tail)),
+            destination(point.longitude, point.latitude, travelDirectionDegrees, distanceM),
+          ]);
+        }
+      }
+      return [{
+        type: "Feature" as const,
+        id: point.nodeId,
+        properties: {
+          nodeId: point.nodeId,
+          lakeId: point.lakeId,
+          validAt: point.validAt,
+          speedMph: point.speedMph,
+          gustMph: point.gustMph,
+          directionDegrees: point.directionDegrees,
+          travelDirectionDegrees,
+          tone: pierCastWindColor(point.speedMph),
+          width: clamp(1.45 + point.speedMph / 18, 1.45, 3.5),
+          particleCount: 2,
+        },
+        geometry: {
+          type: "MultiLineString" as const,
+          coordinates,
         },
       }];
     }),
