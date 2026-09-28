@@ -56,8 +56,9 @@ Decision: code-complete; hold release pending fresh-native-client evidence
   reset, because the installed binary lacks `MLRNCameraModule`.
 - Physical-device screenshots, Reduce Motion behavior, frame smoothness, memory,
   and thermal observations cannot be truthfully certified without that binary.
-- The additive catalog v2/conditions v4 backend cutover must precede or accompany
-  the new store build. Legacy v3 stays available for installed clients.
+- Catalog v2/conditions v4 are deployed and verified. The post-deployment
+  legacy v3 smoke still returns all 32 cities and complete five-day reports for
+  installed clients.
 
-No production deployment, OTA update, store submission, or live-app change was
-made during Passes 1–4.
+No OTA update, native production build, store submission, or current installed-
+app behavior change was made during Passes 1–4.

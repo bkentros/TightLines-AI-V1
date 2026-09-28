@@ -258,7 +258,7 @@ test("Passes 1 through 4 have explicit evidence and an honest release hold", () 
   for (const pass of ["Pass 1", "Pass 2", "Pass 3", "Pass 4"]) {
     assert.match(audit, new RegExp(`## ${pass}`));
   }
-  assert.match(audit, /No production deployment/i);
+  assert.match(audit, /No OTA update, native production build/i);
   assert.match(audit, /MapLibre-capable development client/i);
 });
 

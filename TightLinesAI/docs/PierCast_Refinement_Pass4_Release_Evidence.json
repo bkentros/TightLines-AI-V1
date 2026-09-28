@@ -22,6 +22,17 @@
       "Local Xcode 15.2 cannot build Expo SDK 55, which requires Xcode 26 or newer."
     ]
   },
+  "backendVerification": {
+    "deployedAt": "2026-09-28",
+    "conditionsCatalog": "piercast-conditions-catalog-v2",
+    "catalogCityCount": 32,
+    "catalogSupportedSpeciesRostersComplete": true,
+    "conditionsSchema": "piercast-conditions-v4",
+    "targetSpeciesCount": 18,
+    "mapFoundationFrameCount": 121,
+    "legacyV3ProductionSmoke": "passed_32_cities_complete_five_day_reports",
+    "currentInstalledAppBehaviorChanged": false
+  },
   "externalGates": [
     {
       "id": "fresh_native_client",
@@ -32,11 +43,6 @@
       "id": "physical_device_matrix",
       "status": "pending_external",
       "reason": "Animation smoothness, thermal behavior, memory growth, Reduce Motion, and screenshots require the fresh MapLibre-capable native client."
-    },
-    {
-      "id": "coordinated_backend_cutover",
-      "status": "pending_release_authorization",
-      "reason": "Catalog v2 and conditions v4 must be deployed before or with the new native build; this pass does not authorize deployment."
     }
   ],
   "releaseDecision": "hold_pending_native_device_evidence",

@@ -6,7 +6,9 @@ Implementation update: species thermal calibration (Pass 1), leaderboard and
 city-report refinement (Pass 2), premium map target/wind work (Pass 3), and the
 Pass 4 engineering/release audit are complete on the next-build branch. The
 fresh-native-client device matrix remains an explicit external release gate;
-nothing in this checklist authorizes deployment.
+the additive catalog v2 contract is deployed and legacy v3 has passed its
+post-deployment production smoke. Nothing in this checklist authorizes an OTA,
+native production build, or store submission.
 
 The six-pass renovation and production backend rollout are complete. These
 refinements must preserve the established visual language, the legacy live-app
