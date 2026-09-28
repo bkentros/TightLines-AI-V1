@@ -452,6 +452,28 @@ function request(
   });
 }
 
+async function productionMichiganRunsAt(
+  localDate: string,
+): Promise<Set<string>> {
+  const response = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+    now: new Date(`${localDate}T17:00:00.000Z`),
+  });
+  assertEquals(response.status, 200);
+  const body = await json(response);
+  return new Set(
+    body.states.flatMap(
+      (state: {
+        state: string;
+        rivers: Array<{ runs: Array<{ runId: string }> }>;
+      }) =>
+        state.state === "MI"
+          ? state.rivers.flatMap((river) => river.runs.map((run) => run.runId))
+          : [],
+    ),
+  );
+}
+
 async function json(response: Response) {
   return await response.json();
 }
@@ -713,6 +735,82 @@ Deno.test("production defaults include the released Bear Creek and Rogue runs", 
     runIds.some((runId: string) => runId.startsWith("milwaukee_")),
     false,
   );
+});
+
+Deno.test("production defaults expose all ten Michigan winter Steelhead pathways in season", async () => {
+  const response = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+    now: new Date("2027-01-20T17:00:00.000Z"),
+  });
+  const body = await json(response);
+  const runIds = new Set<string>(
+    body.states.flatMap(
+      (state: {
+        state: string;
+        rivers: Array<{ runs: Array<{ runId: string }> }>;
+      }) =>
+        state.state === "MI"
+          ? state.rivers.flatMap((river) => river.runs.map((run) => run.runId))
+          : [],
+    ),
+  );
+  const expected = [
+    "pere_marquette_winter_steelhead",
+    "big_manistee_winter_steelhead",
+    "muskegon_winter_steelhead",
+    "st_joseph_winter_steelhead",
+    "grand_winter_steelhead",
+    "betsie_winter_steelhead",
+    "bear_creek_manistee_winter_steelhead",
+    "rogue_mi_winter_steelhead",
+    "platte_winter_steelhead",
+    "white_winter_steelhead",
+  ];
+
+  assertEquals(response.status, 200);
+  assertEquals(
+    [...runIds].filter((runId) => runId.endsWith("winter_steelhead")).sort(),
+    expected.sort(),
+  );
+  assertEquals(
+    [...runIds].some((runId) => runId.endsWith("fall_steelhead")),
+    false,
+  );
+});
+
+Deno.test("production catalog switches every Michigan Steelhead pathway without overlap", async () => {
+  const activations = new Map([
+    ["pere_marquette", "2026-12-23"],
+    ["big_manistee", "2026-12-23"],
+    ["muskegon", "2026-12-23"],
+    ["st_joseph", "2026-12-23"],
+    ["grand", "2027-01-01"],
+    ["betsie", "2026-12-18"],
+    ["bear_creek_manistee", "2027-01-01"],
+    ["rogue_mi", "2027-01-01"],
+    ["platte", "2026-12-16"],
+    ["white", "2026-12-29"],
+  ]);
+
+  for (const [riverId, activation] of activations) {
+    const prior = addDays(activation, -1);
+    const fallRunId = `${riverId}_fall_steelhead`;
+    const winterRunId = `${riverId}_winter_steelhead`;
+    const priorRuns = await productionMichiganRunsAt(prior);
+    const activationRuns = await productionMichiganRunsAt(activation);
+    assertEquals(priorRuns.has(fallRunId), true, `${riverId}/${prior}`);
+    assertEquals(priorRuns.has(winterRunId), false, `${riverId}/${prior}`);
+    assertEquals(
+      activationRuns.has(fallRunId),
+      false,
+      `${riverId}/${activation}`,
+    );
+    assertEquals(
+      activationRuns.has(winterRunId),
+      true,
+      `${riverId}/${activation}`,
+    );
+  }
 });
 
 Deno.test("database config source loads only the published validated document", async () => {

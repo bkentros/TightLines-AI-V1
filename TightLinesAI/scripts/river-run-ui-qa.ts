@@ -773,9 +773,10 @@ const michiganSpotCounts = {
   muskegon: 14,
   st_joseph: 15,
   grand: 28,
+  platte: 3,
   white: 10,
   bear_creek_manistee: 2,
-  rogue_mi: 3,
+  rogue_mi: 4,
 } as const;
 const allSpotIds = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
   finder.sections.flatMap((section) => section.spots.map((spot) => spot.id))
@@ -787,8 +788,8 @@ assert.equal(
 );
 assert.equal(
   allSpotIds.length,
-  225,
-  "The source-audited River Run inventory must contain 225 public access points",
+  229,
+  "The source-audited River Run inventory must contain 229 public access points",
 );
 for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
   const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
@@ -803,8 +804,8 @@ for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
 }
 assert.equal(
   Object.values(michiganSpotCounts).reduce((total, count) => total + count, 0),
-  102,
-  "The audited Michigan River Run inventory must contain 102 access points",
+  106,
+  "The audited Michigan River Run inventory must contain 106 access points",
 );
 
 for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
@@ -853,13 +854,20 @@ for (const finder of Object.values(RIVER_RUN_SPOT_FINDERS)) {
     }
   }
 }
-for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+for (const species of ["chinook_salmon", "coho_salmon"] as const) {
   assert.equal(
     riverRunSpotFinderForRiver("platte", species, "MI"),
     undefined,
     `Platte Spot Finder must remain hidden for ${species} until practical fishing access is audited inside its species corridor`,
   );
 }
+assert.deepEqual(
+  riverRunSpotFinderForRiver("platte", "steelhead", "MI")?.sections.map((
+    section,
+  ) => section.id),
+  ["platte_lower_access", "platte_weir_access"],
+  "Platte Steelhead must expose the audited lower-corridor winter access",
+);
 assert.deepEqual(
   riverRunSpotFinderForRiver("grand", "chinook_salmon")?.sections.map((
     section,
@@ -1288,10 +1296,12 @@ assert.equal(
   "72nd Street must use its live individual Forest Service access page",
 );
 
-assert.equal(
-  RIVER_RUN_SPOT_FINDERS.platte,
-  undefined,
-  "Paddling-oriented Platte water accesses must not be presented as fishing recommendations",
+assert.deepEqual(
+  RIVER_RUN_SPOT_FINDERS.platte.sections.flatMap((section) =>
+    section.eligibleSpecies ?? []
+  ),
+  ["steelhead", "steelhead"],
+  "Platte access must remain limited to its explicitly audited Steelhead corridor",
 );
 const sectionSpotNames = (riverId: string, sectionId: string) =>
   RIVER_RUN_SPOT_FINDERS[riverId].sections.find((section) =>

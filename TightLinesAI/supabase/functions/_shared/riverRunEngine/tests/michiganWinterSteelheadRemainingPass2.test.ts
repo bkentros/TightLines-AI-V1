@@ -7,11 +7,17 @@ import {
 import {
   type ActivityWeatherHour,
   type AuditedRiverRunProfile,
+  BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT,
   BEAR_CREEK_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE,
+  BETSIE_CONFIGURATION_DOCUMENT,
   BETSIE_WINTER_STEELHEAD_RUN_PROFILE,
+  isRunSeasonallyActive,
+  PLATTE_CONFIGURATION_DOCUMENT,
   PLATTE_WINTER_STEELHEAD_RUN_PROFILE,
+  ROGUE_MI_CONFIGURATION_DOCUMENT,
   ROGUE_MI_WINTER_STEELHEAD_RUN_PROFILE,
   scoreActivity,
+  WHITE_CONFIGURATION_DOCUMENT,
   WHITE_WINTER_STEELHEAD_RUN_PROFILE,
 } from "../index.ts";
 
@@ -21,6 +27,14 @@ const runs = [
   ROGUE_MI_WINTER_STEELHEAD_RUN_PROFILE,
   PLATTE_WINTER_STEELHEAD_RUN_PROFILE,
   WHITE_WINTER_STEELHEAD_RUN_PROFILE,
+];
+
+const documents = [
+  BETSIE_CONFIGURATION_DOCUMENT,
+  BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT,
+  ROGUE_MI_CONFIGURATION_DOCUMENT,
+  PLATTE_CONFIGURATION_DOCUMENT,
+  WHITE_CONFIGURATION_DOCUMENT,
 ];
 
 type Group = {
@@ -123,6 +137,50 @@ Deno.test("remaining Pass 2 aggregate acceptance is current and complete", async
   assertEquals(audit.replay.stratifiedReviewRows, 500);
   assertEquals(audit.replay.invariantFailures, []);
   assertEquals(Object.values(audit.acceptance).every(Boolean), true);
+});
+
+Deno.test("remaining configuration and public audit versions are promoted to Pass 2", () => {
+  for (const document of documents) {
+    assertMatch(document.configVersion, /winter-steelhead-pass2-v1/);
+    const winter = document.runs.find((run) =>
+      run.species === "steelhead" && run.season === "winter"
+    );
+    assert(winter, document.river.riverId);
+    assertMatch(
+      winter.publicAudit.auditVersion ?? "",
+      /winter-steelhead-pass2-v1/,
+    );
+  }
+});
+
+Deno.test("remaining fall-to-winter handoffs stay exact across normal and leap years", () => {
+  for (const document of documents) {
+    const fall = document.runs.find((run) =>
+      run.species === "steelhead" && run.season === "fall"
+    )!;
+    const winter = document.runs.find((run) =>
+      run.species === "steelhead" && run.season === "winter"
+    )!;
+    for (let year = 2026; year <= 2030; year++) {
+      const activation = `${year}-${winter.runWindow.start}`;
+      const prior = shiftDate(activation, -1);
+      const endYear = winter.runWindow.end < winter.runWindow.start
+        ? year + 1
+        : year;
+      const end = `${endYear}-${winter.runWindow.end}`;
+      const after = shiftDate(end, 1);
+      assertEquals(isRunSeasonallyActive(fall, prior), true, fall.runId);
+      assertEquals(isRunSeasonallyActive(winter, prior), false, winter.runId);
+      assertEquals(isRunSeasonallyActive(fall, activation), false, fall.runId);
+      assertEquals(
+        isRunSeasonallyActive(winter, activation),
+        true,
+        winter.runId,
+      );
+      assertEquals(isRunSeasonallyActive(winter, end), true, winter.runId);
+      assertEquals(isRunSeasonallyActive(winter, after), false, winter.runId);
+    }
+  }
 });
 
 Deno.test("remaining Pass 2 locks air-proxy thermal ordering and ceilings", () => {
@@ -296,4 +354,9 @@ function weather(
       is_day: isDay ? 1 : 0,
     };
   });
+}
+
+function shiftDate(date: string, days: number): string {
+  return new Date(new Date(`${date}T12:00:00Z`).getTime() + days * 86_400_000)
+    .toISOString().slice(0, 10);
 }

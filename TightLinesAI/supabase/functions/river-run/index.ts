@@ -225,6 +225,7 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "betsie_fall_chinook",
   "betsie_fall_coho",
   "betsie_fall_steelhead",
+  "betsie_winter_steelhead",
   "big_manistee_fall_chinook",
   "big_manistee_fall_coho",
   "big_manistee_fall_steelhead",
@@ -244,15 +245,19 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "platte_fall_chinook",
   "platte_fall_coho",
   "platte_fall_steelhead",
+  "platte_winter_steelhead",
   "white_fall_chinook",
   "white_fall_coho",
   "white_fall_steelhead",
+  "white_winter_steelhead",
   "bear_creek_manistee_fall_chinook",
   "bear_creek_manistee_fall_coho",
   "bear_creek_manistee_fall_steelhead",
+  "bear_creek_manistee_winter_steelhead",
   "rogue_mi_fall_chinook",
   "rogue_mi_fall_coho",
   "rogue_mi_fall_steelhead",
+  "rogue_mi_winter_steelhead",
 ]);
 
 type ConditionRefreshRow = {

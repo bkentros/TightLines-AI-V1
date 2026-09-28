@@ -465,7 +465,7 @@ export const PLATTE_WINTER_STEELHEAD_RUN_PROFILE =
 
 export const PLATTE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-25-platte-winter-steelhead-pass1-v1",
+  configVersion: "2026-09-27-platte-winter-steelhead-pass2-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

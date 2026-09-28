@@ -1151,7 +1151,7 @@ const BIOLOGY_PROFILES = [
 export const BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-09-25-bear-creek-manistee-winter-steelhead-pass1-v1",
+    configVersion: "2026-09-27-bear-creek-manistee-winter-steelhead-pass2-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -1164,7 +1164,7 @@ export const BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const ROGUE_MI_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-25-rogue-mi-winter-steelhead-pass1-v1",
+  configVersion: "2026-09-27-rogue-mi-winter-steelhead-pass2-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

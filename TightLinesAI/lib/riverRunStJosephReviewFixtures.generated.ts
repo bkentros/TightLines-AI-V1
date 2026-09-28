@@ -491,7 +491,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -977,7 +977,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -1532,7 +1532,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -2132,7 +2132,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -2743,7 +2743,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -3361,7 +3361,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -3988,7 +3988,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -4616,7 +4616,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -5222,7 +5222,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -5835,7 +5835,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -6378,7 +6378,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -6870,7 +6870,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -7356,7 +7356,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -7911,7 +7911,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -8466,7 +8466,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -9021,7 +9021,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -9576,7 +9576,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -10256,7 +10256,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -10880,7 +10880,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -11498,7 +11498,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -12116,7 +12116,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -12734,7 +12734,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -13352,7 +13352,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -13970,7 +13970,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -14591,7 +14591,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -15212,7 +15212,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -15833,7 +15833,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -16408,7 +16408,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -16984,7 +16984,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -17533,7 +17533,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -18088,7 +18088,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -18644,7 +18644,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -19263,7 +19263,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -19887,7 +19887,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -20507,7 +20507,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -21125,7 +21125,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -21746,7 +21746,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -22367,7 +22367,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -22988,7 +22988,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -23563,7 +23563,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -24181,7 +24181,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -24799,7 +24799,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -25417,7 +25417,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -25978,7 +25978,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -26578,7 +26578,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -27189,7 +27189,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -27807,7 +27807,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -28418,7 +28418,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -29019,7 +29019,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -29620,7 +29620,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -30240,7 +30240,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -30868,7 +30868,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -31474,7 +31474,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -32087,7 +32087,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -32663,7 +32663,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -33238,7 +33238,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -33730,7 +33730,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -34330,7 +34330,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -34930,7 +34930,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -35537,7 +35537,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -36148,7 +36148,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -36759,7 +36759,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -37377,7 +37377,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -37995,7 +37995,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -38613,7 +38613,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -39241,7 +39241,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -39869,7 +39869,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -40497,7 +40497,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -41103,7 +41103,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -41715,7 +41715,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -42327,7 +42327,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -42806,7 +42806,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -43430,7 +43430,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -44048,7 +44048,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -44617,7 +44617,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -45172,7 +45172,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]
@@ -45796,7 +45796,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -46417,7 +46417,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -46992,7 +46992,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       },
       {
@@ -47568,7 +47568,7 @@ export const RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-09-03-st-joseph-direct-push-v1+seasonal-zone-v3"
+          "configVersion": "2026-09-25-st-joseph-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1"
         }
       }
     ]

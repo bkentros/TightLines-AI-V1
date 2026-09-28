@@ -442,6 +442,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       {
         id: "platte_lower_access",
         foundationReachIds: ["platte_lower_entry"],
+        eligibleSpecies: ["steelhead"],
         position: "lower",
         rangeLabel: "Platte River Point to El Dorado",
         spots: [
@@ -472,6 +473,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
       {
         id: "platte_weir_access",
         foundationReachIds: ["platte_weir_approach"],
+        eligibleSpecies: ["steelhead"],
         position: "upper",
         rangeLabel: "El Dorado to the signed Lower Weir closure",
         spots: [
