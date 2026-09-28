@@ -59,7 +59,12 @@ Deno.test("Bear Creek and Rogue Pass 2 profiles validate in the public catalog",
     assertEquals(run.primitiveCapabilities.fishInRiver.status, "available");
     assertEquals(run.primitiveCapabilities.activity.status, "available");
     assert(run.activity);
-    assert(run.seasonalZonePlan?.earlyApproach?.label);
+    if (run.season === "winter") {
+      assertEquals(run.seasonalZonePlan?.earlyApproach, undefined);
+      assert(run.seasonalZonePlan?.winterHoldingGuidance);
+    } else {
+      assert(run.seasonalZonePlan?.earlyApproach?.label);
+    }
     assert(
       RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
       `${run.runId} is missing from the public run registry`,
@@ -130,11 +135,20 @@ Deno.test("Rogue live source is restricted to the lower Packer Drive reach", () 
   assertMatch(river.gaugeLimitationCopy, /does not measure water temperature/i);
   for (const run of ROGUE_MI_RUNS) {
     assertEquals(run.primitiveCapabilities.fishability.status, "available");
-    assertEquals(run.primitiveCapabilities.push.status, "available");
     assertEquals(run.fishabilityBands?.ideal, { min: 133, max: 225 });
     assertEquals(run.activity?.weights.waterTemperature, 0);
-    assertEquals(run.push?.directEvent?.temperature, "disabled");
-    assertEquals(run.push?.directEvent?.maximumLevel, 2);
+    if (run.season === "winter") {
+      assertEquals(run.primitiveCapabilities.push.status, "unavailable");
+      assertEquals(run.push, undefined);
+      assertEquals(
+        run.activity?.winterTemperatureMode,
+        "air_temperature_proxy",
+      );
+    } else {
+      assertEquals(run.primitiveCapabilities.push.status, "available");
+      assertEquals(run.push?.directEvent?.temperature, "disabled");
+      assertEquals(run.push?.directEvent?.maximumLevel, 2);
+    }
   }
 });
 
@@ -253,7 +267,11 @@ Deno.test("Pass 1 calendars and presence strengths stay independently locked", (
     },
   } as const;
 
-  for (const run of [...BEAR_CREEK_MANISTEE_RUNS, ...ROGUE_MI_RUNS]) {
+  for (
+    const run of [...BEAR_CREEK_MANISTEE_RUNS, ...ROGUE_MI_RUNS].filter(
+      (candidate) => candidate.season === "fall",
+    )
+  ) {
     const locked = expected[run.runId as keyof typeof expected];
     assert(locked, `unexpected released run ${run.runId}`);
     assertEquals(run.historicalPresence.maximum, locked.maximum);
@@ -284,8 +302,8 @@ Deno.test("Pass 2 configuration documents validate as complete published packets
       0,
       issues.map((item) => `${item.field}: ${item.message}`).join("\n"),
     );
-    assertEquals(document.runs.length, 3);
-    assertEquals(document.biologyProfiles.length, 3);
+    assertEquals(document.runs.length, 4);
+    assertEquals(document.biologyProfiles.length, 4);
     assert(
       RIVER_RUN_CONFIGURATION_DOCUMENTS.some((item) =>
         item.river.riverId === document.river.riverId
@@ -302,11 +320,11 @@ Deno.test("Pass 2 client presentation covers audited public access", () => {
   );
   const rogue = riverRunSpotFinderForRiver("rogue_mi", "chinook_salmon", "MI");
   assertEquals(bear?.sections.flatMap((section) => section.spots).length, 2);
-  assertEquals(rogue?.sections.flatMap((section) => section.spots).length, 3);
+  assertEquals(rogue?.sections.flatMap((section) => section.spots).length, 4);
   assert(
     [...(bear?.sections ?? []), ...(rogue?.sections ?? [])]
       .flatMap((section) => section.spots)
-      .every((spot) => spot.verifiedOn === "2026-09-18"),
+      .every((spot) => spot.verifiedOn >= "2026-09-18"),
   );
 });
 

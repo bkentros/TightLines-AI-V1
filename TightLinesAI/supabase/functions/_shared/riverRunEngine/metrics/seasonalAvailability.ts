@@ -2,12 +2,17 @@ import type { RiverRunProfile } from "../types.ts";
 import { compareLocalDates } from "./dateWindow.ts";
 import { resolveRunStage } from "../scoring/runStage.ts";
 
-const MICHIGAN_WINTER_PASS1_RIVERS = new Set([
+const MICHIGAN_WINTER_STEELHEAD_RIVERS = new Set([
   "pere_marquette",
   "big_manistee",
   "muskegon",
   "st_joseph",
   "grand",
+  "betsie",
+  "bear_creek_manistee",
+  "rogue_mi",
+  "platte",
+  "white",
 ]);
 
 /**
@@ -26,7 +31,7 @@ export function isRunSeasonallyActive(
   if (
     run.season === "fall" && run.runType === "fall_entry" &&
     run.species === "steelhead" &&
-    MICHIGAN_WINTER_PASS1_RIVERS.has(run.riverId)
+    MICHIGAN_WINTER_STEELHEAD_RIVERS.has(run.riverId)
   ) {
     return compareLocalDates(localDate, stage.window.endDate) <= 0;
   }

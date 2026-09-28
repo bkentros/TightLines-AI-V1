@@ -1,0 +1,275 @@
+{
+  "auditVersion": "michigan-winter-steelhead-remaining-pass2-v1",
+  "completedOn": "2026-09-27",
+  "status": "accepted",
+  "scope": {
+    "state": "Michigan",
+    "species": "Steelhead",
+    "pathway": "Winter holding",
+    "rivers": [
+      "betsie_winter_steelhead",
+      "bear_creek_manistee_winter_steelhead",
+      "rogue_mi_winter_steelhead",
+      "platte_winter_steelhead",
+      "white_winter_steelhead"
+    ],
+    "replayYears": "2021-2025 winter starts for Betsie, Bear Creek, Rogue, and Platte; 2022-2025 winter starts for White because the accepted Weaver Street archive begins in 2022."
+  },
+  "method": "Every model-active date was replayed with archived hourly Open-Meteo weather converted from UTC through America/Detroit historical timezone rules. Rogue alone adds its configured Packer Drive USGS daily flow; White requires both configured Fruitvale USGS flow and Weaver Street measured temperature from Monitor My Watershed. No missing observation was filled and no neighboring river sensor was borrowed. The audit measures deterministic model behavior, not fish abundance, access, safety, or catch probability.",
+  "sourceRecords": [
+    {
+      "role": "biology_and_season",
+      "source": "Michigan DNR Steelhead species profile",
+      "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead"
+    },
+    {
+      "role": "temperature_led_movement_context",
+      "source": "Workman, Hayes, and Coon (2002), Transactions of the American Fisheries Society",
+      "url": "https://doi.org/10.1577/1548-8659(2002)131%3C0463:AMOSMI%3E2.0.CO;2"
+    },
+    {
+      "role": "flow",
+      "source": "USGS Water Data for the Nation: 04118500 and 04122200",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/"
+    },
+    {
+      "role": "white_measured_water_temperature",
+      "source": "Weaver Street station via Monitor My Watershed",
+      "url": "https://monitormywatershed.org/"
+    },
+    {
+      "role": "hourly_weather_archive",
+      "source": "Open-Meteo Historical Weather API",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api"
+    }
+  ],
+  "replay": {
+    "expectedRiverDays": 1578,
+    "usableRiverDays": 1562,
+    "coveragePercent": 98.99,
+    "minimumRiverCoveragePercent": 95.16,
+    "scoredDaylightBlocks": 4686,
+    "stratifiedReviewRows": 500,
+    "activeOrHigherDays": 488,
+    "activeOrHigherPercent": 31.24,
+    "maximumObservedWithinDayBlockSpread": 12,
+    "invariantFailures": [],
+    "rivers": [
+      {
+        "runId": "betsie_winter_steelhead",
+        "rulesVersion": "betsie-winter-steelhead-activity-v1",
+        "mode": "air_temperature_proxy",
+        "replayYears": "2021-2025",
+        "expectedDays": 365,
+        "usableDays": 364,
+        "coveragePercent": 99.73,
+        "dayScore": {
+          "min": 25,
+          "p10": 38,
+          "median": 39,
+          "p90": 64,
+          "max": 64,
+          "mean": 46.87
+        },
+        "labels": {
+          "Active": 115,
+          "Moderate": 5,
+          "Reserved": 244
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "measuredWaterTemperature": 0,
+          "measuredWaterHistory": 0,
+          "hourlyWeather": 1,
+          "airTemperatureHistory": 1
+        },
+        "maximumBlockSpread": 12
+      },
+      {
+        "runId": "bear_creek_manistee_winter_steelhead",
+        "rulesVersion": "bear_creek_manistee-winter-steelhead-activity-v1",
+        "mode": "air_temperature_proxy",
+        "replayYears": "2021-2025",
+        "expectedDays": 295,
+        "usableDays": 294,
+        "coveragePercent": 99.66,
+        "dayScore": {
+          "min": 25,
+          "p10": 38,
+          "median": 39,
+          "p90": 64,
+          "max": 64,
+          "mean": 44.41
+        },
+        "labels": {
+          "Active": 66,
+          "Moderate": 5,
+          "Reserved": 223
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "measuredWaterTemperature": 0,
+          "measuredWaterHistory": 0,
+          "hourlyWeather": 1,
+          "airTemperatureHistory": 1
+        },
+        "maximumBlockSpread": 11
+      },
+      {
+        "runId": "rogue_mi_winter_steelhead",
+        "rulesVersion": "rogue_mi-winter-steelhead-activity-v1",
+        "mode": "air_temperature_proxy",
+        "replayYears": "2021-2025",
+        "expectedDays": 295,
+        "usableDays": 294,
+        "coveragePercent": 99.66,
+        "dayScore": {
+          "min": 18,
+          "p10": 39,
+          "median": 39,
+          "p90": 69,
+          "max": 69,
+          "mean": 44.35
+        },
+        "labels": {
+          "Active": 66,
+          "Inactive": 18,
+          "Moderate": 2,
+          "Reserved": 208
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "measuredWaterTemperature": 0,
+          "measuredWaterHistory": 0,
+          "hourlyWeather": 1,
+          "airTemperatureHistory": 1
+        },
+        "maximumBlockSpread": 6
+      },
+      {
+        "runId": "platte_winter_steelhead",
+        "rulesVersion": "platte-winter-steelhead-activity-v1",
+        "mode": "air_temperature_proxy",
+        "replayYears": "2021-2025",
+        "expectedDays": 375,
+        "usableDays": 374,
+        "coveragePercent": 99.73,
+        "dayScore": {
+          "min": 26,
+          "p10": 39,
+          "median": 39,
+          "p90": 64,
+          "max": 64,
+          "mean": 48.62
+        },
+        "labels": {
+          "Active": 145,
+          "Moderate": 3,
+          "Reserved": 226
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "measuredWaterTemperature": 0,
+          "measuredWaterHistory": 0,
+          "hourlyWeather": 1,
+          "airTemperatureHistory": 1
+        },
+        "maximumBlockSpread": 12
+      },
+      {
+        "runId": "white_winter_steelhead",
+        "rulesVersion": "white-winter-steelhead-activity-v1",
+        "mode": "measured_water",
+        "replayYears": "2022-2025",
+        "expectedDays": 248,
+        "usableDays": 236,
+        "coveragePercent": 95.16,
+        "dayScore": {
+          "min": 29,
+          "p10": 29,
+          "median": 49,
+          "p90": 75,
+          "max": 85,
+          "mean": 50.31
+        },
+        "labels": {
+          "Active": 85,
+          "Highly active": 11,
+          "Moderate": 47,
+          "Reserved": 93
+        },
+        "reviewRows": 100,
+        "reviewCsvColumns": 21,
+        "malformedReviewRows": 0,
+        "missing": {
+          "flow": 0,
+          "priorFlow": 0,
+          "measuredWaterTemperature": 4,
+          "measuredWaterHistory": 7,
+          "hourlyWeather": 1,
+          "airTemperatureHistory": 0
+        },
+        "maximumBlockSpread": 8
+      }
+    ]
+  },
+  "calibrationDecision": {
+    "result": "retain_pass1_dates_presence_and_activity_calibration",
+    "reasons": [
+      "All four air-proxy rivers remain predominantly Reserved or Inactive; gradual warmups separate cleanly from persistent cold and large-swing days without producing Highly active claims.",
+      "Rogue flow adds a legitimate hydraulic fail-safe: every observed blown-out day is capped at 19 while measured flow remains explicitly lower-reach only.",
+      "White measured water provides the strongest discrimination: every day at or below 33.5°F is capped at 29, while 38–45°F water supports a 75 median and only 11 of 236 usable days reach Highly active.",
+      "Cloud cover improves or ties the daylight window in every high-contrast comparison, never reverses it, and remains bounded by the thermal and hydraulic caps; rain receives no independent credit.",
+      "The month-by-month results remain condition-led rather than being inflated by a lifecycle stage. Presence declines separately toward the February 28 spring handoff."
+    ],
+    "unchangedModeCalibration": {
+      "weatherOnly": "60% multi-day air-temperature context, 40% daylight/cloud, Limited confidence, 64 today / 62 tomorrow ceiling",
+      "rogue": "50% multi-day air-temperature context, 25% lower-reach measured flow, 25% daylight/cloud, Limited confidence, 69 ceiling",
+      "white": "45% measured water temperature, 20% measured-water trend, 20% daylight/cloud, 15% measured flow",
+      "independentRainWeight": 0
+    },
+    "unchangedSeasonBoundaries": {
+      "betsie": "December 18 through February 28",
+      "bearCreekManistee": "January 1 through February 28",
+      "rogue": "January 1 through February 28",
+      "platte": "December 16 through February 28",
+      "white": "December 29 through February 28",
+      "march1": "inactive; reserved for a separately researched spring pathway"
+    }
+  },
+  "acceptance": {
+    "allFiveRunsPresent": true,
+    "everyRiverAtLeast95PercentCoverage": true,
+    "aggregateCoverageAtLeast98Percent": true,
+    "allMechanicalInvariantsPass": true,
+    "oneHundredReviewRowsPerRiver": true,
+    "reviewCsvShapesValid": true,
+    "proxyWintersRemainPredominantlyNonActive": true,
+    "proxyWarmupsSeparateFromColdAndSwings": true,
+    "measuredWaterSeparatesUsefulFromNearFreezing": true,
+    "blownOutRogueDaysAreInactive": true,
+    "cloudsOnlyImproveOrTieComparedWindows": true
+  },
+  "limitations": [
+    "Air-proxy scores are deliberately Limited context and never measured or estimated water temperature.",
+    "Betsie, Bear Creek, and Platte have no accepted live hydraulic input; the model cannot infer river level, clarity, ice, access, or safety.",
+    "Rogue flow represents Packer Drive only. White combines separately located Fruitvale flow and Weaver Street temperature, with the reach limits always disclosed.",
+    "Historical source replay validates model mechanics and plausible differentiation, not catch rates or equal fish distribution across the corridor."
+  ]
+}

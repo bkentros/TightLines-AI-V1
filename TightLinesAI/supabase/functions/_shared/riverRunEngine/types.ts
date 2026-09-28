@@ -215,6 +215,8 @@ export type ActivityRules = {
     | "steelhead_winter_holding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
+  /** Winter holding only: measured water when available, otherwise an explicitly limited multi-day air-temperature context. */
+  winterTemperatureMode?: "measured_water" | "air_temperature_proxy";
   /**
    * Optional fail-closed contract for reach-scoped observed models. Full
    * scoring still requires weather, temperature, and hydraulics; this policy

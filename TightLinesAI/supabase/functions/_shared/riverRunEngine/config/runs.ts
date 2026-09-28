@@ -32,6 +32,7 @@ import {
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+  PLATTE_WINTER_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/platte.ts";
 import {
   ROOT_FALL_BROWN_TROUT_RUN_PROFILE,
@@ -49,6 +50,7 @@ import {
   WHITE_FALL_CHINOOK_RUN_PROFILE,
   WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
+  WHITE_WINTER_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/white.ts";
 import { WASHINGTON_DRAFT_RUNS } from "./onboarding/washington.ts";
 import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
@@ -2454,6 +2456,34 @@ export const PERE_MARQUETTE_WINTER_STEELHEAD_RUN_PROFILE =
       "Michigan DNR Steelhead biology; Workman, Hayes, and Coon adult Steelhead telemetry in the Pere Marquette and St. Joseph rivers; USGS 04122500; PMTU measured-water stations. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
   });
 
+export const BETSIE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-18",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.875,
+    coreFraction: 0.84,
+    springApproachFraction: 0.78,
+    endFraction: 0.74,
+    activityMode: "weather_air_proxy",
+    inputReach: {
+      reachIds: ["betsie_lake_to_us31", "betsie_us31_to_homestead"],
+      hydraulicSourceIds: [],
+      waterTemperatureSourceIds: [],
+      weatherPointIds: ["betsie_homestead_weather_context"],
+      notes:
+        "The Homestead modeled-weather point supplies only multi-day air-temperature and daylight context for the two below-Homestead reaches. No river level or water temperature is inferred.",
+    },
+    preferredStartReachIds: ["betsie_us31_to_homestead"],
+    scopeCopy:
+      "This Limited weather context covers only the two audited reaches from Betsie Lake to the signed Homestead closure. It does not measure water temperature, river level, clarity, ice, or safety.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology; Michigan DNR Betsie River Natural River Plan describing Steelhead runs to Homestead and a fall-through-early-spring fishery; Michigan DNR Central Lake Michigan Management Unit Homestead access; 2026 Michigan Fishing Regulations. Pass 2 replayed five winter starts using archived hourly weather only: 364 of 365 active dates were usable, persistent-cold and large-swing days stayed at or below 39, and no proxy day exceeded 64 or claimed Highly active.",
+    auditPhase: "pass2",
+  });
+
 export const BIG_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE =
   buildMichiganWinterSteelheadProfile({
     fall: BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
@@ -2553,6 +2583,7 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  BETSIE_WINTER_STEELHEAD_RUN_PROFILE,
   ...BEAR_CREEK_MANISTEE_RUNS,
   ...ROGUE_MI_RUNS,
   GRAND_FALL_CHINOOK_RUN_PROFILE,
@@ -2562,9 +2593,11 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   PLATTE_FALL_CHINOOK_RUN_PROFILE,
   PLATTE_FALL_COHO_RUN_PROFILE,
   PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+  PLATTE_WINTER_STEELHEAD_RUN_PROFILE,
   WHITE_FALL_CHINOOK_RUN_PROFILE,
   WHITE_FALL_COHO_RUN_PROFILE,
   WHITE_FALL_STEELHEAD_RUN_PROFILE,
+  WHITE_WINTER_STEELHEAD_RUN_PROFILE,
   MILWAUKEE_FALL_CHINOOK_RUN_PROFILE,
   MILWAUKEE_FALL_COHO_RUN_PROFILE,
   MILWAUKEE_FALL_STEELHEAD_RUN_PROFILE,

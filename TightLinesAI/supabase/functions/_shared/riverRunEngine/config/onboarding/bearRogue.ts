@@ -17,7 +17,9 @@ import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
+import { buildMichiganWinterSteelheadProfile } from "../winterSteelhead.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
 
 const ACTIVE_SLOTS = [
@@ -1069,31 +1071,91 @@ export const ROGUE_MI_FALL_STEELHEAD_RUN_PROFILE = releasedRun({
     "docs/onboarding/river-run/rogue_mi/river-onboarding.md; evidence cutoff 2026-09-18.",
 });
 
+export const BEAR_CREEK_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: BEAR_CREEK_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "01-01",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.5,
+    coreFraction: 0.49,
+    springApproachFraction: 0.45,
+    endFraction: 0.42,
+    activityMode: "weather_air_proxy",
+    inputReach: {
+      reachIds: ["bear_creek_lower", "bear_creek_upper"],
+      hydraulicSourceIds: [],
+      waterTemperatureSourceIds: [],
+      weatherPointIds: ["bear_creek_coates_weather"],
+      notes:
+        "Modeled weather at Coates Highway supplies only multi-day air-temperature and daylight context. The sparse 1958–1968 field-measurement archive is never treated as current flow.",
+    },
+    preferredStartReachIds: ["bear_creek_upper"],
+    scopeCopy:
+      "This Limited weather context covers the Coates Highway–to–Manistee corridor. It does not measure creek level, water temperature, clarity, ice, access, or safety.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology; Michigan DNR Bear Creek status report documenting the self-sustaining Steelhead population; Michigan Fisheries Order FO-200.26 year-round Type 3 reach; U.S. Fish and Wildlife Service National Wild and Scenic Rivers Bear Creek corridor. Pass 2 replayed five winter starts using archived hourly weather only: 294 of 295 active dates were usable, persistent-cold and large-swing days stayed at or below 39, and no proxy day exceeded 64 or claimed Highly active.",
+    auditPhase: "pass2",
+  });
+
+export const ROGUE_MI_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: ROGUE_MI_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "01-01",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.58,
+    coreFraction: 0.57,
+    springApproachFraction: 0.53,
+    endFraction: 0.5,
+    activityMode: "flow_air_proxy",
+    inputReach: {
+      reachIds: ["rogue_lower"],
+      hydraulicSourceIds: ["rogue_rockford_usgs"],
+      waterTemperatureSourceIds: [],
+      weatherPointIds: ["rogue_rockford_weather"],
+      notes:
+        "Packer Drive discharge represents only the lower Rogue. Modeled air-temperature history is a separately labeled proxy and never becomes measured water temperature.",
+    },
+    preferredStartReachIds: ["rogue_upper_tailwater"],
+    scopeCopy:
+      "Measured flow describes the lower Rogue at Packer Drive; the Limited air-temperature context is modeled near that station. Neither input directly describes temperature or hydraulics in the middle reach or Rockford tailwater.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology, Better Fishing Waters, Spring Trout guidance, and Rogue/Grand assessment material; Michigan 2026 fishing regulations for the year-round below-dam reach; USGS 04118500 Packer Drive discharge. Pass 2 replayed five winter starts with Packer Drive flow and archived hourly weather: 294 of 295 active dates were usable, all 18 blown-out dates stayed at or below 19, cold and swing caps held, and Limited proxy scoring never exceeded 69.",
+    auditPhase: "pass2",
+  });
+
 export const BEAR_CREEK_MANISTEE_RUNS = [
   BEAR_CREEK_FALL_CHINOOK_RUN_PROFILE,
   BEAR_CREEK_FALL_COHO_RUN_PROFILE,
   BEAR_CREEK_FALL_STEELHEAD_RUN_PROFILE,
+  BEAR_CREEK_MANISTEE_WINTER_STEELHEAD_RUN_PROFILE,
 ];
 
 export const ROGUE_MI_RUNS = [
   ROGUE_MI_FALL_CHINOOK_RUN_PROFILE,
   ROGUE_MI_FALL_COHO_RUN_PROFILE,
   ROGUE_MI_FALL_STEELHEAD_RUN_PROFILE,
+  ROGUE_MI_WINTER_STEELHEAD_RUN_PROFILE,
 ];
 
 const BIOLOGY_PROFILES = [
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
 ];
 
 export const BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-09-18-bear-creek-manistee-pass2-release-v1",
+    configVersion: "2026-09-25-bear-creek-manistee-winter-steelhead-pass1-v1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
+      getMovementEngineDefinition("stable_cool_holding").version,
     ].join("+"),
     river: BEAR_CREEK_MANISTEE_RIVER_PROFILE,
     biologyProfiles: BIOLOGY_PROFILES,
@@ -1102,10 +1164,11 @@ export const BEAR_CREEK_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const ROGUE_MI_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-19-rogue-mi-activity-v2",
+  configVersion: "2026-09-25-rogue-mi-winter-steelhead-pass1-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: ROGUE_MI_RIVER_PROFILE,
   biologyProfiles: BIOLOGY_PROFILES,

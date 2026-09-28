@@ -651,12 +651,22 @@ function scoreWinterSteelheadActivity(
     daylightHours.length > 0;
   const temperatureFreshness = input.waterTemperatureFreshness ??
     (input.waterTempF == null ? "missing" : "fresh");
+  const airProxy = input.rules.winterTemperatureMode ===
+    "air_temperature_proxy";
   const hasTemperature = input.waterTempF != null &&
     temperatureFreshness === "fresh";
   const hasRiver = input.gaugeFreshness === "fresh" && !!input.flowBand;
-  if (!hasWeather || (!hasTemperature && !hasRiver)) {
+  const airTemperatureContext = airProxy
+    ? winterAirTemperatureContext(input.hourlyWeather, input.targetDate)
+    : null;
+  if (
+    !hasWeather ||
+    (airProxy ? !airTemperatureContext : !hasTemperature && !hasRiver)
+  ) {
     const missing = !hasWeather
       ? "Daylight-aware hourly weather is unavailable."
+      : airProxy
+      ? "A usable target-day and recent multi-day air-temperature pattern is unavailable."
       : "Both measured water temperature and measured river behavior are unavailable.";
     return {
       score: null,
@@ -665,10 +675,11 @@ function scoreWinterSteelheadActivity(
       headline: `${
         tomorrow ? "Tomorrow’s" : "Today’s"
       } Winter Steelhead Activity is unavailable.`,
-      detail:
-        `${missing} The model does not replace failed river observations with air temperature or neutral values. ${
-          input.rules.scopeCopy ?? ""
-        }`.trim(),
+      detail: `${missing} ${
+        airProxy
+          ? "The model does not invent water temperature or river state from incomplete weather."
+          : "The model does not replace failed river observations with air temperature or neutral values."
+      } ${input.rules.scopeCopy ?? ""}`.trim(),
       tip:
         "Check again after the required sources resume, and verify ice, access, and safety conditions directly.",
       reasonCodes: [
@@ -708,9 +719,9 @@ function scoreWinterSteelheadActivity(
     };
   });
   const refreshMinutes = parseRefreshMinutes(input.refreshSlot ?? "04:00");
-  const thermalScore = winterTemperatureScore(
-    hasTemperature ? input.waterTempF : null,
-  );
+  const thermalScore = airProxy
+    ? airTemperatureContext!.score
+    : winterTemperatureScore(hasTemperature ? input.waterTempF : null);
   const trendScore = winterTrendScore(
     hasTemperature ? input.temperatureTrend : "neutral_missing",
   );
@@ -722,8 +733,10 @@ function scoreWinterSteelheadActivity(
     input.currentHydraulicValue,
     input.fishabilityBands,
   );
-  const confidence: ActivityConfidence = hasTemperature && hasRiver &&
-      input.weatherFreshness === "fresh" && !tomorrow
+  const confidence: ActivityConfidence = airProxy
+    ? "Limited"
+    : hasTemperature && hasRiver &&
+        input.weatherFreshness === "fresh" && !tomorrow
     ? "Full"
     : hasTemperature || hasRiver
     ? "Moderate"
@@ -741,6 +754,7 @@ function scoreWinterSteelheadActivity(
       trend: hasTemperature ? input.rules.weights.temperatureTrend ?? 0 : 0,
       light: input.rules.weights.light,
       river: hasRiver ? input.rules.weights.riverBehavior : 0,
+      air: airProxy ? input.rules.weights.weather : 0,
     };
     const totalWeight = Object.values(availableWeights).reduce(
       (a, b) => a + b,
@@ -751,18 +765,40 @@ function scoreWinterSteelheadActivity(
         thermalScore * availableWeights.temperature +
         trendScore * availableWeights.trend +
         light * availableWeights.light +
-        hydraulicScore * availableWeights.river
+        hydraulicScore * availableWeights.river +
+        thermalScore * availableWeights.air
       ) / Math.max(0.01, totalWeight),
     );
-    if (!hasTemperature) score = Math.min(score, 59);
-    if (!hasRiver) score = Math.min(score, 69);
-    if (input.waterTempF != null && input.waterTempF <= 33.5) {
+    if (!airProxy && !hasTemperature) score = Math.min(score, 59);
+    if (input.rules.weights.riverBehavior > 0 && !hasRiver) {
+      score = Math.min(score, input.rules.caps.noMeasuredRiverData);
+    }
+    if (!airProxy && input.waterTempF != null && input.waterTempF <= 33.5) {
       score = Math.min(score, 29);
-    } else if (input.waterTempF != null && input.waterTempF < 35) {
+    } else if (!airProxy && input.waterTempF != null && input.waterTempF < 35) {
       score = Math.min(score, 49);
     }
     if (input.flowBand === "blown_out") score = Math.min(score, 19);
-    if (confidence === "Limited") score = Math.min(score, 59);
+    if (confidence === "Limited" && !airProxy) score = Math.min(score, 59);
+    if (airProxy && input.rules.dataMode !== "weather_only") {
+      score = Math.min(score, 69);
+    }
+    if (
+      airProxy &&
+      (airTemperatureContext!.largeSwing ||
+        airTemperatureContext!.signal === "cold")
+    ) {
+      score = Math.min(score, 39);
+    }
+    if (airProxy && input.rules.dataMode === "weather_only") {
+      score = Math.min(
+        score,
+        tomorrow
+          ? input.rules.caps.weatherOnlyTomorrowMaximum ??
+            input.rules.caps.weatherOnlyMaximum ?? 64
+          : input.rules.caps.weatherOnlyMaximum ?? 64,
+      );
+    }
     const status = tomorrow
       ? "upcoming" as const
       : refreshMinutes >= segment.end * 60
@@ -776,14 +812,23 @@ function scoreWinterSteelheadActivity(
         candidate.id === segment.id
       )
       : undefined;
-    const thermalDriver = hasTemperature && thermalScore >= 68
-      ? "Measured water temperature supports winter responsiveness."
-      : input.temperatureTrend === "warming"
-      ? "A gradual measured-water warming trend improves the response window."
-      : light >= 70
-      ? "Cloud-filtered daylight improves presentation without relying on darkness."
-      : "The daylight window remains workable.";
-    const limit = !hasTemperature
+    const thermalDriver =
+      airProxy && airTemperatureContext!.signal === "warming"
+        ? "A gradual, stable air warm-up improves this Limited temperature context."
+        : airProxy && airTemperatureContext!.signal === "stable_mild"
+        ? "Stable mild air supports the best available winter temperature context."
+        : hasTemperature && thermalScore >= 68
+        ? "Measured water temperature supports winter responsiveness."
+        : input.temperatureTrend === "warming"
+        ? "A gradual measured-water warming trend improves the response window."
+        : light >= 70
+        ? "Cloud-filtered daylight improves presentation without relying on darkness."
+        : "The daylight window remains workable.";
+    const limit = airProxy && airTemperatureContext!.largeSwing
+      ? "A large air-temperature swing reduces confidence in a sustained response."
+      : airProxy && airTemperatureContext!.signal === "cold"
+      ? "Persistent cold air limits this proxy; actual water temperature is unmeasured."
+      : !hasTemperature
       ? "Fresh measured water temperature is unavailable; air temperature is not substituted."
       : (input.waterTempF ?? 99) <= 35
       ? "Near-freezing water strongly limits metabolic response."
@@ -823,11 +868,15 @@ function scoreWinterSteelheadActivity(
       (sorted[1]?.score ?? sorted[0].score) * 0.25,
   );
   const best = sorted[0];
-  const airContext =
-    tomorrow && targetWeather.some((hour) => hour.temperature_2m_f != null)
-      ? " Forecast air temperature provides context only; the score retains the latest fresh measured-water state and does not convert air to water temperature."
-      : "";
-  const trendCopy = input.temperatureTrend === "warming"
+  const forecastAirContext = !airProxy && tomorrow &&
+      targetWeather.some((hour) => hour.temperature_2m_f != null)
+    ? " Forecast air temperature provides context only; the score retains the latest fresh measured-water state and does not convert air to water temperature."
+    : "";
+  const trendCopy = airProxy
+    ? `${
+      airTemperatureContext!.copy
+    } Air temperature is used only as a deliberately capped proxy; it is never reported or treated as measured water temperature.`
+    : input.temperatureTrend === "warming"
     ? "A gradual measured-water warm-up is favorable."
     : input.temperatureTrend === "neutral"
     ? "Stable measured water avoids a swing penalty."
@@ -845,7 +894,11 @@ function scoreWinterSteelheadActivity(
       tomorrow ? "Tomorrow’s" : "Today’s"
     } Winter Steelhead Activity is ${activityLabel(score).toLowerCase()}.`,
     detail:
-      `${trendCopy} The strongest daylight window is ${best.label}. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score.${airContext} ${
+      `${trendCopy} The strongest daylight window is ${best.label}. Clouds shape the time-window ranking, but cannot override ${
+        airProxy
+          ? "the proxy ceiling or hydraulic constraints"
+          : "cold-water or hydraulic caps"
+      }. Rain receives no independent positive score.${forecastAirContext} ${
         input.rules.scopeCopy ?? ""
       }`.trim(),
     tip:
@@ -854,14 +907,21 @@ function scoreWinterSteelheadActivity(
       "activity_winter_holding",
       "activity_winter_daylight",
       tomorrow ? "activity_tomorrow" : "activity_today",
-      input.temperatureTrend === "warming"
+      airProxy
+        ? airTemperatureContext!.signal === "warming"
+          ? "activity_winter_air_proxy_warming"
+          : airTemperatureContext!.signal === "cold"
+          ? "activity_winter_air_proxy_cold"
+          : "activity_winter_air_proxy_stable"
+        : input.temperatureTrend === "warming"
         ? "activity_winter_warming"
         : input.temperatureTrend === "neutral"
         ? "activity_winter_stable"
         : "activity_winter_cooling",
-      ...((input.waterTempF ?? 99) <= 33.5
+      ...(!airProxy && (input.waterTempF ?? 99) <= 33.5
         ? ["activity_winter_near_freezing_cap"]
         : []),
+      ...(airProxy ? ["activity_winter_air_temperature_proxy"] : []),
     ],
     rulesVersion: input.rules.version,
     targetDate: input.targetDate,
@@ -871,6 +931,96 @@ function scoreWinterSteelheadActivity(
     blocks,
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+type WinterAirTemperatureContext = {
+  score: number;
+  signal: "warming" | "stable_mild" | "cold" | "variable";
+  largeSwing: boolean;
+  copy: string;
+};
+
+function winterAirTemperatureContext(
+  hours: ActivityWeatherHour[],
+  targetDate: string,
+): WinterAirTemperatureContext | null {
+  const temperaturesByDate = new Map<string, number[]>();
+  for (const hour of hours) {
+    if (
+      hour.temperature_2m_f == null || !Number.isFinite(hour.temperature_2m_f)
+    ) {
+      continue;
+    }
+    const date = hour.time_local.slice(0, 10);
+    const values = temperaturesByDate.get(date) ?? [];
+    values.push(hour.temperature_2m_f);
+    temperaturesByDate.set(date, values);
+  }
+  const target = temperaturesByDate.get(targetDate) ?? [];
+  if (target.length < 6) return null;
+  const previous = [...temperaturesByDate.entries()]
+    .filter(([date, values]) => date < targetDate && values.length >= 6)
+    .toSorted(([a], [b]) => b.localeCompare(a))
+    .slice(0, 3)
+    .reverse();
+  if (previous.length < 2) return null;
+
+  const targetMean = meanNumber(target);
+  const priorMeans = previous.map(([, values]) => meanNumber(values));
+  const priorMean = meanNumber(priorMeans);
+  const delta = targetMean - priorMean;
+  const dailyMeans = [...priorMeans, targetMean];
+  const dayToDaySwings = dailyMeans.slice(1).map((value, index) =>
+    Math.abs(value - dailyMeans[index])
+  );
+  const intradayRange = Math.max(...target) - Math.min(...target);
+  const largestDailySwing = Math.max(...dayToDaySwings);
+  const largeSwing = largestDailySwing > 10 || intradayRange > 20 ||
+    Math.abs(delta) > 10;
+
+  let base = targetMean <= 12
+    ? 8
+    : targetMean < 20
+    ? interpolateClamped(targetMean, 12, 20, 8, 22)
+    : targetMean < 28
+    ? interpolateClamped(targetMean, 20, 28, 22, 42)
+    : targetMean < 34
+    ? interpolateClamped(targetMean, 28, 34, 42, 64)
+    : targetMean < 40
+    ? interpolateClamped(targetMean, 34, 40, 64, 82)
+    : targetMean <= 46
+    ? interpolateClamped(targetMean, 40, 46, 82, 86)
+    : interpolateClamped(targetMean, 46, 58, 86, 62);
+  if (delta >= 1 && delta <= 6) base += 9;
+  else if (Math.abs(delta) < 1) base += 5;
+  else if (delta < -2 && delta >= -7) base -= 9;
+  else if (Math.abs(delta) > 10) base -= 18;
+  if (largestDailySwing <= 4) base += 5;
+  else if (largestDailySwing > 10) base -= 12;
+  if (intradayRange <= 12) base += 3;
+  else if (intradayRange > 20) base -= 10;
+  const score = clamp(Math.round(base));
+  const signal = targetMean < 28
+    ? "cold" as const
+    : largeSwing
+    ? "variable" as const
+    : delta >= 1 && delta <= 6
+    ? "warming" as const
+    : targetMean >= 34 && Math.abs(delta) < 3
+    ? "stable_mild" as const
+    : "variable" as const;
+  const copy = signal === "warming"
+    ? "The recent modeled-air pattern shows a gradual warm-up without a large reversal."
+    : signal === "stable_mild"
+    ? "The recent modeled-air pattern is stable and comparatively mild."
+    : signal === "cold"
+    ? "The recent modeled-air pattern remains persistently cold."
+    : "The recent modeled-air pattern is variable or changing too sharply for a sustained positive signal.";
+  return { score, signal, largeSwing, copy };
+}
+
+function meanNumber(values: number[]): number {
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
 function winterTemperatureScore(temp: number | null): number {

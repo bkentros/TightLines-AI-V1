@@ -27,6 +27,7 @@ import {
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  BETSIE_WINTER_STEELHEAD_RUN_PROFILE,
   BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
   BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
   BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
@@ -84,22 +85,24 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
 
 export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion:
-    "2026-08-27-betsie-fishability-source-audit.2+seasonal-zone-v3",
+  configVersion: "2026-09-25-betsie-winter-steelhead-pass1-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: BETSIE_RIVER_PROFILE,
   biologyProfiles: [
     GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     BETSIE_FALL_CHINOOK_RUN_PROFILE,
     BETSIE_FALL_COHO_RUN_PROFILE,
     BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+    BETSIE_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };
 

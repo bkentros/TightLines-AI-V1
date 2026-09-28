@@ -8,8 +8,10 @@ import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 import { buildWeatherOnlyActivity } from "./weatherOnlyActivity.ts";
+import { buildMichiganWinterSteelheadProfile } from "../winterSteelhead.ts";
 
 export const PLATTE_RIVER_PROFILE: RiverProfile = {
   riverId: "platte",
@@ -433,23 +435,53 @@ export const PLATTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   },
 };
 
+export const PLATTE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-16",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.55,
+    coreFraction: 0.52,
+    springApproachFraction: 0.47,
+    endFraction: 0.44,
+    activityMode: "weather_air_proxy",
+    inputReach: {
+      reachIds: ["platte_lower_entry", "platte_weir_approach"],
+      hydraulicSourceIds: [],
+      waterTemperatureSourceIds: [],
+      weatherPointIds: ["platte_el_dorado_weather"],
+      notes:
+        "El Dorado modeled weather supplies only multi-day air-temperature and daylight context. Honor hydraulics remain excluded because Platte and Loon lakes separate that station from the lower corridor.",
+    },
+    preferredStartReachIds: ["platte_weir_approach"],
+    scopeCopy:
+      "This Limited weather context covers the two-mile lower corridor from Platte River Point to the signed Lower Weir closure. It does not use Honor flow or infer lower-river temperature, level, clarity, ice, or safety.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology and Better Fishing Waters; Michigan DNR Platte hatchery/weir material and 2026 spring Steelhead egg-collection releases; National Park Service Platte River Point, El Dorado, and Fish Weir access guidance; 2026 Michigan Fishing Regulations. Pass 2 replayed five winter starts using archived hourly lower-corridor weather only: 374 of 375 active dates were usable, persistent-cold and large-swing days stayed at or below 39, and no proxy day exceeded 64 or claimed Highly active.",
+    auditPhase: "pass2",
+  });
+
 export const PLATTE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion:
-    "2026-08-27-platte-fishability-source-audit.2+seasonal-zone-v3",
+  configVersion: "2026-09-25-platte-winter-steelhead-pass1-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: PLATTE_RIVER_PROFILE,
   biologyProfiles: [
     GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     PLATTE_FALL_CHINOOK_RUN_PROFILE,
     PLATTE_FALL_COHO_RUN_PROFILE,
     PLATTE_FALL_STEELHEAD_RUN_PROFILE,
+    PLATTE_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };

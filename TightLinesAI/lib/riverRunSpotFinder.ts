@@ -150,6 +150,12 @@ const DNR_BOATING_SOURCE =
 const DNR_CENTRAL_FISHERIES_SOURCE =
   "https://www.michigan.gov/dnr/managing-resources/fisheries/units/c-michigan";
 const DNR_CLOSURES = "https://www.michigan.gov/dnr/about/newsroom/closures";
+const NPS_PLATTE_ACCESS =
+  "https://www.nps.gov/places/000/platte-river-point-water-access.htm";
+const NPS_SLEEPING_BEAR_COMPENDIUM =
+  "https://www.nps.gov/slbe/learn/management/superintendent-compendium.htm";
+const DNR_ROGUE_RIVER_PLAN =
+  "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/NaturalRivers/Rogue_River_Plan.pdf?rev=6a9bfe649fa541dda8675bc3cef972ec";
 const PM_DNR_MAP =
   "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/PublicLands/LandUse/PereMarquette_WandSCorr_BAS.pdf?hash=ABAC24175FEE11C3485EE721B453B6D5&rev=d2b6e8bef18642bab650618c7a6c4471";
 const PM_FOREST_SERVICE_PLAN =
@@ -421,6 +427,65 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Gravel access with timber steps; Recreation Passport required.",
             "Seasonal signed fishing closures around the barrier are mandatory. The listed access does not permit fishing inside a closure.",
             DNR_CENTRAL_FISHERIES_SOURCE,
+          ),
+        ],
+      },
+    ],
+  },
+  platte: {
+    riverId: "platte",
+    riverName: "Platte River",
+    supportedStates: ["MI"],
+    orientationNote:
+      "The two sections cover the complete supported lower-river corridor. Guidance stops at the downstream edge of every signed Lower Platte River Weir closure; Honor and the river above Platte Lake are excluded.",
+    sections: [
+      {
+        id: "platte_lower_access",
+        foundationReachIds: ["platte_lower_entry"],
+        position: "lower",
+        rangeLabel: "Platte River Point to El Dorado",
+        spots: [
+          namedSpot(
+            "platte_river_point",
+            "Platte River Point Water Access",
+            "Platte River Point, Sleeping Bear Dunes National Lakeshore, MI",
+            ["boat_ramp", "carry_in", "walk_in"],
+            "National Park Service paved trailer launch and public river access at the lower-river endpoint near Platte Bay.",
+            "National Park Service",
+            NPS_PLATTE_ACCESS,
+            "Lake Michigan surf, river current, ice, sand and seasonal park operations can change launch conditions. Confirm current park notices before travel.",
+            "2026-09-25",
+          ),
+          namedSpot(
+            "platte_el_dorado",
+            "El Dorado Public Put-In",
+            "El Dorado public put-in, Platte River, Sleeping Bear Dunes National Lakeshore, MI",
+            ["carry_in", "walk_in"],
+            "National Park Service identifies El Dorado as a public put-in on the lower Platte, roughly a one-mile float upstream of Platte River Point.",
+            "National Park Service",
+            NPS_PLATTE_ACCESS,
+            "Use the signed public approach only. A launch listing does not establish shore access, safe winter wading, or permission across neighboring land.",
+            "2026-09-25",
+          ),
+        ],
+      },
+      {
+        id: "platte_weir_access",
+        foundationReachIds: ["platte_weir_approach"],
+        position: "upper",
+        rangeLabel: "El Dorado to the signed Lower Weir closure",
+        spots: [
+          namedSpot(
+            "platte_fish_weir_access",
+            "Fish Weir Carry-In Access",
+            "Platte River Fish Weir access, Sleeping Bear Dunes National Lakeshore, MI",
+            ["carry_in", "walk_in"],
+            "National Park Service identifies Fish Weir as a designated vessel-launch location; the carry is approximately one-quarter mile.",
+            "National Park Service",
+            NPS_SLEEPING_BEAR_COMPENDIUM,
+            "Fishing is closed within 300 feet whenever the Lower Platte River Weir is installed. Current signs define the boundary; this access listing never authorizes fishing inside it or passing the structure.",
+            "2026-09-25",
+            "Open the current Superintendent's Compendium and find the designated Platte River vessel launches, including Fish Weir; then obey every posted DNR weir closure.",
           ),
         ],
       },
@@ -3150,6 +3215,25 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "https://www.kentcountymi.gov/Facilities/Facility/Details/Rogue-River-Park-55",
             "Natural-surface trails, parking, restrooms and hours vary seasonally. The park listing does not establish wading or boat-launch safety.",
             "2026-09-18",
+          ),
+        ],
+      },
+      {
+        id: "rogue_middle_access",
+        foundationReachIds: ["rogue_middle"],
+        position: "middle",
+        rangeLabel: "Packer Drive to 10 Mile Road",
+        spots: [
+          sourceMappedSpot(
+            "rogue_10_mile_bridge",
+            "10 Mile Road Bridge Access",
+            ["walk_in"],
+            "Road-crossing access at the upstream boundary of the supported middle reach. Michigan DNR's Rogue River plan identifies bridge and culvert crossings as public river access.",
+            "Michigan DNR Rogue River Natural River Plan",
+            DNR_ROGUE_RIVER_PLAN,
+            "In the Ownership and Accessibility section on document page 10, find the statement that public river access can be gained at bridge and culvert crossings.",
+            "No dedicated parking, developed bank, or safe winter entry is claimed. Confirm current signs, road-shoulder parking legality, ice, and private-property boundaries before leaving the road right-of-way.",
+            "2026-09-25",
           ),
         ],
       },

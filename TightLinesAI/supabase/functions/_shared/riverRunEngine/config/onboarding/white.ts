@@ -11,7 +11,9 @@ import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
+import { buildMichiganWinterSteelheadProfile } from "../winterSteelhead.ts";
 
 const WHITE_OBSERVED_ACTIVITY_SCOPE =
   "This read combines Fruitvale Road flow, measured water temperature below Hesperia Dam, and Pines Point weather as complementary conditions for the below-Hesperia corridor. The sensors are in different reaches, so verify conditions at the water you fish.";
@@ -623,22 +625,56 @@ export const WHITE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   },
 };
 
+export const WHITE_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: WHITE_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "12-29",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.82,
+    coreFraction: 0.81,
+    springApproachFraction: 0.76,
+    endFraction: 0.72,
+    inputReach: {
+      reachIds: [
+        "white_lower_river",
+        "white_forest_corridor",
+        "white_upper_accessible_corridor",
+      ],
+      hydraulicSourceIds: ["white_fruitvale_usgs"],
+      waterTemperatureSourceIds: ["white_weaver_st_temperature"],
+      weatherPointIds: ["white_pines_point_weather"],
+      notes:
+        "Fruitvale flow and Weaver Street measured temperature are complementary, separately labeled below-Hesperia inputs; they are not co-located and are never presented as whole-river measurements.",
+    },
+    preferredStartReachIds: ["white_upper_accessible_corridor"],
+    scopeCopy:
+      "Fruitvale flow represents the lower river and Weaver Street temperature represents the Hesperia tailwater. Conditions and ice can differ through the forest corridor and near White Lake.",
+    sourceNotes:
+      "Michigan DNR Steelhead biology; Michigan DNR Lower White River Status Report documenting Michigan winter-run Steelhead stocked below Hesperia; USGS 04122200 Fruitvale discharge; Trout Unlimited/Monitor My Watershed Weaver Street measured temperature; 2026 Michigan Fishing Regulations. Pass 2 replayed four complete winter starts supported by the accepted temperature archive: 236 of 248 active dates had the full measured-water, flow, and hourly-weather contract; all 92 days at or below 33.5°F stayed at 29, while 38–45°F water retained meaningful positive separation.",
+    auditPhase: "pass2",
+  });
+
 export const WHITE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-09-03-white-direct-push-v1+seasonal-zone-v3",
+  configVersion: "2026-09-25-white-winter-steelhead-pass1-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: WHITE_RIVER_PROFILE,
   biologyProfiles: [
     GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     WHITE_FALL_CHINOOK_RUN_PROFILE,
     WHITE_FALL_COHO_RUN_PROFILE,
     WHITE_FALL_STEELHEAD_RUN_PROFILE,
+    WHITE_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };
