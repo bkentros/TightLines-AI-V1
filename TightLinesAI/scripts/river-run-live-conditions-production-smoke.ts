@@ -48,6 +48,8 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
   ],
   manitowoc: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   oswego: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  umpqua_mainstem: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  north_umpqua: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
@@ -75,6 +77,8 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   clackamas: ["flow_cfs"],
   manitowoc: ["flow_cfs"],
   oswego: ["flow_cfs"],
+  umpqua_mainstem: ["flow_cfs"],
+  north_umpqua: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
     "legacy"

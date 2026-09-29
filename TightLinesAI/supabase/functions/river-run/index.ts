@@ -303,6 +303,15 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "north_umpqua_fall_coho",
 ]);
 
+// Code-scoped releases are additive to the write-only production allowlist.
+// Keep this list limited to runs whose owner-authorized deployment must not
+// require replacing or reconstructing the existing environment value.
+const CODE_RELEASED_RUN_IDS = new Set([
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
+]);
+
 type ConditionRefreshRow = {
   river_id: string;
   run_id: string;
@@ -490,7 +499,7 @@ function releasedRunIdsFromEnvironment(
     });
     return [...LEGACY_RELEASED_RUN_IDS];
   }
-  return requested;
+  return [...new Set([...requested, ...CODE_RELEASED_RUN_IDS])];
 }
 
 export async function handleRiverRunRequest(
