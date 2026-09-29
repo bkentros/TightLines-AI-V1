@@ -4,7 +4,7 @@ const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
 const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
-const expectedEngineVersion = "river-run-v1.20.0";
+const expectedEngineVersion = "river-run-v1.21.0";
 const expectedDataVersion = "river-live-conditions-v7";
 const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
