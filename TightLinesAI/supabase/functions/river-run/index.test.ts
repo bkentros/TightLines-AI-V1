@@ -1035,6 +1035,121 @@ Deno.test("old fall 2026 capability no longer hides other released rivers", asyn
   assert(riverIds.includes("kewaunee_river"));
 });
 
+Deno.test("Umpqua remains hidden unless the compatible owner-review client advertises its capability", async () => {
+  const admin = {
+    createAdminClient: () =>
+      new MockClient({ email: "brandonkentros@icloud.com" }),
+  };
+  const withoutCapability = await handleRiverRunRequestBase(
+    request("/review/rivers"),
+    admin,
+  );
+  const withoutIds = (await json(withoutCapability)).states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+  assertEquals(withoutCapability.status, 200);
+  assertEquals(withoutIds.includes("umpqua_mainstem"), false);
+  assertEquals(withoutIds.includes("north_umpqua"), false);
+
+  const compatible = await handleRiverRunRequestBase(
+    request("/review/rivers", {
+      clientCapabilities: "river_run_umpqua_fall_v1",
+    }),
+    admin,
+  );
+  const body = await json(compatible);
+  const oregon = body.states.find(
+    (state: { state: string }) => state.state === "OR",
+  );
+  assertEquals(compatible.status, 200);
+  assert(
+    oregon.rivers.some(
+      (river: { riverId: string }) => river.riverId === "umpqua_mainstem",
+    ),
+  );
+  assert(
+    oregon.rivers.some(
+      (river: { riverId: string }) => river.riverId === "north_umpqua",
+    ),
+  );
+
+  const publicCatalog = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+  });
+  const publicIds = (await json(publicCatalog)).states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+  assertEquals(publicIds.includes("umpqua_mainstem"), false);
+  assertEquals(publicIds.includes("north_umpqua"), false);
+});
+
+Deno.test("compatible owner-review clients can render every Umpqua fall snapshot", async () => {
+  const client = new MockClient({ email: "brandonkentros@icloud.com" });
+  const requests = [
+    {
+      riverId: "umpqua_mainstem",
+      runId: "umpqua_mainstem_fall_chinook",
+    },
+    {
+      riverId: "umpqua_mainstem",
+      runId: "umpqua_mainstem_fall_coho",
+    },
+    {
+      riverId: "north_umpqua",
+      runId: "north_umpqua_fall_coho",
+    },
+  ];
+
+  for (const item of requests) {
+    const response = await handleRiverRunRequestBase(
+      request(
+        `/review/snapshot?riverId=${item.riverId}&runId=${item.runId}&presentationState=OR`,
+        { clientCapabilities: "river_run_umpqua_fall_v1" },
+      ),
+      {
+        createAdminClient: () => client,
+        now: new Date("2026-09-29T18:00:00.000Z"),
+        gaugeObservations: [],
+        waterTemperatureObservationsBySource: {},
+        weatherSnapshot: {},
+        seasonalContextsByMetric: {
+          flow_cfs: null,
+          gage_height_ft: null,
+          water_temp_f: null,
+        },
+        fetchFn: () => Promise.resolve(new Response("Not found", { status: 404 })),
+      },
+    );
+    const body = await json(response);
+
+    assertEquals(response.status, 200, item.runId);
+    assertEquals(body.riverId, item.riverId, item.runId);
+    assertEquals(body.runId, item.runId, item.runId);
+    assert(body.runStage, item.runId);
+    assert(body.activity, item.runId);
+    assert(body.push, item.runId);
+    assert(body.fishability, item.runId);
+    assert(body.fishInRiver, item.runId);
+  }
+});
+
+Deno.test("incompatible owner-review clients cannot request Umpqua snapshots directly", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=umpqua_mainstem&runId=umpqua_mainstem_fall_coho&presentationState=OR",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+    },
+  );
+
+  assertEquals(response.status, 404);
+  assertEquals((await json(response)).error, "river_run_review_not_found");
+});
+
 Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or temperature", async () => {
   const client = new MockClient({ email: "brandonkentros@icloud.com" });
   const gaugeObservations: NormalizedGaugeObservation[] = Array.from(

@@ -680,6 +680,109 @@ function repeatSpawnerStageNarrative(input: {
   }
 }
 
+function umpquaOnboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  fallEntry: boolean;
+  repeatSpawner: boolean;
+  species: RiverRunProfile["species"];
+}): { whereToStart: string; limit: string; tip: string } {
+  const mainstem = input.riverId === "umpqua_mainstem";
+  const river = mainstem ? "Umpqua mainstem" : "North Umpqua";
+  const lower = mainstem
+    ? "the estuary/lower-river section near Scottsburg"
+    : "the lower North Umpqua below the Winchester closure";
+  const middle = mainstem
+    ? "the middle Umpqua around the Elkton gauge reach"
+    : "the middle North Umpqua toward Rock Creek, outside every closure";
+  const upper = mainstem
+    ? "the upper mainstem toward River Forks"
+    : "legal upper Wild and Scenic water below Soda Springs Dam";
+  const limit = mainstem
+    ? "Umpqua mainstem guidance covers only Winchester Bay to River Forks. North and South Umpqua are separate rivers; tributary-mouth closures, tides, posted property, and the Elkton gauge's middle-reach limitation remain controlling."
+    : "North Umpqua guidance ends at the legal marker below Soda Springs Dam. Winchester, Rock Creek/Deadline, fly-only, watercraft, dam, and posted-property restrictions create legal gaps, and the lower Winchester gauge does not represent the middle or upper river.";
+
+  if (input.stage === "pre_run") {
+    return input.stagingContext
+      ? {
+        whereToStart: mainstem
+          ? "Umpqua Estuary and Winchester Bay; check the first lower-river access only with direct fish evidence."
+          : "River Forks and the lower North Umpqua entry; check inland access only with direct fish evidence.",
+        limit,
+        tip:
+          "Treat the approach area as orientation, not proof that dependable in-river distribution or legal access is established.",
+      }
+      : {
+        whereToStart: mainstem
+          ? "Umpqua Estuary and Winchester Bay—not inland mainstem sections yet."
+          : "River Forks and the lower North Umpqua entry—not inland sections yet.",
+        limit,
+        tip:
+          `Wait for the staging window before using the ${river} corridor as a migration plan.`,
+      };
+  }
+  if (input.stage === "beginning") {
+    return {
+      whereToStart: lower,
+      limit,
+      tip:
+        "Start low and require direct fish evidence before adding an inland section; calendar position is not equal distribution.",
+    };
+  }
+  if (input.stage === "building" && !input.establishedBuildingContext) {
+    return {
+      whereToStart: middle,
+      limit,
+      tip:
+        "Shift away from the entry section through audited public access only and verify every current closure.",
+    };
+  }
+  if (input.stage === "building" && !input.broadBuildingContext) {
+    return {
+      whereToStart: middle,
+      limit,
+      tip:
+        "Keep the upper section conditional until the broad-building phase and do not extend one gauge across the corridor.",
+    };
+  }
+  if (input.stage === "building") {
+    return {
+      whereToStart: `${middle}, then ${upper}`,
+      limit,
+      tip:
+        "Compare audited middle and upper access without assuming uniform fish distribution, conditions, or legality.",
+    };
+  }
+  if (input.stage === "peak") {
+    return {
+      whereToStart:
+        `${middle} and ${upper}; compare ${lower} for newer arrivals`,
+      limit,
+      tip:
+        "Use the full Seasonal Zone as orientation, then choose only audited, currently legal access and leave visible spawners undisturbed.",
+    };
+  }
+  if (input.stage === "tapering" || input.stage === "ending") {
+    return {
+      whereToStart: `established holding water in ${middle} or ${upper}`,
+      limit,
+      tip:
+        "Narrow the search to proven legal water; a declining seasonal curve does not identify an individual fish or guarantee access.",
+    };
+  }
+  return {
+    whereToStart: `no dependable ${river} starting section in this model`,
+    limit,
+    tip: input.latePostRunContext
+      ? "Make only a selective check in established legal holding water and avoid visible spawners."
+      : `Do not build a ${river} trip around isolated fish outside the modeled run.`,
+  };
+}
+
 function onboardingCorridorRoute(input: {
   riverId: string;
   stage: RunStage;
@@ -713,6 +816,15 @@ function onboardingCorridorRoute(input: {
     input.riverId === "lower_genesee"
   ) {
     const route = newYorkOnboardingCorridorRoute(input);
+    return {
+      ...route,
+      whereToStart: `Spot Finder: ${route.whereToStart}`,
+    };
+  }
+  if (
+    input.riverId === "umpqua_mainstem" || input.riverId === "north_umpqua"
+  ) {
+    const route = umpquaOnboardingCorridorRoute(input);
     return {
       ...route,
       whereToStart: `Spot Finder: ${route.whereToStart}`,

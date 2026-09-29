@@ -93,7 +93,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.20.0";
+const ENGINE_VERSION = "river-run-v1.21.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -115,6 +115,11 @@ const FALL_2026_OWNER_REVIEW_RIVER_IDS = new Set([
   "clackamas",
   "manitowoc",
   "oswego",
+]);
+const UMPQUA_FALL_OWNER_REVIEW_CAPABILITY = "river_run_umpqua_fall_v1";
+const UMPQUA_FALL_OWNER_REVIEW_RIVER_IDS = new Set([
+  "umpqua_mainstem",
+  "north_umpqua",
 ]);
 
 function clientHasCapability(req: Request, capability: string): boolean {
@@ -153,13 +158,18 @@ function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
   );
   const supportsMidwest = capabilities.has(MIDWEST_OWNER_REVIEW_CAPABILITY);
   const supportsFall2026 = capabilities.has(FALL_2026_OWNER_REVIEW_CAPABILITY);
+  const supportsUmpqua = capabilities.has(
+    UMPQUA_FALL_OWNER_REVIEW_CAPABILITY,
+  );
   return new Set(
     RIVER_RUN_DRAFT_RIVER_PROFILES
       .filter((river) =>
         (supportsMidwest ||
           !MIDWEST_OWNER_REVIEW_RIVER_IDS.has(river.riverId)) &&
         (supportsFall2026 ||
-          !FALL_2026_OWNER_REVIEW_RIVER_IDS.has(river.riverId))
+          !FALL_2026_OWNER_REVIEW_RIVER_IDS.has(river.riverId)) &&
+        (supportsUmpqua ||
+          !UMPQUA_FALL_OWNER_REVIEW_RIVER_IDS.has(river.riverId))
       )
       .map((river) => river.riverId),
   );

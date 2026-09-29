@@ -47,22 +47,41 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "ci.castle-rock.wa.us",
   "www.ci.castle-rock.wa.us",
   "www.toledowa.us",
+  "www.douglascountyor.gov",
+  "www.blm.gov",
+  "www.nps.gov",
 ]);
 
 const MOBILE_BROWSER_USER_AGENT =
   "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1";
 const DEAD_PAGE_COPY =
   /page not found|resource cannot be found|404(?:\s|&nbsp;)+(?:error|not found)/i;
-const BROWSER_CHALLENGE_HOSTS = new Set(["www.piercecountywa.gov"]);
-const BROWSER_CHALLENGE_COPY = /challenges\.cloudflare\.com|Just a moment/i;
+const BROWSER_CHALLENGE_HOSTS = new Set([
+  "www.piercecountywa.gov",
+  "www.douglascountyor.gov",
+]);
+const BROWSER_CHALLENGE_COPY =
+  /challenges\.cloudflare\.com|Just a moment|Attention Required|Sorry, you have been blocked/i;
 
-const spots = Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
+const requestedRiverIds = process.argv.flatMap((value, index, args) =>
+  value === "--river-id" && args[index + 1] ? [args[index + 1]] : []
+);
+const finders = Object.values(RIVER_RUN_SPOT_FINDERS).filter((finder) =>
+  requestedRiverIds.length === 0 || requestedRiverIds.includes(finder.riverId)
+);
+for (const riverId of requestedRiverIds) {
+  assert(
+    finders.some((finder) => finder.riverId === riverId),
+    `Unknown Spot Finder river ID: ${riverId}`,
+  );
+}
+const spots = finders.flatMap((finder) =>
   finder.sections.flatMap((section) => section.spots)
 );
 const sourceUrls = [
   ...new Set([
     ...spots.map((spot) => spot.sourceUrl),
-    ...Object.values(RIVER_RUN_SPOT_FINDERS).flatMap((finder) =>
+    ...finders.flatMap((finder) =>
       finder.safetyLink ? [finder.safetyLink.url] : []
     ),
   ]),
@@ -139,7 +158,7 @@ const main = async () => {
   }
 
   console.log(
-    `Spot Finder live source audit passed: ${spots.length} entries, ${sourceUrls.length} unique reputable URLs, zero dead-page or unexpected HTTP failures.`,
+    `Spot Finder live source audit passed: ${spots.length} entries across ${finders.length} rivers, ${sourceUrls.length} unique reputable URLs, zero dead-page or unexpected HTTP failures.`,
   );
 };
 

@@ -1,0 +1,357 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "river_run_pass2_foundation_audit",
+  "researchCutoff": "2026-09-28",
+  "generatedAtUtc": "2026-09-29T01:43:00Z",
+  "approval": {
+    "status": "accepted",
+    "basis": "Owner-authorized full Pass 2 execution on 2026-09-28",
+    "scope": [
+      "umpqua_mainstem",
+      "north_umpqua"
+    ],
+    "nextGate": "Pass 3 run-truth acceptance"
+  },
+  "sharedContracts": {
+    "timezone": "America/Los_Angeles",
+    "supportStatus": "beta",
+    "historicalNormal": {
+      "method": "daily means within plus-or-minus three calendar days across prior qualifying years",
+      "requiredDisclosures": [
+        "year count",
+        "sample count",
+        "source period or split-era caveat"
+      ],
+      "gageHeight": "No average; datum-sensitive and not approved for a historical normal"
+    },
+    "liveFreshness": {
+      "maximumAgeMinutes": 120,
+      "futureToleranceMinutes": 15,
+      "staleBehavior": "show stale/unavailable state; never silently substitute modeled or peer values"
+    },
+    "waterTemperatureQa": {
+      "displayUnit": "degF",
+      "smoothingWindowHours": 3,
+      "plausibleRangeDegF": [32, 86],
+      "maximumRateDegFPerHour": 4,
+      "maximumPeerDifferenceDegF": 6,
+      "airTemperatureSubstitution": false
+    },
+    "hydraulicScoring": "Exactly one primary hydraulic input per river: USGS discharge parameter 00060",
+    "weatherRole": "Explanatory and Activity input only; modeled weather cannot create a hydraulic Push",
+    "refreshScheduleUtc": {
+      "active": ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
+      "inactive": ["00:00"]
+    },
+    "accessSafety": "Fishing access is not a wading, launch, navigation, or safety assurance; volatile notices must be rechecked before release"
+  },
+  "rivers": [
+    {
+      "riverId": "umpqua_mainstem",
+      "foundationVersion": "umpqua-mainstem-foundation-v1-pass2-2026-09-28",
+      "status": "research_ready",
+      "supportStatus": "beta",
+      "identity": {
+        "displayName": "Umpqua River (Mainstem)",
+        "aliases": ["Umpqua River", "Mainstem Umpqua", "Umpqua River and Bay"],
+        "receivingWater": "Pacific Ocean",
+        "corridorStart": "visible jetty tips at Winchester Bay",
+        "corridorEnd": "North Umpqua/South Umpqua confluence at River Forks",
+        "approximateLengthMiles": 111.5,
+        "mouthCoordinate": {"latitude": 43.669, "longitude": -124.204, "precision": "approximate official NOAA river-entry coordinate"},
+        "terminalCoordinate": {"latitude": 43.2712649, "longitude": -123.4436747, "precision": "address/geocoder landmark; not an access navigation pin"},
+        "excluded": ["north_umpqua", "south_umpqua", "smith_river", "north_fork_smith_river"]
+      },
+      "reaches": [
+        {
+          "reachId": "umpqua_mainstem_estuary_lower",
+          "name": "Umpqua Estuary & Lower River — jetties to Scottsburg",
+          "boundaries": "visible jetty tips to Scottsburg Bridge/head of tide near river mile 28",
+          "role": "downstream_entry",
+          "gaugeRepresented": false
+        },
+        {
+          "reachId": "umpqua_mainstem_middle_elkton",
+          "name": "Middle Umpqua — Scottsburg to Elkton",
+          "boundaries": "Scottsburg Bridge/head of tide to USGS 14321000 near river mile 56.9",
+          "role": "middle",
+          "gaugeRepresented": true
+        },
+        {
+          "reachId": "umpqua_mainstem_upper_forks",
+          "name": "Upper Mainstem — Elkton to River Forks",
+          "boundaries": "USGS 14321000 to the North/South Umpqua confluence near river mile 111.5",
+          "role": "terminal",
+          "gaugeRepresented": false
+        }
+      ],
+      "barrierAudit": {
+        "result": "No dam, weir, or falls feature was returned on the scoped mainstem corridor; official Umpqua River features in the ODFW barrier layer were bridges",
+        "query": "UPPER(fpbStrNm) LIKE '%UMPQUA%' against ODFW Fish Passage Barriers layer",
+        "limitations": "The statewide layer warns that it is not comprehensive or current everywhere; regulations, count indexes, USGS schematics, and facility sources were also checked",
+        "excludedStructures": ["Winchester Dam is on North Umpqua above the fork"]
+      },
+      "sources": {
+        "primaryGauge": {
+          "provider": "USGS",
+          "site": "14321000",
+          "name": "Umpqua River near Elkton, OR",
+          "coordinate": {"latitude": 43.5859502208726, "longitude": -123.555372650329},
+          "drainageAreaSquareMiles": 3683,
+          "representedReachId": "umpqua_mainstem_middle_elkton",
+          "parameters": {
+            "00060": {"role": "primary_scored", "display": true, "unit": "ft3/s"},
+            "00065": {"role": "display_only", "display": true, "unit": "ft", "historicalAverage": false},
+            "00010": {"role": "primary_temperature", "display": true, "unit": "degC"},
+            "63680": {"role": "unavailable", "display": false}
+          },
+          "datumAudit": "Station moved about 2,400 feet on 1972-06-29 at the same datum; bedrock control is stable though rating curves change. Flow is accepted across the daily record; historic stage averaging is rejected."
+        },
+        "weather": {
+          "provider": "Open-Meteo",
+          "requestedCoordinate": {"latitude": 43.5859502208726, "longitude": -123.555372650329},
+          "mode": "single_point",
+          "representedReachId": "umpqua_mainstem_middle_elkton",
+          "liveProbe": {"providerGridLatitude": 43.59438, "providerGridLongitude": -123.564545, "hourlyRows": 48},
+          "archiveProbe": {"start": "2021-09-01", "end": "2021-09-07", "hourlyRows": 168}
+        },
+        "fishCounts": {"status": "unavailable", "reason": "No recurring official counter represents the mainstem; Winchester Dam is on North Umpqua"}
+      },
+      "historyAudit": {
+        "flow": {"acceptedPeriod": "1905-2025", "dailyRows": 43922, "calendarYears": 121, "estimatedRows": 288, "internalDailyGaps": 0, "typicalFallQualifyingYears": "120-121"},
+        "waterTemperature": {"acceptedPeriods": ["1985-1992", "2023-2025"], "dailyRows": 3164, "calendarYears": 11, "largestGapDays": 11349, "typicalFallQualifyingYears": "8-10", "disclosure": "split-era normal"}
+      },
+      "fishingShape": {"eligible": true, "enabled": false, "reachId": "umpqua_mainstem_middle_elkton", "reasonDeferred": "absolute bands and multi-year replay belong to Pass 3", "unmeasuredFactors": ["turbidity/visibility", "debris", "tide outside the represented reach"]},
+      "activity": {"candidateMode": "observed_river/full", "pairing": "co-located USGS flow and measured water temperature plus same-neighborhood modeled weather", "enabled": false, "reasonDeferred": "run-specific tuning and replay belong to Pass 3"},
+      "spotFinder": {
+        "status": "foundation_accepted",
+        "earlyApproach": {"label": "Umpqua Estuary / Winchester Bay", "relationship": "direct Pacific receiving-water entry", "navigationPin": false},
+        "spots": [
+          {
+            "spotId": "umpqua_mainstem_scottsburg_county_park",
+            "name": "Scottsburg County Park",
+            "reachId": "umpqua_mainstem_estuary_lower",
+            "coordinate": {"latitude": 43.6496619, "longitude": -123.8390207, "source": "USGS GNIS feature 2668145"},
+            "fishingVerified": true,
+            "boatAccess": true,
+            "bankAccess": "limited_or_unspecified",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.douglascountyor.gov/Facilities/Facility/Details/Scottsburg-County-Park-44"
+          },
+          {
+            "spotId": "umpqua_mainstem_scott_creek_county_park",
+            "name": "Scott Creek County Park",
+            "reachId": "umpqua_mainstem_middle_elkton",
+            "coordinate": {"latitude": 43.6735992, "longitude": -123.6878898, "source": "USGS GNIS"},
+            "fishingVerified": true,
+            "boatAccess": true,
+            "bankAccess": "limited_or_unspecified",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.douglascountyor.gov/Facilities/Facility/Details/Scott-Creek-County-Park-43"
+          },
+          {
+            "spotId": "umpqua_mainstem_tyee_campground",
+            "name": "Tyee Campground — Umpqua River",
+            "reachId": "umpqua_mainstem_upper_forks",
+            "coordinate": {"latitude": 43.485025, "longitude": -123.4842667, "source": "BLM"},
+            "fishingVerified": true,
+            "boatAccess": false,
+            "bankAccess": "stairs_to_river; conditions vary",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.blm.gov/visit/tyee-campground-umpqua-river"
+          }
+        ],
+        "globalNotices": ["Permanent cyanobacteria advisory exists for the Umpqua River; check Oregon Health Authority current guidance", "Tributary-mouth closures apply from Scottsburg Bridge to River Forks June 1-September 30"]
+      }
+    },
+    {
+      "riverId": "north_umpqua",
+      "foundationVersion": "north-umpqua-foundation-v1-pass2-2026-09-28",
+      "status": "research_ready",
+      "supportStatus": "beta",
+      "identity": {
+        "displayName": "North Umpqua River",
+        "aliases": ["North Umpqua"],
+        "receivingWater": "Umpqua River (Mainstem)",
+        "corridorStart": "North/South Umpqua confluence at River Forks",
+        "corridorEnd": "ODFW marker just below Soda Springs Dam",
+        "approximateLengthMiles": 69,
+        "mouthCoordinate": {"latitude": 43.2712649, "longitude": -123.4436747, "precision": "River Forks landmark/address geocode"},
+        "excluded": ["umpqua_mainstem", "south_umpqua", "soda_springs_reservoir", "slide_creek_reach", "river_above_product_endpoint"]
+      },
+      "reaches": [
+        {
+          "reachId": "north_umpqua_lower_winchester",
+          "name": "Lower North Umpqua — mouth to Winchester",
+          "boundaries": "North Umpqua mouth to the Old Highway 99/Winchester closure near river mile 6.5",
+          "role": "downstream_entry",
+          "gaugeRepresented": true,
+          "gaugeNote": "USGS 14319500 is at North Umpqua river mile 1.8, not at Winchester Dam"
+        },
+        {
+          "reachId": "north_umpqua_middle_rock_creek",
+          "name": "Middle North Umpqua — Winchester to Rock Creek",
+          "boundaries": "200 feet above Winchester Dam through Lone Rock to painted lines above Rock Creek near river mile 35.7; legal closures remain explicit gaps",
+          "role": "middle",
+          "gaugeRepresented": false
+        },
+        {
+          "reachId": "north_umpqua_upper_wsr",
+          "name": "Upper North Umpqua — Fly Area to Soda Springs",
+          "boundaries": "Deadline Falls Fly Area boundary to the marker just below Soda Springs Dam near river mile 69",
+          "role": "terminal",
+          "gaugeRepresented": false
+        }
+      ],
+      "barrierAudit": {
+        "barriers": [
+          {
+            "name": "Winchester Dam",
+            "odfwFeatureId": 18305,
+            "coordinate": {"latitude": 43.28393794, "longitude": -123.3539244},
+            "type": "dam",
+            "passage": "partial; ladder operates but official proceedings identify possible inadequate ladder flow and false-attraction-flow limitations",
+            "productTreatment": "biological passage/count landmark with an adjacent no-angling gap"
+          },
+          {
+            "name": "Deadline Falls",
+            "type": "natural_falls",
+            "passage": "limited hydraulic feature; official USFS material reports salmon and steelhead jumping it May-October",
+            "productTreatment": "fly-area boundary, not an impassable endpoint"
+          },
+          {
+            "name": "Soda Springs Dam",
+            "odfwFeatureId": 18436,
+            "coordinate": {"latitude": 43.302789, "longitude": -122.49497129},
+            "type": "dam",
+            "passage": "passable since 2012 via ladder, video monitoring, downstream bypass/screens and tailrace barrier",
+            "productTreatment": "product stops at legal marker below the dam despite physical passage"
+          }
+        ],
+        "excludedUpstreamStructures": ["Slide Creek Dam", "Toketee and other North Umpqua hydro-project dams above the product endpoint"],
+        "limitations": "Do not claim complete capture at Winchester or use Soda Springs operational monitoring as a public Fish Counts feed"
+      },
+      "sources": {
+        "primaryGauge": {
+          "provider": "USGS",
+          "site": "14319500",
+          "name": "North Umpqua River at Winchester, OR",
+          "coordinate": {"latitude": 43.270966666666666, "longitude": -123.41154444444444},
+          "drainageAreaSquareMiles": 1344,
+          "riverMile": 1.8,
+          "representedReachId": "north_umpqua_lower_winchester",
+          "parameters": {
+            "00060": {"role": "primary_scored", "display": true, "unit": "ft3/s"},
+            "00065": {"role": "display_only", "display": true, "unit": "ft", "historicalAverage": false},
+            "00010": {"role": "primary_temperature", "display": true, "unit": "degC"},
+            "63680": {"role": "unavailable", "display": false}
+          },
+          "datumAudit": "Use the modern site period beginning 1954-10-01. Early 1908-1913 and 1923-1929 records were collected about 4.8 miles upstream at different datums and are excluded from the displayed normal."
+        },
+        "contextGauge": {
+          "provider": "USGS",
+          "site": "14317450",
+          "name": "North Umpqua River near Idleyld Park, OR",
+          "coordinate": {"latitude": 43.3245630355272, "longitude": -122.99978360099},
+          "role": "context_only",
+          "parameters": ["00010", "63680"],
+          "rules": "Label upper-river context; zero scoring; never average with or substitute for Winchester; no flow pairing"
+        },
+        "weather": {
+          "provider": "Open-Meteo",
+          "requestedCoordinate": {"latitude": 43.270966666666666, "longitude": -123.41154444444444},
+          "mode": "single_point",
+          "representedReachId": "north_umpqua_lower_winchester",
+          "liveProbe": {"providerGridLatitude": 43.26631, "providerGridLongitude": -123.395, "hourlyRows": 48},
+          "archiveProbe": {"start": "2021-09-01", "end": "2021-09-07", "hourlyRows": 168}
+        },
+        "fishCounts": {
+          "status": "eligible_but_not_implemented",
+          "providerId": "ODFW_WINCHESTER",
+          "facility": "Winchester Dam Counting Station",
+          "eligibleRunIds": ["north_umpqua_fall_coho"],
+          "observationType": "ladder_passage",
+          "publication": "irregular in-season strata reports plus finalized seasonal totals",
+          "freshnessBasis": "observation-through date",
+          "preliminaryCategories": ["total", "wild", "hatchery", "jacks"],
+          "maximumAgeHours": 240,
+          "current2026StateAtCutoff": "unavailable/not_reported for coho; do not reuse the prior-season final total",
+          "limitations": ["fish below Winchester and fish not using the ladder are excluded", "sampling estimates since 2015 are reported by ODFW as at least 90 percent accurate", "zero influence on all run scores"]
+        }
+      },
+      "historyAudit": {
+        "flow": {"acceptedPeriod": "1954-10-01 through 2025-12-31", "dailyRows": 26025, "calendarYears": 72, "estimatedRows": 251, "estimatedAndRevisedRows": 13, "typicalFallQualifyingYears": "71-72"},
+        "waterTemperature": {"acceptedPeriods": ["1985-1991", "2016-2025"], "dailyRows": 5359, "calendarYears": 17, "largestGapDays": 9129, "typicalFallQualifyingYears": "14-16", "disclosure": "split-era normal"}
+      },
+      "fishingShape": {"eligible": true, "enabled": false, "reachId": "north_umpqua_lower_winchester", "reasonDeferred": "absolute bands and multi-year replay belong to Pass 3", "unmeasuredFactors": ["turbidity/visibility", "debris", "upper-project-release effects outside the represented reach"]},
+      "activity": {"candidateMode": "observed_river/full", "pairing": "co-located USGS flow and measured water temperature plus same-neighborhood modeled weather", "enabled": false, "reasonDeferred": "run-specific tuning and replay belong to Pass 3"},
+      "spotFinder": {
+        "status": "foundation_accepted",
+        "earlyApproach": {"label": "River Forks / lower North Umpqua entry", "relationship": "direct confluence with the Umpqua mainstem", "navigationPin": false},
+        "spots": [
+          {
+            "spotId": "north_umpqua_hestness_landing",
+            "name": "Hestness Landing County Park",
+            "reachId": "north_umpqua_lower_winchester",
+            "coordinate": {"latitude": 43.2845602, "longitude": -123.3914653, "source": "USGS GNIS feature 1132982"},
+            "fishingVerified": true,
+            "boatAccess": true,
+            "bankAccess": "limited_or_unspecified",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.douglascountyor.gov/Facilities/Facility/Details/Hestness-Landing-County-Park-28"
+          },
+          {
+            "spotId": "north_umpqua_swiftwater_day_use",
+            "name": "Swiftwater Day Use Area",
+            "reachId": "north_umpqua_middle_rock_creek",
+            "coordinate": {"latitude": 43.33314, "longitude": -123.00476, "source": "BLM"},
+            "fishingVerified": true,
+            "boatAccess": false,
+            "bankAccess": "verified bank fishing and accessible platform",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.blm.gov/visit/swiftwater-day-use-area",
+            "ruleNote": "Fly-only water begins a few hundred yards upriver; do not place users in the closed painted-lines-to-Deadline segment"
+          },
+          {
+            "spotId": "north_umpqua_susan_creek",
+            "name": "Susan Creek Campground",
+            "reachId": "north_umpqua_upper_wsr",
+            "coordinate": {"latitude": 43.2966667, "longitude": -122.8933333, "source": "BLM"},
+            "fishingVerified": true,
+            "boatAccess": false,
+            "bankAccess": "site fishing access; exact entry conditions not guaranteed",
+            "wading": "not_verified",
+            "beginnerSuitable": false,
+            "source": "https://www.blm.gov/visit/susan-creek-campground",
+            "ruleNote": "Fly-fishing only; no angling from watercraft in the Wild and Scenic River section"
+          }
+        ],
+        "explicitExclusions": [
+          "John Amacher Park because it is adjacent to the Winchester closure and the source does not prove a legal coho fishing point",
+          "Umpqua Landing from North Umpqua because Douglas County's repair report places it at the Calapooya/Umpqua confluence",
+          "unverified turnouts and generic boating sites"
+        ]
+      }
+    }
+  ],
+  "authoritativeSources": [
+    "https://prod.eregulations.com/oregon/fishing/southwest-zone",
+    "https://myodfw.com/articles/regulation-updates",
+    "https://myodfw.com/articles/fall-coastal-salmon-management",
+    "https://www.oregon.gov/dsl/waterways/Documents/UmpquaRiver_Notice.pdf",
+    "https://gis.odf.oregon.gov/odfags/rest/services/Hydrography/Hydrography/MapServer/14",
+    "https://waterdata.usgs.gov/monitoring-location/USGS-14321000/",
+    "https://waterdata.usgs.gov/monitoring-location/USGS-14319500/",
+    "https://pubs.usgs.gov/wdr/WDR-OR-02/pdf/WDR-OR-02_4.pdf",
+    "https://pubs.usgs.gov/wdr/WDR-OR-02/pdf/WDR-OR-02.pdf",
+    "https://myodfw.com/winchester-dam-fish-counts",
+    "https://www.blm.gov/programs/national-conservation-lands/oregon-washington/north-umpqua-wsr",
+    "https://www.pacificorp.com/community/recreation/water-release/north-umpqua-river.html",
+    "https://www.oregon.gov/osmb/boater-info/pages/opportunities-and-access.aspx"
+  ]
+}

@@ -327,7 +327,8 @@ export type RiverRunFishCounts = {
     | "INDIANA_DNR_TABLEAU"
     | "WISCONSIN_DNR_ROOT"
     | "WISCONSIN_DNR_BESADNY"
-    | "WISCONSIN_DNR_BRULE";
+    | "WISCONSIN_DNR_BRULE"
+    | "ODFW_WINCHESTER";
   facilityName: string;
   observationType:
     | "hatchery_return"
@@ -344,6 +345,10 @@ export type RiverRunFishCounts = {
   adultTotal: number | null;
   jackTotal: number | null;
   observedTotal: number | null;
+  originBreakdown?: {
+    wildTotal: number;
+    hatcheryTotal: number;
+  };
   observedThrough?: string;
   reportDate?: string;
   freshness: "fresh" | "stale" | "missing";

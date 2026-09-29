@@ -432,7 +432,8 @@ export type FishCountSourceConfig = {
     | "INDIANA_DNR_TABLEAU"
     | "WISCONSIN_DNR_ROOT"
     | "WISCONSIN_DNR_BESADNY"
-    | "WISCONSIN_DNR_BRULE";
+    | "WISCONSIN_DNR_BRULE"
+    | "ODFW_WINCHESTER";
   facilityName: string;
   /** Exact label used in the provider document when it differs from public copy. */
   reportFacilityName?: string;
@@ -460,6 +461,11 @@ export type RiverRunFishCountRead = {
   adultTotal: number | null;
   jackTotal: number | null;
   observedTotal: number | null;
+  /** Optional origin split when the official source publishes it. Jacks remain included in these source totals unless the source says otherwise. */
+  originBreakdown?: {
+    wildTotal: number;
+    hatcheryTotal: number;
+  };
   observedThrough?: string;
   reportDate?: string;
   freshness: "fresh" | "stale" | "missing";

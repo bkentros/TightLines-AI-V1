@@ -1,0 +1,193 @@
+{
+  "schema": "river-run-pass1-provider-probes-v1",
+  "cohort": "umpqua-fall-2026",
+  "accessedAt": "2026-09-28T20:30:00-04:00",
+  "repositoryPreflight": {
+    "branch": "develop/cross-platform-next",
+    "commit": "d05e1d50f56c6445ee4c4b5e130c438c104fd58d",
+    "worktreeBeforeScaffolding": "clean",
+    "configuredRiverCount": 25,
+    "configuredRunCount": 100,
+    "onboardingStatus": "ready",
+    "onboardingErrors": 0,
+    "onboardingWarnings": 0,
+    "proposedRiverIds": [
+      "umpqua_mainstem",
+      "north_umpqua"
+    ],
+    "proposedRunIds": [
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho"
+    ],
+    "idCollisionSearch": "none found before scaffolding"
+  },
+  "runtimeCompatibility": {
+    "state": "OR is supported",
+    "region": "pacific_northwest is already used by Oregon and Washington profiles",
+    "species": [
+      "chinook_salmon",
+      "coho_salmon"
+    ],
+    "movementEngine": "fall_cooling",
+    "reusableBiologyProfiles": [
+      "pacific_fall_chinook_v1",
+      "pacific_fall_coho_v1"
+    ],
+    "gaugeProvider": "USGS is implemented",
+    "fishCountProviderGap": "No ODFW/Winchester provider is implemented in the FishCountSourceConfig provider union or parser dispatch"
+  },
+  "usgs": [
+    {
+      "siteId": "14321000",
+      "name": "UMPQUA RIVER NEAR ELKTON, OR",
+      "coordinates": {
+        "latitude": 43.5859502208726,
+        "longitude": -123.555372650329
+      },
+      "drainageAreaSquareMiles": 3683,
+      "candidateRole": "umpqua_mainstem primary_scored; Pass 2 reach audit required",
+      "liveProbe": {
+        "observationTimeUtc": "2026-09-29T00:15:00Z",
+        "approval": "Provisional",
+        "flowCfs": 1310,
+        "gageHeightFt": 3.18,
+        "waterTemperatureC": 18.3,
+        "waterTemperatureF": 64.9,
+        "turbidityFnu": null,
+        "cadenceObserved": "15 minutes"
+      },
+      "metadataCoverage": {
+        "instantaneousFlow": "1988-10-13 through current",
+        "dailyMeanFlow": "1905-10-01 through current",
+        "instantaneousGageHeight": "2007-10-01 through current",
+        "instantaneousWaterTemperature": "2023-10-26 through current",
+        "dailyMeanWaterTemperature": "metadata extent 1985-10-12 through current; split-era record with a long gap that must not be treated as continuous",
+        "dailyMinMaxWaterTemperature": "metadata extent 1971-04-28 through current; split-era record with a long gap",
+        "dailyHistoryInventory": {
+          "flowDailyMeanRecords": 44192,
+          "flowDistinctCalendarYears": 122,
+          "flowYears": "1905-2026",
+          "temperatureDailyMeanRecords": 3431,
+          "temperatureDistinctCalendarYears": 12,
+          "temperatureYears": [
+            "1985",
+            "1986",
+            "1987",
+            "1988",
+            "1989",
+            "1990",
+            "1991",
+            "1992",
+            "2023",
+            "2024",
+            "2025",
+            "2026"
+          ]
+        }
+      },
+      "sourceUrls": {
+        "station": "https://waterdata.usgs.gov/monitoring-location/USGS-14321000/",
+        "continuousApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items",
+        "timeSeriesMetadataApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+      }
+    },
+    {
+      "siteId": "14319500",
+      "name": "NORTH UMPQUA RIVER AT WINCHESTER, OR",
+      "coordinates": {
+        "latitude": 43.270966666666666,
+        "longitude": -123.41154444444444
+      },
+      "drainageAreaSquareMiles": 1344,
+      "candidateRole": "north_umpqua primary_scored; Pass 2 reach audit required",
+      "liveProbe": {
+        "observationTimeUtc": "2026-09-29T00:30:00Z",
+        "approval": "Provisional",
+        "flowCfs": 775,
+        "gageHeightFt": 1.84,
+        "waterTemperatureC": 16.3,
+        "waterTemperatureF": 61.3,
+        "turbidityFnu": null,
+        "cadenceObserved": "15 minutes"
+      },
+      "metadataCoverage": {
+        "instantaneousFlow": "1988-10-01 through current",
+        "dailyMeanFlow": "1908-10-01 through current",
+        "instantaneousGageHeight": "2007-10-01 through current",
+        "instantaneousWaterTemperature": "2016-09-21 through current",
+        "dailyMeanWaterTemperature": "metadata extent 1985-10-01 through current; split-era record with older observations beginning in the 1980s and modern continuous observations since 2016",
+        "dailyMinMaxWaterTemperature": "metadata extent 1971-01-07 through current; split-era record",
+        "dailyHistoryInventory": {
+          "flowDailyMeanRecords": 30311,
+          "flowDistinctCalendarYears": 86,
+          "flowYears": "1908-1913, 1923-1929, 1954-2026",
+          "temperatureDailyMeanRecords": 5628,
+          "temperatureDistinctCalendarYears": 18,
+          "temperatureYears": [
+            "1985",
+            "1986",
+            "1987",
+            "1988",
+            "1989",
+            "1990",
+            "1991",
+            "2016",
+            "2017",
+            "2018",
+            "2019",
+            "2020",
+            "2021",
+            "2022",
+            "2023",
+            "2024",
+            "2025",
+            "2026"
+          ]
+        }
+      },
+      "sourceUrls": {
+        "station": "https://waterdata.usgs.gov/monitoring-location/USGS-14319500/",
+        "continuousApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items",
+        "timeSeriesMetadataApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+      }
+    },
+    {
+      "siteId": "14317450",
+      "name": "NORTH UMPQUA RIVER NEAR IDLEYLD PARK, OR",
+      "coordinates": {
+        "latitude": 43.3245630355272,
+        "longitude": -122.99978360099
+      },
+      "drainageAreaSquareMiles": 886,
+      "candidateRole": "north_umpqua context_only; no discharge series and upstream of the Winchester scored reach",
+      "liveProbe": {
+        "observationTimeUtc": "2026-09-29T00:30:00Z",
+        "approval": "Provisional",
+        "flowCfs": null,
+        "gageHeightFt": null,
+        "waterTemperatureC": 13.3,
+        "waterTemperatureF": 55.9,
+        "turbidityFnu": 0.9,
+        "cadenceObserved": "15 minutes"
+      },
+      "metadataCoverage": {
+        "instantaneousWaterTemperature": "2007-10-02 through current",
+        "dailyMeanWaterTemperature": "metadata extent 1998-01-23 through current",
+        "instantaneousTurbidity": "2007-10-02 through current",
+        "dailyTurbidity": "metadata extent 1999-12-08 through current"
+      },
+      "sourceUrls": {
+        "station": "https://waterdata.usgs.gov/monitoring-location/USGS-14317450/",
+        "continuousApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items",
+        "timeSeriesMetadataApi": "https://api.waterdata.usgs.gov/ogcapi/v0/collections/time-series-metadata/items"
+      }
+    }
+  ],
+  "probeNotes": [
+    "Every live numeric observation returned HTTP 200 and Provisional approval status.",
+    "No parameter 63680 turbidity series was returned for 14321000 or 14319500.",
+    "The Idleyld Park temperature and turbidity series must never be averaged with or silently substituted for the Winchester source.",
+    "Metadata begin/end dates are not proof of continuous coverage; Pass 2 must calculate usable years, gaps, calendar-window coverage, and datum/method changes from actual daily observations."
+  ]
+}

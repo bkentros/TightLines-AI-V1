@@ -65,12 +65,18 @@ Deno.test("Washington foundations validate and are publicly released", () => {
     assert(RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId));
   }
   assertEquals(
-    RIVER_RUN_DRAFT_RIVER_PROFILES.map((river) => river.riverId).sort(),
-    [],
+    RIVER_RUN_DRAFT_RIVER_PROFILES.some((river) =>
+      WASHINGTON_DRAFT_RIVERS.some((released) =>
+        released.riverId === river.riverId
+      )
+    ),
+    false,
   );
   assertEquals(
-    RIVER_RUN_DRAFT_RUN_PROFILES.map((run) => run.runId).sort(),
-    [],
+    RIVER_RUN_DRAFT_RUN_PROFILES.some((run) =>
+      WASHINGTON_DRAFT_RUNS.some((released) => released.runId === run.runId)
+    ),
+    false,
   );
 });
 

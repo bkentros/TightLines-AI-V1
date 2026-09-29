@@ -367,6 +367,7 @@ function validateFishCountSources(
         "WISCONSIN_DNR_ROOT",
         "WISCONSIN_DNR_BESADNY",
         "WISCONSIN_DNR_BRULE",
+        "ODFW_WINCHESTER",
       ].includes(source.provider) ||
       !hasText(source.facilityName) ||
       ![

@@ -947,6 +947,29 @@ function FishCountsCard({
                       )
                       : null}
                   </View>
+                  {counts.originBreakdown
+                    ? (
+                      <View style={styles.fishCountsBreakdown}>
+                        <View style={styles.fishCountsBreakdownItem}>
+                          <Text style={styles.fishCountsBreakdownValue}>
+                            {counts.originBreakdown.wildTotal.toLocaleString()}
+                          </Text>
+                          <Text style={styles.fishCountsBreakdownLabel}>
+                            WILD ORIGIN
+                          </Text>
+                        </View>
+                        <View style={styles.fishCountsBreakdownItem}>
+                          <Text style={styles.fishCountsBreakdownValue}>
+                            {counts.originBreakdown.hatcheryTotal
+                              .toLocaleString()}
+                          </Text>
+                          <Text style={styles.fishCountsBreakdownLabel}>
+                            HATCHERY ORIGIN
+                          </Text>
+                        </View>
+                      </View>
+                    )
+                    : null}
                   {counts.preliminary
                     ? (
                       <Text style={styles.fishCountsPreliminary}>

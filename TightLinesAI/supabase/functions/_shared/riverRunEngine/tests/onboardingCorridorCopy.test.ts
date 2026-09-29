@@ -179,6 +179,14 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
       assertMatch(display.detail, /Rockford Dam/i, run.runId);
       assertMatch(display.whereToStart, /Lower and Middle Rogue/i, run.runId);
       assertNotMatch(JSON.stringify(display), /Grand Haven|Coates Highway/i, run.runId);
+    } else if (run.riverId === "umpqua_mainstem") {
+      assertMatch(display.detail, /River Forks|Umpqua/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Winchester Dam|Soda Springs/i, run.runId);
+    } else if (run.riverId === "north_umpqua") {
+      assertMatch(display.detail, /Soda Springs|North Umpqua/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Winchester Bay|South Umpqua/i, run.runId);
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

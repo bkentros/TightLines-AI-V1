@@ -660,6 +660,18 @@ const riverCoordinateBounds: Record<
   green: { minLat: 47.1, maxLat: 47.7, minLon: -122.5, maxLon: -121.8 },
   puyallup: { minLat: 47.05, maxLat: 47.35, minLon: -122.5, maxLon: -122.1 },
   cowlitz: { minLat: 46.05, maxLat: 46.6, minLon: -123.05, maxLon: -122.5 },
+  umpqua_mainstem: {
+    minLat: 43.2,
+    maxLat: 43.75,
+    minLon: -124.25,
+    maxLon: -123.4,
+  },
+  north_umpqua: {
+    minLat: 43.2,
+    maxLat: 43.4,
+    minLon: -123.5,
+    maxLon: -122.4,
+  },
 };
 
 for (
@@ -680,6 +692,8 @@ for (
     "cowlitz",
     "bear_creek_manistee",
     "rogue_mi",
+    "umpqua_mainstem",
+    "north_umpqua",
   ]
 ) {
   const finder = RIVER_RUN_SPOT_FINDERS[riverId];
@@ -751,6 +765,8 @@ for (
         "www.kentcountymi.gov",
         "www.plainfieldmi.org",
         "cms7files1.revize.com",
+        "www.douglascountyor.gov",
+        "www.blm.gov",
       ].includes(new URL(spot.sourceUrl).hostname),
       `${spot.id} must use an approved government, land-manager, or regional public-access source`,
     );
@@ -788,8 +804,8 @@ assert.equal(
 );
 assert.equal(
   allSpotIds.length,
-  229,
-  "The source-audited River Run inventory must contain 229 public access points",
+  235,
+  "The source-audited River Run inventory must contain 235 public access points",
 );
 for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
   const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(

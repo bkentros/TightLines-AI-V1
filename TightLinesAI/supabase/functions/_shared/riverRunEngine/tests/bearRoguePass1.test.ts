@@ -20,9 +20,25 @@ import {
 import { riverRunSpotFinderForRiver } from "../../../../../lib/riverRunSpotFinder.ts";
 
 Deno.test("Bear Creek and Rogue Pass 2 profiles validate in the public catalog", () => {
-  assertEquals(RIVER_RUN_DRAFT_RIVER_PROFILES, []);
-  assertEquals(RIVER_RUN_DRAFT_RUN_PROFILES, []);
-  assertEquals(RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS, []);
+  assertEquals(
+    RIVER_RUN_DRAFT_RIVER_PROFILES.some((river) =>
+      river.riverId === "bear_creek_manistee" || river.riverId === "rogue_mi"
+    ),
+    false,
+  );
+  assertEquals(
+    RIVER_RUN_DRAFT_RUN_PROFILES.some((run) =>
+      run.riverId === "bear_creek_manistee" || run.riverId === "rogue_mi"
+    ),
+    false,
+  );
+  assertEquals(
+    RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.some((document) =>
+      document.river.riverId === "bear_creek_manistee" ||
+      document.river.riverId === "rogue_mi"
+    ),
+    false,
+  );
 
   for (
     const river of [

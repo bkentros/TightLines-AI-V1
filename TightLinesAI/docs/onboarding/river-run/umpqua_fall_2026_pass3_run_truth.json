@@ -1,0 +1,805 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "river_run_pass3_run_truth",
+  "cohortId": "umpqua_fall_2026",
+  "acceptedAtLocal": "2026-09-28",
+  "researchCutoff": "2026-09-28",
+  "status": "accepted_for_hidden_implementation",
+  "approval": {
+    "ownerLanguage": "Please do pass 3. Complete in FULL. Nothing gets missed!",
+    "scope": [
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho"
+    ],
+    "authorizedActions": [
+      "accept independent run truth",
+      "calibrate and replay the four core primitives",
+      "prepare the Pass 4 delivery contract"
+    ],
+    "notAuthorized": [
+      "runtime configuration",
+      "public catalog enablement",
+      "deployment",
+      "release"
+    ]
+  },
+  "sourceArtifacts": {
+    "pass1": "docs/onboarding/river-run/umpqua_fall_2026_pass1_provider_probes.json",
+    "pass2": "docs/onboarding/river-run/umpqua_fall_2026_pass2_foundation_audit.json",
+    "pass3Replay": "docs/audits/river-run-umpqua-pass3-calibration-replay.json",
+    "replayScript": "scripts/river-run-umpqua-pass3-replay.ts"
+  },
+  "deliveryContract": {
+    "riverIds": [
+      "umpqua_mainstem",
+      "north_umpqua"
+    ],
+    "runIds": [
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho"
+    ],
+    "clientCapabilityId": "river_run_umpqua_fall_v1",
+    "firstCompatibleClient": {
+      "publicAppVersion": "1.14",
+      "iosBuildNumber": "41",
+      "androidVersionCode": 23,
+      "basis": "app.json version 1.14; EAS remote production versions were iOS 40 and Android 22 on 2026-09-28; production autoIncrement reserves the next builds. Pass 4 must re-read remote versions before building and update this boundary if another build consumes either number."
+    },
+    "activityContracts": {
+      "umpqua_mainstem_fall_chinook": "observed_river/hydraulic-only",
+      "umpqua_mainstem_fall_coho": "observed_river/hydraulic-only",
+      "north_umpqua_fall_coho": "observed_river/full"
+    },
+    "serverChanges": "Required: hidden river/run profiles, source configuration, seasonal zones, Fish Counts parser for North Umpqua, catalog capability filtering, and replay/reconciliation wiring.",
+    "mobileBinaryChanges": "Required: two river-picker mappings/artwork assignments, static Spot Finder inventory, capability advertisement, and hidden-review fixture coverage.",
+    "databaseMigration": "No schema or data migration identified in Pass 3; Pass 4 must prove this remains none after implementation.",
+    "deployment": "Not authorized.",
+    "stoppingGate": "hidden review only"
+  },
+  "sharedBiology": {
+    "runType": "fall_spawn",
+    "movementEngineId": "fall_cooling",
+    "migrationPurpose": "spawning",
+    "lifecycle": "semelparous",
+    "terminalSemantics": "The migration experience ends after the terminal spawning tail; presence decays to zero and there is no winter-holding handoff."
+  },
+  "calibrationLedger": [
+    {
+      "scope": "umpqua_mainstem fall Chinook and coho Activity source mode",
+      "baseline": "Pass 1 hypothesis was observed_river/full.",
+      "finding": "Only two complete recent fall seasons of representative measured Elkton temperature were available, below the five-season acceptance minimum.",
+      "acceptedChange": "Use observed_river/hydraulic-only with water-temperature weight and cap influence set to zero; retain measured temperature only in Gauge Read/date context.",
+      "predictedEffect": "Seven complete flow/weather seasons become replayable with Limited confidence and no invented thermal evidence.",
+      "beforeReplay": "Full-mode candidate rejected before scoring as ineligible; no partial two-season result was used for tuning.",
+      "afterReplay": "Both runs 854/854 days, 100% coverage, four blocks/day, Peak highest, all invariants and controlled tests zero.",
+      "decision": "accepted"
+    },
+    {
+      "scope": "all three calendars, weights, breakpoints, caps and lifecycle ramps",
+      "baseline": "Dates and rules were predeclared from the official timing/source review before the fixed replay.",
+      "acceptedChange": "None after inspecting label shares or stage means.",
+      "predictedEffect": "No post-hoc score shaping; environmental variation should remain visible while Peak stays highest and shoulders remain within 20 points.",
+      "beforeReplay": "not applicable; the predeclared rule set is the baseline",
+      "afterReplay": "All three runs passed coverage, peak, shoulder, lifecycle, cap, stage/year variation and four-block invariants.",
+      "decision": "accepted without tuning change"
+    },
+    {
+      "scope": "Push replay harness",
+      "baseline": "The first audit used the wider Fishing Shape season and called the direct-event scorer without a four-hour event series, so its sample scope was wrong and historical labels remained artificially Neutral.",
+      "acceptedChange": "Recalibrate p50/p75/p90 from the exact start-through-taper union (mainstem Aug. 15-Dec. 5; North Sep. 1-Dec. 5) and project each consecutive approved daily pair into a seven-sample four-hour step series solely to exercise the live direct-event state machine.",
+      "predictedEffect": "Paired thresholds represent the required window; positive events appear only when both rise thresholds pass; severe-high flow remains Neutral; the full Possible/Elevated/Strong scale is proven by controlled series.",
+      "beforeReplay": "wider-window samples and all-Neutral event output; audit rejected",
+      "afterReplay": "Mainstem 791 dates/328 positive rises at 30+2.9%, 140+9.4%, 765+34.0%; North 672/266 at 39+4.4%, 170+14.1%, 640+44.7%. Positive-event distributions are present and all outage/stale/retention/expiry/severe/temperature tests pass.",
+      "decision": "accepted calibration and audit correction"
+    },
+    {
+      "scope": "Activity replay reporting",
+      "baseline": "Initial artifact stored daily and stage summaries but omitted the required block, leader/tie, confidence/cap and year rows.",
+      "acceptedChange": "Add all-day, per-stage, per-year and per-block distributions plus variation invariants.",
+      "predictedEffect": "Audit completeness improves without changing any score.",
+      "beforeReplay": "daily means only",
+      "afterReplay": "four block distributions, label shares, leader/tie counts, cap/confidence frequencies, spread and seven annual rows recorded; original daily means unchanged",
+      "decision": "accepted reporting-only change"
+    }
+  ],
+  "rivers": {
+    "umpqua_mainstem": {
+      "hydraulicSourceId": "umpqua_mainstem_elkton_usgs",
+      "waterTemperatureSourceId": "umpqua_mainstem_elkton_temperature",
+      "weatherPointId": "umpqua_mainstem_elkton_weather",
+      "representedReachIds": [
+        "umpqua_mainstem_middle_elkton"
+      ],
+      "historicalContext": {
+        "flow": "USGS 14321000 approved daily flow supports target-date ±3-day normals from 1905-current, subject to station-history disclosure.",
+        "waterTemperature": "Measured daily water temperature exists in split eras, but only two complete recent replay seasons exist; it may appear as labeled Gauge Read context and contributes zero to Activity and Push.",
+        "gageHeight": "No historical average; datum-sensitive."
+      },
+      "fishingShape": {
+        "status": "available",
+        "version": "umpqua_mainstem-fishability-v1-pass3-2026-09-28",
+        "metric": "flow_cfs",
+        "source": "USGS 14321000",
+        "reachId": "umpqua_mainstem_middle_elkton",
+        "calibrationWindow": "1996-2025, Aug 1-Dec 31",
+        "usableDays": 4590,
+        "bands": {
+          "tooLowMax": 960,
+          "lowFishableMin": 960,
+          "lowFishableMax": 1110,
+          "idealMin": 1110,
+          "idealMax": 3240,
+          "highFishableMin": 3240,
+          "highFishableMax": 10500,
+          "blownOutMin": 17500
+        },
+        "caps": {
+          "staleGauge": 60,
+          "unknownTrend": 65,
+          "veryLow": 35,
+          "blownOut": 20,
+          "sharpRiseHigh": 45
+        },
+        "limitations": "Elkton reach only. Tide, turbidity/visibility, debris, safety, access, abundance, and the estuary/upper mainstem are not represented."
+      },
+      "pushCalibration": {
+        "window": "2019-2025 exact union of Aug 15-Dec 5",
+        "usableDays": 791,
+        "qualifyingPositiveRises": 328,
+        "rising24h": {
+          "absoluteCfs": 30,
+          "percent": 2.9
+        },
+        "meaningfulRise24h": {
+          "absoluteCfs": 140,
+          "percent": 9.4
+        },
+        "sharpRise24h": {
+          "absoluteCfs": 765,
+          "percent": 34
+        },
+        "severeHighCfs": 17500,
+        "temperatureRole": "disabled",
+        "precipitationRole": "unscored context"
+      }
+    },
+    "north_umpqua": {
+      "hydraulicSourceId": "north_umpqua_winchester_usgs",
+      "waterTemperatureSourceId": "north_umpqua_winchester_temperature",
+      "weatherPointId": "north_umpqua_winchester_weather",
+      "representedReachIds": [
+        "north_umpqua_lower_winchester"
+      ],
+      "historicalContext": {
+        "flow": "USGS 14319500 approved daily flow supports target-date ±3-day normals from the modern site, 1954-current; earlier upstream/different-datum records are excluded.",
+        "waterTemperature": "Same-gauge measured daily temperature supports split-era target-date context and a complete seven-season 2019-2025 Activity replay; disclose the 1992-2015 gap.",
+        "gageHeight": "No historical average; datum-sensitive."
+      },
+      "fishingShape": {
+        "status": "available",
+        "version": "north_umpqua-fishability-v1-pass3-2026-09-28",
+        "metric": "flow_cfs",
+        "source": "USGS 14319500",
+        "reachId": "north_umpqua_lower_winchester",
+        "calibrationWindow": "1996-2025, Aug 28-Jan 10",
+        "usableDays": 4080,
+        "bands": {
+          "tooLowMax": 815,
+          "lowFishableMin": 815,
+          "lowFishableMax": 925,
+          "idealMin": 925,
+          "idealMax": 3170,
+          "highFishableMin": 3170,
+          "highFishableMax": 6830,
+          "blownOutMin": 11000
+        },
+        "caps": {
+          "staleGauge": 60,
+          "unknownTrend": 65,
+          "veryLow": 35,
+          "blownOut": 20,
+          "sharpRiseHigh": 45
+        },
+        "limitations": "Lower reach only. Turbidity/visibility, debris, upper-project release effects, safety, access, abundance, and the middle/upper river are not represented."
+      },
+      "pushCalibration": {
+        "window": "2019-2025 exact window Sep 1-Dec 5",
+        "usableDays": 672,
+        "qualifyingPositiveRises": 266,
+        "rising24h": {
+          "absoluteCfs": 39,
+          "percent": 4.4
+        },
+        "meaningfulRise24h": {
+          "absoluteCfs": 170,
+          "percent": 14.1
+        },
+        "sharpRise24h": {
+          "absoluteCfs": 640,
+          "percent": 44.7
+        },
+        "severeHighCfs": 11000,
+        "temperatureRole": "trigger_and_constraint",
+        "precipitationRole": "unscored context"
+      },
+      "fishCounts": {
+        "status": "source_accepted_provider_pending_pass4",
+        "sourceId": "north_umpqua_winchester_coho",
+        "facility": "Winchester Dam Counting Station",
+        "species": "coho_salmon",
+        "observationType": "ladder_passage",
+        "maximumAgeHours": 240,
+        "researchCutoffState": "unavailable/not_reported",
+        "scoreInfluence": 0,
+        "limitation": "Counts cover classified ladder passage at Winchester, not fish below the dam, non-passing fish, retainable hatchery abundance, or the whole corridor."
+      }
+    }
+  },
+  "runs": [
+    {
+      "runId": "umpqua_mainstem_fall_chinook",
+      "displayName": "Mainstem Fall Chinook",
+      "riverId": "umpqua_mainstem",
+      "species": "chinook_salmon",
+      "season": "fall",
+      "runType": "fall_spawn",
+      "movementEngineId": "fall_cooling",
+      "biologyProfileId": "pacific_fall_chinook_v1",
+      "migrationPurpose": "spawning",
+      "lifecycle": "semelparous",
+      "terminalSemantics": "Terminal spawning run; no winter-holding handoff.",
+      "primitiveCapabilities": {
+        "migrationStage": "available",
+        "activity": "available_observed_river_hydraulic_only_limited",
+        "fishInRiver": "available",
+        "push": "available_direct_hydraulic",
+        "fishability": "available",
+        "migrationTiming": "unavailable_no_qualifying_observed_timing_feed",
+        "fishCounts": "unavailable_no_representative_mainstem_facility_feed"
+      },
+      "calendar": {
+        "preRunStart": "07-15",
+        "stagingStart": "08-01",
+        "start": "08-15",
+        "beginningEnd": "08-31",
+        "buildingEstablishedStart": "09-01",
+        "buildingBroadStart": "09-15",
+        "peakStart": "09-20",
+        "peak": "10-05",
+        "peakEnd": "10-20",
+        "taperingEnd": "11-05",
+        "end": "11-15",
+        "lateEnd": "11-30",
+        "postRunLateCopyEnd": "12-15"
+      },
+      "seasonalZonePlan": {
+        "version": "umpqua-mainstem-fall-chinook-zone-v1-pass3-2026-09-28",
+        "earlyApproach": {
+          "label": "Umpqua Estuary / Winchester Bay",
+          "sourceNotes": "ODFW identifies the Umpqua bay/mainstem fishery and current lower-river Chinook activity; the label is orientation, not a navigation pin or access claim."
+        },
+        "phases": {
+          "beginning": ["umpqua_mainstem_estuary_lower"],
+          "buildingEarly": ["umpqua_mainstem_middle_elkton"],
+          "buildingEstablished": ["umpqua_mainstem_middle_elkton"],
+          "buildingBroad": [
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "peak": [
+            "umpqua_mainstem_estuary_lower",
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "tapering": [
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "ending": ["umpqua_mainstem_upper_forks"]
+        }
+      },
+      "historicalPresence": {
+        "maximum": 6,
+        "distributionScope": "broad",
+        "calibrationConfidence": "medium",
+        "curveVersion": "umpqua-mainstem-fall-chinook-presence-v1-pass3-2026-09-28",
+        "closestLowerComparator": "A portfolio score of 5 would understate the recurring 1,187-2,743 expanded annual code-102 harvest observed in six available 2019-2025 files and the established mainstem spawning fishery.",
+        "closestHigherComparator": "Green River Fall Chinook at 7 has stronger accepted contemporary run/corridor evidence; Umpqua remains 6 because recent abundance reached a conservation-plan critical threshold and code 102 is not a passage count.",
+        "anchors": [
+          {
+            "dayOffsetFromStart": 0,
+            "fractionOfMaximum": 0.06,
+            "reason": "dependable beginning after sparse early-August staging"
+          },
+          {
+            "dayOffsetFromStart": 17,
+            "fractionOfMaximum": 0.2,
+            "reason": "September building fishery"
+          },
+          {
+            "dayOffsetFromStart": 36,
+            "fractionOfMaximum": 0.6,
+            "reason": "late-September broad build"
+          },
+          {
+            "dayOffsetFromStart": 51,
+            "fractionOfMaximum": 1,
+            "reason": "calibrated early-October river peak"
+          },
+          {
+            "dayOffsetFromStart": 66,
+            "fractionOfMaximum": 0.78,
+            "reason": "late-October transition toward documented spawning peak"
+          },
+          {
+            "dayOffsetFromStart": 82,
+            "fractionOfMaximum": 0.38,
+            "reason": "early-November taper"
+          },
+          {
+            "dayOffsetFromStart": 92,
+            "fractionOfMaximum": 0.15,
+            "reason": "ending tail"
+          },
+          {
+            "dayOffsetFromStart": 107,
+            "fractionOfMaximum": 0.03,
+            "reason": "late legal/biological tail"
+          },
+          {
+            "dayOffsetFromStart": 122,
+            "fractionOfMaximum": 0,
+            "reason": "terminal post-run copy end"
+          }
+        ]
+      },
+      "activity": {
+        "version": "umpqua-mainstem-fall-chinook-hydraulic-activity-v1-pass3-2026-09-28",
+        "contract": "observed_river/hydraulic-only",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "confidenceCeiling": "Limited",
+        "representedReachIds": ["umpqua_mainstem_middle_elkton"],
+        "weights": {
+          "light": 0.3,
+          "waterTemperature": 0,
+          "riverBehavior": 0.6,
+          "weather": 0.1
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 100,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15
+        },
+        "replay": {
+          "years": "2019-2025",
+          "expectedDays": 854,
+          "usableDays": 854,
+          "coveragePercent": 100,
+          "stageMeans": {
+            "preRun": 38.44,
+            "beginning": 36.76,
+            "building": 46.92,
+            "peak": 52.35,
+            "tapering": 50.15,
+            "ending": 37.3,
+            "postRun": 27.3
+          },
+          "invariantFailures": 0,
+          "controlledTestFailures": 0
+        }
+      },
+      "push": {
+        "version": "umpqua_mainstem_fall_chinook-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "hydraulicRole": "trigger",
+        "temperatureRole": "disabled",
+        "persistenceHours": 48,
+        "fullRetentionFraction": 0.65,
+        "minimumRetentionFraction": 0.35,
+        "severeHighBehavior": "Neutral cap; never favorable"
+      },
+      "waterTemperature": {
+        "sourcePriority": ["umpqua_mainstem_elkton_temperature"],
+        "activityWeight": 0,
+        "pushRole": "disabled",
+        "notes": "Measured in Gauge Read when fresh and eligible for split-era historical date context; never used by Activity or Push until five complete seasons pass replay."
+      },
+      "publicAudit": {
+        "isEnabled": false,
+        "gate": "pass4_hidden_review",
+        "notes": "No runtime configuration or public catalog entry exists in Pass 3."
+      }
+    },
+    {
+      "runId": "umpqua_mainstem_fall_coho",
+      "displayName": "Mainstem Fall Coho",
+      "riverId": "umpqua_mainstem",
+      "species": "coho_salmon",
+      "season": "fall",
+      "runType": "fall_spawn",
+      "movementEngineId": "fall_cooling",
+      "biologyProfileId": "pacific_fall_coho_v1",
+      "migrationPurpose": "spawning",
+      "lifecycle": "semelparous",
+      "terminalSemantics": "Terminal spawning run; no winter-holding handoff.",
+      "legalOpportunity": "Biological presence includes wild and hatchery-origin fish; 2026 retention is hatchery coho only in open sections.",
+      "primitiveCapabilities": {
+        "migrationStage": "available",
+        "activity": "available_observed_river_hydraulic_only_limited",
+        "fishInRiver": "available",
+        "push": "available_direct_hydraulic",
+        "fishability": "available",
+        "migrationTiming": "unavailable_no_qualifying_observed_timing_feed",
+        "fishCounts": "unavailable_no_representative_mainstem_facility_feed"
+      },
+      "calendar": {
+        "preRunStart": "08-15",
+        "stagingStart": "09-01",
+        "start": "09-10",
+        "beginningEnd": "09-25",
+        "buildingEstablishedStart": "09-26",
+        "buildingBroadStart": "10-10",
+        "peakStart": "10-20",
+        "peak": "11-05",
+        "peakEnd": "11-20",
+        "taperingEnd": "12-05",
+        "end": "12-15",
+        "lateEnd": "12-31",
+        "postRunLateCopyEnd": "01-10"
+      },
+      "seasonalZonePlan": {
+        "version": "umpqua-mainstem-fall-coho-zone-v1-pass3-2026-09-28",
+        "earlyApproach": {
+          "label": "Umpqua Estuary / Winchester Bay",
+          "sourceNotes": "ODFW identifies fin-clipped coho near Reedsport and the code-102 bay/mainstem fishery; the label is orientation, not a navigation pin or access claim."
+        },
+        "phases": {
+          "beginning": ["umpqua_mainstem_estuary_lower"],
+          "buildingEarly": ["umpqua_mainstem_middle_elkton"],
+          "buildingEstablished": ["umpqua_mainstem_middle_elkton"],
+          "buildingBroad": [
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "peak": [
+            "umpqua_mainstem_estuary_lower",
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "tapering": [
+            "umpqua_mainstem_middle_elkton",
+            "umpqua_mainstem_upper_forks"
+          ],
+          "ending": ["umpqua_mainstem_upper_forks"]
+        }
+      },
+      "historicalPresence": {
+        "maximum": 7,
+        "distributionScope": "broad",
+        "calibrationConfidence": "medium",
+        "curveVersion": "umpqua-mainstem-fall-coho-presence-v1-pass3-2026-09-28",
+        "closestLowerComparator": "A score of 6 would understate distinct Lower/Middle Umpqua wild populations and recurring mainstem/bay harvest, including 5,307 expanded fish in 2024.",
+        "closestHigherComparator": "Green River Fall Coho at 8 has a stronger accepted direct return scale; Umpqua remains 7 because harvest is an expanded administrative-unit estimate, recent years vary sharply, and there is no representative mainstem counter.",
+        "anchors": [
+          {
+            "dayOffsetFromStart": 0,
+            "fractionOfMaximum": 0.05,
+            "reason": "dependable beginning after earliest lower-river observations"
+          },
+          {
+            "dayOffsetFromStart": 16,
+            "fractionOfMaximum": 0.18,
+            "reason": "late-September build"
+          },
+          {
+            "dayOffsetFromStart": 40,
+            "fractionOfMaximum": 0.55,
+            "reason": "mid-October broad build"
+          },
+          {
+            "dayOffsetFromStart": 56,
+            "fractionOfMaximum": 1,
+            "reason": "calibrated early-November mainstem peak"
+          },
+          {
+            "dayOffsetFromStart": 71,
+            "fractionOfMaximum": 0.82,
+            "reason": "late-November passage/spawning transition"
+          },
+          {
+            "dayOffsetFromStart": 86,
+            "fractionOfMaximum": 0.48,
+            "reason": "early-December taper"
+          },
+          {
+            "dayOffsetFromStart": 96,
+            "fractionOfMaximum": 0.22,
+            "reason": "mid-December ending"
+          },
+          {
+            "dayOffsetFromStart": 112,
+            "fractionOfMaximum": 0.05,
+            "reason": "late biological tail"
+          },
+          {
+            "dayOffsetFromStart": 122,
+            "fractionOfMaximum": 0,
+            "reason": "terminal post-run copy end"
+          }
+        ]
+      },
+      "activity": {
+        "version": "umpqua-mainstem-fall-coho-hydraulic-activity-v1-pass3-2026-09-28",
+        "contract": "observed_river/hydraulic-only",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "confidenceCeiling": "Limited",
+        "representedReachIds": ["umpqua_mainstem_middle_elkton"],
+        "weights": {
+          "light": 0.3,
+          "waterTemperature": 0,
+          "riverBehavior": 0.6,
+          "weather": 0.1
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 100,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15
+        },
+        "replay": {
+          "years": "2019-2025",
+          "expectedDays": 854,
+          "usableDays": 854,
+          "coveragePercent": 100,
+          "stageMeans": {
+            "preRun": 37.51,
+            "beginning": 49.88,
+            "building": 54.1,
+            "peak": 55.91,
+            "tapering": 46.72,
+            "ending": 36.26,
+            "postRun": 21.88
+          },
+          "invariantFailures": 0,
+          "controlledTestFailures": 0
+        }
+      },
+      "push": {
+        "version": "umpqua_mainstem_fall_coho-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "hydraulicRole": "trigger",
+        "temperatureRole": "disabled",
+        "persistenceHours": 48,
+        "fullRetentionFraction": 0.65,
+        "minimumRetentionFraction": 0.35,
+        "severeHighBehavior": "Neutral cap; never favorable"
+      },
+      "waterTemperature": {
+        "sourcePriority": ["umpqua_mainstem_elkton_temperature"],
+        "activityWeight": 0,
+        "pushRole": "disabled",
+        "notes": "Measured in Gauge Read when fresh and eligible for split-era historical date context; never used by Activity or Push until five complete seasons pass replay."
+      },
+      "publicAudit": {
+        "isEnabled": false,
+        "gate": "pass4_hidden_review",
+        "notes": "No runtime configuration or public catalog entry exists in Pass 3."
+      }
+    },
+    {
+      "runId": "north_umpqua_fall_coho",
+      "displayName": "North Umpqua Fall Coho",
+      "riverId": "north_umpqua",
+      "species": "coho_salmon",
+      "season": "fall",
+      "runType": "fall_spawn",
+      "movementEngineId": "fall_cooling",
+      "biologyProfileId": "pacific_fall_coho_v1",
+      "migrationPurpose": "spawning",
+      "lifecycle": "semelparous",
+      "terminalSemantics": "Terminal spawning run; no winter-holding handoff.",
+      "legalOpportunity": "Biological presence includes predominantly wild passage; 2026 retention is hatchery coho only in open sections, and the marked harvest opportunity is sparse.",
+      "primitiveCapabilities": {
+        "migrationStage": "available",
+        "activity": "available_observed_river_full",
+        "fishInRiver": "available",
+        "push": "available_direct_hydraulic_and_temperature",
+        "fishability": "available",
+        "migrationTiming": "unavailable_no_qualifying_live_timing_feed",
+        "fishCounts": "available_after_pass4_provider_with_fail_closed_freshness"
+      },
+      "calendar": {
+        "preRunStart": "08-20",
+        "stagingStart": "08-28",
+        "start": "09-01",
+        "beginningEnd": "09-20",
+        "buildingEstablishedStart": "09-21",
+        "buildingBroadStart": "10-10",
+        "peakStart": "10-20",
+        "peak": "11-05",
+        "peakEnd": "11-20",
+        "taperingEnd": "12-05",
+        "end": "12-20",
+        "lateEnd": "01-10",
+        "postRunLateCopyEnd": "01-30"
+      },
+      "seasonalZonePlan": {
+        "version": "north-umpqua-fall-coho-zone-v1-pass3-2026-09-28",
+        "earlyApproach": {
+          "label": "River Forks / lower North Umpqua entry",
+          "sourceNotes": "Douglas County and ODFW identify the confluence/entry relationship; the label is orientation, not a River Forks access pin."
+        },
+        "phases": {
+          "beginning": ["north_umpqua_lower_winchester"],
+          "buildingEarly": ["north_umpqua_middle_rock_creek"],
+          "buildingEstablished": ["north_umpqua_middle_rock_creek"],
+          "buildingBroad": [
+            "north_umpqua_middle_rock_creek",
+            "north_umpqua_upper_wsr"
+          ],
+          "peak": [
+            "north_umpqua_lower_winchester",
+            "north_umpqua_middle_rock_creek",
+            "north_umpqua_upper_wsr"
+          ],
+          "tapering": [
+            "north_umpqua_middle_rock_creek",
+            "north_umpqua_upper_wsr"
+          ],
+          "ending": ["north_umpqua_upper_wsr"]
+        },
+        "legalGaps": "Winchester closure, Rock Creek/Deadline closure, and fly/no-watercraft restrictions remain explicit overlays; phase geography never implies uniform legal access."
+      },
+      "historicalPresence": {
+        "maximum": 7,
+        "distributionScope": "broad",
+        "calibrationConfidence": "medium",
+        "curveVersion": "north-umpqua-fall-coho-presence-v1-pass3-2026-09-28",
+        "closestLowerComparator": "A score of 6 would understate the long Winchester series, recent finalized returns of roughly 1,700-7,400, and broad documented habitat distribution.",
+        "closestHigherComparator": "Green River Fall Coho at 8 has a stronger accepted opportunity scale; North Umpqua remains 7 because Winchester is not a whole-corridor census and hatchery-retention opportunity is sparse.",
+        "anchors": [
+          {
+            "dayOffsetFromStart": 0,
+            "fractionOfMaximum": 0.02,
+            "reason": "earliest dependable Winchester passage"
+          },
+          {
+            "dayOffsetFromStart": 20,
+            "fractionOfMaximum": 0.1,
+            "reason": "late-September building passage"
+          },
+          {
+            "dayOffsetFromStart": 39,
+            "fractionOfMaximum": 0.35,
+            "reason": "mid-October broad build"
+          },
+          {
+            "dayOffsetFromStart": 49,
+            "fractionOfMaximum": 0.65,
+            "reason": "late-October peak approach"
+          },
+          {
+            "dayOffsetFromStart": 65,
+            "fractionOfMaximum": 1,
+            "reason": "calibrated early-November peak"
+          },
+          {
+            "dayOffsetFromStart": 80,
+            "fractionOfMaximum": 0.82,
+            "reason": "late-November passage/spawning transition"
+          },
+          {
+            "dayOffsetFromStart": 95,
+            "fractionOfMaximum": 0.5,
+            "reason": "early-December taper"
+          },
+          {
+            "dayOffsetFromStart": 110,
+            "fractionOfMaximum": 0.24,
+            "reason": "late-December ending"
+          },
+          {
+            "dayOffsetFromStart": 131,
+            "fractionOfMaximum": 0.05,
+            "reason": "January terminal tail"
+          },
+          {
+            "dayOffsetFromStart": 151,
+            "fractionOfMaximum": 0,
+            "reason": "terminal post-run copy end"
+          }
+        ]
+      },
+      "activity": {
+        "version": "north-umpqua-fall-coho-full-activity-v1-pass3-2026-09-28",
+        "contract": "observed_river/full",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "representedReachIds": ["north_umpqua_lower_winchester"],
+        "weights": {
+          "light": 0.25,
+          "waterTemperature": 0.35,
+          "riverBehavior": 0.3,
+          "weather": 0.1
+        },
+        "temperatureF": {
+          "cold": 40,
+          "preferredMin": 45,
+          "preferredMax": 60,
+          "warm": 64,
+          "barrier": 68
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 60,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15
+        },
+        "replay": {
+          "years": "2019-2025",
+          "expectedDays": 952,
+          "usableDays": 952,
+          "coveragePercent": 100,
+          "stageMeans": {
+            "preRun": 18.61,
+            "beginning": 32.48,
+            "building": 76.84,
+            "peak": 80.75,
+            "tapering": 66.99,
+            "ending": 55.26,
+            "postRun": 34.25
+          },
+          "invariantFailures": 0,
+          "controlledTestFailures": 0
+        }
+      },
+      "push": {
+        "version": "north_umpqua_fall_coho-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "hydraulicRole": "trigger",
+        "temperatureRole": "trigger_and_constraint",
+        "buildingCoolingF": 0.75,
+        "coolingF": 1.5,
+        "strongCoolingF": 3,
+        "persistenceHours": 48,
+        "fullRetentionFraction": 0.65,
+        "minimumRetentionFraction": 0.35,
+        "severeHighBehavior": "Neutral cap; never favorable"
+      },
+      "waterTemperature": {
+        "sourcePriority": ["north_umpqua_winchester_temperature"],
+        "upstreamFallbackPositiveSignalCap": 0,
+        "activityWeight": 0.35,
+        "pushRole": "trigger_and_constraint",
+        "notes": "Only co-located measured temperature scores. Idleyld context is never substituted or averaged."
+      },
+      "publicAudit": {
+        "isEnabled": false,
+        "gate": "pass4_hidden_review",
+        "notes": "No runtime configuration or public catalog entry exists in Pass 3."
+      }
+    }
+  ],
+  "acceptance": {
+    "candidateMatrixComplete": true,
+    "independentCalendarsComplete": true,
+    "strengthAndComparatorsComplete": true,
+    "seasonalPresenceComplete": true,
+    "seasonalZonePlansComplete": true,
+    "activityReplaysComplete": true,
+    "pushCalibrationComplete": true,
+    "fishingShapeComplete": true,
+    "temperaturePrioritiesComplete": true,
+    "fishCountsDecisionComplete": true,
+    "deliveryContractComplete": true,
+    "runtimeMutationPerformed": false,
+    "publicMutationPerformed": false,
+    "result": "pass3_complete_implementation_ready",
+    "nextGate": "Pass 4 hidden implementation, reconciliation, QA, and owner review"
+  }
+}

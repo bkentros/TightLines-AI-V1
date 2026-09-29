@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "river_run_pass4_implementation_audit",
+  "cohortId": "umpqua_fall_2026",
+  "completedAtLocal": "2026-09-29",
+  "status": "hidden_implementation_ready",
+  "scope": {
+    "riverIds": [
+      "umpqua_mainstem",
+      "north_umpqua"
+    ],
+    "runIds": [
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho"
+    ],
+    "excluded": [
+      "south_umpqua",
+      "winter_steelhead",
+      "public release",
+      "deployment"
+    ]
+  },
+  "releaseBoundary": {
+    "clientCapabilityId": "river_run_umpqua_fall_v1",
+    "ownerReviewRequired": true,
+    "publicAuditEnabled": false,
+    "publicRegistryMutation": false,
+    "deploymentPerformed": false,
+    "mobileBuildPerformed": false,
+    "databaseMigration": "none",
+    "plannedBuildValues": {
+      "appVersion": "1.14",
+      "iosBuildNumber": "41",
+      "androidVersionCode": 23,
+      "qualification": "Planning values only. Remote versions must be re-read immediately before a separately authorized build."
+    }
+  },
+  "implementation": {
+    "configuration": "supabase/functions/_shared/riverRunEngine/config/onboarding/umpqua.ts",
+    "draftRivers": 2,
+    "draftRuns": 3,
+    "corePrimitivesPerRun": [
+      "migrationStage",
+      "activity",
+      "fishInRiver",
+      "push"
+    ],
+    "additionalSurfaces": [
+      "Gauge Read",
+      "Fishing Shape",
+      "Seasonal Zone",
+      "Spot Finder",
+      "North Umpqua Winchester Fish Counts"
+    ],
+    "spotFinder": {
+      "sectionsPerRiver": 3,
+      "officialSitesPerRiver": 3,
+      "liveAuditedEntries": 6,
+      "liveAuditedUniqueUrls": 7
+    },
+    "fishCounts": {
+      "provider": "ODFW_WINCHESTER",
+      "sourceId": "north_umpqua_winchester_coho",
+      "species": "coho_salmon",
+      "maximumAgeHours": 240,
+      "scoreInfluence": 0,
+      "originBreakdown": true,
+      "jacksAlreadyIncluded": true,
+      "activeSeasonDerivedFrom": "America/Los_Angeles request date",
+      "priorSeasonCarryForward": false
+    }
+  },
+  "pass3Reconciliation": {
+    "calendarChanges": 0,
+    "presenceStrengthChanges": 0,
+    "presenceCurveChanges": 0,
+    "flowBandBoundaryChanges": 0,
+    "activityWeightChanges": 0,
+    "pushThresholdChanges": 0,
+    "sourceIsolationChanges": 0,
+    "implementationSafetyTightening": {
+      "fishabilityStaleGaugeCap": {
+        "pass3Candidate": 60,
+        "runtime": 55
+      },
+      "fishabilitySharpRiseHighCap": {
+        "pass3Candidate": 45,
+        "runtime": 40
+      },
+      "reason": "The national public Fishability validator requires ceilings of 55 and 40. Lower values are conservative and do not change calibrated hydraulic bands."
+    }
+  },
+  "liveAudits": {
+    "winchesterAt": "2026-09-29T16:00:00Z",
+    "winchesterActiveSeason": "2026-27",
+    "winchesterStatus": "unavailable",
+    "winchesterUnavailableReason": "not_reported",
+    "winchesterObservedTotal": null,
+    "priorSeasonNumberReused": false,
+    "spotFinderSources": "passed"
+  },
+  "defectsFoundAndClosed": [
+    {
+      "finding": "The first live Winchester implementation derived the active coho season from the newest strata report month and could return the previous final as stale.",
+      "resolution": "Active season now derives from request time in America/Los_Angeles; regression tests cover the July/August boundary and the live 2026-27 not-reported state.",
+      "status": "closed"
+    },
+    {
+      "finding": "New Umpqua runs initially inherited generic Grand River Stage corridor copy.",
+      "resolution": "Dedicated mainstem and North Umpqua corridor copy now names the correct reaches, endpoints, exclusions, gauge limits, and Spot Finder routing.",
+      "status": "closed"
+    }
+  ],
+  "verification": {
+    "dedicatedPass4AndProviderTests": {
+      "passed": 28,
+      "failed": 0
+    },
+    "completeRiverRunEngineTests": {
+      "passed": 524,
+      "failed": 0
+    },
+    "riverRunEndpointTests": {
+      "passed": 75,
+      "failed": 0
+    },
+    "onboardingReviewScenarios": {
+      "passed": 1810,
+      "supportedRuns": 40
+    },
+    "uiSpotFinderCases": {
+      "passed": 36865
+    },
+    "visualPrimitiveStates": {
+      "passed": 59
+    },
+    "onboardingPortfolio": {
+      "publicRivers": 25,
+      "publicRuns": 100,
+      "pendingRivers": 2,
+      "pendingRuns": 3,
+      "errors": 0,
+      "warnings": 0
+    },
+    "typescriptNoEmit": "passed",
+    "generatedFixturesCurrent": true,
+    "migrationFilesChanged": 0
+  },
+  "nextGate": "Authenticated owner review. Public enablement, deployment, and release require separate authorization."
+}
