@@ -6,11 +6,11 @@
 
 **Created:** 2026-09-29
 
-**Status:** `public_release_authorized`
+**Status:** `live`
 
 **Current completed pass:** Pass 4 — implementation, QA, and owner acceptance complete
 
-**Target gate:** Public backend deployment and production smoke verification
+**Target gate:** Ongoing source, regulation, and live-provider monitoring
 
 **Guide:** `docs/river_run_onboarding.md`
 
@@ -119,6 +119,16 @@ released-run allowlist. No database migration is required. Existing clients can
 receive the server-backed river/run catalog and all four primitives without an
 OTA update. Static Spot Finder entries, picker sizing, and the refined early-
 Building description require a client containing the Umpqua app changes.
+
+### Production release verification
+
+**Result:** Live on 2026-09-29 from release commits `c1934f17` and `e09bfce7`.
+The public catalog returns both mainstem runs under Oregon without an owner-
+review capability. Production Live Conditions v7 reports fresh Elkton flow,
+gage height, and measured water temperature, with a 120-year flow seasonal
+average available. Both mainstem public snapshot routes resolve and enforce normal
+authentication rather than returning a hidden/not-found response. Database
+migrations were already reconciled and `supabase db push` was a no-op.
 
 ### Pass 1 delivery contract
 
