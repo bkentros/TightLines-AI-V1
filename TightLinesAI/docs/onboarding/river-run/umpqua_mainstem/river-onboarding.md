@@ -6,11 +6,11 @@
 
 **Created:** 2026-09-29
 
-**Status:** `hidden_implementation_ready`
+**Status:** `public_release_authorized`
 
-**Current completed pass:** Pass 4 — hidden implementation and QA complete
+**Current completed pass:** Pass 4 — implementation, QA, and owner acceptance complete
 
-**Target gate:** Owner review; public enablement remains a separate authorization
+**Target gate:** Public backend deployment and production smoke verification
 
 **Guide:** `docs/river_run_onboarding.md`
 
@@ -47,8 +47,8 @@ complete Pass 3 in full / `umpqua-fall-run-truth-v1-pass3-2026-09-28` /
 2026-09-28. Machine record:
 `docs/onboarding/river-run/umpqua_fall_2026_pass3_run_truth.json`.
 
-**Rendered owner acceptance/date:** Pending; hidden review fixtures generated and
-validated 2026-09-29.
+**Rendered owner acceptance/date:** Accepted by the owner for public release on
+2026-09-29 after in-app review.
 
 **Research cutoff:** 2026-09-28. Recheck ODFW permanent regulations, emergency
 updates, wild-coho decision, weekly report, access notices, USGS series status,
@@ -109,6 +109,16 @@ runs. Spot Finder contains exactly one official, cautioned access site in each
 of the three canonical reaches. Portfolio, review-mode, UI, visual, provider,
 and dedicated Pass 4 checks pass. Machine audit:
 `docs/onboarding/river-run/umpqua_fall_2026_pass4_implementation_audit.json`.
+
+### Public release authorization
+
+**Decision:** On 2026-09-29 the owner authorized immediate public release of both
+mainstem runs together with North Umpqua Fall Coho. The release changes the
+public-audit flag, static public registries, configuration version, and explicit
+released-run allowlist. No database migration is required. Existing clients can
+receive the server-backed river/run catalog and all four primitives without an
+OTA update. Static Spot Finder entries, picker sizing, and the refined early-
+Building description require a client containing the Umpqua app changes.
 
 ### Pass 1 delivery contract
 
@@ -515,16 +525,16 @@ prove trailing four-hour medians from live high-cadence values.
 
 ## 11. Configuration reconciliation
 
-The hidden configuration is implemented in
+The release configuration is implemented in
 `supabase/functions/_shared/riverRunEngine/config/onboarding/umpqua.ts`. It is
-registered only in the draft owner-review registry. Public runtime registries
-remain unchanged.
+registered in the public runtime catalog and retained in the review registry for
+fixture and owner-review continuity.
 
 | Runtime object | ID | Pass 4 state |
 | --- | --- | --- |
-| River profile | `umpqua_mainstem` | implemented, valid, hidden |
-| Fall Chinook | `umpqua_mainstem_fall_chinook` | implemented, valid, hidden |
-| Fall Coho | `umpqua_mainstem_fall_coho` | implemented, valid, hidden |
+| River profile | `umpqua_mainstem` | implemented, valid, public-release authorized |
+| Fall Chinook | `umpqua_mainstem_fall_chinook` | implemented, valid, public-release authorized |
+| Fall Coho | `umpqua_mainstem_fall_coho` | implemented, valid, public-release authorized |
 | USGS source | `umpqua_mainstem_elkton_usgs` | implemented for flow/height in the Elkton reach |
 | Temperature source | `umpqua_mainstem_elkton_temperature` | implemented as display context; zero Activity/Push influence |
 | Spot Finder | `umpqua_mainstem` | three audited sections and three official access sites |
@@ -541,8 +551,8 @@ remain unchanged.
 | Server work | Hidden river/run/source/zone profiles, capability filtering, replays, audits and catalog wiring |
 | Mobile-binary work | Mainstem picker artwork/size mapping, static Spot Finder inventory, capability advertisement and review fixtures |
 | Database/migration | None; Pass 4 changed or added no migration file |
-| Deployment/public action | Not authorized |
-| Stopping gate | Hidden review only; owner acceptance and release remain separate |
+| Deployment/public action | Authorized 2026-09-29; deploy and production smoke required |
+| Stopping gate | Production catalog and snapshot verification |
 
 ## 12. Acceptance and next gate
 

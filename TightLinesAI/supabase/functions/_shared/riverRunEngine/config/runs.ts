@@ -53,6 +53,7 @@ import {
   WHITE_WINTER_STEELHEAD_RUN_PROFILE,
 } from "./onboarding/white.ts";
 import { WASHINGTON_DRAFT_RUNS } from "./onboarding/washington.ts";
+import { UMPQUA_DRAFT_RUNS } from "./onboarding/umpqua.ts";
 import { withSeasonalZonePlan } from "./seasonalZonePlans.ts";
 import { buildMichiganWinterSteelheadProfile } from "./winterSteelhead.ts";
 import { WISCONSIN_WINTER_RUN_PROFILES } from "./wisconsinWinterProfiles.ts";
@@ -2620,4 +2621,5 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   ...WASHINGTON_DRAFT_RUNS,
   ...MIDWEST_DRAFT_RUNS,
   ...FALL_2026_DRAFT_RUNS,
+  ...UMPQUA_DRAFT_RUNS,
 ].map(withSeasonalZonePlan);

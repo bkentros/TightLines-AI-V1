@@ -799,11 +799,11 @@ const NORTH_TREND = {
   sharpRise24h: { absolute: 640, percent: 44.7 },
 };
 
-const HIDDEN_AUDIT = {
-  isEnabled: false,
-  auditVersion: "umpqua-fall-pass4-hidden-review-v1",
+const PUBLIC_AUDIT = {
+  isEnabled: true,
+  auditVersion: "umpqua-fall-public-release-v1",
   notes:
-    "Pass 4 implementation is intentionally restricted to authenticated owner review behind river_run_umpqua_fall_v1. Public catalog enablement, deployment, and release are not authorized.",
+    "Owner accepted the complete Umpqua fall onboarding and authorized public release on 2026-09-29. Mainstem Fall Chinook, Mainstem Fall Coho, and North Umpqua Fall Coho remain governed by the audited source, reach, regulation, and confidence limitations in their profiles.",
 };
 
 export const UMPQUA_MAINSTEM_FALL_CHINOOK_RUN: AuditedRiverRunProfile = {
@@ -885,7 +885,7 @@ export const UMPQUA_MAINSTEM_FALL_CHINOOK_RUN: AuditedRiverRunProfile = {
   researchNotes:
     "Mainstem biological presence is independent from harvest rules. Winchester Dam counts are excluded because the facility is on North Umpqua above River Forks.",
   sourceNotes: "docs/onboarding/river-run/umpqua_mainstem/river-onboarding.md",
-  publicAudit: HIDDEN_AUDIT,
+  publicAudit: PUBLIC_AUDIT,
 };
 
 export const UMPQUA_MAINSTEM_FALL_COHO_RUN: AuditedRiverRunProfile = {
@@ -966,7 +966,7 @@ export const UMPQUA_MAINSTEM_FALL_COHO_RUN: AuditedRiverRunProfile = {
   researchNotes:
     "Biological presence is independent from harvestability. Current 2026 opportunity is hatchery-only where open; Winchester counts are excluded from the mainstem.",
   sourceNotes: "docs/onboarding/river-run/umpqua_mainstem/river-onboarding.md",
-  publicAudit: HIDDEN_AUDIT,
+  publicAudit: PUBLIC_AUDIT,
 };
 
 export const NORTH_UMPQUA_FALL_COHO_RUN: AuditedRiverRunProfile = {
@@ -1045,7 +1045,7 @@ export const NORTH_UMPQUA_FALL_COHO_RUN: AuditedRiverRunProfile = {
   researchNotes:
     "Winchester Fish Counts are a separate zero-influence facility observation. They are neither retainable fish counts nor a whole-corridor census.",
   sourceNotes: "docs/onboarding/river-run/north_umpqua/river-onboarding.md",
-  publicAudit: HIDDEN_AUDIT,
+  publicAudit: PUBLIC_AUDIT,
 };
 
 export const UMPQUA_DRAFT_RIVERS: RiverProfile[] = [
@@ -1065,7 +1065,7 @@ function configurationDocument(
 ): RiverRunConfigurationDocument {
   return {
     schemaVersion: "river-run-config-v1",
-    configVersion: `2026-09-29-${river.riverId}-fall-pass4-hidden-v1`,
+    configVersion: `2026-09-29-${river.riverId}-fall-public-release-v1`,
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river,
     biologyProfiles: river.riverId === "umpqua_mainstem"

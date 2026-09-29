@@ -298,6 +298,9 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "manitowoc_fall_brown_trout",
   "manitowoc_winter_steelhead",
   "manitowoc_winter_brown_trout",
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
 ]);
 
 type ConditionRefreshRow = {

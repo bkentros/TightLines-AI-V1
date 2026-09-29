@@ -7,6 +7,7 @@ import {
   riverRunStateChoices,
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
+import { migrationStageDescription } from "../lib/riverRunStageDescription";
 import type { RiverAccessSection } from "../lib/riverRunSpotFinder";
 import {
   resolveRiverSpotFinderRecommendedSections,
@@ -19,6 +20,7 @@ import { RIVER_RUN_CONFIGURATION_DOCUMENTS } from "../supabase/functions/_shared
 import { RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS } from "../supabase/functions/_shared/riverRunEngine/config/onboarding/index";
 import { resolveSeasonalZone } from "../supabase/functions/_shared/riverRunEngine/presentation/seasonalZone";
 import { resolveRunStage } from "../supabase/functions/_shared/riverRunEngine/scoring/runStage";
+import { scoreFishInRiver } from "../supabase/functions/_shared/riverRunEngine/scoring/fishInRiver";
 
 const ALL_CONFIGURATION_DOCUMENTS = [
   ...RIVER_RUN_CONFIGURATION_DOCUMENTS,
@@ -31,6 +33,10 @@ const FULL_YEAR_REPLAY_DATES = Array.from({ length: 365 }, (_, offset) => {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const riverRunScreen = readFileSync(resolve(root, "app/river-run.tsx"), "utf8");
+const stageDescriptionSource = readFileSync(
+  resolve(root, "lib/riverRunStageDescription.ts"),
+  "utf8",
+);
 const catalogSelection = readFileSync(
   resolve(root, "lib/riverRunCatalogSelection.ts"),
   "utf8",
@@ -581,7 +587,7 @@ assert.match(
   "Activity must prominently state that it is conditional on fish already being present",
 );
 assert.match(
-  riverRunScreen,
+  stageDescriptionSource,
   /dependable migration window is opening[\s\S]*?strongest portion of the migration window[\s\S]*?migration window is approaching its end/,
   "Stage must retain concise phase interpretation beyond the phase label",
 );
@@ -1125,6 +1131,7 @@ for (const riverId of ["green", "puyallup", "cowlitz"]) {
 }
 
 let recommendationMatrixCases = 0;
+let earlyBuildingDescriptionCases = 0;
 for (const document of ALL_CONFIGURATION_DOCUMENTS) {
   const presentations = document.river.presentationContexts ?? [{
     state: document.river.state,
@@ -1169,6 +1176,46 @@ for (const document of ALL_CONFIGURATION_DOCUMENTS) {
       if (!finder) continue;
       for (const localDate of FULL_YEAR_REPLAY_DATES) {
         const stage = resolveRunStage(run, localDate);
+        const fishInRiver = scoreFishInRiver(run, localDate);
+        const originalStageLabel = stage.label;
+        const originalPresenceScore = fishInRiver.score;
+        const stageDescription = migrationStageDescription(
+          stage,
+          fishInRiver,
+          run.runType === "holding",
+        );
+        assert.equal(
+          stage.label,
+          originalStageLabel,
+          `${run.runId}/${localDate} description selection must not change the Migration Stage title`,
+        );
+        assert.equal(
+          fishInRiver.score,
+          originalPresenceScore,
+          `${run.runId}/${localDate} description selection must not change Fish In River`,
+        );
+        if (
+          stage.stage === "building" && run.runType !== "holding" &&
+          fishInRiver.curveFraction <= 0.3
+        ) {
+          earlyBuildingDescriptionCases += 1;
+          assert.equal(
+            stage.label,
+            "Building",
+            `${run.runId}/${localDate} must keep Building as the canonical title`,
+          );
+          assert.match(
+            stageDescription,
+            /early part of its Building stage[\s\S]*seasonal presence is still low/i,
+            `${run.runId}/${localDate} must explain low presence in the Building description`,
+          );
+        } else {
+          assert.doesNotMatch(
+            stageDescription,
+            /early part of its Building stage/i,
+            `${run.runId}/${localDate} must not receive early-Building copy outside low-presence Building`,
+          );
+        }
         const seasonalZone = resolveSeasonalZone({
           river: document.river,
           run,
@@ -1577,5 +1624,5 @@ assert.equal(
 );
 
 console.log(
-  `River Run UI QA passed: ${recommendationMatrixCases} daily river/species/state Spot Finder cases, capability-gated positive-only Push Watch, protected admin review, entitlement checks intact, and no internal fixture controls/copy.`,
+  `River Run UI QA passed: ${recommendationMatrixCases} daily river/species/state Spot Finder cases, ${earlyBuildingDescriptionCases} global low-presence Building descriptions, capability-gated positive-only Push Watch, protected admin review, entitlement checks intact, and no internal fixture controls/copy.`,
 );

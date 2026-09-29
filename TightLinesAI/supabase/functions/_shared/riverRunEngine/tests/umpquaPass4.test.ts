@@ -97,7 +97,7 @@ function fourHourSeries(low: number, high: number): DirectEventSample[] {
   }));
 }
 
-Deno.test("Umpqua Pass 4 profiles validate only in the hidden draft registry", () => {
+Deno.test("Umpqua Pass 4 profiles validate in the public and review registries", () => {
   assertEquals(
     truth.deliveryContract.clientCapabilityId,
     "river_run_umpqua_fall_v1",
@@ -125,7 +125,7 @@ Deno.test("Umpqua Pass 4 profiles validate only in the hidden draft registry", (
     );
     assertEquals(
       RIVER_RUN_RIVER_PROFILES.some((item) => item.riverId === river.riverId),
-      false,
+      true,
     );
   }
   for (const run of runs) {
@@ -135,11 +135,11 @@ Deno.test("Umpqua Pass 4 profiles validate only in the hidden draft registry", (
       true,
       result.issues.map((issue) => issue.message).join("\n"),
     );
-    assertEquals(result.publicVisible, false, run.runId);
-    assertEquals(run.publicAudit.isEnabled, false, run.runId);
+    assertEquals(result.publicVisible, true, run.runId);
+    assertEquals(run.publicAudit.isEnabled, true, run.runId);
     assertEquals(
       RIVER_RUN_RUN_PROFILES.some((item) => item.runId === run.runId),
-      false,
+      true,
     );
   }
   for (const document of documents) {

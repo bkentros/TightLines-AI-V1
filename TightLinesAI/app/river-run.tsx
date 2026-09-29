@@ -60,6 +60,7 @@ import type {
   RiverRunSeason,
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
+import { migrationStageDescription } from "../lib/riverRunStageDescription";
 import {
   formatRiverRunTabStatus,
   resolveRiverRunVisualModel,
@@ -3031,6 +3032,7 @@ function SnapshotView({
             : tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
+          fishInRiver={snapshot.fishInRiver}
           winterHolding={season === "winter"}
           contextContent={tab.id === "activity" && snapshot.activity
             ? <ActivityBreakdown activity={snapshot.activity} />
@@ -3546,48 +3548,12 @@ function activityBlockColor(score: number): string {
     : "#C94A42";
 }
 
-function migrationStageSummary(
-  primitive: RiverRunSnapshotResponse["runStage"],
-  winterHolding = false,
-): string {
-  if (winterHolding) {
-    return primitive.label === "Winter transition"
-      ? "Fall-entry fish are settling into winter holding water; this is not a new migratory push."
-      : primitive.label === "Core winter hold"
-      ? "The retained population is in its core winter holding period."
-      : primitive.label === "Spring approach"
-      ? "Winter holding continues through February 28 without inferring spring movement."
-      : primitive.label === "Not active yet"
-      ? "The winter pathway remains off until the fall-entry pathway ends."
-      : "The winter holding pathway is complete and does not extend into the spring model.";
-  }
-  switch (primitive.stage) {
-    case "pre_run":
-      return "The river is ahead of its dependable migration window; occasional early arrivals can occur before the run is established.";
-    case "beginning":
-      return "The dependable migration window is opening, but the run is not yet broadly established.";
-    case "building":
-      return "The run is progressing toward its strongest seasonal window.";
-    case "peak":
-      return "This is historically the strongest portion of the migration window.";
-    case "tapering":
-      return "The strongest window has passed, but the seasonal migration period continues.";
-    case "ending":
-      return "The dependable migration window is approaching its end.";
-    case "post_run":
-      return "The tracked seasonal migration window has ended.";
-    default:
-      return primitive.label === "Before migration"
-        ? "The dependable seasonal river migration has not started yet."
-        : "This seasonal migration model is complete.";
-  }
-}
-
 function PrimitiveSection({
   index,
   title,
   visualKind,
   primitive,
+  fishInRiver,
   headerMeta,
   contextLine,
   contextContent,
@@ -3597,6 +3563,7 @@ function PrimitiveSection({
   title: string;
   visualKind: RiverRunVisualKind;
   primitive: RiverRunPrimitiveDisplay;
+  fishInRiver: RiverRunSnapshotResponse["fishInRiver"];
   headerMeta?: string;
   contextLine?: string;
   contextContent?: ReactNode;
@@ -3610,8 +3577,9 @@ function PrimitiveSection({
   });
   const stageOnly = visualKind === "run_stage";
   const publicHeadline = stageOnly
-    ? migrationStageSummary(
+    ? migrationStageDescription(
       primitive as RiverRunSnapshotResponse["runStage"],
+      fishInRiver,
       winterHolding,
     )
     : visualKind === "activity" && unavailable

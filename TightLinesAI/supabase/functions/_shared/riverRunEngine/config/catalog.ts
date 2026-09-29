@@ -10,6 +10,7 @@ import {
   NEW_YORK_CONFIGURATION_DOCUMENTS,
   PLATTE_CONFIGURATION_DOCUMENT,
   ROGUE_MI_CONFIGURATION_DOCUMENT,
+  UMPQUA_DRAFT_CONFIGURATION_DOCUMENTS,
   WASHINGTON_DRAFT_CONFIGURATION_DOCUMENTS,
   WHITE_CONFIGURATION_DOCUMENT,
 } from "./onboarding/index.ts";
@@ -204,6 +205,7 @@ export const RIVER_RUN_CONFIGURATION_DOCUMENTS:
     ...FALL_2026_DRAFT_CONFIGURATION_DOCUMENTS.filter((document) =>
       document.river.riverId !== "manitowoc"
     ),
+    ...UMPQUA_DRAFT_CONFIGURATION_DOCUMENTS,
   ].map((document) => ({
     ...document,
     runs: withSeasonalZonePlans(document.runs),

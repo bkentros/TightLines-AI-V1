@@ -18,6 +18,7 @@ import { ROOT_RIVER_PROFILE } from "./onboarding/root.ts";
 import { SHEBOYGAN_RIVER_PROFILE } from "./onboarding/sheboygan.ts";
 import { WHITE_RIVER_PROFILE } from "./onboarding/white.ts";
 import { WASHINGTON_DRAFT_RIVERS } from "./onboarding/washington.ts";
+import { UMPQUA_DRAFT_RIVERS } from "./onboarding/umpqua.ts";
 
 export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
   riverId: "pere_marquette",
@@ -1233,4 +1234,5 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   ...WASHINGTON_DRAFT_RIVERS,
   ...MIDWEST_DRAFT_RIVERS,
   ...FALL_2026_DRAFT_RIVERS,
+  ...UMPQUA_DRAFT_RIVERS,
 ];

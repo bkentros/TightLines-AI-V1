@@ -606,10 +606,10 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 26);
-  assertEquals(runIds.length, 83);
-  assertEquals(new Set(riverIds).size, 25);
-  assertEquals(new Set(runIds).size, 80);
+  assertEquals(riverIds.length, 28);
+  assertEquals(runIds.length, 86);
+  assertEquals(new Set(riverIds).size, 27);
+  assertEquals(new Set(runIds).size, 83);
   assertEquals(runIds.includes("kewaunee_river_fall_steelhead"), true);
   assertEquals(runIds.includes("manitowoc_fall_steelhead"), true);
   for (
@@ -634,6 +634,8 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "oswego",
       "bear_creek_manistee",
       "rogue_mi",
+      "umpqua_mainstem",
+      "north_umpqua",
     ]
   ) {
     assertEquals(riverIds.includes(riverId), true);
@@ -683,6 +685,9 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "rogue_mi_fall_chinook",
       "rogue_mi_fall_coho",
       "rogue_mi_fall_steelhead",
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);
@@ -717,7 +722,7 @@ Deno.test("runtime release gate can keep approved runs out of the live catalog",
   assertEquals((await json(unreleased)).error, "river_run_not_found");
 });
 
-Deno.test("production defaults include the released Bear Creek and Rogue runs", async () => {
+Deno.test("production defaults include the released Bear Creek, Rogue, and Umpqua runs", async () => {
   const response = await handleRiverRunRequestBase(request("/rivers"), {
     publicEnabled: true,
   });
@@ -731,9 +736,9 @@ Deno.test("production defaults include the released Bear Creek and Rogue runs", 
   );
 
   assertEquals(response.status, 200);
-  assertEquals(rivers.length, 16);
-  assertEquals(runIds.length, 53);
-  assertEquals(new Set(runIds).size, 50);
+  assertEquals(rivers.length, 18);
+  assertEquals(runIds.length, 56);
+  assertEquals(new Set(runIds).size, 53);
   assertEquals(runIds.includes("big_manistee_fall_brown_trout"), false);
   for (
     const runId of [
@@ -743,6 +748,9 @@ Deno.test("production defaults include the released Bear Creek and Rogue runs", 
       "rogue_mi_fall_chinook",
       "rogue_mi_fall_coho",
       "rogue_mi_fall_steelhead",
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);
@@ -1035,7 +1043,7 @@ Deno.test("old fall 2026 capability no longer hides other released rivers", asyn
   assert(riverIds.includes("kewaunee_river"));
 });
 
-Deno.test("Umpqua remains hidden unless the compatible owner-review client advertises its capability", async () => {
+Deno.test("released Umpqua rivers are public and remain available in owner review", async () => {
   const admin = {
     createAdminClient: () =>
       new MockClient({ email: "brandonkentros@icloud.com" }),
@@ -1049,8 +1057,8 @@ Deno.test("Umpqua remains hidden unless the compatible owner-review client adver
       state.rivers.map((river) => river.riverId),
   );
   assertEquals(withoutCapability.status, 200);
-  assertEquals(withoutIds.includes("umpqua_mainstem"), false);
-  assertEquals(withoutIds.includes("north_umpqua"), false);
+  assertEquals(withoutIds.includes("umpqua_mainstem"), true);
+  assertEquals(withoutIds.includes("north_umpqua"), true);
 
   const compatible = await handleRiverRunRequestBase(
     request("/review/rivers", {
@@ -1081,8 +1089,8 @@ Deno.test("Umpqua remains hidden unless the compatible owner-review client adver
     (state: { rivers: Array<{ riverId: string }> }) =>
       state.rivers.map((river) => river.riverId),
   );
-  assertEquals(publicIds.includes("umpqua_mainstem"), false);
-  assertEquals(publicIds.includes("north_umpqua"), false);
+  assertEquals(publicIds.includes("umpqua_mainstem"), true);
+  assertEquals(publicIds.includes("north_umpqua"), true);
 });
 
 Deno.test("compatible owner-review clients can render every Umpqua fall snapshot", async () => {
@@ -1119,7 +1127,8 @@ Deno.test("compatible owner-review clients can render every Umpqua fall snapshot
           gage_height_ft: null,
           water_temp_f: null,
         },
-        fetchFn: () => Promise.resolve(new Response("Not found", { status: 404 })),
+        fetchFn: () =>
+          Promise.resolve(new Response("Not found", { status: 404 })),
       },
     );
     const body = await json(response);
@@ -1135,7 +1144,7 @@ Deno.test("compatible owner-review clients can render every Umpqua fall snapshot
   }
 });
 
-Deno.test("incompatible owner-review clients cannot request Umpqua snapshots directly", async () => {
+Deno.test("released Umpqua owner-review snapshots no longer require a client capability", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/review/snapshot?riverId=umpqua_mainstem&runId=umpqua_mainstem_fall_coho&presentationState=OR",
@@ -1143,11 +1152,24 @@ Deno.test("incompatible owner-review clients cannot request Umpqua snapshots dir
     {
       createAdminClient: () =>
         new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-09-29T18:00:00.000Z"),
+      gaugeObservations: [],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      fetchFn: () =>
+        Promise.resolve(new Response("Not found", { status: 404 })),
     },
   );
 
-  assertEquals(response.status, 404);
-  assertEquals((await json(response)).error, "river_run_review_not_found");
+  const body = await json(response);
+  assertEquals(response.status, 200);
+  assertEquals(body.riverId, "umpqua_mainstem");
+  assertEquals(body.runId, "umpqua_mainstem_fall_coho");
 });
 
 Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or temperature", async () => {

@@ -6,11 +6,11 @@
 
 **Created:** 2026-09-29
 
-**Status:** `hidden_implementation_ready`
+**Status:** `public_release_authorized`
 
-**Current completed pass:** Pass 4 — hidden implementation and QA complete
+**Current completed pass:** Pass 4 — implementation, QA, and owner acceptance complete
 
-**Target gate:** Owner review; public enablement remains a separate authorization
+**Target gate:** Public backend deployment and production smoke verification
 
 **Guide:** `docs/river_run_onboarding.md`
 
@@ -51,8 +51,8 @@ complete Pass 3 in full / `umpqua-fall-run-truth-v1-pass3-2026-09-28` /
 2026-09-28. Machine record:
 `docs/onboarding/river-run/umpqua_fall_2026_pass3_run_truth.json`.
 
-**Rendered owner acceptance/date:** Pending; hidden review fixtures generated and
-validated 2026-09-29.
+**Rendered owner acceptance/date:** Accepted by the owner for public release on
+2026-09-29 after in-app review.
 
 **Research cutoff:** 2026-09-28. Recheck ODFW regulations/closures, wild-coho
 decision, Winchester index and newest report, PacifiCorp operations, public-land
@@ -113,6 +113,17 @@ Fishability safety contract tightens stale-gauge and sharp-rise/high-water caps
 from candidate 60/45 to 55/40 without changing calibrated flow boundaries.
 Machine audit:
 `docs/onboarding/river-run/umpqua_fall_2026_pass4_implementation_audit.json`.
+
+### Public release authorization
+
+**Decision:** On 2026-09-29 the owner authorized immediate public release of
+North Umpqua Fall Coho together with both Umpqua Mainstem runs. The release
+changes the public-audit flag, static public registries, configuration version,
+and explicit released-run allowlist. No database migration is required.
+Existing clients can receive the server-backed river/run catalog and all four
+primitives without an OTA update. Static Spot Finder entries, picker sizing,
+Fish Counts presentation refinements, and the refined early-Building description
+require a client containing the Umpqua app changes.
 
 ### Pass 1 delivery contract
 
@@ -540,15 +551,15 @@ prove trailing four-hour medians from live high-cadence values.
 
 ## 11. Configuration reconciliation
 
-The hidden configuration is implemented in
+The release configuration is implemented in
 `supabase/functions/_shared/riverRunEngine/config/onboarding/umpqua.ts`. It is
-registered only in the draft owner-review registry. Public runtime registries
-remain unchanged.
+registered in the public runtime catalog and retained in the review registry for
+fixture and owner-review continuity.
 
 | Runtime object | ID | Pass 4 state |
 | --- | --- | --- |
-| River profile | `north_umpqua` | implemented, valid, hidden |
-| Fall Coho | `north_umpqua_fall_coho` | implemented, valid, hidden |
+| River profile | `north_umpqua` | implemented, valid, public-release authorized |
+| Fall Coho | `north_umpqua_fall_coho` | implemented, valid, public-release authorized |
 | USGS hydraulic source | `north_umpqua_winchester_usgs` | implemented for the lower represented reach |
 | USGS temperature source | `north_umpqua_winchester_temperature` | implemented and scored only with co-located lower-reach flow |
 | Idleyld context | USGS `14317450` | retained as foundation context only; no runtime score source |
@@ -567,8 +578,8 @@ remain unchanged.
 | Server work | Hidden river/run/source/zone profiles, Winchester parser/cache/freshness path, capability filtering, replays, audits and catalog wiring |
 | Mobile-binary work | North Umpqua picker artwork/size mapping, static Spot Finder inventory, Fish Counts presentation compatibility, capability advertisement and review fixtures |
 | Database/migration | None; Pass 4 changed or added no migration file |
-| Deployment/public action | Not authorized |
-| Stopping gate | Hidden review only; owner acceptance and release remain separate |
+| Deployment/public action | Authorized 2026-09-29; deploy and production smoke required |
+| Stopping gate | Production catalog and snapshot verification |
 
 ## 12. Acceptance and next gate
 
