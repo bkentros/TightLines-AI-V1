@@ -636,6 +636,11 @@ assert.doesNotMatch(
   "Spot Finder must not visually truncate access names or material cautions",
 );
 assert.match(
+  riverRunScreen,
+  /numberOfLines=\{step === 4 \? 2 : 1\}/,
+  "River choices must allow a second line so distinguishing names such as Mainstem remain visible",
+);
+assert.match(
   RIVER_ACCESS_GENERAL_WARNING,
   /listed access name does not guarantee legal parking, safe wading, open roads or permission to cross neighboring land/,
   "Spot Finder must distinguish a listed access name from parking, wading, road and property permission",

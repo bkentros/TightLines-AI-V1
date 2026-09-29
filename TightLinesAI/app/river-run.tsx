@@ -1430,7 +1430,7 @@ function ChoiceCard({
       >
         <Text
           style={[styles.choiceTitle, disabled && styles.choiceTextDisabled]}
-          numberOfLines={1}
+          numberOfLines={step === 4 ? 2 : 1}
         >
           {choice.label}
         </Text>
