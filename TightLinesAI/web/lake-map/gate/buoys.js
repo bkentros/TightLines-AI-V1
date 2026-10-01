@@ -29,7 +29,9 @@ export function parseStations(xml) {
   return out;
 }
 function decodeXml(s) {
-  return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d));
+  const named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" };
+  return s.replace(/&(amp|lt|gt|quot|apos|#\d+);/g, (entity, name) =>
+    name[0] === '#' ? String.fromCharCode(Number(name.slice(1))) : named[name] ?? entity);
 }
 
 /** Great Lakes stations with water data, newest reading each, in mph / °F / ft. */

@@ -77,7 +77,6 @@ v3 = v3
   .replaceAll("<>17", "<>22")
   .replaceAll("118", "173")
   .replaceAll("17-city", "22-city")
-  .replaceAll("chicago-alpena-pass3", "chicago-alpena-pass3")
   .replace(
     "forecast_count in (180,280,350,470,865)",
     "forecast_count in (180,280,350,470,590,845,865)",

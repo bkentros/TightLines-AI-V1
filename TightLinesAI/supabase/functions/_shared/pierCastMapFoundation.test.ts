@@ -138,8 +138,10 @@ Deno.test("foundation cache returns fresh data then bounded stale fallback", asy
     windGrid: TEST_NODES,
     fetchImpl: (input) => {
       if (fail) return Promise.reject(new Error("provider offline"));
+      const hostname = new URL(String(input)).hostname;
       return Promise.resolve(
-        String(input).includes("open-meteo.com")
+        hostname === "customer-api.open-meteo.com" ||
+          hostname === "api.open-meteo.com"
           ? openMeteoResponse(validTimes)
           : noaaDescriptor(),
       );

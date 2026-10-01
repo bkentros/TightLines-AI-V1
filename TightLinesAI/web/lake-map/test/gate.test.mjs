@@ -90,7 +90,7 @@ LDTM4   43.947  -86.441 2026 09 30 22 00 190  5.0   7.0   MM  MM   MM  MM 1015.0
 45002   45.344  -86.411 2026 09 29 10 00 200  8.0  10.0  1.2   5  4.1 210 1015.2 -0.4   15.0  17.0  10.0   MM    MM`;
 const XML = `<?xml version="1.0"?><stations created="x" count="3">
 <station id="45007" lat="42.674" lon="-87.026" elev="176" name="SOUTH MICHIGAN - 43NM East Southeast of Milwaukee, WI" owner="NDBC" pgm="NDBC Meteorological/Ocean" type="buoy" met="y"/>
-<station id="45024" lat="43.978" lon="-86.559" name="Ludington Buoy &amp; Friends" owner="GLOS" type="buoy" met="y"/>
+<station id="45024" lat="43.978" lon="-86.559" name="Ludington Buoy &amp; Friends" owner="GLOS &amp;lt;Partner&amp;gt;" type="buoy" met="y"/>
 </stations>`;
 
 test('buoys: Great Lakes water readings only, recent, converted', () => {
@@ -108,4 +108,5 @@ test('buoys: Great Lakes water readings only, recent, converted', () => {
   assert.equal(b.name, 'Ludington Buoy & Friends');
   assert.equal(b.windMph, null);
   assert.equal(b.waterF, 61.7);
+  assert.equal(parseStations(XML)['45024'].owner, 'GLOS &lt;Partner&gt;');
 });

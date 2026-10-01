@@ -66,6 +66,9 @@ async function extractStocking() {
 const creel = await extractCreel();
 const stocking = await extractStocking();
 fs.writeFileSync(creelOutput, creel);
+// This offline evidence extractor intentionally persists a public agency CSV
+// to one fixed, repo-owned snapshot path after parsing and filtering it.
+// lgtm[js/http-to-file-access]
 fs.writeFileSync(stockingOutput, stocking);
 console.log(`Wrote ${parseCsv(creel.trim()).length - 1} creel rows to ${creelOutput}`);
 console.log(`Wrote ${parseCsv(stocking.trim()).length - 1} stocking rows to ${stockingOutput}`);

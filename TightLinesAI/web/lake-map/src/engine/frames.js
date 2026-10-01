@@ -3,14 +3,24 @@
  * once for CPU sampling (readout, pier values, labels) and hands the same
  * images to the GPU layers. Frames are fetched lazily around the current time.
  */
+function sameOriginPath(input, base = location.href) {
+  const page = new URL(base);
+  const target = new URL(input, page);
+  if (target.origin !== page.origin) throw new Error('Cross-origin map data is not allowed');
+  return `${target.pathname}${target.search}`;
+}
+
 export class FrameStore {
   constructor(baseUrl) {
-    this.base = baseUrl.replace(/\/?$/, '/');
+    this.base = sameOriginPath(baseUrl).replace(/\/?$/, '/');
     this.images = new Map(); // path -> Promise<{img, data, w, h}>
     this.listeners = new Set();
   }
+  url(path) {
+    return sameOriginPath(path, new URL(this.base, location.origin).href);
+  }
   async init() {
-    const res = await fetch(this.base + 'manifest.json');
+    const res = await fetch(this.url('manifest.json'));
     if (!res.ok) throw new Error('Map data unavailable');
     this.manifest = await res.json();
     const m = this.manifest;
@@ -18,7 +28,7 @@ export class FrameStore {
     this.maxHour = this.hours[this.hours.length - 1];
     this.t0 = Date.parse(m.frames[0].validTime);
     const [events, depth] = await Promise.all([
-      fetch(this.base + m.events).then((r) => r.ok ? r.json() : { events: [] }).catch(() => ({ events: [] })),
+      fetch(this.url(m.events)).then((r) => r.ok ? r.json() : { events: [] }).catch(() => ({ events: [] })),
       m.depth ? this.load(m.depth) : Promise.resolve(null),
     ]);
     this.events = events.events || [];
@@ -42,7 +52,7 @@ export class FrameStore {
           this.listeners.forEach((fn) => fn(frame));
         };
         img.onerror = () => reject(new Error('Frame failed: ' + path));
-        img.src = this.base + path;
+        img.src = this.url(path);
       }));
     }
     return this.images.get(path);

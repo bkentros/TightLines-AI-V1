@@ -514,15 +514,30 @@ function findLegacyPeak(
 }
 
 function inferPublisher(url: string): string {
-  if (url.includes("MIDNR") || url.includes("michigan.gov") || url.includes("midnr")) {
+  let parsed: URL | null = null;
+  try {
+    parsed = new URL(url);
+  } catch {
+    // Registry entries should be URLs, but an invalid legacy value must not
+    // be mistaken for an official publisher merely because it contains a
+    // trusted domain name.
+  }
+  const host = parsed?.hostname.toLowerCase().replace(/\.$/, "") ?? "";
+  const isHost = (domain: string) =>
+    host === domain || host.endsWith(`.${domain}`);
+  const pathParts = parsed?.pathname.split("/").filter(Boolean) ?? [];
+  const isMichiganGovDelivery = isHost("content.govdelivery.com") &&
+    pathParts[0]?.toLowerCase() === "accounts" &&
+    pathParts[1]?.toLowerCase() === "midnr";
+  if (isHost("michigan.gov") || isMichiganGovDelivery) {
     return "Michigan Department of Natural Resources";
   }
-  if (url.includes("dnr.wisconsin.gov") || url.includes("widnr")) {
+  if (isHost("dnr.wisconsin.gov")) {
     return "Wisconsin Department of Natural Resources";
   }
-  if (url.includes("noaa.gov")) return "NOAA";
-  if (url.includes("usgs.gov")) return "U.S. Geological Survey";
-  if (url.includes("sealamprey.org")) return "Great Lakes Fishery Commission";
+  if (isHost("noaa.gov")) return "NOAA";
+  if (isHost("usgs.gov")) return "U.S. Geological Survey";
+  if (isHost("sealamprey.org")) return "Great Lakes Fishery Commission";
   return "Primary source named in registry";
 }
 
