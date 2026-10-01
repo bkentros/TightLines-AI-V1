@@ -176,7 +176,7 @@ class CycleTest(unittest.TestCase):
         self.assertTrue(all(x.hour in (1, 7, 13, 19) for x in waves.cycle_candidates(NOW)))
 
     def test_workflow_checks_noaa_release_windows_without_exceeding_budget(self):
-        root_workflow = JOB.parents[2] / ".github/workflows/lake-map-data.yml"
+        root_workflow = JOB.parents[3] / ".github/workflows/lake-map-data.yml"
         mirror_workflow = JOB / "lake-map-data.workflow.yml"
         root_text = root_workflow.read_text()
         self.assertEqual(root_text, mirror_workflow.read_text())
