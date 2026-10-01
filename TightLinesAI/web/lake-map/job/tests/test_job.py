@@ -222,6 +222,10 @@ class CycleTest(unittest.TestCase):
         self.assertIsNone(build.publication_readiness(primary_delayed, CYCLE + timedelta(hours=4)))
         all_old = {model["id"]: CYCLE - timedelta(hours=6) for model in build.OFS_MODELS}
         self.assertIsNone(build.publication_readiness(all_old, CYCLE + timedelta(hours=4)))
+        forced = build.publication_readiness(all_old, CYCLE + timedelta(hours=4), allow_existing_complete=True)
+        self.assertEqual(forced, ("forced latest complete", CYCLE - timedelta(hours=6), sorted(all_old)))
+
+        self.assertIsNone(build.publication_readiness(delayed, CYCLE + timedelta(hours=12), allow_existing_complete=True))
 
     def test_temperature_integrity_rejects_missing_malformed_and_corrupt_hours(self):
         good = {hour: np.full(20, 55.0, np.float32) for hour in range(121)}

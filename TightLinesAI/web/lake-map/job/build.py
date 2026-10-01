@@ -59,17 +59,24 @@ def iso(t: datetime) -> str:
     return t.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def publication_readiness(cycles, now):
+def publication_readiness(cycles, now, allow_existing_complete=False):
     """Return the complete target cycle, or None without mixing model runs.
 
     NOAA's four lake models are released independently. PierCast keeps the last
     known-good run visible until every configured model has the expected
-    00/06/12/18Z cycle. Freshness never outranks five-day temporal coherence.
+    00/06/12/18Z cycle. A manual force rebuild may reuse the newest older cycle
+    only when all configured models already agree on it. Freshness never
+    outranks five-day temporal coherence.
     """
+    required = {model["id"] for model in OFS_MODELS}
     target = ofs.cycle_candidates(now)[0]
-    current = sorted(model["id"] for model in OFS_MODELS if cycles.get(model["id"]) == target)
-    if len(current) == len(OFS_MODELS):
+    current = sorted(model_id for model_id in required if cycles.get(model_id) == target)
+    if set(current) == required:
         return "complete", target, current
+    if allow_existing_complete and set(cycles) == required and len(set(cycles.values())) == 1:
+        existing = next(iter(cycles.values()))
+        if existing <= target:
+            return "forced latest complete", existing, sorted(required)
     return None
 
 
@@ -438,7 +445,7 @@ def main(argv=None):
     if not cycles:
         log("No NOAA lake model cycle is published yet — keeping the last good run.")
         return 2
-    readiness = publication_readiness(cycles, now)
+    readiness = publication_readiness(cycles, now, allow_existing_complete=args.force)
     if not readiness:
         target = ofs.cycle_candidates(now)[0]
         current = sorted(k for k, value in cycles.items() if value == target)
