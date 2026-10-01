@@ -12,7 +12,7 @@ import type {
   PierCastConditionsMapResponseV4,
 } from "../lib/pierCastConditionsV4";
 
-const map = read("app/pier-cast-map.tsx");
+const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const store = read("store/pierCastMapStore.ts");
 const decision = read("docs/PierCast_Refinement_Pass3_Map.md");
 const matrix = JSON.parse(read("docs/PierCast_Refinement_Pass3_Visual_Matrix.json"));

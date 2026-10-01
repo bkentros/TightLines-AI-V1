@@ -5,6 +5,9 @@ import test from "node:test";
 import { buildPierCastCatalog } from "../supabase/functions/_shared/pierCastEngine/config/catalog.ts";
 
 const ui = read("components/pier-cast/PierCastConditionsUI.tsx");
+const standings = read("components/pier-cast/PierCastStandings.tsx");
+const standingsRules = read("lib/pierCastStandingsPresentation.ts");
+const reportRules = read("lib/pierCastCityReportPresentation.ts");
 const screen = read("app/pier-cast-review.tsx");
 const contract = read("lib/pierCastConditionsV4.ts");
 const edge = read("supabase/functions/pier-cast/index.ts");
@@ -25,35 +28,41 @@ test("conditions catalog v2 exposes only the discovery roster needed by city-fir
   }
 });
 
-test("leaderboard stays opt-in and species-specific with the documented ranking hierarchy", () => {
-  assert.match(ui, /What are you targeting\?/);
-  assert.match(ui, /There is no universal best pier/);
-  assert.match(ui, /typical seasonal outlook, then exact temperature match/);
-  assert.match(ui, /SPECIES-SPECIFIC RANKING/);
+test("leaderboard is species-specific with the documented ranking hierarchy", () => {
+  assert.match(standings, /WHAT ARE YOU TARGETING\?/);
+  assert.match(standings, /Each species gets its own ranking/);
+  assert.match(standings, /Season comes first/);
+  assert.match(standings, /Water-temp suitability orders the rest/);
+  assert.match(standings, /Ordered by water-temp suitability/);
   assert.match(decision, /seasonal band first/i);
   assert.match(decision, /temperature fit.*within/i);
-  assert.doesNotMatch(ui, /\/10|combined score/i);
+  assert.doesNotMatch(standings + ui, /\/10|combined score/i);
 });
 
 test("temperature fit is compact and visually secondary on leaderboard rows", () => {
-  assert.match(ui, /function TemperatureFitIndicator/);
-  assert.match(ui, />TEMP FIT</);
-  assert.match(ui, /temperatureFitSwatch/);
-  assert.match(ui, /standingPills}><ConditionPill band=\{seasonalBand\} kind="seasonal"/);
-  assert.match(ui, /TemperatureFitIndicator[\s\S]*temperatureC/);
+  // City-report species cards show water fit against the ideal range.
+  assert.match(ui, /function WaterFitBar/);
+  assert.match(ui, />WATER FIT</);
+  assert.match(ui, /Ideal \{card\.idealLine\}/);
+  assert.match(reportRules, /export function pierCastWaterFit/);
+  assert.match(reportRules, /thermal\.optimumRangeC/);
   assert.match(ui, /MODELED/);
+  // Standings rows lead with the seasonal rating chip; water temp is a
+  // secondary line derived from the thermal match.
+  assert.match(standings, /<BandChip band=\{band\} \/>/);
+  assert.match(standings, /standingsWaterLine\(row\.thermalMatch\)/);
+  assert.match(standingsRules, /Water \$\{temperatureF\}°F · \$\{phrase\}/);
 });
 
-test("city finder works without a leaderboard selection and offers only supported targets", () => {
-  assert.match(ui, /SELECT YOUR PIERCAST/);
-  assert.match(ui, /Search directly—no leaderboard selection required/);
-  assert.match(ui, /TextInput/);
-  assert.match(ui, /Search city or state/);
-  assert.match(ui, /citySupportedSpeciesIds/);
-  assert.match(ui, /CHOOSE A TARGET FOR/);
-  assert.match(ui, /onOpenCityForSpecies\(pendingCity\.cityId, option\.speciesId\)/);
-  assert.doesNotMatch(ui, /disabled=\{!targetAvailable\}/);
-  assert.match(ui, /No matching cities/);
+test("city finder works without a leaderboard selection and opens only supported targets", () => {
+  assert.match(standings, /Find your PierCast/);
+  assert.match(standings, /TextInput/);
+  assert.match(standings, /Search a city/);
+  assert.match(standings, /No pier cities match/);
+  assert.match(standingsRules, /supported\.includes\(currentSpeciesId\)/);
+  assert.match(screen, /finderReportSpecies\(city, selectedSpeciesRef\.current\)/);
+  assert.match(screen, /openCityForSpecies\(cityId, speciesId\)/);
+  assert.doesNotMatch(standings, /disabled=\{!targetAvailable\}/);
 });
 
 test("city-first target changes are persisted and guarded against stale async responses", () => {
@@ -69,14 +78,16 @@ test("city-first target changes are persisted and guarded against stale async re
   assert.match(screen, /await loadCityReport\(cityId, speciesId\)/);
 });
 
-test("city reports keep typical timing separate from modeled surface compatibility", () => {
-  assert.match(ui, /TYPICAL TARGET TIMING/);
-  assert.match(ui, /MODELED SURFACE TEMP FIT/);
-  assert.match(ui, /Surface compatibility, not fish presence/);
-  assert.match(ui, /sets the leaderboard group/);
-  assert.match(ui, /orders cities within the same seasonal group/);
-  assert.match(ui, /does not claim fish are present or at the surface/);
-  assert.match(ui, /Local fishery context[\s\S]*never boosts a city’s ranking/);
+test("city reports are city-first and keep season separate from water fit", () => {
+  assert.match(ui, /Ranked for today: season rating first, then water-temp fit/);
+  assert.match(ui, />SEASON</);
+  assert.match(ui, />WATER FIT</);
+  assert.match(ui, /Best bet each day/);
+  assert.match(ui, /TOP PICK TODAY/);
+  assert.doesNotMatch(ui, /YOUR TARGET|CHANGE TARGET/);
+  assert.match(reportRules, /comparePierCastSpeciesConditionsV4/);
+  assert.match(contract, /export function comparePierCastSpeciesConditionsV4/);
+  assert.match(ui, /report\.disclosure/);
 });
 
 test("refinement preserves the visual system and legacy API isolation", () => {

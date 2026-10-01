@@ -1,9 +1,13 @@
 import {
+  comparePierCastSpeciesConditionsV4,
+  PIER_CAST_CITY_DAILY_OUTLOOK_DAYS,
   PIER_CAST_COMMON_TARGET_MINIMUM_SEASONAL_BAND,
   PIER_CAST_CONDITIONS_FORMULA_VERSION,
   PIER_CAST_CONDITIONS_SCHEMA_VERSION,
   PIER_CAST_RANKING_VERSION,
+  type PierCastCityDailyOutlookV4,
   type PierCastCityReportReadV4,
+  type PierCastCitySpeciesStandingV4,
   type PierCastConditionsMapResponseV4,
   type PierCastConditionsOutlookV4,
   type PierCastConditionsShadowComparisonV4,
@@ -288,9 +292,123 @@ export function projectPierCastConditionsCityReportV4(
     ),
     currentTemperature: city.currentTemperature,
     temperatureTimeline: city.temperatureTimeline,
+    dailyOutlook: buildCityDailyOutlook(city, outlook.generatedAt),
+    speciesStandings: buildCitySpeciesStandings(outlook, city),
     source: outlook.source,
     disclosure: outlook.disclosure,
   };
+}
+
+/**
+ * Per local day, the species that would rank first at this city under the
+ * leaderboard rule. Today reuses the city's current conditions so it agrees
+ * with the report's species list; later days evaluate every species at that
+ * date with the day's mean modeled surface temperature.
+ */
+function buildCityDailyOutlook(
+  city: PierCastConditionsOutlookV4["cities"][number],
+  generatedAt: string,
+): PierCastCityDailyOutlookV4[] {
+  const configured = getPierCastV4CityDefinition(city.cityId);
+  if (!configured || !Number.isFinite(Date.parse(generatedAt))) return [];
+  const today = localDateAt(generatedAt, city.timezone);
+  const days = new Map<string, { validAt: string; temperatureC: number }[]>();
+  for (const point of city.temperatureTimeline) {
+    if (
+      !Number.isFinite(point.temperatureC) ||
+      !Number.isFinite(Date.parse(point.validAt))
+    ) continue;
+    const localDate = localDateAt(point.validAt, city.timezone);
+    if (localDate < today) continue;
+    const bucket = days.get(localDate);
+    if (bucket) bucket.push(point);
+    else days.set(localDate, [point]);
+  }
+  return [...days.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .slice(0, PIER_CAST_CITY_DAILY_OUTLOOK_DAYS)
+    .map(([localDate, points]) => {
+      const temperatures = points.map((point) => point.temperatureC);
+      const useCurrent = localDate === today && city.currentTemperature !== null;
+      const representativeTemperatureC = useCurrent
+        ? city.currentTemperature!.temperatureC
+        : temperatures.reduce((total, value) => total + value, 0) /
+          temperatures.length;
+      const conditions = useCurrent ? city.species : city.species.map(
+        (species) =>
+          buildSpeciesConditions({
+            city: configured,
+            speciesId: species.speciesId,
+            localDate,
+            temperatureC: representativeTemperatureC,
+            validAt: points[Math.floor(points.length / 2)]!.validAt,
+            sourceStatus: "valid",
+          }),
+      );
+      const ranked = conditions
+        .filter((species) => species.rankingDisposition === "ranked")
+        .sort((left, right) =>
+          comparePierCastSpeciesConditionsV4(left, right) ||
+          speciesName(left.speciesId).localeCompare(speciesName(right.speciesId))
+        );
+      const leader = ranked[0];
+      return {
+        localDate,
+        temperatureBasis: useCurrent ? "current" as const : "daily_mean" as const,
+        representativeTemperatureC: round(representativeTemperatureC, 3),
+        temperatureRangeC: [
+          Math.min(...temperatures),
+          Math.max(...temperatures),
+        ] as const,
+        pointCount: points.length,
+        rankedSpeciesCount: ranked.length,
+        best: leader &&
+            leader.seasonalOutlook.status === "available" &&
+            leader.thermalMatch.status === "available"
+          ? {
+            speciesId: leader.speciesId,
+            seasonalBand: leader.seasonalOutlook.band,
+            thermalBand: leader.thermalMatch.band,
+          }
+          : null,
+      };
+    });
+}
+
+/** This city's current rank in each of its species' leaderboards. */
+function buildCitySpeciesStandings(
+  outlook: PierCastConditionsOutlookV4,
+  city: PierCastConditionsOutlookV4["cities"][number],
+): PierCastCitySpeciesStandingV4[] {
+  // A one-city outlook (e.g. an adapted legacy saved report) has no standings
+  // to compare against; "#1 of 1" would mislead, so send none.
+  if (outlook.cities.length < 2) return [];
+  return city.species.map(({ speciesId }) => {
+    const candidates = outlook.cities.flatMap((candidateCity) => {
+      const conditions = candidateCity.species.find((species) =>
+        species.speciesId === speciesId
+      );
+      return conditions
+        ? [{
+          ...conditions,
+          cityId: candidateCity.cityId,
+          displayName: candidateCity.displayName,
+          lakeId: candidateCity.lakeId,
+          stateCode: candidateCity.stateCode,
+          timezone: candidateCity.timezone,
+          rank: null,
+        } satisfies PierCastLeaderboardCityReadV4]
+        : [];
+    });
+    let rank = 0;
+    let cityRank: number | null = null;
+    for (const candidate of sortPierCastLeaderboardV4(speciesId, candidates)) {
+      if (candidate.rankingDisposition !== "ranked") continue;
+      rank += 1;
+      if (candidate.cityId === city.cityId) cityRank = rank;
+    }
+    return { speciesId, rank: cityRank, rankedCityCount: rank };
+  });
 }
 
 export function projectPierCastConditionsMapV4(

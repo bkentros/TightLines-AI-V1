@@ -5291,6 +5291,7 @@
         "npm:react-native-screens@4.23",
         "npm:react-native-svg@15.15.3",
         "npm:react-native-url-polyfill@3",
+        "npm:react-native-webview@13.16.0",
         "npm:react-native@0.83.10",
         "npm:react@19.2.0",
         "npm:tsx@^4.21.0",

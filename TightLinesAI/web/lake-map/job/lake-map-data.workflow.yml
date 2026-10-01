@@ -1,0 +1,54 @@
+# Builds the PierCast Live Lake Map frames from NOAA lake models (water temp),
+# NOAA GLWU (waves), Open-Meteo (wind over the lakes) and NOAA GFS (wind for the
+# wider map area), and publishes them to Cloudflare R2.
+# Runs every 3 hours; a run exits in about a minute when NOAA has nothing new.
+name: Lake map data
+
+on:
+  schedule:
+    - cron: "35 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild even if NOAA has nothing new"
+        type: boolean
+        default: false
+
+concurrency:
+  group: lake-map-data
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web/lake-map
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: web/lake-map/job/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Test
+        run: python -m unittest discover -s job/tests && node --test test/*.test.mjs job/*.test.mjs
+      - name: Build and publish
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+          OPEN_METEO_API_KEY: ${{ secrets.OPEN_METEO_API_KEY }}
+        run: python job/build.py --out "$RUNNER_TEMP/lakemap" --upload ${{ inputs.force && '--force' || '' }}

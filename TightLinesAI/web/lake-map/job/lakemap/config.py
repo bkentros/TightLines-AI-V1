@@ -1,0 +1,89 @@
+"""Fixed settings for the Live Lake Map data job (frame format v1)."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+
+JOB_DIR = Path(__file__).resolve().parent.parent
+LAKE_MAP_DIR = JOB_DIR.parent
+GEO_PATH = LAKE_MAP_DIR / "static" / "geo.json"
+PIERS_PATH = JOB_DIR / "piers.json"
+SIGNALS_EVENTS_SCRIPT = JOB_DIR / "events.mjs"
+
+FORMAT_VERSION = 1
+GEO_VERSION = "v1"
+
+DOMAIN = {"west": -92.4, "east": -75.8, "south": 41.2, "north": 49.2}
+# Wind covers a much wider area than the lake data, so the map can be panned and
+# zoomed out freely with streaks everywhere. Its 0.25° cells line up with the
+# lake-area wind cells (48 columns west, 44 rows north of DOMAIN's corner).
+WIND_DOMAIN = {"west": -104.4, "east": -63.9, "south": 30.2, "north": 60.2}
+HOURS = 121  # forecast hours 0..120, hourly
+
+# How far (in output cells) water values are extended onto land so the land
+# layer never shows a gap along the shore.
+EXTEND_CELLS = 8
+
+
+@dataclass(frozen=True)
+class Grid:
+    name: str
+    res: float
+    scale: float
+    offset: float
+    unit: str
+    nodata: int | None = None
+    domain: dict | None = None   # own area (default: DOMAIN)
+
+    @property
+    def box(self) -> dict:
+        return self.domain or DOMAIN
+
+    @property
+    def width(self) -> int:
+        return round((self.box["east"] - self.box["west"]) / self.res) + 1
+
+    @property
+    def height(self) -> int:
+        return round((self.box["north"] - self.box["south"]) / self.res) + 1
+
+    def manifest(self) -> dict:
+        out = {"res": self.res, "scale": self.scale, "offset": self.offset, "unit": self.unit,
+               "width": self.width, "height": self.height}
+        if self.nodata is not None:
+            out["nodata"] = self.nodata
+        if self.domain:
+            out["west"], out["north"] = self.domain["west"], self.domain["north"]
+        return out
+
+
+TEMP = Grid("temp", 0.02, 5, 30, "F", 255)        # byte = (°F − 30) × 5
+WIND = Grid("wind", 0.25, 2, 128, "mph", domain=WIND_DOMAIN)  # R/G = u|v × 2 + 128
+WIND_LAKES = Grid("wind", 0.25, 2, 128, "mph")    # the Open-Meteo points (lake area)
+WAVES = Grid("waves", 0.05, 20, 0, "ft", 255)     # byte = ft × 20
+DEPTH = Grid("depth", 0.02, 1 / 6, 0, "ft", 255)  # byte = ft ÷ 6
+GRIDS = {g.name: g for g in (TEMP, WIND, WAVES, DEPTH)}
+
+# NOAA Great Lakes Operational Forecast Systems, regular-grid output on THREDDS.
+THREDDS = "https://opendap.co-ops.nos.noaa.gov/thredds/dodsC/NOAA"
+OFS_MODELS = [
+    {"id": "LSOFS", "prefix": "lsofs", "lakes": ["superior"]},
+    {"id": "LMHOFS", "prefix": "lmhofs", "lakes": ["michigan", "huron"]},
+    {"id": "LEOFS", "prefix": "leofs", "lakes": ["erie"]},
+    {"id": "LOOFS", "prefix": "loofs", "lakes": ["ontario"]},
+]
+OFS_CYCLES = (0, 6, 12, 18)
+
+# NOAA Great Lakes Wave model (GLWU), 2.5 km grid, via the NOMADS GRIB filter.
+GLWU_FILTER = "https://nomads.ncep.noaa.gov/cgi-bin/filter_glwu.pl"
+GLWU_CYCLES = (1, 7, 13, 19)
+
+# Wind: Open-Meteo best-match forecast (HRRR/NBM where available).
+OPEN_METEO_FREE = "https://api.open-meteo.com/v1/forecast"
+OPEN_METEO_CUSTOMER = "https://customer-api.open-meteo.com/v1/forecast"
+OPEN_METEO_BATCH = 100
+
+# Wind outside the lake area: NOAA GFS 0.25°, 10 m wind, 3-hourly steps via the NOMADS
+# GRIB filter (free, no key; one small download per step).
+GFS_FILTER = "https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl"
+GFS_CYCLES = (0, 6, 12, 18)

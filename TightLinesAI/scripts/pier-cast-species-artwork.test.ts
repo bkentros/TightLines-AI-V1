@@ -107,6 +107,6 @@ test("new species assets and all conditions fish art stay normalized", () => {
   }
 
   assert.match(conditionsUi, /resizeMode="contain"/);
-  assert.match(conditionsUi, /fishHero:/);
-  assert.match(conditionsUi, /fishCompact:/);
+  assert.match(conditionsUi, /function SpeciesFish/);
+  assert.match(conditionsUi, /getPierCastSpeciesImage\(speciesId\)/);
 });

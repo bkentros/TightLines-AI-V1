@@ -14,7 +14,7 @@ const migration = read(
 );
 const handler = read("supabase/functions/pier-cast/handler.ts");
 const client = read("lib/pierCast.ts");
-const map = read("app/pier-cast-map.tsx");
+const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const mapStore = read("store/pierCastMapStore.ts");
 
 test("observation response preserves the complete frozen public contract", () => {

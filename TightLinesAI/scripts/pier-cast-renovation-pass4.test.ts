@@ -21,7 +21,7 @@ import {
   type PierCastConditionsV4SourceOutlook,
 } from "../supabase/functions/_shared/pierCastEngine/pipeline/conditionsV4";
 
-const mapScreen = read("app/pier-cast-map.tsx");
+const mapScreen = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const mapStore = read("store/pierCastMapStore.ts");
 const client = read("lib/pierCast.ts");
 const handler = read("supabase/functions/pier-cast/handler.ts");

@@ -1,419 +1,457 @@
-import React, { useId, useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  type GestureResponderEvent,
+  type LayoutChangeEvent,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Svg, {
   Circle,
   Defs,
   Line,
   LinearGradient,
   Path,
+  Rect,
   Stop,
   Text as SvgText,
 } from "react-native-svg";
 
-import type { PierCastModeledTemperaturePointV4 } from "../../lib/pierCastConditionsV4";
+import {
+  buildPierCastChartModel,
+  pierCastDeltaLabel,
+  pierCastReadoutTime,
+  pierCastSmoothPath,
+  type PierCastShiftCard,
+  type PierCastTimelinePoint,
+} from "../../lib/pierCastCityReportPresentation";
 import { pierCastWaterTemperatureColor } from "../../lib/pierCastTemperatureScale";
 import { paper, paperFonts } from "../../lib/theme";
 
-function celsiusToFahrenheit(value: number): number {
-  return (value * 9) / 5 + 32;
-}
+const AnimatedPath = Animated.createAnimatedComponent(Path);
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-type ChartPoint = { x: number; y: number };
-
-function smoothPath(points: ChartPoint[]): string {
-  if (points.length === 0) return "";
-  if (points.length === 1) return `M${points[0]!.x},${points[0]!.y}`;
-  let path = `M${points[0]!.x.toFixed(2)},${points[0]!.y.toFixed(2)}`;
-  for (let index = 1; index < points.length; index++) {
-    const previous = points[index - 1]!;
-    const current = points[index]!;
-    const middleX = (previous.x + current.x) / 2;
-    path += ` C${middleX.toFixed(2)},${previous.y.toFixed(2)} ${middleX.toFixed(2)},${current.y.toFixed(2)} ${current.x.toFixed(2)},${current.y.toFixed(2)}`;
-  }
-  return path;
-}
-
-function formatHour(value: string, timezone: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "numeric",
-    timeZone: timezone,
-  })
-    .format(new Date(value))
-    .replace(" ", "");
-}
-
-type AxisTick = {
-  pointIndex: number;
-  label: string;
-  anchor: "start" | "middle" | "end";
-  labelX?: number;
-};
+const INK = paper.dashboardInk;
+const AXIS_INK = "rgba(10,27,46,0.6)";
+const COOL = "#2F86C9";
+const WARM = "#E0772F";
+const COOL_INK = "#1F5E8C";
+const WARM_INK = "#B4541F";
+const CHART_HEIGHT = 262;
+const LAYOUT_PADDING = { left: 38, right: 12, top: 32, bottom: 52 };
+const DRAW_LENGTH = 2400;
 
 /**
- * Five-day nearshore water-temperature chart.
+ * Five-day modeled water-temperature chart for the city report.
  *
- * Design notes:
- *  - The stroke carries a VERTICAL gradient, so color encodes temperature:
- *    the shared NOAA-style water palette at the top, middle, and bottom.
- *    Reading the line's color tells you the same thing as reading its height.
- *  - Day boundaries are drawn as hairlines with their own labels, so a
- *    five-day series stops reading as one undifferentiated squiggle.
- *  - The warmest and coolest hours are annotated in place — the two values
- *    an angler actually looks for.
+ * - Left axis: °F ticks every 1, 2, 4, 5 or 10° depending on the forecast's spread.
+ * - Bottom axis: one label per local day ("TODAY", "WED 30" …) with that day's
+ *   low–high underneath. Days roll forward on their own because the modeled
+ *   timeline always starts at "now".
+ * - Shaded windows are the detected water-temp shifts (↓ DROP / ↑ RISE).
+ * - The stroke color follows the shared Great Lakes water palette, so the
+ *   line's color and height say the same thing.
+ * - Press and drag anywhere on the chart to read any hour.
  */
-export function PierCastTemperatureChart({
+export function PierCastCityTemperatureChart({
   points,
-  timezone,
-  xAxisMode = "hours",
+  shifts,
+  todayDate,
+  reduceMotion,
 }: {
-  points: PierCastModeledTemperaturePointV4[];
-  timezone: string;
-  xAxisMode?: "hours" | "days";
+  points: readonly PierCastTimelinePoint[];
+  shifts: readonly PierCastShiftCard[];
+  todayDate: string | null;
+  reduceMotion: boolean;
 }) {
-  const width = 356;
-  const height = 212;
-  const plot = { left: 40, right: 12, top: 26, bottom: 38 };
-  const plotWidth = width - plot.left - plot.right;
-  const plotHeight = height - plot.top - plot.bottom;
-  const values = points.map((point) => celsiusToFahrenheit(point.temperatureC));
-  const rawMin = values.length ? Math.min(...values) : 0;
-  const rawMax = values.length ? Math.max(...values) : 1;
-  const low = Math.floor((rawMin - 1) / 2) * 2;
-  const high = Math.max(low + 4, Math.ceil((rawMax + 1) / 2) * 2);
-  const range = high - low;
-  const highColor = pierCastWaterTemperatureColor(high);
-  const middleColor = pierCastWaterTemperatureColor((high + low) / 2);
-  const lowColor = pierCastWaterTemperatureColor(low);
-  const coordinates = values.map((value, index) => ({
-    x:
-      plot.left +
-      (values.length === 1
-        ? plotWidth / 2
-        : (index / (values.length - 1)) * plotWidth),
-    y: plot.top + ((high - value) / range) * plotHeight,
-  }));
-  const linePath = smoothPath(coordinates);
-  const baseline = plot.top + plotHeight;
-  const areaPath =
-    linePath && coordinates.length
-      ? `${linePath} L${coordinates[coordinates.length - 1]!.x},${baseline} L${coordinates[0]!.x},${baseline} Z`
-      : "";
+  const [width, setWidth] = useState(0);
+  const [scrubIndex, setScrubIndex] = useState<number | null>(null);
   const rawId = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const areaId = `pierTempArea${rawId}`;
-  const strokeId = `pierTempStroke${rawId}`;
-  const yTicks = [high, high - range / 3, high - (2 * range) / 3, low];
+  const areaId = `cityTempArea${rawId}`;
+  const strokeId = `cityTempStroke${rawId}`;
+  const draw = useRef(new Animated.Value(reduceMotion ? 0 : DRAW_LENGTH)).current;
+  const pulse = useRef(new Animated.Value(0)).current;
 
-  // Warmest / coolest hour, annotated in place.
-  const maxIndex = values.length ? values.indexOf(rawMax) : -1;
-  const minIndex = values.length ? values.indexOf(rawMin) : -1;
-  const extremes =
-    values.length > 3 && maxIndex !== minIndex
-      ? [
-          { index: maxIndex, value: rawMax, warm: true },
-          { index: minIndex, value: rawMin, warm: false },
-        ]
-      : [];
+  const model = useMemo(
+    () => width > 0
+      ? buildPierCastChartModel({
+        points,
+        shifts,
+        todayDate,
+        layout: { width, height: CHART_HEIGHT, ...LAYOUT_PADDING },
+      })
+      : null,
+    [points, shifts, todayDate, width],
+  );
 
-  // Local-day spans. We need the whole span, not just the first point, so a
-  // label can sit over the middle of its day instead of on its left edge.
-  const dayBoundaries = useMemo(() => {
-    const marks: Array<{
-      index: number;
-      endIndex: number;
-      label: string;
-    }> = [];
-    let currentKey: string | null = null;
-    points.forEach((point, index) => {
-      const key = new Intl.DateTimeFormat("en-CA", {
-        timeZone: timezone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }).format(new Date(point.validAt));
-      if (key === currentKey) {
-        marks[marks.length - 1]!.endIndex = index;
-        return;
-      }
-      currentKey = key;
-      marks.push({
-        index,
-        endIndex: index,
-        label:
-          marks.length === 0
-            ? "TODAY"
-            : new Intl.DateTimeFormat("en-US", {
-                weekday: "short",
-                timeZone: timezone,
-              })
-                .format(new Date(point.validAt))
-                .toUpperCase(),
-      });
+  const firstValidAt = points[0]?.validAt ?? "";
+  useEffect(() => {
+    if (reduceMotion || !model) {
+      draw.setValue(0);
+      return;
+    }
+    draw.setValue(DRAW_LENGTH);
+    const animation = Animated.timing(draw, {
+      toValue: 0,
+      duration: 1400,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: false,
     });
-    return marks;
-  }, [points, timezone]);
+    animation.start();
+    return () => animation.stop();
+    // Redraw when the forecast itself changes, not on every layout pass.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [draw, reduceMotion, firstValidAt, model !== null]);
 
-  // Every local day in the series gets a label, always — a day must never
-  // vanish from the axis just because its slice is short. Labels want to sit
-  // at their day's midpoint; a two-pass declutter then spreads any that would
-  // collide, so positions stay predictable instead of dropping in and out.
-  const MIN_LABEL_GAP = 46;
-  const EDGE_PAD = 13;
-  const xAt = (index: number) =>
-    plot.left +
-    (values.length === 1
-      ? plotWidth / 2
-      : (index / (values.length - 1)) * plotWidth);
-
-  const axisTicks: AxisTick[] = values.length
-    ? xAxisMode === "days"
-      ? (() => {
-          const leftLimit = plot.left;
-          const rightLimit = plot.left + plotWidth - EDGE_PAD;
-          // 1. desired position: the middle of each day's actual span.
-          const desired = dayBoundaries.map(({ index, endIndex }, dayIndex) =>
-            dayIndex === 0 ? leftLimit : (xAt(index) + xAt(endIndex)) / 2,
-          );
-          // 2. push right so nothing overlaps its left neighbour.
-          const placed = [...desired];
-          for (let i = 1; i < placed.length; i++) {
-            placed[i] = Math.max(placed[i]!, placed[i - 1]! + MIN_LABEL_GAP);
-          }
-          // 3. pull back from the right edge, preserving the same gap.
-          placed[placed.length - 1] = Math.min(
-            placed[placed.length - 1]!,
-            rightLimit,
-          );
-          for (let i = placed.length - 2; i >= 0; i--) {
-            placed[i] = Math.min(placed[i]!, placed[i + 1]! - MIN_LABEL_GAP);
-          }
-          // 4. the first label never slides left of the plot.
-          placed[0] = Math.max(placed[0]!, leftLimit);
-          return dayBoundaries.map(({ index, label }, dayIndex) => ({
-            pointIndex: index,
-            label,
-            anchor:
-              dayIndex === 0
-                ? ("start" as const)
-                : dayIndex === dayBoundaries.length - 1 &&
-                    placed[dayIndex]! >= rightLimit - 1
-                  ? ("end" as const)
-                  : ("middle" as const),
-            labelX: placed[dayIndex]!,
-          }));
-        })()
-      : Array.from(
-          new Set([
-            0,
-            Math.round((values.length - 1) / 3),
-            Math.round(((values.length - 1) * 2) / 3),
-            values.length - 1,
-          ]),
-        ).map((pointIndex) => ({
-          pointIndex,
-          label: formatHour(points[pointIndex]!.validAt, timezone),
-          anchor:
-            pointIndex === 0
-              ? ("start" as const)
-              : pointIndex === values.length - 1
-                ? ("end" as const)
-                : ("middle" as const),
-        }))
-    : [];
-
-  if (points.length === 0) {
-    return (
-      <View style={styles.emptyChart}>
-        <Text style={styles.emptyChartText}>TEMPERATURE TREND UNAVAILABLE</Text>
-      </View>
+  useEffect(() => {
+    if (reduceMotion) {
+      pulse.setValue(0);
+      return;
+    }
+    const loop = Animated.loop(
+      Animated.timing(pulse, {
+        toValue: 1,
+        duration: 1800,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: false,
+      }),
     );
-  }
+    loop.start();
+    return () => loop.stop();
+  }, [pulse, reduceMotion]);
 
-  const startPoint = coordinates[0]!;
+  const onLayout = (event: LayoutChangeEvent) => {
+    const next = Math.round(event.nativeEvent.layout.width);
+    if (next > 0 && next !== width) setWidth(next);
+  };
+
+  const scrubAt = (event: GestureResponderEvent) => {
+    if (!model) return;
+    const x = event.nativeEvent.locationX;
+    let nearest = 0;
+    let distance = Number.POSITIVE_INFINITY;
+    model.points.forEach((point, index) => {
+      const delta = Math.abs(point.x - x);
+      if (delta < distance) {
+        distance = delta;
+        nearest = index;
+      }
+    });
+    if (nearest !== scrubIndex) setScrubIndex(nearest);
+  };
+
+  if (points.length < 2) return null;
+
+  const layout = model?.layout;
+  const plotBottom = layout ? layout.height - layout.bottom : 0;
+  const plotRight = layout ? layout.width - layout.right : 0;
+  const linePath = model ? pierCastSmoothPath(model.points) : "";
+  const last = model?.points[model.points.length - 1];
+  const areaPath = model && last
+    ? `${linePath} L${last.x.toFixed(1)},${plotBottom} L${model.points[0]!.x.toFixed(1)},${plotBottom} Z`
+    : "";
+  const scrub = model && scrubIndex !== null ? model.points[scrubIndex] ?? null : null;
+  const nowF = points[0]!.temperatureF;
+  const pulseRadius = pulse.interpolate({ inputRange: [0, 1], outputRange: [5, 14] });
+  const pulseOpacity = pulse.interpolate({ inputRange: [0, 1], outputRange: [0.45, 0] });
+  const readoutLeft = scrub && width > 0
+    ? Math.min(width - 72, Math.max(72, scrub.x))
+    : 0;
 
   return (
     <View
-      style={styles.chartShell}
+      style={styles.wrap}
+      onLayout={onLayout}
       accessible
       accessibilityRole="image"
-      accessibilityLabel={`Hourly surface water temperature ranges from ${rawMin.toFixed(1)} to ${rawMax.toFixed(1)} degrees Fahrenheit.`}
+      accessibilityLabel={model
+        ? `Modeled water temperature for the next five days, between ${model.points.reduce((low, point) => Math.min(low, point.temperatureF), Number.POSITIVE_INFINITY).toFixed(0)} and ${model.points.reduce((high, point) => Math.max(high, point.temperatureF), Number.NEGATIVE_INFINITY).toFixed(0)} degrees Fahrenheit.`
+        : "Modeled water temperature chart"}
     >
-      <Svg width="100%" height={height} viewBox={`0 0 ${width} ${height}`}>
-        <Defs>
-          <LinearGradient id={areaId} x1="0" y1="0" x2="0" y2="1">
-            <Stop offset="0" stopColor="#4E9BC4" stopOpacity="0.42" />
-            <Stop offset="0.55" stopColor={paper.dashboardBlueSky} stopOpacity="0.2" />
-            <Stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
-          </LinearGradient>
-          {/* Warm at the top of the plot, cool at the bottom — the line's
-              color and its height say the same thing. */}
-          <LinearGradient
-            id={strokeId}
-            x1="0"
-            y1={plot.top}
-            x2="0"
-            y2={baseline}
-            gradientUnits="userSpaceOnUse"
-          >
-            <Stop offset="0" stopColor={highColor} />
-            <Stop offset="0.5" stopColor={middleColor} />
-            <Stop offset="1" stopColor={lowColor} />
-          </LinearGradient>
-        </Defs>
+      {model && layout ? (
+        <Svg width={width} height={CHART_HEIGHT}>
+          <Defs>
+            <LinearGradient id={areaId} x1="0" y1="0" x2="0" y2="1">
+              <Stop offset="0" stopColor="#4E9BC4" stopOpacity={0.26} />
+              <Stop offset="1" stopColor="#4E9BC4" stopOpacity={0} />
+            </LinearGradient>
+            <LinearGradient
+              id={strokeId}
+              x1="0"
+              y1={layout.top}
+              x2="0"
+              y2={plotBottom}
+              gradientUnits="userSpaceOnUse"
+            >
+              <Stop offset="0" stopColor={pierCastWaterTemperatureColor(model.highF)} />
+              <Stop offset="0.5" stopColor={pierCastWaterTemperatureColor((model.highF + model.lowF) / 2)} />
+              <Stop offset="1" stopColor={pierCastWaterTemperatureColor(model.lowF)} />
+            </LinearGradient>
+          </Defs>
 
-        {/* Horizontal grid */}
-        {yTicks.map((tick, index) => {
-          const y = plot.top + (index / (yTicks.length - 1)) * plotHeight;
-          return (
-            <Line
-              key={`grid-${tick}`}
-              x1={plot.left}
-              x2={plot.left + plotWidth}
-              y1={y}
-              y2={y}
-              stroke="rgba(10,27,46,0.10)"
-              strokeWidth="1"
-              strokeDasharray={index === yTicks.length - 1 ? undefined : "2 6"}
+          {model.shifts.map((shift) => (
+            <Rect
+              key={`band-${shift.id}`}
+              x={shift.x0}
+              y={layout.top}
+              width={Math.max(1, shift.x1 - shift.x0)}
+              height={plotBottom - layout.top}
+              fill={shift.direction === "cooling" ? COOL : WARM}
+              opacity={0.1}
             />
-          );
-        })}
-        {yTicks.map((tick, index) => (
+          ))}
+          {model.shifts.map((shift) => (
+            <SvgText
+              key={`label-${shift.id}`}
+              x={Math.min(plotRight - 22, Math.max(layout.left + 22, (shift.x0 + shift.x1) / 2))}
+              y={layout.top - 9}
+              textAnchor="middle"
+              fontFamily={paperFonts.metaMonoBold}
+              fontSize={9}
+              letterSpacing={0.8}
+              fill={shift.direction === "cooling" ? COOL_INK : WARM_INK}
+            >
+              {shift.label}
+            </SvgText>
+          ))}
+
           <SvgText
-            key={`ylabel-${tick}`}
-            x={plot.left - 8}
-            y={plot.top + (index / (yTicks.length - 1)) * plotHeight + 3.5}
+            x={layout.left - 6}
+            y={layout.top - 9}
             textAnchor="end"
-            fill="rgba(10,27,46,0.52)"
             fontFamily={paperFonts.metaMonoBold}
-            fontSize="9"
+            fontSize={9}
+            fill={INK}
           >
-            {`${Math.round(tick)}°`}
+            °F
           </SvgText>
-        ))}
+          {model.yTicks.map((tick) => (
+            <Line
+              key={`grid-${tick.label}`}
+              x1={layout.left}
+              x2={plotRight}
+              y1={tick.y}
+              y2={tick.y}
+              stroke="rgba(10,27,46,0.12)"
+              strokeDasharray="2 5"
+            />
+          ))}
+          {model.yTicks.map((tick) => (
+            <SvgText
+              key={`tick-${tick.label}`}
+              x={layout.left - 6}
+              y={tick.y + 3.5}
+              textAnchor="end"
+              fontFamily={paperFonts.metaMonoBold}
+              fontSize={10}
+              fill={AXIS_INK}
+            >
+              {tick.label}
+            </SvgText>
+          ))}
 
-        {/* Day boundary hairlines */}
-        {xAxisMode === "days"
-          ? dayBoundaries.slice(1).map(({ index }) => {
-              const coordinate = coordinates[index];
-              if (!coordinate) return null;
-              return (
-                <Line
-                  key={`day-${index}`}
-                  x1={coordinate.x}
-                  x2={coordinate.x}
-                  y1={plot.top - 6}
-                  y2={baseline}
-                  stroke="rgba(10,27,46,0.13)"
-                  strokeWidth="1"
-                  strokeDasharray="2 4"
-                />
-              );
-            })
-          : null}
+          {model.boundaries.map((x) => (
+            <Line
+              key={`day-${x.toFixed(1)}`}
+              x1={x}
+              x2={x}
+              y1={layout.top}
+              y2={plotBottom}
+              stroke="rgba(10,27,46,0.16)"
+              strokeDasharray="3 4"
+            />
+          ))}
+          <Line
+            x1={layout.left}
+            x2={plotRight}
+            y1={plotBottom}
+            y2={plotBottom}
+            stroke="rgba(10,27,46,0.3)"
+          />
 
-        <Path d={areaPath} fill={`url(#${areaId})`} />
-        <Path
-          d={linePath}
-          fill="none"
-          stroke={`url(#${strokeId})`}
-          strokeWidth="3.5"
-          strokeLinejoin="round"
-          strokeLinecap="round"
-        />
+          <Path d={areaPath} fill={`url(#${areaId})`} />
+          <AnimatedPath
+            d={linePath}
+            fill="none"
+            stroke={`url(#${strokeId})`}
+            strokeWidth={3.4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray={[DRAW_LENGTH, DRAW_LENGTH]}
+            strokeDashoffset={draw}
+          />
 
-        {/* Warmest / coolest hour */}
-        {extremes.map(({ index, value, warm }) => {
-          const coordinate = coordinates[index];
-          if (!coordinate) return null;
-          const color = pierCastWaterTemperatureColor(value);
-          const labelY = warm
-            ? Math.max(plot.top - 8, coordinate.y - 11)
-            : Math.min(baseline + 13, coordinate.y + 16);
-          const anchor =
-            coordinate.x < plot.left + 34
-              ? ("start" as const)
-              : coordinate.x > plot.left + plotWidth - 34
-                ? ("end" as const)
-                : ("middle" as const);
-          return (
-            <React.Fragment key={`extreme-${warm ? "max" : "min"}`}>
-              <Circle
-                cx={coordinate.x}
-                cy={coordinate.y}
-                r="4"
-                fill="#FFFFFF"
-                stroke={color}
-                strokeWidth="2.4"
+          {model.high ? (
+            <>
+              <Circle cx={model.high.x} cy={model.high.y} r={4} fill="#FFFFFF" stroke={WARM_INK} strokeWidth={2.4} />
+              <SvgText
+                x={model.high.x}
+                y={model.high.y - 10}
+                textAnchor={anchorFor(model.high.x, layout.left, plotRight)}
+                fontFamily={paperFonts.metaMonoBold}
+                fontSize={10}
+                fill={WARM_INK}
+              >
+                {model.high.label}
+              </SvgText>
+            </>
+          ) : null}
+          {model.low ? (
+            <>
+              <Circle cx={model.low.x} cy={model.low.y} r={4} fill="#FFFFFF" stroke={COOL_INK} strokeWidth={2.4} />
+              <SvgText
+                {...lowLabelPlacement(model.low, layout.left, plotRight, plotBottom)}
+                fontFamily={paperFonts.metaMonoBold}
+                fontSize={10}
+                fill={COOL_INK}
+              >
+                {model.low.label}
+              </SvgText>
+            </>
+          ) : null}
+
+          {model.now ? (
+            <>
+              <AnimatedCircle cx={model.now.x} cy={model.now.y} r={pulseRadius} fill={INK} opacity={pulseOpacity} />
+              <Circle cx={model.now.x} cy={model.now.y} r={5} fill={INK} stroke="#FFFFFF" strokeWidth={2} />
+              <Rect
+                x={model.now.x + 8}
+                y={model.now.y - 21}
+                width={model.now.label.length * 6.3 + 8}
+                height={15}
+                rx={4}
+                fill="rgba(255,255,255,0.9)"
               />
               <SvgText
-                x={coordinate.x}
-                y={labelY}
-                textAnchor={anchor}
-                fill={color}
+                x={model.now.x + 12}
+                y={model.now.y - 10}
                 fontFamily={paperFonts.metaMonoBold}
-                fontSize="9.5"
+                fontSize={10}
+                fill={INK}
               >
-                {`${value.toFixed(1)}°`}
+                {model.now.label}
               </SvgText>
-            </React.Fragment>
-          );
-        })}
+            </>
+          ) : null}
 
-        {/* Forecast start */}
-        <Circle
-          cx={startPoint.x}
-          cy={startPoint.y}
-          r="3.4"
-          fill={paper.dashboardInk}
-        />
-        <SvgText
-          x={plot.left}
-          y={plot.top - 12}
-          textAnchor="start"
-          fill="rgba(10,27,46,0.5)"
-          fontFamily={paperFonts.metaMonoBold}
-          fontSize="8.5"
-        >
-          NOW
-        </SvgText>
+          {scrub ? (
+            <>
+              <Line x1={scrub.x} x2={scrub.x} y1={layout.top} y2={plotBottom} stroke={INK} strokeWidth={1.4} />
+              <Circle cx={scrub.x} cy={scrub.y} r={6} fill="#FFFFFF" stroke={INK} strokeWidth={3} />
+            </>
+          ) : null}
 
-        {/* X axis */}
-        {axisTicks.map(({ pointIndex, label, anchor, labelX }) => {
-          const coordinate = coordinates[pointIndex];
-          if (!coordinate) return null;
-          return (
+          {model.days.filter((day) => day.visible).map((day) => (
             <SvgText
-              key={`time-${pointIndex}`}
-              x={labelX ?? coordinate.x}
-              y={height - 12}
-              textAnchor={anchor}
-              fill="rgba(10,27,46,0.55)"
+              key={`dl-${day.localDate}`}
+              x={day.x}
+              y={plotBottom + 16}
+              textAnchor={day.align === "end" ? "end" : "middle"}
               fontFamily={paperFonts.metaMonoBold}
-              fontSize="9"
+              fontSize={10}
+              letterSpacing={0.4}
+              fill={INK}
             >
-              {label}
+              {day.label}
             </SvgText>
-          );
-        })}
-      </Svg>
+          ))}
+          {model.days.filter((day) => day.visible && day.range).map((day) => {
+            const chipWidth = (day.range?.length ?? 0) * 5.8 + 8;
+            return (
+              <Rect
+                key={`rc-${day.localDate}`}
+                x={day.x - chipWidth / 2}
+                y={plotBottom + 23}
+                width={chipWidth}
+                height={15}
+                rx={4}
+                fill="rgba(10,27,46,0.05)"
+              />
+            );
+          })}
+          {model.days.filter((day) => day.visible && day.range).map((day) => (
+            <SvgText
+              key={`rt-${day.localDate}`}
+              x={day.x}
+              y={plotBottom + 34}
+              textAnchor="middle"
+              fontFamily={paperFonts.metaMonoBold}
+              fontSize={9}
+              fill={AXIS_INK}
+            >
+              {day.range}
+            </SvgText>
+          ))}
+        </Svg>
+      ) : (
+        <View style={{ height: CHART_HEIGHT }} />
+      )}
+      <View
+        style={StyleSheet.absoluteFill}
+        onStartShouldSetResponder={() => true}
+        onMoveShouldSetResponder={() => true}
+        onResponderGrant={scrubAt}
+        onResponderMove={scrubAt}
+        onResponderRelease={() => setScrubIndex(null)}
+        onResponderTerminate={() => setScrubIndex(null)}
+        onResponderTerminationRequest={() => true}
+      />
+      {scrub ? (
+        <View pointerEvents="none" style={[styles.readout, { left: readoutLeft }]}>
+          <Text style={styles.readoutTime}>{pierCastReadoutTime(scrub, todayDate).toUpperCase()}</Text>
+          <Text style={styles.readoutValue}>{scrub.temperatureF.toFixed(1)}°F</Text>
+          <Text style={styles.readoutDelta}>
+            {scrubIndex === 0 ? "Now" : pierCastDeltaLabel(scrub.temperatureF, nowF)}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 }
 
+
+/** Beside the point when it sits on the floor of the plot, else below it. */
+function lowLabelPlacement(
+  low: { x: number; y: number },
+  left: number,
+  right: number,
+  bottom: number,
+): { x: number; y: number; textAnchor: "start" | "middle" | "end" } {
+  if (low.y <= bottom - 18) {
+    return { x: low.x, y: low.y + 17, textAnchor: anchorFor(low.x, left, right) };
+  }
+  return low.x > right - 76
+    ? { x: low.x - 9, y: low.y + 3.5, textAnchor: "end" }
+    : { x: low.x + 9, y: low.y + 3.5, textAnchor: "start" };
+}
+
+function anchorFor(x: number, left: number, right: number): "start" | "middle" | "end" {
+  if (x > right - 34) return "end";
+  if (x < left + 34) return "start";
+  return "middle";
+}
+
 const styles = StyleSheet.create({
-  chartShell: { height: 212, overflow: "hidden" },
-  emptyChart: {
-    height: 170,
+  wrap: { marginTop: 12, marginHorizontal: -4 },
+  readout: {
+    position: "absolute",
+    top: 0,
+    width: 144,
+    marginLeft: -72,
     alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
-    backgroundColor: "#F8FAF9",
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 9,
+    backgroundColor: INK,
+    shadowColor: INK,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.28,
+    shadowRadius: 12,
+    elevation: 5,
   },
-  emptyChartText: {
-    color: "rgba(10,27,46,0.48)",
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 0.9,
-  },
+  readoutTime: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.2, color: "rgba(255,255,255,0.7)" },
+  readoutValue: { fontFamily: paperFonts.display, fontSize: 17, lineHeight: 21, color: "#FFFFFF" },
+  readoutDelta: { fontFamily: paperFonts.bodySemiBold, fontSize: 11, color: "rgba(255,255,255,0.78)" },
 });

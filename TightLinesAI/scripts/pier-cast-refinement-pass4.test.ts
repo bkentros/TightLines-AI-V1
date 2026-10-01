@@ -20,7 +20,7 @@ import {
 } from "../lib/pierCastWind";
 import { PIER_CAST_WIND_GRID } from "../lib/pierCastWindGrid.generated";
 
-const map = read("app/pier-cast-map.tsx");
+const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const report = read("app/pier-cast-review.tsx");
 const client = read("lib/pierCast.ts");
 const appConfig = JSON.parse(read("app.json"));

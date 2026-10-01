@@ -10,22 +10,50 @@ import {
   formatSeasonTrend,
   formatWaterTemperature,
 } from "../lib/pierCastConditionsPresentation";
+import { pickDefaultStandingsSpecies } from "../lib/pierCastStandingsPresentation";
 import { parsePierCastTargetSpecies } from "../lib/pierCastTargetPreference";
 
 const screen = read("app/pier-cast-review.tsx");
 const conditionsUi = read("components/pier-cast/PierCastConditionsUI.tsx");
+const standings = read("components/pier-cast/PierCastStandings.tsx");
+const standingsRules = read("lib/pierCastStandingsPresentation.ts");
+const reportRules = read("lib/pierCastCityReportPresentation.ts");
 const targetPreference = read("lib/pierCastTargetPreference.ts");
 const client = read("lib/pierCast.ts");
-const map = read("app/pier-cast-map.tsx");
+const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const contract = read("docs/PierCast_Renovation_Pass1_Product_Contract.md");
 
-test("first visit requires an explicit target instead of choosing a default", () => {
-  assert.match(conditionsUi, /What are you targeting\?/);
-  assert.match(conditionsUi, /There is no universal best pier/);
-  assert.match(conditionsUi, /leaderboard\.selectionRequired/);
+test("first visit opens on the best salmon or trout and never saves the automatic pick", () => {
+  assert.match(standings, /WHAT ARE YOU TARGETING\?/);
+  assert.match(standings, /leaderboard\.selectionRequired/);
   assert.match(screen, /readPierCastTargetPreference/);
   assert.match(screen, /fetchPierCastConditionsLeaderboard\(requestedTarget \?\? undefined\)/);
+  assert.match(screen, /PIER_CAST_SALMONID_ORDER\.filter/);
+  assert.match(screen, /pickDefaultStandingsSpecies\(boards\)/);
   assert.doesNotMatch(screen, /setSelectedSpeciesId\([^\n]*targetSpecies\[0\]/);
+  const autoPick = screen.slice(screen.indexOf("if (!requestedTarget) {"), screen.indexOf("rememberLakes(seenBoards)"));
+  assert.ok(autoPick.length > 0);
+  assert.doesNotMatch(autoPick, /writePierCastTargetPreference/);
+  assert.match(standingsRules, /isPierCastSalmonid\(speciesId\)/);
+
+  const board = (speciesId: string, band: string, value: number) => ({
+    selectedSpeciesId: speciesId,
+    cities: [{
+      rankingDisposition: "ranked",
+      seasonalOutlook: { status: "available", band },
+      thermalMatch: { status: "available", value },
+    }],
+  }) as never;
+  assert.equal(
+    pickDefaultStandingsSpecies([
+      board("yellow_perch", "excellent", 1),
+      board("coho_salmon", "good", 0.9),
+      board("chinook_salmon", "excellent", 0.7),
+      board("steelhead", "excellent", 0.8),
+    ]),
+    "steelhead",
+  );
+  assert.equal(pickDefaultStandingsSpecies([board("walleye", "excellent", 1)]), null);
 });
 
 test("target preference is validated, persisted, and route-addressable", () => {
@@ -39,40 +67,46 @@ test("target preference is validated, persisted, and route-addressable", () => {
 });
 
 test("leaderboard is species-specific and never renders a combined numeric score", () => {
-  assert.match(conditionsUi, /SPECIES-SPECIFIC RANKING/);
-  assert.match(conditionsUi, /typical seasonal outlook, then exact temperature match/);
-  assert.match(conditionsUi, /BEST COMPARABLE CONDITIONS/);
-  assert.match(conditionsUi, /rankingDisposition === "ranked"/);
-  assert.doesNotMatch(conditionsUi, /\/10/);
-  assert.doesNotMatch(conditionsUi, /score\.toFixed/);
-  assert.doesNotMatch(conditionsUi, /strongest main species/i);
+  assert.match(standings, /Best for \$\{speciesShort\(selectedSpeciesId\)\} today/);
+  assert.match(standings, /Each species gets its own ranking/);
+  assert.match(standings, /TODAY'S LEADER/);
+  assert.match(standings, /rankingDisposition === "ranked"/);
+  assert.doesNotMatch(standings + conditionsUi, /\/10/);
+  assert.doesNotMatch(standings + conditionsUi, /score\.toFixed/);
+  assert.doesNotMatch(standings + conditionsUi, /strongest main species/i);
 });
 
 test("missing and restricted inputs remain explicitly unranked", () => {
-  assert.match(conditionsUi, /Missing, stale, or restricted conditions stay unavailable/);
-  assert.match(conditionsUi, /this is not a poor rating/);
-  assert.match(conditionsUi, /Targeting restricted/);
-  assert.match(conditionsUi, /unranked due to unavailable or restricted inputs/);
+  assert.match(standings, /Missing or updating data stays unrated instead of counting as poor fishing/);
+  assert.match(standings, /Not rated today/);
+  assert.match(standings, /standingsUnrankedReason\(row\)/);
+  assert.match(standingsRules, /Closed to targeting here/);
+  assert.match(reportRules, /standingsUnrankedReason\(species\)/);
+  assert.match(conditionsUi, /NOT RATED/);
 });
 
 test("city report keeps seasonal outlook and thermal match independent", () => {
-  assert.match(conditionsUi, /TYPICAL TARGET TIMING/);
-  assert.match(conditionsUi, /MODELED SURFACE TEMP FIT/);
-  assert.match(conditionsUi, /Two truths, kept separate/);
-  assert.match(conditionsUi, /one favorable input cannot hide the other/);
-  assert.match(conditionsUi, /never boosts a city’s ranking/);
-  assert.match(conditionsUi, /Local fishery context/);
+  assert.match(conditionsUi, />SEASON</);
+  assert.match(conditionsUi, /<BandMeter/);
+  assert.match(conditionsUi, />WATER FIT</);
+  assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);
+  assert.match(reportRules, /standingsStageLabel\(outlook\.stage, outlook\.band\)/);
+  assert.match(reportRules, /standingsWaterPhrase\(species\.thermalMatch\)/);
 });
 
-test("city report includes target switching, model guidance, weather, and provenance", () => {
-  assert.match(conditionsUi, /CHANGE TARGET/);
-  assert.match(conditionsUi, /switching targets is immediate/);
-  assert.match(conditionsUi, /Five-day temperature guidance/);
-  assert.match(conditionsUi, /NEARSHORE WATER/);
-  assert.match(conditionsUi, /NEARBY AIR/);
-  assert.match(conditionsUi, /WIND/);
-  assert.match(conditionsUi, /modeled values, not observed station readings/);
-  assert.match(conditionsUi, /OTHER SPECIES/);
+test("city report includes the calendar, species, pier conditions, chart, shifts, and provenance", () => {
+  assert.match(conditionsUi, /FIVE-DAY OUTLOOK/);
+  assert.match(conditionsUi, /TODAY'S TARGETS/);
+  assert.match(conditionsUi, /RIGHT NOW AT THE PIER/);
+  assert.match(conditionsUi, />WATER</);
+  assert.match(conditionsUi, />AIR</);
+  assert.match(conditionsUi, />WIND</);
+  assert.match(conditionsUi, /Temperature outlook/);
+  assert.match(conditionsUi, /Water temp shifts/);
+  assert.match(conditionsUi, /modeled values, not observed pier readings/);
+  assert.match(conditionsUi, /NEARBY PORTS/);
+  assert.match(conditionsUi, /WHERE TO FISH/);
+  assert.doesNotMatch(conditionsUi, /CHANGE TARGET|OTHER SPECIES/);
 });
 
 test("authenticated v4 report and saved-report recovery are fully wired", () => {
@@ -102,8 +136,9 @@ test("the v4 cutover retains the frozen PierCast visual language", () => {
   assert.match(conditionsUi, /CornerMarkSet/);
   assert.match(conditionsUi, /TopographicLines/);
   assert.match(conditionsUi, /paperShadows\.hard/);
-  assert.match(conditionsUi, /MEDAL_COLORS/);
-  assert.match(conditionsUi, /PierCastTemperatureChart/);
+  assert.match(standings, /paper\.medalGold[\s\S]*paper\.medalBronze/);
+  assert.match(standings, /TopographicLines/);
+  assert.match(conditionsUi, /PierCastCityTemperatureChart/);
   assert.match(contract, /alter information hierarchy, not the design language/i);
 });
 

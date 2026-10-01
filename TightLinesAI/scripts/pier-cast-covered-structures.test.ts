@@ -82,8 +82,9 @@ test("all 32 owner cities use an explicit water label and Caseville retains Lake
 
 test("mixed-city standings use neutral Great Lakes copy", () => {
   const conditions = readFileSync(resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"), "utf8");
-  assert.match(conditions, /GREAT LAKES · TARGET CONDITIONS/);
-  assert.doesNotMatch(conditions, /TODAY ON LAKE MICHIGAN/);
+  const standings = readFileSync(resolve(root, "components/pier-cast/PierCastStandings.tsx"), "utf8");
+  assert.match(standings, /TODAY ON THE GREAT LAKES/);
+  assert.doesNotMatch(standings + conditions, /TODAY ON LAKE MICHIGAN/);
 });
 
 test("expanded city access keeps the standard user-facing PierCast header", () => {
@@ -95,25 +96,25 @@ test("expanded city access keeps the standard user-facing PierCast header", () =
   assert.doesNotMatch(screen, /PRIVATE OWNER REVIEW/);
 });
 
-test("city reports place nearby ports after conditions and before piers covered", () => {
+test("city reports place piers after the conditions and nearby ports last", () => {
   const screen = readFileSync(resolve(root, "app/pier-cast-review.tsx"), "utf8");
-  const conditions = screen.indexOf("<PierCastConditionsCityReport");
-  const nearbyPorts = screen.indexOf("<PierCastNearbyPorts");
-  const piersCovered = screen.indexOf("<PierCastPiersCovered");
-
-  assert.ok(conditions >= 0, "conditions report is missing");
-  assert.ok(nearbyPorts > conditions, "nearby ports must follow conditions");
-  assert.ok(piersCovered > nearbyPorts, "Piers Covered must follow nearby ports");
+  const report = readFileSync(resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"), "utf8");
+  assert.ok(screen.indexOf("<PierCastConditionsCityReport") >= 0, "conditions report is missing");
+  const body = report.slice(report.indexOf("export function PierCastConditionsCityReport"));
+  const shifts = body.indexOf("<ShiftWatch");
+  const piers = body.indexOf("<Piers city=");
+  const nearby = body.indexOf("<NearbyPorts");
+  assert.ok(shifts >= 0 && piers > shifts, "piers must follow the water sections");
+  assert.ok(nearby > piers, "nearby ports must follow the piers");
+  assert.doesNotMatch(screen, /<PierCastCoverageRequest[^>]*city=\{selectedCity\}/);
 });
 
 test("pier labels use full-width wrapping rows instead of auto-sized flex chips", () => {
-  const support = readFileSync(resolve(root, "components/pier-cast/PierCastConditionsSupport.tsx"), "utf8");
-  assert.match(support, /style=\{styles\.pierChipBody\}/);
-
-  const bodyStyle = support.match(
-    /pierChipBody:\s*\{([^}]*)\}/,
-  );
-  assert(bodyStyle, "pierChipBody style was not found");
-  assert.match(bodyStyle[1], /flex:\s*1/);
-  assert.match(bodyStyle[1], /minWidth:\s*0/);
+  const report = readFileSync(resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"), "utf8");
+  assert.match(report, /selectPierCastCoveredStructures\(city\.structures\)/);
+  assert.match(report, /<View style=\{styles\.flex\}>\s*<Text style=\{styles\.pierName\}>/);
+  const flexStyle = report.match(/\n  flex:\s*\{([^}]*)\}/);
+  assert(flexStyle, "flex style was not found");
+  assert.match(flexStyle[1], /flex:\s*1/);
+  assert.match(flexStyle[1], /minWidth:\s*0/);
 });

@@ -2,19 +2,24 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { PierCastConditionsCityReport } from "../components/pier-cast/PierCastConditionsUI";
 import {
-  PierCastConditionsCityReport,
-  PierCastConditionsLanding,
-} from "../components/pier-cast/PierCastConditionsUI";
+  PierCastStandings,
+  PierCastStandingsSkeleton,
+} from "../components/pier-cast/PierCastStandings";
 import {
-  PierCastAccessNotice,
   PierCastConditionsSkeleton,
   PierCastCoverageRequest,
-  PierCastNearbyPorts,
-  PierCastPiersCovered,
 } from "../components/pier-cast/PierCastConditionsSupport";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
@@ -27,6 +32,7 @@ import {
 import type {
   PierCastCityReportReadV4,
   PierCastConditionsCatalogResponseV4,
+  PierCastGreatLakeIdV4,
   PierCastLeaderboardResponseV4,
 } from "../lib/pierCastConditionsV4";
 import type {
@@ -35,8 +41,20 @@ import type {
 import { PIER_CAST_MAP_REFRESH_INTERVAL_MS } from "../lib/pierCastMap";
 import { hapticSelection } from "../lib/safeHaptics";
 import {
+  finderReportSpecies,
+  mergePierCastCityLakes,
+  PIER_CAST_SALMONID_ORDER,
+  type PierCastLakeFilter,
+  pickDefaultStandingsSpecies,
+  pickFallbackStandingsSpecies,
+} from "../lib/pierCastStandingsPresentation";
+import {
   parsePierCastTargetSpecies,
+  readPierCastCityLakes,
+  readPierCastLakeFilter,
   readPierCastTargetPreference,
+  writePierCastCityLakes,
+  writePierCastLakeFilter,
   writePierCastTargetPreference,
 } from "../lib/pierCastTargetPreference";
 import {
@@ -89,6 +107,10 @@ export default function PierCastReviewScreen() {
   const [error, setError] = useState<string | null>(null);
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
+  const [lakeFilter, setLakeFilter] = useState<PierCastLakeFilter>("all");
+  const [cityLakes, setCityLakes] = useState<Record<string, PierCastGreatLakeIdV4>>({});
+  const [cityLakesHydrated, setCityLakesHydrated] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const pageScrollRef = useRef<ScrollView>(null);
   const requestedCity = useRef<string | null>(null);
   const openingCity = useRef(false);
@@ -120,6 +142,32 @@ export default function PierCastReviewScreen() {
     return () => { active = false; };
   }, [routeSpeciesId]);
 
+  useEffect(() => {
+    let active = true;
+    void Promise.all([readPierCastLakeFilter(), readPierCastCityLakes()]).then(
+      ([rememberedLake, rememberedLakes]) => {
+        if (!active) return;
+        setLakeFilter(rememberedLake);
+        setCityLakes((current) => ({ ...rememberedLakes, ...current }));
+        setCityLakesHydrated(true);
+      },
+    );
+    return () => { active = false; };
+  }, []);
+
+  useEffect(() => {
+    if (cityLakesHydrated) void writePierCastCityLakes(cityLakes);
+  }, [cityLakes, cityLakesHydrated]);
+
+  const rememberLakes = useCallback((boards: PierCastLeaderboardResponseV4[]) => {
+    setCityLakes((current) => mergePierCastCityLakes(current, boards));
+  }, []);
+
+  const changeLake = useCallback((lake: PierCastLakeFilter) => {
+    setLakeFilter(lake);
+    void writePierCastLakeFilter(lake);
+  }, []);
+
   const load = useCallback(async (options?: { silent?: boolean }) => {
     const silent = options?.silent === true;
     if (!preferenceHydrated) return;
@@ -137,11 +185,54 @@ export default function PierCastReviewScreen() {
       ]);
       if (accountId.current !== userId) return;
       setCatalog(nextCatalog);
+      let board = nextLeaderboard;
+      const seenBoards = [nextLeaderboard];
+      if (!requestedTarget) {
+        // First visit (no remembered target): open on the salmon/trout whose
+        // #1 city is best today. The automatic pick is not saved as a
+        // preference, so it is re-evaluated on every visit until the angler
+        // chooses a species themselves.
+        const candidates = PIER_CAST_SALMONID_ORDER.filter((speciesId) =>
+          nextLeaderboard.targetSpecies.some((option) => option.speciesId === speciesId)
+        );
+        const settled = await Promise.allSettled(
+          candidates.map((speciesId) => fetchPierCastConditionsLeaderboard(speciesId)),
+        );
+        const boards = settled.flatMap((result) =>
+          result.status === "fulfilled" ? [result.value] : []
+        );
+        seenBoards.push(...boards);
+        let picked = pickDefaultStandingsSpecies(boards);
+        let pickedBoard = boards.find((candidate) => candidate.selectedSpeciesId === picked) ?? null;
+        if (!picked) {
+          const fallback = pickFallbackStandingsSpecies(nextLeaderboard.targetSpecies);
+          if (fallback) {
+            try {
+              pickedBoard = await fetchPierCastConditionsLeaderboard(fallback);
+              seenBoards.push(pickedBoard);
+              picked = fallback;
+            } catch {
+              pickedBoard = null;
+            }
+          }
+        }
+        if (
+          picked && pickedBoard &&
+          selectionRequest.current === requestId &&
+          selectedSpeciesRef.current === null &&
+          accountId.current === userId
+        ) {
+          selectedSpeciesRef.current = picked;
+          setSelectedSpeciesId(picked);
+          board = pickedBoard;
+        }
+      }
+      rememberLakes(seenBoards);
       if (
         selectionRequest.current === requestId &&
-        selectedSpeciesRef.current === requestedTarget
+        selectedSpeciesRef.current === board.selectedSpeciesId
       ) {
-        setLeaderboard(nextLeaderboard);
+        setLeaderboard(board);
         setSelectionLoading(false);
         setError(null);
       }
@@ -165,7 +256,7 @@ export default function PierCastReviewScreen() {
     } finally {
       if (!silent) setLoading(false);
     }
-  }, [preferenceHydrated, user?.id]);
+  }, [preferenceHydrated, rememberLakes, user?.id]);
 
   useEffect(() => {
     selectionRequest.current += 1;
@@ -296,6 +387,7 @@ export default function PierCastReviewScreen() {
     router.setParams({ speciesId });
     try {
       const next = await fetchPierCastConditionsLeaderboard(speciesId);
+      rememberLakes([next]);
       if (
         selectionRequest.current !== requestId ||
         selectedSpeciesRef.current !== speciesId
@@ -316,7 +408,7 @@ export default function PierCastReviewScreen() {
     } finally {
       if (selectedSpeciesRef.current === speciesId) setSelectionLoading(false);
     }
-  }, [catalog, loadCityReport, router]);
+  }, [catalog, loadCityReport, rememberLakes, router]);
 
   const selectSpecies = useCallback((speciesId: PierCastSpeciesId) => {
     const requestId = ++selectionRequest.current;
@@ -329,6 +421,7 @@ export default function PierCastReviewScreen() {
     router.setParams({ speciesId });
     void fetchPierCastConditionsLeaderboard(speciesId)
       .then((next) => {
+        rememberLakes([next]);
         if (
           selectionRequest.current === requestId &&
           selectedSpeciesRef.current === speciesId
@@ -347,7 +440,7 @@ export default function PierCastReviewScreen() {
       .finally(() => {
         if (selectedSpeciesRef.current === speciesId) setSelectionLoading(false);
       });
-  }, [cityReport, router]);
+  }, [cityReport, rememberLakes, router]);
 
   useEffect(() => {
     if (!routeCityId || !catalog || !leaderboard || !selectedSpeciesId) {
@@ -421,6 +514,44 @@ export default function PierCastReviewScreen() {
     };
   }, [cityReport?.generatedAt, selectedCity]);
 
+  const openFinderCity = useCallback((cityId: string) => {
+    const city = catalog?.cities.find((candidate) => candidate.cityId === cityId);
+    if (!city) return;
+    const speciesId = finderReportSpecies(city, selectedSpeciesRef.current);
+    if (!speciesId) {
+      setError("This PierCast city has no species report available yet.");
+      return;
+    }
+    if (
+      speciesId === selectedSpeciesRef.current &&
+      leaderboard?.selectedSpeciesId === speciesId &&
+      leaderboard.cities.some((row) => row.cityId === cityId)
+    ) {
+      void openCity(cityId);
+      return;
+    }
+    void openCityForSpecies(cityId, speciesId);
+  }, [catalog, leaderboard, openCity, openCityForSpecies]);
+
+  const refresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await load({ silent: true });
+    } finally {
+      setRefreshing(false);
+    }
+  }, [load]);
+
+  /** A species on a city report opens that species' standings. */
+  const openStandingsFor = useCallback((speciesId: PierCastSpeciesId) => {
+    requestedCity.current = null;
+    setError(null);
+    setSelectedCityId(null);
+    setCityReport(null);
+    setShowingSavedCopy(false);
+    selectSpecies(speciesId);
+  }, [selectSpecies]);
+
   const leaveReport = () => {
     hapticSelection();
     if (selectedCityId && returnToMap) {
@@ -438,6 +569,10 @@ export default function PierCastReviewScreen() {
     router.back();
   };
 
+  const showingLanding = Boolean(catalog && leaderboard && !selectedCity) &&
+    !loading && !routeReportLoading && !error;
+  const landingLayout = !selectedCity && !routeReportLoading && !(loading && routeCityId);
+
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
@@ -447,7 +582,7 @@ export default function PierCastReviewScreen() {
           onPress={leaveReport}
           accessibilityRole="button"
           accessibilityLabel={selectedCityId
-            ? returnToMap ? "Back to PierCast conditions map" : "Back to PierCast leaderboard"
+            ? returnToMap ? "Back to PierCast conditions map" : "Back to PierCast standings"
             : returnToMap ? "Back to PierCast conditions map" : "Back"}
         >
           <Ionicons name="chevron-back" size={25} color="#FFFFFF" />
@@ -456,77 +591,93 @@ export default function PierCastReviewScreen() {
           <Text style={styles.navEyebrow}>GREAT LAKES · PIER FORECAST</Text>
           <Text style={styles.navTitle}>PIERCAST</Text>
         </View>
-        <View style={styles.navSpacer} />
+        {showingLanding ? (
+          <Pressable
+            style={({ pressed }) => [styles.mapHeaderButton, pressed && styles.pressed]}
+            onPress={() => {
+              hapticSelection();
+              router.push({
+                pathname: "/pier-cast-map",
+                params: selectedSpeciesId ? { speciesId: selectedSpeciesId } : {},
+              });
+            }}
+            accessibilityRole="button"
+            accessibilityLabel="Open the PierCast visual map"
+          >
+            <Ionicons name="map-outline" size={20} color={paper.gold} />
+          </Pressable>
+        ) : (
+          <View style={styles.navSpacer} />
+        )}
       </View>
       <ScrollView
         ref={pageScrollRef}
         style={styles.scroll}
-        contentContainerStyle={styles.content}
+        contentContainerStyle={styles.landingContent}
         showsVerticalScrollIndicator={false}
+        refreshControl={showingLanding
+          ? (
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => void refresh()}
+              tintColor={paper.dashboardBlue}
+              colors={[paper.dashboardBlue]}
+            />
+          )
+          : undefined}
       >
         {catalog?.cities.length === 0 ? (
-          <MessageCard icon="lock-closed-outline" title="PierCast is coming soon" />
+          <View style={styles.landingPad}>
+            <MessageCard icon="lock-closed-outline" title="PierCast is coming soon" />
+          </View>
         ) : loading || routeReportLoading ? (
-          <PierCastConditionsSkeleton />
+          landingLayout ? <PierCastStandingsSkeleton /> : <PierCastConditionsSkeleton />
         ) : error ? (
-          <MessageCard
-            icon="alert-circle-outline"
-            title="PierCast could not load"
-            body={error}
-            actionLabel="TRY AGAIN"
-            onAction={() => void load()}
-          />
+          <View style={styles.landingPad}>
+            <MessageCard
+              icon="alert-circle-outline"
+              title="PierCast could not load"
+              body={error}
+              actionLabel="TRY AGAIN"
+              onAction={() => void load()}
+            />
+          </View>
         ) : catalog && leaderboard ? (
           selectedCity ? (
-            <>
-              {cityReport && selectedSpeciesId ? (
-                <>
-                  <PierCastConditionsCityReport
-                    city={selectedCity}
-                    report={cityReport}
-                    selectedSpeciesId={selectedSpeciesId}
-                    targetOptions={leaderboard.targetSpecies}
-                    weather={weather}
-                    weatherLoading={weatherLoading}
-                    savedCopy={showingSavedCopy}
-                    onSelectSpecies={selectSpecies}
-                  />
-                  <PierCastNearbyPorts
-                    selectedCity={selectedCity}
-                    cities={catalog.cities.filter((city) =>
-                      leaderboard.selectedSpeciesId === selectedSpeciesId &&
-                      leaderboard.cities.some((row) => row.cityId === city.cityId)
-                    )}
-                    onOpenCity={(cityId) => void openCity(cityId)}
-                  />
-                  <PierCastPiersCovered city={selectedCity} />
-                </>
-              ) : null}
-              <PierCastAccessNotice city={selectedCity} />
-              <PierCastCoverageRequest profile={profile} user={user} city={selectedCity} cities={catalog.cities} />
-            </>
-          ) : (
-            <>
-              <PierCastConditionsLanding
-                catalog={catalog}
-                leaderboard={leaderboard}
-                selectedSpeciesId={selectedSpeciesId}
-                selectionLoading={selectionLoading}
-                onSelectSpecies={selectSpecies}
-                onOpenCity={(cityId) => {
-                  hapticSelection();
-                  void openCity(cityId);
-                }}
-                onOpenCityForSpecies={(cityId, speciesId) => {
-                  void openCityForSpecies(cityId, speciesId);
-                }}
-                onOpenMap={() => router.push({
-                  pathname: "/pier-cast-map",
-                  params: selectedSpeciesId ? { speciesId: selectedSpeciesId } : {},
-                })}
+            cityReport && selectedSpeciesId ? (
+              <PierCastConditionsCityReport
+                city={selectedCity}
+                cities={catalog.cities}
+                report={cityReport}
+                weather={weather}
+                weatherLoading={weatherLoading}
+                savedCopy={showingSavedCopy}
+                onOpenStandings={openStandingsFor}
+                onOpenCity={openFinderCity}
               />
-              <PierCastCoverageRequest profile={profile} user={user} city={null} cities={catalog.cities} />
-            </>
+            ) : (
+              <PierCastConditionsSkeleton />
+            )
+          ) : (
+            <PierCastStandings
+              catalog={catalog}
+              leaderboard={leaderboard}
+              selectedSpeciesId={selectedSpeciesId}
+              selectionLoading={selectionLoading}
+              lakeFilter={lakeFilter}
+              cityLakes={cityLakes}
+              onChangeLake={changeLake}
+              onSelectSpecies={selectSpecies}
+              onOpenCity={(cityId) => void openCity(cityId)}
+              onOpenFinderCity={openFinderCity}
+              onOpenMap={() => router.push({
+                pathname: "/pier-cast-map",
+                params: selectedSpeciesId ? { speciesId: selectedSpeciesId } : {},
+              })}
+              footer={
+                <PierCastCoverageRequest profile={profile} user={user} city={null} cities={catalog.cities} />
+              }
+            />
           )
         ) : null}
       </ScrollView>
@@ -578,8 +729,10 @@ const styles = StyleSheet.create({
   navEyebrow: { color: "rgba(255,255,255,0.58)", fontFamily: paperFonts.metaMonoBold, fontSize: 7.5, letterSpacing: 1.35 },
   navTitle: { marginTop: 1, color: "#FFFFFF", fontFamily: paperFonts.display, fontSize: 24, lineHeight: 27, letterSpacing: 1.1 },
   navSpacer: { width: 42 },
+  mapHeaderButton: { width: 42, height: 42, alignItems: "center", justifyContent: "center", borderRadius: 21, borderWidth: 1.5, borderColor: "rgba(255,255,255,0.22)" },
   scroll: { flex: 1, backgroundColor: paper.dashboardCream },
-  content: { paddingHorizontal: 14, paddingTop: 15, paddingBottom: 40 },
+  landingContent: { paddingBottom: 44 },
+  landingPad: { paddingHorizontal: 14, paddingTop: 15 },
   messageCard: { minHeight: 210, alignItems: "center", justifyContent: "center", marginTop: 12, borderWidth: 2, borderColor: paper.dashboardInk, borderRadius: 11, padding: 24, backgroundColor: paper.dashboardWhite },
   messageTitle: { marginTop: 10, color: paper.dashboardInk, fontFamily: paperFonts.display, fontSize: 23, textAlign: "center" },
   messageCopy: { marginTop: 7, color: paper.dashboardMuted, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 19, textAlign: "center" },

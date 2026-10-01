@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["expo-env.d.ts", "app/pier-cast-review.tsx", "app/pier-cast-map.tsx", "components/pier-cast/PierCastStandings.tsx", "components/pier-cast/PierCastConditionsUI.tsx", "lib/pierCastStandingsPresentation.ts", "lib/pierCastTargetPreference.ts"]
+}

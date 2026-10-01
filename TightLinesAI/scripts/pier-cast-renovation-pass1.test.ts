@@ -88,7 +88,7 @@ const conditionsSupport = readFileSync(
   "utf8",
 );
 const mapScreen = readFileSync(
-  new URL("../app/pier-cast-map.tsx", import.meta.url),
+  new URL("../legacy/pier-cast-map-v1.tsx", import.meta.url) /* retired first map; the live screen is app/pier-cast-map.tsx */,
   "utf8",
 );
 const visuals = readFileSync(
@@ -262,8 +262,11 @@ test("visual contract locks the established PierCast design foundations", () => 
 
   assert.match(conditionsUi + conditionsSupport, /CornerMarkSet/);
   assert.match(conditionsUi + conditionsSupport, /TopographicLines/);
-  assert.match(conditionsUi, /MEDAL_COLORS/);
-  assert.match(conditionsUi, /PierCastTemperatureChart/);
+  assert.match(
+    readFileSync(new URL("../components/pier-cast/PierCastStandings.tsx", import.meta.url), "utf8"),
+    /paper\.medalGold[\s\S]*paper\.medalBronze/,
+  );
+  assert.match(conditionsUi, /PierCastCityTemperatureChart/);
   assert.match(mapScreen, /PierCastTemperatureGradient/);
   assert.match(mapScreen, /PierCastDepthGradient/);
   assert.match(mapScreen, /PierCastWindGradient/);

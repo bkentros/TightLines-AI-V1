@@ -211,10 +211,18 @@ test("PierCast UI exposes species-specific seasonal and temperature handoffs", (
     "utf8",
   );
 
-  assert.match(source, /SPECIES-SPECIFIC RANKING/);
-  assert.match(source, /TYPICAL TARGET TIMING/);
-  assert.match(source, /MODELED SURFACE TEMP FIT/);
-  assert.match(source, /PIER_CAST_SPECIES_LABELS/);
-  assert.match(source, /formatSeasonTrend/);
-  assert.match(source, /formatDistanceFromOptimum/);
+  assert.match(
+    readFileSync(new URL("../components/pier-cast/PierCastStandings.tsx", import.meta.url), "utf8"),
+    /Each species gets its own ranking/,
+  );
+  const rules = readFileSync(
+    new URL("../lib/pierCastCityReportPresentation.ts", import.meta.url),
+    "utf8",
+  );
+  // City report: each species opens its own standings.
+  assert.match(source, /onOpenStandings\(card\.speciesId\)/);
+  assert.match(source, /Opens the \$\{card\.name\} standings/);
+  assert.match(rules, /PIER_CAST_SPECIES_LABELS/);
+  assert.match(rules, /standingsStageLabel/);
+  assert.match(rules, /standingsWaterPhrase/);
 });

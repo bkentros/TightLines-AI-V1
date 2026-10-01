@@ -1,0 +1,9 @@
+node_modules/
+dist/
+public/
+out/
+.venv/
+__pycache__/
+static-build/sources/
+static-build/proto/
+job/replay/data/

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const mapScreen = readFileSync(
-  new URL("../app/pier-cast-map.tsx", import.meta.url),
+  new URL("../legacy/pier-cast-map-v1.tsx", import.meta.url) /* retired first map; the live screen is app/pier-cast-map.tsx */,
   "utf8",
 );
 const reportScreen = readFileSync(

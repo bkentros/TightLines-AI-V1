@@ -318,6 +318,37 @@ export type PierCastLeaderboardResponseV4 = {
   disclosure: string;
 };
 
+/** How many local days the city report's daily outlook covers (today first). */
+export const PIER_CAST_CITY_DAILY_OUTLOOK_DAYS = 6;
+
+/**
+ * One local day of a city report. `best` is the species that would rank first
+ * at this city on that day under the leaderboard rule (ranked first, then
+ * seasonal band, then thermal match). Today uses the current modeled
+ * temperature so it agrees with `species`; later days use that day's mean
+ * modeled surface temperature.
+ */
+export type PierCastCityDailyOutlookV4 = {
+  localDate: string;
+  temperatureBasis: "current" | "daily_mean";
+  representativeTemperatureC: number;
+  temperatureRangeC: readonly [minimumC: number, maximumC: number];
+  pointCount: number;
+  rankedSpeciesCount: number;
+  best: {
+    speciesId: PierCastSpeciesId;
+    seasonalBand: PierCastSeasonalBandV4;
+    thermalBand: PierCastThermalBandV4;
+  } | null;
+};
+
+/** Where this city sits in each species' leaderboard right now. */
+export type PierCastCitySpeciesStandingV4 = {
+  speciesId: PierCastSpeciesId;
+  rank: number | null;
+  rankedCityCount: number;
+};
+
 export type PierCastCityReportReadV4 = {
   schemaVersion: typeof PIER_CAST_CONDITIONS_SCHEMA_VERSION;
   formulaVersion: typeof PIER_CAST_CONDITIONS_FORMULA_VERSION;
@@ -332,6 +363,10 @@ export type PierCastCityReportReadV4 = {
   species: PierCastSpeciesConditionsReadV4[];
   currentTemperature: PierCastModeledTemperaturePointV4 | null;
   temperatureTimeline: PierCastModeledTemperaturePointV4[];
+  /** Additive (city-first report). Absent on older servers and saved copies. */
+  dailyOutlook?: PierCastCityDailyOutlookV4[];
+  /** Additive (city-first report). Absent on older servers and saved copies. */
+  speciesStandings?: PierCastCitySpeciesStandingV4[];
   source: PierCastConditionsOutlookV4["source"];
   disclosure: string;
 };
@@ -548,6 +583,35 @@ export function sortPierCastLeaderboardV4(
     return left.displayName.localeCompare(right.displayName) ||
       left.cityId.localeCompare(right.cityId);
   });
+}
+
+/**
+ * Orders species conditions at one city with the leaderboard rule: ranked
+ * rows first, then seasonal band, then thermal match. Unranked rows still sort
+ * by whatever seasonal band they have. Returns 0 on a full tie so callers pick
+ * their own stable tie-break.
+ */
+export function comparePierCastSpeciesConditionsV4(
+  left: PierCastSpeciesConditionsReadV4,
+  right: PierCastSpeciesConditionsReadV4,
+): number {
+  const disposition = DISPOSITION_SORT_VALUE[right.rankingDisposition] -
+    DISPOSITION_SORT_VALUE[left.rankingDisposition];
+  if (disposition !== 0) return disposition;
+  const leftBand = left.seasonalOutlook.status === "available"
+    ? SEASONAL_SORT_VALUE[left.seasonalOutlook.band]
+    : 0;
+  const rightBand = right.seasonalOutlook.status === "available"
+    ? SEASONAL_SORT_VALUE[right.seasonalOutlook.band]
+    : 0;
+  if (rightBand !== leftBand) return rightBand - leftBand;
+  const leftThermal = left.thermalMatch.status === "available"
+    ? left.thermalMatch.value
+    : -1;
+  const rightThermal = right.thermalMatch.status === "available"
+    ? right.thermalMatch.value
+    : -1;
+  return rightThermal - leftThermal;
 }
 
 function isUnitInterval(value: number): boolean {

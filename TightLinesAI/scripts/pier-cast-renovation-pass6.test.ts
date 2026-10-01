@@ -4,17 +4,19 @@ import test from "node:test";
 
 const screen = read("app/pier-cast-review.tsx");
 const conditionsUi = read("components/pier-cast/PierCastConditionsUI.tsx");
+const standings = read("components/pier-cast/PierCastStandings.tsx");
+const standingsRules = read("lib/pierCastStandingsPresentation.ts");
 const conditionsSupport = read("components/pier-cast/PierCastConditionsSupport.tsx");
 const visuals = read("components/pier-cast/PierCastVisuals.tsx");
 const client = read("lib/pierCast.ts");
 const handler = read("supabase/functions/pier-cast/handler.ts");
 const edge = read("supabase/functions/pier-cast/index.ts");
 const guide = read("app/how-it-works.tsx");
-const map = read("app/pier-cast-map.tsx");
+const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const matrix = JSON.parse(read("docs/PierCast_Renovation_Pass6_Visual_Matrix.json"));
 
 test("shipping PierCast screen has no retired public score consumer", () => {
-  const shippingUi = screen + conditionsUi + conditionsSupport + visuals;
+  const shippingUi = screen + conditionsUi + conditionsSupport + visuals + standings + standingsRules;
   for (const retired of [
     "fetchPierCastLeaderboard",
     "fetchPierCastCatalog",
@@ -68,24 +70,26 @@ test("release copy describes target conditions instead of a universal numeric ra
   assert.doesNotMatch(pierCastGuide, /1\\u201310 rating|1–10 rating|score/i);
 });
 
-test("unsupported city targets route through a supported-target chooser and stale requests are rejected", () => {
-  assert.match(conditionsUi, /choose a supported target/);
-  assert.match(conditionsUi, /citySupportedSpeciesIds/);
+test("unsupported city targets route to a supported species and stale requests are rejected", () => {
+  assert.match(standingsRules, /supported\.includes\(currentSpeciesId\)/);
+  assert.match(standingsRules, /PIER_CAST_SALMONID_ORDER\.find/);
   assert.match(screen, /city\.supportedSpeciesIds\.includes\(speciesId\)/);
-  assert.match(conditionsUi, /RESTRICTED/);
+  assert.match(standingsRules, /Closed to targeting here/);
   assert.match(screen, /leaderboard\?\.selectedSpeciesId !== target/);
   assert.match(screen, /selectedSpeciesRef\.current !== target/);
 });
 
 test("loading, stale, missing, restricted, access, and long-copy states are explicit", () => {
   assert.match(screen, /PierCastConditionsSkeleton/);
+  assert.match(screen, /PierCastStandingsSkeleton/);
   assert.match(screen, /archived_legacy/);
   assert.match(conditionsUi, /Showing your last saved conditions report/);
-  assert.match(conditionsUi, /Missing, stale, or restricted conditions/);
-  assert.match(conditionsUi, /Targeting restricted/);
+  assert.match(standings, /Missing or updating data stays unrated/);
+  assert.match(conditionsUi, /NOT RATED/);
+  assert.match(conditionsUi, /No species is rated here today/);
   assert.match(conditionsSupport, /reported closed/);
-  assert.match(conditionsSupport, /pierChipBody: \{ flex: 1, minWidth: 0 \}/);
-  assert.match(conditionsSupport, /headingCopy: \{ flex: 1, minWidth: 0 \}/);
+  assert.match(conditionsUi, /REPORTED CLOSED/);
+  assert.match(conditionsUi, /flex: \{ flex: 1, minWidth: 0 \}/);
 });
 
 test("rapid target changes cannot commit an older leaderboard response", () => {
