@@ -3,12 +3,14 @@
 Run:  python -m unittest discover -s job/tests   (from web/lake-map)
 """
 import json
+import os
 import re
 import sys
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest.mock import patch
 from urllib.parse import parse_qs, urlparse
 
 import numpy as np
@@ -17,12 +19,28 @@ JOB = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(JOB))
 
 import build  # noqa: E402
-from lakemap import dap, encode, gfs, net, ofs, regrid, waves  # noqa: E402
+from lakemap import dap, encode, gfs, net, ofs, regrid, store, waves  # noqa: E402
 from lakemap.config import DOMAIN, TEMP, WAVES, WIND, WIND_LAKES  # noqa: E402
 
 NOW = datetime(2026, 9, 30, 15, 30, tzinfo=timezone.utc)
 CYCLE = datetime(2026, 9, 30, 12, tzinfo=timezone.utc)
 GLWU_CYCLE = datetime(2026, 9, 30, 13, tzinfo=timezone.utc)
+
+
+class StoreTest(unittest.TestCase):
+    def test_account_id_formats_produce_the_same_endpoint(self):
+        account_id = "0123456789abcdef0123456789abcdef"
+        expected = f"https://{account_id}.r2.cloudflarestorage.com"
+        values = (
+            account_id,
+            f'  "{account_id}"\n',
+            expected,
+        )
+        for value in values:
+            with self.subTest(value=value), patch.dict(
+                os.environ, {"R2_ACCOUNT_ID": value}
+            ):
+                self.assertEqual(store.endpoint(), expected)
 
 # Fake LMHOFS grid: 0.05° over southern/central Lake Michigan (mask = water everywhere).
 LAT = np.arange(46.0, 41.6, -0.05)

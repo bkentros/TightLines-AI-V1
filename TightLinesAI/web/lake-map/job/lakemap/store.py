@@ -20,14 +20,21 @@ IMMUTABLE = "public, max-age=31536000, immutable"
 SHORT = "public, max-age=120"
 
 
+def endpoint() -> str:
+    raw = os.environ["R2_ACCOUNT_ID"].strip().strip('"\'')
+    if raw.startswith("http"):
+        return raw.rstrip("/")
+    acct = raw.split(".")[0]
+    return f"https://{acct}.r2.cloudflarestorage.com"
+
+
 def client():
     import boto3
     from botocore.config import Config
 
-    acct = os.environ["R2_ACCOUNT_ID"]
     return boto3.client(
         "s3",
-        endpoint_url=f"https://{acct}.r2.cloudflarestorage.com",
+        endpoint_url=endpoint(),
         aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
         aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
         region_name="auto",
