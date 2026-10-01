@@ -40,8 +40,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
+          cache-dependency-path: TightLinesAI/web/lake-map/package-lock.json
       - name: Install
-        run: pip install -r job/requirements.txt
+        run: pip install -r job/requirements.txt && npm ci
       - name: Test
         run: python -m unittest discover -s job/tests && node --test test/*.test.mjs job/*.test.mjs
       - name: Build and publish
