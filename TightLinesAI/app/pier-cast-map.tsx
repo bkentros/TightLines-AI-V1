@@ -327,12 +327,18 @@ export default function PierCastMapScreen() {
       />}
 
       {state !== "ready" && (
-        <View style={[styles.cover, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
+        <View style={styles.cover}>
           {state === "locked" && (
             // a blurred look at the map behind the members-only message
             <>
-              <Image source={LOCKED_PREVIEW} blurRadius={18} resizeMode="cover" style={StyleSheet.absoluteFill} accessibilityIgnoresInvertColors />
-              <View style={[StyleSheet.absoluteFill, styles.lockedShade]} />
+              <Image
+                source={LOCKED_PREVIEW}
+                blurRadius={18}
+                resizeMode="cover"
+                style={styles.lockedBackdrop}
+                accessibilityIgnoresInvertColors
+              />
+              <View pointerEvents="none" style={[styles.lockedBackdrop, styles.lockedShade]} />
             </>
           )}
           <Pressable
@@ -346,7 +352,13 @@ export default function PierCastMapScreen() {
           </Pressable>
           <ScrollView
             style={styles.centerScroll}
-            contentContainerStyle={styles.center}
+            contentContainerStyle={[
+              styles.center,
+              {
+                paddingTop: insets.top + 72,
+                paddingBottom: insets.bottom + 72,
+              },
+            ]}
             alwaysBounceVertical={false}
             bounces={false}
             showsVerticalScrollIndicator={false}
@@ -442,8 +454,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 32,
-    paddingVertical: 72,
     gap: 8,
+  },
+  lockedBackdrop: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
   },
   back: {
     position: "absolute",
