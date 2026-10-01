@@ -202,9 +202,12 @@ class CycleTest(unittest.TestCase):
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
 
         validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
+        validation_mirror = JOB / "lake-map-validation.workflow.yml"
         validation_text = validation_workflow.read_text()
+        self.assertEqual(validation_text, validation_mirror.read_text())
         self.assertIn('cron: "25 7 * * *"', validation_text)
         self.assertIn("python job/verify.py --upload", validation_text)
+        self.assertIn("--fail-on-pipeline-error", validation_text)
         self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
 
     def test_publication_requires_every_model_on_the_same_cycle(self):
@@ -332,9 +335,14 @@ class FullRunTest(unittest.TestCase):
         self.assertEqual(m["sources"]["waves"]["cycle"], "2026-09-30T13:00:00Z")
         self.assertEqual(m["verification"], "verification.json")
         verification = json.loads((self.rdir / "verification.json").read_text())
+        self.assertEqual(verification["formatVersion"], 2)
         self.assertFalse(verification["correctionApproved"])
+        self.assertEqual(verification["issuedAt"], "2026-09-30T15:30:00Z")
         self.assertEqual(len(next(iter(verification["sites"].values()))["hours"]), 121)
         self.assertTrue(all(site["modelDistanceKm"] <= 6.5 for site in verification["sites"].values()))
+        self.assertEqual(len(verification["pierSites"]), 32)
+        self.assertEqual(len(verification["pierSites"]["ludington_mi"]["hours"]), 121)
+        self.assertEqual(verification["benchmarkRefs"], {})  # network benchmark is production-upload only
         self.assertEqual(self.latest["verificationRuns"][0]["run"], self.latest["run"])
         for f in m["frames"][:3]:
             for k in ("temp", "wind", "waves"):

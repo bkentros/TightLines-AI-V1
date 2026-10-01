@@ -228,16 +228,32 @@ The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not ro
 
 Every published model run contains `verification.json`: the unmodified, as-issued
 121-hour surface forecast sampled at eligible reviewed GLOS and NOAA CO-OPS
-locations that have nearby valid model water.
+locations that have nearby valid model water, the same frozen series at all 32
+PierCast piers, its actual publication time and model inputs. Immediately after
+the live pointer changes, production runs capture GLOS Seagull's documented
+model-summary API at each pier under a separate immutable validation key for a
+contextual prospective comparison. That API returns a marine-zone summary while
+PierCast uses a pier point, so it is never labeled an apples-to-apples superiority
+test, never feeds the live forecast, and can never delay fresh map publication.
 The 15-minute Worker cron retains public observation evidence under
 `observations/v1/YYYY/MM/DD/…`; it never deletes snapshots. The daily
 `lake-map-validation.yml` workflow joins a completed UTC day of observations to
 every forecast that was actually issued up to five days earlier, deduplicates
-unchanged readings, and publishes private R2 summaries under `validation/`.
+unchanged readings, keeps only one nearest reading per run/sensor/depth/hour,
+and publishes private versioned evidence plus daily, monthly and all-time R2
+scorecards under `validation/`.
 
 Reports keep strict and contextual evidence separate and calculate bias, MAE,
-RMSE, P90 absolute error and maximum error for nowcast through day 5, the frozen
-0/24/48/72/96/120-hour leads, and each lake with strict evidence. Collection does
-not change the displayed field. A correction remains explicitly unapproved until
+RMSE, median/P90/maximum absolute error and within-1/2/3 °C rates. Model-cycle
+skill and the post-publication forecast users could actually see are separate.
+The post-publication score is compared with a no-lookahead same-sensor persistence
+baseline, while the captured Seagull context is paired to the exact same
+observation and timestamp with strict and contextual scoreboards kept separate.
+Breakdowns cover horizon, lake, source, depth, thermal
+regime, season, station and pier. Pipeline gaps fail the scheduled workflow;
+30-day-versus-prior-30-day degradation is flagged after minimum coverage.
+Collection does not change the displayed field. A correction remains explicitly unapproved until
 the predeclared coverage, season, error and independent-holdout requirements in
 `docs/PierCast_Temperature_Representation_and_Calibration.md` are met and reviewed.
+The storage layout, alert thresholds and monthly review procedure are in
+`docs/PierCast_Live_Map_Long_Term_Validation.md`.
