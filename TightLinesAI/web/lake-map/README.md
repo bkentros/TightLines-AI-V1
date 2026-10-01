@@ -69,6 +69,15 @@ to each station instead of being mislabeled as surface temperatures. Readings
 older than 90 minutes are visually dimmed and the card shows their exact age,
 sensor depth and difference from the modeled surface.
 
+The checked-in GLOS metadata catalog is intentionally refreshed through a
+reviewed two-step process. The generator validates response type and size,
+schema, identifiers, text, coordinates, depths and expected catalog scale, then
+emits inert JSON-backed JavaScript to stdout; it never writes network data into
+the repository. Generate a candidate with
+`npm run refresh:glos-catalog > /tmp/piercast-glos-catalog.js`, run
+`node --check /tmp/piercast-glos-catalog.js`, inspect the diff against
+`gate/glos-catalog.js`, and only then replace the checked-in file.
+
 Local run: `pip install -r job/requirements.txt`, then
 `python3 job/build.py --out out` (add `--upload` with the `R2_*` variables set).
 Tests: `npm test` and `npm run test:job` (synthetic NOAA, GLWU and Open-Meteo
