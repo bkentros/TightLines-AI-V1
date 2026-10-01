@@ -16,7 +16,6 @@ import {
   buildPierCastHourlyStrip,
   buildPierCastShiftCards,
   nearbyPierCastCities,
-  PIER_CAST_CITY_SPECIES_PREVIEW,
   type PierCastCalendarDay,
   type PierCastCitySpeciesCard,
   pierCastCityPrimeCount,
@@ -29,6 +28,7 @@ import {
   pierCastSpeciesName,
   pierCastTemperatureAt,
   pierCastTimelinePoints,
+  splitPierCastCitySpeciesCards,
 } from "../../lib/pierCastCityReportPresentation";
 import type {
   PierCastCityReportReadV4,
@@ -169,7 +169,7 @@ function Hero({
             style={({ pressed }) => [styles.pick, pressed && styles.pressed]}
           >
             <View style={styles.pickFish}>
-              <SpeciesFish speciesId={top.speciesId} width={92} height={40} />
+              <SpeciesFish speciesId={top.speciesId} width={104} height={104} />
             </View>
             <View style={styles.flex}>
               <Text style={styles.pickKicker}>TOP PICK TODAY</Text>
@@ -240,7 +240,9 @@ function DayTile({ day, selected, onPress }: {
       <View style={[styles.dayBand, { backgroundColor: style?.chip ?? "#EEF3F6" }]}>
         {day.best && style ? (
           <>
-            <SpeciesFish speciesId={day.best.speciesId} width={44} height={18} />
+            <View style={styles.dayFish}>
+              <SpeciesFish speciesId={day.best.speciesId} width={44} height={44} />
+            </View>
             <Text style={[styles.dayBandText, { color: style.ink }]} numberOfLines={1}>
               {style.label === "Off-season" ? "OFF" : style.label.toUpperCase()}
             </Text>
@@ -342,7 +344,7 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
         <View style={styles.spTop}>
           <Text style={styles.spRank}>{card.rankLabel}</Text>
           <View style={styles.spFish}>
-            <SpeciesFish speciesId={card.speciesId} width={70} height={32} />
+            <SpeciesFish speciesId={card.speciesId} width={84} height={84} />
           </View>
           <View style={styles.flex}>
             <Text style={styles.spName} numberOfLines={1}>{card.name}</Text>
@@ -395,11 +397,16 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
 }) {
   const [expanded, setExpanded] = useState(false);
   const cards = useMemo(() => buildPierCastCitySpeciesCards(report), [report]);
-  const shown = expanded ? cards : cards.slice(0, PIER_CAST_CITY_SPECIES_PREVIEW);
+  const { mainTargets, otherSpecies } = useMemo(
+    () => splitPierCastCitySpeciesCards(cards),
+    [cards],
+  );
+  const shown = expanded ? [...mainTargets, ...otherSpecies] : mainTargets;
+  useEffect(() => setExpanded(false), [report.cityId]);
   return (
     <Card label={`Species at ${report.displayName}`}>
       <CardHead kicker="TODAY'S TARGETS" title={`Species at ${report.displayName}`} tag={`${cards.length} SPECIES`} />
-      <Text style={styles.cardSub}>Ranked for today: season rating first, then water-temp fit. Tap a species for its standings.</Text>
+      <Text style={styles.cardSub}>Main targets are salmon, trout, steelhead and drum. Ranked for today: season rating first, then water-temp fit. Tap a species for its standings.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}
@@ -409,7 +416,7 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
           onPress={() => onOpenStandings(card.speciesId)}
         />
       ))}
-      {cards.length > PIER_CAST_CITY_SPECIES_PREVIEW ? (
+      {otherSpecies.length > 0 ? (
         <Pressable
           accessibilityRole="button"
           accessibilityState={{ expanded }}
@@ -419,7 +426,7 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
           }}
           style={({ pressed }) => [styles.moreButton, pressed && styles.pressed]}
         >
-          <Text style={styles.moreText}>{expanded ? "Show fewer" : `Show all ${cards.length} species`}</Text>
+          <Text style={styles.moreText}>{expanded ? "Show main targets" : `Show all ${cards.length} species`}</Text>
           <Ionicons name={expanded ? "chevron-up" : "chevron-down"} size={16} color={INK} />
         </Pressable>
       ) : null}
@@ -911,7 +918,7 @@ const styles = StyleSheet.create({
   heroPierText: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 15, color: "rgba(255,255,255,0.78)" },
   pick: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 18, paddingHorizontal: 14, paddingVertical: 12, borderWidth: 1.5, borderColor: "rgba(232,160,46,0.7)", borderRadius: 14, backgroundColor: "rgba(232,160,46,0.10)" },
   pickWeak: { borderColor: "rgba(255,255,255,0.2)", backgroundColor: "rgba(255,255,255,0.06)" },
-  pickFish: { width: 92, height: 42, alignItems: "center", justifyContent: "center" },
+  pickFish: { width: 104, height: 58, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   pickKicker: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.8, color: GOLD },
   pickName: { fontFamily: paperFonts.display, fontSize: 19, lineHeight: 23, color: "#FFFFFF" },
   pickLine: { fontFamily: paperFonts.body, fontSize: 13, lineHeight: 17, color: "rgba(255,255,255,0.74)" },
@@ -938,6 +945,7 @@ const styles = StyleSheet.create({
   dayLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1, color: "#555555" },
   dayDate: { fontFamily: paperFonts.display, fontSize: 20, lineHeight: 23, color: INK },
   dayBand: { alignItems: "center", gap: 2, paddingTop: 7, paddingBottom: 6, paddingHorizontal: 2 },
+  dayFish: { width: 44, height: 22, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   dayBandText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.6 },
   dayAir: { paddingVertical: 6, textAlign: "center", fontFamily: paperFonts.metaMonoBold, fontSize: 10, color: "#555555", backgroundColor: "#FAFAF7", borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.06)" },
   calNote: { marginTop: 12, textAlign: "center", fontFamily: paperFonts.body, fontSize: 14, lineHeight: 19, color: "#444444" },
@@ -948,7 +956,7 @@ const styles = StyleSheet.create({
   spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
   spTop: { flexDirection: "row", alignItems: "center", gap: 10 },
   spRank: { width: 24, fontFamily: paperFonts.metaMonoBold, fontSize: 14, color: "#777777" },
-  spFish: { width: 70, alignItems: "center" },
+  spFish: { width: 84, height: 50, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   spName: { fontFamily: paperFonts.display, fontSize: 19, lineHeight: 23, color: INK },
   spChips: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 4 },
   spStand: { overflow: "hidden", paddingHorizontal: 6, paddingVertical: 3, borderWidth: 1, borderColor: "rgba(212,175,55,0.6)", borderRadius: 5, backgroundColor: "#FBF3DC", fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.6, color: "#6B5310" },

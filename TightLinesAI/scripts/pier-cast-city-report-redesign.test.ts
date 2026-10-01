@@ -12,10 +12,19 @@ import {
   buildPierCastCitySpeciesCards,
   buildPierCastHourlyStrip,
   buildPierCastShiftCards,
+  pierCastCityPrimeCount,
   pierCastCityTopPick,
   pierCastCompass,
+  rankPierCastCitySpecies,
+  splitPierCastCitySpeciesCards,
   pierCastTimelinePoints,
 } from "../lib/pierCastCityReportPresentation";
+import type {
+  PierCastSeasonalBandV4,
+  PierCastSpeciesConditionsReadV4,
+} from "../lib/pierCastConditionsV4";
+import type { PierCastSpeciesId } from "../lib/pierCastContracts";
+import { isPrimaryPierCastSpecies } from "../lib/pierCastSpeciesPresentation";
 
 /* A Ludington-like fall week: a sharp drop into Wednesday evening, then recovery. */
 const START = Date.parse("2026-09-29T20:00:00Z");
@@ -26,6 +35,42 @@ const KNOTS: Array<[number, number]> = [
   [60, 56.9], [72, 57.8], [88, 59.4], [100, 58.6], [120, 58.9],
 ];
 const toC = (f: number) => (f - 32) * 5 / 9;
+function rankedSpecies(
+  speciesId: PierCastSpeciesId,
+  band: PierCastSeasonalBandV4,
+  thermalValue: number,
+): PierCastSpeciesConditionsReadV4 {
+  return {
+    speciesId,
+    seasonalOutlook: {
+      status: "available",
+      value: 0.8,
+      band,
+      stage: "active",
+      trend: "steady",
+      profileId: "test-profile",
+      basis: "regional",
+      localDate: "2026-09-29",
+      reasonCodes: [],
+    },
+    thermalMatch: {
+      status: "available",
+      value: thermalValue,
+      band: "excellent",
+      temperatureC: 12,
+      optimumRangeC: [11, 13],
+      distanceFromOptimumC: 0,
+      curveId: "test-curve",
+      validAt: new Date(START).toISOString(),
+      sourceKind: "model",
+      reasonCodes: [],
+    },
+    targetingEligibility: "eligible",
+    rankingDisposition: "ranked",
+    localFisheryContext: null,
+    reasonCodes: [],
+  };
+}
 function tempAt(hour: number): number {
   let k = 0;
   while (k < KNOTS.length - 2 && hour > KNOTS[k + 1]![0]) k += 1;
@@ -76,9 +121,12 @@ test("server city report adds a daily outlook and species standings", () => {
     assert.equal(day.temperatureBasis, "daily_mean");
     assert.ok(day.temperatureRangeC[0] <= day.temperatureRangeC[1]);
   }
-  // Today's best bet agrees with the species list's leader.
   const top = pierCastCityTopPick(read.species);
-  assert.equal(read.dailyOutlook[0]!.best?.speciesId, top?.speciesId);
+  assert.ok(top && isPrimaryPierCastSpecies(top.speciesId));
+  const expectedTop = rankPierCastCitySpecies(
+    read.species.filter((species) => isPrimaryPierCastSpecies(species.speciesId)),
+  )[0];
+  assert.equal(top.speciesId, expectedTop?.speciesId);
   assert.ok(read.speciesStandings && read.speciesStandings.length === read.species.length);
   for (const standing of read.speciesStandings) {
     assert.ok(standing.rank === null || standing.rank <= standing.rankedCityCount);
@@ -86,9 +134,11 @@ test("server city report adds a daily outlook and species standings", () => {
 });
 
 test("five-day calendar shows a species and rating word per day, never a score", () => {
-  const days = buildPierCastCityCalendar({ report: report(), weather, now: NOW });
+  const read = report();
+  const days = buildPierCastCityCalendar({ report: read, weather, now: NOW });
   assert.equal(days.length, 5);
   assert.equal(days[0]!.label, "TODAY");
+  assert.equal(days[0]!.best?.speciesId, pierCastCityTopPick(read.species)?.speciesId);
   assert.equal(days[1]!.label, "WED");
   for (const day of days) {
     assert.ok(day.best, `${day.localDate} has a best species`);
@@ -96,6 +146,17 @@ test("five-day calendar shows a species and rating word per day, never a score",
     assert.ok(day.airHighF !== null && day.airLowF !== null);
     assert.equal("score" in day, false);
   }
+});
+
+test("a higher-ranked secondary species never becomes today's top pick", () => {
+  const species = [
+    rankedSpecies("walleye", "excellent", 1),
+    rankedSpecies("lake_trout", "good", 0.8),
+    rankedSpecies("freshwater_drum", "fair", 0.7),
+  ];
+  assert.equal(rankPierCastCitySpecies(species)[0]!.speciesId, "walleye");
+  assert.equal(pierCastCityTopPick(species)?.speciesId, "lake_trout");
+  assert.equal(pierCastCityPrimeCount(species), 0);
 });
 
 test("calendar falls back to water ranges when an older server sends no daily outlook", () => {
@@ -123,6 +184,21 @@ test("species cards follow the leaderboard rule and carry no numeric score", () 
       assert.match(card.idealLine ?? "", /^\d+–\d+°F$/);
     }
   }
+});
+
+test("city report keeps only salmon, trout, steelhead and drum in main targets", () => {
+  const groups = splitPierCastCitySpeciesCards(buildPierCastCitySpeciesCards(report()));
+  assert.ok(groups.mainTargets.length > 0);
+  assert.ok(groups.otherSpecies.length > 0);
+  assert.ok(groups.mainTargets.every((card) => isPrimaryPierCastSpecies(card.speciesId)));
+  assert.ok(groups.otherSpecies.every((card) => !isPrimaryPierCastSpecies(card.speciesId)));
+  assert.deepEqual(
+    [...groups.mainTargets, ...groups.otherSpecies].map((card) => card.rankLabel),
+    Array.from(
+      { length: groups.mainTargets.length + groups.otherSpecies.length },
+      (_, index) => String(index + 1).padStart(2, "0"),
+    ),
+  );
 });
 
 test("hourly strip starts at now and steps every two hours with wind direction", () => {
@@ -186,7 +262,14 @@ test("report screen is city-first: no species selector, no request-a-city, no sc
   assert.match(ui, /Species at \$\{report\.displayName\}/);
   assert.match(ui, /PierCastCityTemperatureChart/);
   assert.match(ui, /Water temp shifts/);
+  assert.match(ui, /Show all \$\{cards\.length\} species/);
   assert.match(screen, /onOpenStandings=\{openStandingsFor\}/);
+});
+
+test("an open city report disables the stack back-swipe", () => {
+  const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
+  assert.match(screen, /<Stack\.Screen options=\{\{ gestureEnabled: !selectedCityId \}\} \/>/);
+  assert.match(screen, /onPress=\{leaveReport\}/);
 });
 
 test("a one-city outlook sends no species standings", () => {

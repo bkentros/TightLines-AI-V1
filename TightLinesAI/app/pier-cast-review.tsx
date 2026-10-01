@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
@@ -575,6 +575,7 @@ export default function PierCastReviewScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
+      <Stack.Screen options={{ gestureEnabled: !selectedCityId }} />
       <StatusBar style="light" />
       <View style={styles.navHeader}>
         <Pressable

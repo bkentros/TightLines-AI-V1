@@ -317,7 +317,7 @@ function SpeciesTile({
       style={({ pressed }) => [styles.tile, selected && styles.tileOn, pressed && styles.pressed]}
     >
       <View style={styles.tileFish}>
-        <Fish speciesId={option.speciesId} width={48} height={26} />
+        <Fish speciesId={option.speciesId} width={48} height={48} />
       </View>
       <View style={styles.flex}>
         <Text style={[styles.tileName, selected && styles.textOnInk]} numberOfLines={2}>
@@ -533,7 +533,7 @@ function SpeciesTab({
       style={({ pressed }) => [styles.tab, selected && styles.tabOn, pressed && styles.tabPressed]}
     >
       <View style={styles.tabFish}>
-        <Fish speciesId={option.speciesId} width={86} height={38} />
+        <Fish speciesId={option.speciesId} width={86} height={86} />
       </View>
       <Text style={[styles.tabName, selected && styles.textOnInk]} numberOfLines={2}>
         {speciesName(option.speciesId)}
@@ -627,7 +627,9 @@ function LeaderCard({
               {pierLine ? <Text style={styles.leaderPier} numberOfLines={1}>{pierLine}</Text> : null}
             </View>
             <Reveal token={token} from="left" delay={120} reduceMotion={reduceMotion}>
-              <Fish speciesId={speciesId} width={132} height={60} />
+              <View style={styles.leaderFish}>
+                <Fish speciesId={speciesId} width={96} height={96} />
+              </View>
             </Reveal>
           </View>
           <View style={styles.rule} />
@@ -745,7 +747,9 @@ function ChaserRow({
           <BandMeter level={bandStyle?.level ?? 0} token={token} delay={delay + 180} compact reduceMotion={reduceMotion} />
         </View>
         <View style={styles.rowRight}>
-          <Fish speciesId={speciesId} width={54} height={26} />
+          <View style={styles.rowFish}>
+            <Fish speciesId={speciesId} width={48} height={48} />
+          </View>
           <View style={styles.rowChipLine}>
             {band ? <BandChip band={band} /> : null}
             <TrendArrow trend={trend} />
@@ -1542,7 +1546,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   tabPressed: { transform: [{ scale: 0.97 }] },
-  tabFish: { height: 40, alignItems: "center", justifyContent: "center" },
+  tabFish: { width: 86, height: 40, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   tabName: {
     marginTop: 4,
     minHeight: 32,
@@ -1665,6 +1669,7 @@ const styles = StyleSheet.create({
   bigMedalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: GOLD_INK },
   leaderState: { marginTop: 14, fontFamily: paperFonts.metaMonoBold, fontSize: 12, letterSpacing: 2.4, color: GOLD_INK },
   leaderIdentity: { flexDirection: "row", alignItems: "center", gap: 8 },
+  leaderFish: { width: 104, height: 60, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   leaderCity: { fontFamily: paperFonts.display, fontSize: 34, lineHeight: 38, color: INK },
   leaderPier: { marginTop: 2, fontFamily: paperFonts.body, fontSize: 15, color: "#555555" },
   rule: { height: 1, marginVertical: 16, backgroundColor: paper.dashboardLine },
@@ -1779,6 +1784,7 @@ const styles = StyleSheet.create({
   rowCity: { fontFamily: paperFonts.display, fontSize: 21, lineHeight: 25, color: INK },
   rowLine: { marginTop: 1, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 17, color: "#555555" },
   rowRight: { alignItems: "flex-end", gap: 6 },
+  rowFish: { width: 54, height: 30, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   rowChipLine: { flexDirection: "row", alignItems: "center", gap: 4 },
   go: {
     width: 30,
@@ -1998,7 +2004,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   tileOn: { backgroundColor: INK, borderWidth: 2, borderColor: paper.gold },
-  tileFish: { width: 48, alignItems: "center" },
+  tileFish: { width: 48, height: 32, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   tileName: { fontFamily: paperFonts.bodyBold, fontSize: 13, lineHeight: 16, color: INK },
   tileMeta: { flexDirection: "row", alignItems: "center", gap: 5, marginTop: 3 },
   tileMetaText: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 11, color: "#666666" },

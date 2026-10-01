@@ -10,6 +10,7 @@
 import { createLakeMap } from './engine/index.js';
 import { fmtWind, fmtWaves, compass, toTemp, PALETTES, colorAt, bandSpec, SPECIES, speciesFit } from './engine/scales.js';
 import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
+import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
 
 const CITIES = window.PC_CITIES;
 const HURON = new Set(['harbor_beach_mi', 'oscoda_mi', 'port_sanilac_mi', 'alpena_mi', 'lexington_mi', 'harrisville_mi', 'rogers_city_mi', 'tawas_city_mi', 'caseville_mi']);
@@ -25,7 +26,7 @@ const range = (a, b) => { const da = at(Math.round(a)), db = at(Math.round(b)); 
 
 const degs = (f) => `${Math.round(ui.units.temp === 'C' ? (f - 32) * 5 / 9 : f)}°`;
 const deltaDeg = (f) => `${Math.round(ui.units.temp === 'C' ? f * 5 / 9 : f)}°${ui.units.temp}`;
-const ui = { species: SPECIES[1], layer: 'temp', t: 0, playing: false, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, dismissed: new Set(), paused: false };
+const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, dismissed: new Set(), paused: false };
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── app bridge ── */
@@ -34,7 +35,6 @@ const APP = window.PC_APP || (QS.get('app') === '1' ? {} : null);
 const post = (msg) => { try { if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(JSON.stringify(msg)); } catch (e) { /* not in the app */ } };
 const track_ = (event, props = {}) => post({ type: 'analytics', event, props });
 const haptic = () => post({ type: 'haptic' });
-const LAYERS = ['temp', 'wind', 'waves', 'depth', 'species'];
 const PREFS_KEY = 'pc-lake-map-prefs-v1';
 const UNIT_OPTIONS = { temp: ['F', 'C'], wind: ['mph', 'kph', 'kt'], length: ['ft', 'm'] };
 function loadPrefs() { try { return JSON.parse(localStorage.getItem(PREFS_KEY) || 'null'); } catch (e) { return null; } }
@@ -43,16 +43,17 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   const saved = loadPrefs();
   if (saved) {
     for (const k of Object.keys(UNIT_OPTIONS)) if (saved.units && UNIT_OPTIONS[k].includes(saved.units[k])) ui.units[k] = saved.units[k];
-    if (LAYERS.includes(saved.layer)) ui.layer = saved.layer;
+    ui.layer = resolveInitialMapLayer(saved.layer);
     if (typeof saved.streaks === 'boolean') ui.streaks = saved.streaks;
     if (typeof saved.lines === 'boolean') ui.lines = saved.lines;
     if (typeof saved.buoys === 'boolean') ui.buoys = saved.buoys;
     if (typeof saved.nws === 'boolean') ui.nws = saved.nws;
     const sp = SPECIES.find((x) => x.id === saved.species); if (sp) ui.species = sp;
   } else if (APP && APP.units === 'metric') ui.units = { temp: 'C', wind: 'kph', length: 'm' };
-  // a species picked in the app (PierCast leaderboard) opens the species-match view
+  // Keep the routed species ready for Match, but never override the first-visit
+  // Temperature default or the layer the user last left selected.
   const routed = APP && SPECIES.find((x) => x.id === APP.species);
-  if (routed) { ui.species = routed; if (APP.speciesFromRoute) ui.layer = 'species'; }
+  if (routed) ui.species = routed;
 })();
 
 (async () => {

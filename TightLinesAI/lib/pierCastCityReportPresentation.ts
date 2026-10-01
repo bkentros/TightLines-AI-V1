@@ -9,6 +9,7 @@ import {
 } from "./pierCastConditionsV4";
 import { fahrenheit, PIER_CAST_SPECIES_LABELS } from "./pierCastConditionsPresentation";
 import type { PierCastSpeciesId } from "./pierCastContracts";
+import { isPrimaryPierCastSpecies } from "./pierCastSpeciesPresentation";
 import {
   orderPierCastTemperatureEvents,
   pierCastTemperatureEventTimingLabel,
@@ -26,8 +27,9 @@ import type { PierCastHourlyWeatherPoint } from "./pierCastWeather";
  * The report describes one city, not one species. Every word and number on it
  * is derived here from server fields so copy cannot drift from data:
  *
- * - Species at the city are ordered with the leaderboard rule (ranked first,
- *   then seasonal band, then thermal match). No scores are shown.
+ * - Main targets are salmon, trout, steelhead and freshwater drum. They appear
+ *   before the remaining species, and each group follows the leaderboard rule
+ *   (ranked first, then seasonal band, then thermal match). No scores are shown.
  * - The five-day calendar shows each day's best species and its seasonal band
  *   from the server's `dailyOutlook`. Older servers and saved copies without it
  *   still get the days, water ranges and air temps, plus today's best species.
@@ -36,7 +38,6 @@ import type { PierCastHourlyWeatherPoint } from "./pierCastWeather";
  */
 
 export const PIER_CAST_CITY_CALENDAR_DAYS = 5;
-export const PIER_CAST_CITY_SPECIES_PREVIEW = 4;
 const HOUR_MS = 3_600_000;
 const MATCH_TOLERANCE_MS = 90 * 60_000;
 
@@ -237,6 +238,28 @@ export function buildPierCastCitySpeciesCards(
   });
 }
 
+export function splitPierCastCitySpeciesCards(
+  cards: readonly PierCastCitySpeciesCard[],
+): {
+  mainTargets: PierCastCitySpeciesCard[];
+  otherSpecies: PierCastCitySpeciesCard[];
+} {
+  const mainTargets = cards.filter((card) =>
+    isPrimaryPierCastSpecies(card.speciesId)
+  );
+  const otherSpecies = cards.filter((card) =>
+    !isPrimaryPierCastSpecies(card.speciesId)
+  );
+  const ordered = [...mainTargets, ...otherSpecies].map((card, index) => ({
+    ...card,
+    rankLabel: String(index + 1).padStart(2, "0"),
+  }));
+  return {
+    mainTargets: ordered.slice(0, mainTargets.length),
+    otherSpecies: ordered.slice(mainTargets.length),
+  };
+}
+
 export type PierCastCityTopPick = {
   speciesId: PierCastSpeciesId;
   name: string;
@@ -248,7 +271,9 @@ export type PierCastCityTopPick = {
 export function pierCastCityTopPick(
   species: readonly PierCastSpeciesConditionsReadV4[],
 ): PierCastCityTopPick | null {
-  const leader = rankPierCastCitySpecies(species)[0];
+  const leader = rankPierCastCitySpecies(
+    species.filter((row) => isPrimaryPierCastSpecies(row.speciesId)),
+  )[0];
   if (
     !leader || leader.rankingDisposition !== "ranked" ||
     leader.seasonalOutlook.status !== "available"
@@ -266,11 +291,12 @@ export function pierCastCityTopPick(
   };
 }
 
-/** Species rated Prime today (ranked rows only). */
+/** Main-target species rated Prime today (ranked rows only). */
 export function pierCastCityPrimeCount(
   species: readonly PierCastSpeciesConditionsReadV4[],
 ): number {
   return species.filter((row) =>
+    isPrimaryPierCastSpecies(row.speciesId) &&
     row.rankingDisposition === "ranked" &&
     row.seasonalOutlook.status === "available" &&
     row.seasonalOutlook.band === "excellent"
@@ -418,14 +444,16 @@ export function buildPierCastCityCalendar(input: {
     const air = airPoints.map((point) => point.airTemperatureF as number);
     const weekday = timelineDay?.weekday ?? weekdayFromLocalDate(localDate);
     let best: PierCastCalendarDay["best"] = null;
-    if (entry) {
+    if (isToday) {
+      best = topToday
+        ? { speciesId: topToday.speciesId, band: topToday.band }
+        : null;
+    } else if (entry) {
       best = entry.best &&
           typeof entry.best.speciesId === "string" &&
           typeof entry.best.seasonalBand === "string"
         ? { speciesId: entry.best.speciesId, band: entry.best.seasonalBand }
         : null;
-    } else if (isToday && topToday) {
-      best = { speciesId: topToday.speciesId, band: topToday.band };
     }
     const range = entry && Array.isArray(entry.temperatureRangeC)
       ? pierCastRangeLabel(
@@ -442,7 +470,7 @@ export function buildPierCastCityCalendar(input: {
       dayOfMonth: Number(localDate.slice(8, 10)),
       isToday,
       best,
-      bestUnavailable: !entry && !(isToday && topToday),
+      bestUnavailable: isToday ? !topToday : !entry,
       waterRange: range,
       airHighF: air.length ? Math.round(Math.max(...air)) : null,
       airLowF: air.length ? Math.round(Math.min(...air)) : null,

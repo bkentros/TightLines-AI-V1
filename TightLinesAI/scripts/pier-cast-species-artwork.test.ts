@@ -20,6 +20,10 @@ const conditionsUi = readFileSync(
   resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"),
   "utf8",
 );
+const standingsUi = readFileSync(
+  resolve(root, "components/pier-cast/PierCastStandings.tsx"),
+  "utf8",
+);
 
 const speciesType = contracts.match(
   /export type PierCastSpeciesId =([\s\S]*?);\n\nexport type/,
@@ -109,4 +113,42 @@ test("new species assets and all conditions fish art stay normalized", () => {
   assert.match(conditionsUi, /resizeMode="contain"/);
   assert.match(conditionsUi, /function SpeciesFish/);
   assert.match(conditionsUi, /getPierCastSpeciesImage\(speciesId\)/);
+});
+
+test("species filters normalize different source aspect ratios", () => {
+  assert.match(
+    standingsUi,
+    /<Fish speciesId=\{option\.speciesId\} width=\{86\} height=\{86\} \/>/,
+  );
+  assert.match(
+    standingsUi,
+    /tabFish: \{ width: 86, height: 40, overflow: "hidden"/,
+  );
+  assert.match(
+    standingsUi,
+    /<Fish speciesId=\{option\.speciesId\} width=\{48\} height=\{48\} \/>/,
+  );
+  assert.match(
+    standingsUi,
+    /tileFish: \{ width: 48, height: 32, overflow: "hidden"/,
+  );
+});
+
+test("leaderboard fish art is enlarged for the leader and every ranked row", () => {
+  assert.match(
+    standingsUi,
+    /<Fish speciesId=\{speciesId\} width=\{96\} height=\{96\} \/>/,
+  );
+  assert.match(
+    standingsUi,
+    /leaderFish: \{ width: 104, height: 60, overflow: "hidden"/,
+  );
+  assert.match(
+    standingsUi,
+    /<Fish speciesId=\{speciesId\} width=\{48\} height=\{48\} \/>/,
+  );
+  assert.match(
+    standingsUi,
+    /rowFish: \{ width: 54, height: 30, overflow: "hidden"/,
+  );
 });
