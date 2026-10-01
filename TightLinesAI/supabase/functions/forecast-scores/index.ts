@@ -1224,7 +1224,9 @@ Deno.serve(async (req: Request) => {
     let om = null;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
-        om = await fetchOpenMeteo14Day(latitude, longitude, SNAPSHOT_UNITS);
+        om = await fetchOpenMeteo14Day(latitude, longitude, SNAPSHOT_UNITS, {
+          requirePaid: true,
+        });
         if (om?.weather) break;
         if (om == null && attempt < MAX_RETRIES - 1) {
           await new Promise((r) =>

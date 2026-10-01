@@ -198,6 +198,8 @@ function jsonError(message: string, code: string, status: number): Response {
 export type RiverRunHandlerDeps = {
   createAdminClient?: () => SupabaseLikeClient;
   fetchFn?: RiverRunFetch;
+  openMeteoApiKey?: string;
+  openMeteoBaseUrl?: string;
   rivers?: RiverProfile[];
   runs?: RiverRunProfile[];
   gaugeObservations?: NormalizedGaugeObservation[];
@@ -706,6 +708,8 @@ export async function handleRiverRunRequest(
         waterTemperatureObservationsBySource:
           deps.waterTemperatureObservationsBySource,
         weatherSnapshot: deps.weatherSnapshot,
+        openMeteoApiKey: deps.openMeteoApiKey,
+        openMeteoBaseUrl: deps.openMeteoBaseUrl,
       }),
       readOrBuildRiverLiveConditions({
         client,
@@ -943,6 +947,8 @@ async function handleOwnerReviewSnapshot(
         waterTemperatureObservationsBySource:
           deps.waterTemperatureObservationsBySource,
         weatherSnapshot: deps.weatherSnapshot,
+        openMeteoApiKey: deps.openMeteoApiKey,
+        openMeteoBaseUrl: deps.openMeteoBaseUrl,
       }),
       readOrBuildRiverLiveConditions({
         client,
@@ -1461,6 +1467,8 @@ async function handleInternalRefresh(
           waterTemperatureObservationsBySource:
             deps.waterTemperatureObservationsBySource,
           weatherSnapshot: deps.weatherSnapshot,
+          openMeteoApiKey: deps.openMeteoApiKey,
+          openMeteoBaseUrl: deps.openMeteoBaseUrl,
         }),
         readOrBuildRiverLiveConditions({
           client,
@@ -1531,6 +1539,8 @@ async function readOrBuildSnapshot(input: {
     NormalizedWaterTemperatureObservation[]
   >;
   weatherSnapshot?: Record<string, unknown> | null;
+  openMeteoApiKey?: string;
+  openMeteoBaseUrl?: string;
 }): Promise<{
   dailySnapshot: StoredDailySnapshot;
   condition: StoredConditionRefresh;
@@ -1559,6 +1569,8 @@ async function readOrBuildSnapshot(input: {
     waterTemperatureObservationsBySource:
       input.waterTemperatureObservationsBySource,
     weatherSnapshot: input.weatherSnapshot,
+    openMeteoApiKey: input.openMeteoApiKey,
+    openMeteoBaseUrl: input.openMeteoBaseUrl,
   });
   return { dailySnapshot, condition };
 }
@@ -1759,6 +1771,8 @@ async function readOrBuildConditionRefresh(input: {
     NormalizedWaterTemperatureObservation[]
   >;
   weatherSnapshot?: Record<string, unknown> | null;
+  openMeteoApiKey?: string;
+  openMeteoBaseUrl?: string;
 }): Promise<StoredConditionRefresh> {
   const cached = await getConditionRefresh(input.client, {
     riverId: input.river.riverId,
@@ -1870,6 +1884,8 @@ async function readOrBuildConditionRefresh(input: {
         fetchFn: boundedFetch,
         river: input.river,
         refreshAtUtc: input.refreshAtUtc,
+        openMeteoApiKey: input.openMeteoApiKey,
+        openMeteoBaseUrl: input.openMeteoBaseUrl,
       })
       : null;
     const weather = normalizeWeatherSnapshot({
@@ -2082,6 +2098,8 @@ async function readOrBuildConditionRefresh(input: {
       fetchFn: boundedFetch,
       river: input.river,
       refreshAtUtc: input.refreshAtUtc,
+      openMeteoApiKey: input.openMeteoApiKey,
+      openMeteoBaseUrl: input.openMeteoBaseUrl,
     });
   const weather = normalizeWeatherSnapshot({
     snapshot: weatherSnapshot,
@@ -2384,6 +2402,8 @@ async function fetchLiveWeatherOrNull(input: {
   fetchFn: RiverRunFetch;
   river: RiverProfile;
   refreshAtUtc: string;
+  openMeteoApiKey?: string;
+  openMeteoBaseUrl?: string;
 }): Promise<Record<string, unknown> | null> {
   try {
     const weatherPoint = getPrimaryWeatherPoint(input.river);
@@ -2392,6 +2412,11 @@ async function fetchLiveWeatherOrNull(input: {
       lat: weatherPoint.lat,
       lon: weatherPoint.lon,
       fetchedAtUtc: input.refreshAtUtc,
+      apiKey: input.openMeteoApiKey ??
+        Deno.env.get("OPEN_METEO_API_KEY")?.trim(),
+      baseUrl: input.openMeteoBaseUrl ??
+        Deno.env.get("OPEN_METEO_BASE_URL")?.trim(),
+      requirePaid: true,
     }) as Record<string, unknown> | null;
   } catch {
     return null;

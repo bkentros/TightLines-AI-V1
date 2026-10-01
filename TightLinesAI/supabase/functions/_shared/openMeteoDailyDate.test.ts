@@ -66,6 +66,11 @@ Deno.test("Open-Meteo adapter preserves captured daily labels and hourly instant
       result?.hourly_pressure_mb?.[0]?.time_utc,
       new Date(sample.hourly.time[0] * 1000).toISOString(),
     );
+    assertEquals(
+      result?.hourly_wind_direction_deg,
+      [],
+      "a missing direction series must not be fabricated as north",
+    );
   } finally {
     globalThis.fetch = originalFetch;
   }

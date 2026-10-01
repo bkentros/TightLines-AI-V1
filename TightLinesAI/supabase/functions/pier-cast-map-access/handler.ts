@@ -24,6 +24,8 @@ export type MapAccessDependencies = {
   account: (request: Request) => Promise<{ userId: string; free: boolean }>;
   /** free visits used including this one; throws MapAccessError(403) when none are left */
   claimVisit: (userId: string, visitId: string, allowed: number) => Promise<number>;
+  /** rate-limits pass minting per signed-in account. */
+  claimPassIssue: (userId: string) => Promise<void>;
   secret: () => string | undefined;
   now?: () => number;
 };
@@ -59,13 +61,14 @@ export function createMapAccessHandler(deps: MapAccessDependencies) {
         return json({ error: "invalid_visit", message: "Missing map visit." }, 400);
       }
       const { userId, free } = await deps.account(request);
+      await deps.claimPassIssue(userId);
       const visitsUsed = free
         ? await deps.claimVisit(userId, visitId.toLowerCase(), PIER_CAST_FREE_MAP_VISITS)
         : 0;
       const secret = deps.secret();
       if (!secret) throw new Error("Map pass secret is not configured.");
       const nowSeconds = Math.floor((deps.now?.() ?? Date.now()) / 1000);
-      const { pass, expiresAt } = await createPierCastMapPass(secret, nowSeconds);
+      const { pass, expiresAt } = await createPierCastMapPass(secret, nowSeconds, undefined, userId);
       return json({
         pass,
         expiresAt,

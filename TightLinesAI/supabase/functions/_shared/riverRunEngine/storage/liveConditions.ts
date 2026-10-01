@@ -40,6 +40,39 @@ export async function getLiveConditions(
   };
 }
 
+export async function getRecentLiveConditions(
+  client: SupabaseLikeClient,
+  key: {
+    riverId: string;
+    dataVersion: string;
+    limit?: number;
+  },
+): Promise<RiverRunStorageResult<RiverLiveConditions[]>> {
+  const query = client
+    .from(LIVE_CONDITIONS_TABLE)
+    .select("conditions")
+    .eq("river_id", key.riverId)
+    .eq("data_version", key.dataVersion)
+    .order("refreshed_at", { ascending: false })
+    .limit(key.limit ?? 24);
+  const response = await (query as unknown as Promise<{
+    data: Array<Pick<RiverLiveConditionsRow, "conditions">> | null;
+    error: null | { message?: string; code?: string; details?: unknown };
+  }>);
+  const error = storageError(response.error);
+  if (error) return { data: null, found: false, error };
+  const conditions = (response.data ?? [])
+    .map((row) => row.conditions)
+    .filter((candidate): candidate is RiverLiveConditions =>
+      candidate != null && Array.isArray(candidate.metrics)
+    );
+  return {
+    data: conditions,
+    found: conditions.length > 0,
+    error: null,
+  };
+}
+
 export async function upsertLiveConditions(
   client: SupabaseLikeClient,
   conditions: RiverLiveConditions,
