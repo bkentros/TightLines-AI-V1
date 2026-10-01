@@ -10,7 +10,7 @@
  */
 import { compile, texture, buffer, bindAttr, bindTex, mercX, mercY } from './gl.js';
 import { PALETTES, paletteBytes } from './scales.js';
-import { gridBox } from './frames.js';
+import { gridBox, packScalarTexturePixels } from './frames.js';
 
 const VS = `#version 300 es
 in vec2 a_pos;
@@ -62,6 +62,13 @@ vec4 bicubic(sampler2D t, vec2 uv) {
   float sx = s.x / (s.x + s.y), sy = s.z / (s.z + s.w);
   return mix(mix(s3, s2, sx), mix(s1, s0, sx), sy);
 }
+// Scalar textures store (value * validity, validity). Because B-spline
+// weights are positive, four filtered taps produce the exact weighted sums
+// needed to exclude invalid texels and normalize the remaining neighborhood.
+vec2 validScalar(sampler2D t, vec2 uv) {
+  vec2 sample = bicubic(t, uv).rg;
+  return sample.g > 0.000001 ? vec2(sample.r / sample.g * 255.0, sample.g) : vec2(0.0);
+}
 vec3 pal(float v) { return texture(u_pal, vec2(clamp((v - u_range.x) / (u_range.y - u_range.x), 0.0, 1.0) * (255.0 / 256.0) + 0.5 / 256.0, 0.5)).rgb; }
 
 void main() {
@@ -72,21 +79,22 @@ void main() {
     vec2 w = (mix(bicubic(u_a, uv).rg, bicubic(u_b, uv).rg, u_mix) * 255.0 - u_dec.y) / u_dec.x;
     value = length(w);
   } else {
-    float na = texture(u_a, uv).r * 255.0;
-    if (na > u_dec.z - 0.5) discard;           // no data (far inland, under the land layer)
-    float ra = bicubic(u_a, uv).r * 255.0, rb = bicubic(u_b, uv).r * 255.0;
-    value = mix(ra, rb, u_mix) / u_dec.x + u_dec.y;
+    vec2 a = validScalar(u_a, uv), b = validScalar(u_b, uv);
+    bool av = a.y > 0.000001, bv = b.y > 0.000001;
+    if (!av && !bv) discard;
+    float raw = av && bv ? mix(a.x, b.x, u_mix) : av ? a.x : b.x;
+    value = raw / u_dec.x + u_dec.y;
   }
   vec3 color;
   if (u_banded > 0.5) {
     float disp = value * u_conv.x + u_conv.y;
     float q = disp / u_band, band = floor(q);
     float midNative = ((band + 0.5) * u_band - u_conv.y) / u_conv.x;
-    color = pal(midNative) * (mod(band, 2.0) > 0.5 ? 0.9 : 1.04);
+    color = pal(midNative) * (mod(band, 2.0) > 0.5 ? 0.96 : 1.015);
     if (u_lines > 0.5) {
       float d = abs(fract(q + 0.5) - 0.5), w = fwidth(q);
       float line = 1.0 - smoothstep(0.35 * w, 1.25 * w, d);
-      color = mix(color, vec3(0.03, 0.08, 0.13), line * 0.5);
+      color = mix(color, vec3(0.03, 0.08, 0.13), line * 0.26);
     }
   } else {
     color = pal(value);
@@ -135,13 +143,20 @@ export class FieldLayer {
     });
   }
   set(opts) { Object.assign(this, opts); this.map && this.map.triggerRepaint(); }
-  tex(frame, nearest) {
+  tex(frame, nodata) {
     const key = frame.path; if (this.textures.has(key)) return this.textures.get(key);
     const gl = this.gl, isWind = key.startsWith('wind');
+    const pixels = isWind
+      ? (frame.data || frame.rgba)
+      : packScalarTexturePixels(
+        frame.data || frame.rgba,
+        nodata,
+        frame.channels || (frame.data ? 1 : 4),
+      );
     const t = texture(gl, {
-      width: frame.w, height: frame.h, data: frame.data || frame.rgba,
-      internal: isWind ? gl.RGBA8 : gl.R8, format: isWind ? gl.RGBA : gl.RED,
-      filter: isWind ? gl.LINEAR : nearest ? gl.NEAREST : gl.LINEAR,
+      width: frame.w, height: frame.h, data: pixels,
+      internal: isWind ? gl.RGBA8 : gl.RG8, format: isWind ? gl.RGBA : gl.RG,
+      filter: gl.LINEAR,
     });
     this.textures.set(key, t); return t;
   }
@@ -165,7 +180,7 @@ export class FieldLayer {
     const s = this.store, dec = DECODE[this.layer], grid = s.manifest.grids[dec.grid], pal = PALETTES[dec.grid === 'temp' ? 'temp' : dec.grid];
     const P = this.prog; gl.useProgram(P.p);
     gl.uniformMatrix4fv(P.u.u_matrix, false, new Float32Array(options.defaultProjectionData.mainMatrix));
-    bindTex(gl, 0, this.tex(fr[0]), P.u.u_a); bindTex(gl, 1, this.tex(fr[1]), P.u.u_b); bindTex(gl, 2, this.palettes[dec.grid], P.u.u_pal);
+    bindTex(gl, 0, this.tex(fr[0], grid.nodata), P.u.u_a); bindTex(gl, 1, this.tex(fr[1], grid.nodata), P.u.u_b); bindTex(gl, 2, this.palettes[dec.grid], P.u.u_pal);
     // the grid's own box (wind covers a wider area; a last column need not land on the domain edge)
     const d = gridBox({ ...grid, width: fr[0].w, height: fr[0].h }, s.manifest.domain);
     gl.uniform4f(P.u.u_dom, d.west, d.east, d.south, d.north);
@@ -185,5 +200,13 @@ export class FieldLayer {
     bindAttr(gl, this.quad, P.a.a_pos, 2);
     gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+  onRemove(_map, gl) {
+    this.stopEvict?.();
+    for (const tex of this.textures.values()) gl.deleteTexture(tex);
+    for (const tex of Object.values(this.palettes)) gl.deleteTexture(tex);
+    this.textures.clear(); this.palettes = {};
+    if (this.quad) gl.deleteBuffer(this.quad);
+    if (this.prog?.p) gl.deleteProgram(this.prog.p);
   }
 }

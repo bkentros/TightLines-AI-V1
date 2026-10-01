@@ -4,8 +4,12 @@ import test from "node:test";
 import {
   appUpdateDismissalKey,
   type AppReleasePolicy,
+  isVerifiedStoreUrl,
+  parseAppReleasePolicy,
   parseNativeBuildNumber,
   shouldOfferAppUpdate,
+  shouldPresentAppUpdate,
+  VERIFIED_STORE_URLS,
 } from "../lib/appUpdatePolicy.ts";
 
 const policy: AppReleasePolicy = {
@@ -52,6 +56,32 @@ test("soft update appears only for a newer enabled build on this platform", () =
     installedBuild: 1,
     policy: { ...policy, store_url: "market://unsafe" },
   }));
+});
+
+test("remote policy parsing rejects missing or malformed configuration", () => {
+  assert.equal(parseAppReleasePolicy(null, "ios"), null);
+  assert.equal(parseAppReleasePolicy({ ...policy, enabled: "true" }, "ios"), null);
+  assert.equal(parseAppReleasePolicy({ ...policy, latest_build: "42" }, "ios"), null);
+  assert.equal(parseAppReleasePolicy({ ...policy, latest_version: {} }, "ios"), null);
+  assert.equal(parseAppReleasePolicy({ ...policy, title: "" }, "ios"), null);
+  assert.equal(parseAppReleasePolicy({ ...policy, platform: "android" }, "ios"), null);
+  assert.deepEqual(parseAppReleasePolicy(policy, "ios"), policy);
+});
+
+test("each native platform accepts only its verified store listing", () => {
+  assert.ok(isVerifiedStoreUrl("ios", VERIFIED_STORE_URLS.ios));
+  assert.ok(isVerifiedStoreUrl("android", VERIFIED_STORE_URLS.android));
+  assert.ok(!isVerifiedStoreUrl("ios", VERIFIED_STORE_URLS.android));
+  assert.ok(!isVerifiedStoreUrl("android", VERIFIED_STORE_URLS.ios));
+  assert.ok(!isVerifiedStoreUrl("ios", "https://example.com/app/id6769178136"));
+  assert.ok(!isVerifiedStoreUrl("android", "market://details?id=com.finseekr.finfindr"));
+});
+
+test("dismissal and the in-session guard suppress repeat prompts", () => {
+  const base = { platform: "ios" as const, installedBuild: 41, policy };
+  assert.ok(shouldPresentAppUpdate({ ...base, dismissed: false, alreadyOfferedThisSession: false }));
+  assert.ok(!shouldPresentAppUpdate({ ...base, dismissed: true, alreadyOfferedThisSession: false }));
+  assert.ok(!shouldPresentAppUpdate({ ...base, dismissed: false, alreadyOfferedThisSession: true }));
 });
 
 test("dismissal is scoped to platform and target build", () => {

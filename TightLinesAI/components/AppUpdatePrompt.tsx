@@ -16,8 +16,9 @@ import {
   appUpdateDismissalKey,
   type AppReleasePolicy,
   type AppUpdatePlatform,
+  parseAppReleasePolicy,
   parseNativeBuildNumber,
-  shouldOfferAppUpdate,
+  shouldPresentAppUpdate,
 } from "../lib/appUpdatePolicy";
 import { supabase } from "../lib/supabase";
 import { paper, paperFonts, paperSpacing } from "../lib/theme";
@@ -25,6 +26,7 @@ import { TopographicLines } from "./paper/TopographicLines";
 
 const POLICY_FIELDS =
   "platform,enabled,latest_build,latest_version,store_url,title,message";
+const offeredThisSession = new Set<string>();
 
 function nativePlatform(): AppUpdatePlatform | null {
   if (Platform.OS === "ios" || Platform.OS === "android") return Platform.OS;
@@ -54,14 +56,22 @@ export function AppUpdatePrompt() {
           .maybeSingle();
         if (!active || error) return;
 
-        const candidate = data as AppReleasePolicy | null;
-        if (!shouldOfferAppUpdate({ platform, installedBuild, policy: candidate })) {
-          return;
-        }
+        const candidate = parseAppReleasePolicy(data, platform);
+        if (!candidate) return;
+        const sessionKey = appUpdateDismissalKey(platform, candidate.latest_build);
         const dismissed = await AsyncStorage.getItem(
-          appUpdateDismissalKey(platform, candidate.latest_build),
+          sessionKey,
         );
-        if (active && dismissed !== "1") setPolicy(candidate);
+        if (active && shouldPresentAppUpdate({
+          platform,
+          installedBuild,
+          policy: candidate,
+          dismissed: dismissed === "1",
+          alreadyOfferedThisSession: offeredThisSession.has(sessionKey),
+        })) {
+          offeredThisSession.add(sessionKey);
+          setPolicy(candidate);
+        }
       } catch {
         // Update checks are advisory and must never interfere with app launch.
       }
