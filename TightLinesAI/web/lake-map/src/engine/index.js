@@ -286,10 +286,12 @@ export async function createLakeMap(container, options = {}) {
         }
         seen.add(b.id);
         el.style.display = ''; el.style.transform = `translate(${pt.x}px, ${pt.y}px)`;
-        el.dataset.dim = state.buoyDim ? '1' : ''; el.dataset.sel = sel ? '1' : '';
+        const observationTime = state.layer === 'wind' || state.layer === 'waves' ? (b.weatherTime || b.time) : (b.waterTime || b.time);
+        const ageMinutes = Math.max(0, Math.round((Date.now() - Date.parse(observationTime)) / 60000));
+        el.dataset.dim = state.buoyDim ? '1' : ''; el.dataset.sel = sel ? '1' : ''; el.dataset.stale = ageMinutes > 90 ? '1' : '';
         el.querySelector('.lm-bdot').style.background = look.color;
         el.querySelector('.lm-bval').textContent = look.text;
-        el.setAttribute('aria-label', `Buoy ${b.name}: ${look.text} observed`);
+        el.setAttribute('aria-label', `Buoy ${b.name}: ${look.text} observed ${ageMinutes} minutes ago`);
       }
     }
     for (const [id, el] of buoyEls) if (!seen.has(id)) el.style.display = 'none';
@@ -435,7 +437,7 @@ export async function createLakeMap(container, options = {}) {
     project(lon, lat) { return map.project([lon, lat]); },
     unproject(x, y) { const p = map.unproject([x, y]); return [p.lng, p.lat]; },
     palette: PALETTES,
-    attribution: bm || hd ? ATTRIBUTION : 'NOAA · Open-Meteo',
+    attribution: bm || hd ? ATTRIBUTION : 'NOAA · <a href="https://glos.org/" target="_blank" rel="noopener">GLOS</a> · Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>',
   };
   api.setLayer('temp');
   refresh();

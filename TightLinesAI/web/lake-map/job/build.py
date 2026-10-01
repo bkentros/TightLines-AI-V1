@@ -53,8 +53,81 @@ def iso(t: datetime) -> str:
     return t.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def publication_readiness(cycles, now):
+    """Return the complete target cycle, or None without mixing model runs.
+
+    NOAA's four lake models are released independently. PierCast keeps the last
+    known-good run visible until every configured model has the expected
+    00/06/12/18Z cycle. Freshness never outranks five-day temporal coherence.
+    """
+    target = ofs.cycle_candidates(now)[0]
+    current = sorted(model["id"] for model in OFS_MODELS if cycles.get(model["id"]) == target)
+    if len(current) == len(OFS_MODELS):
+        return "complete", target, current
+    return None
+
+
+class TemperatureIntegrityError(RuntimeError):
+    """A model run is incomplete or unsafe to publish."""
+
+
+MIN_NATIVE_COVERAGE = 0.98
+MIN_GRID_COVERAGE = 0.97
+
+
+def validate_temperature_hours(model_id, hours, point_count):
+    """Require every forecast hour and nearly complete finite source coverage."""
+    expected = set(range(HOURS))
+    received = set(hours)
+    missing = sorted(expected - received)
+    extra = sorted(received - expected)
+    if missing or extra:
+        detail = []
+        if missing:
+            detail.append(f"missing {len(missing)} hour(s): {missing[:8]}")
+        if extra:
+            detail.append(f"unexpected hour(s): {extra[:8]}")
+        raise TemperatureIntegrityError(f"{model_id} is not a complete 0–120 h run ({'; '.join(detail)})")
+    if point_count <= 0:
+        raise TemperatureIntegrityError(f"{model_id} has no water points")
+    minimum = 1.0
+    for hour in range(HOURS):
+        values = np.asarray(hours[hour])
+        if values.ndim != 1 or values.size != point_count:
+            raise TemperatureIntegrityError(
+                f"{model_id} f{hour:03d} has {values.size} values; expected {point_count}"
+            )
+        coverage = float(np.isfinite(values).sum()) / point_count
+        minimum = min(minimum, coverage)
+        if coverage < MIN_NATIVE_COVERAGE:
+            raise TemperatureIntegrityError(
+                f"{model_id} f{hour:03d} source coverage {coverage:.1%} is below {MIN_NATIVE_COVERAGE:.0%}"
+            )
+    return minimum
+
+
+def validate_grid_hour(model_id, hour, values, expected_mask):
+    """Require each model lake-domain to remain covered after regridding."""
+    expected_cells = int(expected_mask.sum())
+    if expected_cells <= 0:
+        raise TemperatureIntegrityError(f"{model_id} has no cells on the PierCast grid")
+    coverage = float(np.isfinite(values[expected_mask]).sum()) / expected_cells
+    if coverage < MIN_GRID_COVERAGE:
+        raise TemperatureIntegrityError(
+            f"{model_id} f{hour:03d} map coverage {coverage:.1%} is below {MIN_GRID_COVERAGE:.0%}"
+        )
+    return coverage
+
+
 def build_temperature(cycles, t0, log, workers):
-    """Hourly water temperature (°F) on the 0.02° grid, plus depth (ft)."""
+    """Hourly water temperature (°F) on NOAA's 0.01° grid, plus depth (ft)."""
+    required = {model["id"] for model in OFS_MODELS}
+    if set(cycles) != required:
+        missing = sorted(required - set(cycles))
+        raise TemperatureIntegrityError(f"model set is incomplete; missing {', '.join(missing) or 'unknown'}")
+    if set(cycles.values()) != {t0}:
+        detail = ", ".join(f"{key}={iso(value)}" for key, value in sorted(cycles.items()))
+        raise TemperatureIntegrityError(f"model cycles do not match: {detail}")
     water = water_mask(TEMP, GEO_PATH)
     targets = target_mask(water, EXTEND_CELLS)
     sources = []
@@ -65,14 +138,17 @@ def build_temperature(cycles, t0, log, workers):
             continue
         lm = ofs.LakeModel(m, cyc)
         rg = Regridder(lm.lon, lm.lat, TEMP, targets, radius=0.3, max_edge=4 * max(lm.spacing, 0.005))
-        offset = int(round((t0 - cyc).total_seconds() / 3600))
-        sources.append({"model": m, "lm": lm, "rg": rg, "offset": offset, "q": rg.quality_grid()})
-        log(f"{m['id']}: cycle {iso(cyc)} (+{offset} h), {len(lm.lat):,} water points")
+        grid_mask = np.isfinite(rg.apply(np.ones(len(lm.lat), np.float32))) & water
+        sources.append({"model": m, "lm": lm, "rg": rg, "q": rg.quality_grid(),
+                        "gridMask": grid_mask, "gridCoverageMin": 1.0})
+        log(f"{m['id']}: cycle {iso(cyc)}, {len(lm.lat):,} water points, {int(grid_mask.sum()):,} map cells")
 
     def fetch(src):
-        need = [h + src["offset"] for h in range(HOURS) if h + src["offset"] <= 120]
-        src["hours"] = ofs.fetch_all_hours(src["lm"], need, workers=workers)
-        log(f"{src['model']['id']}: {len(src['hours'])}/{len(need)} hours downloaded")
+        src["hours"] = ofs.fetch_all_hours(src["lm"], range(HOURS), workers=workers)
+        src["nativeCoverageMin"] = validate_temperature_hours(
+            src["model"]["id"], src["hours"], len(src["lm"].lat)
+        )
+        log(f"{src['model']['id']}: 121/121 hours downloaded; minimum source coverage {src['nativeCoverageMin']:.1%}")
     with ThreadPoolExecutor(len(sources) or 1) as pool:
         list(pool.map(fetch, sources))
 
@@ -80,12 +156,12 @@ def build_temperature(cycles, t0, log, workers):
     for h in range(HOURS):
         grids, quals = [], []
         for src in sources:
-            vals = src["hours"].get(h + src["offset"])
-            if vals is None:
-                continue
-            grids.append(src["rg"].apply(C_TO_F(vals)))
+            grid = src["rg"].apply(C_TO_F(src["hours"][h]))
+            coverage = validate_grid_hour(src["model"]["id"], h, grid, src["gridMask"])
+            src["gridCoverageMin"] = min(src["gridCoverageMin"], coverage)
+            grids.append(grid)
             quals.append(src["q"])
-        g = combine(grids, quals) if grids else np.full((TEMP.height, TEMP.width), np.nan, np.float32)
+        g = combine(grids, quals)
         g = fill_nearest(g, targets, EXTEND_CELLS)
         g[~targets] = np.nan
         frames.append(g)
@@ -95,8 +171,13 @@ def build_temperature(cycles, t0, log, workers):
         dg = [s["rg"].apply(s["lm"].depth_m * M_TO_FT) for s in sources]
         depth = fill_nearest(combine(dg, [s["q"] for s in sources]), targets, EXTEND_CELLS)
         depth[~targets] = np.nan
+    for src in sources:
+        log(f"{src['model']['id']}: minimum 0.01° lake-domain coverage {src['gridCoverageMin']:.1%}")
     info = [{"model": s["model"]["id"], "lakes": s["model"]["lakes"], "cycle": iso(s["lm"].cycle),
-             "hoursBehind": s["offset"], "hoursReceived": len(s["hours"])} for s in sources]
+             "hoursBehind": 0, "hoursReceived": len(s["hours"]),
+             "sourceCoverageMin": round(s["nativeCoverageMin"], 6),
+             "gridCoverageMin": round(s["gridCoverageMin"], 6),
+             "gridCells": int(s["gridMask"].sum())} for s in sources]
     return frames, depth, info
 
 
@@ -125,7 +206,7 @@ def build_waves(t0, now, log):
 
 
 def sample_piers(frames, piers):
-    """Hourly °F at each pier: nearest modeled water value within ~5 km."""
+    """Hourly °F at each pier: nearest modeled water value within ~3 km."""
     out = {}
     for p in piers:
         i = int(round((p["lon"] - DOMAIN["west"]) / TEMP.res))
@@ -188,7 +269,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="out")
     ap.add_argument("--upload", action="store_true")
-    ap.add_argument("--force", action="store_true", help="rebuild even if the inputs have not changed")
+    ap.add_argument("--force", action="store_true", help="rebuild an already-published complete cycle; never bypass integrity checks")
     ap.add_argument("--now", help="pretend it is this UTC time (ISO), for replays")
     ap.add_argument("--workers", type=int, default=4, help="parallel downloads per lake model")
     ap.add_argument("--env-file", help="read R2_* and OPEN_METEO_API_KEY from this .env file")
@@ -201,6 +282,9 @@ def main(argv=None):
         args.upload = False
     now = datetime.fromisoformat(args.now.replace("Z", "+00:00")) if args.now else datetime.now(timezone.utc)
     api_key = os.environ.get("OPEN_METEO_API_KEY") or None
+    if args.upload and not api_key:
+        log("OPEN_METEO_API_KEY missing — refusing a commercial production publish from the free endpoint.")
+        return 2
 
     with ThreadPoolExecutor(4) as pool:
         found = dict(zip([m["id"] for m in OFS_MODELS], pool.map(lambda m: ofs.discover(m, now), OFS_MODELS)))
@@ -208,6 +292,15 @@ def main(argv=None):
     if not cycles:
         log("No NOAA lake model cycle is published yet — keeping the last good run.")
         return 2
+    readiness = publication_readiness(cycles, now)
+    if not readiness:
+        target = ofs.cycle_candidates(now)[0]
+        current = sorted(k for k, value in cycles.items() if value == target)
+        log(f"NOAA {iso(target)} release is still incomplete ({', '.join(current) or 'none'} current) — retaining the last complete run and checking again in 15 minutes.")
+        return 0
+    if readiness:
+        reason, target, current = readiness
+        log(f"NOAA {iso(target)} release ready ({reason}; {', '.join(sorted(current))})")
     t0 = max(cycles.values())
     inputs = {k: iso(v) for k, v in sorted(cycles.items())}
     log(f"Run start time {iso(t0)}; models {inputs}")
@@ -218,17 +311,20 @@ def main(argv=None):
         s3 = store.client()
         latest = store.read_latest(s3)
         if latest and latest.get("inputs", {}).get("temp") == inputs and not args.force:
-            age = (now - datetime.fromisoformat(latest["generatedAt"].replace("Z", "+00:00"))).total_seconds() / 3600
-            if age < 6:
-                log(f"Nothing new since run {latest['run']} ({age:.1f} h ago) — skipping.")
-                return 0
+            log(f"Nothing new since run {latest['run']} — skipping before paid data calls.")
+            return 0
 
-    frames, depth, temp_info = build_temperature(cycles, t0, log, args.workers)
+    try:
+        frames, depth, temp_info = build_temperature(cycles, t0, log, args.workers)
+    except TemperatureIntegrityError as err:
+        log(f"Temperature integrity check failed ({err}) — retaining the last complete published run.")
+        return 2
     log.mark("temperature")
     wave_frames, wave_info = build_waves(t0, now, log)
     log.mark("waves")
     u_lake, v_lake, calls = wind.fetch(t0, HOURS, api_key)
-    log(f"Open-Meteo: {calls:,} locations ({'paid' if api_key else 'free'} endpoint)")
+    log(f"Open-Meteo: {calls:,} locations ({'paid' if api_key else 'free'} endpoint; "
+        f"worst scheduled month {wind.projected_monthly_calls():,}/{wind.OPEN_METEO_MONTHLY_CALL_BUDGET:,})")
     try:
         u_wide, v_wide, wide_info = gfs.fetch(t0, HOURS, log)
     except Exception as err:  # never lose a run over the surrounding wind

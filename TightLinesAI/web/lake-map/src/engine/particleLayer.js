@@ -101,6 +101,11 @@ export class ParticleLayer {
     const clear = () => { this.moving = true; this.clearTrails = true; map.triggerRepaint(); };
     map.on('movestart', clear); map.on('move', clear);
     map.on('moveend', () => { this.moving = false; this.clearTrails = true; map.triggerRepaint(); });
+    this.stopEvict = this.store.onEvict((path) => {
+      const tex = this.windTex.get(path);
+      if (tex) { gl.deleteTexture(tex); this.windTex.delete(path); }
+      if (this.last?.some((frame) => frame?.path === path)) this.last = null;
+    });
     this.lastTime = performance.now();
   }
   setCount(res) {
@@ -121,7 +126,9 @@ export class ParticleLayer {
     this.screen1 = texture(gl, { width: w, height: h, data: empty, filter: gl.NEAREST });
   }
   wind(frame) {
-    if (!this.windTex.has(frame.path)) this.windTex.set(frame.path, texture(this.gl, { source: frame.img, filter: this.gl.LINEAR }));
+    if (!this.windTex.has(frame.path)) this.windTex.set(frame.path, texture(this.gl, {
+      width: frame.w, height: frame.h, data: frame.data || frame.rgba, filter: this.gl.LINEAR,
+    }));
     return this.windTex.get(frame.path);
   }
   frames() {

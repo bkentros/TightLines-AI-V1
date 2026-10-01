@@ -11,8 +11,11 @@ import { createLakeMap } from './engine/index.js';
 import { fmtWind, fmtWaves, compass, toTemp, PALETTES, colorAt, bandSpec, SPECIES, speciesFit } from './engine/scales.js';
 import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
 import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
+import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS } from './engine/freshness.js';
+import cities from './cities.json';
 
-const CITIES = window.PC_CITIES;
+window.maplibregl.setWorkerUrl(new URL('maplibre-gl-csp-worker.js', location.href).href);
+const CITIES = cities;
 const HURON = new Set(['harbor_beach_mi', 'oscoda_mi', 'port_sanilac_mi', 'alpena_mi', 'lexington_mi', 'harrisville_mi', 'rogers_city_mi', 'tawas_city_mi', 'caseville_mi']);
 const DAY = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 let T0 = Date.now();  // time of forecast hour 0 (set from the manifest)
@@ -72,11 +75,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     $('#p-report').hidden = false;
   }
   const q = QS;
+  let activeRun = null;
   let dataUrl = q.get('data') || 'data/', staticUrl = q.get('static'), basemap = q.get('basemap') === '1';
   if (!q.get('data')) {
     try {
       const latest = await fetch('../latest.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null));
-      if (latest && latest.base) { dataUrl = '../' + latest.base; staticUrl = staticUrl || '../static/'; basemap = q.get('basemap') !== '0'; }
+      if (latest && latest.base) { activeRun = typeof latest.run === 'string' ? latest.run : null; dataUrl = '../' + latest.base; staticUrl = staticUrl || '../static/'; basemap = q.get('basemap') !== '0'; }
     } catch (e) { /* no bucket next to this page: use bundled data */ }
   }
   const lm = await createLakeMap($('#map'), {
@@ -96,13 +100,13 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   window.PC_PAUSE = (paused) => {
     ui.paused = !!paused; if (paused) stop(); lm.setPaused(!!paused);
     // back after a while: the alerts and buoys may have changed
-    if (!paused && Date.now() - (ui.lastFeeds || 0) > 10 * 60e3 && window.__pcRefreshFeeds) window.__pcRefreshFeeds();
+    if (!paused && window.__pcRefreshFeeds) window.__pcRefreshFeeds();
   };
-  $('#attrib').textContent = lm.attribution;
+  $('#attrib').innerHTML = lm.attribution;
   T0 = lm.store.t0;
   // sample data plays from hour 0; real runs open on the current hour
   const tMs = () => T0 + ui.t * 3600e3; // the timeline's moment, as a clock time
-  const nowHour = () => (lm.store.manifest.sample ? 0 : Math.max(0, Math.min(lm.store.maxHour, Math.round((Date.now() - T0) / 3600e3))));
+  const nowHour = () => currentForecastHour(T0, lm.store.maxHour, Date.now(), lm.store.manifest.sample);
   $('#loading').remove();
   lm.setPiers(piers);
   const events = lm.store.events.map((e) => ({ ...e, pier: piers.find((p) => p.id === e.cityId) })).filter((e) => e.pier);
@@ -194,7 +198,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     const d = at(ui.t);
     $('#tl-main').textContent = `${dayName(d)} ${d.getDate()} · ${clock(d.getHours())}`;
     const ahead = ui.t - nowHour();
-    $('#tl-sub').textContent = Math.abs(ahead) < 0.5 ? 'Now · hourly forecast' : ahead < 0 ? `${Math.round(-ahead)} hrs ago · model run` : `In ${ahead < 24 ? Math.round(ahead) + ' hrs' : Math.floor(ahead / 24) + 'd ' + Math.round(ahead % 24) + 'h'} · hourly forecast`;
+    $('#tl-sub').textContent = Math.abs(ahead) < 0.5 ? `Now · ${mapFreshnessText(lm.store.manifest)}` : ahead < 0 ? `${Math.round(-ahead)} hrs ago · NOAA model` : `In ${ahead < 24 ? Math.round(ahead) + ' hrs' : Math.floor(ahead / 24) + 'd ' + Math.round(ahead % 24) + 'h'} · NOAA forecast`;
     $('#now').hidden = Math.abs(ahead) < 0.5;
     lm.setBuoyOptions({ dim: Math.abs(ahead) > 1.5 }); // buoy readings are "now"; faded while looking ahead
     // Weather Service alerts appear at their start and go away when they end (checked every 15 minutes of timeline)
@@ -406,7 +410,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   lm.on('pierTap', (id) => selectPier(id, false));
   lm.on('mapTap', () => { if (ui.selected) { ui.selected = null; lm.setSelected(null); pierCard(); updateAlerts(); } if (ui.selectedBuoy) { clearBuoy(); updateAlerts(); } });
 
-  /* ── buoys (observed, NOAA NDBC via the gatekeeper) ── */
+  /* ── observations (NOAA NDBC + GLOS Seagull via the gatekeeper) ── */
   let buoys = [];
   async function loadBuoys() {
     try {
@@ -431,15 +435,33 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     if (!b) { clearBuoy(); return; }
     const u = ui.units, tU = u.temp === 'C' ? '°C' : '°F';
     card.hidden = false; $('#readout').hidden = true; $('#cross').hidden = true;
-    $('#b-k').textContent = `NOAA ${b.type === 'buoy' ? 'BUOY' : 'STATION'} ${b.id} · OBSERVED`;
-    $('#b-t').textContent = b.name; $('#b-s').textContent = `Reading from ${agoText(b.time)}`;
+    $('#b-k').textContent = `${(b.source || 'OBSERVATION').toUpperCase()} · OBSERVED`;
+    const waterTime = b.waterTime || b.time;
+    $('#b-t').textContent = b.name; $('#b-s').textContent = `Water reading from ${agoText(waterTime)}`;
     const model = lm.sampleAt(b.lon, b.lat, nowHour());
     $('#b-water').textContent = b.waterF == null ? '—' : `${toTemp(b.waterF, u.temp).toFixed(1)}°`;
-    $('#b-water-s').textContent = b.waterF == null || !Number.isFinite(model.temp) ? tU : `model ${toTemp(model.temp, u.temp).toFixed(1)}°`;
+    const depth = Number.isFinite(b.waterDepthM) ? (u.length === 'm' ? b.waterDepthM : b.waterDepthM / 0.3048) : null;
+    const depthText = depth == null ? 'sensor depth unknown' : b.waterDepthM <= 0.25 ? 'surface sensor' : `${depth.toFixed(depth < 10 ? 1 : 0)} ${u.length} deep`;
+    if (b.waterF == null || !Number.isFinite(model.temp)) $('#b-water-s').textContent = `${tU} · ${depthText}`;
+    else {
+      const observed = toTemp(b.waterF, u.temp), modeled = toTemp(model.temp, u.temp), delta = observed - modeled;
+      $('#b-water-s').textContent = `${depthText} · model ${modeled.toFixed(1)}° · Δ ${delta >= 0 ? '+' : ''}${delta.toFixed(1)}°`;
+    }
     $('#b-wind').textContent = b.windMph == null ? '—' : `${b.windFrom == null ? '' : compass(b.windFrom) + ' '}${fmtWind(b.windMph, u.wind)}`;
     $('#b-wind-s').textContent = b.windMph == null ? 'not reported' : `${u.wind === 'kph' ? 'km/h' : u.wind}${b.gustMph ? ' · gusts ' + fmtWind(b.gustMph, u.wind) : ''}`;
     $('#b-waves').textContent = b.wavesFt == null ? '—' : (u.length === 'm' ? b.wavesFt * 0.3048 : b.wavesFt).toFixed(1);
     $('#b-waves-s').textContent = b.wavesFt == null ? 'not reported' : `${u.length}${b.periodS ? ' · ' + b.periodS + ' s' : ''}`;
+    const profile = Array.isArray(b.profile) ? b.profile.filter((item) => item.waterF != null && Number.isFinite(item.depthM)) : [];
+    const profileEl = $('#b-profile'); profileEl.hidden = profile.length < 2;
+    if (profile.length >= 2) {
+      const indexes = profile.length <= 6 ? profile.map((_, i) => i) : [...new Set([0, 1, ...Array.from({ length: 3 }, (_, i) => Math.round((i + 1) * (profile.length - 1) / 4)), profile.length - 1])];
+      const values = indexes.map((i) => {
+        const item = profile[i], z = u.length === 'm' ? item.depthM : item.depthM / 0.3048;
+        return `${z.toFixed(z < 10 ? 1 : 0)} ${u.length}: ${toTemp(item.waterF, u.temp).toFixed(1)}°`;
+      });
+      profileEl.textContent = `DEPTH PROFILE · ${values.join('  ·  ')}`;
+    }
+    $('#b-note').textContent = `${b.source || 'Observed'} point reading${b.waterQuality === 'not_evaluated' ? ' · automated checks not yet evaluated' : ''}. Depth and location may differ from the NOAA modeled surface.`;
   }
   $('#b-close').addEventListener('click', () => { clearBuoy(); updateAlerts(); });
   lm.on('buoyTap', (id) => selectBuoy(id));
@@ -542,9 +564,29 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   }
   lm.setBuoyOptions({ on: ui.buoys }); lm.setNwsVisible(ui.nws);
   lm.map.on('moveend', () => { if (nws.length) updateAlerts(); });
-  window.__pcRefreshFeeds = () => { ui.lastFeeds = Date.now(); loadBuoys(); loadNws(); };
-  window.__pcRefreshFeeds();
-  setInterval(() => { if (!document.hidden && !ui.paused) window.__pcRefreshFeeds(); }, 10 * 60e3);
+  async function checkLatestRun() {
+    if (!activeRun || q.get('data')) return;
+    try {
+      const latest = await fetch('../latest.json', { cache: 'no-store', credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null));
+      if (hasNewPublishedRun(activeRun, latest)) {
+        track_('map_data_refresh', { from: activeRun, to: latest.run });
+        location.reload();
+      }
+    } catch (e) { /* retain the complete run already on screen */ }
+  }
+  let lastObservationRefresh = 0, lastModelRefreshCheck = 0;
+  window.__pcRefreshFeeds = (force = false) => {
+    const now = Date.now(); let refreshed = false;
+    if (force || now - lastObservationRefresh >= OBSERVATION_REFRESH_MS) {
+      lastObservationRefresh = now; loadBuoys(); refreshed = true;
+    }
+    if (force || now - lastModelRefreshCheck >= MODEL_REFRESH_CHECK_MS) {
+      lastModelRefreshCheck = now; loadNws(); checkLatestRun(); refreshed = true;
+    }
+    if (refreshed) ui.lastFeeds = now;
+  };
+  window.__pcRefreshFeeds(true);
+  setInterval(() => { if (!document.hidden && !ui.paused) window.__pcRefreshFeeds(); }, 60e3);
 
   /* ── sheets ── */
   function openSheet(name) { ui.selected = null; lm.setSelected(null); pierCard(); clearBuoy(); document.querySelectorAll('.sheet').forEach((s) => { s.hidden = s.id !== 'sheet-' + name; }); $('#scrim').hidden = false; updateAlerts(); }

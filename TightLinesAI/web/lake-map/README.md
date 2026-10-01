@@ -23,10 +23,10 @@ uses (`setTime`, `setLayer`, `setSpecies`, `setUnits`, `setOptions`, `setPiers`,
 | File | Encoding |
 | --- | --- |
 | `manifest.json` | domain, grid sizes and encodings, frame list with valid times |
-| `temp/<hhh>.png` | 8-bit gray, value = round((°F − 30) × 5), 255 = no data, 0.02° grid |
+| `temp/<hhh>.png` | 8-bit gray, value = round((°F − 30) × 5), 255 = no data, NOAA-matched 0.01° grid |
 | `wind/<hhh>.png` | RGBA, R = u·2 + 128, G = v·2 + 128 (mph toward east/north), 0.25° grid over its own wider box (`grids.wind.west/north`: −104.4…−63.9°, 30.2…60.2°) |
 | `waves/<hhh>.png` | 8-bit gray, value = round(ft × 20), 255 = no data, 0.05° grid |
-| `depth.png` | 8-bit gray, value = round(ft ÷ 6), 255 = no data, 0.02° grid |
+| `depth.png` | 8-bit gray, value = round(ft ÷ 6), 255 = no data, 0.01° grid |
 | `events.json` | cold-water surge / warm-water push events per pier (rule piercast-surge-v1) |
 
 Row 0 is the north edge. Water values are extended a few cells onto land so
@@ -40,21 +40,43 @@ app and the data job. Tests: `npm test`.
 ## Data job (`job/`)
 
 `job/build.py` builds real runs in this format and publishes them to
-Cloudflare R2. GitHub Actions runs it every 3 hours
-(`.github/workflows/lake-map-data.yml`); it exits early when NOAA has no new
-cycle.
+Cloudflare R2. GitHub Actions polls every 15 minutes during NOAA's four daily
+release windows (`.github/workflows/lake-map-data.yml`); it exits before paid
+APIs when a complete new cycle is unavailable.
 
 | Layer | Source | Notes |
 | --- | --- | --- |
-| Water temp, depth | NOAA LSOFS, LMHOFS, LEOFS, LOOFS regular-grid files (THREDDS OPeNDAP, surface layer only) | Regridded to 0.02° with triangle interpolation that never bridges land; where two models meet, the better-covered one wins. A late model keeps its older cycle (listed in `manifest.sources.temp`). |
+| Water temp, depth | NOAA LSOFS, LMHOFS, LEOFS, LOOFS regular-grid files (THREDDS OPeNDAP, surface layer only) | NOAA's 0.01° regular-grid resolution is preserved. Publication requires all four models on one cycle, all 121 hours, at least 98% finite source coverage and 97% post-regrid lake-domain coverage every hour. Any failure retains the previous complete run. |
+| Live water observations | NOAA NDBC plus the GLOS Seagull bulk latest feed | Merged by station every 5–10 minutes. GLOS QARTOD suspect/failed values are rejected; explicit sensor depths and vertical profiles are preserved. These validate the surface model but are not blindly smeared across unsampled water. |
 | Waves | NOAA GLWU 2.5 km (NOMADS GRIB filter, `HTSGW` only) | Matched to each hour by valid time. |
-| Wind | Open-Meteo `best_match` over the lake area (2,211 locations per run), NOAA GFS 0.25° for the wider map area (NOMADS GRIB filter, 3-hourly steps, ~41 small downloads), blended over 2 cells at the seam | Uses `OPEN_METEO_API_KEY` when set. If GFS is unavailable the lake-area wind is carried outward. |
+| Wind | Open-Meteo `best_match` over the lake area (2,211 locations per run), NOAA GFS 0.25° for the wider map area (NOMADS GRIB filter, 3-hourly steps, ~41 small downloads), blended over 2 cells at the seam | Production upload requires `OPEN_METEO_API_KEY`. The four-runs/day, 31-day ceiling projects to 274,164 of the configured 1,000,000 monthly calls and the job refuses a future grid that exceeds it. If GFS is unavailable the lake-area wind is carried outward. |
 | Events | `job/events.mjs` → `src/engine/signals.js` | Same rule as the app, for every pier in `job/piers.json` (the live 32-city roster; a test keeps them in sync). |
 
 Bucket layout: `latest.json` (points at the current run, 2-minute cache),
-`runs/<runId>/…` (immutable), `static/geo-v1.json`. Only the newest two runs
-are kept. The app loads `latest.json`, then `createLakeMap({ dataUrl: <public
+`runs/<runId>/…` (immutable), `static/geo-v1.json`. Published runs are retained;
+the uploader never deletes R2 objects. The app loads `latest.json`, then `createLakeMap({ dataUrl: <public
 URL>/<base> })`.
+
+The workflow polls every 15 minutes during NOAA's four daily Great Lakes model
+release windows. It publishes once only after all four lake systems have the
+same complete cycle; it never mixes cycles or lets `--force` bypass integrity
+checks. An open map checks `latest.json` every
+10 minutes and reloads only when a new run is published. NOAA NDBC observations
+refresh every 5 minutes and the GLOS Seagull bulk feed every 10 minutes. They are
+merged and deduplicated; suspect/failed QARTOD readings, implausible values and
+readings older than three hours are excluded. GLOS depth profiles remain attached
+to each station instead of being mislabeled as surface temperatures. Readings
+older than 90 minutes are visually dimmed and the card shows their exact age,
+sensor depth and difference from the modeled surface.
+
+The checked-in GLOS metadata catalog is intentionally refreshed through a
+reviewed two-step process. The generator validates response type and size,
+schema, identifiers, text, coordinates, depths and expected catalog scale, then
+emits inert JSON-backed JavaScript to stdout; it never writes network data into
+the repository. Generate a candidate with
+`npm run refresh:glos-catalog > /tmp/piercast-glos-catalog.js`, run
+`node --check /tmp/piercast-glos-catalog.js`, inspect the diff against
+`gate/glos-catalog.js`, and only then replace the checked-in file.
 
 Local run: `pip install -r job/requirements.txt`, then
 `python3 job/build.py --out out` (add `--upload` with the `R2_*` variables set).
@@ -103,11 +125,13 @@ overrides the host).
 - The bucket is private (r2.dev public access off). `gate/worker.js` (Cloudflare Worker,
   custom domain map.finfindr.app, R2 binding) serves `map/`, `static/`, `runs/` and
   `latest.json` only to holders of a valid pass; everything else gets a 401 page.
-- Passes (`v1.<expiry>.<nonce>.<HMAC-SHA256>`, 2 hours) come from the Supabase function
+- Passes (`v1.<expiry>.<anonymous-account-key>.<HMAC-SHA256>`, 2 hours) come from the Supabase function
   `pier-cast-map-access` (POST `{visitId}`): paid accounts always; free accounts for
   their first 2 visits (table `pier_cast_map_visits`, RPC `claim_pier_cast_map_visit`),
   then `403 subscription_required` → the app shows the paywall. A visit is one opening
-  of the map screen; retries and renewals reuse its visit id.
+  of the map screen; retries and renewals reuse its visit id for up to 6 hours. Pass
+  minting is capped at 20 per account per 10 minutes, so a captured visit id cannot be
+  replayed indefinitely and one account cannot churn tickets.
 - The app opens `…/map/index.html?app=1&t=<pass>`; the Worker turns the pass into an
   HttpOnly cookie so the page's own requests carry it, and the page strips it from the
   address. The app renews it every 90 minutes via `window.PC_RENEW(pass)` → `/_pass?t=`.
@@ -116,7 +140,9 @@ overrides the host).
 - Browser test link (24 h): `python3 static-build/test_pass.py`.
 - Cost: the Workers free plan covers 100,000 requests a day; a map visit uses roughly
   50–300 (page, frames, tile ranges), so a few hundred visits a day are free. Beyond
-  that, Workers Paid is $5/month for 10 million requests.
+  that, Workers Paid is $5/month for 10 million requests. Before upgrading, enable and
+  verify the zone's WAF rate-limit rule and billing alerts because Paid removes the Free
+  plan's hard daily request ceiling.
 The contract lives in `lib/pierCastLiveMap.ts` (tests: `scripts/pier-cast-live-map.test.ts`):
 
 - App → page: `window.PC_APP = { units, species, speciesFromRoute, cityId, platform, bridge: 1 }`
@@ -136,7 +162,9 @@ and the two `maplibre-gl-csp*.js` files to `static-build/proto/`, then
 
 Every file the page loads goes through the gatekeeper Worker, and each one counts
 as a Worker request (free plan: 100,000 a day; Workers Paid, $5/month: 10 million a
-month, then $0.30 per million). To keep that low:
+month, then $0.30 per million). The Worker caps traffic at 600 requests/IP/minute and
+400 requests/account/minute; PMTiles requests must be a single range no larger than
+8 MiB. To keep R2 operations low:
 
 - **Map tiles** (`static/*.pmtiles`, read in byte ranges) are kept on the phone in
   Cache Storage (`StoredSource` in `staticLayers.js`), because iOS doesn't keep range
@@ -145,13 +173,26 @@ month, then $0.30 per million). To keep that low:
 - **Page scripts** (`app.js`, the MapLibre files) carry a content hash (`?v=…`, added
   by `build.mjs`) and a one-year cache, so only `index.html` is fetched on each open.
 - **Forecast runs** (`runs/<id>/…`) never change once written and are cached for a year.
-- **Always fetched:** `index.html` (fresh pass), `latest.json` and `/obs/buoys.json`
-  (on open and every 10 minutes while the map is open).
+- **Cloudflare edge cache:** after a pass is validated, non-range objects are cached
+  without the pass or cookie in the cache key. The response remains private to the
+  browser, while repeat requests avoid another R2 Class B read.
+- **Always fetched:** `index.html` (fresh pass); `latest.json` on open and every
+  10 minutes; `/obs/buoys.json` on open and every 5 minutes while the map is open.
+  The Worker edge-caches NOAA for 5 minutes and GLOS for 10 minutes, so many users
+  do not multiply upstream sensor requests.
+
+Dynamic frames are decoded into compact buffers (one byte per temperature,
+wave or depth pixel; RGBA only for wind). Playback retains seven frames around
+the selected time and deletes old WebGL textures. The 0.01° production benchmark
+on 2026-10-01 completed in 296 seconds: 121 temperature frames totaled 12.77 MiB
+(108 KiB average, 112 KiB maximum), the full immutable run was 16.03 MiB, and
+the bounded temperature working set was about 8.9 MiB each for CPU pixels and
+GPU R8 textures instead of retaining roughly 614 MiB of decoded RGBA frames.
 
 Measured locally in a browser through the gatekeeper: an active first open (pan to four
 harbors, zoom to 12.5, play the forecast, switch every layer) is about 80 requests.
 A repeat open on the same phone is a handful, plus the new forecast frames
-(about 25) once per 3-hour run.
+(about 25) once per six-hour NOAA model cycle.
 
 The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not routed).
 

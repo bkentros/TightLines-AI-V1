@@ -5,13 +5,14 @@
   "description": "PierCast Live Lake Map engine (runs in the app's web view) and its phase 2 prototype.",
   "scripts": {
     "build:page": "node build.mjs",
+    "refresh:glos-catalog": "node gate/update-glos-catalog.mjs",
     "test": "node --test test/*.test.mjs job/*.test.mjs",
     "sample": "node gen/geo.mjs public/data/geo.json && node gen/frames.mjs public/data 3",
     "test:job": "python3 -m unittest discover -s job/tests",
     "job": "python3 job/build.py --out out"
   },
   "dependencies": {
-    "maplibre-gl": "5.24.0",
+    "maplibre-gl": "6.11.2",
     "pmtiles": "4.5.0"
   },
   "devDependencies": {

@@ -10,7 +10,9 @@ from urllib.parse import urlencode
 import numpy as np
 
 from . import net
-from .config import OPEN_METEO_BATCH, OPEN_METEO_CUSTOMER, OPEN_METEO_FREE, WIND_LAKES as WIND
+from .config import (OPEN_METEO_BATCH, OPEN_METEO_BUDGET_DAYS, OPEN_METEO_CUSTOMER,
+                     OPEN_METEO_FREE, OPEN_METEO_MAX_RUNS_PER_DAY,
+                     OPEN_METEO_MONTHLY_CALL_BUDGET, WIND_LAKES as WIND)
 from .regrid import grid_coords
 
 
@@ -37,6 +39,12 @@ def request_url(lats, lons, start: datetime, hours: int, api_key: str | None) ->
 
 def fetch(start: datetime, hours: int, api_key: str | None, workers=None):
     """u, v arrays shaped (hours, height, width) in mph toward east / north, and the call count."""
+    projected = projected_monthly_calls()
+    if projected > OPEN_METEO_MONTHLY_CALL_BUDGET:
+        raise RuntimeError(
+            f"Open-Meteo projection {projected:,} exceeds the configured "
+            f"{OPEN_METEO_MONTHLY_CALL_BUDGET:,}-call monthly budget"
+        )
     lats, lons = points()
     n = len(lats)
     u = np.full((hours, n), np.nan, np.float32)
@@ -68,3 +76,8 @@ def fetch(start: datetime, hours: int, api_key: str | None, workers=None):
 def calls_per_run() -> int:
     """Open-Meteo counts each location as one call (2 variables, 5 days)."""
     return WIND.width * WIND.height
+
+
+def projected_monthly_calls() -> int:
+    """Worst normal schedule: four complete NOAA model cycles for 31 days."""
+    return calls_per_run() * OPEN_METEO_MAX_RUNS_PER_DAY * OPEN_METEO_BUDGET_DAYS

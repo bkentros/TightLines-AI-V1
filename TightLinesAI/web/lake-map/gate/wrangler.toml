@@ -9,6 +9,29 @@ compatibility_date = "2026-09-01"
 workers_dev = false
 routes = [{ pattern = "map.finfindr.app", custom_domain = true }]
 
+# The merged observation feed parses one quality-controlled GLOS bulk response
+# on a five-minute edge-cache miss. A 50 ms ceiling leaves room for that work;
+# most requests are cache hits and stay near the former 10 ms limit. Request
+# limits below and the zone WAF remain the denial-of-wallet controls.
+[limits]
+cpu_ms = 50
+
+[[ratelimits]]
+name = "MAP_IP_LIMITER"
+namespace_id = "31001"
+
+  [ratelimits.simple]
+  limit = 600
+  period = 60
+
+[[ratelimits]]
+name = "MAP_ACCOUNT_LIMITER"
+namespace_id = "31002"
+
+  [ratelimits.simple]
+  limit = 400
+  period = 60
+
 [[r2_buckets]]
 binding = "BUCKET"
 bucket_name = "piercast-lake-map"

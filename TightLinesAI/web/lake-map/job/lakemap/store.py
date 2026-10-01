@@ -4,7 +4,7 @@ Layout in the bucket:
   latest.json                    → which run the app should load (short cache)
   runs/<runId>/manifest.json …   → one complete run (immutable, long cache)
   static/geo-v1.json             → shoreline, land and borders (long cache)
-Only the newest KEEP_RUNS runs are kept.
+Published runs are retained; this uploader never deletes R2 objects.
 """
 from __future__ import annotations
 
@@ -15,7 +15,6 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-KEEP_RUNS = 2
 IMMUTABLE = "public, max-age=31536000, immutable"
 SHORT = "public, max-age=120"
 
@@ -83,19 +82,3 @@ def upload_run(s3, run_dir: Path, run_id: str, latest: dict):
         list(pool.map(one, files))
     # switch the app over only after every file of the run is in place
     put(s3, "latest.json", json.dumps(latest).encode(), SHORT)
-    prune(s3, keep={run_id})
-
-
-def prune(s3, keep: set):
-    runs = set()
-    for page in s3.get_paginator("list_objects_v2").paginate(Bucket=bucket(), Prefix="runs/", Delimiter="/"):
-        for p in page.get("CommonPrefixes", []):
-            runs.add(p["Prefix"].split("/")[1])
-    old = sorted(runs - keep)[: max(0, len(runs) - KEEP_RUNS)]
-    for run in old:
-        keys = []
-        for page in s3.get_paginator("list_objects_v2").paginate(Bucket=bucket(), Prefix=f"runs/{run}/"):
-            keys += [{"Key": o["Key"]} for o in page.get("Contents", [])]
-        for i in range(0, len(keys), 1000):
-            s3.delete_objects(Bucket=bucket(), Delete={"Objects": keys[i:i + 1000], "Quiet": True})
-    return old

@@ -19,8 +19,10 @@ JOB = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(JOB))
 
 import build  # noqa: E402
-from lakemap import dap, encode, gfs, net, ofs, regrid, store, waves  # noqa: E402
-from lakemap.config import DOMAIN, TEMP, WAVES, WIND, WIND_LAKES  # noqa: E402
+from lakemap import dap, encode, gfs, net, ofs, regrid, store, waves, wind  # noqa: E402
+from lakemap.config import (DOMAIN, OPEN_METEO_MAX_RUNS_PER_DAY,
+                            OPEN_METEO_MONTHLY_CALL_BUDGET, TEMP, WAVES, WIND,
+                            WIND_LAKES)  # noqa: E402
 
 NOW = datetime(2026, 9, 30, 15, 30, tzinfo=timezone.utc)
 CYCLE = datetime(2026, 9, 30, 12, tzinfo=timezone.utc)
@@ -41,6 +43,22 @@ class StoreTest(unittest.TestCase):
                 os.environ, {"R2_ACCOUNT_ID": value}
             ):
                 self.assertEqual(store.endpoint(), expected)
+
+    def test_upload_retains_existing_r2_objects(self):
+        class PutOnlyS3:
+            def __init__(self):
+                self.keys = []
+
+            def put_object(self, **kwargs):
+                self.keys.append(kwargs["Key"])
+
+        s3 = PutOnlyS3()
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            (run_dir / "manifest.json").write_text('{"formatVersion": 1}')
+            store.upload_run(s3, run_dir, "test-run", {"run": "test-run"})
+
+        self.assertCountEqual(s3.keys, ["runs/test-run/manifest.json", "latest.json"])
 
 # Fake LMHOFS grid: 0.05° over southern/central Lake Michigan (mask = water everywhere).
 LAT = np.arange(46.0, 41.6, -0.05)
@@ -157,6 +175,91 @@ class CycleTest(unittest.TestCase):
         self.assertEqual(c[1], CYCLE - timedelta(hours=6))
         self.assertTrue(all(x.hour in (1, 7, 13, 19) for x in waves.cycle_candidates(NOW)))
 
+    def test_workflow_checks_noaa_release_windows_without_exceeding_budget(self):
+        root_workflow = JOB.parents[2] / ".github/workflows/lake-map-data.yml"
+        mirror_workflow = JOB / "lake-map-data.workflow.yml"
+        root_text = root_workflow.read_text()
+        self.assertEqual(root_text, mirror_workflow.read_text())
+        crons = re.findall(r'cron:\s*"([^"]+)"', root_text)
+        self.assertEqual(crons, ["45 2,8,14,20 * * *", "0,15,30,45 3,9,15,21 * * *", "0 4,10,16,22 * * *"])
+        scheduled_checks = sum(len(cron.split()[0].split(",")) * len(cron.split()[1].split(",")) for cron in crons)
+        self.assertEqual(scheduled_checks, 24)  # six 15-minute checks around each of four releases
+        self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
+
+    def test_publication_requires_every_model_on_the_same_cycle(self):
+        complete = {model["id"]: CYCLE for model in build.OFS_MODELS}
+        status = build.publication_readiness(complete, NOW)
+        self.assertEqual(status[0], "complete")
+
+        delayed = dict(complete)
+        delayed["LSOFS"] = CYCLE - timedelta(hours=6)
+        self.assertIsNone(build.publication_readiness(delayed, CYCLE + timedelta(hours=3, minutes=44)))
+        self.assertIsNone(build.publication_readiness(delayed, CYCLE + timedelta(hours=12)))
+
+        primary_delayed = dict(complete)
+        primary_delayed["LMHOFS"] = CYCLE - timedelta(hours=6)
+        self.assertIsNone(build.publication_readiness(primary_delayed, CYCLE + timedelta(hours=4)))
+        all_old = {model["id"]: CYCLE - timedelta(hours=6) for model in build.OFS_MODELS}
+        self.assertIsNone(build.publication_readiness(all_old, CYCLE + timedelta(hours=4)))
+
+    def test_temperature_integrity_rejects_missing_malformed_and_corrupt_hours(self):
+        good = {hour: np.full(20, 55.0, np.float32) for hour in range(121)}
+        self.assertEqual(build.validate_temperature_hours("LMHOFS", good, 20), 1.0)
+
+        missing = dict(good)
+        del missing[87]
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "missing 1 hour"):
+            build.validate_temperature_hours("LMHOFS", missing, 20)
+
+        malformed = dict(good)
+        malformed[12] = np.full(19, 55.0, np.float32)
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "expected 20"):
+            build.validate_temperature_hours("LMHOFS", malformed, 20)
+
+        corrupt = dict(good)
+        corrupt[44] = np.full(20, np.nan, np.float32)
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "source coverage"):
+            build.validate_temperature_hours("LMHOFS", corrupt, 20)
+
+    def test_temperature_build_rejects_missing_or_mixed_model_cycles_before_download(self):
+        complete = {model["id"]: CYCLE for model in build.OFS_MODELS}
+        missing = dict(complete)
+        del missing["LOOFS"]
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "model set is incomplete"):
+            build.build_temperature(missing, CYCLE, lambda _: None, 1)
+
+        mixed = dict(complete)
+        mixed["LSOFS"] = CYCLE - timedelta(hours=6)
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "cycles do not match"):
+            build.build_temperature(mixed, CYCLE, lambda _: None, 1)
+
+    def test_regridded_hour_requires_nearly_complete_lake_domain(self):
+        expected = np.ones((10, 10), bool)
+        good = np.full((10, 10), 55.0, np.float32)
+        self.assertEqual(build.validate_grid_hour("LMHOFS", 0, good, expected), 1.0)
+        good[:2] = np.nan
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "map coverage"):
+            build.validate_grid_hour("LMHOFS", 0, good, expected)
+
+    def test_force_never_bypasses_same_cycle_gate(self):
+        def discover(model, now):
+            return CYCLE - timedelta(hours=6) if model["id"] == "LSOFS" else CYCLE
+        with tempfile.TemporaryDirectory() as tmp, patch.object(build.ofs, "discover", discover):
+            rc = build.main(["--out", tmp, "--now", NOW.isoformat(), "--force"])
+            self.assertEqual(rc, 0)
+            self.assertFalse((Path(tmp) / "latest.json").exists())
+
+    def test_integrity_failure_leaves_previous_pointer_untouched(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            latest = Path(tmp) / "latest.json"
+            latest.write_text('{"run":"known-good"}')
+            with patch.object(build.ofs, "discover", return_value=CYCLE), patch.object(
+                build, "build_temperature", side_effect=build.TemperatureIntegrityError("corrupt hour")
+            ):
+                rc = build.main(["--out", tmp, "--now", NOW.isoformat(), "--force"])
+            self.assertEqual(rc, 2)
+            self.assertEqual(json.loads(latest.read_text())["run"], "known-good")
+
 
 class FullRunTest(unittest.TestCase):
     @classmethod
@@ -164,7 +267,9 @@ class FullRunTest(unittest.TestCase):
         net.fetch = fake_fetch
         gfs.PAUSE = 0
         cls.out = Path(tempfile.mkdtemp())
-        rc = build.main(["--out", str(cls.out), "--now", NOW.isoformat()])
+        lmhofs = [model for model in build.OFS_MODELS if model["id"] == "LMHOFS"]
+        with patch.object(build, "OFS_MODELS", lmhofs):
+            rc = build.main(["--out", str(cls.out), "--now", NOW.isoformat(), "--force"])
         assert rc == 0
         cls.latest = json.loads((cls.out / "latest.json").read_text())
         cls.rdir = cls.out / "runs" / cls.latest["run"]
@@ -180,8 +285,11 @@ class FullRunTest(unittest.TestCase):
         self.assertEqual(m["cycle"], "2026-09-30T12:00:00Z")
         self.assertEqual(len(m["frames"]), 121)
         self.assertEqual(m["frames"][5]["validTime"], "2026-09-30T17:00:00Z")
-        self.assertEqual(m["grids"]["temp"]["width"], 831)
+        self.assertEqual(m["grids"]["temp"]["width"], 1661)
         self.assertEqual([s["model"] for s in m["sources"]["temp"]], ["LMHOFS"])
+        self.assertEqual(m["sources"]["temp"][0]["hoursReceived"], 121)
+        self.assertGreaterEqual(m["sources"]["temp"][0]["sourceCoverageMin"], 0.98)
+        self.assertGreaterEqual(m["sources"]["temp"][0]["gridCoverageMin"], 0.97)
         self.assertEqual(m["sources"]["waves"]["cycle"], "2026-09-30T13:00:00Z")
         for f in m["frames"][:3]:
             for k in ("temp", "wind", "waves"):
@@ -244,6 +352,11 @@ if __name__ == "__main__":
 
 
 class WindMergeTest(unittest.TestCase):
+    def test_open_meteo_schedule_stays_inside_commercial_budget(self):
+        self.assertEqual(wind.calls_per_run(), 2_211)
+        self.assertEqual(wind.projected_monthly_calls(), 274_164)
+        self.assertLess(wind.projected_monthly_calls(), OPEN_METEO_MONTHLY_CALL_BUDGET)
+
     def test_lake_wind_kept_inside_and_blended_at_edge(self):
         h = 2
         ul = np.full((h, WIND_LAKES.height, WIND_LAKES.width), 20.0, np.float32)

@@ -35,6 +35,7 @@ export class BandLabeler {
     this.frameCache = new Map();
     this.cache = new Map();
     this.prev = {};
+    if (store.onEvict) store.onEvict((path) => this.frameCache.delete(path));
   }
 
   /** Native values of one frame on the label grid (B-spline, like the shader). */
@@ -42,9 +43,10 @@ export class BandLabeler {
     const hit = this.frameCache.get(frame.path); if (hit) return hit;
     const g = this.store.manifest.grids[kind], d = this.dom, W = this.w, H = this.h;
     const gb = gridBox(g, d), ox = (d.west - gb.west) / g.res, oy = (gb.north - d.north) / g.res;
-    const out = new Float32Array(W * H), px = frame.rgba, fw = frame.w, fh = frame.h;
+    const out = new Float32Array(W * H), px = frame.data || frame.rgba, fw = frame.w, fh = frame.h;
+    const channels = frame.channels || 4;
     const wind = kind === 'wind', nod = g.nodata;
-    const tap = (ii, jj, ch) => px[((Math.min(fh - 1, Math.max(0, jj)) * fw) + Math.min(fw - 1, Math.max(0, ii))) * 4 + ch];
+    const tap = (ii, jj, ch) => px[((Math.min(fh - 1, Math.max(0, jj)) * fw) + Math.min(fw - 1, Math.max(0, ii))) * channels + ch];
     for (let j = 0; j < H; j++) {
       const y = oy + (j * RES) / g.res, jy = Math.floor(y), wyv = bspline(y - jy);
       for (let i = 0; i < W; i++) {
