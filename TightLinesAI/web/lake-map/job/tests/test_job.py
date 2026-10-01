@@ -60,6 +60,21 @@ class StoreTest(unittest.TestCase):
 
         self.assertCountEqual(s3.keys, ["runs/test-run/manifest.json", "latest.json"])
 
+    def test_upload_publishes_forecast_index_without_deleting_history(self):
+        class PutOnlyS3:
+            def __init__(self):
+                self.keys = []
+
+            def put_object(self, **kwargs):
+                self.keys.append(kwargs["Key"])
+
+        s3 = PutOnlyS3()
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            (run_dir / "verification.json").write_text('{"formatVersion":1}')
+            store.upload_run(s3, run_dir, "test-run", {"run": "test-run"}, {"formatVersion": 1, "runs": []})
+        self.assertCountEqual(s3.keys, ["runs/test-run/verification.json", "validation/forecast-index.json", "latest.json"])
+
 # Fake LMHOFS grid: 0.05° over southern/central Lake Michigan (mask = water everywhere).
 LAT = np.arange(46.0, 41.6, -0.05)
 LON = np.arange(-88.2, -84.6, 0.05)
@@ -186,6 +201,12 @@ class CycleTest(unittest.TestCase):
         self.assertEqual(scheduled_checks, 24)  # six 15-minute checks around each of four releases
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
 
+        validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
+        validation_text = validation_workflow.read_text()
+        self.assertIn('cron: "25 7 * * *"', validation_text)
+        self.assertIn("python job/verify.py --upload", validation_text)
+        self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
+
     def test_publication_requires_every_model_on_the_same_cycle(self):
         complete = {model["id"]: CYCLE for model in build.OFS_MODELS}
         status = build.publication_readiness(complete, NOW)
@@ -249,6 +270,20 @@ class CycleTest(unittest.TestCase):
             self.assertEqual(rc, 0)
             self.assertFalse((Path(tmp) / "latest.json").exists())
 
+    def test_reviewed_observation_catalog_and_forecast_history_are_bounded(self):
+        sites = build.load_observation_sites()
+        self.assertGreaterEqual(len(sites), 100)
+        self.assertEqual(len({site["key"] for site in sites}), len(sites))
+        self.assertIn("coops:9063085", {site["key"] for site in sites})
+        current = {"run": "new", "base": "runs/new/", "cycle": "2026-10-01T12:00:00Z"}
+        previous = {"verificationRuns": [
+            {"run": "old", "base": "runs/old/", "cycle": "2026-10-01T06:00:00Z"},
+            {"run": "duplicate", "base": "runs/duplicate/", "cycle": "2026-10-01T12:00:00Z"},
+            {"run": "bad", "base": "runs/bad/", "cycle": "not-a-time"},
+        ]}
+        history = build.verification_history(previous, current)
+        self.assertEqual([item["run"] for item in history], ["new", "old"])
+
     def test_integrity_failure_leaves_previous_pointer_untouched(self):
         with tempfile.TemporaryDirectory() as tmp:
             latest = Path(tmp) / "latest.json"
@@ -291,6 +326,12 @@ class FullRunTest(unittest.TestCase):
         self.assertGreaterEqual(m["sources"]["temp"][0]["sourceCoverageMin"], 0.98)
         self.assertGreaterEqual(m["sources"]["temp"][0]["gridCoverageMin"], 0.97)
         self.assertEqual(m["sources"]["waves"]["cycle"], "2026-09-30T13:00:00Z")
+        self.assertEqual(m["verification"], "verification.json")
+        verification = json.loads((self.rdir / "verification.json").read_text())
+        self.assertFalse(verification["correctionApproved"])
+        self.assertEqual(len(next(iter(verification["sites"].values()))["hours"]), 121)
+        self.assertTrue(all(site["modelDistanceKm"] <= 6.5 for site in verification["sites"].values()))
+        self.assertEqual(self.latest["verificationRuns"][0]["run"], self.latest["run"])
         for f in m["frames"][:3]:
             for k in ("temp", "wind", "waves"):
                 self.assertTrue((self.rdir / f[k]).exists())

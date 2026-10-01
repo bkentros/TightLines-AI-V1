@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import subprocess
@@ -35,6 +36,11 @@ from lakemap.regrid import Regridder, combine, fill_nearest, target_mask, water_
 
 C_TO_F = lambda c: c * 9 / 5 + 32  # noqa: E731
 M_TO_FT = 3.28084
+GLOS_CATALOG_PATH = Path(__file__).resolve().parents[1] / "gate" / "glos-catalog.js"
+COOPS_CATALOG_PATH = Path(__file__).resolve().parents[1] / "gate" / "coops-catalog.js"
+MODEL_SAMPLE_RADIUS_CELLS = 4
+VERIFICATION_HISTORY_RUNS = 24  # six days at four NOAA cycles per day
+FORECAST_INDEX_RUNS = 4_000  # more than two years at four cycles per day
 
 
 class Log:
@@ -224,6 +230,146 @@ def sample_piers(frames, piers):
     return out
 
 
+def load_observation_sites(path=GLOS_CATALOG_PATH, coops_path=COOPS_CATALOG_PATH):
+    """Read reviewed JSON-backed station catalogs without executing JavaScript."""
+    text = Path(path).read_text()
+    match = re.search(r"export const GLOS_DATASETS=(\{.*?\});\s*export const GLOS_TEMP_PARAMETERS=", text, re.DOTALL)
+    if not match:
+        raise TemperatureIntegrityError("reviewed GLOS observation catalog is malformed")
+    try:
+        catalog = json.loads(match.group(1))
+    except json.JSONDecodeError as err:
+        raise TemperatureIntegrityError("reviewed GLOS observation catalog is not inert JSON") from err
+    if not isinstance(catalog, dict) or not 100 <= len(catalog) <= 2_500:
+        raise TemperatureIntegrityError(f"reviewed GLOS observation catalog has unsafe scale ({len(catalog) if isinstance(catalog, dict) else 'invalid'})")
+    sites = []
+    for raw_id, item in catalog.items():
+        try:
+            dataset_id = int(raw_id)
+            lat, lon = float(item["lat"]), float(item["lon"])
+        except (KeyError, TypeError, ValueError) as err:
+            raise TemperatureIntegrityError(f"GLOS observation catalog site {raw_id} is malformed") from err
+        if dataset_id <= 0 or not (-93 <= lon <= -75 and 41 <= lat <= 50):
+            raise TemperatureIntegrityError(f"GLOS observation catalog site {raw_id} is outside its contract")
+        # The reviewed GLOS box is slightly larger than the raster domain.
+        # Retain that metadata catalog as-is, but do not create unreachable map samples.
+        if not (DOMAIN["south"] <= lat <= DOMAIN["north"] and DOMAIN["west"] <= lon <= DOMAIN["east"]):
+            continue
+        sites.append({"key": f"glos:{dataset_id}", "glosDatasetId": dataset_id, "externalId": item.get("externalId"),
+                      "name": item.get("name"), "body": item.get("body"), "type": item.get("type"),
+                      "lat": lat, "lon": lon})
+    coops_text = Path(coops_path).read_text()
+    coops_match = re.search(r"export const COOPS_STATIONS\s*=\s*(\[.*?\]);", coops_text, re.DOTALL)
+    if not coops_match:
+        raise TemperatureIntegrityError("reviewed CO-OPS observation catalog is malformed")
+    try:
+        coops = json.loads(coops_match.group(1))
+    except json.JSONDecodeError as err:
+        raise TemperatureIntegrityError("reviewed CO-OPS observation catalog is not inert JSON") from err
+    if not isinstance(coops, list) or not 10 <= len(coops) <= 100:
+        raise TemperatureIntegrityError("reviewed CO-OPS observation catalog has unsafe scale")
+    for item in coops:
+        try:
+            station_id = str(item["id"])
+            lat, lon = float(item["lat"]), float(item["lon"])
+        except (KeyError, TypeError, ValueError) as err:
+            raise TemperatureIntegrityError("reviewed CO-OPS observation catalog is malformed") from err
+        if not re.fullmatch(r"\d{7}", station_id) or not (-93 <= lon <= -75 and 41 <= lat <= 50):
+            raise TemperatureIntegrityError(f"CO-OPS observation catalog site {station_id} is outside its contract")
+        if not (DOMAIN["south"] <= lat <= DOMAIN["north"] and DOMAIN["west"] <= lon <= DOMAIN["east"]):
+            continue
+        sites.append({"key": f"coops:{station_id}", "coopsStationId": station_id, "externalId": station_id,
+                      "name": item.get("name"), "body": item.get("body"), "type": "fixed", "lat": lat, "lon": lon})
+    if len({site["key"] for site in sites}) != len(sites):
+        raise TemperatureIntegrityError("reviewed observation catalogs contain duplicate keys")
+    return sorted(sites, key=lambda site: site["key"])
+
+
+def _distance_km(lat1, lon1, lat2, lon2):
+    mean_lat = math.radians((lat1 + lat2) / 2)
+    return math.hypot((lat1 - lat2) * 111.195, (lon1 - lon2) * 111.195 * math.cos(mean_lat))
+
+
+def sample_observation_sites(frames, sites, radius=MODEL_SAMPLE_RADIUS_CELLS):
+    """Freeze as-issued model series at reviewed observation locations.
+
+    These values are validation evidence only. They never modify a displayed
+    forecast or fill a missing model cell.
+    """
+    out = {}
+    reference = frames[0]
+    for site in sites:
+        i = int(round((site["lon"] - DOMAIN["west"]) / TEMP.res))
+        j = int(round((DOMAIN["north"] - site["lat"]) / TEMP.res))
+        x0, x1 = max(0, i - radius), min(TEMP.width, i + radius + 1)
+        y0, y1 = max(0, j - radius), min(TEMP.height, j + radius + 1)
+        if x0 >= x1 or y0 >= y1:
+            continue
+        ys, xs = np.nonzero(np.isfinite(reference[y0:y1, x0:x1]))
+        if not len(ys):
+            continue
+        candidates = []
+        for yy, xx in zip(ys, xs):
+            row, col = y0 + int(yy), x0 + int(xx)
+            model_lat = DOMAIN["north"] - row * TEMP.res
+            model_lon = DOMAIN["west"] + col * TEMP.res
+            candidates.append((_distance_km(site["lat"], site["lon"], model_lat, model_lon), row, col, model_lat, model_lon))
+        distance, row, col, model_lat, model_lon = min(candidates)
+        values = [round(float(frame[row, col]), 2) if np.isfinite(frame[row, col]) else None for frame in frames]
+        if any(value is None for value in values):
+            continue
+        key = site["key"]
+        out[key] = {**{name: value for name, value in site.items() if name != "key"},
+                    "modelLat": round(model_lat, 5), "modelLon": round(model_lon, 5),
+                    "modelDistanceKm": round(distance, 3), "hours": values}
+    return out
+
+
+def verification_history(previous, current):
+    """Keep a bounded pointer list; immutable run evidence remains in R2."""
+    candidates = [{"run": current["run"], "base": current["base"], "cycle": current["cycle"]}]
+    if isinstance(previous, dict):
+        old = previous.get("verificationRuns")
+        if not isinstance(old, list):
+            old = [{"run": previous.get("run"), "base": previous.get("base"), "cycle": previous.get("cycle")}]
+        candidates.extend(old)
+    valid = {}
+    for item in candidates:
+        if not isinstance(item, dict) or not all(isinstance(item.get(key), str) and item[key] for key in ("run", "base", "cycle")):
+            continue
+        if not re.fullmatch(r"[A-Za-z0-9._-]+", item["run"]) or item["base"] != f"runs/{item['run']}/":
+            continue
+        try:
+            datetime.fromisoformat(item["cycle"].replace("Z", "+00:00"))
+        except ValueError:
+            continue
+        valid.setdefault(item["cycle"], {key: item[key] for key in ("run", "base", "cycle")})
+    return sorted(valid.values(), key=lambda item: item["cycle"], reverse=True)[:VERIFICATION_HISTORY_RUNS]
+
+
+def forecast_index(previous, current):
+    old = previous.get("runs", []) if isinstance(previous, dict) else []
+    shell = {"verificationRuns": old}
+    runs = verification_history(shell, current)
+    if len(old) + 1 > VERIFICATION_HISTORY_RUNS:
+        # verification_history deliberately serves the small client pointer;
+        # the research index retains a much longer, still bounded history.
+        candidates = [{key: current[key] for key in ("run", "base", "cycle")}, *old]
+        by_cycle = {}
+        for item in candidates:
+            if not isinstance(item, dict) or not all(isinstance(item.get(key), str) and item[key] for key in ("run", "base", "cycle")):
+                continue
+            if not re.fullmatch(r"[A-Za-z0-9._-]+", item["run"]) or item["base"] != f"runs/{item['run']}/":
+                continue
+            try:
+                datetime.fromisoformat(item["cycle"].replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            by_cycle.setdefault(item["cycle"], {key: item[key] for key in ("run", "base", "cycle")})
+        runs = sorted(by_cycle.values(), key=lambda item: item["cycle"], reverse=True)[:FORECAST_INDEX_RUNS]
+    return {"formatVersion": 1, "runs": runs}
+
+
 ENV_KEYS = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET", "OPEN_METEO_API_KEY")
 
 
@@ -307,11 +453,14 @@ def main(argv=None):
     log.mark("discover")
 
     s3 = None
+    previous_latest = None
+    previous_forecast_index = None
     if args.upload:
         s3 = store.client()
-        latest = store.read_latest(s3)
-        if latest and latest.get("inputs", {}).get("temp") == inputs and not args.force:
-            log(f"Nothing new since run {latest['run']} — skipping before paid data calls.")
+        previous_latest = store.read_latest(s3)
+        previous_forecast_index = store.read_json(s3, "validation/forecast-index.json")
+        if previous_latest and previous_latest.get("inputs", {}).get("temp") == inputs and not args.force:
+            log(f"Nothing new since run {previous_latest['run']} — skipping before paid data calls.")
             return 0
 
     try:
@@ -355,6 +504,12 @@ def main(argv=None):
     piers = json.loads(PIERS_PATH.read_text())
     series = sample_piers(frames, piers)
     (run_dir / "series.json").write_text(json.dumps({"start": iso(t0), "unit": "F", "piers": series}))
+    verification_sites = sample_observation_sites(frames, load_observation_sites())
+    verification = {"formatVersion": 1, "purpose": "validation-only", "correctionApproved": False,
+                    "run": run_id, "cycle": iso(t0), "unit": "F", "stepHours": 1,
+                    "sites": verification_sites}
+    (run_dir / "verification.json").write_text(json.dumps(verification, separators=(",", ":")))
+    log(f"Verification: froze 121-hour as-issued series at {len(verification_sites):,} reviewed observation sites")
     subprocess.run(["node", str(SIGNALS_EVENTS_SCRIPT), str(run_dir / "series.json"), str(run_dir / "events.json")], check=True)
     events = json.loads((run_dir / "events.json").read_text())
     log(f"Events: {len(events['events'])} ({', '.join(e['cityId'] + ' ' + e['kind'] for e in events['events']) or 'none'})")
@@ -365,6 +520,7 @@ def main(argv=None):
         "cycle": iso(t0), "generatedAt": iso(now), "domain": DOMAIN,
         "grids": {g.name: g.manifest() for g in (TEMP, WIND, WAVES, DEPTH)},
         "frames": manifest_frames, "depth": "depth.png" if depth is not None else None, "events": "events.json",
+        "verification": "verification.json",
         "geo": f"../../static/geo-{GEO_VERSION}.json",
         "sources": {"temp": temp_info, "waves": wave_info,
                     "wind": {"source": "Open-Meteo best_match", "start": iso(t0), "locations": calls,
@@ -373,6 +529,8 @@ def main(argv=None):
     (run_dir / "manifest.json").write_text(json.dumps(manifest, separators=(",", ":")))
     latest = {"formatVersion": FORMAT_VERSION, "run": run_id, "base": f"runs/{run_id}/", "cycle": iso(t0),
               "generatedAt": iso(now), "inputs": {"temp": inputs, "waves": wave_info and wave_info["cycle"]}}
+    latest["verificationRuns"] = verification_history(previous_latest, latest)
+    research_index = forecast_index(previous_forecast_index, latest)
     (out / "latest.json").write_text(json.dumps(latest))
 
     kb = {k: (round(max(v) / 1024, 1), round(sum(v) / 1024 / 1024, 2)) for k, v in sizes.items()}
@@ -380,7 +538,7 @@ def main(argv=None):
 
     if s3 is not None:
         store.ensure_static(s3, GEO_PATH, f"static/geo-{GEO_VERSION}.json")
-        store.upload_run(s3, run_dir, run_id, latest)
+        store.upload_run(s3, run_dir, run_id, latest, research_index)
         log(f"Uploaded run {run_id} and pointed latest.json at it")
         log.mark("upload")
     (run_dir / "timing.json").write_text(json.dumps(log.steps))

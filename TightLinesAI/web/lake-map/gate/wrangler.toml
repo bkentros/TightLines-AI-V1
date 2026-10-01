@@ -9,10 +9,15 @@ compatibility_date = "2026-09-01"
 workers_dev = false
 routes = [{ pattern = "map.finfindr.app", custom_domain = true }]
 
-# The merged observation feed parses one quality-controlled GLOS bulk response
-# on a five-minute edge-cache miss. A 50 ms ceiling leaves room for that work;
-# most requests are cache hits and stay near the former 10 ms limit. Request
-# limits below and the zone WAF remain the denial-of-wallet controls.
+# One collection supplies every edge location and preserves immutable evidence
+# for model verification. This does not run the expensive forecast build.
+[triggers]
+crons = ["*/15 * * * *"]
+
+# The scheduled collector parses one quality-controlled GLOS bulk response,
+# NDBC's shared files and the small CO-OPS Great Lakes inventory. Map requests
+# read the central R2 snapshot. A 50 ms ceiling leaves room for the scheduled
+# parse; request limits below and the zone WAF remain denial-of-wallet controls.
 [limits]
 cpu_ms = 50
 
