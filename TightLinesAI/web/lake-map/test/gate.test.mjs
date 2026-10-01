@@ -60,6 +60,10 @@ test('a pass in the link opens the page and becomes a cookie', async () => {
   assert.equal(await r.text(), '<html>map</html>');
   assert.match(r.headers.get('set-cookie'), /^pcmap=.*; Path=\/; Max-Age=\d+; Secure; HttpOnly; SameSite=Lax$/);
   assert.equal(r.headers.get('cache-control'), 'private, max-age=60');
+  assert.equal(r.headers.get('x-content-type-options'), 'nosniff');
+  assert.equal(r.headers.get('referrer-policy'), 'no-referrer');
+  assert.match(r.headers.get('content-security-policy'), /script-src 'self'/);
+  assert.match(r.headers.get('content-security-policy'), /connect-src 'self' https:\/\/api\.weather\.gov https:\/\/tiles\.openfreemap\.org/);
   const withCookie = await get('/latest.json', { cookie: `other=1; pcmap=${encodeURIComponent(pass)}` });
   assert.equal(withCookie.status, 200);
   assert.equal(withCookie.headers.get('content-encoding'), 'gzip');
@@ -67,6 +71,10 @@ test('a pass in the link opens the page and becomes a cookie', async () => {
 
 test('tile range requests, renewals and blocked paths', async () => {
   const cookie = `pcmap=${encodeURIComponent(await makePass())}`;
+  assert.equal((await get('/static/lakes-v2.pmtiles', { cookie })).status, 416);
+  assert.equal((await get('/static/lakes-v2.pmtiles', { cookie, range: 'bytes=0-' })).status, 416);
+  assert.equal((await get('/static/lakes-v2.pmtiles', { cookie, range: `bytes=0-${8 * 1024 * 1024}` })).status, 416);
+  assert.equal((await get('/latest.json', { cookie, range: 'bytes=0-2' })).status, 416);
   const r = await get('/static/lakes-v2.pmtiles', { cookie, range: 'bytes=2-5' });
   assert.equal(r.status, 206);
   assert.equal(r.headers.get('content-range'), 'bytes 2-5/10');
@@ -79,7 +87,55 @@ test('tile range requests, renewals and blocked paths', async () => {
   assert.match(renew.headers.get('set-cookie'), /^pcmap=/);
 });
 
-import { parseLatestObs, parseStations } from '../gate/buoys.js';
+test('request fuses reject abusive IP or account traffic before R2', async () => {
+  const pass = await makePass();
+  const cookie = `pcmap=${encodeURIComponent(pass)}`;
+  const blocked = { limit: async () => ({ success: false }) };
+  const allowed = { limit: async () => ({ success: true }) };
+  const ipLimited = { ...env, MAP_IP_LIMITER: blocked, MAP_ACCOUNT_LIMITER: allowed };
+  assert.equal((await worker.fetch(new Request('https://map.finfindr.app/latest.json', { headers: { cookie } }), ipLimited)).status, 429);
+  const accountLimited = { ...env, MAP_IP_LIMITER: allowed, MAP_ACCOUNT_LIMITER: blocked };
+  assert.equal((await worker.fetch(new Request('https://map.finfindr.app/latest.json', { headers: { cookie } }), accountLimited)).status, 429);
+});
+
+test('authenticated edge cache strips tickets and avoids repeat R2 reads', async () => {
+  const previousCaches = globalThis.caches;
+  const entries = new Map();
+  globalThis.caches = { default: {
+    match: async (request) => entries.get(request.url)?.clone() || undefined,
+    put: async (request, response) => { entries.set(request.url, response.clone()); },
+  } };
+  let reads = 0;
+  const counted = { ...BUCKET, get: async (...args) => { reads++; return BUCKET.get(...args); } };
+  const cachedEnv = { ...env, BUCKET: counted };
+  try {
+    const waits = [];
+    const firstPass = await makePass();
+    const first = await worker.fetch(
+      new Request(`https://map.finfindr.app/map/index.html?app=1&t=${firstPass}`),
+      cachedEnv,
+      { waitUntil: (promise) => waits.push(promise) },
+    );
+    assert.equal(first.status, 200);
+    await Promise.all(waits);
+    assert.deepEqual([...entries.keys()], ['https://map.finfindr.app/map/index.html']);
+
+    const secondPass = await makePass();
+    const second = await worker.fetch(
+      new Request(`https://map.finfindr.app/map/index.html?app=1&t=${secondPass}`),
+      cachedEnv,
+    );
+    assert.equal(second.status, 200);
+    assert.match(second.headers.get('set-cookie'), /^pcmap=/);
+    assert.equal(reads, 1);
+    assert.equal((await worker.fetch(new Request('https://map.finfindr.app/map/index.html'), cachedEnv)).status, 401);
+  } finally {
+    if (previousCaches === undefined) delete globalThis.caches;
+    else globalThis.caches = previousCaches;
+  }
+});
+
+import { GLOS_CACHE_SECONDS, mergeStations, parseGlosLatest, parseLatestObs, parseStations } from '../gate/buoys.js';
 
 const OBS = `#STN     LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE
 #text    deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft
@@ -109,4 +165,52 @@ test('buoys: Great Lakes water readings only, recent, converted', () => {
   assert.equal(b.windMph, null);
   assert.equal(b.waterF, 61.7);
   assert.equal(parseStations(XML)['45024'].owner, 'GLOS &lt;Partner&gt;');
+});
+
+test('GLOS observations retain shallow depth profiles and reject bad quality or stale data', () => {
+  const now = Date.UTC(2026, 9, 1, 15, 0);
+  const seconds = (minutesAgo) => (now - minutesAgo * 60e3) / 1000;
+  const stations = parseGlosLatest([{
+    obs_dataset_id: 2,
+    parameters: [
+      { parameter_id: 148, observations: [{ timestamp: seconds(10), value: 290, qartod: 2, depth: null }] },
+      { parameter_id: 2800, observations: [{ timestamp: seconds(8), value: 289, qartod: 1, depth: null }] },
+      { parameter_id: 2801, observations: [{ timestamp: seconds(7), value: 288, qartod: 4, depth: null }] },
+      { parameter_id: 2802, observations: [{ timestamp: seconds(181), value: 287, qartod: 1, depth: null }] },
+      { parameter_id: 2803, observations: [{ timestamp: seconds(5), value: -999, qartod: 1, depth: null }] },
+    ],
+  }], now);
+  assert.equal(stations.length, 1);
+  assert.equal(stations[0].externalId, '45013');
+  assert.equal(stations[0].waterDepthM, 0);
+  assert.equal(stations[0].waterF, 62.3);
+  assert.equal(stations[0].waterQuality, 'not_evaluated');
+  assert.deepEqual(stations[0].profile.map((item) => item.depthM), [0, 1]);
+  assert.equal(GLOS_CACHE_SECONDS, 600);
+});
+
+test('GLOS merge adds profiles but only replaces NDBC surface water with a shallow sensor', () => {
+  const ndbc = [{
+    id: '45013', externalId: '45013', name: 'NDBC Atwater', type: 'buoy', lat: 43.098, lon: -87.8496,
+    time: '2026-10-01T14:50:00.000Z', waterTime: '2026-10-01T14:50:00.000Z', weatherTime: '2026-10-01T14:50:00.000Z',
+    waterF: 60, windMph: 8, wavesFt: 1.2, source: 'NOAA NDBC', profile: [],
+  }];
+  const shallow = [{
+    id: 'GLOS-2', externalId: '45013', name: 'Atwater 20-meter buoy', lat: 43.098, lon: -87.8496,
+    time: '2026-10-01T14:52:00.000Z', waterTime: '2026-10-01T14:52:00.000Z', waterF: 62, waterDepthM: 1,
+    waterQuality: 'good', source: 'GLOS Seagull', glosDatasetId: 2,
+    profile: [{ depthM: 1, waterF: 62, time: '2026-10-01T14:52:00.000Z', quality: 'good' }],
+  }];
+  const merged = mergeStations(ndbc, shallow);
+  assert.equal(merged.length, 1);
+  assert.equal(merged[0].waterF, 62);
+  assert.equal(merged[0].windMph, 8);
+  assert.equal(merged[0].source, 'NOAA NDBC + GLOS Seagull');
+  assert.equal(merged[0].profile.length, 1);
+
+  const deep = structuredClone(shallow);
+  deep[0].waterF = 45; deep[0].waterDepthM = 12; deep[0].profile[0].depthM = 12; deep[0].profile[0].waterF = 45;
+  const deepMerged = mergeStations(ndbc, deep);
+  assert.equal(deepMerged[0].waterF, 60);
+  assert.equal(deepMerged[0].profile[0].waterF, 45);
 });

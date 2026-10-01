@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { detectEvents, SURGE_RULE } from '../src/engine/signals.js';
 import { toTemp, toWind, toLength, fmtWaves, fmtWind, tempBand, compass, paletteBytes, PALETTES } from '../src/engine/scales.js';
-import { gridSampler } from '../src/engine/frames.js';
+import { compactFramePixels, FrameStore, gridSampler } from '../src/engine/frames.js';
 
 const series = (fn) => Array.from({ length: 121 }, (_, h) => fn(h));
 const ramp = (a, b, h0, h1) => (h) => h <= h0 ? a : h >= h1 ? b : a + (b - a) * (h - h0) / (h1 - h0);
@@ -56,6 +56,32 @@ test('grid sampling interpolates and skips no-data corners', () => {
   assert.ok(Number.isFinite(s(f, 0.5, 0.5)));
   assert.ok(s(f, 0.5, 0.5) < 30);
   assert.ok(Number.isNaN(s(f, 5, 5)));
+});
+
+test('scalar forecast frames retain one byte per pixel while wind retains RGBA', () => {
+  const rgba = new Uint8ClampedArray([10, 1, 2, 255, 20, 3, 4, 255]);
+  const scalar = compactFramePixels('temp/000.png', rgba);
+  assert.equal(scalar.channels, 1);
+  assert.deepEqual([...scalar.data], [10, 20]);
+  const wind = compactFramePixels('wind/000.png', rgba);
+  assert.equal(wind.channels, 4);
+  assert.equal(wind.data, rgba);
+});
+
+test('five-day playback keeps only a bounded decoded frame window', () => {
+  const store = Object.create(FrameStore.prototype);
+  store.hours = Array.from({ length: 121 }, (_, i) => i);
+  store.manifest = { frames: store.hours.map((hour) => ({ hour, temp: `temp/${String(hour).padStart(3, '0')}.png` })) };
+  store.images = new Map(); store.evictListeners = new Set();
+  let evicted = 0; store.onEvict(() => evicted++);
+  for (let hour = 0; hour < 121; hour++) {
+    const path = store.framePath('temp', hour), promise = Promise.resolve();
+    promise.__v = { path }; store.images.set(path, promise);
+  }
+  store.prune(60, ['temp']);
+  assert.equal(store.images.size, 7);
+  assert.equal(evicted, 114);
+  assert.deepEqual([...store.images.keys()], Array.from({ length: 7 }, (_, i) => `temp/${String(i + 58).padStart(3, '0')}.png`));
 });
 
 /* ── band labels ── */

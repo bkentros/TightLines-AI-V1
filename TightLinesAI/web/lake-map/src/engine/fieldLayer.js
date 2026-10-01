@@ -128,14 +128,21 @@ export class FieldLayer {
     this.quad = buffer(gl, new Float32Array([x0, y0, x1, y0, x0, y1, x1, y1]));
     for (const name of Object.keys(PALETTES)) this.palettes[name] = texture(gl, { width: 256, height: 1, data: paletteBytes(name) });
     this.store.onLoad(() => map.triggerRepaint());
+    this.stopEvict = this.store.onEvict((path) => {
+      const tex = this.textures.get(path);
+      if (tex) { gl.deleteTexture(tex); this.textures.delete(path); }
+      if (this.last?.some((frame) => frame?.path === path)) this.last = null;
+    });
   }
   set(opts) { Object.assign(this, opts); this.map && this.map.triggerRepaint(); }
   tex(frame, nearest) {
     const key = frame.path; if (this.textures.has(key)) return this.textures.get(key);
     const gl = this.gl, isWind = key.startsWith('wind');
-    const t = isWind
-      ? texture(this.gl, { source: frame.img, internal: gl.RGBA8, format: gl.RGBA, filter: gl.LINEAR })
-      : texture(this.gl, { source: frame.img, internal: gl.R8, format: gl.RED, filter: nearest ? gl.NEAREST : gl.LINEAR });
+    const t = texture(gl, {
+      width: frame.w, height: frame.h, data: frame.data || frame.rgba,
+      internal: isWind ? gl.RGBA8 : gl.R8, format: isWind ? gl.RGBA : gl.RED,
+      filter: isWind ? gl.LINEAR : nearest ? gl.NEAREST : gl.LINEAR,
+    });
     this.textures.set(key, t); return t;
   }
   frames() {

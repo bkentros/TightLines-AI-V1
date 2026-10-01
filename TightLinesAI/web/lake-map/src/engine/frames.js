@@ -1,8 +1,20 @@
 /**
  * Loads the Live Lake Map frame set (manifest + PNG grids), decodes each grid
- * once for CPU sampling (readout, pier values, labels) and hands the same
- * images to the GPU layers. Frames are fetched lazily around the current time.
+ * once for CPU sampling (readout, pier values, labels) and hands the compact
+ * pixel buffers to the GPU layers. Frames are fetched lazily around the current
+ * time and evicted behind playback so a five-day run cannot exhaust a phone.
  */
+export const FRAME_CACHE_BEHIND = 2;
+export const FRAME_CACHE_AHEAD = 4;
+
+/** Scalar PNGs need one byte/pixel; only wind needs its four RGBA channels. */
+export function compactFramePixels(path, rgba) {
+  if (path.startsWith('wind/')) return { data: rgba, channels: 4 };
+  const data = new Uint8Array(rgba.length / 4);
+  for (let src = 0, dst = 0; dst < data.length; src += 4, dst++) data[dst] = rgba[src];
+  return { data, channels: 1 };
+}
+
 function sameOriginPath(input, base = location.href) {
   const page = new URL(base);
   const target = new URL(input, page);
@@ -13,8 +25,9 @@ function sameOriginPath(input, base = location.href) {
 export class FrameStore {
   constructor(baseUrl) {
     this.base = sameOriginPath(baseUrl).replace(/\/?$/, '/');
-    this.images = new Map(); // path -> Promise<{img, data, w, h}>
+    this.images = new Map(); // path -> Promise<{data, channels, w, h}>
     this.listeners = new Set();
+    this.evictListeners = new Set();
   }
   url(path) {
     return sameOriginPath(path, new URL(this.base, location.origin).href);
@@ -36,9 +49,11 @@ export class FrameStore {
     return this;
   }
   onLoad(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
+  onEvict(fn) { this.evictListeners.add(fn); return () => this.evictListeners.delete(fn); }
   load(path) {
     if (!this.images.has(path)) {
-      this.images.set(path, new Promise((resolve, reject) => {
+      let promise;
+      promise = new Promise((resolve, reject) => {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.decoding = 'async';
@@ -47,13 +62,18 @@ export class FrameStore {
           const x = c.getContext('2d', { willReadFrequently: true, colorSpace: 'srgb' });
           x.drawImage(img, 0, 0);
           const rgba = x.getImageData(0, 0, img.width, img.height).data;
-          const frame = { path, img, w: img.width, h: img.height, rgba };
+          const compact = compactFramePixels(path, rgba);
+          const frame = { path, w: img.width, h: img.height, ...compact };
+          promise.__v = frame;
           resolve(frame);
-          this.listeners.forEach((fn) => fn(frame));
+          if (this.images.get(path) === promise) this.listeners.forEach((fn) => fn(frame));
+          else this.evictListeners.forEach((fn) => fn(path, frame));
+          c.width = 0; c.height = 0;
         };
         img.onerror = () => reject(new Error('Frame failed: ' + path));
         img.src = this.url(path);
-      }));
+      });
+      this.images.set(path, promise);
     }
     return this.images.get(path);
   }
@@ -71,6 +91,21 @@ export class FrameStore {
     for (let k = -1; k <= ahead; k++) {
       const i = Math.min(this.hours.length - 1, Math.max(0, ia + k));
       kinds.forEach((kind) => this.load(this.framePath(kind, i)).catch(() => {}));
+    }
+    this.prune(t, kinds, ahead);
+  }
+  /** Keep a small decoded window around playback; immutable HTTP caching handles rewinds. */
+  prune(t, kinds, ahead = 3) {
+    const { ia } = this.bracket(t), keep = new Set();
+    for (let k = -FRAME_CACHE_BEHIND; k <= Math.max(ahead, FRAME_CACHE_AHEAD); k++) {
+      const i = Math.min(this.hours.length - 1, Math.max(0, ia + k));
+      kinds.forEach((kind) => keep.add(this.framePath(kind, i)));
+    }
+    for (const [path, promise] of this.images) {
+      if (!kinds.some((kind) => path.startsWith(`${kind}/`)) || keep.has(path)) continue;
+      this.images.delete(path);
+      promise.__discarded = true;
+      if (promise.__v) this.evictListeners.forEach((fn) => fn(path, promise.__v));
     }
   }
   loaded(path) { return this.images.get(path); }
@@ -90,8 +125,9 @@ export function gridSampler(grid, domain) {
     const x = (lon - box.west) / grid.res, y = (box.north - lat) / grid.res;
     const i = Math.floor(x), j = Math.floor(y);
     if (i < 0 || j < 0 || i >= frame.w - 1 || j >= frame.h - 1) return NaN;
-    const fx = x - i, fy = y - j, d = frame.rgba, w = frame.w;
-    const v = (ii, jj) => d[((jj * w) + ii) * 4 + channel];
+    const fx = x - i, fy = y - j, d = frame.data || frame.rgba, w = frame.w;
+    const channels = frame.channels || 4;
+    const v = (ii, jj) => d[((jj * w) + ii) * channels + channel];
     const a = v(i, j), b = v(i + 1, j), c = v(i, j + 1), e = v(i + 1, j + 1);
     if (grid.nodata !== undefined && (a === grid.nodata || b === grid.nodata || c === grid.nodata || e === grid.nodata)) {
       let s = 0, ws = 0;
