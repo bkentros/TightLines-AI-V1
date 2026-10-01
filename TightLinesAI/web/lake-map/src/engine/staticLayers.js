@@ -10,6 +10,7 @@
  */
 import maplibregl from 'maplibre-gl';
 import { PMTiles, Protocol } from 'pmtiles';
+import { StoredSource } from './tileStore.js';
 import { PALETTES } from './scales.js';
 
 const LAND = '#12253A';
@@ -20,13 +21,15 @@ export const ATTRIBUTION = '© OpenStreetMap contributors · © OpenMapTiles · 
 export const STATIC_REV = '4.3';
 let protocol = null;
 
+
 export function addStaticLayers(map, { staticUrl, basemap, pierNames = [], before }) {
   const out = { hd: false, dem: false, basemap: !!basemap, depthAt: () => NaN, setLayer() {}, setUnits() {} };
   if (staticUrl) {
     if (!protocol) { protocol = new Protocol(); maplibregl.addProtocol('pmtiles', protocol.tile); }
     const base = new URL(staticUrl, location.href).href.replace(/\/?$/, '/');
     // the revision tag makes phones fetch fresh tiles whenever the files are rebuilt
-    const lakes = new PMTiles(`${base}lakes-v2.pmtiles?r=${STATIC_REV}`), dem = new PMTiles(`${base}depth-v1.pmtiles?r=${STATIC_REV}`);
+    const lakes = new PMTiles(new StoredSource(`${base}lakes-v2.pmtiles?r=${STATIC_REV}`, STATIC_REV));
+    const dem = new PMTiles(new StoredSource(`${base}depth-v1.pmtiles?r=${STATIC_REV}`, STATIC_REV));
     protocol.add(lakes); protocol.add(dem);
     map.addSource('lakes-hd', { type: 'vector', url: `pmtiles://${lakes.source.getKey()}` });
     map.addSource('dem', { type: 'raster-dem', url: `pmtiles://${dem.source.getKey()}`, encoding: 'terrarium', tileSize: 256 });

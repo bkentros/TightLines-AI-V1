@@ -10,6 +10,7 @@ are joined here before upload. Keys come from ../../../.env like the data job.
 """
 import mimetypes
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -36,20 +37,38 @@ for first in sorted(dist.glob("*.part000")):
         p.unlink()
     log(f"joined {name} from {len(parts)} parts")
 
-def same_as_remote(path, key):
+# Phones keep map tiles for good (an on-phone store keyed by STATIC_REV, plus a
+# one-year browser cache), so a rebuilt .pmtiles must ship with a new STATIC_REV.
+STATIC_REV = re.search(r"STATIC_REV = '([^']+)'", (LM / "src/engine/staticLayers.js").read_text()).group(1)
+YEAR = "public, max-age=31536000, immutable"
+
+
+def remote(key):
     try:
-        return s3.head_object(Bucket=store.bucket(), Key=key)["ContentLength"] == path.stat().st_size
+        return s3.head_object(Bucket=store.bucket(), Key=key)
     except Exception:
-        return False
+        return None
 
 
 for f in sorted(dist.glob("*.pmtiles")):
-    if same_as_remote(f, f"static/{f.name}"):
-        log(f"static/{f.name} already up to date")
+    key = f"static/{f.name}"
+    head = remote(key)
+    if head and head["ContentLength"] == f.stat().st_size:
+        if head.get("CacheControl") != YEAR or head.get("Metadata", {}).get("rev") != STATIC_REV:
+            # same file, older cache settings: rewrite its headers in place (no re-upload)
+            s3.copy_object(Bucket=store.bucket(), Key=key, CopySource={"Bucket": store.bucket(), "Key": key},
+                           MetadataDirective="REPLACE", ContentType="application/vnd.pmtiles",
+                           CacheControl=YEAR, Metadata={"rev": STATIC_REV})
+            log(f"{key} unchanged; cache headers updated (rev {STATIC_REV})")
+        else:
+            log(f"{key} already up to date")
         continue
-    s3.upload_file(str(f), store.bucket(), f"static/{f.name}",
-                   ExtraArgs={"ContentType": "application/vnd.pmtiles", "CacheControl": "public, max-age=3600"})
-    log(f"uploaded static/{f.name} ({f.stat().st_size / 1e6:.1f} MB)")
+    if head and head.get("Metadata", {}).get("rev") == STATIC_REV:
+        sys.exit(f"{key} changed but STATIC_REV is still '{STATIC_REV}'. Bump STATIC_REV in "
+                 "src/engine/staticLayers.js, rebuild the page (npm run build:page) and publish again.")
+    s3.upload_file(str(f), store.bucket(), key,
+                   ExtraArgs={"ContentType": "application/vnd.pmtiles", "CacheControl": YEAR, "Metadata": {"rev": STATIC_REV}})
+    log(f"uploaded {key} ({f.stat().st_size / 1e6:.1f} MB, rev {STATIC_REV})")
 
 # The built map page (npm run build:page → copied into static-build/proto/) goes to map/,
 # which the gatekeeper (gate/worker.js, map.finfindr.app) serves to pass holders only.
@@ -60,8 +79,9 @@ for prefix in ("map",):
         kind = mimetypes.guess_type(f.name)[0] or "application/octet-stream"
         if f.suffix == ".js":
             kind = "text/javascript"
-        # the page itself must refresh quickly; the MapLibre files never change between builds
-        cache = "public, max-age=60" if f.name in ("index.html", "app.js") else "public, max-age=86400"
+        # index.html is opened with a fresh pass each time; the scripts it loads carry a
+        # content hash (?v=…, added by build.mjs), so they can be kept for a year
+        cache = "public, max-age=60" if f.name == "index.html" else YEAR
         s3.upload_file(str(f), store.bucket(), key, ExtraArgs={"ContentType": kind, "CacheControl": cache})
         log(f"uploaded {key}")
 log("done — for a phone-browser test link run: python3 static-build/test_pass.py")

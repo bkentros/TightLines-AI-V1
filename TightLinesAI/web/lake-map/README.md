@@ -83,7 +83,9 @@ Built once (rebuild only when the sources change) and served from the bucket's `
 Rebuild: `fetch-sources.sh`, `fetch-lakes.sh`, `fetch-water.sh` (on a Mac, they
 download into `sources/`), then `python3 static-build/build_tiles.py` (~20 min,
 ~3 GB RAM) and `python3 static-build/publish.py`. After a rebuild, bump
-`STATIC_REV` in `src/engine/staticLayers.js` so phones skip their cached tiles.
+`STATIC_REV` in `src/engine/staticLayers.js` and rebuild the page first: phones keep
+tiles for good under the current revision, so `publish.py` refuses to upload a
+changed `.pmtiles` while `STATIC_REV` is unchanged.
 
 The base map (roads, towns, borders, piers) comes live from OpenFreeMap
 (free, no key; attribution shown on the map). The map is held inside the data area
@@ -129,6 +131,27 @@ The contract lives in `lib/pierCastLiveMap.ts` (tests: `scripts/pier-cast-live-m
 Build and publish the page: `npm run build:page`, copy `dist/index.html`, `dist/app.js`
 and the two `maplibre-gl-csp*.js` files to `static-build/proto/`, then
 `python3 static-build/publish.py` (uploads them to both `proto/` and `map/`).
+
+### Caching and the Cloudflare request budget
+
+Every file the page loads goes through the gatekeeper Worker, and each one counts
+as a Worker request (free plan: 100,000 a day; Workers Paid, $5/month: 10 million a
+month, then $0.30 per million). To keep that low:
+
+- **Map tiles** (`static/*.pmtiles`, read in byte ranges) are kept on the phone in
+  Cache Storage (`StoredSource` in `staticLayers.js`), because iOS doesn't keep range
+  downloads in its web cache. They are served with a one-year cache too. The store is
+  named after `STATIC_REV`; a new revision starts a fresh store and deletes the old.
+- **Page scripts** (`app.js`, the MapLibre files) carry a content hash (`?v=…`, added
+  by `build.mjs`) and a one-year cache, so only `index.html` is fetched on each open.
+- **Forecast runs** (`runs/<id>/…`) never change once written and are cached for a year.
+- **Always fetched:** `index.html` (fresh pass), `latest.json` and `/obs/buoys.json`
+  (on open and every 10 minutes while the map is open).
+
+Measured locally in a browser through the gatekeeper: an active first open (pan to four
+harbors, zoom to 12.5, play the forecast, switch every layer) is about 80 requests.
+A repeat open on the same phone is a handful, plus the new forecast frames
+(about 25) once per 3-hour run.
 
 The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not routed).
 
