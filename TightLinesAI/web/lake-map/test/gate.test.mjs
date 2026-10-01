@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import worker, { verifyPass } from '../gate/worker.js';
+import worker, { archiveObservations, verifyPass } from '../gate/worker.js';
 
 const SECRET = 'x'.repeat(64);
 const b64u = (bytes) => Buffer.from(bytes).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -35,6 +36,12 @@ const BUCKET = {
 };
 const env = { BUCKET, MAP_PASS_SECRET: SECRET };
 const get = (path, headers = {}) => worker.fetch(new Request(`https://map.finfindr.app${path}`, { headers }), env);
+
+test('gate configuration collects one central observation snapshot every 15 minutes', () => {
+  const config = readFileSync(new URL('../gate/wrangler.toml', import.meta.url), 'utf8');
+  assert.match(config, /crons\s*=\s*\["\*\/15 \* \* \* \*"\]/);
+  assert.match(config, /binding\s*=\s*"BUCKET"/);
+});
 
 test('passes: signed, unexpired, right secret', async () => {
   assert.ok(await verifyPass(await makePass(), SECRET));
@@ -135,7 +142,7 @@ test('authenticated edge cache strips tickets and avoids repeat R2 reads', async
   }
 });
 
-import { GLOS_CACHE_SECONDS, mergeStations, parseGlosLatest, parseLatestObs, parseStations } from '../gate/buoys.js';
+import { COOPS_CACHE_SECONDS, COOPS_STATIONS, GLOS_CACHE_SECONDS, buoysResponse, mergeStations, parseCoopsLatest, parseGlosLatest, parseLatestObs, parseStations } from '../gate/buoys.js';
 
 const OBS = `#STN     LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE
 #text    deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft
@@ -167,6 +174,23 @@ test('buoys: Great Lakes water readings only, recent, converted', () => {
   assert.equal(parseStations(XML)['45024'].owner, 'GLOS &lt;Partner&gt;');
 });
 
+test('CO-OPS adds current all-clear water temperatures and rejects flagged values', () => {
+  const now = Date.UTC(2026, 9, 1, 18, 10);
+  const site = COOPS_STATIONS.find((station) => station.id === '9063085');
+  const payload = {
+    metadata: { id: '9063085', name: 'Toledo', lat: '41.6936', lon: '-83.4723' },
+    data: [{ t: '2026-10-01 18:00', v: '19.4', f: '0,0,0' }],
+  };
+  const parsed = parseCoopsLatest(payload, site, now);
+  assert.equal(parsed.waterF, 66.9);
+  assert.equal(parsed.waterIdentity, 'coops:9063085');
+  assert.equal(parsed.waterQuality, 'provider_qc');
+  assert.equal(parsed.body, 'lake-erie');
+  assert.equal(COOPS_CACHE_SECONDS, 900);
+  assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], f: '0,1,0' }] }, site, now), null);
+  assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], t: '2026-10-01 14:00' }] }, site, now), null);
+});
+
 test('GLOS observations retain shallow depth profiles and reject bad quality or stale data', () => {
   const now = Date.UTC(2026, 9, 1, 15, 0);
   const seconds = (minutesAgo) => (now - minutesAgo * 60e3) / 1000;
@@ -185,7 +209,9 @@ test('GLOS observations retain shallow depth profiles and reject bad quality or 
   assert.equal(stations[0].waterDepthM, 0);
   assert.equal(stations[0].waterF, 62.3);
   assert.equal(stations[0].waterQuality, 'not_evaluated');
+  assert.equal(stations[0].waterIdentity, 'glos:2');
   assert.deepEqual(stations[0].profile.map((item) => item.depthM), [0, 1]);
+  assert.ok(stations[0].profile.every((item) => item.identity === 'glos:2'));
   assert.equal(GLOS_CACHE_SECONDS, 600);
 });
 
@@ -213,4 +239,75 @@ test('GLOS merge adds profiles but only replaces NDBC surface water with a shall
   const deepMerged = mergeStations(ndbc, deep);
   assert.equal(deepMerged[0].waterF, 60);
   assert.equal(deepMerged[0].profile[0].waterF, 45);
+});
+
+test('CO-OPS supplements its matching NDBC station without duplicating it', () => {
+  const ndbc = [{
+    id: 'HLNM4', coopsStationId: '9087031', name: '9087031 - Holland, MI', lat: 42.7733, lon: -86.2128,
+    time: '2026-10-01T18:00:00.000Z', waterTime: '2026-10-01T18:00:00.000Z', waterF: 60,
+    windMph: 8, wavesFt: null, source: 'NOAA NDBC', profile: [],
+  }];
+  const coops = [{
+    id: 'COOPS-9087031', externalId: '9087031', coopsStationId: '9087031', name: 'Holland', lat: 42.773335, lon: -86.212776,
+    time: '2026-10-01T18:06:00.000Z', waterTime: '2026-10-01T18:06:00.000Z', waterF: 61,
+    waterDepthM: null, waterIdentity: 'coops:9087031', waterQuality: 'provider_qc', source: 'NOAA CO-OPS', profile: [],
+  }];
+  const merged = mergeStations(ndbc, [], coops);
+  assert.equal(merged.length, 1);
+  assert.equal(merged[0].waterF, 61);
+  assert.equal(merged[0].waterIdentity, 'coops:9087031');
+  assert.equal(merged[0].windMph, 8);
+  assert.equal(merged[0].source, 'NOAA NDBC + NOAA CO-OPS');
+});
+
+test('a stale central archive fails closed without fanning map traffic upstream', async () => {
+  const previousFetch = globalThis.fetch;
+  let upstreamCalls = 0;
+  globalThis.fetch = async () => { upstreamCalls++; throw new Error('unexpected upstream request'); };
+  const stale = JSON.stringify({
+    source: 'NOAA NDBC + NOAA CO-OPS + GLOS Seagull',
+    updated: new Date(Date.now() - 31 * 60e3).toISOString(), stations: [{ id: 'old' }],
+  });
+  const staleBucket = { get: async () => ({ body: new Blob([stale]).stream() }) };
+  try {
+    const response = await buoysResponse(null, { BUCKET: staleBucket });
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).error, 'archive_stale');
+    assert.equal(upstreamCalls, 0);
+  } finally {
+    globalThis.fetch = previousFetch;
+  }
+});
+
+test('scheduled collection writes a central pointer and an immutable dated snapshot', async () => {
+  const previousFetch = globalThis.fetch;
+  const now = new Date();
+  const timestamp = now.toISOString().slice(0, 16).replace('T', ' ');
+  globalThis.fetch = async (input) => {
+    const url = new URL(String(input));
+    if (url.href.includes('latest_obs.txt')) return new Response(OBS);
+    if (url.href.includes('activestations.xml')) return new Response(XML);
+    if (url.href.includes('obs-latest')) return Response.json([]);
+    if (url.hostname === 'api.tidesandcurrents.noaa.gov') {
+      const id = url.searchParams.get('station');
+      return Response.json({ metadata: { id, name: `Station ${id}`, lat: '41.6936', lon: '-83.4723' },
+        data: [{ t: timestamp, v: '19.4', f: '0,0,0' }] });
+    }
+    throw new Error(`unexpected test URL ${url}`);
+  };
+  const puts = [];
+  const bucket = { put: async (key, body, options) => puts.push({ key, body, options }) };
+  try {
+    const result = await archiveObservations({ BUCKET: bucket }, null, Date.UTC(2026, 9, 1, 18, 15));
+    assert.equal(result.stations > 0, true);
+    assert.deepEqual(puts.map((put) => put.key).sort(), [
+      'observations/latest.json', 'observations/v1/2026/10/01/20261001T181500Z.json',
+    ]);
+    const latest = JSON.parse(puts.find((put) => put.key === 'observations/latest.json').body);
+    assert.equal(latest.formatVersion, 3);
+    assert.equal(latest.health.sources.coops.requested, COOPS_STATIONS.length);
+    assert.equal(latest.health.sources.coops.status, 'ok');
+  } finally {
+    globalThis.fetch = previousFetch;
+  }
 });

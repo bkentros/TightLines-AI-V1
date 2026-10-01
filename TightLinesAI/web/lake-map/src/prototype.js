@@ -411,12 +411,19 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   lm.on('mapTap', () => { if (ui.selected) { ui.selected = null; lm.setSelected(null); pierCard(); updateAlerts(); } if (ui.selectedBuoy) { clearBuoy(); updateAlerts(); } });
 
   /* ── observations (NOAA NDBC + GLOS Seagull via the gatekeeper) ── */
-  let buoys = [];
+  let buoys = [], buoyFeed = null;
+  function observationHealthText() {
+    const quality = buoyFeed?.health?.quality;
+    if (!quality) return 'Observed sensors refresh every 15 minutes';
+    const strict = quality.strictValidation || 0;
+    return `${quality.waterStations || 0} current water stations · ${strict} strict surface checks · 15 min archive`;
+  }
   async function loadBuoys() {
     try {
       const r = await fetch(new URL('../obs/buoys.json', location.href), { credentials: 'same-origin', cache: 'no-store' });
       if (!r.ok) return;
-      const j = await r.json(); buoys = Array.isArray(j.stations) ? j.stations : [];
+      const j = await r.json(); buoyFeed = j; buoys = Array.isArray(j.stations) ? j.stations : [];
+      $('#obs-health').textContent = observationHealthText();
       lm.setBuoys(buoys); if (ui.selectedBuoy) buoyCard();
     } catch (e) { /* no buoy feed here */ }
   }
@@ -461,7 +468,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       });
       profileEl.textContent = `DEPTH PROFILE · ${values.join('  ·  ')}`;
     }
-    $('#b-note').textContent = `${b.source || 'Observed'} point reading${b.waterQuality === 'not_evaluated' ? ' · automated checks not yet evaluated' : ''}. Depth and location may differ from the NOAA modeled surface.`;
+    const strict = b.waterQuality === 'good' && (b.waterSurface === true || (Number.isFinite(b.waterDepthM) && b.waterDepthM <= 3));
+    const quality = strict ? ' · QARTOD good, surface/shallow; strict comparison eligible'
+      : b.waterQuality === 'not_evaluated' ? ' · QARTOD not yet evaluated; context only'
+        : b.waterQuality === 'provider_qc' ? ' · provider checks passed; validation depth unresolved'
+          : ' · context only';
+    $('#b-note').textContent = `${b.source || 'Observed'} point reading${quality}. The sensor and NOAA modeled surface are not interchangeable.`;
   }
   $('#b-close').addEventListener('click', () => { clearBuoy(); updateAlerts(); });
   lm.on('buoyTap', (id) => selectBuoy(id));

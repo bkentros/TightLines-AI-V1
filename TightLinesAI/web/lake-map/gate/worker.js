@@ -9,12 +9,12 @@
  *   - the Worker checks it, answers, and sets it as a cookie, so the page's own
  *     requests (frames, tiles, manifest) carry it automatically
  *   - /_pass?t=<pass> renews the cookie while the map stays open
- *   - /obs/buoys.json: merged NOAA NDBC + GLOS readings (see buoys.js)
+ *   - /obs/buoys.json: merged NOAA NDBC + CO-OPS + GLOS readings (see buoys.js)
  * Anything else gets a 401 page.
  *
  * Bindings (wrangler.toml): BUCKET = R2 bucket piercast-lake-map; secret MAP_PASS_SECRET.
  */
-import { buoysResponse } from './buoys.js';
+import { buildObservationSnapshot, buoysResponse } from './buoys.js';
 
 const COOKIE = 'pcmap';
 const ALLOWED = [/^map\/[\w.-]+$/, /^static\/[\w.-]+$/, /^runs\/[\w.-]+\/[\w./-]+$/, /^latest\.json$/];
@@ -126,7 +126,34 @@ function denied() {
   return new Response(DENIED, { status: 401, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
 }
 
+/**
+ * Collect one shared observation snapshot every 15 minutes. The mutable
+ * pointer keeps all edge locations off the upstream APIs; the dated copy is
+ * immutable evidence for later forecast verification. Nothing here deletes or
+ * expires an R2 object.
+ */
+export async function archiveObservations(env, ctx, scheduledTime = Date.now()) {
+  if (!env?.BUCKET?.put) throw new Error('Observation archive requires the R2 binding');
+  const payload = await buildObservationSnapshot(ctx, Date.now());
+  payload.scheduledFor = new Date(scheduledTime).toISOString();
+  const body = JSON.stringify(payload);
+  const stamp = new Date(scheduledTime).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const day = stamp.slice(0, 8);
+  const key = `observations/v1/${day.slice(0, 4)}/${day.slice(4, 6)}/${day.slice(6, 8)}/${stamp}.json`;
+  const latestOptions = { httpMetadata: { contentType: 'application/json', cacheControl: 'no-store' } };
+  const immutableOptions = { httpMetadata: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } };
+  await Promise.all([
+    env.BUCKET.put(key, body, immutableOptions),
+    env.BUCKET.put('observations/latest.json', body, latestOptions),
+  ]);
+  return { key, stations: payload.stations.length, quality: payload.health.quality };
+}
+
 export default {
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil(archiveObservations(env, ctx, controller.scheduledTime));
+  },
+
   async fetch(request, env, ctx) {
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
     const url = new URL(request.url);
@@ -143,8 +170,10 @@ export default {
     if (url.pathname === '/_pass') {
       return new Response(null, { status: 204, headers: { 'set-cookie': setCookie || '', 'cache-control': 'no-store' } });
     }
-    // Live NOAA NDBC + GLOS observations are merged and cached at the edge.
-    if (url.pathname === '/obs/buoys.json') return buoysResponse(ctx);
+    // Live NOAA observations come from one centrally archived 15-minute
+    // snapshot, with a direct-source fallback only before the first cron run.
+    // A stale archive fails closed instead of fanning user traffic upstream.
+    if (url.pathname === '/obs/buoys.json') return buoysResponse(ctx, env);
 
     let key = decodeURIComponent(url.pathname.slice(1));
     if (key === '' || key === 'map' || key === 'map/') key = 'map/index.html';

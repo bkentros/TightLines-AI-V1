@@ -1,0 +1,60 @@
+# Scores immutable PierCast lake-map forecasts against the centrally archived
+# public observations. Research output only: it cannot alter a forecast or
+# authorize a bias correction.
+name: Lake map validation
+
+on:
+  schedule:
+    # The prior UTC day is complete before this run starts.
+    - cron: "25 7 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "UTC date to re-evaluate (YYYY-MM-DD); blank means yesterday"
+        type: string
+        required: false
+
+concurrency:
+  group: lake-map-validation
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: TightLinesAI/web/lake-map
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Test verifier
+        run: python -m unittest discover -s job/tests -p 'test_verification.py'
+      - name: Verify yesterday and publish
+        if: github.event_name == 'schedule' || inputs.date == ''
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+        run: python job/verify.py --upload
+      - name: Verify requested date and publish
+        if: github.event_name == 'workflow_dispatch' && inputs.date != ''
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+          VALIDATION_DATE: ${{ inputs.date }}
+        run: python job/verify.py --upload --date "$VALIDATION_DATE"

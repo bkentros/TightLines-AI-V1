@@ -55,15 +55,19 @@ def put(s3, key: str, body: bytes, cache: str):
     s3.put_object(Bucket=bucket(), Key=key, Body=body, ContentType=kind, CacheControl=cache, **extra)
 
 
-def read_latest(s3):
+def read_json(s3, key):
     try:
-        obj = s3.get_object(Bucket=bucket(), Key="latest.json")
+        obj = s3.get_object(Bucket=bucket(), Key=key)
         body = obj["Body"].read()
         if obj.get("ContentEncoding") == "gzip" or body[:2] == b"\x1f\x8b":
             body = gzip.decompress(body)
         return json.loads(body)
     except Exception:
         return None
+
+
+def read_latest(s3):
+    return read_json(s3, "latest.json")
 
 
 def ensure_static(s3, geo_path: Path, geo_key: str):
@@ -73,12 +77,14 @@ def ensure_static(s3, geo_path: Path, geo_key: str):
         put(s3, geo_key, geo_path.read_bytes(), IMMUTABLE)
 
 
-def upload_run(s3, run_dir: Path, run_id: str, latest: dict):
+def upload_run(s3, run_dir: Path, run_id: str, latest: dict, forecast_index: dict | None = None):
     files = [p for p in run_dir.rglob("*") if p.is_file()]
 
     def one(p):
         put(s3, f"runs/{run_id}/{p.relative_to(run_dir).as_posix()}", p.read_bytes(), IMMUTABLE)
     with ThreadPoolExecutor(16) as pool:
         list(pool.map(one, files))
+    if forecast_index is not None:
+        put(s3, "validation/forecast-index.json", json.dumps(forecast_index).encode(), SHORT)
     # switch the app over only after every file of the run is in place
     put(s3, "latest.json", json.dumps(latest).encode(), SHORT)

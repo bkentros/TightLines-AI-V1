@@ -47,7 +47,7 @@ APIs when a complete new cycle is unavailable.
 | Layer | Source | Notes |
 | --- | --- | --- |
 | Water temp, depth | NOAA LSOFS, LMHOFS, LEOFS, LOOFS regular-grid files (THREDDS OPeNDAP, surface layer only) | NOAA's 0.01° regular-grid resolution is preserved. Publication requires all four models on one cycle, all 121 hours, at least 98% finite source coverage and 97% post-regrid lake-domain coverage every hour. Any failure retains the previous complete run. |
-| Live water observations | NOAA NDBC plus the GLOS Seagull bulk latest feed | Merged by station every 5–10 minutes. GLOS QARTOD suspect/failed values are rejected; explicit sensor depths and vertical profiles are preserved. These validate the surface model but are not blindly smeared across unsampled water. |
+| Live water observations | NOAA NDBC, NOAA CO-OPS and the GLOS Seagull bulk latest feed | Collected centrally every 15 minutes and merged by physical station. CO-OPS supplies current six-minute Great Lakes readings (including Toledo when absent from NDBC); flagged CO-OPS and GLOS QARTOD suspect/failed values are rejected. Explicit sensor depths and vertical profiles are preserved. These validate the surface model but are not blindly smeared across unsampled water. |
 | Waves | NOAA GLWU 2.5 km (NOMADS GRIB filter, `HTSGW` only) | Matched to each hour by valid time. |
 | Wind | Open-Meteo `best_match` over the lake area (2,211 locations per run), NOAA GFS 0.25° for the wider map area (NOMADS GRIB filter, 3-hourly steps, ~41 small downloads), blended over 2 cells at the seam | Production upload requires `OPEN_METEO_API_KEY`. The four-runs/day, 31-day ceiling projects to 274,164 of the configured 1,000,000 monthly calls and the job refuses a future grid that exceeds it. If GFS is unavailable the lake-area wind is carried outward. |
 | Events | `job/events.mjs` → `src/engine/signals.js` | Same rule as the app, for every pier in `job/piers.json` (the live 32-city roster; a test keeps them in sync). |
@@ -61,13 +61,17 @@ The workflow polls every 15 minutes during NOAA's four daily Great Lakes model
 release windows. It publishes once only after all four lake systems have the
 same complete cycle; it never mixes cycles or lets `--force` bypass integrity
 checks. An open map checks `latest.json` every
-10 minutes and reloads only when a new run is published. NOAA NDBC observations
-refresh every 5 minutes and the GLOS Seagull bulk feed every 10 minutes. They are
-merged and deduplicated; suspect/failed QARTOD readings, implausible values and
-readings older than three hours are excluded. GLOS depth profiles remain attached
+10 minutes and reloads only when a new run is published. A Cloudflare scheduled
+collector refreshes NOAA NDBC, NOAA CO-OPS and GLOS observations every 15 minutes,
+writes one central pointer, and retains an immutable dated snapshot in R2. Map opens
+therefore do not multiply upstream sensor traffic. The sources are merged and
+deduplicated; flagged CO-OPS values, suspect/failed GLOS QARTOD readings, implausible
+values and readings older than three hours are excluded. GLOS depth profiles remain attached
 to each station instead of being mislabeled as surface temperatures. Readings
 older than 90 minutes are visually dimmed and the card shows their exact age,
-sensor depth and difference from the modeled surface.
+sensor depth and difference from the modeled surface. If the central archive is
+more than 30 minutes old, the endpoint fails visibly instead of serving it or
+turning user traffic into repeated upstream-source requests.
 
 The checked-in GLOS metadata catalog is intentionally refreshed through a
 reviewed two-step process. The generator validates response type and size,
@@ -178,8 +182,8 @@ month, then $0.30 per million). The Worker caps traffic at 600 requests/IP/minut
   browser, while repeat requests avoid another R2 Class B read.
 - **Always fetched:** `index.html` (fresh pass); `latest.json` on open and every
   10 minutes; `/obs/buoys.json` on open and every 5 minutes while the map is open.
-  The Worker edge-caches NOAA for 5 minutes and GLOS for 10 minutes, so many users
-  do not multiply upstream sensor requests.
+  The latter reads the shared 15-minute R2 snapshot and is edge-cached for five
+  minutes; upstream sensor requests occur once per scheduled collection, not per user or edge.
 
 Dynamic frames are decoded into compact buffers (one byte per temperature,
 wave or depth pixel; RGBA only for wind). Playback retains seven frames around
@@ -203,9 +207,14 @@ The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not ro
   rip currents, lakeshore flood) for the eight shore states, limited to the Great Lakes
   box. Updates replace what they refer to; cancels and expired alerts drop. Zone shapes are
   fetched once per session. Areas follow the timeline (start → end, 15-minute steps).
-- **Buoys** (`gate/buoys.js`): the gatekeeper serves `/obs/buoys.json` from NOAA NDBC
-  `latest_obs.txt` + `activestations.xml` (10 min / 1 day cache): Great Lakes stations with
-  water temperature or waves, readings ≤ 3 h old, in °F / mph / ft.
+- **Buoys and fixed sensors** (`gate/buoys.js`): the gatekeeper serves `/obs/buoys.json`
+  from NOAA NDBC `latest_obs.txt` + `activestations.xml`, NOAA CO-OPS latest
+  water-temperature products, and GLOS Seagull's bulk latest feed: Great Lakes
+  stations with water temperature or waves, readings ≤ 3 h old, in °F / mph / ft.
+  Duplicate physical stations are merged. A displayed reading is not automatically
+  calibration evidence: only QARTOD-good explicit surface or ≤3 m readings enter the
+  strict verification group; provider-QC/unknown-depth and QARTOD-not-evaluated values
+  remain separately labeled context.
 - **Banner:** one banner. It leads with an in-view Weather Service warning, then cold-water
   surges, then advisories / statements; "Also: …" names the rest. Dismissed banners return
   only for something new.
@@ -214,3 +223,21 @@ The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not ro
   *Weather & safety*: alerts grouped by type, expandable to their areas, each opening a
   detail page (What / Where / When / Impacts / What to do, "Show on map").
 - **Surge rule replay** against 2021–2025 buoy seasons: `job/replay/REPLAY.md`.
+
+## Prospective temperature verification
+
+Every published model run contains `verification.json`: the unmodified, as-issued
+121-hour surface forecast sampled at eligible reviewed GLOS and NOAA CO-OPS
+locations that have nearby valid model water.
+The 15-minute Worker cron retains public observation evidence under
+`observations/v1/YYYY/MM/DD/…`; it never deletes snapshots. The daily
+`lake-map-validation.yml` workflow joins a completed UTC day of observations to
+every forecast that was actually issued up to five days earlier, deduplicates
+unchanged readings, and publishes private R2 summaries under `validation/`.
+
+Reports keep strict and contextual evidence separate and calculate bias, MAE,
+RMSE, P90 absolute error and maximum error for nowcast through day 5, the frozen
+0/24/48/72/96/120-hour leads, and each lake with strict evidence. Collection does
+not change the displayed field. A correction remains explicitly unapproved until
+the predeclared coverage, season, error and independent-holdout requirements in
+`docs/PierCast_Temperature_Representation_and_Calibration.md` are met and reviewed.
