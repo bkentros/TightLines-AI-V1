@@ -13,6 +13,7 @@ import type {
 } from "../types.ts";
 import {
   getLiveConditions,
+  getRecentLiveConditions,
   getSeasonalContext,
   type SupabaseLikeClient,
   upsertLiveConditions,
@@ -82,7 +83,10 @@ export async function readOrBuildRiverLiveConditions(input: {
     refreshSlot: input.refreshSlot,
     dataVersion: RIVER_LIVE_CONDITIONS_VERSION,
   });
-  if (!cached.error && cached.data) return cached.data;
+  if (
+    !cached.error && cached.data &&
+    !isRetryableUnavailableConditions(cached.data)
+  ) return cached.data;
   if (cached.error) {
     console.error("[river-run] live conditions cache read failed", {
       riverId: input.river.riverId,
@@ -91,14 +95,120 @@ export async function readOrBuildRiverLiveConditions(input: {
   }
 
   const built = await buildRiverLiveConditions(input);
-  const stored = await upsertLiveConditions(input.client, built);
+  let resolved = built;
+  if (built.metrics.some((metric) => metric.value == null)) {
+    const recent = await getRecentLiveConditions(input.client, {
+      riverId: input.river.riverId,
+      dataVersion: RIVER_LIVE_CONDITIONS_VERSION,
+    });
+    if (recent.error) {
+      console.error("[river-run] recent live conditions read failed", {
+        riverId: input.river.riverId,
+        message: recent.error.message,
+      });
+    }
+    resolved = mergeRecentLiveConditionFallbacks({
+      current: built,
+      recent: recent.data ?? [],
+      river: input.river,
+      refreshAtUtc: input.refreshAtUtc,
+    });
+  }
+
+  // Do not poison the entire refresh slot when every accepted provider has a
+  // transient failure. A later request in the same slot must be allowed to
+  // retry. Rivers with no accepted live sensors retain their intentional empty
+  // state and are safe to cache.
+  if (isRetryableUnavailableConditions(resolved)) return resolved;
+
+  const stored = await upsertLiveConditions(input.client, resolved);
   if (stored.error) {
     console.error("[river-run] live conditions cache write failed", {
       riverId: input.river.riverId,
       message: stored.error.message,
     });
   }
-  return stored.data ?? built;
+  return stored.data ?? resolved;
+}
+
+function isRetryableUnavailableConditions(
+  conditions: RiverLiveConditions,
+): boolean {
+  return conditions.metrics.length > 0 &&
+    conditions.metrics.every((metric) => metric.value == null);
+}
+
+export function mergeRecentLiveConditionFallbacks(input: {
+  current: RiverLiveConditions;
+  recent: RiverLiveConditions[];
+  river: RiverProfile;
+  refreshAtUtc: string;
+}): RiverLiveConditions {
+  if (
+    input.current.metrics.length === 0 ||
+    input.current.metrics.every((metric) => metric.value != null)
+  ) return input.current;
+
+  const refreshMs = Date.parse(input.refreshAtUtc);
+  if (!Number.isFinite(refreshMs)) return input.current;
+
+  const metrics = input.current.metrics.map<RiverLiveConditionMetric>(
+    (metric) => {
+      if (metric.value != null) return metric;
+      for (const conditions of input.recent) {
+        const candidate = conditions.metrics.find((recentMetric) =>
+          recentMetric.metric === metric.metric &&
+          recentMetric.value != null &&
+          typeof recentMetric.observedAt === "string"
+        );
+        if (!candidate?.observedAt) continue;
+        const ageHours = (refreshMs - Date.parse(candidate.observedAt)) /
+          (60 * 60 * 1000);
+        if (!Number.isFinite(ageHours) || ageHours < 0 || ageHours > 24) {
+          continue;
+        }
+        const maxAgeHours = sourceMaxAgeHours(
+          input.river,
+          candidate.sourceId,
+        );
+        if (maxAgeHours == null) continue;
+        return {
+          ...candidate,
+          freshness: ageHours <= maxAgeHours ? "fresh" : "delayed",
+        };
+      }
+      return metric;
+    },
+  );
+  const availableCount = metrics.filter((metric) => metric.value != null)
+    .length;
+  return {
+    ...input.current,
+    status: availableCount === 0
+      ? "unavailable"
+      : availableCount === metrics.length
+      ? "available"
+      : "partial",
+    metrics,
+  };
+}
+
+function sourceMaxAgeHours(
+  river: RiverProfile,
+  sourceId: string,
+): number | null {
+  const hydraulic = river.hydraulicSources.find((source) =>
+    source.sourceId === sourceId
+  );
+  if (hydraulic) return hydraulic.maxAgeHours;
+  const temperature = river.waterTemperatureSources.find((source) =>
+    source.sourceId === sourceId
+  );
+  if (temperature) return temperature.maxAgeHours;
+  const turbidity = (river.turbiditySources ?? []).find((source) =>
+    source.sourceId === sourceId
+  );
+  return turbidity?.maxAgeHours ?? null;
 }
 
 export async function buildRiverLiveConditions(input: {

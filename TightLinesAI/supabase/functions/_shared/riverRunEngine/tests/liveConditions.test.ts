@@ -4,9 +4,11 @@ import {
   BIG_MANISTEE_RIVER_PROFILE,
   buildRiverLiveConditions,
   GRAND_RIVER_PROFILE,
+  mergeRecentLiveConditionFallbacks,
   type NormalizedGaugeObservation,
   type NormalizedTurbidityObservation,
   type NormalizedWaterTemperatureObservation,
+  NORTH_UMPQUA_RIVER_PROFILE,
   type RiverLiveSeasonalContext,
   type SupabaseLikeClient,
 } from "../index.ts";
@@ -181,6 +183,105 @@ Deno.test("river live conditions suppress readings older than 24 hours", async (
   assert(
     conditions.metrics.every((metric) => metric.freshness === "older_than_24h"),
   );
+});
+
+Deno.test("transient provider gaps reuse only recent measurements with recalculated freshness", async () => {
+  const recent = await buildRiverLiveConditions({
+    client: {} as SupabaseLikeClient,
+    river: NORTH_UMPQUA_RIVER_PROFILE,
+    localDate: "2026-10-01",
+    refreshSlot: "03:00",
+    refreshAtUtc: "2026-10-01T10:45:00Z",
+    fetchFn: () => {
+      throw new Error("provider should not be called");
+    },
+    gaugeObservations: [{
+      provider: "USGS",
+      siteId: "14319500",
+      observedAt: "2026-10-01T10:30:00Z",
+      flow_cfs: 736,
+      gage_height_ft: 1.79,
+      approvalStatus: "Provisional",
+      source: "usgs_continuous_values",
+    }],
+    waterTemperatureObservationsBySource: {
+      north_umpqua_winchester_temperature: [{
+        provider: "USGS",
+        sourceId: "north_umpqua_winchester_temperature",
+        siteId: "14319500",
+        observedAt: "2026-10-01T10:30:00Z",
+        waterTempF: 60.98,
+        approvalStatus: "Provisional",
+        source: "usgs_continuous_values",
+      }],
+    },
+    seasonalContextsByMetric: {
+      flow_cfs: null,
+      gage_height_ft: null,
+      water_temp_f: null,
+    },
+  });
+  const current = await buildRiverLiveConditions({
+    client: {} as SupabaseLikeClient,
+    river: NORTH_UMPQUA_RIVER_PROFILE,
+    localDate: "2026-10-01",
+    refreshSlot: "06:00",
+    refreshAtUtc: "2026-10-01T13:00:00Z",
+    fetchFn: () => {
+      throw new Error("provider should not be called");
+    },
+    gaugeObservations: [],
+    waterTemperatureObservationsBySource: {},
+    seasonalContextsByMetric: {
+      flow_cfs: null,
+      gage_height_ft: null,
+      water_temp_f: null,
+    },
+  });
+
+  const recovered = mergeRecentLiveConditionFallbacks({
+    current,
+    recent: [recent],
+    river: NORTH_UMPQUA_RIVER_PROFILE,
+    refreshAtUtc: current.refreshedAt,
+  });
+  assertEquals(recovered.status, "available");
+  assertEquals(recovered.metrics.map((metric) => metric.value), [
+    736,
+    1.79,
+    60.98,
+  ]);
+  assert(
+    recovered.metrics.every((metric) => metric.freshness === "delayed"),
+  );
+
+  const expired = mergeRecentLiveConditionFallbacks({
+    current: {
+      ...current,
+      refreshedAt: "2026-10-02T13:00:00Z",
+      localDate: "2026-10-02",
+    },
+    recent: [recent],
+    river: NORTH_UMPQUA_RIVER_PROFILE,
+    refreshAtUtc: "2026-10-02T13:00:00Z",
+  });
+  assertEquals(expired.status, "unavailable");
+  assert(expired.metrics.every((metric) => metric.value == null));
+
+  const unknownSource = mergeRecentLiveConditionFallbacks({
+    current,
+    recent: [{
+      ...recent,
+      metrics: recent.metrics.map((metric) => ({
+        ...metric,
+        sourceId: `retired_${metric.sourceId}`,
+      })),
+    }],
+    river: NORTH_UMPQUA_RIVER_PROFILE,
+    refreshAtUtc: current.refreshedAt,
+  });
+  assertEquals(unknownSource.status, "unavailable");
+  assert(unknownSource.metrics.every((metric) => metric.value == null));
 });
 
 Deno.test("a river without accepted sensors returns an honest empty state", async () => {

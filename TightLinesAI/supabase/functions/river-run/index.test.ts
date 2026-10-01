@@ -413,6 +413,8 @@ function handleRiverRunRequest(
     releasedRunIds: "all",
     allowTestOverrides: true,
     waterTemperatureObservationsBySource: {},
+    openMeteoApiKey: "test-open-meteo-key",
+    openMeteoBaseUrl: "https://customer-api.open-meteo.com/v1/forecast",
     ...deps,
   });
 }

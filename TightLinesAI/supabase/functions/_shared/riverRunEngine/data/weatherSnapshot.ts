@@ -46,11 +46,27 @@ export type RiverRunWeatherFetch = (
   init?: RequestInit,
 ) => Promise<{ ok: boolean; json(): Promise<unknown> }>;
 
+const OPEN_METEO_FREE_FORECAST_URL =
+  "https://api.open-meteo.com/v1/forecast";
+const OPEN_METEO_CUSTOMER_FORECAST_URL =
+  "https://customer-api.open-meteo.com/v1/forecast";
+
+function isFreeOpenMeteoUrl(value: string): boolean {
+  try {
+    return new URL(value).hostname === "api.open-meteo.com";
+  } catch {
+    return true;
+  }
+}
+
 export async function fetchRiverRunWeatherSnapshot(input: {
   fetchFn: RiverRunWeatherFetch;
   lat: number;
   lon: number;
   fetchedAtUtc?: string;
+  apiKey?: string;
+  baseUrl?: string;
+  requirePaid?: boolean;
 }): Promise<RiverRunEnvironmentSnapshot | null> {
   const params = new URLSearchParams({
     latitude: String(input.lat),
@@ -65,7 +81,15 @@ export async function fetchRiverRunWeatherSnapshot(input: {
     forecast_days: "3",
     timeformat: "iso8601",
   });
-  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+  const apiKey = input.apiKey?.trim();
+  const baseUrl = input.baseUrl?.trim() || (apiKey
+    ? OPEN_METEO_CUSTOMER_FORECAST_URL
+    : OPEN_METEO_FREE_FORECAST_URL);
+  if (input.requirePaid && (!apiKey || isFreeOpenMeteoUrl(baseUrl))) {
+    return null;
+  }
+  if (apiKey) params.set("apikey", apiKey);
+  const url = `${baseUrl}?${params.toString()}`;
   type Payload = {
     hourly?: {
       time?: string[];

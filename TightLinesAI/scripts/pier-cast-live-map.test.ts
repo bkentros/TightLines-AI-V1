@@ -28,6 +28,18 @@ const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.ur
 const screen = read("app/pier-cast-map.tsx");
 const layout = read("app/_layout.tsx");
 const page = read("web/lake-map/src/prototype.js");
+const pierCastWeather = read("lib/pierCastWeather.ts");
+const locationSearch = read("lib/locationSearch.ts");
+const openMeteoAdapter = read(
+  "supabase/functions/_shared/openMeteo14DayFetch.ts",
+);
+const getEnvironmentFunction = read(
+  "supabase/functions/get-environment/index.ts",
+);
+const riverRunFunction = read("supabase/functions/river-run/index.ts");
+const accessLimitMigration = read(
+  "supabase/migrations/20261001130000_harden_pier_cast_map_access_limits.sql",
+);
 const pkg = JSON.parse(read("package.json"));
 
 test("map page URL: configured https host, else the gatekeeper", () => {
@@ -113,6 +125,7 @@ function accessHandler(free: boolean, used: string[] = []) {
       visits.add(visitId);
       return visits.size;
     },
+    claimPassIssue: async () => {},
     secret: () => SECRET,
   });
 }
@@ -128,6 +141,14 @@ test("server passes open the gatekeeper", async () => {
   assert.ok(await verifyPass(pass, SECRET));
   assert.ok(!(await verifyPass(pass, "t".repeat(64))));
   await assert.rejects(createPierCastMapPass("short"));
+
+  const now = Math.floor(Date.now() / 1000);
+  const first = await createPierCastMapPass(SECRET, now, 7200, "account-a");
+  const renewed = await createPierCastMapPass(SECRET, now + 1, 7200, "account-a");
+  const other = await createPierCastMapPass(SECRET, now, 7200, "account-b");
+  assert.equal(first.pass.split(".")[2], renewed.pass.split(".")[2]);
+  assert.notEqual(first.pass.split(".")[2], other.pass.split(".")[2]);
+  assert.doesNotMatch(first.pass, /account-a/);
 });
 
 test("paid accounts always get a pass; free accounts get two visits", async () => {
@@ -156,6 +177,35 @@ test("map access refuses bad requests", async () => {
   const get = await accessHandler(false)(new Request("https://x/", { method: "GET" }));
   assert.equal(get.status, 405);
   assert.equal(parsePierCastMapPassResponse({ pass: "nope" }), null);
+
+  const limited = createMapAccessHandler({
+    account: async () => ({ userId: "u1", free: false }),
+    claimVisit: async () => 0,
+    claimPassIssue: async () => {
+      throw new MapAccessError("rate_limited", "Wait.", 429);
+    },
+    secret: () => SECRET,
+  });
+  assert.equal((await ask(limited)).status, 429);
+});
+
+test("map access limits are serialized, service-only, and expire old visit IDs", () => {
+  assert.match(accessLimitMigration, /pg_advisory_xact_lock/);
+  assert.match(accessLimitMigration, /current_count >= p_allowed/);
+  assert.match(accessLimitMigration, /interval '6 hours'/);
+  assert.match(accessLimitMigration, /map_visit_expired/);
+  assert.match(
+    accessLimitMigration,
+    /revoke all on function public\.claim_pier_cast_map_pass_issue[\s\S]+from public, anon, authenticated/,
+  );
+  assert.match(
+    accessLimitMigration,
+    /grant execute on function public\.claim_pier_cast_map_pass_issue[\s\S]+to service_role/,
+  );
+  assert.doesNotMatch(
+    accessLimitMigration,
+    /grant execute[^;]+to (?:anon|authenticated)/i,
+  );
 });
 
 test("the map screen is gated and shows the paywall", () => {
@@ -167,4 +217,27 @@ test("the map screen is gated and shows the paywall", () => {
   assert.match(page, /window\.PC_RENEW =/);
   assert.match(page, /FREE VISIT/);
   assert.match(page, /history\.replaceState/);
+});
+
+test("commercial weather stays behind authenticated paid server adapters", () => {
+  assert.match(pierCastWeather, /getEnvironment\(/);
+  assert.doesNotMatch(pierCastWeather, /\bfetch\s*\(/);
+  assert.doesNotMatch(locationSearch, /\bfetch\s*\(/);
+  assert.doesNotMatch(locationSearch, /searchRemoteUsCities/);
+  assert.match(openMeteoAdapter, /options\.requirePaid/);
+  assert.match(getEnvironmentFunction, /requirePaid: true/);
+  assert.match(riverRunFunction, /requirePaid: true/);
+  assert.match(getEnvironmentFunction, /weather_fallback:nws/);
+  for (const field of [
+    "hourly_air_temp_f",
+    "hourly_cloud_cover_pct",
+    "hourly_wind_speed",
+    "hourly_wind_direction_deg",
+  ]) {
+    assert.match(
+      getEnvironmentFunction,
+      new RegExp(`nwsFallback\\?\\.${field}`),
+      field,
+    );
+  }
 });

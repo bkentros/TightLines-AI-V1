@@ -136,6 +136,8 @@ interface EnvironmentData {
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   /** Hourly wind — same unit as weather.wind_speed (mph or km/h) */
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  /** Hourly wind direction in degrees, aligned with hourly_wind_speed */
+  hourly_wind_direction_deg?: Array<{ time_utc: string; value: number }>;
   hourly_weather_code?: Array<{ time_utc: string; value: number }>;
   hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
   hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
@@ -426,7 +428,7 @@ function parseNwsQuantitativeValue(raw: unknown): number | null {
   return numValue((raw as { value?: unknown }).value);
 }
 
-function windDirectionDegrees(raw: unknown): number {
+function windDirectionDegrees(raw: unknown): number | null {
   if (typeof raw === "number" && Number.isFinite(raw)) return raw;
   const key = String(raw ?? "").trim().toUpperCase();
   const lookup: Record<string, number> = {
@@ -447,7 +449,7 @@ function windDirectionDegrees(raw: unknown): number {
     NW: 315,
     NNW: 337.5,
   };
-  return lookup[key] ?? 0;
+  return lookup[key] ?? null;
 }
 
 function parseNwsWindMph(raw: unknown): number {
@@ -507,7 +509,16 @@ async function fetchNwsWeatherFallback(
 ): Promise<
   {
     weather: WeatherData;
+    timezone: string | null;
+    tz_offset_hours: number | null;
+    hourly_air_temp_f: Array<{ time_utc: string; value: number }>;
+    hourly_cloud_cover_pct: Array<{ time_utc: string; value: number }>;
     hourly_wind_speed: Array<{ time_utc: string; value: number }>;
+    hourly_wind_direction_deg: Array<{ time_utc: string; value: number }>;
+    hourly_precip_probability_pct: Array<{
+      time_utc: string;
+      value: number;
+    }>;
   } | null
 > {
   try {
@@ -515,6 +526,9 @@ async function fetchNwsWeatherFallback(
       `https://api.weather.gov/points/${lat},${lon}`,
     );
     const props = point?.properties as Record<string, unknown> | undefined;
+    const pointTimezone = typeof props?.timeZone === "string"
+      ? props.timeZone
+      : null;
     const hourlyUrl = typeof props?.forecastHourly === "string"
       ? props.forecastHourly
       : null;
@@ -578,23 +592,71 @@ async function fetchNwsWeatherFallback(
     const periodHumidity = firstPeriod
       ? parseNwsQuantitativeValue(firstPeriod.relativeHumidity)
       : null;
-    const periodPrecip = firstPeriod
-      ? parseNwsQuantitativeValue(firstPeriod.probabilityOfPrecipitation)
-      : null;
-
     const temperature = obsTempC != null ? cToF(obsTempC) : periodTempF;
     if (temperature == null) return null;
 
-    const hourlyWind = periods.slice(0, 24).flatMap((period) => {
+    const normalizeStartTime = (period: Record<string, unknown>) => {
       const startTime = typeof period.startTime === "string"
         ? period.startTime
         : null;
-      if (!startTime) return [];
+      if (!startTime) return null;
+      const parsed = new Date(startTime);
+      return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString();
+    };
+    const hourlyAir = periods.flatMap((period) => {
+      const time_utc = normalizeStartTime(period);
+      const temperature = numValue(period.temperature);
+      if (!time_utc || temperature == null) return [];
       return [{
-        time_utc: new Date(startTime).toISOString(),
+        time_utc,
+        value: maybeFahrenheit(
+          temperature,
+          period.temperatureUnit,
+          units,
+        ),
+      }];
+    });
+    const hourlyCloud = periods.flatMap((period) => {
+      const time_utc = normalizeStartTime(period);
+      if (!time_utc) return [];
+      return [{
+        time_utc,
+        value: cloudCoverEstimate(period.shortForecast),
+      }];
+    });
+    const hourlyWind = periods.flatMap((period) => {
+      const time_utc = normalizeStartTime(period);
+      if (!time_utc) return [];
+      return [{
+        time_utc,
         value: parseNwsWindMph(period.windSpeed),
       }];
     });
+    const hourlyWindDirection = periods.flatMap((period) => {
+      const time_utc = normalizeStartTime(period);
+      const value = windDirectionDegrees(period.windDirection);
+      if (!time_utc || value == null) return [];
+      return [{
+        time_utc,
+        value,
+      }];
+    });
+    const hourlyPrecipProbability = periods.flatMap((period) => {
+      const time_utc = normalizeStartTime(period);
+      const probability = parseNwsQuantitativeValue(
+        period.probabilityOfPrecipitation,
+      );
+      if (!time_utc || probability == null) return [];
+      return [{ time_utc, value: probability }];
+    });
+    const firstStartTime = typeof firstPeriod?.startTime === "string"
+      ? firstPeriod.startTime
+      : "";
+    const offsetMatch = /([+-])(\d{2}):(\d{2})$/.exec(firstStartTime);
+    const offsetHours = offsetMatch
+      ? (offsetMatch[1] === "-" ? -1 : 1) *
+        (Number(offsetMatch[2]) + Number(offsetMatch[3]) / 60)
+      : null;
 
     const weather: WeatherData = {
       temperature: Math.round(temperature * 10) / 10,
@@ -609,14 +671,25 @@ async function fetchNwsWeatherFallback(
           : parseNwsWindMph(firstPeriod?.windSpeed)) || 0) * 10,
       ) / 10,
       wind_direction: obsWindDirection ??
-        windDirectionDegrees(firstPeriod?.windDirection),
-      precipitation: Math.round((obsPrecipMm ?? periodPrecip ?? 0) * 10) / 10,
+        windDirectionDegrees(firstPeriod?.windDirection) ?? 0,
+      // probabilityOfPrecipitation is not a measured amount. Never substitute
+      // a percentage here (for example, 70% must not become 70 mm).
+      precipitation: Math.round((obsPrecipMm ?? 0) * 10) / 10,
       gust_speed: null,
       temp_unit: "°F",
       wind_speed_unit: "mph",
     };
 
-    return { weather, hourly_wind_speed: hourlyWind };
+    return {
+      weather,
+      timezone: pointTimezone,
+      tz_offset_hours: offsetHours,
+      hourly_air_temp_f: hourlyAir,
+      hourly_cloud_cover_pct: hourlyCloud,
+      hourly_wind_speed: hourlyWind,
+      hourly_wind_direction_deg: hourlyWindDirection,
+      hourly_precip_probability_pct: hourlyPrecipProbability,
+    };
   } catch {
     return null;
   }
@@ -1144,8 +1217,15 @@ async function fetchElevation(
   lon: number,
 ): Promise<number | null> {
   try {
+    const apiKey = Deno.env.get("OPEN_METEO_API_KEY")?.trim();
+    if (!apiKey) return null;
+    const params = new URLSearchParams({
+      latitude: String(lat),
+      longitude: String(lon),
+      apikey: apiKey,
+    });
     const url =
-      `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
+      `https://customer-api.open-meteo.com/v1/elevation?${params.toString()}`;
     const res = await fetch(url);
     if (!res.ok) return null;
     const data = await res.json();
@@ -1347,9 +1427,18 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  const meteo = await fetchOpenMeteo14Day(lat, lon, units);
-  const tzHours = meteo?.tz_offset_hours ?? getTzOffsetHours(lon);
-  const timezone = meteo?.timezone ?? "UTC";
+  const meteo = await fetchOpenMeteo14Day(lat, lon, units, {
+    requirePaid: true,
+  }).catch(() => null);
+  // NWS is the no-cost U.S. continuity path when the paid provider is down or
+  // misconfigured. Fetch it before timezone-sensitive sources so a provider
+  // outage cannot silently relabel local forecast hours as UTC.
+  const nwsFallback = meteo?.weather
+    ? null
+    : await fetchNwsWeatherFallback(lat, lon, units);
+  const tzHours = meteo?.tz_offset_hours ?? nwsFallback?.tz_offset_hours ??
+    getTzOffsetHours(lon);
+  const timezone = meteo?.timezone ?? nwsFallback?.timezone ?? "UTC";
   const fetchedAt = new Date().toISOString();
   const localDate = localDateFromUtcIso(fetchedAt, tzHours);
   const snapshotKey = buildEnvironmentSnapshotKey(lat, lon, units, localDate);
@@ -1379,13 +1468,6 @@ Deno.serve(async (req: Request) => {
   const usno = usnoResult.status === "fulfilled" ? usnoResult.value : null;
   const altitude_ft = elevationResult.status === "fulfilled"
     ? elevationResult.value
-    : null;
-  const cachedHasWeather = Boolean(
-    (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather_available &&
-      (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather,
-  );
-  const nwsFallback = !meteo?.weather && !cachedHasWeather
-    ? await fetchNwsWeatherFallback(lat, lon, units)
     : null;
   const sourceNotes = [
     ...(nwsFallback?.weather ? ["weather_fallback:nws"] : []),
@@ -1437,12 +1519,17 @@ Deno.serve(async (req: Request) => {
     timezone,
     tz_offset_hours: tzHours,
     hourly_pressure_mb: meteo?.hourly_pressure_mb ?? [],
-    hourly_air_temp_f: meteo?.hourly_air_temp_f ?? [],
-    hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ?? [],
+    hourly_air_temp_f: meteo?.hourly_air_temp_f ??
+      nwsFallback?.hourly_air_temp_f ?? [],
+    hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ??
+      nwsFallback?.hourly_cloud_cover_pct ?? [],
     hourly_wind_speed: meteo?.hourly_wind_speed ??
       nwsFallback?.hourly_wind_speed ?? [],
+    hourly_wind_direction_deg: meteo?.hourly_wind_direction_deg ??
+      nwsFallback?.hourly_wind_direction_deg ?? [],
     hourly_weather_code: meteo?.hourly_weather_code ?? [],
-    hourly_precip_probability_pct: meteo?.hourly_precip_probability_pct ?? [],
+    hourly_precip_probability_pct: meteo?.hourly_precip_probability_pct ??
+      nwsFallback?.hourly_precip_probability_pct ?? [],
     hourly_precipitation_in: meteo?.hourly_precipitation_in ?? [],
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,

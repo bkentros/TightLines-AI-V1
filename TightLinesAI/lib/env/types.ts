@@ -52,6 +52,8 @@ export interface EnvironmentData {
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   /** Hourly wind — same unit as weather.wind_speed (mph or km/h) */
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  /** Hourly wind direction in degrees, aligned with hourly_wind_speed */
+  hourly_wind_direction_deg?: Array<{ time_utc: string; value: number }>;
   /** 30-day tide range history for deterministic engine input */
   tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
   /** Measured coastal water temperature in °F when available */

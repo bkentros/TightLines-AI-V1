@@ -52,6 +52,7 @@ import { AnglerUnlockedModal } from '../components/paper/AnglerUnlockedModal';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { AnalyticsProvider } from '../components/AnalyticsProvider';
 import { AppErrorBoundary } from '../components/AppErrorBoundary';
+import { AppUpdatePrompt } from '../components/AppUpdatePrompt';
 import { paper, paperFonts } from '../lib/theme';
 
 if (__DEV__) {
@@ -497,6 +498,7 @@ export default function RootLayout() {
     <AppErrorBoundary>
       <AnalyticsProvider>
         <StatusBar style="dark" />
+        <AppUpdatePrompt />
         <AnglerUnlockedModal />
         <Stack
           screenOptions={{

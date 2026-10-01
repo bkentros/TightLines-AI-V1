@@ -18,6 +18,14 @@ function openMeteoForecastUrl(): string {
     : FREE_OPEN_METEO_FORECAST_URL;
 }
 
+function isFreeOpenMeteoUrl(value: string): boolean {
+  try {
+    return new URL(value).hostname === "api.open-meteo.com";
+  } catch {
+    return true;
+  }
+}
+
 async function fetchWithTimeout(
   url: string,
   init: RequestInit,
@@ -178,6 +186,8 @@ export interface OpenMeteo14DayResult {
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   /** Same unit as weather.wind_speed (mph or km/h per request) */
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  /** Wind direction in degrees, aligned with hourly_wind_speed */
+  hourly_wind_direction_deg?: Array<{ time_utc: string; value: number }>;
   hourly_weather_code?: Array<{ time_utc: string; value: number }>;
   hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
   hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
@@ -190,6 +200,7 @@ export async function fetchOpenMeteo14Day(
   lat: number,
   lon: number,
   units: "imperial" | "metric",
+  options: { requirePaid?: boolean } = {},
 ): Promise<OpenMeteo14DayResult | null> {
   const tempUnit = units === "imperial" ? "fahrenheit" : "celsius";
   const windUnit = units === "imperial" ? "mph" : "kmh";
@@ -212,9 +223,13 @@ export async function fetchOpenMeteo14Day(
   });
 
   const apiKey = Deno.env.get("OPEN_METEO_API_KEY")?.trim();
+  const forecastUrl = openMeteoForecastUrl();
+  if (options.requirePaid && (!apiKey || isFreeOpenMeteoUrl(forecastUrl))) {
+    return null;
+  }
   if (apiKey) params.set("apikey", apiKey);
 
-  const url = `${openMeteoForecastUrl()}?${params.toString()}`;
+  const url = `${forecastUrl}?${params.toString()}`;
   const res = await fetchWithTimeout(
     url,
     {
@@ -286,6 +301,15 @@ export async function fetchOpenMeteo14Day(
     : [];
   const windHourly: number[] = Array.isArray(hourly.wind_speed_10m)
     ? (hourly.wind_speed_10m as (number | null)[]).map((v) => Number(v) || 0)
+    : [];
+  const windDirectionHourly: Array<number | null> = Array.isArray(
+      hourly.wind_direction_10m,
+    )
+    ? (hourly.wind_direction_10m as (number | null)[]).map((v) =>
+      typeof v === "number" && Number.isFinite(v)
+        ? Math.max(0, Math.min(360, v))
+        : null
+    )
     : [];
   const weatherCodeHourly: number[] = Array.isArray(hourly.weather_code)
     ? (hourly.weather_code as (number | null)[]).map((v) =>
@@ -401,6 +425,7 @@ export async function fetchOpenMeteo14Day(
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
   const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
   const hourlyWindSpeed: Array<{ time_utc: string; value: number }> = [];
+  const hourlyWindDirectionDeg: Array<{ time_utc: string; value: number }> = [];
   const hourlyWeatherCode: Array<{ time_utc: string; value: number }> = [];
   const hourlyPrecipProbabilityPct: Array<{ time_utc: string; value: number }> =
     [];
@@ -423,6 +448,12 @@ export async function fetchOpenMeteo14Day(
       }
       if (windHourly.length > i) {
         hourlyWindSpeed.push({ time_utc: utcIso, value: windHourly[i] });
+      }
+      if (windDirectionHourly[i] != null) {
+        hourlyWindDirectionDeg.push({
+          time_utc: utcIso,
+          value: windDirectionHourly[i]!,
+        });
       }
       if (weatherCodeHourly.length > i) {
         hourlyWeatherCode.push({
@@ -488,6 +519,7 @@ export async function fetchOpenMeteo14Day(
     hourly_air_temp_f: hourlyAirTempF,
     hourly_cloud_cover_pct: hourlyCloudCoverPct,
     hourly_wind_speed: hourlyWindSpeed,
+    hourly_wind_direction_deg: hourlyWindDirectionDeg,
     hourly_weather_code: hourlyWeatherCode,
     hourly_precip_probability_pct: hourlyPrecipProbabilityPct,
     hourly_precipitation_in: hourlyPrecipitationIn,

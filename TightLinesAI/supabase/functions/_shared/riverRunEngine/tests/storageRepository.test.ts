@@ -13,6 +13,7 @@ import {
   getPublishedConfiguration,
   getPushConditionsForDate,
   getRecentDailyPushConditions,
+  getRecentLiveConditions,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
@@ -292,6 +293,42 @@ Deno.test("river live conditions cache is species-independent and keyed by refre
     ).map((filter) => filter.column),
     ["river_id", "local_date", "refresh_slot", "data_version"],
   );
+});
+
+Deno.test("recent river live conditions read newest rows by river and data version", async () => {
+  const client = new MockSupabaseClient();
+  const conditions: RiverLiveConditions = {
+    riverId: "pere_marquette",
+    status: "available",
+    refreshedAt: "2026-09-20T20:10:00Z",
+    localDate: "2026-09-20",
+    refreshSlot: "16:00",
+    metrics: [],
+    limitation: "Scottville reach only.",
+    dataVersion: "test-live-v1",
+  };
+  client.listResponse = {
+    data: [{ conditions }],
+    error: null,
+  };
+
+  const result = await getRecentLiveConditions(client, {
+    riverId: conditions.riverId,
+    dataVersion: conditions.dataVersion,
+  });
+
+  assertEquals(result.data, [conditions]);
+  assertEquals(
+    client.filters.filter((filter) =>
+      filter.table === "river_run_live_conditions"
+    ).map((filter) => filter.column),
+    ["river_id", "data_version"],
+  );
+  assertEquals(client.orders.at(-1), {
+    table: "river_run_live_conditions",
+    column: "refreshed_at",
+    options: { ascending: false },
+  });
 });
 
 Deno.test("Timing observations are stored independently of engine and copy versions", async () => {

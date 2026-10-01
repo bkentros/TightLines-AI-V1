@@ -17,6 +17,7 @@ export type EnvironmentSnapshotLike = {
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  hourly_wind_direction_deg?: Array<{ time_utc: string; value: number }>;
   hourly_weather_code?: Array<{ time_utc: string; value: number }>;
   hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
   hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
@@ -39,6 +40,7 @@ const HOURLY_WEATHER_SERIES_KEYS = [
   "hourly_air_temp_f",
   "hourly_cloud_cover_pct",
   "hourly_wind_speed",
+  "hourly_wind_direction_deg",
   "hourly_weather_code",
   "hourly_precip_probability_pct",
   "hourly_precipitation_in",
