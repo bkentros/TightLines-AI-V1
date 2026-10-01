@@ -219,6 +219,25 @@ test("the map screen is gated and shows the paywall", () => {
   assert.match(page, /history\.replaceState/);
 });
 
+test("post-paywall membership fallback is concise, centered, and reopens upgrade", () => {
+  assert.match(screen, /Upgrade to Angler Membership to view the Live Lake Map\./);
+  assert.match(screen, />Upgrade<\/Text>/);
+  assert.doesNotMatch(screen, /Your two free visits have been used/);
+  assert.match(screen, /contentContainerStyle=\{styles\.center\}/);
+  assert.match(screen, /flexGrow: 1/);
+  assert.match(screen, /maxWidth: 560/);
+  assert.match(screen, /setPaywall\(true\)/);
+  assert.match(screen, /onDismiss=\{\(\) => setPaywall\(false\)\}/);
+});
+
+test("visible and Android system back pop the map route instead of WebView history", () => {
+  assert.match(screen, /BackHandler\.addEventListener\([\s\S]+"hardwareBackPress"/);
+  assert.match(screen, /if \(router\.canGoBack\(\)\) router\.back\(\)/);
+  assert.match(screen, /onPress=\{leave\}/);
+  assert.doesNotMatch(screen, /goBack\(\)/);
+  assert.doesNotMatch(screen, /canGoBack["']\s*:/);
+});
+
 test("commercial weather stays behind authenticated paid server adapters", () => {
   assert.match(pierCastWeather, /getEnvironment\(/);
   assert.doesNotMatch(pierCastWeather, /\bfetch\s*\(/);

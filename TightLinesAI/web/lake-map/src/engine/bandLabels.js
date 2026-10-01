@@ -10,7 +10,7 @@
  * playback moves labels only when the band itself moves.
  */
 import { bandSpec } from './scales.js';
-import { gridBox } from './frames.js';
+import { gridBox, interpolateValidValues } from './frames.js';
 
 const RES = 0.04;
 const INF = 1e9;
@@ -53,14 +53,20 @@ export class BandLabeler {
         const k = j * W + i;
         if (!this.water[k]) { out[k] = NaN; continue; }
         const x = ox + (i * RES) / g.res, ix = Math.floor(x), wxv = bspline(x - ix);
-        let a = 0, b = 0, bad = false;
-        for (let m = 0; m < 4 && !bad; m++) for (let n = 0; n < 4; n++) {
+        let a = 0, b = 0, weight = 0;
+        for (let m = 0; m < 4; m++) for (let n = 0; n < 4; n++) {
           const wt = wxv[n] * wyv[m];
           const r = tap(ix - 1 + n, jy - 1 + m, 0);
-          if (!wind && r === nod) { bad = true; break; }
-          a += r * wt; if (wind) b += tap(ix - 1 + n, jy - 1 + m, 1) * wt;
+          if (!wind && r === nod) continue;
+          a += r * wt;
+          if (wind) b += tap(ix - 1 + n, jy - 1 + m, 1) * wt;
+          weight += wt;
         }
-        out[k] = bad ? NaN : wind ? Math.hypot((a - g.offset) / g.scale, (b - g.offset) / g.scale) : a / g.scale + g.offset;
+        out[k] = weight <= 1e-6
+          ? NaN
+          : wind
+            ? Math.hypot((a / weight - g.offset) / g.scale, (b / weight - g.offset) / g.scale)
+            : (a / weight) / g.scale + g.offset;
       }
     }
     if (this.frameCache.size > 24) this.frameCache.delete(this.frameCache.keys().next().value);
@@ -83,7 +89,7 @@ export class BandLabeler {
     const W = this.w, H = this.h, N = W * H;
     const cls = new Int32Array(N);
     for (let k = 0; k < N; k++) {
-      const v = A[k] + (B[k] - A[k]) * m;
+      const v = interpolateValidValues(A[k], B[k], m);
       cls[k] = Number.isFinite(v) ? Math.floor((v * bs.a + bs.b) / bs.width) : -99999;
     }
     // distance (in north-south cells) to the nearest cell of another band or land

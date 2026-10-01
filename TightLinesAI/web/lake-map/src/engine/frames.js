@@ -15,6 +15,32 @@ export function compactFramePixels(path, rgba) {
   return { data, channels: 1 };
 }
 
+/**
+ * Packs a scalar frame for filtered GPU sampling. The value is premultiplied
+ * by validity (invalid texels store zero, never the no-data sentinel) and the
+ * second channel is an explicit 0/255 validity mask. Linear texture filtering
+ * can therefore be composed into bicubic filtering and normalized afterward
+ * without allowing a no-data byte to influence the result.
+ */
+export function packScalarTexturePixels(data, nodata, channels = 1) {
+  const packed = new Uint8Array(Math.floor(data.length / channels) * 2);
+  for (let src = 0, dst = 0; src < data.length; src += channels, dst += 2) {
+    const valid = nodata === undefined || data[src] !== nodata;
+    packed[dst] = valid ? data[src] : 0;
+    packed[dst + 1] = valid ? 255 : 0;
+  }
+  return packed;
+}
+
+/** Interpolates two samples without ever treating a missing value as data. */
+export function interpolateValidValues(a, b, mix) {
+  const av = Number.isFinite(a), bv = Number.isFinite(b);
+  if (av && bv) return a + (b - a) * mix;
+  if (av) return a;
+  if (bv) return b;
+  return NaN;
+}
+
 function sameOriginPath(input, base = location.href) {
   const page = new URL(base);
   const target = new URL(input, page);
@@ -135,5 +161,45 @@ export function gridSampler(grid, domain) {
       return ws > 0.05 ? s / ws : NaN;
     }
     return a * (1 - fx) * (1 - fy) + b * fx * (1 - fy) + c * (1 - fx) * fy + e * fx * fy;
+  };
+}
+
+function cubicWeights(f) {
+  const n1 = 1 - f;
+  const w0 = n1 * n1 * n1 / 6;
+  const w1 = (4 - 6 * f * f + 3 * f * f * f) / 6;
+  const w3 = f * f * f / 6;
+  return [w0, w1, 1 - w0 - w1 - w3, w3];
+}
+
+/**
+ * CPU equivalent of the field shader's B-spline sampling. Invalid neighbors
+ * are excluded and the remaining positive weights are normalized, keeping
+ * readouts and labels aligned with the rendered scalar field.
+ */
+export function gridCubicSampler(grid, domain) {
+  const box = gridBox(grid, domain);
+  return (frame, lon, lat, channel = 0) => {
+    if (!frame) return NaN;
+    const x = (lon - box.west) / grid.res;
+    const y = (box.north - lat) / grid.res;
+    if (x < 0 || y < 0 || x > frame.w - 1 || y > frame.h - 1) return NaN;
+    const ix = Math.floor(x), iy = Math.floor(y);
+    const wx = cubicWeights(x - ix), wy = cubicWeights(y - iy);
+    const pixels = frame.data || frame.rgba;
+    const channels = frame.channels || 4;
+    let sum = 0, weight = 0;
+    for (let j = 0; j < 4; j++) {
+      const yy = Math.min(frame.h - 1, Math.max(0, iy - 1 + j));
+      for (let i = 0; i < 4; i++) {
+        const xx = Math.min(frame.w - 1, Math.max(0, ix - 1 + i));
+        const value = pixels[(yy * frame.w + xx) * channels + channel];
+        if (grid.nodata !== undefined && value === grid.nodata) continue;
+        const w = wx[i] * wy[j];
+        sum += value * w;
+        weight += w;
+      }
+    }
+    return weight > 1e-6 ? sum / weight : NaN;
   };
 }

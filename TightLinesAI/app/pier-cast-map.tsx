@@ -22,9 +22,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   AppState,
+  BackHandler,
   Image,
   Platform,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -90,6 +92,10 @@ export default function PierCastMapScreen() {
   );
   const routeSpecies = parsePierCastTargetSpecies(firstParam(params.speciesId));
   const routeCity = firstParam(params.cityId);
+  const leave = useCallback(() => {
+    if (router.canGoBack()) router.back();
+    else router.replace("/pier-cast-review");
+  }, [router]);
 
   // decided once per visit: the page reads it before it starts
   const injection = useMemo(() => {
@@ -175,11 +181,20 @@ export default function PierCastMapScreen() {
     useCallback(() => {
       focused.current = true;
       setPaused(false);
+      const backSubscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        () => {
+          hapticSelection();
+          leave();
+          return true;
+        },
+      );
       return () => {
+        backSubscription.remove();
         focused.current = false;
         setPaused(true);
       };
-    }, [setPaused]),
+    }, [leave, setPaused]),
   );
 
   useEffect(() => {
@@ -212,11 +227,6 @@ export default function PierCastMapScreen() {
       setState("error");
     });
   }, [access, authorize]);
-
-  const leave = useCallback(() => {
-    if (router.canGoBack()) router.back();
-    else router.replace("/pier-cast-review");
-  }, [router]);
 
   const onMessage = useCallback((event: WebViewMessageEvent) => {
     const message = parsePierCastLiveMapMessage(event.nativeEvent.data);
@@ -334,52 +344,60 @@ export default function PierCastMapScreen() {
           >
             <Ionicons name="chevron-back" size={22} color="#FFFFFF" />
           </Pressable>
-          {state === "locked"
-            ? (
-              <View style={styles.center}>
-                <Ionicons name="lock-closed-outline" size={28} color={paper.gold} />
-                <Text style={styles.eyebrow}>PIERCAST · GREAT LAKES</Text>
-                <Text style={styles.title}>Live Lake Map is for members</Text>
-                <Text style={styles.copy}>
-                  Your two free visits have been used. Upgrade for unlimited water temperature, wind, waves and depth across all five lakes.
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={() => {
-                    hapticSelection();
-                    setPaywall(true);
-                  }}
-                  style={({ pressed }) => [styles.retry, pressed && styles.pressed]}
-                >
-                  <Text style={styles.retryText}>See plans</Text>
-                </Pressable>
-              </View>
-            )
-            : state === "loading" || state === "authorizing"
-            ? (
-              <View style={styles.center}>
-                <ActivityIndicator color={paper.gold} />
-                <Text style={styles.eyebrow}>PIERCAST · GREAT LAKES</Text>
-                <Text style={styles.title}>Charting the lakes</Text>
-                <Text style={styles.copy}>Loading NOAA water temperature, wind and waves…</Text>
-              </View>
-            )
-            : (
-              <View style={styles.center}>
-                <Ionicons name="cloud-offline-outline" size={30} color="rgba(255,255,255,0.8)" />
-                <Text style={styles.title}>The lake map didn't load</Text>
-                <Text style={styles.copy}>
-                  Check your connection and try again.{errorDetail ? `\n${errorDetail}` : ""}
-                </Text>
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={retry}
-                  style={({ pressed }) => [styles.retry, pressed && styles.pressed]}
-                >
-                  <Text style={styles.retryText}>Try again</Text>
-                </Pressable>
-              </View>
-            )}
+          <ScrollView
+            style={styles.centerScroll}
+            contentContainerStyle={styles.center}
+            alwaysBounceVertical={false}
+            bounces={false}
+            showsVerticalScrollIndicator={false}
+          >
+            {state === "locked"
+              ? (
+                <>
+                  <Ionicons name="lock-closed-outline" size={28} color={paper.gold} />
+                  <Text style={styles.eyebrow}>PIERCAST · GREAT LAKES</Text>
+                  <Text style={styles.title} accessibilityRole="header">
+                    Upgrade to Angler Membership to view the Live Lake Map.
+                  </Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel="Upgrade to Angler Membership"
+                    onPress={() => {
+                      hapticSelection();
+                      setPaywall(true);
+                    }}
+                    style={({ pressed }) => [styles.retry, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.retryText}>Upgrade</Text>
+                  </Pressable>
+                </>
+              )
+              : state === "loading" || state === "authorizing"
+              ? (
+                <>
+                  <ActivityIndicator color={paper.gold} />
+                  <Text style={styles.eyebrow}>PIERCAST · GREAT LAKES</Text>
+                  <Text style={styles.title}>Charting the lakes</Text>
+                  <Text style={styles.copy}>Loading NOAA water temperature, wind and waves…</Text>
+                </>
+              )
+              : (
+                <>
+                  <Ionicons name="cloud-offline-outline" size={30} color="rgba(255,255,255,0.8)" />
+                  <Text style={styles.title}>The lake map didn't load</Text>
+                  <Text style={styles.copy}>
+                    Check your connection and try again.{errorDetail ? `\n${errorDetail}` : ""}
+                  </Text>
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={retry}
+                    style={({ pressed }) => [styles.retry, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.retryText}>Try again</Text>
+                  </Pressable>
+                </>
+              )}
+          </ScrollView>
         </View>
       )}
       <SubscribePrompt
@@ -414,8 +432,19 @@ export default function PierCastMapScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: NAVY },
   web: { flex: 1, backgroundColor: NAVY },
-  cover: { ...StyleSheet.absoluteFillObject, backgroundColor: NAVY, justifyContent: "center" },
-  center: { alignItems: "center", paddingHorizontal: 32, gap: 8 },
+  cover: { ...StyleSheet.absoluteFillObject, backgroundColor: NAVY },
+  centerScroll: { flex: 1, width: "100%" },
+  center: {
+    flexGrow: 1,
+    width: "100%",
+    maxWidth: 560,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 32,
+    paddingVertical: 72,
+    gap: 8,
+  },
   back: {
     position: "absolute",
     left: 12,

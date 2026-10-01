@@ -1,8 +1,16 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { detectEvents, SURGE_RULE } from '../src/engine/signals.js';
 import { toTemp, toWind, toLength, fmtWaves, fmtWind, tempBand, compass, paletteBytes, PALETTES } from '../src/engine/scales.js';
-import { compactFramePixels, FrameStore, gridSampler } from '../src/engine/frames.js';
+import {
+  compactFramePixels,
+  FrameStore,
+  gridCubicSampler,
+  gridSampler,
+  interpolateValidValues,
+  packScalarTexturePixels,
+} from '../src/engine/frames.js';
 
 const series = (fn) => Array.from({ length: 121 }, (_, h) => fn(h));
 const ramp = (a, b, h0, h1) => (h) => h <= h0 ? a : h >= h1 ? b : a + (b - a) * (h - h0) / (h1 - h0);
@@ -68,6 +76,51 @@ test('scalar forecast frames retain one byte per pixel while wind retains RGBA',
   assert.equal(wind.data, rgba);
 });
 
+test('valid-to-valid temporal interpolation remains smooth', () => {
+  assert.equal(interpolateValidValues(40, 60, 0), 40);
+  assert.equal(interpolateValidValues(40, 60, 0.25), 45);
+  assert.equal(interpolateValidValues(40, 60, 0.5), 50);
+  assert.equal(interpolateValidValues(40, 60, 1), 60);
+});
+
+test('valid-to-no-data transitions use the valid frame and both-invalid stays absent', () => {
+  assert.equal(interpolateValidValues(66, NaN, 0.75), 66);
+  assert.equal(interpolateValidValues(NaN, 68, 0.25), 68);
+  assert.ok(Number.isNaN(interpolateValidValues(NaN, NaN, 0.5)));
+});
+
+test('scalar GPU packing prevents no-data bytes from entering filtered values', () => {
+  assert.deepEqual(
+    [...packScalarTexturePixels(new Uint8Array([10, 255, 20]), 255)],
+    [10, 255, 0, 0, 20, 255],
+  );
+  assert.deepEqual(
+    [...packScalarTexturePixels(new Uint8Array([10, 1, 2, 255, 255, 3, 4, 255]), 255, 4)],
+    [10, 255, 0, 0],
+  );
+});
+
+test('no-data adjacent to valid water cannot contaminate bicubic sampling', () => {
+  const grid = { res: 1, nodata: 255 };
+  const domain = { west: 0, north: 3 };
+  const data = new Uint8Array(16).fill(20);
+  data[0] = 255; data[3] = 255; data[12] = 255;
+  const sample = gridCubicSampler(grid, domain);
+  const frame = { w: 4, h: 4, channels: 1, data };
+  assert.ok(Math.abs(sample(frame, 1.2, 1.8) - 20) < 1e-6);
+  assert.ok(Number.isNaN(sample({ ...frame, data: new Uint8Array(16).fill(255) }, 1.2, 1.8)));
+});
+
+test('field shader validates both frames and releases its bounded texture cache', () => {
+  const source = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
+  assert.match(source, /packScalarTexturePixels/);
+  assert.match(source, /internal: isWind \? gl\.RGBA8 : gl\.RG8/);
+  assert.match(source, /bool av = a\.y[^;]+bv = b\.y/);
+  assert.match(source, /if \(!av && !bv\) discard/);
+  assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : b\.x/);
+  assert.match(source, /onRemove[\s\S]+deleteTexture[\s\S]+textures\.clear/);
+});
+
 test('five-day playback keeps only a bounded decoded frame window', () => {
   const store = Object.create(FrameStore.prototype);
   store.hours = Array.from({ length: 121 }, (_, i) => i);
@@ -127,6 +180,17 @@ test('band labels follow the unit: 1°C bands', () => {
   const { store, frame } = fakeStore(() => 59); // 15°C
   const anchors = new BandLabeler(store, inLake).compute('temp', 0, { temp: 'C' }, [frame, frame]);
   assert.equal(anchors[0].text, '15–16°');
+});
+
+test('band labels use the same no-data-normalized values as the rendered field', () => {
+  const { store, frame } = fakeStore(() => 67);
+  const nodata = new Uint8ClampedArray(frame.rgba);
+  for (let i = 0; i < nodata.length; i += 16) nodata[i] = 255;
+  const mixedFrame = { ...frame, path: 'temp/mixed.png', rgba: nodata };
+  const labeler = new BandLabeler(store, inLake);
+  const anchors = labeler.compute('temp', 0, { temp: 'F' }, [mixedFrame, frame]);
+  assert.ok(anchors.length > 0);
+  assert.ok(anchors.every((anchor) => anchor.text === '66–68°'));
 });
 test('band specs for waves, wind and species', () => {
   assert.equal(bandSpec('waves', { length: 'ft' }).label(1, 2), '1–2 ft');

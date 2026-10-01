@@ -12,7 +12,7 @@
  * pier card, layers sheet) through the web-view bridge.
  */
 import maplibregl from 'maplibre-gl';
-import { FrameStore, gridSampler, gridBox } from './frames.js';
+import { FrameStore, gridCubicSampler, gridSampler, gridBox, interpolateValidValues } from './frames.js';
 import { FieldLayer } from './fieldLayer.js';
 import { ParticleLayer } from './particleLayer.js';
 import { PALETTES, colorAt, toTemp, fmtWind, fmtWaves, compass, tempBand, bandSpec, speciesFit, FIT_COLORS } from './scales.js';
@@ -116,10 +116,10 @@ export async function createLakeMap(container, options = {}) {
   Object.assign(markerLayer.style, { position: 'absolute', inset: '0', pointerEvents: 'none', overflow: 'hidden' });
   container.appendChild(markerLayer);
 
-  const sampleTemp = gridSampler(store.manifest.grids.temp, store.manifest.domain);
-  const sampleWaves = gridSampler(store.manifest.grids.waves, store.manifest.domain);
+  const sampleTemp = gridCubicSampler(store.manifest.grids.temp, store.manifest.domain);
+  const sampleWaves = gridCubicSampler(store.manifest.grids.waves, store.manifest.domain);
   const sampleDepth = gridSampler(store.manifest.grids.depth, store.manifest.domain);
-  const sampleWind = gridSampler(store.manifest.grids.wind, store.manifest.domain);
+  const sampleWind = gridCubicSampler(store.manifest.grids.wind, store.manifest.domain);
   const resolved = (p) => p && p.__v;
   const lastFrames = {};
   function framesFor(kind, t) {
@@ -134,7 +134,7 @@ export async function createLakeMap(container, options = {}) {
   function sampleAt(lon, lat, t = state.t) {
     const g = store.manifest.grids;
     const [ta, tb, m] = framesFor('temp', t), [wa, wb] = framesFor('wind', t), [va, vb] = framesFor('waves', t);
-    const lerp = (x, y) => (Number.isFinite(x) && Number.isFinite(y) ? x + (y - x) * m : x);
+    const lerp = (x, y) => interpolateValidValues(x, y, m);
     // right against a breakwall the model cell can be empty: use the closest cell that has water
     const near = (fn, res) => {
       let v = fn(lon, lat); if (Number.isFinite(v)) return v;
@@ -352,6 +352,16 @@ export async function createLakeMap(container, options = {}) {
     for (const a of list) {
       if (n >= 16) break;
       if (a.lon < bnd.getWest() - pad || a.lon > bnd.getEast() + pad || a.lat < bnd.getSouth() - pad || a.lat > bnd.getNorth() + pad) continue;
+      // Keep geographic anchors steady between whole-hour recomputations, but
+      // never show a label whose band disagrees with the continuously blended
+      // field currently on screen.
+      const spec = bandSpec(state.layer, state.units);
+      const sampled = sampleAt(a.lon, a.lat, state.t);
+      const nativeValue = kind === 'temp' ? sampled.temp : kind === 'waves' ? sampled.waves : sampled.wind;
+      const liveBand = Number.isFinite(nativeValue) && spec
+        ? Math.floor((nativeValue * spec.a + spec.b) / spec.width)
+        : null;
+      if (liveBand !== a.band) continue;
       const pxR = a.r * world / 360 / Math.cos(a.lat * Math.PI / 180);
       const tw = X.measureText(a.text).width;
       if (pxR < Math.max(11, tw * 0.5)) continue;
