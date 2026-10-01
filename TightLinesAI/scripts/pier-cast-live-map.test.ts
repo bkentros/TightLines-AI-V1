@@ -223,9 +223,12 @@ test("post-paywall membership fallback is concise, centered, and reopens upgrade
   assert.match(screen, /Upgrade to Angler Membership to view the Live Lake Map\./);
   assert.match(screen, />Upgrade<\/Text>/);
   assert.doesNotMatch(screen, /Your two free visits have been used/);
-  assert.match(screen, /contentContainerStyle=\{styles\.center\}/);
+  assert.match(screen, /contentContainerStyle=\{\[/);
   assert.match(screen, /flexGrow: 1/);
   assert.match(screen, /maxWidth: 560/);
+  assert.match(screen, /style=\{styles\.lockedBackdrop\}/);
+  assert.match(screen, /lockedBackdrop:\s*\{[\s\S]+top: 0,[\s\S]+right: 0,[\s\S]+bottom: 0,[\s\S]+left: 0/);
+  assert.doesNotMatch(screen, /style=\{StyleSheet\.absoluteFill\}/);
   assert.match(screen, /setPaywall\(true\)/);
   assert.match(screen, /onDismiss=\{\(\) => setPaywall\(false\)\}/);
 });
