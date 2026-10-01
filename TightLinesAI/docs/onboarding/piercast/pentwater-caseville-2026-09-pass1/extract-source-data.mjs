@@ -7,8 +7,30 @@ const localCreel = process.argv.find((x) => x.startsWith("--creel-local="))?.spl
 const localStocking = process.argv.find((x) => x.startsWith("--stocking-local="))?.split("=").slice(1).join("=");
 const ports = ["PENTWATER", "ROGERS CITY", "TAWAS", "TAWAS CITY", "EAST TAWAS", "TAWAS-EAST TAWAS", "TAWAS/EAST TAWAS", "TAWAS - EAST TAWAS", "CHARLEVOIX", "CASEVILLE", "CASEVILLE-PORT AUSTIN", "CASEVILLE/PORT AUSTIN", "CASEVILLE TO PORT AUSTIN"];
 const counties = new Set(["Oceana", "Presque Isle", "Iosco", "Charlevoix", "Huron"]);
-const creelOutput = path.join(dir, "michigan-creel-pier-dock-raw.csv");
-const stockingOutput = path.join(dir, "michigan-stocking-target-counties-raw.csv");
+const outputNames = new Set([
+  "michigan-creel-pier-dock-raw.csv",
+  "michigan-stocking-target-counties-raw.csv",
+]);
+const creelColumns = ["year", "port", "mode", "species", "month", "month_name", "estimate_type", "estimate", "source", "source_last_refreshed"];
+const stockingColumns = ["County_Name", "Water_Body_Name", "sitename", "Town", "Range", "Section", "Species", "Strain", "Marking_Group", "Stocking_Date", "Number_Fish_Stocked", "Average_Length_Inches", "Operation"];
+
+function safeOutputPath(outDir, name) {
+  const safeName = path.basename(name);
+  if (
+    safeName.startsWith(".") ||
+    !/^[A-Za-z0-9._-]{1,120}$/.test(safeName) ||
+    !outputNames.has(safeName)
+  ) throw new Error(`Unsafe output file name: ${JSON.stringify(safeName)}`);
+  const resolvedDir = path.resolve(outDir);
+  const target = path.resolve(resolvedDir, safeName);
+  if (!target.startsWith(`${resolvedDir}${path.sep}`)) {
+    throw new Error(`Output path escapes the extraction directory: ${safeName}`);
+  }
+  return target;
+}
+
+const creelOutput = safeOutputPath(dir, "michigan-creel-pier-dock-raw.csv");
+const stockingOutput = safeOutputPath(dir, "michigan-stocking-target-counties-raw.csv");
 
 function parseCsv(text) {
   const rows = []; let row = []; let field = ""; let quoted = false;
@@ -26,6 +48,23 @@ function parseCsv(text) {
 function cell(value) { const text = value == null ? "" : String(value); return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text; }
 function toCsv(rows) { return `${rows.map((r) => r.map(cell).join(",")).join("\n")}\n`; }
 
+function validateCsv(text, expectedColumns, label) {
+  if (typeof text !== "string" || text.includes("\0")) {
+    throw new Error(`${label}: source is not valid text`);
+  }
+  const rows = parseCsv(text.replace(/^\uFEFF/, ""));
+  if (rows.length < 2) throw new Error(`${label}: expected a header and data rows`);
+  const header = rows[0];
+  if (
+    header.length !== expectedColumns.length ||
+    header.some((column, index) => column !== expectedColumns[index])
+  ) throw new Error(`${label}: unexpected CSV header`);
+  if (rows.slice(1).some((row) => row.length !== expectedColumns.length)) {
+    throw new Error(`${label}: malformed CSV row`);
+  }
+  return text;
+}
+
 async function extractCreel() {
   if (localCreel) return fs.readFileSync(localCreel, "utf8");
   const REPORT_KEY = "9d96412b-b1db-4c26-9110-2306139a9b37";
@@ -41,7 +80,14 @@ async function extractCreel() {
     const command = { SemanticQueryDataShapeCommand: { Query: { Version: 2, From: [{ Name: "c", Entity: "Combined", Type: 0 }], Select: select, Where: [filter("PORT", [port]), filter("Mode", ["Pier/Dock"]), filter("Estimate Type", ["Angler Hours", "Catch", "Harvest"])] }, Binding: { Primary: { Groupings: [{ Projections: select.map((_, i) => i) }] }, DataReduction: { DataVolume: 6, Primary: { Window: { Count: 10000 } } }, Version: 1 }, ExecutionMetricsKind: 1 } };
     const response = await fetch(url, { method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json", "X-PowerBI-ResourceKey": REPORT_KEY, ActivityId: crypto.randomUUID(), RequestId: crypto.randomUUID(), Origin: "https://app.powerbigov.us" }, body: JSON.stringify({ version: "1.0.0", queries: [{ Query: { Commands: [command] }, ApplicationContext: { DatasetId: String(MODEL_ID) } }], cancelQueries: [], modelId: MODEL_ID }) });
     if (!response.ok) throw new Error(`Power BI query failed (${response.status}) for ${port}`);
-    const result = (await response.json()).results?.[0]?.result?.data;
+    const payload = await response.json();
+    if (!payload || typeof payload !== "object" || !Array.isArray(payload.results)) {
+      throw new Error(`Power BI returned an unexpected response for ${port}`);
+    }
+    const result = payload.results[0]?.result?.data;
+    if (!result || typeof result !== "object") {
+      throw new Error(`Power BI returned no result data for ${port}`);
+    }
     const error = result?.dsr?.DataShapes?.[0]?.["odata.error"];
     if (error) throw new Error(error.message?.value ?? error.code);
     const ds = result.dsr.DS[0]; const compact = ds.PH?.[0]?.DM0 ?? [];
@@ -56,19 +102,29 @@ async function extractCreel() {
 }
 
 async function extractStocking() {
-  const text = localStocking ? fs.readFileSync(localStocking, "utf8") : await (await fetch("https://www2.dnr.state.mi.us/publications/pdfs/Fishing/FishStocking/FishStockingData.csv")).text();
+  let text;
+  if (localStocking) {
+    text = fs.readFileSync(localStocking, "utf8");
+  } else {
+    const response = await fetch("https://www2.dnr.state.mi.us/publications/pdfs/Fishing/FishStocking/FishStockingData.csv");
+    if (!response.ok) throw new Error(`Michigan stocking download failed (${response.status})`);
+    text = await response.text();
+  }
   const rows = parseCsv(text.replace(/^\uFEFF/, ""));
   const header = rows.shift();
+  if (
+    !header ||
+    header.length !== stockingColumns.length ||
+    header.some((column, index) => column !== stockingColumns[index]) ||
+    rows.some((row) => row.length !== stockingColumns.length)
+  ) throw new Error("Michigan stocking source has an unexpected CSV shape");
   const countyIndex = header.indexOf("County_Name");
   return toCsv([header, ...rows.filter((r) => counties.has(r[countyIndex]))]);
 }
 
-const creel = await extractCreel();
-const stocking = await extractStocking();
-fs.writeFileSync(creelOutput, creel);
-// This offline evidence extractor intentionally persists a public agency CSV
-// to one fixed, repo-owned snapshot path after parsing and filtering it.
-// lgtm[js/http-to-file-access]
-fs.writeFileSync(stockingOutput, stocking);
+const creel = validateCsv(await extractCreel(), creelColumns, "Michigan creel extract");
+const stocking = validateCsv(await extractStocking(), stockingColumns, "Michigan stocking extract");
+fs.writeFileSync(creelOutput, creel, { flag: "w" });
+fs.writeFileSync(stockingOutput, stocking, { flag: "w" });
 console.log(`Wrote ${parseCsv(creel.trim()).length - 1} creel rows to ${creelOutput}`);
 console.log(`Wrote ${parseCsv(stocking.trim()).length - 1} stocking rows to ${stockingOutput}`);
