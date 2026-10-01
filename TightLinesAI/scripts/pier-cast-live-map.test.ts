@@ -221,8 +221,8 @@ test("the map screen is gated and shows the paywall", () => {
 
 test("commercial weather stays behind authenticated paid server adapters", () => {
   assert.match(pierCastWeather, /getEnvironment\(/);
-  assert.equal(pierCastWeather.includes("api.open-meteo.com"), false);
-  assert.equal(locationSearch.includes("open-meteo.com"), false);
+  assert.doesNotMatch(pierCastWeather, /\bfetch\s*\(/);
+  assert.doesNotMatch(locationSearch, /\bfetch\s*\(/);
   assert.doesNotMatch(locationSearch, /searchRemoteUsCities/);
   assert.match(openMeteoAdapter, /options\.requirePaid/);
   assert.match(getEnvironmentFunction, /requirePaid: true/);
