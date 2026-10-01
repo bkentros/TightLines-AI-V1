@@ -28,7 +28,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lakemap import gfs, net, ofs, store, waves, wind  # noqa: E402
+from lakemap import gfs, net, ofs, seagull, store, waves, wind  # noqa: E402
 from lakemap.config import (DEPTH, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, GEO_VERSION,  # noqa: E402
                             HOURS, OFS_MODELS, PIERS_PATH, SIGNALS_EVENTS_SCRIPT, TEMP, WAVES, WIND)
 from lakemap.encode import scalar_png, wind_png  # noqa: E402
@@ -235,6 +235,17 @@ def sample_piers(frames, piers):
                 series.append(None)
         out[p["id"]] = series
     return out
+
+
+def pier_verification_sites(piers, series):
+    """Attach reviewed pier geometry to its frozen forecast series."""
+    return {
+        pier["id"]: {
+            "name": pier.get("name"), "state": pier.get("state"),
+            "lat": pier["lat"], "lon": pier["lon"], "hours": series[pier["id"]],
+        }
+        for pier in piers if pier.get("id") in series
+    }
 
 
 def load_observation_sites(path=GLOS_CATALOG_PATH, coops_path=COOPS_CATALOG_PATH):
@@ -512,9 +523,15 @@ def main(argv=None):
     series = sample_piers(frames, piers)
     (run_dir / "series.json").write_text(json.dumps({"start": iso(t0), "unit": "F", "piers": series}))
     verification_sites = sample_observation_sites(frames, load_observation_sites())
-    verification = {"formatVersion": 1, "purpose": "validation-only", "correctionApproved": False,
-                    "run": run_id, "cycle": iso(t0), "unit": "F", "stepHours": 1,
-                    "sites": verification_sites}
+    issued_at = now if args.now else datetime.now(timezone.utc)
+    benchmark_key = f"validation/benchmarks/seagull/v1/{run_id}.json"
+    verification = {"formatVersion": 2, "purpose": "validation-only", "correctionApproved": False,
+                    "run": run_id, "cycle": iso(t0), "issuedAt": iso(issued_at), "unit": "F", "stepHours": 1,
+                    "modelInputs": inputs, "sites": verification_sites,
+                    "pierSites": pier_verification_sites(piers, series),
+                    "benchmarkRefs": {"seagullModelSummaryV1": benchmark_key} if args.upload else {}}
+    if re.fullmatch(r"[0-9a-fA-F]{40}", os.environ.get("GITHUB_SHA", "")):
+        verification["producerRevision"] = os.environ["GITHUB_SHA"].lower()
     (run_dir / "verification.json").write_text(json.dumps(verification, separators=(",", ":")))
     log(f"Verification: froze 121-hour as-issued series at {len(verification_sites):,} reviewed observation sites")
     subprocess.run(["node", str(SIGNALS_EVENTS_SCRIPT), str(run_dir / "series.json"), str(run_dir / "events.json")], check=True)
@@ -548,6 +565,15 @@ def main(argv=None):
         store.upload_run(s3, run_dir, run_id, latest, research_index)
         log(f"Uploaded run {run_id} and pointed latest.json at it")
         log.mark("upload")
+        # Benchmark collection starts only after the live pointer changes, so
+        # a slow or unavailable competitor API can never delay fresh map data.
+        try:
+            benchmark = seagull.capture(piers, datetime.now(timezone.utc), log)
+            store.put(s3, benchmark_key, json.dumps(benchmark, separators=(",", ":")).encode(), store.IMMUTABLE)
+            log(f"Archived validation-only Seagull benchmark for {run_id}")
+        except Exception as err:
+            log(f"Seagull benchmark archive unavailable ({net.redact(err)}) — live run remains published")
+        log.mark("benchmark")
     (run_dir / "timing.json").write_text(json.dumps(log.steps))
     log(f"Done in {time.time() - log.t0:.0f} s")
     return 0
