@@ -67,7 +67,12 @@ const welcome = screens.find(({ file }) => file.endsWith('welcome.tsx'))?.source
 if (!welcome.includes('useAuthScrollLayout("form")')) {
   failures.push('Welcome layout can distribute oversized gaps on tall iPhones');
 }
-if (!welcome.includes('scrollEnabled={layoutTier === "compact" || notice != null}')) {
+const welcomeScrollViewTag = welcome.match(/<ScrollView\b[^>]*>/s)?.[0] ?? '';
+const scrollAlwaysEnabled = /\bscrollEnabled(?=\s|>)/.test(welcomeScrollViewTag);
+const scrollEnabledForCompactOrNotice = welcomeScrollViewTag.includes(
+  'scrollEnabled={layoutTier === "compact" || notice != null}',
+);
+if (!scrollAlwaysEnabled && !scrollEnabledForCompactOrNotice) {
   failures.push('Welcome layout does not preserve compact/error scrolling fallback');
 }
 

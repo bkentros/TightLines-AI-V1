@@ -1,0 +1,5687 @@
+{
+  "schemaVersion": 1,
+  "artifactType": "river_run_pass3_calibration_replay",
+  "generatedAtUtc": "2026-09-29T02:29:12.698Z",
+  "replayYears": "2019-2025",
+  "fishabilityYears": "1996-2025",
+  "method": "USGS approved daily mean discharge, same-gauge measured daily mean water temperature where replay-eligible, and Open-Meteo hourly radiation/cloud/precipitation in four local blocks. Daily means calibrate the live four-hour model; they do not claim intraday historical events or catch rates.",
+  "rivers": [
+    {
+      "riverId": "umpqua_mainstem",
+      "siteId": "14321000",
+      "representedReach": "umpqua_mainstem_middle_elkton",
+      "fishability": {
+        "usableDays": 4590,
+        "percentiles": {
+          "p05": 899,
+          "p10": 958.9,
+          "p25": 1110,
+          "p50": 1400,
+          "p75": 3240,
+          "p90": 10500,
+          "p95": 17500,
+          "p99": 53710
+        },
+        "bands": {
+          "version": "umpqua_mainstem-fishability-v1-pass3-2026-09-28",
+          "metric": "flow_cfs",
+          "sourceLabel": "USGS 14321000",
+          "tooLow": {
+            "max": 960
+          },
+          "lowFishable": {
+            "min": 960,
+            "max": 1110
+          },
+          "ideal": {
+            "min": 1110,
+            "max": 3240
+          },
+          "highFishable": {
+            "min": 3240,
+            "max": 10500
+          },
+          "blownOut": {
+            "min": 17500
+          },
+          "caps": {
+            "staleGauge": 60,
+            "unknownTrend": 65,
+            "veryLow": 35,
+            "blownOut": 20,
+            "sharpRiseHigh": 45
+          },
+          "evidenceNotes": "Fixed 1996-2025 seasonal daily-flow percentiles; reach-scoped workability context only, not safety, clarity, tide, abundance, or access.",
+          "sourceNotes": "USGS 14321000; p10/p25/p75/p90/p95 calibration."
+        },
+        "violations": 0
+      },
+      "pushCalibration": {
+        "exactUnionWindow": [
+          "08-15",
+          "12-05"
+        ],
+        "usableDays": 791,
+        "qualifyingPositiveRises": 328,
+        "absoluteRisePercentiles": {
+          "p05": 2.35,
+          "p10": 5,
+          "p25": 10,
+          "p50": 30,
+          "p75": 140,
+          "p90": 763,
+          "p95": 1822.5,
+          "p99": 11071
+        },
+        "percentageRisePercentiles": {
+          "p05": 0.29,
+          "p10": 0.54,
+          "p25": 1.16,
+          "p50": 2.87,
+          "p75": 9.35,
+          "p90": 34.03,
+          "p95": 84.6,
+          "p99": 187.97
+        },
+        "thresholds": {
+          "rising24h": {
+            "absolute": 30,
+            "percent": 2.9
+          },
+          "meaningfulRise24h": {
+            "absolute": 140,
+            "percent": 9.4
+          },
+          "sharpRise24h": {
+            "absolute": 765,
+            "percent": 34
+          }
+        }
+      },
+      "temperatureReplay": {
+        "mode": "disabled",
+        "reason": "Fewer than five complete recent fall seasons; zero Activity/Push influence"
+      }
+    },
+    {
+      "riverId": "north_umpqua",
+      "siteId": "14319500",
+      "representedReach": "north_umpqua_lower_winchester",
+      "fishability": {
+        "usableDays": 4080,
+        "percentiles": {
+          "p05": 769.95,
+          "p10": 814,
+          "p25": 927,
+          "p50": 1270,
+          "p75": 3170,
+          "p90": 6831,
+          "p95": 11000,
+          "p99": 25542
+        },
+        "bands": {
+          "version": "north_umpqua-fishability-v1-pass3-2026-09-28",
+          "metric": "flow_cfs",
+          "sourceLabel": "USGS 14319500",
+          "tooLow": {
+            "max": 815
+          },
+          "lowFishable": {
+            "min": 815,
+            "max": 925
+          },
+          "ideal": {
+            "min": 925,
+            "max": 3170
+          },
+          "highFishable": {
+            "min": 3170,
+            "max": 6830
+          },
+          "blownOut": {
+            "min": 11000
+          },
+          "caps": {
+            "staleGauge": 60,
+            "unknownTrend": 65,
+            "veryLow": 35,
+            "blownOut": 20,
+            "sharpRiseHigh": 45
+          },
+          "evidenceNotes": "Fixed 1996-2025 seasonal daily-flow percentiles; reach-scoped workability context only, not safety, clarity, tide, abundance, or access.",
+          "sourceNotes": "USGS 14319500; p10/p25/p75/p90/p95 calibration."
+        },
+        "violations": 0
+      },
+      "pushCalibration": {
+        "exactUnionWindow": [
+          "09-01",
+          "12-05"
+        ],
+        "usableDays": 672,
+        "qualifyingPositiveRises": 266,
+        "absoluteRisePercentiles": {
+          "p05": 2,
+          "p10": 6,
+          "p25": 15,
+          "p50": 39,
+          "p75": 167.5,
+          "p90": 640,
+          "p95": 1692.5,
+          "p99": 5360
+        },
+        "percentageRisePercentiles": {
+          "p05": 0.25,
+          "p10": 0.71,
+          "p25": 1.81,
+          "p50": 4.36,
+          "p75": 14.13,
+          "p90": 44.7,
+          "p95": 103.82,
+          "p99": 250.41
+        },
+        "thresholds": {
+          "rising24h": {
+            "absolute": 39,
+            "percent": 4.4
+          },
+          "meaningfulRise24h": {
+            "absolute": 170,
+            "percent": 14.1
+          },
+          "sharpRise24h": {
+            "absolute": 640,
+            "percent": 44.7
+          }
+        }
+      },
+      "temperatureReplay": {
+        "mode": "same_gauge_measured",
+        "observations": 2323
+      }
+    }
+  ],
+  "runs": [
+    {
+      "runId": "umpqua_mainstem_fall_chinook",
+      "species": "chinook_salmon",
+      "calendar": {
+        "preRunStart": "07-15",
+        "stagingStart": "08-01",
+        "start": "08-15",
+        "beginningEnd": "08-31",
+        "buildingEstablishedStart": "09-01",
+        "buildingBroadStart": "09-15",
+        "peakStart": "09-20",
+        "peak": "10-05",
+        "peakEnd": "10-20",
+        "taperingEnd": "11-05",
+        "end": "11-15",
+        "lateEnd": "11-30",
+        "postRunLateCopyEnd": "12-15"
+      },
+      "strength": 6,
+      "distributionScope": "broad",
+      "activityMode": "hydraulic-only",
+      "activityRules": {
+        "version": "umpqua-mainstem-fall-chinook-hydraulic-activity-v1-pass3-2026-09-28",
+        "profile": "chinook_fall_reaction",
+        "dataMode": "observed_river",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "confidenceCeiling": "Limited",
+        "inputReach": {
+          "reachIds": [
+            "umpqua_mainstem_middle_elkton"
+          ],
+          "hydraulicSourceIds": [
+            "umpqua_mainstem_elkton_usgs"
+          ],
+          "waterTemperatureSourceIds": [],
+          "weatherPointIds": [
+            "umpqua_mainstem_elkton_weather"
+          ],
+          "notes": "Umpqua River (Mainstem) Activity represents only umpqua_mainstem_middle_elkton."
+        },
+        "scopeCopy": "Umpqua River (Mainstem) Activity represents only the gauge reach; it does not describe the estuary, every upstream reach, abundance, fish location, or catch probability.",
+        "weights": {
+          "light": 0.3,
+          "waterTemperature": 0,
+          "riverBehavior": 0.6,
+          "weather": 0.1
+        },
+        "temperature": {
+          "coldF": 43,
+          "preferredMinF": 48,
+          "preferredMaxF": 62,
+          "warmF": 68,
+          "barrierF": 72
+        },
+        "hydraulicTrend": {
+          "rising24h": {
+            "absolute": 40,
+            "percent": 3.6
+          },
+          "meaningfulRise24h": {
+            "absolute": 375,
+            "percent": 15.7
+          },
+          "sharpRise24h": {
+            "absolute": 2510,
+            "percent": 51.5
+          }
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 100,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15,
+          "lifecycleRamp": {
+            "peakEnd": "10-20",
+            "taperingEnd": "11-05",
+            "endingEnd": "11-30"
+          }
+        },
+        "evidenceNotes": "Seven-season hydraulic-only replay; recent measured temperature lacks five complete seasons and has zero Activity influence."
+      },
+      "presenceVersion": "umpqua-mainstem-fall-chinook-presence-v1-pass3-2026-09-28",
+      "expectedDays": 854,
+      "usableDays": 854,
+      "coveragePercent": 100,
+      "missing": {
+        "flow": 0,
+        "priorFlow": 0,
+        "temperature": 0,
+        "temperatureHistory": 0,
+        "weather": 0
+      },
+      "allDays": {
+        "days": 854,
+        "dailyScores": {
+          "min": 1,
+          "p10": 30,
+          "mean": 42.46,
+          "median": 41,
+          "p90": 58,
+          "max": 67
+        },
+        "dailyLabels": {
+          "Moderate": 389,
+          "Reserved": 390,
+          "Active": 61,
+          "Inactive": 14
+        },
+        "confidence": {
+          "Limited": {
+            "count": 854,
+            "percent": 100
+          }
+        },
+        "capFrequency": {
+          "days": 287,
+          "percent": 33.61,
+          "reasonCodes": {
+            "activity_late_biology_cap": 287,
+            "activity_blown_out_cap": 5
+          }
+        },
+        "leaderFrequency": {
+          "tiesWithinTwoPoints": 633,
+          "05-09": 774,
+          "09-13": 360,
+          "17-21": 530,
+          "13-17": 273
+        },
+        "blockSpread": {
+          "min": 0,
+          "p10": 2,
+          "mean": 5.8,
+          "median": 6,
+          "p90": 11,
+          "max": 14
+        },
+        "byBlock": {
+          "05-09": {
+            "scores": {
+              "min": 1,
+              "p10": 31,
+              "mean": 43.67,
+              "median": 42,
+              "p90": 60,
+              "max": 68
+            },
+            "labels": {
+              "Moderate": 407,
+              "Active": 92,
+              "Reserved": 343,
+              "Inactive": 12
+            }
+          },
+          "09-13": {
+            "scores": {
+              "min": 1,
+              "p10": 29,
+              "mean": 40.48,
+              "median": 39,
+              "p90": 56.7,
+              "max": 66
+            },
+            "labels": {
+              "Reserved": 438,
+              "Moderate": 349,
+              "Active": 52,
+              "Inactive": 15
+            }
+          },
+          "13-17": {
+            "scores": {
+              "min": 1,
+              "p10": 28,
+              "mean": 39.38,
+              "median": 37,
+              "p90": 55,
+              "max": 66
+            },
+            "labels": {
+              "Reserved": 469,
+              "Moderate": 323,
+              "Active": 45,
+              "Inactive": 17
+            }
+          },
+          "17-21": {
+            "scores": {
+              "min": 1,
+              "p10": 30,
+              "mean": 42.04,
+              "median": 40,
+              "p90": 57,
+              "max": 66
+            },
+            "labels": {
+              "Moderate": 396,
+              "Reserved": 396,
+              "Active": 48,
+              "Inactive": 14
+            }
+          }
+        }
+      },
+      "byStage": {
+        "pre_run": {
+          "days": 98,
+          "dailyScores": {
+            "min": 29,
+            "p10": 31,
+            "mean": 38.44,
+            "median": 36,
+            "p90": 47,
+            "max": 59
+          },
+          "dailyLabels": {
+            "Moderate": 34,
+            "Reserved": 64
+          },
+          "confidence": {
+            "Limited": {
+              "count": 98,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 60,
+            "05-09": 94,
+            "09-13": 27,
+            "17-21": 47,
+            "13-17": 13
+          },
+          "blockSpread": {
+            "min": 1,
+            "p10": 3.7,
+            "mean": 7.56,
+            "median": 7,
+            "p90": 12,
+            "max": 14
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 30,
+                "p10": 32.7,
+                "mean": 40.59,
+                "median": 39,
+                "p90": 50,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 43,
+                "Active": 4,
+                "Reserved": 51
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 28,
+                "p10": 29,
+                "mean": 35.93,
+                "median": 35,
+                "p90": 46,
+                "max": 57
+              },
+              "labels": {
+                "Reserved": 73,
+                "Moderate": 25
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 27,
+                "p10": 28,
+                "mean": 33.65,
+                "median": 30,
+                "p90": 42,
+                "max": 53
+              },
+              "labels": {
+                "Reserved": 80,
+                "Moderate": 18
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 30,
+                "p10": 30,
+                "mean": 37.92,
+                "median": 35,
+                "p90": 48,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 29,
+                "Reserved": 68,
+                "Active": 1
+              }
+            }
+          }
+        },
+        "beginning": {
+          "days": 119,
+          "dailyScores": {
+            "min": 30,
+            "p10": 31,
+            "mean": 36.76,
+            "median": 35,
+            "p90": 44.4,
+            "max": 61
+          },
+          "dailyLabels": {
+            "Moderate": 28,
+            "Reserved": 90,
+            "Active": 1
+          },
+          "confidence": {
+            "Limited": {
+              "count": 119,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 82,
+            "05-09": 106,
+            "13-17": 21,
+            "17-21": 70,
+            "09-13": 34
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 3,
+            "mean": 6.34,
+            "median": 6,
+            "p90": 10.2,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 30,
+                "p10": 32,
+                "mean": 38.28,
+                "median": 37,
+                "p90": 46,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 38,
+                "Reserved": 79,
+                "Active": 2
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 28,
+                "p10": 29,
+                "mean": 34.45,
+                "median": 32,
+                "p90": 43.2,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 20,
+                "Reserved": 98,
+                "Active": 1
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 28,
+                "p10": 28,
+                "mean": 33.15,
+                "median": 30,
+                "p90": 41,
+                "max": 59
+              },
+              "labels": {
+                "Moderate": 15,
+                "Reserved": 104
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 30,
+                "p10": 30,
+                "mean": 36.39,
+                "median": 35,
+                "p90": 44.2,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 23,
+                "Reserved": 94,
+                "Active": 2
+              }
+            }
+          }
+        },
+        "building": {
+          "days": 238,
+          "dailyScores": {
+            "min": 30,
+            "p10": 33,
+            "mean": 46.92,
+            "median": 47,
+            "p90": 60,
+            "max": 66
+          },
+          "dailyLabels": {
+            "Reserved": 81,
+            "Moderate": 129,
+            "Active": 28
+          },
+          "confidence": {
+            "Limited": {
+              "count": 238,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 172,
+            "05-09": 214,
+            "17-21": 140,
+            "09-13": 78,
+            "13-17": 53
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 3,
+            "mean": 6.55,
+            "median": 6,
+            "p90": 11,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 30,
+                "p10": 34,
+                "mean": 48.27,
+                "median": 49,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 65,
+                "Moderate": 133,
+                "Active": 40
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 28,
+                "p10": 29,
+                "mean": 44.43,
+                "median": 43.5,
+                "p90": 60,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 91,
+                "Moderate": 122,
+                "Active": 25
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 28,
+                "p10": 29,
+                "mean": 43.39,
+                "median": 43,
+                "p90": 59,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 102,
+                "Moderate": 114,
+                "Active": 22
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 30,
+                "p10": 32,
+                "mean": 46.5,
+                "median": 47,
+                "p90": 59,
+                "max": 64
+              },
+              "labels": {
+                "Reserved": 78,
+                "Moderate": 138,
+                "Active": 22
+              }
+            }
+          }
+        },
+        "peak": {
+          "days": 112,
+          "dailyScores": {
+            "min": 34,
+            "p10": 42,
+            "mean": 52.35,
+            "median": 54,
+            "p90": 62,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Moderate": 78,
+            "Active": 26,
+            "Reserved": 8
+          },
+          "confidence": {
+            "Limited": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 74,
+            "05-09": 100,
+            "17-21": 59,
+            "09-13": 44,
+            "13-17": 41
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 6.5,
+            "median": 6,
+            "p90": 11,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 36,
+                "p10": 43.2,
+                "mean": 53.73,
+                "median": 55.5,
+                "p90": 62.9,
+                "max": 68
+              },
+              "labels": {
+                "Active": 37,
+                "Moderate": 68,
+                "Reserved": 7
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 30,
+                "p10": 37,
+                "mean": 50.2,
+                "median": 51.5,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 74,
+                "Active": 20,
+                "Reserved": 18
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 29,
+                "p10": 35,
+                "mean": 49.13,
+                "median": 50,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 69,
+                "Active": 19,
+                "Reserved": 24
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 32,
+                "p10": 40,
+                "mean": 51.74,
+                "median": 55,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 83,
+                "Active": 19,
+                "Reserved": 10
+              }
+            }
+          }
+        },
+        "tapering": {
+          "days": 112,
+          "dailyScores": {
+            "min": 26,
+            "p10": 40.1,
+            "mean": 50.15,
+            "median": 51,
+            "p90": 58,
+            "max": 62
+          },
+          "dailyLabels": {
+            "Moderate": 97,
+            "Reserved": 9,
+            "Active": 6
+          },
+          "confidence": {
+            "Limited": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 112,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 112
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 94,
+            "05-09": 97,
+            "09-13": 60,
+            "13-17": 52,
+            "17-21": 78
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 5.11,
+            "median": 4.5,
+            "p90": 9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 27,
+                "p10": 42,
+                "mean": 50.72,
+                "median": 51,
+                "p90": 58,
+                "max": 64
+              },
+              "labels": {
+                "Moderate": 96,
+                "Reserved": 7,
+                "Active": 9
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 23,
+                "p10": 38,
+                "mean": 48.48,
+                "median": 50,
+                "p90": 58,
+                "max": 62
+              },
+              "labels": {
+                "Moderate": 89,
+                "Reserved": 17,
+                "Active": 6
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 23,
+                "p10": 36,
+                "mean": 47.89,
+                "median": 50,
+                "p90": 58,
+                "max": 62
+              },
+              "labels": {
+                "Moderate": 89,
+                "Reserved": 19,
+                "Active": 4
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 28,
+                "p10": 41,
+                "mean": 49.71,
+                "median": 51,
+                "p90": 57,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 98,
+                "Reserved": 10,
+                "Active": 4
+              }
+            }
+          }
+        },
+        "ending": {
+          "days": 70,
+          "dailyScores": {
+            "min": 15,
+            "p10": 31,
+            "mean": 37.3,
+            "median": 38,
+            "p90": 43,
+            "max": 48
+          },
+          "dailyLabels": {
+            "Moderate": 23,
+            "Reserved": 46,
+            "Inactive": 1
+          },
+          "confidence": {
+            "Limited": {
+              "count": 70,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 70,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 70
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 57,
+            "05-09": 63,
+            "09-13": 45,
+            "13-17": 38,
+            "17-21": 52
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 3.73,
+            "median": 3,
+            "p90": 8,
+            "max": 11
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 15,
+                "p10": 31.9,
+                "mean": 37.86,
+                "median": 39,
+                "p90": 43,
+                "max": 46
+              },
+              "labels": {
+                "Moderate": 29,
+                "Reserved": 40,
+                "Inactive": 1
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 13,
+                "p10": 28,
+                "mean": 36.34,
+                "median": 37,
+                "p90": 43,
+                "max": 49
+              },
+              "labels": {
+                "Reserved": 50,
+                "Moderate": 19,
+                "Inactive": 1
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 14,
+                "p10": 28,
+                "mean": 35.54,
+                "median": 36,
+                "p90": 43.1,
+                "max": 47
+              },
+              "labels": {
+                "Reserved": 51,
+                "Moderate": 18,
+                "Inactive": 1
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 15,
+                "p10": 31,
+                "mean": 36.89,
+                "median": 37,
+                "p90": 43,
+                "max": 47
+              },
+              "labels": {
+                "Moderate": 25,
+                "Reserved": 44,
+                "Inactive": 1
+              }
+            }
+          }
+        },
+        "post_run": {
+          "days": 105,
+          "dailyScores": {
+            "min": 1,
+            "p10": 19,
+            "mean": 27.3,
+            "median": 29,
+            "p90": 35,
+            "max": 38
+          },
+          "dailyLabels": {
+            "Reserved": 92,
+            "Inactive": 13
+          },
+          "confidence": {
+            "Limited": {
+              "count": 105,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 105,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 105,
+              "activity_blown_out_cap": 5
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 94,
+            "05-09": 100,
+            "09-13": 72,
+            "17-21": 84,
+            "13-17": 55
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 3.2,
+            "median": 3,
+            "p90": 7,
+            "max": 8
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 18.8,
+                "mean": 27.89,
+                "median": 29,
+                "p90": 36,
+                "max": 38
+              },
+              "labels": {
+                "Reserved": 94,
+                "Inactive": 11
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 18.4,
+                "mean": 26.47,
+                "median": 28,
+                "p90": 35,
+                "max": 38
+              },
+              "labels": {
+                "Reserved": 91,
+                "Inactive": 14
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 16.8,
+                "mean": 25.78,
+                "median": 27,
+                "p90": 33,
+                "max": 38
+              },
+              "labels": {
+                "Reserved": 89,
+                "Inactive": 16
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 18,
+                "mean": 27.05,
+                "median": 28,
+                "p90": 34,
+                "max": 38
+              },
+              "labels": {
+                "Reserved": 92,
+                "Inactive": 13
+              }
+            }
+          }
+        }
+      },
+      "byYear": {
+        "2019": {
+          "days": 122,
+          "dailyScores": {
+            "min": 24,
+            "p10": 34,
+            "mean": 47.14,
+            "median": 45.5,
+            "p90": 61,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Moderate": 65,
+            "Reserved": 37,
+            "Active": 20
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 94,
+            "05-09": 112,
+            "09-13": 51,
+            "17-21": 76,
+            "13-17": 38
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 6.02,
+            "median": 6,
+            "p90": 11,
+            "max": 14
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 25,
+                "p10": 35.1,
+                "mean": 48.47,
+                "median": 47,
+                "p90": 61,
+                "max": 68
+              },
+              "labels": {
+                "Moderate": 69,
+                "Active": 27,
+                "Reserved": 26
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 22,
+                "p10": 30,
+                "mean": 45.16,
+                "median": 44,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 46,
+                "Moderate": 58,
+                "Active": 18
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 22,
+                "p10": 30,
+                "mean": 43.83,
+                "median": 43,
+                "p90": 60.9,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 54,
+                "Moderate": 54,
+                "Active": 14
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 25,
+                "p10": 34.1,
+                "mean": 46.66,
+                "median": 46,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 68,
+                "Reserved": 37,
+                "Active": 17
+              }
+            }
+          }
+        },
+        "2020": {
+          "days": 122,
+          "dailyScores": {
+            "min": 19,
+            "p10": 27,
+            "mean": 36.61,
+            "median": 34,
+            "p90": 51.9,
+            "max": 63
+          },
+          "dailyLabels": {
+            "Reserved": 88,
+            "Moderate": 29,
+            "Active": 4,
+            "Inactive": 1
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 94,
+            "05-09": 114,
+            "17-21": 87,
+            "09-13": 40,
+            "13-17": 27
+          },
+          "blockSpread": {
+            "min": 1,
+            "p10": 2,
+            "mean": 5.48,
+            "median": 5,
+            "p90": 10,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 18,
+                "p10": 27,
+                "mean": 37.87,
+                "median": 37,
+                "p90": 51.9,
+                "max": 64
+              },
+              "labels": {
+                "Moderate": 36,
+                "Reserved": 80,
+                "Active": 5,
+                "Inactive": 1
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 18,
+                "p10": 26.1,
+                "mean": 34.43,
+                "median": 31,
+                "p90": 50.8,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 96,
+                "Moderate": 21,
+                "Active": 3,
+                "Inactive": 2
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 19,
+                "p10": 25.1,
+                "mean": 33.48,
+                "median": 30,
+                "p90": 50.9,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 95,
+                "Moderate": 20,
+                "Active": 3,
+                "Inactive": 4
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 19,
+                "p10": 28,
+                "mean": 36.5,
+                "median": 34.5,
+                "p90": 52.9,
+                "max": 61
+              },
+              "labels": {
+                "Reserved": 90,
+                "Moderate": 28,
+                "Active": 3,
+                "Inactive": 1
+              }
+            }
+          }
+        },
+        "2021": {
+          "days": 122,
+          "dailyScores": {
+            "min": 26,
+            "p10": 30,
+            "mean": 40.38,
+            "median": 34,
+            "p90": 58.9,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 77,
+            "Moderate": 33,
+            "Active": 12
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 93,
+            "05-09": 105,
+            "09-13": 61,
+            "13-17": 49,
+            "17-21": 76
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 4.73,
+            "median": 4,
+            "p90": 8.9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 26,
+                "p10": 30,
+                "mean": 41.2,
+                "median": 36,
+                "p90": 59.9,
+                "max": 64
+              },
+              "labels": {
+                "Reserved": 77,
+                "Moderate": 32,
+                "Active": 13
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 24,
+                "p10": 28,
+                "mean": 38.77,
+                "median": 33,
+                "p90": 56,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 78,
+                "Moderate": 37,
+                "Active": 7
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 26,
+                "p10": 28,
+                "mean": 38.25,
+                "median": 32,
+                "p90": 55.9,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 79,
+                "Moderate": 33,
+                "Active": 10
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 25,
+                "p10": 30,
+                "mean": 39.86,
+                "median": 33,
+                "p90": 57,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 75,
+                "Moderate": 39,
+                "Active": 8
+              }
+            }
+          }
+        },
+        "2022": {
+          "days": 122,
+          "dailyScores": {
+            "min": 26,
+            "p10": 32,
+            "mean": 43.2,
+            "median": 43,
+            "p90": 55,
+            "max": 63
+          },
+          "dailyLabels": {
+            "Moderate": 73,
+            "Reserved": 46,
+            "Active": 3
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 78,
+            "05-09": 113,
+            "17-21": 70,
+            "09-13": 42,
+            "13-17": 30
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 6.84,
+            "median": 7,
+            "p90": 12,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 26,
+                "p10": 33,
+                "mean": 44.8,
+                "median": 46,
+                "p90": 56.9,
+                "max": 63
+              },
+              "labels": {
+                "Active": 7,
+                "Moderate": 78,
+                "Reserved": 37
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 24,
+                "p10": 30,
+                "mean": 40.98,
+                "median": 39.5,
+                "p90": 53,
+                "max": 64
+              },
+              "labels": {
+                "Moderate": 58,
+                "Reserved": 61,
+                "Active": 3
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 23,
+                "p10": 29,
+                "mean": 39.13,
+                "median": 37,
+                "p90": 52,
+                "max": 63
+              },
+              "labels": {
+                "Moderate": 44,
+                "Reserved": 75,
+                "Active": 3
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 25,
+                "p10": 33.1,
+                "mean": 42.82,
+                "median": 41.5,
+                "p90": 55,
+                "max": 63
+              },
+              "labels": {
+                "Moderate": 68,
+                "Reserved": 50,
+                "Active": 4
+              }
+            }
+          }
+        },
+        "2023": {
+          "days": 122,
+          "dailyScores": {
+            "min": 25,
+            "p10": 30.1,
+            "mean": 44.39,
+            "median": 43.5,
+            "p90": 60,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 59,
+            "Moderate": 49,
+            "Active": 14
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 90,
+            "05-09": 112,
+            "17-21": 70,
+            "09-13": 52,
+            "13-17": 39
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 5.8,
+            "median": 6,
+            "p90": 9.9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 26,
+                "p10": 31.1,
+                "mean": 45.63,
+                "median": 44.5,
+                "p90": 61,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 56,
+                "Moderate": 44,
+                "Active": 22
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 23,
+                "p10": 29,
+                "mean": 42.46,
+                "median": 41,
+                "p90": 59,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 58,
+                "Moderate": 52,
+                "Active": 12
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 22,
+                "p10": 28,
+                "mean": 41.36,
+                "median": 39.5,
+                "p90": 59,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 61,
+                "Moderate": 50,
+                "Active": 11
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 25,
+                "p10": 30,
+                "mean": 43.75,
+                "median": 42.5,
+                "p90": 58,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 59,
+                "Moderate": 54,
+                "Active": 9
+              }
+            }
+          }
+        },
+        "2024": {
+          "days": 122,
+          "dailyScores": {
+            "min": 1,
+            "p10": 19.2,
+            "mean": 42,
+            "median": 44,
+            "p90": 56,
+            "max": 62
+          },
+          "dailyLabels": {
+            "Moderate": 79,
+            "Reserved": 26,
+            "Active": 4,
+            "Inactive": 13
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41,
+              "activity_blown_out_cap": 5
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 87,
+            "05-09": 108,
+            "09-13": 57,
+            "13-17": 48,
+            "17-21": 71
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 6.16,
+            "median": 6,
+            "p90": 11,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 21.1,
+                "mean": 43.15,
+                "median": 46,
+                "p90": 57,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 87,
+                "Reserved": 17,
+                "Active": 7,
+                "Inactive": 11
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 19.1,
+                "mean": 39.87,
+                "median": 41.5,
+                "p90": 53.9,
+                "max": 61
+              },
+              "labels": {
+                "Reserved": 38,
+                "Moderate": 66,
+                "Active": 5,
+                "Inactive": 13
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 18.3,
+                "mean": 38.99,
+                "median": 41,
+                "p90": 53,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 42,
+                "Moderate": 65,
+                "Active": 2,
+                "Inactive": 13
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 18.3,
+                "mean": 41.57,
+                "median": 43,
+                "p90": 56,
+                "max": 62
+              },
+              "labels": {
+                "Moderate": 76,
+                "Reserved": 28,
+                "Active": 5,
+                "Inactive": 13
+              }
+            }
+          }
+        },
+        "2025": {
+          "days": 122,
+          "dailyScores": {
+            "min": 26,
+            "p10": 33,
+            "mean": 43.54,
+            "median": 41,
+            "p90": 57,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 57,
+            "Moderate": 61,
+            "Active": 4
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 97,
+            "05-09": 110,
+            "09-13": 57,
+            "17-21": 80,
+            "13-17": 42
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 5.55,
+            "median": 6,
+            "p90": 10,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 26,
+                "p10": 34,
+                "mean": 44.61,
+                "median": 42,
+                "p90": 59,
+                "max": 63
+              },
+              "labels": {
+                "Moderate": 61,
+                "Reserved": 50,
+                "Active": 11
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 25,
+                "p10": 29,
+                "mean": 41.69,
+                "median": 39.5,
+                "p90": 56,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 61,
+                "Moderate": 57,
+                "Active": 4
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 26,
+                "p10": 29,
+                "mean": 40.63,
+                "median": 39,
+                "p90": 54.9,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 63,
+                "Moderate": 57,
+                "Active": 2
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 26,
+                "p10": 33,
+                "mean": 43.08,
+                "median": 42,
+                "p90": 56,
+                "max": 63
+              },
+              "labels": {
+                "Reserved": 57,
+                "Moderate": 63,
+                "Active": 2
+              }
+            }
+          }
+        }
+      },
+      "controlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushControlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushRules": {
+        "version": "umpqua_mainstem_fall_chinook-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "directEvent": {
+          "hydraulic": "trigger",
+          "temperature": "disabled",
+          "buildingCoolingF": 0.75,
+          "coolingF": 1.5,
+          "strongCoolingF": 3,
+          "persistenceHours": 48,
+          "fullRetentionFraction": 0.65,
+          "minimumRetentionFraction": 0.35
+        },
+        "hydraulic": {
+          "metric": "flow_cfs",
+          "sourceLabel": "USGS 14321000",
+          "lowValue": 960,
+          "highValue": 10500,
+          "severeHighValue": 17500,
+          "rising24h": {
+            "absolute": 30,
+            "percent": 2.9
+          },
+          "meaningfulRise24h": {
+            "absolute": 140,
+            "percent": 9.4
+          },
+          "sharpRise24h": {
+            "absolute": 765,
+            "percent": 34
+          }
+        },
+        "rain": {
+          "meaningful48hIn": 997,
+          "strong48hIn": 998,
+          "heavy48hIn": 999
+        },
+        "temperature": {
+          "suitabilityLabel": "fall Chinook movement range",
+          "supportiveMinF": 48,
+          "supportiveMaxF": 62,
+          "tooWarmF": 68,
+          "migrationBarrierF": 72
+        },
+        "caps": {
+          "staleGauge": 55,
+          "unknownTrend": 49,
+          "noGaugeResponse": 50,
+          "tooWarm": 64,
+          "migrationBarrier": 49,
+          "severeHighFlow": 49,
+          "outsideExtendedWindow": 50,
+          "coldHolding": 49
+        },
+        "evidenceNotes": "Positive-only direct event replay. Measured discharge is the required trigger; precipitation is unscored. Temperature participates only for North Umpqua coho.",
+        "sourceNotes": "USGS 14321000; 2019-2025 positive daily-rise p50/p75/p90 thresholds."
+      },
+      "pushLabels": {
+        "Neutral": 474,
+        "Possible": 66,
+        "Elevated": 35,
+        "Strong": 6
+      },
+      "invariants": {
+        "insufficientCoverage": 0,
+        "peakNotHighest": 0,
+        "shoulderGapOver20": 0,
+        "strongWithoutDirectSignal": 0,
+        "noPositivePushEvents": 0,
+        "severeHighCapBroken": 0,
+        "incompleteFourBlockDays": 0,
+        "stagesWithoutEnvironmentalVariation": 0,
+        "yearsWithoutMeaningfulVariation": 0,
+        "controlledTestFailures": 0
+      }
+    },
+    {
+      "runId": "umpqua_mainstem_fall_coho",
+      "species": "coho_salmon",
+      "calendar": {
+        "preRunStart": "08-15",
+        "stagingStart": "09-01",
+        "start": "09-10",
+        "beginningEnd": "09-25",
+        "buildingEstablishedStart": "09-26",
+        "buildingBroadStart": "10-10",
+        "peakStart": "10-20",
+        "peak": "11-05",
+        "peakEnd": "11-20",
+        "taperingEnd": "12-05",
+        "end": "12-15",
+        "lateEnd": "12-31",
+        "postRunLateCopyEnd": "01-10"
+      },
+      "strength": 7,
+      "distributionScope": "broad",
+      "activityMode": "hydraulic-only",
+      "activityRules": {
+        "version": "umpqua-mainstem-fall-coho-hydraulic-activity-v1-pass3-2026-09-28",
+        "profile": "coho_fall_reaction",
+        "dataMode": "observed_river",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "confidenceCeiling": "Limited",
+        "inputReach": {
+          "reachIds": [
+            "umpqua_mainstem_middle_elkton"
+          ],
+          "hydraulicSourceIds": [
+            "umpqua_mainstem_elkton_usgs"
+          ],
+          "waterTemperatureSourceIds": [],
+          "weatherPointIds": [
+            "umpqua_mainstem_elkton_weather"
+          ],
+          "notes": "Umpqua River (Mainstem) Activity represents only umpqua_mainstem_middle_elkton."
+        },
+        "scopeCopy": "Umpqua River (Mainstem) Activity represents only the gauge reach; it does not describe the estuary, every upstream reach, abundance, fish location, or catch probability.",
+        "weights": {
+          "light": 0.3,
+          "waterTemperature": 0,
+          "riverBehavior": 0.6,
+          "weather": 0.1
+        },
+        "temperature": {
+          "coldF": 40,
+          "preferredMinF": 45,
+          "preferredMaxF": 60,
+          "warmF": 64,
+          "barrierF": 68
+        },
+        "hydraulicTrend": {
+          "rising24h": {
+            "absolute": 40,
+            "percent": 3.6
+          },
+          "meaningfulRise24h": {
+            "absolute": 375,
+            "percent": 15.7
+          },
+          "sharpRise24h": {
+            "absolute": 2510,
+            "percent": 51.5
+          }
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 100,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15,
+          "lifecycleRamp": {
+            "peakEnd": "11-20",
+            "taperingEnd": "12-05",
+            "endingEnd": "12-31"
+          }
+        },
+        "evidenceNotes": "Seven-season hydraulic-only replay; recent measured temperature lacks five complete seasons and has zero Activity influence."
+      },
+      "presenceVersion": "umpqua-mainstem-fall-coho-presence-v1-pass3-2026-09-28",
+      "expectedDays": 854,
+      "usableDays": 854,
+      "coveragePercent": 100,
+      "missing": {
+        "flow": 0,
+        "priorFlow": 0,
+        "temperature": 0,
+        "temperatureHistory": 0,
+        "weather": 0
+      },
+      "allDays": {
+        "days": 854,
+        "dailyScores": {
+          "min": 0,
+          "p10": 25,
+          "mean": 45.97,
+          "median": 49,
+          "p90": 62,
+          "max": 67
+        },
+        "dailyLabels": {
+          "Reserved": 215,
+          "Moderate": 444,
+          "Active": 150,
+          "Inactive": 45
+        },
+        "confidence": {
+          "Limited": {
+            "count": 854,
+            "percent": 100
+          }
+        },
+        "capFrequency": {
+          "days": 288,
+          "percent": 33.72,
+          "reasonCodes": {
+            "activity_late_biology_cap": 287,
+            "activity_blown_out_cap": 26
+          }
+        },
+        "leaderFrequency": {
+          "tiesWithinTwoPoints": 666,
+          "05-09": 771,
+          "17-21": 559,
+          "09-13": 439,
+          "13-17": 371
+        },
+        "blockSpread": {
+          "min": 0,
+          "p10": 1,
+          "mean": 5.36,
+          "median": 5,
+          "p90": 11,
+          "max": 13
+        },
+        "byBlock": {
+          "05-09": {
+            "scores": {
+              "min": 0,
+              "p10": 26,
+              "mean": 46.9,
+              "median": 50,
+              "p90": 62,
+              "max": 68
+            },
+            "labels": {
+              "Reserved": 186,
+              "Moderate": 430,
+              "Active": 191,
+              "Inactive": 47
+            }
+          },
+          "09-13": {
+            "scores": {
+              "min": 0,
+              "p10": 25,
+              "mean": 44.23,
+              "median": 48,
+              "p90": 61,
+              "max": 68
+            },
+            "labels": {
+              "Reserved": 241,
+              "Moderate": 437,
+              "Active": 129,
+              "Inactive": 47
+            }
+          },
+          "13-17": {
+            "scores": {
+              "min": 0,
+              "p10": 23.3,
+              "mean": 43.28,
+              "median": 47,
+              "p90": 61,
+              "max": 67
+            },
+            "labels": {
+              "Reserved": 262,
+              "Moderate": 423,
+              "Active": 115,
+              "Inactive": 54
+            }
+          },
+          "17-21": {
+            "scores": {
+              "min": 0,
+              "p10": 24.3,
+              "mean": 45.53,
+              "median": 49,
+              "p90": 61,
+              "max": 67
+            },
+            "labels": {
+              "Reserved": 217,
+              "Moderate": 465,
+              "Active": 127,
+              "Inactive": 45
+            }
+          }
+        }
+      },
+      "byStage": {
+        "pre_run": {
+          "days": 63,
+          "dailyScores": {
+            "min": 30,
+            "p10": 31,
+            "mean": 37.51,
+            "median": 36,
+            "p90": 46.6,
+            "max": 56
+          },
+          "dailyLabels": {
+            "Reserved": 49,
+            "Moderate": 14
+          },
+          "confidence": {
+            "Limited": {
+              "count": 63,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 44,
+            "05-09": 59,
+            "17-21": 39,
+            "09-13": 14,
+            "13-17": 7
+          },
+          "blockSpread": {
+            "min": 2,
+            "p10": 5,
+            "mean": 7.78,
+            "median": 7,
+            "p90": 12,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 32,
+                "p10": 32,
+                "mean": 39.3,
+                "median": 39,
+                "p90": 46.8,
+                "max": 56
+              },
+              "labels": {
+                "Reserved": 35,
+                "Moderate": 28
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 26,
+                "p10": 26.2,
+                "mean": 34.44,
+                "median": 33,
+                "p90": 44.8,
+                "max": 57
+              },
+              "labels": {
+                "Reserved": 47,
+                "Moderate": 16
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 25,
+                "p10": 26,
+                "mean": 32.75,
+                "median": 30,
+                "p90": 43.8,
+                "max": 52
+              },
+              "labels": {
+                "Reserved": 53,
+                "Moderate": 10
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 31,
+                "p10": 32,
+                "mean": 37.4,
+                "median": 35,
+                "p90": 44,
+                "max": 56
+              },
+              "labels": {
+                "Reserved": 48,
+                "Moderate": 15
+              }
+            }
+          }
+        },
+        "beginning": {
+          "days": 112,
+          "dailyScores": {
+            "min": 29,
+            "p10": 34,
+            "mean": 49.88,
+            "median": 54,
+            "p90": 60.9,
+            "max": 66
+          },
+          "dailyLabels": {
+            "Active": 18,
+            "Moderate": 69,
+            "Reserved": 25
+          },
+          "confidence": {
+            "Limited": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 85,
+            "05-09": 103,
+            "09-13": 40,
+            "13-17": 27,
+            "17-21": 68
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 6.46,
+            "median": 6,
+            "p90": 10.9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 30,
+                "p10": 35.1,
+                "mean": 51.18,
+                "median": 55,
+                "p90": 61.9,
+                "max": 66
+              },
+              "labels": {
+                "Active": 28,
+                "Moderate": 59,
+                "Reserved": 25
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 25,
+                "p10": 30,
+                "mean": 47.41,
+                "median": 50,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Active": 17,
+                "Moderate": 62,
+                "Reserved": 33
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 24,
+                "p10": 28.1,
+                "mean": 46.38,
+                "median": 49.5,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Active": 13,
+                "Moderate": 65,
+                "Reserved": 34
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 30,
+                "p10": 33.1,
+                "mean": 49.45,
+                "median": 55,
+                "p90": 60.9,
+                "max": 64
+              },
+              "labels": {
+                "Active": 14,
+                "Moderate": 75,
+                "Reserved": 23
+              }
+            }
+          }
+        },
+        "building": {
+          "days": 280,
+          "dailyScores": {
+            "min": 33,
+            "p10": 42.9,
+            "mean": 54.1,
+            "median": 56,
+            "p90": 63,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Moderate": 180,
+            "Active": 85,
+            "Reserved": 15
+          },
+          "confidence": {
+            "Limited": {
+              "count": 280,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 0,
+            "percent": 0,
+            "reasonCodes": {}
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 204,
+            "05-09": 242,
+            "17-21": 166,
+            "09-13": 120,
+            "13-17": 106
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 6.15,
+            "median": 6,
+            "p90": 11,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 36,
+                "p10": 45,
+                "mean": 55.17,
+                "median": 57,
+                "p90": 63,
+                "max": 68
+              },
+              "labels": {
+                "Active": 105,
+                "Moderate": 163,
+                "Reserved": 12
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 28,
+                "p10": 38,
+                "mean": 51.98,
+                "median": 53,
+                "p90": 63,
+                "max": 67
+              },
+              "labels": {
+                "Moderate": 177,
+                "Active": 71,
+                "Reserved": 32
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 27,
+                "p10": 37,
+                "mean": 51.15,
+                "median": 52,
+                "p90": 63,
+                "max": 67
+              },
+              "labels": {
+                "Moderate": 169,
+                "Active": 68,
+                "Reserved": 43
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 32,
+                "p10": 41,
+                "mean": 53.61,
+                "median": 55.5,
+                "p90": 63,
+                "max": 67
+              },
+              "labels": {
+                "Moderate": 192,
+                "Active": 71,
+                "Reserved": 17
+              }
+            }
+          }
+        },
+        "peak": {
+          "days": 112,
+          "dailyScores": {
+            "min": 17,
+            "p10": 46.1,
+            "mean": 55.91,
+            "median": 58,
+            "p90": 63,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Active": 44,
+            "Moderate": 64,
+            "Reserved": 3,
+            "Inactive": 1
+          },
+          "confidence": {
+            "Limited": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 1,
+            "percent": 0.89,
+            "reasonCodes": {
+              "activity_blown_out_cap": 1
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 91,
+            "05-09": 102,
+            "09-13": 65,
+            "13-17": 58,
+            "17-21": 77
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 4.73,
+            "median": 4,
+            "p90": 10.9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 17,
+                "p10": 47.1,
+                "mean": 56.57,
+                "median": 59,
+                "p90": 63,
+                "max": 68
+              },
+              "labels": {
+                "Active": 52,
+                "Moderate": 56,
+                "Reserved": 3,
+                "Inactive": 1
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 17,
+                "p10": 43.1,
+                "mean": 54.63,
+                "median": 57,
+                "p90": 62.9,
+                "max": 68
+              },
+              "labels": {
+                "Active": 37,
+                "Moderate": 71,
+                "Reserved": 3,
+                "Inactive": 1
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 17,
+                "p10": 44,
+                "mean": 53.79,
+                "median": 54.5,
+                "p90": 63,
+                "max": 67
+              },
+              "labels": {
+                "Active": 31,
+                "Moderate": 76,
+                "Reserved": 4,
+                "Inactive": 1
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 17,
+                "p10": 47,
+                "mean": 55.32,
+                "median": 57,
+                "p90": 63,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 71,
+                "Active": 37,
+                "Reserved": 3,
+                "Inactive": 1
+              }
+            }
+          }
+        },
+        "tapering": {
+          "days": 105,
+          "dailyScores": {
+            "min": 0,
+            "p10": 32.6,
+            "mean": 46.72,
+            "median": 50,
+            "p90": 57,
+            "max": 61
+          },
+          "dailyLabels": {
+            "Moderate": 82,
+            "Active": 3,
+            "Reserved": 13,
+            "Inactive": 7
+          },
+          "confidence": {
+            "Limited": {
+              "count": 105,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 105,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 105,
+              "activity_blown_out_cap": 7
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 74,
+            "05-09": 94,
+            "17-21": 62,
+            "09-13": 57,
+            "13-17": 45
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0.4,
+            "mean": 5.62,
+            "median": 5,
+            "p90": 11.6,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 0,
+                "p10": 35,
+                "mean": 47.83,
+                "median": 51,
+                "p90": 58,
+                "max": 63
+              },
+              "labels": {
+                "Moderate": 84,
+                "Active": 6,
+                "Reserved": 8,
+                "Inactive": 7
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 0,
+                "p10": 31,
+                "mean": 45.1,
+                "median": 49,
+                "p90": 57,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 77,
+                "Reserved": 17,
+                "Active": 4,
+                "Inactive": 7
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 0,
+                "p10": 28.4,
+                "mean": 43.9,
+                "median": 48,
+                "p90": 56.6,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 75,
+                "Reserved": 20,
+                "Active": 3,
+                "Inactive": 7
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 0,
+                "p10": 30,
+                "mean": 46.28,
+                "median": 50,
+                "p90": 57,
+                "max": 61
+              },
+              "labels": {
+                "Moderate": 79,
+                "Active": 5,
+                "Reserved": 14,
+                "Inactive": 7
+              }
+            }
+          }
+        },
+        "ending": {
+          "days": 70,
+          "dailyScores": {
+            "min": 0,
+            "p10": 21,
+            "mean": 36.26,
+            "median": 39.5,
+            "p90": 46.1,
+            "max": 50
+          },
+          "dailyLabels": {
+            "Moderate": 35,
+            "Reserved": 30,
+            "Inactive": 5
+          },
+          "confidence": {
+            "Limited": {
+              "count": 70,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 70,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 70,
+              "activity_blown_out_cap": 2
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 60,
+            "05-09": 64,
+            "09-13": 51,
+            "13-17": 41,
+            "17-21": 51
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 3.86,
+            "median": 3,
+            "p90": 9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 0,
+                "p10": 20.9,
+                "mean": 36.66,
+                "median": 41,
+                "p90": 46.1,
+                "max": 49
+              },
+              "labels": {
+                "Moderate": 40,
+                "Reserved": 25,
+                "Inactive": 5
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 0,
+                "p10": 21,
+                "mean": 35.56,
+                "median": 39,
+                "p90": 47,
+                "max": 50
+              },
+              "labels": {
+                "Moderate": 34,
+                "Reserved": 31,
+                "Inactive": 5
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 0,
+                "p10": 20.6,
+                "mean": 34.36,
+                "median": 37.5,
+                "p90": 47,
+                "max": 50
+              },
+              "labels": {
+                "Moderate": 28,
+                "Reserved": 35,
+                "Inactive": 7
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 0,
+                "p10": 21,
+                "mean": 35.89,
+                "median": 39,
+                "p90": 46.1,
+                "max": 51
+              },
+              "labels": {
+                "Moderate": 33,
+                "Reserved": 32,
+                "Inactive": 5
+              }
+            }
+          }
+        },
+        "post_run": {
+          "days": 112,
+          "dailyScores": {
+            "min": 1,
+            "p10": 2,
+            "mean": 21.88,
+            "median": 24,
+            "p90": 32,
+            "max": 39
+          },
+          "dailyLabels": {
+            "Reserved": 80,
+            "Inactive": 32
+          },
+          "confidence": {
+            "Limited": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 112,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 112,
+              "activity_blown_out_cap": 16
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 108,
+            "05-09": 107,
+            "13-17": 87,
+            "09-13": 92,
+            "17-21": 96
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 2.21,
+            "median": 2,
+            "p90": 5.9,
+            "max": 9
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 2,
+                "mean": 22.1,
+                "median": 24,
+                "p90": 32,
+                "max": 39
+              },
+              "labels": {
+                "Reserved": 78,
+                "Inactive": 34
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 2,
+                "mean": 21.42,
+                "median": 23.5,
+                "p90": 32,
+                "max": 39
+              },
+              "labels": {
+                "Reserved": 78,
+                "Inactive": 34
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 2,
+                "mean": 20.91,
+                "median": 23,
+                "p90": 32,
+                "max": 39
+              },
+              "labels": {
+                "Reserved": 73,
+                "Inactive": 39
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 2,
+                "mean": 21.51,
+                "median": 23,
+                "p90": 32,
+                "max": 39
+              },
+              "labels": {
+                "Reserved": 80,
+                "Inactive": 32
+              }
+            }
+          }
+        }
+      },
+      "byYear": {
+        "2019": {
+          "days": 122,
+          "dailyScores": {
+            "min": 22,
+            "p10": 32,
+            "mean": 51.14,
+            "median": 56,
+            "p90": 61.9,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Reserved": 25,
+            "Moderate": 66,
+            "Active": 31
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 99,
+            "05-09": 112,
+            "17-21": 73,
+            "09-13": 66,
+            "13-17": 49
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 5.3,
+            "median": 5,
+            "p90": 9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 24,
+                "p10": 31.1,
+                "mean": 52.19,
+                "median": 57,
+                "p90": 62,
+                "max": 68
+              },
+              "labels": {
+                "Reserved": 22,
+                "Moderate": 57,
+                "Active": 43
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 20,
+                "p10": 30.1,
+                "mean": 49.57,
+                "median": 52,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 24,
+                "Moderate": 70,
+                "Active": 28
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 19,
+                "p10": 29.1,
+                "mean": 48.52,
+                "median": 51.5,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 26,
+                "Moderate": 73,
+                "Active": 22,
+                "Inactive": 1
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 22,
+                "p10": 32,
+                "mean": 50.48,
+                "median": 55,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 26,
+                "Moderate": 74,
+                "Active": 22
+              }
+            }
+          }
+        },
+        "2020": {
+          "days": 122,
+          "dailyScores": {
+            "min": 1,
+            "p10": 23.1,
+            "mean": 40.84,
+            "median": 42,
+            "p90": 56.9,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Reserved": 43,
+            "Moderate": 63,
+            "Active": 9,
+            "Inactive": 7
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41,
+              "activity_blown_out_cap": 2
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 91,
+            "05-09": 110,
+            "13-17": 38,
+            "17-21": 82,
+            "09-13": 48
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 2,
+            "mean": 5.77,
+            "median": 5,
+            "p90": 11,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 22.2,
+                "mean": 41.99,
+                "median": 43,
+                "p90": 58.9,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 41,
+                "Moderate": 64,
+                "Active": 9,
+                "Inactive": 8
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 23.1,
+                "mean": 38.61,
+                "median": 39.5,
+                "p90": 56.7,
+                "max": 68
+              },
+              "labels": {
+                "Reserved": 54,
+                "Moderate": 55,
+                "Active": 6,
+                "Inactive": 7
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 23.1,
+                "mean": 37.77,
+                "median": 38,
+                "p90": 55,
+                "max": 67
+              },
+              "labels": {
+                "Reserved": 59,
+                "Moderate": 51,
+                "Active": 5,
+                "Inactive": 7
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 23.1,
+                "mean": 40.81,
+                "median": 42,
+                "p90": 57,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 46,
+                "Moderate": 61,
+                "Active": 9,
+                "Inactive": 6
+              }
+            }
+          }
+        },
+        "2021": {
+          "days": 122,
+          "dailyScores": {
+            "min": 17,
+            "p10": 25,
+            "mean": 46.36,
+            "median": 49.5,
+            "p90": 61,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 38,
+            "Moderate": 58,
+            "Active": 23,
+            "Inactive": 3
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 103,
+            "05-09": 104,
+            "17-21": 88,
+            "13-17": 64,
+            "09-13": 71
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 4.77,
+            "median": 4,
+            "p90": 9,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 17,
+                "p10": 25.1,
+                "mean": 46.84,
+                "median": 51,
+                "p90": 62,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 36,
+                "Moderate": 57,
+                "Active": 25,
+                "Inactive": 4
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 17,
+                "p10": 25,
+                "mean": 44.74,
+                "median": 48,
+                "p90": 61,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 39,
+                "Moderate": 61,
+                "Active": 19,
+                "Inactive": 3
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 15,
+                "p10": 24,
+                "mean": 44.3,
+                "median": 48,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 38,
+                "Moderate": 59,
+                "Active": 19,
+                "Inactive": 6
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 17,
+                "p10": 24.1,
+                "mean": 46.04,
+                "median": 49,
+                "p90": 61,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 36,
+                "Moderate": 63,
+                "Active": 20,
+                "Inactive": 3
+              }
+            }
+          }
+        },
+        "2022": {
+          "days": 122,
+          "dailyScores": {
+            "min": 2,
+            "p10": 29.1,
+            "mean": 45.48,
+            "median": 46,
+            "p90": 61.9,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Reserved": 32,
+            "Moderate": 70,
+            "Active": 15,
+            "Inactive": 5
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41,
+              "activity_blown_out_cap": 4
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 85,
+            "05-09": 110,
+            "09-13": 56,
+            "17-21": 76,
+            "13-17": 47
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 6.04,
+            "median": 6,
+            "p90": 11,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 2,
+                "p10": 31,
+                "mean": 46.62,
+                "median": 48,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Moderate": 71,
+                "Reserved": 27,
+                "Active": 19,
+                "Inactive": 5
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 2,
+                "p10": 29,
+                "mean": 43.6,
+                "median": 44,
+                "p90": 61,
+                "max": 67
+              },
+              "labels": {
+                "Reserved": 38,
+                "Moderate": 65,
+                "Active": 14,
+                "Inactive": 5
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 2,
+                "p10": 25.1,
+                "mean": 42.11,
+                "median": 43,
+                "p90": 60.9,
+                "max": 67
+              },
+              "labels": {
+                "Reserved": 51,
+                "Moderate": 52,
+                "Active": 14,
+                "Inactive": 5
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 2,
+                "p10": 28.1,
+                "mean": 45.07,
+                "median": 45,
+                "p90": 61,
+                "max": 67
+              },
+              "labels": {
+                "Reserved": 33,
+                "Moderate": 68,
+                "Active": 16,
+                "Inactive": 5
+              }
+            }
+          }
+        },
+        "2023": {
+          "days": 122,
+          "dailyScores": {
+            "min": 0,
+            "p10": 25,
+            "mean": 47.52,
+            "median": 54,
+            "p90": 62,
+            "max": 67
+          },
+          "dailyLabels": {
+            "Reserved": 26,
+            "Moderate": 57,
+            "Active": 31,
+            "Inactive": 8
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41,
+              "activity_blown_out_cap": 5
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 96,
+            "05-09": 112,
+            "17-21": 75,
+            "09-13": 67,
+            "13-17": 59
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 5.23,
+            "median": 5,
+            "p90": 11,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 0,
+                "p10": 25.1,
+                "mean": 48.49,
+                "median": 55,
+                "p90": 62,
+                "max": 68
+              },
+              "labels": {
+                "Reserved": 24,
+                "Moderate": 50,
+                "Active": 40,
+                "Inactive": 8
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 0,
+                "p10": 24.1,
+                "mean": 45.93,
+                "median": 52,
+                "p90": 61,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 26,
+                "Moderate": 60,
+                "Active": 28,
+                "Inactive": 8
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 0,
+                "p10": 22.1,
+                "mean": 44.9,
+                "median": 50,
+                "p90": 61.9,
+                "max": 67
+              },
+              "labels": {
+                "Reserved": 25,
+                "Moderate": 64,
+                "Active": 24,
+                "Inactive": 9
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 0,
+                "p10": 24,
+                "mean": 46.84,
+                "median": 54,
+                "p90": 61.9,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 26,
+                "Moderate": 67,
+                "Active": 21,
+                "Inactive": 8
+              }
+            }
+          }
+        },
+        "2024": {
+          "days": 122,
+          "dailyScores": {
+            "min": 1,
+            "p10": 14.1,
+            "mean": 41.7,
+            "median": 44.5,
+            "p90": 60,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 28,
+            "Moderate": 63,
+            "Active": 15,
+            "Inactive": 16
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 42,
+            "percent": 34.43,
+            "reasonCodes": {
+              "activity_blown_out_cap": 14,
+              "activity_late_biology_cap": 41
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 91,
+            "05-09": 111,
+            "09-13": 65,
+            "17-21": 77,
+            "13-17": 56
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 5.51,
+            "median": 5,
+            "p90": 12,
+            "max": 12
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 13.2,
+                "mean": 42.65,
+                "median": 47,
+                "p90": 61,
+                "max": 64
+              },
+              "labels": {
+                "Moderate": 72,
+                "Reserved": 18,
+                "Active": 16,
+                "Inactive": 16
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 14.1,
+                "mean": 39.95,
+                "median": 43,
+                "p90": 59,
+                "max": 64
+              },
+              "labels": {
+                "Moderate": 61,
+                "Reserved": 35,
+                "Active": 10,
+                "Inactive": 16
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 14.1,
+                "mean": 39.03,
+                "median": 41,
+                "p90": 58,
+                "max": 66
+              },
+              "labels": {
+                "Reserved": 38,
+                "Moderate": 56,
+                "Active": 10,
+                "Inactive": 18
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 14.1,
+                "mean": 41.2,
+                "median": 44.5,
+                "p90": 60.9,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 29,
+                "Moderate": 60,
+                "Active": 16,
+                "Inactive": 17
+              }
+            }
+          }
+        },
+        "2025": {
+          "days": 122,
+          "dailyScores": {
+            "min": 1,
+            "p10": 22.8,
+            "mean": 48.72,
+            "median": 51.5,
+            "p90": 62,
+            "max": 65
+          },
+          "dailyLabels": {
+            "Reserved": 23,
+            "Moderate": 67,
+            "Active": 26,
+            "Inactive": 6
+          },
+          "confidence": {
+            "Limited": {
+              "count": 122,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 41,
+            "percent": 33.61,
+            "reasonCodes": {
+              "activity_late_biology_cap": 41,
+              "activity_blown_out_cap": 1
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 101,
+            "05-09": 112,
+            "17-21": 88,
+            "09-13": 66,
+            "13-17": 58
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 4.87,
+            "median": 5,
+            "p90": 10,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 22.8,
+                "mean": 49.53,
+                "median": 52,
+                "p90": 63,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 18,
+                "Moderate": 59,
+                "Active": 39,
+                "Inactive": 6
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 22.6,
+                "mean": 47.24,
+                "median": 50,
+                "p90": 62,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 25,
+                "Moderate": 65,
+                "Active": 24,
+                "Inactive": 8
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 21.6,
+                "mean": 46.31,
+                "median": 50,
+                "p90": 61,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 25,
+                "Moderate": 68,
+                "Active": 21,
+                "Inactive": 8
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 23.4,
+                "mean": 48.26,
+                "median": 51.5,
+                "p90": 62,
+                "max": 65
+              },
+              "labels": {
+                "Reserved": 21,
+                "Moderate": 72,
+                "Active": 23,
+                "Inactive": 6
+              }
+            }
+          }
+        }
+      },
+      "controlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushControlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushRules": {
+        "version": "umpqua_mainstem_fall_coho-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "directEvent": {
+          "hydraulic": "trigger",
+          "temperature": "disabled",
+          "buildingCoolingF": 0.75,
+          "coolingF": 1.5,
+          "strongCoolingF": 3,
+          "persistenceHours": 48,
+          "fullRetentionFraction": 0.65,
+          "minimumRetentionFraction": 0.35
+        },
+        "hydraulic": {
+          "metric": "flow_cfs",
+          "sourceLabel": "USGS 14321000",
+          "lowValue": 960,
+          "highValue": 10500,
+          "severeHighValue": 17500,
+          "rising24h": {
+            "absolute": 30,
+            "percent": 2.9
+          },
+          "meaningfulRise24h": {
+            "absolute": 140,
+            "percent": 9.4
+          },
+          "sharpRise24h": {
+            "absolute": 765,
+            "percent": 34
+          }
+        },
+        "rain": {
+          "meaningful48hIn": 997,
+          "strong48hIn": 998,
+          "heavy48hIn": 999
+        },
+        "temperature": {
+          "suitabilityLabel": "fall coho movement range",
+          "supportiveMinF": 45,
+          "supportiveMaxF": 60,
+          "tooWarmF": 64,
+          "migrationBarrierF": 68
+        },
+        "caps": {
+          "staleGauge": 55,
+          "unknownTrend": 49,
+          "noGaugeResponse": 50,
+          "tooWarm": 64,
+          "migrationBarrier": 49,
+          "severeHighFlow": 49,
+          "outsideExtendedWindow": 50,
+          "coldHolding": 49
+        },
+        "evidenceNotes": "Positive-only direct event replay. Measured discharge is the required trigger; precipitation is unscored. Temperature participates only for North Umpqua coho.",
+        "sourceNotes": "USGS 14321000; 2019-2025 positive daily-rise p50/p75/p90 thresholds."
+      },
+      "pushLabels": {
+        "Possible": 62,
+        "Elevated": 53,
+        "Neutral": 474,
+        "Strong": 20
+      },
+      "invariants": {
+        "insufficientCoverage": 0,
+        "peakNotHighest": 0,
+        "shoulderGapOver20": 0,
+        "strongWithoutDirectSignal": 0,
+        "noPositivePushEvents": 0,
+        "severeHighCapBroken": 0,
+        "incompleteFourBlockDays": 0,
+        "stagesWithoutEnvironmentalVariation": 0,
+        "yearsWithoutMeaningfulVariation": 0,
+        "controlledTestFailures": 0
+      }
+    },
+    {
+      "runId": "north_umpqua_fall_coho",
+      "species": "coho_salmon",
+      "calendar": {
+        "preRunStart": "08-20",
+        "stagingStart": "08-28",
+        "start": "09-01",
+        "beginningEnd": "09-20",
+        "buildingEstablishedStart": "09-21",
+        "buildingBroadStart": "10-10",
+        "peakStart": "10-20",
+        "peak": "11-05",
+        "peakEnd": "11-20",
+        "taperingEnd": "12-05",
+        "end": "12-20",
+        "lateEnd": "01-10",
+        "postRunLateCopyEnd": "01-30"
+      },
+      "strength": 7,
+      "distributionScope": "broad",
+      "activityMode": "full",
+      "activityRules": {
+        "version": "north-umpqua-fall-coho-full-activity-v1-pass3-2026-09-28",
+        "profile": "coho_fall_reaction",
+        "dataMode": "observed_river",
+        "minimumInputContract": "weather_and_one_measured_river_input",
+        "inputReach": {
+          "reachIds": [
+            "north_umpqua_lower_winchester"
+          ],
+          "hydraulicSourceIds": [
+            "north_umpqua_winchester_usgs"
+          ],
+          "waterTemperatureSourceIds": [
+            "north_umpqua_winchester_temperature"
+          ],
+          "weatherPointIds": [
+            "north_umpqua_winchester_weather"
+          ],
+          "notes": "North Umpqua River Activity represents only north_umpqua_lower_winchester."
+        },
+        "scopeCopy": "North Umpqua River Activity represents only the gauge reach; it does not describe the estuary, every upstream reach, abundance, fish location, or catch probability.",
+        "weights": {
+          "light": 0.25,
+          "waterTemperature": 0.35,
+          "riverBehavior": 0.3,
+          "weather": 0.1
+        },
+        "temperature": {
+          "coldF": 40,
+          "preferredMinF": 45,
+          "preferredMaxF": 60,
+          "warmF": 64,
+          "barrierF": 68
+        },
+        "hydraulicTrend": {
+          "rising24h": {
+            "absolute": 74,
+            "percent": 6.5
+          },
+          "meaningfulRise24h": {
+            "absolute": 510,
+            "percent": 25.3
+          },
+          "sharpRise24h": {
+            "absolute": 2290,
+            "percent": 71.4
+          }
+        },
+        "caps": {
+          "noMeasuredRiverData": 60,
+          "noWaterTemperature": 60,
+          "lateRun": 75,
+          "ending": 42,
+          "taperingPenalty": 15,
+          "lifecycleRamp": {
+            "peakEnd": "11-20",
+            "taperingEnd": "12-05",
+            "endingEnd": "01-10"
+          }
+        },
+        "evidenceNotes": "Seven-season replay of co-located measured flow and water temperature plus hourly modeled weather."
+      },
+      "presenceVersion": "north-umpqua-fall-coho-presence-v1-pass3-2026-09-28",
+      "expectedDays": 952,
+      "usableDays": 952,
+      "coveragePercent": 100,
+      "missing": {
+        "flow": 0,
+        "priorFlow": 0,
+        "temperature": 0,
+        "temperatureHistory": 0,
+        "weather": 0
+      },
+      "allDays": {
+        "days": 952,
+        "dailyScores": {
+          "min": 0,
+          "p10": 19,
+          "mean": 59.02,
+          "median": 65,
+          "p90": 86,
+          "max": 92
+        },
+        "dailyLabels": {
+          "Inactive": 98,
+          "Reserved": 126,
+          "Active": 323,
+          "Highly active": 238,
+          "Moderate": 167
+        },
+        "confidence": {
+          "Full": {
+            "count": 952,
+            "percent": 100
+          }
+        },
+        "capFrequency": {
+          "days": 493,
+          "percent": 51.79,
+          "reasonCodes": {
+            "activity_temperature_barrier_cap": 62,
+            "activity_warm_water_cap": 73,
+            "activity_late_biology_cap": 357,
+            "activity_blown_out_cap": 37
+          }
+        },
+        "leaderFrequency": {
+          "tiesWithinTwoPoints": 742,
+          "05-09": 830,
+          "09-13": 529,
+          "13-17": 488,
+          "17-21": 645
+        },
+        "blockSpread": {
+          "min": 0,
+          "p10": 1,
+          "mean": 5.4,
+          "median": 5,
+          "p90": 12,
+          "max": 15
+        },
+        "byBlock": {
+          "05-09": {
+            "scores": {
+              "min": 0,
+              "p10": 19,
+              "mean": 59.84,
+              "median": 67,
+              "p90": 87,
+              "max": 93
+            },
+            "labels": {
+              "Inactive": 98,
+              "Reserved": 123,
+              "Active": 307,
+              "Highly active": 270,
+              "Moderate": 154
+            }
+          },
+          "09-13": {
+            "scores": {
+              "min": 0,
+              "p10": 19,
+              "mean": 57.43,
+              "median": 63,
+              "p90": 85,
+              "max": 93
+            },
+            "labels": {
+              "Inactive": 98,
+              "Reserved": 137,
+              "Active": 323,
+              "Highly active": 199,
+              "Moderate": 195
+            }
+          },
+          "13-17": {
+            "scores": {
+              "min": 0,
+              "p10": 19,
+              "mean": 56.32,
+              "median": 61,
+              "p90": 85,
+              "max": 91
+            },
+            "labels": {
+              "Inactive": 101,
+              "Reserved": 135,
+              "Active": 315,
+              "Highly active": 174,
+              "Moderate": 227
+            }
+          },
+          "17-21": {
+            "scores": {
+              "min": 0,
+              "p10": 19,
+              "mean": 58.55,
+              "median": 65,
+              "p90": 85,
+              "max": 93
+            },
+            "labels": {
+              "Inactive": 99,
+              "Reserved": 127,
+              "Active": 335,
+              "Highly active": 223,
+              "Moderate": 168
+            }
+          }
+        }
+      },
+      "byStage": {
+        "pre_run": {
+          "days": 28,
+          "dailyScores": {
+            "min": 17,
+            "p10": 17,
+            "mean": 18.61,
+            "median": 18,
+            "p90": 21,
+            "max": 22
+          },
+          "dailyLabels": {
+            "Inactive": 22,
+            "Reserved": 6
+          },
+          "confidence": {
+            "Full": {
+              "count": 28,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 28,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 22,
+              "activity_warm_water_cap": 6
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 28,
+            "05-09": 28,
+            "09-13": 28,
+            "13-17": 28,
+            "17-21": 28
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 1,
+            "median": 1,
+            "p90": 1,
+            "max": 2
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 17,
+                "p10": 18,
+                "mean": 18.68,
+                "median": 18,
+                "p90": 21,
+                "max": 22
+              },
+              "labels": {
+                "Inactive": 22,
+                "Reserved": 6
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 17,
+                "p10": 17,
+                "mean": 18.07,
+                "median": 17.5,
+                "p90": 20,
+                "max": 22
+              },
+              "labels": {
+                "Inactive": 22,
+                "Reserved": 6
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 17,
+                "p10": 17,
+                "mean": 17.79,
+                "median": 17,
+                "p90": 20,
+                "max": 21
+              },
+              "labels": {
+                "Inactive": 24,
+                "Reserved": 4
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 17,
+                "p10": 17,
+                "mean": 18.5,
+                "median": 18,
+                "p90": 21,
+                "max": 21
+              },
+              "labels": {
+                "Inactive": 22,
+                "Reserved": 6
+              }
+            }
+          }
+        },
+        "beginning": {
+          "days": 140,
+          "dailyScores": {
+            "min": 18,
+            "p10": 18,
+            "mean": 32.48,
+            "median": 22,
+            "p90": 69.1,
+            "max": 92
+          },
+          "dailyLabels": {
+            "Inactive": 40,
+            "Reserved": 66,
+            "Active": 23,
+            "Highly active": 5,
+            "Moderate": 6
+          },
+          "confidence": {
+            "Full": {
+              "count": 140,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 106,
+            "percent": 75.71,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 40,
+              "activity_warm_water_cap": 66
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 127,
+            "05-09": 134,
+            "09-13": 117,
+            "13-17": 111,
+            "17-21": 123
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 2.71,
+            "median": 1,
+            "p90": 8,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 18,
+                "p10": 18,
+                "mean": 32.88,
+                "median": 22,
+                "p90": 70,
+                "max": 92
+              },
+              "labels": {
+                "Inactive": 40,
+                "Reserved": 66,
+                "Active": 23,
+                "Highly active": 6,
+                "Moderate": 5
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 17,
+                "p10": 17,
+                "mean": 31.41,
+                "median": 21,
+                "p90": 69,
+                "max": 93
+              },
+              "labels": {
+                "Inactive": 40,
+                "Reserved": 66,
+                "Active": 18,
+                "Highly active": 4,
+                "Moderate": 12
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 17,
+                "p10": 17,
+                "mean": 30.96,
+                "median": 21,
+                "p90": 67.1,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 40,
+                "Reserved": 66,
+                "Active": 16,
+                "Highly active": 4,
+                "Moderate": 14
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 18,
+                "p10": 18,
+                "mean": 32.26,
+                "median": 22,
+                "p90": 70,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 40,
+                "Reserved": 66,
+                "Active": 22,
+                "Highly active": 6,
+                "Moderate": 6
+              }
+            }
+          }
+        },
+        "building": {
+          "days": 315,
+          "dailyScores": {
+            "min": 24,
+            "p10": 63,
+            "mean": 76.84,
+            "median": 79,
+            "p90": 87,
+            "max": 91
+          },
+          "dailyLabels": {
+            "Active": 150,
+            "Highly active": 149,
+            "Moderate": 15,
+            "Reserved": 1
+          },
+          "confidence": {
+            "Full": {
+              "count": 315,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 1,
+            "percent": 0.32,
+            "reasonCodes": {
+              "activity_warm_water_cap": 1
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 216,
+            "05-09": 263,
+            "09-13": 101,
+            "17-21": 177,
+            "13-17": 99
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 3,
+            "mean": 7.79,
+            "median": 7,
+            "p90": 14,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 23,
+                "p10": 65,
+                "mean": 78.23,
+                "median": 81,
+                "p90": 88,
+                "max": 93
+              },
+              "labels": {
+                "Highly active": 174,
+                "Active": 130,
+                "Moderate": 10,
+                "Reserved": 1
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 24,
+                "p10": 59,
+                "mean": 74.4,
+                "median": 76,
+                "p90": 87,
+                "max": 93
+              },
+              "labels": {
+                "Active": 152,
+                "Highly active": 123,
+                "Moderate": 39,
+                "Reserved": 1
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 24,
+                "p10": 58,
+                "mean": 72.88,
+                "median": 73,
+                "p90": 87.6,
+                "max": 91
+              },
+              "labels": {
+                "Active": 150,
+                "Highly active": 111,
+                "Moderate": 53,
+                "Reserved": 1
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 23,
+                "p10": 63,
+                "mean": 76.32,
+                "median": 79,
+                "p90": 87,
+                "max": 93
+              },
+              "labels": {
+                "Active": 162,
+                "Highly active": 140,
+                "Moderate": 12,
+                "Reserved": 1
+              }
+            }
+          }
+        },
+        "peak": {
+          "days": 112,
+          "dailyScores": {
+            "min": 20,
+            "p10": 72,
+            "mean": 80.75,
+            "median": 82,
+            "p90": 88,
+            "max": 91
+          },
+          "dailyLabels": {
+            "Active": 41,
+            "Highly active": 70,
+            "Reserved": 1
+          },
+          "confidence": {
+            "Full": {
+              "count": 112,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 1,
+            "percent": 0.89,
+            "reasonCodes": {
+              "activity_blown_out_cap": 1
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 78,
+            "05-09": 89,
+            "09-13": 54,
+            "13-17": 47,
+            "17-21": 69
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 6.03,
+            "median": 5,
+            "p90": 13,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 20,
+                "p10": 74,
+                "mean": 81.56,
+                "median": 83,
+                "p90": 88,
+                "max": 90
+              },
+              "labels": {
+                "Active": 38,
+                "Highly active": 73,
+                "Reserved": 1
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 20,
+                "p10": 68.1,
+                "mean": 79.17,
+                "median": 81,
+                "p90": 87,
+                "max": 89
+              },
+              "labels": {
+                "Active": 50,
+                "Highly active": 60,
+                "Moderate": 1,
+                "Reserved": 1
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 19,
+                "p10": 67.1,
+                "mean": 77.72,
+                "median": 77,
+                "p90": 88,
+                "max": 91
+              },
+              "labels": {
+                "Active": 60,
+                "Highly active": 50,
+                "Moderate": 1,
+                "Inactive": 1
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 19,
+                "p10": 71.1,
+                "mean": 80.13,
+                "median": 81,
+                "p90": 88,
+                "max": 92
+              },
+              "labels": {
+                "Active": 45,
+                "Highly active": 66,
+                "Inactive": 1
+              }
+            }
+          }
+        },
+        "tapering": {
+          "days": 105,
+          "dailyScores": {
+            "min": 0,
+            "p10": 57,
+            "mean": 66.99,
+            "median": 69,
+            "p90": 80.6,
+            "max": 87
+          },
+          "dailyLabels": {
+            "Active": 72,
+            "Moderate": 14,
+            "Highly active": 14,
+            "Inactive": 5
+          },
+          "confidence": {
+            "Full": {
+              "count": 105,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 105,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 105,
+              "activity_blown_out_cap": 5
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 75,
+            "05-09": 87,
+            "17-21": 64,
+            "09-13": 49,
+            "13-17": 42
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 6.84,
+            "median": 6,
+            "p90": 14,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 0,
+                "p10": 58.8,
+                "mean": 68.01,
+                "median": 71,
+                "p90": 81.6,
+                "max": 87
+              },
+              "labels": {
+                "Highly active": 17,
+                "Active": 77,
+                "Moderate": 6,
+                "Inactive": 5
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 0,
+                "p10": 50.4,
+                "mean": 65.09,
+                "median": 69,
+                "p90": 80,
+                "max": 88
+              },
+              "labels": {
+                "Active": 67,
+                "Moderate": 21,
+                "Highly active": 12,
+                "Inactive": 5
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 0,
+                "p10": 48.8,
+                "mean": 63.53,
+                "median": 67,
+                "p90": 78.6,
+                "max": 87
+              },
+              "labels": {
+                "Active": 64,
+                "Moderate": 27,
+                "Highly active": 9,
+                "Inactive": 5
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 0,
+                "p10": 56,
+                "mean": 66.42,
+                "median": 70,
+                "p90": 79.6,
+                "max": 87
+              },
+              "labels": {
+                "Highly active": 11,
+                "Active": 73,
+                "Moderate": 16,
+                "Inactive": 5
+              }
+            }
+          }
+        },
+        "ending": {
+          "days": 105,
+          "dailyScores": {
+            "min": 1,
+            "p10": 47,
+            "mean": 55.26,
+            "median": 57,
+            "p90": 66,
+            "max": 73
+          },
+          "dailyLabels": {
+            "Active": 37,
+            "Moderate": 64,
+            "Inactive": 4
+          },
+          "confidence": {
+            "Full": {
+              "count": 105,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 105,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 105,
+              "activity_blown_out_cap": 4
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 85,
+            "05-09": 91,
+            "13-17": 53,
+            "09-13": 68,
+            "17-21": 65
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 4.76,
+            "median": 4,
+            "p90": 11,
+            "max": 13
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 1,
+                "p10": 46.4,
+                "mean": 55.75,
+                "median": 58,
+                "p90": 66.6,
+                "max": 72
+              },
+              "labels": {
+                "Active": 39,
+                "Moderate": 62,
+                "Inactive": 4
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 1,
+                "p10": 45.4,
+                "mean": 54.3,
+                "median": 57,
+                "p90": 64.6,
+                "max": 73
+              },
+              "labels": {
+                "Active": 36,
+                "Moderate": 63,
+                "Reserved": 2,
+                "Inactive": 4
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 1,
+                "p10": 43.4,
+                "mean": 53.05,
+                "median": 55,
+                "p90": 64.6,
+                "max": 74
+              },
+              "labels": {
+                "Active": 25,
+                "Moderate": 74,
+                "Reserved": 2,
+                "Inactive": 4
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 1,
+                "p10": 46.4,
+                "mean": 54.6,
+                "median": 57,
+                "p90": 65,
+                "max": 72
+              },
+              "labels": {
+                "Moderate": 68,
+                "Active": 33,
+                "Inactive": 4
+              }
+            }
+          }
+        },
+        "post_run": {
+          "days": 147,
+          "dailyScores": {
+            "min": 2,
+            "p10": 4,
+            "mean": 34.25,
+            "median": 39,
+            "p90": 50,
+            "max": 58
+          },
+          "dailyLabels": {
+            "Moderate": 68,
+            "Reserved": 52,
+            "Inactive": 27
+          },
+          "confidence": {
+            "Full": {
+              "count": 147,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 147,
+            "percent": 100,
+            "reasonCodes": {
+              "activity_late_biology_cap": 147,
+              "activity_blown_out_cap": 27
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 133,
+            "05-09": 138,
+            "09-13": 112,
+            "13-17": 108,
+            "17-21": 119
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 2.65,
+            "median": 2,
+            "p90": 6,
+            "max": 10
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 2,
+                "p10": 4,
+                "mean": 34.44,
+                "median": 39,
+                "p90": 50,
+                "max": 59
+              },
+              "labels": {
+                "Moderate": 71,
+                "Reserved": 49,
+                "Inactive": 27
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 2,
+                "p10": 4,
+                "mean": 33.53,
+                "median": 38,
+                "p90": 50,
+                "max": 57
+              },
+              "labels": {
+                "Moderate": 59,
+                "Reserved": 61,
+                "Inactive": 27
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 2,
+                "p10": 4,
+                "mean": 33.21,
+                "median": 37,
+                "p90": 49,
+                "max": 56
+              },
+              "labels": {
+                "Moderate": 58,
+                "Reserved": 62,
+                "Inactive": 27
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 2,
+                "p10": 4,
+                "mean": 33.9,
+                "median": 38,
+                "p90": 49,
+                "max": 58
+              },
+              "labels": {
+                "Moderate": 66,
+                "Reserved": 54,
+                "Inactive": 27
+              }
+            }
+          }
+        }
+      },
+      "byYear": {
+        "2019": {
+          "days": 136,
+          "dailyScores": {
+            "min": 18,
+            "p10": 25,
+            "mean": 62,
+            "median": 71,
+            "p90": 86,
+            "max": 92
+          },
+          "dailyLabels": {
+            "Inactive": 11,
+            "Reserved": 17,
+            "Active": 53,
+            "Highly active": 33,
+            "Moderate": 22
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 70,
+            "percent": 51.47,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 11,
+              "activity_warm_water_cap": 8,
+              "activity_late_biology_cap": 51
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 107,
+            "05-09": 122,
+            "09-13": 76,
+            "13-17": 62,
+            "17-21": 86
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 5.59,
+            "median": 5,
+            "p90": 11,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 18,
+                "p10": 25,
+                "mean": 62.93,
+                "median": 73,
+                "p90": 86,
+                "max": 93
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 15,
+                "Active": 44,
+                "Highly active": 43,
+                "Moderate": 23
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 17,
+                "p10": 24,
+                "mean": 60.49,
+                "median": 68,
+                "p90": 84.5,
+                "max": 93
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 19,
+                "Active": 60,
+                "Highly active": 24,
+                "Moderate": 22
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 17,
+                "p10": 23.5,
+                "mean": 59.26,
+                "median": 65.5,
+                "p90": 83.5,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 20,
+                "Active": 61,
+                "Highly active": 20,
+                "Moderate": 24
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 18,
+                "p10": 24,
+                "mean": 61.28,
+                "median": 69,
+                "p90": 84,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 18,
+                "Active": 48,
+                "Highly active": 37,
+                "Moderate": 22
+              }
+            }
+          }
+        },
+        "2020": {
+          "days": 136,
+          "dailyScores": {
+            "min": 2,
+            "p10": 21,
+            "mean": 59.69,
+            "median": 65,
+            "p90": 82.5,
+            "max": 89
+          },
+          "dailyLabels": {
+            "Inactive": 11,
+            "Reserved": 14,
+            "Moderate": 25,
+            "Active": 65,
+            "Highly active": 21
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 64,
+            "percent": 47.06,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 8,
+              "activity_warm_water_cap": 5,
+              "activity_late_biology_cap": 51,
+              "activity_blown_out_cap": 3
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 93,
+            "05-09": 110,
+            "09-13": 59,
+            "13-17": 48,
+            "17-21": 88
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 6.43,
+            "median": 6,
+            "p90": 13,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 2,
+                "p10": 21.5,
+                "mean": 60.77,
+                "median": 69,
+                "p90": 83,
+                "max": 89
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 15,
+                "Moderate": 19,
+                "Active": 66,
+                "Highly active": 25
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 2,
+                "p10": 20.5,
+                "mean": 57.36,
+                "median": 63,
+                "p90": 81.5,
+                "max": 89
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 18,
+                "Moderate": 31,
+                "Active": 58,
+                "Highly active": 18
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 2,
+                "p10": 20.5,
+                "mean": 56.25,
+                "median": 61,
+                "p90": 79.5,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 12,
+                "Reserved": 19,
+                "Moderate": 33,
+                "Active": 58,
+                "Highly active": 14
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 2,
+                "p10": 21,
+                "mean": 59.51,
+                "median": 65.5,
+                "p90": 81,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 14,
+                "Moderate": 25,
+                "Active": 63,
+                "Highly active": 23
+              }
+            }
+          }
+        },
+        "2021": {
+          "days": 136,
+          "dailyScores": {
+            "min": 4,
+            "p10": 21,
+            "mean": 62.33,
+            "median": 73.5,
+            "p90": 88,
+            "max": 90
+          },
+          "dailyLabels": {
+            "Inactive": 8,
+            "Reserved": 23,
+            "Moderate": 22,
+            "Active": 31,
+            "Highly active": 52
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 69,
+            "percent": 50.74,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 3,
+              "activity_warm_water_cap": 15,
+              "activity_late_biology_cap": 51,
+              "activity_blown_out_cap": 5
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 114,
+            "05-09": 119,
+            "09-13": 79,
+            "13-17": 82,
+            "17-21": 102
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 4.65,
+            "median": 4,
+            "p90": 10.5,
+            "max": 14
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 4,
+                "p10": 21,
+                "mean": 62.8,
+                "median": 74.5,
+                "p90": 88.5,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 8,
+                "Reserved": 24,
+                "Moderate": 21,
+                "Active": 27,
+                "Highly active": 56
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 4,
+                "p10": 21,
+                "mean": 60.64,
+                "median": 72,
+                "p90": 86.5,
+                "max": 89
+              },
+              "labels": {
+                "Inactive": 8,
+                "Reserved": 23,
+                "Moderate": 23,
+                "Active": 39,
+                "Highly active": 43
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 3,
+                "p10": 21,
+                "mean": 60.33,
+                "median": 70,
+                "p90": 87,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 9,
+                "Reserved": 22,
+                "Moderate": 25,
+                "Active": 38,
+                "Highly active": 42
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 3,
+                "p10": 21,
+                "mean": 62.04,
+                "median": 72,
+                "p90": 87.5,
+                "max": 93
+              },
+              "labels": {
+                "Inactive": 8,
+                "Reserved": 24,
+                "Moderate": 21,
+                "Active": 36,
+                "Highly active": 47
+              }
+            }
+          }
+        },
+        "2022": {
+          "days": 136,
+          "dailyScores": {
+            "min": 3,
+            "p10": 18,
+            "mean": 56.92,
+            "median": 63.5,
+            "p90": 83,
+            "max": 91
+          },
+          "dailyLabels": {
+            "Inactive": 16,
+            "Reserved": 19,
+            "Active": 62,
+            "Moderate": 19,
+            "Highly active": 20
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 71,
+            "percent": 52.21,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 12,
+              "activity_warm_water_cap": 8,
+              "activity_late_biology_cap": 51,
+              "activity_blown_out_cap": 4
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 104,
+            "05-09": 115,
+            "09-13": 79,
+            "13-17": 66,
+            "17-21": 91
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 5.96,
+            "median": 5,
+            "p90": 13,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 3,
+                "p10": 18.5,
+                "mean": 57.77,
+                "median": 65,
+                "p90": 83,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 16,
+                "Reserved": 18,
+                "Active": 63,
+                "Highly active": 22,
+                "Moderate": 17
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 3,
+                "p10": 18,
+                "mean": 55.54,
+                "median": 60.5,
+                "p90": 81,
+                "max": 93
+              },
+              "labels": {
+                "Inactive": 16,
+                "Reserved": 20,
+                "Active": 56,
+                "Moderate": 27,
+                "Highly active": 17
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 3,
+                "p10": 18,
+                "mean": 53.68,
+                "median": 58,
+                "p90": 81.5,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 16,
+                "Reserved": 19,
+                "Active": 45,
+                "Moderate": 40,
+                "Highly active": 16
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 3,
+                "p10": 18,
+                "mean": 56.44,
+                "median": 62,
+                "p90": 84,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 16,
+                "Reserved": 19,
+                "Active": 61,
+                "Moderate": 22,
+                "Highly active": 18
+              }
+            }
+          }
+        },
+        "2023": {
+          "days": 136,
+          "dailyScores": {
+            "min": 0,
+            "p10": 21,
+            "mean": 58.74,
+            "median": 63.5,
+            "p90": 86,
+            "max": 90
+          },
+          "dailyLabels": {
+            "Inactive": 11,
+            "Reserved": 22,
+            "Moderate": 32,
+            "Active": 25,
+            "Highly active": 46
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 74,
+            "percent": 54.41,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 5,
+              "activity_warm_water_cap": 18,
+              "activity_late_biology_cap": 51,
+              "activity_blown_out_cap": 6
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 110,
+            "05-09": 125,
+            "09-13": 84,
+            "13-17": 77,
+            "17-21": 91
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 4.89,
+            "median": 3.5,
+            "p90": 12.5,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 0,
+                "p10": 21,
+                "mean": 59.68,
+                "median": 63.5,
+                "p90": 88,
+                "max": 90
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 22,
+                "Moderate": 31,
+                "Active": 20,
+                "Highly active": 52
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 0,
+                "p10": 20,
+                "mean": 57.65,
+                "median": 61,
+                "p90": 86,
+                "max": 89
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 23,
+                "Moderate": 32,
+                "Active": 29,
+                "Highly active": 41
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 0,
+                "p10": 20,
+                "mean": 56.25,
+                "median": 59,
+                "p90": 86,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 22,
+                "Moderate": 35,
+                "Active": 36,
+                "Highly active": 32
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 0,
+                "p10": 21,
+                "mean": 58.03,
+                "median": 63.5,
+                "p90": 86,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 11,
+                "Reserved": 22,
+                "Moderate": 32,
+                "Active": 29,
+                "Highly active": 42
+              }
+            }
+          }
+        },
+        "2024": {
+          "days": 136,
+          "dailyScores": {
+            "min": 3,
+            "p10": 10,
+            "mean": 53.07,
+            "median": 61,
+            "p90": 83.5,
+            "max": 90
+          },
+          "dailyLabels": {
+            "Reserved": 11,
+            "Inactive": 27,
+            "Active": 53,
+            "Moderate": 26,
+            "Highly active": 19
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 69,
+            "percent": 50.74,
+            "reasonCodes": {
+              "activity_warm_water_cap": 6,
+              "activity_temperature_barrier_cap": 11,
+              "activity_blown_out_cap": 17,
+              "activity_late_biology_cap": 51
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 102,
+            "05-09": 119,
+            "09-13": 71,
+            "13-17": 71,
+            "17-21": 87
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 0,
+            "mean": 5.53,
+            "median": 5,
+            "p90": 13,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 3,
+                "p10": 10,
+                "mean": 53.93,
+                "median": 62,
+                "p90": 83.5,
+                "max": 90
+              },
+              "labels": {
+                "Reserved": 11,
+                "Inactive": 27,
+                "Active": 57,
+                "Moderate": 21,
+                "Highly active": 20
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 3,
+                "p10": 10,
+                "mean": 51.28,
+                "median": 58.5,
+                "p90": 83,
+                "max": 92
+              },
+              "labels": {
+                "Reserved": 12,
+                "Inactive": 27,
+                "Active": 43,
+                "Moderate": 37,
+                "Highly active": 17
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 2,
+                "p10": 9.5,
+                "mean": 50.43,
+                "median": 57,
+                "p90": 81.5,
+                "max": 91
+              },
+              "labels": {
+                "Reserved": 10,
+                "Inactive": 28,
+                "Active": 36,
+                "Moderate": 46,
+                "Highly active": 16
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 3,
+                "p10": 10,
+                "mean": 52.58,
+                "median": 60.5,
+                "p90": 82.5,
+                "max": 92
+              },
+              "labels": {
+                "Reserved": 10,
+                "Inactive": 28,
+                "Active": 53,
+                "Moderate": 28,
+                "Highly active": 17
+              }
+            }
+          }
+        },
+        "2025": {
+          "days": 136,
+          "dailyScores": {
+            "min": 2,
+            "p10": 21,
+            "mean": 60.39,
+            "median": 71,
+            "p90": 87,
+            "max": 91
+          },
+          "dailyLabels": {
+            "Inactive": 14,
+            "Reserved": 20,
+            "Active": 34,
+            "Moderate": 21,
+            "Highly active": 47
+          },
+          "confidence": {
+            "Full": {
+              "count": 136,
+              "percent": 100
+            }
+          },
+          "capFrequency": {
+            "days": 76,
+            "percent": 55.88,
+            "reasonCodes": {
+              "activity_temperature_barrier_cap": 12,
+              "activity_warm_water_cap": 13,
+              "activity_late_biology_cap": 51,
+              "activity_blown_out_cap": 2
+            }
+          },
+          "leaderFrequency": {
+            "tiesWithinTwoPoints": 112,
+            "05-09": 120,
+            "09-13": 81,
+            "13-17": 82,
+            "17-21": 100
+          },
+          "blockSpread": {
+            "min": 0,
+            "p10": 1,
+            "mean": 4.76,
+            "median": 3.5,
+            "p90": 11,
+            "max": 15
+          },
+          "byBlock": {
+            "05-09": {
+              "scores": {
+                "min": 2,
+                "p10": 21,
+                "mean": 60.96,
+                "median": 71,
+                "p90": 87,
+                "max": 92
+              },
+              "labels": {
+                "Inactive": 14,
+                "Reserved": 18,
+                "Active": 30,
+                "Moderate": 22,
+                "Highly active": 52
+              }
+            },
+            "09-13": {
+              "scores": {
+                "min": 2,
+                "p10": 20.5,
+                "mean": 59.04,
+                "median": 67.5,
+                "p90": 87,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 14,
+                "Reserved": 22,
+                "Moderate": 23,
+                "Active": 38,
+                "Highly active": 39
+              }
+            },
+            "13-17": {
+              "scores": {
+                "min": 2,
+                "p10": 20,
+                "mean": 58.07,
+                "median": 68,
+                "p90": 86,
+                "max": 91
+              },
+              "labels": {
+                "Inactive": 14,
+                "Reserved": 23,
+                "Moderate": 24,
+                "Active": 41,
+                "Highly active": 34
+              }
+            },
+            "17-21": {
+              "scores": {
+                "min": 2,
+                "p10": 21,
+                "mean": 59.99,
+                "median": 71,
+                "p90": 86,
+                "max": 92
+              },
+              "labels": {
+                "Inactive": 14,
+                "Reserved": 20,
+                "Active": 45,
+                "Moderate": 18,
+                "Highly active": 39
+              }
+            }
+          }
+        }
+      },
+      "controlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushControlledTests": {
+        "passed": true,
+        "failures": []
+      },
+      "pushRules": {
+        "version": "north_umpqua_fall_coho-direct-push-v1-pass3-2026-09-28",
+        "model": "direct_event_state",
+        "directEvent": {
+          "hydraulic": "trigger",
+          "temperature": "trigger_and_constraint",
+          "buildingCoolingF": 0.75,
+          "coolingF": 1.5,
+          "strongCoolingF": 3,
+          "persistenceHours": 48,
+          "fullRetentionFraction": 0.65,
+          "minimumRetentionFraction": 0.35
+        },
+        "hydraulic": {
+          "metric": "flow_cfs",
+          "sourceLabel": "USGS 14319500",
+          "lowValue": 815,
+          "highValue": 6830,
+          "severeHighValue": 11000,
+          "rising24h": {
+            "absolute": 39,
+            "percent": 4.4
+          },
+          "meaningfulRise24h": {
+            "absolute": 170,
+            "percent": 14.1
+          },
+          "sharpRise24h": {
+            "absolute": 640,
+            "percent": 44.7
+          }
+        },
+        "rain": {
+          "meaningful48hIn": 997,
+          "strong48hIn": 998,
+          "heavy48hIn": 999
+        },
+        "temperature": {
+          "suitabilityLabel": "fall coho movement range",
+          "supportiveMinF": 45,
+          "supportiveMaxF": 60,
+          "tooWarmF": 64,
+          "migrationBarrierF": 68
+        },
+        "caps": {
+          "staleGauge": 55,
+          "unknownTrend": 49,
+          "noGaugeResponse": 50,
+          "tooWarm": 64,
+          "migrationBarrier": 49,
+          "severeHighFlow": 49,
+          "outsideExtendedWindow": 50,
+          "coldHolding": 49
+        },
+        "evidenceNotes": "Positive-only direct event replay. Measured discharge is the required trigger; precipitation is unscored. Temperature participates only for North Umpqua coho.",
+        "sourceNotes": "USGS 14319500; 2019-2025 positive daily-rise p50/p75/p90 thresholds."
+      },
+      "pushLabels": {
+        "Neutral": 426,
+        "Possible": 132,
+        "Elevated": 93,
+        "Strong": 21
+      },
+      "invariants": {
+        "insufficientCoverage": 0,
+        "peakNotHighest": 0,
+        "shoulderGapOver20": 0,
+        "strongWithoutDirectSignal": 0,
+        "noPositivePushEvents": 0,
+        "severeHighCapBroken": 0,
+        "incompleteFourBlockDays": 0,
+        "stagesWithoutEnvironmentalVariation": 0,
+        "yearsWithoutMeaningfulVariation": 0,
+        "controlledTestFailures": 0
+      }
+    }
+  ]
+}

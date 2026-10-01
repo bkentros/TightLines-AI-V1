@@ -216,6 +216,362 @@ Deno.test("PierCast ingestion rejects unknown authenticated operations", async (
   assertEquals(calls, 0);
 });
 
+Deno.test("Port Washington shadow operation bypasses production ingest", async () => {
+  let productionCalls = 0;
+  let expansionCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestPortWashingtonShadow: () => {
+      expansionCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-14T06:00:00.000Z",
+        fetchedAt: "2026-09-14T12:05:00.000Z",
+        cycleAgeHours: 6,
+        cityCount: 1,
+        sampleCount: 121,
+        diagnostics: [],
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 20,
+          formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "port-washington-shadow",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 1);
+  assertEquals(body.sampleCount, 121);
+  assertEquals(body.shadowForecast.forecastCount, 20);
+  assertEquals(productionCalls, 0);
+  assertEquals(expansionCalls, 1);
+});
+
+Deno.test("Wisconsin shadow operation commits the complete four-city cohort", async () => {
+  let productionCalls = 0;
+  let expansionCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestWisconsinShadow: () => {
+      expansionCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-14T12:00:00.000Z",
+        fetchedAt: "2026-09-14T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 4,
+        sampleCount: 484,
+        diagnostics: [],
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 80,
+          formulaVersion: "seasonal-opportunity-bounded-temperature-v2",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "wisconsin-shadow",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 4);
+  assertEquals(body.sampleCount, 484);
+  assertEquals(body.shadowForecast.forecastCount, 80);
+  assertEquals(productionCalls, 0);
+  assertEquals(expansionCalls, 1);
+});
+
+Deno.test("Lake Huron operation commits only the isolated three-city source cohort", async () => {
+  let productionCalls = 0;
+  let lakeHuronCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestLakeHuronShadow: () => {
+      lakeHuronCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-15T12:00:00.000Z",
+        fetchedAt: "2026-09-15T12:05:00.000Z",
+        cycleAgeHours: .1,
+        cityCount: 3,
+        sampleCount: 363,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "lake-huron-shadow",
+        }),
+      },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 3);
+  assertEquals(body.sampleCount, 363);
+  assertEquals(productionCalls, 0);
+  assertEquals(lakeHuronCalls, 1);
+});
+
+Deno.test("five-city operation commits only the private onboarding cohort", async () => {
+  let productionCalls = 0;
+  let fiveCityCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestFiveCityShadow: () => {
+      fiveCityCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-18T12:00:00.000Z",
+        fetchedAt: "2026-09-18T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 5,
+        sampleCount: 605,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "five-city-shadow",
+        }),
+      },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 5);
+  assertEquals(body.sampleCount, 605);
+  assertEquals(productionCalls, 0);
+  assertEquals(fiveCityCalls, 1);
+});
+
+Deno.test("Chicago-Alpena operation commits only its isolated five-city cohort", async () => {
+  let productionCalls = 0;
+  let cohortCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestChicagoAlpenaShadow: () => {
+      cohortCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-19T12:00:00.000Z",
+        fetchedAt: "2026-09-19T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 5,
+        sampleCount: 605,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "chicago-alpena-shadow",
+        }),
+      },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 5);
+  assertEquals(body.sampleCount, 605);
+  assertEquals(productionCalls, 0);
+  assertEquals(cohortCalls, 1);
+});
+
+Deno.test("St. Joseph-Harrisville operation commits only its private five-city cohort", async () => {
+  let productionCalls = 0;
+  let cohortCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestStJosephHarrisvilleShadow: () => {
+      cohortCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-19T12:00:00.000Z",
+        fetchedAt: "2026-09-19T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 5,
+        sampleCount: 605,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(new Request(
+    "https://example.test/functions/v1/pier-cast-ingest",
+    { method: "POST", headers: new Headers({
+      "x-pier-cast-internal-key": SECRET,
+      "x-pier-cast-operation": "st-joseph-harrisville-shadow",
+    }) },
+  ));
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 5);
+  assertEquals(body.sampleCount, 605);
+  assertEquals(productionCalls, 0);
+  assertEquals(cohortCalls, 1);
+});
+
+Deno.test("Pentwater-Caseville operation commits only its private five-city cohort", async () => {
+  let productionCalls = 0;
+  let cohortCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestPentwaterCasevilleShadow: () => {
+      cohortCalls += 1;
+      return Promise.resolve({
+        status: "live_committed",
+        source: "live_lmhofs",
+        fallbackUsed: false,
+        issuedAt: "2026-09-21T12:00:00.000Z",
+        fetchedAt: "2026-09-21T12:05:00.000Z",
+        cycleAgeHours: 0.1,
+        cityCount: 5,
+        sampleCount: 605,
+        diagnostics: [],
+      });
+    },
+  });
+  const response = await handler(new Request(
+    "https://example.test/functions/v1/pier-cast-ingest",
+    { method: "POST", headers: new Headers({
+      "x-pier-cast-internal-key": SECRET,
+      "x-pier-cast-operation": "pentwater-caseville-shadow",
+    }) },
+  ));
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 5);
+  assertEquals(body.sampleCount, 605);
+  assertEquals(productionCalls, 0);
+  assertEquals(cohortCalls, 1);
+});
+
+Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ingest", async () => {
+  let productionCalls = 0;
+  let v3Calls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      productionCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    ingestV3Shadow: () => {
+      v3Calls += 1;
+      return Promise.resolve({
+        status: "committed",
+        source: "fresh_archived_complete_cycle",
+        issuedAt: "2026-09-14T12:00:00.000Z",
+        cityCount: 32,
+        sampleCount: 3872,
+        shadowForecast: {
+          status: "committed",
+          runId: crypto.randomUUID(),
+          generatedAt: "2026-09-14T12:05:00.000Z",
+          forecastCount: 1270,
+          formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3",
+        },
+      });
+    },
+  });
+  const headers = new Headers({
+    "x-pier-cast-internal-key": SECRET,
+    "x-pier-cast-operation": "v3-shadow",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.cityCount, 32);
+  assertEquals(body.sampleCount, 3872);
+  assertEquals(body.shadowForecast.forecastCount, 1270);
+  assertEquals(productionCalls, 0);
+  assertEquals(v3Calls, 1);
+});
+
 Deno.test("observation archive failure is nonfatal and explicitly diagnosed", async () => {
   const handler = createPierCastIngestHandler({
     internalSecret: SECRET,

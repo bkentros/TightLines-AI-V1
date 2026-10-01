@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "piercast-species-expansion-pass1-thermal-v1",
+  "status": "research_complete_not_implemented",
+  "reviewedAt": "2026-09-15",
+  "interpretation": "Suitability is a bounded engineering compatibility modifier for the v3 formula, not a measured bite probability or proof that surface water equals fish-experienced temperature. Source biology constrains the domain and shape; exact suitability ordinates are conservative calibration judgments.",
+  "curves": [
+    {
+      "speciesId": "burbot",
+      "displayName": "Burbot",
+      "curveId": "burbot__shared_temperature__v0_1_research",
+      "calibrationStatus": "provisional_research",
+      "acceptedDomainC": [0, 23],
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.9 },
+        { "temperatureC": 2, "suitability": 1.0 },
+        { "temperatureC": 6, "suitability": 1.0 },
+        { "temperatureC": 10, "suitability": 1.0 },
+        { "temperatureC": 12, "suitability": 1.0 },
+        { "temperatureC": 14, "suitability": 0.95 },
+        { "temperatureC": 16, "suitability": 0.65 },
+        { "temperatureC": 18, "suitability": 0.35 },
+        { "temperatureC": 20, "suitability": 0.15 },
+        { "temperatureC": 23, "suitability": 0.05 }
+      ],
+      "thermalEvidenceIds": ["THERM_BURBOT_2016", "THERM_MI_TOLERANCE"],
+      "rationale": "Burbot are winter specialists but do not have a single narrow annual optimum: telemetry supports spawning selection below 2 C and nighttime feeding selection around 12-14 C. The plateau therefore remains broad from very cold water through 12 C, then declines quickly above 14 C.",
+      "limitations": [
+        "Spawning aggregation and feeding compatibility are distinct mechanisms represented by one shared curve.",
+        "Reservoir telemetry is not a Lake Michigan pier catch-rate study.",
+        "Temperatures above 23 C are out of accepted domain and must use the engine's explicit out-of-domain handling rather than extrapolation."
+      ]
+    },
+    {
+      "speciesId": "white_perch",
+      "displayName": "White Perch",
+      "curveId": "white_perch__shared_temperature__v0_1_research",
+      "calibrationStatus": "provisional_research",
+      "acceptedDomainC": [0, 34],
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.25 },
+        { "temperatureC": 4, "suitability": 0.35 },
+        { "temperatureC": 8, "suitability": 0.5 },
+        { "temperatureC": 12, "suitability": 0.65 },
+        { "temperatureC": 16, "suitability": 0.75 },
+        { "temperatureC": 20, "suitability": 0.85 },
+        { "temperatureC": 24, "suitability": 0.95 },
+        { "temperatureC": 26, "suitability": 1.0 },
+        { "temperatureC": 30, "suitability": 1.0 },
+        { "temperatureC": 32, "suitability": 0.8 },
+        { "temperatureC": 34, "suitability": 0.4 }
+      ],
+      "thermalEvidenceIds": ["THERM_WHITE_PERCH_GLFC", "THERM_WHITE_PERCH_USGS"],
+      "rationale": "The Great Lakes Fishery Commission synthesis places growth performance in the upper 20s C, while the USGS spring spawning range near 11-15 C requires a nonzero cool-water shoulder. The curve is intentionally broad because temperature preference varies geographically and spawning is not feeding.",
+      "limitations": [
+        "The 28.5 C growth optimum is not an adult Grand Haven bite optimum.",
+        "Local July-October availability is handled by the opportunity mode rather than embedded in this curve.",
+        "Out-of-domain temperatures must not be silently clamped into a favorable score."
+      ]
+    },
+    {
+      "speciesId": "white_bass",
+      "displayName": "White Bass",
+      "curveId": "white_bass__shared_temperature__v0_1_research",
+      "calibrationStatus": "provisional_research",
+      "acceptedDomainC": [0, 35],
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.3 },
+        { "temperatureC": 4, "suitability": 0.4 },
+        { "temperatureC": 8, "suitability": 0.55 },
+        { "temperatureC": 12, "suitability": 0.75 },
+        { "temperatureC": 14, "suitability": 0.9 },
+        { "temperatureC": 18, "suitability": 0.95 },
+        { "temperatureC": 22, "suitability": 1.0 },
+        { "temperatureC": 28, "suitability": 1.0 },
+        { "temperatureC": 31, "suitability": 0.9 },
+        { "temperatureC": 33, "suitability": 0.55 },
+        { "temperatureC": 35, "suitability": 0.2 }
+      ],
+      "thermalEvidenceIds": ["THERM_WHITE_BASS_FWS", "THERM_WHITE_BASS_EPA"],
+      "rationale": "White bass use a cool spring migration/spawning window around the mid-teens C but adult preference literature is much warmer. A broad 14-31 C high-compatibility region avoids falsely treating either life-history context as the sole bite optimum.",
+      "limitations": [
+        "Underlying migration, spawning and adult-preference values come from different studies and contexts.",
+        "The city-specific June-August schooling window is represented in availability, not temperature suitability.",
+        "This provisional curve requires prospective residual review before public promotion."
+      ]
+    },
+    {
+      "speciesId": "bluegill",
+      "displayName": "Bluegill",
+      "curveId": "bluegill__shared_temperature__v0_1_research",
+      "calibrationStatus": "provisional_research",
+      "acceptedDomainC": [0, 36],
+      "knots": [
+        { "temperatureC": 0, "suitability": 0.25 },
+        { "temperatureC": 4, "suitability": 0.35 },
+        { "temperatureC": 8, "suitability": 0.45 },
+        { "temperatureC": 12, "suitability": 0.6 },
+        { "temperatureC": 16, "suitability": 0.8 },
+        { "temperatureC": 18, "suitability": 0.95 },
+        { "temperatureC": 21, "suitability": 1.0 },
+        { "temperatureC": 27, "suitability": 1.0 },
+        { "temperatureC": 30, "suitability": 0.85 },
+        { "temperatureC": 33, "suitability": 0.45 },
+        { "temperatureC": 36, "suitability": 0.1 }
+      ],
+      "thermalEvidenceIds": ["THERM_BLUEGILL_MI", "THERM_MI_TOLERANCE"],
+      "rationale": "Michigan DNR describes bluegill as a warmwater species favoring roughly 18-21 C and spawning around 18 C, while the state literature synthesis reports warmer growth optima. The plateau spans 21-27 C and retains a broad shoulder rather than treating spawning temperature as the only optimum.",
+      "limitations": [
+        "Cover, prey, water clarity and harbor habitat can dominate short-term pier success.",
+        "This is an adult/general angling compatibility curve, not a larval tolerance curve.",
+        "Local summer availability is separately constrained by Grand Haven evidence."
+      ]
+    }
+  ]
+}

@@ -187,7 +187,8 @@ function validateArchiveSamples(
 function parseArchivedSample(
   row: Record<string, unknown>,
 ): PierCastLmhofsSample {
-  const cityId = String(row.city_id) as PierCastCityId;
+  const rawCityId = String(row.city_id);
+  const cityId = rawCityId as keyof typeof PIER_CAST_LMHOFS_CANDIDATE_LOCATIONS;
   const configured = PIER_CAST_LMHOFS_CANDIDATE_LOCATIONS[cityId];
   const issuedAt = parseTimestamp(row.issued_at, "issued_at");
   const validAt = parseTimestamp(row.valid_at, "valid_at");

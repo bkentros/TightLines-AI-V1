@@ -1,0 +1,1284 @@
+{
+  "schemaVersion": "michigan-winter-steelhead-remaining-pass1-review-v1",
+  "generatedFrom": "deterministic engine inputs; no live or historical provider data",
+  "disclaimer": "Pass 1 accepts authoritative evidence, exact fall-to-winter gating, source isolation, deterministic Activity behavior, copy, fail-safes, and full-corridor Spot Finder behavior. Historical replay and final calibration remain Pass 2.",
+  "evidence": [
+    {
+      "source": "Michigan DNR Steelhead species profile",
+      "url": "https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead",
+      "supports": "fall entry, overwinter retention, and spring spawning lifecycle"
+    },
+    {
+      "source": "Workman, Hayes, and Coon (Transactions of the AFS 131:463–475)",
+      "url": "https://academic.oup.com/tafs/article-abstract/131/3/463/7891291",
+      "supports": "water temperature as a major adult Steelhead movement correlate"
+    },
+    {
+      "source": "Michigan DNR Central Lake Michigan Management Unit",
+      "url": "https://www.michigan.gov/dnr/managing-resources/fisheries/units/c-michigan",
+      "supports": "Betsie Homestead access and Steelhead fishery context"
+    },
+    {
+      "source": "Michigan DNR Better Fishing Waters",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters",
+      "supports": "agency-recognized Betsie, Rogue, and Platte Steelhead opportunity"
+    },
+    {
+      "source": "Michigan DNR Rogue River Natural River Plan",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/NaturalRivers/Rogue_River_Plan.pdf?rev=6a9bfe649fa541dda8675bc3cef972ec",
+      "supports": "Rogue corridor characteristics and public river access at bridge crossings"
+    },
+    {
+      "source": "National Park Service Platte River Point Water Access",
+      "url": "https://www.nps.gov/places/000/platte-river-point-water-access.htm",
+      "supports": "Platte River Point, El Dorado, and Fish Weir lower-corridor access"
+    },
+    {
+      "source": "Michigan DNR Lower White River Status Report 2012-121",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Status/folder1/2012-121.pdf",
+      "supports": "winter-run Steelhead stocking and below-Hesperia fishery history"
+    }
+  ],
+  "rivers": [
+    {
+      "riverId": "betsie",
+      "runId": "betsie_winter_steelhead",
+      "activityMode": "air_temperature_proxy",
+      "activityWeights": {
+        "waterTemperature": 0,
+        "temperatureTrend": 0,
+        "light": 0.4,
+        "riverBehavior": 0,
+        "weather": 0.6
+      },
+      "activityScope": "This Limited weather context covers only the two audited reaches from Betsie Lake to the signed Homestead closure. It does not measure water temperature, river level, clarity, ice, or safety.",
+      "activation": "2026-12-18",
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-17",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-18",
+          "phase": "Winter transition",
+          "presence": 61
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 59
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 55
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 52
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "stable_mild_cloudy",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "gradual_warming",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_warming",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "stable_cold",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_cold",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "large_swing",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "clear_stable_28f",
+          "score": 58,
+          "label": "Moderate",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 54
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ]
+        },
+        {
+          "id": "cloudy_stable_28f",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        }
+      ],
+      "spotFinder": {
+        "sectionIds": [
+          "betsie_lake_us31",
+          "betsie_us31_homestead"
+        ],
+        "foundationReachIds": [
+          "betsie_lake_to_us31",
+          "betsie_us31_to_homestead"
+        ],
+        "preferredStartReachIds": [
+          "betsie_us31_to_homestead"
+        ],
+        "allCorridorSectionsViable": true
+      }
+    },
+    {
+      "riverId": "bear_creek_manistee",
+      "runId": "bear_creek_manistee_winter_steelhead",
+      "activityMode": "air_temperature_proxy",
+      "activityWeights": {
+        "waterTemperature": 0,
+        "temperatureTrend": 0,
+        "light": 0.4,
+        "riverBehavior": 0,
+        "weather": 0.6
+      },
+      "activityScope": "This Limited weather context covers the Coates Highway–to–Manistee corridor. It does not measure creek level, water temperature, clarity, ice, access, or safety.",
+      "activation": "2027-01-01",
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-31",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2027-01-01",
+          "phase": "Winter transition",
+          "presence": 25
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 25
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 23
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 21
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "stable_mild_cloudy",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "gradual_warming",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_warming",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "stable_cold",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_cold",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "large_swing",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "clear_stable_28f",
+          "score": 58,
+          "label": "Moderate",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 54
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ]
+        },
+        {
+          "id": "cloudy_stable_28f",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        }
+      ],
+      "spotFinder": {
+        "sectionIds": [
+          "bear_creek_lower_access",
+          "bear_creek_upper_access"
+        ],
+        "foundationReachIds": [
+          "bear_creek_lower",
+          "bear_creek_upper"
+        ],
+        "preferredStartReachIds": [
+          "bear_creek_upper"
+        ],
+        "allCorridorSectionsViable": true
+      }
+    },
+    {
+      "riverId": "rogue_mi",
+      "runId": "rogue_mi_winter_steelhead",
+      "activityMode": "air_temperature_proxy",
+      "activityWeights": {
+        "waterTemperature": 0,
+        "temperatureTrend": 0,
+        "light": 0.25,
+        "riverBehavior": 0.25,
+        "weather": 0.5
+      },
+      "activityScope": "Measured flow describes the lower Rogue at Packer Drive; the Limited air-temperature context is modeled near that station. Neither input directly describes temperature or hydraulics in the middle reach or Rockford tailwater.",
+      "activation": "2027-01-01",
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-31",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2027-01-01",
+          "phase": "Winter transition",
+          "presence": 41
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 40
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 37
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 35
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "stable_mild_cloudy",
+          "score": 69,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 69
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 69
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 69
+            }
+          ]
+        },
+        {
+          "id": "gradual_warming",
+          "score": 69,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_warming",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 69
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 69
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 69
+            }
+          ]
+        },
+        {
+          "id": "stable_cold",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_cold",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "large_swing",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "clear_stable_28f",
+          "score": 67,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 68
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 68
+            }
+          ]
+        },
+        {
+          "id": "cloudy_stable_28f",
+          "score": 69,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 69
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 69
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 69
+            }
+          ]
+        },
+        {
+          "id": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_warming",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ]
+        }
+      ],
+      "spotFinder": {
+        "sectionIds": [
+          "rogue_lower_access",
+          "rogue_middle_access",
+          "rogue_upper_access"
+        ],
+        "foundationReachIds": [
+          "rogue_lower",
+          "rogue_middle",
+          "rogue_upper_tailwater"
+        ],
+        "preferredStartReachIds": [
+          "rogue_upper_tailwater"
+        ],
+        "allCorridorSectionsViable": true
+      }
+    },
+    {
+      "riverId": "platte",
+      "runId": "platte_winter_steelhead",
+      "activityMode": "air_temperature_proxy",
+      "activityWeights": {
+        "waterTemperature": 0,
+        "temperatureTrend": 0,
+        "light": 0.4,
+        "riverBehavior": 0,
+        "weather": 0.6
+      },
+      "activityScope": "This Limited weather context covers the two-mile lower corridor from Platte River Point to the signed Lower Weir closure. It does not use Honor flow or infer lower-river temperature, level, clarity, ice, or safety.",
+      "activation": "2026-12-16",
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-15",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-16",
+          "phase": "Winter transition",
+          "presence": 39
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 36
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 33
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 31
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "stable_mild_cloudy",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "gradual_warming",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_warming",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        },
+        {
+          "id": "stable_cold",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_cold",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "large_swing",
+          "score": 39,
+          "label": "Reserved",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 39
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 39
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 39
+            }
+          ]
+        },
+        {
+          "id": "clear_stable_28f",
+          "score": 58,
+          "label": "Moderate",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 59
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 54
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 59
+            }
+          ]
+        },
+        {
+          "id": "cloudy_stable_28f",
+          "score": 64,
+          "label": "Active",
+          "confidence": "Limited",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_air_proxy_stable",
+            "activity_winter_air_temperature_proxy"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 64
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 64
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 64
+            }
+          ]
+        }
+      ],
+      "spotFinder": {
+        "sectionIds": [
+          "platte_lower_access",
+          "platte_weir_access"
+        ],
+        "foundationReachIds": [
+          "platte_lower_entry",
+          "platte_weir_approach"
+        ],
+        "preferredStartReachIds": [
+          "platte_weir_approach"
+        ],
+        "allCorridorSectionsViable": true
+      }
+    },
+    {
+      "riverId": "white",
+      "runId": "white_winter_steelhead",
+      "activityMode": "measured_water",
+      "activityWeights": {
+        "waterTemperature": 0.45,
+        "temperatureTrend": 0.2,
+        "light": 0.2,
+        "riverBehavior": 0.15,
+        "weather": 0
+      },
+      "activityScope": "Fruitvale flow represents the lower river and Weaver Street temperature represents the Hesperia tailwater. Conditions and ice can differ through the forest corridor and near White Lake.",
+      "activation": "2026-12-29",
+      "lifecycle": [
+        {
+          "id": "before_activation",
+          "date": "2026-12-28",
+          "phase": "Not active yet",
+          "presence": null
+        },
+        {
+          "id": "activation",
+          "date": "2026-12-29",
+          "phase": "Winter transition",
+          "presence": 57
+        },
+        {
+          "id": "core_hold",
+          "date": "2027-01-08",
+          "phase": "Core winter hold",
+          "presence": 57
+        },
+        {
+          "id": "spring_approach",
+          "date": "2027-02-15",
+          "phase": "Spring approach",
+          "presence": 53
+        },
+        {
+          "id": "winter_end",
+          "date": "2027-02-28",
+          "phase": "Spring approach",
+          "presence": 50
+        },
+        {
+          "id": "after_winter",
+          "date": "2027-03-01",
+          "phase": "Winter holding complete",
+          "presence": null
+        }
+      ],
+      "activity": [
+        {
+          "id": "near_freezing",
+          "score": 29,
+          "label": "Reserved",
+          "confidence": "Full",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming",
+            "activity_winter_near_freezing_cap"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 29
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 29
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 29
+            }
+          ]
+        },
+        {
+          "id": "stable_suitable",
+          "score": 79,
+          "label": "Active",
+          "confidence": "Full",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_stable"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 79
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 78
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 79
+            }
+          ]
+        },
+        {
+          "id": "warming_suitable",
+          "score": 83,
+          "label": "Highly active",
+          "confidence": "Full",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 83
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 82
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 83
+            }
+          ]
+        },
+        {
+          "id": "large_warming_swing",
+          "score": 75,
+          "label": "Active",
+          "confidence": "Full",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_cooling"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 75
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 73
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 75
+            }
+          ]
+        },
+        {
+          "id": "blown_out",
+          "score": 19,
+          "label": "Inactive",
+          "confidence": "Full",
+          "reasonCodes": [
+            "activity_winter_holding",
+            "activity_winter_daylight",
+            "activity_today",
+            "activity_winter_warming"
+          ],
+          "daylightBlocks": [
+            {
+              "id": "08-11",
+              "label": "8 AM–11 AM",
+              "score": 19
+            },
+            {
+              "id": "11-14",
+              "label": "11 AM–2 PM",
+              "score": 19
+            },
+            {
+              "id": "14-17",
+              "label": "2 PM–5 PM",
+              "score": 19
+            }
+          ]
+        }
+      ],
+      "spotFinder": {
+        "sectionIds": [
+          "white_lower",
+          "white_forest",
+          "white_upper"
+        ],
+        "foundationReachIds": [
+          "white_lower_river",
+          "white_forest_corridor",
+          "white_upper_accessible_corridor"
+        ],
+        "preferredStartReachIds": [
+          "white_upper_accessible_corridor"
+        ],
+        "allCorridorSectionsViable": true
+      }
+    }
+  ]
+}

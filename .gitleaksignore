@@ -1,0 +1,19 @@
+# Exact false positive: synthetic PierCast outcome dedupe identifier in a unit
+# test. The fixture was rewritten in the follow-up commit; retaining this
+# fingerprint keeps full-history scans green without suppressing this rule in
+# any other file, line, or commit.
+66e95ed8d721814b556430881cbc3f090429efe8:TightLinesAI/supabase/functions/_shared/pierCastEngine/tests/wisconsinShadow.test.ts:generic-api-key:252
+
+# Exact historical false positives introduced before the scanner was pinned:
+# generated PierCast research fixtures, public-source metadata, and checksums.
+b5d576cc63de607844e61e6d0d5f87bfe42d421c:TightLinesAI/scripts/pier-cast-renovation-pass1.test.ts:generic-api-key:295
+a133f68da0a9b25c9c24db38a41198a5d73e9eda:TightLinesAI/docs/onboarding/piercast/st-joseph-harrisville-2026-09-pass1/michigan-creel-pier-dock-raw.json:generic-api-key:7
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:35
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:36
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:51
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:65
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:80
+654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:81
+eae37818c4a65fba1413ac7ec4656c052a41af3c:TightLinesAI/docs/onboarding/piercast/lake-huron-expansion/artifact-hashes.json:generic-api-key:16
+eae37818c4a65fba1413ac7ec4656c052a41af3c:TightLinesAI/docs/onboarding/piercast/lake-huron-expansion/artifact-hashes.json:generic-api-key:17
+eae37818c4a65fba1413ac7ec4656c052a41af3c:TightLinesAI/docs/onboarding/piercast/lake-huron-expansion/artifact-hashes.json:generic-api-key:18

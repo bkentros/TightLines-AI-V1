@@ -11,7 +11,13 @@ export type PierCastSpeciesId =
   | "lake_whitefish"
   | "round_whitefish"
   | "channel_catfish"
-  | "largemouth_bass";
+  | "largemouth_bass"
+  | "atlantic_salmon"
+  | "northern_pike"
+  | "burbot"
+  | "white_perch"
+  | "white_bass"
+  | "bluegill";
 
 export type PierCastStructureRead = {
   structureId: string;
@@ -73,7 +79,7 @@ export type PierCastScoreRead =
 export type PierCastCatalogCityRead = {
   cityId: string;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";
@@ -101,7 +107,11 @@ export type PierCastCatalogCityRead = {
         latitude: number;
         longitude: number;
         distanceM: number;
-        coordinateSource: "NOAA Coast Pilot 6";
+        coordinateSource:
+          | "NOAA Coast Pilot 6"
+          | "NOAA Aids to Navigation"
+          | "Michigan Water Trails"
+          | "U.S. Coast Guard Light List";
       };
       gridCellStatus: "candidate" | "approved_for_pilot";
     } | null;
@@ -110,13 +120,13 @@ export type PierCastCatalogCityRead = {
     freshnessLimitHours: number;
     fallbackPolicy: "unavailable";
     validationObservation: {
-      provider: "GLOS Seagull ERDDAP";
+      provider: "GLOS Seagull ERDDAP" | "NOAA CO-OPS";
       datasetId: string;
       seasonal: true;
       availabilityStatus: "active_seasonal" | "historical_only";
       temperatureVariable: string;
       aggregateQualityVariable: string;
-      reportedUnit: "K";
+      reportedUnit: "K" | "C";
       nominalDepthM: number | null;
     } | null;
     limitation: string;
@@ -129,9 +139,10 @@ export type PierCastCatalogResponse = {
   mode: "public" | "review";
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";
-  formulaVersion: "seasonal-opportunity-bounded-temperature-v2";
-  formula:
-    "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))";
+  formulaVersion:
+    | "seasonal-opportunity-bounded-temperature-v2"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
+  formula: string;
   winterOpenWaterNotice: string;
   disclosure: string;
   cities: PierCastCatalogCityRead[];
@@ -142,15 +153,175 @@ export type PierCastReviewTemperaturePointRead = {
   temperatureC: number;
 };
 
+export type PierCastTemperatureMapResponse = {
+  mode: "nearshore_temperature_map";
+  generatedAt: string;
+  disclosure: string;
+  source: {
+    productId: "NOAA_NOS_LMHOFS_REGULARGRID";
+    issuedAt: string;
+    fetchedAt: string;
+    cycleAgeHours: number;
+  };
+  cities: Array<{
+    cityId: string;
+    points: PierCastReviewTemperaturePointRead[];
+  }>;
+};
+
+export type PierCastMapTemperatureModelRead = {
+  ofsId: "LSOFS" | "LMHOFS" | "LEOFS" | "LOOFS";
+  productId:
+    | "NOAA_NOS_LSOFS_REGULARGRID"
+    | "NOAA_NOS_LMHOFS_REGULARGRID"
+    | "NOAA_NOS_LEOFS_REGULARGRID"
+    | "NOAA_NOS_LOOFS_REGULARGRID";
+  lakeIds: Array<"superior" | "michigan" | "huron" | "erie" | "ontario">;
+  issuedAt: string;
+  forecastStart: string;
+  forecastEnd: string;
+  forecastHorizonHours: 120;
+  temporalResolutionHours: 1;
+  status: "available";
+};
+
+export type PierCastMapBathymetryRead = {
+  lakeId: "superior" | "michigan" | "huron" | "erie" | "ontario";
+  displayName: string;
+  provider: "NOAA NCEI";
+  renderProvider: "NOAA NOS OFS";
+  renderModelId: "LSOFS" | "LMHOFS" | "LEOFS" | "LOOFS";
+  renderLayer: "h";
+  renderDepthRangeM: readonly [0, number];
+  coverage: "complete_grid_and_contours" | "incomplete_grid_only";
+  gridUrl: string;
+  contourUrl: string | null;
+  gridResolutionM: number | null;
+  contourIntervalM: number | null;
+  verticalUnit: "m";
+  verticalDatum: "lake_low_water_datum";
+  navigationUse: false;
+  limitation: string;
+};
+
+export type PierCastMapWindNodeRead = {
+  nodeId: string;
+  lakeId: "superior" | "michigan" | "huron" | "erie" | "ontario";
+  latitude: number;
+  longitude: number;
+  /** Arrays use the shared response.timeline.validTimes indexes. */
+  speedMph: number[];
+  directionDegrees: number[];
+  gustMph: number[];
+};
+
+export type PierCastMapFoundationResponse = {
+  mode: "great_lakes_map_foundation";
+  schemaVersion: "pier-cast-map-foundation-v1";
+  generatedAt: string;
+  cacheStatus: "fresh" | "stale";
+  timeline: {
+    startsAt: string;
+    endsAt: string;
+    stepHours: 1;
+    frameCount: 121;
+    validTimes: string[];
+  };
+  temperature: {
+    provider: "NOAA NOS";
+    cycleIssuedAt: string;
+    models: PierCastMapTemperatureModelRead[];
+    disclosure: string;
+  };
+  wind: {
+    provider: "Open-Meteo";
+    model: "best_match";
+    fetchedAt: string;
+    forecastStart: string;
+    forecastEnd: string;
+    temporalResolutionHours: 1;
+    nodeSpacingDegrees: number;
+    nodes: PierCastMapWindNodeRead[];
+    disclosure: string;
+  };
+  bathymetry: {
+    static: true;
+    sources: PierCastMapBathymetryRead[];
+    disclosure: string;
+  };
+  diagnostics: Array<{
+    source: "PIER_CAST_MAP" | "NOAA_NOS" | "OPEN_METEO";
+    code: string;
+    message: string;
+  }>;
+};
+
+export type PierCastTemperatureEventRead = {
+  eventId: string;
+  direction: "cooling" | "warming";
+  severity: "minor" | "notable" | "major" | "extreme";
+  startAt: string;
+  endAt: string;
+  startTemperatureC: number;
+  endTemperatureC: number;
+  changeC: number;
+  magnitudeC: number;
+  durationHours: number;
+  triggerWindowHours: 12 | 24;
+  maximumChangeByWindowC: {
+    hours6: number;
+    hours12: number;
+    hours24: number;
+  };
+  startsAtCoverageBoundary: boolean;
+  endsAtCoverageBoundary: boolean;
+};
+
+export type PierCastTemperatureEventSummaryRead = {
+  status: "available" | "partial" | "unavailable";
+  detectorVersion: "piercast-temperature-events-v1";
+  coverageStart: string | null;
+  coverageEnd: string | null;
+  pointCount: number;
+  segmentCount: number;
+  events: PierCastTemperatureEventRead[];
+  reasonCodes: string[];
+};
+
 export type PierCastReviewSpeciesOutlookRead = {
   speciesId: PierCastSpeciesId;
-  previewMode: "disabled_provisional";
+  previewMode: "disabled_provisional" | "disabled_shadow_only";
   configurationRatingEnabled: false;
-  seasonalRating: number | null;
-  seasonalCurveId: string | null;
+  publicEnabled?: false;
+  seasonalRating?: number | null;
+  seasonalCurveId?: string | null;
+  activeMode?: {
+    modeCalibrationId: string;
+    modeId: string;
+    fisheryStrength: number;
+    seasonalAvailability: number;
+    seasonalPotential: number;
+    thermalCurveId: string;
+  } | null;
+  evaluatedModeCount?: number;
   temperatureCurveId: string | null;
   temperatureSuitabilityRange: [number, number] | null;
   biological: PierCastScoreRead;
+  /** Older saved city reports may not include these windows. */
+  timeWindows?: Array<{
+    slotIndex: 0 | 1 | 2 | 3;
+    startAt: string;
+    endAt: string;
+    phase: "past" | "current" | "upcoming";
+    assessedInterval: { start: string; end: string } | null;
+    biological: PierCastScoreRead;
+    coverage: {
+      status: "complete" | "partial" | "none";
+      coveredIntervals: Array<{ start: string; end: string }>;
+      fraction: number;
+      reasonCodes: string[];
+    } | null;
+  }>;
   coverage: {
     status: "complete" | "partial" | "none";
     coveredIntervals: Array<{ start: string; end: string }>;
@@ -162,6 +333,17 @@ export type PierCastReviewSpeciesOutlookRead = {
     status: "eligible" | "limited" | "blocked" | "unknown";
     reasonCodes: string[];
   };
+  regulationNotices?: Array<{
+    noticeId: string;
+    cityId: string;
+    speciesId: PierCastSpeciesId | "all";
+    startMonthDay: string;
+    endMonthDay: string;
+    reasonCode: "special_tackle_restriction";
+    title: string;
+    message: string;
+    evidenceIds: readonly string[];
+  }>;
   reasonCodes: string[];
 };
 
@@ -197,6 +379,8 @@ export type PierCastReviewCityOutlookRead = {
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
   temperatureTimeline?: PierCastReviewTemperaturePointRead[];
+  /** Optional for saved reports created before the event detector shipped. */
+  temperatureEvents?: PierCastTemperatureEventSummaryRead;
   dates: PierCastReviewDateOutlookRead[];
 };
 
@@ -229,7 +413,8 @@ export type PierCastReviewOutlookResponse = {
   ratingDisplayFormat: "X.X/10";
   formulaVersion:
     | "seasonal-opportunity-bounded-temperature-v2"
-    | "seasonal-ceiling-x-temperature-v1";
+    | "seasonal-ceiling-x-temperature-v1"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
   disclosure: string;
   source: {
     status: "fresh_archived_complete_cycle";
@@ -237,10 +422,31 @@ export type PierCastReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 5;
-    sampleCount: 605;
+    cityCount: number;
+    sampleCount: number;
   };
   dailyScoreSnapshot?: PierCastDailyScoreSnapshotRead;
+  cities: PierCastReviewCityOutlookRead[];
+};
+
+export type PierCastV3ReviewOutlookResponse = {
+  mode: "v3_shadow_review";
+  previewOnly: true;
+  generatedAt: string;
+  ratingName: "FinFindr Opportunity Rating";
+  ratingDisplayFormat: "X.X/10";
+  formulaVersion: "piercast-opportunity-modes-bounded-temperature-v3";
+  formula:
+    "1 + (seasonalPotential - 1) * (0.30 + 0.70 * temperatureSuitability)";
+  modeSelection: "maximum_realized_mode_never_sum";
+  configVersion: string;
+  sourceHashes: {
+    pass1CandidatesSha256: string;
+    pass1CalibrationSha256: string;
+  };
+  promotion: { status: "blocked"; reasonCodes: string[] };
+  source: PierCastReviewOutlookResponse["source"];
+  dailyScoreSnapshot?: never;
   cities: PierCastReviewCityOutlookRead[];
 };
 
@@ -315,6 +521,16 @@ export type PierCastShadowReviewResponse = {
 /** Public standings intentionally contain no species, conditions, or full snapshots. */
 export type PierCastLeaderboardResponse = {
   generatedAt: string;
-  dailyScoreSnapshot?: Pick<PierCastDailyScoreSnapshotRead, "status" | "lakeDate" | "setAt" | "publishAt">;
-  cities: Array<{ cityId: string; dates: Array<Pick<PierCastReviewDateOutlookRead, "localDate" | "headline">> }>;
+  dailyScoreSnapshot?: Pick<
+    PierCastDailyScoreSnapshotRead,
+    "status" | "lakeDate" | "setAt" | "publishAt"
+  >;
+  cities: Array<
+    {
+      cityId: string;
+      dates: Array<
+        Pick<PierCastReviewDateOutlookRead, "localDate" | "headline">
+      >;
+    }
+  >;
 };

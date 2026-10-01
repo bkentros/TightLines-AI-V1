@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "piercast-renovation-pass6-visual-matrix-v1",
+  "designLanguage": "FinFindr paper-dashboard",
+  "viewports": [
+    { "id": "small", "device": "iPhone SE (3rd generation)", "widthPt": 375, "heightPt": 667 },
+    { "id": "standard", "device": "iPhone 15", "widthPt": 393, "heightPt": 852 },
+    { "id": "large", "device": "iPhone 15 Pro Max", "widthPt": 430, "heightPt": 932 }
+  ],
+  "textSizes": ["default", "accessibility_extra_extra_large"],
+  "reportStates": [
+    "loading",
+    "target_required",
+    "complete",
+    "saved_stale_copy",
+    "missing_conditions",
+    "targeting_restricted",
+    "subscription_required",
+    "reported_closed_access",
+    "long_city_and_pier_names"
+  ],
+  "mapStates": {
+    "timeModes": ["now", "forecast"],
+    "layers": ["match", "temperature", "bathymetry"],
+    "zoomLevels": ["great_lakes_overview", "shoreline"],
+    "toggles": ["wind_off", "wind_on", "observations_off", "observations_on"],
+    "dataStates": ["loading", "complete", "stale", "missing", "restricted"]
+  },
+  "approvalRules": [
+    "No clipped titles, target names, city names, badges, controls, or access text.",
+    "No horizontal page overflow; intentional chip rails remain horizontally scrollable.",
+    "Seasonal outlook and temperature match remain distinct at every viewport and text size.",
+    "Unavailable and restricted states never inherit Poor styling or a numeric score.",
+    "Now observation markers never appear in Forecast mode.",
+    "Map controls retain at least a 44-point interaction target.",
+    "Paper-dashboard colors, type, corner marks, topographic lines, borders, and shadows remain intact."
+  ],
+  "automation": {
+    "contractSuite": "npm run qa:pier-cast:renovation-pass6",
+    "nativeEvidenceDirectory": "docs/visuals/piercast-pass6",
+    "sourceAndStateCoverage": "complete",
+    "nativeCapture": "Not approved in this environment: the local Xcode 15.2 toolchain cannot build React Native 0.83, the EAS iOS quota is exhausted until 2026-10-01, and LAN Metro exposure was not authorized. The iOS production bundle compiled successfully; native screenshots must be captured with the next compatible simulator build."
+  }
+}

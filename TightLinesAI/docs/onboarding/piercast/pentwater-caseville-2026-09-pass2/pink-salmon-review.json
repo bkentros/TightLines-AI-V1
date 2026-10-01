@@ -1,0 +1,52 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-pink-salmon-v1",
+  "reviewed_at": "2026-09-21",
+  "policy": "Pink salmon remains outside the authorized catalog and receives no score, mode, rank, or user-facing output.",
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "evidence_conclusion": "No target-county stocking record and no exact-pier occurrence resolved; keep exclusion lead auditable.",
+      "disposition": "out_of_catalog_unscored",
+      "score": null,
+      "mode": null,
+      "ranked": false,
+      "user_facing": false
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "evidence_conclusion": "Current DNR management reports occasional Rogers City pink salmon, primarily offshore; no catalog contract.",
+      "disposition": "out_of_catalog_unscored",
+      "score": null,
+      "mode": null,
+      "ranked": false,
+      "user_facing": false
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "evidence_conclusion": "No target-county stocking record and no exact Tawas pier occurrence resolved.",
+      "disposition": "out_of_catalog_unscored",
+      "score": null,
+      "mode": null,
+      "ranked": false,
+      "user_facing": false
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "evidence_conclusion": "No target-county stocking record or exact-channel occurrence resolved.",
+      "disposition": "out_of_catalog_unscored",
+      "score": null,
+      "mode": null,
+      "ranked": false,
+      "user_facing": false
+    },
+    {
+      "city_id": "caseville_mi",
+      "evidence_conclusion": "No Huron County stocking record and no exact Pointe Park occurrence resolved.",
+      "disposition": "out_of_catalog_unscored",
+      "score": null,
+      "mode": null,
+      "ranked": false,
+      "user_facing": false
+    }
+  ]
+}

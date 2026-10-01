@@ -1,0 +1,14 @@
+# Live Lake Map gatekeeper — see worker.js. Deploy from this folder:
+#   npx wrangler@4 deploy
+# Secret (same value as the Supabase secret PIER_CAST_MAP_PASS_SECRET):
+#   npx wrangler@4 secret put MAP_PASS_SECRET
+name = "piercast-map-gate"
+main = "worker.js"
+account_id = "fe7a8d144a9b29b73dd513830858774c"
+compatibility_date = "2026-09-01"
+workers_dev = false
+routes = [{ pattern = "map.finfindr.app", custom_domain = true }]
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "piercast-lake-map"

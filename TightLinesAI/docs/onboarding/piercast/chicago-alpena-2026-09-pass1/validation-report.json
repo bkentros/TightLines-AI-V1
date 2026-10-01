@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "piercast-five-city-pass1-validation-v1",
+  "validatedAt": "2026-09-18",
+  "status": "pass",
+  "checks": {
+    "uniqueSourceIds": 32,
+    "completeSourceLedgerFields": [
+      "id",
+      "publisher",
+      "title",
+      "published",
+      "url",
+      "geography",
+      "mode",
+      "claim",
+      "use",
+      "limitation",
+      "sourceClass"
+    ],
+    "siteCount": 5,
+    "catalogSpeciesCount": 19,
+    "uniqueCitySpeciesPairs": 95,
+    "decisionCounts": {
+      "research_candidate": 62,
+      "hold": 16,
+      "exclude": 17
+    },
+    "allDecisionSourceIdsResolve": true,
+    "allBoundarySourceIdsResolve": true,
+    "scoringOrRuntimeOutputProduced": false,
+    "rawMichiganRows": 6253,
+    "rawMichiganSha256": "d0c5e7ac925ec77066a6f6edee96e6fadb1c46fa2f4d0275a632e93f4d11c5da",
+    "MichiganAggregateRows": 91
+  }
+}

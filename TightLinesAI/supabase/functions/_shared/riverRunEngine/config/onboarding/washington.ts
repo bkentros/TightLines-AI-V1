@@ -819,11 +819,11 @@ function weatherActivity(input: {
   });
 }
 
-const hiddenAudit = {
-  isEnabled: false,
-  auditVersion: "washington-six-run-owner-review-v1",
+const publicAudit = {
+  isEnabled: true,
+  auditVersion: "washington-six-run-public-release-v1",
   notes:
-    "Research/configuration candidate only. Public audit remains intentionally disabled until replay, rendered owner acceptance, regulation recheck, and explicit release authorization.",
+    "Public release authorized September 15, 2026 after the completed river foundations, replay audits, rendered owner review, and installed-client compatibility checks.",
 };
 
 export const GREEN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
@@ -892,7 +892,7 @@ export const GREEN_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   researchNotes:
     "Hidden Washington owner-review candidate. Soos counts never alter Stage, Presence, or Activity.",
   sourceNotes: "docs/onboarding/river-run/green/river-onboarding.md",
-  publicAudit: hiddenAudit,
+  publicAudit,
 };
 
 export const GREEN_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {

@@ -281,5 +281,6 @@ Deno.test("PM Fall Steelhead has dedicated timing checkpoints and is public", ()
     "pere_marquette_fall_chinook",
     "pere_marquette_fall_coho",
     "pere_marquette_fall_steelhead",
+    "pere_marquette_winter_steelhead",
   ]);
 });

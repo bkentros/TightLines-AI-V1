@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "piercast-st-joseph-harrisville-public-release-verification-v2",
+  "verifiedAt": "2026-09-21T11:23:04.197Z",
+  "environment": "production",
+  "run": {
+    "run_id": "9c0501af-3ffb-4723-8a60-682cfe54244d",
+    "config_version": "piercast-v3-twenty-seven-city-st-joseph-harrisville-pass3-v10",
+    "generated_at": "2026-09-21T06:58:00.877+00:00",
+    "source_issued_at": "2026-09-21T00:00:00+00:00",
+    "source_fetched_at": "2026-09-21T06:55:00.871+00:00",
+    "engine_version": "pier-cast-opportunity-modes-v3-shadow-v1.8.0",
+    "formula_version": "piercast-opportunity-modes-bounded-temperature-v3",
+    "preview_only": true,
+    "promotion_status": "blocked",
+    "forecast_count": 1110
+  },
+  "actual": {
+    "storedForecastCount": 1110,
+    "cityCount": 27,
+    "pairCount": 222,
+    "onboardingCityCount": 5,
+    "onboardingPairCount": 49,
+    "onboardingForecastCount": 245,
+    "minimumStoredScore": 1,
+    "maximumStoredScore": 7.95271192960215,
+    "onboardingSpecies": {
+      "st_joseph_mi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "lake_trout",
+        "lake_whitefish",
+        "steelhead",
+        "yellow_perch"
+      ],
+      "south_haven_mi": [
+        "brown_trout",
+        "channel_catfish",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_trout",
+        "lake_whitefish",
+        "northern_pike",
+        "round_whitefish",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "yellow_perch"
+      ],
+      "holland_mi": [
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_trout",
+        "lake_whitefish",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "yellow_perch"
+      ],
+      "lexington_mi": [
+        "atlantic_salmon",
+        "brown_trout",
+        "channel_catfish",
+        "chinook_salmon",
+        "coho_salmon",
+        "freshwater_drum",
+        "lake_trout",
+        "largemouth_bass",
+        "northern_pike",
+        "smallmouth_bass",
+        "steelhead",
+        "walleye",
+        "white_bass",
+        "yellow_perch"
+      ],
+      "harrisville_mi": [
+        "atlantic_salmon",
+        "brown_trout",
+        "chinook_salmon",
+        "coho_salmon",
+        "steelhead"
+      ]
+    }
+  },
+  "checks": {
+    "runForecastCount": true,
+    "storedForecastCount": true,
+    "cityCount": true,
+    "pairCount": true,
+    "leadDays": true,
+    "onboardingCityCount": true,
+    "onboardingPairCount": true,
+    "onboardingForecastCount": true,
+    "previewOnly": true,
+    "promotionBlocked": true,
+    "scoreCap": true
+  },
+  "independentAcceptance": {
+    "ownerProductionQa": "PASS: 27 ranked cities from one coherent six-cohort issue.",
+    "publicProductionQa": "PASS: all 27 cities are in the public projection with complete five-day reports.",
+    "authenticatedNormalUserSmoke": "PASS: all 27 cities are visible to a normal user; owner review remains 403; quota, saved refresh, and all paid reports pass."
+  },
+  "result": "pass"
+}

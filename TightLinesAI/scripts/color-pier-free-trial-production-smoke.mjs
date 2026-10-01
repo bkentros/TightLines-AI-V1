@@ -12,6 +12,16 @@ async function request(path, headers, body, method = 'POST') {
   const response = await fetch(`${base}${path}`, { method, headers, ...(body !== undefined ? { body: JSON.stringify(body) } : {}) });
   return { status: response.status, body: await response.json().catch(() => null) };
 }
+function stableLeaderboardProjection(cities) {
+  return cities
+    .map(city => ({
+      cityId: city.cityId,
+      localDate: city.dates[0]?.localDate,
+      displayScore: city.dates[0]?.headline?.overall?.displayScore,
+      drivingSpeciesId: city.dates[0]?.headline?.drivingSpeciesId,
+    }))
+    .sort((left, right) => left.cityId.localeCompare(right.cityId));
+}
 try {
   const created = await request('/auth/v1/admin/users', admin, { email, password, email_confirm: true });
   assert.equal(created.status, 200, 'create smoke user');
@@ -42,11 +52,18 @@ try {
   assert.equal((await color({ ...paidSetup, requestId: `cached_day_${marker}` })).status, 403, 'cached daily setup after downgrade');
   const denied = await request('/rest/v1/feature_report_trials', { apikey: anon, Authorization: `Bearer ${auth.body.access_token}` }, undefined, 'GET');
   assert.ok(denied.status >= 400, 'trial records must not be client readable');
+  const pierClaimsDenied = await request('/rest/v1/pier_cast_report_claims', { apikey: anon, Authorization: `Bearer ${auth.body.access_token}` }, undefined, 'GET');
+  assert.ok(pierClaimsDenied.status >= 400, 'PierCast claims must not be client readable');
   const catalog = await request('/functions/v1/pier-cast/catalog', headers, undefined, 'GET');
   assert.equal(catalog.status, 200);
-  assert.equal(catalog.body.cities.length, 5, 'approved public research cities');
-  assert.deepEqual(catalog.body.cities.map(c => c.species.length), [6,6,8,4,4]);
-  assert.ok(catalog.body.cities.every(c => c.releaseStatus === 'public_research' && c.species.every(s => s.seasonalOpportunityCurve === null && !s.ratingEnabled)));
+  assert.equal(catalog.body.cities.length, 32, 'all released pier cities are discoverable');
+  const releasedCities = catalog.body.cities.filter(c => c.releaseStatus === 'public_research');
+  const previewCities = catalog.body.cities.filter(c => c.releaseStatus === 'research_only');
+  assert.equal(catalog.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
+  assert.equal(releasedCities.length, 32, 'approved public report cities');
+  assert.equal(previewCities.length, 0, 'no city remains preview-only');
+  assert.ok(releasedCities.every(c => c.species.length > 0));
+  assert.ok(releasedCities.every(c => c.species.every(s => s.seasonalOpportunityCurve === null && !s.ratingEnabled)));
   assert.match(catalog.body.disclosure, /not catch guarantees/);
   const owner = await request('/functions/v1/pier-cast/review/outlook', headers, undefined, 'GET');
   assert.equal(owner.status, 403);
@@ -55,41 +72,47 @@ try {
   const getPier = path => request(`/functions/v1/pier-cast/${path}`, headers, undefined, 'GET');
   const boardBefore = await getPier('leaderboard');
   assert.equal(boardBefore.status, 200, 'public leaderboard');
-  assert.equal(boardBefore.body.cities.length, 5);
+  assert.equal(boardBefore.body.cities.length, 32);
+  assert.equal(boardBefore.body.releasePolicyVersion, 'piercast-public-v3-2026-09-22-thirty-two-city');
   assert.ok(boardBefore.body.cities.every(c => c.dates.every(d => !('species' in d) && !('waterTemperature' in d))));
-  const firstCity = catalog.body.cities[0].cityId;
-  const secondCity = catalog.body.cities[1].cityId;
+  const firstCity = releasedCities[0].cityId;
   const firstPier = await getPier(`report?cityId=${firstCity}`);
   assert.equal(firstPier.status, 200, `first public city: ${firstPier.body?.error}`);
   assert.equal(firstPier.body.mode, 'public_research');
   assert.equal(firstPier.body.cities.length, 1);
   assert.equal(firstPier.body.cities[0].species, undefined);
   assert.equal(firstPier.body.cities[0].additionalSpeciesResearch, undefined);
-  assert.match(firstPier.body.disclosure, /not measurements at the pier/);
+  assert.match(firstPier.body.disclosure, /not catch guarantees/);
   assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 200, 'same-city refresh');
-  const blockedPier = await getPier(`report?cityId=${secondCity}`);
+  for (const city of releasedCities.slice(1, 4)) {
+    const freePier = await getPier(`report?cityId=${city.cityId}`);
+    assert.equal(freePier.status, 200, `free city ${city.cityId}: ${freePier.body?.error}`);
+  }
+  const blockedPier = await getPier(`report?cityId=${releasedCities[4].cityId}`);
   assert.equal(blockedPier.status, 403);
   assert.equal(blockedPier.body.error, 'subscription_required');
-  assert.equal((await getPier('saved-report')).body.report.cities[0].cityId, firstCity);
+  const savedAfterFour = await getPier('saved-report');
+  assert.ok(releasedCities.slice(0, 4).some(city => city.cityId === savedAfterFour.body.report.cities[0].cityId));
   const boardAfter = await getPier('leaderboard');
   assert.equal(boardAfter.status, 200);
-  assert.deepEqual(boardAfter.body.cities, boardBefore.body.cities, 'daily leaderboard remains unchanged after report consumption');
-  // Simulate an expired claim on this disposable account without altering a live user's data.
-  const expire = await request(`/rest/v1/feature_report_trials?user_id=eq.${userId}&feature=eq.pier_cast`, admin, { report_key: `${firstCity}:2000-01-01` }, 'PATCH');
-  assert.equal(expire.status, 204);
-  assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 403, 'later day cannot reset trial');
+  assert.deepEqual(
+    stableLeaderboardProjection(boardAfter.body.cities),
+    stableLeaderboardProjection(boardBefore.body.cities),
+    'daily leaderboard presentation remains unchanged after report consumption',
+  );
+  assert.equal((await getPier(`report?cityId=${firstCity}`)).status, 200, 'claimed city refreshes after allowance is exhausted');
   assert.equal((await getPier('saved-report')).status, 200, 'old report remains accessible');
   assert.equal((await request(`/rest/v1/profiles?id=eq.${userId}`, admin, { subscription_tier: 'angler' }, 'PATCH')).status, 204);
-  for (const city of catalog.body.cities) {
+  for (const city of releasedCities) {
     const paidCity = await getPier(`report?cityId=${city.cityId}`);
     assert.equal(paidCity.status, 200, `paid city ${city.cityId}: ${paidCity.body?.error}`);
     assert.equal(paidCity.body.cities.length, 1);
     assert.equal(paidCity.body.cities[0].cityId, city.cityId);
     assert.equal(paidCity.body.cities[0].dates.length, 5);
     assert.equal(paidCity.body.cities[0].dates[1].species.length, city.species.length, 'next-day report uses full approved roster');
-    assert.ok(paidCity.body.dailyScoreSnapshot.cities.every(row => row.cityId === city.cityId), 'snapshot cannot leak other city reports');
+    assert.equal(paidCity.body.formulaVersion, 'piercast-opportunity-modes-bounded-temperature-v3');
   }
-  console.log('PASS: Color Match lifetime/downgrade; public PierCast research roster/disclosure, private owner gate, first city, refresh, second-city and expired-day paywall, saved recovery, independent locked leaderboard, paid five-city/five-day reports');
+  console.log('PASS: Color Match lifetime/downgrade; 32-city PierCast public roster/disclosure, owner gate, four free city reports, fifth-city paywall, saved recovery, independent leaderboard, paid 32-city/five-day reports');
 } finally {
   if (userId) {
     const response = await fetch(`${base}/auth/v1/admin/users/${userId}`, { method: 'DELETE', headers: admin });

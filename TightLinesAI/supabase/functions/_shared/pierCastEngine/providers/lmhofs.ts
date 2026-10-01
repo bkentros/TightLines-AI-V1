@@ -1,6 +1,7 @@
 import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
 import type {
   PierCastCityId,
+  PierCastCityProfile,
   PierCastCityTemperatureSource,
 } from "../types.ts";
 
@@ -106,6 +107,8 @@ export type FetchPierCastLmhofsBatchOptions = {
   requestTimeoutMs?: number;
   discoveryLookbackHours?: number;
   maxAttempts?: number;
+  /** Defaults to the frozen production cohort. Shadow expansions inject their own cohort. */
+  cityProfiles?: readonly PierCastCityProfile[];
 };
 
 type LmhofsSource = PierCastCityTemperatureSource & {
@@ -236,7 +239,9 @@ export async function fetchPierCastLmhofsBatch(
   );
   const fullHorizonRequested = forecastHours.length === 121 &&
     forecastHours.every((hour, index) => hour === index);
-  const citySources = getLmhofsCitySources();
+  const citySources = getLmhofsCitySources(
+    options.cityProfiles ?? PIER_CAST_CITY_PROFILES,
+  );
   const maxAttempts = normalizeMaxAttempts(options.maxAttempts ?? 2);
   const discovery = await discoverLatestCompleteCycle({
     citySource: citySources[0],
@@ -508,8 +513,17 @@ async function fetchPoint(input: {
   throw new Error("Unreachable LMHOFS retry state.");
 }
 
-function getLmhofsCitySources(): CitySource[] {
-  return PIER_CAST_CITY_PROFILES.map((city) => {
+function getLmhofsCitySources(
+  cityProfiles: readonly PierCastCityProfile[],
+): CitySource[] {
+  if (cityProfiles.length === 0) {
+    throw new Error("PierCast LMHOFS cohort cannot be empty.");
+  }
+  const cityIds = new Set(cityProfiles.map((city) => city.cityId));
+  if (cityIds.size !== cityProfiles.length) {
+    throw new Error("PierCast LMHOFS cohort contains duplicate cities.");
+  }
+  return cityProfiles.map((city) => {
     const source = city.waterTemperatureSource;
     if (
       !source ||

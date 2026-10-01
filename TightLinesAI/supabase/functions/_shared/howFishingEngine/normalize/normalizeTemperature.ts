@@ -1,3 +1,5 @@
+import { calibratedRegionalThermalScore } from "../config/regionalThermalCalibration.ts";
+import { seasonalBracket } from "../config/seasonalInterpolation.ts";
 import type {
   EngineContext,
   RegionKey,
@@ -122,20 +124,21 @@ function clampComponent(n: number, maxAbs: number): number {
  * - shock penalizes abrupt same-source instability
  *
  * Temperature V2.1-lite production wiring:
- * final_score = clamp(
+ * uncalibrated_score = clamp(
  *   band_score * 0.90
  *   + favorability-aware stability_component
- *   + clamp(favorability_delta_72h * 0.55, -0.70, 0.70)
+ *   + clamp(favorability_delta_per_48h * 0.55, -0.70, 0.70)
  *   + direction-aware shock_component,
  *   -2,
  *   2
  * )
- * Interpolation remains intentionally parked; production still uses the current
- * region/month row directly.
+ * Eligible cool-side scores then use calibratedRegionalThermalScore; its
+ * adjustment is reported separately. Heat, shock and current-air fallback do not.
+ * Calendar-day callers blend adjacent monthly suitability curves around midmonth.
+ * Air history spans 48h; coastal history spans 72h and is rate-normalized to 48h.
  *
- * Rollback note: this keeps the public normalizeTemperature signature and output
- * shape stable. If V2.1-lite needs to be backed out, restore the previous body here
- * without changing callers.
+ * Existing fields retain their units; optional provenance fields describe the
+ * source and history interval without treating air as measured water.
  */
 export function normalizeTemperature(
   context: EngineContext,
@@ -145,6 +148,8 @@ export function normalizeTemperature(
   priorMeanF: number | null | undefined,
   dayMinus2MeanF: number | null | undefined,
   opts?: {
+    localDate?: string;
+    currentAirFallback?: boolean;
     measuredWaterTempF?: number | null;
     measuredWaterTemp24hAgoF?: number | null;
     measuredWaterTemp72hAgoF?: number | null;
@@ -166,28 +171,26 @@ export function normalizeTemperature(
     ? opts?.measuredWaterTemp72hAgoF
     : dayMinus2MeanF;
 
-  const row = hasMeasuredWaterTemp
-    ? coastalWaterTempRow(region, month)
+  const lookup = hasMeasuredWaterTemp
+    ? coastalWaterTempRow
     : coastalContext
-    ? coastalTempRow(region, month)
-    : freshwaterTempRow(region, month);
-  if (!row || row.length < 5) return null;
-
-  const vc = Number(row[0]);
-  const cool = Number(row[1]);
-  const opt = Number(row[2]);
-  const warm = Number(row[3]);
-  const scores = row[4] as unknown as number[];
-  if (!Array.isArray(scores) || scores.length < 5) return null;
-
-  const bandScore = taperedBandScore(
-    selectedTempF,
-    vc,
-    cool,
-    opt,
-    warm,
-    scores,
+    ? coastalTempRow
+    : freshwaterTempRow;
+  const bracket = opts?.localDate
+    ? seasonalBracket(opts.localDate)
+    : { from: month, to: month, fraction: 0 };
+  const row = lookup(region, bracket.from);
+  const nextRow = lookup(region, bracket.to);
+  if (!row || !nextRow) return null;
+  const blend = (a: number, b: number) => a + (b - a) * bracket.fraction;
+  // Blend suitability at the SAME temperature, so no invented peak can exceed
+  // the adjacent monthly curves. Thresholds interpolate only for semantic labels.
+  const scoreAt = (t: number) =>
+    blend(bandScoreForRow(t, row)!, bandScoreForRow(t, nextRow)!);
+  const [vc, cool, opt, warm] = [0, 1, 2, 3].map((i) =>
+    blend(Number(row[i]), Number(nextRow[i]))
   );
+  const bandScore = scoreAt(selectedTempF);
   const label = semanticBandLabel(
     selectedTempF,
     vc,
@@ -200,8 +203,9 @@ export function normalizeTemperature(
   const d1 = isFiniteTemp(priorSelectedF)
     ? selectedTempF - priorSelectedF
     : null;
+  const historyHours = hasMeasuredWaterTemp ? 72 : 48;
   const d2 = isFiniteTemp(dayMinus2SelectedF)
-    ? selectedTempF - dayMinus2SelectedF
+    ? (selectedTempF - dayMinus2SelectedF) * 48 / historyHours
     : null;
 
   let candidateTrendLabel: "warming" | "stable" | "cooling" = "stable";
@@ -233,17 +237,17 @@ export function normalizeTemperature(
     : MOVING_STABILITY_ADJ;
 
   const prior24BandScore = isFiniteTemp(priorSelectedF)
-    ? bandScoreForRow(priorSelectedF, row)
+    ? scoreAt(priorSelectedF)
     : null;
-  const prior72BandScore = isFiniteTemp(dayMinus2SelectedF)
-    ? bandScoreForRow(dayMinus2SelectedF, row)
+  const priorHistoryBandScore = isFiniteTemp(dayMinus2SelectedF)
+    ? scoreAt(dayMinus2SelectedF)
     : null;
   const favorabilityDelta24h = prior24BandScore == null
     ? null
     : bandScore - prior24BandScore;
-  const favorabilityDelta72h = prior72BandScore == null
+  const favorabilityDeltaHistory = priorHistoryBandScore == null
     ? null
-    : bandScore - prior72BandScore;
+    : (bandScore - priorHistoryBandScore) * 48 / historyHours;
 
   let shockLabel: "none" | "sharp_warmup" | "sharp_cooldown" = "none";
   let shockComponent = 0;
@@ -262,7 +266,7 @@ export function normalizeTemperature(
   }
   const shockImprovedFavorability = shockLabel !== "none" &&
     ((favorabilityDelta24h ?? -Infinity) >= SHOCK_IMPROVEMENT_THRESHOLD ||
-      (favorabilityDelta72h ?? -Infinity) >= SHOCK_IMPROVEMENT_THRESHOLD);
+      (favorabilityDeltaHistory ?? -Infinity) >= SHOCK_IMPROVEMENT_THRESHOLD);
   if (shockImprovedFavorability) {
     shockComponent = Math.max(shockComponent, IMPROVED_SHOCK_FLOOR);
   }
@@ -274,9 +278,9 @@ export function normalizeTemperature(
     d2 !== null &&
     Math.abs(d2) >= 5
   ) {
-    if (prior72BandScore != null) {
+    if (priorHistoryBandScore != null) {
       trendAdj = clampComponent(
-        (bandScore - prior72BandScore) * TREND_WEIGHT,
+        favorabilityDeltaHistory! * TREND_WEIGHT,
         MAX_TREND_COMPONENT,
       );
     }
@@ -284,10 +288,18 @@ export function normalizeTemperature(
 
   const trendLabel = shockLabel === "none" ? candidateTrendLabel : "stable";
   const shockAdj: -1 | 0 = shockComponent < 0 ? -1 : 0;
-  const final_score = clampEngineScore(
+  const uncalibratedScore = clampEngineScore(
     bandScore * BAND_WEIGHT + stabilityComponent + trendAdj + shockComponent,
   );
 
+  // Only the cool side of the seasonal curve can receive regional relief.
+  // Heat and abrupt shocks keep their original suppressive interpretation.
+  const final_score = clampEngineScore(
+    shockLabel === "none" && selectedTempF <= opt &&
+      (!coastalContext || hasMeasuredWaterTemp) && !opts?.currentAirFallback
+      ? calibratedRegionalThermalScore(region, uncalibratedScore)
+      : uncalibratedScore,
+  );
   const context_group = coastalContext ? "coastal" : "freshwater";
   const measurement_source = hasMeasuredWaterTemp
     ? "coastal_water_temp"
@@ -296,6 +308,16 @@ export function normalizeTemperature(
   return {
     context_group,
     measurement_source,
+    source_quality: hasMeasuredWaterTemp
+      ? "measured_water"
+      : opts?.currentAirFallback
+      ? "current_air_fallback"
+      : "daily_air_proxy",
+    history_span_hours: historyHours,
+    cold_light_relief: Math.max(
+      0,
+      Math.min(1, (opt - selectedTempF) / Math.max(1, opt - cool)),
+    ),
     measurement_value_f: selectedTempF,
     band_label: label,
     band_score: bandScore,
@@ -303,6 +325,9 @@ export function normalizeTemperature(
     trend_adjustment: trendAdj,
     shock_label: shockLabel,
     shock_adjustment: shockAdj,
+    regional_calibration_adjustment: clampEngineScore(
+      final_score - uncalibratedScore,
+    ),
     final_score,
   };
 }

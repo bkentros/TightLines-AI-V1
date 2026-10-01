@@ -1,8 +1,14 @@
 import { getPierCastPrivateSpeciesIds } from "../config/privateCalibration.ts";
+import {
+  PIER_CAST_WISCONSIN_CITY_IDS,
+  PIER_CAST_WISCONSIN_SPECIES_IDS,
+  type PierCastWisconsinCityId,
+} from "../config/wisconsinShadow.ts";
 import type {
   PierCastCityId,
   PierCastShadowOutcomeCommit,
   PierCastShadowOutcomeInput,
+  PierCastSpeciesId,
 } from "../types.ts";
 import type { PierCastArchiveClient } from "./lmhofsArchive.ts";
 
@@ -12,6 +18,10 @@ const CITY_IDS = new Set<PierCastCityId>([
   "manistee_mi",
   "frankfort_elberta_mi",
   "sheboygan_wi",
+  "port_washington_wi",
+  "milwaukee_wi",
+  "racine_wi",
+  "kenosha_wi",
 ]);
 const ASSESSMENT_STATUSES = new Set([
   "assessable",
@@ -48,7 +58,11 @@ export function parsePierCastShadowOutcomeInput(
     1,
     100,
   ) as PierCastShadowOutcomeInput["speciesId"];
-  if (!getPierCastPrivateSpeciesIds(cityId).includes(speciesId)) {
+  const supportedSpecies: readonly PierCastSpeciesId[] =
+    PIER_CAST_WISCONSIN_CITY_IDS.includes(cityId as PierCastWisconsinCityId)
+      ? PIER_CAST_WISCONSIN_SPECIES_IDS
+      : getPierCastPrivateSpeciesIds(cityId);
+  if (!supportedSpecies.includes(speciesId)) {
     throw new Error("Unsupported PierCast outcome species.");
   }
   const localDate = requiredText(input.localDate, "localDate", 10, 10);

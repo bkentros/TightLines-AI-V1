@@ -1,0 +1,547 @@
+{
+  "schemaVersion": "piercast-v3-pass1-holdout-review-v1",
+  "status": "qualitative_directional_holdout_complete",
+  "limitation": "No reviewed post-construction dataset supplies comparable city/species pier effort for all nine cities. Holdout results test direction and broad timing only; prospective quantitative validation remains a Pass 2 promotion gate.",
+  "rows": [
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F5",
+        "F6",
+        "F10",
+        "F41",
+        "F43",
+        "F44",
+        "F45"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F2",
+        "F35",
+        "F46",
+        "F49"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F2",
+        "F35",
+        "F49",
+        "F50"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "ludington_mi",
+      "cityName": "Ludington",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F2",
+        "F46",
+        "F47"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F12",
+        "F18",
+        "F43",
+        "F44",
+        "F45",
+        "F48"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F17",
+        "F46",
+        "F47"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F14",
+        "F15",
+        "F34",
+        "F38",
+        "F42",
+        "F43",
+        "F49",
+        "F50"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "cityName": "Grand Haven",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F46",
+        "F47"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F5",
+        "F6",
+        "F10",
+        "F41",
+        "F43",
+        "F44",
+        "F45",
+        "F51"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F2",
+        "F26",
+        "F35",
+        "F41",
+        "F51"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F23",
+        "F24",
+        "F27",
+        "F35",
+        "F42",
+        "F49"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "manistee_mi",
+      "cityName": "Manistee",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F2",
+        "F23",
+        "F27",
+        "F47"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F18",
+        "F30",
+        "F40",
+        "F43",
+        "F48"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F48",
+        "F49"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F19",
+        "F31",
+        "F35",
+        "F46",
+        "F49"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "cityName": "Frankfort",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Michigan DNR port/month/species Pier/Dock estimates through 2022",
+      "holdoutEvidenceIds": [
+        "F1",
+        "F30",
+        "F46"
+      ],
+      "holdoutPeriod": "2023-2026 qualitative local reports",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "S5"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "S5"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "S5"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "cityName": "Sheboygan",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "S5"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "PW_CURRENT_001"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "PW_CURRENT_001"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "PW_CURRENT_001"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "port_washington_wi",
+      "cityName": "Port Washington",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "PW_CURRENT_001"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2025_06"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2025_06"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2025_06"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "cityName": "Milwaukee",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2025_06"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "racine_wi",
+      "cityName": "Racine",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05",
+        "WI_WEEKLY_2026_09_07"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "chinook_salmon",
+      "speciesName": "Chinook Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "coho_salmon",
+      "speciesName": "Coho Salmon",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "steelhead",
+      "speciesName": "Steelhead",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    },
+    {
+      "cityId": "kenosha_wi",
+      "cityName": "Kenosha",
+      "speciesId": "brown_trout",
+      "speciesName": "Brown Trout",
+      "constructionEvidence": "Wisconsin DNR 2022-2024 county pier harvest and statewide pier-mode timing",
+      "holdoutEvidenceIds": [
+        "WI_WEEKLY_2025_05"
+      ],
+      "holdoutPeriod": "2024-2026 local reports not used as a city CPUE fit",
+      "result": "partial_directional_support",
+      "interpretation": "The holdout record supports continued local relevance or the broad mode calendar but lacks standardized city/species pier effort. It does not validate decimals, daily shoulders, or catch probability."
+    }
+  ]
+}

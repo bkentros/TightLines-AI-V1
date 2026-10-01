@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "piercast-michigan-all-scored-species-audit-v1",
+  "reviewedAt": "2026-09-18",
+  "cities": 7,
+  "catalogSpecies": 19,
+  "rosterCells": 133,
+  "numericPairs": 72,
+  "numericRetained": 72,
+  "numericRevised": 0,
+  "confidencePenaltiesFound": 0,
+  "noScoreCells": 61,
+  "noScoreDefers": 7,
+  "noScoreExcludes": 54,
+  "evidenceGrades": {
+    "A": 34,
+    "A+B": 1,
+    "B": 37
+  },
+  "lineages": {
+    "core": 16,
+    "secondary": 18,
+    "lake_huron": 14,
+    "species_expansion": 24
+  },
+  "hardMaximum": 10,
+  "observedPeakRange": [
+    3.6,
+    10
+  ]
+}

@@ -1,0 +1,37 @@
+pair_key,city_id,city_name,species_id,species_name,evidence_grade,peak_fishery_strength,ideal_peak_date,peak_mode,excellent_days_at_ideal_t,good_days_at_ideal_t,shoulder_days_at_ideal_t,floor_days_at_ideal_t,december_january_seam_delta
+pentwater_mi/chinook_salmon,pentwater_mi,Pentwater,chinook_salmon,Chinook salmon,A,7.5,2026-09-10,fall_harbor_staging,0,7,109,201,0
+pentwater_mi/coho_salmon,pentwater_mi,Pentwater,coho_salmon,Coho salmon,A,7.2,2026-04-15,spring_nearshore,0,5,156,137,0
+pentwater_mi/steelhead,pentwater_mi,Pentwater,steelhead,Steelhead / rainbow trout,A,8.3,2026-07-20,summer_skamania,6,32,290,0,0
+pentwater_mi/brown_trout,pentwater_mi,Pentwater,brown_trout,Brown trout,A,7.3,2026-04-10,winter_spring_nearshore,0,11,235,83,0
+pentwater_mi/walleye,pentwater_mi,Pentwater,walleye,Walleye,B,4.4,2026-07-15,warm_season_low_light,0,0,139,155,0
+pentwater_mi/smallmouth_bass,pentwater_mi,Pentwater,smallmouth_bass,Smallmouth bass,A,6.4,2026-07-20,warm_season_channel,0,0,149,185,0
+pentwater_mi/freshwater_drum,pentwater_mi,Pentwater,freshwater_drum,Freshwater drum,B,5.4,2026-07-15,warm_season_channel,0,0,112,216,0
+pentwater_mi/yellow_perch,pentwater_mi,Pentwater,yellow_perch,Yellow perch,A,7.8,2026-07-20,summer_pier_schooling,0,25,146,132,0
+rogers_city_mi/chinook_salmon,rogers_city_mi,Rogers City,chinook_salmon,Chinook salmon,B,6,2026-10-05,fall_harbor_staging,0,0,64,281,0
+rogers_city_mi/steelhead,rogers_city_mi,Rogers City,steelhead,Steelhead / rainbow trout,B,6,2026-04-25,spring_harbor,0,0,208,79,0
+rogers_city_mi/brown_trout,rogers_city_mi,Rogers City,brown_trout,Brown trout,A,5.8,2026-04-20,spring_harbor,0,0,230,108,0
+rogers_city_mi/lake_trout,rogers_city_mi,Rogers City,lake_trout,Lake trout,B,5.1,2026-04-20,spring_coldwater_harbor,0,0,92,175,0
+rogers_city_mi/walleye,rogers_city_mi,Rogers City,walleye,Walleye,B,5.5,2026-07-15,warm_season_low_light,0,0,173,137,0
+rogers_city_mi/smallmouth_bass,rogers_city_mi,Rogers City,smallmouth_bass,Smallmouth bass,B,6.5,2026-07-20,warm_season_channel,0,0,149,183,0
+rogers_city_mi/atlantic_salmon,rogers_city_mi,Rogers City,atlantic_salmon,Atlantic salmon,B,6.8,2026-04-20,winter_spring_harbor,0,0,255,87,0
+tawas_city_mi/coho_salmon,tawas_city_mi,Tawas City,coho_salmon,Coho salmon,B,5.8,2026-04-25,spring_harbor,0,0,127,164,0
+tawas_city_mi/steelhead,tawas_city_mi,Tawas City,steelhead,Steelhead / rainbow trout,B,5.8,2026-04-25,spring_harbor,0,0,200,81,0
+tawas_city_mi/lake_trout,tawas_city_mi,Tawas City,lake_trout,Lake trout,B,5.1,2026-04-20,spring_coldwater_harbor,0,0,92,175,0
+tawas_city_mi/walleye,tawas_city_mi,Tawas City,walleye,Walleye,B,6.5,2026-07-15,warm_season_low_light,0,0,193,128,0
+tawas_city_mi/smallmouth_bass,tawas_city_mi,Tawas City,smallmouth_bass,Smallmouth bass,B,6.2,2026-07-20,warm_season_channel,0,0,147,185,0
+tawas_city_mi/yellow_perch,tawas_city_mi,Tawas City,yellow_perch,Yellow perch,B,6.8,2026-07-20,summer_pier_schooling,0,0,149,142,0
+tawas_city_mi/lake_whitefish,tawas_city_mi,Tawas City,lake_whitefish,Lake whitefish,B,4,2026-11-25,late_fall_winter_pier,0,0,80,210,0
+tawas_city_mi/northern_pike,tawas_city_mi,Tawas City,northern_pike,Northern pike,B,5.2,2026-05-10,spring_fall_harbor,0,0,223,13,0
+tawas_city_mi/burbot,tawas_city_mi,Tawas City,burbot,Burbot,B,4.3,2026-02-15,cold_season_night,0,0,101,209,0
+charlevoix_mi/chinook_salmon,charlevoix_mi,Charlevoix,chinook_salmon,Chinook salmon,A,7.2,2026-09-10,fall_harbor_staging,0,3,109,205,0
+charlevoix_mi/steelhead,charlevoix_mi,Charlevoix,steelhead,Steelhead / rainbow trout,A,7.5,2026-07-20,summer_skamania,0,10,290,0,0
+charlevoix_mi/lake_trout,charlevoix_mi,Charlevoix,lake_trout,Lake trout,A,5,2026-03-15,winter_spring_pier,0,0,217,108,0
+charlevoix_mi/walleye,charlevoix_mi,Charlevoix,walleye,Walleye,A,5.5,2026-07-15,warm_season_low_light,0,0,173,137,0
+charlevoix_mi/smallmouth_bass,charlevoix_mi,Charlevoix,smallmouth_bass,Smallmouth bass,A,8.4,2026-07-20,warm_season_channel,21,72,92,173,0
+charlevoix_mi/freshwater_drum,charlevoix_mi,Charlevoix,freshwater_drum,Freshwater drum,A,5.4,2026-07-15,warm_season_channel,0,0,112,216,0
+charlevoix_mi/yellow_perch,charlevoix_mi,Charlevoix,yellow_perch,Yellow perch,A,6.5,2026-07-20,summer_pier_schooling,0,0,143,146,0
+caseville_mi/coho_salmon,caseville_mi,Caseville,coho_salmon,Coho salmon,B,5,2026-04-25,spring_harbor,0,0,106,182,0
+caseville_mi/steelhead,caseville_mi,Caseville,steelhead,Steelhead / rainbow trout,B,4.5,2026-04-25,spring_harbor,0,0,131,97,0
+caseville_mi/lake_trout,caseville_mi,Caseville,lake_trout,Lake trout,B,4.6,2026-04-20,spring_coldwater_harbor,0,0,70,192,0
+caseville_mi/walleye,caseville_mi,Caseville,walleye,Walleye,B,6.2,2026-07-15,warm_season_low_light,0,0,188,130,0
+caseville_mi/smallmouth_bass,caseville_mi,Caseville,smallmouth_bass,Smallmouth bass,B,5.5,2026-07-20,warm_season_channel,0,0,138,191,0

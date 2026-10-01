@@ -1,0 +1,4243 @@
+{
+  "schema_version": "piercast-st-joseph-harrisville-pass2-mode-calibrations-v1",
+  "reviewed_at": "2026-09-19",
+  "status": "complete_private_shadow_only",
+  "rating_enabled": false,
+  "public_enabled": false,
+  "formula": {
+    "seasonal_potential": "1 + (F - 1) * A",
+    "score": "clamp(1, 10, 1 + (seasonalPotential - 1) * (0.30 + 0.70 * T))",
+    "mode_policy": "maximum seasonalPotential wins; modes never stack"
+  },
+  "thermal_fits_audited": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "numeric_pair_count": 49,
+  "mode_count": 81,
+  "modes": [
+    {
+      "mode_calibration_id": "st_joseph_mi__chinook_salmon__spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/chinook_salmon",
+      "city_id": "st_joseph_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 5.52,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.55
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__chinook_salmon__summer_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/chinook_salmon",
+      "city_id": "st_joseph_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "summer_pier",
+      "fishery_strength": 6.8,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.5
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.4
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/coho_salmon",
+      "city_id": "st_joseph_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 8.6,
+      "pair_peak_fishery_strength": 8.6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.1
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "MI_COHO_SPECIES"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/coho_salmon",
+      "city_id": "st_joseph_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor_return",
+      "fishery_strength": 6.47,
+      "pair_peak_fishery_strength": 8.6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-15",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "MI_COHO_SPECIES"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__steelhead__winter_spring_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/steelhead",
+      "city_id": "st_joseph_mi",
+      "species_id": "steelhead",
+      "mode_id": "winter_spring_pier",
+      "fishery_strength": 7.12,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.8
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.55
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__steelhead__summer_skamania_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/steelhead",
+      "city_id": "st_joseph_mi",
+      "species_id": "steelhead",
+      "mode_id": "summer_skamania_pier",
+      "fishery_strength": 7.8,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.6
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "09-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/brown_trout",
+      "city_id": "st_joseph_mi",
+      "species_id": "brown_trout",
+      "mode_id": "winter_spring_nearshore",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.42
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.58
+        },
+        {
+          "month_day": "04-10",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-25",
+          "availability": 0.05
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0.38
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.42
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/brown_trout",
+      "city_id": "st_joseph_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.96,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "10-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__lake_trout__winter_spring_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/lake_trout",
+      "city_id": "st_joseph_mi",
+      "species_id": "lake_trout",
+      "mode_id": "winter_spring_pier",
+      "fishery_strength": 4.1,
+      "pair_peak_fishery_strength": 4.1,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.75
+        },
+        {
+          "month_day": "03-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.75
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/lake_trout",
+      "city_id": "st_joseph_mi",
+      "species_id": "lake_trout",
+      "mode_id": "fall_nearshore",
+      "fishery_strength": 3.67,
+      "pair_peak_fishery_strength": 4.1,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/yellow_perch",
+      "city_id": "st_joseph_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0.15
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.55
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "STJ_BERRIEN_FISH",
+        "MI_GL_SURVEY_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/lake_whitefish",
+      "city_id": "st_joseph_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "spring_coldwater_pier",
+      "fishery_strength": 3.16,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "st_joseph_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+      "pair_key": "st_joseph_mi/lake_whitefish",
+      "city_id": "st_joseph_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "late_fall_pier",
+      "fishery_strength": 4,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-20",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__chinook_salmon__spring_nearshore_transient__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/chinook_salmon",
+      "city_id": "south_haven_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "spring_nearshore_transient",
+      "fishery_strength": 4.3,
+      "pair_peak_fishery_strength": 7,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/chinook_salmon",
+      "city_id": "south_haven_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 7,
+      "pair_peak_fishery_strength": 7,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0.4
+        },
+        {
+          "month_day": "09-10",
+          "availability": 1
+        },
+        {
+          "month_day": "10-05",
+          "availability": 0.35
+        },
+        {
+          "month_day": "11-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/coho_salmon",
+      "city_id": "south_haven_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 7.8,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.1
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/coho_salmon",
+      "city_id": "south_haven_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor_return",
+      "fishery_strength": 5.9,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-15",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__steelhead__spring_pier__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/steelhead",
+      "city_id": "south_haven_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_pier",
+      "fishery_strength": 6.62,
+      "pair_peak_fishery_strength": 8.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.5
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__steelhead__summer_skamania_pier__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/steelhead",
+      "city_id": "south_haven_mi",
+      "species_id": "steelhead",
+      "mode_id": "summer_skamania_pier",
+      "fishery_strength": 8.8,
+      "pair_peak_fishery_strength": 8.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "09-05",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/steelhead",
+      "city_id": "south_haven_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 7.86,
+      "pair_peak_fishery_strength": 8.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.4
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/brown_trout",
+      "city_id": "south_haven_mi",
+      "species_id": "brown_trout",
+      "mode_id": "winter_spring_nearshore",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.42
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.58
+        },
+        {
+          "month_day": "04-10",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-25",
+          "availability": 0.05
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0.38
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.42
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/brown_trout",
+      "city_id": "south_haven_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.96,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "10-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__lake_trout__spring_coldwater_pier__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/lake_trout",
+      "city_id": "south_haven_mi",
+      "species_id": "lake_trout",
+      "mode_id": "spring_coldwater_pier",
+      "fishery_strength": 3.02,
+      "pair_peak_fishery_strength": 3.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-20",
+          "availability": 0.75
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/lake_trout",
+      "city_id": "south_haven_mi",
+      "species_id": "lake_trout",
+      "mode_id": "fall_nearshore",
+      "fishery_strength": 3.8,
+      "pair_peak_fishery_strength": 3.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__walleye__spring_low_light__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/walleye",
+      "city_id": "south_haven_mi",
+      "species_id": "walleye",
+      "mode_id": "spring_low_light",
+      "fishery_strength": 4.3,
+      "pair_peak_fishery_strength": 4.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.08
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.2
+        },
+        {
+          "month_day": "05-15",
+          "availability": 1
+        },
+        {
+          "month_day": "06-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.3
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.08
+        }
+      ],
+      "thermal_curve_id": "walleye__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/smallmouth_bass",
+      "city_id": "south_haven_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 5.2,
+      "pair_peak_fishery_strength": 5.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/freshwater_drum",
+      "city_id": "south_haven_mi",
+      "species_id": "freshwater_drum",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "freshwater_drum__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/yellow_perch",
+      "city_id": "south_haven_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 5.4,
+      "pair_peak_fishery_strength": 5.4,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0.1
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.5
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.75
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_LMCFAC_2024",
+        "MI_GL_SURVEY_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__yellow_perch__fall_pier_schooling__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/yellow_perch",
+      "city_id": "south_haven_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "fall_pier_schooling",
+      "fishery_strength": 4.61,
+      "pair_peak_fishery_strength": 5.4,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-10",
+          "availability": 1
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_LMCFAC_2024",
+        "MI_GL_SURVEY_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/lake_whitefish",
+      "city_id": "south_haven_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "spring_coldwater_pier",
+      "fishery_strength": 3.16,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/lake_whitefish",
+      "city_id": "south_haven_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "late_fall_pier",
+      "fishery_strength": 4,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-20",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__round_whitefish__spring_channel__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/round_whitefish",
+      "city_id": "south_haven_mi",
+      "species_id": "round_whitefish",
+      "mode_id": "spring_channel",
+      "fishery_strength": 2.84,
+      "pair_peak_fishery_strength": 3.7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "round_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__round_whitefish__fall_channel__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/round_whitefish",
+      "city_id": "south_haven_mi",
+      "species_id": "round_whitefish",
+      "mode_id": "fall_channel",
+      "fishery_strength": 3.7,
+      "pair_peak_fishery_strength": 3.7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "round_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__channel_catfish__warm_season_channel__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/channel_catfish",
+      "city_id": "south_haven_mi",
+      "species_id": "channel_catfish",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 5.2,
+      "pair_peak_fishery_strength": 5.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.3
+        },
+        {
+          "month_day": "07-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "08-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.7
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "11-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "channel_catfish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_FISHING"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__northern_pike__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/northern_pike",
+      "city_id": "south_haven_mi",
+      "species_id": "northern_pike",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 4.8,
+      "pair_peak_fishery_strength": 4.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.22
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "05-01",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.5
+        },
+        {
+          "month_day": "07-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.22
+        }
+      ],
+      "thermal_curve_id": "northern_pike__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "south_haven_mi__northern_pike__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "south_haven_mi/northern_pike",
+      "city_id": "south_haven_mi",
+      "species_id": "northern_pike",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.5,
+      "pair_peak_fishery_strength": 4.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "09-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "northern_pike__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__chinook_salmon__spring_nearshore_transient__stj_harrisville_pass2",
+      "pair_key": "holland_mi/chinook_salmon",
+      "city_id": "holland_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "spring_nearshore_transient",
+      "fishery_strength": 4.74,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+      "pair_key": "holland_mi/chinook_salmon",
+      "city_id": "holland_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 7.8,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0.4
+        },
+        {
+          "month_day": "09-10",
+          "availability": 1
+        },
+        {
+          "month_day": "10-05",
+          "availability": 0.35
+        },
+        {
+          "month_day": "11-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__coho_salmon__spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "holland_mi/coho_salmon",
+      "city_id": "holland_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 7,
+      "pair_peak_fishery_strength": 7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.1
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__coho_salmon__fall_harbor_return__stj_harrisville_pass2",
+      "pair_key": "holland_mi/coho_salmon",
+      "city_id": "holland_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor_return",
+      "fishery_strength": 5.32,
+      "pair_peak_fishery_strength": 7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-15",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__steelhead__spring_pier__stj_harrisville_pass2",
+      "pair_key": "holland_mi/steelhead",
+      "city_id": "holland_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_pier",
+      "fishery_strength": 5.91,
+      "pair_peak_fishery_strength": 7.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-10",
+          "availability": 0.6
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__steelhead__summer_pier__stj_harrisville_pass2",
+      "pair_key": "holland_mi/steelhead",
+      "city_id": "holland_mi",
+      "species_id": "steelhead",
+      "mode_id": "summer_pier",
+      "fishery_strength": 7.3,
+      "pair_peak_fishery_strength": 7.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.5
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.3
+        },
+        {
+          "month_day": "09-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "holland_mi/steelhead",
+      "city_id": "holland_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 6.17,
+      "pair_peak_fishery_strength": 7.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.45
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP",
+        "MI_LMCFAC_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__brown_trout__winter_spring_nearshore__stj_harrisville_pass2",
+      "pair_key": "holland_mi/brown_trout",
+      "city_id": "holland_mi",
+      "species_id": "brown_trout",
+      "mode_id": "winter_spring_nearshore",
+      "fishery_strength": 7.2,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.42
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.58
+        },
+        {
+          "month_day": "04-10",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-25",
+          "availability": 0.05
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0.38
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.42
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "holland_mi/brown_trout",
+      "city_id": "holland_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.46,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "10-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__lake_trout__winter_spring_pier__stj_harrisville_pass2",
+      "pair_key": "holland_mi/lake_trout",
+      "city_id": "holland_mi",
+      "species_id": "lake_trout",
+      "mode_id": "winter_spring_pier",
+      "fishery_strength": 3.8,
+      "pair_peak_fishery_strength": 3.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.75
+        },
+        {
+          "month_day": "03-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.75
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_HOLLAND_GMP",
+        "MI_CREEL_DASHBOARD",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__lake_trout__fall_nearshore__stj_harrisville_pass2",
+      "pair_key": "holland_mi/lake_trout",
+      "city_id": "holland_mi",
+      "species_id": "lake_trout",
+      "mode_id": "fall_nearshore",
+      "fishery_strength": 3.41,
+      "pair_peak_fishery_strength": 3.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_HOLLAND_GMP",
+        "MI_CREEL_DASHBOARD",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__walleye__summer_low_light__stj_harrisville_pass2",
+      "pair_key": "holland_mi/walleye",
+      "city_id": "holland_mi",
+      "species_id": "walleye",
+      "mode_id": "summer_low_light",
+      "fishery_strength": 4.5,
+      "pair_peak_fishery_strength": 4.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.6
+        },
+        {
+          "month_day": "08-15",
+          "availability": 1
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "walleye__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "holland_mi/smallmouth_bass",
+      "city_id": "holland_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 5.2,
+      "pair_peak_fishery_strength": 5.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "holland_mi/freshwater_drum",
+      "city_id": "holland_mi",
+      "species_id": "freshwater_drum",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "freshwater_drum__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__yellow_perch__summer_pier_schooling__stj_harrisville_pass2",
+      "pair_key": "holland_mi/yellow_perch",
+      "city_id": "holland_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 7.6,
+      "pair_peak_fishery_strength": 7.6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0.15
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.55
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_HOLLAND_GMP"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__lake_whitefish__spring_coldwater_pier__stj_harrisville_pass2",
+      "pair_key": "holland_mi/lake_whitefish",
+      "city_id": "holland_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "spring_coldwater_pier",
+      "fishery_strength": 3.16,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "holland_mi__lake_whitefish__late_fall_pier__stj_harrisville_pass2",
+      "pair_key": "holland_mi/lake_whitefish",
+      "city_id": "holland_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "late_fall_pier",
+      "fishery_strength": 4,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-20",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/chinook_salmon",
+      "city_id": "lexington_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 5.6,
+      "pair_peak_fishery_strength": 5.6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-01",
+          "availability": 0
+        },
+        {
+          "month_day": "09-01",
+          "availability": 0.5
+        },
+        {
+          "month_day": "10-05",
+          "availability": 1
+        },
+        {
+          "month_day": "11-05",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__coho_salmon__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/coho_salmon",
+      "city_id": "lexington_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 6.8,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-10",
+          "availability": 0.2
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__coho_salmon__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/coho_salmon",
+      "city_id": "lexington_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.76,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-15",
+          "availability": 1
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__steelhead__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/steelhead",
+      "city_id": "lexington_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 8.8,
+      "pair_peak_fishery_strength": 8.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.8
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/steelhead",
+      "city_id": "lexington_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 8.02,
+      "pair_peak_fishery_strength": 8.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.25
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.75
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.25
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__brown_trout__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/brown_trout",
+      "city_id": "lexington_mi",
+      "species_id": "brown_trout",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.65
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__brown_trout__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/brown_trout",
+      "city_id": "lexington_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.6,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-25",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__lake_trout__spring_coldwater_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/lake_trout",
+      "city_id": "lexington_mi",
+      "species_id": "lake_trout",
+      "mode_id": "spring_coldwater_harbor",
+      "fishery_strength": 4.8,
+      "pair_peak_fishery_strength": 4.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.25
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "lake_trout__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__walleye__summer_low_light__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/walleye",
+      "city_id": "lexington_mi",
+      "species_id": "walleye",
+      "mode_id": "summer_low_light",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0.6
+        },
+        {
+          "month_day": "08-15",
+          "availability": 1
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "walleye__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__smallmouth_bass__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/smallmouth_bass",
+      "city_id": "lexington_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__freshwater_drum__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/freshwater_drum",
+      "city_id": "lexington_mi",
+      "species_id": "freshwater_drum",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 4.8,
+      "pair_peak_fishery_strength": 4.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "freshwater_drum__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__yellow_perch__spring_harbor_schooling__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/yellow_perch",
+      "city_id": "lexington_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "spring_harbor_schooling",
+      "fishery_strength": 7.45,
+      "pair_peak_fishery_strength": 8.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "03-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.15
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__yellow_perch__fall_harbor_schooling__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/yellow_perch",
+      "city_id": "lexington_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "fall_harbor_schooling",
+      "fishery_strength": 8.5,
+      "pair_peak_fishery_strength": 8.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-10",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.8
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__channel_catfish__warm_season_channel__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/channel_catfish",
+      "city_id": "lexington_mi",
+      "species_id": "channel_catfish",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 4.3,
+      "pair_peak_fishery_strength": 4.3,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.3
+        },
+        {
+          "month_day": "07-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "08-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.7
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "11-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "channel_catfish__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__largemouth_bass__warm_season_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/largemouth_bass",
+      "city_id": "lexington_mi",
+      "species_id": "largemouth_bass",
+      "mode_id": "warm_season_harbor",
+      "fishery_strength": 5.6,
+      "pair_peak_fishery_strength": 5.6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0.82
+        },
+        {
+          "month_day": "08-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.65
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-05",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "largemouth_bass__additional_thermal_research__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__atlantic_salmon__spring_stocked_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/atlantic_salmon",
+      "city_id": "lexington_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "spring_stocked_harbor",
+      "fishery_strength": 6.04,
+      "pair_peak_fishery_strength": 8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.25
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.18
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.25
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "LEX_ATLANTIC_DNR",
+        "LEX_ATLANTIC_STOCK_2024",
+        "LEX_ENFORCEMENT_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__atlantic_salmon__fall_harbor_return__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/atlantic_salmon",
+      "city_id": "lexington_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "fall_harbor_return",
+      "fishery_strength": 8,
+      "pair_peak_fishery_strength": 8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.65
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.7
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "LEX_ATLANTIC_DNR",
+        "LEX_ATLANTIC_STOCK_2024",
+        "LEX_ENFORCEMENT_2024"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__northern_pike__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/northern_pike",
+      "city_id": "lexington_mi",
+      "species_id": "northern_pike",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.22
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "05-01",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.5
+        },
+        {
+          "month_day": "07-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.22
+        }
+      ],
+      "thermal_curve_id": "northern_pike__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__northern_pike__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/northern_pike",
+      "city_id": "lexington_mi",
+      "species_id": "northern_pike",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "09-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "northern_pike__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "lexington_mi__white_bass__warm_season_schooling__stj_harrisville_pass2",
+      "pair_key": "lexington_mi/white_bass",
+      "city_id": "lexington_mi",
+      "species_id": "white_bass",
+      "mode_id": "warm_season_schooling",
+      "fishery_strength": 5.5,
+      "pair_peak_fishery_strength": 5.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "06-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.3
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "white_bass__shared_temperature__v0_1_research",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__chinook_salmon__fall_harbor_staging__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/chinook_salmon",
+      "city_id": "harrisville_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 6.6,
+      "pair_peak_fishery_strength": 6.6,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-01",
+          "availability": 0
+        },
+        {
+          "month_day": "09-01",
+          "availability": 0.5
+        },
+        {
+          "month_day": "10-05",
+          "availability": 1
+        },
+        {
+          "month_day": "11-05",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2022_OCT",
+        "HARRISVILLE_LHCFAC_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__coho_salmon__winter_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/coho_salmon",
+      "city_id": "harrisville_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "winter_harbor",
+      "fishery_strength": 5.06,
+      "pair_peak_fishery_strength": 6.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.8
+        },
+        {
+          "month_day": "02-15",
+          "availability": 1
+        },
+        {
+          "month_day": "03-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.3
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.8
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "HARRISVILLE_LHCFAC_2022",
+        "HARRISVILLE_LHCFAC_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__coho_salmon__fall_docks__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/coho_salmon",
+      "city_id": "harrisville_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_docks",
+      "fishery_strength": 6.2,
+      "pair_peak_fishery_strength": 6.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.7
+        },
+        {
+          "month_day": "10-10",
+          "availability": 1
+        },
+        {
+          "month_day": "11-10",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "HARRISVILLE_LHCFAC_2022",
+        "HARRISVILLE_LHCFAC_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__steelhead__spring_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/steelhead",
+      "city_id": "harrisville_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5.7,
+      "pair_peak_fishery_strength": 5.7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.22
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_STEELHEAD_STOCK_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__steelhead__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/steelhead",
+      "city_id": "harrisville_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.14,
+      "pair_peak_fishery_strength": 5.7,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_STEELHEAD_STOCK_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__brown_trout__late_fall_winter_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/brown_trout",
+      "city_id": "harrisville_mi",
+      "species_id": "brown_trout",
+      "mode_id": "late_fall_winter_harbor",
+      "fishery_strength": 5,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.8
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.6
+        },
+        {
+          "month_day": "04-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0.6
+        },
+        {
+          "month_day": "11-25",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.8
+        }
+      ],
+      "thermal_curve_id": "brown_trout__shared_temperature__v0_2",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2023"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__atlantic_salmon__winter_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/atlantic_salmon",
+      "city_id": "harrisville_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "winter_harbor",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.82
+        },
+        {
+          "month_day": "02-15",
+          "availability": 1
+        },
+        {
+          "month_day": "03-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "05-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.82
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_ROADMAP_LH",
+        "HARRISVILLE_LHCFAC_2022_OCT",
+        "HARRISVILLE_LHCFAC_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "harrisville_mi__atlantic_salmon__fall_harbor__stj_harrisville_pass2",
+      "pair_key": "harrisville_mi/atlantic_salmon",
+      "city_id": "harrisville_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.94,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.65
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.45
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__shared_temperature__v0_1",
+      "thermal_policy": "Inherit the existing shared species curve. Pass 2 audits explicit T values and does not approve a city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_ROADMAP_LH",
+        "HARRISVILLE_LHCFAC_2022_OCT",
+        "HARRISVILLE_LHCFAC_2025"
+      ],
+      "calibration_status": "private_pass2_only",
+      "limitations": [
+        "F is an ordinal prime-condition ceiling, not catch probability or abundance.",
+        "Availability knots describe recurring seasonal shape, not observed daily catch.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    }
+  ]
+}

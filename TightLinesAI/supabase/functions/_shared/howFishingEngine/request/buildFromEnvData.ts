@@ -1,3 +1,4 @@
+import { timestampedPressureHistory } from "./pressureHistory.ts";
 import type { EngineContext, SharedEngineRequest } from "../contracts/mod.ts";
 import { resolveRegionForCoordinates } from "../context/resolveRegion.ts";
 import {
@@ -333,18 +334,35 @@ export function buildSharedEngineRequestFromEnvData(
   /** Pressure series ending at target calendar day's local noon (not “current hour”). */
   const noonAnchoredPressure = dayOffset > 0 || calDayToday;
 
-  let pressure_history_mb: number[] | null = null;
+  // Some provider payloads encode absent pressure as zero. Keep its hourly slot.
+  const pressureValue = (value: unknown): number | null => {
+    const p = num(value);
+    return p != null && p > 0 ? p : null;
+  };
+
+  let pressure_history_mb: (number | null)[] | null = null;
 
   if (dayOffset === 0 && w && Array.isArray(w.pressure_48hr) && !calDayToday) {
     // Live “today”: pre-built 48hr ending at current hour (changes as the clock moves).
     pressure_history_mb = (w.pressure_48hr as unknown[])
-      .map((x) => num(x))
-      .filter((x): x is number => x != null);
+      .map((x) => pressureValue(x));
   }
 
-  if (!pressure_history_mb || pressure_history_mb.length < 2) {
+  if (
+    !pressure_history_mb ||
+    pressure_history_mb.filter((x) => x != null).length < 2
+  ) {
     const hourly = envData.hourly_pressure_mb;
     if (Array.isArray(hourly)) {
+      const timestamped = timestampedPressureHistory(
+        hourly,
+        localDate,
+        typeof envData.timezone === "string" && envData.timezone.trim()
+          ? envData.timezone.trim()
+          : localTimezone,
+        noonAnchoredPressure,
+        envData.fetched_at,
+      );
       let trimmed: unknown[];
       if (noonAnchoredPressure) {
         // 48 readings ending at target day local noon (D=0 → today noon; D=1 → tomorrow noon).
@@ -356,14 +374,13 @@ export function buildSharedEngineRequestFromEnvData(
       } else {
         trimmed = hourly.slice(Math.max(0, hourly.length - 48));
       }
-      pressure_history_mb = trimmed
+      pressure_history_mb = timestamped ?? trimmed
         .map((h: unknown) => {
           if (h && typeof h === "object" && "value" in h) {
-            return num((h as { value: unknown }).value);
+            return pressureValue((h as { value: unknown }).value);
           }
           return null;
-        })
-        .filter((x): x is number => x != null);
+        });
     }
   }
 
@@ -530,6 +547,7 @@ export function buildSharedEngineRequestFromEnvData(
         : null;
     current_air_temp_f = noonAir ?? daily_mean;
 
+    pressure_mb_out = null; // A current observation is not a forecast-noon reading.
     if (pressure_history_mb && pressure_history_mb.length > 0) {
       const last = pressure_history_mb[pressure_history_mb.length - 1];
       if (last != null && Number.isFinite(last)) pressure_mb_out = last;

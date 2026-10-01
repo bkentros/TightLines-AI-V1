@@ -1,0 +1,2870 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-mode-calibrations-v1",
+  "reviewed_at": "2026-09-21",
+  "status": "complete_private_shadow_only",
+  "rating_enabled": false,
+  "public_enabled": false,
+  "formula": {
+    "seasonal_potential": "1 + (F - 1) * A",
+    "score": "clamp(1, 10, 1 + (seasonalPotential - 1) * (0.30 + 0.70 * T))",
+    "mode_policy": "maximum seasonalPotential wins; modes never stack"
+  },
+  "thermal_fits_audited": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "numeric_pair_count": 36,
+  "mode_count": 52,
+  "modes": [
+    {
+      "mode_calibration_id": "pentwater_mi__chinook_salmon__spring_nearshore__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/chinook_salmon",
+      "city_id": "pentwater_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 5.03,
+      "pair_peak_fishery_strength": 7.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/chinook_salmon",
+      "city_id": "pentwater_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 7.5,
+      "pair_peak_fishery_strength": 7.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "09-10",
+          "availability": 1
+        },
+        {
+          "month_day": "10-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__coho_salmon__spring_nearshore__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/coho_salmon",
+      "city_id": "pentwater_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 7.2,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.1
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.3
+        },
+        {
+          "month_day": "04-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.45
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.05
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.1
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__coho_salmon__fall_harbor_return__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/coho_salmon",
+      "city_id": "pentwater_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor_return",
+      "fishery_strength": 5.46,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-15",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__steelhead__spring_pier__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/steelhead",
+      "city_id": "pentwater_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_pier",
+      "fishery_strength": 6.99,
+      "pair_peak_fishery_strength": 8.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__steelhead__summer_skamania__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/steelhead",
+      "city_id": "pentwater_mi",
+      "species_id": "steelhead",
+      "mode_id": "summer_skamania",
+      "fishery_strength": 8.3,
+      "pair_peak_fishery_strength": 8.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.6
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "09-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/steelhead",
+      "city_id": "pentwater_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 7.42,
+      "pair_peak_fishery_strength": 8.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__brown_trout__winter_spring_nearshore__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/brown_trout",
+      "city_id": "pentwater_mi",
+      "species_id": "brown_trout",
+      "mode_id": "winter_spring_nearshore",
+      "fishery_strength": 7.3,
+      "pair_peak_fishery_strength": 7.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.42
+        },
+        {
+          "month_day": "02-15",
+          "availability": 0.58
+        },
+        {
+          "month_day": "04-10",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.5
+        },
+        {
+          "month_day": "06-25",
+          "availability": 0.05
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0.38
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.42
+        }
+      ],
+      "thermal_curve_id": "brown_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__brown_trout__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/brown_trout",
+      "city_id": "pentwater_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.54,
+      "pair_peak_fishery_strength": 7.3,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "10-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/walleye",
+      "city_id": "pentwater_mi",
+      "species_id": "walleye",
+      "mode_id": "warm_season_low_light",
+      "fishery_strength": 4.4,
+      "pair_peak_fishery_strength": 4.4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.18
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "walleye__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/smallmouth_bass",
+      "city_id": "pentwater_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 6.4,
+      "pair_peak_fishery_strength": 6.4,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__freshwater_drum__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/freshwater_drum",
+      "city_id": "pentwater_mi",
+      "species_id": "freshwater_drum",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 5.4,
+      "pair_peak_fishery_strength": 5.4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "freshwater_drum__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "pentwater_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+      "pair_key": "pentwater_mi/yellow_perch",
+      "city_id": "pentwater_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 7.8,
+      "pair_peak_fishery_strength": 7.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.5
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/chinook_salmon",
+      "city_id": "rogers_city_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-01",
+          "availability": 0
+        },
+        {
+          "month_day": "09-01",
+          "availability": 0.5
+        },
+        {
+          "month_day": "10-05",
+          "availability": 1
+        },
+        {
+          "month_day": "11-05",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/steelhead",
+      "city_id": "rogers_city_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 6,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.22
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/steelhead",
+      "city_id": "rogers_city_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.4,
+      "pair_peak_fishery_strength": 6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__brown_trout__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/brown_trout",
+      "city_id": "rogers_city_mi",
+      "species_id": "brown_trout",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.65
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.45
+        }
+      ],
+      "thermal_curve_id": "brown_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__brown_trout__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/brown_trout",
+      "city_id": "rogers_city_mi",
+      "species_id": "brown_trout",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.32,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-25",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "brown_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/lake_trout",
+      "city_id": "rogers_city_mi",
+      "species_id": "lake_trout",
+      "mode_id": "spring_coldwater_harbor",
+      "fishery_strength": 5.1,
+      "pair_peak_fishery_strength": 5.1,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.25
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "lake_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/walleye",
+      "city_id": "rogers_city_mi",
+      "species_id": "walleye",
+      "mode_id": "warm_season_low_light",
+      "fishery_strength": 5.5,
+      "pair_peak_fishery_strength": 5.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.18
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "walleye__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/smallmouth_bass",
+      "city_id": "rogers_city_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__atlantic_salmon__winter_spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/atlantic_salmon",
+      "city_id": "rogers_city_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "winter_spring_harbor",
+      "fishery_strength": 6.8,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.65
+        },
+        {
+          "month_day": "02-20",
+          "availability": 0.8
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.65
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_ROADMAP_LH",
+        "LHCFAC_2026",
+        "ATLANTIC_PROGRAM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "rogers_city_mi__atlantic_salmon__fall_breakwall__pentwater_caseville_pass2",
+      "pair_key": "rogers_city_mi/atlantic_salmon",
+      "city_id": "rogers_city_mi",
+      "species_id": "atlantic_salmon",
+      "mode_id": "fall_breakwall",
+      "fishery_strength": 5.99,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.25
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.25
+        }
+      ],
+      "thermal_curve_id": "atlantic_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_ROADMAP_LH",
+        "LHCFAC_2026",
+        "ATLANTIC_PROGRAM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__coho_salmon__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/coho_salmon",
+      "city_id": "tawas_city_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.08
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__coho_salmon__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/coho_salmon",
+      "city_id": "tawas_city_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.94,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/steelhead",
+      "city_id": "tawas_city_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5.8,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.22
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/steelhead",
+      "city_id": "tawas_city_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 5.22,
+      "pair_peak_fishery_strength": 5.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/lake_trout",
+      "city_id": "tawas_city_mi",
+      "species_id": "lake_trout",
+      "mode_id": "spring_coldwater_harbor",
+      "fishery_strength": 5.1,
+      "pair_peak_fishery_strength": 5.1,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.25
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "lake_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/walleye",
+      "city_id": "tawas_city_mi",
+      "species_id": "walleye",
+      "mode_id": "warm_season_low_light",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.18
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "walleye__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/smallmouth_bass",
+      "city_id": "tawas_city_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 6.2,
+      "pair_peak_fishery_strength": 6.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/yellow_perch",
+      "city_id": "tawas_city_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 6.8,
+      "pair_peak_fishery_strength": 6.8,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.5
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__lake_whitefish__late_fall_winter_pier__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/lake_whitefish",
+      "city_id": "tawas_city_mi",
+      "species_id": "lake_whitefish",
+      "mode_id": "late_fall_winter_pier",
+      "fishery_strength": 4,
+      "pair_peak_fishery_strength": 4,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.8
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "05-01",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "11-25",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.8
+        }
+      ],
+      "thermal_curve_id": "lake_whitefish__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_WEEKLY_ARCHIVE",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__northern_pike__spring_fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/northern_pike",
+      "city_id": "tawas_city_mi",
+      "species_id": "northern_pike",
+      "mode_id": "spring_fall_harbor",
+      "fishery_strength": 5.2,
+      "pair_peak_fishery_strength": 5.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.45
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "07-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "11-05",
+          "availability": 0.8
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "northern_pike__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "tawas_city_mi__burbot__cold_season_night__pentwater_caseville_pass2",
+      "pair_key": "tawas_city_mi/burbot",
+      "city_id": "tawas_city_mi",
+      "species_id": "burbot",
+      "mode_id": "cold_season_night",
+      "fishery_strength": 4.3,
+      "pair_peak_fishery_strength": 4.3,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.75
+        },
+        {
+          "month_day": "02-15",
+          "availability": 1
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.5
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.75
+        }
+      ],
+      "thermal_curve_id": "burbot__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_WEEKLY_ARCHIVE",
+        "MI_BETTER_WATERS",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__chinook_salmon__spring_nearshore__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/chinook_salmon",
+      "city_id": "charlevoix_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "spring_nearshore",
+      "fishery_strength": 4.84,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 1
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__chinook_salmon__fall_harbor_staging__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/chinook_salmon",
+      "city_id": "charlevoix_mi",
+      "species_id": "chinook_salmon",
+      "mode_id": "fall_harbor_staging",
+      "fishery_strength": 7.2,
+      "pair_peak_fishery_strength": 7.2,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "07-15",
+          "availability": 0
+        },
+        {
+          "month_day": "08-15",
+          "availability": 0.45
+        },
+        {
+          "month_day": "09-10",
+          "availability": 1
+        },
+        {
+          "month_day": "10-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "chinook_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__steelhead__spring_pier__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/steelhead",
+      "city_id": "charlevoix_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_pier",
+      "fishery_strength": 6.33,
+      "pair_peak_fishery_strength": 7.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__steelhead__summer_skamania__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/steelhead",
+      "city_id": "charlevoix_mi",
+      "species_id": "steelhead",
+      "mode_id": "summer_skamania",
+      "fishery_strength": 7.5,
+      "pair_peak_fishery_strength": 7.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.6
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "08-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "09-10",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/steelhead",
+      "city_id": "charlevoix_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 6.72,
+      "pair_peak_fishery_strength": 7.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__lake_trout__winter_spring_pier__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/lake_trout",
+      "city_id": "charlevoix_mi",
+      "species_id": "lake_trout",
+      "mode_id": "winter_spring_pier",
+      "fishery_strength": 5,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.75
+        },
+        {
+          "month_day": "03-15",
+          "availability": 1
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.45
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "10-15",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.75
+        }
+      ],
+      "thermal_curve_id": "lake_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__lake_trout__fall_nearshore__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/lake_trout",
+      "city_id": "charlevoix_mi",
+      "species_id": "lake_trout",
+      "mode_id": "fall_nearshore",
+      "fishery_strength": 4.44,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.4
+        },
+        {
+          "month_day": "06-15",
+          "availability": 0
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.25
+        },
+        {
+          "month_day": "11-10",
+          "availability": 1
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.4
+        }
+      ],
+      "thermal_curve_id": "lake_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/walleye",
+      "city_id": "charlevoix_mi",
+      "species_id": "walleye",
+      "mode_id": "warm_season_low_light",
+      "fishery_strength": 5.5,
+      "pair_peak_fishery_strength": 5.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.18
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "walleye__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/smallmouth_bass",
+      "city_id": "charlevoix_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 8.4,
+      "pair_peak_fishery_strength": 8.4,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__freshwater_drum__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/freshwater_drum",
+      "city_id": "charlevoix_mi",
+      "species_id": "freshwater_drum",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 5.4,
+      "pair_peak_fishery_strength": 5.4,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-15",
+          "availability": 0
+        },
+        {
+          "month_day": "05-20",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0.85
+        },
+        {
+          "month_day": "09-25",
+          "availability": 0.35
+        },
+        {
+          "month_day": "10-20",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "freshwater_drum__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "charlevoix_mi__yellow_perch__summer_pier_schooling__pentwater_caseville_pass2",
+      "pair_key": "charlevoix_mi/yellow_perch",
+      "city_id": "charlevoix_mi",
+      "species_id": "yellow_perch",
+      "mode_id": "summer_pier_schooling",
+      "fishery_strength": 6.5,
+      "pair_peak_fishery_strength": 6.5,
+      "evidence_grade": "A",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.35
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.5
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "yellow_perch__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__coho_salmon__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/coho_salmon",
+      "city_id": "caseville_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 5,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.12
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-01",
+          "availability": 0.15
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.08
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.12
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_WEEKLY_ARCHIVE",
+        "MI_ROADMAP_LH",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__coho_salmon__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/coho_salmon",
+      "city_id": "caseville_mi",
+      "species_id": "coho_salmon",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.28,
+      "pair_peak_fishery_strength": 5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.2
+        },
+        {
+          "month_day": "12-01",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "coho_salmon__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_WEEKLY_ARCHIVE",
+        "MI_ROADMAP_LH",
+        "MI_STOCKING_CSV"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__steelhead__spring_harbor__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/steelhead",
+      "city_id": "caseville_mi",
+      "species_id": "steelhead",
+      "mode_id": "spring_harbor",
+      "fishery_strength": 4.5,
+      "pair_peak_fishery_strength": 4.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.3
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-25",
+          "availability": 1
+        },
+        {
+          "month_day": "06-10",
+          "availability": 0.25
+        },
+        {
+          "month_day": "07-01",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.22
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.3
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__steelhead__fall_harbor__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/steelhead",
+      "city_id": "caseville_mi",
+      "species_id": "steelhead",
+      "mode_id": "fall_harbor",
+      "fishery_strength": 4.08,
+      "pair_peak_fishery_strength": 4.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.2
+        },
+        {
+          "month_day": "08-20",
+          "availability": 0
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.55
+        },
+        {
+          "month_day": "10-20",
+          "availability": 1
+        },
+        {
+          "month_day": "11-25",
+          "availability": 0.55
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.2
+        }
+      ],
+      "thermal_curve_id": "steelhead__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__lake_trout__spring_coldwater_harbor__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/lake_trout",
+      "city_id": "caseville_mi",
+      "species_id": "lake_trout",
+      "mode_id": "spring_coldwater_harbor",
+      "fishery_strength": 4.6,
+      "pair_peak_fishery_strength": 4.6,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.35
+        },
+        {
+          "month_day": "03-01",
+          "availability": 0.55
+        },
+        {
+          "month_day": "04-20",
+          "availability": 1
+        },
+        {
+          "month_day": "05-25",
+          "availability": 0.25
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0
+        },
+        {
+          "month_day": "11-20",
+          "availability": 0.25
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.35
+        }
+      ],
+      "thermal_curve_id": "lake_trout__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_REGS_2026"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__walleye__warm_season_low_light__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/walleye",
+      "city_id": "caseville_mi",
+      "species_id": "walleye",
+      "mode_id": "warm_season_low_light",
+      "fishery_strength": 6.2,
+      "pair_peak_fishery_strength": 6.2,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0.05
+        },
+        {
+          "month_day": "03-15",
+          "availability": 0.18
+        },
+        {
+          "month_day": "05-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "07-15",
+          "availability": 1
+        },
+        {
+          "month_day": "09-15",
+          "availability": 0.65
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0.12
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0.05
+        }
+      ],
+      "thermal_curve_id": "walleye__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LH",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    },
+    {
+      "mode_calibration_id": "caseville_mi__smallmouth_bass__warm_season_channel__pentwater_caseville_pass2",
+      "pair_key": "caseville_mi/smallmouth_bass",
+      "city_id": "caseville_mi",
+      "species_id": "smallmouth_bass",
+      "mode_id": "warm_season_channel",
+      "fishery_strength": 5.5,
+      "pair_peak_fishery_strength": 5.5,
+      "evidence_grade": "B",
+      "availability_knots": [
+        {
+          "month_day": "01-01",
+          "availability": 0
+        },
+        {
+          "month_day": "04-01",
+          "availability": 0
+        },
+        {
+          "month_day": "05-10",
+          "availability": 0.3
+        },
+        {
+          "month_day": "06-20",
+          "availability": 0.82
+        },
+        {
+          "month_day": "07-20",
+          "availability": 1
+        },
+        {
+          "month_day": "09-20",
+          "availability": 0.72
+        },
+        {
+          "month_day": "10-25",
+          "availability": 0.15
+        },
+        {
+          "month_day": "11-15",
+          "availability": 0
+        },
+        {
+          "month_day": "12-31",
+          "availability": 0
+        }
+      ],
+      "thermal_curve_id": "smallmouth_bass__existing_shared_temperature_curve",
+      "thermal_policy": "Inherit the existing shared species curve; this private pass audits explicit T values and approves no city temperature source.",
+      "fishery_evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_WEEKLY_ARCHIVE"
+      ],
+      "calibration_status": "private_pass2_only",
+      "confidence_multiplier": null,
+      "stocking_multiplier": null,
+      "limitations": [
+        "F is an ordinal prime-condition ceiling.",
+        "A contains recurring seasonal timing.",
+        "Modes compete by maximum seasonal potential and never stack."
+      ]
+    }
+  ]
+}

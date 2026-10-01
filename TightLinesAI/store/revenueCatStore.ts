@@ -14,6 +14,11 @@ import { useAuthStore } from "./authStore";
 import type { SubscriptionTier, UserProfile } from "../lib/types";
 import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 import { captureAnalytics } from "../lib/analytics";
+import {
+  detectRevenueCatNativeState,
+  revenueCatUserNeedsLogin,
+  waitForRevenueCatConfiguration,
+} from "../lib/revenueCatConfiguration";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
 const STORE_NAME = Platform.OS === "android" ? "Google Play" : "App Store";
@@ -25,6 +30,10 @@ const OFFERINGS_UNAVAILABLE_MESSAGE =
   `Angler plans are not available from ${STORE_NAME} yet. Your free access still works; please try upgrading again later.`;
 const RECEIPT_ALREADY_OWNED_MESSAGE =
   `This ${STORE_NAME} subscription is already connected to another FinFindr account. Sign in to that original FinFindr account to restore access, or contact support if you need account recovery.`;
+const REVENUECAT_CONNECTING_MESSAGE =
+  "Purchases are still connecting. Close this panel, wait a moment, and try again.";
+const REVENUECAT_API_KEY_MISSING_MESSAGE =
+  "Add EXPO_PUBLIC_REVENUECAT_IOS_API_KEY and/or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY.";
 const REVENUECAT_DEBUG_ENABLED = __DEV__ ||
   process.env.EXPO_PUBLIC_REVENUECAT_DEBUG === "true";
 
@@ -112,7 +121,10 @@ function errorMessage(err: unknown): string {
         message.includes("no singleton instance") ||
         message.includes("configure Purchases")
       ) {
-        return "Purchases are still connecting. Close this panel, wait a moment, and try again.";
+        return REVENUECAT_CONNECTING_MESSAGE;
+      }
+      if (message.includes("Exception in HostFunction")) {
+        return "The App Store purchase module hit an unexpected iOS error. Close and reopen FinFindr, then try again.";
       }
       if (
         message.includes("RevenueCatUI") ||
@@ -252,6 +264,7 @@ interface RevenueCatState {
 let configuredUserId: string | null = null;
 let customerInfoListener: CustomerInfoUpdateListener | null = null;
 let initializationPromise: Promise<void> | null = null;
+let initializingUserId: string | null = null;
 let revenueCatLogsConfigured = false;
 
 function configureRevenueCatLogs(): void {
@@ -273,10 +286,112 @@ function configureRevenueCatLogs(): void {
   }
 }
 
-async function refreshCustomerInfoOnly(
+function attachCustomerInfoListener(
+  set: (partial: Partial<RevenueCatState>) => void,
+): void {
+  if (customerInfoListener) return;
+
+  customerInfoListener = (info) => {
+    const activeUserId = useAuthStore.getState().user?.id;
+    if (!activeUserId || activeUserId !== configuredUserId) return;
+    set({
+      customerInfo: info,
+      hasAngler: hasEffectiveAnglerAccess(info),
+    });
+    void syncProfileTier(info).catch((err) => {
+      if (__DEV__) console.warn("[RevenueCat] tier sync failed", err);
+    });
+  };
+  Purchases.addCustomerInfoUpdateListener(customerInfoListener);
+}
+
+/**
+ * Serializes native RevenueCat setup and account changes. A promise is shared
+ * for duplicate callers targeting the same account; a different account is
+ * queued behind the current setup so an older request cannot win the race.
+ */
+function ensureRevenueCatConfigured(
+  userId: string,
   set: (partial: Partial<RevenueCatState>) => void,
 ): Promise<void> {
+  if (initializationPromise && initializingUserId === userId) {
+    return initializationPromise;
+  }
+
+  const apiKey = revenueCatApiKey();
+  if (!apiKey) {
+    return Promise.reject(new Error(REVENUECAT_API_KEY_MISSING_MESSAGE));
+  }
+
+  const previousInitialization = initializationPromise;
+  const work = (async () => {
+    if (previousInitialization) {
+      try {
+        await previousInitialization;
+      } catch {
+        // The next account/setup attempt must be allowed to recover.
+      }
+    }
+
+    let nativeState = await detectRevenueCatNativeState(
+      () => Purchases.isConfigured(),
+      () => Purchases.getAppUserID(),
+    );
+    if (!nativeState.configured) {
+      Purchases.configure({ apiKey, appUserID: userId });
+      const ready = await waitForRevenueCatConfiguration(async () =>
+        (await detectRevenueCatNativeState(
+          () => Purchases.isConfigured(),
+          () => Purchases.getAppUserID(),
+        )).configured
+      );
+      if (!ready) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
+      configuredUserId = userId;
+    } else if (configuredUserId !== userId) {
+      // Native configuration survives a JS/Fast Refresh reload, but the
+      // module-scoped marker above does not. Ask RevenueCat which user is
+      // actually active so we never issue a redundant TurboModule logIn.
+      const nativeUserId = nativeState.appUserId;
+      if (!nativeUserId) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
+      if (revenueCatUserNeedsLogin(nativeUserId, userId)) {
+        await Purchases.logIn(userId);
+      }
+      configuredUserId = userId;
+    }
+
+    // Keep this final guard even after logIn: paywalls live in a separate
+    // native module and must never be asked to resolve an absent singleton.
+    const ready = await waitForRevenueCatConfiguration(async () =>
+      (await detectRevenueCatNativeState(
+        () => Purchases.isConfigured(),
+        () => Purchases.getAppUserID(),
+      )).configured
+    );
+    if (!ready) throw new Error(REVENUECAT_CONNECTING_MESSAGE);
+
+    attachCustomerInfoListener(set);
+  })();
+
+  let trackedPromise: Promise<void>;
+  trackedPromise = work.finally(() => {
+    if (initializationPromise === trackedPromise) {
+      initializationPromise = null;
+      initializingUserId = null;
+    }
+  });
+  initializationPromise = trackedPromise;
+  initializingUserId = userId;
+  return trackedPromise;
+}
+
+async function refreshCustomerInfoOnly(
+  set: (partial: Partial<RevenueCatState>) => void,
+  expectedUserId?: string,
+): Promise<void> {
   const customerInfo = await Purchases.getCustomerInfo();
+  if (expectedUserId && useAuthStore.getState().user?.id !== expectedUserId) {
+    return;
+  }
   set({
     customerInfo,
     hasAngler: hasEffectiveAnglerAccess(customerInfo),
@@ -284,7 +399,7 @@ async function refreshCustomerInfoOnly(
   await syncProfileTier(customerInfo);
 }
 
-export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
+export const useRevenueCatStore = create<RevenueCatState>((set) => ({
   configured: false,
   loading: false,
   purchasing: null,
@@ -314,8 +429,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         configured: false,
         loading: false,
         hasAngler: hasEffectiveAnglerAccess(null),
-        error:
-          "Add EXPO_PUBLIC_REVENUECAT_IOS_API_KEY and/or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY.",
+        error: REVENUECAT_API_KEY_MISSING_MESSAGE,
       });
       return;
     }
@@ -323,40 +437,12 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     configureRevenueCatLogs();
     set({ loading: true, error: null });
     try {
-      if (!initializationPromise) {
-        initializationPromise = (async () => {
-          const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-            false
-          );
-          if (!alreadyConfigured) {
-            Purchases.configure({ apiKey, appUserID: userId });
-          } else if (configuredUserId !== userId) {
-            await Purchases.logIn(userId);
-          }
-          configuredUserId = userId;
+      await ensureRevenueCatConfigured(userId, set);
 
-          if (!customerInfoListener) {
-            customerInfoListener = (info) => {
-              if (!useAuthStore.getState().user?.id) return;
-              set({
-                customerInfo: info,
-                hasAngler: hasEffectiveAnglerAccess(info),
-              });
-              void syncProfileTier(info).catch((err) => {
-                if (__DEV__) console.warn("[RevenueCat] tier sync failed", err);
-              });
-            };
-            Purchases.addCustomerInfoUpdateListener(customerInfoListener);
-          }
-        })().finally(() => {
-          initializationPromise = null;
-        });
-      }
-
-      await initializationPromise;
+      if (useAuthStore.getState().user?.id !== userId) return;
 
       set({ configured: true });
-      await refreshCustomerInfoOnly(set);
+      await refreshCustomerInfoOnly(set, userId);
     } catch (err) {
       set({ error: errorMessage(err), configured: false });
     } finally {
@@ -380,7 +466,6 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     configureRevenueCatLogs();
     set({ loading: true, error: null });
     try {
-      if (initializationPromise) await initializationPromise;
       const userId = useAuthStore.getState().user?.id;
       if (!userId) {
         set({
@@ -392,12 +477,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         });
         return;
       }
-      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-        false
-      );
-      if (!alreadyConfigured || configuredUserId !== userId) {
-        await get().initialize(userId);
-      }
+      await ensureRevenueCatConfigured(userId, set);
 
       const customerInfo = await Purchases.getCustomerInfo();
       set({
@@ -421,18 +501,12 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
 
   syncSubscriptionTier: async () => {
     try {
-      if (initializationPromise) await initializationPromise;
       const userId = useAuthStore.getState().user?.id;
       if (!userId) return false;
 
-      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-        false
-      );
-      if (!alreadyConfigured || configuredUserId !== userId) {
-        await get().initialize(userId);
-      }
+      await ensureRevenueCatConfigured(userId, set);
 
-      await refreshCustomerInfoOnly(set);
+      await refreshCustomerInfoOnly(set, userId);
       return await pullServerSubscriptionTier();
     } catch (err) {
       if (__DEV__) console.warn("[RevenueCat] forced tier sync failed", err);
@@ -462,26 +536,17 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       entitlement_id: ANGLER_ENTITLEMENT_ID,
     });
     set({ presentingPaywall: true, error: null });
+    let paywallStage = "configuration";
     try {
-      if (initializationPromise) await initializationPromise;
       const userId = useAuthStore.getState().user?.id;
       if (!userId) {
         set({ error: "Sign in before purchasing Angler." });
         return false;
       }
-      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-        false
-      );
-      if (!alreadyConfigured || configuredUserId !== userId) {
-        await get().initialize(userId);
-      }
+      await ensureRevenueCatConfigured(userId, set);
+      set({ configured: true });
 
-      const configured = await Purchases.isConfigured().catch(() => false);
-      if (!configured) {
-        set({ error: "Purchases are still connecting. Close this panel, wait a moment, and try again." });
-        return false;
-      }
-
+      paywallStage = "offerings";
       const offerings = await Purchases.getOfferings();
       const offering = offerings.current ?? null;
       if (!offering || offering.availablePackages.length === 0) {
@@ -490,6 +555,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       }
       set({ offering, error: null });
 
+      paywallStage = "presentation";
       const result = await RevenueCatUI.presentPaywallIfNeeded({
         requiredEntitlementIdentifier: ANGLER_ENTITLEMENT_ID,
         // Use the exact offering whose packages were just fetched. Without
@@ -504,6 +570,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       const shouldRefreshAccess = checkoutCompleted ||
         result === PAYWALL_RESULT.NOT_PRESENTED;
 
+      paywallStage = "customer_info";
       let customerInfo = await Purchases.getCustomerInfo();
       let hasAngler = hasEffectiveAnglerAccess(customerInfo);
 
@@ -560,9 +627,13 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       return hasAngler;
     } catch (err) {
       const message = errorMessage(err);
+      if (__DEV__) {
+        console.error(`[RevenueCat] paywall failed during ${paywallStage}`, err);
+      }
       if (message) set({ error: message });
       captureAnalytics("paywall_failed", {
         reason: classifyRevenueCatError(message),
+        stage: paywallStage,
       });
       return false;
     } finally {
@@ -587,12 +658,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         set({ error: "Sign in before purchasing Angler." });
         return false;
       }
-      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-        false
-      );
-      if (!alreadyConfigured || configuredUserId !== userId) {
-        await get().initialize(userId);
-      }
+      await ensureRevenueCatConfigured(userId, set);
 
       const result = await Purchases.purchasePackage(pkg);
       const hasAngler = hasEffectiveAnglerAccess(result.customerInfo);
@@ -631,12 +697,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         set({ error: "Sign in before restoring purchases." });
         return false;
       }
-      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
-        false
-      );
-      if (!alreadyConfigured || configuredUserId !== userId) {
-        await get().initialize(userId);
-      }
+      await ensureRevenueCatConfigured(userId, set);
 
       const customerInfo = await Purchases.restorePurchases();
       let hasAngler = hasEffectiveAnglerAccess(customerInfo);

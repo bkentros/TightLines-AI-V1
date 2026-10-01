@@ -1,0 +1,178 @@
+{
+  "auditVersion": "kewaunee_river_winter_brown_trout-wisconsin-winter-pass2-replay-v1",
+  "runId": "kewaunee_river_winter_brown_trout",
+  "species": "lake_run_brown_trout",
+  "rulesVersion": "kewaunee_river_winter_brown_trout-activity-pass3-v1",
+  "mode": "air_temperature_proxy",
+  "replayYears": "2021-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly light, cloud, precipitation, and 2 m air temperature at kewaunee_county_f_weather; UTC observations are converted through America/Chicago historical timezone rules.",
+    "hydraulics": "No hydraulic series is scored; weather does not infer river level or clarity.",
+    "waterTemperature": "No measured-water series is accepted. A capped multi-day air-temperature pattern is used only as Limited proxy context and is never labeled water temperature."
+  },
+  "expectedDays": 340,
+  "usableDays": 339,
+  "coveragePercent": 99.71,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "measuredWaterTemperature": 0,
+    "measuredWaterHistory": 0,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 1
+  },
+  "dayScore": {
+    "min": 10,
+    "p10": 12,
+    "median": 21,
+    "p90": 49,
+    "max": 63,
+    "mean": 25.79
+  },
+  "blockScore": {
+    "min": 8,
+    "p10": 11,
+    "median": 20,
+    "p90": 49,
+    "max": 63,
+    "mean": 25.49
+  },
+  "dayLabels": {
+    "Active": 5,
+    "Inactive": 154,
+    "Moderate": 76,
+    "Reserved": 104
+  },
+  "byMonth": {
+    "12": {
+      "days": 45,
+      "scores": {
+        "min": 12,
+        "p10": 15,
+        "median": 27,
+        "p90": 56,
+        "max": 63,
+        "mean": 32.89
+      }
+    },
+    "01": {
+      "days": 155,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 19,
+        "p90": 50,
+        "max": 59,
+        "mean": 24.79
+      }
+    },
+    "02": {
+      "days": 139,
+      "scores": {
+        "min": 10,
+        "p10": 13,
+        "median": 20,
+        "p90": 47,
+        "max": 60,
+        "mean": 24.61
+      }
+    }
+  },
+  "byAirPattern": {
+    "cooling": {
+      "days": 23,
+      "scores": {
+        "min": 34,
+        "p10": 38,
+        "median": 42,
+        "p90": 46,
+        "max": 49,
+        "mean": 41.78
+      }
+    },
+    "gradual_warming": {
+      "days": 37,
+      "scores": {
+        "min": 43,
+        "p10": 46,
+        "median": 53,
+        "p90": 60,
+        "max": 63,
+        "mean": 53.08
+      }
+    },
+    "large_swing": {
+      "days": 171,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 15,
+        "p90": 25,
+        "max": 31,
+        "mean": 17.02
+      }
+    },
+    "persistent_cold": {
+      "days": 80,
+      "scores": {
+        "min": 10,
+        "p10": 14,
+        "median": 20,
+        "p90": 25,
+        "max": 27,
+        "mean": 19.76
+      }
+    },
+    "stable": {
+      "days": 16,
+      "scores": {
+        "min": 41,
+        "p10": 42,
+        "median": 47,
+        "p90": 52,
+        "max": 59,
+        "mean": 47.56
+      }
+    },
+    "variable": {
+      "days": 12,
+      "scores": {
+        "min": 42,
+        "p10": 42,
+        "median": 46,
+        "p90": 50,
+        "max": 56,
+        "mean": 47.08
+      }
+    }
+  },
+  "byFlowBand": null,
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 2,
+    "p90": 5,
+    "max": 9,
+    "mean": 1.99
+  },
+  "counterfactuals": {
+    "cold": 20,
+    "favorable": 54,
+    "gradualWarming": 53,
+    "largeSwing": 26
+  },
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "proxyConfidenceNotLimited": 0,
+    "proxyCeilingBroken": 0,
+    "scopeCopyMissing": 0,
+    "rainReceivedIndependentCredit": 0,
+    "wrongSpeciesCopy": 0
+  },
+  "reviewSampleSize": 100,
+  "limitations": [
+    "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+    "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+  ]
+}

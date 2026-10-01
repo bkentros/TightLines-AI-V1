@@ -93,7 +93,12 @@ Deno.test("Betsie Coho Activity is species-specific and continuously lifecycle-a
 Deno.test("Betsie document binds all implemented species to explicit biology profiles", () => {
   assertEquals(
     BETSIE_CONFIGURATION_DOCUMENT.runs.map((candidate) => candidate.runId),
-    ["betsie_fall_chinook", "betsie_fall_coho", "betsie_fall_steelhead"],
+    [
+      "betsie_fall_chinook",
+      "betsie_fall_coho",
+      "betsie_fall_steelhead",
+      "betsie_winter_steelhead",
+    ],
   );
   assertEquals(
     BETSIE_CONFIGURATION_DOCUMENT.biologyProfiles.map((profile) =>
@@ -103,6 +108,7 @@ Deno.test("Betsie document binds all implemented species to explicit biology pro
       "great_lakes_chinook_v1",
       "great_lakes_coho_v1",
       "great_lakes_steelhead_fall_entry_v1",
+      "great_lakes_steelhead_winter_holding_v1",
     ],
   );
 });

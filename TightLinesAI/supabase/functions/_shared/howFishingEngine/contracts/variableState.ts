@@ -34,6 +34,14 @@ export type TemperatureNormalized = {
   context_group: TemperatureContextGroup;
   measurement_source: TemperatureMeasurementSource;
   measurement_value_f: number;
+  /** Explicit source confidence; air is a proxy, not measured water. */
+  source_quality?:
+    | "measured_water"
+    | "daily_air_proxy"
+    | "current_air_fallback";
+  history_span_hours?: 48 | 72;
+  /** Continuous cold-season sunlight relief; independent of the categorical label. */
+  cold_light_relief?: number;
   band_label: TemperatureBandLabel;
   /** Interpolated thermal score from season table before trend/shock (tapered). */
   band_score: VariableScore;
@@ -41,6 +49,8 @@ export type TemperatureNormalized = {
   trend_adjustment: VariableScore;
   shock_label: ShockLabel;
   shock_adjustment: -1 | 0;
+  /** Explicit source-only regional calibration, before any composite weighting. */
+  regional_calibration_adjustment?: number;
   final_score: VariableScore;
 };
 

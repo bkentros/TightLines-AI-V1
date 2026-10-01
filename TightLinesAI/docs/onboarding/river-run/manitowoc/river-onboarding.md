@@ -105,10 +105,10 @@ USGS 04085427 hydraulics are primary-scored lower/middle context. The discontinu
 | Brown | v1 | lower | middle | middle | middle+upper | all | middle+upper | middle+upper | repeat spawner |
 
 ## 9. Candidate species/run matrix
-Chinook/coho/brown are included; steelhead is affirmatively excluded after strain-level stocking and fishery review.
+Chinook, coho, Brown Trout, and fall Steelhead are included. The 2026-09-28 Wisconsin winter Pass 1 amendment adds a conservative 6/10 fall Steelhead foundation from DNR's named popular-stream guidance, recurring south-large-river stocking/return evidence, and fall-through-spring strain timing. It does not claim a Manitowoc-specific adult count. The fall pathway ends December 15 at 62% retained presence, creating an exact December 16 handoff to the future winter pathway.
 
 ## 10. Species/run records
-Three independent records reconcile dates, presence, lifecycle, hydraulic-only Activity, Fishing Shape, geography, and unavailable primitives.
+Four independent records reconcile dates, presence, lifecycle, hydraulic-only Activity, Fishing Shape, geography, and unavailable primitives. `manitowoc_fall_steelhead` uses `great_lakes_steelhead_fall_entry_v1` / `fall_entry_cooling`; its Pass 1 calendar is start 09-15, peak 11-15, and end 12-15. Its full fall corridor includes the upper reach, but Lower Cato Falls closes October 31 and cannot appear in a winter recommendation.
 
 ### Activity tuning and fixed replay
 Fixed 2012–2025 replay; current measured river behavior is required by the minimum input contract. Temperature is zero-weight and missing weather has no score.
@@ -128,7 +128,7 @@ Config, isolation, art, picker, Seasonal Zone, Spot Finder, and IDs reconcile; n
 Hidden rendered review only. Acceptance, public authorization, and mobile release actions are not granted.
 
 ## 13. Correction and learning ledger
-Removed unsupported steelhead/current-temperature claims/Branch sites; retained Lower Cato only with its seasonal closure; added approved historical-temperature context without scoring it; did not retain the removed Rapids dam as a barrier; removed cross-river fallback copy so every stage names only Manitowoc reaches.
+Removed unsupported river-specific Steelhead count claims/current-temperature claims/Branch sites; later added a conservative fall Steelhead foundation only after current DNR species, stocking/return, and strain-timing evidence supported recurrence. Retained Lower Cato only with its seasonal closure; added approved historical-temperature context without scoring it; did not retain the removed Rapids dam as a barrier; removed cross-river fallback copy so every stage names only Manitowoc reaches.
 
 **Contradiction search completed by/date:** Codex / 2026-09-02
 **Independent falsification review by/date:** source-class, run-calendar, counter, temperature-history, and access audit / 2026-09-02

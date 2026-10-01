@@ -1,0 +1,167 @@
+{
+  "auditVersion": "manitowoc_winter_brown_trout-wisconsin-winter-pass2-replay-v1",
+  "runId": "manitowoc_winter_brown_trout",
+  "species": "lake_run_brown_trout",
+  "rulesVersion": "manitowoc_winter_brown_trout-activity-pass3-v1",
+  "mode": "air_temperature_proxy",
+  "replayYears": "2021-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly light, cloud, precipitation, and 2 m air temperature at manitowoc_michigan_ave_weather; UTC observations are converted through America/Chicago historical timezone rules.",
+    "hydraulics": "No hydraulic series is scored; weather does not infer river level or clarity.",
+    "waterTemperature": "No measured-water series is accepted. A capped multi-day air-temperature pattern is used only as Limited proxy context and is never labeled water temperature."
+  },
+  "expectedDays": 295,
+  "usableDays": 294,
+  "coveragePercent": 99.66,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "measuredWaterTemperature": 0,
+    "measuredWaterHistory": 0,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 1
+  },
+  "dayScore": {
+    "min": 10,
+    "p10": 11,
+    "median": 20,
+    "p90": 48,
+    "max": 61,
+    "mean": 25.31
+  },
+  "blockScore": {
+    "min": 8,
+    "p10": 11,
+    "median": 20,
+    "p90": 49,
+    "max": 61,
+    "mean": 25
+  },
+  "dayLabels": {
+    "Active": 1,
+    "Inactive": 137,
+    "Moderate": 67,
+    "Reserved": 89
+  },
+  "byMonth": {
+    "01": {
+      "days": 155,
+      "scores": {
+        "min": 10,
+        "p10": 11,
+        "median": 21,
+        "p90": 51,
+        "max": 59,
+        "mean": 26.63
+      }
+    },
+    "02": {
+      "days": 139,
+      "scores": {
+        "min": 10,
+        "p10": 12,
+        "median": 20,
+        "p90": 47,
+        "max": 61,
+        "mean": 23.83
+      }
+    }
+  },
+  "byAirPattern": {
+    "cooling": {
+      "days": 10,
+      "scores": {
+        "min": 34,
+        "p10": 34,
+        "median": 39,
+        "p90": 45,
+        "max": 45,
+        "mean": 39.8
+      }
+    },
+    "gradual_warming": {
+      "days": 33,
+      "scores": {
+        "min": 40,
+        "p10": 47,
+        "median": 51,
+        "p90": 56,
+        "max": 61,
+        "mean": 51.09
+      }
+    },
+    "large_swing": {
+      "days": 146,
+      "scores": {
+        "min": 10,
+        "p10": 10,
+        "median": 15,
+        "p90": 25,
+        "max": 29,
+        "mean": 16.39
+      }
+    },
+    "persistent_cold": {
+      "days": 74,
+      "scores": {
+        "min": 11,
+        "p10": 15,
+        "median": 21,
+        "p90": 25,
+        "max": 27,
+        "mean": 20.27
+      }
+    },
+    "stable": {
+      "days": 14,
+      "scores": {
+        "min": 42,
+        "p10": 43,
+        "median": 45,
+        "p90": 52,
+        "max": 54,
+        "mean": 47.14
+      }
+    },
+    "variable": {
+      "days": 17,
+      "scores": {
+        "min": 42,
+        "p10": 42,
+        "median": 47,
+        "p90": 53,
+        "max": 56,
+        "mean": 47.24
+      }
+    }
+  },
+  "byFlowBand": null,
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 2,
+    "p90": 5,
+    "max": 8,
+    "mean": 2.02
+  },
+  "counterfactuals": {
+    "cold": 20,
+    "favorable": 54,
+    "gradualWarming": 53,
+    "largeSwing": 26
+  },
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "proxyConfidenceNotLimited": 0,
+    "proxyCeilingBroken": 0,
+    "scopeCopyMissing": 0,
+    "rainReceivedIndependentCredit": 0,
+    "wrongSpeciesCopy": 0
+  },
+  "reviewSampleSize": 100,
+  "limitations": [
+    "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+    "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+  ]
+}

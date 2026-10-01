@@ -1,0 +1,269 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-all-city-lake-trout-v1",
+  "reviewed_at": "2026-09-21",
+  "city_count": 32,
+  "owner_review": [
+    {
+      "city_id": "algoma_wi",
+      "city_name": "Algoma",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "alpena_mi",
+      "city_name": "Alpena",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 5,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "chicago_il",
+      "city_name": "Chicago",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 5.4,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "frankfort_elberta_mi",
+      "city_name": "Frankfort–Elberta",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "grand_haven_mi",
+      "city_name": "Grand Haven",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 3.6,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "harbor_beach_mi",
+      "city_name": "Harbor Beach",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 5.3,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "harrisville_mi",
+      "city_name": "Harrisville",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "holland_mi",
+      "city_name": "Holland",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 3.8,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "kenosha_wi",
+      "city_name": "Kenosha",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "kewaunee_wi",
+      "city_name": "Kewaunee",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4.2,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "lexington_mi",
+      "city_name": "Lexington",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4.8,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "ludington_mi",
+      "city_name": "Ludington",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 3.8,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "manistee_mi",
+      "city_name": "Manistee",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "manitowoc_wi",
+      "city_name": "Manitowoc",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "michigan_city_in",
+      "city_name": "Michigan City",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "milwaukee_wi",
+      "city_name": "Milwaukee",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "muskegon_mi",
+      "city_name": "Muskegon",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "oscoda_mi",
+      "city_name": "Oscoda",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4.6,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "port_sanilac_mi",
+      "city_name": "Port Sanilac",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 5.5,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "port_washington_wi",
+      "city_name": "Port Washington",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "racine_wi",
+      "city_name": "Racine",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "sheboygan_wi",
+      "city_name": "Sheboygan",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "south_haven_mi",
+      "city_name": "South Haven",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 3.8,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "city_name": "St. Joseph",
+      "cohort": "established",
+      "review_outcome": "retain_existing_numeric_owner_calibration",
+      "peak": 4.1,
+      "explicit_decision": "unchanged_in_private_onboarding_pass"
+    },
+    {
+      "city_id": "two_rivers_wi",
+      "city_name": "Two Rivers",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "waukegan_il",
+      "city_name": "Waukegan",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "whitehall_mi",
+      "city_name": "Whitehall",
+      "cohort": "established",
+      "review_outcome": "retain_no_numeric_owner_calibration",
+      "peak": null,
+      "explicit_decision": "not_created_by_new_city_pass"
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "cohort": "new_city",
+      "review_outcome": "research_hold_unscored",
+      "peak": null,
+      "evidence_grade": "C",
+      "explicit_decision": "Only one positive catch year was resolved; stocking and one measured occurrence do not establish recurrence. No placeholder score is permitted."
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "cohort": "new_city",
+      "review_outcome": "numeric_private",
+      "peak": 5.1,
+      "evidence_grade": "B",
+      "explicit_decision": "Four positive spring catch years plus current local guidance establish modest recurring nearshore opportunity between Alpena and Harbor Beach."
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "cohort": "new_city",
+      "review_outcome": "numeric_private",
+      "peak": 5.1,
+      "evidence_grade": "B",
+      "explicit_decision": "Current exact-city/bay guidance establishes cold-water local opportunity. With no resolved structure-level magnitude, the corrected peak matches Rogers City and remains below Harbor Beach; stocking only corroborates occurrence."
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "cohort": "new_city",
+      "review_outcome": "numeric_private",
+      "peak": 5,
+      "evidence_grade": "A",
+      "explicit_decision": "Six positive years, all measured catch occurring in the modern period, establish the strongest reviewed Lake Michigan onboarding peak below Rogers City and above Lexington."
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "cohort": "new_city",
+      "review_outcome": "numeric_private",
+      "peak": 4.6,
+      "evidence_grade": "B",
+      "explicit_decision": "Michigan DNR's exact Caseville fishery inventory names lake trout and the Lake Huron roadmap identifies spring trout opportunity. With no quantitative Caseville series, the conservative peak matches Oscoda and remains below Lexington."
+    }
+  ],
+  "conclusion": "All 27 established cities and all five new cities have an explicit lake-trout owner-review outcome. Pentwater remains Grade C; Rogers City, Tawas City, Charlevoix, and Caseville receive numeric calibrations. Caseville is conservatively calibrated at the city-condition boundary and does not assert pier-specific recurrence."
+}

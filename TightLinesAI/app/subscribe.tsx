@@ -142,8 +142,8 @@ export default function SubscribeScreen() {
       </>
     );
   const heroCopy = hasAngler
-    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, Tackle Box, River Migration, Color Match, and Water Read are unlocked. Pier Cast is coming soon.`
-    : "One membership unlocks Today's Bite, Tackle Box, River Migration, Color Match, and Water Read. Pier Cast is coming soon.";
+    ? `Your ${STORE_NAME} subscription is connected. Today's Bite, Tackle Box, River Migration, Pier Cast, Color Match, and Water Read are unlocked.`
+    : "One membership unlocks Today's Bite, Tackle Box, River Migration, Pier Cast, Color Match, and Water Read.";
 
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);

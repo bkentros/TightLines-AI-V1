@@ -1,9 +1,11 @@
 // =============================================================================
-// ENGINE V3 — State Bounding Boxes
+// State resolution: Census polygons, with legacy bounding-box exports.
 // Source: 2017 US Census 1:500,000 shapefile (NAD83)
 // Reference: https://anthonylouisdagostino.com/bounding-boxes-for-all-us-states/
 // Format: lonMin (xmin), latMin (ymin), lonMax (xmax), latMax (ymax)
 // =============================================================================
+
+import { type StateRing, US_STATE_POLYGONS } from "./usStatePolygons.ts";
 
 export interface StateBounds {
   state: string;
@@ -15,9 +17,10 @@ export interface StateBounds {
 
 /**
  * State bounding boxes from US Census Bureau 2017 1:500,000 shapefile.
- * Ordered by approximate area (smallest first) so overlapping boxes
- * resolve correctly — e.g. DC before MD, RI before MA.
+ * Retained for callers needing coarse bounds. Never use overlapping boxes
+ * to identify a state; resolveStateFromCoords uses the bundled polygons.
  */
+// deno-fmt-ignore
 export const STATE_BOUNDS: StateBounds[] = [
   { state: 'DC', lonMin: -77.119759, latMin: 38.791645, lonMax: -76.909395, latMax: 38.99511 },
   { state: 'RI', lonMin: -71.862772, latMin: 41.146339, lonMax: -71.12057, latMax: 42.018798 },
@@ -72,22 +75,79 @@ export const STATE_BOUNDS: StateBounds[] = [
   { state: 'AK', lonMin: -179.148909, latMin: 51.214183, lonMax: 179.77847, latMax: 71.365162 },
 ];
 
-export function isPointInBounds(lat: number, lon: number, b: StateBounds): boolean {
-  if (b.state === 'AK') {
+export function isPointInBounds(
+  lat: number,
+  lon: number,
+  b: StateBounds,
+): boolean {
+  if (b.state === "AK") {
     // Alaska spans the dateline: mainland ~-180 to -130, Aleutians ~170 to 180
     const inLat = lat >= b.latMin && lat <= b.latMax;
     const inLonWest = lon >= -180 && lon <= -130;
     const inLonEast = lon >= 170 && lon <= 180;
     return inLat && (inLonWest || inLonEast);
   }
-  return lat >= b.latMin && lat <= b.latMax && lon >= b.lonMin && lon <= b.lonMax;
+  return lat >= b.latMin && lat <= b.latMax && lon >= b.lonMin &&
+    lon <= b.lonMax;
 }
 
-export function resolveStateFromCoords(lat: number, lon: number): string | null {
-  // Min lat must include Hawaii (~19°N) and Puerto Rico (~18°N); max ~72° for northern AK
-  if (lat < 16 || lat > 72 || lon < -180 || lon > 180) return null;
-  for (const b of STATE_BOUNDS) {
-    if (isPointInBounds(lat, lon, b)) return b.state;
+const decodedRings = new Map<string, [number, number][]>();
+
+function pointsForRing(encoded: string): [number, number][] {
+  const cached = decodedRings.get(encoded);
+  if (cached) return cached;
+  const points: [number, number][] = [];
+  let index = 0, x = 0, y = 0;
+  function delta(): number {
+    let value = 0, shift = 0, byte: number;
+    do {
+      byte = encoded.charCodeAt(index++) - 63;
+      value |= (byte & 31) << shift;
+      shift += 5;
+    } while (byte >= 32);
+    return value & 1 ? -(value + 1) / 2 : value / 2;
+  }
+  while (index < encoded.length) {
+    x += delta();
+    y += delta();
+    points.push([x / 100000, y / 100000]);
+  }
+  decodedRings.set(encoded, points);
+  return points;
+}
+
+function insideRing(lat: number, lon: number, ring: StateRing): boolean {
+  const [bounds, encoded] = ring;
+  if (
+    lon < bounds[0] || lat < bounds[1] || lon > bounds[2] || lat > bounds[3]
+  ) return false;
+  const points = pointsForRing(encoded);
+  let inside = false;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const [xi, yi] = points[i];
+    const [xj, yj] = points[j];
+    if (
+      ((yi > lat) !== (yj > lat)) &&
+      lon < (xj - xi) * (lat - yi) / (yj - yi) + xi
+    ) inside = !inside;
+  }
+  return inside;
+}
+
+/** Census land polygons. Unknown/offshore points remain unknown, never a guessed state. */
+export function resolveStateFromCoords(
+  lat: number,
+  lon: number,
+): string | null {
+  if (
+    !Number.isFinite(lat) || !Number.isFinite(lon) || lat < 16 || lat > 72 ||
+    lon < -180 || lon > 180
+  ) return null;
+  for (const [state, rings] of US_STATE_POLYGONS) {
+    // Even/odd parity handles holes as well as disconnected islands.
+    let inside = false;
+    for (const ring of rings) if (insideRing(lat, lon, ring)) inside = !inside;
+    if (inside) return state;
   }
   return null;
 }

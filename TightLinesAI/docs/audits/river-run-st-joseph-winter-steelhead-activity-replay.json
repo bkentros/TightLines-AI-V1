@@ -1,0 +1,2695 @@
+{
+  "runId": "st_joseph_winter_steelhead",
+  "rulesVersion": "st_joseph-winter-steelhead-activity-v1",
+  "replayYears": "2021-2025",
+  "method": "Historical mechanical steelhead replay using St. Joseph River at Niles, MI USGS 04101500 daily mean discharge, St. Joseph River at Niles, MI — measured water temperature USGS 04101500 daily mean measured water temperature, and three dynamic daylight segments built from UTC archive hours converted with historical local-time rules, using radiation, cloud cover, and precipitation. The read is scoped to Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch. It validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 340,
+  "usableDays": 332,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 5,
+    "temperatureHistory": 8,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 19,
+    "p10": 29,
+    "median": 49,
+    "p90": 82,
+    "max": 92,
+    "mean": 53.01
+  },
+  "blockScore": {
+    "min": 19,
+    "p10": 29,
+    "median": 49,
+    "p90": 81,
+    "max": 92,
+    "mean": 52.86
+  },
+  "uniqueDayScores": 45,
+  "uniqueBlockScores": 50,
+  "dayLabels": {
+    "Active": 105,
+    "Highly active": 46,
+    "Inactive": 24,
+    "Moderate": 59,
+    "Reserved": 98
+  },
+  "blockLabels": {
+    "Active": 317,
+    "Highly active": 132,
+    "Inactive": 72,
+    "Moderate": 181,
+    "Reserved": 294
+  },
+  "daysAtLeast90": 3,
+  "blocksAtLeast90": 10,
+  "byStage": {
+    "beginning": {
+      "days": 80,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 72,
+        "p90": 86,
+        "max": 92,
+        "mean": 66.49
+      },
+      "labels": {
+        "Active": 37,
+        "Highly active": 22,
+        "Moderate": 11,
+        "Reserved": 10
+      }
+    },
+    "building": {
+      "days": 182,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 76,
+        "max": 85,
+        "mean": 45.15
+      },
+      "labels": {
+        "Active": 45,
+        "Highly active": 5,
+        "Inactive": 11,
+        "Moderate": 40,
+        "Reserved": 81
+      }
+    },
+    "ending": {
+      "days": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 82,
+        "p90": 86,
+        "max": 87,
+        "mean": 61.9
+      },
+      "labels": {
+        "Active": 2,
+        "Highly active": 5,
+        "Inactive": 3
+      }
+    },
+    "peak": {
+      "days": 50,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 64,
+        "p90": 82,
+        "max": 86,
+        "mean": 56.8
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 12,
+        "Inactive": 8,
+        "Moderate": 7,
+        "Reserved": 7
+      }
+    },
+    "tapering": {
+      "days": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 68,
+        "p90": 87,
+        "max": 87,
+        "mean": 60.4
+      },
+      "labels": {
+        "Active": 5,
+        "Highly active": 2,
+        "Inactive": 2,
+        "Moderate": 1
+      }
+    }
+  },
+  "stageByBlock": [
+    {
+      "stage": "beginning",
+      "block": "08-11",
+      "usableDays": 80,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "09-12",
+      "usableDays": 80,
+      "samples": 80,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 72,
+        "p90": 86,
+        "max": 92,
+        "mean": 66.34
+      },
+      "labelShares": {
+        "Active": 47.5,
+        "Highly active": 26.25,
+        "Moderate": 13.75,
+        "Reserved": 12.5
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "11-14",
+      "usableDays": 80,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "11-15",
+      "usableDays": 80,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "12-15",
+      "usableDays": 80,
+      "samples": 80,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 72,
+        "p90": 86,
+        "max": 92,
+        "mean": 66.25
+      },
+      "labelShares": {
+        "Active": 47.5,
+        "Highly active": 25,
+        "Moderate": 15,
+        "Reserved": 12.5
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "14-18",
+      "usableDays": 80,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "15-18",
+      "usableDays": 80,
+      "samples": 80,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 71,
+        "p90": 86,
+        "max": 92,
+        "mean": 66.47
+      },
+      "labelShares": {
+        "Active": 46.25,
+        "Highly active": 27.5,
+        "Moderate": 13.75,
+        "Reserved": 12.5
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "15-19",
+      "usableDays": 80,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "beginning",
+      "block": "all_blocks",
+      "usableDays": 80,
+      "samples": 240,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 72,
+        "p90": 86,
+        "max": 92,
+        "mean": 66.35
+      },
+      "labelShares": {
+        "Active": 47.08,
+        "Highly active": 26.25,
+        "Moderate": 14.17,
+        "Reserved": 12.5
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "08-11",
+      "usableDays": 182,
+      "samples": 82,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 49,
+        "p90": 74,
+        "max": 83,
+        "mean": 46.49
+      },
+      "labelShares": {
+        "Active": 25.61,
+        "Highly active": 2.44,
+        "Inactive": 9.76,
+        "Moderate": 32.93,
+        "Reserved": 29.27
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "09-12",
+      "usableDays": 182,
+      "samples": 100,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 77,
+        "max": 85,
+        "mean": 44.04
+      },
+      "labelShares": {
+        "Active": 25,
+        "Highly active": 2,
+        "Inactive": 3,
+        "Moderate": 13,
+        "Reserved": 57
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "11-14",
+      "usableDays": 182,
+      "samples": 13,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 29,
+        "p90": 49,
+        "max": 62,
+        "mean": 35.08
+      },
+      "labelShares": {
+        "Active": 7.69,
+        "Inactive": 23.08,
+        "Moderate": 30.77,
+        "Reserved": 38.46
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "11-15",
+      "usableDays": 182,
+      "samples": 69,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 49,
+        "p90": 74,
+        "max": 83,
+        "mean": 48.26
+      },
+      "labelShares": {
+        "Active": 28.99,
+        "Highly active": 2.9,
+        "Inactive": 7.25,
+        "Moderate": 33.33,
+        "Reserved": 27.54
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "12-15",
+      "usableDays": 182,
+      "samples": 100,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 76,
+        "max": 85,
+        "mean": 43.84
+      },
+      "labelShares": {
+        "Active": 25,
+        "Highly active": 2,
+        "Inactive": 3,
+        "Moderate": 13,
+        "Reserved": 57
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "14-18",
+      "usableDays": 182,
+      "samples": 13,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 29,
+        "p90": 49,
+        "max": 62,
+        "mean": 35.38
+      },
+      "labelShares": {
+        "Active": 7.69,
+        "Inactive": 23.08,
+        "Moderate": 30.77,
+        "Reserved": 38.46
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "15-18",
+      "usableDays": 182,
+      "samples": 100,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 76,
+        "max": 85,
+        "mean": 43.9
+      },
+      "labelShares": {
+        "Active": 25,
+        "Highly active": 2,
+        "Inactive": 3,
+        "Moderate": 13,
+        "Reserved": 57
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "15-19",
+      "usableDays": 182,
+      "samples": 69,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 49,
+        "p90": 75,
+        "max": 83,
+        "mean": 48.64
+      },
+      "labelShares": {
+        "Active": 24.64,
+        "Highly active": 5.8,
+        "Inactive": 7.25,
+        "Moderate": 34.78,
+        "Reserved": 27.54
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "building",
+      "block": "all_blocks",
+      "usableDays": 182,
+      "samples": 546,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 76,
+        "max": 85,
+        "mean": 45.04
+      },
+      "labelShares": {
+        "Active": 24.73,
+        "Highly active": 2.56,
+        "Inactive": 6.04,
+        "Moderate": 22.16,
+        "Reserved": 44.51
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "08-11",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 80,
+        "p90": 86,
+        "max": 87,
+        "mean": 61.3
+      },
+      "labelShares": {
+        "Active": 20,
+        "Highly active": 50,
+        "Inactive": 30
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "09-12",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "11-14",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "11-15",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 79,
+        "p90": 86,
+        "max": 87,
+        "mean": 61
+      },
+      "labelShares": {
+        "Active": 30,
+        "Highly active": 40,
+        "Inactive": 30
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "12-15",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "14-18",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "15-18",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "15-19",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 82,
+        "p90": 86,
+        "max": 88,
+        "mean": 62.3
+      },
+      "labelShares": {
+        "Active": 20,
+        "Highly active": 50,
+        "Inactive": 30
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "ending",
+      "block": "all_blocks",
+      "usableDays": 10,
+      "samples": 30,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 79,
+        "p90": 86,
+        "max": 88,
+        "mean": 61.53
+      },
+      "labelShares": {
+        "Active": 23.33,
+        "Highly active": 46.67,
+        "Inactive": 30
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "08-11",
+      "usableDays": 50,
+      "samples": 50,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 63,
+        "p90": 82,
+        "max": 86,
+        "mean": 56.84
+      },
+      "labelShares": {
+        "Active": 30,
+        "Highly active": 26,
+        "Inactive": 16,
+        "Moderate": 14,
+        "Reserved": 14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "09-12",
+      "usableDays": 50,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "11-14",
+      "usableDays": 50,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "11-15",
+      "usableDays": 50,
+      "samples": 50,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 63,
+        "p90": 81,
+        "max": 86,
+        "mean": 56.32
+      },
+      "labelShares": {
+        "Active": 36,
+        "Highly active": 20,
+        "Inactive": 16,
+        "Moderate": 14,
+        "Reserved": 14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "12-15",
+      "usableDays": 50,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "14-18",
+      "usableDays": 50,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "15-18",
+      "usableDays": 50,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "15-19",
+      "usableDays": 50,
+      "samples": 50,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 63,
+        "p90": 81,
+        "max": 85,
+        "mean": 56.52
+      },
+      "labelShares": {
+        "Active": 32,
+        "Highly active": 24,
+        "Inactive": 16,
+        "Moderate": 14,
+        "Reserved": 14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "peak",
+      "block": "all_blocks",
+      "usableDays": 50,
+      "samples": 150,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 63,
+        "p90": 81,
+        "max": 86,
+        "mean": 56.56
+      },
+      "labelShares": {
+        "Active": 32.67,
+        "Highly active": 23.33,
+        "Inactive": 16,
+        "Moderate": 14,
+        "Reserved": 14
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "08-11",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 67,
+        "p90": 84,
+        "max": 87,
+        "mean": 60
+      },
+      "labelShares": {
+        "Active": 40,
+        "Highly active": 20,
+        "Inactive": 20,
+        "Moderate": 20
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "09-12",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "11-14",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "11-15",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 65,
+        "p90": 87,
+        "max": 88,
+        "mean": 59.9
+      },
+      "labelShares": {
+        "Active": 50,
+        "Highly active": 20,
+        "Inactive": 20,
+        "Moderate": 10
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "12-15",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "14-18",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "15-18",
+      "usableDays": 10,
+      "samples": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labelShares": {},
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "15-19",
+      "usableDays": 10,
+      "samples": 10,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 69,
+        "p90": 87,
+        "max": 88,
+        "mean": 60.2
+      },
+      "labelShares": {
+        "Active": 40,
+        "Highly active": 20,
+        "Inactive": 20,
+        "Moderate": 20
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    },
+    {
+      "stage": "tapering",
+      "block": "all_blocks",
+      "usableDays": 10,
+      "samples": 30,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 65,
+        "p90": 87,
+        "max": 88,
+        "mean": 60.03
+      },
+      "labelShares": {
+        "Active": 43.33,
+        "Highly active": 20,
+        "Inactive": 20,
+        "Moderate": 16.67
+      },
+      "capConfidenceNotes": "Full confidence requires hourly weather, measured St. Joseph River at Niles, MI hydraulics, and the configured measured water temperature; missing inputs retain the configured fail-closed caps."
+    }
+  ],
+  "backHalf": {},
+  "byTemperature": {
+    "below38F": {
+      "days": 215,
+      "scores": {
+        "min": 19,
+        "p10": 29,
+        "median": 29,
+        "p90": 67,
+        "max": 80,
+        "mean": 41.19
+      },
+      "labels": {
+        "Active": 40,
+        "Highly active": 1,
+        "Inactive": 18,
+        "Moderate": 58,
+        "Reserved": 98
+      }
+    },
+    "from38To45F": {
+      "days": 115,
+      "scores": {
+        "min": 19,
+        "p10": 68,
+        "median": 77,
+        "p90": 86,
+        "max": 92,
+        "mean": 74.56
+      },
+      "labels": {
+        "Active": 65,
+        "Highly active": 43,
+        "Inactive": 6,
+        "Moderate": 1
+      }
+    },
+    "from45To50F": {
+      "days": 2,
+      "scores": {
+        "min": 84,
+        "p10": 84,
+        "median": 87,
+        "p90": 87,
+        "max": 87,
+        "mean": 85.5
+      },
+      "labels": {
+        "Highly active": 2
+      }
+    },
+    "from50To68F": {
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {}
+    },
+    "atLeast68F": {
+      "days": 0,
+      "scores": {
+        "min": null,
+        "p10": null,
+        "median": null,
+        "p90": null,
+        "max": null,
+        "mean": null
+      },
+      "labels": {}
+    }
+  },
+  "winterBehavior": {
+    "temperatureSourcesUsed": {
+      "st_joseph_niles_temperature": 332
+    },
+    "temperatureBands": {
+      "atOrBelow33_5F": {
+        "days": 100,
+        "scores": {
+          "min": 19,
+          "p10": 29,
+          "median": 29,
+          "p90": 29,
+          "max": 29,
+          "mean": 28.8
+        },
+        "labels": {
+          "Inactive": 2,
+          "Reserved": 98
+        }
+      },
+      "above33_5To35F": {
+        "days": 54,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 49,
+          "p90": 49,
+          "max": 49,
+          "mean": 44.83
+        },
+        "labels": {
+          "Inactive": 7,
+          "Moderate": 47
+        }
+      },
+      "from35To36F": {
+        "days": 25,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 58,
+          "p90": 64,
+          "max": 66,
+          "mean": 48.2
+        },
+        "labels": {
+          "Active": 10,
+          "Inactive": 7,
+          "Moderate": 8
+        }
+      },
+      "from36To37F": {
+        "days": 16,
+        "scores": {
+          "min": 19,
+          "p10": 54,
+          "median": 68,
+          "p90": 74,
+          "max": 74,
+          "mean": 61.31
+        },
+        "labels": {
+          "Active": 12,
+          "Inactive": 2,
+          "Moderate": 2
+        }
+      },
+      "from37To38F": {
+        "days": 20,
+        "scores": {
+          "min": 58,
+          "p10": 61,
+          "median": 69,
+          "p90": 78,
+          "max": 80,
+          "mean": 68.4
+        },
+        "labels": {
+          "Active": 18,
+          "Highly active": 1,
+          "Moderate": 1
+        }
+      },
+      "from38To42F": {
+        "days": 94,
+        "scores": {
+          "min": 19,
+          "p10": 65,
+          "median": 76,
+          "p90": 84,
+          "max": 88,
+          "mean": 72.4
+        },
+        "labels": {
+          "Active": 62,
+          "Highly active": 25,
+          "Inactive": 6,
+          "Moderate": 1
+        }
+      },
+      "from42To45F": {
+        "days": 21,
+        "scores": {
+          "min": 74,
+          "p10": 79,
+          "median": 83,
+          "p90": 91,
+          "max": 92,
+          "mean": 84.19
+        },
+        "labels": {
+          "Active": 3,
+          "Highly active": 18
+        }
+      },
+      "above45F": {
+        "days": 2,
+        "scores": {
+          "min": 84,
+          "p10": 84,
+          "median": 87,
+          "p90": 87,
+          "max": 87,
+          "mean": 85.5
+        },
+        "labels": {
+          "Highly active": 2
+        }
+      }
+    },
+    "temperatureTrends": {
+      "cooling": {
+        "days": 49,
+        "scores": {
+          "min": 19,
+          "p10": 29,
+          "median": 54,
+          "p90": 72,
+          "max": 80,
+          "mean": 50.08
+        },
+        "labels": {
+          "Active": 19,
+          "Highly active": 1,
+          "Inactive": 2,
+          "Moderate": 11,
+          "Reserved": 16
+        }
+      },
+      "neutral": {
+        "days": 218,
+        "scores": {
+          "min": 19,
+          "p10": 29,
+          "median": 49,
+          "p90": 77,
+          "max": 87,
+          "mean": 47.84
+        },
+        "labels": {
+          "Active": 66,
+          "Highly active": 12,
+          "Inactive": 17,
+          "Moderate": 41,
+          "Reserved": 82
+        }
+      },
+      "strong_cooling": {
+        "days": 5,
+        "scores": {
+          "min": 46,
+          "p10": 46,
+          "median": 54,
+          "p90": 63,
+          "max": 63,
+          "mean": 53.8
+        },
+        "labels": {
+          "Active": 1,
+          "Moderate": 4
+        }
+      },
+      "strong_warming": {
+        "days": 5,
+        "scores": {
+          "min": 71,
+          "p10": 71,
+          "median": 78,
+          "p90": 80,
+          "max": 80,
+          "mean": 77.2
+        },
+        "labels": {
+          "Active": 4,
+          "Highly active": 1
+        }
+      },
+      "warming": {
+        "days": 55,
+        "scores": {
+          "min": 19,
+          "p10": 49,
+          "median": 82,
+          "p90": 88,
+          "max": 92,
+          "mean": 73.84
+        },
+        "labels": {
+          "Active": 15,
+          "Highly active": 32,
+          "Inactive": 5,
+          "Moderate": 3
+        }
+      }
+    },
+    "flowBands": {
+      "blown_out": {
+        "days": 24,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 19,
+          "p90": 19,
+          "max": 19,
+          "mean": 19
+        },
+        "labels": {
+          "Inactive": 24
+        }
+      },
+      "high_fishable": {
+        "days": 140,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 64,
+          "p90": 83,
+          "max": 88,
+          "mean": 58.59
+        },
+        "labels": {
+          "Active": 48,
+          "Highly active": 28,
+          "Moderate": 27,
+          "Reserved": 37
+        }
+      },
+      "ideal": {
+        "days": 145,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 49,
+          "p90": 80,
+          "max": 92,
+          "mean": 51.12
+        },
+        "labels": {
+          "Active": 40,
+          "Highly active": 16,
+          "Moderate": 29,
+          "Reserved": 60
+        }
+      },
+      "low": {
+        "days": 1,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 29,
+          "p90": 29,
+          "max": 29,
+          "mean": 29
+        },
+        "labels": {
+          "Reserved": 1
+        }
+      },
+      "very_high": {
+        "days": 22,
+        "scores": {
+          "min": 43,
+          "p10": 57,
+          "median": 70,
+          "p90": 79,
+          "max": 83,
+          "mean": 68.14
+        },
+        "labels": {
+          "Active": 17,
+          "Highly active": 2,
+          "Moderate": 3
+        }
+      }
+    },
+    "calendarMonths": {
+      "December": {
+        "days": 45,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 73,
+          "p90": 88,
+          "max": 92,
+          "mean": 70.27
+        },
+        "labels": {
+          "Active": 20,
+          "Highly active": 18,
+          "Moderate": 1,
+          "Reserved": 6
+        }
+      },
+      "January": {
+        "days": 147,
+        "scores": {
+          "min": 19,
+          "p10": 29,
+          "median": 47,
+          "p90": 77,
+          "max": 86,
+          "mean": 47.59
+        },
+        "labels": {
+          "Active": 43,
+          "Highly active": 6,
+          "Inactive": 5,
+          "Moderate": 27,
+          "Reserved": 66
+        }
+      },
+      "February": {
+        "days": 140,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 54,
+          "p90": 82,
+          "max": 87,
+          "mean": 53.16
+        },
+        "labels": {
+          "Active": 42,
+          "Highly active": 22,
+          "Inactive": 19,
+          "Moderate": 31,
+          "Reserved": 26
+        }
+      }
+    },
+    "winterSeasons": {
+      "2021": {
+        "days": 68,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 29,
+          "p90": 70,
+          "max": 80,
+          "mean": 38.25
+        },
+        "labels": {
+          "Active": 11,
+          "Highly active": 1,
+          "Inactive": 12,
+          "Moderate": 13,
+          "Reserved": 31
+        }
+      },
+      "2022": {
+        "days": 60,
+        "scores": {
+          "min": 19,
+          "p10": 29,
+          "median": 75,
+          "p90": 80,
+          "max": 86,
+          "mean": 64.73
+        },
+        "labels": {
+          "Active": 35,
+          "Highly active": 9,
+          "Inactive": 1,
+          "Moderate": 6,
+          "Reserved": 9
+        }
+      },
+      "2023": {
+        "days": 68,
+        "scores": {
+          "min": 19,
+          "p10": 19,
+          "median": 69,
+          "p90": 87,
+          "max": 92,
+          "mean": 58.88
+        },
+        "labels": {
+          "Active": 23,
+          "Highly active": 18,
+          "Inactive": 11,
+          "Moderate": 6,
+          "Reserved": 10
+        }
+      },
+      "2024": {
+        "days": 68,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 49,
+          "p90": 77,
+          "max": 88,
+          "mean": 48.49
+        },
+        "labels": {
+          "Active": 13,
+          "Highly active": 7,
+          "Moderate": 20,
+          "Reserved": 28
+        }
+      },
+      "2025": {
+        "days": 68,
+        "scores": {
+          "min": 29,
+          "p10": 29,
+          "median": 61,
+          "p90": 82,
+          "max": 87,
+          "mean": 56.09
+        },
+        "labels": {
+          "Active": 23,
+          "Highly active": 11,
+          "Moderate": 14,
+          "Reserved": 20
+        }
+      }
+    },
+    "cloudWindows": {
+      "daysWithAtLeast40PointCloudContrast": 93,
+      "cloudierBlockHigher": 48,
+      "tiedBecauseOfCapsOrRounding": 45,
+      "cloudierBlockLower": 0,
+      "cloudierMinusClearerScore": {
+        "min": 0,
+        "p10": 0,
+        "median": 2,
+        "p90": 5,
+        "max": 8,
+        "mean": 2.11
+      },
+      "strongestObservedAdvantages": [
+        {
+          "date": "2024-12-30",
+          "cloudDifference": 83,
+          "scoreDifference": 8,
+          "cloudiestBlock": "15-18",
+          "clearestBlock": "12-15"
+        },
+        {
+          "date": "2022-01-02",
+          "cloudDifference": 65,
+          "scoreDifference": 6,
+          "cloudiestBlock": "15-18",
+          "clearestBlock": "12-15"
+        },
+        {
+          "date": "2023-01-04",
+          "cloudDifference": 100,
+          "scoreDifference": 6,
+          "cloudiestBlock": "15-18",
+          "clearestBlock": "09-12"
+        },
+        {
+          "date": "2023-02-06",
+          "cloudDifference": 100,
+          "scoreDifference": 6,
+          "cloudiestBlock": "11-15",
+          "clearestBlock": "08-11"
+        },
+        {
+          "date": "2023-02-19",
+          "cloudDifference": 99,
+          "scoreDifference": 6,
+          "cloudiestBlock": "08-11",
+          "clearestBlock": "15-19"
+        },
+        {
+          "date": "2024-02-17",
+          "cloudDifference": 95,
+          "scoreDifference": 6,
+          "cloudiestBlock": "08-11",
+          "clearestBlock": "15-19"
+        },
+        {
+          "date": "2024-02-27",
+          "cloudDifference": 98,
+          "scoreDifference": 6,
+          "cloudiestBlock": "15-19",
+          "clearestBlock": "08-11"
+        },
+        {
+          "date": "2026-01-07",
+          "cloudDifference": 97,
+          "scoreDifference": 6,
+          "cloudiestBlock": "09-12",
+          "clearestBlock": "15-18"
+        },
+        {
+          "date": "2021-12-26",
+          "cloudDifference": 74,
+          "scoreDifference": 5,
+          "cloudiestBlock": "15-18",
+          "clearestBlock": "09-12"
+        },
+        {
+          "date": "2023-01-10",
+          "cloudDifference": 67,
+          "scoreDifference": 5,
+          "cloudiestBlock": "15-18",
+          "clearestBlock": "12-15"
+        }
+      ]
+    },
+    "daysAtLeast60": 151,
+    "daysAtLeast80": 46,
+    "daysAtLeast90": 3,
+    "topActivityDays": [
+      {
+        "date": "2023-12-26",
+        "score": 92,
+        "label": "Highly active",
+        "waterTempF": 44.42,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2960,
+        "flowBand": "ideal",
+        "flowSignal": "rising",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2023-12-28",
+        "score": 92,
+        "label": "Highly active",
+        "waterTempF": 44.96,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2950,
+        "flowBand": "ideal",
+        "flowSignal": "stable",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2023-12-25",
+        "score": 91,
+        "label": "Highly active",
+        "waterTempF": 42.44,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2750,
+        "flowBand": "ideal",
+        "flowSignal": "stable",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2023-12-27",
+        "score": 89,
+        "label": "Highly active",
+        "waterTempF": 44.06,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2920,
+        "flowBand": "ideal",
+        "flowSignal": "stable",
+        "bestBlock": "15-18",
+        "spread": 4
+      },
+      {
+        "date": "2024-12-29",
+        "score": 88,
+        "label": "Highly active",
+        "waterTempF": 41.36,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2680,
+        "flowBand": "ideal",
+        "flowSignal": "sharp_rise",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2024-12-31",
+        "score": 88,
+        "label": "Highly active",
+        "waterTempF": 42.8,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 3800,
+        "flowBand": "high_fishable",
+        "flowSignal": "stable",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2024-02-26",
+        "score": 87,
+        "label": "Highly active",
+        "waterTempF": 44.78,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 4030,
+        "flowBand": "high_fishable",
+        "flowSignal": "rising",
+        "bestBlock": "11-15",
+        "spread": 4
+      },
+      {
+        "date": "2024-02-28",
+        "score": 87,
+        "label": "Highly active",
+        "waterTempF": 47.12,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 3730,
+        "flowBand": "high_fishable",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 1
+      },
+      {
+        "date": "2023-12-29",
+        "score": 87,
+        "label": "Highly active",
+        "waterTempF": 44.96,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 3300,
+        "flowBand": "high_fishable",
+        "flowSignal": "meaningful_rise",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2024-02-25",
+        "score": 87,
+        "label": "Highly active",
+        "waterTempF": 43.7,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 3800,
+        "flowBand": "high_fishable",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2025-12-28",
+        "score": 87,
+        "label": "Highly active",
+        "waterTempF": 41,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 2810,
+        "flowBand": "ideal",
+        "flowSignal": "sharp_rise",
+        "bestBlock": "09-12",
+        "spread": 0
+      },
+      {
+        "date": "2023-01-06",
+        "score": 86,
+        "label": "Highly active",
+        "waterTempF": 41,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 3580,
+        "flowBand": "high_fishable",
+        "flowSignal": "stable",
+        "bestBlock": "09-12",
+        "spread": 1
+      }
+    ],
+    "lowestActivityDays": [
+      {
+        "date": "2022-02-17",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 35.06,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 7420,
+        "flowBand": "blown_out",
+        "flowSignal": "sharp_rise",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-18",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 33.98,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 10800,
+        "flowBand": "blown_out",
+        "flowSignal": "sharp_rise",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-19",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 32.72,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 10200,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-20",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 32.9,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "cooling",
+        "flowCfs": 8400,
+        "flowBand": "blown_out",
+        "flowSignal": "falling",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-21",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 34.16,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 9230,
+        "flowBand": "blown_out",
+        "flowSignal": "rising",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-22",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 35.96,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 10200,
+        "flowBand": "blown_out",
+        "flowSignal": "rising",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-23",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 35.96,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "warming",
+        "flowCfs": 10600,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-24",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 34.7,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 10100,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-25",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 33.8,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "cooling",
+        "flowCfs": 9740,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-26",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 33.98,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 9320,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-27",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 34.34,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 8980,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      },
+      {
+        "date": "2022-02-28",
+        "score": 19,
+        "label": "Inactive",
+        "waterTempF": 35.42,
+        "temperatureSourceId": "st_joseph_niles_temperature",
+        "temperatureSignal": "neutral",
+        "flowCfs": 8580,
+        "flowBand": "blown_out",
+        "flowSignal": "stable",
+        "bestBlock": "08-11",
+        "spread": 0
+      }
+    ]
+  },
+  "hydraulicAudit": {
+    "thresholds": {
+      "rising24h": {
+        "absolute": 120,
+        "percent": 5
+      },
+      "meaningfulRise24h": {
+        "absolute": 240,
+        "percent": 11
+      },
+      "sharpRise24h": {
+        "absolute": 450,
+        "percent": 19
+      }
+    },
+    "positiveAbsoluteChangeCfs": {
+      "min": 10,
+      "p10": 30,
+      "median": 190,
+      "p90": 870,
+      "max": 3710,
+      "mean": 385.19
+    },
+    "positivePercentChange": {
+      "min": 0.26,
+      "p10": 0.99,
+      "median": 6.05,
+      "p90": 28.38,
+      "max": 100,
+      "mean": 11.02
+    },
+    "signals": {
+      "falling": 23,
+      "meaningful_rise": 15,
+      "rising": 36,
+      "sharp_rise": 21,
+      "stable": 237
+    }
+  },
+  "bestBlocks": {
+    "08-11": 132,
+    "09-12": 168,
+    "11-15": 8,
+    "12-15": 3,
+    "15-18": 9,
+    "15-19": 12
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 0,
+    "p90": 4,
+    "max": 8,
+    "mean": 0.87
+  },
+  "daysWithSpreadAtLeast10": 0,
+  "daysWithSpreadAtLeast20": 0,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0,
+    "winterNearFreezingCapBroken": 0,
+    "winterSub35CapBroken": 0,
+    "winterBlownOutCapBroken": 0,
+    "repeatSpawnerMortalityLanguage": 0,
+    "stageResponseShape": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 20,
+    "building": 40,
+    "ending": 10,
+    "peak": 20,
+    "tapering": 10
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2023-02-19",
+      "stage": "peak",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "waterTempF": 40.82,
+      "flowCfs": 3610,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -150,
+      "flowPercentChange24h": -3.99,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 8,
+      "bestBlock": "08-11",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Bright daylight provides limited cover.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 8 AM–11 AM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 8 AM–11 AM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2024-12-30",
+      "stage": "beginning",
+      "staging": false,
+      "score": 83,
+      "label": "Highly active",
+      "waterTempF": 42.08,
+      "flowCfs": 3830,
+      "flowBand": "high_fishable",
+      "flowSignal": "sharp_rise",
+      "flowAbsoluteChange24h": 1150,
+      "flowPercentChange24h": 42.91,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "warming",
+      "spread": 8,
+      "bestBlock": "15-18",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Bright daylight provides limited cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 83,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is highly active.",
+      "detail": "A gradual measured-water warm-up is favorable. The strongest daylight window is 3 PM–6 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–6 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2023-02-07",
+      "stage": "building",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 36.32,
+      "flowCfs": 2760,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -280,
+      "flowPercentChange24h": -9.21,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "warming",
+      "spread": 7,
+      "bestBlock": "08-11",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 22,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "A gradual measured-water warm-up is favorable. The strongest daylight window is 8 AM–11 AM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 8 AM–11 AM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2024-02-27",
+      "stage": "ending",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 46.4,
+      "flowCfs": 3790,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -240,
+      "flowPercentChange24h": -5.96,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "warming",
+      "spread": 7,
+      "bestBlock": "15-19",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Bright daylight provides limited cover.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is highly active.",
+      "detail": "A gradual measured-water warm-up is favorable. The strongest daylight window is 3 PM–7 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–7 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2026-01-12",
+      "stage": "building",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "waterTempF": 39.92,
+      "flowCfs": 3250,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -70,
+      "flowPercentChange24h": -2.11,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 7,
+      "bestBlock": "09-12",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Bright daylight provides limited cover.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 9 AM–12 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 9 AM–12 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2022-01-02",
+      "stage": "beginning",
+      "staging": false,
+      "score": 69,
+      "label": "Active",
+      "waterTempF": 38.48,
+      "flowCfs": 5550,
+      "flowBand": "very_high",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -90,
+      "flowPercentChange24h": -1.6,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 6,
+      "bestBlock": "15-18",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 75,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 3 PM–6 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–6 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2023-01-04",
+      "stage": "beginning",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 39.56,
+      "flowCfs": 3770,
+      "flowBand": "high_fishable",
+      "flowSignal": "meaningful_rise",
+      "flowAbsoluteChange24h": 590,
+      "flowPercentChange24h": 18.55,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "strong_warming",
+      "spread": 6,
+      "bestBlock": "15-18",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "A large measured-water temperature swing reduces confidence in a sustained response.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "A large measured-water temperature swing reduces confidence in a sustained response.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "A large measured-water temperature swing reduces confidence in a sustained response.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "The large measured-water swing is penalized. The strongest daylight window is 3 PM–6 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–6 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2023-02-06",
+      "stage": "building",
+      "staging": false,
+      "score": 60,
+      "label": "Active",
+      "waterTempF": 35.06,
+      "flowCfs": 3040,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -110,
+      "flowPercentChange24h": -3.49,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 6,
+      "bestBlock": "11-15",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The daylight window remains workable.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Cloud-filtered daylight improves presentation without relying on darkness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Cloud-filtered daylight improves presentation without relying on darkness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 11 AM–3 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 11 AM–3 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2024-02-17",
+      "stage": "peak",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": 38.12,
+      "flowCfs": 4440,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -250,
+      "flowPercentChange24h": -5.33,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "cooling",
+      "spread": 6,
+      "bestBlock": "08-11",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.01,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 72,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Cooling water reduces expected response. The strongest daylight window is 8 AM–11 AM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 8 AM–11 AM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2026-01-07",
+      "stage": "beginning",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 36.86,
+      "flowCfs": 3200,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": 90,
+      "flowPercentChange24h": 2.89,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "warming",
+      "spread": 6,
+      "bestBlock": "09-12",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 80,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "A gradual measured-water warming trend improves the response window.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "A gradual measured-water warm-up is favorable. The strongest daylight window is 9 AM–12 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 9 AM–12 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2026-02-27",
+      "stage": "ending",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 38.3,
+      "flowCfs": 3570,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -190,
+      "flowPercentChange24h": -5.05,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 6,
+      "bestBlock": "15-19",
+      "blocks": [
+        {
+          "id": "08-11",
+          "label": "8 AM–11 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "11-15",
+          "label": "11 AM–3 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 22,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-19",
+          "label": "3 PM–7 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 79,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 3 PM–7 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–7 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    },
+    {
+      "date": "2021-12-26",
+      "stage": "beginning",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "waterTempF": 39.02,
+      "flowCfs": 4910,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "flowAbsoluteChange24h": -40,
+      "flowPercentChange24h": -0.81,
+      "temperatureSourceId": "st_joseph_niles_temperature",
+      "temperatureSignal": "neutral",
+      "spread": 5,
+      "bestBlock": "15-18",
+      "blocks": [
+        {
+          "id": "09-12",
+          "label": "9 AM–12 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "12-15",
+          "label": "12 PM–3 PM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 85,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        },
+        {
+          "id": "15-18",
+          "label": "3 PM–6 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Measured water temperature supports winter responsiveness.",
+          "limitingFactor": "Winter response may still be brief and selective.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0,
+          "status": "upcoming",
+          "lockedAt": null
+        }
+      ],
+      "headline": "Today’s Winter Steelhead Activity is active.",
+      "detail": "Stable measured water avoids a swing penalty. The strongest daylight window is 3 PM–6 PM. Clouds shape the time-window ranking, but cannot override cold-water or hydraulic caps. Rain receives no independent positive score. Measured conditions describe the Niles mainstem and cannot be extrapolated to the harbor, each tailwater, South Bend, Mishawaka, or Twin Branch.",
+      "tip": "Start with 3 PM–6 PM in legal, depth-stable holding water. Verify ice, access, and safety directly; this is responsiveness for fish already present, not a new run or catch probability."
+    }
+  ]
+}

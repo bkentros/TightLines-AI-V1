@@ -1,11 +1,15 @@
-import { assertEquals, assertRejects } from "jsr:@std/assert";
+import { assertEquals, assertRejects, assertThrows } from "jsr:@std/assert";
 import {
   cityReportOnly,
+  createPierConditionsReportAccess,
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  readPierCastSavedReportV4,
+  temperatureMapOnly,
 } from "./reportAccess.ts";
 import type { PierCastReviewOutlookResponse } from "../_shared/pierCastEngine/index.ts";
+import { buildPierCastConditionsV4Outlook } from "../_shared/pierCastEngine/pipeline/conditionsV4.ts";
 
 function fixture() {
   const date = {
@@ -40,6 +44,7 @@ function fixture() {
       representationDecision: "blocked_insufficient_evidence",
       dates: [date],
       temperatureTimeline: [{ secret: "timeline" }],
+      temperatureEvents: { events: [{ secret: "thermal event" }] },
       additionalSpeciesResearch: [{ secret: "research" }],
     })),
   } as unknown as PierCastReviewOutlookResponse;
@@ -56,15 +61,46 @@ Deno.test("leaderboard and city projections cannot leak another city's report", 
     "ludington_mi",
   ]);
   assertEquals(report.cities[0].additionalSpeciesResearch, undefined);
+  assertEquals(report.cities[0].temperatureEvents?.events.length, 1);
 });
-Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
-  const claims = new Map<string, { report_key: string }>();
+Deno.test("temperature map exposes only coherent modeled timelines and provenance", () => {
+  const outlook = fixture();
+  outlook.source = {
+    status: "fresh_archived_complete_cycle",
+    productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+    issuedAt: "2026-09-25T06:00:00Z",
+    fetchedAt: "2026-09-25T08:00:00Z",
+    cycleAgeHours: 6,
+    cityCount: 2,
+    sampleCount: 4,
+  };
+  outlook.cities.forEach((city, cityIndex) => {
+    city.temperatureTimeline = [
+      { validAt: "2026-09-25T12:00:00Z", temperatureC: 12 + cityIndex },
+      { validAt: "2026-09-25T13:00:00Z", temperatureC: 13 + cityIndex },
+    ];
+  });
+  const projected = temperatureMapOnly(outlook);
+  assertEquals(projected.mode, "nearshore_temperature_map");
+  assertEquals(projected.source.productId, "NOAA_NOS_LMHOFS_REGULARGRID");
+  assertEquals(projected.cities.length, 2);
+  assertEquals(
+    projected.cities.every((city) => city.points.length === 2),
+    true,
+  );
+  assertEquals(JSON.stringify(projected).includes("secret"), false);
+
+  outlook.cities[1].temperatureTimeline?.pop();
+  assertThrows(() => temperatureMapOnly(outlook), Error, "complete coherent");
+});
+Deno.test("four lifetime city/day reports, refreshing conditions, upgrade, user isolation, no failed claim", async () => {
+  const claims = new Map<string, string[]>();
   let now = new Date("2026-09-13T15:00:00Z");
   let outlook: PierCastReviewOutlookResponse | null = fixture();
   let commits = 0;
   const read = createPierReportAccess({
     readOutlook: async () => outlook,
-    readPrior: async (user) => claims.get(user) ?? null,
+    readClaimKeys: async (user) => claims.get(user) ?? [],
     cityTimezone: (city) =>
       ["ludington_mi", "grand_haven_mi"].includes(city)
         ? "America/Detroit"
@@ -72,7 +108,7 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
     now: () => now,
     claim: async (user, key, report) => {
       commits++;
-      claims.set(user, { report_key: key });
+      claims.set(user, [...new Set([...(claims.get(user) ?? []), key])]);
       return report;
     },
   });
@@ -83,20 +119,11 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
       .generatedAt,
     outlook!.generatedAt,
   );
-  await assertRejects(
-    () => read("a", true, "grand_haven_mi"),
-    PierCastAccessError,
-    "Upgrade",
-  );
+  await read("a", true, "grand_haven_mi");
   await read("b", true, "grand_haven_mi");
   await read("a", false, "grand_haven_mi");
-  assertEquals(commits, 3);
+  assertEquals(commits, 4);
   now = new Date("2026-09-14T15:00:00Z");
-  await assertRejects(
-    () => read("a", true, "ludington_mi"),
-    PierCastAccessError,
-    "Upgrade",
-  );
   await assertRejects(
     () => read("c", true, "ludington_mi"),
     PierCastAccessError,
@@ -109,7 +136,99 @@ Deno.test("one lifetime city/day, refreshing conditions, upgrade, user isolation
     "not ready",
   );
   assertEquals(claims.has("c"), false);
-  assertEquals(commits, 3);
+  assertEquals(commits, 4);
+});
+
+Deno.test("v4 reports use the existing city/day entitlement and store a versioned envelope", async () => {
+  const legacySource = {
+    generatedAt: "2026-09-20T15:00:00Z",
+    source: {
+      status: "fresh_archived_complete_cycle" as const,
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID" as const,
+      issuedAt: "2026-09-20T12:00:00Z",
+      fetchedAt: "2026-09-20T12:10:00Z",
+      cycleAgeHours: 3,
+      cityCount: 1,
+      sampleCount: 2,
+    },
+    cities: [{
+      cityId: "grand_haven_mi" as const,
+      dates: [{ localDate: "2026-09-20" }],
+      temperatureTimeline: [
+        { validAt: "2026-09-20T15:00:00Z", temperatureC: 12 },
+        { validAt: "2026-09-20T16:00:00Z", temperatureC: 12.2 },
+      ],
+    }],
+  };
+  const outlook = buildPierCastConditionsV4Outlook(legacySource);
+  const claims = new Map<string, string[]>();
+  const committed: unknown[] = [];
+  const read = createPierConditionsReportAccess({
+    readOutlook: () => Promise.resolve(outlook),
+    readClaimKeys: (userId) => Promise.resolve(claims.get(userId) ?? []),
+    cityTimezone: (cityId) =>
+      cityId === "grand_haven_mi" ? "America/Detroit" : null,
+    now: () => new Date("2026-09-20T15:30:00Z"),
+    claim: (userId, key, envelope) => {
+      claims.set(userId, [...new Set([...(claims.get(userId) ?? []), key])]);
+      committed.push(envelope);
+      return Promise.resolve(envelope);
+    },
+  });
+  const first = await read(
+    "user-a",
+    true,
+    "grand_haven_mi",
+    "chinook_salmon",
+  ) as {
+    envelopeVersion: string;
+    reportKey: string;
+    report: { species: unknown[] };
+  };
+  assertEquals(first.envelopeVersion, "piercast-saved-report-v4");
+  assertEquals(first.reportKey, "grand_haven_mi:2026-09-20");
+  assertEquals(first.report.species.length, 14);
+  await read("user-a", true, "grand_haven_mi", "coho_salmon");
+  await assertRejects(
+    () => read("user-a", true, "grand_haven_mi", "atlantic_salmon"),
+    PierCastAccessError,
+    "species",
+  );
+  assertEquals(claims.get("user-a"), ["grand_haven_mi:2026-09-20"]);
+  assertEquals(committed.length, 2);
+});
+
+Deno.test("saved v4 reads never fabricate conditions from incomplete legacy reports", () => {
+  const archived = readPierCastSavedReportV4(
+    { formulaVersion: "seasonal-opportunity-bounded-temperature-v2" },
+    "chinook_salmon",
+  );
+  assertEquals(archived.status, "archived_legacy");
+  if (archived.status === "archived_legacy") {
+    assertEquals(archived.refreshAvailable, true);
+  }
+  assertEquals(readPierCastSavedReportV4(null, null), {
+    status: "empty",
+    envelope: null,
+  });
+});
+
+Deno.test("fifth distinct city/date is blocked; one of four saved reports can refresh", async () => {
+  const claims = new Map<string, string[]>([["a", [
+    "ludington_mi:2026-09-10", "ludington_mi:2026-09-11",
+    "ludington_mi:2026-09-12", "ludington_mi:2026-09-13",
+  ]]]);
+  let commits = 0;
+  const read = createPierReportAccess({
+    readOutlook: async () => fixture(),
+    readClaimKeys: async user => claims.get(user) ?? [],
+    cityTimezone: () => "America/Detroit",
+    now: () => new Date("2026-09-13T15:00:00Z"),
+    claim: async (_user, _key, report) => { commits++; return report; },
+  });
+  await read("a", true, "ludington_mi");
+  await assertRejects(() => read("a", true, "grand_haven_mi"), PierCastAccessError, "Upgrade");
+  assertEquals(commits, 1);
 });
 
 Deno.test("public research authorization is exact-roster and does not claim scientific validation", async () => {
@@ -123,8 +242,15 @@ Deno.test("public research authorization is exact-roster and does not claim scie
   assertEquals(isPierCastResearchRoster("manistee_mi", publicResearchSpecies("ludington_mi")), false);
   const catalog = buildPierCastCatalog("public");
   assertEquals(catalog.disclosure, PIER_CAST_RESEARCH_DISCLOSURE);
-  assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4]);
-  assertEquals(catalog.cities.every(c => c.releaseStatus === "public_research" && c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
+  assertEquals(catalog.cities.map(c => c.species.length), [6,6,8,4,4,0,0,0,0,0,0,0]);
+  assertEquals(catalog.cities.filter(c => c.releaseStatus === "public_research").length, 5);
+  assertEquals(catalog.cities.filter(c => c.releaseStatus === "research_only").length, 7);
+  const v3Catalog = buildPierCastCatalog("public", "v3");
+  assertEquals(v3Catalog.cities.length, 32);
+  assertEquals(v3Catalog.cities.every(c => c.releaseStatus === "public_research"), true);
+  assertEquals(v3Catalog.cities.every(c => c.species.length > 0), true);
+  assertEquals(v3Catalog.formulaVersion, "piercast-opportunity-modes-bounded-temperature-v3");
+  assertEquals(catalog.cities.every(c => c.waterTemperatureSource?.calibrationStatus === "provisional"), true);
 });
 
 Deno.test("research launch preserves known earlier daily snapshots without accepting arbitrary partial rosters", async () => {

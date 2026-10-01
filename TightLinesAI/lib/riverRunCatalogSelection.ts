@@ -82,13 +82,11 @@ function mergeWithPresentation(
   return [
     ...presentationChoices.map((choice) => {
       const supported = supportedById.get(choice.id);
-      return supported
-        ? { ...supported, label: choice.label }
-        : {
-          ...choice,
-          subtitle: COMING_LATER_SUBTITLE,
-          disabled: true,
-        };
+      return supported ? { ...supported, label: choice.label } : {
+        ...choice,
+        subtitle: COMING_LATER_SUBTITLE,
+        disabled: true,
+      };
     }),
     ...supportedChoices.filter((choice) => !presentedIds.has(choice.id)),
   ];
@@ -198,7 +196,12 @@ export function riverRunRiverChoices(
   const futureChoices = MICHIGAN_RIVER_PRESENTATION.filter((river) =>
     futureRiverIds.includes(river.id)
   );
-  return mergeWithPresentation(supportedChoices, futureChoices);
+  const mergedChoices = mergeWithPresentation(supportedChoices, futureChoices);
+  const auSable = mergedChoices.find((choice) => choice.id === "au_sable");
+  return [
+    ...mergedChoices.filter((choice) => choice.id !== "au_sable"),
+    ...(auSable ? [auSable] : []),
+  ];
 }
 
 export function resolveRiverRunTarget(

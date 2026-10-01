@@ -129,11 +129,11 @@ Deno.test("state presentation contexts require unique states and regulation copy
 Deno.test("PM configuration document binds both implemented fall movement branches", () => {
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.movementEngineVersion,
-    "fall-cooling-v2+fall-entry-cooling-v1",
+    "fall-cooling-v2+fall-entry-cooling-v1+stable-cool-holding-v1",
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-09-03-pm-direct-push-v1+seasonal-zone-v3",
+    "2026-09-25-pm-direct-push-v1+seasonal-zone-v3+winter-steelhead-pass2-v1",
   );
 });
 

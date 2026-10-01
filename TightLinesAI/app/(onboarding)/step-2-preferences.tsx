@@ -1,9 +1,20 @@
 /**
- * Onboarding profile setup.
+ * Onboarding profile setup — "Find your home water".
+ *
  * Username format validates on-device; availability uses is_username_available RPC.
+ *
+ * Visual language (Sept 2026 redesign): this screen now speaks the same
+ * dialect as the Home dashboard instead of a standalone dark hero —
+ *   - Cream canvas + mono eyebrow + big Fraunces headline with the graphite
+ *     misty-pines sketch, mirroring Home's "Today looks prime." band.
+ *   - The form lives inside a white "live card" (blue-tint header strip,
+ *     corner marks, topo lines, slow scan line) — the header previews the
+ *     user's location label and handle as they fill it in.
+ *   - A faint 6-day forecast strip teases what unlocks once a state is set.
+ * Behavior (validation, availability check, Find Me, save) is unchanged.
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -23,8 +34,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { paper, paperFonts, paperSpacing } from '../../lib/theme';
-import { PaperNavHeader, TopographicLines } from '../../components/paper';
+import {
+  dashboardBandColor,
+  paper,
+  paperFonts,
+  paperShadows,
+  paperSpacing,
+} from '../../lib/theme';
+import {
+  CornerMarkSet,
+  PaperNavHeader,
+  TopographicLines,
+} from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -78,6 +99,30 @@ const STATE_NAME_TO_ABBR: Record<string, string> = {
   Wyoming: 'WY',
 };
 
+const STATE_ABBR_TO_NAME: Record<string, string> = Object.fromEntries(
+  Object.entries(STATE_NAME_TO_ABBR).map(([name, abbr]) => [abbr, name]),
+);
+
+/** Decorative band tints for the forecast teaser (no real scores shown). */
+const TEASER_BANDS = [
+  paper.bandFair,
+  paper.bandGood,
+  paper.bandPrime,
+  paper.bandGood,
+  paper.bandPoor,
+  paper.bandPrime,
+];
+
+const DAY_ABBR = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+function greetingForHour(hour: number): string {
+  if (hour < 5) return 'LATE NIGHT';
+  if (hour < 12) return 'GOOD MORNING';
+  if (hour < 17) return 'GOOD AFTERNOON';
+  if (hour < 21) return 'GOOD EVENING';
+  return 'LATE NIGHT';
+}
+
 export default function OnboardingStep2() {
   const router = useRouter();
   const { session, user, setProfile, clearOnboardingPrefs, signOut } = useAuthStore();
@@ -92,13 +137,13 @@ export default function OnboardingStep2() {
   const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
     useAuthScrollLayout('form', 56);
 
-  // Live pulse on the hero eyebrow dot — shared paper-system anatomy.
+  // Live pulse on the card header dot — same rhythm as Home's LIVE pill.
   const livePulse = useRef(new Animated.Value(1)).current;
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
         Animated.timing(livePulse, {
-          toValue: 0.4,
+          toValue: 0.35,
           duration: 1000,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
@@ -115,43 +160,28 @@ export default function OnboardingStep2() {
     return () => loop.stop();
   }, [livePulse]);
 
-  // Slow premium light sheen sweeping across the hero cover.
-  const heroSheen = useRef(new Animated.Value(0)).current;
-  const heroOrbit = useRef(new Animated.Value(0)).current;
+  // Slow scan line across the setup card — borrowed from Home's live card.
+  const [cardHeight, setCardHeight] = useState(0);
+  const scanY = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(heroSheen, {
-          toValue: 0,
-          duration: 0,
-          useNativeDriver: true,
-        }),
-        Animated.delay(1400),
-        Animated.timing(heroSheen, {
+        Animated.timing(scanY, {
           toValue: 1,
-          duration: 1500,
+          duration: 5200,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
-        Animated.delay(3400),
+        Animated.delay(2400),
+        Animated.timing(scanY, { toValue: 0, duration: 0, useNativeDriver: true }),
       ]),
     );
     loop.start();
     return () => loop.stop();
-  }, [heroSheen]);
+  }, [scanY]);
 
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.timing(heroOrbit, {
-        toValue: 1,
-        duration: 14000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [heroOrbit]);
+  // Forecast teaser fades from neutral to band tints once a state is set.
+  const teaserReveal = useRef(new Animated.Value(0)).current;
 
   // Real-time username availability — debounced supabase check that
   // tells the user immediately if the handle they typed is already
@@ -416,6 +446,49 @@ export default function OnboardingStep2() {
   const completionFraction =
     (usernameFieldGood ? 0.5 : 0) + (homeState ? 0.5 : 0);
 
+  useEffect(() => {
+    Animated.timing(teaserReveal, {
+      toValue: homeState ? 1 : 0,
+      duration: 650,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  }, [homeState, teaserReveal]);
+
+  const now = useMemo(() => new Date(), []);
+  const hhmm = `${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+  const greeting = greetingForHour(now.getHours());
+
+  const teaserDays = useMemo(
+    () =>
+      Array.from({ length: 6 }, (_, i) => {
+        const d = new Date(now);
+        d.setDate(now.getDate() + i);
+        return { key: i, day: DAY_ABBR[d.getDay()], date: d.getDate() };
+      }),
+    [now],
+  );
+
+  const handleReady = usernameFieldGood;
+  const stateReady = !!homeState;
+  const allReady = completionFraction === 1;
+
+  const previewPlace = homeState
+    ? homeCity.trim() && homeCityVerified
+      ? `${homeCity.trim()}, ${homeState}`
+      : STATE_ABBR_TO_NAME[homeState] ?? homeState
+    : null;
+  const previewHandle = trimmedUsernamePreview.length > 0 ? `@${trimmedUsernamePreview}` : 'NEW ANGLER';
+
+  const ctaDisabled =
+    loading ||
+    usernameAvailability === 'checking' ||
+    usernameAvailability === 'taken' ||
+    usernameFieldInvalidChars ||
+    !homeState;
+
+  const readyBand = dashboardBandColor.Prime;
+
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.flex}>
@@ -423,7 +496,7 @@ export default function OnboardingStep2() {
           eyebrow="FINFINDR · ONBOARDING"
           title="YOUR PROFILE"
           onBack={handleBack}
-          right={<StepPill step={1} total={1} />}
+          right={<SetupPill />}
         />
         <KeyboardAvoidingView
           style={styles.flex}
@@ -437,287 +510,282 @@ export default function OnboardingStep2() {
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
           >
-            <View style={styles.heroPanel}>
-              <View pointerEvents="none" style={styles.heroWaterContours}>
-                <View style={[styles.heroWaterContour, styles.heroWaterContourOne]} />
-                <View style={[styles.heroWaterContour, styles.heroWaterContourTwo]} />
-                <View style={[styles.heroWaterContour, styles.heroWaterContourThree]} />
+            {/* ─── Headline band (mirrors Home) ─────────────────────────── */}
+            <View style={styles.headlineBand}>
+              <View pointerEvents="none" style={styles.headlinePines}>
+                <Image
+                  source={require('../../assets/images/misty-pines.png')}
+                  style={styles.headlinePinesImage}
+                  resizeMode="contain"
+                />
               </View>
-              <TopographicLines
-                style={styles.heroTopo}
-                color={paper.dashboardInk}
-                count={5}
-              />
-              <Animated.View
-                pointerEvents="none"
-                style={[
-                  styles.heroSheen,
-                  {
-                    opacity: heroSheen.interpolate({
-                      inputRange: [0, 0.12, 0.88, 1],
-                      outputRange: [0, 0.16, 0.16, 0],
-                    }),
-                    transform: [
-                      {
-                        translateX: heroSheen.interpolate({
-                          inputRange: [0, 1],
-                          outputRange: [-140, 520],
-                        }),
-                      },
-                      { skewX: '-18deg' },
-                    ],
-                  },
-                ]}
-              />
-
-              <View style={styles.heroTopRow}>
-                <View style={styles.heroLogoStage}>
-                  <Animated.View
-                    style={[
-                      styles.heroLogoOrbit,
-                      {
-                        transform: [{
-                          rotate: heroOrbit.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: ['0deg', '360deg'],
-                          }),
-                        }],
-                      },
-                    ]}
-                  >
-                    <View style={[styles.heroLogoSpark, styles.heroLogoSparkTop]} />
-                    <View style={[styles.heroLogoSpark, styles.heroLogoSparkBottom]} />
-                  </Animated.View>
-                  <Image
-                    source={require('../../assets/images/finfindr-dashboard-logo-transparent.png')}
-                    style={styles.heroLogo}
-                    resizeMode="contain"
-                  />
-                </View>
-                <View style={styles.heroWelcomePill}>
-                  <View style={styles.heroPulseWrap}>
-                    <View style={styles.heroPulseRing} />
-                    <Animated.View
-                      style={[styles.heroPulseDot, { opacity: livePulse }]}
-                    />
-                  </View>
-                  <Text style={styles.heroWelcomeText}>WELCOME ABOARD</Text>
-                </View>
-              </View>
-
-              <Text style={styles.heroTitle} allowFontScaling={false}>
-                Let&apos;s find your{`\n`}
-                <Text style={styles.heroTitleAccent}>home water.</Text>
+              <Text style={styles.headlineEyebrow}>
+                {hhmm} · {greeting}, ANGLER
               </Text>
-              <Text style={styles.heroLede}>
-                Tell us where you fish and what to call you. FinFindr will open tuned to your local conditions.
+              <Text style={styles.headlineTitle} allowFontScaling={false}>
+                Let&apos;s find your
               </Text>
-
-              <View style={styles.heroBenefitsRow}>
-                <HeroBenefit icon="navigate-outline" label="LOCAL READS" />
-                <HeroBenefit icon="book-outline" label="YOUR LOG" />
-                <HeroBenefit icon="sparkles-outline" label="READY TO FISH" />
-              </View>
+              <Text style={styles.headlineTitleItalic} allowFontScaling={false}>
+                home water<Text style={styles.headlineDot}>.</Text>
+              </Text>
+              <Text style={styles.headlineLede}>
+                Two quick details and FinFindr opens tuned to the water you fish most.
+              </Text>
             </View>
 
-            <View style={styles.setupCard}>
+            {/* ─── Setup card (live-card anatomy) ───────────────────────── */}
+            <View
+              style={styles.card}
+              onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}
+            >
               <TopographicLines
-                style={styles.setupTopo}
+                style={StyleSheet.absoluteFill}
                 color={paper.dashboardBlue}
-                count={3}
+                count={4}
               />
-              <View style={styles.setupAccentRail} />
-              <View style={styles.setupIntro}>
-                <Text style={styles.setupEyebrow}>MAKE FINFINDR YOURS</Text>
-                <Text style={styles.setupTitle}>Two quick details.</Text>
-                <Text style={styles.setupIntroCopy}>
-                  You can update both later from your account.
-                </Text>
-                <View style={styles.setupMap}>
-                  <View style={[styles.setupMapItem, usernameFieldGood && styles.setupMapItemDone]}>
-                    <Text style={styles.setupMapLabel}>HANDLE</Text>
-                    <View style={styles.setupMapStatusRow}>
-                      <View style={[styles.setupMapDot, usernameFieldGood && styles.setupMapDotDone]} />
-                      <Text style={[styles.setupMapMeta, usernameFieldGood && styles.setupMapMetaDone]}>
-                        {usernameFieldGood ? 'READY' : 'REQUIRED'}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={[styles.setupMapItem, !!homeState && styles.setupMapItemDone]}>
-                    <Text style={styles.setupMapLabel}>STATE</Text>
-                    <View style={styles.setupMapStatusRow}>
-                      <View style={[styles.setupMapDot, !!homeState && styles.setupMapDotDone]} />
-                      <Text style={[styles.setupMapMeta, !!homeState && styles.setupMapMetaDone]}>
-                        {homeState ? 'READY' : 'REQUIRED'}
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={[styles.setupMapItem, homeCityVerified && styles.setupMapItemOptional]}>
-                    <Text style={styles.setupMapLabel}>CITY · OPT.</Text>
-                    <View style={styles.setupMapStatusRow}>
-                      <View style={[styles.setupMapDot, homeCityVerified && styles.setupMapDotOptional]} />
-                      <Text style={styles.setupMapMeta}>
-                        {homeCityVerified ? 'VERIFIED' : 'OPTIONAL'}
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              <SetupPanel
-                number="01"
-                icon="at-outline"
-                label="CHOOSE YOUR HANDLE"
-                hint="The name shown on your fishing logs and account."
-              >
-              <View
-                style={[
-                  styles.usernameField,
-                  usernameFieldBad && styles.inputError,
-                  usernameFieldGood && styles.inputSuccess,
-                ]}
-              >
-                <Text
+              <CornerMarkSet
+                color={paper.dashboardBlue}
+                size={10}
+                thickness={1.1}
+                inset={7}
+              />
+              {cardHeight > 0 && (
+                <Animated.View
+                  pointerEvents="none"
                   style={[
-                    styles.usernameAt,
-                    usernameFieldGood && { color: paper.bandPrime },
-                    usernameFieldBad && { color: paper.bandTough },
+                    styles.scanLine,
+                    {
+                      transform: [
+                        {
+                          translateY: scanY.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [-50, cardHeight + 50],
+                          }),
+                        },
+                      ],
+                    },
                   ]}
-                >
-                  @
-                </Text>
-                <TextInput
-                  style={styles.usernameInput}
-                  value={username}
-                  onChangeText={setUsername}
-                  placeholder="yourhandle"
-                  placeholderTextColor={paper.dashboardInk + '4D'}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  autoComplete="username-new"
-                  returnKeyType="next"
-                  maxLength={30}
                 />
-                <View style={styles.usernameStatusSlot}>
-                  {usernameAvailability === 'checking' && usernameFormatOk ? (
-                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                  ) : usernameAvailability === 'available' ? (
-                    <Ionicons name="checkmark-circle" size={20} color={paper.bandPrime} />
-                  ) : usernameAvailability === 'taken' || usernameFieldInvalidChars ? (
-                    <Ionicons name="close-circle" size={20} color={paper.bandTough} />
-                  ) : null}
+              )}
+
+              {/* Header strip — live preview of what Home will show */}
+              <View style={styles.cardHeader}>
+                <View style={styles.cardHeaderLeft}>
+                  <Animated.View
+                    style={[
+                      styles.cardHeaderDot,
+                      {
+                        opacity: livePulse,
+                        backgroundColor: allReady ? paper.bandPrime : paper.bandFair,
+                      },
+                    ]}
+                  />
+                  <Text style={styles.cardHeaderLabel} numberOfLines={1}>
+                    {allReady ? 'LIVE' : 'SETTING UP'} ·{' '}
+                    {(previewPlace ?? 'Your home water').toUpperCase()}
+                  </Text>
                 </View>
+                <Text
+                  style={[styles.cardHeaderHandle, handleReady && styles.cardHeaderHandleReady]}
+                  numberOfLines={1}
+                >
+                  {previewHandle}
+                </Text>
               </View>
-              {usernameFieldInvalidChars && (
-                <Text style={styles.errorText}>
-                  Only letters, numbers, and underscores.
-                </Text>
-              )}
-              {!usernameFieldInvalidChars &&
-                usernameAvailability === 'taken' && (
-                  <Text style={styles.errorText}>
-                    Already taken — try another handle.
-                  </Text>
-                )}
-              {!usernameFieldInvalidChars &&
-                usernameAvailability === 'checking' &&
-                usernameFormatOk && (
-                  <Text style={styles.checkingText}>
-                    Checking availability…
-                  </Text>
-                )}
-              {usernameFieldGood && (
-                <Text style={styles.successText}>
-                  Available — we&apos;ll claim it when you finish.
-                </Text>
-              )}
-              </SetupPanel>
 
-              <View style={styles.setupDivider} />
+              <View style={styles.cardBody}>
+                {/* ── 01 · Handle ─────────────────────────────────────── */}
+                <Station
+                  number="01"
+                  title="Your handle"
+                  hint="Shown on your fishing log and account."
+                  status={handleReady ? 'ready' : 'required'}
+                >
+                  <View
+                    style={[
+                      styles.field,
+                      usernameFieldBad && styles.fieldError,
+                      usernameFieldGood && styles.fieldSuccess,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.usernameAt,
+                        usernameFieldGood && { color: paper.bandPrime },
+                        usernameFieldBad && { color: paper.bandTough },
+                      ]}
+                    >
+                      @
+                    </Text>
+                    <TextInput
+                      style={styles.fieldInput}
+                      value={username}
+                      onChangeText={setUsername}
+                      placeholder="yourhandle"
+                      placeholderTextColor={paper.dashboardInk + '55'}
+                      selectionColor={paper.dashboardBlue}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      autoComplete="username-new"
+                      returnKeyType="next"
+                      maxLength={30}
+                    />
+                    <View style={styles.usernameStatusSlot}>
+                      {usernameAvailability === 'checking' && usernameFormatOk ? (
+                        <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                      ) : usernameAvailability === 'available' ? (
+                        <Ionicons name="checkmark-circle" size={20} color={paper.bandPrime} />
+                      ) : usernameAvailability === 'taken' || usernameFieldInvalidChars ? (
+                        <Ionicons name="close-circle" size={20} color={paper.bandTough} />
+                      ) : null}
+                    </View>
+                  </View>
+                  {usernameFieldInvalidChars && (
+                    <Text style={styles.errorText}>
+                      Only letters, numbers, and underscores.
+                    </Text>
+                  )}
+                  {!usernameFieldInvalidChars && usernameAvailability === 'taken' && (
+                    <Text style={styles.errorText}>
+                      Already taken — try another handle.
+                    </Text>
+                  )}
+                  {!usernameFieldInvalidChars &&
+                    usernameAvailability === 'checking' &&
+                    usernameFormatOk && (
+                      <Text style={styles.checkingText}>Checking availability…</Text>
+                    )}
+                  {usernameFieldGood && (
+                    <Text style={styles.successText}>
+                      Available — we&apos;ll claim it when you finish.
+                    </Text>
+                  )}
+                </Station>
 
-              <SetupPanel
-                number="02"
-                icon="location-outline"
-                label="SET YOUR HOME WATER"
-                hint="Your state sets the region. A city makes your first local read even more precise."
-                action={
+                <View style={styles.dashedDivider} />
+
+                {/* ── 02 · Home water ─────────────────────────────────── */}
+                <Station
+                  number="02"
+                  title="Home water"
+                  hint="Your state sets the region. A city sharpens your first local read."
+                  status={stateReady ? 'ready' : 'required'}
+                >
                   <Pressable
                     style={({ pressed }) => [
-                      styles.locAutoBtn,
-                      pressed && styles.locAutoBtnPressed,
+                      styles.findMe,
+                      pressed && styles.findMePressed,
                       locationLoading && styles.btnDisabled,
                     ]}
                     onPress={autoFillLocation}
                     disabled={locationLoading}
                   >
-                    {locationLoading ? (
-                      <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                    ) : (
-                      <Ionicons name="navigate-outline" size={13} color={paper.dashboardBlue} />
-                    )}
-                    <Text style={styles.locAutoBtnText}>
-                      {locationLoading ? 'FINDING...' : 'FIND ME'}
-                    </Text>
+                    <View style={styles.findMeIcon}>
+                      {locationLoading ? (
+                        <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                      ) : (
+                        <Ionicons name="navigate" size={14} color={paper.dashboardBlue} />
+                      )}
+                    </View>
+                    <View style={styles.findMeCopy}>
+                      <Text style={styles.findMeTitle}>
+                        {locationLoading ? 'Finding you…' : 'Use my location'}
+                      </Text>
+                      <Text style={styles.findMeSub}>Fills state and city in one tap</Text>
+                    </View>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={14}
+                      color={paper.dashboardInk}
+                      style={{ opacity: 0.45 }}
+                    />
                   </Pressable>
-                }
-              >
-              <View style={styles.locationFieldsRow}>
-                <View style={styles.locationFieldState}>
-                  <Text style={styles.miniFieldLabel}>STATE · REQUIRED</Text>
+
+                  <View style={styles.orRow}>
+                    <View style={styles.orRule} />
+                    <Text style={styles.orText}>OR CHOOSE</Text>
+                    <View style={styles.orRule} />
+                  </View>
+
+                  <Text style={styles.miniFieldLabel}>STATE</Text>
                   <Pressable
-                    style={styles.statePicker}
+                    style={[
+                      styles.field,
+                      styles.statePicker,
+                      showStateList && styles.fieldFocused,
+                      stateReady && !showStateList && styles.fieldSuccess,
+                    ]}
                     onPress={() => {
                       hapticSelection();
                       setShowStateList((v) => !v);
                     }}
                   >
-                    <Text
-                      style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
-                    >
-                      {homeState || 'State'}
-                    </Text>
+                    {homeState ? (
+                      <View style={styles.statePickerValue}>
+                        <View style={styles.stateBadge}>
+                          <Text style={styles.stateBadgeText}>{homeState}</Text>
+                        </View>
+                        <Text style={styles.statePickerText}>
+                          {STATE_ABBR_TO_NAME[homeState] ?? homeState}
+                        </Text>
+                      </View>
+                    ) : (
+                      <Text style={[styles.statePickerText, styles.statePickerPlaceholder]}>
+                        Select a state
+                      </Text>
+                    )}
                     <Ionicons
                       name={showStateList ? 'chevron-up' : 'chevron-down'}
                       size={16}
                       color={paper.dashboardInk}
+                      style={{ opacity: 0.6 }}
                     />
                   </Pressable>
+
                   {showStateList && (
-                    <View style={styles.stateList}>
+                    <View style={styles.stateGridWrap}>
                       <ScrollView
                         style={styles.stateScroll}
+                        contentContainerStyle={styles.stateGrid}
                         nestedScrollEnabled
                         showsVerticalScrollIndicator={false}
                       >
-                        {US_STATES.map((state) => (
-                          <Pressable
-                            key={state}
-                            style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
-                            onPress={() => {
-                              hapticSelection();
-                              setHomeState(state);
-                              setHomeCity('');
-                              setHomeCityVerified(false);
-                              setShowStateList(false);
-                            }}
-                          >
-                            <Text
-                              style={[
-                                styles.stateOptionText,
-                                homeState === state && styles.stateOptionTextActive,
+                        {US_STATES.map((state) => {
+                          const active = homeState === state;
+                          return (
+                            <Pressable
+                              key={state}
+                              style={({ pressed }) => [
+                                styles.stateChip,
+                                active && styles.stateChipActive,
+                                pressed && !active && styles.stateChipPressed,
                               ]}
+                              onPress={() => {
+                                hapticSelection();
+                                setHomeState(state);
+                                setHomeCity('');
+                                setHomeCityVerified(false);
+                                setShowStateList(false);
+                              }}
                             >
-                              {state}
-                            </Text>
-                          </Pressable>
-                        ))}
+                              <Text
+                                style={[styles.stateChipText, active && styles.stateChipTextActive]}
+                              >
+                                {state}
+                              </Text>
+                            </Pressable>
+                          );
+                        })}
                       </ScrollView>
                     </View>
                   )}
-                </View>
 
-                <View style={styles.locationFieldCity}>
-                  <Text style={styles.miniFieldLabel}>CITY · OPTIONAL</Text>
+                  <View style={styles.cityLabelRow}>
+                    <Text style={styles.miniFieldLabel}>CITY</Text>
+                    <Text style={styles.miniFieldOptional}>
+                      {homeCityVerified ? 'VERIFIED' : 'OPTIONAL'}
+                    </Text>
+                  </View>
                   <VerifiedCityInput
                     value={homeCity}
                     stateCode={homeState}
@@ -731,83 +799,91 @@ export default function OnboardingStep2() {
                       setHomeState(stateCode);
                       setHomeCityVerified(true);
                     }}
-                    placeholder={homeState ? `Search in ${homeState}` : 'Search for a city'}
+                    placeholder={homeState ? `Search cities in ${homeState}` : 'Search for a city'}
                   />
-                </View>
+                </Station>
               </View>
-
-              </SetupPanel>
             </View>
 
-            {/* Single-page setup meter — fills as required details are entered. */}
-            <View style={styles.meter}>
-              <View style={styles.meterRow}>
-                <Text style={styles.meterLabel}>
-                  {completionFraction === 1 ? 'PROFILE READY' : 'REQUIRED DETAILS'}
-                </Text>
-                <Text
-                  style={[
-                    styles.meterCount,
-                    completionFraction === 1 && styles.meterCountReady,
-                  ]}
-                >
-                  {Math.round(completionFraction * 2)} / 2 READY
+            {/* ─── Forecast teaser ──────────────────────────────────────── */}
+            <View style={styles.teaser}>
+              <View style={styles.teaserHeader}>
+                <View style={styles.teaserEyebrowRow}>
+                  <View style={styles.teaserEyebrowRule} />
+                  <Text style={styles.teaserEyebrow}>YOUR 6-DAY BITE FORECAST</Text>
+                </View>
+                <Text style={[styles.teaserMeta, stateReady && styles.teaserMetaReady]}>
+                  {stateReady ? `UNLOCKS FOR ${homeState}` : 'AWAITS HOME WATER'}
                 </Text>
               </View>
-              <View style={styles.meterTrack}>
-                <View
-                  style={[
-                    styles.meterFill,
-                    {
-                      width: `${Math.round(completionFraction * 100)}%`,
-                      backgroundColor:
-                        completionFraction === 1
-                          ? paper.bandPrime
-                          : paper.dashboardBlue,
-                    },
-                  ]}
-                />
+              <View style={styles.teaserRow}>
+                {teaserDays.map((d, i) => (
+                  <View key={d.key} style={styles.teaserTile}>
+                    <View style={styles.teaserTileTop}>
+                      <Text style={styles.teaserDay}>{d.day}</Text>
+                      <Text style={styles.teaserDate}>{d.date}</Text>
+                    </View>
+                    <View style={styles.teaserTileBottom}>
+                      <Animated.View
+                        pointerEvents="none"
+                        style={[
+                          StyleSheet.absoluteFill,
+                          {
+                            backgroundColor: TEASER_BANDS[i],
+                            opacity: teaserReveal.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [0, 0.42],
+                            }),
+                          },
+                        ]}
+                      />
+                      <Text style={styles.teaserScore}>–.–</Text>
+                    </View>
+                  </View>
+                ))}
               </View>
+            </View>
+
+            {/* ─── Progress + CTA ───────────────────────────────────────── */}
+            <View style={styles.progressRow}>
+              <View style={styles.progressSegments}>
+                <View style={[styles.progressSeg, handleReady && styles.progressSegDone]} />
+                <View style={[styles.progressSeg, stateReady && styles.progressSegDone]} />
+              </View>
+              <Text style={[styles.progressText, allReady && { color: readyBand.verdictColor }]}>
+                {allReady ? 'PROFILE READY' : `${Math.round(completionFraction * 2)} OF 2 READY`}
+              </Text>
             </View>
 
             <Pressable
               style={({ pressed }) => [
                 styles.cta,
-                completionFraction === 1 && styles.ctaReady,
+                allReady && styles.ctaReady,
                 pressed && styles.ctaPressed,
-                (loading ||
-                  usernameAvailability === 'checking' ||
-                  usernameAvailability === 'taken' ||
-                  usernameFieldInvalidChars ||
-                  !homeState) &&
-                  styles.btnDisabled,
+                ctaDisabled && styles.btnDisabled,
               ]}
               onPress={handleContinue}
-              disabled={
-                loading ||
-                usernameAvailability === 'checking' ||
-                usernameAvailability === 'taken' ||
-                usernameFieldInvalidChars ||
-                !homeState
-              }
+              disabled={ctaDisabled}
             >
               {loading ? (
                 <ActivityIndicator color={paper.dashboardCream} />
               ) : (
                 <>
-                  <Text style={styles.ctaText}>FINISH SETUP</Text>
-                  <Ionicons
-                    name="arrow-forward"
-                    size={16}
-                    color={paper.dashboardCream}
-                  />
+                  <Text style={styles.ctaText}>
+                    {allReady ? 'OPEN MY DASHBOARD' : 'FINISH SETUP'}
+                  </Text>
+                  <View style={styles.ctaArrow}>
+                    <Ionicons name="arrow-forward" size={13} color={paper.dashboardCream} />
+                  </View>
                 </>
               )}
             </Pressable>
 
             <View style={styles.privacyNote}>
-              <Ionicons name="shield-checkmark-outline" size={13} color={paper.dashboardMuted} />
-              <Text style={styles.footnote}>YOUR LOCATION STAYS PRIVATE</Text>
+              <Ionicons name="lock-closed-outline" size={11} color={paper.dashboardMuted} />
+              <Text style={styles.footnote}>
+                Your location stays private. Change both anytime in Settings.
+              </Text>
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
@@ -816,65 +892,66 @@ export default function OnboardingStep2() {
   );
 }
 
-function HeroBenefit({
-  icon,
-  label,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-}) {
-  return (
-    <View style={styles.heroBenefit}>
-      <Ionicons name={icon} size={13} color={paper.dashboardBlueLight} />
-      <Text style={styles.heroBenefitLabel}>{label}</Text>
-    </View>
-  );
-}
+// ─── Station (numbered form section) ─────────────────────────────────────────
 
-function SetupPanel({
+function Station({
   number,
-  icon,
-  label,
+  title,
   hint,
-  action,
+  status,
   children,
 }: {
   number: string;
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
+  title: string;
   hint?: string;
-  action?: React.ReactNode;
+  status: 'ready' | 'required';
   children: React.ReactNode;
 }) {
+  const ready = status === 'ready';
+  const band = dashboardBandColor.Prime;
   return (
-    <View style={styles.setupPanel}>
-      <View style={styles.sectionHeader}>
-        <View style={styles.sectionTitleRow}>
-          <View style={styles.sectionIcon}>
-            <Ionicons name={icon} size={16} color={paper.dashboardBlue} />
-          </View>
-          <View style={styles.sectionLabelWrap}>
-            <Text style={styles.sectionNumber}>STATION {number}</Text>
-            <Text style={styles.sectionLabel}>{label}</Text>
-          </View>
+    <View style={styles.station}>
+      <View style={styles.stationHeader}>
+        <View style={styles.stationNumber}>
+          <Text style={styles.stationNumberText}>{number}</Text>
         </View>
-        {action}
+        <Text style={styles.stationTitle}>{title}</Text>
+        <View
+          style={[
+            styles.statusChip,
+            ready && { backgroundColor: band.chipBg, borderColor: band.chipBorder },
+          ]}
+        >
+          <View
+            style={[
+              styles.statusDot,
+              { backgroundColor: ready ? paper.bandPrime : paper.bandFair },
+            ]}
+          />
+          <Text style={[styles.statusText, ready && { color: band.verdictColor }]}>
+            {ready ? 'READY' : 'REQUIRED'}
+          </Text>
+        </View>
       </View>
-      {hint ? <Text style={styles.sectionHint}>{hint}</Text> : null}
+      {hint ? <Text style={styles.stationHint}>{hint}</Text> : null}
       {children}
     </View>
   );
 }
 
-function StepPill({ step, total }: { step: number; total: number }) {
+function SetupPill() {
   return (
-    <View style={styles.stepPill}>
-      <Text style={styles.stepPillText}>
-        STEP {step} / {total}
-      </Text>
+    <View style={styles.setupPill}>
+      <Ionicons name="time-outline" size={11} color={paper.dashboardBlueLight} />
+      <Text style={styles.setupPillText}>30 SEC</Text>
     </View>
   );
 }
+
+// ─── Styles ──────────────────────────────────────────────────────────────────
+
+const FIELD_BG = '#F7F9FA';
+const TINT_BG = '#F2F7FA';
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: paper.dashboardInk },
@@ -884,701 +961,545 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 520,
     alignSelf: 'center',
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.xxl,
+    paddingHorizontal: 18,
+    paddingTop: 22,
+    paddingBottom: paperSpacing.xl,
   },
-  heroPanel: {
+
+  // ── Headline band ─────────────────────────────────────────────────────────
+  headlineBand: {
     position: 'relative',
-    alignItems: 'stretch',
-    backgroundColor: paper.dashboardInk,
-    borderRadius: 24,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.lg,
-    marginBottom: paperSpacing.lg,
-    overflow: 'hidden',
-    shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.2,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 9 },
+    marginBottom: 22,
   },
-  heroTopo: {
+  headlinePines: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.11,
+    right: -30,
+    top: 6,
+    opacity: 0.9,
   },
-  heroSheen: {
-    position: 'absolute',
-    top: -20,
-    bottom: -20,
-    width: 64,
-    backgroundColor: 'rgba(124,184,218,0.32)',
-    zIndex: 2,
-  },
-  heroWaterContours: {
-    position: 'absolute',
-    right: -58,
-    bottom: -68,
-    width: 230,
+  headlinePinesImage: {
+    width: 180,
     height: 180,
-    opacity: 0.18,
   },
-  heroWaterContour: {
-    position: 'absolute',
-    borderWidth: 1,
-    borderColor: paper.dashboardBlueLight,
-  },
-  heroWaterContourOne: {
-    width: 210,
-    height: 132,
-    right: 0,
-    bottom: 0,
-    borderRadius: 105,
-  },
-  heroWaterContourTwo: {
-    width: 172,
-    height: 105,
-    right: 18,
-    bottom: 16,
-    borderRadius: 86,
-  },
-  heroWaterContourThree: {
-    width: 132,
-    height: 78,
-    right: 38,
-    bottom: 32,
-    borderRadius: 66,
-  },
-  heroTopRow: {
-    minHeight: 72,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    marginBottom: paperSpacing.sm,
-    zIndex: 3,
-  },
-  heroLogoStage: {
-    width: 72,
-    height: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heroLogoOrbit: {
-    position: 'absolute',
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: 'rgba(124,184,218,0.38)',
-  },
-  heroLogo: {
-    width: 58,
-    height: 58,
-  },
-  heroLogoSpark: {
-    position: 'absolute',
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: paper.dashboardBlueLight,
-    borderWidth: 1,
-    borderColor: paper.dashboardInk,
-    zIndex: 2,
-  },
-  heroLogoSparkTop: { top: 0, left: 34 },
-  heroLogoSparkBottom: { right: 2, bottom: 13 },
-  heroWelcomePill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    borderRadius: 999,
-    borderWidth: 1,
-    borderColor: 'rgba(124,184,218,0.28)',
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-    marginTop: 4,
-  },
-  heroWelcomeText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    color: paper.dashboardBlueLight,
-    letterSpacing: 1.7,
-  },
-  heroRubricRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginBottom: paperSpacing.sm,
-    zIndex: 1,
-  },
-  heroRubricRule: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardInk,
-    opacity: 0.3,
-  },
-  heroRubricText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 2.2,
-    opacity: 0.62,
-  },
-  heroMasthead: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.md,
-    marginBottom: paperSpacing.xs,
-    zIndex: 1,
-  },
-  heroSealWrap: {
-    width: 54,
-    height: 54,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    flexShrink: 0,
-  },
-  heroSealRing: {
-    position: 'absolute',
-    width: 54,
-    height: 54,
-    borderRadius: 27,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.5,
-  },
-  heroSealDot: {
-    position: 'absolute',
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.55,
-  },
-  heroSealDotTop: { top: 0, alignSelf: 'center' },
-  heroSealDotBottom: { bottom: 0, alignSelf: 'center' },
-  heroSealDotLeft: { left: 0, top: '50%', marginTop: -2 },
-  heroSealDotRight: { right: 0, top: '50%', marginTop: -2 },
-  heroCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
-  heroEyebrowRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginBottom: 5,
-  },
-  heroPulseWrap: {
-    width: 9,
-    height: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heroPulseRing: {
-    position: 'absolute',
-    width: 9,
-    height: 9,
-    borderRadius: 4.5,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlueLight,
-    opacity: 0.5,
-  },
-  heroPulseDot: {
-    width: 4.5,
-    height: 4.5,
-    borderRadius: 2.25,
-    backgroundColor: paper.dashboardBlueLight,
-  },
-  heroEyebrowText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardBlue,
-    letterSpacing: 2.2,
-  },
-  heroTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 33,
-    color: paper.dashboardWhite,
-    fontWeight: '700',
-    letterSpacing: -0.6,
-    lineHeight: 36,
-    textAlign: 'left',
-    zIndex: 1,
-  },
-  heroTitleAccent: {
-    color: paper.dashboardBlueLight,
-    fontFamily: paperFonts.displayItalic,
-  },
-  heroLede: {
-    fontFamily: paperFonts.body,
-    fontSize: 13,
-    color: paper.dashboardWhite,
-    opacity: 0.72,
-    lineHeight: 19,
-    textAlign: 'left',
-    marginTop: paperSpacing.sm,
-    zIndex: 1,
-  },
-  heroBenefitsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(255,255,255,0.16)',
-    zIndex: 1,
-  },
-  heroBenefit: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
-  },
-  heroBenefitLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    color: paper.dashboardWhite,
-    letterSpacing: 0.8,
-    opacity: 0.72,
-  },
-  setupCard: {
-    position: 'relative',
-    overflow: 'hidden',
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.lg,
-    paddingBottom: paperSpacing.sm,
-    shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 7 },
-  },
-  setupTopo: {
-    position: 'absolute',
-    top: -20,
-    right: -90,
-    width: 260,
-    height: 180,
-    opacity: 0.055,
-  },
-  setupAccentRail: {
-    position: 'absolute',
-    top: 22,
-    left: 0,
-    width: 3,
-    height: 54,
-    borderTopRightRadius: 3,
-    borderBottomRightRadius: 3,
-    backgroundColor: paper.dashboardBlue,
-  },
-  setupIntro: {
-    marginBottom: paperSpacing.lg,
-    zIndex: 1,
-  },
-  setupEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
-    color: paper.dashboardBlue,
-    letterSpacing: 2,
-    marginBottom: 5,
-  },
-  setupTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 27,
-    lineHeight: 31,
-    fontWeight: '700',
-    color: paper.dashboardInk,
-  },
-  setupIntroCopy: {
-    fontFamily: paperFonts.body,
-    fontSize: 12.5,
-    lineHeight: 18,
-    color: paper.dashboardMuted,
-    marginTop: 4,
-  },
-  setupMap: {
-    flexDirection: 'row',
-    gap: 7,
-    marginTop: paperSpacing.md,
-  },
-  setupMapItem: {
-    flex: 1,
-    borderRadius: 10,
-    backgroundColor: '#F2F7FA',
-    paddingHorizontal: 8,
-    paddingVertical: 7,
-    borderWidth: 1,
-    borderColor: 'transparent',
-  },
-  setupMapItemDone: {
-    backgroundColor: '#F0F8F3',
-    borderColor: 'rgba(61,149,90,0.18)',
-  },
-  setupMapItemOptional: {
-    backgroundColor: '#EFF7FB',
-    borderColor: 'rgba(42,110,150,0.16)',
-  },
-  setupMapLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    color: paper.dashboardInk,
-    letterSpacing: 1,
-  },
-  setupMapMeta: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 7,
-    color: paper.dashboardBlue,
-    letterSpacing: 0.8,
-    marginTop: 2,
-  },
-  setupMapStatusRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    marginTop: 3,
-  },
-  setupMapDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: paper.dashboardBlueLight,
-  },
-  setupMapDotDone: {
-    backgroundColor: paper.bandPrime,
-  },
-  setupMapDotOptional: {
-    backgroundColor: paper.dashboardBlue,
-  },
-  setupMapMetaDone: {
-    color: paper.bandPrime,
-  },
-  setupDivider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardLine,
-    marginHorizontal: -paperSpacing.lg,
-    marginBottom: paperSpacing.lg,
-  },
-  heroIndexRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: paperSpacing.md,
-    paddingTop: paperSpacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.dashboardInk,
-    zIndex: 1,
-  },
-  heroIndexItem: {
-    flex: 1,
-    alignItems: 'center',
-    gap: 2,
-  },
-  heroIndexNumeral: {
-    fontFamily: paperFonts.display,
-    fontSize: 14,
-    fontWeight: '700',
-    color: paper.dashboardBlue,
-    lineHeight: 16,
-  },
-  heroIndexLabel: {
+  headlineEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
+    letterSpacing: 2.2,
+    color: '#444',
+    marginBottom: 12,
+  },
+  headlineTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 36,
+    lineHeight: 39,
+    letterSpacing: -0.6,
     color: paper.dashboardInk,
-    letterSpacing: 1.2,
-    opacity: 0.7,
   },
-  heroIndexDivider: {
-    width: StyleSheet.hairlineWidth,
-    height: 22,
-    backgroundColor: paper.dashboardInk,
-    opacity: 0.2,
+  headlineTitleItalic: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 36,
+    lineHeight: 41,
+    letterSpacing: -0.6,
+    color: paper.dashboardBlue,
+    fontStyle: 'italic',
   },
-  setupPanel: {
-    marginBottom: paperSpacing.lg,
+  headlineDot: {
+    fontFamily: paperFonts.display,
+    color: paper.dashboardInk,
+    fontStyle: 'normal',
+  },
+  headlineLede: {
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    lineHeight: 20,
+    color: '#4A4A4A',
+    marginTop: 12,
+    maxWidth: 300,
+  },
+
+  // ── Setup card ────────────────────────────────────────────────────────────
+  card: {
+    ...paperShadows.hard,
+    position: 'relative',
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    overflow: 'hidden',
+    marginBottom: 22,
+  },
+  scanLine: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: 48,
+    backgroundColor: 'rgba(124,184,218,0.08)',
     zIndex: 1,
   },
-  sectionHeader: {
+  cardHeader: {
+    position: 'relative',
+    zIndex: 2,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: paperSpacing.md,
-    marginBottom: paperSpacing.xs,
+    gap: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    backgroundColor: TINT_BG,
+    borderBottomWidth: 1,
+    borderColor: 'rgba(42,110,150,0.14)',
   },
-  sectionTitleRow: {
+  cardHeaderLeft: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.sm,
+    gap: 7,
+    minWidth: 0,
   },
-  sectionIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 10,
+  cardHeaderDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  cardHeaderLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: paper.dashboardInk,
+    flexShrink: 1,
+  },
+  cardHeaderHandle: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 10,
+    color: paper.dashboardMuted,
+    maxWidth: 130,
+  },
+  cardHeaderHandleReady: {
+    color: paper.dashboardBlue,
+  },
+  cardBody: {
+    position: 'relative',
+    zIndex: 2,
+    paddingHorizontal: 16,
+    paddingTop: 18,
+    paddingBottom: 20,
+  },
+
+  // ── Station ───────────────────────────────────────────────────────────────
+  station: {},
+  stationHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 4,
+  },
+  stationNumber: {
+    width: 26,
+    height: 26,
+    borderRadius: 7,
     backgroundColor: paper.dashboardBlueSky,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sectionLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: paper.dashboardInk,
-    letterSpacing: 2.2,
-    fontWeight: '700',
-  },
-  sectionLabelWrap: {
-    flex: 1,
-    minWidth: 0,
-  },
-  sectionNumber: {
+  stationNumberText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
+    fontSize: 10,
     color: paper.dashboardBlue,
-    letterSpacing: 1.3,
-    opacity: 0.68,
-    marginBottom: 2,
+    letterSpacing: 0.5,
   },
-  sectionHint: {
-    fontFamily: paperFonts.body,
-    fontSize: 12,
+  stationTitle: {
+    flex: 1,
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 23,
     color: paper.dashboardInk,
-    opacity: 0.62,
-    lineHeight: 18,
-    marginBottom: paperSpacing.md,
+    letterSpacing: -0.2,
   },
-  input: {
-    backgroundColor: '#F7F9FA',
+  statusChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+  },
+  statusDot: { width: 5, height: 5, borderRadius: 2.5 },
+  statusText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.3,
+    color: '#555',
+  },
+  stationHint: {
+    fontFamily: paperFonts.body,
+    fontSize: 13,
+    lineHeight: 18,
+    color: paper.dashboardMuted,
+    marginLeft: 36,
+    marginBottom: 14,
+  },
+
+  // ── Fields ────────────────────────────────────────────────────────────────
+  field: {
+    minHeight: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: FIELD_BG,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
+  },
+  fieldFocused: { borderColor: paper.dashboardBlue },
+  fieldError: { borderColor: paper.bandTough, borderWidth: 1.5 },
+  fieldSuccess: {
+    borderColor: 'rgba(61,149,90,0.55)',
+    backgroundColor: '#F4FAF6',
+  },
+  fieldInput: {
+    flex: 1,
     paddingVertical: paperSpacing.md - 2,
     fontFamily: paperFonts.body,
     fontSize: 16,
     color: paper.dashboardInk,
   },
-  locationFieldsRow: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: paperSpacing.md,
-  },
-  locationFieldState: {
-    width: '100%',
-    gap: 5,
-  },
-  locationFieldCity: {
-    width: '100%',
-    gap: 5,
-  },
-  miniFieldLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    color: paper.dashboardMuted,
-    letterSpacing: 1.2,
-  },
-  inputError: { borderColor: paper.bandTough, borderWidth: 1.5 },
-  inputSuccess: { borderColor: paper.bandPrime, borderWidth: 1.5 },
-  usernameField: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F7F9FA',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-  },
   usernameAt: {
     fontFamily: paperFonts.display,
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 19,
     color: paper.dashboardBlue,
     lineHeight: 24,
     marginRight: 5,
   },
-  usernameInput: {
-    flex: 1,
-    paddingVertical: paperSpacing.md - 2,
-    fontFamily: paperFonts.body,
-    fontSize: 16,
-    color: paper.dashboardInk,
-  },
   usernameStatusSlot: { width: 26, alignItems: 'center', marginLeft: paperSpacing.xs },
   errorText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11.5,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12,
     color: paper.bandTough,
-    marginTop: paperSpacing.xs,
-    letterSpacing: 0.4,
+    marginTop: 8,
   },
   successText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11.5,
-    color: paper.bandPrime,
-    marginTop: paperSpacing.xs,
-    letterSpacing: 0.4,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12,
+    color: dashboardBandColor.Prime.verdictColor,
+    marginTop: 8,
   },
   checkingText: {
     fontFamily: paperFonts.displayItalic,
-    fontSize: 11.5,
-    color: paper.dashboardInk,
-    opacity: 0.55,
-    marginTop: paperSpacing.xs,
-    letterSpacing: 0.2,
+    fontSize: 12,
+    color: paper.dashboardMuted,
+    marginTop: 8,
   },
-  locAutoBtn: {
+
+  dashedDivider: {
+    height: 0,
+    borderTopWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: 'rgba(42,110,150,0.25)',
+    marginVertical: 22,
+  },
+
+  // Find me row
+  findMe: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: paperSpacing.sm,
-    paddingVertical: 6,
-    borderRadius: 999,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardBlue,
-    backgroundColor: paper.dashboardWhite,
-  },
-  locAutoBtnPressed: { backgroundColor: '#F6F9FB' },
-  locAutoBtnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.6,
-  },
-  statePicker: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#F7F9FA',
+    gap: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 11,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md - 2,
+    borderColor: 'rgba(42,110,150,0.22)',
+    backgroundColor: TINT_BG,
+  },
+  findMePressed: { backgroundColor: '#E6F0F6' },
+  findMeIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 9,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  findMeCopy: { flex: 1, minWidth: 0 },
+  findMeTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 15,
+    color: paper.dashboardInk,
+  },
+  findMeSub: {
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    color: paper.dashboardMuted,
+    marginTop: 1,
+  },
+
+  orRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginVertical: 16,
+  },
+  orRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
+  },
+  orText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    color: '#888',
+  },
+
+  miniFieldLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    color: '#555',
+    letterSpacing: 1.6,
+    marginBottom: 6,
+  },
+  miniFieldOptional: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 9.5,
+    color: '#999',
+    letterSpacing: 1.4,
+    marginBottom: 6,
+  },
+  cityLabelRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 14,
+  },
+
+  // State picker
+  statePicker: {
+    justifyContent: 'space-between',
+  },
+  statePickerValue: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  stateBadge: {
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 4,
+    backgroundColor: paper.dashboardInk,
+  },
+  stateBadgeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardWhite,
+    letterSpacing: 1,
   },
   statePickerText: {
     fontFamily: paperFonts.body,
     fontSize: 16,
     color: paper.dashboardInk,
   },
-  statePickerPlaceholder: { opacity: 0.55 },
-  stateList: {
-    marginTop: paperSpacing.sm,
+  statePickerPlaceholder: { color: paper.dashboardInk + '70' },
+  stateGridWrap: {
+    marginTop: 8,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
+    ...paperShadows.hard,
   },
-  stateScroll: { maxHeight: 200 },
-  stateOption: {
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md - 4,
+  stateScroll: { maxHeight: 228 },
+  stateGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: 6,
+    padding: 8,
   },
-  stateOptionActive: { backgroundColor: '#F6F9FB' },
-  stateOptionText: {
-    fontFamily: paperFonts.body,
+  stateChip: {
+    width: '18.6%',
+    paddingVertical: 9,
+    alignItems: 'center',
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    backgroundColor: FIELD_BG,
+  },
+  stateChipPressed: { backgroundColor: paper.dashboardBlueSky },
+  stateChipActive: {
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
+  },
+  stateChipText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    letterSpacing: 0.8,
+  },
+  stateChipTextActive: { color: paper.dashboardWhite },
+
+  // ── Forecast teaser ───────────────────────────────────────────────────────
+  teaser: { marginBottom: 24 },
+  teaserHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    marginBottom: 10,
+  },
+  teaserEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flexShrink: 1,
+  },
+  teaserEyebrowRule: {
+    width: 14,
+    height: 1.5,
+    backgroundColor: '#444',
+  },
+  teaserEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: '#444',
+    flexShrink: 1,
+  },
+  teaserMeta: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.2,
+    color: '#999',
+  },
+  teaserMetaReady: { color: dashboardBandColor.Prime.verdictColor },
+  teaserRow: {
+    flexDirection: 'row',
+    gap: 6,
+  },
+  teaserTile: {
+    flex: 1,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    overflow: 'hidden',
+  },
+  teaserTileTop: {
+    alignItems: 'center',
+    paddingVertical: 6,
+  },
+  teaserDay: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: '#666',
+  },
+  teaserDate: {
+    fontFamily: paperFonts.display,
     fontSize: 15,
     color: paper.dashboardInk,
+    marginTop: 1,
   },
-  stateOptionTextActive: {
-    color: paper.dashboardBlue,
-    fontFamily: paperFonts.bodyBold,
+  teaserTileBottom: {
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30,
+    backgroundColor: '#EEEEEA',
+  },
+  teaserScore: {
+    fontFamily: paperFonts.display,
+    fontSize: 13,
+    color: paper.dashboardInk,
+    opacity: 0.4,
+  },
+
+  // ── Progress + CTA ────────────────────────────────────────────────────────
+  progressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 12,
+  },
+  progressSegments: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 5,
+  },
+  progressSeg: {
+    flex: 1,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: 'rgba(0,0,0,0.09)',
+  },
+  progressSegDone: { backgroundColor: paper.bandPrime },
+  progressText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: '#555',
   },
   cta: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: paperSpacing.sm,
+    gap: 12,
     backgroundColor: paper.dashboardInk,
-    borderWidth: 0,
-    borderRadius: 14,
-    paddingVertical: paperSpacing.md + 2,
-    marginTop: paperSpacing.sm,
+    borderRadius: 12,
+    paddingVertical: 16,
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.18,
-    shadowRadius: 8,
+    shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
+    elevation: 3,
   },
   ctaReady: {
     backgroundColor: paper.dashboardBlue,
     shadowColor: paper.dashboardBlue,
-    shadowOpacity: 0.28,
-    shadowRadius: 12,
+    shadowOpacity: 0.3,
+    shadowRadius: 14,
   },
-  ctaPressed: { opacity: 0.82 },
-  btnDisabled: { opacity: 0.55 },
-
-  // Completion meter ──────────────────────────────────────────────────────
-  meter: {
-    marginTop: paperSpacing.lg,
-    paddingHorizontal: 2,
-    gap: 6,
-  },
-  meterRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  meterLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 1.8,
-    opacity: 0.6,
-  },
-  meterCount: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 12,
-    color: paper.dashboardInk,
-    letterSpacing: 1.2,
-    opacity: 0.7,
-  },
-  meterCountReady: {
-    color: paper.bandPrime,
-    opacity: 1,
-  },
-  meterTrack: {
-    height: 3,
-    borderRadius: 2,
-    backgroundColor: paper.dashboardLine,
-    overflow: 'hidden',
-  },
-  meterFill: {
-    height: 3,
-    borderRadius: 2,
-  },
+  ctaPressed: { opacity: 0.85 },
   ctaText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
+    fontSize: 13,
     color: paper.dashboardCream,
-    letterSpacing: 2.8,
+    letterSpacing: 2.6,
   },
-  footnote: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    color: paper.dashboardInk,
-    opacity: 0.48,
-    letterSpacing: 1.5,
-    textAlign: 'center',
+  ctaArrow: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: 'rgba(255,255,255,0.14)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.22)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+  btnDisabled: { opacity: 0.4 },
+
   privacyNote: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    marginTop: paperSpacing.md,
+    marginTop: 14,
   },
-  stepPill: {
+  footnote: {
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    color: paper.dashboardMuted,
+    textAlign: 'center',
+  },
+
+  // ── Nav pill ──────────────────────────────────────────────────────────────
+  setupPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderWidth: 1,
@@ -1586,11 +1507,10 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
-  stepPillText: {
+  setupPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
+    fontSize: 10,
     color: paper.dashboardCream,
     letterSpacing: 1.6,
-    fontWeight: '700',
   },
 });

@@ -3,15 +3,31 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   archivePierCastDailyScoreSnapshot,
   archivePierCastFieldTemperatureObservations,
+  archivePierCastPortWashingtonShadowForecast,
   archivePierCastShadowForecast,
+  archivePierCastV3ShadowForecast,
+  archivePierCastWisconsinShadowForecast,
   buildPierCastDailyScoreSnapshot,
+  buildPierCastPortWashingtonReviewOutlook,
   buildPierCastReviewOutlook,
+  buildPierCastV3ReviewOutlook,
+  buildPierCastWisconsinReviewOutlook,
+  combinePierCastV3LmhofsBatches,
   ingestPierCastCalibrationObservations,
+  ingestPierCastChicagoAlpenaShadowCycle,
+  ingestPierCastStJosephHarrisvilleShadowCycle,
+  ingestPierCastPentwaterCasevilleShadowCycle,
+  ingestPierCastFiveCityShadowCycle,
+  ingestPierCastLakeHuronShadowCycle,
+  ingestPierCastPortWashingtonShadowCycle,
   ingestPierCastTemperatureCycle,
+  ingestPierCastWisconsinShadowCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
   PIER_CAST_ENGINE_VERSION,
+  PIER_CAST_V3_ENGINE_VERSION,
   type PierCastArchiveClient,
   pierCastDailyScoreLakeDateForCycle,
+  readLatestCoherentPierCastV3SourceCohorts,
   validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
@@ -86,6 +102,261 @@ const handler = createPierCastIngestHandler({
       database: archiveClient,
       snapshot,
     });
+  },
+  ingestPortWashingtonShadow: async () => {
+    const outcome = await ingestPierCastPortWashingtonShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+        shadowForecast: null,
+      };
+    }
+    const evaluationTime = new Date().toISOString();
+    const outlook = buildPierCastPortWashingtonReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+    });
+    const shadowForecast = await archivePierCastPortWashingtonShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 1,
+      sampleCount: 121,
+      diagnostics: outcome.diagnostics,
+      shadowForecast,
+    };
+  },
+  ingestWisconsinShadow: async () => {
+    const outcome = await ingestPierCastWisconsinShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+        shadowForecast: null,
+      };
+    }
+    const evaluationTime = new Date().toISOString();
+    const outlook = buildPierCastWisconsinReviewOutlook({
+      batch: outcome.batch,
+      evaluationTime,
+    });
+    const shadowForecast = await archivePierCastWisconsinShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch: outcome.batch,
+      ingestionSource: outcome.source,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 4,
+      sampleCount: 484,
+      diagnostics: outcome.diagnostics,
+      shadowForecast,
+    };
+  },
+  ingestLakeHuronShadow: async () => {
+    const outcome = await ingestPierCastLakeHuronShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 3,
+      sampleCount: 363,
+      diagnostics: outcome.diagnostics,
+    };
+  },
+  ingestFiveCityShadow: async () => {
+    const outcome = await ingestPierCastFiveCityShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
+  ingestChicagoAlpenaShadow: async () => {
+    const outcome = await ingestPierCastChicagoAlpenaShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
+  ingestStJosephHarrisvilleShadow: async () => {
+    const outcome = await ingestPierCastStJosephHarrisvilleShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
+  ingestPentwaterCasevilleShadow: async () => {
+    const outcome = await ingestPierCastPentwaterCasevilleShadowCycle({
+      database: archiveClient,
+      engineVersion: PIER_CAST_ENGINE_VERSION,
+    });
+    if (outcome.status === "unavailable") {
+      return {
+        status: outcome.status,
+        source: outcome.source,
+        fallbackUsed: outcome.fallbackUsed,
+        cityCount: 0,
+        sampleCount: 0,
+        diagnostics: outcome.diagnostics,
+      };
+    }
+    return {
+      status: outcome.status,
+      source: outcome.source,
+      fallbackUsed: outcome.fallbackUsed,
+      issuedAt: outcome.batch.issuedAt,
+      fetchedAt: outcome.batch.fetchedAt,
+      cycleAgeHours: outcome.batch.cycleAgeHours,
+      cityCount: 5,
+      sampleCount: 605,
+      diagnostics: outcome.diagnostics,
+    };
+  },
+  ingestV3Shadow: async () => {
+    const now = new Date();
+    const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+      database: archiveClient,
+      now,
+    });
+    if (!cohorts) {
+      throw new Error("Formula v3 source cohorts are unavailable.");
+    }
+    const batch = combinePierCastV3LmhofsBatches(
+      cohorts.primary,
+      cohorts.expansion,
+      cohorts.lakeHuron,
+      cohorts.fiveCity,
+      cohorts.chicagoAlpena,
+      cohorts.stJosephHarrisville,
+      cohorts.pentwaterCaseville,
+    );
+    const outlook = buildPierCastV3ReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    });
+    const shadowForecast = await archivePierCastV3ShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch,
+      ingestionSource: "fresh_archived_complete_cycle",
+      engineVersion: PIER_CAST_V3_ENGINE_VERSION,
+    });
+    return {
+      status: shadowForecast.status,
+      source: "fresh_archived_complete_cycle" as const,
+      issuedAt: batch.issuedAt,
+      cityCount: 32 as const,
+      sampleCount: 3872 as const,
+      shadowForecast,
+    };
   },
 });
 

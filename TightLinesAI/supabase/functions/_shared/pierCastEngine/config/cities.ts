@@ -15,6 +15,7 @@ import {
 } from "./coreCalibration.ts";
 
 import { PIER_CAST_REMAINING_SPECIES_REVIEW } from "./remainingSpecies.generated.ts";
+import { applyPierCastSpeciesExpansionDispositions } from "./speciesExpansion.ts";
 
 function species(
   speciesId: PierCastSpeciesId,
@@ -67,7 +68,20 @@ const coreSpecies = (
     getPierCastCoreSeasonalCurve(cityId, speciesId),
   );
 
-export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
+const lakeHuronSchemaDispositions = (): PierCastCitySpeciesProfile[] => [
+  species(
+    "atlantic_salmon",
+    "unresolved",
+    "Explicit Lake Huron schema review found no evidence supporting a roster change for this existing city.",
+  ),
+  species(
+    "northern_pike",
+    "unresolved",
+    "Explicit Lake Huron schema review found no evidence supporting a roster change for this existing city.",
+  ),
+];
+
+export const PIER_CAST_CITY_PROFILES_BASE: readonly PierCastCityProfile[] = [
   {
     cityId: "ludington_mi",
     displayName: "Ludington",
@@ -141,6 +155,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("ludington_mi", "steelhead", "candidate"),
       coreSpecies("ludington_mi", "brown_trout", "candidate"),
       ...reviewedSpecies("ludington_mi"),
+      ...lakeHuronSchemaDispositions(),
     ],
   },
   {
@@ -205,6 +220,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("grand_haven_mi", "steelhead", "candidate"),
       coreSpecies("grand_haven_mi", "brown_trout", "candidate"),
       ...reviewedSpecies("grand_haven_mi"),
+      ...lakeHuronSchemaDispositions(),
     ],
   },
   {
@@ -282,6 +298,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("manistee_mi", "steelhead", "candidate"),
       coreSpecies("manistee_mi", "brown_trout", "candidate"),
       ...reviewedSpecies("manistee_mi"),
+      ...lakeHuronSchemaDispositions(),
     ],
   },
   {
@@ -374,6 +391,7 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("frankfort_elberta_mi", "steelhead", "candidate"),
       coreSpecies("frankfort_elberta_mi", "brown_trout", "candidate"),
       ...reviewedSpecies("frankfort_elberta_mi"),
+      ...lakeHuronSchemaDispositions(),
     ],
   },
   {
@@ -467,9 +485,19 @@ export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] = [
       coreSpecies("sheboygan_wi", "steelhead", "candidate"),
       coreSpecies("sheboygan_wi", "brown_trout", "candidate"),
       ...reviewedSpecies("sheboygan_wi"),
+      ...lakeHuronSchemaDispositions(),
     ],
   },
 ] as const;
+
+export const PIER_CAST_CITY_PROFILES: readonly PierCastCityProfile[] =
+  PIER_CAST_CITY_PROFILES_BASE.map((city) => ({
+    ...city,
+    species: applyPierCastSpeciesExpansionDispositions(
+      city.cityId,
+      city.species,
+    ),
+  }));
 
 export function getPierCastCityProfile(
   cityId: PierCastCityProfile["cityId"],

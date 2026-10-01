@@ -1,0 +1,28 @@
+{
+  "report_cases": 756,
+  "recommendation_sets": 1764,
+  "changed_reports": [
+    {
+      "id": "Houston|2026-03-02|freshwater_lake_pond",
+      "before": 81,
+      "after": 79,
+      "calendar_before": 0,
+      "calendar_after": 0
+    },
+    {
+      "id": "Brownsville|2026-02-28|freshwater_lake_pond",
+      "before": 88,
+      "after": 79,
+      "calendar_before": 9,
+      "calendar_after": 0
+    }
+  ],
+  "changed_pick_sets": 1,
+  "calendar_worse_than_original_by_more_than_3": 0,
+  "calendar_final": {
+    "mean": 0.09788359788359788,
+    "max": 2,
+    "p95": 1,
+    "over10": 0
+  }
+}

@@ -367,6 +367,7 @@ function validateFishCountSources(
         "WISCONSIN_DNR_ROOT",
         "WISCONSIN_DNR_BESADNY",
         "WISCONSIN_DNR_BRULE",
+        "ODFW_WINCHESTER",
       ].includes(source.provider) ||
       !hasText(source.facilityName) ||
       ![
@@ -754,6 +755,41 @@ function validateHydraulicSources(
   river: RiverProfile,
   issues: RiverRunValidationIssue[],
 ): void {
+  const historical = river.historicalHydraulicSource;
+  if (historical) {
+    const normal = historical.normal;
+    if (
+      historical.provider !== "USGS" ||
+      historical.metric !== "flow_cfs" ||
+      !hasText(historical.sourceId) || !hasText(historical.siteId) ||
+      !hasText(historical.name) || !hasText(historical.baselineVersion) ||
+      !hasText(historical.reachNotes) || !hasText(historical.attribution) ||
+      !hasText(historical.coverageNote) ||
+      !Number.isInteger(historical.historicalStartYear) ||
+      !Number.isInteger(historical.historicalEndYear) ||
+      historical.historicalEndYear < historical.historicalStartYear ||
+      !normal || !hasNumber(normal.average) || !hasNumber(normal.p10) ||
+      !hasNumber(normal.p25) || !hasNumber(normal.median) ||
+      !hasNumber(normal.p75) || !hasNumber(normal.p90) ||
+      !Number.isInteger(normal.historicalYears) ||
+      normal.historicalYears < 2 || !Number.isInteger(normal.sampleCount) ||
+      normal.sampleCount < normal.historicalYears ||
+      !Array.isArray(normal.years) ||
+      normal.years.length !== normal.historicalYears ||
+      !(
+        normal.p10 <= normal.p25 && normal.p25 <= normal.median &&
+        normal.median <= normal.p75 && normal.p75 <= normal.p90
+      )
+    ) {
+      issues.push(
+        issue(
+          "historicalHydraulicSource",
+          "Historical-only hydraulics require an audited USGS identity, fixed years, provenance, ordered statistics, and at least two qualifying years.",
+          "config_source_invalid",
+        ),
+      );
+    }
+  }
   const capability = river.conditionDataCapabilities?.hydraulics;
   if (capability?.status === "unavailable") {
     if (
@@ -1389,6 +1425,21 @@ function validateSeasonalZonePlan(
       "config_source_invalid",
     ));
   }
+  if (
+    plan.winterHoldingGuidance &&
+    (run.runType !== "holding" ||
+      plan.winterHoldingGuidance.preferredStartReachIds.length === 0 ||
+      new Set(plan.winterHoldingGuidance.preferredStartReachIds).size !==
+        plan.winterHoldingGuidance.preferredStartReachIds.length ||
+      !hasText(plan.winterHoldingGuidance.activityScopeCopy) ||
+      !hasText(plan.winterHoldingGuidance.sourceNotes))
+  ) {
+    issues.push(issue(
+      "seasonalZonePlan.winterHoldingGuidance",
+      "Winter holding guidance requires unique preferred reaches, public scope copy, source notes, and a holding run.",
+      "config_source_invalid",
+    ));
+  }
   const foundation = new Map(
     (river?.foundation?.reaches ?? []).map((reach) => [reach.reachId, reach]),
   );
@@ -1422,14 +1473,47 @@ function validateSeasonalZonePlan(
     }
   }
   const beginningReachIds = new Set(plan.phases.beginning);
-  for (
-    const phase of [
-      "buildingEarly",
-      "buildingEstablished",
-      "buildingBroad",
-    ] as const
+  if (
+    plan.winterHoldingGuidance?.preferredStartReachIds.some((reachId) =>
+      !beginningReachIds.has(reachId) ||
+      !foundation.has(reachId) ||
+      foundation.get(reachId)?.role === "mouth_context"
+    )
   ) {
-    if (plan.phases[phase].some((reachId) => beginningReachIds.has(reachId))) {
+    issues.push(issue(
+      "seasonalZonePlan.winterHoldingGuidance.preferredStartReachIds",
+      "Preferred winter starting reaches must remain inside the active audited holding corridor.",
+      "config_source_reference_missing",
+    ));
+  }
+  if (run.runType === "holding") {
+    for (const [phase, reachIds] of Object.entries(plan.phases)) {
+      if (
+        reachIds.length !== plan.phases.beginning.length ||
+        reachIds.some((reachId, index) =>
+          reachId !== plan.phases.beginning[index]
+        )
+      ) {
+        issues.push(issue(
+          `seasonalZonePlan.phases.${phase}`,
+          "Holding plans must retain the same audited corridor through every active phase.",
+          "config_invalid_value",
+        ));
+      }
+    }
+  } else {
+    for (
+      const phase of [
+        "buildingEarly",
+        "buildingEstablished",
+        "buildingBroad",
+      ] as const
+    ) {
+      if (
+        !plan.phases[phase].some((reachId) => beginningReachIds.has(reachId))
+      ) {
+        continue;
+      }
       issues.push(issue(
         `seasonalZonePlan.phases.${phase}`,
         "Building must shift away from every Before Migration/Beginning approach reach.",
@@ -1460,8 +1544,12 @@ function validateActivityRules(
   > = {
     chinook_salmon: "chinook_fall_reaction",
     coho_salmon: "coho_fall_reaction",
-    steelhead: "steelhead_feeding",
-    lake_run_brown_trout: "brown_trout_fall_reaction",
+    steelhead: run.runType === "holding"
+      ? "steelhead_winter_holding"
+      : "steelhead_feeding",
+    lake_run_brown_trout: run.runType === "holding"
+      ? "brown_trout_winter_holding"
+      : "brown_trout_fall_reaction",
   };
   const expectedProfile = expectedProfileBySpecies[run.species];
   if (expectedProfile && rules.profile !== expectedProfile) {
@@ -1804,6 +1892,7 @@ function validatePrimitiveCapabilities(
     "no_accepted_hydraulic_or_water_temperature_source",
     "no_accepted_historical_baseline",
     "no_accepted_activity_calibration",
+    "not_applicable_to_holding",
   ]);
   for (
     const field of [
@@ -2648,7 +2737,11 @@ export function validateSpeciesBiologyProfile(
     !hasText(profile?.scientificName) ||
     !isValidRegion(profile?.region) ||
     !includes(MOVEMENT_ENGINES, profile?.movementEngineId) ||
-    !["spawning", "pre_spawn_overwintering"].includes(
+    ![
+      "spawning",
+      "pre_spawn_overwintering",
+      "post_spawn_winter_feeding",
+    ].includes(
       profile?.migrationPurpose,
     ) ||
     typeof profile?.semelparous !== "boolean" ||
@@ -2849,10 +2942,12 @@ export function validateConfigurationRevision(
         ),
       );
     }
-    const expectedPurpose = run.runType === "fall_entry"
-      ? "pre_spawn_overwintering"
-      : "spawning";
-    if (biology.migrationPurpose !== expectedPurpose) {
+    const acceptedPurposes = run.runType === "fall_entry"
+      ? ["pre_spawn_overwintering"]
+      : run.runType === "holding"
+      ? ["pre_spawn_overwintering", "post_spawn_winter_feeding"]
+      : ["spawning"];
+    if (!acceptedPurposes.includes(biology.migrationPurpose)) {
       issues.push(
         issue(
           `runs.${run.runId}.biologyProfileId`,

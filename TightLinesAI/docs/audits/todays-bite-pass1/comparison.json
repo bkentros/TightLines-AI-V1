@@ -1,0 +1,2994 @@
+{
+  "stats": {
+    "fixtures": 21880,
+    "unchanged_reports": 15664,
+    "changed_reports": 6216,
+    "changed_scores": 4921,
+    "changed_bands": 2647,
+    "changed_timing": 44,
+    "changed_reliability": 0,
+    "geographic_changes": 168,
+    "pressure_window_changes": 6048,
+    "unaffected_reports_exact": 15664,
+    "report_counterfactual_exact": 21880,
+    "baseline_recommendations": 9216,
+    "candidate_recommendations": 9252,
+    "added_recommendations": 36,
+    "lost_recommendations": 0,
+    "changed_recommendation_responses": 1112,
+    "changed_selected_picks": 562,
+    "recommendations_matching_corrected_inputs": 9210,
+    "recommendations_changed_by_thermal_semantics": 42,
+    "unexplained_changes": 0
+  },
+  "geographic_changes": {
+    "Montgomery": {
+      "before": {
+        "state": "AL",
+        "region": "midwest_interior"
+      },
+      "after": {
+        "state": "AL",
+        "region": "south_central"
+      }
+    },
+    "Jackson": {
+      "before": {
+        "state": "MS",
+        "region": "midwest_interior"
+      },
+      "after": {
+        "state": "MS",
+        "region": "south_central"
+      }
+    },
+    "Tallahassee": {
+      "before": {
+        "state": "GA",
+        "region": "florida"
+      },
+      "after": {
+        "state": "FL",
+        "region": "florida"
+      }
+    },
+    "Asheville": {
+      "before": {
+        "state": "TN",
+        "region": "south_central"
+      },
+      "after": {
+        "state": "NC",
+        "region": "appalachian"
+      }
+    },
+    "Valdosta": {
+      "before": {
+        "state": "GA",
+        "region": "florida"
+      },
+      "after": {
+        "state": "GA",
+        "region": "southeast_atlantic"
+      }
+    },
+    "El Paso": {
+      "before": {
+        "state": "NM",
+        "region": "southwest_desert"
+      },
+      "after": {
+        "state": "TX",
+        "region": "southwest_desert"
+      }
+    },
+    "Pittsburgh": {
+      "before": {
+        "state": "WV",
+        "region": "northeast"
+      },
+      "after": {
+        "state": "PA",
+        "region": "northeast"
+      }
+    }
+  },
+  "examples": [
+    {
+      "id": "florida|1|freshwater_lake_pond|0|pressure_48h",
+      "before": {
+        "score": 66,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 54,
+          "band_label": "cool",
+          "band_score": -1.6667,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -0.1499999999999999
+        },
+        "pressure": {
+          "label": "falling_moderate",
+          "score": -0.1917,
+          "detail": "-5.9 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 21,
+          "row_authored_fly_count": 12,
+          "hard_gated_lure_candidate_count": 21,
+          "hard_gated_fly_candidate_count": 15,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "soft_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait_soft",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 9,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 9,
+              "pool_size": 9,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 68,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 54,
+          "band_label": "cool",
+          "band_score": -1.6667,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -0.1499999999999999
+        },
+        "pressure": {
+          "label": "falling_slow",
+          "score": 1.15,
+          "detail": "-3.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 21,
+          "row_authored_fly_count": 12,
+          "hard_gated_lure_candidate_count": 21,
+          "hard_gated_fly_candidate_count": 15,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "soft_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait_soft",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 9,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 9,
+              "pool_size": 9,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "south_central|1|freshwater_lake_pond|0|stable_winter_warm",
+      "before": {
+        "score": 69,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 65,
+          "band_label": "very_warm",
+          "band_score": 1.4,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": 1.31
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "clear_subtle",
+            "heat_finesse"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "natural"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "drop_shot_minnow"
+          ],
+          "selected_fly_ids": [
+            "lead_eye_leech",
+            "clouser_minnow"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "clear_subtle",
+            "heat_finesse"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "soft_plastic_minnow",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "leech_family",
+              "honorable_family_group": "streamer_weighted",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "carolina_rigged_stick_worm",
+                "drop_shot_minnow",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "carolina_rigged_stick_worm",
+                "drop_shot_minnow",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 1,
+              "expanded_tiers": [
+                "goal_and_priority_condition",
+                "goal_or_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "clouser_minnow",
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_or_priority_condition",
+              "selected_tier_pool_size": 4,
+              "expanded_tiers": [
+                "goal_or_priority_condition"
+              ],
+              "expanded_pool_size": 4,
+              "pool_size": 4,
+              "finalist_ids": [
+                "clouser_minnow",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 69,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 65,
+          "band_label": "very_warm",
+          "band_score": 1.4,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": 1.31
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "clear_subtle"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "natural"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "drop_shot_minnow"
+          ],
+          "selected_fly_ids": [
+            "lead_eye_leech",
+            "clouser_minnow"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "clear_subtle"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "soft_plastic_minnow",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "leech_family",
+              "honorable_family_group": "streamer_weighted",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "carolina_rigged_stick_worm",
+                "drop_shot_minnow",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "carolina_rigged_stick_worm",
+                "drop_shot_minnow",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 1,
+              "expanded_tiers": [
+                "goal_and_priority_condition",
+                "goal_or_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "clouser_minnow",
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_or_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_or_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "clouser_minnow",
+                "deceiver",
+                "game_changer",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Montgomery|1|freshwater_lake_pond",
+      "before": {
+        "score": 53,
+        "band": "Fair",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "cool",
+          "band_score": -1,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -0.9
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Jackson|1|freshwater_lake_pond",
+      "before": {
+        "score": 53,
+        "band": "Fair",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "cool",
+          "band_score": -1,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -0.9
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Tallahassee|1|freshwater_lake_pond",
+      "before": {
+        "score": 50,
+        "band": "Fair",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 21,
+          "row_authored_fly_count": 12,
+          "hard_gated_lure_candidate_count": 21,
+          "hard_gated_fly_candidate_count": 15,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "soft_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait_soft",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 9,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 9,
+              "pool_size": 9,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 50,
+        "band": "Fair",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 21,
+          "row_authored_fly_count": 12,
+          "hard_gated_lure_candidate_count": 21,
+          "hard_gated_fly_candidate_count": 15,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "soft_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait_soft",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 9,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 9,
+              "pool_size": 9,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Asheville|1|freshwater_lake_pond",
+      "before": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 65,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "cool",
+          "band_score": -1.5,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": 0
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Valdosta|1|freshwater_lake_pond",
+      "before": {
+        "score": 50,
+        "band": "Fair",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 21,
+          "row_authored_fly_count": 12,
+          "hard_gated_lure_candidate_count": 21,
+          "hard_gated_fly_candidate_count": 15,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "soft_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait_soft",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 9,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 9,
+              "pool_size": 9,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "flat_sided_crankbait",
+                "ned_rig",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|El Paso|1|freshwater_lake_pond",
+      "before": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 48,
+        "band": "Poor",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "very_cold",
+          "band_score": -2,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": -1.8
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "geo|Pittsburgh|1|freshwater_lake_pond",
+      "before": {
+        "score": 67,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "cool",
+          "band_score": -1.3333,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": 0.15000000000000013
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      },
+      "after": {
+        "score": 67,
+        "band": "Good",
+        "temperature": {
+          "context_group": "freshwater",
+          "measurement_source": "air_daily_mean",
+          "measurement_value_f": 30,
+          "band_label": "cool",
+          "band_score": -1.3333,
+          "trend_label": "stable",
+          "trend_adjustment": 0,
+          "shock_label": "none",
+          "shock_adjustment": 0,
+          "final_score": 0.15000000000000013
+        },
+        "pressure": {
+          "label": "stable_neutral",
+          "score": 0,
+          "detail": "0.0 mb/24h"
+        },
+        "scenario": {
+          "activity_level": "neutral",
+          "surface_daily_gate": "closed",
+          "surface_daily_reason_codes": [
+            "seasonal_surface_closed"
+          ],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "missing_inputs": [],
+          "confidence": "high",
+          "color_palette_theme": "dark"
+        },
+        "picks": {
+          "row_authored_lure_count": 18,
+          "row_authored_fly_count": 10,
+          "hard_gated_lure_candidate_count": 18,
+          "hard_gated_fly_candidate_count": 13,
+          "selected_lure_ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait"
+          ],
+          "selected_fly_ids": [
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ],
+          "variant": "A",
+          "avoid_lure_ids_applied": [],
+          "avoid_fly_ids_applied": [],
+          "scenario_tags": [
+            "cold_slow"
+          ],
+          "surface_daily_gate": "closed",
+          "missing_inputs": [],
+          "confidence": "high",
+          "family_diversity": {
+            "lures": {
+              "top_family_group": "soft_plastic_craw",
+              "honorable_family_group": "jerkbait",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            },
+            "flies": {
+              "top_family_group": "crawfish_fly",
+              "honorable_family_group": "bugger_streamer",
+              "different_family_selected": true,
+              "different_family_available_in_band": true
+            }
+          },
+          "finalist_pools": [
+            {
+              "side": "lure",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 7,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 7,
+              "pool_size": 7,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "texas_rigged_soft_plastic_craw",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "lure",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 8,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 8,
+              "pool_size": 8,
+              "finalist_ids": [
+                "blade_bait",
+                "carolina_rigged_stick_worm",
+                "deep_diving_crankbait",
+                "finesse_jig",
+                "ned_rig",
+                "shaky_head_worm",
+                "suspending_jerkbait",
+                "tube_jig"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "top",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 6,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 6,
+              "pool_size": 6,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_crawfish_fly",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            },
+            {
+              "side": "fly",
+              "slot": "honorable",
+              "tier": "goal_and_priority_condition",
+              "selected_tier_pool_size": 5,
+              "expanded_tiers": [
+                "goal_and_priority_condition"
+              ],
+              "expanded_pool_size": 5,
+              "pool_size": 5,
+              "finalist_ids": [
+                "jighead_marabou_leech",
+                "lead_eye_leech",
+                "rabbit_strip_leech",
+                "warmwater_worm_fly",
+                "woolly_bugger"
+              ],
+              "surface_closed_surface_candidate_count": 0,
+              "dirty_wind_coverage_pool_used": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

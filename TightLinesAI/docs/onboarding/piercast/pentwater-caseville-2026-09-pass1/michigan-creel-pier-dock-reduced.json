@@ -1,0 +1,1459 @@
+{
+  "schema_version": "piercast-pass1-creel-reduction-v1",
+  "source_sha256": "490cf18ae853aa5e824c3471f743dc540f15f9d9b52aafd05c92901921709952",
+  "source_last_refreshed": "2025-04-23",
+  "cautions": [
+    "Catch and harvest remain separate.",
+    "Sums are neither rates nor scores.",
+    "Port rows may pool structures.",
+    "Missing rows and sampled zeros do not establish absence."
+  ],
+  "city_coverage": [
+    {
+      "city_id": "pentwater_mi",
+      "exact_queries": [
+        {
+          "port": "PENTWATER",
+          "mode": "Pier/Dock"
+        }
+      ],
+      "matched_port_labels": [
+        "PENTWATER"
+      ],
+      "raw_rows": 1004,
+      "survey_years": [
+        1998,
+        2000,
+        2001,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018
+      ],
+      "first_year": 1998,
+      "last_year": 2018,
+      "interpretation": "dashboard rows returned"
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "exact_queries": [
+        {
+          "port": "ROGERS CITY",
+          "mode": "Pier/Dock"
+        }
+      ],
+      "matched_port_labels": [
+        "ROGERS CITY"
+      ],
+      "raw_rows": 106,
+      "survey_years": [
+        1989,
+        1990,
+        1994,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "first_year": 1989,
+      "last_year": 2011,
+      "interpretation": "dashboard rows returned"
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "exact_queries": [
+        {
+          "port": "TAWAS",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "TAWAS CITY",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "EAST TAWAS",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "TAWAS-EAST TAWAS",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "TAWAS/EAST TAWAS",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "TAWAS - EAST TAWAS",
+          "mode": "Pier/Dock"
+        }
+      ],
+      "matched_port_labels": [],
+      "raw_rows": 0,
+      "survey_years": [],
+      "first_year": null,
+      "last_year": null,
+      "interpretation": "zero-result query; not biological absence"
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "exact_queries": [
+        {
+          "port": "CHARLEVOIX",
+          "mode": "Pier/Dock"
+        }
+      ],
+      "matched_port_labels": [
+        "CHARLEVOIX"
+      ],
+      "raw_rows": 2138,
+      "survey_years": [
+        1989,
+        1990,
+        1991,
+        1992,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "first_year": 1989,
+      "last_year": 2022,
+      "interpretation": "dashboard rows returned"
+    },
+    {
+      "city_id": "caseville_mi",
+      "exact_queries": [
+        {
+          "port": "CASEVILLE",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "CASEVILLE-PORT AUSTIN",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "CASEVILLE/PORT AUSTIN",
+          "mode": "Pier/Dock"
+        },
+        {
+          "port": "CASEVILLE TO PORT AUSTIN",
+          "mode": "Pier/Dock"
+        }
+      ],
+      "matched_port_labels": [],
+      "raw_rows": 0,
+      "survey_years": [],
+      "first_year": null,
+      "last_year": null,
+      "interpretation": "zero-result query; not biological absence"
+    }
+  ],
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "chinook_salmon",
+      "raw_row_count": 45,
+      "positive_row_count": 21,
+      "positive_years": [
+        2000,
+        2001,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014
+      ],
+      "positive_months": [
+        4,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 397,
+      "harvest_estimate_sum": 384
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "coho_salmon",
+      "raw_row_count": 47,
+      "positive_row_count": 25,
+      "positive_years": [
+        2000,
+        2001,
+        2008,
+        2009,
+        2012,
+        2013,
+        2014,
+        2017,
+        2018
+      ],
+      "positive_months": [
+        4,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 281,
+      "harvest_estimate_sum": 248
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "steelhead",
+      "raw_row_count": 70,
+      "positive_row_count": 50,
+      "positive_years": [
+        2000,
+        2001,
+        2003,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2013,
+        2014,
+        2015,
+        2018
+      ],
+      "positive_months": [
+        4,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 975,
+      "harvest_estimate_sum": 823
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "brown_trout",
+      "raw_row_count": 50,
+      "positive_row_count": 30,
+      "positive_years": [
+        2000,
+        2003,
+        2005,
+        2006,
+        2007,
+        2009,
+        2011,
+        2012,
+        2014,
+        2015,
+        2016,
+        2018
+      ],
+      "positive_months": [
+        4,
+        5,
+        6,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 452,
+      "harvest_estimate_sum": 437
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "lake_trout",
+      "raw_row_count": 28,
+      "positive_row_count": 2,
+      "positive_years": [
+        2015
+      ],
+      "positive_months": [
+        4
+      ],
+      "catch_estimate_sum": 2,
+      "harvest_estimate_sum": 2
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "walleye",
+      "raw_row_count": 30,
+      "positive_row_count": 5,
+      "positive_years": [
+        2001,
+        2016,
+        2018
+      ],
+      "positive_months": [
+        4,
+        7
+      ],
+      "catch_estimate_sum": 68,
+      "harvest_estimate_sum": 43
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "smallmouth_bass",
+      "raw_row_count": 39,
+      "positive_row_count": 19,
+      "positive_years": [
+        1998,
+        2000,
+        2006,
+        2013,
+        2014,
+        2015,
+        2016,
+        2018
+      ],
+      "positive_months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 1466,
+      "harvest_estimate_sum": 139
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "freshwater_drum",
+      "raw_row_count": 33,
+      "positive_row_count": 7,
+      "positive_years": [
+        2004,
+        2009,
+        2015,
+        2016
+      ],
+      "positive_months": [
+        6,
+        7,
+        8
+      ],
+      "catch_estimate_sum": 420,
+      "harvest_estimate_sum": 198
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "yellow_perch",
+      "raw_row_count": 42,
+      "positive_row_count": 18,
+      "positive_years": [
+        2008,
+        2009,
+        2010,
+        2012,
+        2013,
+        2014,
+        2016
+      ],
+      "positive_months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 8865,
+      "harvest_estimate_sum": 8341
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "lake_whitefish",
+      "raw_row_count": 26,
+      "positive_row_count": 1,
+      "positive_years": [
+        2012
+      ],
+      "positive_months": [
+        7
+      ],
+      "catch_estimate_sum": 324,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "round_whitefish",
+      "raw_row_count": 28,
+      "positive_row_count": 2,
+      "positive_years": [
+        2010
+      ],
+      "positive_months": [
+        10
+      ],
+      "catch_estimate_sum": 7,
+      "harvest_estimate_sum": 7
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "channel_catfish",
+      "raw_row_count": 26,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "largemouth_bass",
+      "raw_row_count": 27,
+      "positive_row_count": 2,
+      "positive_years": [
+        2014,
+        2018
+      ],
+      "positive_months": [
+        5,
+        9
+      ],
+      "catch_estimate_sum": 16,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "atlantic_salmon",
+      "raw_row_count": 14,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "northern_pike",
+      "raw_row_count": 30,
+      "positive_row_count": 4,
+      "positive_years": [
+        2014
+      ],
+      "positive_months": [
+        4,
+        6
+      ],
+      "catch_estimate_sum": 95,
+      "harvest_estimate_sum": 95
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "burbot",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "white_perch",
+      "raw_row_count": 26,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "white_bass",
+      "raw_row_count": 26,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "chinook_salmon",
+      "raw_row_count": 9,
+      "positive_row_count": 8,
+      "positive_years": [
+        2003,
+        2006,
+        2010,
+        2011
+      ],
+      "positive_months": [
+        9,
+        10
+      ],
+      "catch_estimate_sum": 587,
+      "harvest_estimate_sum": 587
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "coho_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "steelhead",
+      "raw_row_count": 7,
+      "positive_row_count": 7,
+      "positive_years": [
+        1989,
+        2007,
+        2009,
+        2010,
+        2011
+      ],
+      "positive_months": [
+        4,
+        5
+      ],
+      "catch_estimate_sum": 45,
+      "harvest_estimate_sum": 78
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "brown_trout",
+      "raw_row_count": 23,
+      "positive_row_count": 20,
+      "positive_years": [
+        1994,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011
+      ],
+      "positive_months": [
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 304,
+      "harvest_estimate_sum": 184
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "lake_trout",
+      "raw_row_count": 5,
+      "positive_row_count": 5,
+      "positive_years": [
+        2006,
+        2007,
+        2008,
+        2009
+      ],
+      "positive_months": [
+        4
+      ],
+      "catch_estimate_sum": 48,
+      "harvest_estimate_sum": 3
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "walleye",
+      "raw_row_count": 6,
+      "positive_row_count": 6,
+      "positive_years": [
+        2005,
+        2008,
+        2009
+      ],
+      "positive_months": [
+        4,
+        5,
+        6
+      ],
+      "catch_estimate_sum": 74,
+      "harvest_estimate_sum": 60
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "smallmouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "freshwater_drum",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "yellow_perch",
+      "raw_row_count": 1,
+      "positive_row_count": 1,
+      "positive_years": [
+        2010
+      ],
+      "positive_months": [
+        7
+      ],
+      "catch_estimate_sum": 226,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "lake_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "round_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "channel_catfish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "largemouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "atlantic_salmon",
+      "raw_row_count": 2,
+      "positive_row_count": 2,
+      "positive_years": [
+        2008
+      ],
+      "positive_months": [
+        6
+      ],
+      "catch_estimate_sum": 14,
+      "harvest_estimate_sum": 14
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "northern_pike",
+      "raw_row_count": 3,
+      "positive_row_count": 3,
+      "positive_years": [
+        1990,
+        2008,
+        2010
+      ],
+      "positive_months": [
+        6,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 16,
+      "harvest_estimate_sum": 21
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "burbot",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "white_perch",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "white_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "chinook_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "coho_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "steelhead",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "brown_trout",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "lake_trout",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "walleye",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "smallmouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "freshwater_drum",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "yellow_perch",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "lake_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "round_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "channel_catfish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "largemouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "atlantic_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "northern_pike",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "burbot",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "white_perch",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "white_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "chinook_salmon",
+      "raw_row_count": 83,
+      "positive_row_count": 21,
+      "positive_years": [
+        1990,
+        1991,
+        1994,
+        2005,
+        2007,
+        2008,
+        2010,
+        2012,
+        2014,
+        2015,
+        2016,
+        2018
+      ],
+      "positive_months": [
+        6,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 157,
+      "harvest_estimate_sum": 448
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "coho_salmon",
+      "raw_row_count": 62,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "steelhead",
+      "raw_row_count": 77,
+      "positive_row_count": 17,
+      "positive_years": [
+        1998,
+        1999,
+        2000,
+        2004,
+        2008,
+        2009,
+        2010,
+        2014,
+        2016,
+        2017,
+        2020
+      ],
+      "positive_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 388,
+      "harvest_estimate_sum": 165
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "brown_trout",
+      "raw_row_count": 64,
+      "positive_row_count": 2,
+      "positive_years": [
+        2001
+      ],
+      "positive_months": [
+        7
+      ],
+      "catch_estimate_sum": 24,
+      "harvest_estimate_sum": 24
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "lake_trout",
+      "raw_row_count": 72,
+      "positive_row_count": 17,
+      "positive_years": [
+        2015,
+        2016,
+        2017,
+        2019,
+        2020,
+        2021
+      ],
+      "positive_months": [
+        5,
+        6,
+        8,
+        10
+      ],
+      "catch_estimate_sum": 431,
+      "harvest_estimate_sum": 266
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "walleye",
+      "raw_row_count": 95,
+      "positive_row_count": 39,
+      "positive_years": [
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+        2000,
+        2002,
+        2006,
+        2007,
+        2010,
+        2011,
+        2012,
+        2015,
+        2016,
+        2021
+      ],
+      "positive_months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 1118,
+      "harvest_estimate_sum": 1591
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "smallmouth_bass",
+      "raw_row_count": 209,
+      "positive_row_count": 191,
+      "positive_years": [
+        1989,
+        1991,
+        1992,
+        1995,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "catch_estimate_sum": 81687,
+      "harvest_estimate_sum": 9102
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "freshwater_drum",
+      "raw_row_count": 77,
+      "positive_row_count": 21,
+      "positive_years": [
+        2001,
+        2005,
+        2010,
+        2013,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022
+      ],
+      "positive_months": [
+        6,
+        7,
+        8
+      ],
+      "catch_estimate_sum": 806,
+      "harvest_estimate_sum": 181
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "yellow_perch",
+      "raw_row_count": 72,
+      "positive_row_count": 18,
+      "positive_years": [
+        1989,
+        2000,
+        2006,
+        2012,
+        2015,
+        2017,
+        2018,
+        2019,
+        2021
+      ],
+      "positive_months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "catch_estimate_sum": 1197,
+      "harvest_estimate_sum": 859
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "lake_whitefish",
+      "raw_row_count": 64,
+      "positive_row_count": 2,
+      "positive_years": [
+        2003
+      ],
+      "positive_months": [
+        6
+      ],
+      "catch_estimate_sum": 23,
+      "harvest_estimate_sum": 23
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "round_whitefish",
+      "raw_row_count": 62,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "channel_catfish",
+      "raw_row_count": 67,
+      "positive_row_count": 1,
+      "positive_years": [
+        1994
+      ],
+      "positive_months": [
+        9
+      ],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 17
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "largemouth_bass",
+      "raw_row_count": 63,
+      "positive_row_count": 1,
+      "positive_years": [
+        1992
+      ],
+      "positive_months": [
+        9
+      ],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 31
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "atlantic_salmon",
+      "raw_row_count": 26,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "northern_pike",
+      "raw_row_count": 62,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "burbot",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "white_perch",
+      "raw_row_count": 62,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "white_bass",
+      "raw_row_count": 60,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "chinook_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "coho_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "steelhead",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "brown_trout",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "lake_trout",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "walleye",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "smallmouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "freshwater_drum",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "yellow_perch",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "lake_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "round_whitefish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "channel_catfish",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "largemouth_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "atlantic_salmon",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "northern_pike",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "burbot",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "white_perch",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "white_bass",
+      "raw_row_count": 0,
+      "positive_row_count": 0,
+      "positive_years": [],
+      "positive_months": [],
+      "catch_estimate_sum": 0,
+      "harvest_estimate_sum": 0
+    }
+  ]
+}

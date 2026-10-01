@@ -1,0 +1,115 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { detectEvents, SURGE_RULE } from '../src/engine/signals.js';
+import { toTemp, toWind, toLength, fmtWaves, fmtWind, tempBand, compass, paletteBytes, PALETTES } from '../src/engine/scales.js';
+import { gridSampler } from '../src/engine/frames.js';
+
+const series = (fn) => Array.from({ length: 121 }, (_, h) => fn(h));
+const ramp = (a, b, h0, h1) => (h) => h <= h0 ? a : h >= h1 ? b : a + (b - a) * (h - h0) / (h1 - h0);
+
+test('a 5°F wobble never triggers an alert', () => {
+  assert.deepEqual(detectEvents(series((h) => 58 + 2.5 * Math.sin(h / 4))), []);
+});
+test('a 12°F drop into trout and salmon range is a cold-water surge with its full window', () => {
+  const ev = detectEvents(series(ramp(61, 49, 20, 40)));
+  assert.equal(ev.length, 1);
+  assert.equal(ev[0].kind, 'cold');
+  assert.ok(ev[0].startHour >= 19 && ev[0].startHour <= 21, `start ${ev[0].startHour}`);
+  assert.equal(ev[0].bottomHour, 40);
+  assert.equal(ev[0].strong, false);
+});
+test('a big drop that stays above 60°F is not a surge', () => {
+  assert.deepEqual(detectEvents(series(ramp(74, 62, 20, 40))), []);
+});
+test('a short dip that rebounds within 6 hours is not a surge', () => {
+  const s = series((h) => h < 20 ? 61 : h < 30 ? 61 - (h - 20) * 1.2 : h < 32 ? 49 : 49 + (h - 32) * 4);
+  assert.deepEqual(detectEvents(s).filter((e) => e.kind === 'cold'), []);
+});
+test('a 16°F drop is labeled strong; a rise into warm water is a warm-water push', () => {
+  assert.equal(detectEvents(series(ramp(64, 48, 10, 30)))[0].strong, true);
+  const w = detectEvents(series(ramp(55, 66, 30, 40)));
+  assert.equal(w.length, 1); assert.equal(w[0].kind, 'warm');
+});
+test('the same event is reported once', () => {
+  assert.equal(detectEvents(series(ramp(62, 48, 10, 30))).length, 1);
+  assert.equal(SURGE_RULE.guardHours, 48);
+});
+test('units: Celsius, km/h, knots, meters', () => {
+  assert.equal(toTemp(50, 'C'), 10);
+  assert.ok(Math.abs(toWind(10, 'kph') - 16.09) < 0.01);
+  assert.ok(Math.abs(toWind(10, 'kt') - 8.69) < 0.01);
+  assert.ok(Math.abs(toLength(10, 'm') - 3.048) < 1e-9);
+  assert.equal(fmtWind(10, 'kph'), '16');
+  assert.equal(fmtWaves(3.2, 'ft'), '3–4');
+  assert.equal(fmtWaves(0.3, 'ft'), '< 1');
+  assert.equal(tempBand('F'), 2); assert.equal(tempBand('C'), 1);
+  assert.equal(compass(315), 'NW'); assert.equal(compass(0), 'N');
+});
+test('palettes are 256 opaque colors', () => {
+  for (const k of Object.keys(PALETTES)) { const b = paletteBytes(k); assert.equal(b.length, 1024); for (let i = 3; i < 1024; i += 4) assert.equal(b[i], 255); }
+});
+test('grid sampling interpolates and skips no-data corners', () => {
+  const grid = { res: 1, nodata: 255 }, dom = { west: 0, north: 1 };
+  const rgba = new Uint8ClampedArray([10, 0, 0, 255, 20, 0, 0, 255, 30, 0, 0, 255, 255, 0, 0, 255]);
+  const s = gridSampler(grid, dom), f = { w: 2, h: 2, rgba };
+  assert.equal(s(f, 0.5, 1), 15);
+  assert.ok(Number.isFinite(s(f, 0.5, 0.5)));
+  assert.ok(s(f, 0.5, 0.5) < 30);
+  assert.ok(Number.isNaN(s(f, 5, 5)));
+});
+
+/* ── band labels ── */
+import { BandLabeler } from '../src/engine/bandLabels.js';
+import { bandSpec, speciesFit, SPECIES } from '../src/engine/scales.js';
+
+function fakeStore(valueF) {
+  // 4°×2° lake, 0.02° temp grid; west half 55°F, east half 61°F
+  const domain = { west: -88, east: -84, south: 43, north: 45 }, res = 0.02;
+  const w = Math.round(4 / res) + 1, h = Math.round(2 / res) + 1, rgba = new Uint8ClampedArray(w * h * 4);
+  for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) rgba[(j * w + i) * 4] = Math.round((valueF(domain.west + i * res, domain.north - j * res) - 30) * 5);
+  const frame = { path: 'temp/000.png', w, h, rgba };
+  return {
+    frame, store: {
+      manifest: { domain, grids: { temp: { res, scale: 5, offset: 30, nodata: 255 } } },
+      bracket: () => ({ ia: 0, ib: 0, mix: 0 }),
+    },
+  };
+}
+const inLake = (lon, lat) => lon > -87.8 && lon < -84.2 && lat > 43.2 && lat < 44.8;
+
+test('band labels sit inside their own band, well away from its edge', () => {
+  const { store, frame } = fakeStore((lon) => (lon < -86 ? 55 : 61));
+  const L = new BandLabeler(store, inLake);
+  const t0 = Date.now();
+  const anchors = L.compute('temp', 0, { temp: 'F' }, [frame, frame]);
+  assert.ok(Date.now() - t0 < 1500, 'fast enough to run every forecast hour');
+  const texts = new Set(anchors.map((a) => a.text));
+  assert.ok(texts.has('54–56°') && texts.has('60–62°'), [...texts].join(','));
+  for (const a of anchors) {
+    if (a.text === '54–56°') assert.ok(a.lon < -86.05, `54–56 at ${a.lon}`);
+    if (a.text === '60–62°') assert.ok(a.lon > -85.95, `60–62 at ${a.lon}`);
+  }
+  const best = anchors[0]; assert.ok(best.r > 0.3, `interior radius ${best.r}`);
+});
+test('band labels are identical for the same hour (no jitter while zooming)', () => {
+  const { store, frame } = fakeStore((lon, lat) => 50 + (lon + 88) * 2 + Math.sin(lat * 6));
+  const L = new BandLabeler(store, inLake);
+  const a = L.compute('temp', 3, { temp: 'F' }, [frame, frame]), b = L.compute('temp', 3.4, { temp: 'F' }, [frame, frame]);
+  assert.equal(JSON.stringify(a), JSON.stringify(b));
+});
+test('band labels follow the unit: 1°C bands', () => {
+  const { store, frame } = fakeStore(() => 59); // 15°C
+  const anchors = new BandLabeler(store, inLake).compute('temp', 0, { temp: 'C' }, [frame, frame]);
+  assert.equal(anchors[0].text, '15–16°');
+});
+test('band specs for waves, wind and species', () => {
+  assert.equal(bandSpec('waves', { length: 'ft' }).label(1, 2), '1–2 ft');
+  assert.equal(bandSpec('waves', { length: 'm' }).width, 0.5);
+  assert.equal(bandSpec('wind', { wind: 'mph' }).width, 5);
+  assert.equal(bandSpec('wind', { wind: 'kph' }).width, 10);
+  assert.equal(bandSpec('depth', {}), null);
+  const coho = SPECIES.find((s) => s.id === 'coho_salmon');
+  assert.equal(speciesFit(54, coho).grade, 0);
+  assert.deepEqual([speciesFit(60, coho).grade, speciesFit(60, coho).dir], [1, 'warm']);
+  assert.equal(speciesFit(40, coho).grade, 3);
+});

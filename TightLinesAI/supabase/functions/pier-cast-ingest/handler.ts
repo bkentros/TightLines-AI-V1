@@ -5,6 +5,7 @@ import type {
   PierCastObservationIngestionSummary,
   PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
+  PierCastV3ShadowCommitSummary,
 } from "../_shared/pierCastEngine/index.ts";
 
 const INTERNAL_KEY_HEADER = "x-pier-cast-internal-key";
@@ -32,6 +33,93 @@ export type PierCastIngestHandlerDependencies = {
   archiveFieldObservations?: (
     records: readonly PierCastFieldTemperatureRecord[],
   ) => Promise<number>;
+  ingestPortWashingtonShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+    shadowForecast: PierCastShadowForecastCommitSummary | null;
+  }>;
+  ingestWisconsinShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+    shadowForecast: PierCastShadowForecastCommitSummary | null;
+  }>;
+  ingestLakeHuronShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
+  ingestFiveCityShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
+  ingestChicagoAlpenaShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
+  ingestStJosephHarrisvilleShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
+  ingestPentwaterCasevilleShadow?: () => Promise<{
+    status: "live_committed" | "cached_fallback" | "unavailable";
+    source: "live_lmhofs" | "fresh_archived_complete_cycle" | null;
+    fallbackUsed: boolean;
+    issuedAt?: string;
+    fetchedAt?: string;
+    cycleAgeHours?: number;
+    cityCount: number;
+    sampleCount: number;
+    diagnostics: string[];
+  }>;
+  ingestV3Shadow?: () => Promise<{
+    status: "committed" | "already_committed";
+    source: "fresh_archived_complete_cycle";
+    issuedAt: string;
+    cityCount: 32;
+    sampleCount: 3872;
+    shadowForecast: PierCastV3ShadowCommitSummary;
+  }>;
 };
 
 export function createPierCastIngestHandler(
@@ -53,6 +141,129 @@ export function createPierCastIngestHandler(
     const operation = request.headers.get(OPERATION_HEADER);
     if (operation === "field-temperature") {
       return await handleFieldTemperature(request, dependencies);
+    }
+    if (operation === "port-washington-shadow") {
+      if (!dependencies.ingestPortWashingtonShadow) {
+        return json(
+          { error: "pier_cast_port_washington_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestPortWashingtonShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_port_washington_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "wisconsin-shadow") {
+      if (!dependencies.ingestWisconsinShadow) {
+        return json(
+          { error: "pier_cast_wisconsin_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestWisconsinShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_wisconsin_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "lake-huron-shadow") {
+      if (!dependencies.ingestLakeHuronShadow) {
+        return json(
+          { error: "pier_cast_lake_huron_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestLakeHuronShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_lake_huron_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "five-city-shadow") {
+      if (!dependencies.ingestFiveCityShadow) {
+        return json({ error: "pier_cast_five_city_shadow_misconfigured" }, 500);
+      }
+      try {
+        const result = await dependencies.ingestFiveCityShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json({ error: "pier_cast_five_city_shadow_ingest_failed" }, 503);
+      }
+    }
+    if (operation === "chicago-alpena-shadow") {
+      if (!dependencies.ingestChicagoAlpenaShadow) {
+        return json(
+          { error: "pier_cast_chicago_alpena_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestChicagoAlpenaShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_chicago_alpena_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "st-joseph-harrisville-shadow") {
+      if (!dependencies.ingestStJosephHarrisvilleShadow) {
+        return json(
+          { error: "pier_cast_st_joseph_harrisville_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestStJosephHarrisvilleShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_st_joseph_harrisville_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "pentwater-caseville-shadow") {
+      if (!dependencies.ingestPentwaterCasevilleShadow) {
+        return json(
+          { error: "pier_cast_pentwater_caseville_shadow_misconfigured" },
+          500,
+        );
+      }
+      try {
+        const result = await dependencies.ingestPentwaterCasevilleShadow();
+        return json(result, result.status === "unavailable" ? 503 : 200);
+      } catch {
+        return json(
+          { error: "pier_cast_pentwater_caseville_shadow_ingest_failed" },
+          503,
+        );
+      }
+    }
+    if (operation === "v3-shadow") {
+      if (!dependencies.ingestV3Shadow) {
+        return json({ error: "pier_cast_v3_shadow_misconfigured" }, 500);
+      }
+      try {
+        return json(await dependencies.ingestV3Shadow());
+      } catch {
+        return json({ error: "pier_cast_v3_shadow_ingest_failed" }, 503);
+      }
     }
     if (operation) return json({ error: "pier_cast_operation_invalid" }, 400);
 

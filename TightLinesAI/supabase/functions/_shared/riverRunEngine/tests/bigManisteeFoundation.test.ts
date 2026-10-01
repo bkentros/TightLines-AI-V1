@@ -35,6 +35,7 @@ Deno.test("Big Manistee public foundation retains its released target portfolio"
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_winter_steelhead",
       "big_manistee_fall_brown_trout",
     ],
   );
@@ -95,6 +96,7 @@ Deno.test("Big Manistee foundation document binds all selectable fall runs", () 
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_winter_steelhead",
       "big_manistee_fall_brown_trout",
     ],
   );

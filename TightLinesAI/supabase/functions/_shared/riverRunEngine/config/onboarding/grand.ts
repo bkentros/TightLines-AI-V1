@@ -8,10 +8,12 @@ import type {
 } from "../../types.ts";
 import { buildDirectEventPushRules } from "../directPush.ts";
 import { getMovementEngineDefinition } from "../movementEngines.ts";
+import { buildMichiganWinterSteelheadProfile } from "../winterSteelhead.ts";
 import {
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
 } from "../speciesBiology.ts";
 
 const GRAND_RAPIDS_ACTIVITY_SCOPE =
@@ -693,23 +695,51 @@ export const GRAND_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   },
 };
 
+export const GRAND_WINTER_STEELHEAD_RUN_PROFILE =
+  buildMichiganWinterSteelheadProfile({
+    fall: GRAND_FALL_STEELHEAD_RUN_PROFILE,
+    activation: "01-01",
+    transitionEnd: "01-07",
+    coreStart: "01-08",
+    springApproachStart: "02-15",
+    startFraction: 0.62,
+    coreFraction: 0.61,
+    springApproachFraction: 0.58,
+    endFraction: 0.55,
+    inputReach: {
+      reachIds: ["grand_lower"],
+      hydraulicSourceIds: ["grand_fulton_usgs"],
+      waterTemperatureSourceIds: ["grand_north_park_temperature"],
+      weatherPointIds: ["grand_rapids_weather"],
+      notes:
+        "The downtown winter model combines Fulton flow, North Park measured water temperature, and Grand Rapids weather. It is not a whole-river composite.",
+    },
+    preferredStartReachIds: ["grand_lower"],
+    scopeCopy: GRAND_RAPIDS_ACTIVITY_SCOPE,
+    sourceNotes:
+      "Michigan DNR Steelhead biology and Grand River assessment material; USGS 04119000 Fulton Street and 04118564 North Park Street. Pass 2 accepted the dates, retained-presence slopes, and Activity calibration after 2021–2025 winter replay; this validates model behavior, not catch rates.",
+  });
+
 export const GRAND_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
   configVersion:
-    "2026-09-03-grand-direct-push-v1+seasonal-zone-v3+turbidity-v1",
+    "2026-09-25-grand-direct-push-v1+seasonal-zone-v3+turbidity-v1+winter-steelhead-pass2-v1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
+    getMovementEngineDefinition("stable_cool_holding").version,
   ].join("+"),
   river: GRAND_RIVER_PROFILE,
   biologyProfiles: [
     GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
     GREAT_LAKES_COHO_BIOLOGY_PROFILE,
     GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+    GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   ],
   runs: [
     GRAND_FALL_CHINOOK_RUN_PROFILE,
     GRAND_FALL_COHO_RUN_PROFILE,
     GRAND_FALL_STEELHEAD_RUN_PROFILE,
+    GRAND_WINTER_STEELHEAD_RUN_PROFILE,
   ],
 };

@@ -1,0 +1,73 @@
+{
+  "schema_version": "piercast-st-joseph-harrisville-pass2-lake-trout-review-v1",
+  "reviewed_at": "2026-09-19",
+  "regulation": "All five cities are in management units with lake trout/splake possession open all year under the reviewed 2026 guide.",
+  "decisions": [
+    {
+      "city_id": "st_joseph_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "B",
+      "peak": 4.1,
+      "rationale": "DNR explicitly identifies St. Joseph Pier and the port roadmap supplies cold-season timing. Without a resolved direct estimate, the ordinary peak is bracketed by the 4.0 Michigan breakwater cohort and Kewaunee 4.2.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "MI_REGS_2026"
+      ]
+    },
+    {
+      "city_id": "south_haven_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "A",
+      "peak": 3.8,
+      "rationale": "Seven positive Catch years with low full and recent matched-effort magnitude support a limited but recurring pier fishery equal to Ludington and above Grand Haven.",
+      "evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_REGS_2026"
+      ]
+    },
+    {
+      "city_id": "holland_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "B",
+      "peak": 3.8,
+      "rationale": "Grouped current pier identification, the port roadmap, and the state-park plan establish a real fishery, while the two reviewed Pier/Dock strata are zero. The value matches Ludington and stays below the 4.0 cohort.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_HOLLAND_GMP",
+        "MI_CREEL_DASHBOARD",
+        "MI_REGS_2026"
+      ]
+    },
+    {
+      "city_id": "lexington_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "B",
+      "peak": 4.8,
+      "rationale": "Two positive Pier/Dock years plus current port-roadmap targeting support a modest fishery between Oscoda 4.6 and Alpena 5.0. Mixed-mode roadmap evidence is disclosed rather than transferred as magnitude.",
+      "evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "MI_REGS_2026"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "peak": null,
+      "rationale": "The current advisory calls the broader summer/boat fishery very good, but neither the roadmap nor advisory allocates recurring lake-trout catch to the covered docks or harbor edge. No placeholder score is permitted.",
+      "evidence_ids": [
+        "MI_ROADMAP_LH",
+        "MI_CREEL_DASHBOARD",
+        "HARRISVILLE_LHCFAC_2025",
+        "HARRISVILLE_HARBOR_RULES"
+      ]
+    }
+  ],
+  "conclusion": "St. Joseph, South Haven, Holland, and Lexington receive private numeric calibrations. Harrisville remains a Grade C hold because recent strength is not allocated to covered dock/harbor-edge shore fishing."
+}

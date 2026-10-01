@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-pass2-validation-v1",
+  "validatedAt": "2026-09-19",
+  "status": "pass",
+  "checks": {
+    "cityCount": 5,
+    "speciesCount": 19,
+    "uniquePairDecisions": 95,
+    "dispositionCounts": {
+      "numeric_private": 55,
+      "research_hold_unscored": 23,
+      "exclude_unscored": 17
+    },
+    "numericPairCount": 55,
+    "modeCount": 83,
+    "dailyRows": 20075,
+    "scoreEvaluations": 59811,
+    "formulaInvariantComparisons": 99685,
+    "chicagoPerchClosedDays": 46,
+    "alpenaLakeTroutClosedDays": 92,
+    "maximumDecemberJanuarySeamDelta": 0,
+    "allEvidenceIdsResolve": true,
+    "allModeStrengthsWithin2_1And10": true,
+    "allAvailabilityWithin0And1": true,
+    "allScoresWithin1AndSeasonalPotentialAndF": true,
+    "temperatureMonotonicAt0Half1": true,
+    "modesDoNotStack": true,
+    "scoringOrRuntimeCodeChanged": false,
+    "publicVisibilityChanged": false
+  }
+}

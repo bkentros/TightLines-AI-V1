@@ -1,0 +1,498 @@
+{
+  "schema_version": "piercast-pass1-zero-query-ledger-v1",
+  "review_date": "2026-09-21",
+  "queries": [
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "TAWAS",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "TAWAS CITY",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "EAST TAWAS",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "TAWAS-EAST TAWAS",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "TAWAS/EAST TAWAS",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "tawas_city_mi",
+      "exact_query": {
+        "port": "TAWAS - EAST TAWAS",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "caseville_mi",
+      "exact_query": {
+        "port": "CASEVILLE",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "caseville_mi",
+      "exact_query": {
+        "port": "CASEVILLE-PORT AUSTIN",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "caseville_mi",
+      "exact_query": {
+        "port": "CASEVILLE/PORT AUSTIN",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Creel Sportfishing Estimates dashboard",
+      "city_id": "caseville_mi",
+      "exact_query": {
+        "port": "CASEVILLE TO PORT AUSTIN",
+        "mode": "Pier/Dock"
+      },
+      "result_rows": 0,
+      "interpretation": "Dashboard returned no Pier/Dock rows; this is not a zero estimate or absence evidence."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "chinook_salmon",
+      "exact_query": "County_Name=Oceana; Species=Chinook salmon|king salmon|king; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "coho_salmon",
+      "exact_query": "County_Name=Oceana; Species=coho salmon|silver salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "freshwater_drum",
+      "exact_query": "County_Name=Oceana; Species=freshwater drum|drum|sheepshead; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "yellow_perch",
+      "exact_query": "County_Name=Oceana; Species=yellow perch|perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "lake_whitefish",
+      "exact_query": "County_Name=Oceana; Species=lake whitefish|whitefish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "round_whitefish",
+      "exact_query": "County_Name=Oceana; Species=round whitefish|Menominee; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "atlantic_salmon",
+      "exact_query": "County_Name=Oceana; Species=Atlantic salmon|Atlantic; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "burbot",
+      "exact_query": "County_Name=Oceana; Species=burbot|lawyer|eelpout; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "white_perch",
+      "exact_query": "County_Name=Oceana; Species=white perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "white_bass",
+      "exact_query": "County_Name=Oceana; Species=white bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "pentwater_mi",
+      "species_id": "pink_salmon",
+      "exact_query": "County_Name=Oceana; Species=pink salmon|humpback salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "smallmouth_bass",
+      "exact_query": "County_Name=Presque Isle; Species=smallmouth bass|smallmouth|smallie; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "freshwater_drum",
+      "exact_query": "County_Name=Presque Isle; Species=freshwater drum|drum|sheepshead; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "lake_whitefish",
+      "exact_query": "County_Name=Presque Isle; Species=lake whitefish|whitefish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "round_whitefish",
+      "exact_query": "County_Name=Presque Isle; Species=round whitefish|Menominee; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "channel_catfish",
+      "exact_query": "County_Name=Presque Isle; Species=channel catfish|channel cat|catfish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "atlantic_salmon",
+      "exact_query": "County_Name=Presque Isle; Species=Atlantic salmon|Atlantic; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "burbot",
+      "exact_query": "County_Name=Presque Isle; Species=burbot|lawyer|eelpout; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "white_perch",
+      "exact_query": "County_Name=Presque Isle; Species=white perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "white_bass",
+      "exact_query": "County_Name=Presque Isle; Species=white bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "rogers_city_mi",
+      "species_id": "pink_salmon",
+      "exact_query": "County_Name=Presque Isle; Species=pink salmon|humpback salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "smallmouth_bass",
+      "exact_query": "County_Name=Iosco; Species=smallmouth bass|smallmouth|smallie; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "freshwater_drum",
+      "exact_query": "County_Name=Iosco; Species=freshwater drum|drum|sheepshead; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "lake_whitefish",
+      "exact_query": "County_Name=Iosco; Species=lake whitefish|whitefish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "round_whitefish",
+      "exact_query": "County_Name=Iosco; Species=round whitefish|Menominee; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "burbot",
+      "exact_query": "County_Name=Iosco; Species=burbot|lawyer|eelpout; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "white_perch",
+      "exact_query": "County_Name=Iosco; Species=white perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "white_bass",
+      "exact_query": "County_Name=Iosco; Species=white bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "tawas_city_mi",
+      "species_id": "pink_salmon",
+      "exact_query": "County_Name=Iosco; Species=pink salmon|humpback salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "freshwater_drum",
+      "exact_query": "County_Name=Charlevoix; Species=freshwater drum|drum|sheepshead; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "round_whitefish",
+      "exact_query": "County_Name=Charlevoix; Species=round whitefish|Menominee; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "channel_catfish",
+      "exact_query": "County_Name=Charlevoix; Species=channel catfish|channel cat|catfish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "northern_pike",
+      "exact_query": "County_Name=Charlevoix; Species=northern pike|pike; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "burbot",
+      "exact_query": "County_Name=Charlevoix; Species=burbot|lawyer|eelpout; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "white_perch",
+      "exact_query": "County_Name=Charlevoix; Species=white perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "white_bass",
+      "exact_query": "County_Name=Charlevoix; Species=white bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "charlevoix_mi",
+      "species_id": "pink_salmon",
+      "exact_query": "County_Name=Charlevoix; Species=pink salmon|humpback salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "smallmouth_bass",
+      "exact_query": "County_Name=Huron; Species=smallmouth bass|smallmouth|smallie; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "freshwater_drum",
+      "exact_query": "County_Name=Huron; Species=freshwater drum|drum|sheepshead; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "yellow_perch",
+      "exact_query": "County_Name=Huron; Species=yellow perch|perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "lake_whitefish",
+      "exact_query": "County_Name=Huron; Species=lake whitefish|whitefish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "round_whitefish",
+      "exact_query": "County_Name=Huron; Species=round whitefish|Menominee; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "channel_catfish",
+      "exact_query": "County_Name=Huron; Species=channel catfish|channel cat|catfish; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "largemouth_bass",
+      "exact_query": "County_Name=Huron; Species=largemouth bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "atlantic_salmon",
+      "exact_query": "County_Name=Huron; Species=Atlantic salmon|Atlantic; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "burbot",
+      "exact_query": "County_Name=Huron; Species=burbot|lawyer|eelpout; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "white_perch",
+      "exact_query": "County_Name=Huron; Species=white perch; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "white_bass",
+      "exact_query": "County_Name=Huron; Species=white bass; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    },
+    {
+      "dataset": "Michigan DNR Fish Stocking Data CSV",
+      "city_id": "caseville_mi",
+      "species_id": "pink_salmon",
+      "exact_query": "County_Name=Huron; Species=pink salmon|humpback salmon; then classify target and connected site/water names",
+      "result_rows": 0,
+      "interpretation": "No matching target-county species record in complete downloaded CSV; exact-city, connected-water, and neighboring evidence were separately reviewed."
+    }
+  ]
+}

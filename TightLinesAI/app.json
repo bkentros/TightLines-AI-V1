@@ -2,7 +2,7 @@
   "expo": {
     "name": "FinFindr",
     "slug": "tightlines-ai",
-    "version": "1.10",
+    "version": "1.14",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -34,6 +34,7 @@
     },
     "plugins": [
       "expo-router",
+      "@maplibre/maplibre-react-native",
       "expo-sqlite",
       [
         "expo-location",

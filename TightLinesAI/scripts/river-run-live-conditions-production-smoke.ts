@@ -4,8 +4,8 @@ const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
 const anonKey = requiredEnv("EXPO_PUBLIC_SUPABASE_ANON_KEY");
 const serviceRoleKey = requiredEnv("SUPABASE_SERVICE_ROLE_KEY");
 const functionUrl = `${supabaseUrl}/functions/v1/river-run`;
-const expectedEngineVersion = "river-run-v1.19.0";
-const expectedDataVersion = "river-live-conditions-v6";
+const expectedEngineVersion = "river-run-v1.21.0";
+const expectedDataVersion = "river-live-conditions-v7";
 const allExpectedMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   betsie: [],
@@ -13,6 +13,8 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
   muskegon: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   st_joseph: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   grand: ["flow_cfs", "gage_height_ft", "water_temp_f", "turbidity_fnu"],
+  bear_creek_manistee: ["flow_cfs"],
+  rogue_mi: ["flow_cfs", "gage_height_ft"],
   platte: ["flow_cfs", "gage_height_ft"],
   white: ["flow_cfs", "gage_height_ft", "water_temp_f"],
   milwaukee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
@@ -27,6 +29,27 @@ const allExpectedMetricsByRiver: Record<string, string[]> = {
     "turbidity_fnu",
   ],
   lower_genesee: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  green: [
+    "flow_cfs",
+    "gage_height_ft",
+    "water_temp_f",
+    "turbidity_fnu",
+    "turbidity_fnu",
+  ],
+  puyallup: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  cowlitz: ["flow_cfs", "gage_height_ft"],
+  trail_creek: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  kewaunee_river: ["flow_cfs", "water_temp_f"],
+  clackamas: [
+    "flow_cfs",
+    "gage_height_ft",
+    "water_temp_f",
+    "turbidity_fnu",
+  ],
+  manitowoc: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  oswego: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  umpqua_mainstem: ["flow_cfs", "gage_height_ft", "water_temp_f"],
+  north_umpqua: ["flow_cfs", "gage_height_ft", "water_temp_f"],
 };
 const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   pere_marquette: ["flow_cfs", "water_temp_f"],
@@ -35,6 +58,8 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   muskegon: ["flow_cfs", "water_temp_f"],
   st_joseph: ["flow_cfs", "water_temp_f"],
   grand: ["flow_cfs"],
+  bear_creek_manistee: [],
+  rogue_mi: ["flow_cfs"],
   platte: ["flow_cfs"],
   white: ["flow_cfs"],
   milwaukee: ["flow_cfs"],
@@ -44,6 +69,16 @@ const allExpectedSeasonalMetricsByRiver: Record<string, string[]> = {
   salmon_ny: ["flow_cfs"],
   oak_orchard: ["flow_cfs"],
   lower_genesee: ["flow_cfs"],
+  green: ["flow_cfs"],
+  puyallup: ["flow_cfs"],
+  cowlitz: ["flow_cfs"],
+  trail_creek: ["flow_cfs"],
+  kewaunee_river: ["flow_cfs"],
+  clackamas: ["flow_cfs"],
+  manitowoc: ["flow_cfs"],
+  oswego: ["flow_cfs"],
+  umpqua_mainstem: ["flow_cfs"],
+  north_umpqua: ["flow_cfs"],
 };
 const releaseMode = Deno.env.get("RIVER_RUN_EXPECTED_RELEASE")?.trim() ===
     "legacy"
@@ -162,7 +197,7 @@ for (const target of targets) {
       ),
     )
   );
-  if (target.riverId === "betsie") {
+  if (["betsie", "bear_creek_manistee"].includes(target.riverId)) {
     if (stringField(firstConditions, "status") !== "unavailable") {
       throw new Error(
         `${target.riverId} must retain its honest unavailable gauge state.`,
@@ -355,7 +390,15 @@ function auditMetric(
     const baselineVersion = stringField(seasonal, "baselineVersion") ?? "";
     const isExactDateArchive = windowRadiusDays === 0 &&
       baselineVersion.includes("exact-date");
-    if (windowRadiusDays !== 3 && !isExactDateArchive) {
+    const isLongTermFieldArchive = value == null &&
+      windowRadiusDays === 0 &&
+      stringField(seasonal, "recordKind") === "long_term" &&
+      stringField(seasonal, "source") ===
+        "usgs_approved_field_measurement_archive";
+    if (
+      windowRadiusDays !== 3 && !isExactDateArchive &&
+      !isLongTermFieldArchive
+    ) {
       throw new Error(
         `${riverId} ${id} has an unsupported seasonal-context window.`,
       );

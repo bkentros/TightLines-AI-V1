@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "piercast-refinement-pass3-visual-matrix-v1",
+  "purpose": "Pass 4 native acceptance coverage for the premium Great Lakes map",
+  "viewports": [
+    { "id": "small", "device": "iPhone SE (3rd generation)", "widthPt": 375, "heightPt": 667 },
+    { "id": "standard", "device": "iPhone 15", "widthPt": 393, "heightPt": 852 },
+    { "id": "large", "device": "iPhone 15 Pro Max", "widthPt": 430, "heightPt": 932 }
+  ],
+  "requiredPermutations": {
+    "timeModes": ["now", "forecast_start", "forecast_midpoint", "forecast_end"],
+    "layers": ["match", "temperature", "bathymetry"],
+    "targetStates": ["none", "selected_supported", "selected_unsupported_city", "target_updating", "target_error"],
+    "windStates": ["off", "flow", "manual_arrows", "reduced_motion_arrows", "selected_node", "missing_frame"],
+    "observationStates": ["off", "now_points", "selected_point", "stale_points", "empty", "unavailable", "forecast_hidden"],
+    "mapStates": ["loading", "complete", "stale", "foundation_unavailable", "city_frames_unavailable", "online_basemap", "offline_basemap"],
+    "zoomLevels": ["five_lakes_overview", "state", "city_labels", "shoreline_detail"]
+  },
+  "synchronizationChecks": [
+    "Every forecast step changes the raster, city temperatures, Match colors, wind frame, and displayed timestamp to the same validAt.",
+    "Wind particles move only within the selected exact-hour vector and never imply interpolation to another meteorological frame.",
+    "Changing target preserves camera center, zoom, selected forecast hour, time mode, state filter, wind state, and observation state.",
+    "Changing Now or Forecast preserves the selected species and layer.",
+    "Observed station points appear only in Now and never change city Match colors or ranking data."
+  ],
+  "visualChecks": [
+    "Persistent target chip, time tabs, layer tabs, state rail, map tools, attribution, compass, scale, and bottom panel do not overlap.",
+    "Animated flow stays legible above every temperature color without obscuring city markers.",
+    "Static arrows remain readable with Reduce Motion and when flow is manually disabled.",
+    "Small-screen controls remain tappable and all long species, city, station, and disclosure text remains readable or intentionally truncated.",
+    "Map retains the FinFindr navy, paper, gold, and freshwater-blue visual language.",
+    "Depth remains labeled static and not for navigation; Now remains labeled modeled rather than live."
+  ],
+  "performanceChecks": [
+    "No particle animation continues while the screen is unfocused or the app is inactive.",
+    "Forecast playback and wind flow can run together without touch or timeline lag.",
+    "Repeated target changes do not commit stale condition responses.",
+    "Ten minutes of flow animation shows no unbounded memory growth, thermal warning, or crash.",
+    "Arrow fallback remains usable on a low-power or reduced-motion device."
+  ],
+  "releaseBoundary": "Evidence is required in Pass 4 before release. This matrix does not authorize deployment."
+}

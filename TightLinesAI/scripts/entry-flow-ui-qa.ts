@@ -27,7 +27,7 @@ assert.doesNotMatch(
 
 for (const phrase of [
   "Today's score, bite windows, limiting factors, and the reason behind the read.",
-  'Migration stage, activity, seasonal presence, and live river conditions.',
+  'Migration stage, activity, seasonal presence, river conditions, and official fish counts where available.',
   'Lures, flies, and presentations tuned to your species and current conditions.',
   'Structure, cover, and likely holding zones across supported lakes.',
 ]) {
@@ -56,12 +56,12 @@ assert.match(
 );
 assert.match(
   onboarding,
-  /HANDLE[\s\S]*?STATE[\s\S]*?CITY · OPT\.[\s\S]*?STATE · REQUIRED[\s\S]*?CITY · OPTIONAL/,
+  /title="Your handle"[\s\S]*?status=\{handleReady \? 'ready' : 'required'\}[\s\S]*?title="Home water"[\s\S]*?>STATE<[\s\S]*?>CITY<[\s\S]*?'OPTIONAL'/,
   'Onboarding must make required and optional details explicit',
 );
 assert.match(
   onboarding,
-  /style=\{styles\.statePicker\}[\s\S]*?showStateList &&[\s\S]*?style=\{styles\.stateList\}[\s\S]*?<VerifiedCityInput/,
+  /styles\.statePicker[\s\S]*?showStateList &&[\s\S]*?styles\.stateGridWrap[\s\S]*?<VerifiedCityInput/,
   'Onboarding state options must render directly below the state picker and before city search',
 );
 assert.match(

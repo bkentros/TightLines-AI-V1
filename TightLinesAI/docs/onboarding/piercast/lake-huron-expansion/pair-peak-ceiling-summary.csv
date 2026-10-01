@@ -1,0 +1,15 @@
+pairKey,modeCount,peakFisheryStrength,reachesTen,maximumFormulaScoreAtIdealTemperature
+"harbor_beach_mi/coho_salmon",2,5.8,false,5.8
+"harbor_beach_mi/smallmouth_bass",1,4.9,false,4.9
+"oscoda_mi/atlantic_salmon",2,8.4,false,8.4
+"oscoda_mi/steelhead",2,7.4,false,7.4
+"oscoda_mi/walleye",2,6.8,false,6.8
+"oscoda_mi/lake_trout",1,4.6,false,4.6
+"oscoda_mi/coho_salmon",2,6.5,false,6.5
+"oscoda_mi/chinook_salmon",1,5.5,false,5.5
+"oscoda_mi/smallmouth_bass",1,4.5,false,4.5
+"oscoda_mi/channel_catfish",1,4.2,false,4.2
+"oscoda_mi/freshwater_drum",1,3.9,false,3.9
+"port_sanilac_mi/coho_salmon",2,6.4,false,6.4
+"port_sanilac_mi/steelhead",2,4.5,false,4.5
+"port_sanilac_mi/northern_pike",1,5.1,false,5.1

@@ -153,7 +153,7 @@ Deno.test("river live conditions add reach-labeled raw FNU without seasonal inte
   assertEquals(metric.trend24h.delta, 1.3);
   assertEquals(metric.trend24h.direction, "increasing");
   assertEquals(metric.seasonalContext, undefined);
-  assertEquals(conditions.dataVersion, "river-live-conditions-v6");
+  assertEquals(conditions.dataVersion, "river-live-conditions-v7");
 });
 
 Deno.test("river live conditions suppress readings older than 24 hours", async () => {

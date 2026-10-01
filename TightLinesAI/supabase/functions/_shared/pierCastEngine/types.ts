@@ -28,14 +28,47 @@ export type PierCastSpeciesId =
   | "lake_whitefish"
   | "round_whitefish"
   | "channel_catfish"
-  | "largemouth_bass";
+  | "largemouth_bass"
+  | "atlantic_salmon"
+  | "northern_pike"
+  | "burbot"
+  | "white_perch"
+  | "white_bass"
+  | "bluegill";
 
 export type PierCastCityId =
   | "ludington_mi"
   | "grand_haven_mi"
   | "manistee_mi"
   | "frankfort_elberta_mi"
-  | "sheboygan_wi";
+  | "sheboygan_wi"
+  | "port_washington_wi"
+  | "milwaukee_wi"
+  | "racine_wi"
+  | "kenosha_wi"
+  | "harbor_beach_mi"
+  | "oscoda_mi"
+  | "port_sanilac_mi"
+  | "two_rivers_wi"
+  | "kewaunee_wi"
+  | "algoma_wi"
+  | "manitowoc_wi"
+  | "waukegan_il"
+  | "chicago_il"
+  | "michigan_city_in"
+  | "muskegon_mi"
+  | "whitehall_mi"
+  | "alpena_mi"
+  | "st_joseph_mi"
+  | "south_haven_mi"
+  | "holland_mi"
+  | "lexington_mi"
+  | "harrisville_mi"
+  | "pentwater_mi"
+  | "rogers_city_mi"
+  | "tawas_city_mi"
+  | "charlevoix_mi"
+  | "caseville_mi";
 
 export type PierCastMonthEvidenceState =
   | "sourced_biology"
@@ -131,7 +164,7 @@ export type PierCastCityTemperatureSource = {
       latitude: number;
       longitude: number;
       distanceM: number;
-      coordinateSource: "NOAA Coast Pilot 6";
+      coordinateSource: string;
     };
     gridCellStatus: "candidate" | "approved_for_pilot";
   } | null;
@@ -140,13 +173,13 @@ export type PierCastCityTemperatureSource = {
   freshnessLimitHours: number;
   fallbackPolicy: "unavailable";
   validationObservation: {
-    provider: "GLOS Seagull ERDDAP";
+    provider: "GLOS Seagull ERDDAP" | "NOAA CO-OPS";
     datasetId: string;
     seasonal: true;
     availabilityStatus: "active_seasonal" | "historical_only";
     temperatureVariable: string;
     aggregateQualityVariable: string;
-    reportedUnit: "K";
+    reportedUnit: "K" | "C";
     nominalDepthM: number | null;
   } | null;
   limitation: string;
@@ -155,7 +188,7 @@ export type PierCastCityTemperatureSource = {
 export type PierCastCityProfile = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   publicEnabled: false;
@@ -169,7 +202,7 @@ export type PierCastCatalogMode = "public" | "review";
 export type PierCastCatalogCity = {
   cityId: PierCastCityId;
   displayName: string;
-  stateCode: "MI" | "WI";
+  stateCode: "MI" | "WI" | "IL" | "IN";
   timezone: "America/Detroit" | "America/Chicago";
   tentative: boolean;
   releaseStatus: "research_only" | "public_research";
@@ -182,9 +215,10 @@ export type PierCastCatalogResponse = {
   mode: PierCastCatalogMode;
   ratingName: "FinFindr Opportunity Rating";
   ratingDisplayFormat: "X.X/10";
-  formulaVersion: "seasonal-opportunity-bounded-temperature-v2";
-  formula:
-    "clamp(1, 10, 1 + (seasonalRating - 1) * (0.30 + 0.75 * temperatureSuitability))";
+  formulaVersion:
+    | "seasonal-opportunity-bounded-temperature-v2"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
+  formula: string;
   winterOpenWaterNotice: string;
   disclosure: string;
   cities: PierCastCatalogCity[];
@@ -340,6 +374,16 @@ export type PierCastDailyAggregate = {
   coverage: PierCastCoverageRead;
 };
 
+export type PierCastSixHourScore = {
+  slotIndex: 0 | 1 | 2 | 3;
+  startAt: string;
+  endAt: string;
+  phase: "past" | "current" | "upcoming";
+  assessedInterval: PierCastInterval | null;
+  biological: PierCastScoreRead;
+  coverage: PierCastCoverageRead | null;
+};
+
 export type PierCastPromotionRead = {
   status: "eligible" | "limited" | "blocked" | "unknown";
   reasonCodes: string[];
@@ -366,6 +410,48 @@ export type PierCastReviewTemperaturePoint = {
   temperatureC: number;
 };
 
+export type PierCastTemperatureEventDirection = "cooling" | "warming";
+
+export type PierCastTemperatureEventSeverity =
+  | "minor"
+  | "notable"
+  | "major"
+  | "extreme";
+
+export type PierCastTemperatureEvent = {
+  eventId: string;
+  direction: PierCastTemperatureEventDirection;
+  severity: PierCastTemperatureEventSeverity;
+  startAt: string;
+  endAt: string;
+  startTemperatureC: number;
+  endTemperatureC: number;
+  /** Signed: negative cools and positive warms. */
+  changeC: number;
+  magnitudeC: number;
+  durationHours: number;
+  /** Longest configured window whose threshold established this severity. */
+  triggerWindowHours: 12 | 24;
+  maximumChangeByWindowC: {
+    hours6: number;
+    hours12: number;
+    hours24: number;
+  };
+  startsAtCoverageBoundary: boolean;
+  endsAtCoverageBoundary: boolean;
+};
+
+export type PierCastTemperatureEventSummary = {
+  status: "available" | "partial" | "unavailable";
+  detectorVersion: "piercast-temperature-events-v1";
+  coverageStart: string | null;
+  coverageEnd: string | null;
+  pointCount: number;
+  segmentCount: number;
+  events: PierCastTemperatureEvent[];
+  reasonCodes: string[];
+};
+
 export type PierCastReviewDailyTemperature = {
   status: "complete" | "partial" | "none";
   minimumC: number | null;
@@ -386,6 +472,8 @@ export type PierCastReviewSpeciesOutlook = {
   temperatureCurveId: string | null;
   temperatureSuitabilityRange: readonly [number, number] | null;
   biological: PierCastScoreRead;
+  /** Omitted from immutable score snapshots; filled from the live cycle. */
+  timeWindows?: PierCastSixHourScore[];
   coverage: PierCastCoverageRead;
   targetingEligibility: "eligible" | "restricted" | "unknown";
   promotion: PierCastPromotionRead;
@@ -409,6 +497,7 @@ export type PierCastReviewCityOutlook = {
   timezone: "America/Detroit" | "America/Chicago";
   representationDecision: "blocked_insufficient_evidence";
   temperatureTimeline: PierCastReviewTemperaturePoint[];
+  temperatureEvents: PierCastTemperatureEventSummary;
   dates: PierCastReviewDateOutlook[];
   /** Research hypotheses only; excluded from daily snapshots and headlines. */
   additionalSpeciesResearch?: PierCastAdditionalSpeciesResearch[];
@@ -471,7 +560,8 @@ export type PierCastReviewOutlookResponse = {
   ratingDisplayFormat: "X.X/10";
   formulaVersion:
     | "seasonal-opportunity-bounded-temperature-v2"
-    | "seasonal-ceiling-x-temperature-v1";
+    | "seasonal-ceiling-x-temperature-v1"
+    | "piercast-opportunity-modes-bounded-temperature-v3";
   disclosure: string;
   dailyScoreSnapshot?: PierCastDailyScoreSnapshot;
   source: {
@@ -480,8 +570,8 @@ export type PierCastReviewOutlookResponse = {
     issuedAt: string;
     fetchedAt: string;
     cycleAgeHours: number;
-    cityCount: 5;
-    sampleCount: 605;
+    cityCount: number;
+    sampleCount: number;
   };
   cities: PierCastReviewCityOutlook[];
 };

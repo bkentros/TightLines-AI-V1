@@ -1,3 +1,5 @@
+import { CONDITION_MODEL_VERSION } from "../_shared/conditionModelVersion.ts";
+import { nextMidnightInTimeZoneMs } from "../../../lib/forecastSnapshot.ts";
 import type { RecommenderRequest } from "../_shared/recommenderEngine/contracts/input.ts";
 import type {
   DailyPicksFutureResponse,
@@ -24,6 +26,7 @@ export type DailyPicksRecommendationSession = {
 };
 
 export type DailyPicksSessionResponse = DailyPicksFutureResponse & {
+  condition_model_version?: string;
   generated_at: string;
   cache_expires_at: string;
   recommendation_session: DailyPicksRecommendationSession;
@@ -81,30 +84,8 @@ export function dailyPicksLocationLocalMidnightIso(
   timezone: string,
   now = new Date(),
 ): string {
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  const parts = Object.fromEntries(
-    formatter.formatToParts(now).map((p) => [p.type, p.value]),
-  );
-  const y = Number(parts.year);
-  const m = Number(parts.month);
-  const d = Number(parts.day);
-  const hh = Number(parts.hour);
-  const mm = Number(parts.minute);
-  const ss = Number(parts.second);
-  const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
-  const offsetMillis = localNowUtcMillis - now.getTime();
-  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) -
-    offsetMillis;
-  return new Date(nextLocalMidnightUtcMillis).toISOString();
+  return new Date(nextMidnightInTimeZoneMs(timezone, now.getTime()))
+    .toISOString();
 }
 
 function buildSessionKey(args: {
@@ -201,7 +182,7 @@ function selectedIds(response: DailyPicksFutureResponse): {
   };
 }
 
-async function readSession(args: {
+async function readExactSession(args: {
   supabase: SupabaseLike;
   key: SessionKey;
 }): Promise<SessionRow | null> {
@@ -214,6 +195,131 @@ async function readSession(args: {
     throw new Error(`daily picks session read failed: ${error.message}`);
   }
   return data as SessionRow | null;
+}
+
+/** Coordinates identify the same session even when a routing correction changes state/region. */
+async function readSession(
+  args: { supabase: SupabaseLike; key: SessionKey },
+): Promise<SessionRow | null> {
+  const exact = await readExactSession(args);
+  if (exact) return exact;
+  let query = args.supabase.from(TABLE).select("*");
+  for (const [column, value] of Object.entries(args.key)) {
+    if (column !== "state_code" && column !== "region_key") {
+      query = query.eq(column, value);
+    }
+  }
+  const { data, error } = await query.order("created_at", { ascending: false })
+    .limit(1).maybeSingle();
+  if (error) {
+    throw new Error(
+      `daily picks session routing lookup failed: ${error.message}`,
+    );
+  }
+  return data as SessionRow | null;
+}
+
+function keyFromRow(row: SessionRow): SessionKey {
+  const {
+    user_id,
+    local_date,
+    lat_key,
+    lon_key,
+    state_code,
+    region_key,
+    species,
+    water_type,
+    water_clarity,
+    recommendation_goal,
+    engine_version,
+  } = row;
+  return {
+    user_id,
+    local_date,
+    lat_key,
+    lon_key,
+    state_code,
+    region_key,
+    species,
+    water_type,
+    water_clarity,
+    recommendation_goal,
+    engine_version,
+  };
+}
+
+async function upgradeSession(args: {
+  supabase: SupabaseLike;
+  row: SessionRow;
+  generatedAt: string;
+  generate: NonNullable<
+    Parameters<typeof resolveDailyPicksSession>[0]["generateVariant"]
+  >;
+}): Promise<SessionRow> {
+  let row = args.row;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    if (
+      row.variant_a_response.condition_model_version ===
+        CONDITION_MODEL_VERSION &&
+      (!row.variant_b_response ||
+        row.variant_b_response.condition_model_version ===
+          CONDITION_MODEL_VERSION)
+    ) return row;
+    const a = await args.generate("A", { attempt: 0 });
+    const upgradedA = withSessionMetadata({
+      response: a,
+      row,
+      generatedAt: args.generatedAt,
+      variant: "A",
+    });
+    const avoid = selectedIds(a);
+    const b = row.variant_b_response
+      ? await args.generate("B", {
+        attempt: 0,
+        avoidLureIds: avoid.lures,
+        avoidFlyIds: avoid.flies,
+        avoidResponse: upgradedA,
+      })
+      : null;
+    let query = args.supabase.from(TABLE).update({
+      variant_a_response: upgradedA,
+      variant_b_response: b
+        ? withSessionMetadata({
+          response: b,
+          row,
+          generatedAt: args.generatedAt,
+          variant: "B",
+        })
+        : null,
+      updated_at: args.generatedAt,
+    });
+    const key = keyFromRow(row);
+    for (const [column, value] of Object.entries(key)) {
+      query = query.eq(column, value);
+    }
+    // Compare-and-set protects both a concurrent upgrade and a concurrent refresh.
+    query = query.eq("active_variant", row.active_variant).eq(
+      "refreshes_used",
+      row.refreshes_used,
+    );
+    const revision = row.variant_a_response.condition_model_version;
+    query = revision == null
+      ? query.is("variant_a_response->>condition_model_version", null)
+      : query.eq("variant_a_response->>condition_model_version", revision);
+    const { data, error } = await query.select("*").maybeSingle();
+    if (error) {
+      throw new Error(`daily picks session upgrade failed: ${error.message}`);
+    }
+    if (data) return data as SessionRow;
+    const latest = await readExactSession({ supabase: args.supabase, key });
+    if (!latest) {
+      throw new Error("daily picks session disappeared during upgrade");
+    }
+    row = latest;
+  }
+  throw new Error(
+    "daily picks session changed repeatedly during upgrade; retry",
+  );
 }
 
 async function saveSession(args: {
@@ -288,22 +394,41 @@ export async function resolveDailyPicksSession(args: {
   result: DailyPicksSessionResponse;
   generatedVariant: DailyPicksVariant | null;
 }> {
-  const key = buildSessionKey({ userId: args.userId, req: args.req });
-  const existing = await readSession({ supabase: args.supabase, key });
+  let key = buildSessionKey({ userId: args.userId, req: args.req });
+  let existing = await readSession({ supabase: args.supabase, key });
   const now = args.now ?? new Date();
   const generatedAt = utcNowIso(now);
   const cacheExpiresAt = dailyPicksLocationLocalMidnightIso(
     args.req.location.local_timezone,
     now,
   );
-  const generateVariant = args.generateVariant ??
-    ((variant, options) =>
-      runDailyPicksSurface(args.req, {
-        seed: `${args.seed}|${variant}|${options.attempt}`,
-        variant,
-        avoidLureIds: options.avoidLureIds,
-        avoidFlyIds: options.avoidFlyIds,
-      }));
+  const generateRaw: NonNullable<typeof args.generateVariant> =
+    args.generateVariant ??
+      ((variant, options) =>
+        runDailyPicksSurface(args.req, {
+          seed: `${args.seed}|${variant}|${options.attempt}`,
+          variant,
+          avoidLureIds: options.avoidLureIds,
+          avoidFlyIds: options.avoidFlyIds,
+        }));
+
+  const generateVariant: NonNullable<typeof args.generateVariant> = async (
+    variant,
+    options,
+  ) => ({
+    ...await generateRaw(variant, options),
+    condition_model_version: CONDITION_MODEL_VERSION,
+  });
+
+  if (existing) {
+    existing = await upgradeSession({
+      supabase: args.supabase,
+      row: existing,
+      generatedAt,
+      generate: generateVariant,
+    });
+    key = keyFromRow(existing);
+  }
 
   if (!existing) {
     if (args.viewVariant != null) {
@@ -330,11 +455,17 @@ export async function resolveDailyPicksSession(args: {
     });
     const inserted = await saveSession({ supabase: args.supabase, row });
     if (!inserted) {
-      const racedExisting = await readSession({
+      let racedExisting = await readSession({
         supabase: args.supabase,
         key,
       });
       if (racedExisting) {
+        racedExisting = await upgradeSession({
+          supabase: args.supabase,
+          row: racedExisting,
+          generatedAt,
+          generate: generateVariant,
+        });
         if (args.viewVariant != null) {
           return {
             result: responseForVariant(racedExisting, args.viewVariant),
@@ -389,11 +520,17 @@ export async function resolveDailyPicksSession(args: {
     if (claimed) {
       return { result: activeResponse(claimed), generatedVariant: "B" };
     }
-    const racedExisting = await readSession({
+    let racedExisting = await readSession({
       supabase: args.supabase,
       key,
     });
     if (racedExisting) {
+      racedExisting = await upgradeSession({
+        supabase: args.supabase,
+        row: racedExisting,
+        generatedAt,
+        generate: generateVariant,
+      });
       return { result: activeResponse(racedExisting), generatedVariant: null };
     }
     throw new Error(

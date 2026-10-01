@@ -1,0 +1,165 @@
+{
+  "schema_version": "piercast-pass1-validation-v1",
+  "review_date": "2026-09-21",
+  "overall_status": "pass",
+  "counts": {
+    "cities": 5,
+    "user_facing_species": 18,
+    "research_decisions": 90,
+    "bluegill_policy_exclusions": 5,
+    "compatibility_records": 95,
+    "candidates": 52,
+    "holds": 10,
+    "exclusions": 28,
+    "structures": 15,
+    "sources": 25,
+    "creel_raw_rows": 3248,
+    "stocking_raw_rows": 4602,
+    "stocking_review_cells": 95,
+    "reviewed_stocking_records": 4325,
+    "salmonid_rows": 35,
+    "enhanced_lake_huron_rows": 12,
+    "zero_queries": 59
+  },
+  "checks": [
+    {
+      "name": "five cities",
+      "status": "pass",
+      "detail": 5
+    },
+    {
+      "name": "18 user-facing species per city",
+      "status": "pass",
+      "detail": 90
+    },
+    {
+      "name": "90 unique user-facing decisions",
+      "status": "pass",
+      "detail": 90
+    },
+    {
+      "name": "five bluegill policy exclusions",
+      "status": "pass",
+      "detail": 5
+    },
+    {
+      "name": "95 compatibility records",
+      "status": "pass",
+      "detail": 95
+    },
+    {
+      "name": "bluegill never candidate/hold/scored/mode/ranked/visible",
+      "status": "pass",
+      "detail": "fixed policy"
+    },
+    {
+      "name": "legacy bluegill runtime gap is an explicit later release blocker",
+      "status": "pass",
+      "detail": 4
+    },
+    {
+      "name": "all source references resolve",
+      "status": "pass",
+      "detail": 25
+    },
+    {
+      "name": "every structure has disposition",
+      "status": "pass",
+      "detail": 15
+    },
+    {
+      "name": "mandatory leads reviewed",
+      "status": "pass",
+      "detail": 65
+    },
+    {
+      "name": "explicit water assignments",
+      "status": "pass",
+      "detail": "pentwater_mi:Lake Michigan, rogers_city_mi:Lake Huron, tawas_city_mi:Lake Huron, charlevoix_mi:Lake Michigan, caseville_mi:Saginaw Bay"
+    },
+    {
+      "name": "all 12 months per cell",
+      "status": "pass",
+      "detail": 90
+    },
+    {
+      "name": "95 reproducible stocking searches",
+      "status": "pass",
+      "detail": 95
+    },
+    {
+      "name": "stocking searched for all 90 user-facing cells",
+      "status": "pass",
+      "detail": 90
+    },
+    {
+      "name": "30 mandatory user-facing salmonid reviews",
+      "status": "pass",
+      "detail": 30
+    },
+    {
+      "name": "five pink salmon reviews",
+      "status": "pass",
+      "detail": 5
+    },
+    {
+      "name": "12 enhanced Lake Huron salmonid reviews",
+      "status": "pass",
+      "detail": 12
+    },
+    {
+      "name": "positive stocking classified",
+      "status": "pass",
+      "detail": 4325
+    },
+    {
+      "name": "stocking relationship flags are explicit and exclusive",
+      "status": "pass",
+      "detail": 4325
+    },
+    {
+      "name": "zero results preserve exact query",
+      "status": "pass",
+      "detail": 59
+    },
+    {
+      "name": "stocked hold/exclude exact-port followup",
+      "status": "pass",
+      "detail": 11
+    },
+    {
+      "name": "no numeric scores or modes",
+      "status": "pass",
+      "detail": 90
+    },
+    {
+      "name": "every candidate and hold has a nonregional lead",
+      "status": "pass",
+      "detail": 62
+    },
+    {
+      "name": "weekly source locators resolve",
+      "status": "pass",
+      "detail": 7
+    },
+    {
+      "name": "raw creel row counts",
+      "status": "pass",
+      "detail": 3248
+    },
+    {
+      "name": "raw stocking county scope",
+      "status": "pass",
+      "detail": 4602
+    }
+  ],
+  "forbidden_changes": {
+    "numeric_scores_created": false,
+    "runtime_configuration_changed": false,
+    "migration_created": false,
+    "public_visibility_changed": false,
+    "deployment_started": false,
+    "build_started": false,
+    "public_release_manifest_changed": false
+  }
+}

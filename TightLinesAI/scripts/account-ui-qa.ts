@@ -56,13 +56,18 @@ assert.match(
 );
 assert.match(
   welcome,
-  /moduleId: "todays-bite"[\s\S]*?moduleId: "river-run"[\s\S]*?moduleId: "tackle-box"[\s\S]*?moduleId: "water-read"[\s\S]*?moduleId: "color-match"/,
-  "The public welcome screen must show all five live Angler modules",
+  /moduleId: "todays-bite"[\s\S]*?moduleId: "tackle-box"[\s\S]*?moduleId: "river-run"[\s\S]*?moduleId: "pier-cast"[\s\S]*?moduleId: "color-match"[\s\S]*?moduleId: "water-read"/,
+  "The public welcome screen must show all six Angler modules in product-priority order",
 );
 assert.match(
   membership,
-  /module: 'todays-bite'[\s\S]*?module: 'river-run'[\s\S]*?module: 'tackle-box'[\s\S]*?module: 'water-read'[\s\S]*?module: 'color-match'/,
-  "Angler benefits must follow the current five-feature product order",
+  /module: 'todays-bite'[\s\S]*?module: 'tackle-box'[\s\S]*?module: 'river-run'[\s\S]*?module: 'pier-cast'[\s\S]*?module: 'color-match'[\s\S]*?module: 'water-read'/,
+  "Angler benefits must follow the current six-feature product order",
+);
+assert.doesNotMatch(
+  membership,
+  /Pier Cast is coming soon/,
+  "The membership page must present live PierCast access as included",
 );
 assert.match(
   membership,
@@ -71,10 +76,10 @@ assert.match(
 );
 assert.match(
   unlockedModal,
-  /Today's Bite, River Migration, Tackle Box, Water Read, and Color Match/,
-  "The Angler unlock confirmation must name all five included features",
+  /Today's Bite, Tackle Box, River Migration, Pier Cast, Color Match, and Water Read/,
+  "The Angler unlock confirmation must name all six included features",
 );
 
 console.log(
-  "Account UI QA passed: two-tab shell, premium Settings, and five-feature Angler membership.",
+  "Account UI QA passed: two-tab shell, premium Settings, and six-feature Angler membership.",
 );

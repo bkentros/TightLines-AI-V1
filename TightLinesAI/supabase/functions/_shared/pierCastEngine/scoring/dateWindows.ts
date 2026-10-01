@@ -64,8 +64,8 @@ function parseLocalDate(value: string): DateParts {
   return date;
 }
 
-function zonedMidnightUtc(date: DateParts, timezone: string): Date {
-  const desiredLocalAsUtc = Date.UTC(date.year, date.month - 1, date.day);
+function zonedLocalHourUtc(date: DateParts, timezone: string, hour: number): Date {
+  const desiredLocalAsUtc = Date.UTC(date.year, date.month - 1, date.day, hour);
   let candidate = desiredLocalAsUtc;
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: timezone,
@@ -98,10 +98,31 @@ function zonedMidnightUtc(date: DateParts, timezone: string): Date {
     if (correction === 0) return new Date(candidate);
   }
   throw new Error(
-    `Could not resolve local midnight for ${
+    `Could not resolve local hour ${hour} for ${
       localDateString(date)
     } ${timezone}.`,
   );
+}
+
+function zonedMidnightUtc(date: DateParts, timezone: string): Date {
+  return zonedLocalHourUtc(date, timezone, 0);
+}
+
+/** Four local wall-clock blocks; UTC lengths vary correctly on DST days. */
+export function buildPierCastSixHourIntervals(input: {
+  localDate: string;
+  timezone: string;
+}): Array<{ slotIndex: 0 | 1 | 2 | 3; start: string; end: string }> {
+  const date = parseLocalDate(input.localDate);
+  return ([0, 1, 2, 3] as const).map((slotIndex) => ({
+    slotIndex,
+    start: zonedLocalHourUtc(date, input.timezone, slotIndex * 6)
+      .toISOString(),
+    end: slotIndex === 3
+      ? zonedMidnightUtc(addLocalDays(date, 1), input.timezone).toISOString()
+      : zonedLocalHourUtc(date, input.timezone, (slotIndex + 1) * 6)
+        .toISOString(),
+  }));
 }
 
 export function buildPierCastFiveDateWindows(input: {

@@ -1,14 +1,10 @@
-import { PIER_CAST_LEGACY_ROSTER_VERSION } from "../_shared/pierCastEngine/config/privateCalibration.ts";
 import {
-  isPierCastResearchRoster,
-  PIER_CAST_PUBLIC_RELEASE,
-  PIER_CAST_RESEARCH_DETAIL,
-  PIER_CAST_RESEARCH_DISCLOSURE,
-} from "../_shared/pierCastEngine/config/publicRelease.ts";
-import {
+  createPierConditionsReportAccess,
   createPierReportAccess,
   leaderboardOnly,
   PierCastAccessError,
+  readPierCastSavedReportV4,
+  temperatureMapOnly,
 } from "./reportAccess.ts";
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
@@ -19,17 +15,34 @@ import {
 import {
   applyPierCastDailyScoreSnapshot,
   buildPierCastCatalog,
+  buildPierCastConditionsShadowComparisonV4,
+  buildPierCastConditionsV4Outlook,
+  buildPierCastConditionsV4OutlookFromBatch,
   buildPierCastReviewOutlook,
+  buildPierCastV3ReviewOutlook,
+  buildPierCastWisconsinReviewOutlook,
+  combinePierCastV3LmhofsBatches,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
+  PIER_CAST_V4_DISCLOSURE,
+  PIER_CAST_V3_SPECIES_IDS,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
+  projectPierCastConditionsLeaderboardV4,
+  projectPierCastConditionsMapV4,
+  readLatestCoherentPierCastV3SourceCohorts,
   readLatestFreshPierCastLmhofsBatch,
+  readLatestFreshPierCastWisconsinLmhofsBatch,
+  readPierCastObservedTemperatureMap,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
   withholdPierCastCurrentDayScores,
 } from "../_shared/pierCastEngine/index.ts";
+import type { PierCastSpeciesId } from "../_shared/pierCastEngine/types.ts";
 import { createPierCastHandler } from "./handler.ts";
+import { projectPublicV3Outlook } from "./publicV3.ts";
+import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
+import { createPierCastMapFoundationReader } from "../_shared/pierCastMapFoundation.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -47,6 +60,15 @@ const archiveClient: PierCastArchiveClient = {
   },
 };
 
+const readMapFoundation = createPierCastMapFoundationReader({
+  openMeteoApiKey: Deno.env.get("OPEN_METEO_API_KEY"),
+  openMeteoBaseUrl: Deno.env.get("OPEN_METEO_BASE_URL"),
+  requirePaidOpenMeteo: true,
+});
+
+// The public release uses the reviewed v3 roster for every account.
+const publicCatalog = () => buildPierCastCatalog("public", "v3");
+
 async function readOutlook() {
   const now = new Date();
   const [batch, dailyScoreSnapshot] = await Promise.all([
@@ -61,6 +83,49 @@ async function readOutlook() {
   return dailyScoreSnapshot
     ? applyPierCastDailyScoreSnapshot(liveOutlook, dailyScoreSnapshot)
     : withholdPierCastCurrentDayScores(liveOutlook);
+}
+async function readExpansionOutlook() {
+  const now = new Date();
+  const batch = await readLatestFreshPierCastWisconsinLmhofsBatch(
+    archiveClient,
+    now,
+  );
+  return batch
+    ? buildPierCastWisconsinReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
+}
+async function readV3Outlook(maxAgeHours = 24) {
+  const now = new Date();
+  const batch = await readV3Batch(now, maxAgeHours);
+  return batch
+    ? buildPierCastV3ReviewOutlook({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
+}
+
+async function readV3Batch(now: Date, maxAgeHours: number) {
+  const cohorts = await readLatestCoherentPierCastV3SourceCohorts({
+    database: archiveClient,
+    now,
+    // Owner-only research previews can display a complete older cycle during
+    // a short NOAA outage. Public reports retain their 13-hour freshness gate.
+    maxAgeHours,
+  });
+  if (!cohorts) return null;
+  return combinePierCastV3LmhofsBatches(
+    cohorts.primary,
+    cohorts.expansion,
+    cohorts.lakeHuron,
+    cohorts.fiveCity,
+    cohorts.chicagoAlpena,
+    cohorts.stJosephHarrisville,
+    cohorts.pentwaterCaseville,
+  );
 }
 async function account(request: Request) {
   const token = request.headers.get("x-user-token") ??
@@ -91,115 +156,148 @@ async function account(request: Request) {
   };
 }
 async function readPublicOutlook() {
-  const released = buildPierCastCatalog("public").cities;
-  if (!released.length) return null;
-  const outlook = await readOutlook();
-  if (!outlook) return null;
-  const allowed = new Set(
-    released.filter((city) => {
-      const report = outlook.cities.find((c) => c.cityId === city.cityId);
-      return !!report && report.dates.every((date) =>
-        isPierCastResearchRoster(
-          city.cityId,
-          date.species.map((s) => s.speciesId),
-          outlook.dailyScoreSnapshot?.cities.some(row => row.cityId === city.cityId && row.date.localDate === date.localDate)
-            ? outlook.dailyScoreSnapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION
-            : PIER_CAST_PUBLIC_RELEASE.rosterVersion,
-        )
-      );
-    }).map((city) => city.cityId),
-  );
-  return {
-    ...outlook,
-    mode: "public_research" as const,
-    previewOnly: false,
-    releasePolicyVersion: PIER_CAST_PUBLIC_RELEASE.version,
-    disclosure: `${PIER_CAST_RESEARCH_DISCLOSURE} ${PIER_CAST_RESEARCH_DETAIL}`,
-    cities: outlook.cities.filter((city) => allowed.has(city.cityId)),
-    ...(outlook.dailyScoreSnapshot
-      ? {
-        dailyScoreSnapshot: {
-          ...outlook.dailyScoreSnapshot,
-          cities: outlook.dailyScoreSnapshot.cities.filter((city) =>
-            allowed.has(city.cityId)
-          ),
-        },
-      }
-      : {}),
-  };
+  const outlook = await readV3Outlook(13);
+  return outlook ? projectPublicV3Outlook(outlook) : null;
+}
+
+async function readConditionsOutlook(maxAgeHours = 13) {
+  const now = new Date();
+  const batch = await readV3Batch(now, maxAgeHours);
+  return batch
+    ? buildPierCastConditionsV4OutlookFromBatch({
+      batch,
+      evaluationTime: now.toISOString(),
+    })
+    : null;
+}
+
+async function readClaimKeys(userId: string) {
+  const { data, error } = await database.from("pier_cast_report_claims")
+    .select("report_key").eq("user_id", userId);
+  if (error) throw new Error("Trial lookup failed");
+  return (data ?? []).map((row) => row.report_key);
+}
+
+async function claimReport(userId: string, key: string, envelope: unknown) {
+  const { data, error } = await database.rpc("claim_pier_cast_report", {
+    p_user_id: userId,
+    p_report_key: key,
+    p_envelope: envelope,
+  });
+  if (error?.message === "subscription_required") {
+    throw new PierCastAccessError(
+      "subscription_required",
+      "Your four free PierCast reports have been used. Upgrade for another report.",
+      403,
+    );
+  }
+  if (error) throw new Error("Trial claim failed");
+  return data;
 }
 
 const readReport = createPierReportAccess({
   readOutlook: readPublicOutlook,
   cityTimezone: (cityId) =>
-    buildPierCastCatalog("public").cities.find((c) => c.cityId === cityId)
+    publicCatalog().cities.find((c) =>
+      c.cityId === cityId && c.releaseStatus === "public_research"
+    )
       ?.timezone ?? null,
-  readPrior: async (userId) => {
-    const { data, error } = await database.from("feature_report_trials").select(
-      "report_key",
-    ).eq("user_id", userId).eq("feature", "pier_cast").maybeSingle();
-    if (error) throw new Error("Trial lookup failed");
-    return data;
-  },
-  claim: async (userId, key, report) => {
-    const { data, error } = await database.rpc("claim_feature_report_trial", {
-      p_user_id: userId,
-      p_feature: "pier_cast",
-      p_report_key: key,
-      p_envelope: report,
-    });
-    if (error?.message === "subscription_required") {
-      throw new PierCastAccessError(
-        "subscription_required",
-        "Your free PierCast report has been used. Upgrade for another report.",
-        403,
-      );
-    }
-    if (error) throw new Error("Trial claim failed");
-    return data;
-  },
+  readClaimKeys,
+  claim: claimReport,
+});
+
+const readConditionsReport = createPierConditionsReportAccess({
+  readOutlook: readConditionsOutlook,
+  cityTimezone: (cityId) =>
+    publicCatalog().cities.find((city) =>
+      city.cityId === cityId && city.releaseStatus === "public_research"
+    )?.timezone ?? null,
+  readClaimKeys,
+  claim: claimReport,
 });
 
 const handler = createPierCastHandler({
+  recordLegacyRouteUse: (route) => {
+    console.warn(JSON.stringify({
+      event: "pier_cast_legacy_api_used",
+      route,
+      replacement: "conditions-v4",
+      observedAt: new Date().toISOString(),
+    }));
+  },
+  readPublicCatalog: publicCatalog,
+  readConditionsCatalog: () => {
+    const catalog = publicCatalog();
+    return {
+      schemaVersion: "piercast-conditions-catalog-v2",
+      disclosure: PIER_CAST_V4_DISCLOSURE,
+      cities: catalog.cities.map((
+        { species, ...city },
+      ) => ({
+        ...city,
+        supportedSpeciesIds: species.map(({ speciesId }) => speciesId),
+      })),
+    };
+  },
   readLeaderboard: async () => {
-    const released = buildPierCastCatalog("public").cities;
-    if (!released.length) return null;
-    const snapshot = await readPublishedPierCastDailyScoreSnapshot(
-      archiveClient,
-      new Date(),
+    const outlook = await readPublicOutlook();
+    return outlook
+      ? leaderboardOnly(outlook, {
+        maxCities: PIER_CAST_PUBLIC_V3_RELEASE.cityIds.length,
+        releasePolicyVersion: outlook.releasePolicyVersion,
+      })
+      : null;
+  },
+  readTemperatureMap: async () => {
+    const outlook = await readPublicOutlook();
+    return outlook ? temperatureMapOnly(outlook) : null;
+  },
+  readMapFoundation,
+  readConditionsLeaderboard: async (speciesId) => {
+    const outlook = await readConditionsOutlook();
+    if (!outlook) return null;
+    return projectPierCastConditionsLeaderboardV4(
+      outlook,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
     );
-    if (!snapshot) return null;
-    // Reading the locked leaderboard never depends on a fresh conditions cycle or a trial claim.
-    const cities = snapshot.cities.flatMap((row) => {
-      const city = released.find((c) => c.cityId === row.cityId);
-      if (
-        !city ||
-        !isPierCastResearchRoster(
-          row.cityId,
-          row.date.species.map((s) => s.speciesId),
-          snapshot.speciesRosterVersion ?? PIER_CAST_LEGACY_ROSTER_VERSION,
-        )
-      ) return [];
-      return [{
-        cityId: row.cityId,
-        displayName: city.displayName,
-        timezone: city.timezone,
-        representationDecision: "blocked_insufficient_evidence" as const,
-        temperatureTimeline: [],
-        dates: [row.date],
-      }];
-    });
-    return leaderboardOnly({
-      generatedAt: snapshot.setAt,
-      dailyScoreSnapshot: snapshot,
-      cities,
-    });
+  },
+  readConditionsMap: async (speciesId) => {
+    const outlook = await readConditionsOutlook();
+    if (!outlook) return null;
+    return projectPierCastConditionsMapV4(
+      outlook,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
+    );
+  },
+  readObservedTemperatureMap: () =>
+    readPierCastObservedTemperatureMap(archiveClient),
+  readConditionsCityReport: async (request, cityId, speciesId) => {
+    const { userId, free } = await account(request);
+    return await readConditionsReport(
+      userId,
+      free,
+      cityId,
+      pierCastSpeciesId(speciesId),
+    );
+  },
+  readSavedConditionsReport: async (request, speciesId) => {
+    const { userId } = await account(request);
+    const { data, error } = await database.from("pier_cast_report_claims")
+      .select("envelope").eq("user_id", userId)
+      .order("used_at", { ascending: false }).limit(1).maybeSingle();
+    if (error) throw new Error("Trial lookup failed");
+    return readPierCastSavedReportV4(
+      data?.envelope ?? null,
+      speciesId ? pierCastSpeciesId(speciesId) : null,
+    );
   },
   readSavedReport: async (request) => {
     const { userId } = await account(request);
-    const { data, error } = await database.from("feature_report_trials").select(
-      "envelope",
-    ).eq("user_id", userId).eq("feature", "pier_cast").maybeSingle();
+    const { data, error } = await database.from("pier_cast_report_claims")
+      .select(
+        "envelope",
+      ).eq("user_id", userId).order("used_at", { ascending: false }).limit(1)
+      .maybeSingle();
     if (error) throw new Error("Trial lookup failed");
     return { report: data?.envelope ?? null };
   },
@@ -215,13 +313,30 @@ const handler = createPierCastHandler({
     return !error && !!user && isAdminEmail(user.email);
   },
   readReviewOutlook: readOutlook,
+  readExpansionReviewOutlook: readExpansionOutlook,
+  readV3ReviewOutlook: () => readV3Outlook(),
+  readV4ReviewOutlook: async () => {
+    const legacy = await readV3Outlook();
+    if (!legacy) return null;
+    const outlook = buildPierCastConditionsV4Outlook(legacy);
+    return {
+      outlook,
+      shadowComparison: buildPierCastConditionsShadowComparisonV4(
+        legacy,
+        outlook,
+      ),
+    };
+  },
   readShadowReview: async () => {
     const [
       runs,
       forecasts,
+      expansionRuns,
+      expansionForecasts,
       outcomes,
       pairs,
       latestRun,
+      latestExpansionRun,
       recentOutcomes,
     ] = await Promise.all([
       database.from("pier_cast_shadow_forecast_runs").select("run_id", {
@@ -229,6 +344,14 @@ const handler = createPierCastHandler({
         head: true,
       }),
       database.from("pier_cast_shadow_forecasts").select("run_id", {
+        count: "exact",
+        head: true,
+      }),
+      database.from("pier_cast_expansion_shadow_forecast_runs").select(
+        "run_id",
+        { count: "exact", head: true },
+      ),
+      database.from("pier_cast_expansion_shadow_forecasts").select("run_id", {
         count: "exact",
         head: true,
       }),
@@ -244,7 +367,13 @@ const handler = createPierCastHandler({
         },
       ),
       database.from("pier_cast_shadow_forecast_runs").select(
-        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count",
+        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count,created_at",
+      ).eq("engine_version", PIER_CAST_ENGINE_VERSION).eq(
+        "formula_version",
+        PIER_CAST_FORMULA_VERSION,
+      ).order("created_at", { ascending: false }).limit(1),
+      database.from("pier_cast_expansion_shadow_forecast_runs").select(
+        "run_id,generated_at,source_issued_at,engine_version,formula_version,forecast_count,created_at",
       ).eq("engine_version", PIER_CAST_ENGINE_VERSION).eq(
         "formula_version",
         PIER_CAST_FORMULA_VERSION,
@@ -257,17 +386,36 @@ const handler = createPierCastHandler({
       const result of [
         runs,
         forecasts,
+        expansionRuns,
+        expansionForecasts,
         outcomes,
         pairs,
         latestRun,
+        latestExpansionRun,
         recentOutcomes,
       ]
     ) {
       if (result.error) throw new Error(result.error.message);
     }
-    const latest = latestRun.data?.[0] as Record<string, unknown> | undefined;
+    const productionLatest = latestRun.data?.[0] as
+      | Record<string, unknown>
+      | undefined;
+    const expansionLatest = latestExpansionRun.data?.[0] as
+      | Record<string, unknown>
+      | undefined;
+    const latestIsExpansion = Boolean(
+      expansionLatest &&
+        (!productionLatest ||
+          Date.parse(String(expansionLatest.created_at)) >
+            Date.parse(String(productionLatest.created_at))),
+    );
+    const latest = latestIsExpansion ? expansionLatest : productionLatest;
     const candidateRows = latest
-      ? await database.from("pier_cast_shadow_forecasts").select(
+      ? await database.from(
+        latestIsExpansion
+          ? "pier_cast_expansion_shadow_forecasts"
+          : "pier_cast_shadow_forecasts",
+      ).select(
         "city_id,species_id,local_date,seasonal_rating,display_score,score_status",
       ).eq("run_id", String(latest.run_id)).eq("lead_day", 0).limit(20)
       : { data: [], error: null };
@@ -279,8 +427,9 @@ const handler = createPierCastHandler({
     const recent = (recentOutcomes.data ?? []) as Record<string, unknown>[];
     return {
       status: "private_shadow_validation" as const,
-      runCount: runs.count ?? 0,
-      forecastCount: forecasts.count ?? 0,
+      runCount: (runs.count ?? 0) + (expansionRuns.count ?? 0),
+      forecastCount: (forecasts.count ?? 0) +
+        (expansionForecasts.count ?? 0),
       outcomeCount: outcomes.count ?? 0,
       pairedForecastCount: pairs.count ?? 0,
       latestRun: latest
@@ -349,4 +498,15 @@ function mapShadowOutcome(
     notes: row.notes === null ? null : String(row.notes),
     createdAt: String(row.created_at),
   };
+}
+
+function pierCastSpeciesId(value: string): PierCastSpeciesId {
+  if (!(PIER_CAST_V3_SPECIES_IDS as readonly string[]).includes(value)) {
+    throw new PierCastAccessError(
+      "species_unavailable",
+      "This species is not available in PierCast.",
+      404,
+    );
+  }
+  return value as PierCastSpeciesId;
 }

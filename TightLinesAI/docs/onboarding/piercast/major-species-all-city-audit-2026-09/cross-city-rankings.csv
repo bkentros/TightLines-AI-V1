@@ -1,0 +1,157 @@
+speciesId,speciesName,rank,cityId,cityName,peakF,peakDate,evidenceGrade
+chinook_salmon,Chinook salmon,1,frankfort_elberta_mi,Frankfort,9.7,08-16,A
+chinook_salmon,Chinook salmon,2,manistee_mi,Manistee,9.5,08-30,A
+chinook_salmon,Chinook salmon,3,sheboygan_wi,Sheboygan,9.4,08-31,B
+chinook_salmon,Chinook salmon,4,whitehall_mi,Whitehall,9.3,09-05,A
+chinook_salmon,Chinook salmon,5,kewaunee_wi,Kewaunee,9.1,09-05,B
+chinook_salmon,Chinook salmon,6,algoma_wi,Algoma,9,09-05,B
+chinook_salmon,Chinook salmon,7,port_washington_wi,Port Washington,8.6,08-15,B
+chinook_salmon,Chinook salmon,8,manitowoc_wi,Manitowoc,8.5,09-05,B
+chinook_salmon,Chinook salmon,9,two_rivers_wi,Two Rivers,8.4,09-05,B
+chinook_salmon,Chinook salmon,10,ludington_mi,Ludington,8.3,08-30,A
+chinook_salmon,Chinook salmon,11,racine_wi,Racine,8.1,08-15,B
+chinook_salmon,Chinook salmon,12,grand_haven_mi,Grand Haven,7.8,09-08,A
+chinook_salmon,Chinook salmon,13,holland_mi,Holland,7.8,09-10,A
+chinook_salmon,Chinook salmon,14,milwaukee_wi,Milwaukee,7.8,08-10,B
+chinook_salmon,Chinook salmon,15,waukegan_il,Waukegan,7.6,09-05,B
+chinook_salmon,Chinook salmon,16,pentwater_mi,Pentwater,7.5,09-10,A
+chinook_salmon,Chinook salmon,17,kenosha_wi,Kenosha,7.4,08-15,B
+chinook_salmon,Chinook salmon,18,michigan_city_in,Michigan City,7.4,09-05,B
+chinook_salmon,Chinook salmon,19,charlevoix_mi,Charlevoix,7.2,09-10,A
+chinook_salmon,Chinook salmon,20,chicago_il,Chicago,7,09-05,B
+chinook_salmon,Chinook salmon,21,south_haven_mi,South Haven,7,09-10,A
+chinook_salmon,Chinook salmon,22,st_joseph_mi,St. Joseph,6.8,07-20,B
+chinook_salmon,Chinook salmon,23,harrisville_mi,Harrisville,6.6,10-05,A
+chinook_salmon,Chinook salmon,24,muskegon_mi,Muskegon,6.5,09-05,A
+chinook_salmon,Chinook salmon,25,rogers_city_mi,Rogers City,6,10-05,B
+chinook_salmon,Chinook salmon,26,lexington_mi,Lexington,5.6,10-05,A
+chinook_salmon,Chinook salmon,27,oscoda_mi,Oscoda,5.5,09-18,B
+chinook_salmon,Chinook salmon,28,alpena_mi,Alpena,5.4,10-05,B
+chinook_salmon,Chinook salmon,29,port_sanilac_mi,Port Sanilac,5,09-20,B
+coho_salmon,Coho salmon,1,grand_haven_mi,Grand Haven,8.8,09-10,A
+coho_salmon,Coho salmon,2,waukegan_il,Waukegan,8.8,04-20,B
+coho_salmon,Coho salmon,3,michigan_city_in,Michigan City,8.7,04-20,B
+coho_salmon,Coho salmon,4,frankfort_elberta_mi,Frankfort,8.6,09-15,A
+coho_salmon,Coho salmon,5,kenosha_wi,Kenosha,8.6,04-20,B
+coho_salmon,Coho salmon,6,st_joseph_mi,St. Joseph,8.6,04-15,B
+coho_salmon,Coho salmon,7,port_washington_wi,Port Washington,8.5,04-20,B
+coho_salmon,Coho salmon,8,racine_wi,Racine,8.5,04-20,B
+coho_salmon,Coho salmon,9,chicago_il,Chicago,8.2,04-20,B
+coho_salmon,Coho salmon,10,manistee_mi,Manistee,8.2,10-05,A
+coho_salmon,Coho salmon,11,milwaukee_wi,Milwaukee,8.2,05-20,B
+coho_salmon,Coho salmon,12,sheboygan_wi,Sheboygan,8.2,04-15,B
+coho_salmon,Coho salmon,13,south_haven_mi,South Haven,7.8,04-15,A
+coho_salmon,Coho salmon,14,whitehall_mi,Whitehall,7.4,10-05,A
+coho_salmon,Coho salmon,15,manitowoc_wi,Manitowoc,7.2,10-05,B
+coho_salmon,Coho salmon,16,pentwater_mi,Pentwater,7.2,04-15,A
+coho_salmon,Coho salmon,17,two_rivers_wi,Two Rivers,7.1,10-05,B
+coho_salmon,Coho salmon,18,algoma_wi,Algoma,7,10-05,B
+coho_salmon,Coho salmon,19,holland_mi,Holland,7,04-15,B
+coho_salmon,Coho salmon,20,kewaunee_wi,Kewaunee,6.8,10-05,B
+coho_salmon,Coho salmon,21,lexington_mi,Lexington,6.8,04-20,A
+coho_salmon,Coho salmon,22,alpena_mi,Alpena,6.5,10-10,B
+coho_salmon,Coho salmon,23,oscoda_mi,Oscoda,6.5,09-18,B
+coho_salmon,Coho salmon,24,muskegon_mi,Muskegon,6.4,04-15,A
+coho_salmon,Coho salmon,25,port_sanilac_mi,Port Sanilac,6.4,04-20,A
+coho_salmon,Coho salmon,26,harrisville_mi,Harrisville,6.2,10-10,B
+coho_salmon,Coho salmon,27,harbor_beach_mi,Harbor Beach,5.8,04-20,B
+coho_salmon,Coho salmon,28,tawas_city_mi,Tawas City,5.8,04-25,B
+coho_salmon,Coho salmon,29,ludington_mi,Ludington,5.6,10-20,A
+coho_salmon,Coho salmon,30,caseville_mi,Caseville,5,04-25,B
+atlantic_salmon,Atlantic salmon,1,oscoda_mi,Oscoda,8.4,04-20,A
+atlantic_salmon,Atlantic salmon,2,lexington_mi,Lexington,8,10-20,A
+atlantic_salmon,Atlantic salmon,3,alpena_mi,Alpena,7.2,04-25,B
+atlantic_salmon,Atlantic salmon,4,rogers_city_mi,Rogers City,6.8,04-20,B
+atlantic_salmon,Atlantic salmon,5,port_sanilac_mi,Port Sanilac,6.3,05-20,A/B
+atlantic_salmon,Atlantic salmon,6,harrisville_mi,Harrisville,5.8,02-15,B
+atlantic_salmon,Atlantic salmon,7,harbor_beach_mi,Harbor Beach,5.2,04-25,B
+steelhead,Steelhead,1,manistee_mi,Manistee,10,10-28,A
+steelhead,Steelhead,2,frankfort_elberta_mi,Frankfort,9.8,10-16,A
+steelhead,Steelhead,3,grand_haven_mi,Grand Haven,9.2,10-30,A
+steelhead,Steelhead,4,lexington_mi,Lexington,8.8,04-25,A
+steelhead,Steelhead,5,south_haven_mi,South Haven,8.8,07-15,A
+steelhead,Steelhead,6,whitehall_mi,Whitehall,8.7,04-15,A
+steelhead,Steelhead,7,michigan_city_in,Michigan City,8.5,07-15,B
+steelhead,Steelhead,8,pentwater_mi,Pentwater,8.3,07-20,A
+steelhead,Steelhead,9,ludington_mi,Ludington,8.1,10-20,A
+steelhead,Steelhead,10,muskegon_mi,Muskegon,8,04-15,A
+steelhead,Steelhead,11,kewaunee_wi,Kewaunee,7.8,10-25,B
+steelhead,Steelhead,12,sheboygan_wi,Sheboygan,7.8,07-15,B
+steelhead,Steelhead,13,st_joseph_mi,St. Joseph,7.8,07-20,B
+steelhead,Steelhead,14,algoma_wi,Algoma,7.7,10-25,B
+steelhead,Steelhead,15,racine_wi,Racine,7.7,07-15,B
+steelhead,Steelhead,16,charlevoix_mi,Charlevoix,7.5,07-20,A
+steelhead,Steelhead,17,oscoda_mi,Oscoda,7.4,04-20,A
+steelhead,Steelhead,18,holland_mi,Holland,7.3,07-20,A
+steelhead,Steelhead,19,two_rivers_wi,Two Rivers,7.3,10-25,B
+steelhead,Steelhead,20,manitowoc_wi,Manitowoc,7.2,10-25,B
+steelhead,Steelhead,21,waukegan_il,Waukegan,6.8,10-25,B
+steelhead,Steelhead,22,port_washington_wi,Port Washington,6.6,04-15,B
+steelhead,Steelhead,23,chicago_il,Chicago,6.5,04-15,B
+steelhead,Steelhead,24,rogers_city_mi,Rogers City,6,04-25,B
+steelhead,Steelhead,25,alpena_mi,Alpena,5.8,04-25,B
+steelhead,Steelhead,26,milwaukee_wi,Milwaukee,5.8,04-15,B
+steelhead,Steelhead,27,tawas_city_mi,Tawas City,5.8,04-25,B
+steelhead,Steelhead,28,harrisville_mi,Harrisville,5.7,04-25,B
+steelhead,Steelhead,29,harbor_beach_mi,Harbor Beach,5.6,04-25,B
+steelhead,Steelhead,30,kenosha_wi,Kenosha,5.6,04-15,B
+steelhead,Steelhead,31,caseville_mi,Caseville,4.5,04-25,B
+steelhead,Steelhead,32,port_sanilac_mi,Port Sanilac,4.5,04-20,B
+brown_trout,Brown trout,1,manistee_mi,Manistee,8.2,04-10,A
+brown_trout,Brown trout,2,port_washington_wi,Port Washington,8.1,04-01,B
+brown_trout,Brown trout,3,sheboygan_wi,Sheboygan,7.8,04-15,B
+brown_trout,Brown trout,4,whitehall_mi,Whitehall,7.7,04-10,A
+brown_trout,Brown trout,5,algoma_wi,Algoma,7.6,04-10,B
+brown_trout,Brown trout,6,grand_haven_mi,Grand Haven,7.6,04-15,A
+brown_trout,Brown trout,7,ludington_mi,Ludington,7.6,04-05,A
+brown_trout,Brown trout,8,frankfort_elberta_mi,Frankfort,7.5,04-05,A
+brown_trout,Brown trout,9,kewaunee_wi,Kewaunee,7.4,04-10,B
+brown_trout,Brown trout,10,milwaukee_wi,Milwaukee,7.4,04-01,B
+brown_trout,Brown trout,11,pentwater_mi,Pentwater,7.3,04-10,A
+brown_trout,Brown trout,12,racine_wi,Racine,7.3,04-01,B
+brown_trout,Brown trout,13,holland_mi,Holland,7.2,04-10,A
+brown_trout,Brown trout,14,manitowoc_wi,Manitowoc,7.2,04-10,B
+brown_trout,Brown trout,15,two_rivers_wi,Two Rivers,7.2,04-10,B
+brown_trout,Brown trout,16,muskegon_mi,Muskegon,7,04-10,A
+brown_trout,Brown trout,17,waukegan_il,Waukegan,7,11-20,B
+brown_trout,Brown trout,18,south_haven_mi,South Haven,6.5,04-10,A
+brown_trout,Brown trout,19,st_joseph_mi,St. Joseph,6.5,04-10,B
+brown_trout,Brown trout,20,kenosha_wi,Kenosha,6.4,04-01,B
+brown_trout,Brown trout,21,chicago_il,Chicago,6.2,04-10,B
+brown_trout,Brown trout,22,michigan_city_in,Michigan City,6,04-10,B
+brown_trout,Brown trout,23,rogers_city_mi,Rogers City,5.8,04-20,A
+brown_trout,Brown trout,24,alpena_mi,Alpena,5.4,04-10,B
+brown_trout,Brown trout,25,harrisville_mi,Harrisville,5,11-25,B
+brown_trout,Brown trout,26,lexington_mi,Lexington,5,04-20,A
+brown_trout,Brown trout,27,port_sanilac_mi,Port Sanilac,4.8,04-20,B
+lake_trout,Lake trout,1,port_sanilac_mi,Port Sanilac,5.5,05-01,A
+lake_trout,Lake trout,2,chicago_il,Chicago,5.4,02-15,B
+lake_trout,Lake trout,3,harbor_beach_mi,Harbor Beach,5.3,05-01,B
+lake_trout,Lake trout,4,rogers_city_mi,Rogers City,5.1,04-20,B
+lake_trout,Lake trout,5,tawas_city_mi,Tawas City,5.1,04-20,B
+lake_trout,Lake trout,6,alpena_mi,Alpena,5,08-15,B
+lake_trout,Lake trout,7,charlevoix_mi,Charlevoix,5,03-15,A
+lake_trout,Lake trout,8,lexington_mi,Lexington,4.8,04-20,B
+lake_trout,Lake trout,9,caseville_mi,Caseville,4.6,04-20,B
+lake_trout,Lake trout,10,oscoda_mi,Oscoda,4.6,04-20,B
+lake_trout,Lake trout,11,kewaunee_wi,Kewaunee,4.2,10-25,B
+lake_trout,Lake trout,12,st_joseph_mi,St. Joseph,4.1,03-15,B
+lake_trout,Lake trout,13,frankfort_elberta_mi,Frankfort,4,10-25,B
+lake_trout,Lake trout,14,manistee_mi,Manistee,4,10-25,B
+lake_trout,Lake trout,15,holland_mi,Holland,3.8,03-15,B
+lake_trout,Lake trout,16,ludington_mi,Ludington,3.8,10-25,B
+lake_trout,Lake trout,17,south_haven_mi,South Haven,3.8,10-20,A
+lake_trout,Lake trout,18,grand_haven_mi,Grand Haven,3.6,10-25,B
+freshwater_drum,Freshwater drum,1,grand_haven_mi,Grand Haven,7.2,07-15,A
+freshwater_drum,Freshwater drum,2,south_haven_mi,South Haven,6.5,07-15,A
+freshwater_drum,Freshwater drum,3,muskegon_mi,Muskegon,6.2,07-15,A
+freshwater_drum,Freshwater drum,4,holland_mi,Holland,5.8,07-15,B
+freshwater_drum,Freshwater drum,5,chicago_il,Chicago,5.6,07-15,B
+freshwater_drum,Freshwater drum,6,whitehall_mi,Whitehall,5.6,07-15,A
+freshwater_drum,Freshwater drum,7,charlevoix_mi,Charlevoix,5.4,07-15,A
+freshwater_drum,Freshwater drum,8,pentwater_mi,Pentwater,5.4,07-15,B
+freshwater_drum,Freshwater drum,9,ludington_mi,Ludington,5,07-15,B
+freshwater_drum,Freshwater drum,10,lexington_mi,Lexington,4.8,07-15,A
+freshwater_drum,Freshwater drum,11,manistee_mi,Manistee,4.7,07-15,B
+freshwater_drum,Freshwater drum,12,alpena_mi,Alpena,4.2,07-15,B
+freshwater_drum,Freshwater drum,13,oscoda_mi,Oscoda,3.9,07-20,B

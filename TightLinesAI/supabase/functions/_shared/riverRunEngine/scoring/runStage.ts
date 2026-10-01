@@ -60,6 +60,88 @@ export function resolveRunStage(
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
 
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
+  if (run.runType === "holding") {
+    const riverName = winterRiverName(run.riverId);
+    const speciesName = anglerSpeciesName(run.species);
+    const winterName = run.species === "lake_run_brown_trout"
+      ? "Winter Brown Trout"
+      : "Winter Steelhead";
+    const brownTrout = run.species === "lake_run_brown_trout";
+    const active = stage !== "pre_run" && stage !== "post_run";
+    const winterPhase = stage === "beginning"
+      ? {
+        label: "Winter transition",
+        headline:
+          `${riverName} ${speciesName} are settling into winter holding water.`,
+        detail:
+          `The tracked population is retained from the fall pathway. This phase does not claim a new run or fresh upstream movement.`,
+        tip:
+          "Use the Activity and Fishability reads to choose a daylight window and controlled holding-water presentation.",
+        reason: "stage_winter_transition" as const,
+      }
+      : stage === "building"
+      ? {
+        label: "Core winter hold",
+        headline:
+          `${riverName} ${speciesName} are in the core winter holding period.`,
+        detail: brownTrout
+          ? "Presence changes slowly now; the explicitly scoped winter Activity inputs rank conditional feeding windows without turning harbor weather into measured river temperature."
+          : "Presence changes slowly now; measured water temperature, its recent trend, daylight, clouds, and hydraulic shape drive the daily response read.",
+        tip:
+          "Favor stable or gradually warming water and verify the exact reach, ice, access, and safety conditions before fishing.",
+        reason: "stage_core_winter_holding" as const,
+      }
+      : stage === "peak" || stage === "tapering" || stage === "ending"
+      ? {
+        label: "Spring approach",
+        headline:
+          `${riverName} ${speciesName} remain in winter holding as March approaches.`,
+        detail: brownTrout
+          ? "This lower-river winter opportunity ends February 28. It does not invent a spring Brown Trout run or extend the winter score into March."
+          : "This remains the winter holding model through February 28. It does not infer spring spawning movement or extend the winter score into March.",
+        tip: brownTrout
+          ? "Continue using the winter Activity read through February and verify the mouth or harbor conditions directly."
+          : "Continue using the winter Activity read; treat any spring movement as outside this model until the spring pathway begins.",
+        reason: "stage_spring_approach" as const,
+      }
+      : stage === "pre_run"
+      ? {
+        label: "Not active yet",
+        headline: `${riverName} ${winterName} has not started.`,
+        detail:
+          "The fall pathway remains authoritative until its final date. Winter holding will activate at the exact handoff without overlapping scores.",
+        tip: `Check back on ${window.startDate}.`,
+        reason: "stage_pre_run" as const,
+      }
+      : {
+        label: "Winter holding complete",
+        headline: `${riverName} ${winterName} is complete.`,
+        detail: brownTrout
+          ? "The winter model ends February 28 and does not infer a March Brown Trout run."
+          : "The winter model ends February 28 and does not infer March spring-run conditions.",
+        tip: brownTrout
+          ? "Use current regulations and other species pathways for March conditions."
+          : "Use the separately researched spring pathway when it becomes available.",
+        reason: "stage_winter_complete" as const,
+      };
+    return {
+      stage,
+      copyStrategy,
+      stagingContext: false,
+      broadBuildingContext: false,
+      winterHoldingContext: active,
+      window,
+      label: winterPhase.label,
+      headline: winterPhase.headline,
+      whereToStart: active
+        ? "Use Spot Finder to compare every audited section in the supported winter corridor. Favor legal, depth-stable holding water with nearby current, and treat Activity as measured-reach guidance rather than whole-river conditions."
+        : undefined,
+      detail: winterPhase.detail,
+      tip: winterPhase.tip,
+      reasonCodes: [winterPhase.reason],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (run.runStageCopyStrategy === "onboarding_corridor") {
     const fallEntry = run.runType === "fall_entry";
     const repeatSpawner = run.runType === "fall_repeat_spawn";
@@ -441,6 +523,30 @@ export function resolveRunStage(
   };
 }
 
+function winterRiverName(riverId: string): string {
+  return riverId === "pere_marquette"
+    ? "Pere Marquette"
+    : riverId === "big_manistee"
+    ? "Big Manistee"
+    : riverId === "muskegon"
+    ? "Muskegon"
+    : riverId === "st_joseph"
+    ? "St. Joseph"
+    : riverId === "grand"
+    ? "Grand"
+    : riverId === "milwaukee"
+    ? "Milwaukee"
+    : riverId === "sheboygan"
+    ? "Sheboygan"
+    : riverId === "root"
+    ? "Root"
+    : riverId === "kewaunee_river"
+    ? "Kewaunee"
+    : riverId === "manitowoc"
+    ? "Manitowoc"
+    : "River";
+}
+
 function onboardingCorridorStageCopy(input: {
   riverId: string;
   stage: RunStage;
@@ -574,6 +680,109 @@ function repeatSpawnerStageNarrative(input: {
   }
 }
 
+function umpquaOnboardingCorridorRoute(input: {
+  riverId: string;
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  fallEntry: boolean;
+  repeatSpawner: boolean;
+  species: RiverRunProfile["species"];
+}): { whereToStart: string; limit: string; tip: string } {
+  const mainstem = input.riverId === "umpqua_mainstem";
+  const river = mainstem ? "Umpqua mainstem" : "North Umpqua";
+  const lower = mainstem
+    ? "the estuary/lower-river section near Scottsburg"
+    : "the lower North Umpqua below the Winchester closure";
+  const middle = mainstem
+    ? "the middle Umpqua around the Elkton gauge reach"
+    : "the middle North Umpqua toward Rock Creek, outside every closure";
+  const upper = mainstem
+    ? "the upper mainstem toward River Forks"
+    : "legal upper Wild and Scenic water below Soda Springs Dam";
+  const limit = mainstem
+    ? "Umpqua mainstem guidance covers only Winchester Bay to River Forks. North and South Umpqua are separate rivers; tributary-mouth closures, tides, posted property, and the Elkton gauge's middle-reach limitation remain controlling."
+    : "North Umpqua guidance ends at the legal marker below Soda Springs Dam. Winchester, Rock Creek/Deadline, fly-only, watercraft, dam, and posted-property restrictions create legal gaps, and the lower Winchester gauge does not represent the middle or upper river.";
+
+  if (input.stage === "pre_run") {
+    return input.stagingContext
+      ? {
+        whereToStart: mainstem
+          ? "Umpqua Estuary and Winchester Bay; check the first lower-river access only with direct fish evidence."
+          : "River Forks and the lower North Umpqua entry; check inland access only with direct fish evidence.",
+        limit,
+        tip:
+          "Treat the approach area as orientation, not proof that dependable in-river distribution or legal access is established.",
+      }
+      : {
+        whereToStart: mainstem
+          ? "Umpqua Estuary and Winchester Bay—not inland mainstem sections yet."
+          : "River Forks and the lower North Umpqua entry—not inland sections yet.",
+        limit,
+        tip:
+          `Wait for the staging window before using the ${river} corridor as a migration plan.`,
+      };
+  }
+  if (input.stage === "beginning") {
+    return {
+      whereToStart: lower,
+      limit,
+      tip:
+        "Start low and require direct fish evidence before adding an inland section; calendar position is not equal distribution.",
+    };
+  }
+  if (input.stage === "building" && !input.establishedBuildingContext) {
+    return {
+      whereToStart: middle,
+      limit,
+      tip:
+        "Shift away from the entry section through audited public access only and verify every current closure.",
+    };
+  }
+  if (input.stage === "building" && !input.broadBuildingContext) {
+    return {
+      whereToStart: middle,
+      limit,
+      tip:
+        "Keep the upper section conditional until the broad-building phase and do not extend one gauge across the corridor.",
+    };
+  }
+  if (input.stage === "building") {
+    return {
+      whereToStart: `${middle}, then ${upper}`,
+      limit,
+      tip:
+        "Compare audited middle and upper access without assuming uniform fish distribution, conditions, or legality.",
+    };
+  }
+  if (input.stage === "peak") {
+    return {
+      whereToStart:
+        `${middle} and ${upper}; compare ${lower} for newer arrivals`,
+      limit,
+      tip:
+        "Use the full Seasonal Zone as orientation, then choose only audited, currently legal access and leave visible spawners undisturbed.",
+    };
+  }
+  if (input.stage === "tapering" || input.stage === "ending") {
+    return {
+      whereToStart: `established holding water in ${middle} or ${upper}`,
+      limit,
+      tip:
+        "Narrow the search to proven legal water; a declining seasonal curve does not identify an individual fish or guarantee access.",
+    };
+  }
+  return {
+    whereToStart: `no dependable ${river} starting section in this model`,
+    limit,
+    tip: input.latePostRunContext
+      ? "Make only a selective check in established legal holding water and avoid visible spawners."
+      : `Do not build a ${river} trip around isolated fish outside the modeled run.`,
+  };
+}
+
 function onboardingCorridorRoute(input: {
   riverId: string;
   stage: RunStage;
@@ -607,6 +816,15 @@ function onboardingCorridorRoute(input: {
     input.riverId === "lower_genesee"
   ) {
     const route = newYorkOnboardingCorridorRoute(input);
+    return {
+      ...route,
+      whereToStart: `Spot Finder: ${route.whereToStart}`,
+    };
+  }
+  if (
+    input.riverId === "umpqua_mainstem" || input.riverId === "north_umpqua"
+  ) {
+    const route = umpquaOnboardingCorridorRoute(input);
     return {
       ...route,
       whereToStart: `Spot Finder: ${route.whereToStart}`,
@@ -1145,38 +1363,297 @@ function onboardingCorridorRoute(input: {
     };
   }
 
+  if (input.riverId === "bear_creek_manistee") {
+    const limit =
+      "Bear Creek guidance covers only the 6.5-mile Coates Highway-to-Manistee confluence corridor. Section names are seasonal orientation, not verified access, parking, or safe-entry recommendations.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "The Manistee River near the Bear Creek confluence; use Lower Bear Creek only with direct fish evidence.",
+          limit,
+          tip:
+            "Treat the receiving-river connection as approach context and verify legal access independently.",
+        }
+        : {
+          whereToStart:
+            "The Manistee River near the Bear Creek confluence—not inland Bear Creek sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Bear Creek corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart:
+          "Lower Bear Creek from the Manistee confluence toward the River Road area.",
+        limit,
+        tip:
+          "Keep this as broad seasonal orientation and verify public access before choosing a fishing location.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Upper designated Bear Creek from the River Road area toward Coates Highway, with the Lower reach as a comparison.",
+        limit,
+        tip:
+          "Do not infer equal distribution or public access from the seasonal shift upstream.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart:
+          "Lower and Upper designated Bear Creek between the Manistee confluence and Coates Highway.",
+        limit,
+        tip:
+          "Compare the two broad reaches, verify access independently, and leave visible spawners and redds undisturbed.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart: input.fallEntry
+          ? "Established holding water in either designated Bear Creek reach."
+          : "Established Upper designated Bear Creek water below Coates Highway.",
+        limit,
+        tip: input.fallEntry
+          ? "Fewer fresh entrants do not mean Steelhead have left; verify access before fishing."
+          : "Narrow the seasonal search and leave visible spawners and redds undisturbed.",
+      };
+    }
+    return {
+      whereToStart: "No active Bear Creek starting reach in this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain beyond this model."
+        : "Do not build a Bear Creek trip around isolated fish outside the modeled run.",
+    };
+  }
+
+  if (input.riverId === "rogue_mi") {
+    const limit =
+      "Rogue River guidance covers only the Grand River confluence to Rockford Dam. USGS 04118500 represents the Lower Rogue only, and section names do not establish public access or safe wading.";
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "The Grand River near the Rogue confluence; use the Lower Rogue only with direct fish evidence.",
+          limit,
+          tip:
+            "Treat the Grand confluence as approach context, not a verified access point or proof of river entry.",
+        }
+        : {
+          whereToStart:
+            "The Grand River near the Rogue confluence—not inland Rogue River sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Rogue corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart:
+          "Lower Rogue from the Grand River confluence toward Packer Drive.",
+        limit,
+        tip:
+          "Keep the first search lower-river weighted and verify public access independently.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Middle Rogue from Packer Drive toward 10 Mile Road, with the Lower reach as a comparison.",
+        limit,
+        tip:
+          "Do not extend the lower-reach gauge reading to this entire section.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Middle Rogue and the Rockford tailwater below the dam, with the Lower reach checked for newer arrivals.",
+        limit,
+        tip:
+          "Stop below Rockford Dam and treat every section as seasonal orientation rather than equal distribution.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart:
+          "Lower and Middle Rogue plus the Rockford tailwater below the dam.",
+        limit,
+        tip:
+          "Compare broad reaches, verify access independently, and leave visible spawners and redds undisturbed.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart: input.fallEntry
+          ? "Established holding water across the Rogue corridor below Rockford Dam."
+          : "Established Middle Rogue and Rockford tailwater water below the dam.",
+        limit,
+        tip: input.fallEntry
+          ? "Fewer fresh entrants do not mean Steelhead have left the Rogue."
+          : "Narrow the seasonal search and leave visible spawners and redds undisturbed.",
+      };
+    }
+    return {
+      whereToStart: "No active Rogue River starting reach in this model.",
+      limit,
+      tip: input.fallEntry
+        ? "Fall-entry tracking has ended; Steelhead may remain beyond this model."
+        : "Do not build a Rogue River trip around isolated fish outside the modeled run.",
+    };
+  }
+
   if (input.riverId === "trail_creek") {
     const limit =
       "Trail Creek guidance stays inside the ten-site public corridor. Obey the Springland barrier closure and posted fishway operations; a gauge reading never proves passage, and most adjoining tributary frontage is private.";
     if (stage === "pre_run") {
       return input.stagingContext
-        ? { whereToStart: "Michigan City harbor and the Trail Creek mouth; use Lower City water only with direct fish evidence.", limit, tip: "Keep the harbor and mouth as staging context until dependable creek entry begins." }
-        : { whereToStart: "Lake Michigan off Michigan City and the harbor—not inland Trail Creek yet.", limit, tip: "Wait for the staging window before using the creek corridor as a migration plan." };
+        ? {
+          whereToStart:
+            "Michigan City harbor and the Trail Creek mouth; use Lower City water only with direct fish evidence.",
+          limit,
+          tip:
+            "Keep the harbor and mouth as staging context until dependable creek entry begins.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan off Michigan City and the harbor—not inland Trail Creek yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the creek corridor as a migration plan.",
+        };
     }
-    if (stage === "beginning") return { whereToStart: "Lower City access from the mouth toward U.S. 12.", limit, tip: "Keep the first search below U.S. 12 and do not infer upstream distribution from the calendar." };
-    if (stage === "building" && !input.establishedBuildingContext) return { whereToStart: "Barrier Corridor public sites, outside the Springland closure.", limit, tip: "Move away from entry water only through signed public access and verify the barrier boundary." };
-    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Barrier Corridor first, outside the Springland closure.", limit, tip: "Treat the upper corridor as conditional until the broad-building phase." };
-    if (stage === "building") return { whereToStart: "Barrier Corridor first, then Upper Access from the Forks toward Creek Ridge Park.", limit, tip: "Compare signed middle and upper sites without treating private frontage as access." };
-    if (stage === "peak") return { whereToStart: "Barrier Corridor and Upper Access, with Lower City water checked for newer arrivals.", limit, tip: "Compare established inland water with lower entry water; do not assume equal distribution or passage." };
-    if (stage === "tapering" || stage === "ending") return { whereToStart: "Established Barrier Corridor and Upper Access holding water.", limit, tip: "Narrow the search, obey the barrier closure, and avoid visible spawners and redds." };
-    return { whereToStart: "No dependable Trail Creek starting reach for this model.", limit, tip: "Do not build a trip around isolated fish outside the modeled run." };
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Lower City access from the mouth toward U.S. 12.",
+        limit,
+        tip:
+          "Keep the first search below U.S. 12 and do not infer upstream distribution from the calendar.",
+      };
+    }
+    if (stage === "building" && !input.establishedBuildingContext) {
+      return {
+        whereToStart:
+          "Barrier Corridor public sites, outside the Springland closure.",
+        limit,
+        tip:
+          "Move away from entry water only through signed public access and verify the barrier boundary.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart: "Barrier Corridor first, outside the Springland closure.",
+        limit,
+        tip:
+          "Treat the upper corridor as conditional until the broad-building phase.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Barrier Corridor first, then Upper Access from the Forks toward Creek Ridge Park.",
+        limit,
+        tip:
+          "Compare signed middle and upper sites without treating private frontage as access.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart:
+          "Barrier Corridor and Upper Access, with Lower City water checked for newer arrivals.",
+        limit,
+        tip:
+          "Compare established inland water with lower entry water; do not assume equal distribution or passage.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "Established Barrier Corridor and Upper Access holding water.",
+        limit,
+        tip:
+          "Narrow the search, obey the barrier closure, and avoid visible spawners and redds.",
+      };
+    }
+    return {
+      whereToStart: "No dependable Trail Creek starting reach for this model.",
+      limit,
+      tip: "Do not build a trip around isolated fish outside the modeled run.",
+    };
   }
 
   if (input.riverId === "kewaunee_river") {
-    const upper = input.repeatSpawner ? " and the Brown-only Upper Access corridor" : "";
+    const upper = input.repeatSpawner
+      ? " and the Brown-only Upper Access corridor"
+      : "";
     const limit = input.repeatSpawner
       ? "Kewaunee Brown Trout guidance may extend above the operated Besadny facility only because DNR documents Brown passage. Obey posted weir/refuge boundaries and use only signed public access."
       : "Kewaunee salmon guidance stops below the operated Besadny facility. Obey posted weir/refuge boundaries; facility counts and County F readings never prove fish location or passage.";
     if (stage === "pre_run") {
       return input.stagingContext
-        ? { whereToStart: "Kewaunee harbor and the river mouth; use Lower River water only with direct fish evidence.", limit, tip: "Keep the harbor and mouth as staging context until dependable river entry begins." }
-        : { whereToStart: "Lake Michigan off Kewaunee and the harbor—not inland river sections yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
+        ? {
+          whereToStart:
+            "Kewaunee harbor and the river mouth; use Lower River water only with direct fish evidence.",
+          limit,
+          tip:
+            "Keep the harbor and mouth as staging context until dependable river entry begins.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan off Kewaunee and the harbor—not inland river sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the river corridor as a migration plan.",
+        };
     }
-    if (stage === "beginning") return { whereToStart: "Lower River from the harbor toward the first Highway C crossing.", limit, tip: "Keep the first search lakeward and do not infer facility arrival from the calendar." };
-    if (stage === "building") return { whereToStart: `Besadny Reach below the operated facility${input.repeatSpawner && input.broadBuildingContext ? upper : ""}.`, limit, tip: "Use mapped access only and keep facility operations separate from whole-river abundance." };
-    if (stage === "peak") return { whereToStart: `Besadny Reach and Lower River${upper}.`, limit, tip: input.repeatSpawner ? "Compare all audited Brown Trout reaches without assuming every fish is lake-run; avoid redds." : "Compare the facility approach with fresh lower-river entry water without implying passage." };
-    if (stage === "tapering" || stage === "ending") return { whereToStart: `Established Besadny Reach water${upper}.`, limit, tip: input.repeatSpawner ? "Surviving Browns may hold or move again; no universal departure is asserted." : "Narrow the search below the facility and avoid visible spawners and redds." };
-    return { whereToStart: "No dependable Kewaunee River starting reach for this model.", limit, tip: input.repeatSpawner ? "The modeled migration is complete; living Browns may hold or return lakeward." : "Do not build a trip around isolated fish outside the modeled run." };
+    if (stage === "beginning") {
+      return {
+        whereToStart:
+          "Lower River from the harbor toward the first Highway C crossing.",
+        limit,
+        tip:
+          "Keep the first search lakeward and do not infer facility arrival from the calendar.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart: `Besadny Reach below the operated facility${
+          input.repeatSpawner && input.broadBuildingContext ? upper : ""
+        }.`,
+        limit,
+        tip:
+          "Use mapped access only and keep facility operations separate from whole-river abundance.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart: `Besadny Reach and Lower River${upper}.`,
+        limit,
+        tip: input.repeatSpawner
+          ? "Compare all audited Brown Trout reaches without assuming every fish is lake-run; avoid redds."
+          : "Compare the facility approach with fresh lower-river entry water without implying passage.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart: `Established Besadny Reach water${upper}.`,
+        limit,
+        tip: input.repeatSpawner
+          ? "Surviving Browns may hold or move again; no universal departure is asserted."
+          : "Narrow the search below the facility and avoid visible spawners and redds.",
+      };
+    }
+    return {
+      whereToStart:
+        "No dependable Kewaunee River starting reach for this model.",
+      limit,
+      tip: input.repeatSpawner
+        ? "The modeled migration is complete; living Browns may hold or return lakeward."
+        : "Do not build a trip around isolated fish outside the modeled run.",
+    };
   }
 
   const limit =
@@ -1263,43 +1740,227 @@ function fall2026OnboardingCorridorRoute(input: {
       : "Fall-Chinook guidance ends below River Mill Dam and never extends into Estacada Lake or the North Fork corridor. Posted PGE boundaries control, and the Oregon City gauge represents only the lower river.";
     if (stage === "pre_run") {
       return input.stagingContext
-        ? { whereToStart: "Clackamette Park and the Clackamas mouth; use Lower River water only with direct fish evidence.", limit, tip: "Keep the Willamette confluence and mouth as approach context until dependable river entry begins." }
-        : { whereToStart: "the Willamette confluence and Clackamas mouth—not inland river sections yet.", limit, tip: "Wait for the staging window before using the Clackamas corridor as a migration plan." };
+        ? {
+          whereToStart:
+            "Clackamette Park and the Clackamas mouth; use Lower River water only with direct fish evidence.",
+          limit,
+          tip:
+            "Keep the Willamette confluence and mouth as approach context until dependable river entry begins.",
+        }
+        : {
+          whereToStart:
+            "the Willamette confluence and Clackamas mouth—not inland river sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the Clackamas corridor as a migration plan.",
+        };
     }
-    if (stage === "beginning") return { whereToStart: "Lower River access from Clackamette through Carver.", limit, tip: "Keep the first search below Carver and do not infer upstream distribution from the calendar." };
-    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Lower River first, then audited Middle River access from Barton toward Milo McIver.", limit, tip: "Compare lower entry water with the middle corridor without assuming equal distribution." };
-    if (stage === "building") return { whereToStart: coho ? "Middle River first, then coho-only Estacada Lake where posted access is open." : "Middle River from Barton toward Milo McIver, remaining below River Mill Dam.", limit, tip: coho ? "Use Estacada Lake only for the early-coho product and stay outside posted PGE boundaries." : "Stop below River Mill and check lower water for newer arrivals." };
-    if (stage === "peak") return { whereToStart: coho ? "Lower and Middle River access, plus coho-only Estacada Lake where legal." : "Lower and Middle River access below River Mill Dam.", limit, tip: "Compare established holding water with lower entry water; do not treat facility passage as whole-river abundance." };
-    if (stage === "tapering" || stage === "ending") return { whereToStart: coho ? "established Middle River and coho-only Estacada Lake holding water." : "established Middle River holding water below River Mill.", limit, tip: "Narrow the search and leave visible spawners and redds undisturbed." };
-    return { whereToStart: "no dependable Clackamas starting reach for this seasonal model.", limit, tip: "Do not build a trip around isolated fish outside the modeled early-fall run." };
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Lower River access from Clackamette through Carver.",
+        limit,
+        tip:
+          "Keep the first search below Carver and do not infer upstream distribution from the calendar.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Lower River first, then audited Middle River access from Barton toward Milo McIver.",
+        limit,
+        tip:
+          "Compare lower entry water with the middle corridor without assuming equal distribution.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart: coho
+          ? "Middle River first, then coho-only Estacada Lake where posted access is open."
+          : "Middle River from Barton toward Milo McIver, remaining below River Mill Dam.",
+        limit,
+        tip: coho
+          ? "Use Estacada Lake only for the early-coho product and stay outside posted PGE boundaries."
+          : "Stop below River Mill and check lower water for newer arrivals.",
+      };
+    }
+    if (stage === "peak") {
+      return {
+        whereToStart: coho
+          ? "Lower and Middle River access, plus coho-only Estacada Lake where legal."
+          : "Lower and Middle River access below River Mill Dam.",
+        limit,
+        tip:
+          "Compare established holding water with lower entry water; do not treat facility passage as whole-river abundance.",
+      };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart: coho
+          ? "established Middle River and coho-only Estacada Lake holding water."
+          : "established Middle River holding water below River Mill.",
+        limit,
+        tip:
+          "Narrow the search and leave visible spawners and redds undisturbed.",
+      };
+    }
+    return {
+      whereToStart:
+        "no dependable Clackamas starting reach for this seasonal model.",
+      limit,
+      tip:
+        "Do not build a trip around isolated fish outside the modeled early-fall run.",
+    };
   }
 
   if (input.riverId === "manitowoc") {
     const limit =
       "Manitowoc guidance stays on the mainstem and ends at the Clarks Mills first-barrier corridor. Lower Cato Falls is open only April 1-October 31, dawn to dusk; map markers do not make adjoining private frontage public.";
-    if (stage === "pre_run") return input.stagingContext
-      ? { whereToStart: "the Manitowoc harbor, mouth, and Lower River parks as monitoring context only.", limit, tip: "Require direct fish activity before treating inland mainstem sections as established." }
-      : { whereToStart: "Lake Michigan and the Manitowoc harbor—not inland mainstem sections yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
-    if (stage === "beginning") return { whereToStart: "Lower River access at Henry Schuette and Manitou parks.", limit, tip: "Keep the first search below Michigan Avenue and do not infer upper-river distribution from the calendar." };
-    if (stage === "building" && !input.broadBuildingContext) return { whereToStart: "Lower River first, then the County Manitowoc River Access in the Middle River.", limit, tip: "Compare lower entry water with the gauge reach before moving farther inland." };
-    if (stage === "building") return { whereToStart: "Middle River access first; add Lower Cato Falls only while the county park is seasonally open.", limit, tip: "Never use Lower Cato after October 31, and do not substitute Branch River or private frontage." };
-    if (stage === "peak") return input.repeatSpawner
-      ? { whereToStart: "Lower and Middle River access; Lower Cato Falls is closed during the November-December Brown Trout core.", limit, tip: "Compare open lower/middle access without assuming that the Michigan Avenue gauge represents the harbor or upper corridor." }
-      : { whereToStart: "Lower and Middle River access; use Lower Cato Falls only through October 31.", limit, tip: "Compare accessible sections without assuming that the Michigan Avenue gauge represents the harbor or upper corridor." };
-    if (stage === "tapering" || stage === "ending") return { whereToStart: "established Lower and Middle River holding water; Lower Cato is closed after October 31.", limit, tip: input.repeatSpawner ? "Avoid visible Brown Trout spawners and redds; surviving fish do not follow one departure schedule." : "Narrow the search and avoid visible salmon spawners and redds." };
-    return { whereToStart: "no dependable Manitowoc starting reach for this seasonal model.", limit, tip: input.fallEntry || input.repeatSpawner ? "The modeled fall migration is complete; living fish may still remain." : "Do not build a trip around isolated fish outside the modeled run." };
+    if (stage === "pre_run") {
+      return input.stagingContext
+        ? {
+          whereToStart:
+            "the Manitowoc harbor, mouth, and Lower River parks as monitoring context only.",
+          limit,
+          tip:
+            "Require direct fish activity before treating inland mainstem sections as established.",
+        }
+        : {
+          whereToStart:
+            "Lake Michigan and the Manitowoc harbor—not inland mainstem sections yet.",
+          limit,
+          tip:
+            "Wait for the staging window before using the river corridor as a migration plan.",
+        };
+    }
+    if (stage === "beginning") {
+      return {
+        whereToStart: "Lower River access at Henry Schuette and Manitou parks.",
+        limit,
+        tip:
+          "Keep the first search below Michigan Avenue and do not infer upper-river distribution from the calendar.",
+      };
+    }
+    if (stage === "building" && !input.broadBuildingContext) {
+      return {
+        whereToStart:
+          "Lower River first, then the County Manitowoc River Access in the Middle River.",
+        limit,
+        tip:
+          "Compare lower entry water with the gauge reach before moving farther inland.",
+      };
+    }
+    if (stage === "building") {
+      return {
+        whereToStart:
+          "Middle River access first; add Lower Cato Falls only while the county park is seasonally open.",
+        limit,
+        tip:
+          "Never use Lower Cato after October 31, and do not substitute Branch River or private frontage.",
+      };
+    }
+    if (stage === "peak") {
+      return input.repeatSpawner
+        ? {
+          whereToStart:
+            "Lower and Middle River access; Lower Cato Falls is closed during the November-December Brown Trout core.",
+          limit,
+          tip:
+            "Compare open lower/middle access without assuming that the Michigan Avenue gauge represents the harbor or upper corridor.",
+        }
+        : {
+          whereToStart:
+            "Lower and Middle River access; use Lower Cato Falls only through October 31.",
+          limit,
+          tip:
+            "Compare accessible sections without assuming that the Michigan Avenue gauge represents the harbor or upper corridor.",
+        };
+    }
+    if (stage === "tapering" || stage === "ending") {
+      return {
+        whereToStart:
+          "established Lower and Middle River holding water; Lower Cato is closed after October 31.",
+        limit,
+        tip: input.repeatSpawner
+          ? "Avoid visible Brown Trout spawners and redds; surviving fish do not follow one departure schedule."
+          : "Narrow the search and avoid visible salmon spawners and redds.",
+      };
+    }
+    return {
+      whereToStart:
+        "no dependable Manitowoc starting reach for this seasonal model.",
+      limit,
+      tip: input.fallEntry || input.repeatSpawner
+        ? "The modeled fall migration is complete; living fish may still remain."
+        : "Do not build a trip around isolated fish outside the modeled run.",
+    };
   }
 
   const limit =
     "Oswego guidance covers only the Lake Ontario mouth to the downstream face of Varick Dam. Mandatory-PFD and hydropower closures control; Leto Island is not dam access, and a municipal boat ramp is not shore-fishing permission.";
-  if (stage === "pre_run") return input.stagingContext
-    ? { whereToStart: "Oswego Harbor and the river mouth; use the Lower Harbor only with direct fish evidence.", limit, tip: "Keep staging checks lakeward until dependable river entry begins." }
-    : { whereToStart: "Lake Ontario and Oswego Harbor—not the terminal tailwater yet.", limit, tip: "Wait for the staging window before using the river corridor as a migration plan." };
-  if (stage === "beginning") return { whereToStart: "Lower Harbor access from Wright's Landing toward Utica Street.", limit, tip: "Use Wright's Landing as boat access only and do not infer marina shore-fishing permission." };
-  if (stage === "building") return { whereToStart: "Linear Park in the Terminal Tailwater, with the Lower Harbor checked for newer arrivals.", limit, tip: "Stay inside signed public access and outside every posted hydropower boundary." };
-  if (stage === "peak") return { whereToStart: "Linear Park and legal Terminal Tailwater access below Varick, then the Lower Harbor.", limit, tip: "Wear the required PFD in the posted zone and never infer safe wading or fish abundance from Lock 7 flow." };
-  if (stage === "tapering" || stage === "ending") return { whereToStart: "established legal holding water at Linear Park and the Terminal Tailwater.", limit, tip: input.fallEntry ? "Some Steelhead may overwinter; narrowing fall entry does not mean the river is empty." : input.repeatSpawner ? "Avoid visible Brown Trout spawners and redds; surviving fish may remain or move on individual schedules." : "Narrow the search and avoid visible salmon spawners and redds." };
-  return { whereToStart: "no dependable Oswego starting reach for this seasonal model.", limit, tip: input.fallEntry || input.repeatSpawner ? "The fall model is complete; living fish may still remain in the corridor." : "Do not build a trip around isolated fish outside the modeled salmon run." };
+  if (stage === "pre_run") {
+    return input.stagingContext
+      ? {
+        whereToStart:
+          "Oswego Harbor and the river mouth; use the Lower Harbor only with direct fish evidence.",
+        limit,
+        tip:
+          "Keep staging checks lakeward until dependable river entry begins.",
+      }
+      : {
+        whereToStart:
+          "Lake Ontario and Oswego Harbor—not the terminal tailwater yet.",
+        limit,
+        tip:
+          "Wait for the staging window before using the river corridor as a migration plan.",
+      };
+  }
+  if (stage === "beginning") {
+    return {
+      whereToStart:
+        "Lower Harbor access from Wright's Landing toward Utica Street.",
+      limit,
+      tip:
+        "Use Wright's Landing as boat access only and do not infer marina shore-fishing permission.",
+    };
+  }
+  if (stage === "building") {
+    return {
+      whereToStart:
+        "Linear Park in the Terminal Tailwater, with the Lower Harbor checked for newer arrivals.",
+      limit,
+      tip:
+        "Stay inside signed public access and outside every posted hydropower boundary.",
+    };
+  }
+  if (stage === "peak") {
+    return {
+      whereToStart:
+        "Linear Park and legal Terminal Tailwater access below Varick, then the Lower Harbor.",
+      limit,
+      tip:
+        "Wear the required PFD in the posted zone and never infer safe wading or fish abundance from Lock 7 flow.",
+    };
+  }
+  if (stage === "tapering" || stage === "ending") {
+    return {
+      whereToStart:
+        "established legal holding water at Linear Park and the Terminal Tailwater.",
+      limit,
+      tip: input.fallEntry
+        ? "Some Steelhead may overwinter; narrowing fall entry does not mean the river is empty."
+        : input.repeatSpawner
+        ? "Avoid visible Brown Trout spawners and redds; surviving fish may remain or move on individual schedules."
+        : "Narrow the search and avoid visible salmon spawners and redds.",
+    };
+  }
+  return {
+    whereToStart:
+      "no dependable Oswego starting reach for this seasonal model.",
+    limit,
+    tip: input.fallEntry || input.repeatSpawner
+      ? "The fall model is complete; living fish may still remain in the corridor."
+      : "Do not build a trip around isolated fish outside the modeled salmon run.",
+  };
 }
 
 function newYorkOnboardingCorridorRoute(input: {

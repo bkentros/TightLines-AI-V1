@@ -17,6 +17,11 @@ export type RiverAccessSectionPosition = "lower" | "middle" | "upper";
 export type RiverAccessSeasonalZone = {
   status: "not_started" | "active" | "complete";
   foundationReachIds: readonly string[];
+  winterHoldingGuidance?: {
+    preferredStartReachIds: readonly string[];
+    activityScopeCopy: string;
+    allCorridorSectionsViable: true;
+  };
 };
 
 export type RiverAccessSpot = {
@@ -64,6 +69,10 @@ export type RiverSpotFinder = {
 export type RiverSpotFinderRecommendedSections = {
   /** Audited sections overlapping the engine-owned seasonal zone. */
   recommendedSections: RiverAccessSection[];
+  /** Winter sections with the strongest accepted measured-condition coverage. */
+  preferredStartSections: RiverAccessSection[];
+  /** Other audited sections that remain viable throughout the winter corridor. */
+  viableWinterSections: RiverAccessSection[];
   /** Audited access sections outside the active seasonal zone. */
   otherSections: RiverAccessSection[];
   /** False outside an active run or when no audited section overlaps. */
@@ -81,6 +90,8 @@ export function resolveRiverSpotFinderRecommendedSections(
   ) {
     return {
       recommendedSections: [],
+      preferredStartSections: [],
+      viableWinterSections: [],
       otherSections: finder.sections,
       hasRecommendation: false,
     };
@@ -92,6 +103,8 @@ export function resolveRiverSpotFinderRecommendedSections(
   if (recommendedSections.length === 0) {
     return {
       recommendedSections: [],
+      preferredStartSections: [],
+      viableWinterSections: [],
       otherSections: finder.sections,
       hasRecommendation: false,
     };
@@ -99,8 +112,26 @@ export function resolveRiverSpotFinderRecommendedSections(
   const recommendedSectionIds = new Set(
     recommendedSections.map((section) => section.id),
   );
+  const preferredStartReachIds = new Set(
+    seasonalZone.winterHoldingGuidance?.preferredStartReachIds ?? [],
+  );
+  const preferredStartSections = recommendedSections.filter((section) =>
+    section.foundationReachIds.some((reachId) =>
+      preferredStartReachIds.has(reachId)
+    )
+  );
+  const preferredStartSectionIds = new Set(
+    preferredStartSections.map((section) => section.id),
+  );
+  const viableWinterSections = seasonalZone.winterHoldingGuidance
+    ? recommendedSections.filter((section) =>
+      !preferredStartSectionIds.has(section.id)
+    )
+    : [];
   return {
     recommendedSections,
+    preferredStartSections,
+    viableWinterSections,
     otherSections: finder.sections.filter(
       (section) => !recommendedSectionIds.has(section.id),
     ),
@@ -119,6 +150,12 @@ const DNR_BOATING_SOURCE =
 const DNR_CENTRAL_FISHERIES_SOURCE =
   "https://www.michigan.gov/dnr/managing-resources/fisheries/units/c-michigan";
 const DNR_CLOSURES = "https://www.michigan.gov/dnr/about/newsroom/closures";
+const NPS_PLATTE_ACCESS =
+  "https://www.nps.gov/places/000/platte-river-point-water-access.htm";
+const NPS_SLEEPING_BEAR_COMPENDIUM =
+  "https://www.nps.gov/slbe/learn/management/superintendent-compendium.htm";
+const DNR_ROGUE_RIVER_PLAN =
+  "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/NaturalRivers/Rogue_River_Plan.pdf?rev=6a9bfe649fa541dda8675bc3cef972ec";
 const PM_DNR_MAP =
   "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/PublicLands/LandUse/PereMarquette_WandSCorr_BAS.pdf?hash=ABAC24175FEE11C3485EE721B453B6D5&rev=d2b6e8bef18642bab650618c7a6c4471";
 const PM_FOREST_SERVICE_PLAN =
@@ -390,6 +427,67 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Gravel access with timber steps; Recreation Passport required.",
             "Seasonal signed fishing closures around the barrier are mandatory. The listed access does not permit fishing inside a closure.",
             DNR_CENTRAL_FISHERIES_SOURCE,
+          ),
+        ],
+      },
+    ],
+  },
+  platte: {
+    riverId: "platte",
+    riverName: "Platte River",
+    supportedStates: ["MI"],
+    orientationNote:
+      "The two sections cover the complete supported lower-river corridor. Guidance stops at the downstream edge of every signed Lower Platte River Weir closure; Honor and the river above Platte Lake are excluded.",
+    sections: [
+      {
+        id: "platte_lower_access",
+        foundationReachIds: ["platte_lower_entry"],
+        eligibleSpecies: ["steelhead"],
+        position: "lower",
+        rangeLabel: "Platte River Point to El Dorado",
+        spots: [
+          namedSpot(
+            "platte_river_point",
+            "Platte River Point Water Access",
+            "Platte River Point, Sleeping Bear Dunes National Lakeshore, MI",
+            ["boat_ramp", "carry_in", "walk_in"],
+            "National Park Service paved trailer launch and public river access at the lower-river endpoint near Platte Bay.",
+            "National Park Service",
+            NPS_PLATTE_ACCESS,
+            "Lake Michigan surf, river current, ice, sand and seasonal park operations can change launch conditions. Confirm current park notices before travel.",
+            "2026-09-25",
+          ),
+          namedSpot(
+            "platte_el_dorado",
+            "El Dorado Public Put-In",
+            "El Dorado public put-in, Platte River, Sleeping Bear Dunes National Lakeshore, MI",
+            ["carry_in", "walk_in"],
+            "National Park Service identifies El Dorado as a public put-in on the lower Platte, roughly a one-mile float upstream of Platte River Point.",
+            "National Park Service",
+            NPS_PLATTE_ACCESS,
+            "Use the signed public approach only. A launch listing does not establish shore access, safe winter wading, or permission across neighboring land.",
+            "2026-09-25",
+          ),
+        ],
+      },
+      {
+        id: "platte_weir_access",
+        foundationReachIds: ["platte_weir_approach"],
+        eligibleSpecies: ["steelhead"],
+        position: "upper",
+        rangeLabel: "El Dorado to the signed Lower Weir closure",
+        spots: [
+          namedSpot(
+            "platte_fish_weir_access",
+            "Fish Weir Carry-In Access",
+            "Platte River Fish Weir access, Sleeping Bear Dunes National Lakeshore, MI",
+            ["carry_in", "walk_in"],
+            "National Park Service identifies Fish Weir as a designated vessel-launch location; the carry is approximately one-quarter mile.",
+            "National Park Service",
+            NPS_SLEEPING_BEAR_COMPENDIUM,
+            "Fishing is closed within 300 feet whenever the Lower Platte River Weir is installed. Current signs define the boundary; this access listing never authorizes fishing inside it or passing the structure.",
+            "2026-09-25",
+            "Open the current Superintendent's Compendium and find the designated Platte River vessel launches, including Fish Weir; then obey every posted DNR weir closure.",
           ),
         ],
       },
@@ -2009,7 +2107,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         foundationReachIds: ["kewaunee_upper_access"],
         position: "upper",
         rangeLabel: "Besadny facility to third Highway C bridge crossing",
-        eligibleSpecies: ["lake_run_brown_trout"],
+        eligibleSpecies: ["lake_run_brown_trout", "steelhead"],
         spots: [
           sourceMappedSpot(
             "kewaunee_second_highway_c",
@@ -2049,6 +2147,158 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             WI_KEWAUNEE_ACCESS_MAP,
             "On the linked one-page map, find “3rd Highway C Bridge crossing.”",
             "The DNR map is not an authoritative property-boundary survey; use only signed public access or lawful right-of-way and do not cross private frontage.",
+          ),
+        ],
+      },
+    ],
+  },
+  umpqua_mainstem: {
+    riverId: "umpqua_mainstem",
+    riverName: "Umpqua River (Mainstem)",
+    supportedStates: ["OR"],
+    orientationNote:
+      "Sections cover only the Pacific mouth-to-River Forks mainstem. North and South Umpqua are separate rivers. Tributary-mouth closures, the permanent cyanobacteria advisory, tides, and posted site restrictions remain controlling.",
+    safetyLink: {
+      label: "CHECK CURRENT OREGON RULES →",
+      url: "https://myodfw.com/articles/regulation-updates",
+    },
+    sections: [
+      {
+        id: "umpqua_mainstem_estuary_lower_access",
+        foundationReachIds: ["umpqua_mainstem_estuary_lower"],
+        position: "lower",
+        rangeLabel: "Winchester Bay jetties to Scottsburg/head of tide",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "umpqua_mainstem_scottsburg_county_park",
+            "Scottsburg County Park",
+            43.6496619,
+            -123.8390207,
+            ["boat_ramp", "shore_fishing"],
+            "Douglas County-listed fishing and river access with a boat ramp near the head-of-tide boundary.",
+            "Douglas County Parks",
+            "https://www.douglascountyor.gov/Facilities/Facility/Details/Scottsburg-County-Park-44",
+            "Bank extent, wading, tides, launch condition, parking, and adjoining frontage are not guaranteed. Check current park status and salmon rules before travel.",
+            "2026-09-28",
+          ),
+        ],
+      },
+      {
+        id: "umpqua_mainstem_middle_elkton_access",
+        foundationReachIds: ["umpqua_mainstem_middle_elkton"],
+        position: "middle",
+        rangeLabel: "Scottsburg/head of tide to Elkton gauge reach",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "umpqua_mainstem_scott_creek_county_park",
+            "Scott Creek County Park",
+            43.6735992,
+            -123.6878898,
+            ["boat_ramp", "shore_fishing"],
+            "Douglas County-listed fishing and river access with a boat ramp in the middle mainstem corridor.",
+            "Douglas County Parks",
+            "https://www.douglascountyor.gov/Facilities/Facility/Details/Scott-Creek-County-Park-43",
+            "The listing does not guarantee safe wading, a usable launch at every flow, public frontage beyond the park, or conditions matching the Elkton gauge.",
+            "2026-09-28",
+          ),
+        ],
+      },
+      {
+        id: "umpqua_mainstem_upper_forks_access",
+        foundationReachIds: ["umpqua_mainstem_upper_forks"],
+        position: "upper",
+        rangeLabel: "Elkton gauge reach to River Forks",
+        eligibleSpecies: ["chinook_salmon", "coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "umpqua_mainstem_tyee_campground",
+            "Tyee Campground — Umpqua River",
+            43.485025,
+            -123.4842667,
+            ["shore_fishing", "walk_in"],
+            "BLM campground with stairs providing river access in the upper mainstem corridor.",
+            "Bureau of Land Management",
+            "https://www.blm.gov/visit/tyee-campground-umpqua-river",
+            "Stairs to the river do not establish safe wading, year-round campground operation, legal access outside the site, or suitable conditions at every flow.",
+            "2026-09-28",
+          ),
+        ],
+      },
+    ],
+  },
+  north_umpqua: {
+    riverId: "north_umpqua",
+    riverName: "North Umpqua River",
+    supportedStates: ["OR"],
+    orientationNote:
+      "Sections stop at the legal marker below Soda Springs Dam. Winchester, Rock Creek/Deadline, fly-only, watercraft, dam, and posted property restrictions create legal gaps; a recommended section never means every bank is open or safe.",
+    safetyLink: {
+      label: "CHECK CURRENT OREGON RULES →",
+      url: "https://myodfw.com/articles/regulation-updates",
+    },
+    sections: [
+      {
+        id: "north_umpqua_lower_winchester_access",
+        foundationReachIds: ["north_umpqua_lower_winchester"],
+        position: "lower",
+        rangeLabel: "River Forks mouth to the Winchester closure",
+        eligibleSpecies: ["coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "north_umpqua_hestness_landing",
+            "Hestness Landing County Park",
+            43.2845602,
+            -123.3914653,
+            ["boat_ramp", "shore_fishing"],
+            "Douglas County-listed fishing and river access with a boat ramp in the lower North Umpqua.",
+            "Douglas County Parks",
+            "https://www.douglascountyor.gov/Facilities/Facility/Details/Hestness-Landing-County-Park-28",
+            "Stay outside every posted Winchester closure. Bank extent, wading, current, ramp condition, parking, and legal fishing boundaries must be confirmed on site.",
+            "2026-09-28",
+          ),
+        ],
+      },
+      {
+        id: "north_umpqua_middle_rock_creek_access",
+        foundationReachIds: ["north_umpqua_middle_rock_creek"],
+        position: "middle",
+        rangeLabel: "Above Winchester to the Rock Creek/Deadline legal gap",
+        eligibleSpecies: ["coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "north_umpqua_swiftwater_day_use",
+            "Swiftwater Day Use Area",
+            43.33314,
+            -123.00476,
+            ["shore_fishing", "fishing_platform", "walk_in"],
+            "BLM day-use site with bank fishing and an accessible fishing platform in the middle corridor.",
+            "Bureau of Land Management",
+            "https://www.blm.gov/visit/swiftwater-day-use-area",
+            "Fly-only water begins a few hundred yards upriver. Do not enter the closed painted-lines-to-Deadline segment; verify current signs, site status, and legal species rules.",
+            "2026-09-28",
+          ),
+        ],
+      },
+      {
+        id: "north_umpqua_upper_wsr_access",
+        foundationReachIds: ["north_umpqua_upper_wsr"],
+        position: "upper",
+        rangeLabel: "Fly Area to the marker below Soda Springs Dam",
+        eligibleSpecies: ["coho_salmon"],
+        spots: [
+          sourcedCoordinateSpot(
+            "north_umpqua_susan_creek",
+            "Susan Creek Campground",
+            43.2966667,
+            -122.8933333,
+            ["shore_fishing", "walk_in"],
+            "BLM campground with source-listed fishing access in the upper Wild and Scenic corridor.",
+            "Bureau of Land Management",
+            "https://www.blm.gov/visit/susan-creek-campground",
+            "Fly-fishing-only and no-angling-from-watercraft rules apply in this corridor. Verify campground status, posted boundaries, road conditions, and river safety before travel.",
+            "2026-09-28",
           ),
         ],
       },
@@ -3033,6 +3283,130 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Washington Department of Fish and Wildlife",
             "https://wdfw.wa.gov/places-to-go/water-access-sites/weiss-220",
             "Verify the ramp and river approach on arrival. Glacial flow can be swift, cold, silty, and hazardous.",
+          ),
+        ],
+      },
+    ],
+  },
+  bear_creek_manistee: {
+    riverId: "bear_creek_manistee",
+    riverName: "Bear Creek (Manistee)",
+    supportedStates: ["MI"],
+    orientationNote:
+      "The inventory is intentionally limited to the two official primary access areas named for the 6.5-mile National Scenic River corridor. Most intervening frontage is not represented as public access.",
+    sections: [
+      {
+        id: "bear_creek_lower_access",
+        foundationReachIds: ["bear_creek_lower"],
+        position: "lower",
+        rangeLabel: "Manistee confluence to River Road access area",
+        spots: [
+          namedSpot(
+            "bear_creek_river_road",
+            "Bear Creek River Access Site",
+            "Bear Creek River Access Site, River Road, Brethren, MI",
+            ["shore_fishing", "walk_in"],
+            "Official primary access near the lower end of the National Scenic River corridor; a vehicle parking pass is required.",
+            "National Wild and Scenic Rivers / U.S. Forest Service",
+            "https://www.fws.gov/rivers/river/bear",
+            "Use only the signed access and parking area. The listing does not authorize crossing private frontage or imply safe wading or launching.",
+            "2026-09-18",
+          ),
+        ],
+      },
+      {
+        id: "bear_creek_upper_access",
+        foundationReachIds: ["bear_creek_upper"],
+        position: "upper",
+        rangeLabel: "River Road access area to Coates Highway",
+        spots: [
+          namedSpot(
+            "bear_creek_coates",
+            "Coates Highway Access",
+            "Bear Creek at Coates Highway, Brethren, MI",
+            ["shore_fishing", "walk_in"],
+            "Officially identified primary access at the northern boundary of the designated Bear Creek corridor.",
+            "National Wild and Scenic Rivers / U.S. Forest Service",
+            "https://www.fws.gov/rivers/river/bear",
+            "This is the River Run and Type 3 upstream boundary. Use only signed public access and do not infer public frontage away from the road crossing.",
+            "2026-09-18",
+          ),
+        ],
+      },
+    ],
+  },
+  rogue_mi: {
+    riverId: "rogue_mi",
+    riverName: "Rogue River",
+    supportedStates: ["MI"],
+    orientationNote:
+      "Sections follow the supported Grand River confluence-to-Rockford Dam corridor. Only government-published parks with explicit river access or fishing use are listed.",
+    sections: [
+      {
+        id: "rogue_lower_access",
+        foundationReachIds: ["rogue_lower"],
+        position: "lower",
+        rangeLabel: "Grand River confluence to Packer Drive",
+        spots: [
+          namedSpot(
+            "rogue_grand_rogue_park",
+            "Grand Rogue Park",
+            "6400 West River Drive NE, Belmont, MI 49306",
+            ["fishing_platform", "carry_in", "walk_in"],
+            "Township park at the Rogue–Grand convergence with an accessible fishing dock, accessible Rogue River canoe/kayak launch, parking, paved paths and seasonal facilities.",
+            "Plainfield Charter Township",
+            "https://www.plainfieldmi.org/Facilities/Facility/Details/Grand-Rogue-Park-3",
+            "Park gates and seasonal facilities close on posted schedules; verify launch status, flooding, and current hours before travel.",
+            "2026-09-18",
+          ),
+          namedSpot(
+            "rogue_county_park",
+            "Rogue River Park",
+            "6300 Belshire Avenue NE, Belmont, MI 49306",
+            ["shore_fishing", "walk_in"],
+            "Kent County park with public trails and officially described easy bank access and fishing along the Rogue River.",
+            "Kent County Parks",
+            "https://www.kentcountymi.gov/Facilities/Facility/Details/Rogue-River-Park-55",
+            "Natural-surface trails, parking, restrooms and hours vary seasonally. The park listing does not establish wading or boat-launch safety.",
+            "2026-09-18",
+          ),
+        ],
+      },
+      {
+        id: "rogue_middle_access",
+        foundationReachIds: ["rogue_middle"],
+        position: "middle",
+        rangeLabel: "Packer Drive to 10 Mile Road",
+        spots: [
+          sourceMappedSpot(
+            "rogue_10_mile_bridge",
+            "10 Mile Road Bridge Access",
+            ["walk_in"],
+            "Road-crossing access at the upstream boundary of the supported middle reach. Michigan DNR's Rogue River plan identifies bridge and culvert crossings as public river access.",
+            "Michigan DNR Rogue River Natural River Plan",
+            DNR_ROGUE_RIVER_PLAN,
+            "In the Ownership and Accessibility section on document page 10, find the statement that public river access can be gained at bridge and culvert crossings.",
+            "No dedicated parking, developed bank, or safe winter entry is claimed. Confirm current signs, road-shoulder parking legality, ice, and private-property boundaries before leaving the road right-of-way.",
+            "2026-09-25",
+          ),
+        ],
+      },
+      {
+        id: "rogue_upper_access",
+        foundationReachIds: ["rogue_upper_tailwater"],
+        position: "upper",
+        rangeLabel: "10 Mile Road to Rockford Dam",
+        spots: [
+          sourceMappedSpot(
+            "rogue_richardson_sowerby",
+            "Richardson-Sowerby Park",
+            ["fishing_platform", "shore_fishing", "walk_in"],
+            "City riverfront park immediately below Rockford Dam with public pathways, fishing docks, parking access and connections to the White Pine Trail.",
+            "City of Rockford 2024–2028 Recreation Plan",
+            "https://cms7files1.revize.com/rockford/2024%20Rockford%20Recreation%20Plan-DRAFT%2012-7-23.pdf",
+            "Find Richardson-Sowerby Park and the completed Rogue River Trail Network / fishing-dock improvements in the linked city plan.",
+            "Obey every dam-safety barrier, posted closure and park rule. A public park does not authorize fishing from or approaching the dam structure.",
+            "2026-09-18",
           ),
         ],
       },

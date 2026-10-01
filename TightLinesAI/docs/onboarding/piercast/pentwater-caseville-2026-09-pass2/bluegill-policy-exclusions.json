@@ -1,0 +1,100 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-bluegill-policy-v1",
+  "review_date": "2026-09-21",
+  "policy": "Bluegill must never be user-facing in PierCast.",
+  "records": [
+    {
+      "city_id": "pentwater_mi",
+      "species_id": "bluegill",
+      "disposition": "product_policy_exclusion",
+      "research_candidate": false,
+      "hold": false,
+      "score": null,
+      "seasonal_mode": null,
+      "ranked": false,
+      "serialized_user_facing": false,
+      "client_visible": false,
+      "reason": "Bluegill is explicitly outside the user-facing PierCast catalog. Biological records were not converted into a target.",
+      "pass2_disposition": "product_policy_exclusion"
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "species_id": "bluegill",
+      "disposition": "product_policy_exclusion",
+      "research_candidate": false,
+      "hold": false,
+      "score": null,
+      "seasonal_mode": null,
+      "ranked": false,
+      "serialized_user_facing": false,
+      "client_visible": false,
+      "reason": "Bluegill is explicitly outside the user-facing PierCast catalog. Biological records were not converted into a target.",
+      "pass2_disposition": "product_policy_exclusion"
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "species_id": "bluegill",
+      "disposition": "product_policy_exclusion",
+      "research_candidate": false,
+      "hold": false,
+      "score": null,
+      "seasonal_mode": null,
+      "ranked": false,
+      "serialized_user_facing": false,
+      "client_visible": false,
+      "reason": "Bluegill is explicitly outside the user-facing PierCast catalog. Biological records were not converted into a target.",
+      "pass2_disposition": "product_policy_exclusion"
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "species_id": "bluegill",
+      "disposition": "product_policy_exclusion",
+      "research_candidate": false,
+      "hold": false,
+      "score": null,
+      "seasonal_mode": null,
+      "ranked": false,
+      "serialized_user_facing": false,
+      "client_visible": false,
+      "reason": "Bluegill is explicitly outside the user-facing PierCast catalog. Biological records were not converted into a target.",
+      "pass2_disposition": "product_policy_exclusion"
+    },
+    {
+      "city_id": "caseville_mi",
+      "species_id": "bluegill",
+      "disposition": "product_policy_exclusion",
+      "research_candidate": false,
+      "hold": false,
+      "score": null,
+      "seasonal_mode": null,
+      "ranked": false,
+      "serialized_user_facing": false,
+      "client_visible": false,
+      "reason": "Bluegill is explicitly outside the user-facing PierCast catalog. Biological records were not converted into a target.",
+      "pass2_disposition": "product_policy_exclusion"
+    }
+  ],
+  "existing_runtime_audit": {
+    "inspection_scope": "read-only Pass 1 repository audit; no runtime or public-release edits authorized",
+    "historical_type_present": true,
+    "historical_species_profile_present": true,
+    "legacy_calibrated_pairs": [
+      "grand_haven_mi/bluegill",
+      "michigan_city_in/bluegill",
+      "muskegon_mi/bluegill",
+      "whitehall_mi/bluegill"
+    ],
+    "current_pair_flag": "Each reviewed generated calibration says ratingEnabled=false, but the public Formula v3 review pipeline evaluates the configured species roster and the public projection maps date.species without a species-policy filter.",
+    "normal_user_risk": "Those four legacy rows can therefore be serialized in the current public v3 report contract despite the product policy. This finding is separate from the five new-city exclusions.",
+    "pass1_action": "Documented only; Pass 1 is prohibited from changing runtime configuration, public visibility, deployment, or the release manifest.",
+    "mandatory_later_gate": "Before any integration or release involving this work, remove the four legacy runtime pairs or enforce a server-side exclusion before headline selection and serialization, then test both API payloads and every client surface for zero user-visible bluegill output.",
+    "release_blocker": true,
+    "inspected_files": [
+      "supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts",
+      "supabase/functions/_shared/pierCastEngine/pipeline/v3ReviewOutlook.ts",
+      "supabase/functions/pier-cast/publicV3.ts",
+      "app/pier-cast-review.tsx"
+    ]
+  },
+  "pass2_status": "fixed_product_policy_exclusions_not_reopened"
+}

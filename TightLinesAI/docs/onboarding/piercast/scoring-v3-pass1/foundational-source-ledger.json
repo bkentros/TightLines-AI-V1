@@ -1,0 +1,332 @@
+{
+  "schemaVersion": "piercast-v3-pass1-foundational-source-ledger-v1",
+  "reviewedAt": "2026-09-14",
+  "status": "active_research_ledger",
+  "sourcePolicy": "Primary agency and original research are foundational. Secondary material may corroborate an agency event but may not independently admit or set the magnitude of a city/species mode.",
+  "legacyRegisters": [
+    {
+      "path": "docs/onboarding/piercast/remaining-species/sources.json",
+      "entries": 74,
+      "use": "Michigan core and additional-species observation, biology, regulation, and access evidence"
+    },
+    {
+      "path": "docs/onboarding/piercast/remaining-species/phase1-sources.json",
+      "entries": 18,
+      "use": "Additional-species seasonal evidence"
+    },
+    {
+      "path": "docs/onboarding/piercast/remaining-species/phase2-sources.json",
+      "entries": 16,
+      "use": "Additional-species thermal, method, and regulation evidence"
+    },
+    {
+      "path": "docs/onboarding/piercast/remaining-species/annual-sources.json",
+      "entries": 11,
+      "use": "Annual biology and winter evidence"
+    },
+    {
+      "path": "docs/onboarding/piercast/port-washington/evidence-ledger.json",
+      "entries": 10,
+      "use": "Port Washington city-harbor onboarding evidence"
+    },
+    {
+      "path": "docs/onboarding/piercast/wisconsin-expansion/evidence-ledger.json",
+      "entries": 18,
+      "use": "Milwaukee, Racine, and Kenosha onboarding evidence"
+    }
+  ],
+  "sources": [
+    {
+      "id": "V3_MI_CREEL",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Creel Clerks & Angler Surveys and Great Lakes creel data",
+      "url": "https://www.michigan.gov/dnr/managing-resources/fisheries/creel",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_creel_program_and_dataset",
+      "geography": "Michigan Great Lakes survey locations",
+      "fishingMode": "Mode identified in underlying records, including Pier/Dock",
+      "timeResolution": "Underlying trip records and published aggregates",
+      "allowedUses": [
+        "local pier-mode recurrence",
+        "monthly seasonal timing where the extract identifies port, species, and Pier/Dock mode",
+        "cross-city magnitude comparison when metric and effort are comparable"
+      ],
+      "prohibitedUses": [
+        "exact-structure attribution without corroboration",
+        "catch probability",
+        "target-specific effort when not published",
+        "treating omitted rows as zero"
+      ],
+      "limitations": "The preserved repository extract covers four Michigan ports through 2022 and does not identify a casting position, method, target-specific effort, or every uncertainty term."
+    },
+    {
+      "id": "V3_MI_CREEL_2025",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Great Lakes fisheries survey highlights",
+      "url": "https://www.michigan.gov/dnr/about/newsroom/releases/2026/03/10/great-lakes-fisheries-survey-highlights",
+      "publicationDate": "2026-03-10",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_statewide_survey_summary",
+      "geography": "Michigan waters of the Great Lakes",
+      "fishingMode": "Multiple modes",
+      "timeResolution": "2025 season",
+      "allowedUses": [
+        "survey recency and program context",
+        "lake-wide species and effort context"
+      ],
+      "prohibitedUses": [
+        "city magnitude",
+        "pier-mode timing",
+        "exact-structure admission"
+      ],
+      "limitations": "Statewide totals pool locations, modes, and species contexts."
+    },
+    {
+      "id": "V3_MI_WEEKLY",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Weekly fishing report",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_creel_clerk_field_report",
+      "geography": "Named Michigan waters and ports",
+      "fishingMode": "As stated in each dated report",
+      "timeResolution": "Approximately the prior seven days",
+      "allowedUses": [
+        "dated city/pier event corroboration",
+        "mode timing",
+        "methods and qualitative conditions when explicitly reported"
+      ],
+      "prohibitedUses": [
+        "monthly catch rate",
+        "unobserved-day inference",
+        "causal temperature coefficient from a single event"
+      ],
+      "limitations": "DNR states that Great Lakes conditions may change daily or hourly. Reports do not provide standardized effort for every event."
+    },
+    {
+      "id": "V3_WI_COUNTY_PIER_1998_2024",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan salmon and trout harvest tables, 1998-2024",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_CreelHarvestTables1998-2024.pdf",
+      "publicationDate": "2025-04-10",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_county_by_mode_annual_estimates",
+      "geography": "Wisconsin Lake Michigan counties",
+      "fishingMode": "Pier separated from ramp, moored, charter, shore, and stream",
+      "timeResolution": "Annual, 1998-2024",
+      "allowedUses": [
+        "multi-year county pier recurrence",
+        "bounded cross-city magnitude evidence",
+        "identification of anomalous or inconsistent recent years"
+      ],
+      "prohibitedUses": [
+        "city CPUE without city pier effort",
+        "month assignment",
+        "exact-pier attribution",
+        "biological absence from a zero estimate"
+      ],
+      "limitations": "The table publishes estimated harvest rather than total catch and does not cross-tabulate county pier harvest with county pier effort by species and month."
+    },
+    {
+      "id": "V3_WI_OPEN_WATER_2022",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "2022 Open Water Sportfishing Effort and Harvest from Lake Michigan and Green Bay",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/LM_LakeMichiganSportHarvestReport2022.pdf",
+      "publicationDate": "2023",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_mode_by_month_bucket_estimates",
+      "geography": "Combined Wisconsin Lake Michigan and Green Bay survey areas",
+      "fishingMode": "Pier separated",
+      "timeResolution": "Published month buckets",
+      "allowedUses": [
+        "broad Wisconsin pier temporal shape",
+        "pooled mode-level harvest per estimated angler-hour"
+      ],
+      "prohibitedUses": [
+        "city-specific timing or magnitude",
+        "Lake Michigan-only inference for species dominated by Green Bay"
+      ],
+      "limitations": "Combined survey geography is especially material for perch, walleye, bass, catfish, and drum."
+    },
+    {
+      "id": "V3_WI_OPEN_WATER_2023",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "2023 Open Water Sportfishing Effort and Harvest from Lake Michigan and Green Bay",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2023.pdf",
+      "publicationDate": "2024",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_mode_by_month_bucket_estimates",
+      "geography": "Combined Wisconsin Lake Michigan and Green Bay survey areas",
+      "fishingMode": "Pier separated",
+      "timeResolution": "Published month buckets",
+      "allowedUses": [
+        "broad Wisconsin pier temporal shape",
+        "pooled mode-level harvest per estimated angler-hour"
+      ],
+      "prohibitedUses": [
+        "city-specific timing or magnitude",
+        "Lake Michigan-only inference for species dominated by Green Bay"
+      ],
+      "limitations": "The published pier table combines all survey areas."
+    },
+    {
+      "id": "V3_WI_OPEN_WATER_2024",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "2024 Open Water Sportfishing Effort and Catch from Lake Michigan and Green Bay",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf",
+      "publicationDate": "2025",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_mode_by_month_bucket_estimates",
+      "geography": "Combined Wisconsin Lake Michigan and Green Bay survey areas",
+      "fishingMode": "Pier separated",
+      "timeResolution": "Published month buckets",
+      "allowedUses": [
+        "broad Wisconsin pier temporal shape",
+        "survey-design and uncertainty review",
+        "pooled mode-level harvest per estimated angler-hour"
+      ],
+      "prohibitedUses": [
+        "city-specific timing or magnitude",
+        "treating modeled spring estimates as sampled city observations",
+        "winter inference"
+      ],
+      "limitations": "Lake Michigan fieldwork was reduced to May-September in 2024; specified missing periods were statistically modeled."
+    },
+    {
+      "id": "V3_WI_ACCESS",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Accessible fishing on Lake Michigan and its tributaries",
+      "url": "https://dnr.wisconsin.gov/topic/OpenOutdoors/AccessFishlakeMichigan",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_access_directory",
+      "geography": "Named Wisconsin Lake Michigan access sites",
+      "fishingMode": "Public fishing access",
+      "timeResolution": "Current page",
+      "allowedUses": [
+        "main-pier identity",
+        "published land-side access context"
+      ],
+      "prohibitedUses": [
+        "species score",
+        "live opening or safety status",
+        "catch recurrence"
+      ],
+      "limitations": "On-site signs, construction, weather, waves, ice, and closures remain controlling."
+    },
+    {
+      "id": "V3_WI_PERCH_STATUS",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Yellow Perch Research",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/Yellowperch",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "agency_population_assessment",
+      "geography": "Wisconsin waters of Lake Michigan, including major southern ports",
+      "fishingMode": "Scientific assessment, not angler pier effort",
+      "timeResolution": "Multi-year assessment series",
+      "allowedUses": [
+        "population trend context",
+        "nearshore spawning geography",
+        "reason to avoid historical-strength transfer"
+      ],
+      "prohibitedUses": [
+        "pier catchability score",
+        "city CPUE",
+        "exact seasonal angling curve"
+      ],
+      "limitations": "DNR reports very low recent adult abundance off Milwaukee; scientific netting is not recreational pier success."
+    },
+    {
+      "id": "V3_MI_SEAGRANT_THERMAL_FRONTS",
+      "publisher": "Michigan Sea Grant",
+      "title": "Searching for Steelhead",
+      "url": "https://www.michiganseagrant.org/lessons/lessons/by-broad-concept/life-science/searching-for-steelhead/",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "university_extension_science_synthesis",
+      "geography": "Lake Michigan",
+      "fishingMode": "Lake fishing and surface-temperature interpretation",
+      "timeResolution": "Seasonal mechanism",
+      "allowedUses": [
+        "spring thermal-front mechanism",
+        "summer upwelling mechanism",
+        "fall decline in temperature importance near river mouths"
+      ],
+      "prohibitedUses": [
+        "city magnitude",
+        "complete numeric response curve",
+        "species transfer beyond supported context"
+      ],
+      "limitations": "Mechanistic and educational evidence does not provide city-pier catch/effort calibration."
+    },
+    {
+      "id": "V3_USGS_SALMONINE_SEASONS",
+      "publisher": "U.S. Geological Survey",
+      "title": "Temperature effects induced by climate change on the growth and consumption by salmonines in Lakes Michigan and Huron",
+      "url": "https://www.usgs.gov/publications/temperature-effects-induced-climate-change-growth-and-consumption-salmonines-lakes",
+      "publicationDate": "2015-02-01",
+      "reviewedAt": "2026-09-14",
+      "sourceType": "peer_reviewed_bioenergetics_research",
+      "geography": "Lakes Michigan and Huron",
+      "fishingMode": "Biology, not angling",
+      "timeResolution": "Seasonal simulations",
+      "allowedUses": [
+        "evidence that salmonine temperature effects and consumption differ seasonally",
+        "thermal biology context"
+      ],
+      "prohibitedUses": [
+        "pier catchability",
+        "city magnitude",
+        "direct 0-1 suitability ordinates"
+      ],
+      "limitations": "Bioenergetics response is not a fixed-pier fishing response."
+    },
+    {
+      "id": "V3_NOAA_LMHOFS",
+      "publisher": "NOAA National Ocean Service",
+      "title": "Lake Michigan and Huron Operational Forecast System",
+      "url": "https://tidesandcurrents.noaa.gov/ofs/lmhofs/lmhofs.html",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "operational_hydrodynamic_model",
+      "geography": "Lakes Michigan and Huron",
+      "fishingMode": "Not applicable",
+      "timeResolution": "Four runs daily with guidance through 120 hours",
+      "allowedUses": [
+        "modeled temperature input",
+        "issue and horizon metadata"
+      ],
+      "prohibitedUses": [
+        "claiming a pier measurement",
+        "fish presence",
+        "catch probability",
+        "access or safety status"
+      ],
+      "limitations": "NOAA characterizes output as computer-generated nowcast and forecast guidance."
+    },
+    {
+      "id": "V3_NOAA_LMHOFS_RESOLUTION",
+      "publisher": "NOAA National Ocean Service",
+      "title": "Operational Forecast System FAQ",
+      "url": "https://www.tidesandcurrents.noaa.gov/ofs/ofs_faq.html",
+      "publicationDate": null,
+      "reviewedAt": "2026-09-14",
+      "sourceType": "official_model_documentation",
+      "geography": "LMHOFS domain",
+      "fishingMode": "Not applicable",
+      "timeResolution": "Model specification",
+      "allowedUses": [
+        "model resolution and layer documentation",
+        "representation-risk assessment"
+      ],
+      "prohibitedUses": [
+        "asserting 50-m accuracy at every pier",
+        "biological calibration"
+      ],
+      "limitations": "LMHOFS grid resolution ranges from approximately 50 m to 2.5 km; local representation must be tested separately."
+    }
+  ]
+}

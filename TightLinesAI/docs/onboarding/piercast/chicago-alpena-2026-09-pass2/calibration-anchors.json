@@ -1,0 +1,800 @@
+{
+  "schemaVersion": "piercast-chicago-alpena-pass2-anchors-v1",
+  "reviewedAt": "2026-09-19",
+  "baselineArtifacts": [
+    "../all-city-common-species-audit-2026-09/cross-city-rankings.csv",
+    "../michigan-all-scored-species-audit-2026-09/michigan-species-rankings.csv"
+  ],
+  "anchors": {
+    "chicago_il/chinook_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "muskegon_mi/chinook_salmon",
+        "cityName": "Muskegon, Michigan",
+        "peak": 6.5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "kenosha_wi/chinook_salmon",
+        "cityName": "Kenosha",
+        "peak": 7.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "7 is at/above Muskegon, Michigan 6.5 and at/below Kenosha 7.4."
+    },
+    "chicago_il/coho_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "manistee_mi/coho_salmon",
+        "cityName": "Manistee",
+        "peak": 8.2,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "manistee_mi/coho_salmon",
+        "cityName": "Manistee",
+        "peak": 8.2,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "8.2 is at/above Manistee 8.2 and at/below Manistee 8.2."
+    },
+    "chicago_il/steelhead": {
+      "weakerOrEqual": {
+        "pairKey": "alpena_mi/steelhead",
+        "cityName": "Alpena, Michigan",
+        "peak": 5.8,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "port_washington_wi/steelhead",
+        "cityName": "Port Washington",
+        "peak": 6.6,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "6.5 is at/above Alpena, Michigan 5.8 and at/below Port Washington 6.6."
+    },
+    "chicago_il/brown_trout": {
+      "weakerOrEqual": {
+        "pairKey": "michigan_city_in/brown_trout",
+        "cityName": "Michigan City, Indiana",
+        "peak": 6,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "kenosha_wi/brown_trout",
+        "cityName": "Kenosha",
+        "peak": 6.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "6.2 is at/above Michigan City, Indiana 6 and at/below Kenosha 6.4."
+    },
+    "chicago_il/lake_trout": {
+      "weakerOrEqual": {
+        "pairKey": "harbor_beach_mi/lake_trout",
+        "cityName": "Harbor Beach",
+        "peak": 5.3,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "port_sanilac_mi/lake_trout",
+        "cityName": "Port Sanilac",
+        "peak": 5.5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "5.4 is at/above Harbor Beach 5.3 and at/below Port Sanilac 5.5."
+    },
+    "chicago_il/smallmouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "whitehall_mi/smallmouth_bass",
+        "cityName": "Whitehall, Michigan",
+        "peak": 6.3,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "muskegon_mi/smallmouth_bass",
+        "cityName": "Muskegon, Michigan",
+        "peak": 6.6,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "6.5 is at/above Whitehall, Michigan 6.3 and at/below Muskegon, Michigan 6.6."
+    },
+    "chicago_il/freshwater_drum": {
+      "weakerOrEqual": {
+        "pairKey": "whitehall_mi/freshwater_drum",
+        "cityName": "Whitehall, Michigan",
+        "peak": 5.6,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "whitehall_mi/freshwater_drum",
+        "cityName": "Whitehall, Michigan",
+        "peak": 5.6,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.6 is at/above Whitehall, Michigan 5.6 and at/below Whitehall, Michigan 5.6."
+    },
+    "chicago_il/yellow_perch": {
+      "weakerOrEqual": {
+        "pairKey": "whitehall_mi/yellow_perch",
+        "cityName": "Whitehall, Michigan",
+        "peak": 8,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": null,
+      "placement": "8.4 is at/above Whitehall, Michigan 8 and above the reviewed same-species cohort."
+    },
+    "chicago_il/northern_pike": {
+      "weakerOrEqual": {
+        "pairKey": "harbor_beach_mi/northern_pike",
+        "cityName": "Harbor Beach",
+        "peak": 4.6,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "muskegon_mi/northern_pike",
+        "cityName": "Muskegon, Michigan",
+        "peak": 4.8,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "4.7 is at/above Harbor Beach 4.6 and at/below Muskegon, Michigan 4.8."
+    },
+    "michigan_city_in/chinook_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "kenosha_wi/chinook_salmon",
+        "cityName": "Kenosha",
+        "peak": 7.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "kenosha_wi/chinook_salmon",
+        "cityName": "Kenosha",
+        "peak": 7.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "7.4 is at/above Kenosha 7.4 and at/below Kenosha 7.4."
+    },
+    "michigan_city_in/coho_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "frankfort_elberta_mi/coho_salmon",
+        "cityName": "Frankfort–Elberta",
+        "peak": 8.6,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/coho_salmon",
+        "cityName": "Grand Haven",
+        "peak": 8.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "8.7 is at/above Frankfort–Elberta 8.6 and at/below Grand Haven 8.8."
+    },
+    "michigan_city_in/steelhead": {
+      "weakerOrEqual": {
+        "pairKey": "ludington_mi/steelhead",
+        "cityName": "Ludington",
+        "peak": 8.1,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "whitehall_mi/steelhead",
+        "cityName": "Whitehall, Michigan",
+        "peak": 8.7,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "8.5 is at/above Ludington 8.1 and at/below Whitehall, Michigan 8.7."
+    },
+    "michigan_city_in/brown_trout": {
+      "weakerOrEqual": {
+        "pairKey": "alpena_mi/brown_trout",
+        "cityName": "Alpena, Michigan",
+        "peak": 5.4,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/brown_trout",
+        "cityName": "Chicago, Illinois",
+        "peak": 6.2,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "6 is at/above Alpena, Michigan 5.4 and at/below Chicago, Illinois 6.2."
+    },
+    "michigan_city_in/smallmouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/smallmouth_bass",
+        "cityName": "Port Sanilac",
+        "peak": 5.4,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "ludington_mi/smallmouth_bass",
+        "cityName": "Ludington",
+        "peak": 5.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "5.7 is at/above Port Sanilac 5.4 and at/below Ludington 5.8."
+    },
+    "michigan_city_in/yellow_perch": {
+      "weakerOrEqual": {
+        "pairKey": "muskegon_mi/yellow_perch",
+        "cityName": "Muskegon, Michigan",
+        "peak": 5.2,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/yellow_perch",
+        "cityName": "Grand Haven",
+        "peak": 7.2,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "6.2 is at/above Muskegon, Michigan 5.2 and at/below Grand Haven 7.2."
+    },
+    "michigan_city_in/largemouth_bass": {
+      "weakerOrEqual": null,
+      "strongerOrEqual": {
+        "pairKey": "muskegon_mi/largemouth_bass",
+        "cityName": "Muskegon, Michigan",
+        "peak": 6.5,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.5 is below no reviewed same-species value and at/below Muskegon, Michigan 6.5."
+    },
+    "michigan_city_in/bluegill": {
+      "weakerOrEqual": {
+        "pairKey": "whitehall_mi/bluegill",
+        "cityName": "Whitehall, Michigan",
+        "peak": 5.2,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "whitehall_mi/bluegill",
+        "cityName": "Whitehall, Michigan",
+        "peak": 5.2,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.2 is at/above Whitehall, Michigan 5.2 and at/below Whitehall, Michigan 5.2."
+    },
+    "muskegon_mi/chinook_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/chinook_salmon",
+        "cityName": "Oscoda",
+        "peak": 5.5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/chinook_salmon",
+        "cityName": "Chicago, Illinois",
+        "peak": 7,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "6.5 is at/above Oscoda 5.5 and at/below Chicago, Illinois 7."
+    },
+    "muskegon_mi/coho_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/coho_salmon",
+        "cityName": "Port Sanilac",
+        "peak": 6.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "port_sanilac_mi/coho_salmon",
+        "cityName": "Port Sanilac",
+        "peak": 6.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "6.4 is at/above Port Sanilac 6.4 and at/below Port Sanilac 6.4."
+    },
+    "muskegon_mi/steelhead": {
+      "weakerOrEqual": {
+        "pairKey": "kewaunee_wi/steelhead",
+        "cityName": "Kewaunee",
+        "peak": 7.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "ludington_mi/steelhead",
+        "cityName": "Ludington",
+        "peak": 8.1,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "8 is at/above Kewaunee 7.8 and at/below Ludington 8.1."
+    },
+    "muskegon_mi/brown_trout": {
+      "weakerOrEqual": {
+        "pairKey": "waukegan_il/brown_trout",
+        "cityName": "Waukegan",
+        "peak": 7,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "waukegan_il/brown_trout",
+        "cityName": "Waukegan",
+        "peak": 7,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "7 is at/above Waukegan 7 and at/below Waukegan 7."
+    },
+    "muskegon_mi/walleye": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/walleye",
+        "cityName": "Port Sanilac",
+        "peak": 6.2,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "oscoda_mi/walleye",
+        "cityName": "Oscoda",
+        "peak": 6.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "6.4 is at/above Port Sanilac 6.2 and at/below Oscoda 6.8."
+    },
+    "muskegon_mi/smallmouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "chicago_il/smallmouth_bass",
+        "cityName": "Chicago, Illinois",
+        "peak": 6.5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/smallmouth_bass",
+        "cityName": "Grand Haven",
+        "peak": 7,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "6.6 is at/above Chicago, Illinois 6.5 and at/below Grand Haven 7."
+    },
+    "muskegon_mi/freshwater_drum": {
+      "weakerOrEqual": {
+        "pairKey": "chicago_il/freshwater_drum",
+        "cityName": "Chicago, Illinois",
+        "peak": 5.6,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/freshwater_drum",
+        "cityName": "Grand Haven",
+        "peak": 7.2,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "6.2 is at/above Chicago, Illinois 5.6 and at/below Grand Haven 7.2."
+    },
+    "muskegon_mi/yellow_perch": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/yellow_perch",
+        "cityName": "Port Sanilac",
+        "peak": 5,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "michigan_city_in/yellow_perch",
+        "cityName": "Michigan City, Indiana",
+        "peak": 6.2,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.2 is at/above Port Sanilac 5 and at/below Michigan City, Indiana 6.2."
+    },
+    "muskegon_mi/lake_whitefish": {
+      "weakerOrEqual": {
+        "pairKey": "grand_haven_mi/lake_whitefish",
+        "cityName": "Grand Haven",
+        "peak": 4,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/lake_whitefish",
+        "cityName": "Grand Haven",
+        "peak": 4,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "4 is at/above Grand Haven 4 and at/below Grand Haven 4."
+    },
+    "muskegon_mi/channel_catfish": {
+      "weakerOrEqual": {
+        "pairKey": "whitehall_mi/channel_catfish",
+        "cityName": "Whitehall, Michigan",
+        "peak": 5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/channel_catfish",
+        "cityName": "Grand Haven",
+        "peak": 6.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "6 is at/above Whitehall, Michigan 5 and at/below Grand Haven 6.8."
+    },
+    "muskegon_mi/largemouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "michigan_city_in/largemouth_bass",
+        "cityName": "Michigan City, Indiana",
+        "peak": 5.5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "whitehall_mi/largemouth_bass",
+        "cityName": "Whitehall, Michigan",
+        "peak": 7.1,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "6.5 is at/above Michigan City, Indiana 5.5 and at/below Whitehall, Michigan 7.1."
+    },
+    "muskegon_mi/northern_pike": {
+      "weakerOrEqual": {
+        "pairKey": "chicago_il/northern_pike",
+        "cityName": "Chicago, Illinois",
+        "peak": 4.7,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "whitehall_mi/northern_pike",
+        "cityName": "Whitehall, Michigan",
+        "peak": 4.9,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "4.8 is at/above Chicago, Illinois 4.7 and at/below Whitehall, Michigan 4.9."
+    },
+    "muskegon_mi/white_perch": {
+      "weakerOrEqual": {
+        "pairKey": "grand_haven_mi/white_perch",
+        "cityName": "Grand Haven",
+        "peak": 5.6,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": null,
+      "placement": "5.7 is at/above Grand Haven 5.6 and above the reviewed same-species cohort."
+    },
+    "muskegon_mi/bluegill": {
+      "weakerOrEqual": {
+        "pairKey": "grand_haven_mi/bluegill",
+        "cityName": "Grand Haven",
+        "peak": 5.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": null,
+      "placement": "6 is at/above Grand Haven 5.8 and above the reviewed same-species cohort."
+    },
+    "whitehall_mi/chinook_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "kewaunee_wi/chinook_salmon",
+        "cityName": "Kewaunee",
+        "peak": 9.1,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "sheboygan_wi/chinook_salmon",
+        "cityName": "Sheboygan",
+        "peak": 9.4,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "9.3 is at/above Kewaunee 9.1 and at/below Sheboygan 9.4."
+    },
+    "whitehall_mi/coho_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "manitowoc_wi/coho_salmon",
+        "cityName": "Manitowoc",
+        "peak": 7.2,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/coho_salmon",
+        "cityName": "Chicago, Illinois",
+        "peak": 8.2,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "7.4 is at/above Manitowoc 7.2 and at/below Chicago, Illinois 8.2."
+    },
+    "whitehall_mi/steelhead": {
+      "weakerOrEqual": {
+        "pairKey": "michigan_city_in/steelhead",
+        "cityName": "Michigan City, Indiana",
+        "peak": 8.5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/steelhead",
+        "cityName": "Grand Haven",
+        "peak": 9.2,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "8.7 is at/above Michigan City, Indiana 8.5 and at/below Grand Haven 9.2."
+    },
+    "whitehall_mi/brown_trout": {
+      "weakerOrEqual": {
+        "pairKey": "algoma_wi/brown_trout",
+        "cityName": "Algoma",
+        "peak": 7.6,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "sheboygan_wi/brown_trout",
+        "cityName": "Sheboygan",
+        "peak": 7.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "7.7 is at/above Algoma 7.6 and at/below Sheboygan 7.8."
+    },
+    "whitehall_mi/walleye": {
+      "weakerOrEqual": {
+        "pairKey": "frankfort_elberta_mi/walleye",
+        "cityName": "Frankfort–Elberta",
+        "peak": 4.5,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "harbor_beach_mi/walleye",
+        "cityName": "Harbor Beach",
+        "peak": 6,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "5.8 is at/above Frankfort–Elberta 4.5 and at/below Harbor Beach 6."
+    },
+    "whitehall_mi/smallmouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "ludington_mi/smallmouth_bass",
+        "cityName": "Ludington",
+        "peak": 5.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/smallmouth_bass",
+        "cityName": "Chicago, Illinois",
+        "peak": 6.5,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "6.3 is at/above Ludington 5.8 and at/below Chicago, Illinois 6.5."
+    },
+    "whitehall_mi/freshwater_drum": {
+      "weakerOrEqual": {
+        "pairKey": "chicago_il/freshwater_drum",
+        "cityName": "Chicago, Illinois",
+        "peak": 5.6,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/freshwater_drum",
+        "cityName": "Chicago, Illinois",
+        "peak": 5.6,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.6 is at/above Chicago, Illinois 5.6 and at/below Chicago, Illinois 5.6."
+    },
+    "whitehall_mi/yellow_perch": {
+      "weakerOrEqual": {
+        "pairKey": "alpena_mi/yellow_perch",
+        "cityName": "Alpena, Michigan",
+        "peak": 7.6,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "chicago_il/yellow_perch",
+        "cityName": "Chicago, Illinois",
+        "peak": 8.4,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "8 is at/above Alpena, Michigan 7.6 and at/below Chicago, Illinois 8.4."
+    },
+    "whitehall_mi/lake_whitefish": {
+      "weakerOrEqual": {
+        "pairKey": "grand_haven_mi/lake_whitefish",
+        "cityName": "Grand Haven",
+        "peak": 4,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/lake_whitefish",
+        "cityName": "Grand Haven",
+        "peak": 4,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "4 is at/above Grand Haven 4 and at/below Grand Haven 4."
+    },
+    "whitehall_mi/channel_catfish": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/channel_catfish",
+        "cityName": "Oscoda",
+        "peak": 4.2,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "muskegon_mi/channel_catfish",
+        "cityName": "Muskegon, Michigan",
+        "peak": 6,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5 is at/above Oscoda 4.2 and at/below Muskegon, Michigan 6."
+    },
+    "whitehall_mi/largemouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "muskegon_mi/largemouth_bass",
+        "cityName": "Muskegon, Michigan",
+        "peak": 6.5,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "grand_haven_mi/largemouth_bass",
+        "cityName": "Grand Haven",
+        "peak": 7.4,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "7.1 is at/above Muskegon, Michigan 6.5 and at/below Grand Haven 7.4."
+    },
+    "whitehall_mi/northern_pike": {
+      "weakerOrEqual": {
+        "pairKey": "muskegon_mi/northern_pike",
+        "cityName": "Muskegon, Michigan",
+        "peak": 4.8,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "manistee_mi/northern_pike",
+        "cityName": "Manistee",
+        "peak": 5,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "4.9 is at/above Muskegon, Michigan 4.8 and at/below Manistee 5."
+    },
+    "whitehall_mi/bluegill": {
+      "weakerOrEqual": {
+        "pairKey": "michigan_city_in/bluegill",
+        "cityName": "Michigan City, Indiana",
+        "peak": 5.2,
+        "cohort": "new_private_pass2"
+      },
+      "strongerOrEqual": {
+        "pairKey": "michigan_city_in/bluegill",
+        "cityName": "Michigan City, Indiana",
+        "peak": 5.2,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.2 is at/above Michigan City, Indiana 5.2 and at/below Michigan City, Indiana 5.2."
+    },
+    "alpena_mi/chinook_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/chinook_salmon",
+        "cityName": "Port Sanilac",
+        "peak": 5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "oscoda_mi/chinook_salmon",
+        "cityName": "Oscoda",
+        "peak": 5.5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "5.4 is at/above Port Sanilac 5 and at/below Oscoda 5.5."
+    },
+    "alpena_mi/coho_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/coho_salmon",
+        "cityName": "Oscoda",
+        "peak": 6.5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "oscoda_mi/coho_salmon",
+        "cityName": "Oscoda",
+        "peak": 6.5,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "6.5 is at/above Oscoda 6.5 and at/below Oscoda 6.5."
+    },
+    "alpena_mi/steelhead": {
+      "weakerOrEqual": {
+        "pairKey": "milwaukee_wi/steelhead",
+        "cityName": "Milwaukee",
+        "peak": 5.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "milwaukee_wi/steelhead",
+        "cityName": "Milwaukee",
+        "peak": 5.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "5.8 is at/above Milwaukee 5.8 and at/below Milwaukee 5.8."
+    },
+    "alpena_mi/brown_trout": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/brown_trout",
+        "cityName": "Port Sanilac",
+        "peak": 4.8,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "michigan_city_in/brown_trout",
+        "cityName": "Michigan City, Indiana",
+        "peak": 6,
+        "cohort": "new_private_pass2"
+      },
+      "placement": "5.4 is at/above Port Sanilac 4.8 and at/below Michigan City, Indiana 6."
+    },
+    "alpena_mi/lake_trout": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/lake_trout",
+        "cityName": "Oscoda",
+        "peak": 4.6,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "harbor_beach_mi/lake_trout",
+        "cityName": "Harbor Beach",
+        "peak": 5.3,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "5 is at/above Oscoda 4.6 and at/below Harbor Beach 5.3."
+    },
+    "alpena_mi/walleye": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/walleye",
+        "cityName": "Oscoda",
+        "peak": 6.8,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": null,
+      "placement": "7.4 is at/above Oscoda 6.8 and above the reviewed same-species cohort."
+    },
+    "alpena_mi/smallmouth_bass": {
+      "weakerOrEqual": {
+        "pairKey": "grand_haven_mi/smallmouth_bass",
+        "cityName": "Grand Haven",
+        "peak": 7,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": null,
+      "placement": "8 is at/above Grand Haven 7 and above the reviewed same-species cohort."
+    },
+    "alpena_mi/freshwater_drum": {
+      "weakerOrEqual": {
+        "pairKey": "oscoda_mi/freshwater_drum",
+        "cityName": "Oscoda",
+        "peak": 3.9,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "manistee_mi/freshwater_drum",
+        "cityName": "Manistee",
+        "peak": 4.7,
+        "cohort": "established_or_prior_private_common_species"
+      },
+      "placement": "4.2 is at/above Oscoda 3.9 and at/below Manistee 4.7."
+    },
+    "alpena_mi/yellow_perch": {
+      "weakerOrEqual": {
+        "pairKey": "ludington_mi/yellow_perch",
+        "cityName": "Ludington",
+        "peak": 7.6,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "ludington_mi/yellow_perch",
+        "cityName": "Ludington",
+        "peak": 7.6,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "7.6 is at/above Ludington 7.6 and at/below Ludington 7.6."
+    },
+    "alpena_mi/northern_pike": {
+      "weakerOrEqual": {
+        "pairKey": "ludington_mi/northern_pike",
+        "cityName": "Ludington",
+        "peak": 5.2,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": null,
+      "placement": "5.5 is at/above Ludington 5.2 and above the reviewed same-species cohort."
+    },
+    "alpena_mi/atlantic_salmon": {
+      "weakerOrEqual": {
+        "pairKey": "port_sanilac_mi/atlantic_salmon",
+        "cityName": "Port Sanilac",
+        "peak": 6.3,
+        "cohort": "established_michigan_all_species"
+      },
+      "strongerOrEqual": {
+        "pairKey": "oscoda_mi/atlantic_salmon",
+        "cityName": "Oscoda",
+        "peak": 8.4,
+        "cohort": "established_michigan_all_species"
+      },
+      "placement": "7.2 is at/above Port Sanilac 6.3 and at/below Oscoda 8.4."
+    }
+  }
+}

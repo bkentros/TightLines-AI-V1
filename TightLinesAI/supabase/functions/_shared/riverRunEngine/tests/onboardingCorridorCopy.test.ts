@@ -171,6 +171,22 @@ Deno.test("all hidden onboarding runs use river-specific reach and barrier copy"
       assertMatch(display.whereToStart, /Spot Finder:/i, run.runId);
       assertMatch(display.whereToStart, /Linear Park|Terminal Tailwater/i, run.runId);
       assertNotMatch(JSON.stringify(display), /Grand River|River Mill|Clarks Mills/i, run.runId);
+    } else if (run.riverId === "bear_creek_manistee") {
+      assertMatch(display.detail, /Coates Highway/i, run.runId);
+      assertMatch(display.whereToStart, /Lower and Upper designated Bear Creek/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand Haven|Rockford Dam/i, run.runId);
+    } else if (run.riverId === "rogue_mi") {
+      assertMatch(display.detail, /Rockford Dam/i, run.runId);
+      assertMatch(display.whereToStart, /Lower and Middle Rogue/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Grand Haven|Coates Highway/i, run.runId);
+    } else if (run.riverId === "umpqua_mainstem") {
+      assertMatch(display.detail, /River Forks|Umpqua/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Winchester Dam|Soda Springs/i, run.runId);
+    } else if (run.riverId === "north_umpqua") {
+      assertMatch(display.detail, /Soda Springs|North Umpqua/i, run.runId);
+      assertMatch(display.whereToStart, /Spot Finder/i, run.runId);
+      assertNotMatch(JSON.stringify(display), /Winchester Bay|South Umpqua/i, run.runId);
     } else {
       assertEquals(run.riverId, "root", run.runId);
       assertMatch(display.detail, /Steelhead Facility/i, run.runId);

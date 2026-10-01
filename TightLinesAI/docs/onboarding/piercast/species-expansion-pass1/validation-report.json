@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "piercast-species-expansion-pass1-validation-v1",
+  "status": "pass",
+  "validatedAt": "2026-09-15",
+  "scope": "Research artifacts only; no runtime, migration or deployment validation is claimed.",
+  "checks": {
+    "sourceLedgerEntries": 40,
+    "candidateRows": 62,
+    "admittedRows": 24,
+    "deferredRows": 22,
+    "excludedRows": 16,
+    "admittedEvidenceGradeA": 9,
+    "admittedEvidenceGradeB": 15,
+    "modePairs": 24,
+    "opportunityModes": 33,
+    "newThermalCurves": 4,
+    "newSpeciesWithTwelveCityDispositions": 4,
+    "baselinePairs": 70,
+    "proposedPairsAfterPass2": 94,
+    "unresolvedSourceReferences": 0,
+    "admissionsMissingModes": 0,
+    "modesWithoutAdmissions": 0,
+    "modeIdMismatches": 0,
+    "unknownThermalCurveReferences": 0,
+    "duplicatePairKeys": 0,
+    "ownerExcludedSpeciesInCandidateSet": 0,
+    "numericDomainViolations": 0
+  },
+  "validatedInvariants": [
+    "Every candidate has exactly one admit, defer or exclude disposition.",
+    "Every admitted pair has proposed modes and every proposed mode pair is admitted.",
+    "The decision-matrix mode IDs match the mode artifact exactly.",
+    "All evidence IDs used by decisions, modes, thermal curves and gates resolve to the source ledger.",
+    "Fishery strength is within 1-10 and every availability ordinate is within 0-1.",
+    "Each proposed mode has an explicit zero-availability boundary for an inactive shoulder.",
+    "Every thermal curve is ordered, bounded to 0-1 and matches its accepted-domain endpoints.",
+    "Every thermal-curve reference resolves to an existing PierCast curve or one of the four proposed new curves.",
+    "Each new global species has an explicit disposition across all 12 live cities.",
+    "The 24 admissions are disjoint from the 70-pair baseline and produce exactly 94 proposed pairs.",
+    "Carp, suckers and rock bass are absent from the candidate and onboarding artifacts."
+  ],
+  "requiredPass2Validation": [
+    "Generate and audit actual runtime configuration from these research artifacts.",
+    "Evaluate every one of the 94 pairs across the full calendar at multiple thermal-fit scenarios.",
+    "Run formula bounds, cross-city calibration, roster, artwork sizing, regulation notice and API response tests.",
+    "Reconcile and apply the database migration, then run production smoke checks before promotion."
+  ]
+}

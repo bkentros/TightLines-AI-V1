@@ -1,0 +1,226 @@
+[
+ {
+  "id": "ludington_mi",
+  "name": "Ludington",
+  "state": "MI",
+  "lat": 43.9536,
+  "lon": -86.4694
+ },
+ {
+  "id": "grand_haven_mi",
+  "name": "Grand Haven",
+  "state": "MI",
+  "lat": 43.0569,
+  "lon": -86.2558
+ },
+ {
+  "id": "manistee_mi",
+  "name": "Manistee",
+  "state": "MI",
+  "lat": 44.2519,
+  "lon": -86.3469
+ },
+ {
+  "id": "frankfort_elberta_mi",
+  "name": "Frankfort",
+  "state": "MI",
+  "lat": 44.6308,
+  "lon": -86.2522
+ },
+ {
+  "id": "sheboygan_wi",
+  "name": "Sheboygan",
+  "state": "WI",
+  "lat": 43.7494,
+  "lon": -87.6928
+ },
+ {
+  "id": "port_washington_wi",
+  "name": "Port Washington",
+  "state": "WI",
+  "lat": 43.3853,
+  "lon": -87.8597
+ },
+ {
+  "id": "milwaukee_wi",
+  "name": "Milwaukee",
+  "state": "WI",
+  "lat": 43.0269,
+  "lon": -87.8819
+ },
+ {
+  "id": "racine_wi",
+  "name": "Racine",
+  "state": "WI",
+  "lat": 42.7336,
+  "lon": -87.7706
+ },
+ {
+  "id": "kenosha_wi",
+  "name": "Kenosha",
+  "state": "WI",
+  "lat": 42.5889,
+  "lon": -87.8086
+ },
+ {
+  "id": "harbor_beach_mi",
+  "name": "Harbor Beach",
+  "state": "MI",
+  "lat": 43.8413,
+  "lon": -82.6468
+ },
+ {
+  "id": "oscoda_mi",
+  "name": "Oscoda",
+  "state": "MI",
+  "lat": 44.4066,
+  "lon": -83.3165
+ },
+ {
+  "id": "port_sanilac_mi",
+  "name": "Port Sanilac",
+  "state": "MI",
+  "lat": 43.4303,
+  "lon": -82.5348
+ },
+ {
+  "id": "two_rivers_wi",
+  "name": "Two Rivers",
+  "state": "WI",
+  "lat": 44.1427,
+  "lon": -87.5607
+ },
+ {
+  "id": "kewaunee_wi",
+  "name": "Kewaunee",
+  "state": "WI",
+  "lat": 44.4573,
+  "lon": -87.4931
+ },
+ {
+  "id": "algoma_wi",
+  "name": "Algoma",
+  "state": "WI",
+  "lat": 44.6069,
+  "lon": -87.4297
+ },
+ {
+  "id": "manitowoc_wi",
+  "name": "Manitowoc",
+  "state": "WI",
+  "lat": 44.0924,
+  "lon": -87.6516
+ },
+ {
+  "id": "waukegan_il",
+  "name": "Waukegan",
+  "state": "IL",
+  "lat": 42.3607,
+  "lon": -87.8134
+ },
+ {
+  "id": "chicago_il",
+  "name": "Chicago",
+  "state": "IL",
+  "lat": 41.963,
+  "lon": -87.634
+ },
+ {
+  "id": "michigan_city_in",
+  "name": "Michigan City",
+  "state": "IN",
+  "lat": 41.728,
+  "lon": -86.9126
+ },
+ {
+  "id": "muskegon_mi",
+  "name": "Muskegon",
+  "state": "MI",
+  "lat": 43.2268,
+  "lon": -86.3375
+ },
+ {
+  "id": "whitehall_mi",
+  "name": "Whitehall",
+  "state": "MI",
+  "lat": 43.379,
+  "lon": -86.425
+ },
+ {
+  "id": "alpena_mi",
+  "name": "Alpena",
+  "state": "MI",
+  "lat": 45.0603,
+  "lon": -83.423
+ },
+ {
+  "id": "st_joseph_mi",
+  "name": "St. Joseph",
+  "state": "MI",
+  "lat": 42.1153,
+  "lon": -86.4943
+ },
+ {
+  "id": "south_haven_mi",
+  "name": "South Haven",
+  "state": "MI",
+  "lat": 42.4014,
+  "lon": -86.288
+ },
+ {
+  "id": "holland_mi",
+  "name": "Holland",
+  "state": "MI",
+  "lat": 42.7735,
+  "lon": -86.2158
+ },
+ {
+  "id": "lexington_mi",
+  "name": "Lexington",
+  "state": "MI",
+  "lat": 43.2666,
+  "lon": -82.5228
+ },
+ {
+  "id": "harrisville_mi",
+  "name": "Harrisville",
+  "state": "MI",
+  "lat": 44.6614,
+  "lon": -83.2818
+ },
+ {
+  "id": "pentwater_mi",
+  "name": "Pentwater",
+  "state": "MI",
+  "lat": 43.7823,
+  "lon": -86.4436
+ },
+ {
+  "id": "rogers_city_mi",
+  "name": "Rogers City",
+  "state": "MI",
+  "lat": 45.4229,
+  "lon": -83.8092
+ },
+ {
+  "id": "tawas_city_mi",
+  "name": "Tawas City",
+  "state": "MI",
+  "lat": 44.2794,
+  "lon": -83.4865
+ },
+ {
+  "id": "charlevoix_mi",
+  "name": "Charlevoix",
+  "state": "MI",
+  "lat": 45.3228,
+  "lon": -85.2697
+ },
+ {
+  "id": "caseville_mi",
+  "name": "Caseville",
+  "state": "MI",
+  "lat": 43.9456,
+  "lon": -83.2718
+ }
+]

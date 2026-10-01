@@ -7,15 +7,21 @@ import {
   fishCountReadFromReport,
   GREEN_RIVER_PROFILE,
   indianaDnrTableauPdfUrl,
+  KEWAUNEE_RIVER_PROFILE,
+  latestOdfwWinchesterStrataReport,
   latestWdfwReport,
   latestWisconsinBruleFallReport,
+  NORTH_UMPQUA_RIVER_PROFILE,
+  odfwWinchesterHistoricalCohoUrl,
+  odfwWinchesterSeasonLabelForDate,
   parseIndianaDnrLadderCount,
+  parseOdfwWinchesterCohoCount,
+  parseOdfwWinchesterHistoricalCohoCount,
   parseTacomaPowerCount,
   parseWdfwFacilityCount,
-  parseWisconsinBruleCount,
   parseWisconsinBesadnyCount,
+  parseWisconsinBruleCount,
   parseWisconsinRootCount,
-  KEWAUNEE_RIVER_PROFILE,
   PUYALLUP_RIVER_PROFILE,
   resolveFishCountFreshness,
   ROOT_RIVER_PROFILE,
@@ -109,6 +115,121 @@ Deno.test("WDFW parser honors provider label aliases", () => {
     ],
   });
   assertEquals(read.observedTotal, 206);
+});
+
+Deno.test("ODFW Winchester index selects the newest strata report and the dedicated historical coho artifact", () => {
+  const html = `
+    <h3>2026 Strata Counts</h3>
+    <a href="/sites/default/files/2026-07/Strata%20Reports%20July%202026.pdf">July</a>
+    <a href="/sites/default/files/2026-09/Strata%20Report%20April%202026.pdf">April</a>
+    <a href="/sites/default/files/2026-02/Strata%20Reports%20.pdf">January</a>
+    <h4>Historical counts</h4>
+    <a href="/sites/default/files/2026-02/Coho%201946-2025.pdf">Coho 1946-2025</a>
+  `;
+  assertEquals(
+    latestOdfwWinchesterStrataReport(
+      html,
+      "https://myodfw.com/winchester-dam-fish-counts",
+    ),
+    {
+      url:
+        "https://myodfw.com/sites/default/files/2026-07/Strata%20Reports%20July%202026.pdf",
+      year: 2026,
+      month: 7,
+      label: "July",
+    },
+  );
+  assertEquals(
+    odfwWinchesterHistoricalCohoUrl(
+      html,
+      "https://myodfw.com/winchester-dam-fish-counts",
+    ),
+    "https://myodfw.com/sites/default/files/2026-02/Coho%201946-2025.pdf",
+  );
+});
+
+Deno.test("ODFW Winchester parser uses the current-season through-total and never double-counts jacks", () => {
+  const source = NORTH_UMPQUA_RIVER_PROFILE.fishCountSources![0];
+  const read = parseOdfwWinchesterCohoCount({
+    source,
+    season: "2026-27",
+    reportUrl: "https://myodfw.com/example-september.pdf",
+    text: `
+      WINCHESTER DAM COUNTING STATION - NORTH UMPQUA RIVER
+      Fish Counts through Sept. 26, 2026
+      COHO Jack count = 42
+      2026-27 July 20 - Sept. 26, 2026 185 820 6,000 13.7%
+    `,
+  });
+  assertEquals(read.status, "available");
+  assertEquals(read.observedTotal, 820);
+  assertEquals(read.jackTotal, 42);
+  assertEquals(read.adultTotal, 778);
+  assertEquals(read.observedThrough, "2026-09-26");
+  assertEquals(read.preliminary, true);
+  assertEquals(read.originBreakdown, undefined);
+});
+
+Deno.test("ODFW Winchester parser fails closed when the current coho season is blank", () => {
+  const source = NORTH_UMPQUA_RIVER_PROFILE.fishCountSources![0];
+  const read = parseOdfwWinchesterCohoCount({
+    source,
+    season: "2025-26",
+    reportUrl: "https://myodfw.com/example-july.pdf",
+    text: `
+      Fish Counts through July 20, 2026
+      COHO Jack count =
+      2025-26
+      2024-25 Nov. 20 - Jan. 20, 2025 26 3,446 Final Strata Estimate
+    `,
+  });
+  assertEquals(read.status, "unavailable");
+  assertEquals(read.unavailableReason, "not_reported");
+  assertEquals(read.observedTotal, null);
+});
+
+Deno.test("ODFW Winchester selects the active season from Pacific request time, never the newest report month", () => {
+  assertEquals(
+    odfwWinchesterSeasonLabelForDate(new Date("2026-07-31T23:30:00-07:00")),
+    "2025-26",
+  );
+  assertEquals(
+    odfwWinchesterSeasonLabelForDate(new Date("2026-08-01T00:30:00-07:00")),
+    "2026-27",
+  );
+  assertEquals(
+    odfwWinchesterSeasonLabelForDate(new Date("2026-09-29T12:00:00-07:00")),
+    "2026-27",
+  );
+});
+
+Deno.test("ODFW Winchester finalized coho parser retains wild, hatchery, and jack semantics without summing jacks twice", () => {
+  const source = NORTH_UMPQUA_RIVER_PROFILE.fishCountSources![0];
+  const read = parseOdfwWinchesterHistoricalCohoCount({
+    source,
+    season: "2024-25",
+    reportUrl: "https://myodfw.com/coho-history.pdf",
+    text: "Coho at Winchester Dam 2024-25 3,409 37 3,446 474",
+  })!;
+  assertEquals(read.status, "available");
+  assertEquals(read.preliminary, false);
+  assertEquals(read.observedTotal, 3446);
+  assertEquals(read.jackTotal, 474);
+  assertEquals(read.adultTotal, 2972);
+  assertEquals(read.originBreakdown, {
+    wildTotal: 3409,
+    hatcheryTotal: 37,
+  });
+  assertEquals(read.observedThrough, "2025-01-30");
+  assertEquals(
+    parseOdfwWinchesterHistoricalCohoCount({
+      source,
+      season: "2024-25",
+      reportUrl: "https://myodfw.com/coho-history.pdf",
+      text: "Coho at Winchester Dam 2024-25 3,409 37 3,445 474",
+    }),
+    null,
+  );
 });
 
 Deno.test("Tacoma Power parser counts recoveries but ignores transported/recycled fish", () => {
@@ -250,8 +371,16 @@ Deno.test("Wisconsin DNR Besadny parser uses Total Captured and excludes disposi
       <tr><td>Passed Upstream</td><td>0</td><td>0</td><td>276</td><td>396</td></tr>
       <tr><td>Females Spawned</td><td>200</td><td>300</td><td>0</td><td>100</td></tr>
     </tbody></table>`;
-  const chinook = parseWisconsinBesadnyCount({ source, species: "chinook_salmon", html });
-  const coho = parseWisconsinBesadnyCount({ source, species: "coho_salmon", html });
+  const chinook = parseWisconsinBesadnyCount({
+    source,
+    species: "chinook_salmon",
+    html,
+  });
+  const coho = parseWisconsinBesadnyCount({
+    source,
+    species: "coho_salmon",
+    html,
+  });
   assertEquals(chinook.observedTotal, 624);
   assertEquals(coho.observedTotal, 788);
   assertEquals(coho.reportDate, "2026-10-20");
@@ -263,7 +392,11 @@ Deno.test("Wisconsin DNR Besadny parser fails closed when a species is blank out
     <h2>Besadny Anadromous Fisheries Facility Report for April 28, 2026</h2>
     <table><thead><tr><th></th><th>Chinook Salmon</th><th>Coho Salmon</th><th>Rainbow Trout</th><th>Brown Trout</th></tr></thead>
     <tbody><tr><td>Total Captured</td><td>&nbsp;</td><td>&nbsp;</td><td>5,410</td><td>&nbsp;</td></tr></tbody></table>`;
-  const read = parseWisconsinBesadnyCount({ source, species: "chinook_salmon", html });
+  const read = parseWisconsinBesadnyCount({
+    source,
+    species: "chinook_salmon",
+    html,
+  });
   assertEquals(read.status, "unavailable");
   assertEquals(read.unavailableReason, "not_reported");
 });

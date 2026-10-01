@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { colorTrialRequiresUpgrade, pierTrialRequiresUpgrade } from '../lib/reportTrialPaywall';
+import { colorTrialRequiresUpgrade } from '../lib/reportTrialPaywall';
 import { createReportStore } from '../supabase/functions/color-picker/store';
 
-test('known lifetime claims paywall every different setup/city/day, while paid and saved access remain available', () => {
+test('known Color Match lifetime claim paywalls every different setup while paid access remains available', () => {
   const color = { typeId: 'worm', clarity: 'clear', date: '2026-09-13' };
   assert.equal(colorTrialRequiresUpgrade(true, null, color), false);
   assert.equal(colorTrialRequiresUpgrade(true, color, color), false);
@@ -11,12 +11,6 @@ test('known lifetime claims paywall every different setup/city/day, while paid a
     assert.equal(colorTrialRequiresUpgrade(true, color, { ...color, ...patch }), true);
     assert.equal(colorTrialRequiresUpgrade(false, color, { ...color, ...patch }), false);
   }
-  const pier = { cityId: 'ludington_mi', date: '2026-09-13' };
-  assert.equal(pierTrialRequiresUpgrade(true, null, pier.cityId, pier.date), false);
-  assert.equal(pierTrialRequiresUpgrade(true, pier, pier.cityId, pier.date), false);
-  assert.equal(pierTrialRequiresUpgrade(true, pier, 'grand_haven_mi', pier.date), true);
-  assert.equal(pierTrialRequiresUpgrade(true, pier, pier.cityId, '2026-09-14'), true);
-  assert.equal(pierTrialRequiresUpgrade(false, pier, 'grand_haven_mi', '2026-09-14'), false);
 });
 
 test('cached paid Color Match generations cannot bypass the lifetime RPC after downgrade', async () => {

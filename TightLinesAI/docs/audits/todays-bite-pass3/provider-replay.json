@@ -1,0 +1,1035 @@
+{
+  "source": "Open-Meteo historical reanalysis; Tallahassee Oct 20-Nov 10 2025. Target dates recorded below; no catch observations or measured water/tide data.",
+  "cases": 28,
+  "recommendation_sets": 28,
+  "reports": [
+    {
+      "date": "2025-11-03",
+      "context": "freshwater_lake_pond",
+      "pass1": 48,
+      "final": 47,
+      "temperature": 55.75,
+      "pressure": {
+        "label": "recently_stabilizing",
+        "score": 0.25,
+        "detail": "prior range 6.0 mb, now settling (recent range 0.8 mb)"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait",
+            "warmwater_crawfish_fly",
+            "unweighted_baitfish_streamer"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "football_jig",
+            "bluegill_streamer",
+            "rabbit_strip_leech"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-03",
+      "context": "freshwater_river",
+      "pass1": 50,
+      "final": 49,
+      "temperature": 55.75,
+      "pressure": {
+        "label": "recently_stabilizing",
+        "score": 0.25,
+        "detail": "prior range 6.0 mb, now settling (recent range 0.8 mb)"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "tube_jig",
+            "suspending_jerkbait",
+            "warmwater_crawfish_fly",
+            "unweighted_baitfish_streamer"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "texas_rigged_soft_plastic_craw",
+            "rabbit_strip_leech",
+            "game_changer"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-03",
+      "context": "coastal",
+      "pass1": 54,
+      "final": 54,
+      "temperature": 55.75,
+      "pressure": {
+        "label": "recently_stabilizing",
+        "score": 0.25,
+        "detail": "prior range 6.0 mb, now settling (recent range 0.8 mb)"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-03",
+      "context": "coastal_flats_estuary",
+      "pass1": 49,
+      "final": 50,
+      "temperature": 55.75,
+      "pressure": {
+        "label": "recently_stabilizing",
+        "score": 0.25,
+        "detail": "prior range 6.0 mb, now settling (recent range 0.8 mb)"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-04",
+      "context": "freshwater_lake_pond",
+      "pass1": 46,
+      "final": 44,
+      "temperature": 57.9,
+      "pressure": {
+        "label": "rising_slow",
+        "score": -0.102,
+        "detail": "+2.7 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "texas_rigged_soft_plastic_craw",
+            "suspending_jerkbait",
+            "warmwater_crawfish_fly",
+            "woolly_bugger"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "popping_topwater",
+            "frog_fly",
+            "game_changer"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-04",
+      "context": "freshwater_river",
+      "pass1": 49,
+      "final": 48,
+      "temperature": 57.9,
+      "pressure": {
+        "label": "rising_slow",
+        "score": -0.102,
+        "detail": "+2.7 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "tube_jig",
+            "suspending_jerkbait",
+            "warmwater_crawfish_fly",
+            "unweighted_baitfish_streamer"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle",
+              "cold_slow"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "texas_rigged_soft_plastic_craw",
+            "rabbit_strip_leech",
+            "game_changer"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-04",
+      "context": "coastal",
+      "pass1": 49,
+      "final": 48,
+      "temperature": 57.9,
+      "pressure": {
+        "label": "rising_slow",
+        "score": -0.102,
+        "detail": "+2.7 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-04",
+      "context": "coastal_flats_estuary",
+      "pass1": 45,
+      "final": 45,
+      "temperature": 57.9,
+      "pressure": {
+        "label": "rising_slow",
+        "score": -0.102,
+        "detail": "+2.7 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-05",
+      "context": "freshwater_lake_pond",
+      "pass1": 70,
+      "final": 66,
+      "temperature": 63.400000000000006,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 0.83,
+        "detail": "-2.0 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "foam_gurgler_fly",
+            "warmwater_crawfish_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "popping_topwater",
+            "magnum_jerkbait",
+            "game_changer",
+            "deer_hair_slider"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-05",
+      "context": "freshwater_river",
+      "pass1": 71,
+      "final": 67,
+      "temperature": 63.400000000000006,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 0.83,
+        "detail": "-2.0 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "warmwater_crawfish_fly",
+            "unweighted_baitfish_streamer"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "texas_rigged_soft_plastic_craw",
+            "articulated_baitfish_streamer",
+            "lead_eye_leech"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-05",
+      "context": "coastal",
+      "pass1": 63,
+      "final": 61,
+      "temperature": 63.400000000000006,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 0.83,
+        "detail": "-2.0 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-05",
+      "context": "coastal_flats_estuary",
+      "pass1": 58,
+      "final": 55,
+      "temperature": 63.400000000000006,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 0.83,
+        "detail": "-2.0 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-06",
+      "context": "freshwater_lake_pond",
+      "pass1": 72,
+      "final": 67,
+      "temperature": 66.05,
+      "pressure": {
+        "label": "falling_moderate",
+        "score": 0.45,
+        "detail": "-4.5 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open",
+              "low_light_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "low_light_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "dark"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "popper_fly",
+            "warmwater_crawfish_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open",
+              "low_light_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "low_light_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "dark"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "buzzbait",
+            "articulated_baitfish_streamer",
+            "deer_hair_slider"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-06",
+      "context": "freshwater_river",
+      "pass1": 72,
+      "final": 68,
+      "temperature": 66.05,
+      "pressure": {
+        "label": "falling_moderate",
+        "score": 0.45,
+        "detail": "-4.5 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "dark"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "unweighted_baitfish_streamer",
+            "warmwater_crawfish_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "dark"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "texas_rigged_soft_plastic_craw",
+            "unweighted_baitfish_streamer",
+            "game_changer"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-06",
+      "context": "coastal",
+      "pass1": 63,
+      "final": 61,
+      "temperature": 66.05,
+      "pressure": {
+        "label": "falling_moderate",
+        "score": 0.45,
+        "detail": "-4.5 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-06",
+      "context": "coastal_flats_estuary",
+      "pass1": 61,
+      "final": 59,
+      "temperature": 66.05,
+      "pressure": {
+        "label": "falling_moderate",
+        "score": 0.45,
+        "detail": "-4.5 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-07",
+      "context": "freshwater_lake_pond",
+      "pass1": 50,
+      "final": 50,
+      "temperature": 66,
+      "pressure": {
+        "label": "volatile",
+        "score": -1.35,
+        "detail": "range 5.1 mb, 3h swing 2.4"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "popper_fly",
+            "clouser_minnow"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "open",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "calm_surface_open"
+            ],
+            "scenario_tags": [
+              "calm_surface",
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "popping_topwater",
+            "mouse_fly",
+            "bluegill_streamer"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-07",
+      "context": "freshwater_river",
+      "pass1": 54,
+      "final": 54,
+      "temperature": 66,
+      "pressure": {
+        "label": "volatile",
+        "score": -1.35,
+        "detail": "range 5.1 mb, 3h swing 2.4"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "soft_jerkbait",
+            "drop_shot_minnow",
+            "unweighted_baitfish_streamer",
+            "warmwater_crawfish_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "clear_subtle"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "texas_rigged_soft_plastic_craw",
+            "articulated_baitfish_streamer",
+            "lead_eye_leech"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-07",
+      "context": "coastal",
+      "pass1": 49,
+      "final": 48,
+      "temperature": 66,
+      "pressure": {
+        "label": "volatile",
+        "score": -1.35,
+        "detail": "range 5.1 mb, 3h swing 2.4"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-07",
+      "context": "coastal_flats_estuary",
+      "pass1": 48,
+      "final": 47,
+      "temperature": 66,
+      "pressure": {
+        "label": "volatile",
+        "score": -1.35,
+        "detail": "range 5.1 mb, 3h swing 2.4"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-08",
+      "context": "freshwater_lake_pond",
+      "pass1": 92,
+      "final": 87,
+      "temperature": 73.55000000000001,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 1.086,
+        "detail": "-2.8 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "paddle_tail_swimbait",
+            "soft_jerkbait",
+            "game_changer",
+            "baitfish_slider_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "walking_topwater",
+            "articulated_baitfish_streamer",
+            "baitfish_slider_fly"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-08",
+      "context": "freshwater_river",
+      "pass1": 85,
+      "final": 73,
+      "temperature": 73.55000000000001,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 1.086,
+        "detail": "-2.8 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "swim_jig",
+            "soft_jerkbait",
+            "feather_jig_leech",
+            "clouser_minnow"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "compact_flipping_jig",
+            "game_changer",
+            "baitfish_slider_fly"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-08",
+      "context": "coastal",
+      "pass1": 64,
+      "final": 64,
+      "temperature": 73.55000000000001,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 1.086,
+        "detail": "-2.8 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-08",
+      "context": "coastal_flats_estuary",
+      "pass1": 64,
+      "final": 64,
+      "temperature": 73.55000000000001,
+      "pressure": {
+        "label": "falling_slow",
+        "score": 1.086,
+        "detail": "-2.8 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-09",
+      "context": "freshwater_lake_pond",
+      "pass1": 72,
+      "final": 71,
+      "temperature": 72.65,
+      "pressure": {
+        "label": "rising_slow",
+        "score": 0.138,
+        "detail": "+1.2 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "swim_jig",
+            "deep_diving_crankbait",
+            "articulated_baitfish_streamer",
+            "baitfish_slider_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "active",
+            "surface_daily_gate": "caution",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_open",
+              "surface_caution_mixed_daily_conditions"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "walking_topwater",
+            "articulated_baitfish_streamer",
+            "baitfish_slider_fly"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-09",
+      "context": "freshwater_river",
+      "pass1": 71,
+      "final": 69,
+      "temperature": 72.65,
+      "pressure": {
+        "label": "rising_slow",
+        "score": 0.138,
+        "detail": "+1.2 mb/24h"
+      },
+      "picks": [
+        {
+          "goal": "all_purpose",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "spinnerbait",
+            "flat_sided_crankbait",
+            "articulated_baitfish_streamer",
+            "baitfish_slider_fly"
+          ]
+        },
+        {
+          "goal": "big_fish",
+          "scenario": {
+            "activity_level": "neutral",
+            "surface_daily_gate": "closed",
+            "surface_daily_reason_codes": [
+              "seasonal_surface_closed"
+            ],
+            "scenario_tags": [
+              "warming_search"
+            ],
+            "missing_inputs": [],
+            "confidence": "high",
+            "color_palette_theme": "natural"
+          },
+          "ids": [
+            "magnum_jerkbait",
+            "compact_flipping_jig",
+            "articulated_dungeon_streamer",
+            "baitfish_slider_fly"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2025-11-09",
+      "context": "coastal",
+      "pass1": 64,
+      "final": 64,
+      "temperature": 72.65,
+      "pressure": {
+        "label": "rising_slow",
+        "score": 0.138,
+        "detail": "+1.2 mb/24h"
+      },
+      "picks": []
+    },
+    {
+      "date": "2025-11-09",
+      "context": "coastal_flats_estuary",
+      "pass1": 64,
+      "final": 64,
+      "temperature": 72.65,
+      "pressure": {
+        "label": "rising_slow",
+        "score": 0.138,
+        "detail": "+1.2 mb/24h"
+      },
+      "picks": []
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "auditVersion": "wisconsin-winter-steelhead-brown-trout-pass3-v1",
+  "completedOn": "2026-09-28",
+  "status": "accepted",
+  "scope": {
+    "state": "Wisconsin",
+    "rivers": [
+      "milwaukee",
+      "sheboygan",
+      "root",
+      "kewaunee_river",
+      "manitowoc"
+    ],
+    "species": [
+      "steelhead",
+      "lake_run_brown_trout"
+    ],
+    "pathways": [
+      "milwaukee_winter_steelhead",
+      "milwaukee_winter_brown_trout",
+      "sheboygan_winter_steelhead",
+      "sheboygan_winter_brown_trout",
+      "root_winter_steelhead",
+      "root_winter_brown_trout",
+      "kewaunee_river_winter_steelhead",
+      "kewaunee_river_winter_brown_trout",
+      "manitowoc_winter_steelhead",
+      "manitowoc_winter_brown_trout"
+    ],
+    "replayYears": "2021-2025 winter starts"
+  },
+  "method": "Pass 3 incorporates the implementation dependency and five-season behavioral replay before final acceptance. Archived hourly weather is evaluated on every source-complete active day; representative USGS flow is included where accepted. Milwaukee and Kewaunee measured-water records begin in 2026, so no earlier water temperatures are invented; deterministic measured-water counterfactuals lock thermal behavior while the historical replay audits the available flow/light pathway. Every score remains conditional responsiveness for fish already present, never abundance, migration, catch probability, access, ice, or safety.",
+  "authoritativeSources": [
+    {
+      "role": "legal_season",
+      "source": "Wisconsin DNR Inland Trout and Salmon Regulations",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/seasons/trout"
+    },
+    {
+      "role": "tributary_night_restriction",
+      "source": "Wisconsin DNR Fall Fishing",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/fallfishing.html"
+    },
+    {
+      "role": "winter_brown_trout_location",
+      "source": "Wisconsin DNR A Year of Fishing",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/outreach/yearoffishing.html"
+    },
+    {
+      "role": "winter_brown_trout_retention",
+      "source": "Wisconsin DNR 2026 Fishing Report",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/outreach/wifishingreport"
+    },
+    {
+      "role": "root_river_seasonal_facility_context",
+      "source": "Wisconsin DNR Root River Report",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/rootriverreport"
+    },
+    {
+      "role": "bois_brule_exclusion",
+      "source": "Wisconsin DNR Bois Brule Fishing",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakesuperior/boisbrulefishing"
+    },
+    {
+      "role": "flow_and_temperature",
+      "source": "USGS Water Data for the Nation",
+      "url": "https://api.waterdata.usgs.gov/ogcapi/v0/"
+    },
+    {
+      "role": "hourly_weather_archive",
+      "source": "Open-Meteo Historical Weather API",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api"
+    }
+  ],
+  "replay": {
+    "expectedPathwayDays": 3090,
+    "usablePathwayDays": 2786,
+    "coveragePercent": 90.16,
+    "minimumPathwayCoveragePercent": 80,
+    "reviewedRows": 1000,
+    "invariantFailures": [],
+    "pathways": [
+      {
+        "runId": "milwaukee_winter_steelhead",
+        "expectedDays": 375,
+        "usableDays": 302,
+        "coveragePercent": 80.53,
+        "score": {
+          "min": 19,
+          "p10": 49,
+          "median": 59,
+          "p90": 59,
+          "max": 66,
+          "mean": 56.42
+        },
+        "labels": {
+          "Active": 18,
+          "Inactive": 4,
+          "Moderate": 278,
+          "Reserved": 2
+        },
+        "counterfactuals": {
+          "cold": 29,
+          "favorable": 81,
+          "gradualWarming": 86,
+          "largeSwing": 77
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "The historical archive predates the accepted 2026 measured-water series; thermal ordering is accepted through deterministic measured-water counterfactuals, while historical days audit available flow/light behavior only."
+        ]
+      },
+      {
+        "runId": "milwaukee_winter_brown_trout",
+        "expectedDays": 220,
+        "usableDays": 219,
+        "coveragePercent": 99.55,
+        "score": {
+          "min": 10,
+          "p10": 11,
+          "median": 20,
+          "p90": 50,
+          "max": 61,
+          "mean": 24.86
+        },
+        "labels": {
+          "Active": 2,
+          "Inactive": 99,
+          "Moderate": 41,
+          "Reserved": 77
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "sheboygan_winter_steelhead",
+        "expectedDays": 375,
+        "usableDays": 300,
+        "coveragePercent": 80,
+        "score": {
+          "min": 7,
+          "p10": 13,
+          "median": 21,
+          "p90": 55,
+          "max": 66,
+          "mean": 26.72
+        },
+        "labels": {
+          "Active": 11,
+          "Inactive": 124,
+          "Moderate": 55,
+          "Reserved": 110
+        },
+        "counterfactuals": {
+          "cold": 24,
+          "favorable": 61,
+          "gradualWarming": 59,
+          "largeSwing": 28
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "sheboygan_winter_brown_trout",
+        "expectedDays": 220,
+        "usableDays": 219,
+        "coveragePercent": 99.55,
+        "score": {
+          "min": 10,
+          "p10": 12,
+          "median": 19,
+          "p90": 47,
+          "max": 61,
+          "mean": 23.79
+        },
+        "labels": {
+          "Active": 2,
+          "Inactive": 112,
+          "Moderate": 35,
+          "Reserved": 70
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "root_winter_steelhead",
+        "expectedDays": 295,
+        "usableDays": 294,
+        "coveragePercent": 99.66,
+        "score": {
+          "min": 10,
+          "p10": 11,
+          "median": 21,
+          "p90": 51,
+          "max": 60,
+          "mean": 26.63
+        },
+        "labels": {
+          "Active": 3,
+          "Inactive": 121,
+          "Moderate": 71,
+          "Reserved": 99
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "root_winter_brown_trout",
+        "expectedDays": 220,
+        "usableDays": 219,
+        "coveragePercent": 99.55,
+        "score": {
+          "min": 10,
+          "p10": 11,
+          "median": 20,
+          "p90": 51,
+          "max": 60,
+          "mean": 25.59
+        },
+        "labels": {
+          "Active": 3,
+          "Inactive": 98,
+          "Moderate": 44,
+          "Reserved": 74
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "kewaunee_river_winter_steelhead",
+        "expectedDays": 375,
+        "usableDays": 300,
+        "coveragePercent": 80,
+        "score": {
+          "min": 19,
+          "p10": 59,
+          "median": 59,
+          "p90": 59,
+          "max": 59,
+          "mean": 58.32
+        },
+        "labels": {
+          "Inactive": 4,
+          "Moderate": 296
+        },
+        "counterfactuals": {
+          "cold": 29,
+          "favorable": 81,
+          "gradualWarming": 86,
+          "largeSwing": 77
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "The historical archive predates the accepted 2026 measured-water series; thermal ordering is accepted through deterministic measured-water counterfactuals, while historical days audit available flow/light behavior only."
+        ]
+      },
+      {
+        "runId": "kewaunee_river_winter_brown_trout",
+        "expectedDays": 340,
+        "usableDays": 339,
+        "coveragePercent": 99.71,
+        "score": {
+          "min": 10,
+          "p10": 12,
+          "median": 21,
+          "p90": 49,
+          "max": 63,
+          "mean": 25.79
+        },
+        "labels": {
+          "Active": 5,
+          "Inactive": 154,
+          "Moderate": 76,
+          "Reserved": 104
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "manitowoc_winter_steelhead",
+        "expectedDays": 375,
+        "usableDays": 300,
+        "coveragePercent": 80,
+        "score": {
+          "min": 12,
+          "p10": 15,
+          "median": 22,
+          "p90": 55,
+          "max": 66,
+          "mean": 28.58
+        },
+        "labels": {
+          "Active": 10,
+          "Inactive": 111,
+          "Moderate": 68,
+          "Reserved": 111
+        },
+        "counterfactuals": {
+          "cold": 24,
+          "favorable": 61,
+          "gradualWarming": 59,
+          "largeSwing": 28
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      },
+      {
+        "runId": "manitowoc_winter_brown_trout",
+        "expectedDays": 295,
+        "usableDays": 294,
+        "coveragePercent": 99.66,
+        "score": {
+          "min": 10,
+          "p10": 11,
+          "median": 20,
+          "p90": 48,
+          "max": 61,
+          "mean": 25.31
+        },
+        "labels": {
+          "Active": 1,
+          "Inactive": 137,
+          "Moderate": 67,
+          "Reserved": 89
+        },
+        "counterfactuals": {
+          "cold": 20,
+          "favorable": 54,
+          "gradualWarming": 53,
+          "largeSwing": 26
+        },
+        "reviewedRows": 100,
+        "limitations": [
+          "Activity is a conditional responsiveness estimate, not abundance, migration, catch probability, access, ice, or safety.",
+          "Modeled air is capped Limited context and cannot establish actual water temperature or whole-river conditions."
+        ]
+      }
+    ]
+  },
+  "validation": {
+    "profileErrors": [],
+    "documentErrors": [],
+    "handoffFailures": []
+  },
+  "calibrationDecision": {
+    "result": "accept_pass3_profiles_and_retain_calibrated_thresholds",
+    "reasons": [
+      "Five-season weather and river-source replays keep typical winter days conservative while preserving occasional Active windows.",
+      "Stable mild conditions and gradual warming outperform persistent cold and large swings in every pathway.",
+      "Clouds rank legal daylight windows; rain receives no independent positive score.",
+      "Measured-water scoring leads only where a fresh accepted sensor exists. Air-proxy pathways stay explicitly Limited and capped.",
+      "Steelhead retains the full audited river corridor with preferred starting reaches; Brown Trout is restricted to its accepted lower-river or harbor corridor."
+    ],
+    "activationContract": "Each winter profile remains absent until the day after its species-specific fall endpoint, ends February 28, and never overlaps its fall profile.",
+    "springContract": "March 1 is inactive for these winter profiles and reserved for separately researched spring pathways."
+  },
+  "acceptance": {
+    "exactlyFiveRiversAndTenSpeciesPathways": true,
+    "everyProfileValid": true,
+    "everyConfigurationDocumentValid": true,
+    "exactFallToWinterHandoffs": true,
+    "everyReplayAtLeast80PercentCoverage": true,
+    "aggregateReplayAtLeast90PercentCoverage": true,
+    "oneHundredStratifiedRowsPerPathway": true,
+    "everyMechanicalInvariantPasses": true,
+    "favorableConditionsOutscoreCold": true,
+    "stableGradualWarmupOutscoresLargeSwing": true,
+    "winterScoresRemainConservative": true
+  }
+}

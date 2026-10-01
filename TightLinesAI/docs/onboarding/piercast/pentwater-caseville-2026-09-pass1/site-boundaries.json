@@ -1,0 +1,490 @@
+{
+  "schema_version": "piercast-pass1-site-boundaries-v1",
+  "review_date": "2026-09-21",
+  "principle": "Biological opportunity and physical access are independent. These reports describe city conditions around named structures and do not instruct users to fish a particular surface.",
+  "cities": [
+    {
+      "id": "pentwater_mi",
+      "name": "Pentwater",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "county": "Oceana",
+      "ports": [
+        "PENTWATER"
+      ],
+      "structures": [
+        {
+          "city_id": "pentwater_mi",
+          "structure_id": "mears_accessible_fishing_pier",
+          "display_name": "Charles Mears State Park accessible fishing pier",
+          "municipality": "Village of Pentwater",
+          "owner_operator": "Michigan DNR",
+          "physical_route": "Enter Charles Mears State Park and follow the signed route to the south end of the park/Pentwater Lake Channel Pier.",
+          "street_address": "400 W Lowell Street, Pentwater, MI 49449",
+          "coordinates": {
+            "latitude": 43.7823,
+            "longitude": -86.4432,
+            "precision": "park-map and north-pierhead context; facility endpoint requires field confirmation",
+            "source_id": "MEARS_PARK"
+          },
+          "disposition": "covered",
+          "published_access_status": "Public accessible fishing pier; DNR programs explicitly use it for fishing.",
+          "live_access_status": "Published access only; verify same-day waves, ice, gates, and barricades.",
+          "hours": "Park day-use and posted hours control.",
+          "passes_fees": "Recreation Passport required for motor-vehicle entry; walk-in terms may differ.",
+          "seasonal_limitations": "Lake Michigan waves, ice, structural currents, seasonal services, and closures.",
+          "construction_closure": "No current project closure found; 2026 USCG aid notice did not establish a pedestrian closure.",
+          "source_ids": [
+            "MEARS_PARK",
+            "PENTWATER_PARKS",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Retained as a separate facility record because the reviewed DNR page does not prove that every part is coextensive with the federal north pier."
+        },
+        {
+          "city_id": "pentwater_mi",
+          "structure_id": "north_navigation_pier",
+          "display_name": "Pentwater north navigation pier",
+          "municipality": "Village of Pentwater",
+          "owner_operator": "U.S. Army Corps of Engineers navigation structure; Village/DNR public approaches",
+          "physical_route": "Use Bridge Street Park or Channel Lane Park/north-pier walkway; the state-park channel-pier route may join this structure.",
+          "street_address": "200 Channel Lane, Pentwater, MI 49449",
+          "coordinates": {
+            "latitude": 43.782329,
+            "longitude": -86.443616,
+            "precision": "USCG North Pierhead Light 3",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "covered",
+          "published_access_status": "Village sources document handicap-accessible north-pier walkway approaches.",
+          "live_access_status": "Published route only; verify current barriers and surface condition.",
+          "hours": "Posted village/park rules control.",
+          "passes_fees": "No walking fee identified; state-park vehicle route requires a Recreation Passport.",
+          "seasonal_limitations": "Weather, waves, ice, structural currents, and barricades.",
+          "construction_closure": "No current pedestrian closure found; 2026 notice concerned the light/sound signal.",
+          "source_ids": [
+            "PENTWATER_PARKS",
+            "PENTWATER_USACE",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Confirm the current connection between the Mears accessible facility and the full federal pier surface."
+        },
+        {
+          "city_id": "pentwater_mi",
+          "structure_id": "south_navigation_pier",
+          "display_name": "Pentwater south navigation pier",
+          "municipality": "Village of Pentwater",
+          "owner_operator": "U.S. Army Corps of Engineers navigation structure; Village public approach",
+          "physical_route": "Use Chester Street Park at the eastern end of the south-pier walkway.",
+          "street_address": "Chester Street at the Pentwater channel, Pentwater, MI 49449",
+          "coordinates": {
+            "latitude": 43.781548,
+            "longitude": -86.444145,
+            "precision": "USCG South Pierhead Light 4",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "covered",
+          "published_access_status": "Village source says Chester Street Park provides full access to the south-pier walkway.",
+          "live_access_status": "Published route only; verify current barriers and surface condition.",
+          "hours": "Posted village/park rules control.",
+          "passes_fees": "No pedestrian fee identified.",
+          "seasonal_limitations": "Weather, waves, ice, structural currents, and barricades.",
+          "construction_closure": "No current project closure found.",
+          "source_ids": [
+            "PENTWATER_PARKS",
+            "PENTWATER_USACE",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Same-day physical condition and the exact legal casting surface still require confirmation."
+        }
+      ]
+    },
+    {
+      "id": "rogers_city_mi",
+      "name": "Rogers City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "county": "Presque Isle",
+      "ports": [
+        "ROGERS CITY"
+      ],
+      "structures": [
+        {
+          "city_id": "rogers_city_mi",
+          "structure_id": "outer_breakwall_light_8_side",
+          "display_name": "Rogers City outer breakwall ending at Harbor Channel Light 8",
+          "municipality": "City of Rogers City",
+          "owner_operator": "City of Rogers City municipal harbor",
+          "physical_route": "Public harbor approach to the red-marked outer breakwall; follow current harbormaster signs.",
+          "street_address": "Rogers City Marina, 270 N Lake Street, Rogers City, MI 49779",
+          "coordinates": {
+            "latitude": 45.422917,
+            "longitude": -83.809222,
+            "precision": "USCG Harbor Channel Breakwater Light 8",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "covered",
+          "published_access_status": "Fishing permitted on outer breakwalls at any time of year by ordinance.",
+          "live_access_status": "Subject to weather, events, construction, and posted harbormaster controls.",
+          "hours": "Ordinance states any time of year; live signs still control.",
+          "passes_fees": "No angler fee identified.",
+          "seasonal_limitations": "Unsafe wave/ice conditions and temporary closure authority.",
+          "construction_closure": "No current project closure found.",
+          "source_ids": [
+            "ROGERS_ORD",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Confirm same-day wall/gate status and current route."
+        },
+        {
+          "city_id": "rogers_city_mi",
+          "structure_id": "outer_breakwall_light_9_side",
+          "display_name": "Rogers City outer breakwall ending at Harbor Channel Light 9",
+          "municipality": "City of Rogers City",
+          "owner_operator": "City of Rogers City municipal harbor",
+          "physical_route": "Public harbor approach to the green-marked outer breakwall; follow current harbormaster signs.",
+          "street_address": "Rogers City Marina, 270 N Lake Street, Rogers City, MI 49779",
+          "coordinates": {
+            "latitude": 45.422472,
+            "longitude": -83.809722,
+            "precision": "USCG Harbor Channel Breakwater Light 9",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "covered",
+          "published_access_status": "Fishing permitted on outer breakwalls at any time of year by ordinance.",
+          "live_access_status": "Subject to weather, events, construction, and posted harbormaster controls.",
+          "hours": "Ordinance states any time of year; live signs still control.",
+          "passes_fees": "No angler fee identified.",
+          "seasonal_limitations": "Unsafe wave/ice conditions and temporary closure authority.",
+          "construction_closure": "No current project closure found.",
+          "source_ids": [
+            "ROGERS_ORD",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Confirm same-day wall/gate status and current route."
+        },
+        {
+          "city_id": "rogers_city_mi",
+          "structure_id": "marina_basin_designated_areas",
+          "display_name": "Rogers City marina basin designated fishing areas",
+          "municipality": "City of Rogers City",
+          "owner_operator": "Rogers City Marina",
+          "physical_route": "Only areas posted by the harbormaster.",
+          "street_address": "270 N Lake Street, Rogers City, MI 49779",
+          "coordinates": {
+            "latitude": 45.4215,
+            "longitude": -83.817,
+            "precision": "facility centroid",
+            "source_id": "ROGERS_ORD"
+          },
+          "disposition": "covered_conditionally",
+          "published_access_status": "Fishing allowed before June 1 and after September 1 in designated areas; June-August prohibited unless a designated area is posted.",
+          "live_access_status": "Current signs and slip/event conditions control.",
+          "hours": "Follow posted harbor hours.",
+          "passes_fees": "No angler fee identified.",
+          "seasonal_limitations": "June 1-August 31 basin prohibition except posted designated areas.",
+          "construction_closure": "No current project closure found.",
+          "source_ids": [
+            "ROGERS_ORD"
+          ],
+          "unresolved_limitations": "Pass 3 must not generalize breakwall permission to occupied docks."
+        }
+      ]
+    },
+    {
+      "id": "tawas_city_mi",
+      "name": "Tawas City",
+      "water_body": "Lake Huron",
+      "parent_great_lake": "Lake Huron",
+      "county": "Iosco",
+      "ports": [
+        "TAWAS",
+        "TAWAS CITY",
+        "EAST TAWAS",
+        "TAWAS-EAST TAWAS",
+        "TAWAS/EAST TAWAS",
+        "TAWAS - EAST TAWAS"
+      ],
+      "structures": [
+        {
+          "city_id": "tawas_city_mi",
+          "structure_id": "gateway_park_pier",
+          "display_name": "Gateway Park fishing pier",
+          "municipality": "City of Tawas City",
+          "owner_operator": "City of Tawas City",
+          "physical_route": "Gateway Park at the mouth of the Tawas River.",
+          "street_address": "815 W Lake Street, Tawas City, MI 48763",
+          "coordinates": {
+            "latitude": 44.2691,
+            "longitude": -83.5199,
+            "precision": "city facility/map context",
+            "source_id": "TAWAS_GATEWAY"
+          },
+          "disposition": "covered",
+          "published_access_status": "Public 300-foot lighted ADA fishing pier.",
+          "live_access_status": "Published access; verify same-day ice, surface condition, and signs.",
+          "hours": "Open park/pier areas are not reservable; posted rules control.",
+          "passes_fees": "No angler entry fee found.",
+          "seasonal_limitations": "River-mouth current, ice, weather, and maintenance.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "TAWAS_GATEWAY",
+            "TAWAS_PLAN"
+          ],
+          "unresolved_limitations": "Confirm live condition before public release."
+        },
+        {
+          "city_id": "tawas_city_mi",
+          "structure_id": "gateway_river_edge_boardwalk",
+          "display_name": "Gateway Park Tawas River-edge walkway/boardwalk",
+          "municipality": "City of Tawas City",
+          "owner_operator": "City of Tawas City",
+          "physical_route": "Gateway Park river edge, retained separately from the signed 300-foot fishing pier.",
+          "street_address": "815 W Lake Street, Tawas City, MI 48763",
+          "coordinates": {
+            "latitude": 44.269,
+            "longitude": -83.5194,
+            "precision": "facility-level map context; no separately published endpoint",
+            "source_id": "TAWAS_GATEWAY"
+          },
+          "disposition": "not_separately_admitted_from_gateway_pier",
+          "published_access_status": "The park is public, but no reviewed primary source separately designates every river-edge walkway segment as a fishing structure.",
+          "live_access_status": "Do not generalize pier permission to the full river edge.",
+          "hours": "Posted park rules control.",
+          "passes_fees": "No angler entry fee found.",
+          "seasonal_limitations": "River current, ice, maintenance, and posted restrictions.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "TAWAS_GATEWAY",
+            "TAWAS_PLAN"
+          ],
+          "unresolved_limitations": "A current site map/sign inspection is required before treating this as an independent fishing subarea."
+        },
+        {
+          "city_id": "tawas_city_mi",
+          "structure_id": "shoreline_park_pier",
+          "display_name": "Shoreline Park L-shaped fishing pier",
+          "municipality": "City of Tawas City",
+          "owner_operator": "City of Tawas City",
+          "physical_route": "Shoreline Park waterfront in downtown Tawas City.",
+          "street_address": "429 W Lake Street, Tawas City, MI 48763",
+          "coordinates": {
+            "latitude": 44.2794,
+            "longitude": -83.4865,
+            "precision": "city plan/map context",
+            "source_id": "TAWAS_PLAN"
+          },
+          "disposition": "covered",
+          "published_access_status": "Public lighted pier, approximately 550 feet after 2021 extension, with benches and day slips.",
+          "live_access_status": "Published access only.",
+          "hours": "Posted park/pier rules control.",
+          "passes_fees": "No angler entry fee found.",
+          "seasonal_limitations": "Day-slip traffic, ice, waves, and maintenance.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "TAWAS_PLAN"
+          ],
+          "unresolved_limitations": "Keep fishing surfaces separate from occupied day slips."
+        }
+      ]
+    },
+    {
+      "id": "charlevoix_mi",
+      "name": "Charlevoix",
+      "water_body": "Lake Michigan",
+      "parent_great_lake": "Lake Michigan",
+      "county": "Charlevoix",
+      "ports": [
+        "CHARLEVOIX"
+      ],
+      "structures": [
+        {
+          "city_id": "charlevoix_mi",
+          "structure_id": "pine_river_channel_walkway",
+          "display_name": "Bridge Park and Pine River Channel fishing walkway",
+          "municipality": "City of Charlevoix",
+          "owner_operator": "City of Charlevoix",
+          "physical_route": "Bridge Park and waterfront sidewalks along the Pine River Channel.",
+          "street_address": "100 Bridge Street, Charlevoix, MI 49720",
+          "coordinates": {
+            "latitude": 45.3198,
+            "longitude": -85.2588,
+            "precision": "city park/map context",
+            "source_id": "CHARLEVOIX_PLAN"
+          },
+          "disposition": "covered",
+          "published_access_status": "City plan identifies Bridge Park as mainly used for fishing/viewing; pedestrian guidance expects people fishing.",
+          "live_access_status": "Published access; follow bridge, rail, and posted restrictions.",
+          "hours": "Posted park/municipal rules control.",
+          "passes_fees": "No angler fee found.",
+          "seasonal_limitations": "Vessel traffic, drawbridge operations, ice, and maintenance.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "CHARLEVOIX_PLAN",
+            "CHARLEVOIX_RULES"
+          ],
+          "unresolved_limitations": "Pass 3 should map only lawful railing segments."
+        },
+        {
+          "city_id": "charlevoix_mi",
+          "structure_id": "municipal_marina_designated_areas",
+          "display_name": "Charlevoix municipal marina designated fishing areas",
+          "municipality": "City of Charlevoix",
+          "owner_operator": "City of Charlevoix Marina",
+          "physical_route": "Only areas currently designated by marina signage.",
+          "street_address": "100 Round Lake Drive, Charlevoix, MI 49720",
+          "coordinates": {
+            "latitude": 45.3186,
+            "longitude": -85.258,
+            "precision": "facility centroid",
+            "source_id": "CHARLEVOIX_RULES"
+          },
+          "disposition": "covered_conditionally",
+          "published_access_status": "Fishing only in designated areas; prohibited where vessels are docked.",
+          "live_access_status": "Current signs/occupancy control.",
+          "hours": "Marina/posted hours control.",
+          "passes_fees": "No angler fee established.",
+          "seasonal_limitations": "Occupied slips and vessel operations.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "CHARLEVOIX_RULES"
+          ],
+          "unresolved_limitations": "Obtain the current designated-area map before release."
+        },
+        {
+          "city_id": "charlevoix_mi",
+          "structure_id": "south_navigation_pier",
+          "display_name": "Charlevoix south navigation pier and lighthouse",
+          "municipality": "City of Charlevoix",
+          "owner_operator": "U.S. Army Corps of Engineers pier; City-owned lighthouse and park approach",
+          "physical_route": "Lake Michigan Beach Park to the south pier/lighthouse walkway.",
+          "street_address": "Lake Michigan Beach Park, Park Avenue, Charlevoix, MI 49720",
+          "coordinates": {
+            "latitude": 45.3228,
+            "longitude": -85.2697,
+            "precision": "USCG south-pierhead/light context",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "covered",
+          "published_access_status": "City records identify the south pier as a fishing/viewing location with safety railing and a public park approach.",
+          "live_access_status": "Published access; verify current wave conditions, rail, and barriers.",
+          "hours": "Posted beach/park rules control.",
+          "passes_fees": "No pedestrian fee identified; parking rules control.",
+          "seasonal_limitations": "Large waves, ice, currents, and navigation operations.",
+          "construction_closure": "The unsafe ancillary walkway was removed in 2022 while the adjacent access walkway was retained; no current closure found.",
+          "source_ids": [
+            "CHARLEVOIX_PLAN",
+            "CHARLEVOIX_PIERS",
+            "CHARLEVOIX_USACE",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Confirm current rail continuity and same-day gate status."
+        },
+        {
+          "city_id": "charlevoix_mi",
+          "structure_id": "north_navigation_pier",
+          "display_name": "Charlevoix north navigation pier",
+          "municipality": "City of Charlevoix",
+          "owner_operator": "U.S. Army Corps of Engineers navigation structure",
+          "physical_route": "North side of the Pine River entrance; an exact lawful public approach was not conclusively mapped in the current reviewed records.",
+          "street_address": "Pine River Channel north side, Charlevoix, MI 49720",
+          "coordinates": {
+            "latitude": 45.3232,
+            "longitude": -85.2689,
+            "precision": "USCG north-pierhead/light context",
+            "source_id": "USCG_LIGHT_LIST"
+          },
+          "disposition": "access_hold_separate_from_south_pier",
+          "published_access_status": "Older city inventory describes both piers as fishing locations, but current route details were not resolved.",
+          "live_access_status": "Do not present as currently open until the approach and barriers are confirmed.",
+          "hours": "Unknown for the full pier.",
+          "passes_fees": "Unknown.",
+          "seasonal_limitations": "Large waves, ice, currents, navigation operations, and possible route restrictions.",
+          "construction_closure": "No current project closure found; absence of a notice is not proof of access.",
+          "source_ids": [
+            "CHARLEVOIX_PIERS",
+            "CHARLEVOIX_USACE",
+            "USCG_LIGHT_LIST",
+            "MI_BEACH_SAFETY"
+          ],
+          "unresolved_limitations": "Direct City/USACE route and surface confirmation required."
+        }
+      ]
+    },
+    {
+      "id": "caseville_mi",
+      "name": "Caseville",
+      "water_body": "Saginaw Bay",
+      "parent_great_lake": "Lake Huron",
+      "county": "Huron",
+      "ports": [
+        "CASEVILLE",
+        "CASEVILLE-PORT AUSTIN",
+        "CASEVILLE/PORT AUSTIN",
+        "CASEVILLE TO PORT AUSTIN"
+      ],
+      "structures": [
+        {
+          "city_id": "caseville_mi",
+          "structure_id": "pointe_park_breakwall",
+          "display_name": "Pointe Park boardwalk and breakwall fishing pier",
+          "municipality": "City of Caseville",
+          "owner_operator": "City of Caseville",
+          "physical_route": "Harbor Street to Pointe Park at the Pigeon River mouth.",
+          "street_address": "Harbor Street, Caseville, MI 48725",
+          "coordinates": {
+            "latitude": 43.9456,
+            "longitude": -83.2718,
+            "precision": "city/county facility map context",
+            "source_id": "CASEVILLE_PLAN"
+          },
+          "disposition": "covered",
+          "water_setting": "Mixed Pigeon River mouth, harbor edge, and Saginaw Bay-facing breakwall; do not describe every segment as open-bay pier water.",
+          "published_access_status": "City and county sources document boardwalk/breakwall shore fishing and accessible fishing.",
+          "live_access_status": "Published access only; verify current signs, ice, water levels, and construction.",
+          "hours": "Posted park/harbor rules control.",
+          "passes_fees": "No angler fee found; public parking documented.",
+          "seasonal_limitations": "Harbor traffic, ice, water level, and weather.",
+          "construction_closure": "No current closure found.",
+          "source_ids": [
+            "CASEVILLE_PLAN",
+            "CASEVILLE_EDC"
+          ],
+          "unresolved_limitations": "Confirm exact outer endpoint and current surface condition before release."
+        },
+        {
+          "city_id": "caseville_mi",
+          "structure_id": "municipal_harbor_designated_areas",
+          "display_name": "Caseville municipal harbor designated fishing areas",
+          "municipality": "City of Caseville",
+          "owner_operator": "City of Caseville municipal harbor",
+          "physical_route": "Municipal harbor at the Pigeon River mouth; use only surfaces affirmatively designated for public fishing.",
+          "street_address": "Caseville Municipal Harbor, Caseville, MI 48725",
+          "coordinates": {
+            "latitude": 43.9439,
+            "longitude": -83.271,
+            "precision": "city plan/facility context",
+            "source_id": "CASEVILLE_PLAN"
+          },
+          "disposition": "access_hold_separate_from_pointe_park",
+          "water_setting": "Protected municipal harbor and Pigeon River mouth, not automatically bay-facing pier water.",
+          "published_access_status": "City plan confirms harbor fishing generally, but no reviewed rule or map identifies the currently designated dock/basin surfaces.",
+          "live_access_status": "Do not represent marina docks or basin edges as open without current signs/harbormaster confirmation.",
+          "hours": "Unknown for fishing surfaces.",
+          "passes_fees": "No angler fee established; boating fees are not angler access evidence.",
+          "seasonal_limitations": "Dock installation, occupied slips, vessel movements, ice, festivals, and posted restrictions.",
+          "construction_closure": "No current project closure found.",
+          "source_ids": [
+            "CASEVILLE_PLAN"
+          ],
+          "unresolved_limitations": "Obtain current harbor rules, designated-area map, hours, and seasonal dock configuration before release."
+        }
+      ]
+    }
+  ]
+}

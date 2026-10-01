@@ -56,7 +56,11 @@ Deno.test("locked scores merge into today's live report without freezing environ
   assertEquals(after.requestedInterval, before.requestedInterval);
   assertEquals(after.waterTemperature, before.waterTemperature);
   assertEquals(after.headline, locked.headline);
-  assertEquals(after.species, locked.species);
+  assertEquals(
+    after.species.map(({ timeWindows: _timeWindows, ...species }) => species),
+    locked.species,
+  );
+  assertEquals(after.species[0]?.timeWindows, before.species[0]?.timeWindows);
   assertNotEquals(after.requestedInterval, locked.requestedInterval);
 });
 
@@ -124,6 +128,14 @@ Deno.test("missing daily snapshots withhold today's scores without withholding l
     assertEquals(
       city.dates[0]!.species.every((species) =>
         species.biological.status === "unavailable"
+      ),
+      true,
+    );
+    assertEquals(
+      city.dates[0]!.species.every((species) =>
+        species.timeWindows?.every((slot) =>
+          slot.biological.status === "unavailable"
+        )
       ),
       true,
     );

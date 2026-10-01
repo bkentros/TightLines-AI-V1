@@ -1,0 +1,61 @@
+{
+  "schema_version": "piercast-pass1-stocking-review-v1",
+  "reviewed_at": "2026-09-19",
+  "rule": "Stocking creates a management/occurrence lead but never by itself establishes covered-structure magnitude.",
+  "events": [
+    {
+      "city_id": "lexington_mi",
+      "species_id": "atlantic_salmon",
+      "date": "2024-04-22",
+      "number_stocked": 26667,
+      "life_stage": "yearling age-1",
+      "method": "shore stocking",
+      "coordinates": [
+        43.2675,
+        -82.5266
+      ],
+      "source_ids": [
+        "LEX_ATLANTIC_STOCK_2024"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "species_id": "steelhead",
+      "date": "2025-04-24",
+      "number_stocked": 11250,
+      "life_stage": "yearling age-1",
+      "method": "shore stocking",
+      "coordinates": null,
+      "source_ids": [
+        "HARRISVILLE_STEELHEAD_STOCK_2025"
+      ]
+    }
+  ],
+  "reviewed_non_events": [
+    {
+      "city_id": "harrisville_mi",
+      "species_id": "atlantic_salmon",
+      "finding": "2025 advisory minutes discuss Harrisville as a possible future Atlantic stocking site; no reviewed event established implementation.",
+      "source_ids": [
+        "HARRISVILLE_LHCFAC_2025"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "species_id": "coho_salmon",
+      "finding": "Advisory records discuss local fall fingerlings and exact dock catches, but Pass 2 must reconcile the event record and returns before magnitude work.",
+      "source_ids": [
+        "HARRISVILLE_LHCFAC_2025"
+      ]
+    },
+    {
+      "city_id": "st_joseph_mi",
+      "species_id": "steelhead",
+      "finding": "Connected-river stocking is not transferred to pier magnitude; exact-pier agency inventory remains the biological basis.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_METHOD"
+      ]
+    }
+  ]
+}

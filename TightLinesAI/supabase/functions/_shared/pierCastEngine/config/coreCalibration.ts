@@ -6,7 +6,10 @@ import type {
   PierCastTemperatureCurve,
 } from "../types.ts";
 import { PIER_CAST_CORE_SEASONAL_CURVES } from "./coreSeasonal.generated.ts";
-import { PIER_CAST_FROZEN_SPECIES_IDS } from "./scope.ts";
+import {
+  PIER_CAST_FROZEN_CITY_IDS,
+  PIER_CAST_FROZEN_SPECIES_IDS,
+} from "./scope.ts";
 
 export const PIER_CAST_SEASONAL_CALIBRATION_VERSION =
   "piercast-core-seasonal-v0.4.0";
@@ -315,14 +318,17 @@ export const PIER_CAST_LMHOFS_CANDIDATE_LOCATIONS = {
     },
     gridCellStatus: "candidate",
   },
-} as const satisfies Record<PierCastCityId, PierCastConfiguredLocation>;
+} as const satisfies Record<
+  (typeof PIER_CAST_FROZEN_CITY_IDS)[number],
+  PierCastConfiguredLocation
+>;
 
 type ValidationObservation = NonNullable<
   PierCastCityTemperatureSource["validationObservation"]
 >;
 
 function lmhofsSource(
-  cityId: PierCastCityId,
+  cityId: keyof typeof PIER_CAST_LMHOFS_CANDIDATE_LOCATIONS,
   validationObservation: ValidationObservation | null,
   limitation: string,
 ): PierCastCityTemperatureSource {
@@ -398,4 +404,7 @@ export const PIER_CAST_CITY_TEMPERATURE_SOURCES = {
     },
     "The frozen lake-side candidate must be compared with the seasonal Sheboygan Panther buoy and must not be represented as harbor, river-plume, or pier-depth measurement.",
   ),
-} as const satisfies Record<PierCastCityId, PierCastCityTemperatureSource>;
+} as const satisfies Record<
+  (typeof PIER_CAST_FROZEN_CITY_IDS)[number],
+  PierCastCityTemperatureSource
+>;

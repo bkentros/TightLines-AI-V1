@@ -227,7 +227,12 @@ export const MANITOWOC_RIVER_PROFILE: RiverProfile = {
     corridorLengthMiles: 19,
     downstreamTerminus: "Manitowoc River mouth at Lake Michigan",
     upstreamTerminus: "Clarks Mills first-barrier corridor",
-    targetSpecies: ["chinook_salmon", "coho_salmon", "lake_run_brown_trout"],
+    targetSpecies: [
+      "chinook_salmon",
+      "coho_salmon",
+      "steelhead",
+      "lake_run_brown_trout",
+    ],
     reaches: [
       {
         reachId: "manitowoc_lower_river",
@@ -282,7 +287,7 @@ export const MANITOWOC_RIVER_PROFILE: RiverProfile = {
         "Wisconsin DNR current regulations and access material; recheck at release.",
     }],
     evidenceNotes:
-      "Recurring direct stocking and Wisconsin DNR species evidence support Chinook, coho, and lake-run brown trout. No river-specific Skamania return was established, so steelhead is deferred.",
+      "Recurring direct stocking and Wisconsin DNR species evidence support Chinook, Coho, Steelhead, and lake-run Brown Trout independently. DNR identifies Manitowoc as a popular Steelhead stream and groups it among the south large rivers represented in current coded-wire-tag returns. The Steelhead foundation does not claim a river-specific adult count or convert stocking into abundance.",
   },
   conditionRefreshSchedule: {
     activeSlots: ACTIVE_SLOTS,
@@ -724,6 +729,15 @@ const greatLakesBrownTemperature: PushRules["temperature"] = {
   tooWarmF: 64,
   migrationBarrierF: 70,
 };
+const greatLakesSteelheadTemperature: PushRules["temperature"] = {
+  suitabilityLabel: "fall Steelhead movement range",
+  coldHoldingF: 39,
+  preferredMinF: 46,
+  supportiveMinF: 40,
+  supportiveMaxF: 52,
+  tooWarmF: 60,
+  migrationBarrierF: 70,
+};
 const shared = (
   riverId: string,
   fishabilityBands: FishabilityBands,
@@ -736,10 +750,10 @@ const shared = (
   fishabilityBands,
   baselineCoverage,
   publicAudit: {
-    isEnabled: false,
-    auditVersion: `${riverId}-owner-review-ready-v2`,
+    isEnabled: true,
+    auditVersion: `${riverId}-public-release-v1`,
     notes:
-      "Hidden owner-review candidate only; no public release is authorized.",
+      "Public release authorized September 15, 2026 after the completed river foundation, activity replay, rendered owner review, and installed-client compatibility checks.",
   },
 });
 const clackShared = shared(
@@ -1009,6 +1023,73 @@ export const MANITOWOC_FALL_COHO: AuditedRiverRunProfile = {
     "Independently timed coho product; stocking is evidence of recurring presence, not adult abundance.",
   sourceNotes: "docs/onboarding/river-run/manitowoc/river-onboarding.md",
 };
+export const MANITOWOC_FALL_STEELHEAD: AuditedRiverRunProfile = {
+  ...manShared,
+  runId: "manitowoc_fall_steelhead",
+  biologyProfileId: "great_lakes_steelhead_fall_entry_v1",
+  displayName: "Fall Steelhead",
+  species: "steelhead",
+  runType: "fall_entry",
+  movementEngineId: "fall_entry_cooling",
+  seasonalZoneReachIds: [
+    "manitowoc_lower_river",
+    "manitowoc_middle_river",
+    "manitowoc_upper_corridor",
+  ],
+  runWindow: {
+    preRunStart: "08-15",
+    stagingStart: "09-01",
+    start: "09-15",
+    beginningEnd: "09-30",
+    buildingEstablishedStart: "10-01",
+    buildingBroadStart: "10-15",
+    peakStart: "11-01",
+    peak: "11-15",
+    peakEnd: "12-01",
+    taperingEnd: "12-08",
+    end: "12-15",
+    lateEnd: "12-31",
+    postRunLateCopyEnd: "01-15",
+  },
+  historicalPresence: presence(
+    6,
+    "manitowoc-steelhead-fall-presence-pass1-v1",
+    [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
+      { dayOffsetFromStart: 15, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 30, fractionOfMaximum: .55 },
+      { dayOffsetFromStart: 45, fractionOfMaximum: .82 },
+      { dayOffsetFromStart: 61, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 76, fractionOfMaximum: .84 },
+      { dayOffsetFromStart: 91, fractionOfMaximum: .62 },
+    ],
+    "A conservative 6/10 sectional ceiling reflects Wisconsin DNR's identification of Manitowoc as a popular Steelhead stream, recurring south-large-river stocking/return evidence, and strain timing that extends fall entry into December. No qualifying Manitowoc adult count feed supports a higher ceiling.",
+    "Wisconsin DNR Rainbow Trout/Steelhead profile, Root River 2024-2025 coded-wire-tag report, 2024 Lake Michigan stocking summary, current regulations, and Manitowoc tributary access material.",
+  ),
+  activity: manActivity(
+    "manitowoc-steelhead-hydraulic-activity-pass1-v1",
+    "steelhead_feeding",
+  ),
+  push: directPush({
+    version: "manitowoc-fall-steelhead-direct-push-v1",
+    fishability: manFish,
+    hydraulic: [11, 8.9, 37, 21.3, 99, 48.2],
+    temperature: greatLakesSteelheadTemperature,
+    temperatureMode: "disabled",
+    sourceNotes:
+      "USGS 04085427 measured flow at Michigan Avenue; the discontinued temperature series is historical context only and never drives current Push.",
+  }),
+  researchNotes:
+    "Wisconsin winter Pass 1 prerequisite. This independently supported fall-entry profile ends December 15 so a future winter Steelhead experience can begin December 16 without overlap. Lower Cato Falls closes October 31 and cannot be a winter recommendation. Production release remains controlled by the explicit run allowlist.",
+  sourceNotes:
+    "docs/onboarding/river-run/wisconsin-winter-2026-pass1.md and docs/onboarding/river-run/manitowoc/river-onboarding.md",
+  publicAudit: {
+    isEnabled: true,
+    auditVersion: "manitowoc-fall-steelhead-pass1-foundation-v1",
+    notes:
+      "Pass 1 accepts recurrence, lifecycle, calendar, corridor, and source contracts. Historical Activity replay and release authorization remain later gates.",
+  },
+};
 export const MANITOWOC_FALL_BROWN: AuditedRiverRunProfile = {
   ...manShared,
   runId: "manitowoc_fall_brown_trout",
@@ -1273,6 +1354,7 @@ export const FALL_2026_DRAFT_RUNS = [
   CLACKAMAS_FALL_COHO,
   MANITOWOC_FALL_CHINOOK,
   MANITOWOC_FALL_COHO,
+  MANITOWOC_FALL_STEELHEAD,
   MANITOWOC_FALL_BROWN,
   OSWEGO_FALL_CHINOOK,
   OSWEGO_FALL_COHO,
@@ -1295,18 +1377,25 @@ export const FALL_2026_DRAFT_CONFIGURATION_DOCUMENTS:
     },
     {
       schemaVersion: "river-run-config-v1",
-      configVersion: "2026-09-03-manitowoc-direct-push-v1",
+      configVersion: "2026-09-28-manitowoc-winter-pass1-foundation-v1",
       movementEngineVersion: [
         getMovementEngineDefinition("fall_cooling").version,
+        getMovementEngineDefinition("fall_entry_cooling").version,
         getMovementEngineDefinition("fall_repeat_spawner_cooling").version,
       ].join("+"),
       river: MANITOWOC_RIVER_PROFILE,
       biologyProfiles: [
         GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
         GREAT_LAKES_COHO_BIOLOGY_PROFILE,
+        GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
         GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
       ],
-      runs: [MANITOWOC_FALL_CHINOOK, MANITOWOC_FALL_COHO, MANITOWOC_FALL_BROWN],
+      runs: [
+        MANITOWOC_FALL_CHINOOK,
+        MANITOWOC_FALL_COHO,
+        MANITOWOC_FALL_STEELHEAD,
+        MANITOWOC_FALL_BROWN,
+      ],
     },
     {
       schemaVersion: "river-run-config-v1",

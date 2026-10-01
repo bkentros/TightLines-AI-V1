@@ -1,0 +1,339 @@
+{
+  "finding": "Existing hard Prime corroboration threshold remains discontinuous after seasonal interpolation. Constant weather: Feb 28 to Mar 1 2026.",
+  "trace": [
+    {
+      "version": 2,
+      "date": "2026-03-01",
+      "before": {
+        "score": 88,
+        "band": "Prime",
+        "contributions": [
+          {
+            "key": "temperature_condition",
+            "score": 1.6758,
+            "label": "Temperatures are a bit elevated for the calendar, but still supportive in this read.",
+            "weight": 30.61719833564494,
+            "weightedContribution": 51.30830097087379
+          },
+          {
+            "key": "pressure_regime",
+            "score": 0.17,
+            "label": "Slow rise after weather: bites can rebuild as conditions calm down.",
+            "weight": 19.417475728155342,
+            "weightedContribution": 3.3009708737864085
+          },
+          {
+            "key": "wind_condition",
+            "score": 0.7623,
+            "label": "Gentle wind window \u2014 ideal for covering water without fighting the elements.",
+            "weight": 17.47572815533981,
+            "weightedContribution": 13.321747572815536
+          },
+          {
+            "key": "light_cloud_condition",
+            "score": 0.1948,
+            "label": "Light is average for the date \u2014 no major glare or shade story.",
+            "weight": 19.417475728155342,
+            "weightedContribution": 3.7825242718446606
+          },
+          {
+            "key": "precipitation_disruption",
+            "score": 0.1,
+            "label": "Minor rain/snow signal \u2014 monitor visibility more than volume.",
+            "weight": 13.072122052704577,
+            "weightedContribution": 1.3072122052704578
+          }
+        ],
+        "drivers": [
+          {
+            "key": "temperature_condition",
+            "score": 1.6758,
+            "label": "Temperatures are a bit elevated for the calendar, but still supportive in this read.",
+            "weight": 30.61719833564494,
+            "weightedContribution": 51.30830097087379
+          },
+          {
+            "key": "wind_condition",
+            "score": 0.7623,
+            "label": "Gentle wind window \u2014 ideal for covering water without fighting the elements.",
+            "weight": 17.47572815533981,
+            "weightedContribution": 13.321747572815536
+          }
+        ],
+        "suppressors": [],
+        "normalized": {
+          "location": {
+            "latitude": 25.9017,
+            "longitude": -97.4975,
+            "state_code": "TX",
+            "region_key": "gulf_coast",
+            "local_date": "2026-02-28",
+            "local_timezone": "America/Chicago"
+          },
+          "context": "freshwater_lake_pond",
+          "normalized": {
+            "temperature": {
+              "context_group": "freshwater",
+              "measurement_source": "air_daily_mean",
+              "source_quality": "daily_air_proxy",
+              "history_span_hours": 48,
+              "cold_light_relief": 0,
+              "measurement_value_f": 74.9,
+              "band_label": "warm",
+              "band_score": 1.8064285714285713,
+              "trend_label": "stable",
+              "trend_adjustment": 0,
+              "shock_label": "none",
+              "shock_adjustment": 0,
+              "regional_calibration_adjustment": 0,
+              "final_score": 1.6758
+            },
+            "pressure_regime": {
+              "label": "rising_slow",
+              "score": 0.17,
+              "detail": "+1.0 mb/24h"
+            },
+            "wind_condition": {
+              "label": "moderate",
+              "score": 0.7623,
+              "detail": "7 mph"
+            },
+            "light_cloud_condition": {
+              "label": "mixed",
+              "score": 0.1948,
+              "detail": "55% cloud \u2014 mixed_mid_cloud"
+            },
+            "precipitation_disruption": {
+              "label": "extended_dry",
+              "score": 0.1
+            }
+          },
+          "available_variables": [
+            "temperature_condition",
+            "pressure_regime",
+            "wind_condition",
+            "light_cloud_condition",
+            "precipitation_disruption"
+          ],
+          "missing_variables": [],
+          "data_gaps": [],
+          "reliability": "high"
+        },
+        "legacy_score": 73,
+        "legacy_band": "Good",
+        "prime_disqualification_reasons": []
+      },
+      "after": {
+        "score": 79,
+        "band": "Good",
+        "contributions": [
+          {
+            "key": "temperature_condition",
+            "score": 1.67,
+            "label": "The temperature setup points toward a more usable window than a sharp change would.",
+            "weight": 30.582524271844658,
+            "weightedContribution": 51.072815533980574
+          },
+          {
+            "key": "pressure_regime",
+            "score": 0.17,
+            "label": "Gentle pressure rebound \u2014 patience pays as fish settle back in.",
+            "weight": 19.41747572815534,
+            "weightedContribution": 3.3009708737864076
+          },
+          {
+            "key": "wind_condition",
+            "score": 0.7623,
+            "label": "Manageable wind: you can still work structure methodically.",
+            "weight": 17.475728155339805,
+            "weightedContribution": 13.321747572815534
+          },
+          {
+            "key": "light_cloud_condition",
+            "score": 0.1948,
+            "label": "Sky conditions are middle-of-the-pack; neither a major help nor a problem.",
+            "weight": 19.41747572815534,
+            "weightedContribution": 3.78252427184466
+          },
+          {
+            "key": "precipitation_disruption",
+            "score": 0.1,
+            "label": "Light precip in the mix \u2014 enough to note, not enough to reset the whole system.",
+            "weight": 13.106796116504855,
+            "weightedContribution": 1.3106796116504855
+          }
+        ],
+        "drivers": [
+          {
+            "key": "temperature_condition",
+            "score": 1.67,
+            "label": "The temperature setup points toward a more usable window than a sharp change would.",
+            "weight": 30.582524271844658,
+            "weightedContribution": 51.072815533980574
+          },
+          {
+            "key": "wind_condition",
+            "score": 0.7623,
+            "label": "Manageable wind: you can still work structure methodically.",
+            "weight": 17.475728155339805,
+            "weightedContribution": 13.321747572815534
+          }
+        ],
+        "suppressors": [],
+        "normalized": {
+          "location": {
+            "latitude": 25.9017,
+            "longitude": -97.4975,
+            "state_code": "TX",
+            "region_key": "gulf_coast",
+            "local_date": "2026-03-01",
+            "local_timezone": "America/Chicago"
+          },
+          "context": "freshwater_lake_pond",
+          "normalized": {
+            "temperature": {
+              "context_group": "freshwater",
+              "measurement_source": "air_daily_mean",
+              "source_quality": "daily_air_proxy",
+              "history_span_hours": 48,
+              "cold_light_relief": 0,
+              "measurement_value_f": 74.9,
+              "band_label": "warm",
+              "band_score": 1.7999999999999998,
+              "trend_label": "stable",
+              "trend_adjustment": 0,
+              "shock_label": "none",
+              "shock_adjustment": 0,
+              "regional_calibration_adjustment": 0,
+              "final_score": 1.67
+            },
+            "pressure_regime": {
+              "label": "rising_slow",
+              "score": 0.17,
+              "detail": "+1.0 mb/24h"
+            },
+            "wind_condition": {
+              "label": "moderate",
+              "score": 0.7623,
+              "detail": "7 mph"
+            },
+            "light_cloud_condition": {
+              "label": "mixed",
+              "score": 0.1948,
+              "detail": "55% cloud \u2014 mixed_mid_cloud"
+            },
+            "precipitation_disruption": {
+              "label": "extended_dry",
+              "score": 0.1
+            }
+          },
+          "available_variables": [
+            "temperature_condition",
+            "pressure_regime",
+            "wind_condition",
+            "light_cloud_condition",
+            "precipitation_disruption"
+          ],
+          "missing_variables": [],
+          "data_gaps": [],
+          "reliability": "high"
+        },
+        "legacy_score": 73,
+        "legacy_band": "Good",
+        "prime_disqualification_reasons": [
+          "freshwater_temp_dominated_prime_needs_more_corrob"
+        ]
+      },
+      "timing_before": {
+        "anchor_driver": "light_window",
+        "timing_strength": "strong",
+        "highlighted_periods": [
+          false,
+          false,
+          false,
+          true
+        ],
+        "daypart_preset": "warmest_part_may_help",
+        "daypart_note": "Hourly cloud cover makes one low-light transition better than the other. Give that side of the clock the first look.",
+        "fallback_used": false,
+        "trace": {
+          "family_id": "lake_hot_winter",
+          "family_id_secondary": null,
+          "month_blend_t": null,
+          "context": "freshwater_lake_pond",
+          "region": "gulf_coast",
+          "month": 2,
+          "climate_zone": "hot_humid",
+          "season": "winter",
+          "primary_driver": "seek_warmth",
+          "primary_qualified": false,
+          "primary_signal": null,
+          "secondary_driver": "light_window",
+          "secondary_qualified": true,
+          "secondary_signal": {
+            "driver_id": "light_window",
+            "role": "anchor",
+            "strength": "strong",
+            "periods": [
+              false,
+              false,
+              false,
+              true
+            ],
+            "note_pool_key": "low_light_geometry_shaped",
+            "debug_reason": "light_window: low_light_geometry qualified. low_light_geometry hourly: dawnMean=100% eveMean=9% \u2192 dawn=false eve=true"
+          },
+          "secondary_role": "anchor",
+          "fallback_bias": "morning_afternoon",
+          "fallback_used": false,
+          "selection_reason": "priority_ladder considered: primary=seek_warmth; heat=no; warmth=no; shaped_light=yes; tide=no. freshwater ladder selected shaped light_window. "
+        }
+      },
+      "timing_after": {
+        "anchor_driver": "light_window",
+        "timing_strength": "strong",
+        "highlighted_periods": [
+          false,
+          false,
+          false,
+          true
+        ],
+        "daypart_preset": "warmest_part_may_help",
+        "daypart_note": "Hourly cloud cover makes one low-light transition better than the other. Give that side of the clock the first look.",
+        "fallback_used": false,
+        "trace": {
+          "family_id": "lake_hot_spring",
+          "family_id_secondary": null,
+          "month_blend_t": null,
+          "context": "freshwater_lake_pond",
+          "region": "gulf_coast",
+          "month": 3,
+          "climate_zone": "hot_humid",
+          "season": "spring",
+          "primary_driver": "light_window",
+          "primary_qualified": true,
+          "primary_signal": {
+            "driver_id": "light_window",
+            "role": "anchor",
+            "strength": "strong",
+            "periods": [
+              false,
+              false,
+              false,
+              true
+            ],
+            "note_pool_key": "low_light_geometry_shaped",
+            "debug_reason": "light_window: low_light_geometry qualified. low_light_geometry hourly: dawnMean=100% eveMean=9% \u2192 dawn=false eve=true"
+          },
+          "secondary_driver": "neutral_fallback",
+          "secondary_qualified": false,
+          "secondary_signal": null,
+          "secondary_role": "not_applicable",
+          "fallback_bias": "dawn_evening",
+          "fallback_used": false,
+          "selection_reason": "priority_ladder considered: primary=light_window; heat=no; warmth=no; shaped_light=yes; tide=no. freshwater ladder selected shaped light_window. "
+        }
+      }
+    }
+  ]
+}

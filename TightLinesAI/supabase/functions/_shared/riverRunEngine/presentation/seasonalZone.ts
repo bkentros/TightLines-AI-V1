@@ -15,6 +15,11 @@ export type RiverRunSeasonalZone = {
     phase: "before_migration" | "beginning";
     accessRecommendation: false;
   };
+  winterHoldingGuidance?: {
+    preferredStartReachIds: string[];
+    activityScopeCopy: string;
+    allCorridorSectionsViable: true;
+  };
   basis: "seasonal_calendar";
   orientationOnly: true;
 };
@@ -75,10 +80,25 @@ export function resolveSeasonalZone(input: {
       accessRecommendation: false as const,
     }
     : undefined;
+  const plannedReachIdSet = new Set(
+    plannedReaches.map((reach) => reach.reachId),
+  );
+  const winterHoldingGuidance = input.run.seasonalZonePlan
+      .winterHoldingGuidance
+    ? {
+      preferredStartReachIds: input.run.seasonalZonePlan.winterHoldingGuidance
+        .preferredStartReachIds.filter((reachId) =>
+          plannedReachIdSet.has(reachId)
+        ),
+      activityScopeCopy:
+        input.run.seasonalZonePlan.winterHoldingGuidance.activityScopeCopy,
+      allCorridorSectionsViable: true as const,
+    }
+    : undefined;
   if (plannedReaches.length === 0) {
     return zone("active", "No audited phase reach in this view", [], approach);
   }
-  return reachZone(plannedReaches, approach);
+  return reachZone(plannedReaches, approach, winterHoldingGuidance);
 }
 
 function plannedPhaseReachIds(input: {
@@ -118,6 +138,7 @@ function plannedPhaseReachIds(input: {
 function reachZone(
   reaches: RiverFoundationReach[],
   earlyApproach?: RiverRunSeasonalZone["earlyApproach"],
+  winterHoldingGuidance?: RiverRunSeasonalZone["winterHoldingGuidance"],
 ): RiverRunSeasonalZone {
   if (reaches.length === 0) {
     return zone("active", "Accessible migration corridor", []);
@@ -131,6 +152,7 @@ function reachZone(
     label,
     reaches.map((reach) => reach.reachId),
     earlyApproach,
+    winterHoldingGuidance,
   );
 }
 
@@ -146,12 +168,14 @@ function zone(
   label: string,
   foundationReachIds: string[],
   earlyApproach?: RiverRunSeasonalZone["earlyApproach"],
+  winterHoldingGuidance?: RiverRunSeasonalZone["winterHoldingGuidance"],
 ): RiverRunSeasonalZone {
   return {
     status,
     label,
     foundationReachIds,
     ...(earlyApproach ? { earlyApproach } : {}),
+    ...(winterHoldingGuidance ? { winterHoldingGuidance } : {}),
     basis: "seasonal_calendar",
     orientationOnly: true,
   };

@@ -240,7 +240,12 @@ Deno.test("disconnected or sensorless rivers remain explicitly excluded", () => 
       assertEquals(run.push, undefined, run.runId);
       if (capability.status !== "unavailable") continue;
       if (document.river.riverId === "betsie") {
-        assertMatch(capability.notes, /neither is accepted/i);
+        assertMatch(
+          capability.notes,
+          run.runType === "holding"
+            ? /does not claim a fresh migratory push/i
+            : /neither is accepted/i,
+        );
       } else if (document.river.riverId === "platte") {
         assertMatch(
           document.river.gaugeLimitationCopy,

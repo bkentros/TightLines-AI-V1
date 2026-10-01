@@ -167,12 +167,35 @@ with tempfile.TemporaryDirectory(prefix="color-picker-pg-", dir="/tmp") as tmp:
         blocked(lambda: pier(key.replace("09-13","09-14")))
         pier("different:2026-09-13", user_id=other_user)
         assert sql(f"select count(*) from public.feature_report_trials where user_id='{user}'") == "2"
+        sql((root / "supabase/migrations/20260917120000_four_free_pier_cast_reports.sql").read_text())
+        assert sql(f"select count(*) from public.pier_cast_report_claims where user_id='{user}'") == "1"
+        def new_pier(key, payload="{}", user_id=user):
+            return sql(f"set role service_role; select public.claim_pier_cast_report('{user_id}','{key}','{payload}'::jsonb)")
+        assert json.loads(new_pier(key, '{"conditions":"refreshed"}'))["conditions"] == "refreshed"
+        for extra_key in ["ludington:2026-09-14", "grandhaven:2026-09-14"]:
+            new_pier(extra_key)
+        def fourth_attempt(candidate):
+            try:
+                new_pier(candidate)
+                return candidate
+            except subprocess.CalledProcessError as error:
+                assert "subscription_required" in error.stderr
+                return None
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            fourth_results = list(executor.map(fourth_attempt, ["ludington:2026-09-15", "grandhaven:2026-09-15"]))
+        assert len([candidate for candidate in fourth_results if candidate]) == 1
+        assert sql(f"select count(*) from public.pier_cast_report_claims where user_id='{user}'") == "4"
+        blocked(lambda: new_pier("ludington:2026-09-16"))
+        new_pier("different:2026-09-14", user_id=other_user)
+        blocked(lambda: pier("old-rpc:2026-09-14"))
         for role in ["anon", "authenticated"]:
             blocked(lambda: sql(f"set role {role}; delete from public.feature_report_trials"), "permission denied")
             blocked(lambda: sql(f"set role {role}; select * from public.feature_report_trials"), "permission denied")
             blocked(lambda: sql(f"set role {role}; select public.claim_feature_report_trial('{user}','pier_cast','x','{{}}')"), "permission denied")
+            blocked(lambda: sql(f"set role {role}; select * from public.pier_cast_report_claims"), "permission denied")
+            blocked(lambda: sql(f"set role {role}; select public.claim_pier_cast_report('{user}','x','{{}}')"), "permission denied")
             blocked(lambda: sql(f"set role {role}; select public.commit_color_picker_report_with_trial('{user}','{{}}',false)"), "permission denied")
-        print("PASS: lifetime Color Match/PierCast claims, concurrent requests, expiry, refresh, upgrade/downgrade, isolation, rollback and permissions")
+        print("PASS: lifetime Color Match and four PierCast reports, legacy migration, refresh, isolation and permissions")
 
         print("PASS: privacy redaction/enforcement, clarity-scoped daily lock, 8 concurrent commits, validation, replay, isolation, and permissions")
     finally:

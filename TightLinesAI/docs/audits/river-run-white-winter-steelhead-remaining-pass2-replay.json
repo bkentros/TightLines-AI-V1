@@ -1,0 +1,887 @@
+{
+  "auditVersion": "white-winter-steelhead-pass2-replay-v1",
+  "runId": "white_winter_steelhead",
+  "rulesVersion": "white-winter-steelhead-activity-v1",
+  "mode": "measured_water",
+  "replayYears": "2022-2025",
+  "sourceMethod": {
+    "weather": "Open-Meteo archived hourly radiation, clear-sky radiation, cloud, precipitation, is_day, and 2 m air temperature at white_pines_point_weather; UTC hours converted through America/Detroit historical time rules.",
+    "hydraulics": "USGS 04122200 approved daily mean discharge, used only for its configured reach.",
+    "waterTemperature": "Configured measured series white_weaver_st_temperature via Monitor My Watershed; daily medians with source-consistent 24/72-hour trend. Air remains context only."
+  },
+  "expectedDays": 248,
+  "usableDays": 236,
+  "coveragePercent": 95.16,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "measuredWaterTemperature": 4,
+    "measuredWaterHistory": 7,
+    "hourlyWeather": 1,
+    "airTemperatureHistory": 0
+  },
+  "dayScore": {
+    "min": 29,
+    "p10": 29,
+    "median": 49,
+    "p90": 75,
+    "max": 85,
+    "mean": 50.31
+  },
+  "blockScore": {
+    "min": 29,
+    "p10": 29,
+    "median": 49,
+    "p90": 75,
+    "max": 85,
+    "mean": 50.19
+  },
+  "dayLabels": {
+    "Active": 85,
+    "Highly active": 11,
+    "Moderate": 47,
+    "Reserved": 93
+  },
+  "byMonth": {
+    "December": {
+      "days": 11,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 72,
+        "p90": 80,
+        "max": 85,
+        "mean": 63
+      },
+      "labels": {
+        "Active": 5,
+        "Highly active": 2,
+        "Moderate": 2,
+        "Reserved": 2
+      }
+    },
+    "February": {
+      "days": 108,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 49,
+        "p90": 75,
+        "max": 85,
+        "mean": 50.05
+      },
+      "labels": {
+        "Active": 37,
+        "Highly active": 4,
+        "Moderate": 26,
+        "Reserved": 41
+      }
+    },
+    "January": {
+      "days": 117,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 49,
+        "p90": 73,
+        "max": 83,
+        "mean": 49.37
+      },
+      "labels": {
+        "Active": 43,
+        "Highly active": 5,
+        "Moderate": 19,
+        "Reserved": 50
+      }
+    }
+  },
+  "byWinterSeason": {
+    "2022": {
+      "days": 62,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 62,
+        "p90": 78,
+        "max": 83,
+        "mean": 58.08
+      },
+      "labels": {
+        "Active": 31,
+        "Highly active": 5,
+        "Moderate": 15,
+        "Reserved": 11
+      }
+    },
+    "2023": {
+      "days": 62,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 68,
+        "p90": 76,
+        "max": 85,
+        "mean": 60.44
+      },
+      "labels": {
+        "Active": 37,
+        "Highly active": 4,
+        "Moderate": 9,
+        "Reserved": 12
+      }
+    },
+    "2024": {
+      "days": 54,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 73,
+        "max": 85,
+        "mean": 41.89
+      },
+      "labels": {
+        "Active": 8,
+        "Highly active": 2,
+        "Moderate": 13,
+        "Reserved": 31
+      }
+    },
+    "2025": {
+      "days": 58,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 68,
+        "max": 72,
+        "mean": 39.03
+      },
+      "labels": {
+        "Active": 9,
+        "Moderate": 10,
+        "Reserved": 39
+      }
+    }
+  },
+  "byStage": {
+    "beginning": {
+      "days": 37,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 66,
+        "p90": 76,
+        "max": 85,
+        "mean": 60.62
+      },
+      "labels": {
+        "Active": 21,
+        "Highly active": 3,
+        "Moderate": 7,
+        "Reserved": 6
+      }
+    },
+    "building": {
+      "days": 147,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 72,
+        "max": 84,
+        "mean": 46.12
+      },
+      "labels": {
+        "Active": 46,
+        "Highly active": 5,
+        "Moderate": 20,
+        "Reserved": 76
+      }
+    },
+    "ending": {
+      "days": 7,
+      "scores": {
+        "min": 59,
+        "p10": 59,
+        "median": 73,
+        "p90": 80,
+        "max": 83,
+        "mean": 70.86
+      },
+      "labels": {
+        "Active": 3,
+        "Highly active": 2,
+        "Moderate": 2
+      }
+    },
+    "peak": {
+      "days": 37,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 50,
+        "p90": 75,
+        "max": 85,
+        "mean": 52.38
+      },
+      "labels": {
+        "Active": 13,
+        "Highly active": 1,
+        "Moderate": 14,
+        "Reserved": 9
+      }
+    },
+    "tapering": {
+      "days": 8,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 59,
+        "p90": 71,
+        "max": 72,
+        "mean": 52.13
+      },
+      "labels": {
+        "Active": 2,
+        "Moderate": 4,
+        "Reserved": 2
+      }
+    }
+  },
+  "byAirPattern": null,
+  "byTargetAirBand": null,
+  "byMeasuredWaterBand": {
+    "35To38F": {
+      "days": 73,
+      "scores": {
+        "min": 49,
+        "p10": 55,
+        "median": 64,
+        "p90": 71,
+        "max": 80,
+        "mean": 63.68
+      },
+      "labels": {
+        "Active": 53,
+        "Highly active": 1,
+        "Moderate": 19
+      }
+    },
+    "38To45F": {
+      "days": 42,
+      "scores": {
+        "min": 68,
+        "p10": 72,
+        "median": 75,
+        "p90": 83,
+        "max": 85,
+        "mean": 75.76
+      },
+      "labels": {
+        "Active": 32,
+        "Highly active": 10
+      }
+    },
+    "above33_5To35F": {
+      "days": 29,
+      "scores": {
+        "min": 37,
+        "p10": 44,
+        "median": 49,
+        "p90": 49,
+        "max": 49,
+        "mean": 47.41
+      },
+      "labels": {
+        "Moderate": 28,
+        "Reserved": 1
+      }
+    },
+    "atOrBelow33_5F": {
+      "days": 92,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 29,
+        "max": 29,
+        "mean": 29
+      },
+      "labels": {
+        "Reserved": 92
+      }
+    }
+  },
+  "byMeasuredWaterTrend": {
+    "cooling": {
+      "days": 43,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 53,
+        "p90": 72,
+        "max": 80,
+        "mean": 53.3
+      },
+      "labels": {
+        "Active": 14,
+        "Highly active": 1,
+        "Moderate": 20,
+        "Reserved": 8
+      }
+    },
+    "neutral": {
+      "days": 141,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 71,
+        "max": 78,
+        "mean": 43.28
+      },
+      "labels": {
+        "Active": 41,
+        "Moderate": 18,
+        "Reserved": 82
+      }
+    },
+    "strong_cooling": {
+      "days": 8,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 41,
+        "p90": 51,
+        "max": 57,
+        "mean": 41.25
+      },
+      "labels": {
+        "Moderate": 5,
+        "Reserved": 3
+      }
+    },
+    "strong_warming": {
+      "days": 19,
+      "scores": {
+        "min": 56,
+        "p10": 61,
+        "median": 72,
+        "p90": 76,
+        "max": 83,
+        "mean": 70.16
+      },
+      "labels": {
+        "Active": 17,
+        "Highly active": 1,
+        "Moderate": 1
+      }
+    },
+    "warming": {
+      "days": 25,
+      "scores": {
+        "min": 49,
+        "p10": 59,
+        "median": 75,
+        "p90": 84,
+        "max": 85,
+        "mean": 72.68
+      },
+      "labels": {
+        "Active": 13,
+        "Highly active": 9,
+        "Moderate": 3
+      }
+    }
+  },
+  "byFlowBand": {
+    "high_fishable": {
+      "days": 78,
+      "scores": {
+        "min": 29,
+        "p10": 41,
+        "median": 65,
+        "p90": 78,
+        "max": 85,
+        "mean": 62.53
+      },
+      "labels": {
+        "Active": 48,
+        "Highly active": 6,
+        "Moderate": 17,
+        "Reserved": 7
+      }
+    },
+    "ideal": {
+      "days": 146,
+      "scores": {
+        "min": 29,
+        "p10": 29,
+        "median": 29,
+        "p90": 72,
+        "max": 85,
+        "mean": 43.29
+      },
+      "labels": {
+        "Active": 32,
+        "Highly active": 5,
+        "Moderate": 24,
+        "Reserved": 85
+      }
+    },
+    "very_high": {
+      "days": 12,
+      "scores": {
+        "min": 37,
+        "p10": 44,
+        "median": 58,
+        "p90": 69,
+        "max": 72,
+        "mean": 56.42
+      },
+      "labels": {
+        "Active": 5,
+        "Moderate": 6,
+        "Reserved": 1
+      }
+    }
+  },
+  "cloudWindowAudit": {
+    "daysWithAtLeast40PointCloudContrast": 54,
+    "cloudierHigher": 25,
+    "tied": 29,
+    "cloudierLower": 0,
+    "scoreDifference": {
+      "min": 0,
+      "p10": 0,
+      "median": 0,
+      "p90": 5,
+      "max": 8,
+      "mean": 2
+    }
+  },
+  "spread": {
+    "min": 0,
+    "p10": 0,
+    "median": 0,
+    "p90": 3,
+    "max": 8,
+    "mean": 0.8
+  },
+  "topActivityDays": [
+    {
+      "date": "2024-02-23",
+      "score": 85,
+      "label": "Highly active",
+      "flowCfs": 431,
+      "flowBand": "ideal",
+      "waterTempF": 40.1,
+      "targetAirMeanF": 31.43,
+      "airDeltaF": -6.49,
+      "airPattern": "large_swing",
+      "bestBlock": "11-15",
+      "spread": 1
+    },
+    {
+      "date": "2024-12-29",
+      "score": 85,
+      "label": "Highly active",
+      "flowCfs": 537,
+      "flowBand": "high_fishable",
+      "waterTempF": 41,
+      "targetAirMeanF": 37.26,
+      "airDeltaF": -2.54,
+      "airPattern": "cooling",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-02-08",
+      "score": 84,
+      "label": "Highly active",
+      "flowCfs": 440,
+      "flowBand": "ideal",
+      "waterTempF": 40,
+      "targetAirMeanF": 45.53,
+      "airDeltaF": 12.37,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 4
+    },
+    {
+      "date": "2023-01-12",
+      "score": 83,
+      "label": "Highly active",
+      "flowCfs": 450,
+      "flowBand": "high_fishable",
+      "waterTempF": 39.4,
+      "targetAirMeanF": 34.65,
+      "airDeltaF": 0.94,
+      "airPattern": "stable",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-02-28",
+      "score": 83,
+      "label": "Highly active",
+      "flowCfs": 406,
+      "flowBand": "ideal",
+      "waterTempF": 43.9,
+      "targetAirMeanF": 27.19,
+      "airDeltaF": -17.16,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-01-04",
+      "score": 81,
+      "label": "Highly active",
+      "flowCfs": 657,
+      "flowBand": "high_fishable",
+      "waterTempF": 40,
+      "targetAirMeanF": 39.51,
+      "airDeltaF": 4.22,
+      "airPattern": "gradual_warming",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-01-17",
+      "score": 81,
+      "label": "Highly active",
+      "flowCfs": 451,
+      "flowBand": "high_fishable",
+      "waterTempF": 38.8,
+      "targetAirMeanF": 39.34,
+      "airDeltaF": 8.67,
+      "airPattern": "variable",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-01-11",
+      "score": 80,
+      "label": "Highly active",
+      "flowCfs": 464,
+      "flowBand": "high_fishable",
+      "waterTempF": 38.5,
+      "targetAirMeanF": 36.9,
+      "airDeltaF": 6.25,
+      "airPattern": "variable",
+      "bestBlock": "09-12",
+      "spread": 3
+    },
+    {
+      "date": "2023-01-18",
+      "score": 80,
+      "label": "Highly active",
+      "flowCfs": 542,
+      "flowBand": "high_fishable",
+      "waterTempF": 39,
+      "targetAirMeanF": 35.45,
+      "airDeltaF": 0.27,
+      "airPattern": "stable",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-12-29",
+      "score": 80,
+      "label": "Highly active",
+      "flowCfs": 408,
+      "flowBand": "ideal",
+      "waterTempF": 43.7,
+      "targetAirMeanF": 37.55,
+      "airDeltaF": -4.06,
+      "airPattern": "cooling",
+      "bestBlock": "09-12",
+      "spread": 4
+    },
+    {
+      "date": "2025-02-28",
+      "score": 80,
+      "label": "Highly active",
+      "flowCfs": 366,
+      "flowBand": "ideal",
+      "waterTempF": 37.9,
+      "targetAirMeanF": 35.25,
+      "airDeltaF": 1.48,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 2
+    },
+    {
+      "date": "2023-01-19",
+      "score": 79,
+      "label": "Active",
+      "flowCfs": 578,
+      "flowBand": "high_fishable",
+      "waterTempF": 38.7,
+      "targetAirMeanF": 35.78,
+      "airDeltaF": -1.03,
+      "airPattern": "variable",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-02-27",
+      "score": 79,
+      "label": "Active",
+      "flowCfs": 388,
+      "flowBand": "ideal",
+      "waterTempF": 44.8,
+      "targetAirMeanF": 54.29,
+      "airDeltaF": 20.96,
+      "airPattern": "large_swing",
+      "bestBlock": "15-19",
+      "spread": 6
+    },
+    {
+      "date": "2023-02-20",
+      "score": 78,
+      "label": "Active",
+      "flowCfs": 576,
+      "flowBand": "high_fishable",
+      "waterTempF": 38.5,
+      "targetAirMeanF": 32.81,
+      "airDeltaF": 2.84,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2024-12-31",
+      "score": 78,
+      "label": "Active",
+      "flowCfs": 596,
+      "flowBand": "high_fishable",
+      "waterTempF": 40.1,
+      "targetAirMeanF": 33.23,
+      "airDeltaF": -5.61,
+      "airPattern": "cooling",
+      "bestBlock": "09-12",
+      "spread": 0
+    }
+  ],
+  "lowestActivityDays": [
+    {
+      "date": "2022-12-29",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 404,
+      "flowBand": "ideal",
+      "waterTempF": 32.65,
+      "targetAirMeanF": 44.42,
+      "airDeltaF": 19.91,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-01-30",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 424,
+      "flowBand": "ideal",
+      "waterTempF": 33.2,
+      "targetAirMeanF": 13.18,
+      "airDeltaF": -10.1,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-01-31",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 404,
+      "flowBand": "ideal",
+      "waterTempF": 32.4,
+      "targetAirMeanF": 7.92,
+      "airDeltaF": -10.86,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-01",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 396,
+      "flowBand": "ideal",
+      "waterTempF": 32.5,
+      "targetAirMeanF": 19.86,
+      "airDeltaF": 5.84,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-02",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 390,
+      "flowBand": "ideal",
+      "waterTempF": 32.5,
+      "targetAirMeanF": 22.74,
+      "airDeltaF": 9.08,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-03",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 377,
+      "flowBand": "ideal",
+      "waterTempF": 32.4,
+      "targetAirMeanF": 7.38,
+      "airDeltaF": -9.46,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-04",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 375,
+      "flowBand": "ideal",
+      "waterTempF": 32.5,
+      "targetAirMeanF": 21.35,
+      "airDeltaF": 4.69,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-05",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 374,
+      "flowBand": "ideal",
+      "waterTempF": 32.5,
+      "targetAirMeanF": 32.4,
+      "airDeltaF": 15.24,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-06",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 372,
+      "flowBand": "ideal",
+      "waterTempF": 32.5,
+      "targetAirMeanF": 23.59,
+      "airDeltaF": 3.21,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-07",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 384,
+      "flowBand": "ideal",
+      "waterTempF": 33.1,
+      "targetAirMeanF": 37.63,
+      "airDeltaF": 11.86,
+      "airPattern": "large_swing",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2023-02-23",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 539,
+      "flowBand": "high_fishable",
+      "waterTempF": 32.9,
+      "targetAirMeanF": 27.81,
+      "airDeltaF": -1.82,
+      "airPattern": "persistent_cold",
+      "bestBlock": "08-11",
+      "spread": 0
+    },
+    {
+      "date": "2024-01-14",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 384,
+      "flowBand": "ideal",
+      "waterTempF": 33.4,
+      "targetAirMeanF": 13.61,
+      "airDeltaF": -13.78,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-01-15",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 391,
+      "flowBand": "ideal",
+      "waterTempF": 33.1,
+      "targetAirMeanF": 10.28,
+      "airDeltaF": -11.92,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-01-16",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 378,
+      "flowBand": "ideal",
+      "waterTempF": 33.1,
+      "targetAirMeanF": 7.9,
+      "airDeltaF": -8.23,
+      "airPattern": "large_swing",
+      "bestBlock": "09-12",
+      "spread": 0
+    },
+    {
+      "date": "2024-01-17",
+      "score": 29,
+      "label": "Reserved",
+      "flowCfs": 376,
+      "flowBand": "ideal",
+      "waterTempF": 33.25,
+      "targetAirMeanF": 13.49,
+      "airDeltaF": 2.89,
+      "airPattern": "persistent_cold",
+      "bestBlock": "09-12",
+      "spread": 0
+    }
+  ],
+  "invariants": {
+    "incompleteDaylightBlocks": 0,
+    "dailyScoreOutsideBlockRange": 0,
+    "nonLimitedProxyConfidence": 0,
+    "proxyTodayCapBroken": 0,
+    "persistentColdCapBroken": 0,
+    "largeSwingCapBroken": 0,
+    "measuredNearFreezingCapBroken": 0,
+    "blownOutCapBroken": 0,
+    "rainReceivedIndependentCredit": 0,
+    "scopeCopyMissing": 0,
+    "steelheadMortalityLanguage": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 20,
+    "building": 45,
+    "ending": 7,
+    "peak": 20,
+    "tapering": 8
+  }
+}

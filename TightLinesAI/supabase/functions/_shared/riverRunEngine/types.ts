@@ -174,7 +174,8 @@ export type PrimitiveUnavailableReason =
   | "no_accepted_water_temperature_source"
   | "no_accepted_hydraulic_or_water_temperature_source"
   | "no_accepted_historical_baseline"
-  | "no_accepted_activity_calibration";
+  | "no_accepted_activity_calibration"
+  | "not_applicable_to_holding";
 
 export type PrimitiveCapability =
   | { status: "available" }
@@ -210,9 +211,13 @@ export type ActivityRules = {
     | "chinook_fall_reaction"
     | "coho_fall_reaction"
     | "steelhead_feeding"
-    | "brown_trout_fall_reaction";
+    | "brown_trout_fall_reaction"
+    | "steelhead_winter_holding"
+    | "brown_trout_winter_holding";
   /** Defaults to observed_river. Weather-only rules never infer river state. */
   dataMode?: "observed_river" | "weather_only";
+  /** Winter holding only: measured water when available, otherwise an explicitly limited multi-day air-temperature context. */
+  winterTemperatureMode?: "measured_water" | "air_temperature_proxy";
   /**
    * Optional fail-closed contract for reach-scoped observed models. Full
    * scoring still requires weather, temperature, and hydraulics; this policy
@@ -237,6 +242,8 @@ export type ActivityRules = {
   weights: {
     light: number;
     waterTemperature: number;
+    /** Winter holding only: recent measured-water direction and stability. */
+    temperatureTrend?: number;
     riverBehavior: number;
     weather: number;
   };
@@ -425,7 +432,8 @@ export type FishCountSourceConfig = {
     | "INDIANA_DNR_TABLEAU"
     | "WISCONSIN_DNR_ROOT"
     | "WISCONSIN_DNR_BESADNY"
-    | "WISCONSIN_DNR_BRULE";
+    | "WISCONSIN_DNR_BRULE"
+    | "ODFW_WINCHESTER";
   facilityName: string;
   /** Exact label used in the provider document when it differs from public copy. */
   reportFacilityName?: string;
@@ -453,6 +461,11 @@ export type RiverRunFishCountRead = {
   adultTotal: number | null;
   jackTotal: number | null;
   observedTotal: number | null;
+  /** Optional origin split when the official source publishes it. Jacks remain included in these source totals unless the source says otherwise. */
+  originBreakdown?: {
+    wildTotal: number;
+    hatcheryTotal: number;
+  };
   observedThrough?: string;
   reportDate?: string;
   freshness: "fresh" | "stale" | "missing";
@@ -508,6 +521,36 @@ export type HistoricalWaterTemperatureSourceConfig = {
   }>;
 };
 
+/**
+ * Sparse, historical hydraulic observations exposed as archive context only.
+ * This source never satisfies a live-hydraulics contract and never participates
+ * in Activity, Push, Fishability, or any other scored primitive.
+ */
+export type HistoricalHydraulicSourceConfig = {
+  sourceId: string;
+  provider: "USGS";
+  siteId: string;
+  name: string;
+  metric: "flow_cfs";
+  historicalStartYear: number;
+  historicalEndYear: number;
+  baselineVersion: string;
+  reachNotes: string;
+  attribution: string;
+  coverageNote: string;
+  normal: {
+    average: number;
+    p10: number;
+    p25: number;
+    median: number;
+    p75: number;
+    p90: number;
+    historicalYears: number;
+    sampleCount: number;
+    years: readonly number[];
+  };
+};
+
 export type RiverLiveMetricId =
   | "flow_cfs"
   | "gage_height_ft"
@@ -552,7 +595,8 @@ export type RiverLiveSeasonalContext = {
     | "usgs_approved_exact_date_archive"
     | "usgs_approved_calendar_window_archive"
     | "state_agency_calendar_window_archive"
-    | "usgs_approved_fixed_period_archive";
+    | "usgs_approved_fixed_period_archive"
+    | "usgs_approved_field_measurement_archive";
 };
 
 export type FixedFlowSeasonalNormal = {
@@ -766,6 +810,8 @@ export type RiverProfile = {
   fishCountSources?: FishCountSourceConfig[];
   /** Optional historical-only context; never a current measured reading. */
   historicalWaterTemperatureSource?: HistoricalWaterTemperatureSourceConfig;
+  /** Optional sparse historical flow context; never a current measured reading. */
+  historicalHydraulicSource?: HistoricalHydraulicSourceConfig;
   /** Optional fixed-era flow context used when the modern gauge regime is the accepted comparison. */
   fixedFlowSeasonalBaseline?: FixedFlowSeasonalBaseline;
   weatherPoints: WeatherPointConfig[];
@@ -815,6 +861,16 @@ export type SeasonalZonePlan = {
     label: string;
     sourceNotes: string;
   };
+  /**
+   * Winter-only access orientation. Every phase reach remains viable; these
+   * reaches identify the best place to start because the Activity inputs and
+   * accepted holding-water evidence are strongest there.
+   */
+  winterHoldingGuidance?: {
+    preferredStartReachIds: string[];
+    activityScopeCopy: string;
+    sourceNotes: string;
+  };
   phases: SeasonalZonePhasePlan;
   evidenceNotes: string;
 };
@@ -826,7 +882,10 @@ export type SpeciesBiologyProfile = {
   scientificName: string;
   region: RiverRunRegion;
   movementEngineId: MovementEngineId;
-  migrationPurpose: "spawning" | "pre_spawn_overwintering";
+  migrationPurpose:
+    | "spawning"
+    | "pre_spawn_overwintering"
+    | "post_spawn_winter_feeding";
   semelparous: boolean;
   adultMigrationTemperature: {
     coldHoldingF?: number;

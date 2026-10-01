@@ -2,12 +2,27 @@ import { captureAnalytics } from "./analytics";
 import { getValidAccessToken } from "./supabase";
 import type {
   PierCastCatalogResponse,
-  PierCastLeaderboardResponse,
-  PierCastReviewOutlookResponse,
-  PierCastShadowOutcomeCommit,
-  PierCastShadowOutcomeInput,
-  PierCastShadowReviewResponse,
+  PierCastMapFoundationResponse,
+  PierCastSpeciesId,
+  PierCastV3ReviewOutlookResponse,
 } from "./pierCastContracts";
+import type {
+  PierCastConditionsMapResponseV4,
+  PierCastConditionsCatalogResponseV4,
+  PierCastLeaderboardResponseV4,
+  PierCastObservedTemperatureMapResponseV1,
+  PierCastSavedReportEnvelopeV4,
+  PierCastSavedReportReadV4,
+} from "./pierCastConditionsV4";
+import {
+  validatePierCastConditionsCatalog,
+  validatePierCastConditionsLeaderboard,
+  validatePierCastConditionsMap,
+  validatePierCastMapFoundation,
+  validatePierCastObservedTemperatureMap,
+  validatePierCastSavedReportEnvelope,
+  validatePierCastSavedReportRead,
+} from "./pierCastConditionsValidation";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
@@ -24,8 +39,12 @@ export class PierCastRequestError extends Error {
   }
 }
 
-export function fetchPierCastCatalog(): Promise<PierCastCatalogResponse> {
-  return pierCastGet<PierCastCatalogResponse>("catalog", false);
+export async function fetchPierCastConditionsCatalog(): Promise<
+  PierCastConditionsCatalogResponseV4
+> {
+  return validatePierCastConditionsCatalog(
+    await pierCastGet("conditions/catalog", false),
+  );
 }
 
 export function fetchPierCastOwnerReviewCatalog(): Promise<
@@ -34,34 +53,27 @@ export function fetchPierCastOwnerReviewCatalog(): Promise<
   return pierCastGet<PierCastCatalogResponse>("review/catalog", true);
 }
 
-export function fetchPierCastOwnerReviewOutlook(): Promise<
-  PierCastReviewOutlookResponse
+export function fetchPierCastOwnerV3ReviewOutlook(): Promise<
+  PierCastV3ReviewOutlookResponse
 > {
-  return pierCastGet<PierCastReviewOutlookResponse>("review/outlook", true);
-}
-
-export function fetchPierCastShadowReview(): Promise<
-  PierCastShadowReviewResponse
-> {
-  return pierCastGet<PierCastShadowReviewResponse>("review/shadow", true);
-}
-
-export function recordPierCastShadowOutcome(
-  outcome: PierCastShadowOutcomeInput,
-): Promise<PierCastShadowOutcomeCommit> {
-  return pierCastRequest<PierCastShadowOutcomeCommit>(
-    "review/outcomes",
+  return pierCastGet<PierCastV3ReviewOutlookResponse>(
+    "review/v3/outlook",
     true,
-    "POST",
-    outcome,
   );
 }
 
 async function pierCastGet<ResponseType>(
   path: string,
   requireAuth: boolean,
+  timeoutMs = CLIENT_TIMEOUT_MS,
 ): Promise<ResponseType> {
-  return pierCastRequest<ResponseType>(path, requireAuth, "GET");
+  return pierCastRequest<ResponseType>(
+    path,
+    requireAuth,
+    "GET",
+    undefined,
+    timeoutMs,
+  );
 }
 
 async function pierCastRequest<ResponseType>(
@@ -69,6 +81,7 @@ async function pierCastRequest<ResponseType>(
   requireAuth: boolean,
   method: "GET" | "POST",
   body?: unknown,
+  timeoutMs = CLIENT_TIMEOUT_MS,
 ): Promise<ResponseType> {
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error("Missing Supabase configuration for PierCast.");
@@ -83,7 +96,7 @@ async function pierCastRequest<ResponseType>(
 
   const startedAt = Date.now();
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   let failureTracked = false;
   captureAnalytics("pier_cast_request_started", { path });
   try {
@@ -170,12 +183,60 @@ function readErrorMessage(parsed: unknown, status: number): string {
   return `PierCast request failed with status ${status}.`;
 }
 
-export function fetchPierCastLeaderboard(): Promise<PierCastLeaderboardResponse> {
-  return pierCastGet("leaderboard", false);
+export async function fetchPierCastConditionsLeaderboard(
+  speciesId?: PierCastSpeciesId,
+): Promise<PierCastLeaderboardResponseV4> {
+  const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
+  return validatePierCastConditionsLeaderboard(
+    await pierCastGet(`conditions/leaderboard${query}`, false),
+    speciesId,
+  );
 }
-export function fetchPierCastCityReport(cityId: string): Promise<PierCastReviewOutlookResponse> {
-  return pierCastGet(`report?cityId=${encodeURIComponent(cityId)}`, true);
+export async function fetchPierCastConditionsMap(
+  speciesId?: PierCastSpeciesId,
+): Promise<PierCastConditionsMapResponseV4> {
+  const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
+  return validatePierCastConditionsMap(
+    await pierCastGet(`conditions/map${query}`, false),
+    speciesId,
+  );
 }
-export function fetchSavedPierCastReport(): Promise<{ report: PierCastReviewOutlookResponse | null }> {
-  return pierCastGet("saved-report", true);
+export async function fetchPierCastObservedTemperatureMap(): Promise<
+  PierCastObservedTemperatureMapResponseV1
+> {
+  return validatePierCastObservedTemperatureMap(
+    await pierCastGet("observations/temperature-map", false),
+  );
+}
+export async function fetchPierCastMapFoundation(): Promise<
+  PierCastMapFoundationResponse
+> {
+  // A cold Edge isolate must synchronize four NOAA systems and five paid wind
+  // batches before its first response; warm and CDN-cached reads remain fast.
+  return validatePierCastMapFoundation(
+    await pierCastGet("map-foundation", false, 30_000),
+  );
+}
+export async function fetchPierCastConditionsCityReport(
+  cityId: string,
+  speciesId: PierCastSpeciesId,
+): Promise<PierCastSavedReportEnvelopeV4> {
+  return validatePierCastSavedReportEnvelope(
+    await pierCastGet(
+      `conditions/report?cityId=${encodeURIComponent(cityId)}&speciesId=${
+        encodeURIComponent(speciesId)
+      }`,
+      true,
+    ),
+    { cityId, speciesId },
+  );
+}
+export async function fetchSavedPierCastConditionsReport(
+  speciesId?: PierCastSpeciesId,
+): Promise<PierCastSavedReportReadV4> {
+  const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
+  return validatePierCastSavedReportRead(
+    await pierCastGet(`conditions/saved-report${query}`, true),
+    speciesId,
+  );
 }

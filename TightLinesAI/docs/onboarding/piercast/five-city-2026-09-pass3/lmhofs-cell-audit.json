@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "piercast-five-city-lmhofs-cell-audit-v1",
+  "reviewedAt": "2026-09-18",
+  "reviewCycle": "2026-09-17T12:00:00.000Z",
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "variable": "temp",
+  "verticalSelection": "surface",
+  "depthIndex": 0,
+  "selectionMethod": "nearest_wet_lakeward_regular_grid_center",
+  "source": "https://opendap.co-ops.nos.noaa.gov/thredds/dodsC/NOAA/LMHOFS/MODELS/{YYYY}/{MM}/{DD}/lmhofs.t{CC}z.{YYYYMMDD}.regulargrid.f{HHH}.nc",
+  "coordinateReference": "U.S. Coast Guard Light List, Volume VII (2025)",
+  "coordinateReferenceUrl": "https://www.navcen.uscg.gov/sites/default/files/pdf/lightLists/LightList_V7_2025.pdf",
+  "cells": [
+    {
+      "cityId": "two_rivers_wi",
+      "gridRow": 254,
+      "gridColumn": 50,
+      "latitude": 44.14,
+      "longitude": -87.56,
+      "modelBathymetryM": 5.099305719331879,
+      "referenceLight": "Two Rivers North Pierhead Light",
+      "referenceDistanceM": 305
+    },
+    {
+      "cityId": "kewaunee_wi",
+      "gridRow": 286,
+      "gridColumn": 58,
+      "latitude": 44.46,
+      "longitude": -87.48,
+      "modelBathymetryM": 6.7387495742286205,
+      "referenceLight": "Kewaunee Pierhead Light",
+      "referenceDistanceM": 1085
+    },
+    {
+      "cityId": "algoma_wi",
+      "gridRow": 301,
+      "gridColumn": 64,
+      "latitude": 44.61,
+      "longitude": -87.42,
+      "modelBathymetryM": 5.288545265058365,
+      "referenceLight": "Algoma Light",
+      "referenceDistanceM": 841
+    },
+    {
+      "cityId": "manitowoc_wi",
+      "gridRow": 249,
+      "gridColumn": 42,
+      "latitude": 44.09,
+      "longitude": -87.64,
+      "modelBathymetryM": 5.146118553032811,
+      "referenceLight": "Manitowoc Harbor of Refuge Pierhead Light 8",
+      "referenceDistanceM": 961
+    },
+    {
+      "cityId": "waukegan_il",
+      "gridRow": 76,
+      "gridColumn": 26,
+      "latitude": 42.36,
+      "longitude": -87.8,
+      "modelBathymetryM": 7.4552234441381815,
+      "referenceLight": "Waukegan Harbor Light",
+      "referenceDistanceM": 1104
+    }
+  ],
+  "limitation": "Each location is one wet lakeward surface-model cell for city-harbor context. It is not a pier thermometer and does not resolve harbor mixing, depth, river plumes, waves, ice, construction, or access."
+}

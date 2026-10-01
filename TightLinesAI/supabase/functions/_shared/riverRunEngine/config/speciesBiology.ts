@@ -195,6 +195,36 @@ export const GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE:
       "Michigan DNR steelhead profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead ; Workman et al. Pere Marquette telemetry reports water temperature as the dominant movement correlate and increased movement above approximately 4C/39F; Great Lakes tributary telemetry likewise documents near cessation of upstream movement near 4C. Temperature values are reusable Great Lakes fall-entry defaults; river dates, opportunity strength, sources, and hydraulics remain river-specific.",
   };
 
+export const GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE:
+  SpeciesBiologyProfile = {
+    biologyProfileId: "great_lakes_steelhead_winter_holding_v1",
+    species: "steelhead",
+    commonName: "Steelhead",
+    scientificName: "Oncorhynchus mykiss",
+    region: "great_lakes",
+    movementEngineId: "stable_cool_holding",
+    migrationPurpose: "pre_spawn_overwintering",
+    semelparous: false,
+    adultMigrationTemperature: {
+      coldHoldingF: 34,
+      supportiveMinF: 36,
+      preferredMinF: 38,
+      supportiveMaxF: 45,
+      tooWarmF: 50,
+      migrationBarrierF: 68,
+    },
+    environmentalResponse: {
+      risingFlow: "supportive_within_fishable_bounds",
+      precipitation: "precursor_only",
+      strongSignalRequiresMeasuredGaugeResponse: true,
+      peakFloodIsAutomaticallyPositive: false,
+    },
+    evidenceNotes:
+      "Great Lakes steelhead that entered in fall can remain in tributaries through winter before spring spawning. This profile represents retained fish and conditional feeding responsiveness, not a new run. Measured water temperature and its recent direction lead the Activity read; clouds alter daylight presentation windows, while rain is never an independent positive signal.",
+    sourceNotes:
+      "Michigan DNR Steelhead species profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/steelhead ; Workman, Hayes, and Coon, Transactions of the American Fisheries Society 131(3), adult Steelhead movement in the Pere Marquette and St. Joseph rivers https://academic.oup.com/tafs/article-abstract/131/3/463/7891291 ; Michigan DNR Little Manistee River weir operations https://www.michigan.gov/dnr/managing-resources/fisheries/hatcheries/little-manistee-river-weir . Exact Activity response curves remain product hypotheses for replay calibration in Pass 2.",
+  };
+
 export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE:
   SpeciesBiologyProfile = {
     biologyProfileId: "great_lakes_lake_run_brown_trout_v1",
@@ -225,9 +255,41 @@ export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE:
       "Wisconsin DNR 2026 Fishing Report; Wisconsin DNR Lake Michigan trout and salmon questions; Wisconsin DNR Seeforellen brood program. Temperature values are conservative Great Lakes fall-migration defaults pending river-specific Activity replay.",
   };
 
+export const GREAT_LAKES_LAKE_RUN_BROWN_TROUT_WINTER_HOLDING_BIOLOGY_PROFILE:
+  SpeciesBiologyProfile = {
+    biologyProfileId: "great_lakes_lake_run_brown_trout_winter_holding_v1",
+    species: "lake_run_brown_trout",
+    commonName: "Lake-run brown trout",
+    scientificName: "Salmo trutta",
+    region: "great_lakes",
+    movementEngineId: "stable_cool_holding",
+    migrationPurpose: "post_spawn_winter_feeding",
+    semelparous: false,
+    adultMigrationTemperature: {
+      coldHoldingF: 34,
+      supportiveMinF: 37,
+      preferredMinF: 39,
+      supportiveMaxF: 47,
+      tooWarmF: 52,
+      migrationBarrierF: 68,
+    },
+    environmentalResponse: {
+      risingFlow: "not_used_by_current_public_primitives",
+      precipitation: "precursor_only",
+      strongSignalRequiresMeasuredGaugeResponse: true,
+      peakFloodIsAutomaticallyPositive: false,
+    },
+    evidenceNotes:
+      "Wisconsin lake-run Brown Trout can remain around tributary mouths, harbors, and warmer nearshore water through winter after the fall spawning period. This profile represents a conservative lower-river holding and feeding opportunity, not a discrete winter migration or a claim that every fall fish remains. Stable mild conditions and cloud-filtered daylight can improve a feeding window; rain receives no independent positive credit.",
+    sourceNotes:
+      "Wisconsin DNR A Year of Fishing https://dnr.wisconsin.gov/topic/Fishing/outreach/yearoffishing.html ; Wisconsin DNR 2026 Fishing Report https://dnr.wisconsin.gov/topic/Fishing/outreach/wifishingreport ; Wisconsin DNR trout and salmon seasons https://dnr.wisconsin.gov/topic/Fishing/seasons/trout . Exact Activity response curves are conservative product hypotheses accepted only after fixed-period historical replay.",
+  };
+
 export const RIVER_RUN_SPECIES_BIOLOGY_PROFILES: SpeciesBiologyProfile[] = [
   GREAT_LAKES_CHINOOK_BIOLOGY_PROFILE,
   GREAT_LAKES_COHO_BIOLOGY_PROFILE,
   GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE,
+  GREAT_LAKES_STEELHEAD_WINTER_HOLDING_BIOLOGY_PROFILE,
   GREAT_LAKES_LAKE_RUN_BROWN_TROUT_BIOLOGY_PROFILE,
+  GREAT_LAKES_LAKE_RUN_BROWN_TROUT_WINTER_HOLDING_BIOLOGY_PROFILE,
 ];

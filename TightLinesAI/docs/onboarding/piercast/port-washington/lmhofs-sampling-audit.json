@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "piercast-lmhofs-cell-audit-v1",
+  "auditedAt": "2026-09-14",
+  "cityId": "port_washington_wi",
+  "reference": {
+    "name": "Port Washington Breakwater Light",
+    "latitude": 43.3852777778,
+    "longitude": -87.8597222222,
+    "source": "NOAA Coast Pilot 6"
+  },
+  "selectedCell": {
+    "gridRow": 179,
+    "gridColumn": 21,
+    "latitude": 43.39,
+    "longitude": -87.85,
+    "distanceM": 945,
+    "depthIndex": 0,
+    "modelBathymetryM": 11.358911302807531,
+    "mask": 1,
+    "selectionMethod": "nearest_wet_lakeward_regular_grid_center"
+  },
+  "neighborAudit": {
+    "rows": [178, 179, 180],
+    "columns": [20, 21, 22],
+    "bathymetryM": [[8.220567081248387,13.063652184609555,15.592564510247373],[4.345272010200188,11.358911302807531,14.738155981620542],[-99999,8.195481213985314,13.246954453152888]],
+    "mask": [[1,1,1],[1,1,1],[0,1,1]]
+  },
+  "probe": {
+    "cycle": "2026-09-14T06:00:00.000Z",
+    "values": [
+      {"forecastHour":0,"validAt":"2026-09-14T06:00:00.000Z","temperatureC":14.140727},
+      {"forecastHour":1,"validAt":"2026-09-14T07:00:00.000Z","temperatureC":14.268772},
+      {"forecastHour":24,"validAt":"2026-09-15T06:00:00.000Z","temperatureC":14.623521},
+      {"forecastHour":72,"validAt":"2026-09-17T06:00:00.000Z","temperatureC":15.327328},
+      {"forecastHour":120,"validAt":"2026-09-19T06:00:00.000Z","temperatureC":16.41781}
+    ]
+  },
+  "decision": "candidate_not_approved",
+  "limitation": "This audit validates extraction and cell identity only. It does not establish representation accuracy at the harbor or either named access area."
+}

@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "piercast-all-city-common-species-audit-source-ledger-v1",
+  "reviewedAt": "2026-09-17",
+  "sources": [
+    {
+      "sourceId": "WI_DNR_COUNTY_PIER_1998_2024",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Creel Harvest Tables 1998-2024",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_CreelHarvestTables1998-2024.pdf",
+      "use": "County-by-fishing-mode recurrence and relative magnitude for coho, Chinook, rainbow trout, brown trout and lake trout; this audit uses the pier column for 2022-2024.",
+      "limits": "County rows do not provide city-specific pier effort and some counties contain more than one port. Harvest estimates are not target-specific catch probability. A zero is not biological absence."
+    },
+    {
+      "sourceId": "WI_DNR_2024_SPORT_HARVEST",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Wisconsin's 2024 Open Water Sportfishing Effort and Harvest From Lake Michigan and Green Bay",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf",
+      "use": "Statewide pier-mode effort, harvest, seasonal timing and the statewide scarcity check for pier lake trout.",
+      "limits": "The month table combines survey areas. East-shore 2024 direct sampling ran May through September, with spring modeled and October omitted for ramp, pier and shore modes."
+    },
+    {
+      "sourceId": "WI_DNR_EXACT_PIER_GUIDE",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Close to Home Fishing Opportunities",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/ClosetoHomeFishing.pdf",
+      "use": "Exact public-pier target identity for the established Wisconsin ports.",
+      "limits": "Species lists establish targetability, not catch rate or peak magnitude."
+    },
+    {
+      "sourceId": "WI_DNR_LAKE_MICHIGAN_REPORTS",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Outdoor Fishing Report and archived weekly reports",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "use": "Exact-city or named-pier timing, catch context and qualitative event strength.",
+      "limits": "Creel-clerk observations cover sampled dates and times and are not standardized city catch rates."
+    },
+    {
+      "sourceId": "MI_DNR_GREAT_LAKES_CREEL",
+      "authority": "Michigan Department of Natural Resources",
+      "title": "Great Lakes creel estimate dashboard, preserved Pier/Dock extract",
+      "url": "https://app.powerbigov.us/view?r=eyJrIjoiOWQ5NjQxMmItYjFkYi00YzI2LTkxMTAtMjMwNjEzOWE5YjM3IiwidCI6ImQ1ZmI3MDg3LTM3NzctNDJhZC05NjZhLTg5MmVmNDcyMjVkMSJ9",
+      "use": "Port-by-month Pier/Dock catch estimates, all-species effort, recurrence and within-species relative magnitude for Ludington, Grand Haven, Manistee and Frankfort-Elberta.",
+      "limits": "All-species effort is not directed effort, winter coverage is incomplete, and port rows do not identify a particular casting position."
+    },
+    {
+      "sourceId": "MI_DNR_LAKE_MICHIGAN_ROADMAP",
+      "authority": "Michigan Department of Natural Resources",
+      "title": "Roadmap to Fishing Lake Michigan: Meet your Match!",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Archive/Maps/LakeMichigaRoadmap.pdf",
+      "use": "Port-level species identity and broad seasonal corroboration.",
+      "limits": "Non-exhaustive and port-wide; it does not provide pier catch magnitude."
+    },
+    {
+      "sourceId": "MI_DNR_LAKE_HURON_ROADMAP",
+      "authority": "Michigan Department of Natural Resources",
+      "title": "Roadmap to Fishing Lake Huron: Get Hooked on Huron!",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Maps/RoadmapLake_Huron-accessible.pdf",
+      "use": "Port target identity and broad seasonal timing for Harbor Beach, Oscoda and Port Sanilac.",
+      "limits": "Non-exhaustive and port-wide; exact-pier targetability and qualitative magnitude require local weekly reports."
+    },
+    {
+      "sourceId": "MI_DNR_WEEKLY_REPORTS",
+      "authority": "Michigan Department of Natural Resources",
+      "title": "Weekly Fishing Report archive",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+      "use": "Exact pier, breakwall and river-mouth catch identity, timing and qualitative magnitude for Lake Huron ports and Michigan Lake Michigan corroboration.",
+      "limits": "Qualitative weekly snapshots do not provide standardized effort; wording such as few, occasional, some, good or slow is used directly rather than replaced by a confidence discount."
+    },
+    {
+      "sourceId": "INHS_WAUKEGAN_SITE_SURVEYS",
+      "authority": "Illinois Natural History Survey / Illinois Department of Natural Resources",
+      "title": "2023 and 2024 Illinois Lake Michigan creel survey site estimates",
+      "url": "https://publish.illinois.edu/lakemichiganprogram/fisheries/creel-survey/",
+      "use": "Waukegan Harbor pedestrian effort and species harvest for April through September.",
+      "limits": "The site row includes Government Pier and other pedestrian shoreline positions; October through February is outside the cited site survey period."
+    }
+  ]
+}

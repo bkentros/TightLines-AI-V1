@@ -27,7 +27,8 @@ export type SharedEngineRequest = {
     prior_day_mean_air_temp_f?: number | null;
     day_minus_2_mean_air_temp_f?: number | null;
     pressure_mb?: number | null;
-    pressure_history_mb?: number[] | null;
+    /** Hourly slots, oldest first; retain null slots for missing readings. */
+    pressure_history_mb?: (number | null)[] | null;
     wind_speed_mph?: number | null;
     cloud_cover_pct?: number | null;
     precip_24h_in?: number | null;

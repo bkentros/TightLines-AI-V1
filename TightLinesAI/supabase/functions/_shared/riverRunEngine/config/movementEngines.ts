@@ -90,15 +90,15 @@ export const MOVEMENT_ENGINE_DEFINITIONS: Record<
   },
   stable_cool_holding: {
     movementEngineId: "stable_cool_holding",
-    version: "unimplemented",
-    implemented: false,
-    supportedSeasons: ["spring", "summer", "fall", "winter"],
+    version: "stable-cool-holding-v1",
+    implemented: true,
+    supportedSeasons: ["winter"],
     supportedRunTypes: ["holding"],
     temperatureDirection: "stable",
     rainActsAsPrecursor: false,
     gaugeResponseRequiredForStrongPush: false,
     description:
-      "Reserved configuration identity for a future stable-water holding engine.",
+      "Winter holding engine for fish already present. It rewards suitable measured water temperature, gradual warming or thermal stability, daylight/cloud cover, and fishable hydraulics without claiming a fresh migratory push.",
   },
 };
 

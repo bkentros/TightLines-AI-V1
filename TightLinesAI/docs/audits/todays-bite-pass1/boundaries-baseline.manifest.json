@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "baseline_commit": "7c245d2ca84f6c4c9d73bd87d45695656ab6ef1e",
+  "fixtures": 2352,
+  "recommendation_sets": 756,
+  "missing_seasonal_rows": 210,
+  "sha256": "f3187d91665fd8263da12008088e0ec25238e9f7061a45f796c8b70e0803109c",
+  "bytes": 1741554,
+  "scope": "Raw adapter + forecast materialization; four southern cities, seven month/year boundaries, four contexts, offsets 0..6, cooling/warming/missing-data profiles."
+}

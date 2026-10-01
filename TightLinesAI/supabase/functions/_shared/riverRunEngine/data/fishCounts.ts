@@ -49,7 +49,8 @@ export async function fetchRiverRunFishCountReport(input: {
   fetchFn: RiverRunFetch;
   now?: Date;
 }): Promise<RiverRunFishCountReport> {
-  const fetchedAt = (input.now ?? new Date()).toISOString();
+  const now = input.now ?? new Date();
+  const fetchedAt = now.toISOString();
   const fetchFn = memoizeProviderFetch(input.fetchFn);
   const reads: RiverRunFishCountReport["reads"] = {};
   try {
@@ -58,6 +59,7 @@ export async function fetchRiverRunFishCountReport(input: {
         input.source,
         species,
         fetchFn,
+        now,
       );
     }));
   } catch (error) {
@@ -116,6 +118,7 @@ async function fetchCountFromSource(
   source: FishCountSourceConfig,
   species: RiverRunFishCountSpecies,
   fetchFn: RiverRunFetch,
+  now: Date,
 ): Promise<RiverRunFishCountRead> {
   return source.provider === "WDFW_ESCAPEMENT"
     ? await fetchWdfwCount(source, species, fetchFn)
@@ -127,7 +130,9 @@ async function fetchCountFromSource(
     ? await fetchWisconsinRootCount(source, species, fetchFn)
     : source.provider === "WISCONSIN_DNR_BESADNY"
     ? await fetchWisconsinBesadnyCount(source, species, fetchFn)
-    : await fetchWisconsinBruleCount(source, species, fetchFn);
+    : source.provider === "WISCONSIN_DNR_BRULE"
+    ? await fetchWisconsinBruleCount(source, species, fetchFn)
+    : await fetchOdfwWinchesterCount(source, species, fetchFn, now);
 }
 
 function memoizeProviderFetch(fetchFn: RiverRunFetch): RiverRunFetch {
@@ -180,6 +185,10 @@ async function reportIdentity(
         read?.adultTotal,
         read?.jackTotal,
         read?.observedTotal,
+        read?.originBreakdown?.wildTotal,
+        read?.originBreakdown?.hatcheryTotal,
+        read?.preliminary,
+        read?.categoriesIncluded,
         read?.sourceUrl,
       ],
     ),
@@ -291,6 +300,235 @@ async function extractPdfVisualText(buffer: ArrayBuffer): Promise<string> {
     );
   }
   return pages.join("\n");
+}
+
+export function latestOdfwWinchesterStrataReport(
+  html: string,
+  indexUrl: string,
+): { url: string; year: number; month: number; label: string } | null {
+  const monthNumbers: Record<string, number> = {
+    january: 1,
+    april: 4,
+    july: 7,
+    september: 9,
+    november: 11,
+  };
+  const reports = [...html.matchAll(
+    /<a[^>]+href=["']([^"']+\.pdf)["'][^>]*>\s*(January|April|July|September|November)\s*<\/a>/gi,
+  )].flatMap((match) => {
+    const url = new URL(decodeHtml(match[1]), indexUrl).toString();
+    const decodedUrl = decodeURIComponent(url);
+    const yearToken = decodedUrl.match(/\/winchester\/(20\d{2})\//)?.[1] ??
+      decodedUrl.match(/\/(20\d{2})-\d{2}\//)?.[1] ??
+      decodedUrl.match(/\b(20\d{2})\b/)?.[1];
+    const year = Number(yearToken);
+    const label = match[2];
+    const month = monthNumbers[label.toLowerCase()];
+    return Number.isInteger(year) && month ? [{ url, year, month, label }] : [];
+  });
+  return reports.toSorted((a, b) => b.year - a.year || b.month - a.month)[0] ??
+    null;
+}
+
+export function odfwWinchesterHistoricalCohoUrl(
+  html: string,
+  indexUrl: string,
+): string | null {
+  const href = [...html.matchAll(
+    /<a[^>]+href=["']([^"']+\.pdf)["'][^>]*>\s*Coho\s+\d{4}\s*[-–]\s*\d{4}\s*<\/a>/gi,
+  )][0]?.[1];
+  return href ? new URL(decodeHtml(href), indexUrl).toString() : null;
+}
+
+async function fetchOdfwWinchesterCount(
+  source: FishCountSourceConfig,
+  species: RiverRunFishCountRead["species"],
+  fetchFn: RiverRunFetch,
+  now: Date,
+): Promise<RiverRunFishCountRead> {
+  if (species !== "coho_salmon") {
+    return unavailable(source, species, "not_reported");
+  }
+  const indexResponse = await fetchFn(source.sourceUrl, PROVIDER_REQUEST_INIT);
+  const html = indexResponse.ok && indexResponse.text
+    ? await indexResponse.text()
+    : "";
+  if (!html) return unavailable(source, species, "provider_failed");
+  const report = latestOdfwWinchesterStrataReport(html, source.sourceUrl);
+  if (!report) return unavailable(source, species, "parser_changed");
+  const reportResponse = await fetchFn(report.url, PROVIDER_REQUEST_INIT);
+  if (!reportResponse.ok || !reportResponse.arrayBuffer) {
+    return unavailable(source, species, "provider_failed", report.url);
+  }
+  const text = await extractPdfVisualText(await reportResponse.arrayBuffer());
+  const season = odfwWinchesterSeasonLabelForDate(now);
+  const strataRead = parseOdfwWinchesterCohoCount({
+    source,
+    text,
+    reportUrl: report.url,
+    season,
+  });
+
+  const historicalUrl = odfwWinchesterHistoricalCohoUrl(
+    html,
+    source.sourceUrl,
+  );
+  if (!historicalUrl) return strataRead;
+  try {
+    const historicalResponse = await fetchFn(
+      historicalUrl,
+      PROVIDER_REQUEST_INIT,
+    );
+    if (!historicalResponse.ok || !historicalResponse.arrayBuffer) {
+      return strataRead;
+    }
+    const historicalText = await extractPdfVisualText(
+      await historicalResponse.arrayBuffer(),
+    );
+    return parseOdfwWinchesterHistoricalCohoCount({
+      source,
+      text: historicalText,
+      reportUrl: historicalUrl,
+      season,
+    }) ?? strataRead;
+  } catch {
+    return strataRead;
+  }
+}
+
+export function parseOdfwWinchesterCohoCount(input: {
+  source: FishCountSourceConfig;
+  text: string;
+  reportUrl: string;
+  season: string;
+}): RiverRunFishCountRead {
+  const normalized = input.text.replace(/\s+/g, " ").trim();
+  const observedToken = normalized.match(
+    /Fish Counts through\s+([A-Z][a-z]{2,8}\.?\s+\d{1,2},?\s+\d{4})/i,
+  )?.[1];
+  const observedThrough = observedToken
+    ? longDate(observedToken.replaceAll(".", ""))
+    : null;
+  if (!observedThrough) {
+    return unavailable(
+      input.source,
+      "coho_salmon",
+      "parser_changed",
+      input.reportUrl,
+    );
+  }
+  if (!/\bCOHO\b/i.test(normalized)) {
+    return unavailable(
+      input.source,
+      "coho_salmon",
+      "not_reported",
+      input.reportUrl,
+    );
+  }
+  const seasonPattern = escapeRegex(input.season).replace("-", "[-–]");
+  const row = normalized.match(
+    new RegExp(
+      `${seasonPattern}\\s+[A-Z][a-z]{2,8}\\.?\\s+\\d{1,2}\\s*[-–]\\s*[A-Z][a-z]{2,8}\\.?\\s+\\d{1,2},?\\s+\\d{4}\\*?\\s+([\\d,]+)\\s+([\\d,]+)(?:\\s+(Final))?`,
+      "i",
+    ),
+  );
+  const jackToken = normalized.match(/COHO\s+Jack count\s*=\s*([\d,]+)/i)?.[1];
+  const total = countToken(row?.[2]);
+  const jacks = countToken(jackToken);
+  if (total == null || jacks == null) {
+    return unavailable(
+      input.source,
+      "coho_salmon",
+      "not_reported",
+      input.reportUrl,
+    );
+  }
+  if (jacks > total) {
+    return unavailable(
+      input.source,
+      "coho_salmon",
+      "parser_changed",
+      input.reportUrl,
+    );
+  }
+  return baseRead(input.source, "coho_salmon", {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: total - jacks,
+    jackTotal: jacks,
+    observedTotal: total,
+    observedThrough,
+    reportDate: observedThrough,
+    freshness: "fresh",
+    preliminary: !row?.[3],
+    categoriesIncluded: [
+      "classified coho ladder passage through the report date",
+      "jacks reported separately but already included in the ODFW total",
+      "strata estimate; wild and hatchery origin split not published in this in-season report",
+    ],
+    sourceUrl: input.reportUrl,
+  });
+}
+
+export function parseOdfwWinchesterHistoricalCohoCount(input: {
+  source: FishCountSourceConfig;
+  text: string;
+  reportUrl: string;
+  season: string;
+}): RiverRunFishCountRead | null {
+  const normalized = input.text.replace(/\s+/g, " ").trim();
+  const seasonPattern = escapeRegex(input.season).replace("-", "[-–]");
+  const row = normalized.match(
+    new RegExp(
+      `${seasonPattern}\\s+([\\d,]+)\\s+([\\d,]+)\\s+([\\d,]+)\\s+([\\d,]+)`,
+      "i",
+    ),
+  );
+  if (!row) return null;
+  const wild = countToken(row[1]);
+  const hatchery = countToken(row[2]);
+  const total = countToken(row[3]);
+  const jacks = countToken(row[4]);
+  if (
+    wild == null || hatchery == null || total == null || jacks == null ||
+    jacks > total || wild + hatchery !== total
+  ) return null;
+  const startYear = Number(input.season.slice(0, 4));
+  const observedThrough = `${startYear + 1}-01-30`;
+  return baseRead(input.source, "coho_salmon", {
+    status: "available",
+    period: "season_to_date",
+    adultTotal: total - jacks,
+    jackTotal: jacks,
+    observedTotal: total,
+    originBreakdown: { wildTotal: wild, hatcheryTotal: hatchery },
+    observedThrough,
+    reportDate: observedThrough,
+    freshness: "fresh",
+    preliminary: false,
+    categoriesIncluded: [
+      "final classified coho ladder passage",
+      "wild and hatchery-origin totals exactly as published by ODFW",
+      "jacks reported separately but already included in the ODFW origin and total counts",
+    ],
+    sourceUrl: input.reportUrl,
+  });
+}
+
+function odfwWinchesterSeasonLabel(year: number, month: number): string {
+  const startYear = month >= 8 ? year : year - 1;
+  return `${startYear}-${String((startYear + 1) % 100).padStart(2, "0")}`;
+}
+
+export function odfwWinchesterSeasonLabelForDate(now: Date): string {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "numeric",
+  }).formatToParts(now);
+  const year = Number(parts.find((part) => part.type === "year")?.value);
+  const month = Number(parts.find((part) => part.type === "month")?.value);
+  return odfwWinchesterSeasonLabel(year, month);
 }
 
 export function latestWdfwReport(html: string): {
@@ -620,7 +858,8 @@ export function parseWisconsinBesadnyCount(input: {
   const reportDate = heading?.[1] ? longDate(htmlText(heading[1])) : null;
   const table = heading?.index == null
     ? null
-    : input.html.slice(heading.index).match(/<table[^>]*>[\s\S]*?<\/table>/i)?.[0];
+    : input.html.slice(heading.index).match(/<table[^>]*>[\s\S]*?<\/table>/i)
+      ?.[0];
   if (!table || !reportDate) {
     return unavailable(input.source, input.species, "parser_changed");
   }

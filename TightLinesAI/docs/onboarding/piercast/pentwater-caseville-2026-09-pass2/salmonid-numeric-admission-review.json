@@ -1,0 +1,1336 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-salmonid-admission-v1",
+  "reviewed_at": "2026-09-21",
+  "row_count": 30,
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 21,
+        "positive_years": [
+          2000,
+          2001,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2012,
+          2013,
+          2014
+        ],
+        "positive_months": [
+          4,
+          7,
+          8,
+          9
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 7.5,
+      "weaker_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "kenosha_wi",
+        "city_name": "Kenosha",
+        "pair_key": "kenosha_wi/chinook_salmon",
+        "peak": 7.4,
+        "cohort": "established_27_city_baseline",
+        "rank": 17
+      },
+      "stronger_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "waukegan_il",
+        "city_name": "Waukegan",
+        "pair_key": "waukegan_il/chinook_salmon",
+        "peak": 7.6,
+        "cohort": "established_27_city_baseline",
+        "rank": 15
+      },
+      "limitation": "Ten positive Pier/Dock catch years, including modern positives, establish recurring spring and staging opportunity. The measured record places Pentwater above Michigan City/Kenosha but below Grand Haven.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 25,
+        "positive_years": [
+          2000,
+          2001,
+          2008,
+          2009,
+          2012,
+          2013,
+          2014,
+          2017,
+          2018
+        ],
+        "positive_months": [
+          4,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 7.2,
+      "weaker_anchor": {
+        "species_id": "coho_salmon",
+        "species_name": "Coho salmon",
+        "city_id": "manitowoc_wi",
+        "city_name": "Manitowoc",
+        "pair_key": "manitowoc_wi/coho_salmon",
+        "peak": 7.2,
+        "cohort": "established_27_city_baseline",
+        "rank": 15
+      },
+      "stronger_anchor": {
+        "species_id": "coho_salmon",
+        "species_name": "Coho salmon",
+        "city_id": "manitowoc_wi",
+        "city_name": "Manitowoc",
+        "pair_key": "manitowoc_wi/coho_salmon",
+        "peak": 7.2,
+        "cohort": "established_27_city_baseline",
+        "rank": 15
+      },
+      "limitation": "Nine positive catch years and five modern positive strata establish recurring spring and fall opportunity. Magnitude supports the Manitowoc-to-Whitehall range rather than the elite southern spring cohort.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 166,
+        "first_year": 1980,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 50,
+        "positive_years": [
+          2000,
+          2001,
+          2003,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011,
+          2013,
+          2014,
+          2015,
+          2018
+        ],
+        "positive_months": [
+          4,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 8.3,
+      "weaker_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "ludington_mi",
+        "city_name": "Ludington",
+        "pair_key": "ludington_mi/steelhead",
+        "peak": 8.1,
+        "cohort": "established_27_city_baseline",
+        "rank": 9
+      },
+      "stronger_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "michigan_city_in",
+        "city_name": "Michigan City",
+        "pair_key": "michigan_city_in/steelhead",
+        "peak": 8.5,
+        "cohort": "established_27_city_baseline",
+        "rank": 7
+      },
+      "limitation": "Fourteen positive catch years across spring, summer, and fall establish a strong multi-window fishery between Ludington and Michigan City.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 121,
+        "first_year": 1979,
+        "last_year": 2018
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 30,
+        "positive_years": [
+          2000,
+          2003,
+          2005,
+          2006,
+          2007,
+          2009,
+          2011,
+          2012,
+          2014,
+          2015,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          4,
+          5,
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 7.3,
+      "weaker_anchor": {
+        "species_id": "brown_trout",
+        "species_name": "Brown trout",
+        "city_id": "racine_wi",
+        "city_name": "Racine",
+        "pair_key": "racine_wi/brown_trout",
+        "peak": 7.3,
+        "cohort": "established_27_city_baseline",
+        "rank": 12
+      },
+      "stronger_anchor": {
+        "species_id": "brown_trout",
+        "species_name": "Brown trout",
+        "city_id": "racine_wi",
+        "city_name": "Racine",
+        "pair_key": "racine_wi/brown_trout",
+        "peak": 7.3,
+        "cohort": "established_27_city_baseline",
+        "rank": 12
+      },
+      "limitation": "Twelve positive catch years with modern recurrence establish a strong cold-season and harbor fishery at the Racine/Kewaunee tier.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 31,
+        "first_year": 1981,
+        "last_year": 2007
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2015
+        ],
+        "positive_months": [
+          4
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Only one positive catch year was resolved; stocking and one measured occurrence do not establish recurrence. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "exclude",
+      "pass2_disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "The cell was reopened against exact-port, connected-water, stocking, weekly-report, management, historical, and seasonal evidence. No new covered-structure basis changed the Pass 1 exclusion. No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 162,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 8,
+        "positive_years": [
+          2003,
+          2006,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 6,
+      "weaker_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "lexington_mi",
+        "city_name": "Lexington",
+        "pair_key": "lexington_mi/chinook_salmon",
+        "peak": 5.6,
+        "cohort": "established_27_city_baseline",
+        "rank": 26
+      },
+      "stronger_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "muskegon_mi",
+        "city_name": "Muskegon",
+        "pair_key": "muskegon_mi/chinook_salmon",
+        "peak": 6.5,
+        "cohort": "established_27_city_baseline",
+        "rank": 24
+      },
+      "limitation": "Four exact-port catch years plus current agency harbor guidance establish a real fall fishery above Lexington but below Harrisville. Historical sampling limits confidence, not F.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 15,
+        "first_year": 1983,
+        "last_year": 1985
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Current records remain primarily boat/offshore and no positive Pier/Dock catch row resolves the covered-structure fishery. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 229,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 7,
+        "positive_years": [
+          1989,
+          2007,
+          2009,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          4,
+          5
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 6,
+      "weaker_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/steelhead",
+        "peak": 5.8,
+        "cohort": "established_27_city_baseline",
+        "rank": 25
+      },
+      "stronger_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "chicago_il",
+        "city_name": "Chicago",
+        "pair_key": "chicago_il/steelhead",
+        "peak": 6.5,
+        "cohort": "established_27_city_baseline",
+        "rank": 23
+      },
+      "limitation": "Four exact-port catch years, current agency targeting guidance, and exact/neighboring stocking pathways establish a recurring fishery above Harrisville and below Chicago.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 173,
+        "first_year": 1979,
+        "last_year": 2021
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 20,
+        "positive_years": [
+          1994,
+          2005,
+          2006,
+          2007,
+          2008,
+          2009,
+          2010,
+          2011
+        ],
+        "positive_months": [
+          4,
+          5,
+          6,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 5.8,
+      "weaker_anchor": {
+        "species_id": "brown_trout",
+        "species_name": "Brown trout",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/brown_trout",
+        "peak": 5.4,
+        "cohort": "established_27_city_baseline",
+        "rank": 24
+      },
+      "stronger_anchor": {
+        "species_id": "brown_trout",
+        "species_name": "Brown trout",
+        "city_id": "michigan_city_in",
+        "city_name": "Michigan City",
+        "pair_key": "michigan_city_in/brown_trout",
+        "peak": 6,
+        "cohort": "established_27_city_baseline",
+        "rank": 22
+      },
+      "limitation": "Seven positive catch years with strong measured magnitude establish recurring spring and fall harbor opportunity above Alpena but below Michigan City.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 116,
+        "first_year": 1981,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 5,
+        "positive_years": [
+          2006,
+          2007,
+          2008,
+          2009
+        ],
+        "positive_months": [
+          4
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 5.1,
+      "weaker_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "tawas_city_mi",
+        "city_name": "Tawas City",
+        "pair_key": "tawas_city_mi/lake_trout",
+        "peak": 5.1,
+        "cohort": "new_private_pass2",
+        "rank": 5
+      },
+      "stronger_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "tawas_city_mi",
+        "city_name": "Tawas City",
+        "pair_key": "tawas_city_mi/lake_trout",
+        "peak": 5.1,
+        "cohort": "new_private_pass2",
+        "rank": 5
+      },
+      "limitation": "Four positive spring catch years plus current local guidance establish modest recurring nearshore opportunity between Alpena and Harbor Beach.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2008
+        ],
+        "positive_months": [
+          6
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 6.8,
+      "weaker_anchor": {
+        "species_id": "atlantic_salmon",
+        "species_name": "Atlantic salmon",
+        "city_id": "port_sanilac_mi",
+        "city_name": "Port Sanilac",
+        "pair_key": "port_sanilac_mi/atlantic_salmon",
+        "peak": 6.3,
+        "cohort": "established_27_city_baseline",
+        "rank": 5
+      },
+      "stronger_anchor": {
+        "species_id": "atlantic_salmon",
+        "species_name": "Atlantic salmon",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/atlantic_salmon",
+        "peak": 7.2,
+        "cohort": "established_27_city_baseline",
+        "rank": 3
+      },
+      "limitation": "DNR directs anglers to cast from the breakwall, a 2008 Pier/Dock positive establishes exact-mode catch, and 2026 advisory evidence confirms current recurrence. The result sits above Port Sanilac and below Alpena.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 114,
+        "first_year": 1979,
+        "last_year": 2011
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Historical stocking and mixed current occurrence do not resolve present recurring covered-structure targeting. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 41,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 5.8,
+      "weaker_anchor": {
+        "species_id": "coho_salmon",
+        "species_name": "Coho salmon",
+        "city_id": "harbor_beach_mi",
+        "city_name": "Harbor Beach",
+        "pair_key": "harbor_beach_mi/coho_salmon",
+        "peak": 5.8,
+        "cohort": "established_27_city_baseline",
+        "rank": 27
+      },
+      "stronger_anchor": {
+        "species_id": "coho_salmon",
+        "species_name": "Coho salmon",
+        "city_id": "harbor_beach_mi",
+        "city_name": "Harbor Beach",
+        "pair_key": "harbor_beach_mi/coho_salmon",
+        "peak": 5.8,
+        "cohort": "established_27_city_baseline",
+        "rank": 27
+      },
+      "limitation": "Current DNR exact-city/bay guidance supports intentional local shore opportunity. With no resolved dashboard allocation, the peak matches Harbor Beach and remains below Harrisville.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 442,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 5.8,
+      "weaker_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/steelhead",
+        "peak": 5.8,
+        "cohort": "established_27_city_baseline",
+        "rank": 25
+      },
+      "stronger_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/steelhead",
+        "peak": 5.8,
+        "cohort": "established_27_city_baseline",
+        "rank": 25
+      },
+      "limitation": "DNR exact-city guidance establishes the local fishery, but reviewed weekly records are predominantly boat/offshore or incidental. The corrected peak matches the lower established Huron harbor tier rather than exceeding measured Rogers City evidence.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 156,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Historical exact-area stocking ended and current exact-pier recurrence remains unresolved. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 47,
+        "first_year": 1981,
+        "last_year": 2017
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 5.1,
+      "weaker_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "rogers_city_mi",
+        "city_name": "Rogers City",
+        "pair_key": "rogers_city_mi/lake_trout",
+        "peak": 5.1,
+        "cohort": "new_private_pass2",
+        "rank": 4
+      },
+      "stronger_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "rogers_city_mi",
+        "city_name": "Rogers City",
+        "pair_key": "rogers_city_mi/lake_trout",
+        "peak": 5.1,
+        "cohort": "new_private_pass2",
+        "rank": 4
+      },
+      "limitation": "Current exact-city/bay guidance establishes cold-water local opportunity. With no resolved structure-level magnitude, the corrected peak matches Rogers City and remains below Harbor Beach; stocking only corroborates occurrence.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 24,
+        "first_year": 2013,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "The current agency location inventory and regional program establish local occurrence, but the reviewed records remain mode-mixed or offshore and do not establish recurring covered-structure targeting. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 69,
+        "first_year": 1984,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 21,
+        "positive_years": [
+          1990,
+          1991,
+          1994,
+          2005,
+          2007,
+          2008,
+          2010,
+          2012,
+          2014,
+          2015,
+          2016,
+          2018
+        ],
+        "positive_months": [
+          6,
+          8,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 7.2,
+      "weaker_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "chicago_il",
+        "city_name": "Chicago",
+        "pair_key": "chicago_il/chinook_salmon",
+        "peak": 7,
+        "cohort": "established_27_city_baseline",
+        "rank": 20
+      },
+      "stronger_anchor": {
+        "species_id": "chinook_salmon",
+        "species_name": "Chinook salmon",
+        "city_id": "kenosha_wi",
+        "city_name": "Kenosha",
+        "pair_key": "kenosha_wi/chinook_salmon",
+        "peak": 7.4,
+        "cohort": "established_27_city_baseline",
+        "rank": 17
+      },
+      "limitation": "Nine positive catch years including modern positives establish recurring channel opportunity. Low measured magnitude keeps the peak at the Manitowoc tier below Pentwater.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 4,
+        "first_year": 2017,
+        "last_year": 2023
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Recent connected-water stocking is not exact-channel catch evidence; the Pier/Dock series has no positive catch row. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 233,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 17,
+        "positive_years": [
+          1998,
+          1999,
+          2000,
+          2004,
+          2008,
+          2009,
+          2010,
+          2014,
+          2016,
+          2017,
+          2020
+        ],
+        "positive_months": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 7.5,
+      "weaker_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "oscoda_mi",
+        "city_name": "Oscoda",
+        "pair_key": "oscoda_mi/steelhead",
+        "peak": 7.4,
+        "cohort": "established_27_city_baseline",
+        "rank": 17
+      },
+      "stronger_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "algoma_wi",
+        "city_name": "Algoma",
+        "pair_key": "algoma_wi/steelhead",
+        "peak": 7.7,
+        "cohort": "established_27_city_baseline",
+        "rank": 14
+      },
+      "limitation": "Eleven positive catch years across six months and continued modern occurrence establish a strong multi-window fishery between Holland/Two Rivers and the 7.7 cohort.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 222,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 2,
+        "positive_years": [
+          2001
+        ],
+        "positive_months": [
+          7
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "One positive catch year plus connected-water stocking is inadequate for recurring numeric admission. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 725,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 17,
+        "positive_years": [
+          2015,
+          2016,
+          2017,
+          2019,
+          2020,
+          2021
+        ],
+        "positive_months": [
+          5,
+          6,
+          8,
+          10
+        ]
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "A",
+      "numeric_peak": 5,
+      "weaker_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/lake_trout",
+        "peak": 5,
+        "cohort": "established_27_city_baseline",
+        "rank": 6
+      },
+      "stronger_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "alpena_mi",
+        "city_name": "Alpena",
+        "pair_key": "alpena_mi/lake_trout",
+        "peak": 5,
+        "cohort": "established_27_city_baseline",
+        "rank": 6
+      },
+      "limitation": "Six positive years, all measured catch occurring in the modern period, establish the strongest reviewed Lake Michigan onboarding peak below Rogers City and above Lexington.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 1,
+        "first_year": 1986,
+        "last_year": 1986
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "One 1986 connected-water stocking record and offshore reports do not establish an exact-pier fishery. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "chinook_salmon",
+      "species_name": "Chinook salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 114,
+        "first_year": 1979,
+        "last_year": 2011
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Neighboring-port stocking and regional occurrence do not establish exact Caseville pier recurrence. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "coho_salmon",
+      "species_name": "Coho salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 29,
+        "first_year": 1979,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 5,
+      "weaker_anchor": null,
+      "stronger_anchor": {
+        "species_id": "coho_salmon",
+        "species_name": "Coho salmon",
+        "city_id": "ludington_mi",
+        "city_name": "Ludington",
+        "pair_key": "ludington_mi/coho_salmon",
+        "peak": 5.6,
+        "cohort": "established_27_city_baseline",
+        "rank": 29
+      },
+      "limitation": "An exact DNR Caseville-pier catch report, official spring salmon guidance for Caseville, and current Huron County stocking corroboration establish a real but modest city-centered fishery. The conservative peak remains below Harbor Beach and Ludington.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "steelhead",
+      "species_name": "Steelhead / rainbow trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 248,
+        "first_year": 1980,
+        "last_year": 2026
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 4.5,
+      "weaker_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "port_sanilac_mi",
+        "city_name": "Port Sanilac",
+        "pair_key": "port_sanilac_mi/steelhead",
+        "peak": 4.5,
+        "cohort": "established_27_city_baseline",
+        "rank": 32
+      },
+      "stronger_anchor": {
+        "species_id": "steelhead",
+        "species_name": "Steelhead",
+        "city_id": "port_sanilac_mi",
+        "city_name": "Port Sanilac",
+        "pair_key": "port_sanilac_mi/steelhead",
+        "peak": 4.5,
+        "cohort": "established_27_city_baseline",
+        "rank": 32
+      },
+      "limitation": "Exact connected Pigeon River/Caseville rainbow-trout stocking through 2022 and official spring trout guidance establish a modest city-centered steelhead pathway. The conservative peak matches Port Sanilac and remains below the measured Lake Huron harbor cohort.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "brown_trout",
+      "species_name": "Brown trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 157,
+        "first_year": 1982,
+        "last_year": 2011
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "hold",
+      "pass2_disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "Historical exact-area stocking ended in 1999 and no current exact-pier recurrence was resolved. No placeholder score is permitted.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "lake_trout",
+      "species_name": "Lake trout",
+      "stocking_summary": {
+        "searched": true,
+        "result": "records_found",
+        "record_count": 176,
+        "first_year": 1981,
+        "last_year": 2017
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "research_candidate",
+      "pass2_disposition": "numeric_private",
+      "evidence_grade": "B",
+      "numeric_peak": 4.6,
+      "weaker_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "oscoda_mi",
+        "city_name": "Oscoda",
+        "pair_key": "oscoda_mi/lake_trout",
+        "peak": 4.6,
+        "cohort": "established_27_city_baseline",
+        "rank": 10
+      },
+      "stronger_anchor": {
+        "species_id": "lake_trout",
+        "species_name": "Lake trout",
+        "city_id": "oscoda_mi",
+        "city_name": "Oscoda",
+        "pair_key": "oscoda_mi/lake_trout",
+        "peak": 4.6,
+        "cohort": "established_27_city_baseline",
+        "rank": 10
+      },
+      "limitation": "Michigan DNR's exact Caseville fishery inventory names lake trout and the Lake Huron roadmap identifies spring trout opportunity. With no quantitative Caseville series, the conservative peak matches Oscoda and remains below Lexington.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "species_id": "atlantic_salmon",
+      "species_name": "Atlantic salmon",
+      "stocking_summary": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "record_count": 0,
+        "first_year": null,
+        "last_year": null
+      },
+      "exact_port_evidence": {
+        "searched": true,
+        "positive_rows": 0,
+        "positive_years": [],
+        "positive_months": []
+      },
+      "pass1_disposition": "exclude",
+      "pass2_disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "numeric_peak": null,
+      "weaker_anchor": null,
+      "stronger_anchor": null,
+      "limitation": "The cell was reopened against exact-port, connected-water, stocking, weekly-report, management, historical, and seasonal evidence. No new covered-structure basis changed the Pass 1 exclusion. No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "generic_salmon_or_trout_not_assigned": true,
+      "stocking_alone_did_not_create_score": true
+    }
+  ]
+}

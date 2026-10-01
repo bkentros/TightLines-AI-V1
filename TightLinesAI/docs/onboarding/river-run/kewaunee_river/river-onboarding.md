@@ -97,7 +97,7 @@ Chinook/coho: Beginning=`lower`; Building early/established/broad=`besadny`; Pea
 | --- | --- | --- |
 | Lower | Harbor Park; Harbor Point Park; Kewaunee Landing; 1st Highway C Bridge crossing | all three; launch and harbor limitations retained |
 | Middle | Highway C Boat Launch; Bruemmer Park River Trail; C.D. Besadny Anadromous Fish Facility | all three, with refuge/facility warnings |
-| Upper | 2nd Highway C Bridge crossing; Highway E Boat Launch; Clyde Hill Bridge; 3rd Highway C Bridge crossing | Brown only |
+| Upper | 2nd Highway C Bridge crossing; Highway E Boat Launch; Clyde Hill Bridge; 3rd Highway C Bridge crossing | Brown and Steelhead; DNR processing records support passage through the facility |
 
 E-104 names 7 DNR markers; all 7 are included. E-111–E-113 add four separately documented public city/county accesses that the DNR map omits. The reconciled inventory contains 11 entries, excludes the closed Marshlands Walk and proposed/redevelopment-only sites, and invents no coordinates. Bridge entries carry the DNR map's property-boundary limitation; Bruemmer carries the explicit north-side refuge closure.
 
@@ -108,7 +108,7 @@ E-104 names 7 DNR markers; all 7 are included. E-111–E-113 add four separately
 | Fall Chinook | supported, 8/10 sectional | long facility series, recurring stocking, explicit mid-Sep-mid-Nov calendar |
 | Fall coho | supported, 8/10 sectional | direct recurring counts/stocking, explicit mid-Sep-late-Oct calendar |
 | Fall lake-run Brown | supported, 7/10 sectional | direct collection/stocking, mid-Oct-late-Dec calendar, documented passage |
-| Fall steelhead | unsupported as independent product | fall 2024 occurrence exists, but current facility calendar is spring and direct Kewaunee Skamania stocking stops after 2019; insufficient current recurring fall calibration |
+| Fall steelhead | supported, 7/10 sectional; Pass 1 foundation only | the 2025 GLFC report documents 279 fall Steelhead processed Oct. 12-Dec. 12, 2024 and 1,493 in the distinct spring sample; current strain, stocking, and passage records support recurrence without treating the facility sample as total-river abundance |
 | Spring steelhead | occurs/recurs | outside requested fall River Run pass | explicit Mar-early-May facility season; requires its own future run model |
 | Lake trout | unsupported | lake fishery, not calibrated Kewaunee river migration |
 | Brook trout/lake sturgeon | unsupported | tributary/inland or restoration context does not establish requested fall salmonid product |
@@ -117,12 +117,12 @@ Negative search included E-101–E-109, historical strain reports, current rules
 
 ## 10. Species/run records
 
-| Field | Chinook | Coho | Lake-run Brown |
-| --- | --- | --- | --- |
-| Run ID | `kewaunee_river_fall_chinook` | `kewaunee_river_fall_coho` | `kewaunee_river_fall_brown_trout` |
-| Biology/engine | `great_lakes_chinook_v1` / `fall_cooling` | `great_lakes_coho_v1` / `fall_cooling` | `great_lakes_lake_run_brown_trout_v1` / `fall_repeat_spawner_cooling` |
-| Exact boundaries | pre 08-15; staging 08-25; start 09-10; beginning end 09-20; established 09-21; broad 09-28; peak 10-01/10-10/10-20; taper 11-02; end 11-10; late 11-20; post 11-30 | pre 08-25; staging 09-05; start 09-15; beginning end 09-25; established 09-26; broad 10-01; peak 10-05/10-15/10-25; taper 11-02; end 11-08; late 11-15; post 11-20 | pre 09-15; staging 10-01; start 10-15; beginning end 10-25; established 10-26; broad 11-01; peak 11-10/11-25/12-05; taper 12-15; end 12-22; late 12-31; post 01-15 |
-| Presence | 8 sectional; offsets 0/.06,14/.22,27/.55,45/1,56/.88,70/.5,82/.18,97/0 | independently versioned same bounded shape, max 8 | max 7; 0/.08,10/.22,17/.5,26/.72,41/1,51/.9,61/.68,68/.35,77/.12 |
+| Field | Chinook | Coho | Fall Steelhead | Lake-run Brown |
+| --- | --- | --- | --- | --- |
+| Run ID | `kewaunee_river_fall_chinook` | `kewaunee_river_fall_coho` | `kewaunee_river_fall_steelhead` | `kewaunee_river_fall_brown_trout` |
+| Biology/engine | `great_lakes_chinook_v1` / `fall_cooling` | `great_lakes_coho_v1` / `fall_cooling` | `great_lakes_steelhead_fall_entry_v1` / `fall_entry_cooling` | `great_lakes_lake_run_brown_trout_v1` / `fall_repeat_spawner_cooling` |
+| Exact boundaries | pre 08-15; staging 08-25; start 09-10; beginning end 09-20; established 09-21; broad 09-28; peak 10-01/10-10/10-20; taper 11-02; end 11-10; late 11-20; post 11-30 | pre 08-25; staging 09-05; start 09-15; beginning end 09-25; established 09-26; broad 10-01; peak 10-05/10-15/10-25; taper 11-02; end 11-08; late 11-15; post 11-20 | pre 08-15; staging 09-01; start 09-15; beginning end 09-30; established 10-01; broad 10-15; peak 11-01/11-15/12-01; taper 12-08; end 12-15; late 12-31; post 01-15 | pre 09-15; staging 10-01; start 10-15; beginning end 10-25; established 10-26; broad 11-01; peak 11-10/11-25/12-05; taper 12-15; end 12-22; late 12-31; post 01-15 |
+| Presence | 8 sectional; offsets 0/.06,14/.22,27/.55,45/1,56/.88,70/.5,82/.18,97/0 | independently versioned same bounded shape, max 8 | max 7; 0/.08,15/.25,30/.55,45/.85,61/1,76/.85,91/.62 | max 7; 0/.08,10/.22,17/.5,26/.72,41/1,51/.9,61/.68,68/.35,77/.12 |
 | Activity | `kewaunee-chinook-weather-activity-v1` | `kewaunee-coho-weather-activity-v2` | `kewaunee-brown-trout-weather-activity-v3`; +10 Peak response correction |
 | Endpoint/lifecycle | below facility; semelparous | below facility; semelparous | upper access; living repeat spawner; no mortality/departure claim |
 | Audit | hidden `kewaunee-owner-review-ready-v1` | same | same |

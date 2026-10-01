@@ -674,6 +674,24 @@ assign(
       "DNR documents Brown Trout passed above the facility; repeat-spawner semantics prohibit a salmon mortality or universal-departure claim.",
     ),
 );
+assign(
+  ["kewaunee_river_fall_steelhead"],
+  {
+    approach:
+      "Lake Michigan off Kewaunee, Kewaunee harbor, and the river mouth",
+    source: "docs/onboarding/river-run/wisconsin-winter-2026-pass1.md",
+    phases: THREE_REACH_LIVING(
+      "kewaunee_lower_river",
+      "kewaunee_besadny_reach",
+      "kewaunee_upper_access",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "DNR processing records support living Steelhead passage above Besadny; all three reaches remain viable late without inheriting salmon mortality or spawning-concentration semantics.",
+    ),
+);
 
 assign(
   ["clackamas_fall_chinook"],
@@ -730,6 +748,23 @@ assign(
     ),
 );
 assign(
+  ["manitowoc_fall_steelhead"],
+  {
+    approach: "Lake Michigan, Manitowoc harbor, and the river mouth",
+    source: "docs/onboarding/river-run/wisconsin-winter-2026-pass1.md",
+    phases: THREE_REACH_LIVING(
+      "manitowoc_lower_river",
+      "manitowoc_middle_river",
+      "manitowoc_upper_corridor",
+    ),
+  },
+  (runId) =>
+    auditedRationale(
+      runId,
+      "Living fall-entry Steelhead retain the supported corridor late; Lower Cato's October 31 access closure is preserved and the fall plan does not authorize winter access.",
+    ),
+);
+assign(
   ["oswego_fall_chinook", "oswego_fall_coho", "oswego_fall_brown_trout"],
   {
     approach: "Lake Ontario, Oswego Harbor, and the river mouth",
@@ -779,6 +814,7 @@ export function seasonalZonePlanForRun(runId: string): SeasonalZonePlan {
 }
 
 export function withSeasonalZonePlan<T extends RiverRunProfile>(run: T): T {
+  if (run.seasonalZonePlan) return run;
   return {
     ...run,
     seasonalZonePlan: seasonalZonePlanForRun(run.runId),

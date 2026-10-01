@@ -1,0 +1,75 @@
+{
+  "schema_version": "piercast-st-joseph-harrisville-pass2-atlantic-review-v1",
+  "reviewed_at": "2026-09-19",
+  "decisions": [
+    {
+      "city_id": "st_joseph_mi",
+      "disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "peak": null,
+      "rationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "STJ_BERRIEN_FISH",
+        "STJ_SILVER_BEACH",
+        "STJ_TISCORNIA"
+      ]
+    },
+    {
+      "city_id": "south_haven_mi",
+      "disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "peak": null,
+      "rationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "SOUTH_HAVEN_SAFETY",
+        "SOUTH_HAVEN_FISHING"
+      ]
+    },
+    {
+      "city_id": "holland_mi",
+      "disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "peak": null,
+      "rationale": "Pass 2 reopened this cell and found no new covered-structure evidence sufficient to change the Pass 1 exclusion. The reviewed record did not establish recurring intentional opportunity at the covered structure. This is an evidence disposition, not biological absence.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_ROADMAP_LM",
+        "MI_CREEL_DASHBOARD",
+        "HOLLAND_DNR_PARK",
+        "HOLLAND_BIG_RED"
+      ]
+    },
+    {
+      "city_id": "lexington_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "A",
+      "peak": 8,
+      "rationale": "Six modern positive Pier/Dock years, three recent years, exact-harbor stocking, the DNR experimental program, and exact-harbor occurrence support an excellent peak below Oscoda 8.4 and above Alpena 7.2.",
+      "evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_ROADMAP_LH",
+        "LEX_ATLANTIC_DNR",
+        "LEX_ATLANTIC_STOCK_2024",
+        "LEX_ENFORCEMENT_2024"
+      ]
+    },
+    {
+      "city_id": "harrisville_mi",
+      "disposition": "numeric_private",
+      "evidence_grade": "B",
+      "peak": 5.8,
+      "rationale": "DNR advisory records describe occasional fall Atlantic salmon and a developed winter harbor fishery, while the current roadmap lists fall Atlantic opportunity. This supports a modest peak above Harbor Beach 5.2 and below Port Sanilac 6.3; proposed stocking is not treated as implemented.",
+      "evidence_ids": [
+        "MI_ROADMAP_LH",
+        "HARRISVILLE_LHCFAC_2022_OCT",
+        "HARRISVILLE_LHCFAC_2025"
+      ]
+    }
+  ],
+  "conclusion": "Lexington is Grade A numeric at 8.0 from six modern Pier/Dock years plus exact program, stocking, and occurrence evidence. Harrisville is Grade B numeric at 5.8 from a documented winter harbor fishery and fall occurrence/roadmap evidence; proposed stocking is explicitly excluded. The other three cities remain excluded."
+}

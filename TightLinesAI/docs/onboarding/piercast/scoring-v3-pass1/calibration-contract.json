@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "piercast-v3-pass1-calibration-contract-v1",
+  "status": "research_contract_frozen",
+  "scopeVersion": "piercast-nine-city-thirteen-species-pass1-v1",
+  "scoreSemantics": "Absolute, cross-city fishing opportunity for an identified species from the city's main public pier context. The rating is not catch probability, abundance, safety, access, or an agency score.",
+  "cityBoundary": "A general reading for the named city harbor and listed main public fishing piers. It is not a casting-position forecast, a whole-county score, a river score, or an offshore-boat score.",
+  "pairDispositions": [
+    "admit",
+    "defer",
+    "exclude"
+  ],
+  "evidenceGrades": {
+    "A": "Repeated local pier-mode quantitative evidence with seasonal resolution, supported by current exact-city observations.",
+    "B": "Recurring local or county pier-mode evidence plus exact-city target evidence; one important magnitude or seasonal denominator is missing.",
+    "C": "Targetability is plausible and locally corroborated, but magnitude, complete annual timing, or adult pier thermal response requires substantial judgment. No v3 numeric score until the named gap closes.",
+    "D": "Occurrence, geography, fishing mode, recurrence, or targetability is unresolved. No numeric score."
+  },
+  "admissionGates": [
+    "identified_species",
+    "main_pier_geography_supported",
+    "pier_or_shore_mode_supported",
+    "recurring_targetable_opportunity_supported",
+    "complete_annual_seasonality_defensible",
+    "applicable_thermal_mode_supported",
+    "current_regulation_and_access_reviewed"
+  ],
+  "numericEvidenceRules": [
+    "Stocking may support continued presence but never determines score magnitude.",
+    "Boat, charter, tributary, river, offshore, and whole-lake success never transfers directly to a pier score.",
+    "A reported or estimated zero is not biological absence unless survey coverage and detectability support that interpretation.",
+    "Missing winter sampling is recorded as uncertainty, not silently converted to zero catch or a precise rating.",
+    "County annual pier harvest may support recurrence and relative magnitude but cannot create city CPUE without city pier effort.",
+    "Statewide monthly pier CPUE may inform broad timing but cannot be represented as city-specific magnitude.",
+    "Confidence is a separate eligibility and disclosure field and never a hidden score penalty."
+  ],
+  "opportunityModeFields": [
+    "modeId",
+    "cityId",
+    "speciesId",
+    "displayName",
+    "fisheryStrength",
+    "seasonalAvailabilityCurve",
+    "thermalResponseCurve",
+    "coveredMethods",
+    "evidenceIds",
+    "evidenceGrade",
+    "limitations"
+  ],
+  "seasonalModePotential": "P_mode(c,s,m,d) = 1 + (F(c,s,m) - 1) * A(c,s,m,d), where F is absolute fishery strength from 1 to 10 and A is continuous seasonal availability from 0 to 1.",
+  "multipleModeRule": "The city/species seasonal potential is the maximum eligible mode potential, never the sum. Overlapping modes cannot stack into an unsupported score.",
+  "thermalInheritanceRule": "Every mode declares either an evidence-supported mode-specific thermal response or explicit inheritance from a shared species response. Distinct curves are never created merely to fill the schema.",
+  "magnitudeRubric": [
+    {
+      "range": "1.0-2.0",
+      "meaning": "Negligible or rare intentional main-pier opportunity"
+    },
+    {
+      "range": "2.1-4.0",
+      "meaning": "Limited or inconsistent opportunity"
+    },
+    {
+      "range": "4.1-6.0",
+      "meaning": "Real but ordinary targetable opportunity"
+    },
+    {
+      "range": "6.1-8.0",
+      "meaning": "Strong recurring fishery"
+    },
+    {
+      "range": "8.1-9.4",
+      "meaning": "Excellent recurring regional fishery"
+    },
+    {
+      "range": "9.5-10.0",
+      "meaning": "Reference-class opportunity under exceptional alignment; a displayed 10 must remain rare"
+    }
+  ],
+  "promotionRules": [
+    "No pairing is promoted directly from this research contract.",
+    "Grades A and B may proceed to Formula v3 shadow evaluation.",
+    "Grade C remains nonnumeric research until its named evidence gap closes.",
+    "Grade D has no numeric curve.",
+    "Every admitted mode must cite evidence supporting geography, timing, targetability, and magnitude.",
+    "Historical Formula v2 snapshots remain immutable."
+  ]
+}

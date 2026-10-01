@@ -1,0 +1,33 @@
+cityId,cityName,stateCode,numericPairCount,strongestSpeciesId,strongestSpeciesName,strongestPeakF,hasGoodMajorSpeciesPeak
+ludington_mi,Ludington,MI,6,chinook_salmon,Chinook salmon,8.3,true
+grand_haven_mi,Grand Haven,MI,6,steelhead,Steelhead,9.2,true
+manistee_mi,Manistee,MI,6,steelhead,Steelhead,10,true
+frankfort_elberta_mi,Frankfort,MI,5,steelhead,Steelhead,9.8,true
+sheboygan_wi,Sheboygan,WI,4,chinook_salmon,Chinook salmon,9.4,true
+port_washington_wi,Port Washington,WI,4,chinook_salmon,Chinook salmon,8.6,true
+milwaukee_wi,Milwaukee,WI,4,coho_salmon,Coho salmon,8.2,true
+racine_wi,Racine,WI,4,coho_salmon,Coho salmon,8.5,true
+kenosha_wi,Kenosha,WI,4,coho_salmon,Coho salmon,8.6,true
+harbor_beach_mi,Harbor Beach,MI,4,coho_salmon,Coho salmon,5.8,false
+oscoda_mi,Oscoda,MI,6,atlantic_salmon,Atlantic salmon,8.4,true
+port_sanilac_mi,Port Sanilac,MI,6,coho_salmon,Coho salmon,6.4,true
+two_rivers_wi,Two Rivers,WI,4,chinook_salmon,Chinook salmon,8.4,true
+kewaunee_wi,Kewaunee,WI,5,chinook_salmon,Chinook salmon,9.1,true
+algoma_wi,Algoma,WI,4,chinook_salmon,Chinook salmon,9,true
+manitowoc_wi,Manitowoc,WI,4,chinook_salmon,Chinook salmon,8.5,true
+waukegan_il,Waukegan,IL,4,coho_salmon,Coho salmon,8.8,true
+chicago_il,Chicago,IL,6,coho_salmon,Coho salmon,8.2,true
+michigan_city_in,Michigan City,IN,4,coho_salmon,Coho salmon,8.7,true
+muskegon_mi,Muskegon,MI,5,steelhead,Steelhead,8,true
+whitehall_mi,Whitehall,MI,5,chinook_salmon,Chinook salmon,9.3,true
+alpena_mi,Alpena,MI,7,atlantic_salmon,Atlantic salmon,7.2,true
+st_joseph_mi,St. Joseph,MI,5,coho_salmon,Coho salmon,8.6,true
+south_haven_mi,South Haven,MI,6,steelhead,Steelhead,8.8,true
+holland_mi,Holland,MI,6,chinook_salmon,Chinook salmon,7.8,true
+lexington_mi,Lexington,MI,7,steelhead,Steelhead,8.8,true
+harrisville_mi,Harrisville,MI,5,chinook_salmon,Chinook salmon,6.6,true
+pentwater_mi,Pentwater,MI,5,steelhead,Steelhead,8.3,true
+rogers_city_mi,Rogers City,MI,5,atlantic_salmon,Atlantic salmon,6.8,true
+tawas_city_mi,Tawas City,MI,3,coho_salmon,Coho salmon,5.8,false
+charlevoix_mi,Charlevoix,MI,4,steelhead,Steelhead,7.5,true
+caseville_mi,Caseville,MI,3,coho_salmon,Coho salmon,5,false

@@ -523,6 +523,11 @@ export default function RootLayout() {
             name="pier-cast-review"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="pier-cast-map"
+            // the Live Lake Map pans with a finger drag from any edge; its own Back button leaves
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
           {/*
           The following screens used to render the system Stack header
           (a thin grey bar with a default Back button) which clashed with

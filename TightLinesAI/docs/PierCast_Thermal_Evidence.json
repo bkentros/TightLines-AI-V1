@@ -1238,6 +1238,50 @@
       "Validation contradiction"
     ],
     "productionReady": false
+  },
+  {
+    "evidenceId": "LH_THERMAL_ATLANTIC_USGS",
+    "authority": "U.S. Geological Survey",
+    "title": "Atlantic Salmon species profile",
+    "urlOrPath": "https://nas.er.usgs.gov/queries/FactSheet.aspx?speciesID=926",
+    "publishedAt": null,
+    "accessedAt": "2026-09-15",
+    "supportedClaim": "Broad adult/general 4-12 C preference and 27.8 C upper lethal reference bound.",
+    "limitations": { "transferLimit": "Broad compatibility only; not a city catch or bite curve." },
+    "productionReady": false
+  },
+  {
+    "evidenceId": "LH_DNR_2024_04_24",
+    "authority": "Michigan DNR",
+    "title": "Weekly fishing report 2024-04-24",
+    "urlOrPath": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+    "publishedAt": "2024-04-24",
+    "accessedAt": "2026-09-15",
+    "supportedClaim": "Oscoda pier fishing was good for Atlantic salmon and steelhead.",
+    "limitations": { "transferLimit": "Qualitative weekly snapshot, not standardized CPUE." },
+    "productionReady": false
+  },
+  {
+    "evidenceId": "LH_THERMAL_PIKE_MIDNR",
+    "authority": "Michigan DNR",
+    "title": "Northern Pike Management Plan",
+    "urlOrPath": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/managing/fisheries/FR15_NorthernPikeManagementPlan.pdf",
+    "publishedAt": "2016",
+    "accessedAt": "2026-09-15",
+    "supportedClaim": "Northern pike are coolwater fish and seek cooler available habitat under warm surface conditions.",
+    "limitations": { "transferLimit": "Habitat occupancy does not establish angling response." },
+    "productionReady": false
+  },
+  {
+    "evidenceId": "LH_DNR_2024_05_08",
+    "authority": "Michigan DNR",
+    "title": "Weekly fishing report 2024-05-08",
+    "urlOrPath": "https://www.michigan.gov/dnr/things-to-do/fishing/weekly",
+    "publishedAt": "2024-05-08",
+    "accessedAt": "2026-09-15",
+    "supportedClaim": "Port Sanilac breakwall anglers caught northern pike and a few steelhead.",
+    "limitations": { "transferLimit": "Qualitative weekly snapshot, not standardized CPUE." },
+    "productionReady": false
   }
   ]
 }

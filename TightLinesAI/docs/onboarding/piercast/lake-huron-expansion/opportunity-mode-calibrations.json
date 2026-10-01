@@ -1,0 +1,1064 @@
+{
+  "schemaVersion": "piercast-lake-huron-mode-calibrations-v1",
+  "modes": [
+    {
+      "modeCalibrationId": "harbor_beach_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2022_04_20",
+        "LH_DNR_2024_10_09"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "harbor_beach_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.7,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2024_10_09"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "harbor_beach_mi__smallmouth_bass__warm_season_breakwall__v3_lake_huron_v1",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "smallmouth_bass",
+      "modeId": "warm_season_breakwall",
+      "modeName": "Warm-season breakwall fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.9,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "10-20",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Warm-season opportunity is confined to the public city-harbor boundary and does not transfer from inland or boat fisheries.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__atlantic_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "atlantic_salmon",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 8.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2024_05_01",
+        "LH_DNR_2025_04_16",
+        "LH_DNR_2026_05_13"
+      ],
+      "thermalEvidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__atlantic_salmon__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "atlantic_salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 5.9,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "thermalEvidenceIds": [
+        "LH_THERMAL_ATLANTIC_USGS"
+      ],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__steelhead__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "steelhead",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 7.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "steelhead__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2025_04_02",
+        "LH_DNR_2026_05_13"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__steelhead__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "steelhead",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 5.3,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "steelhead__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_11_05"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__walleye__spring_low_light__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "walleye",
+      "modeId": "spring_low_light",
+      "modeName": "Spring low-light pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 6.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "02-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "03-25",
+          "availability": 0.45
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 1
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.4
+        },
+        {
+          "monthDay": "07-10",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_05_01",
+        "LH_DNR_2024_05_08",
+        "LH_DNR_2025_04_16",
+        "LH_DNR_2026_05_13"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Reports establish repeated spring pier catches; time-of-day precision is not inferred.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__walleye__fall_low_light__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "walleye",
+      "modeId": "fall_low_light",
+      "modeName": "Fall low-light pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 4.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "07-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-25",
+          "availability": 0.35
+        },
+        {
+          "monthDay": "09-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-25",
+          "availability": 0.4
+        },
+        {
+          "monthDay": "11-20",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "walleye__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_17"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall evidence is thinner than spring evidence, so this mode has a lower ceiling.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__lake_trout__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "lake_trout",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.6,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "lake_trout__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_04_17",
+        "LH_DNR_2024_04_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_04_02"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 6.5,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_17",
+        "LH_DNR_2025_09_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__chinook_salmon__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "chinook_salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.5,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "chinook_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__smallmouth_bass__warm_season_pier__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "smallmouth_bass",
+      "modeId": "warm_season_pier",
+      "modeName": "Warm-season pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.5,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "10-20",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2025_11_05"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Warm-season opportunity is confined to the public city-harbor boundary and does not transfer from inland or boat fisheries.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__channel_catfish__warm_season_bottom_fishery__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "channel_catfish",
+      "modeId": "warm_season_bottom_fishery",
+      "modeName": "Warm-season bottom fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.2,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "10-20",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2024_04_24",
+        "LH_DNR_2025_11_05"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Warm-season opportunity is confined to the public city-harbor boundary and does not transfer from inland or boat fisheries.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "oscoda_mi__freshwater_drum__warm_season_bottom_fishery__v3_lake_huron_v1",
+      "cityId": "oscoda_mi",
+      "speciesId": "freshwater_drum",
+      "modeId": "warm_season_bottom_fishery",
+      "modeName": "Warm-season bottom fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 3.9,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "10-20",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2018_09_06",
+        "LH_DNR_2024_04_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Warm-season opportunity is confined to the public city-harbor boundary and does not transfer from inland or boat fisheries.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "port_sanilac_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 6.4,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2022_04_20"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "port_sanilac_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "coho_salmon",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "A",
+      "fisheryStrength": 5.8,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "coho_salmon__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_10_09",
+        "LH_DNR_2025_09_10",
+        "LH_DNR_2025_09_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "port_sanilac_mi__steelhead__spring_coldwater_pier__v3_lake_huron_v1",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "steelhead",
+      "modeId": "spring_coldwater_pier",
+      "modeName": "Spring cold-water pier fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.5,
+      "availabilityKnots": [
+        {
+          "monthDay": "12-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "02-15",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "03-20",
+          "availability": 0.62
+        },
+        {
+          "monthDay": "04-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "05-20",
+          "availability": 0.58
+        },
+        {
+          "monthDay": "06-20",
+          "availability": 0
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "steelhead__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2022_04_20",
+        "LH_DNR_2024_05_08"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Spring magnitude is bounded by exact pier/catwalk reports; boat-only lake reports are excluded.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "port_sanilac_mi__steelhead__fall_harbor_staging__v3_lake_huron_v1",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "steelhead",
+      "modeId": "fall_harbor_staging",
+      "modeName": "Fall harbor staging",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 4.3,
+      "availabilityKnots": [
+        {
+          "monthDay": "06-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "08-20",
+          "availability": 0.18
+        },
+        {
+          "monthDay": "09-18",
+          "availability": 1
+        },
+        {
+          "monthDay": "10-15",
+          "availability": 0.55
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0.12
+        },
+        {
+          "monthDay": "12-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "steelhead__shared_temperature__v0_2",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2025_09_24"
+      ],
+      "thermalEvidenceIds": [],
+      "limitations": [
+        "Fall staging is episodic and the city-harbor curve does not imply river-only or offshore availability.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    },
+    {
+      "modeCalibrationId": "port_sanilac_mi__northern_pike__warm_season_breakwall__v3_lake_huron_v1",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "northern_pike",
+      "modeId": "warm_season_breakwall",
+      "modeName": "Warm-season breakwall fishery",
+      "status": "disabled_lake_huron_shadow_candidate",
+      "evidenceGrade": "B",
+      "fisheryStrength": 5.1,
+      "availabilityKnots": [
+        {
+          "monthDay": "03-15",
+          "availability": 0
+        },
+        {
+          "monthDay": "05-01",
+          "availability": 0.32
+        },
+        {
+          "monthDay": "06-15",
+          "availability": 0.78
+        },
+        {
+          "monthDay": "07-20",
+          "availability": 1
+        },
+        {
+          "monthDay": "09-10",
+          "availability": 0.7
+        },
+        {
+          "monthDay": "10-20",
+          "availability": 0.2
+        },
+        {
+          "monthDay": "11-15",
+          "availability": 0
+        }
+      ],
+      "thermalCurveId": "northern_pike__shared_temperature__v0_1",
+      "fisheryEvidenceIds": [
+        "LH_DNR_2024_05_08",
+        "LH_DNR_2025_09_24"
+      ],
+      "thermalEvidenceIds": [
+        "LH_THERMAL_PIKE_MIDNR",
+        "LH_THERMAL_PIKE_PEER"
+      ],
+      "limitations": [
+        "Warm-season opportunity is confined to the public city-harbor boundary and does not transfer from inland or boat fisheries.",
+        "Weekly agency observations establish seasonal opportunity, not catch probability or a promise at every casting position.",
+        "LMHOFS surface temperature is a bounded compatibility modifier and may differ from fish-experienced water."
+      ],
+      "promotionEligible": false
+    }
+  ]
+}

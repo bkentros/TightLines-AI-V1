@@ -256,6 +256,7 @@ export function buildConditionRefresh(input: {
       staging: input.activityStaging ?? false,
       targetDate: input.activityTargetDate,
       waterTempF: input.waterTempF,
+      waterTemperatureFreshness: input.waterTemperatureFreshness,
       temperatureTrend: input.temperatureSignal,
       gaugeFreshness: input.gaugeFreshness,
       weatherFreshness: input.weatherFreshness,

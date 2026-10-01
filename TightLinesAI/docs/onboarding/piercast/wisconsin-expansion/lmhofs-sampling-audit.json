@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "piercast-lmhofs-sampling-audit-v1",
+  "reviewedAt": "2026-09-14",
+  "probeCycle": "2026-09-14T12:00:00Z",
+  "source": "NOAA NOS LMHOFS regular grid OPeNDAP",
+  "status": "deterministic_extraction_verified_representation_not_approved",
+  "cities": {
+    "milwaukee_wi": {
+      "reference": {"name":"Milwaukee Breakwater Light","latitude":43.0269444444,"longitude":-87.8819444444,"source":"NOAA Coast Pilot 6"},
+      "selected": {"gridRow":143,"gridColumn":18,"latitude":43.03,"longitude":-87.88,"distanceM":375,"modelBathymetryM":10.608443700734247},
+      "bathymetry3x3M": [[4.908984597411147,9.907660696238215,11.057851705024177],[5.796540392370982,10.608443700734247,12.44739274888049],[3.5287534774794924,9.80689639726956,12.053186413915055]],
+      "probes": [[0,"2026-09-14T12:00:00Z",14.86516],[1,"2026-09-14T13:00:00Z",14.941994],[24,"2026-09-15T12:00:00Z",15.0529175],[72,"2026-09-17T12:00:00Z",14.278522],[120,"2026-09-19T12:00:00Z",15.754171]],
+      "validation": "GLOS obs_194 is configured as a seasonal comparison source only; it is not a score input."
+    },
+    "racine_wi": {
+      "reference": {"name":"Racine East Harbor Entrance Light 2","latitude":42.7336111111,"longitude":-87.7705555556,"source":"NOAA Aids to Navigation"},
+      "selected": {"gridRow":113,"gridColumn":29,"latitude":42.73,"longitude":-87.77,"distanceM":404,"modelBathymetryM":5.330829941698761},
+      "bathymetry3x3M": [[-99999,6.40513438300826,8.595227330153053],[-99999,5.330829941698761,8.781439053503322],[-99999,4.985735376726866,9.273720932493447]],
+      "probes": [[0,"2026-09-14T12:00:00Z",16.717247],[1,"2026-09-14T13:00:00Z",16.730574],[24,"2026-09-15T12:00:00Z",15.107155],[72,"2026-09-17T12:00:00Z",14.3111515],[120,"2026-09-19T12:00:00Z",15.845218]],
+      "validation": "No suitably pier-local active observation series found; offshore buoy obs_153 was not promoted to the runtime profile."
+    },
+    "kenosha_wi": {
+      "reference": {"name":"Kenosha Light","latitude":42.5888888889,"longitude":-87.8086111111,"source":"NOAA Coast Pilot 6"},
+      "selected": {"gridRow":99,"gridColumn":26,"latitude":42.59,"longitude":-87.8,"distanceM":716,"modelBathymetryM":6.414282373473611},
+      "bathymetry3x3M": [[0.9263648410383578,5.859300114700244,9.420684409372644],[1.4083396128636418,6.414282373473611,9.878004182676072],[2.94753263419258,8.159835805534543,10.14633648869185]],
+      "probes": [[0,"2026-09-14T12:00:00Z",13.980246],[1,"2026-09-14T13:00:00Z",14.45851],[24,"2026-09-15T12:00:00Z",16.233294],[72,"2026-09-17T12:00:00Z",14.641964],[120,"2026-09-19T12:00:00Z",16.234886]],
+      "validation": "No pier-local active observation series found."
+    }
+  },
+  "limitation": "Wet-cell and horizon checks verify extraction and basic plausibility only. A model surface cell is not a pier thermometer and does not resolve harbor mixing, depth, plume, waves, ice, or access."
+}

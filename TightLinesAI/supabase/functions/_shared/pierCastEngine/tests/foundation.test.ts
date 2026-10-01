@@ -1,4 +1,9 @@
-import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
+import {
+  getPierCastPrivateAdmission,
+  getPierCastPrivateSpeciesIds,
+  getPierCastPrivateTemperatureCurve,
+  PIER_CAST_PRIVATE_ROSTER_VERSION,
+} from "../config/privateCalibration.ts";
 import {
   assert,
   assertAlmostEquals,
@@ -33,6 +38,7 @@ import {
   toFinFindrOpportunityRating,
   validatePierCastFoundation,
 } from "../index.ts";
+import { getPierCastSpeciesExpansionTemperatureCurve } from "../config/speciesExpansion.ts";
 
 const provisionalCurve: PierCastTemperatureCurve = {
   curveId: "test_provisional_only",
@@ -74,13 +80,16 @@ function evaluate(
 
 Deno.test("PierCast foundation validates with every real rating disabled", () => {
   assertEquals(validatePierCastFoundation(), []);
-  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 13);
+  assertEquals(PIER_CAST_SPECIES_PROFILES.length, 19);
   assertEquals(PIER_CAST_CITY_PROFILES.length, 5);
   assert(PIER_CAST_SPECIES_PROFILES.every((profile) => !profile.ratingEnabled));
   const coreSpecies = new Set<string>(PIER_CAST_CORE_SPECIES_IDS);
   assert(
     PIER_CAST_SPECIES_PROFILES.every((profile) =>
-      !!getPierCastPrivateTemperatureCurve(profile.speciesId)
+      !!(
+          getPierCastPrivateTemperatureCurve(profile.speciesId) ??
+            getPierCastSpeciesExpansionTemperatureCurve(profile.speciesId)
+        )
         ? profile.calibrationStatus === "provisional" &&
           profile.seasonalTemperatureCurves?.length === 1
         : profile.calibrationStatus === "not_calibrated" &&
@@ -244,17 +253,17 @@ Deno.test("every retained species has twelve explicit month contexts", () => {
   const contexts = PIER_CAST_SPECIES_PROFILES.flatMap((profile) =>
     Object.values(profile.monthContexts)
   );
-  assertEquals(contexts.length, 156);
+  assertEquals(contexts.length, 228);
   assertEquals(
     contexts.filter((context) => context.evidenceState === "sourced_biology")
       .length,
-    74,
+    107,
   );
   assertEquals(
     contexts.filter((context) =>
       context.evidenceState === "proposed_regional_transfer"
     ).length,
-    81,
+    120,
   );
   assertEquals(
     contexts.filter((context) =>
@@ -277,7 +286,7 @@ Deno.test("engine species-month contexts match the reviewed research matrix", as
     )
   );
 
-  assertEquals(rows.length, 156);
+  assertEquals(rows.length, 180);
   const seenKeys = new Set<string>();
   for (const row of rows) {
     const key = `${row.species_id}:${row.month}`;
@@ -321,11 +330,26 @@ Deno.test("every configured evidence ID exists in the non-production research le
     records: Array<{ evidenceId: string; productionReady: boolean }>;
   };
   const evidenceIds = ledger.records.map((record) => record.evidenceId);
-  assertEquals(evidenceIds.length, 32);
+  assertEquals(evidenceIds.length, 36);
   assertEquals(new Set(evidenceIds).size, evidenceIds.length);
   assert(ledger.records.every((record) => record.productionReady === false));
 
-  const evidenceIdSet = new Set(evidenceIds);
+  const expansionLedgerUrl = new URL(
+    "../../../../../docs/onboarding/piercast/species-expansion-pass1/source-ledger.json",
+    import.meta.url,
+  );
+  const expansionLedger = JSON.parse(
+    await Deno.readTextFile(expansionLedgerUrl),
+  ) as { sources: Array<{ evidenceId: string }> };
+  const expansionEvidenceIds = expansionLedger.sources.map((record) =>
+    record.evidenceId
+  );
+  assertEquals(
+    new Set(expansionEvidenceIds).size,
+    expansionEvidenceIds.length,
+  );
+
+  const evidenceIdSet = new Set([...evidenceIds, ...expansionEvidenceIds]);
   for (const profile of PIER_CAST_SPECIES_PROFILES) {
     for (const evidenceId of profile.evidenceIds) {
       assert(
@@ -358,13 +382,42 @@ Deno.test("known construction and identity limitations stay encoded", () => {
   assertEquals(stub.disposition, "unresolved");
 });
 
-Deno.test("public research catalog preserves scientific gates and hides numeric configuration", () => {
+Deno.test("legacy v2 keeps twelve discoverable cities while owner review expands independently", () => {
   const publicCatalog = buildPierCastCatalog("public");
   const reviewCatalog = buildPierCastCatalog("review");
-  assertEquals(publicCatalog.cities.length, 5);
-  assertEquals(publicCatalog.cities.flatMap(c => c.species).length, 28);
-  assertEquals(publicCatalog.cities.flatMap(c => c.species).every(s => !s.ratingEnabled && s.seasonalOpportunityCurve === null), true);
-  assertEquals(reviewCatalog.cities.length, 5);
+  assertEquals(publicCatalog.cities.length, 12);
+  assertEquals(
+    publicCatalog.cities.filter((city) => city.releaseStatus === "public_research").length,
+    5,
+  );
+  assertEquals(
+    publicCatalog.cities.filter((city) => city.releaseStatus === "research_only").length,
+    7,
+  );
+  assertEquals(publicCatalog.cities.flatMap((c) => c.species).length, 28);
+  assertEquals(
+    publicCatalog.cities.flatMap((c) => c.species).every((s) =>
+      !s.ratingEnabled && s.seasonalOpportunityCurve === null
+    ),
+    true,
+  );
+  assertEquals(reviewCatalog.cities.length, 32);
+  assertEquals(
+    publicCatalog.cities.find((city) => city.cityId === "port_washington_wi")
+      ?.releaseStatus,
+    "research_only",
+  );
+  for (const cityId of ["milwaukee_wi", "racine_wi", "kenosha_wi"] as const) {
+    const publicCity = publicCatalog.cities.find((city) => city.cityId === cityId);
+    assertEquals(publicCity?.releaseStatus, "research_only");
+    assertEquals(publicCity?.species, []);
+    assert(reviewCatalog.cities.some((city) => city.cityId === cityId));
+  }
+  assertEquals(
+    reviewCatalog.cities.find((city) => city.cityId === "port_washington_wi")
+      ?.structures.map((structure) => structure.displayName),
+    ["Harbor Breakwalls / North Pier", "Coal Dock Park Promenade"],
+  );
   assertEquals(reviewCatalog.ratingName, "FinFindr Opportunity Rating");
   assertEquals(reviewCatalog.ratingDisplayFormat, "X.X/10");
   assertEquals(

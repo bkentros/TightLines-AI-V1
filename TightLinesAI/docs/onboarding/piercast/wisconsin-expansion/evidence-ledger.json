@@ -1,0 +1,199 @@
+{
+  "schemaVersion": "piercast-wisconsin-evidence-ledger-v1",
+  "reviewedAt": "2026-09-14",
+  "scopeVersion": "piercast-wisconsin-shadow-v1",
+  "productBoundary": {
+    "reading": "general_city_harbor",
+    "notClaimed": [
+      "structure-specific catch prediction",
+      "live access or safety status",
+      "pier thermometer measurement",
+      "DNR-authored numeric rating"
+    ]
+  },
+  "cityAccess": {
+    "milwaukee_wi": ["McKinley Pier", "Cupertino Pier"],
+    "racine_wi": ["North Pier", "South Pier"],
+    "kenosha_wi": ["North Pier / Simmons Island", "South Pier"]
+  },
+  "speciesDecision": {
+    "scored": ["coho_salmon", "chinook_salmon", "steelhead", "brown_trout"],
+    "conditionalUnscored": {
+      "racine_wi": ["yellow_perch"],
+      "kenosha_wi": ["yellow_perch"]
+    },
+    "reason": "DNR identifies the core four at exact named city piers and county pier-mode harvest supports recurrence. Repeated summer perch reports establish a real lead in Racine and Kenosha, but the published monthly pier table combines Lake Michigan and Green Bay and cannot support defensible city-level year-round magnitudes; the current Lake Michigan perch closure also requires species-specific gating not present in the expansion cohort."
+  },
+  "evidence": [
+    {
+      "id": "WI_ACCESS_2026",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan fishing access",
+      "url": "https://dnr.wisconsin.gov/topic/OpenOutdoors/AccessFishlakeMichigan",
+      "supports": ["current named public fishing access and land-side directions for Milwaukee, Racine, and Kenosha"],
+      "granularity": "city_access",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_EXACT_PIER_SPECIES_2023",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Close to Home fishing opportunities",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/ClosetoHomeFishing.pdf",
+      "supports": ["steelhead, brown trout, and Chinook/Coho at McKinley and Cupertino piers", "same core-four roster at Racine North and South piers", "same core-four roster at Kenosha North and South piers"],
+      "granularity": "named_access_and_species",
+      "published": "2023-06",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_COUNTY_MODE_1998_2024",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Creel Harvest Tables 1998–2024",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_CreelHarvestTables1998-2024.pdf",
+      "supports": ["annual county-by-mode recurrence for the four salmonids", "2022-2024 conservative city-relative calibration bounds"],
+      "granularity": "county_mode_annual",
+      "published": "2025-04-10",
+      "reviewedAt": "2026-09-14",
+      "limitations": "Harvest is estimated, not catch; annual values do not assign month, effort, exact structure, or absence. A zero estimate is not proof of biological absence."
+    },
+    {
+      "id": "WI_SEASON_2022",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2022 Lake Michigan open-water sportfishing effort and harvest report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/LM_LakeMichiganSportHarvestReport2022.pdf",
+      "supports": ["statewide pier-mode month-bucket harvest and estimated effort"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_SEASON_2023",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2023 Lake Michigan open-water sportfishing effort and harvest report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2023.pdf",
+      "supports": ["statewide pier-mode month-bucket harvest and estimated effort"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_SEASON_2024",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "2024 Lake Michigan open-water sportfishing effort and harvest report",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf",
+      "supports": ["statewide pier-mode month-bucket harvest and estimated effort", "survey-method limitations"],
+      "granularity": "statewide_mode_month_bucket",
+      "reviewedAt": "2026-09-14",
+      "limitations": "Lake Michigan creel fieldwork ran May 1 through September 30 in 2024; specified unsurveyed periods were modeled. November-February city-pier ratings remain low-confidence floors."
+    },
+    {
+      "id": "WI_WEEKLY_2024_05_13",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, week represented by May 19, 2024 snapshot",
+      "url": "https://web.archive.org/web/20240519105910id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["Milwaukee pier anglers catching coho in mid-May"],
+      "granularity": "county_pier_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2024_07_15",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, July 15, 2024",
+      "url": "https://web.archive.org/web/20240722112758id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["Kenosha pier perch", "Racine shore perch, rainbow/steelhead, and occasional coho"],
+      "granularity": "county_pier_shore_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2024_07_29",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, late July 2024",
+      "url": "https://web.archive.org/web/20240730191913id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["Kenosha pier/harbor perch", "Racine shoreline rainbow/steelhead, coho, and perch", "cool-water proximity caveat for shoreline salmonids"],
+      "granularity": "county_pier_shore_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2024_08",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, August 2024",
+      "url": "https://web.archive.org/web/20240824205048id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["continued Kenosha shore perch", "continued Racine shore perch, rainbow/steelhead, and occasional coho", "Milwaukee shore/boat slowdown"],
+      "granularity": "county_pier_shore_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2025_05",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, May 2025",
+      "url": "https://web.archive.org/web/20250524132145id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["McKinley Pier coho and brown trout", "Kenosha shore coho", "Racine shore coho and brown trout"],
+      "granularity": "named_pier_and_county_shore_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2025_06",
+      "authority": "Wisconsin Department of Natural Resources via Internet Archive",
+      "title": "Southern Lake Michigan Fishing Report, June 2025",
+      "url": "https://web.archive.org/web/20250615151544id_/https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["McKinley Pier brown trout, coho, and occasional rainbow/steelhead"],
+      "granularity": "named_pier_weekly",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_WEEKLY_2026_09_07",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Southern Lake Michigan Fishing Report, September 7, 2026",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/lakemichigan/OutdoorReport",
+      "supports": ["Racine South Pier coho", "renewed Milwaukee harbor/shore casting effort"],
+      "granularity": "named_pier_and_city_shore_weekly",
+      "reviewedAt": "2026-09-14",
+      "limitations": "Kenosha had no report. The page states clerk schedules are randomized and observations cover only attended times. The anomalous South Milwaukee paragraph that references Green Bay locations was excluded."
+    },
+    {
+      "id": "WI_REGULATIONS_2026_27",
+      "authority": "Wisconsin Department of Natural Resources",
+      "title": "Guide to Wisconsin Hook and Line Fishing Regulations, 2026–2027",
+      "url": "https://widnr.widen.net/s/glhqr9znsp/fishingregselectronic2627",
+      "supports": ["other trout and salmon open all year on Lake Michigan", "five total trout/salmon daily limit and 10-inch minimum", "fishing license and Great Lakes trout and salmon stamp requirement", "paper license/stamp copy requirement", "yellow perch May 1-June 15 Lake Michigan closure"],
+      "granularity": "state_lake_regulation",
+      "validThrough": "2027-03-31",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_NOAA_COAST_PILOT_2026",
+      "authority": "NOAA Office of Coast Survey",
+      "title": "United States Coast Pilot 6, 2026 edition",
+      "url": "https://www.nauticalcharts.noaa.gov/publications/coast-pilot/files/cp6/CPB6_WEB.pdf",
+      "supports": ["Milwaukee and Kenosha harbor/light reference coordinates"],
+      "granularity": "navigation_reference",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_NOAA_ATON_RACINE_2026",
+      "authority": "NOAA Office for Coastal Management",
+      "title": "Aids to Navigation feature service",
+      "url": "https://coast.noaa.gov/arcgis/rest/services/Hosted/AtoNs/FeatureServer/0",
+      "supports": ["Racine East Harbor Entrance Light 2 coordinate"],
+      "granularity": "navigation_reference",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_NOAA_LMHOFS_2026_09_14",
+      "authority": "NOAA National Ocean Service",
+      "title": "Lake Michigan and Huron Operational Forecast System regular-grid OPeNDAP",
+      "url": "https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/LMHOFS/MODELS/catalog.html",
+      "supports": ["deterministic surface-temperature forecast extraction at the audited cells"],
+      "granularity": "model_grid",
+      "reviewedAt": "2026-09-14"
+    },
+    {
+      "id": "WI_GLOS_MILWAUKEE_2026",
+      "authority": "Great Lakes Observing System",
+      "title": "Discovery World Panther Buoy (obs_194)",
+      "url": "https://seagull-erddap.glos.org/erddap/tabledap/obs_194.html",
+      "supports": ["seasonal Milwaukee-area temperature comparison candidate"],
+      "granularity": "seasonal_observation_station",
+      "reviewedAt": "2026-09-14",
+      "limitations": "Validation comparator only; not a pier thermometer or score input. Live data query timed out during final review, so no current match statistic is claimed."
+    }
+  ],
+  "calibrationDisclosure": "All numeric opportunity ratings are provisional FinFindr calibrations derived from the cited evidence. No source publishes or endorses a FinFindr score."
+}

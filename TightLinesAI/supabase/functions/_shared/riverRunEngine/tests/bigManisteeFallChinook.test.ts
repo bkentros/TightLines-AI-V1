@@ -211,6 +211,7 @@ Deno.test("Big Manistee configuration revision binds its river-specific biology"
       "big_manistee_fall_chinook",
       "big_manistee_fall_coho",
       "big_manistee_fall_steelhead",
+      "big_manistee_winter_steelhead",
       "big_manistee_fall_brown_trout",
     ],
   );

@@ -1,0 +1,82 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-regulation-access-v1",
+  "reviewed_at": "2026-09-21",
+  "rule": "Biological opportunity, regulation, physical access, and private-release readiness are independent gates.",
+  "regulation_source_ids": [
+    "MI_REGS_2026",
+    "MI_BEACH_SAFETY"
+  ],
+  "regulation_findings": [
+    {
+      "scope": "pentwater_mi|charlevoix_mi",
+      "water": "Lake Michigan management units",
+      "finding": "The reviewed 2026 guide controls current seasons; no historical closure was copied into the calibration."
+    },
+    {
+      "scope": "rogers_city_mi|tawas_city_mi|caseville_mi",
+      "water": "Lake Huron/Saginaw Bay management units",
+      "finding": "The reviewed 2026 guide controls current seasons; lake trout is treated as open under the applicable reviewed Great Lakes rules."
+    },
+    {
+      "scope": "all five cities",
+      "water": "covered waters",
+      "finding": "Bass catch-and-immediate-release status is distinguished from possession rules and does not reduce biological F."
+    },
+    {
+      "scope": "all five cities",
+      "water": "covered waters",
+      "finding": "Emergency orders, posted restrictions, unsafe waves/ice, barriers, and local authority directions supersede this private biological research."
+    }
+  ],
+  "city_access_gates": [
+    {
+      "city_id": "pentwater_mi",
+      "status": "covered_subject_to_live_gate",
+      "finding": "Mears fishing pier and both navigation piers are covered; live park, wave, ice, barrier, and posted conditions control.",
+      "source_ids": [
+        "MEARS_PARK",
+        "PENTWATER_PARKS",
+        "PENTWATER_USACE",
+        "MI_BEACH_SAFETY"
+      ]
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "status": "covered_and_conditional_designated_areas",
+      "finding": "Both outer breakwall ends are covered; marina-basin fishing remains limited to designated areas and live rules.",
+      "source_ids": [
+        "ROGERS_ORD",
+        "USCG_LIGHT_LIST"
+      ]
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "status": "covered_subject_to_live_gate",
+      "finding": "Gateway and Shoreline Park structures are covered; the river-edge walkway is not a separate admitted structure.",
+      "source_ids": [
+        "TAWAS_GATEWAY",
+        "TAWAS_PLAN"
+      ]
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "status": "covered_with_north_pier_hold",
+      "finding": "Channel walkway, marina designated areas, and south pier are covered; north-pier access remains a separate live hold.",
+      "source_ids": [
+        "CHARLEVOIX_PLAN",
+        "CHARLEVOIX_USACE",
+        "CHARLEVOIX_PIERS",
+        "CHARLEVOIX_RULES"
+      ]
+    },
+    {
+      "city_id": "caseville_mi",
+      "status": "pointe_park_covered_harbor_hold",
+      "finding": "Pointe Park boardwalk/breakwall is covered; municipal-harbor designated-area access remains a separate hold.",
+      "source_ids": [
+        "CASEVILLE_PLAN",
+        "CASEVILLE_EDC"
+      ]
+    }
+  ]
+}

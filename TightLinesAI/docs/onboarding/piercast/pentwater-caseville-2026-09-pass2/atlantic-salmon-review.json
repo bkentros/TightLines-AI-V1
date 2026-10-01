@@ -1,0 +1,89 @@
+{
+  "schema_version": "piercast-pentwater-caseville-pass2-atlantic-review-v1",
+  "reviewed_at": "2026-09-21",
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "city_name": "Pentwater",
+      "disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "peak": null,
+      "rationale": "The cell was reopened against exact-port, connected-water, stocking, weekly-report, management, historical, and seasonal evidence. No new covered-structure basis changed the Pass 1 exclusion. No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ],
+      "dedicated_manual_review": true
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "city_name": "Rogers City",
+      "disposition": "numeric_private",
+      "evidence_grade": "B",
+      "peak": 6.8,
+      "rationale": "DNR directs anglers to cast from the breakwall, a 2008 Pier/Dock positive establishes exact-mode catch, and 2026 advisory evidence confirms current recurrence. The result sits above Port Sanilac and below Alpena.",
+      "evidence_ids": [
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_ROADMAP_LH",
+        "LHCFAC_2026",
+        "ATLANTIC_PROGRAM"
+      ],
+      "dedicated_manual_review": true
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "city_name": "Tawas City",
+      "disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "peak": null,
+      "rationale": "The current agency location inventory and regional program establish local occurrence, but the reviewed records remain mode-mixed or offshore and do not establish recurring covered-structure targeting. No placeholder score is permitted.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ],
+      "dedicated_manual_review": true
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "city_name": "Charlevoix",
+      "disposition": "research_hold_unscored",
+      "evidence_grade": "C",
+      "peak": null,
+      "rationale": "One 1986 connected-water stocking record and offshore reports do not establish an exact-pier fishery. No placeholder score is permitted.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ],
+      "dedicated_manual_review": true
+    },
+    {
+      "city_id": "caseville_mi",
+      "city_name": "Caseville",
+      "disposition": "exclude_unscored",
+      "evidence_grade": "D",
+      "peak": null,
+      "rationale": "The cell was reopened against exact-port, connected-water, stocking, weekly-report, management, historical, and seasonal evidence. No new covered-structure basis changed the Pass 1 exclusion. No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "evidence_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ],
+      "dedicated_manual_review": true
+    }
+  ],
+  "conclusion": "Rogers City retains a Grade B private numeric calibration. Tawas City and Charlevoix are Grade C holds after correction; Pentwater and Caseville remain Grade D exclusions."
+}

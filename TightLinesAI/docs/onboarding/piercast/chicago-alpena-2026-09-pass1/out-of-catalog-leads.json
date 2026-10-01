@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "piercast-pass1-out-of-catalog-leads-v1",
+  "reviewedAt": "2026-09-18",
+  "scoringStatus": "leads_only_no_catalog_or_runtime_change",
+  "leads": [
+    {
+      "cityId": "chicago_il",
+      "species": "rainbow_smelt",
+      "decision": "research_candidate",
+      "mode": "seasonal dip-netting, not rod-and-reel",
+      "claim": "Chicago and Illinois rules provide a distinct spring smelt season; model only if PierCast supports this method as a separate opportunity.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS",
+        "IL_RULES_2026"
+      ]
+    },
+    {
+      "cityId": "chicago_il",
+      "species": "rock_bass_crappie_carp_complex",
+      "decision": "hold",
+      "mode": "shore/harbor",
+      "claim": "Broad city harbor references create leads, but exact covered-site recurrence was not established.",
+      "sourceIds": [
+        "CHI_CPD_FISHING_AREAS"
+      ]
+    },
+    {
+      "cityId": "michigan_city_in",
+      "species": "rock_bass",
+      "decision": "research_candidate",
+      "mode": "pier/marina",
+      "claim": "Indiana's agency shore guide describes rock bass among common panfish at shore sites including Washington Park marina.",
+      "sourceIds": [
+        "IN_DNR_SHORE_GUIDE"
+      ]
+    },
+    {
+      "cityId": "michigan_city_in",
+      "species": "pumpkinseed_and_other_sunfish",
+      "decision": "hold",
+      "mode": "pier/marina",
+      "claim": "Agency guidance supports a panfish complex, but species-separated recurrence needs confirmation.",
+      "sourceIds": [
+        "IN_DNR_SHORE_GUIDE"
+      ]
+    },
+    {
+      "cityId": "muskegon_mi",
+      "species": "rock_bass_pumpkinseed_common_white_sucker_complex",
+      "decision": "hold",
+      "mode": "port Pier/Dock",
+      "claim": "The preserved port export contains additional taxa; exact channel-segment targeting needs Pass 2 review.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ]
+    },
+    {
+      "cityId": "whitehall_mi",
+      "species": "pink_salmon",
+      "decision": "hold",
+      "mode": "port Pier/Dock",
+      "claim": "Positive Whitehall-Montague estimates occur in 2000 and 2015, too sparse for catalog action without current Medbery evidence.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD"
+      ]
+    },
+    {
+      "cityId": "whitehall_mi",
+      "species": "rock_bass_pumpkinseed_sucker_complex",
+      "decision": "hold",
+      "mode": "port Pier/Dock",
+      "claim": "Port and lake-community evidence gives plausible leads, but exact channel recurrence remains unresolved.",
+      "sourceIds": [
+        "MI_CREEL_DASHBOARD",
+        "WHITE_LAKE_SFR_2024"
+      ]
+    },
+    {
+      "cityId": "alpena_mi",
+      "species": "rock_bass",
+      "decision": "research_candidate",
+      "mode": "harbor/Pier-Dock",
+      "claim": "The agency names rock bass for Alpena Harbor and the port Pier/Dock export has positive estimates in 2008 and 2012.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ]
+    },
+    {
+      "cityId": "alpena_mi",
+      "species": "pink_salmon",
+      "decision": "hold",
+      "mode": "harbor/Pier-Dock",
+      "claim": "The agency names pink salmon for Alpena Harbor, but reviewed port Pier/Dock rows are zero; resolve current exact-breakwall evidence.",
+      "sourceIds": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD"
+      ]
+    }
+  ]
+}

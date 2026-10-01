@@ -40,6 +40,9 @@ const expectedRuns = new Set([
   "kewaunee_river_fall_chinook",
   "kewaunee_river_fall_coho",
   "kewaunee_river_fall_brown_trout",
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
 ]);
 
 assert.deepEqual(
@@ -101,6 +104,7 @@ for (
     runId.startsWith("grand_") || runId.startsWith("milwaukee_") ||
     runId.startsWith("white_") ||
     runId.startsWith("trail_creek_") ||
+    runId.startsWith("north_umpqua_") ||
     runId === "big_manistee_fall_brown_trout"
   ) {
     assert(
@@ -138,6 +142,8 @@ for (
             ? /downtown Grand Rapids mainstem/i
             : runId.startsWith("milwaukee_")
             ? /Urban Greenway near Estabrook Park/i
+            : runId.startsWith("north_umpqua_")
+            ? /lower North Umpqua|river mile 1\.8/i
             : /below-Hesperia corridor/i).test(
               scenario.snapshot.activity?.detail ?? "",
             )
@@ -180,6 +186,27 @@ for (
     );
     assert.equal(noRiverInputs?.snapshot.activity?.label, "Unavailable");
     assert.equal(noRiverInputs?.snapshot.activity?.score, null);
+  } else if (runId.startsWith("umpqua_mainstem_")) {
+    assert(
+      activity.scenarios.every((scenario) =>
+        scenario.snapshot.activity?.confidence === "Limited"
+      ),
+    );
+    assert(
+      activity.scenarios.every((scenario) =>
+        !/weather-only/i.test(scenario.snapshot.activity?.headline ?? "") &&
+        /Elkton|middle reach/i.test(scenario.snapshot.activity?.detail ?? "")
+      ),
+    );
+    const missingTemperature = activity.scenarios.find((scenario) =>
+      scenario.id === "activity_missing_temperature"
+    );
+    assert.equal(typeof missingTemperature?.snapshot.activity?.score, "number");
+    const missingHydraulics = activity.scenarios.find((scenario) =>
+      scenario.id === "activity_missing_hydraulics"
+    );
+    assert.equal(missingHydraulics?.snapshot.activity?.label, "Unavailable");
+    assert.equal(missingHydraulics?.snapshot.activity?.score, null);
   } else {
     assert(
       activity.scenarios.every((scenario) =>
@@ -323,6 +350,22 @@ for (
         )
       ),
       `${runId} lacks historical-only exact-date temperature context`,
+    );
+  } else if (
+    runId.startsWith("umpqua_mainstem_") ||
+    runId === "north_umpqua_fall_coho"
+  ) {
+    assert(
+      conditions.scenarios.some((scenario) =>
+        scenario.snapshot.riverConditions?.status === "partial" &&
+        scenario.snapshot.riverConditions.metrics.some((metric) =>
+          metric.metric === "flow_cfs" && metric.value !== null
+        ) &&
+        scenario.snapshot.riverConditions.metrics.some((metric) =>
+          metric.metric === "water_temp_f" && metric.value !== null
+        )
+      ),
+      `${runId} lacks its expected flow-and-temperature Gauge Read scenario`,
     );
   } else {
     assert(

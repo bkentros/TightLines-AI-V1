@@ -157,7 +157,9 @@ Deno.test("temperature: coastal path uses measured water temp when available", (
   assert(t != null);
   assertEquals(t!.measurement_source, "coastal_water_temp");
   assertEquals(t!.measurement_value_f, 71);
-  assertEquals(t!.trend_label, "warming");
+  assertEquals(t!.history_span_hours, 72);
+  // 6 F / 72h is 4 F / 48h, below the 5 F trend threshold.
+  assertEquals(t!.trend_label, "stable");
 });
 
 Deno.test("temperature: measured coastal water temp uses water table, not coastal air table", () => {

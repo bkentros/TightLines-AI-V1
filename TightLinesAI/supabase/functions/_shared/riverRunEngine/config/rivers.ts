@@ -1,6 +1,12 @@
 import type { RiverProfile } from "../types.ts";
+import {
+  BEAR_CREEK_MANISTEE_RIVER_PROFILE,
+  ROGUE_MI_RIVER_PROFILE,
+} from "./onboarding/bearRogue.ts";
 import { BOIS_BRULE_RIVER_PROFILE } from "./onboarding/boisBrule.ts";
+import { FALL_2026_DRAFT_RIVERS } from "./onboarding/fall2026.ts";
 import { GRAND_RIVER_PROFILE } from "./onboarding/grand.ts";
+import { MIDWEST_DRAFT_RIVERS } from "./onboarding/midwest.ts";
 import { MILWAUKEE_RIVER_PROFILE } from "./onboarding/milwaukee.ts";
 import {
   LOWER_GENESEE_RIVER_PROFILE,
@@ -11,6 +17,8 @@ import { PLATTE_RIVER_PROFILE } from "./onboarding/platte.ts";
 import { ROOT_RIVER_PROFILE } from "./onboarding/root.ts";
 import { SHEBOYGAN_RIVER_PROFILE } from "./onboarding/sheboygan.ts";
 import { WHITE_RIVER_PROFILE } from "./onboarding/white.ts";
+import { WASHINGTON_DRAFT_RIVERS } from "./onboarding/washington.ts";
+import { UMPQUA_DRAFT_RIVERS } from "./onboarding/umpqua.ts";
 
 export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
   riverId: "pere_marquette",
@@ -1211,6 +1219,8 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   BIG_MANISTEE_RIVER_PROFILE,
   MUSKEGON_RIVER_PROFILE,
   ST_JOSEPH_RIVER_PROFILE,
+  BEAR_CREEK_MANISTEE_RIVER_PROFILE,
+  ROGUE_MI_RIVER_PROFILE,
   GRAND_RIVER_PROFILE,
   PLATTE_RIVER_PROFILE,
   WHITE_RIVER_PROFILE,
@@ -1221,4 +1231,8 @@ export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   SALMON_NY_RIVER_PROFILE,
   OAK_ORCHARD_RIVER_PROFILE,
   LOWER_GENESEE_RIVER_PROFILE,
+  ...WASHINGTON_DRAFT_RIVERS,
+  ...MIDWEST_DRAFT_RIVERS,
+  ...FALL_2026_DRAFT_RIVERS,
+  ...UMPQUA_DRAFT_RIVERS,
 ];

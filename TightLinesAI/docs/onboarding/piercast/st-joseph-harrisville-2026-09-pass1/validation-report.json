@@ -1,0 +1,56 @@
+{
+  "schema_version": "piercast-pass1-validation-v1",
+  "generated_at": "2026-09-19",
+  "status": "pass",
+  "checks": {
+    "exactly_five_cities": true,
+    "stable_city_ids_and_display_names": true,
+    "exactly_nineteen_species": true,
+    "catalog_species_order_matches": true,
+    "exactly_nineteen_per_city": true,
+    "exactly_ninety_five_decisions": true,
+    "unique_city_species_cells": true,
+    "no_missing_cells": true,
+    "valid_dispositions_only": true,
+    "all_twelve_months_reviewed": true,
+    "alternate_names_reviewed": true,
+    "all_decision_records_complete": true,
+    "all_source_references_resolve": true,
+    "no_duplicate_source_ids": true,
+    "all_source_records_complete": true,
+    "every_structure_has_disposition": true,
+    "all_structure_records_complete": true,
+    "every_mandatory_lead_reviewed": true,
+    "all_required_out_of_catalog_leads_per_city": true,
+    "all_out_of_catalog_records_complete": true,
+    "no_numeric_scores_or_admission": true
+  },
+  "counts": {
+    "cities": 5,
+    "catalog_species": 19,
+    "decisions": 95,
+    "unique_pairs": 95,
+    "structures": 16,
+    "sources": 34,
+    "out_of_catalog_leads": 32,
+    "research_candidate": 57,
+    "hold": 15,
+    "exclude": 23
+  },
+  "unresolved_source_references": [],
+  "missing_mandatory_leads": [],
+  "raw_extract": {
+    "rows": 7414,
+    "sha256": "121135f4e693617e9c1dabe87aceeeaf7a3e9f362e95bb8c113792ee03e4131c",
+    "retrieved_at": "2026-09-19T23:59:22.349Z",
+    "source_last_refreshed": "2025-04-23"
+  },
+  "pass_boundary": {
+    "numeric_scores_created": false,
+    "runtime_calibrations_changed": false,
+    "migrations_created": false,
+    "public_manifest_changed": false,
+    "deployments_performed": false,
+    "app_builds_performed": false
+  }
+}

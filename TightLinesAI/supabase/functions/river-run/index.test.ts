@@ -23,6 +23,7 @@ import {
   serializeConditionRefresh,
   serializeDailySnapshot,
   type SupabaseLikeClient,
+  WISCONSIN_WINTER_PASS1_DECISIONS,
 } from "../_shared/riverRunEngine/index.ts";
 
 class MockQuery {
@@ -452,6 +453,41 @@ function request(
   });
 }
 
+async function productionMichiganRunsAt(
+  localDate: string,
+): Promise<Set<string>> {
+  return await productionRunsAt(localDate, "MI");
+}
+
+async function productionWisconsinRunsAt(
+  localDate: string,
+): Promise<Set<string>> {
+  return await productionRunsAt(localDate, "WI");
+}
+
+async function productionRunsAt(
+  localDate: string,
+  stateCode: string,
+): Promise<Set<string>> {
+  const response = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+    now: new Date(`${localDate}T17:00:00.000Z`),
+  });
+  assertEquals(response.status, 200);
+  const body = await json(response);
+  return new Set(
+    body.states.flatMap(
+      (state: {
+        state: string;
+        rivers: Array<{ runs: Array<{ runId: string }> }>;
+      }) =>
+        state.state === stateCode
+          ? state.rivers.flatMap((river) => river.runs.map((run) => run.runId))
+          : [],
+    ),
+  );
+}
+
 async function json(response: Response) {
   return await response.json();
 }
@@ -570,10 +606,12 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
   );
 
   // St. Joseph is intentionally presented in both Michigan and Indiana.
-  assertEquals(riverIds.length, 16);
-  assertEquals(runIds.length, 55);
-  assertEquals(new Set(riverIds).size, 15);
-  assertEquals(new Set(runIds).size, 52);
+  assertEquals(riverIds.length, 28);
+  assertEquals(runIds.length, 86);
+  assertEquals(new Set(riverIds).size, 27);
+  assertEquals(new Set(runIds).size, 83);
+  assertEquals(runIds.includes("kewaunee_river_fall_steelhead"), true);
+  assertEquals(runIds.includes("manitowoc_fall_steelhead"), true);
   for (
     const riverId of [
       "grand",
@@ -586,6 +624,18 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "salmon_ny",
       "oak_orchard",
       "lower_genesee",
+      "green",
+      "puyallup",
+      "cowlitz",
+      "trail_creek",
+      "kewaunee_river",
+      "clackamas",
+      "manitowoc",
+      "oswego",
+      "bear_creek_manistee",
+      "rogue_mi",
+      "umpqua_mainstem",
+      "north_umpqua",
     ]
   ) {
     assertEquals(riverIds.includes(riverId), true);
@@ -629,6 +679,15 @@ Deno.test("GET /river-run/rivers returns the complete audited public catalog", a
       "lower_genesee_fall_chinook",
       "lower_genesee_fall_steelhead",
       "lower_genesee_fall_brown_trout",
+      "bear_creek_manistee_fall_chinook",
+      "bear_creek_manistee_fall_coho",
+      "bear_creek_manistee_fall_steelhead",
+      "rogue_mi_fall_chinook",
+      "rogue_mi_fall_coho",
+      "rogue_mi_fall_steelhead",
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho",
     ]
   ) {
     assertEquals(runIds.includes(runId), true);
@@ -663,7 +722,7 @@ Deno.test("runtime release gate can keep approved runs out of the live catalog",
   assertEquals((await json(unreleased)).error, "river_run_not_found");
 });
 
-Deno.test("production defaults to the previously released catalog", async () => {
+Deno.test("production defaults include the released Bear Creek, Rogue, and Umpqua runs", async () => {
   const response = await handleRiverRunRequestBase(request("/rivers"), {
     publicEnabled: true,
   });
@@ -677,14 +736,145 @@ Deno.test("production defaults to the previously released catalog", async () => 
   );
 
   assertEquals(response.status, 200);
-  assertEquals(rivers.length, 9);
-  assertEquals(runIds.length, 27);
-  assertEquals(new Set(runIds).size, 24);
+  assertEquals(rivers.length, 18);
+  assertEquals(runIds.length, 56);
+  assertEquals(new Set(runIds).size, 53);
   assertEquals(runIds.includes("big_manistee_fall_brown_trout"), false);
+  for (
+    const runId of [
+      "bear_creek_manistee_fall_chinook",
+      "bear_creek_manistee_fall_coho",
+      "bear_creek_manistee_fall_steelhead",
+      "rogue_mi_fall_chinook",
+      "rogue_mi_fall_coho",
+      "rogue_mi_fall_steelhead",
+      "umpqua_mainstem_fall_chinook",
+      "umpqua_mainstem_fall_coho",
+      "north_umpqua_fall_coho",
+    ]
+  ) {
+    assertEquals(runIds.includes(runId), true);
+  }
+  assertEquals(runIds.includes("milwaukee_fall_steelhead"), true);
+  assertEquals(runIds.includes("manitowoc_fall_steelhead"), true);
+});
+
+Deno.test("production defaults release Wisconsin winter profiles but keep them hidden before activation", async () => {
+  for (const river of WISCONSIN_WINTER_PASS1_DECISIONS) {
+    for (const species of river.species) {
+      const before = await handleRiverRunRequestBase(
+        request(
+          `/snapshot?riverId=${river.riverId}&runId=${species.futureRunId}&presentationState=WI`,
+        ),
+        {
+          publicEnabled: true,
+          now: new Date("2026-11-15T17:00:00.000Z"),
+        },
+      );
+      assertEquals(before.status, 409, species.futureRunId);
+      assertEquals((await json(before)).error, "river_run_season_inactive");
+    }
+  }
+});
+
+Deno.test("production catalog switches every Wisconsin Steelhead and Brown Trout pathway without overlap", async () => {
+  for (const river of WISCONSIN_WINTER_PASS1_DECISIONS) {
+    for (const species of river.species) {
+      const year = species.activationMonthDay.startsWith("12-") ? 2026 : 2027;
+      const activation = `${year}-${species.activationMonthDay}`;
+      const prior = addDays(activation, -1);
+      const priorRuns = await productionWisconsinRunsAt(prior);
+      const activeRuns = await productionWisconsinRunsAt(activation);
+      assertEquals(priorRuns.has(species.fallRunId), true, species.fallRunId);
+      assertEquals(
+        priorRuns.has(species.futureRunId),
+        false,
+        species.futureRunId,
+      );
+      assertEquals(activeRuns.has(species.fallRunId), false, species.fallRunId);
+      assertEquals(
+        activeRuns.has(species.futureRunId),
+        true,
+        species.futureRunId,
+      );
+    }
+  }
+});
+
+Deno.test("production defaults expose all ten Michigan winter Steelhead pathways in season", async () => {
+  const response = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+    now: new Date("2027-01-20T17:00:00.000Z"),
+  });
+  const body = await json(response);
+  const runIds = new Set<string>(
+    body.states.flatMap(
+      (state: {
+        state: string;
+        rivers: Array<{ runs: Array<{ runId: string }> }>;
+      }) =>
+        state.state === "MI"
+          ? state.rivers.flatMap((river) => river.runs.map((run) => run.runId))
+          : [],
+    ),
+  );
+  const expected = [
+    "pere_marquette_winter_steelhead",
+    "big_manistee_winter_steelhead",
+    "muskegon_winter_steelhead",
+    "st_joseph_winter_steelhead",
+    "grand_winter_steelhead",
+    "betsie_winter_steelhead",
+    "bear_creek_manistee_winter_steelhead",
+    "rogue_mi_winter_steelhead",
+    "platte_winter_steelhead",
+    "white_winter_steelhead",
+  ];
+
+  assertEquals(response.status, 200);
   assertEquals(
-    runIds.some((runId: string) => runId.startsWith("milwaukee_")),
+    [...runIds].filter((runId) => runId.endsWith("winter_steelhead")).sort(),
+    expected.sort(),
+  );
+  assertEquals(
+    [...runIds].some((runId) => runId.endsWith("fall_steelhead")),
     false,
   );
+});
+
+Deno.test("production catalog switches every Michigan Steelhead pathway without overlap", async () => {
+  const activations = new Map([
+    ["pere_marquette", "2026-12-23"],
+    ["big_manistee", "2026-12-23"],
+    ["muskegon", "2026-12-23"],
+    ["st_joseph", "2026-12-23"],
+    ["grand", "2027-01-01"],
+    ["betsie", "2026-12-18"],
+    ["bear_creek_manistee", "2027-01-01"],
+    ["rogue_mi", "2027-01-01"],
+    ["platte", "2026-12-16"],
+    ["white", "2026-12-29"],
+  ]);
+
+  for (const [riverId, activation] of activations) {
+    const prior = addDays(activation, -1);
+    const fallRunId = `${riverId}_fall_steelhead`;
+    const winterRunId = `${riverId}_winter_steelhead`;
+    const priorRuns = await productionMichiganRunsAt(prior);
+    const activationRuns = await productionMichiganRunsAt(activation);
+    assertEquals(priorRuns.has(fallRunId), true, `${riverId}/${prior}`);
+    assertEquals(priorRuns.has(winterRunId), false, `${riverId}/${prior}`);
+    assertEquals(
+      activationRuns.has(fallRunId),
+      false,
+      `${riverId}/${activation}`,
+    );
+    assertEquals(
+      activationRuns.has(winterRunId),
+      true,
+      `${riverId}/${activation}`,
+    );
+  }
 });
 
 Deno.test("database config source loads only the published validated document", async () => {
@@ -759,7 +949,7 @@ Deno.test("owner-review snapshot rejects authenticated non-admin users", async (
   assertEquals((await json(response)).error, "river_run_review_forbidden");
 });
 
-Deno.test("owner-review catalog hides Midwest drafts from incompatible clients", async () => {
+Deno.test("owner-review catalog retains publicly released Midwest rivers for older clients", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers"),
     {
@@ -778,15 +968,22 @@ Deno.test("owner-review catalog hides Midwest drafts from incompatible clients",
   assertEquals(response.status, 200);
   assertEquals(
     wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["bois_brule", "milwaukee", "root", "sheboygan"],
+    [
+      "bois_brule",
+      "kewaunee_river",
+      "manitowoc",
+      "milwaukee",
+      "root",
+      "sheboygan",
+    ],
   );
   assertEquals(
     indiana.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["st_joseph"],
+    ["st_joseph", "trail_creek"],
   );
 });
 
-Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients", async () => {
+Deno.test("owner-review snapshot serves released Midwest rivers without a capability gate", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/review/snapshot?riverId=trail_creek&runId=trail_creek_fall_chinook&presentationState=IN",
@@ -797,11 +994,10 @@ Deno.test("owner-review snapshot hides Midwest drafts from incompatible clients"
     },
   );
 
-  assertEquals(response.status, 404);
-  assertEquals((await json(response)).error, "river_run_review_not_found");
+  assertEquals(response.status, 200);
 });
 
-Deno.test("owner-review catalog hides fall 2026 drafts without the client capability", async () => {
+Deno.test("owner-review catalog retains released fall 2026 rivers without the old capability", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "midwest-owner-review-v1",
@@ -818,12 +1014,12 @@ Deno.test("owner-review catalog hides fall 2026 drafts without the client capabi
   );
 
   assertEquals(response.status, 200);
-  assert(!riverIds.includes("clackamas"));
-  assert(!riverIds.includes("manitowoc"));
-  assert(!riverIds.includes("oswego"));
+  assert(riverIds.includes("clackamas"));
+  assert(riverIds.includes("manitowoc"));
+  assert(riverIds.includes("oswego"));
 });
 
-Deno.test("fall 2026 capability exposes only compatible drafts to an admin", async () => {
+Deno.test("old fall 2026 capability no longer hides other released rivers", async () => {
   const response = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "fall-2026-owner-review-v1",
@@ -843,8 +1039,137 @@ Deno.test("fall 2026 capability exposes only compatible drafts to an admin", asy
   for (const riverId of ["clackamas", "manitowoc", "oswego"]) {
     assert(riverIds.includes(riverId));
   }
-  assert(!riverIds.includes("trail_creek"));
-  assert(!riverIds.includes("kewaunee_river"));
+  assert(riverIds.includes("trail_creek"));
+  assert(riverIds.includes("kewaunee_river"));
+});
+
+Deno.test("released Umpqua rivers are public and remain available in owner review", async () => {
+  const admin = {
+    createAdminClient: () =>
+      new MockClient({ email: "brandonkentros@icloud.com" }),
+  };
+  const withoutCapability = await handleRiverRunRequestBase(
+    request("/review/rivers"),
+    admin,
+  );
+  const withoutIds = (await json(withoutCapability)).states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+  assertEquals(withoutCapability.status, 200);
+  assertEquals(withoutIds.includes("umpqua_mainstem"), true);
+  assertEquals(withoutIds.includes("north_umpqua"), true);
+
+  const compatible = await handleRiverRunRequestBase(
+    request("/review/rivers", {
+      clientCapabilities: "river_run_umpqua_fall_v1",
+    }),
+    admin,
+  );
+  const body = await json(compatible);
+  const oregon = body.states.find(
+    (state: { state: string }) => state.state === "OR",
+  );
+  assertEquals(compatible.status, 200);
+  assert(
+    oregon.rivers.some(
+      (river: { riverId: string }) => river.riverId === "umpqua_mainstem",
+    ),
+  );
+  assert(
+    oregon.rivers.some(
+      (river: { riverId: string }) => river.riverId === "north_umpqua",
+    ),
+  );
+
+  const publicCatalog = await handleRiverRunRequestBase(request("/rivers"), {
+    publicEnabled: true,
+  });
+  const publicIds = (await json(publicCatalog)).states.flatMap(
+    (state: { rivers: Array<{ riverId: string }> }) =>
+      state.rivers.map((river) => river.riverId),
+  );
+  assertEquals(publicIds.includes("umpqua_mainstem"), true);
+  assertEquals(publicIds.includes("north_umpqua"), true);
+});
+
+Deno.test("compatible owner-review clients can render every Umpqua fall snapshot", async () => {
+  const client = new MockClient({ email: "brandonkentros@icloud.com" });
+  const requests = [
+    {
+      riverId: "umpqua_mainstem",
+      runId: "umpqua_mainstem_fall_chinook",
+    },
+    {
+      riverId: "umpqua_mainstem",
+      runId: "umpqua_mainstem_fall_coho",
+    },
+    {
+      riverId: "north_umpqua",
+      runId: "north_umpqua_fall_coho",
+    },
+  ];
+
+  for (const item of requests) {
+    const response = await handleRiverRunRequestBase(
+      request(
+        `/review/snapshot?riverId=${item.riverId}&runId=${item.runId}&presentationState=OR`,
+        { clientCapabilities: "river_run_umpqua_fall_v1" },
+      ),
+      {
+        createAdminClient: () => client,
+        now: new Date("2026-09-29T18:00:00.000Z"),
+        gaugeObservations: [],
+        waterTemperatureObservationsBySource: {},
+        weatherSnapshot: {},
+        seasonalContextsByMetric: {
+          flow_cfs: null,
+          gage_height_ft: null,
+          water_temp_f: null,
+        },
+        fetchFn: () =>
+          Promise.resolve(new Response("Not found", { status: 404 })),
+      },
+    );
+    const body = await json(response);
+
+    assertEquals(response.status, 200, item.runId);
+    assertEquals(body.riverId, item.riverId, item.runId);
+    assertEquals(body.runId, item.runId, item.runId);
+    assert(body.runStage, item.runId);
+    assert(body.activity, item.runId);
+    assert(body.push, item.runId);
+    assert(body.fishability, item.runId);
+    assert(body.fishInRiver, item.runId);
+  }
+});
+
+Deno.test("released Umpqua owner-review snapshots no longer require a client capability", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/review/snapshot?riverId=umpqua_mainstem&runId=umpqua_mainstem_fall_coho&presentationState=OR",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ email: "brandonkentros@icloud.com" }),
+      now: new Date("2026-09-29T18:00:00.000Z"),
+      gaugeObservations: [],
+      waterTemperatureObservationsBySource: {},
+      weatherSnapshot: {},
+      seasonalContextsByMetric: {
+        flow_cfs: null,
+        gage_height_ft: null,
+        water_temp_f: null,
+      },
+      fetchFn: () =>
+        Promise.resolve(new Response("Not found", { status: 404 })),
+    },
+  );
+
+  const body = await json(response);
+  assertEquals(response.status, 200);
+  assertEquals(body.riverId, "umpqua_mainstem");
+  assertEquals(body.runId, "umpqua_mainstem_fall_coho");
 });
 
 Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or temperature", async () => {
@@ -898,7 +1223,7 @@ Deno.test("Oswego owner-review snapshot runs direct flow Push without Timing or 
   );
 });
 
-Deno.test("owner-review snapshot hides fall 2026 drafts without the capability", async () => {
+Deno.test("owner-review snapshot serves released fall 2026 rivers without the old capability", async () => {
   const response = await handleRiverRunRequestBase(
     request(
       "/review/snapshot?riverId=oswego&runId=oswego_fall_chinook&presentationState=NY",
@@ -910,11 +1235,10 @@ Deno.test("owner-review snapshot hides fall 2026 drafts without the capability",
     },
   );
 
-  assertEquals(response.status, 404);
-  assertEquals((await json(response)).error, "river_run_review_not_found");
+  assertEquals(response.status, 200);
 });
 
-Deno.test("owner-review catalog is admin-only and includes compatible hidden Midwest rivers", async () => {
+Deno.test("owner-review catalog is admin-only and includes every released river", async () => {
   const forbidden = await handleRiverRunRequestBase(
     request("/review/rivers", {
       clientCapabilities: "midwest-owner-review-v1",
@@ -950,7 +1274,14 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
   assertEquals(response.status, 200);
   assertEquals(
     wisconsin.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["bois_brule", "kewaunee_river", "milwaukee", "root", "sheboygan"],
+    [
+      "bois_brule",
+      "kewaunee_river",
+      "manitowoc",
+      "milwaukee",
+      "root",
+      "sheboygan",
+    ],
   );
   assertEquals(
     wisconsin.rivers.every(
@@ -986,7 +1317,7 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
   );
   assertEquals(
     newYork.rivers.map((river: { riverId: string }) => river.riverId).sort(),
-    ["lower_genesee", "oak_orchard", "salmon_ny"],
+    ["lower_genesee", "oak_orchard", "oswego", "salmon_ny"],
   );
   assertEquals(
     newYork.rivers.map(
@@ -995,7 +1326,7 @@ Deno.test("owner-review catalog is admin-only and includes compatible hidden Mid
         river.runs.length,
       ],
     ).sort(),
-    [["lower_genesee", 3], ["oak_orchard", 4], ["salmon_ny", 4]],
+    [["lower_genesee", 3], ["oak_orchard", 4], ["oswego", 4], ["salmon_ny", 4]],
   );
 });
 
@@ -1259,7 +1590,7 @@ Deno.test("owner-review snapshot uses current provider inputs without fixture su
   );
   assertEquals(
     body.riverConditions.dataVersion,
-    "river-live-conditions-v6",
+    "river-live-conditions-v7",
   );
   assertEquals(
     body.riverConditions.metrics.some(

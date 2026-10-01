@@ -1,0 +1,875 @@
+{
+  "schemaVersion": "piercast-lake-huron-runtime-candidates-v1",
+  "importedByRuntime": true,
+  "ratingEnabled": false,
+  "publicEnabled": false,
+  "formulaImplemented": true,
+  "candidates": [
+    {
+      "pairKey": "harbor_beach_mi/coho_salmon",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "coho_salmon",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "harbor_beach_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 5.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        },
+        {
+          "modeCalibrationId": "harbor_beach_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 4.7,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "harbor_beach_mi/smallmouth_bass",
+      "cityId": "harbor_beach_mi",
+      "speciesId": "smallmouth_bass",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "harbor_beach_mi__smallmouth_bass__warm_season_breakwall__v3_lake_huron_v1",
+          "modeId": "warm_season_breakwall",
+          "fisheryStrength": 4.9,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.32
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "09-10",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-20",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/atlantic_salmon",
+      "cityId": "oscoda_mi",
+      "speciesId": "atlantic_salmon",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__atlantic_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 8.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1"
+        },
+        {
+          "modeCalibrationId": "oscoda_mi__atlantic_salmon__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 5.9,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "atlantic_salmon__shared_temperature__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/steelhead",
+      "cityId": "oscoda_mi",
+      "speciesId": "steelhead",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__steelhead__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 7.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "steelhead__shared_temperature__v0_2"
+        },
+        {
+          "modeCalibrationId": "oscoda_mi__steelhead__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 5.3,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "steelhead__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/walleye",
+      "cityId": "oscoda_mi",
+      "speciesId": "walleye",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__walleye__spring_low_light__v3_lake_huron_v1",
+          "modeId": "spring_low_light",
+          "fisheryStrength": 6.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "02-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "03-25",
+              "availability": 0.45
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 1
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.4
+            },
+            {
+              "monthDay": "07-10",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "walleye__additional_thermal_research__v0_1"
+        },
+        {
+          "modeCalibrationId": "oscoda_mi__walleye__fall_low_light__v3_lake_huron_v1",
+          "modeId": "fall_low_light",
+          "fisheryStrength": 4.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "07-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-25",
+              "availability": 0.35
+            },
+            {
+              "monthDay": "09-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-25",
+              "availability": 0.4
+            },
+            {
+              "monthDay": "11-20",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "walleye__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/lake_trout",
+      "cityId": "oscoda_mi",
+      "speciesId": "lake_trout",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__lake_trout__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 4.6,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "lake_trout__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/coho_salmon",
+      "cityId": "oscoda_mi",
+      "speciesId": "coho_salmon",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 4.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        },
+        {
+          "modeCalibrationId": "oscoda_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 6.5,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/chinook_salmon",
+      "cityId": "oscoda_mi",
+      "speciesId": "chinook_salmon",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__chinook_salmon__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 5.5,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "chinook_salmon__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/smallmouth_bass",
+      "cityId": "oscoda_mi",
+      "speciesId": "smallmouth_bass",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__smallmouth_bass__warm_season_pier__v3_lake_huron_v1",
+          "modeId": "warm_season_pier",
+          "fisheryStrength": 4.5,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.32
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "09-10",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-20",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "smallmouth_bass__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/channel_catfish",
+      "cityId": "oscoda_mi",
+      "speciesId": "channel_catfish",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__channel_catfish__warm_season_bottom_fishery__v3_lake_huron_v1",
+          "modeId": "warm_season_bottom_fishery",
+          "fisheryStrength": 4.2,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.32
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "09-10",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-20",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "channel_catfish__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "oscoda_mi/freshwater_drum",
+      "cityId": "oscoda_mi",
+      "speciesId": "freshwater_drum",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "oscoda_mi__freshwater_drum__warm_season_bottom_fishery__v3_lake_huron_v1",
+          "modeId": "warm_season_bottom_fishery",
+          "fisheryStrength": 3.9,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.32
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "09-10",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-20",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "freshwater_drum__additional_thermal_research__v0_1"
+        }
+      ]
+    },
+    {
+      "pairKey": "port_sanilac_mi/coho_salmon",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "coho_salmon",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "port_sanilac_mi__coho_salmon__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 6.4,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        },
+        {
+          "modeCalibrationId": "port_sanilac_mi__coho_salmon__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 5.8,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "coho_salmon__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "port_sanilac_mi/steelhead",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "steelhead",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "port_sanilac_mi__steelhead__spring_coldwater_pier__v3_lake_huron_v1",
+          "modeId": "spring_coldwater_pier",
+          "fisheryStrength": 4.5,
+          "availabilityKnots": [
+            {
+              "monthDay": "12-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "02-15",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "03-20",
+              "availability": 0.62
+            },
+            {
+              "monthDay": "04-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "05-20",
+              "availability": 0.58
+            },
+            {
+              "monthDay": "06-20",
+              "availability": 0
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "steelhead__shared_temperature__v0_2"
+        },
+        {
+          "modeCalibrationId": "port_sanilac_mi__steelhead__fall_harbor_staging__v3_lake_huron_v1",
+          "modeId": "fall_harbor_staging",
+          "fisheryStrength": 4.3,
+          "availabilityKnots": [
+            {
+              "monthDay": "06-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "08-20",
+              "availability": 0.18
+            },
+            {
+              "monthDay": "09-18",
+              "availability": 1
+            },
+            {
+              "monthDay": "10-15",
+              "availability": 0.55
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0.12
+            },
+            {
+              "monthDay": "12-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "steelhead__shared_temperature__v0_2"
+        }
+      ]
+    },
+    {
+      "pairKey": "port_sanilac_mi/northern_pike",
+      "cityId": "port_sanilac_mi",
+      "speciesId": "northern_pike",
+      "ratingEnabled": false,
+      "publicEnabled": false,
+      "promotionEligible": false,
+      "closedWindows": [],
+      "modes": [
+        {
+          "modeCalibrationId": "port_sanilac_mi__northern_pike__warm_season_breakwall__v3_lake_huron_v1",
+          "modeId": "warm_season_breakwall",
+          "fisheryStrength": 5.1,
+          "availabilityKnots": [
+            {
+              "monthDay": "03-15",
+              "availability": 0
+            },
+            {
+              "monthDay": "05-01",
+              "availability": 0.32
+            },
+            {
+              "monthDay": "06-15",
+              "availability": 0.78
+            },
+            {
+              "monthDay": "07-20",
+              "availability": 1
+            },
+            {
+              "monthDay": "09-10",
+              "availability": 0.7
+            },
+            {
+              "monthDay": "10-20",
+              "availability": 0.2
+            },
+            {
+              "monthDay": "11-15",
+              "availability": 0
+            }
+          ],
+          "thermalCurveId": "northern_pike__shared_temperature__v0_1"
+        }
+      ]
+    }
+  ]
+}

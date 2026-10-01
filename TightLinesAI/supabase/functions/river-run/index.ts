@@ -20,6 +20,7 @@ import {
   getPushConditionsForDate,
   getRecentDailyPushConditions,
   getRunTemperatureSources,
+  isRunSeasonallyActive,
   type LastSupportivePushConditions,
   listPublishedConfigurations,
   listVisibleRiverRuns,
@@ -92,7 +93,7 @@ import {
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.19.0";
+const ENGINE_VERSION = "river-run-v1.21.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -114,6 +115,11 @@ const FALL_2026_OWNER_REVIEW_RIVER_IDS = new Set([
   "clackamas",
   "manitowoc",
   "oswego",
+]);
+const UMPQUA_FALL_OWNER_REVIEW_CAPABILITY = "river_run_umpqua_fall_v1";
+const UMPQUA_FALL_OWNER_REVIEW_RIVER_IDS = new Set([
+  "umpqua_mainstem",
+  "north_umpqua",
 ]);
 
 function clientHasCapability(req: Request, capability: string): boolean {
@@ -152,13 +158,18 @@ function ownerReviewDraftRiverIdsForClient(req: Request): Set<string> {
   );
   const supportsMidwest = capabilities.has(MIDWEST_OWNER_REVIEW_CAPABILITY);
   const supportsFall2026 = capabilities.has(FALL_2026_OWNER_REVIEW_CAPABILITY);
+  const supportsUmpqua = capabilities.has(
+    UMPQUA_FALL_OWNER_REVIEW_CAPABILITY,
+  );
   return new Set(
     RIVER_RUN_DRAFT_RIVER_PROFILES
       .filter((river) =>
         (supportsMidwest ||
           !MIDWEST_OWNER_REVIEW_RIVER_IDS.has(river.riverId)) &&
         (supportsFall2026 ||
-          !FALL_2026_OWNER_REVIEW_RIVER_IDS.has(river.riverId))
+          !FALL_2026_OWNER_REVIEW_RIVER_IDS.has(river.riverId)) &&
+        (supportsUmpqua ||
+          !UMPQUA_FALL_OWNER_REVIEW_RIVER_IDS.has(river.riverId))
       )
       .map((river) => river.riverId),
   );
@@ -220,27 +231,85 @@ const LEGACY_RELEASED_RUN_IDS = new Set([
   "pere_marquette_fall_chinook",
   "pere_marquette_fall_coho",
   "pere_marquette_fall_steelhead",
+  "pere_marquette_winter_steelhead",
   "betsie_fall_chinook",
   "betsie_fall_coho",
   "betsie_fall_steelhead",
+  "betsie_winter_steelhead",
   "big_manistee_fall_chinook",
   "big_manistee_fall_coho",
   "big_manistee_fall_steelhead",
+  "big_manistee_winter_steelhead",
   "muskegon_fall_chinook",
   "muskegon_fall_coho",
   "muskegon_fall_steelhead",
+  "muskegon_winter_steelhead",
   "st_joseph_fall_chinook",
   "st_joseph_fall_coho",
   "st_joseph_fall_steelhead",
+  "st_joseph_winter_steelhead",
   "grand_fall_chinook",
   "grand_fall_coho",
   "grand_fall_steelhead",
+  "grand_winter_steelhead",
   "platte_fall_chinook",
   "platte_fall_coho",
   "platte_fall_steelhead",
+  "platte_winter_steelhead",
   "white_fall_chinook",
   "white_fall_coho",
   "white_fall_steelhead",
+  "white_winter_steelhead",
+  "bear_creek_manistee_fall_chinook",
+  "bear_creek_manistee_fall_coho",
+  "bear_creek_manistee_fall_steelhead",
+  "bear_creek_manistee_winter_steelhead",
+  "rogue_mi_fall_chinook",
+  "rogue_mi_fall_coho",
+  "rogue_mi_fall_steelhead",
+  "rogue_mi_winter_steelhead",
+  "milwaukee_fall_chinook",
+  "milwaukee_fall_coho",
+  "milwaukee_fall_steelhead",
+  "milwaukee_fall_brown_trout",
+  "milwaukee_winter_steelhead",
+  "milwaukee_winter_brown_trout",
+  "sheboygan_fall_chinook",
+  "sheboygan_fall_coho",
+  "sheboygan_fall_steelhead",
+  "sheboygan_fall_brown_trout",
+  "sheboygan_winter_steelhead",
+  "sheboygan_winter_brown_trout",
+  "root_fall_chinook",
+  "root_fall_coho",
+  "root_fall_steelhead",
+  "root_fall_brown_trout",
+  "root_winter_steelhead",
+  "root_winter_brown_trout",
+  "kewaunee_river_fall_chinook",
+  "kewaunee_river_fall_coho",
+  "kewaunee_river_fall_steelhead",
+  "kewaunee_river_fall_brown_trout",
+  "kewaunee_river_winter_steelhead",
+  "kewaunee_river_winter_brown_trout",
+  "manitowoc_fall_chinook",
+  "manitowoc_fall_coho",
+  "manitowoc_fall_steelhead",
+  "manitowoc_fall_brown_trout",
+  "manitowoc_winter_steelhead",
+  "manitowoc_winter_brown_trout",
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
+]);
+
+// Code-scoped releases are additive to the write-only production allowlist.
+// Keep this list limited to runs whose owner-authorized deployment must not
+// require replacing or reconstructing the existing environment value.
+const CODE_RELEASED_RUN_IDS = new Set([
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
 ]);
 
 type ConditionRefreshRow = {
@@ -430,7 +499,7 @@ function releasedRunIdsFromEnvironment(
     });
     return [...LEGACY_RELEASED_RUN_IDS];
   }
-  return requested;
+  return [...new Set([...requested, ...CODE_RELEASED_RUN_IDS])];
 }
 
 export async function handleRiverRunRequest(
@@ -476,8 +545,17 @@ export async function handleRiverRunRequest(
   }
 
   if (url.pathname.endsWith("/rivers")) {
+    const activeRuns = runs.filter((run) => {
+      const river = rivers.find((candidate) =>
+        candidate.riverId === run.riverId
+      );
+      return river && isRunSeasonallyActive(
+        run,
+        localDateInTz(river.timezone, deps.now ?? new Date()),
+      );
+    });
     return jsonResponse({
-      states: publicEnabled ? listVisibleRiverRuns(rivers, runs) : [],
+      states: publicEnabled ? listVisibleRiverRuns(rivers, activeRuns) : [],
     });
   }
   if (!url.pathname.endsWith("/snapshot")) {
@@ -500,6 +578,18 @@ export async function handleRiverRunRequest(
       "River Run profile not found.",
       "river_run_not_found",
       404,
+    );
+  }
+  if (
+    !isRunSeasonallyActive(
+      run,
+      localDateInTz(river.timezone, deps.now ?? new Date()),
+    )
+  ) {
+    return jsonError(
+      "This seasonal River Run pathway is not active today.",
+      "river_run_season_inactive",
+      409,
     );
   }
   const presentation = resolveSnapshotPresentation(
@@ -1283,7 +1373,12 @@ async function handleInternalRefresh(
   const targets = deps.runs.flatMap((run) => {
     if (!visibleRunIds.has(run.runId)) return [];
     const river = deps.rivers.find((item) => item.riverId === run.riverId);
-    return river ? [{ river, run }] : [];
+    return river && isRunSeasonallyActive(
+        run,
+        localDateInTz(river.timezone, now),
+      )
+      ? [{ river, run }]
+      : [];
   });
   const results: Array<Record<string, unknown>> = [];
   let failed = 0;

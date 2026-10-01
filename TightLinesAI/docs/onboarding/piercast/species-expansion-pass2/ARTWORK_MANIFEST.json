@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "piercast-species-expansion-pass2-artwork-v1",
+  "generatedAt": "2026-09-15",
+  "generator": "OpenAI built-in image generation tool",
+  "sharedPrompt": "Scientific educational fish specimen, exact species, full-body left-facing side profile, photorealistic natural coloration and anatomy, fins fully visible, centered with generous transparent padding, isolated transparent background, no water, no shadow, no text, no border, no extra objects.",
+  "assets": [
+    {
+      "speciesId": "burbot",
+      "path": "assets/images/fish/burbot.png",
+      "dimensions": [1254, 1254],
+      "format": "PNG RGBA",
+      "sha256": "1f46e3abbf5e564adfbcaf10e3639d65e83ce820f8c39b3d570a173e1e5170c5"
+    },
+    {
+      "speciesId": "white_perch",
+      "path": "assets/images/fish/white_perch.png",
+      "dimensions": [1254, 1254],
+      "format": "PNG RGBA",
+      "sha256": "ce9a03ebb34fc7037239f8e026361282ff4eb4bac8ee04f04f9c565264da67c6"
+    },
+    {
+      "speciesId": "white_bass",
+      "path": "assets/images/fish/white_bass.png",
+      "dimensions": [1254, 1254],
+      "format": "PNG RGBA",
+      "sha256": "398f38a0480651e0c89b9bca3fe232c31e219e3785c561a16b8930579481319a"
+    },
+    {
+      "speciesId": "bluegill",
+      "path": "assets/images/fish/bluegill.png",
+      "dimensions": [1254, 1254],
+      "format": "PNG RGBA",
+      "sha256": "49fd6c3d74df6972b3bf2395f46bd84c288abb6b64d24773d6cff29310ae0795"
+    }
+  ]
+}

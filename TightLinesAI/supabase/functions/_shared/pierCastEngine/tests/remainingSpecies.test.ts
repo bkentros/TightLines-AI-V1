@@ -1,6 +1,11 @@
-import { getPierCastPrivateSpeciesIds, getPierCastPrivateAdmission, getPierCastPrivateTemperatureCurve, PIER_CAST_PRIVATE_ROSTER_VERSION } from "../config/privateCalibration.ts";
+import {
+  getPierCastPrivateAdmission,
+  getPierCastPrivateSpeciesIds,
+  getPierCastPrivateTemperatureCurve,
+  PIER_CAST_PRIVATE_ROSTER_VERSION,
+} from "../config/privateCalibration.ts";
 import { assert, assertEquals } from "jsr:@std/assert";
-import { PIER_CAST_CITY_PROFILES } from "../config/cities.ts";
+import { PIER_CAST_CITY_PROFILES_BASE } from "../config/cities.ts";
 import { PIER_CAST_REMAINING_SPECIES_REVIEW } from "../config/remainingSpecies.generated.ts";
 
 Deno.test("all 45 remaining pairings retain explicit reviewed unavailable configuration", async () => {
@@ -23,14 +28,22 @@ Deno.test("all 45 remaining pairings retain explicit reviewed unavailable config
     45,
   );
   for (const r of PIER_CAST_REMAINING_SPECIES_REVIEW) {
-    const city = PIER_CAST_CITY_PROFILES.find((c) => c.cityId === r.cityId)!;
+    const city = PIER_CAST_CITY_PROFILES_BASE.find((c) =>
+      c.cityId === r.cityId
+    )!;
     const profile = city.species.find((s) => s.speciesId === r.speciesId)!;
     const decision = artifact.decisions.find((
       d: { cityId: string; speciesId: string },
     ) => d.cityId === r.cityId && d.speciesId === r.speciesId);
-    assertEquals(profile.seasonalOpportunityCurve !== null, !!getPierCastPrivateAdmission(city.cityId, r.speciesId));
+    assertEquals(
+      profile.seasonalOpportunityCurve !== null,
+      !!getPierCastPrivateAdmission(city.cityId, r.speciesId),
+    );
     assertEquals(profile.ratingEnabled, false);
-    assertEquals(profile.inheritance === "candidate", !!getPierCastPrivateAdmission(city.cityId, r.speciesId));
+    assertEquals(
+      profile.inheritance === "candidate",
+      !!getPierCastPrivateAdmission(city.cityId, r.speciesId),
+    );
     assertEquals(decision.classification, r.classification);
     assertEquals(decision.rationale, r.limitation);
     assertEquals(

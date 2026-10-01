@@ -1,0 +1,272 @@
+{
+  "schema_version": "piercast-pass1-atlantic-review-v1",
+  "review_date": "2026-09-21",
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "stocking_database": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "complete_history": {
+          "first_year": null,
+          "last_year": null,
+          "record_count": 0,
+          "number_stocked": 0
+        },
+        "windows": {
+          "five_year": {
+            "start_year": 2022,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "ten_year": {
+            "start_year": 2017,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "twenty_year": {
+            "start_year": 2007,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          }
+        }
+      },
+      "atlantic_program_documents_searched": true,
+      "lake_huron_advisory_documents_searched": false,
+      "weekly_archive_searched": true,
+      "exact_port_creel_searched": true,
+      "exact_pier_followup_searched": true,
+      "disposition": "exclude",
+      "conclusion": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "limitations": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ]
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "stocking_database": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "complete_history": {
+          "first_year": null,
+          "last_year": null,
+          "record_count": 0,
+          "number_stocked": 0
+        },
+        "windows": {
+          "five_year": {
+            "start_year": 2022,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "ten_year": {
+            "start_year": 2017,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "twenty_year": {
+            "start_year": 2007,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          }
+        }
+      },
+      "atlantic_program_documents_searched": true,
+      "lake_huron_advisory_documents_searched": true,
+      "weekly_archive_searched": true,
+      "exact_port_creel_searched": true,
+      "exact_pier_followup_searched": true,
+      "disposition": "research_candidate",
+      "conclusion": "DNR Pier/Dock extract has 2 positive estimate rows across 2008 and months 6. DNR reports direct anglers to cast from the breakwall for Atlantic salmon; 2008 Pier/Dock positives and 2026 LHCFAC recurrence corroborate.",
+      "limitations": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM",
+        "LHCFAC_2026",
+        "LHCFAC_2025"
+      ]
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "stocking_database": {
+        "searched": true,
+        "result": "records_found",
+        "complete_history": {
+          "first_year": 2013,
+          "last_year": 2026,
+          "record_count": 24,
+          "number_stocked": 490173
+        },
+        "windows": {
+          "five_year": {
+            "start_year": 2022,
+            "end_year": 2026,
+            "record_count": 12,
+            "number_stocked": 191540,
+            "relationships": [
+              "neighboring-port"
+            ]
+          },
+          "ten_year": {
+            "start_year": 2017,
+            "end_year": 2026,
+            "record_count": 19,
+            "number_stocked": 340128,
+            "relationships": [
+              "neighboring-port"
+            ]
+          },
+          "twenty_year": {
+            "start_year": 2007,
+            "end_year": 2026,
+            "record_count": 24,
+            "number_stocked": 490173,
+            "relationships": [
+              "neighboring-port"
+            ]
+          }
+        }
+      },
+      "atlantic_program_documents_searched": true,
+      "lake_huron_advisory_documents_searched": true,
+      "weekly_archive_searched": true,
+      "exact_port_creel_searched": true,
+      "exact_pier_followup_searched": true,
+      "disposition": "research_candidate",
+      "conclusion": "Michigan DNR Better Fishing Waters names the species for the exact city/harbor/breakwall or directly covered water. Stocking review found 24 target-county records (2013-2026), including neighboring-port relationships; stocking remains occurrence-pathway evidence only.",
+      "limitations": "Pass 2 must quantify recurring intentional covered-structure opportunity without converting raw estimate sums or stocking into scores.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ]
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "stocking_database": {
+        "searched": true,
+        "result": "records_found",
+        "complete_history": {
+          "first_year": 1986,
+          "last_year": 1986,
+          "record_count": 1,
+          "number_stocked": 22201
+        },
+        "windows": {
+          "five_year": {
+            "start_year": 2022,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "ten_year": {
+            "start_year": 2017,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "twenty_year": {
+            "start_year": 2007,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          }
+        }
+      },
+      "atlantic_program_documents_searched": true,
+      "lake_huron_advisory_documents_searched": false,
+      "weekly_archive_searched": true,
+      "exact_port_creel_searched": true,
+      "exact_pier_followup_searched": true,
+      "disposition": "hold",
+      "conclusion": "A 1986 Lake Charlevoix stocking and occasional modern offshore reports create a historical/local lead, not an exact-pier fishery. Stocking review found 1 target-county records (1986-1986), including connected-water relationships; stocking remains occurrence-pathway evidence only.",
+      "limitations": "Pass 2 must resolve exact covered-structure recurrence and mode before numeric admission.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "ATLANTIC_PROGRAM"
+      ]
+    },
+    {
+      "city_id": "caseville_mi",
+      "stocking_database": {
+        "searched": true,
+        "result": "zero_records_in_target_county_for_species",
+        "complete_history": {
+          "first_year": null,
+          "last_year": null,
+          "record_count": 0,
+          "number_stocked": 0
+        },
+        "windows": {
+          "five_year": {
+            "start_year": 2022,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "ten_year": {
+            "start_year": 2017,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          },
+          "twenty_year": {
+            "start_year": 2007,
+            "end_year": 2026,
+            "record_count": 0,
+            "number_stocked": 0,
+            "relationships": []
+          }
+        }
+      },
+      "atlantic_program_documents_searched": true,
+      "lake_huron_advisory_documents_searched": true,
+      "weekly_archive_searched": true,
+      "exact_port_creel_searched": true,
+      "exact_pier_followup_searched": true,
+      "disposition": "exclude",
+      "conclusion": "No credible recurring covered-structure lead was resolved after exact port, connected water, stocking, weekly-report, alternate-name, historical, and seasonal review.",
+      "limitations": "Reopen in Pass 2 only if new exact covered-structure evidence resolves the reviewed gap; exclusion is not biological absence.",
+      "source_ids": [
+        "MI_BETTER_WATERS",
+        "MI_CREEL_DASHBOARD",
+        "MI_WEEKLY_ARCHIVE",
+        "MI_STOCKING_CSV",
+        "MI_ROADMAP_LH",
+        "ATLANTIC_PROGRAM"
+      ]
+    }
+  ]
+}

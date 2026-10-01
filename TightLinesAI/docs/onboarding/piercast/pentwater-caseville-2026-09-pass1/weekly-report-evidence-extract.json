@@ -1,0 +1,85 @@
+{
+  "schema_version": "piercast-pass1-weekly-report-extract-v1",
+  "review_date": "2026-09-21",
+  "extraction_note": "Selected primary-source locators and normalized claims; full archived HTML remains at each source_file.",
+  "rows": [
+    {
+      "city_id": "pentwater_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_20b15b2.html",
+      "geography": "Pentwater Lake channel",
+      "mode": "channel/shore",
+      "species": [
+        "smallmouth_bass",
+        "channel_catfish",
+        "freshwater_drum",
+        "yellow_perch",
+        "rock_bass"
+      ],
+      "use": "exact connected channel evidence; Longbridge Road evidence remains separate"
+    },
+    {
+      "city_id": "rogers_city_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_2452955.html",
+      "geography": "Rogers City breakwall",
+      "mode": "breakwall casting",
+      "species": [
+        "atlantic_salmon"
+      ],
+      "use": "exact structure and method evidence"
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_5b6f6e.html",
+      "geography": "Tawas wall",
+      "mode": "pier/wall",
+      "species": [
+        "lake_whitefish"
+      ],
+      "use": "exact structure seasonal evidence"
+    },
+    {
+      "city_id": "tawas_city_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_26d27d2.html",
+      "geography": "Tawas state dock",
+      "mode": "dock",
+      "species": [
+        "lake_whitefish",
+        "burbot"
+      ],
+      "use": "exact structure occurrence"
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_3600e54.html",
+      "geography": "Charlevoix piers/channel",
+      "mode": "pier",
+      "species": [
+        "cisco_lake_herring"
+      ],
+      "use": "strong out-of-catalog exact-pier lead; boat salmonids kept separate"
+    },
+    {
+      "city_id": "charlevoix_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/reconciliation/R_GH_BASS2018.html",
+      "geography": "Charlevoix channel",
+      "mode": "channel shore",
+      "species": [
+        "smallmouth_bass",
+        "freshwater_drum"
+      ],
+      "use": "exact channel occurrence"
+    },
+    {
+      "city_id": "caseville_mi",
+      "source_file": "docs/onboarding/piercast/remaining-species/sources/phase1/P1_1edc9d3.html",
+      "geography": "Caseville pier",
+      "mode": "pier",
+      "species": [
+        "walleye",
+        "coho_salmon",
+        "smallmouth_bass"
+      ],
+      "use": "exact-mode occurrence; single coho remains sparse"
+    }
+  ]
+}

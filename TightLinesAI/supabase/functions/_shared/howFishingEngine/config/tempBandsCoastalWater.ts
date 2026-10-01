@@ -150,5 +150,20 @@ export function coastalWaterTempRow(
   const i = month1to12 - 1;
   const row = rows?.[i];
   if (!row) return null;
+  // Southern warm-water fisheries: seasonal anomaly must not make 75–80 F
+  // measured water a severe cold event. TPWD identifies that interval as
+  // moderate water associated with peak spotted-seatrout periods:
+  // https://tpwd.texas.gov/faq/fishboat/fish/ (effects of temperature on seatrout).
+  // 60/70/80 are conservative model bounds, not species-specific lethal or
+  // optimal thresholds. Preserve winter anchors, hot tails, and all AIR rows.
+  if (r === "gulf_coast" || r === "florida" || r === "southeast_atlantic") {
+    return [
+      Math.min(row[0], 60),
+      Math.min(row[1], 70),
+      Math.min(row[2], 80),
+      row[3],
+      row[4],
+    ] as unknown as number[];
+  }
   return [row[0], row[1], row[2], row[3], row[4]] as unknown as number[];
 }

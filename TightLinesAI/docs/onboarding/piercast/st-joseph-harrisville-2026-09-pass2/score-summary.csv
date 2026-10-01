@@ -1,0 +1,50 @@
+pair_key,city_id,city_name,species_id,species_name,evidence_grade,peak_fishery_strength,ideal_peak_date,peak_mode,excellent_days_at_ideal_t,good_days_at_ideal_t,shoulder_days_at_ideal_t,floor_days_at_ideal_t,access_closed_days,december_january_seam_delta
+st_joseph_mi/chinook_salmon,st_joseph_mi,St. Joseph,chinook_salmon,Chinook salmon,B,6.8,2026-07-20,summer_pier,0,0,156,179,0,0
+st_joseph_mi/coho_salmon,st_joseph_mi,St. Joseph,coho_salmon,Coho salmon,B,8.6,2026-04-15,spring_nearshore,14,36,160,116,0,0
+st_joseph_mi/steelhead,st_joseph_mi,St. Joseph,steelhead,Steelhead,B,7.8,2026-07-20,summer_skamania_pier,0,22,267,0,0,0
+st_joseph_mi/brown_trout,st_joseph_mi,St. Joseph,brown_trout,Brown trout,B,6.5,2026-04-10,winter_spring_nearshore,0,0,239,93,0,0
+st_joseph_mi/lake_trout,st_joseph_mi,St. Joseph,lake_trout,Lake trout,B,4.1,2026-03-15,winter_spring_pier,0,0,178,119,0,0
+st_joseph_mi/yellow_perch,st_joseph_mi,St. Joseph,yellow_perch,Yellow perch,B,6,2026-07-20,summer_pier_schooling,0,0,120,194,0,0
+st_joseph_mi/lake_whitefish,st_joseph_mi,St. Joseph,lake_whitefish,Lake whitefish,B,4,2026-11-20,late_fall_pier,0,0,54,180,0,0
+south_haven_mi/chinook_salmon,south_haven_mi,South Haven,chinook_salmon,Chinook salmon,A,7,2026-09-10,fall_harbor_staging,0,1,100,206,0,0
+south_haven_mi/coho_salmon,south_haven_mi,South Haven,coho_salmon,Coho salmon,A,7.8,2026-04-15,spring_nearshore,0,20,163,123,0,0
+south_haven_mi/steelhead,south_haven_mi,South Haven,steelhead,Steelhead,A,8.8,2026-07-15,summer_skamania_pier,23,57,252,1,0,0
+south_haven_mi/brown_trout,south_haven_mi,South Haven,brown_trout,Brown trout,A,6.5,2026-04-10,winter_spring_nearshore,0,0,239,93,0,0
+south_haven_mi/lake_trout,south_haven_mi,South Haven,lake_trout,Lake trout,A,3.8,2026-10-20,fall_nearshore,0,0,50,125,0,0
+south_haven_mi/walleye,south_haven_mi,South Haven,walleye,Walleye,A,4.3,2026-05-15,spring_low_light,0,0,66,215,0,0
+south_haven_mi/smallmouth_bass,south_haven_mi,South Haven,smallmouth_bass,Smallmouth bass,A,5.2,2026-07-20,warm_season_harbor,0,0,134,194,0,0
+south_haven_mi/freshwater_drum,south_haven_mi,South Haven,freshwater_drum,Freshwater drum,A,6.5,2026-07-15,warm_season_harbor,0,0,126,208,0,0
+south_haven_mi/yellow_perch,south_haven_mi,South Haven,yellow_perch,Yellow perch,A,5.4,2026-07-20,summer_pier_schooling,0,0,117,198,0,0
+south_haven_mi/lake_whitefish,south_haven_mi,South Haven,lake_whitefish,Lake whitefish,B,4,2026-11-20,late_fall_pier,0,0,54,180,0,0
+south_haven_mi/round_whitefish,south_haven_mi,South Haven,round_whitefish,Round whitefish,B,3.7,2026-10-20,fall_channel,0,0,22,267,0,0
+south_haven_mi/channel_catfish,south_haven_mi,South Haven,channel_catfish,Channel catfish,A,5.2,2026-08-20,warm_season_channel,0,0,116,207,0,0
+south_haven_mi/northern_pike,south_haven_mi,South Haven,northern_pike,Northern pike,A,4.8,2026-05-01,spring_harbor,0,0,183,31,0,0
+holland_mi/chinook_salmon,holland_mi,Holland,chinook_salmon,Chinook salmon,A,7.8,2026-09-10,fall_harbor_staging,0,10,104,200,0,0
+holland_mi/coho_salmon,holland_mi,Holland,coho_salmon,Coho salmon,B,7,2026-04-15,spring_nearshore,0,1,165,131,0,0
+holland_mi/steelhead,holland_mi,Holland,steelhead,Steelhead,A,7.3,2026-07-20,summer_pier,0,5,264,4,0,0
+holland_mi/brown_trout,holland_mi,Holland,brown_trout,Brown trout,A,7.2,2026-04-10,winter_spring_nearshore,0,7,238,84,0,0
+holland_mi/lake_trout,holland_mi,Holland,lake_trout,Lake trout,B,3.8,2026-03-15,winter_spring_pier,0,0,143,124,0,0
+holland_mi/walleye,holland_mi,Holland,walleye,Walleye,B,4.5,2026-08-15,summer_low_light,0,0,100,193,0,0
+holland_mi/smallmouth_bass,holland_mi,Holland,smallmouth_bass,Smallmouth bass,B,5.2,2026-07-20,warm_season_harbor,0,0,134,194,0,0
+holland_mi/freshwater_drum,holland_mi,Holland,freshwater_drum,Freshwater drum,B,5.8,2026-07-15,warm_season_harbor,0,0,118,212,0,0
+holland_mi/yellow_perch,holland_mi,Holland,yellow_perch,Yellow perch,A,7.6,2026-07-20,summer_pier_schooling,0,17,127,183,0,0
+holland_mi/lake_whitefish,holland_mi,Holland,lake_whitefish,Lake whitefish,B,4,2026-11-20,late_fall_pier,0,0,54,180,0,0
+lexington_mi/chinook_salmon,lexington_mi,Lexington,chinook_salmon,Chinook salmon,A,5.6,2026-10-05,fall_harbor_staging,0,0,60,283,115,0
+lexington_mi/coho_salmon,lexington_mi,Lexington,coho_salmon,Coho salmon,A,6.8,2026-04-20,spring_harbor,0,0,116,204,115,0
+lexington_mi/steelhead,lexington_mi,Lexington,steelhead,Steelhead,A,8.8,2026-04-25,spring_harbor,29,88,188,75,115,0
+lexington_mi/brown_trout,lexington_mi,Lexington,brown_trout,Brown trout,A,5,2026-04-20,spring_harbor,0,0,185,114,115,0
+lexington_mi/lake_trout,lexington_mi,Lexington,lake_trout,Lake trout,B,4.8,2026-04-20,spring_coldwater_harbor,0,0,80,185,115,0
+lexington_mi/walleye,lexington_mi,Lexington,walleye,Walleye,A,5.8,2026-08-15,summer_low_light,0,0,139,172,115,0
+lexington_mi/smallmouth_bass,lexington_mi,Lexington,smallmouth_bass,Smallmouth bass,A,6,2026-07-20,warm_season_harbor,0,0,145,187,115,0
+lexington_mi/freshwater_drum,lexington_mi,Lexington,freshwater_drum,Freshwater drum,A,4.8,2026-07-15,warm_season_harbor,0,0,100,222,115,0
+lexington_mi/yellow_perch,lexington_mi,Lexington,yellow_perch,Yellow perch,A,8.5,2026-11-10,fall_harbor_schooling,11,40,162,57,115,0
+lexington_mi/channel_catfish,lexington_mi,Lexington,channel_catfish,Channel catfish,B,4.3,2026-08-20,warm_season_channel,0,0,93,219,115,0
+lexington_mi/largemouth_bass,lexington_mi,Lexington,largemouth_bass,Largemouth bass,A,5.6,2026-08-15,warm_season_harbor,0,0,117,212,115,0
+lexington_mi/atlantic_salmon,lexington_mi,Lexington,atlantic_salmon,Atlantic salmon,A,8,2026-10-20,fall_harbor_return,1,30,175,94,115,0
+lexington_mi/northern_pike,lexington_mi,Lexington,northern_pike,Northern pike,A,6,2026-05-01,spring_harbor,0,0,240,0,115,0
+lexington_mi/white_bass,lexington_mi,Lexington,white_bass,White bass,B,5.5,2026-06-20,warm_season_schooling,0,0,115,218,115,0
+harrisville_mi/chinook_salmon,harrisville_mi,Harrisville,chinook_salmon,Chinook salmon,A,6.6,2026-10-05,fall_harbor_staging,0,0,67,278,0,0
+harrisville_mi/coho_salmon,harrisville_mi,Harrisville,coho_salmon,Coho salmon,B,6.2,2026-10-10,fall_docks,0,0,162,150,0,0
+harrisville_mi/steelhead,harrisville_mi,Harrisville,steelhead,Steelhead,B,5.7,2026-04-25,spring_harbor,0,0,196,81,0,0
+harrisville_mi/brown_trout,harrisville_mi,Harrisville,brown_trout,Brown trout,B,5,2026-11-25,late_fall_winter_harbor,0,0,140,173,0,0
+harrisville_mi/atlantic_salmon,harrisville_mi,Harrisville,atlantic_salmon,Atlantic salmon,B,5.8,2026-02-15,winter_harbor,0,0,189,136,0,0

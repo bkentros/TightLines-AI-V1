@@ -1,6 +1,6 @@
+import { seasonalValue } from "../config/seasonalInterpolation.ts";
 import type {
   EngineContext,
-  RegionKey,
   ScoreBand,
   ScoredVariableKey,
   SharedNormalizedOutput,
@@ -18,17 +18,6 @@ const V43_FACTOR_SURFACE_MIN_ENGINE_SCORE = 0.01;
 const POSITIVE_RAW_SCORE_DIVISOR = 3.2;
 const NEGATIVE_RAW_SCORE_DIVISOR = 4;
 const MAJOR_SUPPRESSOR_POLICY_THRESHOLD = -10;
-const UNDERPARITY_REGIONS = new Set<RegionKey>([
-  "northeast",
-  "florida",
-  "mountain_west",
-  "pacific_northwest",
-  "northern_california",
-  "appalachian",
-  "inland_northwest",
-  "hawaii",
-]);
-
 export type ScoreDayOptions = {
   mode?: "production" | "legacy";
   timingStrength?: TimingStrength | null;
@@ -243,12 +232,13 @@ function scoreDayV46CombinedLight(
     activeHeavyRain,
     recentWetRain,
   );
-  const adjustedNorm = adjustV43NormalizedTemperature(norm, baseFacts);
+  // Calibration belongs to the thermal normalizer. Rain must not rewrite temperature.
+  const adjustedNorm = norm;
   const contributions = legacy.contributions.map((c) => {
     const adjustedScore = c.key === "temperature_condition"
       ? (adjustedNorm.normalized.temperature?.final_score ?? c.score)
       : c.score;
-    const adjustedWeight = v43WeightFor(baseFacts, c);
+    const adjustedWeight = c.weight;
     return {
       ...c,
       score: adjustedScore,
@@ -300,18 +290,24 @@ function scoreDayV46CombinedLight(
     ) {
       score = Math.min(score, 64);
     }
-    if (primeBumpEligibleV43Base(adjustedFacts, score, options)) score += 3;
     if (
-      score < 80 &&
+      productionizablePrimeDisqualificationReasons(adjustedFacts, options)
+          .length === 0 &&
+      adjustedFacts.support.surfacedDriverCount >= 2
+    ) {
+      score += 3 * smoothstep(65, 75, adjustedFacts.supportScore) *
+        smoothstep(35, 45, adjustedFacts.support.positiveDriverMass);
+    }
+    if (
       primeBumpEligibleV43TailPlus(adjustedFacts, score, options)
     ) {
-      score += 3;
+      score += 3 * smoothstep(74, 82, score) *
+        smoothstep(60, 72, adjustedFacts.support.positiveDriverMass);
     }
     if (!v43RuntimePrimeEligible(adjustedFacts, score, options)) {
       score = Math.min(score, 79);
     }
     const beforeV46 = score;
-    score = v46MiddleSpread(adjustedFacts, score);
     score = v46LowPrimeBridge(adjustedFacts, score, options);
     if (
       beforeV46 < 80 &&
@@ -334,6 +330,11 @@ function scoreDayV46CombinedLight(
     Math.min(100, applyV43Caps(adjustedFacts, baseFacts, score)),
   ));
   if (!adjustedFacts.shutdown && score < legacy.score) score = legacy.score;
+  // Safety/data-quality policies are final; a legacy floor cannot undo them.
+  score = Math.round(Math.min(
+    applyV43Caps(adjustedFacts, baseFacts, score),
+    100 - 21 * temperatureDominanceRestriction(adjustedFacts),
+  ));
 
   return {
     score,
@@ -366,51 +367,6 @@ function v46HardSpreadBlock(facts: V43RowFacts): boolean {
     facts.severeMovementRunoffPrecip ||
     isMissingOrPartial(facts.norm) ||
     facts.norm.reliability !== "high";
-}
-
-function v46StrongDriverSupport(facts: V43RowFacts): boolean {
-  const support = facts.support;
-  const dominance = support.positiveDriverMass -
-    support.negativeSuppressorMass;
-  return support.surfacedDriverCount >= 2 &&
-    dominance >= 14 &&
-    support.strongestDriverContribution >= 14 &&
-    (facts.cleanSupport ||
-      facts.strongSupport ||
-      facts.trustedSuppressorSupport);
-}
-
-function v46StrongSuppressorSupport(facts: V43RowFacts): boolean {
-  const support = facts.support;
-  return support.surfacedSuppressorCount >= 1 &&
-    support.negativeSuppressorMass >= 10 &&
-    !facts.trustedSuppressorSupport &&
-    support.positiveDriverMass < support.negativeSuppressorMass + 10;
-}
-
-function v46MiddleSpread(facts: V43RowFacts, score: number): number {
-  if (v46HardSpreadBlock(facts) || facts.severeThermal) return score;
-  const support = facts.support;
-  const dominance = support.positiveDriverMass -
-    support.negativeSuppressorMass;
-  let spread = 0;
-  if (
-    score >= 59 &&
-    score < 65 &&
-    v46StrongDriverSupport(facts) &&
-    dominance >= 14
-  ) {
-    spread += 3;
-    if (support.positiveDriverMass >= 58) spread += 1;
-  }
-  if (score >= 50 && score <= 58 && v46StrongSuppressorSupport(facts)) {
-    spread -= 2;
-    if (support.negativeSuppressorMass >= 20) spread -= 1;
-  }
-  if (facts.moderateSuppressor || facts.majorSuppressor) {
-    spread = Math.min(spread, facts.trustedSuppressorSupport ? 1 : 0);
-  }
-  return score + spread;
 }
 
 function v46PrimeEligibleExceptScore(
@@ -447,7 +403,7 @@ function v46LowPrimeBridge(
   ) {
     return score;
   }
-  return score + (80 - score);
+  return score + (80 - score) * smoothstep(75, 80, score);
 }
 
 function buildV43Facts(
@@ -527,69 +483,6 @@ function conditionSupport(
     surfacedSuppressorCount: suppressors.length,
     hasRealDriver: drivers.length > 0 || strongestDriverContribution >= 10,
   };
-}
-
-function adjustV43NormalizedTemperature(
-  norm: SharedNormalizedOutput,
-  facts: V43RowFacts,
-): SharedNormalizedOutput {
-  const temp = norm.normalized.temperature;
-  if (!temp || !UNDERPARITY_REGIONS.has(norm.location.region_key)) return norm;
-  const shockLike = Math.abs(temp.shock_adjustment ?? 0) >= 0.35 ||
-    (temp.shock_label ?? "").toLowerCase().includes("shock");
-  if (
-    facts.severeThermal ||
-    shockLike ||
-    facts.activeHeavyRain ||
-    facts.recentWetRain ||
-    facts.shutdown ||
-    isMissingOrPartial(norm) ||
-    facts.severeMovementRunoffPrecip
-  ) {
-    return norm;
-  }
-  const noShock = Math.abs(temp.shock_adjustment ?? 0) < 0.2;
-  const seasonalNormal = temp.final_score >= -1.55 && temp.final_score <= 0.2;
-  if (!noShock || !seasonalNormal) return norm;
-  const delta = Math.max(0, Math.min(1.35, 0.45 - temp.final_score));
-  if (delta === 0) return norm;
-  return {
-    ...norm,
-    normalized: {
-      ...norm.normalized,
-      temperature: {
-        ...temp,
-        final_score: Math.max(-2, Math.min(2, temp.final_score + delta)),
-      },
-    },
-  };
-}
-
-function v43WeightFor(facts: V43RowFacts, c: ActiveVariableScore): number {
-  let weight = c.weight;
-  if (
-    UNDERPARITY_REGIONS.has(facts.norm.location.region_key) &&
-    noStructuralHardBlock(facts)
-  ) {
-    if (c.key === "temperature_condition" && c.score < 0) weight *= 0.88;
-    if (
-      (c.key === "wind_condition" || c.key === "light_cloud_condition" ||
-        c.key === "tide_current_movement") &&
-      c.score > 0
-    ) {
-      weight *= 1.05;
-    }
-  }
-  return weight;
-}
-
-function noStructuralHardBlock(facts: V43RowFacts): boolean {
-  return facts.norm.reliability === "high" &&
-    !isMissingOrPartial(facts.norm) &&
-    !facts.shutdown &&
-    !facts.activeHeavyRain &&
-    !facts.recentWetRain &&
-    !facts.severeMovementRunoffPrecip;
 }
 
 function surfaceContributions(
@@ -703,28 +596,16 @@ function applyV43Caps(
   return capped;
 }
 
-function primeBumpEligibleV43Base(
-  facts: V43RowFacts,
-  score: number,
-  options: ScoreDayOptions,
-): boolean {
-  const support = facts.support;
-  return productionizablePrimeEligible(facts, score, options) &&
-    support.surfacedDriverCount >= 2 &&
-    support.positiveDriverMass >= 45 &&
-    support.negativeSuppressorMass <= 4;
-}
-
 function primeBumpEligibleV43TailPlus(
   facts: V43RowFacts,
   score: number,
   options: ScoreDayOptions,
 ): boolean {
   const support = facts.support;
-  return score >= 77 &&
+  return score >= 74 &&
     productionizablePrimeEligible(facts, score + 3, options) &&
     support.surfacedDriverCount >= 2 &&
-    support.positiveDriverMass >= 68 &&
+    support.positiveDriverMass >= 60 &&
     support.negativeSuppressorMass <= 2 &&
     support.strongestDriverContribution >= 16;
 }
@@ -798,22 +679,28 @@ function relaxedMinorNegativePrimeEligible(
     (facts.supportScore >= 70 || preCapScore >= 80);
 }
 
+/** Retain the Prime corroboration safeguard, but approach its cap continuously.
+ * The old conjunction (temperature >=50, support <=73, mass <73) could
+ * remove nine points when seasonal interpolation moved mass by only 0.23.
+ * Transition widths are conservative model guardrails, not fitted catch rates.
+ */
+function temperatureDominanceRestriction(facts: V43RowFacts): number {
+  if (facts.norm.context !== "freshwater_lake_pond") return 0;
+  const thermal =
+    facts.contributions.find((c) => c.key === "temperature_condition")
+      ?.weightedContribution ?? 0;
+  return smoothstep(45, 50, thermal) *
+    (1 - smoothstep(73, 76, facts.supportScore)) *
+    (1 - smoothstep(73, 80, facts.support.positiveDriverMass));
+}
+
 function v43RuntimePrimeDisqualificationReasons(
   facts: V43RowFacts,
   preCapScore: number,
   options: ScoreDayOptions,
 ): string[] {
   const reasons = productionizablePrimeDisqualificationReasons(facts, options);
-  const support = facts.support;
-  const tempContribution =
-    facts.contributions.find((c) => c.key === "temperature_condition")
-      ?.weightedContribution ?? 0;
-  if (
-    facts.norm.context === "freshwater_lake_pond" &&
-    facts.supportScore <= 73 &&
-    tempContribution >= 50 &&
-    support.positiveDriverMass < 73
-  ) {
+  if (temperatureDominanceRestriction(facts) === 1) {
     reasons.push("freshwater_temp_dominated_prime_needs_more_corrob");
   }
   if (!relaxedMinorNegativePrimeEligible(facts, preCapScore, options)) {
@@ -841,7 +728,7 @@ function v43RuntimeContinuousTailScore(
 ): number {
   const support = facts.support;
   if (
-    score < 80 ||
+    score < 76 ||
     !v43RuntimePrimeEligible(facts, score, options) ||
     support.surfacedDriverCount < 2 ||
     support.negativeSuppressorMass > 4.25
@@ -866,34 +753,28 @@ function v43RuntimeContinuousTailScore(
   ) {
     return Math.max(score, 95);
   }
-  let lift = 0;
-  if (support.positiveDriverMass >= 60) lift += 1;
-  if (support.positiveDriverMass >= 75) lift += 2;
-  if (support.positiveDriverMass >= 84) lift += 2;
-  if (support.strongestDriverContribution >= 30) lift += 1;
-  if (support.negativeSuppressorMass <= 1) lift += 1;
-  if (support.negativeSuppressorMass <= 0.25) lift += 1;
-  if (clean >= 0.4) lift += 1;
+  let lift = smoothstep(56, 64, support.positiveDriverMass) +
+    2 * smoothstep(70, 80, support.positiveDriverMass) +
+    2 * smoothstep(80, 88, support.positiveDriverMass) +
+    smoothstep(26, 34, support.strongestDriverContribution) +
+    (1 - smoothstep(.5, 1.5, support.negativeSuppressorMass)) +
+    (1 - smoothstep(0, .5, support.negativeSuppressorMass)) +
+    smoothstep(.2, .6, clean);
   if (options.timingStrength === "strong") lift += 1;
   if (options.timingStrength === "very_strong") lift += 2;
-  return Math.min(98, Math.max(score, score + lift));
+  return Math.min(98, score + lift * smoothstep(76, 84, score));
 }
 
 function scoreFromRawSum(rawSum: number): number {
-  const score = Math.round(
-    rawSum >= 0
-      ? 50 + rawSum / POSITIVE_RAW_SCORE_DIVISOR
-      : 50 + rawSum / NEGATIVE_RAW_SCORE_DIVISOR,
-  );
+  const score = rawSum >= 0
+    ? 50 + rawSum / POSITIVE_RAW_SCORE_DIVISOR
+    : 50 + rawSum / NEGATIVE_RAW_SCORE_DIVISOR;
   return Math.max(10, Math.min(100, score));
 }
 
 function curveLiftV3(score: number): number {
-  if (score < 35) return 2;
-  if (score < 50) return 5;
-  if (score < 65) return 6;
-  if (score < 80) return 3;
-  return 1;
+  return 2 + 3 * smoothstep(32, 38, score) + smoothstep(47, 53, score) -
+    3 * smoothstep(62, 68, score) - 2 * smoothstep(77, 83, score);
 }
 
 function timingLiftV3(timingStrength: TimingStrength | null): number {
@@ -958,11 +839,14 @@ function applyEliteScoreCurvePolicy(
     return score;
   }
 
-  const month = parseInt(norm.location.local_date.slice(5, 7), 10) || 1;
-  const envelope = freshwaterEliteEnvelopeRaw(
-    norm.location.region_key,
-    month,
-    norm.context,
+  const envelope = seasonalValue(
+    norm.location.local_date,
+    (month) =>
+      freshwaterEliteEnvelopeRaw(
+        norm.location.region_key,
+        month,
+        norm.context,
+      ) ?? 0,
   );
   if (envelope == null || envelope <= 0) return score;
 

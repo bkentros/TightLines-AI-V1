@@ -115,6 +115,11 @@ export type RiverRunSeasonalZone = {
     phase: "before_migration" | "beginning";
     accessRecommendation: false;
   };
+  winterHoldingGuidance?: {
+    preferredStartReachIds: string[];
+    activityScopeCopy: string;
+    allCorridorSectionsViable: true;
+  };
   basis: "seasonal_calendar";
   orientationOnly: true;
 };
@@ -266,7 +271,8 @@ export type RiverRunLiveSeasonalContext = {
     | "usgs_approved_exact_date_archive"
     | "usgs_approved_calendar_window_archive"
     | "state_agency_calendar_window_archive"
-    | "usgs_approved_fixed_period_archive";
+    | "usgs_approved_fixed_period_archive"
+    | "usgs_approved_field_measurement_archive";
 };
 
 export type RiverRunLiveConditionMetric = {
@@ -321,7 +327,8 @@ export type RiverRunFishCounts = {
     | "INDIANA_DNR_TABLEAU"
     | "WISCONSIN_DNR_ROOT"
     | "WISCONSIN_DNR_BESADNY"
-    | "WISCONSIN_DNR_BRULE";
+    | "WISCONSIN_DNR_BRULE"
+    | "ODFW_WINCHESTER";
   facilityName: string;
   observationType:
     | "hatchery_return"
@@ -338,6 +345,10 @@ export type RiverRunFishCounts = {
   adultTotal: number | null;
   jackTotal: number | null;
   observedTotal: number | null;
+  originBreakdown?: {
+    wildTotal: number;
+    hatcheryTotal: number;
+  };
   observedThrough?: string;
   reportDate?: string;
   freshness: "fresh" | "stale" | "missing";
