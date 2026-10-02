@@ -655,6 +655,13 @@ export default function PierCastReviewScreen() {
                 savedCopy={showingSavedCopy}
                 onOpenStandings={openStandingsFor}
                 onOpenCity={openFinderCity}
+                onOpenMap={() => router.push({
+                  pathname: "/pier-cast-map",
+                  params: {
+                    cityId: selectedCity.cityId,
+                    ...(selectedSpeciesId ? { speciesId: selectedSpeciesId } : {}),
+                  },
+                })}
               />
             ) : (
               <PierCastConditionsSkeleton />
