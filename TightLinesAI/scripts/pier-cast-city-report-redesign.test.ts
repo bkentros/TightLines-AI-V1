@@ -259,7 +259,7 @@ test("report screen is city-first: no species selector, no request-a-city, no sc
   assert.doesNotMatch(ui, /PierCastTargetSelector|selectedSpeciesId|PierCastCoverageRequest/);
   assert.doesNotMatch(ui, /score\.toFixed|\/10\b/);
   assert.match(ui, /FiveDayOutlook/);
-  assert.match(ui, /Species at \$\{report\.displayName\}/);
+  assert.match(ui, /Supported species at \$\{report\.displayName\}/);
   assert.match(ui, /PierCastCityTemperatureChart/);
   assert.match(ui, /Water temp shifts/);
   assert.match(ui, /Show all \$\{cards\.length\} species/);
