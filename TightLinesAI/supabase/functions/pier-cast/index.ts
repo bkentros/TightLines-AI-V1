@@ -155,14 +155,41 @@ async function account(request: Request) {
         "free",
   };
 }
+/**
+ * Public freshness. Normally every cohort must share a NOAA cycle issued within
+ * 13 hours. If one cohort missed a cycle (a slow or failed ingest run), serve the
+ * newest coherent cycle up to 24 hours old instead of taking all 32 cities
+ * offline: water temperature forecasts change slowly and every LMHOFS cycle
+ * covers 120 hours ahead. Only when even that is unavailable does PierCast
+ * report "not available". Each fallback is logged for monitoring.
+ */
+const PUBLIC_FRESH_HOURS = 13;
+const PUBLIC_FALLBACK_HOURS = 24;
+
+async function readPublicV3Batch(now: Date) {
+  const fresh = await readV3Batch(now, PUBLIC_FRESH_HOURS);
+  if (fresh) return fresh;
+  const fallback = await readV3Batch(now, PUBLIC_FALLBACK_HOURS);
+  console.warn(JSON.stringify({
+    event: fallback ? "pier_cast_public_freshness_fallback" : "pier_cast_public_data_unavailable",
+    issuedAt: fallback?.issuedAt ?? null,
+    observedAt: now.toISOString(),
+  }));
+  return fallback;
+}
+
 async function readPublicOutlook() {
-  const outlook = await readV3Outlook(13);
+  const now = new Date();
+  const batch = await readPublicV3Batch(now);
+  const outlook = batch
+    ? buildPierCastV3ReviewOutlook({ batch, evaluationTime: now.toISOString() })
+    : null;
   return outlook ? projectPublicV3Outlook(outlook) : null;
 }
 
-async function readConditionsOutlook(maxAgeHours = 13) {
+async function readConditionsOutlook() {
   const now = new Date();
-  const batch = await readV3Batch(now, maxAgeHours);
+  const batch = await readPublicV3Batch(now);
   return batch
     ? buildPierCastConditionsV4OutlookFromBatch({
       batch,
@@ -256,10 +283,12 @@ const handler = createPierCastHandler({
   readConditionsLeaderboard: async (speciesId) => {
     const outlook = await readConditionsOutlook();
     if (!outlook) return null;
-    return projectPierCastConditionsLeaderboardV4(
+    const leaderboard = projectPierCastConditionsLeaderboardV4(
       outlook,
       speciesId ? pierCastSpeciesId(speciesId) : null,
     );
+    // Additive: which NOAA cycle the standings use (health monitoring; apps ignore it).
+    return Object.assign(leaderboard, { sourceIssuedAt: outlook.source.issuedAt });
   },
   readConditionsMap: async (speciesId) => {
     const outlook = await readConditionsOutlook();

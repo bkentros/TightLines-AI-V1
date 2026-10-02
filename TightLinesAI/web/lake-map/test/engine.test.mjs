@@ -319,6 +319,7 @@ test('the page works with the smoothed temperature grid everywhere', () => {
   assert.match(source, /m\.grids\.tempSource = m\.grids\.temp;\s*m\.grids\.temp = \{ \.\.\.m\.grids\.temp, \.\.\.DISPLAY_TEMP/);
   assert.match(source, /const smoothTemp = \$\{smoothedTemperature\.toString\(\)\}/, 'the decoder threads run the same filter');
   assert.match(source, /DECODER_THREADS/);
+  assert.match(source, /smoothing\.params, radius: 0 \}/, 'main-thread fallback skips the filter so playback stays smooth');
   const page = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
   assert.match(page, /smoothTemperature: q\.get\('smooth'\) !== '0'/);
 });
