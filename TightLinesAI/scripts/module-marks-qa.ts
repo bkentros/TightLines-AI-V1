@@ -16,10 +16,10 @@ assert.match(
   /code="05"[\s\S]*?title="Color Match"[\s\S]*?tag="COLOR GUIDE"[\s\S]*?moduleId="color-match"[\s\S]*?iconBorder="#D9772B"[\s\S]*?onPress=\{\(\) => router\.push\("\/color-picker"\)\}[\s\S]*?code="06"[\s\S]*?title="Water Read"/,
   "Color Match must be the orange, openable fifth module",
 );
-assert.match(
+assert.doesNotMatch(
   home,
   /5 LIVE · 1 PLANNED/,
-  "The module count must distinguish available and planned tools",
+  "The home module heading must not show a live/planned count",
 );
 assert.match(
   home,
@@ -34,8 +34,18 @@ assert.match(
 );
 assert.match(
   home,
-  /lakeMapCta:\s*\{[\s\S]*?minHeight: 56[\s\S]*?backgroundColor: paper\.dashboardInk/,
+  /lakeMapCta:\s*\{[\s\S]*?minHeight: 56[\s\S]*?backgroundColor: "#E1F0ED"/,
   "The live lake map shortcut must match the compact guide-card height",
+);
+assert.match(
+  home,
+  /title="Pier Cast"[\s\S]*?badge="NEW"[\s\S]*?title="River Migration"/,
+  "Only Pier Cast should carry the dashboard's new-feature badge",
+);
+assert.doesNotMatch(
+  home,
+  /title="River Migration"[\s\S]*?badge="NEW"/,
+  "River Migration must not retain a new-feature badge",
 );
 assert.match(
   guide,

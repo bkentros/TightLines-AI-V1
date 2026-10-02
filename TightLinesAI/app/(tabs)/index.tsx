@@ -1730,7 +1730,6 @@ export default function HomeScreen() {
           <View style={styles.modules}>
             <View style={styles.modulesHeader}>
               <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-              <Text style={styles.modulesCount}>5 LIVE · 1 PLANNED</Text>
             </View>
 
             <Pressable
@@ -1782,7 +1781,7 @@ export default function HomeScreen() {
             >
               <View style={styles.howWorksLeft}>
                 <View style={styles.lakeMapIconTile}>
-                  <Ionicons name="map-outline" size={17} color={paper.gold} />
+                  <Ionicons name="map-outline" size={17} color="#20665E" />
                 </View>
                 <View style={styles.howWorksTextCol}>
                   <Text style={styles.lakeMapEyebrow}>PIERCAST CONDITIONS</Text>
@@ -1797,7 +1796,7 @@ export default function HomeScreen() {
                 </View>
               </View>
               <View style={styles.lakeMapArrowTile}>
-                <Ionicons name="arrow-forward" size={14} color={paper.dashboardInk} />
+                <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
               </View>
             </Pressable>
 
@@ -1818,7 +1817,6 @@ export default function HomeScreen() {
               code="02"
               title="River Migration"
               tag="MIGRATION"
-              badge="NEW"
               desc="Migration stage, activity, presence, river conditions & available fish counts"
               moduleId="river-run"
               iconBg={["#FBE4E1", "#F3C2BC"]}
@@ -3046,34 +3044,34 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.12)",
+    borderColor: "rgba(49,143,131,0.42)",
     borderRadius: 10,
-    backgroundColor: paper.dashboardInk,
+    backgroundColor: "#E1F0ED",
     ...paperShadows.lift,
   },
-  lakeMapCtaPressed: { opacity: 0.88 },
+  lakeMapCtaPressed: { backgroundColor: "#D3E8E3", opacity: 0.94 },
   lakeMapIconTile: {
     width: 34,
     height: 34,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.16)",
+    borderColor: "rgba(49,143,131,0.28)",
     borderRadius: 17,
-    backgroundColor: "rgba(255,255,255,0.07)",
+    backgroundColor: "rgba(255,255,255,0.72)",
   },
   lakeMapEyebrow: {
     marginBottom: 1,
     fontFamily: MONO_BOLD,
     fontSize: 7.5,
     letterSpacing: 1.4,
-    color: paper.gold,
+    color: "#20665E",
   },
   lakeMapTitle: {
     fontFamily: SERIF_SEMI,
     fontSize: 16,
     lineHeight: 20,
-    color: "#FFFFFF",
+    color: paper.dashboardInk,
   },
   lakeMapArrowTile: {
     width: 30,
@@ -3082,7 +3080,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    backgroundColor: paper.gold,
+    backgroundColor: "#318F83",
   },
 
   // metric grid
@@ -3331,7 +3329,6 @@ const styles = StyleSheet.create({
     letterSpacing: 2.2,
     color: "#444",
   },
-  modulesCount: { fontFamily: MONO_BOLD, fontSize: 8, color: "#888" },
 
   moduleRow: {
     flexDirection: "row",
