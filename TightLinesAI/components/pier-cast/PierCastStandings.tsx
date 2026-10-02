@@ -1953,7 +1953,7 @@ const styles = StyleSheet.create({
   finderMeta: { fontFamily: paperFonts.body, fontSize: 13, color: "#666666" },
   finderOpen: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.2, color: paper.dashboardBlue },
 
-  footer: { marginTop: 4, marginHorizontal: 14 },
+  footer: { marginTop: 18, marginHorizontal: 14 },
   disclaimer: {
     marginTop: 18,
     marginHorizontal: 22,
