@@ -48,6 +48,7 @@ import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 import { authScopeStageSize } from '../../lib/responsiveAuth';
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from '../../lib/intelligenceModuleCopy';
 
 export default function OnboardingStep1() {
   const router = useRouter();
@@ -200,7 +201,7 @@ export default function OnboardingStep1() {
                 <View style={styles.chapterTextCol}>
                   <Text style={styles.chapterTitle}>Today's Bite</Text>
                   <Text style={styles.chapterBlurb}>
-                    Today's score, best windows, whether to go.
+                    {INTELLIGENCE_MODULE_DESCRIPTIONS['todays-bite']}
                   </Text>
                   <View style={[styles.chapterTagPill, { borderColor: `${paper.bandPrime}60`, backgroundColor: `${paper.bandPrime}14` }]}>
                     <Text style={[styles.chapterTagText, { color: paper.bandPrime }]}>SCORE · WINDOWS · WHY</Text>
@@ -223,7 +224,7 @@ export default function OnboardingStep1() {
                 <View style={styles.chapterTextCol}>
                   <Text style={styles.chapterTitle}>The Tackle Box</Text>
                   <Text style={styles.chapterBlurb}>
-                    Two lures, two flies — tuned for today.
+                    {INTELLIGENCE_MODULE_DESCRIPTIONS['tackle-box']}
                   </Text>
                   <View style={[styles.chapterTagPill, { borderColor: `${paper.dashboardBlue}60`, backgroundColor: `${paper.dashboardBlueSky}55` }]}>
                     <Text style={[styles.chapterTagText, { color: paper.dashboardBlue }]}>LURES · FLIES · PRESENTATION</Text>
@@ -252,7 +253,7 @@ export default function OnboardingStep1() {
                 <View style={styles.chapterTextCol}>
                   <Text style={styles.chapterTitle}>Water Read</Text>
                   <Text style={styles.chapterBlurb}>
-                    Creates structure-related high-probability fishing zones for any supported lake.
+                    {INTELLIGENCE_MODULE_DESCRIPTIONS['water-read']}
                   </Text>
                   <View style={[styles.chapterTagPill, { borderColor: 'rgba(42,110,150,0.4)', backgroundColor: 'rgba(42,110,150,0.08)' }]}>
                     <Text style={[styles.chapterTagText, { color: '#2A6E96' }]}>STRUCTURE · COVER · HOLDING</Text>

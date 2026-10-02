@@ -13,6 +13,7 @@ const verify = read('app/(auth)/verify-email.tsx');
 const onboarding = read('app/(onboarding)/step-2-preferences.tsx');
 const locationPicker = read('components/LocationPickerModal.tsx');
 const verifiedCity = read('components/VerifiedCityInput.tsx');
+const moduleCopy = read('lib/intelligenceModuleCopy.ts');
 
 assert.match(
   home,
@@ -25,14 +26,15 @@ assert.doesNotMatch(
   'The independently shrinking metric value row must not return',
 );
 
-for (const phrase of [
-  "Today's score, bite windows, limiting factors, and the reason behind the read.",
-  'Migration stage, activity, seasonal presence, river conditions, and official fish counts where available.',
-  'Lures, flies, and presentations tuned to your species and current conditions.',
-  'Structure, cover, and likely holding zones across supported lakes.',
+for (const moduleId of [
+  'todays-bite', 'tackle-box', 'river-run', 'pier-cast', 'color-match', 'water-read',
 ]) {
-  assert.ok(welcome.includes(phrase), `Logged-out module copy is missing: ${phrase}`);
+  assert.ok(
+    welcome.includes(`INTELLIGENCE_MODULE_DESCRIPTIONS["${moduleId}"]`),
+    `Logged-out module copy must use the shared description for ${moduleId}`,
+  );
 }
+assert.match(moduleCopy, /Daily fishing conditions and best times/);
 
 assert.match(
   locationPicker,

@@ -16,6 +16,7 @@ import {
   type IntelligenceModuleIconVariant,
   type IntelligenceModuleId,
 } from "../components/paper/IntelligenceModuleIcons";
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from "../lib/intelligenceModuleCopy";
 import { paper, paperFonts, paperSpacing } from "../lib/theme";
 
 type ModuleSpec = {
@@ -36,7 +37,7 @@ const MODULES: ModuleSpec[] = [
     code: "01",
     title: "Water Read",
     tag: "POLYGON",
-    desc: "Most lakes: structure + potential hotspots",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["water-read"],
     iconBg: ["#E8F2FA", "#C8DFF2"],
     iconBorder: "#0F63B0",
     iconColor: "#0A4A87",
@@ -47,7 +48,7 @@ const MODULES: ModuleSpec[] = [
     code: "02",
     title: "Tackle Box",
     tag: "RECOMMENDER",
-    desc: "Tuned picks for today's conditions & species",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["tackle-box"],
     iconBg: ["#FBF1D9", "#F4DFA4"],
     iconBorder: "#C99B2D",
     iconColor: "#8A6A1A",
@@ -58,7 +59,7 @@ const MODULES: ModuleSpec[] = [
     code: "03",
     title: "Today's Bite",
     tag: "CONDITIONS",
-    desc: "Full breakdown · windows · limiting factors",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["todays-bite"],
     iconBg: ["#E5F2DD", "#C5E0B5"],
     iconBorder: "#3DA85F",
     iconColor: "#1F6B38",
@@ -69,7 +70,7 @@ const MODULES: ModuleSpec[] = [
     code: "04",
     title: "River Migration",
     tag: "MIGRATION",
-    desc: "Daily migration stage, activity, presence, and river conditions",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["river-run"],
     iconBg: ["#FBE4E1", "#F3C2BC"],
     iconBorder: "#C0392B",
     iconColor: "#9A2B20",
@@ -80,7 +81,7 @@ const MODULES: ModuleSpec[] = [
     code: "05",
     title: "Color Match",
     tag: "COLOR GUIDE",
-    desc: "Advanced color guidance for soft plastics, hard baits & flies",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["color-match"],
     iconBg: ["#FBEBDD", "#F3C9A7"],
     iconBorder: "#D9772B",
     iconColor: "#9B4E18",
@@ -91,7 +92,7 @@ const MODULES: ModuleSpec[] = [
     code: "06",
     title: "Pier Cast",
     tag: "PIER FORECAST",
-    desc: "Great Lakes pier outlooks · strongest supported species · today + 4 days",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["pier-cast"],
     iconBg: ["#E0F3F0", "#B8DFD8"],
     iconBorder: "#318F83",
     iconColor: "#20665E",

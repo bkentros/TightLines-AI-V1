@@ -40,6 +40,7 @@ import {
 import type { HowsFishingReportV1 } from "../../lib/howFishing";
 import { useRevenueCatStore } from "../../store/revenueCatStore";
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from "../../store/subscriptionCelebrationStore";
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from "../../lib/intelligenceModuleCopy";
 
 // ─── Display helpers ─────────────────────────────────────────────────────────
 
@@ -288,7 +289,7 @@ const ANGLER_MODULE_SPECS: AnglerModuleSpec[] = [
     iconName: "sparkles-outline",
     title: "Today's Bite",
     tag: "CONDITIONS",
-    desc: "Full breakdown · windows · watch-outs",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["todays-bite"],
     iconBg: "#C5E0B5",
     iconBorder: "#3DA85F",
     iconColor: "#1F6B38",
@@ -298,7 +299,7 @@ const ANGLER_MODULE_SPECS: AnglerModuleSpec[] = [
     iconName: "fish-outline",
     title: "Tackle Box",
     tag: "RECOMMENDER",
-    desc: "Tuned picks for today's conditions & species",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["tackle-box"],
     iconBg: "#F4DFA4",
     iconBorder: "#C99B2D",
     iconColor: "#8A6A1A",
@@ -308,7 +309,7 @@ const ANGLER_MODULE_SPECS: AnglerModuleSpec[] = [
     iconName: "layers-outline",
     title: "Water Read",
     tag: "POLYGON",
-    desc: "Most lakes: structure + potential hotspots",
+    desc: INTELLIGENCE_MODULE_DESCRIPTIONS["water-read"],
     iconBg: "#C8DFF2",
     iconBorder: "#0F63B0",
     iconColor: "#0A4A87",
