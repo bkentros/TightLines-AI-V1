@@ -214,6 +214,14 @@ month, then $0.30 per million). The Worker caps traffic at 600 requests/IP/minut
   applied silently while the map is covered, backgrounded or hidden; while it is being
   viewed, an "Updated forecast ready" pill offers it. Either way the page reloads into the
   new run at the same center, zoom, clock time (or "Now") and selected pier.
+- **Temperature smoothing (display):** NOAA's field carries grid-scale texture (and 8-bit
+  frames carry 0.2 °F steps), which broke band edges in flat pools into islands and holes.
+  The decoder threads run a front-preserving (bilateral) filter on temperature: wiggles
+  under ~0.4 °F across ~1.5 cells are smoothed, real breaks (upwelling, plumes) stay sharp
+  (`smoothedTemperature`, `TEMP_SMOOTHING` in `frames.js`). The store then serves the
+  smoothed field as `grids.temp` (0.01 °F steps; the file's own grid is kept as
+  `grids.tempSource`), so colors, labels, pier pills and the readout all agree. Decoding
+  runs on 2–3 background threads. `?smooth=0` shows the unsmoothed field for comparison.
 - **Labels:** band labels fade out while the forecast moves (play or drag) and fade
   back in, placed for the new hour, when it stops.
 - **Band edges:** stored values come in fixed steps (0.2 °F, 0.05 ft), so whole

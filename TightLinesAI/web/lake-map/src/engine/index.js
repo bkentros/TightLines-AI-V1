@@ -41,7 +41,7 @@ function geoBox(fc) {
 }
 
 export async function createLakeMap(container, options = {}) {
-  const store = await new FrameStore(options.dataUrl || 'data/').init();
+  const store = await new FrameStore(options.dataUrl || 'data/', { smoothTemperature: options.smoothTemperature !== false }).init();
   // shoreline / land / borders: shared by every run (manifest.geo, relative to the run folder)
   const geoUrl = new URL(store.manifest.geo || 'geo.json', new URL(store.base, location.href)).href;
   const geo = options.geo || await fetch(geoUrl).then((r) => r.json());

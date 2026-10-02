@@ -94,7 +94,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     } catch (e) { /* no bucket next to this page: use bundled data */ }
   }
   const lm = await createLakeMap($('#map'), {
-    dataUrl, staticUrl, basemap, piers, ...(resume ? { center: resume.center, zoom: resume.zoom } : {}),
+    dataUrl, staticUrl, basemap, piers, smoothTemperature: q.get('smooth') !== '0', ...(resume ? { center: resume.center, zoom: resume.zoom } : {}),
     // screen areas covered by controls; labels and markers stay clear of them
     reserved: () => {
       const out = [[0, 0, 9999, 64]];

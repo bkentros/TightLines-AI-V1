@@ -114,6 +114,65 @@ export function blendHours(p, a, b, n, m) {
   return Math.min(Math.max(a, b), Math.max(Math.min(a, b), v));
 }
 
+/*
+ * Display smoothing for water temperature. NOAA's field carries grid-scale
+ * texture (and, in 8-bit frames, 0.2 °F steps), so in flat warm or cold pools a
+ * band edge breaks into islands and holes. A front-preserving (bilateral) filter
+ * removes wiggles smaller than ~sigmaValue across ~sigmaCells while leaving real
+ * temperature breaks (upwelling edges, river plumes) sharp. The store then serves
+ * the smoothed field to everything on the page, so the color you see, the band
+ * labels, the pier pills and the readout always agree.
+ */
+export const TEMP_SMOOTHING = Object.freeze({ radius: 3, sigmaCells: 1.5, sigmaValue: 0.4 });
+/** How smoothed temperature is held on the page: 0.01 °F steps, 65535 = no data. */
+export const DISPLAY_TEMP = Object.freeze({ scale: 100, offset: 30, nodata: 65535, encoding: 'rgb16' });
+
+/**
+ * Smoothed temperature as DISPLAY_TEMP values. raw: stored values, src: their
+ * grid ({scale, offset, nodata}), p: TEMP_SMOOTHING. Self-contained on purpose:
+ * the background decoder runs this exact source.
+ */
+export function smoothedTemperature(raw, w, h, src, p) {
+  const n = w * h, F = new Float32Array(n), valid = new Uint8Array(n);
+  for (let i = 0; i < n; i++) { const r = raw[i]; if (r !== src.nodata) { F[i] = r / src.scale + src.offset; valid[i] = 1; } }
+  const R = p.radius, taps = 2 * R + 1, sw = new Float32Array(taps);
+  for (let k = -R; k <= R; k++) sw[k + R] = Math.exp(-(k * k) / (2 * p.sigmaCells * p.sigmaCells));
+  // range weights by |difference| in 1/inv °F steps; beyond 3 sigma a neighbor does not count
+  const STEPS = 256, inv = (STEPS - 1) / (3 * p.sigmaValue), rw = new Float32Array(STEPS + 1);
+  for (let i = 0; i < STEPS; i++) { const d = i / inv; rw[i] = Math.exp(-(d * d) / (2 * p.sigmaValue * p.sigmaValue)); }
+  rw[STEPS] = 0;
+  const tmp = new Float32Array(n), out = new Float32Array(n);
+  // one pass along rows (stride 1) or columns (stride w); separable approximation of the 2D filter
+  const pass = (inp, dst, stride, len, lines, lineStride) => {
+    for (let line = 0; line < lines; line++) {
+      const base = line * lineStride;
+      for (let a = 0; a < len; a++) {
+        const i = base + a * stride;
+        if (!valid[i]) continue;
+        const c = inp[i], lo = a - R < 0 ? -a : -R, hi = a + R >= len ? len - 1 - a : R;
+        let sum = 0, ws = 0;
+        for (let k = lo, j = i + lo * stride; k <= hi; k++, j += stride) {
+          if (!valid[j]) continue;
+          const v = inp[j], dv = v > c ? v - c : c - v;
+          let d = (dv * inv) | 0; if (d > STEPS) d = STEPS;
+          const wt = sw[k + R] * rw[d];
+          sum += v * wt; ws += wt;
+        }
+        dst[i] = sum / ws; // ws >= 1: the center always counts
+      }
+    }
+  };
+  pass(F, tmp, 1, w, h, w);
+  pass(tmp, out, w, h, w, 1);
+  const display = new Uint16Array(n);
+  for (let i = 0; i < n; i++) {
+    if (!valid[i]) { display[i] = 65535; continue; }
+    const q = Math.round((out[i] - 30) * 100);
+    display[i] = q < 0 ? 0 : q > 65534 ? 65534 : q;
+  }
+  return display;
+}
+
 /** Interpolates two samples without ever treating a missing value as data. */
 export function interpolateValidValues(a, b, mix) {
   const av = Number.isFinite(a), bv = Number.isFinite(b);
@@ -131,8 +190,9 @@ function sameOriginPath(input, base = location.href) {
 }
 
 export class FrameStore {
-  constructor(baseUrl) {
+  constructor(baseUrl, { smoothTemperature = true } = {}) {
     this.base = sameOriginPath(baseUrl).replace(/\/?$/, '/');
+    this.smoothTemperature = smoothTemperature;
     this.images = new Map(); // path -> Promise<{data, channels, w, h}>
     this.listeners = new Set();
     this.evictListeners = new Set();
@@ -148,6 +208,12 @@ export class FrameStore {
     this.hours = m.frames.map((f) => f.hour);
     this.maxHour = this.hours[this.hours.length - 1];
     this.t0 = Date.parse(m.frames[0].validTime);
+    // The page works with the smoothed temperature field (see smoothedTemperature):
+    // grids.temp describes what the page holds, grids.tempSource what the files store.
+    if (this.smoothTemperature && m.grids?.temp && !m.grids.tempSource) {
+      m.grids.tempSource = m.grids.temp;
+      m.grids.temp = { ...m.grids.temp, ...DISPLAY_TEMP, smoothed: TEMP_SMOOTHING };
+    }
     const [events, depth] = await Promise.all([
       fetch(this.url(m.events)).then((r) => r.ok ? r.json() : { events: [] }).catch(() => ({ events: [] })),
       m.depth ? this.load(m.depth) : Promise.resolve(null),
@@ -182,17 +248,22 @@ export class FrameStore {
    * never stutters while the next hours arrive; otherwise the classic <img> path.
    */
   async decode(path) {
-    const scalar = !path.startsWith('wind/'), grid = this.gridFor(path);
+    const scalar = !path.startsWith('wind/');
+    const smooth = path.startsWith('temp/') && this.manifest?.grids?.tempSource;
+    const grid = smooth ? this.manifest.grids.tempSource : this.gridFor(path); // how the file is stored
     const nodata = scalar ? grid?.nodata : undefined, encoding = (scalar && grid?.encoding) || 'u8';
     if (!FRAME_ENCODINGS.includes(encoding)) throw new Error(`Frame encoding ${encoding} is not supported by this page`);
     const url = new URL(this.url(path), location.origin).href;
+    const smoothing = smooth ? { src: { scale: grid.scale, offset: grid.offset, nodata: grid.nodata }, params: TEMP_SMOOTHING } : null;
     const worker = frameDecoder();
     if (worker) {
-      try { return { path, ...(await worker.decode(url, scalar, nodata, encoding)) }; } catch (err) {
+      try { return { path, ...(await worker.decode(url, scalar, nodata, encoding, smoothing)) }; } catch (err) {
         if (!err || err.message !== 'unsupported') throw new Error('Frame failed: ' + path);
       }
     }
-    return decodeOnPage(url, path, encoding);
+    const frame = await decodeOnPage(url, path, encoding);
+    if (smoothing) { frame.data = smoothedTemperature(frame.data, frame.w, frame.h, smoothing.src, smoothing.params); frame.channels = 1; }
+    return frame;
   }
   gridFor(path) {
     const kind = path.split('/')[0];
@@ -274,8 +345,9 @@ function decodeOnPage(url, path, encoding) {
  */
 function workerSource() {
   return `const pack = ${packScalarTexturePixels.toString()};
+const smoothTemp = ${smoothedTemperature.toString()};
 self.onmessage = async (e) => {
-  const { id, url, scalar, nodata, encoding } = e.data;
+  const { id, url, scalar, nodata, encoding, smoothing } = e.data;
   try {
     if (typeof OffscreenCanvas === 'undefined' || typeof createImageBitmap === 'undefined') throw new Error('unsupported');
     const res = await fetch(url, { credentials: 'same-origin' });
@@ -291,10 +363,17 @@ self.onmessage = async (e) => {
       self.postMessage({ id, w, h, data, channels: 4 }, [data.buffer]);
       return;
     }
-    if (encoding === 'rgb16') {
-      // 16-bit frames are packed for the GPU (half floats) only when uploaded
-      const data16 = new Uint16Array(w * h);
-      for (let i = 0; i < data16.length; i++) data16[i] = rgba[i * 4] * 256 + rgba[i * 4 + 1];
+    if (encoding === 'rgb16' || smoothing) {
+      // 16-bit and smoothed frames are packed for the GPU (half floats) only when uploaded
+      let data16;
+      if (encoding === 'rgb16') {
+        data16 = new Uint16Array(w * h);
+        for (let i = 0; i < data16.length; i++) data16[i] = rgba[i * 4] * 256 + rgba[i * 4 + 1];
+      } else {
+        data16 = new Uint8Array(w * h);
+        for (let i = 0; i < data16.length; i++) data16[i] = rgba[i * 4];
+      }
+      if (smoothing) data16 = smoothTemp(data16, w, h, smoothing.src, smoothing.params);
       self.postMessage({ id, w, h, data: data16, channels: 1 }, [data16.buffer]);
       return;
     }
@@ -309,29 +388,40 @@ self.onmessage = async (e) => {
 }
 
 let decoder;
-/** The shared background decoder, or null when workers are unavailable. */
+/** Background decoders: 2–3 threads so fast playback is never waiting on one. */
+export const DECODER_THREADS = () => Math.max(1, Math.min(3, ((typeof navigator !== 'undefined' && navigator.hardwareConcurrency) || 2) - 1));
+/** The shared background decoder pool, or null when workers are unavailable. */
 export function frameDecoder() {
   if (decoder !== undefined) return decoder;
   decoder = null;
   try {
     if (typeof Worker === 'undefined' || typeof Blob === 'undefined' || typeof URL.createObjectURL !== 'function') return decoder;
-    const worker = new Worker(URL.createObjectURL(new Blob([workerSource()], { type: 'text/javascript' })));
+    const src = URL.createObjectURL(new Blob([workerSource()], { type: 'text/javascript' }));
     const pending = new Map(); let next = 1;
     const fail = (message) => { pending.forEach(({ reject }) => reject(new Error(message))); pending.clear(); };
-    worker.onmessage = ({ data }) => {
-      const job = pending.get(data.id); if (!job) return;
-      pending.delete(data.id);
-      if (data.error) {
-        if (data.error === 'unsupported') decoder = null; // this WebView decodes on the page instead
-        job.reject(new Error(data.error));
-      } else job.resolve({ w: data.w, h: data.h, data: data.data, packed: data.packed || null, channels: data.channels });
-    };
-    worker.onerror = (e) => { e.preventDefault?.(); decoder = null; fail('unsupported'); };
+    const workers = Array.from({ length: DECODER_THREADS() }, () => {
+      const worker = new Worker(src);
+      worker.busy = 0;
+      worker.onmessage = ({ data }) => {
+        const job = pending.get(data.id); if (!job) return;
+        pending.delete(data.id); worker.busy--;
+        if (data.error) {
+          if (data.error === 'unsupported') decoder = null; // this WebView decodes on the page instead
+          job.reject(new Error(data.error));
+        } else job.resolve({ w: data.w, h: data.h, data: data.data, packed: data.packed || null, channels: data.channels });
+      };
+      worker.onerror = (e) => { e.preventDefault?.(); decoder = null; fail('unsupported'); };
+      return worker;
+    });
     decoder = {
-      decode(url, scalar, nodata, encoding) {
+      threads: workers.length,
+      decode(url, scalar, nodata, encoding, smoothing = null) {
         return new Promise((resolve, reject) => {
           const id = next++; pending.set(id, { resolve, reject });
-          worker.postMessage({ id, url, scalar, nodata, encoding });
+          // the least busy thread takes the next frame
+          const worker = workers.reduce((a, b) => (b.busy < a.busy ? b : a));
+          worker.busy++;
+          worker.postMessage({ id, url, scalar, nodata, encoding, smoothing });
         });
       },
     };
