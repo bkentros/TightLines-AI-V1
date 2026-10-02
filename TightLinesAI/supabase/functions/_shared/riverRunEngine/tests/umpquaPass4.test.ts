@@ -318,15 +318,19 @@ Deno.test("every Umpqua phase resolves to audited reaches and Building leaves Be
   }
 });
 
-Deno.test("Spot Finder reconciles exactly three official access sites per river", () => {
+Deno.test("Spot Finder retains all 17 reconciled access sites per Umpqua river", () => {
   for (const river of rivers) {
     const finder = riverRunSpotFinderForRiver(river.riverId);
     assert(finder, river.riverId);
     assertEquals(finder.sections.length, 3, river.riverId);
     assertEquals(
       finder.sections.flatMap((section) => section.spots).length,
-      3,
+      17,
       river.riverId,
+    );
+    assert(
+      finder.sections.every((section) => section.spots.length > 0),
+      `${river.riverId} must cover every supported section`,
     );
     assertEquals(
       finder.sections.flatMap((section) => section.foundationReachIds)
@@ -336,7 +340,7 @@ Deno.test("Spot Finder reconciles exactly three official access sites per river"
     );
     for (const spot of finder.sections.flatMap((section) => section.spots)) {
       assertMatch(spot.sourceUrl, /^https:\/\//, spot.id);
-      assertEquals(spot.verifiedOn, "2026-09-28", spot.id);
+      assertMatch(spot.verifiedOn, /^2026-(09-28|10-01)$/, spot.id);
       assert(spot.caution?.length, `${spot.id} needs caution copy`);
     }
     assertEquals(RIVER_RUN_SPOT_FINDERS[river.riverId], finder);
