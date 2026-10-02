@@ -216,8 +216,8 @@ The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not ro
   strict verification group; provider-QC/unknown-depth and QARTOD-not-evaluated values
   remain separately labeled context.
 - **Banner:** one banner. It leads with an in-view Weather Service warning, then cold-water
-  surges, then advisories / statements; "Also: …" names the rest. Dismissed banners return
-  only for something new.
+  surges, then advisories / statements; "Also: …" names the rest. Dismissing it suppresses
+  banners for the rest of that map session while every item remains in the Alerts tool.
 - **Alerts sheet:** two tabs. *Water temp* (default): surge / push cards with the pier's
   5-day forecast curve (`runs/<id>/series.json`), 3 per section with "Show more".
   *Weather & safety*: alerts grouped by type, expandable to their areas, each opening a
