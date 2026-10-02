@@ -37,6 +37,7 @@ const TRUSTED_SOURCE_HOSTS = new Set([
   "cityofkewauneewi.gov",
   "www.visitkewauneecounty.com",
   "myodfw.com",
+  "www.oregon.gov",
   "www.manitowoc.org",
   "manitowoccountywi.gov",
   "www.oswegony.gov",

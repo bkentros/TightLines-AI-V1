@@ -776,6 +776,8 @@ for (
         "www.kentcountymi.gov",
         "www.plainfieldmi.org",
         "cms7files1.revize.com",
+        "myodfw.com",
+        "www.oregon.gov",
         "www.douglascountyor.gov",
         "www.blm.gov",
       ].includes(new URL(spot.sourceUrl).hostname),
@@ -815,9 +817,20 @@ assert.equal(
 );
 assert.equal(
   allSpotIds.length,
-  235,
-  "The source-audited River Run inventory must contain 235 public access points",
+  263,
+  "The source-audited River Run inventory must contain 263 public access points",
 );
+for (const riverId of ["umpqua_mainstem", "north_umpqua"] as const) {
+  const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
+    (total, section) => total + section.spots.length,
+    0,
+  );
+  assert.equal(
+    actualCount,
+    17,
+    `${riverId} must retain all 17 reconciled public fishing-access points`,
+  );
+}
 for (const [riverId, expectedCount] of Object.entries(michiganSpotCounts)) {
   const actualCount = RIVER_RUN_SPOT_FINDERS[riverId].sections.reduce(
     (total, section) => total + section.spots.length,

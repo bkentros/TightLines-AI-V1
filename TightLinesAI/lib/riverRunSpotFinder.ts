@@ -200,6 +200,11 @@ const WI_BRULE_PADDLING =
 const WI_FISHING_RULES = "https://dnr.wisconsin.gov/topic/Fishing/seasons";
 const WA_EMERGENCY_RULES =
   "https://wdfw.wa.gov/fishing/regulations/emergency-rules";
+const ODFW_ROSEBURG_FISHING_ACCESS =
+  "https://myodfw.com/articles/50-places-go-fishing-within-60-minutes-roseburg";
+const OREGON_MARINE_ACCESS_REPORT =
+  "https://www.oregon.gov/osmb/boater-info/Pages/Opportunities-and-Access.aspx";
+const DOUGLAS_PARK_NEWS = "https://www.douglascountyor.gov/828/News-Updates";
 
 const DNR_FACILITY_SEARCH_NAMES: Record<string, string> = {
   betsie_river_road: "River Road",
@@ -342,6 +347,27 @@ const sourceMappedSpot = (
   sourceLocator,
   verifiedOn,
 });
+
+const odfwRoseburgSpot = (
+  id: string,
+  name: string,
+  sourceLocationHint: string,
+  accessKinds: RiverAccessKind[],
+  detail: string,
+  caution?: string,
+): RiverAccessSpot =>
+  namedSpot(
+    id,
+    name,
+    sourceLocationHint,
+    accessKinds,
+    detail,
+    "Oregon Department of Fish and Wildlife — 50 places to fish near Roseburg",
+    ODFW_ROSEBURG_FISHING_ACCESS,
+    caution,
+    "2026-10-01",
+    `On the linked ODFW list, find “${name}” for its fishing-access description and directions.`,
+  );
 
 const nySalmonAccess = (
   id: string,
@@ -2157,7 +2183,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverName: "Umpqua River (Mainstem)",
     supportedStates: ["OR"],
     orientationNote:
-      "Sections cover only the Pacific mouth-to-River Forks mainstem. North and South Umpqua are separate rivers. Tributary-mouth closures, the permanent cyanobacteria advisory, tides, and posted site restrictions remain controlling.",
+      "Sections cover only the Pacific mouth-to-River Forks mainstem. North and South Umpqua are separate rivers. This inventory reconciles ODFW fishing-access names with current county, BLM, and Marine Board records; tributary-mouth closures, the permanent cyanobacteria advisory, tides, and posted site restrictions remain controlling.",
     safetyLink: {
       label: "CHECK CURRENT OREGON RULES →",
       url: "https://myodfw.com/articles/regulation-updates",
@@ -2170,6 +2196,50 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         rangeLabel: "Winchester Bay jetties to Scottsburg/head of tide",
         eligibleSpecies: ["chinook_salmon", "coho_salmon"],
         spots: [
+          sourceMappedSpot(
+            "umpqua_mainstem_salmon_harbor_marina",
+            "Salmon Harbor Marina",
+            ["boat_ramp"],
+            "Douglas County marina with two public launch ramps and source-listed Umpqua River fishing at Winchester Bay.",
+            "Douglas County — Salmon Harbor Marina",
+            "https://www.douglascountyor.gov/448/Salmon-Harbor-Marina",
+            "Find “Complete Marina Facilities” for the two launch ramps and “Fishing” for the listed river fishery.",
+            "A marina opening is not a bar-safety, fish-presence, bank-access, or launch-condition guarantee. Check tides, the coastal bar forecast, harbor rules, and posted notices.",
+            "2026-10-01",
+          ),
+          sourceMappedSpot(
+            "umpqua_mainstem_windy_cove_fishing_dock",
+            "Windy Cove Crab and Fishing Dock",
+            ["fishing_platform", "shore_fishing"],
+            "Douglas County public crab and fishing dock at Winchester Bay, reopened after repairs in February 2025.",
+            "Douglas County Parks",
+            DOUGLAS_PARK_NEWS,
+            "On the linked county news page, find “Windy Cove Crab and Fishing Dock” and its reopening notice.",
+            "Dock access does not establish safe jetty, shoreline, or neighboring-marina access. Confirm current dock status, harbor rules, tides, and salmon regulations.",
+            "2026-10-01",
+          ),
+          sourceMappedSpot(
+            "umpqua_mainstem_bumble_bee_launch",
+            "Bumble Bee Boat Launch",
+            ["boat_ramp"],
+            "Public Umpqua River boat launch listed open in the current Oregon Marine Board report.",
+            "Oregon State Marine Board — Opportunities and Access Report",
+            OREGON_MARINE_ACCESS_REPORT,
+            "Under Umpqua River, find “Bumble Bee and Rainbow Plaza boat launches are open.”",
+            "The report verifies boating access, not public bank fishing, bar safety, usable depth at every tide, or fish presence.",
+            "2026-10-01",
+          ),
+          sourceMappedSpot(
+            "umpqua_mainstem_rainbow_plaza_launch",
+            "Rainbow Plaza Boat Launch",
+            ["boat_ramp"],
+            "Public Umpqua River boat launch listed open in the current Oregon Marine Board report.",
+            "Oregon State Marine Board — Opportunities and Access Report",
+            OREGON_MARINE_ACCESS_REPORT,
+            "Under Umpqua River, find “Bumble Bee and Rainbow Plaza boat launches are open.”",
+            "The report verifies boating access, not public bank fishing, bar safety, usable depth at every tide, or fish presence.",
+            "2026-10-01",
+          ),
           sourcedCoordinateSpot(
             "umpqua_mainstem_scottsburg_county_park",
             "Scottsburg County Park",
@@ -2203,6 +2273,14 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "The listing does not guarantee safe wading, a usable launch at every flow, public frontage beyond the park, or conditions matching the Elkton gauge.",
             "2026-09-28",
           ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_elkton_tyson_park",
+            "Elkton Boat Ramp at Alfred S. Tyson Park",
+            "Alfred S. Tyson Park, Elkton, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed public boat ramp and bank-fishing access beside the Elkton RV park.",
+            "Treat Elkton as the section boundary. The access does not make adjoining frontage public or transfer Elkton gauge conditions downstream.",
+          ),
         ],
       },
       {
@@ -2212,6 +2290,22 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         rangeLabel: "Elkton gauge reach to River Forks",
         eligibleSpecies: ["chinook_salmon", "coho_salmon"],
         spots: [
+          odfwRoseburgSpot(
+            "umpqua_mainstem_hutchinson_state_park",
+            "Hutchinson State Park",
+            "Hutchinson State Park, Tyee, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed bank-fishing and day-use access on the upper mainstem.",
+            "Use only the signed day-use access; the listing does not establish public rights across neighboring frontage.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_osprey_boat_ramp",
+            "Osprey Boat Ramp",
+            "Osprey Boat Ramp, Tyee Road, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed boat ramp and bank-fishing access on the upper mainstem.",
+            "Ramp, road, parking, current, and bank conditions can change; follow posted limits and do not infer access beyond the developed site.",
+          ),
           sourcedCoordinateSpot(
             "umpqua_mainstem_tyee_campground",
             "Tyee Campground — Umpqua River",
@@ -2224,6 +2318,62 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Stairs to the river do not establish safe wading, year-round campground operation, legal access outside the site, or suitable conditions at every flow.",
             "2026-09-28",
           ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_yellow_creek",
+            "Yellow Creek Boat Ramp",
+            "Yellow Creek Recreation Area, Oregon Highway 138",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed boat ramp and bank access with a large parking area.",
+            "From June 1 through September 30, the tributary-mouth closure applies around Yellow Creek. Verify the exact 200-foot boundary and every posted site condition.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_mack_brown",
+            "Mack Brown Park",
+            "Mack Brown County Park, Tyee Road, Umpqua, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed wooded rural park with bank fishing on the mainstem Umpqua.",
+            "Douglas County's general day-use table labels the waterbody inconsistently; ODFW's directions and fishery listing place this Tyee Road site in the mainstem inventory. Stay within signed park access.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_james_wood",
+            "James Wood Boat Ramp",
+            "James Wood County Park, Tyee Road, Umpqua, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed public boat ramp and bank-fishing access in a county day-use park.",
+            "A developed ramp does not guarantee safe launch depth, wading, or access outside the park boundary.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_umpqua_landing",
+            "Umpqua Landing County Park",
+            "Umpqua Landing County Park, Fort McKay Road, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed day-use park and boat ramp at the Calapooya Creek/mainstem Umpqua confluence.",
+            "This is a mainstem access, not a North Umpqua access. Observe the seasonal tributary-mouth closure and signed park boundaries.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_cleveland_rapids",
+            "Cleveland Rapids Park",
+            "Cleveland Rapids County Park, Garden Valley, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed boat launch and bank access for salmon, steelhead, bass, and shad.",
+            "Rapids, gravel-bar shape, ramp condition, and legal shoreline access vary; stay within the signed county site.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_singleton_park",
+            "Singleton Park",
+            "Singleton County Park, Garden Valley, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed bank-fishing access at the North/South Umpqua confluence.",
+            "Confluence currents and property boundaries are complex. Use only the signed park access and do not cross onto neighboring land.",
+          ),
+          odfwRoseburgSpot(
+            "umpqua_mainstem_river_forks",
+            "River Forks Park",
+            "River Forks County Park, Roseburg, Oregon",
+            ["boat_ramp", "shore_fishing", "walk_in"],
+            "ODFW-listed family park with a boat ramp and bank fishing at the North/South Umpqua confluence.",
+            "The mainstem salmon corridor ends at the confluence. Confirm which channel and regulation section you are fishing before leaving the park access.",
+          ),
         ],
       },
     ],
@@ -2233,7 +2383,7 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
     riverName: "North Umpqua River",
     supportedStates: ["OR"],
     orientationNote:
-      "Sections stop at the legal marker below Soda Springs Dam. Winchester, Rock Creek/Deadline, fly-only, watercraft, dam, and posted property restrictions create legal gaps; a recommended section never means every bank is open or safe.",
+      "Sections stop at the legal marker below Soda Springs Dam. The inventory uses ODFW-named fishing access plus current county, BLM, Forest Service, and Marine Board records. Winchester, Rock Creek/Deadline, fly-only, watercraft, emergency-rule, dam, and posted property restrictions create legal gaps; a recommended section never means every bank is open or safe.",
     safetyLink: {
       label: "CHECK CURRENT OREGON RULES →",
       url: "https://myodfw.com/articles/regulation-updates",
@@ -2258,6 +2408,14 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Stay outside every posted Winchester closure. Bank extent, wading, current, ramp condition, parking, and legal fishing boundaries must be confirmed on site.",
             "2026-09-28",
           ),
+          odfwRoseburgSpot(
+            "north_umpqua_amacher",
+            "Amacher County Park",
+            "John P. Amacher County Park, Winchester, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed North Umpqua boat ramp with some bank access near Winchester.",
+            "The Old Highway 99 bridge-to-200-feet-above-Winchester-Dam reach is closed. Confirm the bridge, dam, and posted closure boundaries before fishing; the access listing does not override them.",
+          ),
         ],
       },
       {
@@ -2267,6 +2425,30 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         rangeLabel: "Above Winchester to the Rock Creek/Deadline legal gap",
         eligibleSpecies: ["coho_salmon"],
         spots: [
+          odfwRoseburgSpot(
+            "north_umpqua_whistlers_bend",
+            "Whistler’s Bend Park",
+            "Whistler's Bend County Park, Glide, Oregon",
+            ["boat_ramp", "shore_fishing", "walk_in"],
+            "ODFW-listed boat ramp, campground, and hiking-trail access on the North Umpqua.",
+            "Use signed park access only; ramp conditions, river current, and open fishing rules must be checked before travel.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_colliding_rivers",
+            "Colliding Rivers Boat Ramp",
+            "Colliding Rivers County Park, Glide, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed salmon and steelhead access at the North Umpqua/Little River confluence.",
+            "Little River has separate rules. Confirm the receiving water, tributary boundary, ramp condition, and current North Umpqua restrictions.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_narrows",
+            "The Narrows Wayside",
+            "The Narrows Wayside County Park, Idleyld Park, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed popular bank-fishing access on the North Umpqua.",
+            "An overlook or bank-access listing does not establish safe wading or access beyond the signed wayside.",
+          ),
           sourcedCoordinateSpot(
             "north_umpqua_swiftwater_day_use",
             "Swiftwater Day Use Area",
@@ -2279,6 +2461,17 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "Fly-only water begins a few hundred yards upriver. Do not enter the closed painted-lines-to-Deadline segment; verify current signs, site status, and legal species rules.",
             "2026-09-28",
           ),
+          sourceMappedSpot(
+            "north_umpqua_lone_rock",
+            "Lone Rock Slide Put-In",
+            ["carry_in"],
+            "Named North Umpqua put-in and legal-section landmark listed open in the current Oregon Marine Board report.",
+            "Oregon State Marine Board — Opportunities and Access Report",
+            OREGON_MARINE_ACCESS_REPORT,
+            "Under North Umpqua River, find “Lone Rock” in the list of open boating access sites.",
+            "This is a regulation boundary as well as a launch. The report verifies boating access, not bank fishing, launch suitability at every flow, or permission outside the site.",
+            "2026-10-01",
+          ),
         ],
       },
       {
@@ -2288,6 +2481,33 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
         rangeLabel: "Fly Area to the marker below Soda Springs Dam",
         eligibleSpecies: ["coho_salmon"],
         spots: [
+          odfwRoseburgSpot(
+            "north_umpqua_cable_crossing",
+            "Cable Crossing Wayside",
+            "Cable Crossing Wayside, Oregon Highway 138, Idleyld Park",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed fly-fishing hole with bank access in the Wild and Scenic corridor.",
+            "The driveway is steep and short. Fly-only rules, no-angling-from-watercraft rules, and current emergency restrictions remain controlling.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_baker_wayside",
+            "Baker Wayside",
+            "Richard G. Baker Park, Oregon Highway 138, Idleyld Park",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed day-use area with bank fishing in Richard G. Baker Park.",
+            "Fly-only and no-angling-from-watercraft rules apply; verify the signed site entrance and current road or wildfire status.",
+          ),
+          sourceMappedSpot(
+            "north_umpqua_susan_creek_day_use",
+            "Susan Creek Day-Use Area",
+            ["shore_fishing", "carry_in", "walk_in"],
+            "BLM day-use area with source-listed fly-fishing and river access for raft launching.",
+            "Bureau of Land Management — North Umpqua Wild and Scenic River",
+            "https://www.blm.gov/programs/national-conservation-lands/oregon-washington/north-umpqua-wsr",
+            "Find “Susan Creek Day-Use” under Day Use Areas and the Fishing section's access guidance.",
+            "Fly-only and no-angling-from-watercraft rules apply. Launch access does not establish safe bank or wading conditions.",
+            "2026-10-01",
+          ),
           sourcedCoordinateSpot(
             "north_umpqua_susan_creek",
             "Susan Creek Campground",
@@ -2299,6 +2519,54 @@ export const RIVER_RUN_SPOT_FINDERS: Record<string, RiverSpotFinder> = {
             "https://www.blm.gov/visit/susan-creek-campground",
             "Fly-fishing-only and no-angling-from-watercraft rules apply in this corridor. Verify campground status, posted boundaries, road conditions, and river safety before travel.",
             "2026-09-28",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_bogus_creek",
+            "Bogus Creek Campground",
+            "Bogus Creek Campground, Oregon Highway 138",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed primarily catch-and-release bank access in the fly-only corridor.",
+            "The separate Bogus Creek raft launch is currently reported closed after the Archie Creek fire. Do not treat campground fishing access as an open launch; verify campground, road, and fire status.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_mott_bridge",
+            "Camp Water at Mott Bridge",
+            "Mott Bridge, Steamboat, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed historic fly-fishing access reached by a trail from Mott Bridge.",
+            "Park only where allowed and remain on the public trail. Fly-only and no-angling-from-watercraft rules apply.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_apple_creek",
+            "Apple Creek Campground",
+            "Apple Creek Campground, Oregon Highway 138, Idleyld Park",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed bank fishing with North Umpqua Trail access in the fly-only corridor.",
+            "The Forest Service can close this seasonal campground. Confirm current site status; no listing guarantees road, parking, or trail availability.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_horseshoe_bend",
+            "Horseshoe Bend Campground",
+            "Horseshoe Bend Campground, Dry Creek area, Oregon",
+            ["boat_ramp", "shore_fishing"],
+            "ODFW-listed raft launch and bank-fishing access in the fly-only corridor.",
+            "Fishing from watercraft is prohibited in this corridor. Verify seasonal campground, launch, wildfire, and road status before travel.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_eagle_rock",
+            "Eagle Rock Campground",
+            "Eagle Rock Campground, North Umpqua River, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed bank-fishing and campground access in the fly-only corridor.",
+            "Confirm seasonal campground and road status. Fly-only and no-angling-from-watercraft rules apply.",
+          ),
+          odfwRoseburgSpot(
+            "north_umpqua_boulder_flat",
+            "Boulder Flat Campground",
+            "Boulder Flat Campground, Toketee, Oregon",
+            ["shore_fishing", "walk_in"],
+            "ODFW-listed fishing access beside the North Umpqua near Boulder Creek Wilderness.",
+            "The Marine Board reported sweepers near the Boulder Flat put-in in September 2026. Confirm current hazards, campground status, fly-only rules, and the downstream Soda Springs legal endpoint.",
           ),
         ],
       },
