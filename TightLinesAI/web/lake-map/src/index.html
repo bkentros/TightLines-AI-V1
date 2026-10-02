@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Live Lake Map prototype</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&amp;family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700&amp;family=JetBrains+Mono:wght@600;700&amp;display=swap">
-<style>/*__MAPLIBRE_CSS__*/#attrib{position:fixed;left:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 2px);z-index:5;font:500 8.5px system-ui,sans-serif;color:rgba(255,255,255,.45);white-space:nowrap}#attrib a{color:inherit}
+<style>/*__MAPLIBRE_CSS__*/
 </style>
 <style>
 :root{--ink:#0A1B2E;--gold:#E8A02E;--glass:rgba(9,24,38,0.76);--line:rgba(255,255,255,0.13)}
@@ -15,6 +15,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 #map{position:fixed;inset:0}
 .glass{background:var(--glass);border:1px solid var(--line);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);box-shadow:0 10px 28px rgba(0,0,0,.28)}
+#attrib{position:fixed;left:12px;top:calc(env(safe-area-inset-top) + 70px);z-index:5;width:34px;height:34px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:rgba(9,24,38,.68);border:1px solid rgba(255,255,255,.16);font:700 16px Georgia,serif;color:rgba(255,255,255,.72);box-shadow:0 4px 14px rgba(0,0,0,.24)}
 .shade-t{position:fixed;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,rgba(6,17,28,.75),rgba(6,17,28,0));pointer-events:none}
 .shade-b{position:fixed;left:0;right:0;bottom:0;height:220px;background:linear-gradient(0deg,rgba(6,17,28,.7),rgba(6,17,28,0));pointer-events:none}
 .top{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top) + 12px);display:flex;align-items:center;gap:10px}
@@ -125,7 +126,8 @@ input{-webkit-user-select:text;user-select:text}
 .ng-row{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:8px 12px 8px 57px;border-bottom:1px solid rgba(255,255,255,.05);text-align:left}
 .ng-row:last-child{border-bottom:0}.ng-row span{flex:1;min-width:0;font-size:14px}.ng-row small{font-size:12px;opacity:.65;white-space:nowrap}.ng-row[data-later="1"]{opacity:.62}
 #sheet-nws{padding-top:0}
-.nd-band{display:flex;align-items:center;justify-content:space-between;margin:0 -16px 12px;padding:10px 12px 10px 16px;border-radius:24px 24px 0 0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:1.4px}
+.nd-band{display:flex;align-items:center;gap:6px;margin:0 -16px 12px;padding:10px 12px;border-radius:24px 24px 0 0;font:700 11px 'JetBrains Mono',monospace;letter-spacing:1.4px}
+.nd-band #nd-kind{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nd-back svg{transform:translateX(-1px)}
 .nd-band.warning{background:#8E1F1B}.nd-band.advisory{background:#8A4712}.nd-band.statement{background:#6E5A10}
 #nd-title{font:700 24px 'Fraunces',Georgia,serif;line-height:1.15}
 #nd-status{margin:6px 0 14px;font-size:14px;font-weight:600;opacity:.85}
@@ -134,6 +136,7 @@ input{-webkit-user-select:text;user-select:text}
 #nd-do{margin-top:10px;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.07)}
 .nd-map{display:flex;align-items:center;justify-content:center;width:100%;height:46px;margin-top:14px;border-radius:14px;background:#fff;color:var(--ink);font-size:15px;font-weight:700}
 .nd-src{font-size:12px;opacity:.5;margin:10px 2px 0}
+#sheet-credits{max-height:58vh}.credits{font-size:14px;line-height:22px;color:rgba(255,255,255,.76)}.credits a{color:#9FD2F5;text-decoration:underline;text-underline-offset:2px}.credits-note{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;line-height:18px;opacity:.65}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -142,7 +145,7 @@ input{-webkit-user-select:text;user-select:text}
 <div class="shade-t"></div><div class="shade-b"></div>
 <svg id="cross" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="6.5" fill="none" stroke="#fff" stroke-width="2"/><path d="M15 1v6M15 23v6M1 15h6M23 15h6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
 <div id="loading">LOADING LAKES…</div>
-<div id="attrib" aria-label="Map data credits"></div>
+<button id="attrib" aria-label="Map data credits" title="Map data credits">i</button>
 <div class="top">
   <button class="ib glass" id="back" hidden aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
   <span class="ib" id="back-spacer"></span>
@@ -212,13 +215,18 @@ input{-webkit-user-select:text;user-select:text}
   <div id="al-nws" role="tabpanel" hidden></div>
 </div>
 <div class="sheet" id="sheet-nws" hidden role="dialog" aria-label="Weather Service alert">
-  <div class="nd-band" id="nd-band"><span id="nd-kind"></span><button class="ib" data-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="nd-band" id="nd-band"><button class="ib nd-back" id="nd-back" aria-label="Back to alerts"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><span id="nd-kind"></span><button class="ib" data-close aria-label="Close alerts"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div id="nd-title"></div>
   <div id="nd-status"></div>
   <div id="nd-sections"></div>
   <div id="nd-do" hidden><small>WHAT TO DO</small><p id="nd-do-t"></p></div>
   <button id="nd-map" class="nd-map">Show on map</button>
   <p class="nd-src" id="nd-src"></p>
+</div>
+<div class="sheet" id="sheet-credits" hidden role="dialog" aria-label="Map data credits">
+  <div class="sh-head"><b>Data credits</b><button class="ib" data-close aria-label="Close data credits"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="credits" id="attrib-list"></div>
+  <div class="credits-note">Map and weather data remain subject to their providers’ licenses and terms.</div>
 </div>
 <div class="sheet" id="sheet-search" hidden role="dialog" aria-label="Search" style="top:110px">
   <div class="sh-head"><b>Find a pier city</b><button class="ib" data-close aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>

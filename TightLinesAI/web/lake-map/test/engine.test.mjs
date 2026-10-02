@@ -130,6 +130,26 @@ test('dismissing the alert banner keeps future alerts in the Alerts tool without
   assert.doesNotMatch(source, /ui\.dismissed|ui\.shownIds/);
 });
 
+test('alert groups collapse, details return to the list, and water groups can show fewer', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(source, /const open = nwsOpen\.has\(event\);/);
+  assert.doesNotMatch(source, /nwsOpen\.has\(event\) \|\| list\.length === 1/);
+  assert.match(source, /#nd-back'[\s\S]{0,100}openAlerts\('nws'\)/);
+  assert.match(source, /data-more="\$\{kind\}" aria-expanded="\$\{open\}"/);
+  assert.match(source, /\$\{open \? 'Show fewer' : `Show \$\{list\.length - 3\} more`\}/);
+});
+
+test('map credits use a compact disclosure while preserving required attribution links', () => {
+  const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
+  const layers = readFileSync(new URL('../src/engine/staticLayers.js', import.meta.url), 'utf8');
+  assert.match(page, /<button id="attrib"[^>]+>i<\/button>/);
+  assert.match(page, /id="sheet-credits"/);
+  assert.doesNotMatch(page, /<div id="attrib"/);
+  assert.match(layers, /openstreetmap\.org\/copyright/);
+  assert.match(layers, /openmaptiles\.org/);
+  assert.match(layers, /open-meteo\.com/);
+});
+
 test('five-day playback keeps only a bounded decoded frame window', () => {
   const store = Object.create(FrameStore.prototype);
   store.hours = Array.from({ length: 121 }, (_, i) => i);

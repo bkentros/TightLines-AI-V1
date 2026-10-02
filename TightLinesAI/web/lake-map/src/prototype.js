@@ -102,7 +102,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     // back after a while: the alerts and buoys may have changed
     if (!paused && window.__pcRefreshFeeds) window.__pcRefreshFeeds();
   };
-  $('#attrib').innerHTML = lm.attribution;
+  $('#attrib-list').innerHTML = lm.attribution;
   T0 = lm.store.t0;
   // sample data plays from hour 0; real runs open on the current hour
   const tMs = () => T0 + ui.t * 3600e3; // the timeline's moment, as a clock time
@@ -346,7 +346,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       if (!list.length) return '';
       const open = waterOpen[kind], shown = open ? list : list.slice(0, 3);
       return `<div class="al-sec"><div class="al-sec-h"><span>${title}</span><span>${list.length}</span></div>${shown.map(eventCard).join('')}
-        ${list.length > 3 ? `<button class="al-more" data-more="${kind}">${open ? 'Show fewer' : `Show ${list.length - 3} more`}</button>` : ''}</div>`;
+        ${list.length > 3 ? `<button class="al-more" data-more="${kind}" aria-expanded="${open}">${open ? 'Show fewer' : `Show ${list.length - 3} more`}</button>` : ''}</div>`;
     };
     const body = section('cold', 'COLD-WATER SURGES') + section('warm', 'WARM-WATER PUSHES');
     $('#al-water').innerHTML = (body || '<div class="al-empty">No cold-water surges or warm-water pushes at the piers in the 5-day forecast.</div>') +
@@ -537,7 +537,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     $('#al-nws').innerHTML = list.map(([event, as]) => {
       const active = as.filter((a) => activeAt(a, T)), near = as.filter(inView).length;
       const status = active.length ? (active.every((a) => a.openEnded) ? 'until further notice' : `until ${untilText(Math.max(...active.map((a) => a.end)))}`) : `starts ${untilText(Math.min(...as.map((a) => a.start)))}`;
-      const open = nwsOpen.has(event) || list.length === 1;
+      const open = nwsOpen.has(event);
       const rows = as.slice().sort((x, y) => inView(y) - inView(x) || x.start - y.start).map((a) => `<button class="ng-row" data-id="${esc(a.id)}"${a.start > T ? ' data-later="1"' : ''}><span>${esc(shortArea(a.areaDesc))}</span><small>${esc(untilLabel(a))}</small></button>`).join('');
       return `<div class="ng" data-open="${open ? 1 : 0}"><button class="ng-head" data-g="${esc(event)}" aria-expanded="${open}"><span class="nws-ic ${as[0].level}">!</span><span class="al-b"><b>${esc(event)}</b><small>${as.length} area${as.length > 1 ? 's' : ''}${near ? ` · ${near} in view` : ''} · ${esc(status)}</small></span>
         <svg class="ng-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
@@ -549,6 +549,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     if (h) { const g = h.dataset.g; if (nwsOpen.has(g)) nwsOpen.delete(g); else nwsOpen.add(g); haptic(); renderNwsTab(); return; }
     const r = ev.target.closest('.ng-row'); if (r) openNws(nws.find((a) => a.id === r.dataset.id));
   });
+  $('#nd-back').addEventListener('click', () => { haptic(); openAlerts('nws'); });
   /** "* WHAT...text * WHERE...text" (the Weather Service's own layout) → labelled sections */
   function nwsSections(text) {
     const clean = (t) => t.replace(/\s*\n\s*/g, ' ').replace(/\s+/g, ' ').trim();
@@ -561,6 +562,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   function openNws(a) {
     if (!a) return;
     openSheet('nws');
+    $('#sheet-nws').scrollTop = 0;
     const band = $('#nd-band'); band.className = 'nd-band ' + a.level;
     $('#nd-kind').textContent = `${LEVEL_NAME[a.level]}${a.sender ? ' · ' + a.sender.replace(/^NWS /, '').toUpperCase() : ''}`;
     $('#nd-title').textContent = a.event;
@@ -603,13 +605,14 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   setInterval(() => { if (!document.hidden && !ui.paused) window.__pcRefreshFeeds(); }, 60e3);
 
   /* ── sheets ── */
-  function openSheet(name) { ui.selected = null; lm.setSelected(null); pierCard(); clearBuoy(); document.querySelectorAll('.sheet').forEach((s) => { s.hidden = s.id !== 'sheet-' + name; }); $('#scrim').hidden = false; updateAlerts(); }
-  function closeSheets() { document.querySelectorAll('.sheet').forEach((s) => { s.hidden = true; }); $('#scrim').hidden = true; updateAlerts(); }
+  function openSheet(name) { ui.selected = null; lm.setSelected(null); pierCard(); clearBuoy(); document.querySelectorAll('.sheet').forEach((s) => { s.hidden = s.id !== 'sheet-' + name; }); $('#scrim').hidden = false; $('#attrib').hidden = true; updateAlerts(); }
+  function closeSheets() { document.querySelectorAll('.sheet').forEach((s) => { s.hidden = true; }); $('#scrim').hidden = true; $('#attrib').hidden = false; updateAlerts(); }
   $('#scrim').addEventListener('click', closeSheets);
   document.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', closeSheets));
   $('#layers').addEventListener('click', () => openSheet('layers'));
   $('#search').addEventListener('click', () => { openSheet('search'); $('#q').value = ''; renderResults(); });
   $('#fit').addEventListener('click', () => lm.fitAll());
+  $('#attrib').addEventListener('click', () => openSheet('credits'));
   function setLayer(layer) {
     ui.layer = layer; lm.setLayer(layer);
     document.querySelectorAll('[data-layer]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.layer === layer)));
