@@ -201,14 +201,21 @@ test("city report keeps only salmon, trout, steelhead and drum in main targets",
   );
 });
 
-test("hourly strip starts at now and steps every two hours with wind direction", () => {
+test("hourly strip exposes the next 120 modeled hours at one-hour intervals", () => {
   const read = report();
-  const today = buildPierCastHourlyStrip({ report: read, weather, localDate: "2026-09-29", now: NOW });
-  assert.equal(today[0]!.label, "NOW");
-  assert.deepEqual(today.slice(1).map((slot) => slot.label), ["6 PM", "8 PM", "10 PM"]);
-  assert.ok(today.every((slot) => slot.windFrom !== null && slot.windArrowDegrees !== null));
-  const tomorrow = buildPierCastHourlyStrip({ report: read, weather, localDate: "2026-09-30", now: NOW });
-  assert.equal(tomorrow[0]!.label, "6 AM");
+  const slots = buildPierCastHourlyStrip({ report: read, weather, now: NOW });
+  assert.equal(slots.length, 120);
+  assert.equal(slots[0]!.label, "NOW");
+  assert.deepEqual(slots.slice(1, 4).map((slot) => slot.label), ["5 PM", "6 PM", "7 PM"]);
+  assert.ok(slots.every((slot) => slot.waterF !== null));
+  assert.ok(slots.every((slot) => slot.windFrom !== null && slot.windArrowDegrees !== null));
+  assert.equal(
+    slots.find((slot) => slot.localDate === "2026-09-30" && slot.localHour === 0)?.label,
+    "12 AM",
+  );
+  assert.ok(slots.slice(1).every((slot, index) =>
+    Date.parse(slot.key) - Date.parse(slots[index]!.key) === 3_600_000
+  ));
   assert.equal(pierCastCompass(315), "NW");
   assert.equal(pierCastCompass(0), "N");
 });
@@ -263,6 +270,9 @@ test("report screen is city-first: no species selector, no request-a-city, no sc
   assert.match(ui, /PierCastCityTemperatureChart/);
   assert.match(ui, /Water temp shifts/);
   assert.match(ui, /Show all \$\{cards\.length\} species/);
+  assert.match(ui, /NEXT 120 HRS · HOURLY/);
+  assert.match(ui, /slot\.localHour === 0/);
+  assert.doesNotMatch(ui, /Pick a day above|EVERY 2 HRS/);
   assert.match(screen, /onOpenStandings=\{openStandingsFor\}/);
 });
 
