@@ -296,6 +296,32 @@ test('a new forecast never interrupts the viewer and resumes at the same spot', 
   assert.match(shader, /trim\(ia\)/, 'GPU textures stay bounded around the playhead');
 });
 
+test('temperature display smoothing removes small wiggles but keeps real fronts', async () => {
+  const { smoothedTemperature, TEMP_SMOOTHING, DISPLAY_TEMP } = await import('../src/engine/frames.js');
+  const w = 60, h = 20, raw = new Uint8Array(w * h);
+  // left: a flat 66 °F pool with 0.2 °F speckle (8-bit steps); right: a sharp 5 °F front to 71 °F; column 0 is land
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    raw[y * w + x] = x === 0 ? 255 : x < 40 ? ((x * 7 + y * 3) % 3 === 0 ? 181 : 180) : 205;
+  }
+  const out = smoothedTemperature(raw, w, h, { scale: 5, offset: 30, nodata: 255 }, TEMP_SMOOTHING);
+  const F = (x, y) => out[y * w + x] / DISPLAY_TEMP.scale + DISPLAY_TEMP.offset;
+  assert.equal(out[5 * w], 65535, 'land stays no data');
+  let lo = Infinity, hi = -Infinity;
+  for (let y = 4; y < 16; y++) for (let x = 6; x < 34; x++) { lo = Math.min(lo, F(x, y)); hi = Math.max(hi, F(x, y)); }
+  assert.ok(hi - lo < 0.1, `speckle flattened (${(hi - lo).toFixed(3)} °F spread, was 0.2)`);
+  assert.ok(F(42, 10) - F(37, 10) > 4.5, 'the 5 °F front stays sharp');
+  assert.ok(Math.abs(F(50, 10) - 71) < 0.02 && Math.abs(F(20, 10) - 66.07) < 0.1);
+});
+
+test('the page works with the smoothed temperature grid everywhere', () => {
+  const source = readFileSync(new URL('../src/engine/frames.js', import.meta.url), 'utf8');
+  assert.match(source, /m\.grids\.tempSource = m\.grids\.temp;\s*m\.grids\.temp = \{ \.\.\.m\.grids\.temp, \.\.\.DISPLAY_TEMP/);
+  assert.match(source, /const smoothTemp = \$\{smoothedTemperature\.toString\(\)\}/, 'the decoder threads run the same filter');
+  assert.match(source, /DECODER_THREADS/);
+  const page = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(page, /smoothTemperature: q\.get\('smooth'\) !== '0'/);
+});
+
 /* ── band labels ── */
 import { BandLabeler } from '../src/engine/bandLabels.js';
 import { bandSpec, speciesFit, SPECIES } from '../src/engine/scales.js';
