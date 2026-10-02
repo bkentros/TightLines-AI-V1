@@ -43,6 +43,15 @@ test('gate configuration collects one central observation snapshot every 15 minu
   assert.match(config, /binding\s*=\s*"BUCKET"/);
 });
 
+test('staging gatekeeper is workers.dev-only and binds only the staging bucket', () => {
+  const config = readFileSync(new URL('../gate/wrangler.staging.toml', import.meta.url), 'utf8');
+  assert.match(config, /name\s*=\s*"piercast-map-gate-staging"/);
+  assert.match(config, /workers_dev\s*=\s*true/);
+  assert.match(config, /bucket_name\s*=\s*"piercast-lake-map-staging"/);
+  assert.doesNotMatch(config, /map\.finfindr\.app/);
+  assert.doesNotMatch(config, /\[triggers\]/);
+});
+
 test('passes: signed, unexpired, right secret', async () => {
   assert.ok(await verifyPass(await makePass(), SECRET));
   assert.ok(!(await verifyPass(await makePass('y'.repeat(64)), SECRET)));
