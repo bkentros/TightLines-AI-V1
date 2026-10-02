@@ -79,7 +79,7 @@ test("city-first target changes are persisted and guarded against stale async re
 });
 
 test("city reports are city-first and keep season separate from water fit", () => {
-  assert.match(ui, /Ranked for today: season rating first, then water-temp fit/);
+  assert.match(ui, /Ranked by seasonal rating and water-temperature suitability/);
   assert.match(ui, />SEASON</);
   assert.match(ui, />WATER FIT</);
   assert.match(ui, /Best bet each day/);

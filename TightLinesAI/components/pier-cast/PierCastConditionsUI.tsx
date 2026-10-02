@@ -101,11 +101,11 @@ function Card({ label, children }: { label: string; children: ReactNode }) {
   );
 }
 
-function CardHead({ kicker, title, tag }: { kicker: string; title: string; tag?: string }) {
+function CardHead({ kicker, title, tag }: { kicker?: string; title: string; tag?: string }) {
   return (
     <View style={styles.head}>
       <View style={styles.flex}>
-        <Text style={styles.kicker}>{kicker}</Text>
+        {kicker ? <Text style={styles.kicker}>{kicker}</Text> : null}
         <Text style={styles.cardTitle} accessibilityRole="header">{title}</Text>
       </View>
       {tag ? <Text style={styles.tag}>{tag}</Text> : null}
@@ -404,9 +404,9 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
   const shown = expanded ? [...mainTargets, ...otherSpecies] : mainTargets;
   useEffect(() => setExpanded(false), [report.cityId]);
   return (
-    <Card label={`Species at ${report.displayName}`}>
-      <CardHead kicker="TODAY'S TARGETS" title={`Species at ${report.displayName}`} tag={`${cards.length} SPECIES`} />
-      <Text style={styles.cardSub}>Main targets are salmon, trout, steelhead and drum. Ranked for today: season rating first, then water-temp fit. Tap a species for its standings.</Text>
+    <Card label={`Supported species at ${report.displayName}`}>
+      <CardHead title={`Supported species at ${report.displayName}`} />
+      <Text style={styles.cardSub}>Ranked by seasonal rating and water-temperature suitability.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}

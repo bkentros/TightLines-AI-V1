@@ -96,7 +96,7 @@ test("city report keeps seasonal outlook and thermal match independent", () => {
 
 test("city report includes the calendar, species, pier conditions, chart, shifts, and provenance", () => {
   assert.match(conditionsUi, /FIVE-DAY OUTLOOK/);
-  assert.match(conditionsUi, /TODAY'S TARGETS/);
+  assert.match(conditionsUi, /Supported species at \$\{report\.displayName\}/);
   assert.match(conditionsUi, /RIGHT NOW AT THE PIER/);
   assert.match(conditionsUi, />WATER</);
   assert.match(conditionsUi, />AIR</);
