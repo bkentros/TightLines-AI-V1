@@ -58,6 +58,9 @@ button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 #now{height:34px;padding:0 13px;border-radius:17px;border:1.5px solid rgba(255,255,255,.3);font-size:13px;font-weight:700}
 #track{position:relative;height:50px;margin-top:10px;touch-action:none;cursor:pointer}
 #track .day{position:absolute;top:0;height:16px;text-align:center;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:.6px;opacity:.72;white-space:nowrap;overflow:hidden}
+#track .day.short .dd{display:none}
+.tools[data-crowded="1"]{opacity:0;pointer-events:none}
+.bottom{max-height:calc(100% - env(safe-area-inset-top) - 80px)}.bottom>*{flex-shrink:0}.bottom>#pier,.bottom>#buoy{flex-shrink:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 #track .bar{position:absolute;left:0;right:0;top:22px;height:12px;border-radius:6px;background:rgba(255,255,255,.13);overflow:hidden}
 #track .night{position:absolute;top:22px;height:12px;background:rgba(0,0,0,.3)}
 #fill{position:absolute;left:0;top:0;bottom:0;background:rgba(232,160,46,.55)}

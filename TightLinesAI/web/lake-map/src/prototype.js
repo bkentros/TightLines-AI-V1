@@ -189,7 +189,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     for (let h = 1; h <= maxHour; h++) if (at(h).getHours() === 0) starts.push(h);
     starts.forEach((st, k) => {
       const en = k + 1 < starts.length ? starts[k + 1] : maxHour, d = at(st);
-      if (en - st >= 10) html += `<div class="day" style="left:${pct(st)}%;width:${pct(en) - pct(st)}%">${DAY[d.getDay()].toUpperCase()} ${d.getDate()}</div>`;
+      if (en - st >= 10) html += `<div class="day" style="left:${pct(st)}%;width:${pct(en) - pct(st)}%">${DAY[d.getDay()].toUpperCase()}<span class="dd"> ${d.getDate()}</span></div>`;
       if (k > 0) html += `<div class="sep" style="left:${pct(st)}%"></div>`;
     });
     // night: roughly 7:30 PM to 7:40 AM local
@@ -204,6 +204,28 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     }
     events.forEach((e) => { html += `<div class="ev ${e.kind}" style="left:${pct(e.startHour)}%;width:${pct(e.bottomHour) - pct(e.startHour)}%"></div>`; });
     track.insertAdjacentHTML('afterbegin', html);
+  }
+  // Small and unusual screens: day names drop their date before they clip, and
+  // the right-hand tools slide up (or step aside) instead of hiding under the
+  // forecast panel or an open pier card.
+  function fitLayout() {
+    for (const el of track.querySelectorAll('.day')) {
+      el.classList.remove('short'); el.style.visibility = '';
+      if (el.scrollWidth > el.clientWidth + 1) el.classList.add('short');
+      if (el.scrollWidth > el.clientWidth + 1) el.style.visibility = 'hidden';
+    }
+    const tools = $('.tools');
+    tools.style.top = ''; tools.dataset.crowded = '';
+    const box = tools.getBoundingClientRect(), floor = $('.bottom').getBoundingClientRect().top - 10;
+    if (box.bottom <= floor) return;
+    let ceiling = $('.top').getBoundingClientRect().bottom + 8;
+    for (const sel of ['#readout', '#alert']) {
+      const el = $(sel); if (!el || el.hidden) continue;
+      const r = el.getBoundingClientRect(); if (r.width && r.right > box.left - 4) ceiling = Math.max(ceiling, r.bottom + 8);
+    }
+    const top = Math.max(ceiling, floor - box.height);
+    tools.style.top = `${Math.round(top)}px`;
+    if (top + box.height > floor) tools.dataset.crowded = '1';
   }
   const setText = (sel, text) => { const el = $(sel); if (el.textContent !== text) el.textContent = text; };
   function setTime(t, fromPlay) {
@@ -756,6 +778,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#results').addEventListener('click', (e) => { const b = e.target.closest('.res'); if (b) selectPier(b.dataset.id, true); });
 
   buildTrack(); setLayer(ui.layer);
+  fitLayout();
+  addEventListener('resize', fitLayout);
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(fitLayout);
+    for (const sel of ['.bottom', '#alert', '#readout']) { const el = $(sel); if (el) ro.observe(el); }
+  }
   const resumeHour = resume && !resume.atNow && Number.isFinite(resume.timeMs) ? (resume.timeMs - T0) / 3600e3 : null;
   setTime(resumeHour !== null && resumeHour >= 0 && resumeHour <= maxHour ? resumeHour : nowHour()); readout();
   const resumePier = resume && piers.find((p) => p.id === resume.selected);

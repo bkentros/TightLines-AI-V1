@@ -177,6 +177,11 @@ export default function WelcomeScreen() {
     useAuthScrollLayout("form");
   const { width, fontScale } = useWindowDimensions();
   const useExpandedModuleCopy = fontScale >= 1.2 || width <= 340;
+  // Plus / Pro Max phones have room to breathe: slightly roomier rows, and the
+  // flex spacers below share whatever height is left so the screen fills the
+  // viewport top to bottom without scrolling. On shorter phones the spacers
+  // collapse to nothing and the page scrolls exactly as before.
+  const roomy = layoutTier === "tall";
   // Sized down when Pier Cast made this a six-module list — the masthead
   // gives up height first so the auth actions stay above the fold.
   // stage is the reserved layout box; shell is the rounded logo tile; logo is
@@ -356,8 +361,10 @@ export default function WelcomeScreen() {
           scrollEnabled
           alwaysBounceVertical={false}
         >
+          <View style={[styles.spacer, styles.spacerTop]} />
+
           {/* ─── Masthead — the app's own deep-water language ──────────── */}
-          <View style={styles.masthead}>
+          <View style={[styles.masthead, roomy && styles.mastheadRoomy]}>
             <MastheadBackdrop />
             <TopographicLines
               style={StyleSheet.absoluteFill}
@@ -420,6 +427,8 @@ export default function WelcomeScreen() {
             </Text>
           </View>
 
+          <View style={[styles.spacer, styles.spacerAfterMasthead]} />
+
           {notice
             ? (
               <AuthNotice
@@ -433,7 +442,9 @@ export default function WelcomeScreen() {
             : null}
 
           {/* ─── Field-guide entries — I · II · III · IV · V ─────────────── */}
-          <View style={styles.valuePropsBlock}>
+          <View
+            style={[styles.valuePropsBlock, roomy && styles.valuePropsBlockRoomy]}
+          >
             <View style={styles.valuePropsHeader}>
               <Text
                 style={styles.valuePropsEyebrow}
@@ -446,13 +457,14 @@ export default function WelcomeScreen() {
               <View style={styles.valuePropsRule} />
               <Text style={styles.valuePropsOrnament}>◆</Text>
             </View>
-            <View style={styles.valueProps}>
+            <View style={[styles.valueProps, roomy && styles.valuePropsRoomy]}>
               {FEATURES.map((item) => (
                 <View
                   key={item.numeral}
                   style={[
                     styles.valueModule,
-                    layoutTier === "compact" && styles.valueModuleCompact,
+                    roomy && styles.valueModuleRoomy,
+                    useExpandedModuleCopy && styles.valueModuleCompact,
                     { borderLeftWidth: 3, borderLeftColor: item.iconBorder },
                   ]}
                 >
@@ -567,8 +579,10 @@ export default function WelcomeScreen() {
             </View>
           </View>
 
+          <View style={[styles.spacer, styles.spacerBeforeActions]} />
+
           {/* ─── CTAs ───────────────────────────────────────────────────── */}
-          <View style={styles.actions}>
+          <View style={[styles.actions, roomy && styles.actionsRoomy]}>
             <AuthPrimaryButton
               label="Create account"
               onPress={() => router.push("/(auth)/sign-up")}
@@ -602,6 +616,8 @@ export default function WelcomeScreen() {
               </>
             )}
           </View>
+
+          <View style={[styles.spacer, styles.spacerBeforeFooter]} />
 
           {/* ─── Footer ─────────────────────────────────────────────────── */}
           <View style={styles.footerCol}>
@@ -812,6 +828,21 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 6 },
     elevation: 4,
   },
+  mastheadRoomy: {
+    paddingTop: 14,
+    paddingBottom: 16,
+  },
+  // Flex spacers share any spare viewport height. The negative margin cancels
+  // the container gap, so a collapsed spacer adds no space at all.
+  spacer: {
+    flexShrink: 0,
+    minHeight: 0,
+    marginTop: -7,
+  },
+  spacerTop: { flexGrow: 0.6 },
+  spacerAfterMasthead: { flexGrow: 0.7 },
+  spacerBeforeActions: { flexGrow: 1.3 },
+  spacerBeforeFooter: { flexGrow: 0.5 },
   heroSheen: {
     position: "absolute",
     top: -20,
@@ -960,6 +991,9 @@ const styles = StyleSheet.create({
     gap: 3,
     marginVertical: 2,
   },
+  valuePropsBlockRoomy: {
+    gap: 6,
+  },
   valuePropsHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -989,6 +1023,9 @@ const styles = StyleSheet.create({
   valueProps: {
     gap: 3,
   },
+  valuePropsRoomy: {
+    gap: 5,
+  },
   valueModule: {
     flexDirection: "row",
     alignItems: "center",
@@ -1001,11 +1038,15 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     position: "relative",
   },
+  valueModuleRoomy: {
+    paddingVertical: 7,
+  },
   valueModuleCompact: {
-    // Compact widths wrap the longer title/tag pairs while Water Read stays
-    // on one line. Keep the six modules visually equal without fixing their
-    // height, so larger text can still grow instead of clipping. Trimmed from
-    // 106 when Pier Cast made this a six-module list.
+    // Very narrow phones and large Dynamic Type wrap the longer title/tag
+    // pairs while Water Read stays on one line. Keep the six modules visually
+    // equal without fixing their height, so larger text can still grow instead
+    // of clipping. Standard-width compact phones (SE, mini, small Android) fit
+    // on one line and keep natural row heights so the page barely scrolls.
     minHeight: 94,
   },
   valueModuleMain: {
@@ -1088,6 +1129,9 @@ const styles = StyleSheet.create({
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
     gap: 6,
+  },
+  actionsRoomy: {
+    gap: 8,
   },
   appleBtn: { height: 48, width: "100%" },
 

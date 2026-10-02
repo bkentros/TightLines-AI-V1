@@ -390,3 +390,14 @@ test('band specs for waves, wind and species', () => {
   assert.deepEqual([speciesFit(60, coho).grade, speciesFit(60, coho).dir], [1, 'warm']);
   assert.equal(speciesFit(40, coho).grade, 3);
 });
+
+test('small screens: tools step clear of the panel, day labels shorten, cards stay below the header', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
+  assert.ok(source.includes("addEventListener('resize', fitLayout)"));
+  assert.ok(source.includes("for (const sel of ['.bottom', '#alert', '#readout'])"));
+  assert.ok(source.includes('<span class="dd"> ${d.getDate()}</span>'));
+  assert.ok(page.includes('#track .day.short .dd{display:none}'));
+  assert.ok(page.includes('.tools[data-crowded="1"]{opacity:0;pointer-events:none}'));
+  assert.ok(page.includes('.bottom{max-height:calc(100% - env(safe-area-inset-top) - 80px)}'));
+});

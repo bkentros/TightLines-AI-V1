@@ -56,15 +56,21 @@ assert.match(
 
 assert.match(
   guide,
-  /title: "Today's Bite"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "River Migration"[\s\S]*?title: "Pier Cast"[\s\S]*?title: "Color Match"[\s\S]*?title: "Water Read"/,
-  "Feature guidance must follow the product-priority order",
+  /feature\.module === "tackle-box" && activeLocation[\s\S]*?pathname: "\/recommender"[\s\S]*?latitude: String\(activeLocation\.lat\)/,
+  "Tackle Box must inherit the known homepage location",
 );
 
-for (const label of ["WHEN TO USE IT", "HOW IT WORKS"]) {
-  assert.match(
-    guide,
-    new RegExp(`label=\\"${label.replaceAll("'", "\\'")}\\"`),
-    `Every feature card must use the structured ${label} section`,
+assert.match(
+  guide,
+  /title: "Today's Bite"[\s\S]*?title: "Tackle Box"[\s\S]*?title: "Color Match"[\s\S]*?title: "River Migration"[\s\S]*?title: "PierCast"[\s\S]*?title: "Water Read"/,
+  "Feature guidance must follow the every-trip, then go-deeper order",
+);
+
+for (const field of ["question:", "summary:", "gets:", "worksOn:"]) {
+  assert.equal(
+    guide.split(`\n    ${field}`).length - 1,
+    6,
+    `Every feature card must define ${field.replace(":", "")}`,
   );
 }
 
@@ -76,20 +82,37 @@ assert.match(
 
 assert.match(
   guide,
-  /module: "color-match"[\s\S]*?route: "\/color-picker"[\s\S]*?two colors that hold up in bright, direct sun and two for flat, overcast light[\s\S]*?equal picks, not a ranking/,
-  "Color Match must be openable and describe its honest two-by-two guidance",
+  /worksOn: "Largemouth, smallmouth, pike and trout"/,
+  "Tackle Box must list only the species the wizard offers",
 );
 
 assert.match(
   guide,
-  /When a migration is your question, this is the read to trust \\u2014 not Today's Bite/,
+  /module: "color-match"[\s\S]*?route: "\/color-picker"/,
+  "Color Match must be openable",
+);
+assert.match(
+  guide,
+  /label: "2 for sun"[\s\S]*?label: "2 for clouds"/,
+  "Color Match must describe its honest two-by-two guidance",
+);
+
+assert.match(
+  guide,
+  /When a run is your question, trust this over Today's Bite\./,
   "River Migration must be positioned as the primary supported-migration tool",
 );
 
 assert.match(
   guide,
-  /live gauge readings from that exact river \\u2014 flow, height and water temperature \\u2014 with researched run timing[\s\S]*?migration stage[\s\S]*?official fish counts/,
-  "River Migration guidance must describe the simplified public reads and conditions",
+  /readPierCastTargetPreference\(\)[\s\S]*?pathname: "\/pier-cast-map"[\s\S]*?speciesId/,
+  "The guide's live map button must preserve the remembered PierCast target species",
+);
+
+assert.match(
+  guide,
+  /Reads shape, not fish\. It is not sonar or a depth chart\./,
+  "Water Read must state that it reads structure, not fish",
 );
 
 assert.doesNotMatch(
@@ -99,5 +122,5 @@ assert.doesNotMatch(
 );
 
 console.log(
-  "Feature guide QA passed: concise six-tool order, structured guidance, and seasonal product boundaries.",
+  "Feature guide QA passed: image-forward six-tool guide, location hand-off, honest coverage, and seasonal product boundaries.",
 );
