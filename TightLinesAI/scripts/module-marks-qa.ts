@@ -10,6 +10,7 @@ const marks = readFileSync(
   "utf8",
 );
 const preview = readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8");
+const moduleCopy = readFileSync(`${projectRoot}lib/intelligenceModuleCopy.ts`, "utf8");
 
 assert.match(
   home,
@@ -83,8 +84,8 @@ assert.match(
   "The internal icon preview must cover Color Match and the field-mark pass",
 );
 assert.match(
-  home,
-  /Advanced color guidance for soft plastics, hard baits & flies/,
+  moduleCopy,
+  /"color-match": "Lure and fly colors for clarity and light"/,
   "Color Match must include fly color guidance",
 );
 

@@ -65,6 +65,7 @@ import {
   AuthTextLink,
 } from "../../components/paper/auth";
 import { GoogleAuthButton } from "../../components/auth/GoogleAuthButton";
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from "../../lib/intelligenceModuleCopy";
 
 type Notice = {
   title: string;
@@ -90,7 +91,7 @@ const FEATURES: {
     moduleId: "todays-bite",
     title: "Today's Bite",
     tag: "CONDITIONS",
-    blurb: "Today's score, bite windows, limiting factors, and the reason behind the read.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["todays-bite"],
     iconBg: ["#E5F2DD", "#C5E0B5"],
     iconBorder: "#3DA85F",
     iconColor: "#1F6B38",
@@ -100,7 +101,7 @@ const FEATURES: {
     moduleId: "tackle-box",
     title: "Tackle Box",
     tag: "RECOMMENDER",
-    blurb: "Lures, flies, and presentations tuned to your species and current conditions.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["tackle-box"],
     iconBg: ["#FBF1D9", "#F4DFA4"],
     iconBorder: "#C99B2D",
     iconColor: "#8A6A1A",
@@ -110,7 +111,7 @@ const FEATURES: {
     moduleId: "river-run",
     title: "River Migration",
     tag: "MIGRATION",
-    blurb: "Migration stage, activity, seasonal presence, river conditions, and official fish counts where available.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["river-run"],
     iconBg: ["#FBE4E1", "#F3C2BC"],
     iconBorder: "#C0392B",
     iconColor: "#9A2B20",
@@ -120,7 +121,7 @@ const FEATURES: {
     moduleId: "pier-cast",
     title: "Pier Cast",
     tag: "PIER FORECAST",
-    blurb: "Daily ratings for supported Great Lakes pier cities, plus five-day water, air, and wind.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["pier-cast"],
     iconBg: ["#E0F3F0", "#B8DFD8"],
     iconBorder: "#318F83",
     iconColor: "#20665E",
@@ -130,7 +131,7 @@ const FEATURES: {
     moduleId: "color-match",
     title: "Color Match",
     tag: "COLOR GUIDE",
-    blurb: "Two reviewed lure or fly color picks for direct light and two for diffuse light, matched to water clarity.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["color-match"],
     iconBg: ["#FBEBDD", "#F3C9A7"],
     iconBorder: "#D9772B",
     iconColor: "#9B4E18",
@@ -140,7 +141,7 @@ const FEATURES: {
     moduleId: "water-read",
     title: "Water Read",
     tag: "POLYGON",
-    blurb: "Structure, cover, and likely holding zones across supported lakes.",
+    blurb: INTELLIGENCE_MODULE_DESCRIPTIONS["water-read"],
     iconBg: ["#E8F2FA", "#C8DFF2"],
     iconBorder: "#0F63B0",
     iconColor: "#0A4A87",

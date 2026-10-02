@@ -51,8 +51,13 @@ assert.match(
 
 assert.match(
   membership,
-  /title: 'River Migration'[\s\S]*?Audited migration reads for supported rivers, seasons, and species/,
+  /title: 'River Migration'[\s\S]*?INTELLIGENCE_MODULE_DESCRIPTIONS\['river-run'\]/,
   "River Migration must be listed as included with Angler",
+);
+assert.match(
+  membership,
+  /SIX INTELLIGENCE TOOLS · ONE MEMBERSHIP/,
+  "The membership page must identify all six included intelligence tools",
 );
 assert.match(
   welcome,

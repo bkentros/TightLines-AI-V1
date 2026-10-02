@@ -91,6 +91,7 @@ import {
 import { recordRecentLocation } from "../../lib/recentLocations";
 import { searchUsCities } from "../../lib/locationSearch";
 import { readPierCastTargetPreference } from "../../lib/pierCastTargetPreference";
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from "../../lib/intelligenceModuleCopy";
 
 // ─── Layout constants ────────────────────────────────────────────────────────
 const HOME_H_PADDING = 20;
@@ -1804,7 +1805,7 @@ export default function HomeScreen() {
               code="01"
               title="Pier Cast"
               tag="PIER FORECAST"
-              desc="Great Lakes pier outlooks · strongest supported species · today + 4 days"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["pier-cast"]}
               moduleId="pier-cast"
               iconBg={["#E0F3F0", "#B8DFD8"]}
               iconBorder="#318F83"
@@ -1817,7 +1818,7 @@ export default function HomeScreen() {
               code="02"
               title="River Migration"
               tag="MIGRATION"
-              desc="Migration stage, activity, presence, river conditions & available fish counts"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["river-run"]}
               moduleId="river-run"
               iconBg={["#FBE4E1", "#F3C2BC"]}
               iconBorder="#C0392B"
@@ -1829,7 +1830,7 @@ export default function HomeScreen() {
               code="03"
               title="Today's Bite"
               tag="CONDITIONS"
-              desc="Full breakdown · windows · limiting factors"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["todays-bite"]}
               moduleId="todays-bite"
               iconBg={["#E5F2DD", "#C5E0B5"]}
               iconBorder="#3DA85F"
@@ -1840,7 +1841,7 @@ export default function HomeScreen() {
               code="04"
               title="Tackle Box"
               tag="RECOMMENDER"
-              desc="Tuned picks for today's conditions & species"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["tackle-box"]}
               moduleId="tackle-box"
               iconBg={["#FBF1D9", "#F4DFA4"]}
               iconBorder="#C99B2D"
@@ -1851,7 +1852,7 @@ export default function HomeScreen() {
               code="05"
               title="Color Match"
               tag="COLOR GUIDE"
-              desc="Advanced color guidance for soft plastics, hard baits & flies"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["color-match"]}
               moduleId="color-match"
               iconBg={["#FBEBDD", "#F3C9A7"]}
               iconBorder="#D9772B"
@@ -1862,7 +1863,7 @@ export default function HomeScreen() {
               code="06"
               title="Water Read"
               tag="POLYGON"
-              desc="Most lakes: structure + potential hotspots"
+              desc={INTELLIGENCE_MODULE_DESCRIPTIONS["water-read"]}
               moduleId="water-read"
               iconBg={["#E8F2FA", "#C8DFF2"]}
               iconBorder="#0F63B0"
@@ -3348,8 +3349,8 @@ const styles = StyleSheet.create({
     minHeight: 114,
   },
   moduleRowAccessible: {
-    // At enlarged system text, River Migration and Color Match require a
-    // third description line. Give every module the same roomy baseline;
+    // At enlarged system text, descriptions may require another line. Give
+    // every module the same roomy baseline;
     // content may still grow beyond it rather than being clipped.
     minHeight: 150,
   },

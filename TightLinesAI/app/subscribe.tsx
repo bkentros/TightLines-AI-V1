@@ -37,6 +37,7 @@ import {
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
+import { INTELLIGENCE_MODULE_DESCRIPTIONS } from '../lib/intelligenceModuleCopy';
 
 const STORE_NAME = Platform.OS === 'android' ? 'Google Play' : 'App Store';
 const STORE_ACCOUNT_NAME = Platform.OS === 'android' ? 'Google account' : 'Apple ID';
@@ -54,7 +55,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'todays-bite',
     title: "Today's Bite",
-    copy: 'Full reports for today plus the next 6 days, including score, drivers, windows, and context.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['todays-bite'],
     iconBg: ['#E5F2DD', '#C5E0B5'],
     accent: '#3D955A',
     iconColor: '#1F6B38',
@@ -62,7 +63,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'tackle-box',
     title: 'Tackle Box',
-    copy: 'Condition-matched lure and fly picks tuned to species, water type, clarity, and the day.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['tackle-box'],
     iconBg: ['#FBF1D9', '#F4DFA4'],
     accent: '#C99B2D',
     iconColor: '#8A6A1A',
@@ -70,7 +71,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'river-run',
     title: 'River Migration',
-    copy: 'Audited migration reads for supported rivers, seasons, and species\u2014including stage, activity, seasonal presence, river conditions, and official fish counts where available.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['river-run'],
     iconBg: ['#FBE4E1', '#F3C2BC'],
     accent: paper.red,
     iconColor: '#9A2B20',
@@ -78,7 +79,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'pier-cast',
     title: 'Pier Cast',
-    copy: 'Daily 1\u201310 ratings for supported Great Lakes pier cities, with five-day water, air, and wind at the pier.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['pier-cast'],
     iconBg: ['#E0F3F0', '#B8DFD8'],
     accent: '#318F83',
     iconColor: '#20665E',
@@ -86,7 +87,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'color-match',
     title: 'Color Match',
-    copy: 'Reviewed lure and fly color starting points for clear, stained, or murky water and changing light.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['color-match'],
     iconBg: ['#FBEBDD', '#F3C9A7'],
     accent: '#D9772B',
     iconColor: '#9B4E18',
@@ -94,7 +95,7 @@ const ANGLER_FEATURES: Array<{
   {
     module: 'water-read',
     title: 'Water Read',
-    copy: 'Structure intelligence for supported waters, built to highlight higher-percentage zones.',
+    copy: INTELLIGENCE_MODULE_DESCRIPTIONS['water-read'],
     iconBg: ['#E8F2FA', '#C8DFF2'],
     accent: paper.dashboardBlue,
     iconColor: '#0A4A87',
@@ -224,7 +225,7 @@ export default function SubscribeScreen() {
             <View style={styles.heroMembershipStamp}>
               <Ionicons name="sparkles" size={12} color={paper.bandFair} />
               <Text style={styles.heroMembershipStampText}>
-                FIVE INTELLIGENCE TOOLS · ONE MEMBERSHIP
+                SIX INTELLIGENCE TOOLS · ONE MEMBERSHIP
               </Text>
             </View>
           </View>
