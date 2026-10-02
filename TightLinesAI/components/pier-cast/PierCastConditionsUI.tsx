@@ -115,6 +115,32 @@ function CardHead({ kicker, title, tag }: { kicker?: string; title: string; tag?
   );
 }
 
+function CityMapLink({ cityName, onPress }: { cityName: string; onPress: () => void }) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`Open the live lake map centered on ${cityName}`}
+      onPress={() => {
+        hapticSelection();
+        onPress();
+      }}
+      style={({ pressed }) => [styles.cityMapLink, pressed && styles.pressed]}
+    >
+      <View style={styles.cityMapIcon}>
+        <Ionicons name="map-outline" size={20} color={paper.gold} />
+      </View>
+      <View style={styles.flex}>
+        <Text style={styles.cityMapTitle}>LIVE LAKE MAP</Text>
+        <Text style={styles.cityMapSub}>Water temperature · wind · alerts</Text>
+      </View>
+      <View style={styles.cityMapOpen}>
+        <Text style={styles.cityMapOpenText}>OPEN</Text>
+        <Ionicons name="chevron-forward" size={14} color={paper.gold} />
+      </View>
+    </Pressable>
+  );
+}
+
 // ─── Hero ─────────────────────────────────────────────────────────────────
 
 function Hero({
@@ -859,6 +885,7 @@ export function PierCastConditionsCityReport({
   savedCopy,
   onOpenStandings,
   onOpenCity,
+  onOpenMap,
 }: {
   city: PierCastConditionsCatalogCityV4;
   cities: readonly PierCastConditionsCatalogCityV4[];
@@ -868,6 +895,7 @@ export function PierCastConditionsCityReport({
   savedCopy?: boolean;
   onOpenStandings: (speciesId: PierCastSpeciesId) => void;
   onOpenCity: (cityId: string) => void;
+  onOpenMap: () => void;
 }) {
   const reduceMotion = useReduceMotion();
   const [selectedDay, setSelectedDay] = useState(0);
@@ -909,6 +937,7 @@ export function PierCastConditionsCityReport({
         onOpenStandings={onOpenStandings}
         reduceMotion={reduceMotion}
       />
+      <CityMapLink cityName={report.displayName} onPress={onOpenMap} />
       {days.length > 0 ? (
         <FiveDayOutlook days={days} selected={daySelection} onSelect={setSelectedDay} />
       ) : null}
@@ -976,6 +1005,13 @@ const styles = StyleSheet.create({
   statLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: "rgba(255,255,255,0.58)" },
   statValue: { marginTop: 4, fontFamily: paperFonts.display, fontSize: 20, color: "#FFFFFF" },
   statPrime: { color: "#7EDC98" },
+
+  cityMapLink: { minHeight: 62, flexDirection: "row", alignItems: "center", gap: 10, marginTop: 12, marginHorizontal: 14, paddingHorizontal: 12, paddingVertical: 9, borderRadius: 13, backgroundColor: INK },
+  cityMapIcon: { width: 38, height: 38, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "rgba(255,255,255,0.16)", borderRadius: 10, backgroundColor: "rgba(255,255,255,0.07)" },
+  cityMapTitle: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.5, color: "#FFFFFF" },
+  cityMapSub: { marginTop: 2, fontFamily: paperFonts.body, fontSize: 12, color: "rgba(255,255,255,0.7)" },
+  cityMapOpen: { flexDirection: "row", alignItems: "center", gap: 2 },
+  cityMapOpenText: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1, color: paper.gold },
 
   card: { marginTop: 16, marginHorizontal: 14, overflow: "hidden", backgroundColor: paper.dashboardWhite, borderWidth: 2, borderColor: INK, borderRadius: 16, ...paperShadows.hard },
   cardPad: { paddingHorizontal: 16, paddingTop: 18, paddingBottom: 16 },

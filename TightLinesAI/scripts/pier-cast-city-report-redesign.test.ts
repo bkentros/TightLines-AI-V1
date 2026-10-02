@@ -274,12 +274,15 @@ test("report screen is city-first: no species selector, no request-a-city, no sc
   assert.match(ui, /Show all \$\{cards\.length\} species/);
   assert.match(ui, /NEXT 120 HRS · HOURLY/);
   assert.match(ui, /slot\.localHour === 0/);
+  assert.match(ui, /CityMapLink cityName=\{report\.displayName\} onPress=\{onOpenMap\}/);
+  assert.match(ui, /Water temperature · wind · alerts/);
   assert.doesNotMatch(ui, /Pick a day above|EVERY 2 HRS/);
   assert.doesNotMatch(ui, /Tile color is that species|cycle issued|productId\.replace|PierCastAccessNotice/);
   assert.match(visuals, /onResponderTerminationRequest=\{\(\) => false\}/);
   assert.doesNotMatch(visuals, /onResponderRelease=\{\(\) => setScrubIndex\(null\)\}/);
   assert.match(standings, /footer: \{ marginTop: 18, marginHorizontal: 14 \}/);
   assert.match(screen, /onOpenStandings=\{openStandingsFor\}/);
+  assert.match(screen, /cityId: selectedCity\.cityId/);
 });
 
 test("an open city report disables the stack back-swipe", () => {
