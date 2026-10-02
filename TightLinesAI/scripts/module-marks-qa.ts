@@ -13,7 +13,7 @@ const preview = readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8
 
 assert.match(
   home,
-  /title="Water Read"[\s\S]*?code="05"[\s\S]*?title="Color Match"[\s\S]*?tag="COLOR GUIDE"[\s\S]*?moduleId="color-match"[\s\S]*?iconBorder="#D9772B"[\s\S]*?onPress=\{\(\) => router\.push\("\/color-picker"\)\}/,
+  /code="05"[\s\S]*?title="Color Match"[\s\S]*?tag="COLOR GUIDE"[\s\S]*?moduleId="color-match"[\s\S]*?iconBorder="#D9772B"[\s\S]*?onPress=\{\(\) => router\.push\("\/color-picker"\)\}[\s\S]*?code="06"[\s\S]*?title="Water Read"/,
   "Color Match must be the orange, openable fifth module",
 );
 assert.match(
@@ -29,13 +29,18 @@ assert.match(
 
 assert.match(
   home,
-  /howWorksCta:\s*\{[\s\S]*?minHeight: 64[\s\S]*?backgroundColor: "#EAF3F7"/,
+  /howWorksCta:\s*\{[\s\S]*?minHeight: 56[\s\S]*?backgroundColor: "#EAF3F7"/,
   "The getting-started card must remain compact and light",
 );
 assert.match(
+  home,
+  /lakeMapCta:\s*\{[\s\S]*?minHeight: 56[\s\S]*?backgroundColor: paper\.dashboardInk/,
+  "The live lake map shortcut must match the compact guide-card height",
+);
+assert.match(
   guide,
-  /PICK A QUESTION\.\{\"\\n\"\}[\s\S]*?FIND YOUR TOOL\./,
-  "The getting-started hero must stay at two short lines",
+  /Start with your question\.[\s\S]*?Each feature answers one thing well\./,
+  "The getting-started hero must keep its concise question-first framing",
 );
 
 assert.match(

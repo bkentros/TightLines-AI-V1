@@ -90,6 +90,7 @@ import {
 } from "../../lib/forecastScores";
 import { recordRecentLocation } from "../../lib/recentLocations";
 import { searchUsCities } from "../../lib/locationSearch";
+import { readPierCastTargetPreference } from "../../lib/pierCastTargetPreference";
 
 // ─── Layout constants ────────────────────────────────────────────────────────
 const HOME_H_PADDING = 20;
@@ -765,6 +766,16 @@ export default function HomeScreen() {
         : undefined,
     });
   }, [coords, locationLabel, router]);
+
+  const handlePierCastMapPress = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    void readPierCastTargetPreference().then((speciesId) => {
+      router.push({
+        pathname: "/pier-cast-map",
+        params: speciesId ? { speciesId } : {},
+      });
+    });
+  }, [router]);
 
   const handleSettingsPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -1749,9 +1760,6 @@ export default function HomeScreen() {
                   >
                     How to get started
                   </Text>
-                  <Text style={styles.howWorksSubtitle} numberOfLines={2}>
-                    Match your fishing question to the right feature.
-                  </Text>
                 </View>
               </View>
               <View style={styles.howWorksArrowTile}>
@@ -1760,6 +1768,36 @@ export default function HomeScreen() {
                   size={14}
                   color="#FFFFFF"
                 />
+              </View>
+            </Pressable>
+
+            <Pressable
+              style={({ pressed }) => [
+                styles.lakeMapCta,
+                pressed && styles.lakeMapCtaPressed,
+              ]}
+              onPress={handlePierCastMapPress}
+              accessibilityRole="button"
+              accessibilityLabel="Open the Great Lakes live conditions map"
+            >
+              <View style={styles.howWorksLeft}>
+                <View style={styles.lakeMapIconTile}>
+                  <Ionicons name="map-outline" size={17} color={paper.gold} />
+                </View>
+                <View style={styles.howWorksTextCol}>
+                  <Text style={styles.lakeMapEyebrow}>PIERCAST CONDITIONS</Text>
+                  <Text
+                    style={styles.lakeMapTitle}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.78}
+                  >
+                    Great Lakes live map
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.lakeMapArrowTile}>
+                <Ionicons name="arrow-forward" size={14} color={paper.dashboardInk} />
               </View>
             </Pressable>
 
@@ -2945,9 +2983,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
-    minHeight: 64,
+    minHeight: 56,
     paddingHorizontal: 11,
-    paddingVertical: 9,
+    paddingVertical: 7,
     backgroundColor: "#EAF3F7",
     borderWidth: 1,
     borderColor: "rgba(42,110,150,0.24)",
@@ -2986,16 +3024,8 @@ const styles = StyleSheet.create({
   howWorksTitle: {
     fontFamily: SERIF_SEMI,
     fontSize: 16,
-    lineHeight: 22,
-    paddingBottom: 1,
+    lineHeight: 20,
     color: paper.dashboardInk,
-  },
-  howWorksSubtitle: {
-    marginTop: 1,
-    fontFamily: SANS_MEDIUM,
-    fontSize: 9.5,
-    lineHeight: 13,
-    color: paper.dashboardMuted,
   },
   howWorksArrowTile: {
     width: 30,
@@ -3005,6 +3035,54 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 15,
     backgroundColor: paper.red,
+  },
+  lakeMapCta: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+    minHeight: 56,
+    paddingHorizontal: 11,
+    paddingVertical: 7,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.12)",
+    borderRadius: 10,
+    backgroundColor: paper.dashboardInk,
+    ...paperShadows.lift,
+  },
+  lakeMapCtaPressed: { opacity: 0.88 },
+  lakeMapIconTile: {
+    width: 34,
+    height: 34,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.16)",
+    borderRadius: 17,
+    backgroundColor: "rgba(255,255,255,0.07)",
+  },
+  lakeMapEyebrow: {
+    marginBottom: 1,
+    fontFamily: MONO_BOLD,
+    fontSize: 7.5,
+    letterSpacing: 1.4,
+    color: paper.gold,
+  },
+  lakeMapTitle: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 16,
+    lineHeight: 20,
+    color: "#FFFFFF",
+  },
+  lakeMapArrowTile: {
+    width: 30,
+    height: 30,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    backgroundColor: paper.gold,
   },
 
   // metric grid

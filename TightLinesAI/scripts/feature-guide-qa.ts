@@ -12,6 +12,24 @@ assert.match(
   "The home entry point must clearly invite new users to get started",
 );
 
+assert.doesNotMatch(
+  home,
+  /Match your fishing question to the right feature/,
+  "The compact getting-started card must not restore its removed subtitle",
+);
+
+assert.match(
+  home,
+  /How to get started[\s\S]*?Great Lakes live map[\s\S]*?<ModuleRow/,
+  "The live conditions map shortcut must sit below the guide and above the intelligence modules",
+);
+
+assert.match(
+  home,
+  /readPierCastTargetPreference\(\)[\s\S]*?pathname: "\/pier-cast-map"[\s\S]*?speciesId/,
+  "The home map shortcut must preserve the remembered PierCast target species",
+);
+
 assert.match(
   guide,
   /title="GETTING STARTED"/,
