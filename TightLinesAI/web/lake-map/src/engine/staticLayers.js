@@ -16,7 +16,7 @@ import { PALETTES } from './scales.js';
 const LAND = '#12253A';
 const OFM = 'https://tiles.openfreemap.org/planet';
 export const GLYPHS = 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf';
-export const ATTRIBUTION = '© OpenStreetMap contributors · © OpenMapTiles · OpenFreeMap · NOAA · <a href="https://glos.org/" target="_blank" rel="noopener">GLOS</a> · Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>';
+export const ATTRIBUTION = '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> · <a href="https://openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> · <a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap</a> · NOAA · <a href="https://glos.org/" target="_blank" rel="noopener">GLOS</a> · Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>';
 /** bump when static/*.pmtiles are rebuilt and re-uploaded */
 export const STATIC_REV = '4.3';
 let protocol = null;
