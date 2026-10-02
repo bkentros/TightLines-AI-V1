@@ -1,0 +1,45 @@
+# PierCast production health check. Fails when PierCast standings, the Live Lake
+# Map run or the live buoy feed are stale or down; GitHub emails the owner when a
+# scheduled workflow fails. Read-only. See TightLinesAI/web/lake-map/job/health.py.
+name: PierCast health
+
+on:
+  schedule:
+    # Every 2 hours, offset from the NOAA ingest windows.
+    - cron: "20 */2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: piercast-health
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            TightLinesAI/web/lake-map/job
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: pip install "boto3>=1.34"
+      - name: Unit tests
+        run: python -m unittest job/tests/test_health.py
+      - name: Check production
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+        run: python job/health.py

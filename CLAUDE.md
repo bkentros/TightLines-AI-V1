@@ -31,9 +31,13 @@ the failing set changes between runs. Keep the suite hermetic.
 
 ```bash
 cd TightLinesAI
-deno test --allow-read --allow-env supabase/functions/
-# expected: ok | 1353 passed | 0 failed
+deno test --allow-read --allow-env --no-check supabase/functions/
+# expected (2026-10-02): ok | 1529 passed | 0 failed
 ```
+
+`--no-check` is required: `@supabase/functions-js`'s edge-runtime types reference
+`npm:openai`, which is not installed, so type resolution aborts before any test
+runs. Do not `deno install` or change `node_modules`/`deno.lock` to work around it.
 
 Getting either detail wrong yields roughly 6–31 phantom failures across
 DailyPicks, recommender, Push history, and owner-review snapshot tests.
@@ -141,8 +145,24 @@ Never print or materialize API keys into the transcript.
 
 ---
 
+## Live Lake Map (`TightLinesAI/web/lake-map/`)
+
+Read `web/lake-map/README.md` first. Quick facts:
+
+- Tests: `npm test` (JS, expect 71+) and `.venv/bin/python -m unittest discover -s job/tests`
+  (expect 41+). Always use the project `.venv` for Python; system Python lacks numpy/eccodes.
+- The page is published separately from the app: `npm run build:page`, `cp dist/* static-build/proto/`,
+  `.venv/bin/python static-build/publish.py`. No app release is needed for map page changes.
+- Publish the page BEFORE merging data-job changes: `publish.py` writes `map/capabilities.json`,
+  and the scheduled job (runs from `main`) only emits frame encodings the live page declares.
+
 ## Git conventions
 
-- Work happens on `develop/cross-platform-next`; `main` is the default branch.
+- `main` is the working and release branch. Work happens on short-lived feature branches off
+  `main`, merged through a PR. (`develop/cross-platform-next` was retired 2026-10-02; its
+  content is fully superseded by `main` and preserved as `archive/develop-cross-platform-next-2026-09-29`.)
+- `main` enforces linear history and required checks (CodeQL, Gitleaks, JS/TS): merge PRs with
+  `gh pr merge <n> --rebase`. Never use `--admin`; fix CodeQL findings instead (in tests, prefer
+  exact string checks over unanchored URL regexes).
 - Abandoned or superseded work is preserved as `archive/*` branches rather
   than left in `git stash`. Keep the stash list empty.

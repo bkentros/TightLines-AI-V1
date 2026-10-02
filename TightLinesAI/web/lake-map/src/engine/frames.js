@@ -134,6 +134,16 @@ export const DISPLAY_TEMP = Object.freeze({ scale: 100, offset: 30, nodata: 6553
  */
 export function smoothedTemperature(raw, w, h, src, p) {
   const n = w * h, F = new Float32Array(n), valid = new Uint8Array(n);
+  if (!p.radius) { // no filter: straight unit conversion (main-thread fallback)
+    const display = new Uint16Array(n);
+    for (let i = 0; i < n; i++) {
+      const r = raw[i];
+      if (r === src.nodata) { display[i] = 65535; continue; }
+      const q = Math.round((r / src.scale + src.offset - 30) * 100);
+      display[i] = q < 0 ? 0 : q > 65534 ? 65534 : q;
+    }
+    return display;
+  }
   for (let i = 0; i < n; i++) { const r = raw[i]; if (r !== src.nodata) { F[i] = r / src.scale + src.offset; valid[i] = 1; } }
   const R = p.radius, taps = 2 * R + 1, sw = new Float32Array(taps);
   for (let k = -R; k <= R; k++) sw[k + R] = Math.exp(-(k * k) / (2 * p.sigmaCells * p.sigmaCells));
@@ -262,7 +272,9 @@ export class FrameStore {
       }
     }
     const frame = await decodeOnPage(url, path, encoding);
-    if (smoothing) { frame.data = smoothedTemperature(frame.data, frame.w, frame.h, smoothing.src, smoothing.params); frame.channels = 1; }
+    // No background threads (iOS before 16.4): convert to the page's 0.01 °F grid but skip the
+    // filter (radius 0), so decoding on the main thread never makes playback stutter.
+    if (smoothing) { frame.data = smoothedTemperature(frame.data, frame.w, frame.h, smoothing.src, { ...smoothing.params, radius: 0 }); frame.channels = 1; }
     return frame;
   }
   gridFor(path) {

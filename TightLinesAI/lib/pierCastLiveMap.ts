@@ -68,6 +68,7 @@ export const PIER_CAST_LIVE_MAP_ANALYTICS: Readonly<Record<string, string>> = {
   forecast_played: "pier_cast_live_map_forecast_played",
   buoy_opened: "pier_cast_live_map_buoy_opened",
   nws_alert_opened: "pier_cast_live_map_nws_alert_opened",
+  map_data_refresh: "pier_cast_live_map_data_refresh",
 };
 
 const CITY_ID = /^[a-z0-9_]{2,64}$/;
