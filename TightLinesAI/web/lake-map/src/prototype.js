@@ -29,7 +29,7 @@ const range = (a, b) => { const da = at(Math.round(a)), db = at(Math.round(b)); 
 
 const degs = (f) => `${Math.round(ui.units.temp === 'C' ? (f - 32) * 5 / 9 : f)}°`;
 const deltaDeg = (f) => `${Math.round(ui.units.temp === 'C' ? f * 5 / 9 : f)}°${ui.units.temp}`;
-const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, dismissed: new Set(), paused: false };
+const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, paused: false };
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── app bridge ── */
@@ -243,8 +243,8 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
    *   3. Weather Service advisories / watches (small craft …), then statements (beach hazards …)
    * When more than one kind is in play, the second line says so ("Also: …") and a tap
    * opens the full list. Everything follows the timeline: alerts appear at their start
-   * time and disappear when they end. A dismissed banner comes back only for
-   * something new.
+   * time and disappear when they end. Dismissing the banner keeps it hidden for the
+   * rest of this map session; every alert remains available from the Alerts tool.
    */
   function bannerItems() {
     const T = tMs();
@@ -268,8 +268,6 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     $('#alerts-count').textContent = total;
     const quiet = ui.selected || ui.selectedBuoy || document.querySelector('.sheet:not([hidden])');
     const ids = [...nwsNow.map((a) => a.id), ...coldNow.map((e) => `${e.cityId}@${e.startHour}`)];
-    // a dismissed banner stays away until something it hadn't shown appears
-    if (ui.alertHidden && ids.some((id) => !ui.dismissed.has(id))) ui.alertHidden = false;
     if (!total) { chip.hidden = true; tool.hidden = true; return; }
     if (quiet || !ids.length) { chip.hidden = true; tool.hidden = quiet ? !ui.alertHidden : false; return; }
     chip.hidden = ui.alertHidden; tool.hidden = !ui.alertHidden;
@@ -292,9 +290,13 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       $('#alert-s').textContent = a ? `${shortArea(a.areaDesc)} · ${untilLabel(a)}` : 'Tap to see all';
       chip.onclick = () => (a ? openNws(a) : openAlerts('nws'));
     }
-    ui.shownIds = ids;
   }
-  $('#alert-x').addEventListener('click', (e) => { e.stopPropagation(); ui.alertHidden = true; ui.dismissed = new Set([...ui.dismissed, ...(ui.shownIds || [])]); updateAlerts(); });
+  $('#alert-x').addEventListener('click', (e) => {
+    e.stopPropagation();
+    ui.alertHidden = true;
+    updateAlerts();
+    $('#alerts-tool').focus();
+  });
   $('#alerts-tool').addEventListener('click', () => openAlerts(events.some((e) => eventStatus(e) !== 'past') ? 'water' : 'nws'));
   function goEvent(e) { closeSheets(); stop(); setTime(e.settledHour); selectPier(e.pier.id, true); }
   /* ── alerts sheet: two tabs, water temperature first (what anglers act on) ── */

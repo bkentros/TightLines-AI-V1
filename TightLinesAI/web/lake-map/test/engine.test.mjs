@@ -122,6 +122,14 @@ test('field shader validates both frames and releases its bounded texture cache'
   assert.match(source, /onRemove[\s\S]+deleteTexture[\s\S]+textures\.clear/);
 });
 
+test('dismissing the alert banner keeps future alerts in the Alerts tool without reopening it', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(source, /ui\.alertHidden = true;[\s\S]*updateAlerts\(\);[\s\S]*\$\('#alerts-tool'\)\.focus\(\)/);
+  assert.match(source, /chip\.hidden = ui\.alertHidden; tool\.hidden = !ui\.alertHidden/);
+  assert.doesNotMatch(source, /ui\.alertHidden\s*&&[\s\S]{0,160}ui\.alertHidden\s*=\s*false/);
+  assert.doesNotMatch(source, /ui\.dismissed|ui\.shownIds/);
+});
+
 test('five-day playback keeps only a bounded decoded frame window', () => {
   const store = Object.create(FrameStore.prototype);
   store.hours = Array.from({ length: 121 }, (_, i) => i);
