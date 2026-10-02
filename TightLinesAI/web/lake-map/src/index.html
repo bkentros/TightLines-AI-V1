@@ -45,6 +45,15 @@ button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 .trow{display:flex;align-items:center;gap:12px}
 #play{width:46px;height:46px;border-radius:23px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
 #play .pz{display:none}#play[data-playing="1"] .pz{display:block}#play[data-playing="1"] .pl{display:none}
+#play{position:relative}#play[data-buffering="1"]::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2.5px solid rgba(232,160,46,.25);border-top-color:var(--gold);animation:pc-spin .8s linear infinite}
+@keyframes pc-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){#play[data-buffering="1"]::after{animation:none;border-color:var(--gold)}}
+.trow{position:relative}
+#speed{height:34px;min-width:50px;padding:0 10px;border-radius:17px;border:1.5px solid rgba(255,255,255,.3);font:700 13px 'JetBrains Mono',monospace;text-align:center;flex:0 0 auto;margin-left:-2px}
+#speed[aria-expanded="true"]{background:#fff;color:var(--ink);border-color:#fff}
+#speed-menu{position:absolute;left:44px;bottom:calc(100% + 10px);z-index:3;display:flex;gap:3px;padding:4px;border-radius:14px}
+#speed-menu button{height:36px;min-width:52px;padding:0 10px;border-radius:10px;font:700 13px 'JetBrains Mono',monospace;text-align:center;opacity:.8}
+#speed-menu button[aria-checked="true"]{background:#fff;color:var(--ink);opacity:1}
 #tl-main{font:700 19px 'Fraunces',Georgia,serif}#tl-sub{font-size:12.5px;opacity:.66}
 #now{height:34px;padding:0 13px;border-radius:17px;border:1.5px solid rgba(255,255,255,.3);font-size:13px;font-weight:700}
 #track{position:relative;height:50px;margin-top:10px;touch-action:none;cursor:pointer}
@@ -137,6 +146,11 @@ input{-webkit-user-select:text;user-select:text}
 .nd-map{display:flex;align-items:center;justify-content:center;width:100%;height:46px;margin-top:14px;border-radius:14px;background:#fff;color:var(--ink);font-size:15px;font-weight:700}
 .nd-src{font-size:12px;opacity:.5;margin:10px 2px 0}
 #sheet-credits{max-height:58vh}.credits{font-size:14px;line-height:22px;color:rgba(255,255,255,.76)}.credits a{color:#9FD2F5;text-decoration:underline;text-underline-offset:2px}.credits-note{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;line-height:18px;opacity:.65}
+#update{align-self:center;display:flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:19px;border-color:rgba(232,160,46,.6);font-size:13.5px}
+#update b{font-weight:700}.up-go{font-size:12.5px;opacity:.7}
+.up-dot{width:8px;height:8px;border-radius:4px;background:var(--gold);box-shadow:0 0 0 0 rgba(232,160,46,.6);animation:up-pulse 2s ease-out infinite}
+@keyframes up-pulse{to{box-shadow:0 0 0 8px rgba(232,160,46,0)}}
+@media (prefers-reduced-motion: reduce){.up-dot{animation:none}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -160,6 +174,7 @@ input{-webkit-user-select:text;user-select:text}
   <button class="tool glass" id="fit" aria-label="Zoom out to the whole Great Lakes region"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>OVERVIEW</span></button>
 </div>
 <div class="bottom">
+  <button id="update" class="glass" type="button" hidden aria-label="Updated forecast ready. Tap to load it."><span class="up-dot"></span><b>Updated forecast ready</b><span class="up-go">Tap to load</span></button>
   <div id="pier" class="glass" hidden role="dialog" aria-label="Pier conditions">
     <div class="p-head"><div style="flex:1"><div id="p-k"></div><div id="p-t"></div><div id="p-s"></div></div><button class="ib" id="p-close" aria-label="Close pier card"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <button id="p-nws" class="p-nws" hidden></button>
@@ -177,7 +192,14 @@ input{-webkit-user-select:text;user-select:text}
     <div class="legend"><span id="lg-name">WATER</span><div style="flex:1"><div id="lg-bar"></div><div id="lg-ticks"></div></div></div>
     <div class="trow">
       <button id="play" aria-label="Play forecast"><svg class="pl" width="20" height="20" viewBox="0 0 24 24" fill="#0A1B2E"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></svg><svg class="pz" width="18" height="18" viewBox="0 0 24 24" fill="#0A1B2E"><rect x="5" y="4" width="5" height="16" rx="1.5"/><rect x="14" y="4" width="5" height="16" rx="1.5"/></svg></button>
-      <div style="flex:1"><div id="tl-main"></div><div id="tl-sub"></div></div>
+      <button id="speed" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="speed-menu" aria-label="Playback speed 1×">1×</button>
+      <div id="speed-menu" class="glass" role="menu" aria-label="Playback speed" hidden>
+        <button type="button" role="menuitemradio" data-speed="0.5" aria-checked="false">0.5×</button>
+        <button type="button" role="menuitemradio" data-speed="1" aria-checked="true">1×</button>
+        <button type="button" role="menuitemradio" data-speed="1.5" aria-checked="false">1.5×</button>
+        <button type="button" role="menuitemradio" data-speed="2" aria-checked="false">2×</button>
+      </div>
+      <div style="flex:1;min-width:0"><div id="tl-main"></div><div id="tl-sub"></div></div>
       <button id="now" hidden>Now</button>
     </div>
     <div id="track" role="slider" tabindex="0" aria-label="Forecast time" aria-valuemin="0" aria-valuemax="120"><div class="bar"><div id="fill"></div></div><div id="handle"></div></div>

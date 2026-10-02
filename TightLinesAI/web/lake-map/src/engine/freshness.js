@@ -1,5 +1,7 @@
 export const OBSERVATION_REFRESH_MS = 5 * 60 * 1000;
 export const MODEL_REFRESH_CHECK_MS = 10 * 60 * 1000;
+/** How often an open map asks whether NOAA's next run has been published (one tiny cached request). */
+export const RUN_CHECK_MS = 5 * 60 * 1000;
 
 /** Exact model hour for "Now"; the renderer interpolates between hourly fields. */
 export function currentForecastHour(startMs, maxHour, now = Date.now(), sample = false) {

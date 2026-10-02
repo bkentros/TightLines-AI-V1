@@ -7,6 +7,7 @@ import {
   hasNewPublishedRun,
   mapFreshnessText,
   MODEL_REFRESH_CHECK_MS,
+  RUN_CHECK_MS,
   OBSERVATION_REFRESH_MS,
 } from '../src/engine/freshness.js';
 
@@ -40,5 +41,6 @@ test('an open map reloads only for a different complete published run', () => {
 test('observations refresh faster than model/NWS checks and match the edge cache', () => {
   assert.equal(OBSERVATION_REFRESH_MS, 5 * 60 * 1000);
   assert.equal(MODEL_REFRESH_CHECK_MS, 10 * 60 * 1000);
+  assert.equal(RUN_CHECK_MS, 5 * 60 * 1000);
   assert.equal(OBS_CACHE_SECONDS * 1000, OBSERVATION_REFRESH_MS);
 });

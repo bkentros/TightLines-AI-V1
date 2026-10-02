@@ -15,7 +15,7 @@ layers; two custom GPU layers draw the data:
 The coastline is a vector land layer drawn above the color field, so it stays
 sharp at every zoom. `src/engine/index.js` exposes the API the native screen
 uses (`setTime`, `setLayer`, `setSpecies`, `setUnits`, `setOptions`, `setPiers`,
-`setSelected`, `setAlerts`, `flyTo`, `fitAll`, `sampleAt`, events `pierTap`,
+`setSelected`, `setAlerts`, `setAnimating`, `ready`, `flyTo`, `fitAll`, `sampleAt`, events `pierTap`,
 `mapTap`, `view`).
 
 ## Frame format v1 (written by the data job)
@@ -23,7 +23,7 @@ uses (`setTime`, `setLayer`, `setSpecies`, `setUnits`, `setOptions`, `setPiers`,
 | File | Encoding |
 | --- | --- |
 | `manifest.json` | domain, grid sizes and encodings, frame list with valid times |
-| `temp/<hhh>.png` | 8-bit gray, value = round((°F − 30) × 5), 255 = no data, NOAA-matched 0.01° grid |
+| `temp/<hhh>.png` | `u8`: 8-bit gray, value = round((°F − 30) × 5) (0.2 °F steps), 255 = no data. `rgb16` (`grids.temp.encoding`): RGB, value = R × 256 + G = round((°F − 30) × 20) (0.05 °F steps), 65535 = no data. NOAA-matched 0.01° grid |
 | `wind/<hhh>.png` | RGBA, R = u·2 + 128, G = v·2 + 128 (mph toward east/north), 0.25° grid over its own wider box (`grids.wind.west/north`: −104.4…−63.9°, 30.2…60.2°) |
 | `waves/<hhh>.png` | 8-bit gray, value = round(ft × 20), 255 = no data, 0.05° grid |
 | `depth.png` | 8-bit gray, value = round(ft ÷ 6), 255 = no data, 0.01° grid |
@@ -162,6 +162,8 @@ Build and publish the page: `npm run build:page`, copy `dist/index.html`, `dist/
 and the two `maplibre-gl-csp*.js` files to `static-build/proto/`, then
 `python3 static-build/publish.py` (uploads them to both `proto/` and `map/`).
 
+**Frame encodings and rollout.** After uploading the page, `publish.py` writes `map/capabilities.json` (`{"frameEncodings": [...]}`, from `FRAME_ENCODINGS` in `src/engine/frames.js`). Before each run the data job reads it and publishes 0.05 °F `rgb16` temperature frames only once the live page lists `rgb16`; until then it keeps the 8-bit format (`--temp-encoding u8|rgb16` overrides). Publish the page first; the next data run switches format by itself. The page reads both.
+
 ### Caching and the Cloudflare request budget
 
 Every file the page loads goes through the gatekeeper Worker, and each one counts
@@ -184,6 +186,41 @@ month, then $0.30 per million). The Worker caps traffic at 600 requests/IP/minut
   10 minutes; `/obs/buoys.json` on open and every 5 minutes while the map is open.
   The latter reads the shared 15-minute R2 snapshot and is edge-cached for five
   minutes; upstream sensor requests occur once per scheduled collection, not per user or edge.
+
+### Forecast playback
+
+- **Clock:** 3 forecast hours per second at 1×, with a 0.5× / 1× / 1.5× / 2× picker
+  (the chip next to Play; remembered with the other map preferences). The rate is the
+  same at every zoom. Before each step the page asks `lm.ready(t)`; if the next hour
+  is not decoded and on the GPU yet, the clock waits (a ring on Play after 250 ms)
+  instead of running ahead of the picture, and gives up waiting after 8 s.
+- **Decoding:** PNG frames are fetched and decoded in a background Blob worker
+  (OffscreenCanvas; the CSP already allows `blob:` workers) that also packs the
+  GPU (value, validity) pairs, so the main thread never stalls on a new hour.
+  WebViews without OffscreenCanvas fall back to the `<img>` path automatically.
+- **Look-ahead:** `setAnimating(true, hoursPerSecond)` widens the shared decode window
+  to ~1.5 s of play (max 12 hours ahead) and the color field uploads one upcoming
+  hour per frame in `prerender`, so crossing an hour never waits on a texture upload.
+  A released hour that is still on screen keeps its texture until the new one is
+  ready, so jumps and drags never flash empty water.
+- **Smooth motion:** each pixel moves through the hours on a Catmull-Rom curve using the
+  hours on either side, clamped to the two current hours so it never invents a value
+  (`blendHours` in `frames.js`; the shader's `hours()` is the same formula, so pier pills
+  and the readout match the picture). Straight blending only at the ends of the run.
+- **GPU memory:** the color field keeps textures only from 2 hours behind to 4 ahead of
+  the playhead and uploads one upcoming hour per frame; 16-bit frames are RG16F half
+  floats centered on 56 °F (error under 0.01 °F).
+- **New forecasts:** the open map checks `latest.json` every 5 minutes. A new run is
+  applied silently while the map is covered, backgrounded or hidden; while it is being
+  viewed, an "Updated forecast ready" pill offers it. Either way the page reloads into the
+  new run at the same center, zoom, clock time (or "Now") and selected pier.
+- **Labels:** band labels fade out while the forecast moves (play or drag) and fade
+  back in, placed for the new hour, when it stops.
+- **Band edges:** stored values come in fixed steps (0.2 °F, 0.05 ft), so whole
+  patches of water can sit exactly on a band edge. Every band decision (shader,
+  labels, pier pills) uses `bandIndex` (`BAND_EPS` nudge) and edge lines are only
+  drawn where the field actually changes across a pixel; otherwise those patches
+  render as dark blocks.
 
 Dynamic frames are decoded into compact buffers (one byte per temperature,
 wave or depth pixel; RGBA only for wind). Playback retains seven frames around

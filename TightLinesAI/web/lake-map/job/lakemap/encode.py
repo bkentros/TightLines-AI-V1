@@ -14,8 +14,17 @@ def _png(arr: np.ndarray, mode: str) -> bytes:
 
 
 def scalar_png(values: np.ndarray, grid) -> bytes:
-    """Gray PNG: byte = (value − offset) × scale, 255 = no data."""
+    """Gray PNG: byte = (value − offset) × scale, 255 = no data.
+    For grid.encoding == "rgb16": RGB PNG, value = R × 256 + G, 65535 = no data."""
     v = (values - grid.offset) * grid.scale
+    if getattr(grid, "encoding", "u8") == "rgb16":
+        q = np.full(values.shape, grid.nodata, np.uint16)
+        ok = np.isfinite(v)
+        q[ok] = np.clip(np.round(v[ok]), 0, 65534).astype(np.uint16)
+        rgb = np.zeros(values.shape + (3,), np.uint8)
+        rgb[..., 0] = q >> 8
+        rgb[..., 1] = q & 255
+        return _png(rgb, "RGB")
     out = np.full(values.shape, grid.nodata, np.uint8)
     ok = np.isfinite(v)
     out[ok] = np.clip(np.round(v[ok]), 0, 254).astype(np.uint8)
@@ -34,7 +43,11 @@ def wind_png(u: np.ndarray, v: np.ndarray, grid) -> bytes:
 
 
 def decode_scalar(png: bytes, grid) -> np.ndarray:
-    a = np.asarray(Image.open(io.BytesIO(png))).astype(np.float32)
+    a = np.asarray(Image.open(io.BytesIO(png)))
+    if getattr(grid, "encoding", "u8") == "rgb16":
+        a = a[..., 0].astype(np.float32) * 256 + a[..., 1]
+    else:
+        a = a.astype(np.float32)
     out = a / grid.scale + grid.offset
     out[a == grid.nodata] = np.nan
     return out

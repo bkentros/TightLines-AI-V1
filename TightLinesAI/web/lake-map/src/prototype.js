@@ -11,7 +11,7 @@ import { createLakeMap } from './engine/index.js';
 import { fmtWind, fmtWaves, compass, toTemp, PALETTES, colorAt, bandSpec, SPECIES, speciesFit } from './engine/scales.js';
 import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
 import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
-import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS } from './engine/freshness.js';
+import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS, RUN_CHECK_MS } from './engine/freshness.js';
 import cities from './cities.json';
 
 window.maplibregl.setWorkerUrl(new URL('maplibre-gl-csp-worker.js', location.href).href);
@@ -29,7 +29,8 @@ const range = (a, b) => { const da = at(Math.round(a)), db = at(Math.round(b)); 
 
 const degs = (f) => `${Math.round(ui.units.temp === 'C' ? (f - 32) * 5 / 9 : f)}°`;
 const deltaDeg = (f) => `${Math.round(ui.units.temp === 'C' ? f * 5 / 9 : f)}°${ui.units.temp}`;
-const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, paused: false };
+const SPEEDS = [0.5, 1, 1.5, 2];
+const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, speed: 1, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, paused: false };
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── app bridge ── */
@@ -41,7 +42,7 @@ const haptic = () => post({ type: 'haptic' });
 const PREFS_KEY = 'pc-lake-map-prefs-v1';
 const UNIT_OPTIONS = { temp: ['F', 'C'], wind: ['mph', 'kph', 'kt'], length: ['ft', 'm'] };
 function loadPrefs() { try { return JSON.parse(localStorage.getItem(PREFS_KEY) || 'null'); } catch (e) { return null; } }
-function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ units: ui.units, layer: ui.layer, species: ui.species.id, streaks: ui.streaks, lines: ui.lines, buoys: ui.buoys, nws: ui.nws })); } catch (e) { /* storage off */ } }
+function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ units: ui.units, layer: ui.layer, species: ui.species.id, streaks: ui.streaks, lines: ui.lines, buoys: ui.buoys, nws: ui.nws, speed: ui.speed })); } catch (e) { /* storage off */ } }
 (function initialPrefs() {
   const saved = loadPrefs();
   if (saved) {
@@ -51,6 +52,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     if (typeof saved.lines === 'boolean') ui.lines = saved.lines;
     if (typeof saved.buoys === 'boolean') ui.buoys = saved.buoys;
     if (typeof saved.nws === 'boolean') ui.nws = saved.nws;
+    if (SPEEDS.includes(saved.speed)) ui.speed = saved.speed;
     const sp = SPECIES.find((x) => x.id === saved.species); if (sp) ui.species = sp;
   } else if (APP && APP.units === 'metric') ui.units = { temp: 'C', wind: 'kph', length: 'm' };
   // Keep the routed species ready for Match, but never override the first-visit
@@ -75,6 +77,14 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     $('#p-report').hidden = false;
   }
   const q = QS;
+  // A newer forecast was applied by reloading the page: pick up where the viewer was.
+  const RESUME_KEY = 'pc-lake-map-resume-v1';
+  const resume = (() => {
+    try {
+      const r = JSON.parse(sessionStorage.getItem(RESUME_KEY) || 'null'); sessionStorage.removeItem(RESUME_KEY);
+      return r && Date.now() - r.at < 15 * 60e3 && Array.isArray(r.center) ? r : null;
+    } catch (e) { return null; }
+  })();
   let activeRun = null;
   let dataUrl = q.get('data') || 'data/', staticUrl = q.get('static'), basemap = q.get('basemap') === '1';
   if (!q.get('data')) {
@@ -84,11 +94,11 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     } catch (e) { /* no bucket next to this page: use bundled data */ }
   }
   const lm = await createLakeMap($('#map'), {
-    dataUrl, staticUrl, basemap, piers,
+    dataUrl, staticUrl, basemap, piers, ...(resume ? { center: resume.center, zoom: resume.zoom } : {}),
     // screen areas covered by controls; labels and markers stay clear of them
     reserved: () => {
       const out = [[0, 0, 9999, 64]];
-      for (const sel of ['#readout', '#alert', '#layers', '#fit', '#alerts-tool', '#cross', '#pier', '.card']) {
+      for (const sel of ['#readout', '#alert', '#layers', '#fit', '#alerts-tool', '#cross', '#pier', '#update', '.card']) {
         const el = document.querySelector(sel); if (!el || el.hidden) continue;
         const r = el.getBoundingClientRect(); if (r.width) out.push([r.left - 4, r.top - 4, r.right + 4, r.bottom + 4]);
       }
@@ -99,6 +109,8 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   // the app pauses the map while another screen covers it (saves battery)
   window.PC_PAUSE = (paused) => {
     ui.paused = !!paused; if (paused) stop(); lm.setPaused(!!paused);
+    // covered by another screen: the perfect moment to switch to a newer forecast unseen
+    if (paused && window.__pcApplyUpdate) window.__pcApplyUpdate(true);
     // back after a while: the alerts and buoys may have changed
     if (!paused && window.__pcRefreshFeeds) window.__pcRefreshFeeds();
   };
@@ -193,44 +205,101 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     events.forEach((e) => { html += `<div class="ev ${e.kind}" style="left:${pct(e.startHour)}%;width:${pct(e.bottomHour) - pct(e.startHour)}%"></div>`; });
     track.insertAdjacentHTML('afterbegin', html);
   }
+  const setText = (sel, text) => { const el = $(sel); if (el.textContent !== text) el.textContent = text; };
   function setTime(t, fromPlay) {
     ui.t = Math.max(0, Math.min(maxHour, t)); lm.setTime(ui.t);
     const d = at(ui.t);
-    $('#tl-main').textContent = `${dayName(d)} ${d.getDate()} · ${clock(d.getHours())}`;
-    const ahead = ui.t - nowHour();
-    $('#tl-sub').textContent = Math.abs(ahead) < 0.5 ? `Now · ${mapFreshnessText(lm.store.manifest)}` : ahead < 0 ? `${Math.round(-ahead)} hrs ago · NOAA model` : `In ${ahead < 24 ? Math.round(ahead) + ' hrs' : Math.floor(ahead / 24) + 'd ' + Math.round(ahead % 24) + 'h'} · NOAA forecast`;
+    setText('#tl-main', `${dayName(d)} ${d.getDate()} · ${clock(d.getHours())}`);
+    const ahead = ui.t - nowHour(), aheadH = Math.round(ahead);
+    // round to whole hours first, so 47.6 h reads "2d 0h", never "1d 24h"
+    setText('#tl-sub', Math.abs(ahead) < 0.5 ? `Now · ${mapFreshnessText(lm.store.manifest)}` : ahead < 0 ? `${-aheadH} hrs ago · NOAA model` : `In ${aheadH < 24 ? aheadH + ' hrs' : Math.floor(aheadH / 24) + 'd ' + (aheadH % 24) + 'h'} · NOAA forecast`);
     $('#now').hidden = Math.abs(ahead) < 0.5;
     lm.setBuoyOptions({ dim: Math.abs(ahead) > 1.5 }); // buoy readings are "now"; faded while looking ahead
     // Weather Service alerts appear at their start and go away when they end (checked every 15 minutes of timeline)
     const q = Math.floor(tMs() / 900e3); if (q !== ui.nwsQ) { ui.nwsQ = q; lm.setNwsTime(q * 900e3); }
     const pct = (ui.t / maxHour * 100).toFixed(2) + '%'; $('#handle').style.left = pct; $('#fill').style.width = pct;
     track.setAttribute('aria-valuenow', Math.round(ui.t)); track.setAttribute('aria-valuetext', $('#tl-main').textContent);
-    updateAlerts();
-    if (!fromPlay || Math.round(ui.t * 4) % 2 === 0) queueReadout();
-    if (ui.selected) pierCard();
+    // while playing, the alert banner, readout and pier card follow along a few times a
+    // second instead of on every frame (alerts only change on 15-minute steps anyway)
+    const quarter = Math.floor(ui.t * 4);
+    if (!fromPlay || quarter !== ui.alertQ) { ui.alertQ = quarter; updateAlerts(); }
+    queueReadout();
+    if (ui.selected) { if (fromPlay) queueCard(); else pierCard(); }
   }
   let dragging = false;
   const tAt = (e) => { const r = track.getBoundingClientRect(); return Math.round(Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * maxHour * 4) / 4; };
-  track.addEventListener('pointerdown', (e) => { dragging = true; track.setPointerCapture(e.pointerId); stop(); setTime(tAt(e)); });
+  const endDrag = () => { if (!dragging) return; dragging = false; lm.setAnimating(false); };
+  track.addEventListener('pointerdown', (e) => { dragging = true; track.setPointerCapture(e.pointerId); stop(); lm.setAnimating(true, 0); setTime(tAt(e)); });
   track.addEventListener('pointermove', (e) => { if (dragging) setTime(tAt(e)); });
-  track.addEventListener('pointerup', () => { dragging = false; });
+  // a cancelled touch (system gesture, incoming call) ends the drag too, or the handle would keep following the pointer
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((type) => track.addEventListener(type, endDrag));
+  track.setAttribute('aria-valuemax', String(maxHour));
   track.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); stop(); setTime(Math.round(ui.t) + (e.key === 'ArrowRight' ? 1 : -1)); } });
-  let last = 0;
+
+  /*
+   * Playback. The clock runs at a fixed number of forecast hours per second
+   * (PLAY_RATE × the chosen speed, the same at every zoom) and the map blends
+   * continuously between hourly frames. If the next hour is still downloading,
+   * the clock waits on the last moment that can be drawn instead of running
+   * ahead of the picture; a soft ring on the play button shows the wait.
+   */
+  const PLAY_RATE = 3;                  // forecast hours per second at 1×
+  const STALL_SKIP_MS = 8000;           // never wait forever on one missing hour
+  const rate = () => PLAY_RATE * ui.speed;
+  let last = 0, stalledSince = 0;
   function frame(now) {
     if (!ui.playing) return;
     const dt = Math.min(0.1, (now - (last || now)) / 1000); last = now;
-    let t = ui.t + dt * (lm.map.getZoom() < 7.5 ? 4 : 2.2);
-    if (t >= maxHour) { t = maxHour; stop(); }
+    const t = Math.min(maxHour, ui.t + dt * rate());
+    if (!lm.ready(t) && !(stalledSince && now - stalledSince > STALL_SKIP_MS)) {
+      if (!stalledSince) stalledSince = now;
+      $('#play').dataset.buffering = now - stalledSince > 250 ? '1' : '';
+      requestAnimationFrame(frame);
+      return;
+    }
+    stalledSince = 0; $('#play').dataset.buffering = '';
     setTime(t, true);
+    if (t >= maxHour) { stop(); return; }
     requestAnimationFrame(frame);
   }
-  function stop() { ui.playing = false; $('#play').dataset.playing = ''; $('#play').setAttribute('aria-label', 'Play forecast'); }
+  function stop() {
+    if (ui.playing) lm.setAnimating(false);
+    ui.playing = false; stalledSince = 0;
+    $('#play').dataset.playing = ''; $('#play').dataset.buffering = ''; $('#play').setAttribute('aria-label', 'Play forecast');
+  }
   $('#play').addEventListener('click', () => {
+    closeSpeed();
     if (ui.playing) return stop();
     if (ui.t >= maxHour - 0.5) setTime(nowHour());
-    track_('forecast_played', { layer: ui.layer });
-    ui.playing = true; last = 0; $('#play').dataset.playing = '1'; $('#play').setAttribute('aria-label', 'Pause forecast'); requestAnimationFrame(frame);
+    track_('forecast_played', { layer: ui.layer, speed: ui.speed });
+    ui.playing = true; last = 0; lm.setAnimating(true, rate());
+    $('#play').dataset.playing = '1'; $('#play').setAttribute('aria-label', 'Pause forecast'); requestAnimationFrame(frame);
   });
+
+  /* ── playback speed: tap "1×" to pick 0.5×, 1×, 1.5× or 2× ── */
+  const speedBtn = $('#speed'), speedMenu = $('#speed-menu');
+  const speedLabel = (v) => `${v}×`;
+  function renderSpeed() {
+    speedBtn.textContent = speedLabel(ui.speed);
+    speedBtn.setAttribute('aria-label', `Playback speed ${speedLabel(ui.speed)}`);
+    speedMenu.querySelectorAll('[data-speed]').forEach((b) => b.setAttribute('aria-checked', String(Number(b.dataset.speed) === ui.speed)));
+  }
+  function closeSpeed() { if (speedMenu.hidden) return; speedMenu.hidden = true; speedBtn.setAttribute('aria-expanded', 'false'); }
+  speedBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); haptic();
+    const open = speedMenu.hidden; speedMenu.hidden = !open; speedBtn.setAttribute('aria-expanded', String(open));
+    if (open) speedMenu.querySelector('[aria-checked="true"]')?.focus();
+  });
+  speedMenu.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-speed]'); if (!b) return;
+    e.stopPropagation();
+    ui.speed = Number(b.dataset.speed); renderSpeed(); savePrefs(); haptic(); closeSpeed();
+    if (ui.playing) lm.setAnimating(true, rate()); // decode far enough ahead for the new pace
+    speedBtn.focus();
+  });
+  document.addEventListener('pointerdown', (e) => { if (!speedMenu.hidden && !e.target.closest('#speed, #speed-menu')) closeSpeed(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !speedMenu.hidden) { closeSpeed(); speedBtn.focus(); } });
+  renderSpeed();
   $('#now').addEventListener('click', () => { stop(); setTime(nowHour()); });
 
   /* ── alerts ── */
@@ -580,29 +649,58 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   }
   lm.setBuoyOptions({ on: ui.buoys }); lm.setNwsVisible(ui.nws);
   lm.map.on('moveend', () => { if (nws.length) updateAlerts(); });
+  /*
+   * Newer NOAA runs. A new forecast never interrupts the viewer: while the map
+   * is covered, in the background or hidden it is applied silently; while the
+   * viewer is looking at the map a small "Updated forecast" pill offers it. The
+   * page reloads into the new run at the same spot, zoom, time and pier.
+   */
+  let pendingRun = null;
+  function applyUpdate(onlyIfUnseen) {
+    if (!pendingRun) return;
+    if (onlyIfUnseen && !(ui.paused || document.hidden)) return;
+    try {
+      const c = lm.map.getCenter();
+      sessionStorage.setItem(RESUME_KEY, JSON.stringify({
+        at: Date.now(), center: [c.lng, c.lat], zoom: lm.map.getZoom(), timeMs: tMs(),
+        atNow: Math.abs(ui.t - nowHour()) < 0.5, selected: ui.selected,
+      }));
+    } catch (e) { /* storage off: the new run still opens, just at the defaults */ }
+    track_('map_data_refresh', { from: activeRun, to: pendingRun });
+    location.reload();
+  }
+  window.__pcApplyUpdate = applyUpdate;
+  document.addEventListener('visibilitychange', () => { if (document.hidden) applyUpdate(true); });
+  $('#update').addEventListener('click', () => { haptic(); applyUpdate(false); });
   async function checkLatestRun() {
     if (!activeRun || q.get('data')) return;
     try {
       const latest = await fetch('../latest.json', { cache: 'no-store', credentials: 'same-origin' }).then((r) => (r.ok ? r.json() : null));
       if (hasNewPublishedRun(activeRun, latest)) {
-        track_('map_data_refresh', { from: activeRun, to: latest.run });
-        location.reload();
+        pendingRun = latest.run;
+        if (ui.paused || document.hidden) applyUpdate(true);
+        else $('#update').hidden = false;
       }
     } catch (e) { /* retain the complete run already on screen */ }
   }
-  let lastObservationRefresh = 0, lastModelRefreshCheck = 0;
+  let lastObservationRefresh = 0, lastModelRefreshCheck = 0, lastRunCheck = 0;
   window.__pcRefreshFeeds = (force = false) => {
     const now = Date.now(); let refreshed = false;
     if (force || now - lastObservationRefresh >= OBSERVATION_REFRESH_MS) {
       lastObservationRefresh = now; loadBuoys(); refreshed = true;
     }
     if (force || now - lastModelRefreshCheck >= MODEL_REFRESH_CHECK_MS) {
-      lastModelRefreshCheck = now; loadNws(); checkLatestRun(); refreshed = true;
+      lastModelRefreshCheck = now; loadNws(); refreshed = true;
     }
+    if (force || now - lastRunCheck >= RUN_CHECK_MS) { lastRunCheck = now; checkLatestRun(); refreshed = true; }
     if (refreshed) ui.lastFeeds = now;
   };
   window.__pcRefreshFeeds(true);
-  setInterval(() => { if (!document.hidden && !ui.paused) window.__pcRefreshFeeds(); }, 60e3);
+  setInterval(() => {
+    if (!document.hidden && !ui.paused) window.__pcRefreshFeeds();
+    // covered by another app screen: still look for a new run, so it can be swapped in unseen
+    else if (ui.paused && Date.now() - lastRunCheck >= RUN_CHECK_MS) { lastRunCheck = Date.now(); checkLatestRun(); }
+  }, 60e3);
 
   /* ── sheets ── */
   function openSheet(name) { ui.selected = null; lm.setSelected(null); pierCard(); clearBuoy(); document.querySelectorAll('.sheet').forEach((s) => { s.hidden = s.id !== 'sheet-' + name; }); $('#scrim').hidden = false; $('#attrib').hidden = true; updateAlerts(); }
@@ -657,9 +755,13 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#q').addEventListener('input', renderResults);
   $('#results').addEventListener('click', (e) => { const b = e.target.closest('.res'); if (b) selectPier(b.dataset.id, true); });
 
-  buildTrack(); setLayer(ui.layer); setTime(nowHour()); readout();
-  const openCity = APP && piers.find((p) => p.id === APP.cityId);
-  if (openCity) selectPier(openCity.id, true, true);
+  buildTrack(); setLayer(ui.layer);
+  const resumeHour = resume && !resume.atNow && Number.isFinite(resume.timeMs) ? (resume.timeMs - T0) / 3600e3 : null;
+  setTime(resumeHour !== null && resumeHour >= 0 && resumeHour <= maxHour ? resumeHour : nowHour()); readout();
+  const resumePier = resume && piers.find((p) => p.id === resume.selected);
+  const openCity = !resume && APP && piers.find((p) => p.id === APP.cityId);
+  if (resumePier) selectPier(resumePier.id, false, true);
+  else if (openCity) selectPier(openCity.id, true, true);
   post({ type: 'ready', run: lm.store.manifest.run || null, sample: !!lm.store.manifest.sample });
 })().catch((err) => {
   const l = document.getElementById('loading'); if (l) l.textContent = 'Map failed to load: ' + err.message;
