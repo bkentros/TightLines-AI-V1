@@ -51,7 +51,6 @@ import type { PierCastHourlyWeatherPoint } from "../../lib/pierCastWeather";
 import { hapticSelection } from "../../lib/safeHaptics";
 import { paper, paperFonts, paperShadows } from "../../lib/theme";
 import { CornerMarkSet, TopographicLines } from "../paper";
-import { PierCastAccessNotice } from "./PierCastConditionsSupport";
 import {
   BandChip,
   BandMeter,
@@ -303,7 +302,6 @@ function FiveDayOutlook({ days, selected, onSelect }: {
           )}
         </Text>
       ) : null}
-      <Text style={styles.calFine}>Tile color is that species' season rating. Air is the day's high/low.</Text>
     </Card>
   );
 }
@@ -642,10 +640,6 @@ function TemperatureOutlook({ report, shifts, reduceMotion }: {
           <Text style={styles.cardSub}>Water temperature guidance is unavailable right now.</Text>
         </View>
       )}
-      <Text style={styles.calFine}>
-        NOAA {report.source.productId.replace(/_/g, " ")} · cycle issued{" "}
-        {new Date(report.source.issuedAt).toLocaleString([], { weekday: "short", hour: "numeric", minute: "2-digit" })} · modeled values, not observed pier readings.
-      </Text>
     </Card>
   );
 }
@@ -919,9 +913,6 @@ export function PierCastConditionsCityReport({
         <FiveDayOutlook days={days} selected={daySelection} onSelect={setSelectedDay} />
       ) : null}
       <SpeciesSection report={report} reduceMotion={reduceMotion} onOpenStandings={onOpenStandings} />
-      <View style={styles.inset}>
-        <PierCastAccessNotice city={city} />
-      </View>
       <PierConditions
         report={report}
         weather={weather}
@@ -960,7 +951,6 @@ export function PierCastConditionsCityReport({
 const styles = StyleSheet.create({
   flex: { flex: 1, minWidth: 0 },
   pressed: { opacity: 0.78 },
-  inset: { marginHorizontal: 14 },
 
   savedBanner: { flexDirection: "row", alignItems: "flex-start", gap: 8, margin: 14, marginBottom: 0, padding: 11, backgroundColor: "#EAF4F9", borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 10 },
   savedBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 18 },
@@ -1008,7 +998,6 @@ const styles = StyleSheet.create({
   dayAir: { paddingVertical: 6, textAlign: "center", fontFamily: paperFonts.metaMonoBold, fontSize: 10, color: "#555555", backgroundColor: "#FAFAF7", borderTopWidth: 1, borderTopColor: "rgba(0,0,0,0.06)" },
   calNote: { marginTop: 12, textAlign: "center", fontFamily: paperFonts.body, fontSize: 14, lineHeight: 19, color: "#444444" },
   calNoteStrong: { fontFamily: paperFonts.bodyBold, color: INK },
-  calFine: { marginTop: 10, fontFamily: paperFonts.body, fontSize: 12, lineHeight: 17, color: "#777777" },
 
   sp: { overflow: "hidden", marginTop: 10, paddingVertical: 14, paddingRight: 14, paddingLeft: 18, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 14, backgroundColor: "#FFFFFF", gap: 10 },
   spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },

@@ -394,9 +394,7 @@ export function PierCastCityTemperatureChart({
         onMoveShouldSetResponder={() => true}
         onResponderGrant={scrubAt}
         onResponderMove={scrubAt}
-        onResponderRelease={() => setScrubIndex(null)}
-        onResponderTerminate={() => setScrubIndex(null)}
-        onResponderTerminationRequest={() => true}
+        onResponderTerminationRequest={() => false}
       />
       {scrub ? (
         <View pointerEvents="none" style={[styles.readout, { left: readoutLeft }]}>

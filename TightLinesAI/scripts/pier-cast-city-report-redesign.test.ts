@@ -263,6 +263,8 @@ test("chart model labels days on the x axis and °F on the y axis", () => {
 test("report screen is city-first: no species selector, no request-a-city, no scores", () => {
   const ui = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
+  const visuals = readFileSync("components/pier-cast/PierCastVisuals.tsx", "utf8");
+  const standings = readFileSync("components/pier-cast/PierCastStandings.tsx", "utf8");
   assert.doesNotMatch(ui, /PierCastTargetSelector|selectedSpeciesId|PierCastCoverageRequest/);
   assert.doesNotMatch(ui, /score\.toFixed|\/10\b/);
   assert.match(ui, /FiveDayOutlook/);
@@ -273,6 +275,10 @@ test("report screen is city-first: no species selector, no request-a-city, no sc
   assert.match(ui, /NEXT 120 HRS · HOURLY/);
   assert.match(ui, /slot\.localHour === 0/);
   assert.doesNotMatch(ui, /Pick a day above|EVERY 2 HRS/);
+  assert.doesNotMatch(ui, /Tile color is that species|cycle issued|productId\.replace|PierCastAccessNotice/);
+  assert.match(visuals, /onResponderTerminationRequest=\{\(\) => false\}/);
+  assert.doesNotMatch(visuals, /onResponderRelease=\{\(\) => setScrubIndex\(null\)\}/);
+  assert.match(standings, /footer: \{ marginTop: 18, marginHorizontal: 14 \}/);
   assert.match(screen, /onOpenStandings=\{openStandingsFor\}/);
 });
 
