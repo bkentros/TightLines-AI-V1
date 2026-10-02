@@ -6,10 +6,43 @@
  */
 export const FRAME_CACHE_BEHIND = 2;
 export const FRAME_CACHE_AHEAD = 4;
+/** Upper bound while playing fast (2× = 6 forecast hours a second). */
+export const FRAME_CACHE_MAX_AHEAD = 12;
+/** A frame that failed to download is retried after this long (never in a tight loop). */
+export const FRAME_RETRY_MS = 15000;
 
-/** Scalar PNGs need one byte/pixel; only wind needs its four RGBA channels. */
-export function compactFramePixels(path, rgba) {
+/**
+ * Calls fn(frame) once when a frame promise settles successfully. Safe to call
+ * on every render: each distinct callback is registered once per promise (one
+ * shared .then), and a failed download never surfaces as an unhandled rejection.
+ * Returns the frame when it is already decoded.
+ */
+export function onFrameReady(promise, fn) {
+  if (!promise) return undefined;
+  if (promise.__v) return promise.__v;
+  if (!promise.__waiting) {
+    const waiting = promise.__waiting = new Set();
+    promise.then((v) => { promise.__v = v; waiting.forEach((cb) => cb(v)); waiting.clear(); }, () => waiting.clear());
+  }
+  promise.__waiting.add(fn);
+  return undefined;
+}
+
+/**
+ * Frame encodings this page decodes. static-build/publish.py copies this list to
+ * map/capabilities.json after the page goes live; the data job only publishes
+ * an encoding listed there. "u8": 8-bit gray. "rgb16": value = R × 256 + G.
+ */
+export const FRAME_ENCODINGS = ['u8', 'rgb16'];
+
+/** Scalar PNGs need one value/pixel (8-bit, or 16-bit for rgb16); only wind keeps RGBA. */
+export function compactFramePixels(path, rgba, encoding = 'u8') {
   if (path.startsWith('wind/')) return { data: rgba, channels: 4 };
+  if (encoding === 'rgb16') {
+    const data = new Uint16Array(rgba.length / 4);
+    for (let src = 0, dst = 0; dst < data.length; src += 4, dst++) data[dst] = rgba[src] * 256 + rgba[src + 1];
+    return { data, channels: 1 };
+  }
   const data = new Uint8Array(rgba.length / 4);
   for (let src = 0, dst = 0; dst < data.length; src += 4, dst++) data[dst] = rgba[src];
   return { data, channels: 1 };
@@ -30,6 +63,55 @@ export function packScalarTexturePixels(data, nodata, channels = 1) {
     packed[dst + 1] = valid ? 255 : 0;
   }
   return packed;
+}
+
+/*
+ * Half floats for 16-bit frames. The color field keeps rgb16 frames on the GPU
+ * as RG16F (value − center, validity), which filters smoothly on every WebGL2
+ * device; centering keeps half-float error under ±0.013 °F across 30–82 °F.
+ */
+const halfBuf = new DataView(new ArrayBuffer(4));
+export function toHalf(x) {
+  halfBuf.setFloat32(0, x);
+  const f = halfBuf.getUint32(0), sign = (f >>> 16) & 0x8000;
+  let e = ((f >>> 23) & 0xff) - 127 + 15, m = f & 0x7fffff;
+  if (e <= 0) return sign; // tiny values are 0 at this scale
+  if (e >= 31) return sign | 0x7c00;
+  m += 0x1000; if (m & 0x800000) { m = 0; e += 1; if (e >= 31) return sign | 0x7c00; } // round to nearest
+  return sign | (e << 10) | (m >>> 13);
+}
+/** Native value at the middle of a 16-bit grid's working range (°F for temperature). */
+export const halfCenter = (grid) => grid.center ?? grid.offset + 26;
+const halfTables = new WeakMap();
+/** Packs a 16-bit frame as RG16F half floats: (value − center, 1) or (0, 0) for no data. */
+export function packScalarHalfPixels(data, grid, out = new Uint16Array(data.length * 2)) {
+  let table = halfTables.get(grid);
+  if (!table) {
+    table = new Uint16Array(65536);
+    const c = halfCenter(grid);
+    for (let raw = 0; raw < 65536; raw++) table[raw] = toHalf(raw / grid.scale + grid.offset - c);
+    halfTables.set(grid, table);
+  }
+  const ONE = 0x3c00, nodata = grid.nodata;
+  for (let i = 0, o = 0; i < data.length; i++, o += 2) {
+    const v = data[i];
+    if (v === nodata) { out[o] = 0; out[o + 1] = 0; } else { out[o] = table[v]; out[o + 1] = ONE; }
+  }
+  return out;
+}
+
+/**
+ * Value at fraction m between hours a and b, using the hours on either side
+ * (p before a, n after b) for smooth motion: Catmull-Rom, clamped to the range
+ * of a and b so it never invents a value neither hour has. Falls back to a
+ * straight blend at the ends of the run or next to missing data. The color
+ * field shader uses the same formula, so readouts match the picture.
+ */
+export function blendHours(p, a, b, n, m) {
+  if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(p) || !Number.isFinite(n)) return interpolateValidValues(a, b, m);
+  const m2 = m * m, m3 = m2 * m;
+  const v = 0.5 * (2 * a + (b - p) * m + (2 * p - 5 * a + 4 * b - n) * m2 + (3 * a - p - 3 * b + n) * m3);
+  return Math.min(Math.max(a, b), Math.max(Math.min(a, b), v));
 }
 
 /** Interpolates two samples without ever treating a missing value as data. */
@@ -79,29 +161,42 @@ export class FrameStore {
   load(path) {
     if (!this.images.has(path)) {
       let promise;
-      promise = new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.decoding = 'async';
-        img.onload = () => {
-          const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
-          const x = c.getContext('2d', { willReadFrequently: true, colorSpace: 'srgb' });
-          x.drawImage(img, 0, 0);
-          const rgba = x.getImageData(0, 0, img.width, img.height).data;
-          const compact = compactFramePixels(path, rgba);
-          const frame = { path, w: img.width, h: img.height, ...compact };
-          promise.__v = frame;
-          resolve(frame);
-          if (this.images.get(path) === promise) this.listeners.forEach((fn) => fn(frame));
-          else this.evictListeners.forEach((fn) => fn(path, frame));
-          c.width = 0; c.height = 0;
-        };
-        img.onerror = () => reject(new Error('Frame failed: ' + path));
-        img.src = this.url(path);
+      promise = this.decode(path).then((frame) => {
+        promise.__v = frame;
+        if (this.images.get(path) === promise) this.listeners.forEach((fn) => fn(frame));
+        else this.evictListeners.forEach((fn) => fn(path, frame));
+        return frame;
+      }, (err) => {
+        // forget the failure after a pause so the next prefetch tries again
+        setTimeout(() => { if (this.images.get(path) === promise) this.images.delete(path); }, FRAME_RETRY_MS);
+        throw err;
       });
+      promise.catch(() => {}); // callers that only prefetch never see the rejection
       this.images.set(path, promise);
     }
     return this.images.get(path);
+  }
+  /**
+   * Download + decode one PNG into compact pixels. Off the main thread when the
+   * WebView allows it (a background worker with OffscreenCanvas), so playback
+   * never stutters while the next hours arrive; otherwise the classic <img> path.
+   */
+  async decode(path) {
+    const scalar = !path.startsWith('wind/'), grid = this.gridFor(path);
+    const nodata = scalar ? grid?.nodata : undefined, encoding = (scalar && grid?.encoding) || 'u8';
+    if (!FRAME_ENCODINGS.includes(encoding)) throw new Error(`Frame encoding ${encoding} is not supported by this page`);
+    const url = new URL(this.url(path), location.origin).href;
+    const worker = frameDecoder();
+    if (worker) {
+      try { return { path, ...(await worker.decode(url, scalar, nodata, encoding)) }; } catch (err) {
+        if (!err || err.message !== 'unsupported') throw new Error('Frame failed: ' + path);
+      }
+    }
+    return decodeOnPage(url, path, encoding);
+  }
+  gridFor(path) {
+    const kind = path.split('/')[0];
+    return this.manifest?.grids?.[kind] || (path === this.manifest?.depth ? this.manifest.grids.depth : null);
   }
   /** The two frames around hour t and the blend between them. */
   bracket(t) {
@@ -111,8 +206,21 @@ export class FrameStore {
     return { ia: i, ib: Math.min(hs.length - 1, i + 1), a, b, mix: b > a ? Math.min(1, Math.max(0, (t - a) / (b - a))) : 0 };
   }
   framePath(kind, index) { return this.manifest.frames[index][kind]; }
+  /**
+   * How many forecast hours ahead to keep decoded. One store-wide setting, so
+   * every caller (engine, color field, wind streaks) agrees on the same window;
+   * playback raises it to cover about a second and a half of play.
+   */
+  setLookahead(hours) { this.ahead = Math.max(FRAME_CACHE_AHEAD, Math.min(FRAME_CACHE_MAX_AHEAD, Math.ceil(hours))); }
+  lookahead() { return this.ahead ?? FRAME_CACHE_AHEAD; }
+  /** true when the frames on both sides of hour t are downloaded and decoded. */
+  isLoaded(kind, t) {
+    const { ia, ib } = this.bracket(t);
+    return [ia, ib].every((i) => { const p = this.images.get(this.framePath(kind, i)); return !!(p && p.__v); });
+  }
   /** Starts loading frames for the next few steps so playback never waits. */
-  prefetch(t, kinds, ahead = 3) {
+  prefetch(t, kinds, ahead = 0) {
+    ahead = Math.max(ahead, this.lookahead());
     const { ia } = this.bracket(t);
     for (let k = -1; k <= ahead; k++) {
       const i = Math.min(this.hours.length - 1, Math.max(0, ia + k));
@@ -121,9 +229,9 @@ export class FrameStore {
     this.prune(t, kinds, ahead);
   }
   /** Keep a small decoded window around playback; immutable HTTP caching handles rewinds. */
-  prune(t, kinds, ahead = 3) {
+  prune(t, kinds, ahead = 0) {
     const { ia } = this.bracket(t), keep = new Set();
-    for (let k = -FRAME_CACHE_BEHIND; k <= Math.max(ahead, FRAME_CACHE_AHEAD); k++) {
+    for (let k = -FRAME_CACHE_BEHIND; k <= Math.max(ahead, this.lookahead()); k++) {
       const i = Math.min(this.hours.length - 1, Math.max(0, ia + k));
       kinds.forEach((kind) => keep.add(this.framePath(kind, i)));
     }
@@ -135,6 +243,100 @@ export class FrameStore {
     }
   }
   loaded(path) { return this.images.get(path); }
+}
+
+/* ── frame decoding ── */
+/** Main-thread decode (older WebViews): <img> → canvas → compact pixels. */
+function decodeOnPage(url, path, encoding) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.decoding = 'async';
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+      const x = c.getContext('2d', { willReadFrequently: true, colorSpace: 'srgb' });
+      x.drawImage(img, 0, 0);
+      const rgba = x.getImageData(0, 0, img.width, img.height).data;
+      resolve({ path, w: img.width, h: img.height, ...compactFramePixels(path, rgba, encoding) });
+      c.width = 0; c.height = 0;
+    };
+    img.onerror = () => reject(new Error('Frame failed: ' + path));
+    img.src = url;
+  });
+}
+
+/*
+ * Background decoder. The worker is built from a Blob (the page's CSP allows
+ * blob: workers) and reuses packScalarTexturePixels' own source, so the GPU
+ * packing is identical to the main-thread path. Scalar frames come back as
+ * one byte per pixel for CPU sampling plus the packed (value, validity) pairs
+ * the color field uploads; wind keeps RGBA.
+ */
+function workerSource() {
+  return `const pack = ${packScalarTexturePixels.toString()};
+self.onmessage = async (e) => {
+  const { id, url, scalar, nodata, encoding } = e.data;
+  try {
+    if (typeof OffscreenCanvas === 'undefined' || typeof createImageBitmap === 'undefined') throw new Error('unsupported');
+    const res = await fetch(url, { credentials: 'same-origin' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const bmp = await createImageBitmap(await res.blob(), { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+    const w = bmp.width, h = bmp.height, c = new OffscreenCanvas(w, h);
+    const x = c.getContext('2d', { willReadFrequently: true });
+    if (!x) throw new Error('unsupported');
+    x.drawImage(bmp, 0, 0); if (bmp.close) bmp.close();
+    const rgba = x.getImageData(0, 0, w, h).data;
+    if (!scalar) {
+      const data = new Uint8Array(rgba.buffer, rgba.byteOffset, rgba.length);
+      self.postMessage({ id, w, h, data, channels: 4 }, [data.buffer]);
+      return;
+    }
+    if (encoding === 'rgb16') {
+      // 16-bit frames are packed for the GPU (half floats) only when uploaded
+      const data16 = new Uint16Array(w * h);
+      for (let i = 0; i < data16.length; i++) data16[i] = rgba[i * 4] * 256 + rgba[i * 4 + 1];
+      self.postMessage({ id, w, h, data: data16, channels: 1 }, [data16.buffer]);
+      return;
+    }
+    const data = new Uint8Array(w * h);
+    for (let i = 0; i < data.length; i++) data[i] = rgba[i * 4];
+    const packed = pack(data, nodata, 1);
+    self.postMessage({ id, w, h, data, packed, channels: 1 }, [data.buffer, packed.buffer]);
+  } catch (err) {
+    self.postMessage({ id, error: String((err && err.message) || err) });
+  }
+};`;
+}
+
+let decoder;
+/** The shared background decoder, or null when workers are unavailable. */
+export function frameDecoder() {
+  if (decoder !== undefined) return decoder;
+  decoder = null;
+  try {
+    if (typeof Worker === 'undefined' || typeof Blob === 'undefined' || typeof URL.createObjectURL !== 'function') return decoder;
+    const worker = new Worker(URL.createObjectURL(new Blob([workerSource()], { type: 'text/javascript' })));
+    const pending = new Map(); let next = 1;
+    const fail = (message) => { pending.forEach(({ reject }) => reject(new Error(message))); pending.clear(); };
+    worker.onmessage = ({ data }) => {
+      const job = pending.get(data.id); if (!job) return;
+      pending.delete(data.id);
+      if (data.error) {
+        if (data.error === 'unsupported') decoder = null; // this WebView decodes on the page instead
+        job.reject(new Error(data.error));
+      } else job.resolve({ w: data.w, h: data.h, data: data.data, packed: data.packed || null, channels: data.channels });
+    };
+    worker.onerror = (e) => { e.preventDefault?.(); decoder = null; fail('unsupported'); };
+    decoder = {
+      decode(url, scalar, nodata, encoding) {
+        return new Promise((resolve, reject) => {
+          const id = next++; pending.set(id, { resolve, reject });
+          worker.postMessage({ id, url, scalar, nodata, encoding });
+        });
+      },
+    };
+  } catch { decoder = null; }
+  return decoder;
 }
 
 /* ── CPU sampling of decoded grids ── */

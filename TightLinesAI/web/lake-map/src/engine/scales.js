@@ -22,8 +22,10 @@ export function paletteBytes(name) {
   }
   return out;
 }
+const rampCache = {};
+/** CSS color for a native value; the 256-step ramp is built once per palette (pier pills call this every frame). */
 export function colorAt(name, v) {
-  const p = PALETTES[name], bytes = paletteBytes(name), i = Math.round(Math.min(1, Math.max(0, (v - p.min) / (p.max - p.min))) * 255) * 4;
+  const p = PALETTES[name], bytes = rampCache[name] || (rampCache[name] = paletteBytes(name)), i = Math.round(Math.min(1, Math.max(0, (v - p.min) / (p.max - p.min))) * 255) * 4;
   return `rgb(${bytes[i]},${bytes[i + 1]},${bytes[i + 2]})`;
 }
 
@@ -38,6 +40,15 @@ export const toTemp = (f, u) => u === 'C' ? (f - 32) * 5 / 9 : f;
 export const fromTemp = (v, u) => u === 'C' ? v * 9 / 5 + 32 : v;
 export const toWind = (mph, u) => mph * UNIT_SETS.wind[u].k;
 export const toLength = (ft, u) => ft * UNIT_SETS.length[u].k;
+/**
+ * Frames store values in fixed steps, so a reading can sit exactly on a band
+ * edge (60.0 °F). Every band decision (shader, labels, pier pills) nudges by
+ * this fraction of a band so such a reading always lands in the same band,
+ * instead of flickering between two bands on float rounding.
+ */
+export const BAND_EPS = 0.002;
+export const bandIndex = (disp, width) => Math.floor(disp / width + BAND_EPS);
+
 /** Band width in display units: 2 °F, or 1 °C. */
 export const tempBand = (u) => u === 'C' ? 1 : 2;
 

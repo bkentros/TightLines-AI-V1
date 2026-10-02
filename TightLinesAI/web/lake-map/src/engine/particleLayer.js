@@ -7,7 +7,7 @@
  * the map is moving, like other wind maps do.
  */
 import { compile, texture, buffer, bindAttr, bindTex, mercX, mercY } from './gl.js';
-import { gridBox } from './frames.js';
+import { gridBox, onFrameReady } from './frames.js';
 
 const QUAD_VS = `#version 300 es
 in vec2 a_pos; out vec2 v_uv;
@@ -91,6 +91,7 @@ export class ParticleLayer {
   }
   onAdd(map, gl) {
     this.map = map; this.gl = gl;
+    this.repaint = () => map.triggerRepaint(); // one stable callback per layer
     this.pUpdate = compile(gl, QUAD_VS, UPDATE_FS);
     this.pDraw = compile(gl, DRAW_VS, DRAW_FS);
     this.pFade = compile(gl, QUAD_VS, FADE_FS);
@@ -101,10 +102,12 @@ export class ParticleLayer {
     const clear = () => { this.moving = true; this.clearTrails = true; map.triggerRepaint(); };
     map.on('movestart', clear); map.on('move', clear);
     map.on('moveend', () => { this.moving = false; this.clearTrails = true; map.triggerRepaint(); });
+    // keep streaks flowing on the hour already on screen while a jump loads
+    this.held = new Set();
     this.stopEvict = this.store.onEvict((path) => {
-      const tex = this.windTex.get(path);
-      if (tex) { gl.deleteTexture(tex); this.windTex.delete(path); }
-      if (this.last?.some((frame) => frame?.path === path)) this.last = null;
+      if (!this.windTex.has(path)) return;
+      if (this.last?.some((frame) => frame?.path === path)) this.held.add(path);
+      else { gl.deleteTexture(this.windTex.get(path)); this.windTex.delete(path); }
     });
     this.lastTime = performance.now();
   }
@@ -121,11 +124,15 @@ export class ParticleLayer {
   ensureScreen(gl, w, h) {
     if (this.sw === w && this.sh === h) return;
     this.sw = w; this.sh = h;
+    // free the old trail buffers: each is a full drawing-buffer texture (~12 MB on a 3x phone)
+    if (this.screen0) gl.deleteTexture(this.screen0);
+    if (this.screen1) gl.deleteTexture(this.screen1);
     const empty = new Uint8Array(w * h * 4);
     this.screen0 = texture(gl, { width: w, height: h, data: empty, filter: gl.NEAREST });
     this.screen1 = texture(gl, { width: w, height: h, data: empty, filter: gl.NEAREST });
   }
   wind(frame) {
+    this.held.delete(frame.path);
     if (!this.windTex.has(frame.path)) this.windTex.set(frame.path, texture(this.gl, {
       width: frame.w, height: frame.h, data: frame.data || frame.rgba, filter: this.gl.LINEAR,
     }));
@@ -135,8 +142,15 @@ export class ParticleLayer {
     const s = this.store, br = s.bracket(this.t);
     const pa = s.loaded(s.framePath('wind', br.ia)), pb = s.loaded(s.framePath('wind', br.ib));
     s.prefetch(this.t, ['wind']);
-    const A = pa && (pa.__v || (pa.then((v) => { pa.__v = v; }), null)), B = pb && (pb.__v || (pb.then((v) => { pb.__v = v; }), null));
-    if (A && B) this.last = [A, B, br.mix];
+    const A = pa && (pa.__v || onFrameReady(pa, this.repaint)), B = pb && (pb.__v || onFrameReady(pb, this.repaint));
+    if (A && B) {
+      this.last = [A, B, br.mix];
+      for (const path of this.held) {
+        if (path === A.path || path === B.path) continue;
+        this.held.delete(path); const tex = this.windTex.get(path);
+        if (tex) { this.gl.deleteTexture(tex); this.windTex.delete(path); }
+      }
+    }
     return this.last;
   }
   viewRect() {

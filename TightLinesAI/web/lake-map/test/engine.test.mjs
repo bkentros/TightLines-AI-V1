@@ -8,7 +8,10 @@ import {
   FrameStore,
   gridCubicSampler,
   gridSampler,
+  FRAME_CACHE_AHEAD,
+  FRAME_CACHE_MAX_AHEAD,
   interpolateValidValues,
+  onFrameReady,
   packScalarTexturePixels,
 } from '../src/engine/frames.js';
 
@@ -164,6 +167,133 @@ test('five-day playback keeps only a bounded decoded frame window', () => {
   assert.equal(store.images.size, 7);
   assert.equal(evicted, 114);
   assert.deepEqual([...store.images.keys()], Array.from({ length: 7 }, (_, i) => `temp/${String(i + 58).padStart(3, '0')}.png`));
+});
+
+test('frame-ready callbacks fire once per waiter and swallow failed downloads', async () => {
+  let a = 0, b = 0;
+  const fa = () => a++, fb = () => b++;
+  const ok = Promise.resolve({ path: 'temp/001.png' });
+  for (let i = 0; i < 5; i++) { assert.equal(onFrameReady(ok, fa), undefined); onFrameReady(ok, fb); }
+  await ok; await Promise.resolve();
+  assert.equal(a, 1, 'repeated renders register a callback once');
+  assert.equal(b, 1, 'a second waiter is not dropped');
+  assert.deepEqual(onFrameReady(ok, fa), { path: 'temp/001.png' });
+  const failed = Promise.reject(new Error('offline'));
+  onFrameReady(failed, fa);
+  await new Promise((r) => setTimeout(r, 0));
+  assert.equal(a, 1);
+});
+
+test('a frame that failed to download is retried after a pause, not in a loop', () => {
+  const source = readFileSync(new URL('../src/engine/frames.js', import.meta.url), 'utf8');
+  assert.match(source, /this\.decode\(path\)[\s\S]{0,400}setTimeout\([\s\S]{0,120}this\.images\.delete\(path\)[\s\S]{0,20}FRAME_RETRY_MS/);
+  for (const file of ['index.js', 'fieldLayer.js', 'particleLayer.js']) {
+    const layer = readFileSync(new URL(`../src/engine/${file}`, import.meta.url), 'utf8');
+    assert.doesNotMatch(layer, /\.then\(\(v\) => \{ p[ab]?\.__v = v/, `${file} attaches unguarded frame callbacks`);
+  }
+});
+
+test('wind-streak trail buffers are freed when the map is resized', () => {
+  const source = readFileSync(new URL('../src/engine/particleLayer.js', import.meta.url), 'utf8');
+  assert.match(source, /ensureScreen[\s\S]{0,320}deleteTexture\(this\.screen0\)[\s\S]{0,80}deleteTexture\(this\.screen1\)/);
+});
+
+test('the forecast clock never reads "1d 24h" and a cancelled touch ends a timeline drag', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(source, /aheadH = Math\.round\(ahead\)/);
+  assert.doesNotMatch(source, /Math\.round\(ahead % 24\)/);
+  assert.match(source, /\['pointerup', 'pointercancel', 'lostpointercapture'\]/);
+});
+
+test('a reading exactly on a band edge always lands in one band, with no edge line over flat water', async () => {
+  const { bandIndex, BAND_EPS } = await import('../src/engine/scales.js');
+  // 60.0 °F is a stored value (0.2 °F steps) and a 2 °F band edge
+  assert.equal(bandIndex(60.0, 2), 30);
+  assert.equal(bandIndex(60.0 - 1e-6, 2), 30, 'float noise below the edge stays in the same band');
+  assert.equal(bandIndex(59.8, 2), 29);
+  assert.ok(BAND_EPS * 2 < 0.2 / 2, 'the nudge is far smaller than half a stored step');
+  const shader = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
+  assert.match(shader, /float q = disp \/ u_band \+ BAND_EPS/);
+  assert.equal((shader.match(/step\(FLAT, w\)/g) || []).length, 3, 'band, depth and species lines all skip flat water');
+  for (const file of ['bandLabels.js', 'index.js']) {
+    const source = readFileSync(new URL(`../src/engine/${file}`, import.meta.url), 'utf8');
+    assert.match(source, /bandIndex\(/, `${file} uses the shared band rule`);
+    assert.doesNotMatch(source, /Math\.floor\(\(\w+ \* \w+\.a \+ \w+\.b\) \/ \w+\.width\)/);
+  }
+});
+
+test('one look-ahead window is shared by every caller and bounded while playing fast', () => {
+  const store = Object.create(FrameStore.prototype);
+  store.hours = Array.from({ length: 121 }, (_, i) => i);
+  store.manifest = { frames: store.hours.map((hour) => ({ hour, temp: `temp/${String(hour).padStart(3, '0')}.png` })) };
+  store.images = new Map(); store.evictListeners = new Set();
+  store.load = (path) => { if (!store.images.has(path)) { const p = Promise.resolve({ path }); p.__v = { path }; store.images.set(path, p); } return store.images.get(path); };
+  assert.equal(store.lookahead(), FRAME_CACHE_AHEAD);
+  store.setLookahead(3 * 2 * 1.5 + 2); // 2× playback
+  assert.equal(store.lookahead(), 11);
+  store.prefetch(40, ['temp']);
+  store.prefetch(40, ['temp'], 3); // a layer asking for less must not shrink the window
+  assert.ok(store.images.has('temp/051.png'));
+  assert.ok(store.isLoaded('temp', 50.5));
+  assert.ok(!store.isLoaded('temp', 70.5));
+  store.setLookahead(100); assert.equal(store.lookahead(), FRAME_CACHE_MAX_AHEAD);
+  store.setLookahead(0); assert.equal(store.lookahead(), FRAME_CACHE_AHEAD);
+});
+
+test('playback waits for the next hour instead of running ahead, at a zoom-independent speed', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(source, /const SPEEDS = \[0\.5, 1, 1\.5, 2\]/);
+  assert.match(source, /if \(!lm\.ready\(t\)/);
+  assert.doesNotMatch(source, /getZoom\(\) < 7\.5/);
+  assert.match(source, /speed: ui\.speed \}\)\); \}/, 'the chosen speed is remembered');
+  const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
+  for (const v of ['0.5', '1', '1.5', '2']) assert.match(page, new RegExp(`data-speed="${v.replace('.', '\\.')}"`));
+  assert.match(page, /id="speed"[^>]+aria-haspopup="menu"/);
+});
+
+test('frames decode off the main thread with the same GPU packing', () => {
+  const source = readFileSync(new URL('../src/engine/frames.js', import.meta.url), 'utf8');
+  assert.match(source, /const pack = \$\{packScalarTexturePixels\.toString\(\)\}/);
+  assert.match(source, /OffscreenCanvas/);
+  assert.match(source, /decodeOnPage\(url, path, encoding\)/, 'older WebViews fall back to the page');
+  const field = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
+  assert.match(field, /frame\.packed \|\| packScalarTexturePixels/);
+  assert.match(field, /prerender\(\)[\s\S]{0,600}this\.tex\(p\.__v, grid\)/, 'upcoming hours upload before they are needed');
+  assert.match(field, /if \(this\.onScreen\(path\)\) this\.held\.add\(path\)/, 'a released hour still on screen is kept');
+  assert.match(field, /return this\.lastBy\[kind\] \|\| null/, 'a layer never borrows another layer\'s frames');
+});
+
+test('16-bit frames decode exactly and pack as centered half floats', async () => {
+  const { packScalarHalfPixels, halfCenter, blendHours } = await import('../src/engine/frames.js');
+  const rgba = new Uint8ClampedArray([3, 232, 0, 255, 255, 255, 0, 255]); // 1000 = 80.0 °F, then no data
+  const f = compactFramePixels('temp/000.png', rgba, 'rgb16');
+  assert.ok(f.data instanceof Uint16Array);
+  assert.deepEqual([...f.data], [1000, 65535]);
+  const grid = { scale: 20, offset: 30, nodata: 65535, encoding: 'rgb16' };
+  const half = packScalarHalfPixels(f.data, grid);
+  const h2f = (h) => { const e = (h >> 10) & 31, m = h & 1023, s = h & 0x8000 ? -1 : 1; return e ? s * 2 ** (e - 15) * (1 + m / 1024) : s * 2 ** -14 * (m / 1024); };
+  assert.ok(Math.abs(h2f(half[0]) + halfCenter(grid) - 80) < 0.02);
+  assert.equal(half[1], 0x3c00);
+  assert.deepEqual([half[2], half[3]], [0, 0], 'no data is (0, 0)');
+  // smooth motion never leaves the range of the two current hours
+  for (let m = 0; m <= 1; m += 0.1) {
+    const v = blendHours(40, 50, 52, 70, m);
+    assert.ok(v >= 50 - 1e-9 && v <= 52 + 1e-9);
+  }
+  assert.equal(blendHours(48, 50, 52, 54, 0), 50);
+  assert.equal(blendHours(48, 50, 52, 54, 1), 52);
+  assert.equal(blendHours(NaN, 50, 52, 54, 0.25), 50.5, 'run ends fall back to a straight blend');
+});
+
+test('a new forecast never interrupts the viewer and resumes at the same spot', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /hasNewPublishedRun\(activeRun, latest\)\) \{\s*track_\('map_data_refresh'[^}]*location\.reload\(\)/);
+  assert.match(source, /if \(ui\.paused \|\| document\.hidden\) applyUpdate\(true\);\s*else \$\('#update'\)\.hidden = false;/);
+  assert.match(source, /if \(paused && window\.__pcApplyUpdate\) window\.__pcApplyUpdate\(true\)/);
+  assert.match(source, /center: \[c\.lng, c\.lat\], zoom: lm\.map\.getZoom\(\), timeMs: tMs\(\)/);
+  const shader = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
+  assert.match(shader, /internal: gl\.RG16F, format: gl\.RG, type: gl\.HALF_FLOAT/);
+  assert.match(shader, /trim\(ia\)/, 'GPU textures stay bounded around the playhead');
 });
 
 /* ── band labels ── */

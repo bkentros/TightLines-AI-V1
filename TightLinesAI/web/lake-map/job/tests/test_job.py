@@ -21,7 +21,7 @@ sys.path.insert(0, str(JOB))
 import build  # noqa: E402
 from lakemap import dap, encode, gfs, net, ofs, regrid, store, waves, wind  # noqa: E402
 from lakemap.config import (DOMAIN, OPEN_METEO_MAX_RUNS_PER_DAY,
-                            OPEN_METEO_MONTHLY_CALL_BUDGET, TEMP, WAVES, WIND,
+                            OPEN_METEO_MONTHLY_CALL_BUDGET, TEMP, TEMP16, WAVES, WIND,
                             WIND_LAKES)  # noqa: E402
 
 NOW = datetime(2026, 9, 30, 15, 30, tzinfo=timezone.utc)
@@ -349,10 +349,13 @@ class FullRunTest(unittest.TestCase):
                 self.assertTrue((self.rdir / f[k]).exists())
 
     def test_temperature_values_and_nodata(self):
-        g = encode.decode_scalar((self.rdir / "temp/000.png").read_bytes(), TEMP)
+        self.assertEqual(self.manifest["grids"]["temp"].get("encoding"), "rgb16")  # local builds use 0.05 °F frames
+        self.assertEqual(self.manifest["grids"]["temp"]["scale"], 20)
+        self.assertEqual(self.manifest["grids"]["temp"]["nodata"], 65535)
+        g = encode.decode_scalar((self.rdir / "temp/000.png").read_bytes(), TEMP16)
         j, i = self.cell(TEMP, 43.0, -87.2)
         want_f = (10 + (43.0 - 42) * 0.5 + 6) * 9 / 5 + 32
-        self.assertAlmostEqual(float(g[j, i]), want_f, delta=0.25)
+        self.assertAlmostEqual(float(g[j, i]), want_f, delta=0.05)
         j, i = self.cell(TEMP, 47.5, -87.5)  # Lake Superior: no model in this test → no data
         self.assertTrue(np.isnan(g[j, i]))
         j, i = self.cell(TEMP, 43.0, -85.0)  # inland Michigan → no data
@@ -430,3 +433,34 @@ class WindMergeTest(unittest.TestCase):
         self.assertEqual(gfs.steps_for(0, 121), list(range(0, 121, 3)))
         self.assertEqual(gfs.steps_for(4, 121)[0], 3)
         self.assertEqual(gfs.steps_for(4, 121)[-1], 126)
+
+
+class TemperatureEncodingTest(unittest.TestCase):
+    def test_rgb16_round_trip_is_within_half_a_step(self):
+        vals = np.array([[33.09, 55.69, 79.91], [np.nan, 60.0, 41.29]], np.float32)
+        back = encode.decode_scalar(encode.scalar_png(vals, TEMP16), TEMP16)
+        ok = np.isfinite(vals)
+        self.assertTrue(np.isnan(back[1, 0]))
+        self.assertLessEqual(float(np.max(np.abs(back[ok] - vals[ok]))), 0.025 + 1e-4)
+        u8 = encode.decode_scalar(encode.scalar_png(vals, TEMP), TEMP)
+        self.assertGreater(float(np.max(np.abs(u8[ok] - vals[ok]))), 0.05)  # the old 0.2 °F steps
+
+    def test_production_waits_for_the_live_page_to_support_rgb16(self):
+        log = lambda *a, **k: None
+        with patch.object(build.store, "read_json", return_value=None):
+            self.assertIs(build.choose_temp_grid("auto", object(), log), TEMP)
+        with patch.object(build.store, "read_json", return_value={"frameEncodings": ["u8"]}):
+            self.assertIs(build.choose_temp_grid("auto", object(), log), TEMP)
+        with patch.object(build.store, "read_json", return_value={"frameEncodings": ["u8", "rgb16"]}) as read:
+            self.assertIs(build.choose_temp_grid("auto", object(), log), TEMP16)
+            self.assertEqual(read.call_args[0][1], "map/capabilities.json")
+        self.assertIs(build.choose_temp_grid("auto", None, log), TEMP16)  # local build
+        self.assertIs(build.choose_temp_grid("u8", object(), log), TEMP)
+
+    def test_publish_declares_capabilities_only_after_the_page(self):
+        text = (Path(__file__).resolve().parents[2] / "static-build" / "publish.py").read_text()
+        self.assertLess(text.index('s3.upload_file(str(f), store.bucket(), key, ExtraArgs={"ContentType": kind'),
+                        text.index("store.put(s3, PAGE_CAPABILITIES_KEY"))
+        frames = (Path(__file__).resolve().parents[2] / "src" / "engine" / "frames.js").read_text()
+        self.assertIn("FRAME_ENCODINGS = ['u8', 'rgb16']", frames)
+

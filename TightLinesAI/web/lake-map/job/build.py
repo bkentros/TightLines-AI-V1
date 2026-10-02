@@ -30,7 +30,8 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lakemap import gfs, net, ofs, seagull, store, waves, wind  # noqa: E402
 from lakemap.config import (DEPTH, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, GEO_VERSION,  # noqa: E402
-                            HOURS, OFS_MODELS, PIERS_PATH, SIGNALS_EVENTS_SCRIPT, TEMP, WAVES, WIND)
+                            HOURS, OFS_MODELS, PAGE_CAPABILITIES_KEY, PIERS_PATH, SIGNALS_EVENTS_SCRIPT, TEMP,
+                            TEMP16, WAVES, WIND)
 from lakemap.encode import scalar_png, wind_png  # noqa: E402
 from lakemap.regrid import Regridder, combine, fill_nearest, target_mask, water_mask  # noqa: E402
 
@@ -429,6 +430,29 @@ def load_env_file(path: Path, log):
             log(f"  line {i}: name {name!r}, separator {sep!r}, value {len(l)} chars total (hidden)")
 
 
+def choose_temp_grid(requested: str, s3, log):
+    """0.05 °F frames only when the live map page can decode them.
+
+    Production asks the bucket: publish.py writes PAGE_CAPABILITIES_KEY right
+    after uploading a page that reads "rgb16". Without that file (or when it
+    cannot be read) the job keeps the 8-bit format every page understands.
+    Local builds (no upload) default to the new format.
+    """
+    if requested == "u8":
+        return TEMP
+    if requested == "rgb16":
+        return TEMP16
+    if s3 is None:
+        return TEMP16
+    caps = store.read_json(s3, PAGE_CAPABILITIES_KEY)
+    encodings = caps.get("frameEncodings") if isinstance(caps, dict) else None
+    if isinstance(encodings, list) and "rgb16" in encodings:
+        log("Temperature frames: 0.05 °F (live map page supports rgb16)")
+        return TEMP16
+    log("Temperature frames: 0.2 °F (live map page has not declared rgb16 support yet)")
+    return TEMP
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="out")
@@ -437,6 +461,8 @@ def main(argv=None):
     ap.add_argument("--now", help="pretend it is this UTC time (ISO), for replays")
     ap.add_argument("--workers", type=int, default=4, help="parallel downloads per lake model")
     ap.add_argument("--env-file", help="read R2_* and OPEN_METEO_API_KEY from this .env file")
+    ap.add_argument("--temp-encoding", choices=("auto", "u8", "rgb16"), default="auto",
+                    help="temperature frame precision; auto = 0.05 °F (rgb16) once the live map page supports it")
     args = ap.parse_args(argv)
     log = Log()
     if args.env_file:
@@ -500,6 +526,7 @@ def main(argv=None):
     u, v = gfs.merge(u_lake, v_lake, u_wide, v_wide)
     log.mark("wind")
 
+    temp_grid = choose_temp_grid(args.temp_encoding, s3, log)
     run_id = f"{t0:%Y%m%dT%H}Z-{now:%m%d%H%M}"
     out = Path(args.out)
     run_dir = out / "runs" / run_id
@@ -508,7 +535,7 @@ def main(argv=None):
     manifest_frames, sizes = [], {"temp": [], "wind": [], "waves": []}
     for h in range(HOURS):
         name = f"{h:03d}.png"
-        blobs = {"temp": scalar_png(frames[h], TEMP), "wind": wind_png(u[h], v[h], WIND),
+        blobs = {"temp": scalar_png(frames[h], temp_grid), "wind": wind_png(u[h], v[h], WIND),
                  "waves": scalar_png(wave_frames[h], WAVES)}
         for k, b in blobs.items():
             (run_dir / k / name).write_bytes(b)
@@ -542,7 +569,7 @@ def main(argv=None):
     manifest = {
         "formatVersion": FORMAT_VERSION, "sample": False, "run": run_id,
         "cycle": iso(t0), "generatedAt": iso(now), "domain": DOMAIN,
-        "grids": {g.name: g.manifest() for g in (TEMP, WIND, WAVES, DEPTH)},
+        "grids": {g.name: g.manifest() for g in (temp_grid, WIND, WAVES, DEPTH)},
         "frames": manifest_frames, "depth": "depth.png" if depth is not None else None, "events": "events.json",
         "verification": "verification.json",
         "geo": f"../../static/geo-{GEO_VERSION}.json",

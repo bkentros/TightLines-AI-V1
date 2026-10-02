@@ -8,6 +8,7 @@ phone prototype to the Cloudflare bucket.
 Large files arrive from Claude in 19 MB parts (name.pmtiles.part000 …); they
 are joined here before upload. Keys come from ../../../.env like the data job.
 """
+import json
 import mimetypes
 import os
 import re
@@ -19,6 +20,7 @@ LM = HERE.parent
 sys.path.insert(0, str(LM / "job"))
 from build import Log, load_env_file  # noqa: E402
 from lakemap import store  # noqa: E402
+from lakemap.config import PAGE_CAPABILITIES_KEY  # noqa: E402
 
 log = Log()
 load_env_file(LM.parent.parent / ".env", log)
@@ -84,4 +86,14 @@ for prefix in ("map",):
         cache = "public, max-age=60" if f.name == "index.html" else YEAR
         s3.upload_file(str(f), store.bucket(), key, ExtraArgs={"ContentType": kind, "CacheControl": cache})
         log(f"uploaded {key}")
+
+# Only after the page is live: tell the data job which frame encodings this page
+# decodes (src/engine/frames.js FRAME_ENCODINGS). The job reads this before every
+# run and never publishes a format the live page cannot read.
+encodings = re.search(r"FRAME_ENCODINGS = \[([^\]]*)\]", (LM / "src/engine/frames.js").read_text())
+caps = {"frameEncodings": re.findall(r"'([\w-]+)'", encodings.group(1)) if encodings else ["u8"]}
+if not (proto / "app.js").exists():
+    sys.exit("static-build/proto/app.js missing — build the page and copy dist/* into proto/ first")
+store.put(s3, PAGE_CAPABILITIES_KEY, json.dumps(caps).encode(), "no-store")
+log(f"uploaded {PAGE_CAPABILITIES_KEY} {caps}")
 log("done — for a phone-browser test link run: python3 static-build/test_pass.py")

@@ -9,7 +9,7 @@
  * anchor keeps its old spot as long as it is still well inside its band, so
  * playback moves labels only when the band itself moves.
  */
-import { bandSpec } from './scales.js';
+import { bandSpec, bandIndex } from './scales.js';
 import { gridBox, interpolateValidValues } from './frames.js';
 
 const RES = 0.04;
@@ -90,7 +90,7 @@ export class BandLabeler {
     const cls = new Int32Array(N);
     for (let k = 0; k < N; k++) {
       const v = interpolateValidValues(A[k], B[k], m);
-      cls[k] = Number.isFinite(v) ? Math.floor((v * bs.a + bs.b) / bs.width) : -99999;
+      cls[k] = Number.isFinite(v) ? bandIndex(v * bs.a + bs.b, bs.width) : -99999;
     }
     // distance (in north-south cells) to the nearest cell of another band or land
     const dist = new Float32Array(N);
