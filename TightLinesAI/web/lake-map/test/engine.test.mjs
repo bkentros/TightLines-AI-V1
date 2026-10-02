@@ -148,9 +148,10 @@ test('map credits use a compact disclosure while preserving required attribution
   assert.match(page, /<button id="attrib"[^>]+>i<\/button>/);
   assert.match(page, /id="sheet-credits"/);
   assert.doesNotMatch(page, /<div id="attrib"/);
-  assert.match(layers, /openstreetmap\.org\/copyright/);
-  assert.match(layers, /openmaptiles\.org/);
-  assert.match(layers, /open-meteo\.com/);
+  // exact attribution links (plain string checks, not URL regexes)
+  for (const href of ['href="https://www.openstreetmap.org/copyright"', 'href="https://openmaptiles.org/"', 'href="https://open-meteo.com/"']) {
+    assert.ok(layers.includes(href), `missing attribution link ${href}`);
+  }
 });
 
 test('five-day playback keeps only a bounded decoded frame window', () => {
