@@ -115,6 +115,7 @@ test('field shader validates both frames and releases its bounded texture cache'
   const source = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
   assert.match(source, /packScalarTexturePixels/);
   assert.match(source, /internal: isWind \? gl\.RGBA8 : gl\.RG8/);
+  assert.doesNotMatch(source, /\b(?:float|vec[234])\s+sample\b/, 'GLSL reserves sample as a keyword');
   assert.match(source, /bool av = a\.y[^;]+bv = b\.y/);
   assert.match(source, /if \(!av && !bv\) discard/);
   assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : b\.x/);

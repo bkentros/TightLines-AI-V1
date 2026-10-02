@@ -66,8 +66,8 @@ vec4 bicubic(sampler2D t, vec2 uv) {
 // weights are positive, four filtered taps produce the exact weighted sums
 // needed to exclude invalid texels and normalize the remaining neighborhood.
 vec2 validScalar(sampler2D t, vec2 uv) {
-  vec2 sample = bicubic(t, uv).rg;
-  return sample.g > 0.000001 ? vec2(sample.r / sample.g * 255.0, sample.g) : vec2(0.0);
+  vec2 packed = bicubic(t, uv).rg;
+  return packed.g > 0.000001 ? vec2(packed.r / packed.g * 255.0, packed.g) : vec2(0.0);
 }
 vec3 pal(float v) { return texture(u_pal, vec2(clamp((v - u_range.x) / (u_range.y - u_range.x), 0.0, 1.0) * (255.0 / 256.0) + 0.5 / 256.0, 0.5)).rgb; }
 
