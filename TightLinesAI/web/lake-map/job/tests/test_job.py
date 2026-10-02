@@ -200,6 +200,10 @@ class CycleTest(unittest.TestCase):
         scheduled_checks = sum(len(cron.split()[0].split(",")) * len(cron.split()[1].split(",")) for cron in crons)
         self.assertEqual(scheduled_checks, 24)  # six 15-minute checks around each of four releases
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
+        self.assertIn("needs: build", root_text)
+        self.assertIn("needs.build.outputs.surface_published == 'true'", root_text)
+        self.assertIn("continue-on-error: true", root_text)
+        self.assertIn("python job/depth.py", root_text)
 
         validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
         validation_mirror = JOB / "lake-map-validation.workflow.yml"
@@ -463,4 +467,4 @@ class TemperatureEncodingTest(unittest.TestCase):
                         text.index("store.put(s3, PAGE_CAPABILITIES_KEY"))
         frames = (Path(__file__).resolve().parents[2] / "src" / "engine" / "frames.js").read_text()
         self.assertIn("FRAME_ENCODINGS = ['u8', 'rgb16']", frames)
-
+        self.assertIn('"features": list(PAGE_FEATURES)', text)

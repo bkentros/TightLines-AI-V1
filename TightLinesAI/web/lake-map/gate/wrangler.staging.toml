@@ -1,0 +1,14 @@
+# Isolated Temp-at-depth staging gatekeeper. It has no production route and no
+# observation cron; it is reachable only at its workers.dev address.
+name = "piercast-map-gate-staging"
+main = "worker.js"
+account_id = "fe7a8d144a9b29b73dd513830858774c"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[limits]
+cpu_ms = 50
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "piercast-lake-map-staging"

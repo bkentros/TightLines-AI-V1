@@ -11,6 +11,8 @@ import numpy as np
 from . import net
 from .config import OFS_CYCLES, OFS_MODELS, THREDDS
 from .dap import parse_dods
+from .depth import feet_to_m, interpolate_to_depths, level_slab
+from .regrid import Regridder
 
 FILL = -99990.0
 
@@ -59,6 +61,7 @@ class LakeModel:
         self.lat, self.lon = lat.ravel()[self.flat], lon.ravel()[self.flat]
         depth = h.ravel()[self.flat]
         self.depth_m = np.where(depth > FILL, depth, np.nan)
+        self._depth_levels_m = None
         # typical point spacing, for the long-triangle test
         self.spacing = float(np.nanmedian(np.abs(np.diff(lat, axis=0)))) if lat.shape[0] > 1 else 0.01
 
@@ -70,6 +73,51 @@ class LakeModel:
         t = raw["temp"].reshape(-1)[self.flat].astype(np.float32)
         t[(t < -5) | (t > 40)] = np.nan
         return t
+
+    def depth_levels_m(self) -> np.ndarray:
+        """The model's fixed z-levels (metres, positive down), cached."""
+        if self._depth_levels_m is None:
+            raw = parse_dods(net.fetch(dataset_url(self.model, self.cycle, 0) + ".dods?Depth", timeout=120))
+            levels = np.asarray(raw["Depth"], np.float64).reshape(-1)
+            if levels.size < 2 or not np.all(np.isfinite(levels)) or np.any(np.diff(levels) <= 0):
+                raise ValueError(f"{self.model['id']} returned invalid depth levels")
+            self._depth_levels_m = levels
+        return self._depth_levels_m
+
+    def depth_temperatures_c(self, hour: int, depths_ft) -> tuple[np.ndarray, int]:
+        """Interpolated temperatures at requested depths for model water points.
+
+        Returns ``(n_depths, n_points)`` float32 and the downloaded DAP bytes.
+        Only the contiguous z-level slab needed to bracket the targets is read.
+        """
+        levels = self.depth_levels_m()
+        depths_m = feet_to_m(depths_ft)
+        k0, k1 = level_slab(levels, depths_m)
+        ny, nx = self.shape
+        slab = f"[0:1:0][{k0}:1:{k1}][0:1:{ny - 1}][0:1:{nx - 1}]"
+        q = ".dods?temp" + slab.replace("[", "%5B").replace("]", "%5D")
+        payload = net.fetch(dataset_url(self.model, self.cycle, hour) + q, timeout=240)
+        raw = parse_dods(payload)
+        temps = raw["temp"].reshape(k1 - k0 + 1, -1)[:, self.flat]
+        values = interpolate_to_depths(temps, levels[k0:k1 + 1], self.depth_m, depths_m)
+        return values, len(payload)
+
+
+def prepare_regridders(cycles, grid, targets, water, log):
+    """Create the cached lake-model/regridder set shared by surface and depth."""
+    sources = []
+    for model in OFS_MODELS:
+        cycle = cycles.get(model["id"])
+        if cycle is None:
+            continue
+        lm = LakeModel(model, cycle)
+        rg = Regridder(lm.lon, lm.lat, grid, targets, radius=0.3, max_edge=4 * max(lm.spacing, 0.005))
+        grid_mask = np.isfinite(rg.apply(np.ones(len(lm.lat), np.float32))) & water
+        sources.append({"model": model, "lm": lm, "rg": rg, "q": rg.quality_grid(),
+                        "gridMask": grid_mask, "gridCoverageMin": 1.0})
+        log(f"{model['id']}: cycle {cycle_id(cycle)}, {len(lm.lat):,} water points, "
+            f"{int(grid_mask.sum()):,} map cells")
+    return sources
 
 
 def fetch_all_hours(lm: LakeModel, hours, workers=6):

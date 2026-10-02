@@ -20,9 +20,11 @@ from __future__ import annotations
 import numpy as np
 from scipy import ndimage
 
+from .config import TEMP_DEPTHS_AVAILABLE_FT, TEMP_DEPTHS_FT
+
 FT_TO_M = 0.3048
-# Depths offered by the map, in feet (metric labels are derived on the page).
-TEMP_DEPTHS_FT = (10, 20, 30, 40, 50, 75, 100, 150)
+# TEMP_DEPTHS_FT is the shipped set. TEMP_DEPTHS_AVAILABLE_FT is the reviewed
+# set that can be enabled later in config without changing this module.
 # How far below the last valid level a target may sit and still take its value.
 NEAR_BOTTOM_M = 2.0
 # Plausible water temperature (°C); anything else is treated as missing.

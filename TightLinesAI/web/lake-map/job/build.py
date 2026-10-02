@@ -144,18 +144,7 @@ def build_temperature(cycles, t0, log, workers):
         raise TemperatureIntegrityError(f"model cycles do not match: {detail}")
     water = water_mask(TEMP, GEO_PATH)
     targets = target_mask(water, EXTEND_CELLS)
-    sources = []
-    for m in OFS_MODELS:
-        cyc = cycles.get(m["id"])
-        if cyc is None:
-            log(f"{m['id']}: no published cycle — its lakes are left empty")
-            continue
-        lm = ofs.LakeModel(m, cyc)
-        rg = Regridder(lm.lon, lm.lat, TEMP, targets, radius=0.3, max_edge=4 * max(lm.spacing, 0.005))
-        grid_mask = np.isfinite(rg.apply(np.ones(len(lm.lat), np.float32))) & water
-        sources.append({"model": m, "lm": lm, "rg": rg, "q": rg.quality_grid(),
-                        "gridMask": grid_mask, "gridCoverageMin": 1.0})
-        log(f"{m['id']}: cycle {iso(cyc)}, {len(lm.lat):,} water points, {int(grid_mask.sum()):,} map cells")
+    sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log)
 
     def fetch(src):
         src["hours"] = ofs.fetch_all_hours(src["lm"], range(HOURS), workers=workers)

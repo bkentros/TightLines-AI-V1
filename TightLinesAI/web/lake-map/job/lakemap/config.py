@@ -20,6 +20,14 @@ DOMAIN = {"west": -92.4, "east": -75.8, "south": 41.2, "north": 49.2}
 WIND_DOMAIN = {"west": -104.4, "east": -63.9, "south": 30.2, "north": 60.2}
 HOURS = 121  # forecast hours 0..120, hourly
 
+# Temp-at-depth is deliberately shipped at 10–50 ft only.  The extraction and
+# manifest code accepts the larger reviewed set so deeper choices can be
+# enabled later by changing TEMP_DEPTHS_FT, without changing the data format.
+TEMP_DEPTHS_FT = (10, 20, 30, 40, 50)
+TEMP_DEPTHS_AVAILABLE_FT = (10, 20, 30, 40, 50, 75, 100, 150)
+DEPTH_STEP_HOURS = 3
+PAGE_FEATURES = ("tempDepth",)
+
 # How far (in output cells) water values are extended onto land so the land
 # layer never shows a gap along the shore.
 EXTEND_CELLS = 8
