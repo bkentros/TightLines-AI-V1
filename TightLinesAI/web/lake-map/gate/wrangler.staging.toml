@@ -28,4 +28,4 @@ namespace_id = "31012"
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "piercast-lake-map"
+bucket_name = "piercast-lake-map-staging"
