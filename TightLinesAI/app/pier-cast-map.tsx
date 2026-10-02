@@ -322,6 +322,10 @@ export default function PierCastMapScreen() {
         hideKeyboardAccessoryView
         keyboardDisplayRequiresUserAction={false}
         androidLayerType="hardware"
+        // Android applies the system font size to web views, which would
+        // enlarge the map's controls until they overlap; the page sizes its
+        // own text, so keep Android at the same 100% scale iOS uses.
+        textZoom={100}
         webviewDebuggingEnabled={__DEV__}
         accessibilityLabel="Live Lake Map"
       />}

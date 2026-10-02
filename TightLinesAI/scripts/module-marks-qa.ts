@@ -50,7 +50,7 @@ assert.doesNotMatch(
 );
 assert.match(
   guide,
-  /Start with your question\.[\s\S]*?Each feature answers one thing well\./,
+  /Six tools\.\{"\\n"\}One answer each\.[\s\S]*?Start with the question you have today\./,
   "The getting-started hero must keep its concise question-first framing",
 );
 

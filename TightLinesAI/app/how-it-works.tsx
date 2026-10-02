@@ -1,31 +1,30 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useId } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useCallback, useEffect, useId, useRef } from "react";
+import {
+  Image,
+  type ImageSourcePropType,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  type ViewStyle,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Svg, { Defs, LinearGradient, Rect, Stop } from "react-native-svg";
 
 import {
-  CornerMarkSet,
   IntelligenceModuleEmblem,
   PaperNavHeader,
-  SectionEyebrow,
   TopographicLines,
   type IntelligenceModuleId,
 } from "../components/paper";
-import {
-  hapticImpact,
-  ImpactFeedbackStyle,
-} from "../lib/safeHaptics";
-import {
-  paper,
-  paperFonts,
-  paperRadius,
-  paperShadows,
-  paperSpacing,
-} from "../lib/theme";
 import { isAdminEmail } from "../lib/adminAccess";
+import { readPierCastTargetPreference } from "../lib/pierCastTargetPreference";
+import { hapticImpact, ImpactFeedbackStyle } from "../lib/safeHaptics";
+import { paper, paperFonts, paperRadius, paperShadows } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 import { useLocationStore } from "../store/locationStore";
 
@@ -42,166 +41,267 @@ type FeatureGuide = {
   code: string;
   title: string;
   tag: string;
-  tagline: string;
+  question: string;
+  /** Two- or three-word cue for the index and the trip strip. */
+  cue: string;
+  summary: string;
+  gets: { icon: IconName; label: string }[];
+  worksOn: string;
+  note?: string;
   module: IntelligenceModuleId;
   route: FeatureRoute;
   action: string;
   iconBg: [string, string];
   accent: string;
   accentDeep: string;
-  iconColor: string;
   tint: string;
-  whenToUse: string;
-  howItWorks: string;
-  /** Omitted for tools that read water rather than fish. */
-  bestFor?: {
-    primary: string[];
-    also?: string[];
-    note?: string;
-  };
   startHere?: boolean;
-  supporting?: boolean;
   /** Gated to owner review until the feature clears its release gates. */
   ownerOnly?: boolean;
 };
 
-const FEATURE_GUIDES: FeatureGuide[] = [
+// ── Artwork ───────────────────────────────────────────────────────────────
+// Each entry records the source canvas and the visible subject's pixel box so
+// artwork of different canvas sizes can be cropped to a consistent scale.
+
+type Art = {
+  source: ImageSourcePropType;
+  canvas: [number, number];
+  box: [number, number, number, number];
+};
+
+const ART = {
+  largemouth: {
+    source: require("../assets/images/fish/largemouth_bass.png"),
+    canvas: [1024, 1024],
+    box: [6, 278, 1015, 708],
+  },
+  smallmouth: {
+    source: require("../assets/images/fish/smallmouth_bass.png"),
+    canvas: [1024, 1024],
+    box: [16, 265, 1015, 701],
+  },
+  steelhead: {
+    source: require("../assets/images/fish/steelhead.png"),
+    canvas: [1448, 1086],
+    box: [25, 293, 1421, 801],
+  },
+  chinook: {
+    source: require("../assets/images/fish/chinook_salmon.png"),
+    canvas: [1254, 1254],
+    box: [20, 357, 1241, 822],
+  },
+  coho: {
+    source: require("../assets/images/fish/coho_salmon.png"),
+    canvas: [1254, 1254],
+    box: [27, 336, 1219, 872],
+  },
+  pike: {
+    source: require("../assets/images/fish/northern_pike.png"),
+    canvas: [2056, 765],
+    box: [41, 21, 2026, 741],
+  },
+  river: {
+    source: require("../assets/images/river-run/river_large.png"),
+    canvas: [512, 312],
+    box: [6, 55, 506, 250],
+  },
+  squarebill: {
+    source: require(
+      "../assets/images/recommender/illustrated/squarebill_crankbait.png",
+    ),
+    canvas: [960, 960],
+    box: [0, 0, 960, 960],
+  },
+  clouser: {
+    source: require(
+      "../assets/images/recommender/illustrated/clouser_minnow.png",
+    ),
+    canvas: [960, 960],
+    box: [0, 0, 960, 960],
+  },
+  crankbait: {
+    source: require("../assets/images/color-picker/illustrated/crankbait.png"),
+    canvas: [768, 768],
+    box: [0, 0, 768, 768],
+  },
+  // Water clarity scenes: the painted circle sits inside a white square.
+  clear: {
+    source: require("../assets/images/color-picker/illustrated/clear.png"),
+    canvas: [768, 768],
+    box: [64, 64, 704, 704],
+  },
+  stained: {
+    source: require("../assets/images/color-picker/illustrated/stained.png"),
+    canvas: [768, 768],
+    box: [76, 76, 692, 692],
+  },
+  dirty: {
+    source: require("../assets/images/color-picker/illustrated/dirty.png"),
+    canvas: [768, 768],
+    box: [52, 52, 716, 716],
+  },
+} satisfies Record<string, Art>;
+
+const LIVE_MAP_PREVIEW = require(
+  "../assets/images/pier-cast-live-map-preview.jpg",
+);
+const WATER_READ_SAMPLE = require(
+  "../assets/images/water-reader-pontiac-sample.png",
+);
+
+// ── Content ──────────────────────────────────────────────────────────────
+
+const EVERY_TRIP: FeatureGuide[] = [
   {
     code: "01",
     title: "Today's Bite",
     tag: "THE DAY",
-    tagline: "Should I go, and when?",
+    question: "Should I go, and when?",
+    cue: "Go or not",
+    summary:
+      "Scores today for your spot from the weather, pressure, wind and water.",
+    gets: [
+      { icon: "speedometer-outline", label: "Day score 1–10" },
+      { icon: "time-outline", label: "Best windows" },
+      { icon: "pulse-outline", label: "What helps or hurts" },
+    ],
+    worksOn: "Lakes, ponds, rivers and the coast",
+    note:
+      "Trout reads are dependable from fall through spring. In summer heat, trust it for warmwater fish and treat coldwater species with caution.",
     module: "todays-bite",
     route: "/how-fishing",
-    action: "OPEN TODAY'S BITE",
+    action: "Open Today's Bite",
     iconBg: ["#E5F2DD", "#C5E0B5"],
     accent: "#3D955A",
     accentDeep: "#1F6B38",
-    iconColor: "#1F6B38",
-    tint: "#F1F8ED",
+    tint: "#EEF6E9",
     startHere: true,
-    whenToUse:
-      "You already know the lake or river. You want to know whether today is worth the trip, and which hours to fish.",
-    howItWorks:
-      "It reads the weather, pressure, wind and water for your spot, compares them to how your target species behaves in those conditions, and returns a 1\u201310 score, the best windows of the day, and the specific factors helping or hurting you.",
-    bestFor: {
-      primary: ["Largemouth", "Smallmouth", "Pike", "Walleye", "Panfish"],
-      also: ["Trout"],
-      note:
-        "Trout reads are dependable from fall through spring. In summer heat, trust it for warmwater fish and treat coldwater species with caution.",
-    },
   },
   {
     code: "02",
     title: "Tackle Box",
     tag: "THE TACKLE",
-    tagline: "What should I tie on?",
+    question: "What should I tie on?",
+    cue: "What to throw",
+    summary:
+      "A short list of lures and flies matched to your fish, your water and today's conditions.",
+    gets: [
+      { icon: "list-outline", label: "Ranked picks" },
+      { icon: "chatbubble-ellipses-outline", label: "Why each works" },
+      { icon: "fish-outline", label: "Lures and flies" },
+    ],
+    worksOn: "Largemouth, smallmouth, pike and trout",
+    note: "Fly picks are streamer patterns.",
     module: "tackle-box",
     route: "/recommender",
-    action: "OPEN TACKLE BOX",
+    action: "Open Tackle Box",
     iconBg: ["#FBF1D9", "#F4DFA4"],
     accent: "#C99B2D",
     accentDeep: "#8A6A1A",
-    iconColor: "#8A6A1A",
-    tint: "#FEF9EC",
-    whenToUse:
-      "You know the species and the water, and want a short starting list instead of second-guessing a full box.",
-    howItWorks:
-      "It narrows a reviewed lure and fly library by your species, water type, season, clarity and today's conditions, then ranks a handful of presentations and tells you why each one made the list.",
-    bestFor: {
-      primary: ["Largemouth", "Smallmouth", "Pike", "Walleye", "Panfish"],
-      also: ["Trout"],
-      note: "Fly picks are streamer patterns in this version.",
-    },
+    tint: "#FCF6E6",
   },
   {
     code: "03",
-    title: "River Migration",
-    tag: "THE RUN",
-    tagline: "Where are the fish in the run?",
-    module: "river-run",
-    route: "/river-run",
-    action: "OPEN RIVER MIGRATION",
-    iconBg: ["#FBE4E1", "#F3C2BC"],
-    accent: paper.red,
-    accentDeep: "#9A2B20",
-    iconColor: "#9A2B20",
-    tint: "#FEF3F1",
-    whenToUse:
-      "A run is on and you want to know how far along it is before you drive. When a migration is your question, this is the read to trust \u2014 not Today's Bite.",
-    howItWorks:
-      "It pairs live gauge readings from that exact river \u2014 flow, height and water temperature \u2014 with researched run timing for that river and species. You get the migration stage, how active fish should be, whether the river is in fishable shape, and official fish counts wherever a facility publishes them.",
-    bestFor: {
-      primary: ["Chinook", "Coho", "Steelhead", "Brown Trout"],
-      note:
-        "Built river by river. Coverage is the supported Michigan rivers, not every stream.",
-    },
-  },
-  {
-    code: "04",
-    title: "Pier Cast",
-    tag: "THE PIER",
-    tagline: "Which pier is worth the drive?",
-    module: "pier-cast",
-    route: "/pier-cast-review",
-    action: "OPEN PIER CAST",
-    iconBg: ["#E0F3F0", "#B8DFD8"],
-    accent: "#318F83",
-    accentDeep: "#20665E",
-    iconColor: "#20665E",
-    tint: "#EDF7F5",
-    whenToUse:
-      "You fish Great Lakes piers and want to compare conditions for the species you are targeting \u2014 and decide which port is worth a closer look.",
-    howItWorks:
-      "Choose a target species first. PierCast ranks comparable cities by their typical seasonal outlook, then their current modeled temperature match, while keeping those two signals visibly separate. Open a city for five-day nearshore temperature guidance, nearby air and wind, local context and source details; open the map to compare observed station readings with modeled Now and Forecast views.",
-    bestFor: {
-      primary: ["Chinook", "Coho", "Steelhead", "Brown Trout"],
-      note:
-        "Current coverage spans 32 researched pier cities on Lake Michigan and Lake Huron, with additional Great Lakes expansion designed into the regional model.",
-    },
-  },
-  {
-    code: "05",
     title: "Color Match",
     tag: "THE COLOR",
-    tagline: "Which color, and why?",
+    question: "Which color, and why?",
+    cue: "Which color",
+    summary:
+      "Pick your bait and the water clarity. Get colors for bright sun and for cloud cover.",
+    gets: [
+      { icon: "sunny-outline", label: "2 for sun" },
+      { icon: "cloudy-outline", label: "2 for clouds" },
+      { icon: "water-outline", label: "Clear to muddy" },
+    ],
+    worksOn: "Soft plastics, hard baits, jigs and flies",
     module: "color-match",
     route: "/color-picker",
-    action: "OPEN COLOR MATCH",
+    action: "Open Color Match",
     iconBg: ["#FBEBDD", "#F3C9A7"],
     accent: "#D9772B",
     accentDeep: "#9B4E18",
-    iconColor: "#9B4E18",
-    tint: "#FEF4EA",
-    whenToUse:
-      "You've settled on a lure or fly, and clarity and light are the open questions.",
-    howItWorks:
-      "Tell it the bait type and whether the water is clear, stained or murky. It returns two colors that hold up in bright, direct sun and two for flat, overcast light \u2014 equal picks, not a ranking, because both conditions happen in one day.",
-    bestFor: {
-      primary: ["Largemouth", "Smallmouth", "Pike", "Walleye", "Panfish"],
-      also: ["Trout"],
-    },
+    tint: "#FDF1E6",
+  },
+];
+
+const GO_DEEPER: FeatureGuide[] = [
+  {
+    code: "04",
+    title: "River Migration",
+    tag: "THE RUN",
+    question: "Where is the run right now?",
+    cue: "Where's the run",
+    summary:
+      "Live gauge readings paired with researched run timing for that exact river.",
+    gets: [
+      { icon: "git-commit-outline", label: "Run stage" },
+      { icon: "flash-outline", label: "Fish activity" },
+      { icon: "water-outline", label: "River shape" },
+    ],
+    worksOn:
+      "Salmon, steelhead and lake-run browns on supported Great Lakes and Pacific Northwest rivers",
+    note: "When a run is your question, trust this over Today's Bite.",
+    module: "river-run",
+    route: "/river-run",
+    action: "Open River Migration",
+    iconBg: ["#FBE4E1", "#F3C2BC"],
+    accent: paper.red,
+    accentDeep: "#9A2B20",
+    tint: "#FDF0EE",
+  },
+  {
+    code: "05",
+    title: "PierCast",
+    tag: "THE PIER",
+    question: "Which pier is worth the drive?",
+    cue: "Which pier",
+    summary:
+      "Ranks Great Lakes pier cities for your target fish by season and nearshore water temperature.",
+    gets: [
+      { icon: "podium-outline", label: "City rankings" },
+      { icon: "thermometer-outline", label: "5-day water temps" },
+      { icon: "map-outline", label: "Live lake map" },
+    ],
+    worksOn:
+      "32 pier cities on Lakes Michigan and Huron. The live map covers all five Great Lakes.",
+    module: "pier-cast",
+    route: "/pier-cast-review",
+    action: "Open PierCast",
+    iconBg: ["#E0F3F0", "#B8DFD8"],
+    accent: "#318F83",
+    accentDeep: "#20665E",
+    tint: "#EAF5F3",
   },
   {
     code: "06",
     title: "Water Read",
     tag: "THE WATER",
-    tagline: "Where do I even start?",
+    question: "Where do I start on new water?",
+    cue: "New water",
+    summary:
+      "Maps a lake's points, bays, necks and islands, and marks the zones worth checking this season.",
+    gets: [
+      { icon: "map-outline", label: "Zone map" },
+      { icon: "leaf-outline", label: "Seasonal focus" },
+      { icon: "compass-outline", label: "Any species" },
+    ],
+    worksOn: "Reads shape, not fish. It is not sonar or a depth chart.",
     module: "water-read",
     route: "/water-reader",
-    action: "OPEN WATER READ",
+    action: "Open Water Read",
     iconBg: ["#E8F2FA", "#C8DFF2"],
     accent: paper.dashboardBlue,
     accentDeep: "#0A4A87",
-    iconColor: "#0A4A87",
-    tint: "#EFF6FB",
-    supporting: true,
-    whenToUse:
-      "You're headed somewhere you've never fished and want a starting point before you launch.",
-    howItWorks:
-      "It studies the lake's shape and shoreline \u2014 points, bays, necks and islands \u2014 and marks the general zones worth checking for the season. It reads structure, not fish: it is not sonar, a depth chart, or a live position tool.",
+    tint: "#ECF4FA",
   },
 ];
+
+const ALL_FEATURES = [...EVERY_TRIP, ...GO_DEEPER];
+
+const TRIP_STEPS: IntelligenceModuleId[] = ["todays-bite", "tackle-box", "color-match"];
+
+// ── Screen ───────────────────────────────────────────────────────────────
 
 export default function FeatureGuideScreen() {
   const router = useRouter();
@@ -214,6 +314,8 @@ export default function FeatureGuideScreen() {
     useLocationStore();
   const user = useAuthStore((state) => state.user);
   const owner = isAdminEmail(user?.email);
+  const scrollRef = useRef<ScrollView>(null);
+  const cardOffsets = useRef<Partial<Record<IntelligenceModuleId, number>>>({});
 
   useEffect(() => {
     void loadLocationPreferences();
@@ -258,6 +360,40 @@ export default function FeatureGuideScreen() {
     router.push(feature.route);
   };
 
+  const openLiveMap = () => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    void readPierCastTargetPreference().then((speciesId) => {
+      router.push({
+        pathname: "/pier-cast-map",
+        params: speciesId ? { speciesId } : {},
+      });
+    });
+  };
+
+  const jumpTo = useCallback((module: IntelligenceModuleId) => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    const y = cardOffsets.current[module];
+    if (y !== undefined) {
+      scrollRef.current?.scrollTo({ y: Math.max(0, y - 12), animated: true });
+    }
+  }, []);
+
+  const renderCard = (feature: FeatureGuide) => (
+    <View
+      key={feature.module}
+      onLayout={(event) => {
+        cardOffsets.current[feature.module] = event.nativeEvent.layout.y;
+      }}
+    >
+      <FeatureCard
+        feature={feature}
+        locked={Boolean(feature.ownerOnly) && !owner}
+        onOpen={() => openFeature(feature)}
+        onOpenMap={feature.module === "pier-cast" ? openLiveMap : undefined}
+      />
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
@@ -270,84 +406,37 @@ export default function FeatureGuideScreen() {
         />
 
         <ScrollView
+          ref={scrollRef}
           style={styles.scroll}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* ── Deep-water hero ─────────────────────────────────────── */}
-          <View style={styles.heroCard}>
-            <GuideBackdrop />
-            <TopographicLines
-              style={StyleSheet.absoluteFill}
-              color={paper.dashboardBlueSky}
-              count={7}
-            />
-            <SectionEyebrow color={paper.gold} size={9} tracking={2.6}>
-              SIX TOOLS · SIX QUESTIONS
-            </SectionEyebrow>
-            <Text style={styles.heroTitle} allowFontScaling={false}>
-              Start with your question.
-            </Text>
-            <Text style={styles.heroBody}>
-              Each feature answers one thing well. Find the question you
-              actually have, and the tool follows.
-            </Text>
-            <View style={styles.questionStrip}>
-              {FEATURE_GUIDES.map((feature) => (
-                <View key={feature.module} style={styles.questionCue}>
-                  <View
-                    style={[
-                      styles.questionDot,
-                      { backgroundColor: feature.accent },
-                    ]}
-                  />
-                  <Text style={styles.questionCueText}>{feature.tag}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
+          <Hero onJump={jumpTo} />
 
-          <View style={styles.guideIntro}>
-            <SectionEyebrow
-              dashes={false}
-              align="left"
-              color={paper.redDk}
-              size={9.5}
-              tracking={2.1}
-            >
-              THE FINFINDR FIELD GUIDE
-            </SectionEyebrow>
-            <Text style={styles.guideTitle}>What each feature is for.</Text>
-            <Text style={styles.guideSubtitle}>
-              Plain language, in the order most anglers need them.
+          <TripStrip onJump={jumpTo} />
+
+          <SectionLabel
+            title="Every trip"
+            caption="Plan the day, the bait and the color."
+          />
+          {EVERY_TRIP.map(renderCard)}
+
+          <SectionLabel
+            title="Go deeper"
+            caption="Runs, piers and new water."
+          />
+          {GO_DEEPER.map(renderCard)}
+
+          <View style={styles.bottomLine}>
+            <Ionicons
+              name="shield-checkmark-outline"
+              size={16}
+              color={paper.dashboardBlueLight}
+            />
+            <Text style={styles.bottomLineText}>
+              FinFindr helps you plan. Regulations, access and safety are
+              always yours to check.
             </Text>
-          </View>
-
-          {FEATURE_GUIDES.map((feature) => (
-            <FeatureCard
-              key={feature.module}
-              feature={feature}
-              locked={Boolean(feature.ownerOnly) && !owner}
-              onOpen={() => openFeature(feature)}
-            />
-          ))}
-
-          <View style={styles.truthCard}>
-            <TopographicLines
-              style={StyleSheet.absoluteFill}
-              color={paper.dashboardBlueSky}
-              count={4}
-            />
-            <View style={styles.truthIcon}>
-              <Ionicons name="shield-checkmark" size={16} color="#FFFFFF" />
-            </View>
-            <View style={styles.truthCopy}>
-              <Text style={styles.truthLabel}>THE BOTTOM LINE</Text>
-              <Text style={styles.truthText}>
-                FinFindr helps you make a better plan. Conditions, regulations,
-                access and safety still belong to the angler.
-              </Text>
-            </View>
           </View>
 
           <Text style={styles.footerStamp}>FINFINDR · CHOOSE WITH INTENT</Text>
@@ -357,226 +446,438 @@ export default function FeatureGuideScreen() {
   );
 }
 
-/** Deep-water gradient, matching the masthead language used across the app. */
-function GuideBackdrop() {
+// ── Hero ─────────────────────────────────────────────────────────────────
+
+function Hero({ onJump }: { onJump: (module: IntelligenceModuleId) => void }) {
+  return (
+    <View style={styles.hero}>
+      <DeepWater />
+      <TopographicLines
+        style={StyleSheet.absoluteFill}
+        color={paper.dashboardBlueSky}
+        count={6}
+      />
+
+      <View style={styles.heroCopy}>
+        <Text style={styles.heroEyebrow}>THE FINFINDR FIELD GUIDE</Text>
+        <Text style={styles.heroTitle} allowFontScaling={false}>
+          Six tools.{"\n"}One answer each.
+        </Text>
+        <Text style={styles.heroBody}>
+          Start with the question you have today.
+        </Text>
+      </View>
+
+      <View style={styles.heroSchool} pointerEvents="none">
+        <ArtImage art={ART.chinook} width={128} style={styles.heroFishBack} />
+        <ArtImage art={ART.steelhead} width={170} style={styles.heroFishMid} />
+        <ArtImage
+          art={ART.largemouth}
+          width={150}
+          style={styles.heroFishFront}
+        />
+      </View>
+
+      <View style={styles.heroIndex}>
+        {ALL_FEATURES.map((feature) => (
+          <Pressable
+            key={feature.module}
+            onPress={() => onJump(feature.module)}
+            style={({ pressed }) => [
+              styles.heroIndexItem,
+              pressed && styles.heroIndexItemPressed,
+            ]}
+            accessibilityRole="button"
+            accessibilityLabel={`Jump to ${feature.title}: ${feature.question}`}
+          >
+            <View
+              style={[styles.heroIndexDot, { backgroundColor: feature.accent }]}
+            />
+            <View style={styles.heroIndexText}>
+              <Text style={styles.heroIndexTitle} numberOfLines={1}>
+                {feature.title}
+              </Text>
+              <Text style={styles.heroIndexQuestion} numberOfLines={1}>
+                {feature.cue}
+              </Text>
+            </View>
+          </Pressable>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+/** Deep-water gradient matching the masthead language used across the app. */
+function DeepWater() {
   const baseId = useId();
   const deepId = `${baseId}-deep`;
   const glowId = `${baseId}-glow`;
   return (
-    <Svg style={StyleSheet.absoluteFill} pointerEvents="none">
+    <Svg
+      style={StyleSheet.absoluteFill}
+      width="100%"
+      height="100%"
+      pointerEvents="none"
+    >
       <Defs>
         <LinearGradient id={deepId} x1="0" y1="0" x2="1" y2="1">
           <Stop offset="0" stopColor="#0A1B2E" />
-          <Stop offset="0.5" stopColor="#12384E" />
+          <Stop offset="0.55" stopColor="#12384E" />
           <Stop offset="1" stopColor="#0B2135" />
         </LinearGradient>
-        <LinearGradient id={glowId} x1="0" y1="1" x2="0" y2="0">
-          <Stop offset="0" stopColor={paper.dashboardBlue} stopOpacity="0.45" />
+        <LinearGradient id={glowId} x1="0" y1="0" x2="0" y2="1">
+          <Stop offset="0" stopColor={paper.dashboardBlue} stopOpacity="0" />
+          <Stop offset="0.5" stopColor={paper.dashboardBlue} stopOpacity="0.4" />
           <Stop offset="1" stopColor={paper.dashboardBlue} stopOpacity="0" />
         </LinearGradient>
       </Defs>
       <Rect x="0" y="0" width="100%" height="100%" fill={`url(#${deepId})`} />
-      <Rect x="0" y="46%" width="100%" height="54%" fill={`url(#${glowId})`} />
+      <Rect x="0" y="22%" width="100%" height="40%" fill={`url(#${glowId})`} />
     </Svg>
   );
 }
 
-/** Soft accent wash behind a feature card's header. */
-function CardWash({ accent }: { accent: string }) {
-  const baseId = useId();
-  const washId = `${baseId}-wash`;
+// ── Three-tap trip ───────────────────────────────────────────────────────
+
+function TripStrip({
+  onJump,
+}: {
+  onJump: (module: IntelligenceModuleId) => void;
+}) {
   return (
-    <Svg style={styles.cardWash} pointerEvents="none">
-      <Defs>
-        <LinearGradient id={washId} x1="0" y1="0" x2="0.35" y2="1">
-          <Stop offset="0" stopColor={accent} stopOpacity="0.14" />
-          <Stop offset="1" stopColor={accent} stopOpacity="0" />
-        </LinearGradient>
-      </Defs>
-      <Rect x="0" y="0" width="100%" height="100%" fill={`url(#${washId})`} />
-    </Svg>
+    <View style={styles.trip}>
+      <Text style={styles.tripTitle}>A trip in three taps</Text>
+      <View style={styles.tripRow}>
+        {TRIP_STEPS.map((module, index) => {
+          const feature = ALL_FEATURES.find((f) => f.module === module)!;
+          return (
+            <View key={module} style={styles.tripStepWrap}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.tripStep,
+                  pressed && styles.tripStepPressed,
+                ]}
+                onPress={() => onJump(module)}
+                accessibilityRole="button"
+                accessibilityLabel={`Step ${index + 1}: ${feature.title}, ${feature.cue}`}
+              >
+                <IntelligenceModuleEmblem
+                  module={feature.module}
+                  iconBg={feature.iconBg}
+                  iconBorder={feature.accent}
+                  iconColor={feature.accentDeep}
+                  size={38}
+                  animate={false}
+                />
+                <Text style={styles.tripStepTitle} numberOfLines={1}>
+                  {feature.title}
+                </Text>
+                <Text
+                  style={[styles.tripStepCue, { color: feature.accentDeep }]}
+                  numberOfLines={1}
+                >
+                  {feature.cue}
+                </Text>
+              </Pressable>
+              {index < TRIP_STEPS.length - 1 ? (
+                <Ionicons
+                  name="chevron-forward"
+                  size={14}
+                  color="rgba(10,27,46,0.28)"
+                  style={styles.tripArrow}
+                />
+              ) : null}
+            </View>
+          );
+        })}
+      </View>
+    </View>
   );
 }
+
+function SectionLabel({ title, caption }: { title: string; caption: string }) {
+  return (
+    <View style={styles.sectionLabel}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <Text style={styles.sectionCaption}>{caption}</Text>
+    </View>
+  );
+}
+
+// ── Feature card ─────────────────────────────────────────────────────────
 
 function FeatureCard({
   feature,
   locked,
   onOpen,
+  onOpenMap,
 }: {
   feature: FeatureGuide;
   /** Feature exists but has not cleared its public release gates yet. */
   locked: boolean;
   onOpen: () => void;
+  onOpenMap?: () => void;
 }) {
   return (
-    <View style={styles.featureCard}>
-      <CardWash accent={feature.accent} />
-      <View style={[styles.featureRail, { backgroundColor: feature.accent }]} />
-      <CornerMarkSet
-        color={feature.accent}
-        size={13}
-        thickness={1.5}
-        inset={10}
-      />
+    <View style={styles.card}>
+      <View style={[styles.stage, { backgroundColor: feature.tint }]}>
+        <FeatureStage feature={feature} />
+        <View style={styles.stageEmblem}>
+          <IntelligenceModuleEmblem
+            module={feature.module}
+            iconBg={feature.iconBg}
+            iconBorder={feature.accent}
+            iconColor={feature.accentDeep}
+            size={40}
+            animate={false}
+          />
+        </View>
+        {feature.startHere ? (
+          <View style={styles.startHere}>
+            <Text style={styles.startHereText}>START HERE</Text>
+          </View>
+        ) : null}
+      </View>
 
-      <View style={styles.featureTopRow}>
-        <IntelligenceModuleEmblem
-          module={feature.module}
-          iconBg={feature.iconBg}
-          iconBorder={feature.accent}
-          iconColor={feature.iconColor}
-          size={52}
-          animate={false}
-        />
-        <View style={styles.featureHeading}>
-          <View style={styles.featureTagRow}>
-            <Text style={[styles.featureTag, { color: feature.accentDeep }]}>
-              {feature.tag}
-            </Text>
-            {feature.startHere ? (
-              <View style={styles.startHerePill}>
-                <Text style={styles.startHereText}>START HERE</Text>
+      <View style={styles.cardBody}>
+        <Text style={[styles.cardTag, { color: feature.accentDeep }]}>
+          {feature.code} · {feature.tag}
+        </Text>
+        <Text style={styles.cardTitle} allowFontScaling={false}>
+          {feature.title}
+        </Text>
+        <Text style={styles.cardQuestion}>{feature.question}</Text>
+        <Text style={styles.cardSummary}>{feature.summary}</Text>
+
+        <View style={styles.gets}>
+          {feature.gets.map((item) => (
+            <View key={item.label} style={styles.getItem}>
+              <View style={[styles.getIcon, { backgroundColor: feature.tint }]}>
+                <Ionicons name={item.icon} size={16} color={feature.accentDeep} />
               </View>
+              <Text style={styles.getLabel}>{item.label}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.worksOn}>
+          <Ionicons
+            name="checkmark-circle"
+            size={14}
+            color={feature.accent}
+            style={styles.worksOnIcon}
+          />
+          <View style={styles.worksOnCopy}>
+            <Text style={styles.worksOnText}>{feature.worksOn}</Text>
+            {feature.note ? (
+              <Text style={styles.worksOnNote}>{feature.note}</Text>
             ) : null}
           </View>
-          <Text style={styles.featureTitle} allowFontScaling={false}>
-            {feature.title}
-          </Text>
         </View>
-        <Text style={[styles.featureCode, { color: `${feature.accent}66` }]}>
-          {feature.code}
-        </Text>
-      </View>
 
-      <Text style={styles.featureTagline}>{feature.tagline}</Text>
-
-      <View style={styles.readSections}>
-        <ReadSection
-          icon="navigate"
-          label="WHEN TO USE IT"
-          text={feature.whenToUse}
-          accent={feature.accentDeep}
-          tint={feature.tint}
-        />
-        <ReadSection
-          icon="layers"
-          label="HOW IT WORKS"
-          text={feature.howItWorks}
-          accent={feature.accentDeep}
-          tint={feature.tint}
-        />
-      </View>
-
-      {feature.bestFor ? (
-        <View style={styles.bestForBlock}>
-          <View style={styles.bestForHeader}>
-            <Ionicons name="fish" size={13} color={feature.accentDeep} />
-            <Text style={[styles.bestForLabel, { color: feature.accentDeep }]}>
-              BEST FOR
+        {locked ? (
+          <View
+            style={[
+              styles.lockedButton,
+              { borderColor: `${feature.accent}4D`, backgroundColor: feature.tint },
+            ]}
+          >
+            <Ionicons name="time-outline" size={15} color={feature.accentDeep} />
+            <Text style={[styles.lockedText, { color: feature.accentDeep }]}>
+              Coming soon
             </Text>
-            <View
-              style={[
-                styles.bestForRule,
-                { backgroundColor: `${feature.accent}33` },
+          </View>
+        ) : (
+          <View style={styles.actions}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.openButton,
+                { backgroundColor: feature.accentDeep },
+                pressed && styles.pressed,
               ]}
+              onPress={onOpen}
+              accessibilityRole="button"
+              accessibilityLabel={feature.action}
+            >
+              <Text style={styles.openButtonText}>{feature.action}</Text>
+              <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+            </Pressable>
+            {onOpenMap ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.mapButton,
+                  { borderColor: `${feature.accent}66` },
+                  pressed && styles.pressed,
+                ]}
+                onPress={onOpenMap}
+                accessibilityRole="button"
+                accessibilityLabel="Open the Great Lakes live map"
+              >
+                <Ionicons name="map-outline" size={16} color={feature.accentDeep} />
+                <Text style={[styles.mapButtonText, { color: feature.accentDeep }]}>
+                  Live map
+                </Text>
+              </Pressable>
+            ) : null}
+          </View>
+        )}
+      </View>
+    </View>
+  );
+}
+
+/** The illustrated stage at the top of each card. */
+function FeatureStage({ feature }: { feature: FeatureGuide }) {
+  switch (feature.module) {
+    case "todays-bite":
+      return (
+        <>
+          <StageGlow color={feature.accent} />
+          <ArtImage art={ART.smallmouth} width={150} style={styles.biteBack} />
+          <ArtImage art={ART.largemouth} width={210} style={styles.biteFront} />
+        </>
+      );
+    case "tackle-box":
+      return (
+        <>
+          <StageGlow color={feature.accent} />
+          <View style={[styles.plate, styles.tacklePlateBack]}>
+            <ArtImage art={ART.clouser} width={124} />
+          </View>
+          <View style={[styles.plate, styles.tacklePlateFront]}>
+            <ArtImage art={ART.squarebill} width={138} />
+          </View>
+        </>
+      );
+    case "color-match":
+      return (
+        <>
+          <StageGlow color={feature.accent} />
+          <View style={[styles.plate, styles.colorPlate]}>
+            <ArtImage art={ART.crankbait} width={140} />
+          </View>
+          <View style={styles.clarityRow}>
+            {(
+              [
+                [ART.clear, "CLEAR"],
+                [ART.stained, "STAINED"],
+                [ART.dirty, "MUDDY"],
+              ] as const
+            ).map(([art, label]) => (
+              <View key={label} style={styles.clarityItem}>
+                <View style={styles.clarityDisc}>
+                  <ArtImage art={art} width={46} />
+                </View>
+                <Text style={styles.clarityLabel}>{label}</Text>
+              </View>
+            ))}
+          </View>
+        </>
+      );
+    case "river-run":
+      return (
+        <>
+          <ArtImage art={ART.river} width={330} style={styles.riverBed} />
+          <ArtImage art={ART.chinook} width={128} style={styles.riverFishBack} />
+          <ArtImage art={ART.steelhead} width={150} style={styles.riverFishFront} />
+        </>
+      );
+    case "pier-cast":
+      return (
+        <>
+          <View style={styles.pierWater} />
+          <TopographicLines
+            style={StyleSheet.absoluteFill}
+            color={paper.dashboardBlueSky}
+            count={4}
+          />
+          <View style={styles.pierPhone}>
+            <Image
+              source={LIVE_MAP_PREVIEW}
+              style={styles.pierPhoneImage}
+              resizeMode="cover"
+              accessibilityIgnoresInvertColors
             />
           </View>
-          <View style={styles.speciesChips}>
-            {feature.bestFor.primary.map((name) => (
-              <View
-                key={name}
-                style={[
-                  styles.speciesChip,
-                  {
-                    backgroundColor: feature.tint,
-                    borderColor: `${feature.accent}4D`,
-                  },
-                ]}
-              >
-                <Text
-                  style={[styles.speciesChipText, { color: feature.accentDeep }]}
-                >
-                  {name}
-                </Text>
-              </View>
-            ))}
-            {feature.bestFor.also?.map((name) => (
-              <View key={name} style={styles.speciesChipAlso}>
-                <Text style={styles.speciesChipAlsoText}>{name}</Text>
-              </View>
-            ))}
-          </View>
-          {feature.bestFor.note ? (
-            <Text style={styles.bestForNote}>{feature.bestFor.note}</Text>
-          ) : null}
-        </View>
-      ) : (
-        <View style={styles.noSpeciesNote}>
-          <Ionicons
-            name="map"
-            size={12}
-            color={paper.dashboardMuted}
-          />
-          <Text style={styles.noSpeciesText}>
-            Reads water, not species — it works the same whatever you're after.
-          </Text>
-        </View>
-      )}
-
-      {locked ? (
-        <View
-          style={[
-            styles.lockedButton,
-            { borderColor: `${feature.accent}4D`, backgroundColor: feature.tint },
-          ]}
-        >
-          <Ionicons name="time" size={14} color={feature.accentDeep} />
-          <Text style={[styles.lockedButtonText, { color: feature.accentDeep }]}>
-            COMING SOON
-          </Text>
-        </View>
-      ) : (
-        <Pressable
-          style={({ pressed }) => [
-            styles.openButton,
-            { backgroundColor: feature.accentDeep },
-            pressed && styles.openButtonPressed,
-          ]}
-          onPress={onOpen}
-          accessibilityRole="button"
-          accessibilityLabel={feature.action}
-        >
-          <Text style={styles.openButtonText}>{feature.action}</Text>
-          <Ionicons name="arrow-forward" size={15} color="#FFFFFF" />
-        </Pressable>
-      )}
-    </View>
-  );
+          <ArtImage art={ART.coho} width={170} style={styles.pierFish} />
+        </>
+      );
+    case "water-read":
+      return (
+        <Image
+          source={WATER_READ_SAMPLE}
+          style={styles.waterSample}
+          resizeMode="cover"
+          accessibilityIgnoresInvertColors
+        />
+      );
+    default:
+      return null;
+  }
 }
 
-function ReadSection({
-  icon,
-  label,
-  text,
-  accent,
-  tint,
-}: {
-  icon: IconName;
-  label: string;
-  text: string;
-  accent: string;
-  tint: string;
-}) {
+/** Soft radial-feeling pool of accent color behind stage artwork. */
+function StageGlow({ color }: { color: string }) {
+  const baseId = useId();
+  const glowId = `${baseId}-glow`;
   return (
-    <View style={[styles.readSection, { backgroundColor: tint }]}>
-      <View style={styles.readSectionHeader}>
-        <Ionicons name={icon} size={12} color={accent} />
-        <Text style={[styles.readSectionLabel, { color: accent }]}>{label}</Text>
-      </View>
-      <Text style={styles.readSectionText}>{text}</Text>
+    <Svg
+      style={StyleSheet.absoluteFill}
+      width="100%"
+      height="100%"
+      pointerEvents="none"
+    >
+      <Defs>
+        <LinearGradient id={glowId} x1="0" y1="0" x2="0" y2="1">
+          <Stop offset="0" stopColor={color} stopOpacity="0" />
+          <Stop offset="1" stopColor={color} stopOpacity="0.16" />
+        </LinearGradient>
+      </Defs>
+      <Rect x="0" y="0" width="100%" height="100%" fill={`url(#${glowId})`} />
+    </Svg>
+  );
+}
+
+/** Crops artwork to its visible subject and scales it to `width`. */
+function ArtImage({
+  art,
+  width,
+  style,
+}: {
+  art: Art;
+  width: number;
+  style?: ViewStyle;
+}) {
+  const [x0, y0, x1, y1] = art.box;
+  const scale = width / (x1 - x0);
+  return (
+    <View
+      style={[
+        { width, height: (y1 - y0) * scale, overflow: "hidden" },
+        style,
+      ]}
+      pointerEvents="none"
+    >
+      <Image
+        source={art.source}
+        style={{
+          position: "absolute",
+          left: -x0 * scale,
+          top: -y0 * scale,
+          width: art.canvas[0] * scale,
+          height: art.canvas[1] * scale,
+        }}
+        resizeMode="stretch"
+        accessibilityIgnoresInvertColors
+      />
     </View>
   );
 }
+
+// ── Styles ───────────────────────────────────────────────────────────────
+
+const STAGE_HEIGHT = 172;
 
 const styles = StyleSheet.create({
   safe: {
@@ -595,361 +896,515 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 540,
     alignSelf: "center",
-    paddingHorizontal: 18,
-    paddingTop: 18,
+    paddingHorizontal: 16,
+    paddingTop: 16,
     paddingBottom: 56,
     gap: 16,
   },
+  pressed: {
+    opacity: 0.88,
+    transform: [{ scale: 0.99 }],
+  },
 
   // ── Hero ───────────────────────────────────────────────────────────
-  heroCard: {
+  hero: {
     position: "relative",
     overflow: "hidden",
-    alignItems: "center",
+    borderRadius: 16,
+    backgroundColor: paper.dashboardInk,
+    ...paperShadows.lift,
+  },
+  heroCopy: {
     paddingHorizontal: 22,
     paddingTop: 24,
-    paddingBottom: 0,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.dashboardInk,
-    ...paperShadows.hard,
+  },
+  heroEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 2.2,
+    color: paper.gold,
   },
   heroTitle: {
-    marginTop: 12,
+    marginTop: 10,
     fontFamily: paperFonts.display,
-    fontSize: 31,
-    lineHeight: 35,
-    letterSpacing: -0.5,
-    textAlign: "center",
+    fontSize: 34,
+    lineHeight: 37,
+    letterSpacing: -0.6,
     color: "#FFFFFF",
   },
   heroBody: {
-    maxWidth: 380,
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 8,
     fontFamily: paperFonts.body,
-    fontSize: 13.5,
+    fontSize: 14.5,
     lineHeight: 20,
-    textAlign: "center",
-    color: "rgba(255,255,255,0.66)",
+    color: "rgba(255,255,255,0.7)",
   },
-  questionStrip: {
-    width: "100%",
+  heroSchool: {
+    height: 128,
+    marginTop: 6,
+  },
+  heroFishBack: {
+    position: "absolute",
+    right: 20,
+    top: -2,
+    opacity: 0.55,
+    transform: [{ rotate: "-4deg" }],
+  },
+  heroFishMid: {
+    position: "absolute",
+    left: 22,
+    top: 30,
+    opacity: 0.85,
+  },
+  heroFishFront: {
+    position: "absolute",
+    right: 26,
+    top: 62,
+    transform: [{ rotate: "3deg" }],
+  },
+  heroIndex: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingHorizontal: 10,
+    paddingTop: 6,
+    paddingBottom: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: "rgba(255,255,255,0.16)",
+    backgroundColor: "rgba(4,14,26,0.35)",
+  },
+  heroIndexItem: {
+    width: "50%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 13,
-    borderTopWidth: 1,
-    borderTopColor: "rgba(255,255,255,0.14)",
+    gap: 9,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 10,
   },
-  questionCue: {
+  heroIndexItemPressed: {
+    backgroundColor: "rgba(255,255,255,0.08)",
+  },
+  heroIndexDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  heroIndexText: {
     minWidth: 0,
     flex: 1,
-    alignItems: "center",
-    gap: 5,
-    paddingHorizontal: 2,
   },
-  questionDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
+  heroIndexTitle: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 13,
+    lineHeight: 17,
+    color: "#FFFFFF",
   },
-  questionCueText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: 0.9,
-    textAlign: "center",
-    color: "rgba(255,255,255,0.72)",
-  },
-
-  // ── Section intro ──────────────────────────────────────────────────
-  guideIntro: {
-    paddingHorizontal: 4,
-    paddingTop: 6,
-  },
-  guideTitle: {
-    marginTop: 7,
-    fontFamily: paperFonts.display,
-    fontSize: 27,
-    lineHeight: 31,
-    letterSpacing: -0.4,
-    color: paper.dashboardInk,
-  },
-  guideSubtitle: {
-    maxWidth: 430,
-    marginTop: 7,
+  heroIndexQuestion: {
     fontFamily: paperFonts.body,
-    fontSize: 13.5,
-    lineHeight: 20,
-    color: paper.dashboardMuted,
+    fontSize: 11,
+    lineHeight: 15,
+    color: "rgba(255,255,255,0.55)",
   },
 
-  // ── Feature card ───────────────────────────────────────────────────
-  featureCard: {
-    position: "relative",
-    overflow: "hidden",
-    paddingHorizontal: 16,
-    paddingTop: 18,
-    paddingBottom: 16,
+  // ── Trip strip ─────────────────────────────────────────────────────
+  trip: {
+    paddingHorizontal: 14,
+    paddingTop: 14,
+    paddingBottom: 12,
+    borderRadius: 16,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: paperRadius.card,
     backgroundColor: paper.dashboardWhite,
     ...paperShadows.hard,
   },
-  cardWash: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 150,
+  tripTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    textTransform: "uppercase",
+    color: paper.dashboardMuted,
+    textAlign: "center",
   },
-  featureRail: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    left: 0,
-    width: 4,
-  },
-  featureTopRow: {
+  tripRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    paddingLeft: 4,
+    marginTop: 10,
   },
-  featureHeading: {
-    minWidth: 0,
+  tripStepWrap: {
     flex: 1,
-  },
-  featureTagRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
   },
-  featureTag: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    lineHeight: 12,
-    letterSpacing: 1.4,
+  tripStep: {
+    flex: 1,
+    alignItems: "center",
+    gap: 6,
+    paddingVertical: 4,
+    borderRadius: 10,
   },
-  startHerePill: {
-    paddingHorizontal: 7,
-    paddingVertical: 2.5,
-    borderWidth: 1,
-    borderColor: "rgba(200,53,44,0.32)",
-    borderRadius: 3,
-    backgroundColor: "#FDECEA",
+  tripStepPressed: {
+    backgroundColor: "rgba(10,27,46,0.05)",
   },
-  startHereText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 1,
-    color: paper.redDk,
+  tripStepTitle: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12.5,
+    lineHeight: 16,
+    color: paper.dashboardInk,
   },
-  featureTitle: {
-    marginTop: 3,
+  tripStepCue: {
+    marginTop: -4,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 13,
+    lineHeight: 17,
+  },
+  tripArrow: {
+    marginHorizontal: -2,
+    marginTop: -18,
+  },
+
+  // ── Section labels ─────────────────────────────────────────────────
+  sectionLabel: {
+    paddingHorizontal: 4,
+    paddingTop: 10,
+  },
+  sectionTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 25,
-    lineHeight: 29,
+    fontSize: 24,
+    lineHeight: 28,
     letterSpacing: -0.4,
     color: paper.dashboardInk,
   },
-  featureCode: {
-    fontFamily: paperFonts.monoBold,
-    fontSize: 22,
-    letterSpacing: -0.8,
-  },
-  featureTagline: {
-    marginTop: 13,
-    paddingLeft: 4,
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 17,
-    lineHeight: 22,
-    color: paper.dashboardInk,
-  },
-
-  // ── Read sections ──────────────────────────────────────────────────
-  readSections: {
-    gap: 8,
-    marginTop: 13,
-  },
-  readSection: {
-    paddingHorizontal: 12,
-    paddingVertical: 11,
-    borderRadius: 9,
-  },
-  readSectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: 6,
-  },
-  readSectionLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    lineHeight: 12,
-    letterSpacing: 1.3,
-  },
-  readSectionText: {
+  sectionCaption: {
+    marginTop: 3,
     fontFamily: paperFonts.body,
-    fontSize: 13,
-    lineHeight: 19.5,
-    color: paper.dashboardInk,
+    fontSize: 13.5,
+    lineHeight: 19,
+    color: paper.dashboardMuted,
   },
 
-  // ── Best for ───────────────────────────────────────────────────────
-  bestForBlock: {
-    marginTop: 15,
-    paddingTop: 13,
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardHair,
-  },
-  bestForHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: 10,
-  },
-  bestForLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.4,
-  },
-  bestForRule: {
-    flex: 1,
-    height: 1,
-  },
-  speciesChips: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
-  },
-  speciesChip: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderRadius: 999,
-  },
-  speciesChipText: {
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 12,
-    lineHeight: 15,
-  },
-  speciesChipAlso: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+  // ── Card ───────────────────────────────────────────────────────────
+  card: {
+    overflow: "hidden",
+    borderRadius: 16,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderStyle: "dashed",
-    borderRadius: 999,
-    backgroundColor: "#FAFAF8",
+    backgroundColor: paper.dashboardWhite,
+    ...paperShadows.hard,
   },
-  speciesChipAlsoText: {
+  stage: {
+    position: "relative",
+    height: STAGE_HEIGHT,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  stageEmblem: {
+    position: "absolute",
+    left: 12,
+    top: 12,
+  },
+  startHere: {
+    position: "absolute",
+    right: 12,
+    top: 14,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardInk,
+  },
+  startHereText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.3,
+    color: "#FFFFFF",
+  },
+  cardBody: {
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    paddingBottom: 18,
+  },
+  cardTag: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.6,
+  },
+  cardTitle: {
+    marginTop: 4,
+    fontFamily: paperFonts.display,
+    fontSize: 28,
+    lineHeight: 32,
+    letterSpacing: -0.5,
+    color: paper.dashboardInk,
+  },
+  cardQuestion: {
+    marginTop: 2,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 17,
+    lineHeight: 23,
+    color: paper.dashboardInk,
+    opacity: 0.78,
+  },
+  cardSummary: {
+    marginTop: 10,
+    fontFamily: paperFonts.body,
+    fontSize: 14.5,
+    lineHeight: 21,
+    color: "#2F3A45",
+  },
+  gets: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 14,
+  },
+  getItem: {
+    flex: 1,
+    alignItems: "center",
+    gap: 6,
+  },
+  getIcon: {
+    width: 38,
+    height: 38,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 19,
+  },
+  getLabel: {
     fontFamily: paperFonts.bodySemiBold,
     fontSize: 12,
     lineHeight: 15,
-    color: paper.dashboardMuted,
+    textAlign: "center",
+    color: paper.dashboardInk,
   },
-  bestForNote: {
-    marginTop: 9,
-    fontFamily: paperFonts.body,
-    fontSize: 11.5,
-    lineHeight: 17,
-    color: paper.dashboardMuted,
-  },
-  noSpeciesNote: {
+  worksOn: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     gap: 7,
-    marginTop: 15,
+    marginTop: 16,
     paddingTop: 13,
     borderTopWidth: 1,
     borderTopColor: paper.dashboardHair,
   },
-  noSpeciesText: {
+  worksOnIcon: {
+    marginTop: 2,
+  },
+  worksOnCopy: {
     minWidth: 0,
     flex: 1,
+    gap: 2,
+  },
+  worksOnText: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+  },
+  worksOnNote: {
     fontFamily: paperFonts.body,
-    fontSize: 11.5,
-    lineHeight: 17,
+    fontSize: 12.5,
+    lineHeight: 18,
     color: paper.dashboardMuted,
   },
-
-  // ── CTA ────────────────────────────────────────────────────────────
+  actions: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 14,
+  },
   openButton: {
-    minHeight: 46,
+    flex: 1,
+    minHeight: 48,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    marginTop: 15,
-    borderRadius: 9,
-  },
-  lockedButton: {
-    minHeight: 46,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    marginTop: 15,
-    borderWidth: 1,
-    borderRadius: 9,
-  },
-  lockedButtonText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
-    letterSpacing: 1.4,
-  },
-  openButtonPressed: {
-    opacity: 0.88,
-    transform: [{ scale: 0.994 }],
+    borderRadius: 12,
   },
   openButtonText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
-    letterSpacing: 1.4,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 15,
     color: "#FFFFFF",
+  },
+  mapButton: {
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+    paddingHorizontal: 16,
+    borderWidth: 1.5,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
+  },
+  mapButtonText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 14,
+  },
+  lockedButton: {
+    minHeight: 48,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 14,
+    borderWidth: 1,
+    borderRadius: 12,
+  },
+  lockedText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 14,
+  },
+
+  // ── Stage art ──────────────────────────────────────────────────────
+  biteBack: {
+    position: "absolute",
+    right: 22,
+    top: 26,
+    opacity: 0.5,
+    transform: [{ rotate: "-5deg" }],
+  },
+  biteFront: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: -118,
+    top: 58,
+    transform: [{ rotate: "2deg" }],
+  },
+  plate: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 999,
+    backgroundColor: "#FEFEFE",
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.08)",
+    ...paperShadows.hard,
+  },
+  tacklePlateBack: {
+    width: 118,
+    height: 118,
+    left: "50%",
+    marginLeft: -2,
+    top: 30,
+  },
+  tacklePlateFront: {
+    width: 132,
+    height: 132,
+    left: "50%",
+    marginLeft: -116,
+    top: 22,
+  },
+  colorPlate: {
+    width: 132,
+    height: 132,
+    left: "50%",
+    marginLeft: -136,
+    top: 20,
+  },
+  clarityRow: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: 12,
+    top: 46,
+    flexDirection: "row",
+    gap: 10,
+  },
+  clarityItem: {
+    alignItems: "center",
+    gap: 6,
+  },
+  clarityDisc: {
+    width: 40,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
+    ...paperShadows.hard,
+  },
+  clarityLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1,
+    color: "#9B4E18",
+  },
+  riverBed: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: -165,
+    top: 16,
+    opacity: 0.9,
+  },
+  riverFishBack: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: 8,
+    top: 42,
+    transform: [{ rotate: "-6deg" }],
+  },
+  riverFishFront: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: -128,
+    top: 86,
+    transform: [{ rotate: "-3deg" }],
+  },
+  pierWater: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "#0D2A40",
+  },
+  pierPhone: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: 22,
+    top: 18,
+    width: 104,
+    height: 168,
+    overflow: "hidden",
+    borderRadius: 14,
+    borderWidth: 3,
+    borderColor: "rgba(255,255,255,0.9)",
+    backgroundColor: "#0A1B2E",
+    ...paperShadows.lift,
+  },
+  pierPhoneImage: {
+    width: 98,
+    height: 212,
+    marginTop: -6,
+  },
+  pierFish: {
+    position: "absolute",
+    left: "50%",
+    marginLeft: -152,
+    top: 62,
+  },
+  waterSample: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: -58,
+    height: 290,
+    width: "100%",
   },
 
   // ── Footer ─────────────────────────────────────────────────────────
-  truthCard: {
-    position: "relative",
-    overflow: "hidden",
+  bottomLine: {
     flexDirection: "row",
     alignItems: "flex-start",
-    gap: 12,
-    padding: paperSpacing.md,
-    borderRadius: paperRadius.card,
+    gap: 10,
+    marginTop: 6,
+    padding: 16,
+    borderRadius: paperRadius.card + 4,
     backgroundColor: paper.dashboardInk,
   },
-  truthIcon: {
-    width: 34,
-    height: 34,
-    flexShrink: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.16)",
-    borderRadius: 17,
-    backgroundColor: "rgba(255,255,255,0.08)",
-  },
-  truthCopy: {
+  bottomLineText: {
     minWidth: 0,
     flex: 1,
-  },
-  truthLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.5,
-    color: paper.gold,
-  },
-  truthText: {
-    marginTop: 5,
     fontFamily: paperFonts.body,
-    fontSize: 12.5,
-    lineHeight: 18.5,
-    color: "rgba(255,255,255,0.8)",
+    fontSize: 13,
+    lineHeight: 19,
+    color: "rgba(255,255,255,0.82)",
   },
   footerStamp: {
     marginTop: 4,
