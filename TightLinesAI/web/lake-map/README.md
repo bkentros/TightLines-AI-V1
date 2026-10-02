@@ -89,6 +89,26 @@ responses; no network).
 `gen/geo.mjs` builds the prototype's vector layers; the production shoreline
 comes from OpenStreetMap land polygons.
 
+### Temp at depth data (feature branch / staging)
+
+`job/depth.py` is a separate, non-blocking producer that starts only after a
+surface publish. It reads the immutable surface pointer, downloads NOAA's
+regular-grid z-level slab every three forecast hours, interpolates 10, 20, 30,
+40 and 50 ft, and writes `runs/tdepth-<surface-run>/…`. The deeper reviewed
+depths (75/100/150 ft) remain available in config but are not published. Each
+depth has its own FrameStore-compatible manifest; `runs/tdepth/latest.json` is
+written only after every frame, manifest, verification sidecar and timing file.
+A failed depth run therefore cannot change either surface data or the previous
+complete depth pointer.
+
+The isolated staging resources are `piercast-lake-map-staging` and
+`https://piercast-map-gate-staging.finfindr.workers.dev`. The staging Worker has
+no custom-domain route or observation cron and uses a separate pass secret.
+`gate/wrangler.staging.toml`, `gate/setup-staging.sh`,
+`gate/create-staging-r2-credentials.py`, `job/copy_run_to_staging.py`, and
+`static-build/feature.py` are the staging setup tools. Staging depth objects
+under `runs/tdepth-` expire after 14 days.
+
 
 The `gen/` scripts read the prototype's source geometry (GLATOS shoreline, Natural Earth
 lakes, us-atlas borders) from a local folder; phase 3 moves this into the data job.

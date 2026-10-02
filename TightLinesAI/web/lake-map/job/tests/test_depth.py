@@ -29,17 +29,17 @@ def at(profile, bottom, ft):
 
 
 class LevelSlabTest(unittest.TestCase):
-    def test_all_map_depths_need_levels_2_to_50_m(self):
+    def test_shipped_depths_need_levels_2_to_20_m(self):
         k0, k1 = depth.level_slab(LEVELS, depth.feet_to_m(depth.TEMP_DEPTHS_FT))
-        self.assertEqual((LEVELS[k0], LEVELS[k1]), (2.0, 50.0))
-        self.assertEqual((k0, k1), (2, 15))
+        self.assertEqual((LEVELS[k0], LEVELS[k1]), (2.0, 20.0))
+        self.assertEqual((k0, k1), (2, 9))
 
-    def test_same_slab_fits_every_lake(self):
+    def test_supported_future_depths_fit_every_lake(self):
         # LEOFS stops at 60 m (17 levels); the others go deeper
         leofs = np.array([0, 1, 2, 4, 6, 8, 10, 12, 15, 20, 25, 30, 35, 40, 45, 50, 60], np.float64)
         lsofs = np.concatenate([leofs, [70, 80, 90, 100, 125, 150, 200, 250, 300, 350]])
         for levels in (leofs, lsofs):
-            self.assertEqual(depth.level_slab(levels, depth.feet_to_m(depth.TEMP_DEPTHS_FT)), (2, 15))
+            self.assertEqual(depth.level_slab(levels, depth.feet_to_m(depth.TEMP_DEPTHS_AVAILABLE_FT)), (2, 15))
 
     def test_rejects_targets_outside_the_levels_and_bad_levels(self):
         with self.assertRaises(ValueError):
@@ -59,8 +59,8 @@ class InterpolationTest(unittest.TestCase):
         expected = F(57.7) + (F(52.6) - F(57.7)) * (22.86 - 20) / 5
         self.assertAlmostEqual(at(LUDINGTON, 131.5, 75), expected, places=4)
 
-    def test_all_map_depths_follow_the_thermocline(self):
-        v = depth.interpolate_to_depths(LUDINGTON[:, None], LEVELS, [131.5], depth.feet_to_m(depth.TEMP_DEPTHS_FT))[:, 0]
+    def test_all_supported_depths_follow_the_thermocline(self):
+        v = depth.interpolate_to_depths(LUDINGTON[:, None], LEVELS, [131.5], depth.feet_to_m(depth.TEMP_DEPTHS_AVAILABLE_FT))[:, 0]
         fahrenheit = v * 9 / 5 + 32
         self.assertTrue(np.all(np.isfinite(v)))
         self.assertTrue(np.all(np.diff(fahrenheit[2:]) < 0))  # colder with depth below 30 ft
@@ -125,7 +125,7 @@ class EdgeCaseTest(unittest.TestCase):
     def test_winter_inverse_stratification_is_kept(self):
         # under ice: ~0.5 °C at the surface warming to ~4 °C at the bottom
         winter = np.linspace(0.5, 4.0, LEVELS.size)
-        v = depth.interpolate_to_depths(winter[:, None], LEVELS, [60.0], depth.feet_to_m(depth.TEMP_DEPTHS_FT))[:, 0]
+        v = depth.interpolate_to_depths(winter[:, None], LEVELS, [60.0], depth.feet_to_m(depth.TEMP_DEPTHS_AVAILABLE_FT))[:, 0]
         self.assertTrue(np.all(np.diff(v) > 0))
         self.assertTrue(np.all((v > 0.5) & (v < 4.0)))
 
