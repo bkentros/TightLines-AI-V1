@@ -485,6 +485,8 @@ export type PierCastHourSlot = {
   /** "NOW" or "6 PM" */
   label: string;
   isNow: boolean;
+  localDate: string;
+  localHour: number;
   waterF: number | null;
   airF: number | null;
   windMph: number | null;
@@ -533,57 +535,41 @@ export function buildPierCastHourlyStrip(input: {
     "temperatureTimeline" | "timezone" | "currentTemperature"
   >;
   weather: readonly PierCastHourlyWeatherPoint[];
-  localDate: string;
   now?: number;
 }): PierCastHourSlot[] {
   const now = input.now ?? Date.now();
   const timezone = input.report.timezone;
-  const nowLocal = pierCastLocalParts(now, timezone);
   const points = pierCastTimelinePoints(
     input.report.temperatureTimeline,
     timezone,
-  );
-  const waterAt = new Map<string, number>();
-  for (const point of points) {
-    if (point.local.minute !== 0) continue;
-    waterAt.set(weatherKey(point.local.localDate, point.local.hour), point.temperatureF);
-  }
+  ).filter((point) => point.time >= now - MATCH_TOLERANCE_MS)
+    .slice(0, 120);
   const weatherAt = new Map<string, PierCastHourlyWeatherPoint>();
   for (const point of input.weather) {
     weatherAt.set(point.localTime.slice(0, 13), point);
   }
 
-  const slot = (hour: number, isNow: boolean): PierCastHourSlot => {
-    const key = weatherKey(input.localDate, hour);
+  return points.map((point, index) => {
+    const isNow = index === 0 && point.time <= now + MATCH_TOLERANCE_MS;
+    const key = weatherKey(point.local.localDate, point.local.hour);
     const reading = weatherAt.get(key);
     const direction = reading?.windDirectionDegrees ?? null;
     const currentWater = input.report.currentTemperature;
     return {
-      key: isNow ? "now" : key,
-      label: isNow ? "NOW" : pierCastHourLabel(hour),
+      key: point.validAt,
+      label: isNow ? "NOW" : pierCastHourLabel(point.local.hour),
       isNow,
+      localDate: point.local.localDate,
+      localHour: point.local.hour,
       waterF: isNow && currentWater && Number.isFinite(currentWater.temperatureC)
         ? fahrenheit(currentWater.temperatureC)
-        : waterAt.get(key) ?? null,
+        : point.temperatureF,
       airF: reading?.airTemperatureF ?? null,
       windMph: reading?.windSpeedMph ?? null,
       windFrom: pierCastCompass(direction),
       windArrowDegrees: direction === null ? null : (direction + 180) % 360,
     };
-  };
-
-  const slots: PierCastHourSlot[] = [];
-  if (nowLocal && nowLocal.localDate === input.localDate) {
-    slots.push(slot(nowLocal.hour, true));
-    let hour = nowLocal.hour + 1;
-    if (hour % 2 === 1) hour += 1;
-    for (; hour <= 23; hour += 2) slots.push(slot(hour, false));
-  } else {
-    for (let hour = 6; hour <= 22; hour += 2) slots.push(slot(hour, false));
-  }
-  return slots.filter((entry) =>
-    entry.waterF !== null || entry.airF !== null || entry.windMph !== null
-  );
+  });
 }
 
 // ─── Temperature snapshots ────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import {
   Image,
   type ImageSourcePropType,
@@ -70,6 +70,9 @@ const WIND_INK = "#2E6B5C";
 const COOL = "#2F86C9";
 const IDEAL = paper.bandPrime;
 const WARM = "#E0772F";
+const HOUR_CARD_WIDTH = 68;
+const HOUR_CARD_GAP = 8;
+const HOUR_CARD_STEP = HOUR_CARD_WIDTH + HOUR_CARD_GAP;
 
 const SEVERITY_STYLE = {
   minor: { label: "MINOR", color: "#7A8288" },
@@ -436,24 +439,47 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
 
 // ─── Pier conditions ──────────────────────────────────────────────────────
 
-function PierConditions({ report, weather, weatherLoading, days, selectedDay, waterNowF }: {
+function PierConditions({ report, weather, weatherLoading, days, waterNowF }: {
   report: PierCastCityReportReadV4;
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
   days: PierCastCalendarDay[];
-  selectedDay: number;
   waterNowF: number | null;
 }) {
+  const stripRef = useRef<ScrollView>(null);
   const current = pierCastCurrentWeather(weather, report.timezone);
-  const day = days[selectedDay] ?? days[0];
   const slots = useMemo(
-    () => day
-      ? buildPierCastHourlyStrip({ report, weather, localDate: day.localDate })
-      : [],
-    [day, report, weather],
+    () => buildPierCastHourlyStrip({ report, weather }),
+    [report, weather],
   );
+  const jumpDays = useMemo(
+    () => days.slice(0, 5).filter((day) =>
+      slots.some((slot) => slot.localDate === day.localDate)
+    ),
+    [days, slots],
+  );
+  const [activeDate, setActiveDate] = useState<string | null>(null);
   const pending = weatherLoading ? "…" : "—";
   const compass = pierCastCompass(current?.windDirectionDegrees ?? null);
+
+  useEffect(() => {
+    const firstDate = slots[0]?.localDate ?? null;
+    setActiveDate(firstDate);
+    stripRef.current?.scrollTo({ x: 0, animated: false });
+  }, [report.cityId, slots]);
+
+  const jumpToDate = (localDate: string) => {
+    const midnightIndex = slots.findIndex((slot) =>
+      slot.localDate === localDate && slot.localHour === 0
+    );
+    const firstIndex = slots.findIndex((slot) => slot.localDate === localDate);
+    const index = midnightIndex >= 0 ? midnightIndex : firstIndex;
+    if (index < 0) return;
+    hapticSelection();
+    setActiveDate(localDate);
+    stripRef.current?.scrollTo({ x: index * HOUR_CARD_STEP, animated: true });
+  };
+
   return (
     <Card label="Pier conditions">
       <CardHead kicker="RIGHT NOW AT THE PIER" title="Pier conditions" tag="LIVE" />
@@ -478,49 +504,82 @@ function PierConditions({ report, weather, weatherLoading, days, selectedDay, wa
           <Text style={styles.nowSub}>{compass ? `From ${compass}` : "Direction —"}</Text>
         </View>
       </View>
-      {day ? (
+      {slots.length > 0 ? (
         <>
           <View style={styles.stripHead}>
-            <Text style={styles.stripKey}>
-              {(day.isToday ? "TODAY" : day.weekday.toUpperCase())} · EVERY 2 HRS
-            </Text>
+            <Text style={styles.stripKey}>NEXT 120 HRS · HOURLY</Text>
             <Text style={[styles.stripKey, styles.stripKeyMuted]}>WATER · AIR · WIND</Text>
           </View>
-          {slots.length > 0 ? (
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.strip}
-            >
-              {slots.map((slot) => (
-                <View key={slot.key} style={[styles.hour, slot.isNow && styles.hourNow]}>
-                  <Text style={styles.hourTime}>{slot.label}</Text>
-                  <Text style={styles.hourWater}>{slot.waterF === null ? "—" : `${slot.waterF.toFixed(1)}°`}</Text>
-                  <Text style={styles.hourAir}>Air {slot.airF === null ? "—" : `${Math.round(slot.airF)}°`}</Text>
-                  <View style={styles.hourWind}>
-                    {slot.windArrowDegrees !== null ? (
-                      <Ionicons
-                        name="navigate"
-                        size={11}
-                        color={WIND_INK}
-                        style={{ transform: [{ rotate: `${slot.windArrowDegrees - 45}deg` }] }}
-                      />
-                    ) : null}
-                    <Text style={styles.hourWindText}>
-                      {slot.windMph === null ? "—" : `${slot.windFrom ?? ""} ${Math.round(slot.windMph)}`.trim()}
-                    </Text>
-                  </View>
+          <View style={styles.conditionDays}>
+            {jumpDays.map((day) => {
+              const selected = activeDate === day.localDate;
+              return (
+                <Pressable
+                  key={day.localDate}
+                  accessibilityRole="button"
+                  accessibilityLabel={day.isToday
+                    ? "Jump to current conditions"
+                    : `Jump to ${day.weekday}, ${day.dayOfMonth} at 12 AM`}
+                  accessibilityState={{ selected }}
+                  onPress={() => jumpToDate(day.localDate)}
+                  style={({ pressed }) => [
+                    styles.conditionDay,
+                    selected && styles.conditionDayOn,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <Text style={[styles.conditionDayName, selected && styles.conditionDayTextOn]}>
+                    {day.isToday ? "TODAY" : day.weekday.toUpperCase()}
+                  </Text>
+                  <Text style={[styles.conditionDayNumber, selected && styles.conditionDayTextOn]}>
+                    {day.dayOfMonth}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+          <ScrollView
+            ref={stripRef}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.strip}
+            scrollEventThrottle={16}
+            onScroll={(event) => {
+              const index = Math.min(
+                slots.length - 1,
+                Math.max(0, Math.round(event.nativeEvent.contentOffset.x / HOUR_CARD_STEP)),
+              );
+              const visibleDate = slots[index]?.localDate;
+              if (visibleDate && visibleDate !== activeDate) setActiveDate(visibleDate);
+            }}
+          >
+            {slots.map((slot) => (
+              <View key={slot.key} style={[styles.hour, slot.isNow && styles.hourNow]}>
+                <Text style={styles.hourTime}>{slot.label}</Text>
+                <Text style={styles.hourWater}>{slot.waterF === null ? "—" : `${slot.waterF.toFixed(1)}°`}</Text>
+                <Text style={styles.hourAir}>Air {slot.airF === null ? "—" : `${Math.round(slot.airF)}°`}</Text>
+                <View style={styles.hourWind}>
+                  {slot.windArrowDegrees !== null ? (
+                    <Ionicons
+                      name="navigate"
+                      size={11}
+                      color={WIND_INK}
+                      style={{ transform: [{ rotate: `${slot.windArrowDegrees - 45}deg` }] }}
+                    />
+                  ) : null}
+                  <Text style={styles.hourWindText}>
+                    {slot.windMph === null ? "—" : `${slot.windFrom ?? ""} ${Math.round(slot.windMph)}`.trim()}
+                  </Text>
                 </View>
-              ))}
-            </ScrollView>
-          ) : (
-            <Text style={styles.cardSub}>
-              {weatherLoading ? "Loading hourly conditions…" : "Hourly conditions are unavailable for this day."}
-            </Text>
-          )}
-          <Text style={styles.calFine}>Pick a day above to change the hours. Wind arrows point where the wind is blowing.</Text>
+              </View>
+            ))}
+          </ScrollView>
         </>
-      ) : null}
+      ) : (
+        <Text style={styles.cardSub}>
+          {weatherLoading ? "Loading hourly conditions…" : "Hourly conditions are unavailable."}
+        </Text>
+      )}
     </Card>
   );
 }
@@ -868,7 +927,6 @@ export function PierCastConditionsCityReport({
         weather={weather}
         weatherLoading={weatherLoading}
         days={days}
-        selectedDay={daySelection}
         waterNowF={waterNowF}
       />
       <TemperatureOutlook report={report} shifts={shifts} reduceMotion={reduceMotion} />
@@ -982,8 +1040,14 @@ const styles = StyleSheet.create({
   stripHead: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 16 },
   stripKey: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.2, color: "#333333" },
   stripKeyMuted: { color: "#888888" },
+  conditionDays: { flexDirection: "row", gap: 6, marginTop: 10 },
+  conditionDay: { flex: 1, minWidth: 0, alignItems: "center", justifyContent: "center", minHeight: 48, paddingHorizontal: 2, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 10, backgroundColor: "#FFFFFF" },
+  conditionDayOn: { borderColor: paper.dashboardBlue, backgroundColor: "#EEF6FA" },
+  conditionDayName: { fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 0.7, color: "#666666" },
+  conditionDayNumber: { marginTop: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 13, color: INK },
+  conditionDayTextOn: { color: paper.dashboardBlue },
   strip: { gap: 8, paddingTop: 10, paddingBottom: 2 },
-  hour: { width: 68, alignItems: "center", paddingHorizontal: 4, paddingVertical: 10, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.1)", borderRadius: 12, backgroundColor: "#FFFFFF" },
+  hour: { width: HOUR_CARD_WIDTH, alignItems: "center", paddingHorizontal: 4, paddingVertical: 10, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.1)", borderRadius: 12, backgroundColor: "#FFFFFF" },
   hourNow: { backgroundColor: "#EEF6FA", borderColor: paper.dashboardBlue },
   hourTime: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1, color: "#555555" },
   hourWater: { marginTop: 6, fontFamily: paperFonts.metaMonoBold, fontSize: 15, color: WATER_INK },
