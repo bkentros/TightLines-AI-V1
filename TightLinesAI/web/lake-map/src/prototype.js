@@ -11,6 +11,7 @@ import { createLakeMap } from './engine/index.js';
 import { fmtWind, fmtWaves, compass, toTemp, PALETTES, colorAt, bandSpec, SPECIES, speciesFit } from './engine/scales.js';
 import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
 import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
+import { TempDepthCatalog, TEMP_DEPTHS_FT, TEMP_DEPTH_NOTE, TEMP_DEPTH_UNAVAILABLE, depthLabel, featureState, layerChangedProps, tempDepthEnabled } from './engine/tempDepth.js';
 import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS, RUN_CHECK_MS } from './engine/freshness.js';
 import cities from './cities.json';
 
@@ -30,7 +31,7 @@ const range = (a, b) => { const da = at(Math.round(a)), db = at(Math.round(b)); 
 const degs = (f) => `${Math.round(ui.units.temp === 'C' ? (f - 32) * 5 / 9 : f)}°`;
 const deltaDeg = (f) => `${Math.round(ui.units.temp === 'C' ? f * 5 / 9 : f)}°${ui.units.temp}`;
 const SPEEDS = [0.5, 1, 1.5, 2];
-const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, t: 0, playing: false, speed: 1, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, paused: false };
+const ui = { species: SPECIES[1], layer: DEFAULT_MAP_LAYER, depthFt: 30, t: 0, playing: false, speed: 1, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true, buoys: true, nws: true, selected: null, selectedBuoy: null, alertHidden: false, paused: false };
 const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /* ── app bridge ── */
@@ -40,14 +41,18 @@ const post = (msg) => { try { if (window.ReactNativeWebView) window.ReactNativeW
 const track_ = (event, props = {}) => post({ type: 'analytics', event, props });
 const haptic = () => post({ type: 'haptic' });
 const PREFS_KEY = 'pc-lake-map-prefs-v1';
+const LABS_KEY = 'pc-lake-map-labs-v1';
 const UNIT_OPTIONS = { temp: ['F', 'C'], wind: ['mph', 'kph', 'kt'], length: ['ft', 'm'] };
+let savedLayer = null;
 function loadPrefs() { try { return JSON.parse(localStorage.getItem(PREFS_KEY) || 'null'); } catch (e) { return null; } }
-function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ units: ui.units, layer: ui.layer, species: ui.species.id, streaks: ui.streaks, lines: ui.lines, buoys: ui.buoys, nws: ui.nws, speed: ui.speed })); } catch (e) { /* storage off */ } }
+function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ units: ui.units, layer: ui.layer, depthFt: ui.depthFt, species: ui.species.id, streaks: ui.streaks, lines: ui.lines, buoys: ui.buoys, nws: ui.nws, speed: ui.speed })); } catch (e) { /* storage off */ } }
 (function initialPrefs() {
   const saved = loadPrefs();
   if (saved) {
     for (const k of Object.keys(UNIT_OPTIONS)) if (saved.units && UNIT_OPTIONS[k].includes(saved.units[k])) ui.units[k] = saved.units[k];
+    savedLayer = saved.layer;
     ui.layer = resolveInitialMapLayer(saved.layer);
+    if (TEMP_DEPTHS_FT.includes(saved.depthFt)) ui.depthFt = saved.depthFt;
     if (typeof saved.streaks === 'boolean') ui.streaks = saved.streaks;
     if (typeof saved.lines === 'boolean') ui.lines = saved.lines;
     if (typeof saved.buoys === 'boolean') ui.buoys = saved.buoys;
@@ -62,6 +67,17 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
 })();
 
 (async () => {
+  let features = {};
+  try {
+    const response = await fetch('features.json', { cache: 'no-store', credentials: 'same-origin' });
+    if (response.ok) features = await response.json();
+  } catch { /* absent means every optional feature is off */ }
+  const tempDepthMode = featureState(features);
+  let labsUnlocked = false;
+  try { labsUnlocked = QS.get('labs') === '1' || localStorage.getItem(LABS_KEY) === '1'; } catch { labsUnlocked = QS.get('labs') === '1'; }
+  let tempDepthAccess = tempDepthEnabled(features, { labsUnlocked });
+  if (tempDepthAccess) ui.layer = resolveInitialMapLayer(savedLayer, { tempDepth: true });
+
   const piers = CITIES.map((c) => ({ id: c[0], name: c[1], st: c[2], lat: c[3], lon: c[4], structure: c[5], lake: HURON.has(c[0]) ? 'Lake Huron' : 'Lake Michigan', nameSide: HURON.has(c[0]) || c[2] === 'WI' || c[2] === 'IL' ? 'left' : 'right' }));
   piers.forEach((p) => { if (HURON.has(p.id)) p.nameSide = 'left'; if (p.st === 'MI' && !HURON.has(p.id)) p.nameSide = 'right'; if (p.st === 'WI' || p.st === 'IL') p.nameSide = 'left'; });
   // Where the map data lives: ?data= / ?static= / ?basemap=1, or, when this page is served
@@ -93,6 +109,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       if (latest && latest.base) { activeRun = typeof latest.run === 'string' ? latest.run : null; dataUrl = '../' + latest.base; staticUrl = staticUrl || '../static/'; basemap = q.get('basemap') !== '0'; }
     } catch (e) { /* no bucket next to this page: use bundled data */ }
   }
+  let depthCatalog = null;
+  if (tempDepthAccess && activeRun) {
+    depthCatalog = await new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
+      { smoothTemperature: q.get('smooth') !== '0' }).init();
+  }
+  if (ui.layer === 'temp_depth' && !depthCatalog?.available) ui.layer = DEFAULT_MAP_LAYER;
   const lm = await createLakeMap($('#map'), {
     dataUrl, staticUrl, basemap, piers, smoothTemperature: q.get('smooth') !== '0', ...(resume ? { center: resume.center, zoom: resume.zoom } : {}),
     // screen areas covered by controls; labels and markers stay clear of them
@@ -106,6 +128,11 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     },
   });
   window.__lm = lm;
+  let toastTimer = 0;
+  function showToast(message) {
+    const toast = $('#toast'); toast.textContent = message; toast.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { toast.hidden = true; }, 2200);
+  }
   // the app pauses the map while another screen covers it (saves battery)
   window.PC_PAUSE = (paused) => {
     ui.paused = !!paused; if (paused) stop(); lm.setPaused(!!paused);
@@ -135,6 +162,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     else if (ui.layer === 'wind') { val = fmtWind(s.wind, u.wind); unit = `${u.wind === 'kph' ? 'km/h' : u.wind} ${compass(s.windFrom)}`; sub = `Water ${water} · ${waveTxt}`; }
     else if (ui.layer === 'waves') { val = fmtWaves(s.waves, u.length); unit = u.length; sub = `${windTxt} · Water ${water}`; }
     else if (ui.layer === 'depth') { val = !Number.isFinite(s.depth) ? '—' : u.length === 'm' ? Math.round(s.depth * 0.3048) : Math.round(s.depth); unit = `${u.length} deep`; sub = `Water ${water} · ${windTxt}`; }
+    else if (ui.layer === 'temp_depth') {
+      const label = depthLabel(ui.depthFt, u.length);
+      if (!s.tempDepthReady) { val = '—'; unit = ''; sub = 'Loading depth temperature…'; }
+      else if (!Number.isFinite(s.tempDepth)) { val = '—'; unit = ''; sub = `Shallower than ${label} here`; }
+      else { val = `${toTemp(s.tempDepth, u.temp).toFixed(1)}${tU}`; unit = `at ${label}`; sub = `${windTxt} · modeled below surface`; }
+    }
     else if (ui.layer === 'species') {
       const f = speciesFit(s.temp, ui.species), sp = ui.species;
       val = toTemp(s.temp, u.temp).toFixed(1); unit = tU;
@@ -154,7 +187,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
 
   /* ── legend ── */
   function legend() {
-    const L = ui.layer === 'species' ? 'temp' : ui.layer, p = PALETTES[L], u = ui.units, bs = bandSpec(ui.layer, u);
+    const L = ui.layer === 'species' || ui.layer === 'temp_depth' ? 'temp' : ui.layer, p = PALETTES[L], u = ui.units, bs = bandSpec(ui.layer, u);
     let grad;
     if (bs) {
       const lo = p.min * bs.a + bs.b, hi = p.max * bs.a + bs.b, stops = [];
@@ -168,7 +201,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       grad = `linear-gradient(90deg,${stops.join(',')})`;
     } else grad = `linear-gradient(90deg,${p.stops.map((s) => `${s[1]} ${((s[0] - p.min) / (p.max - p.min) * 100).toFixed(1)}%`).join(',')})`;
     $('#lg-bar').style.background = grad;
-    $('#lg-name').textContent = ui.layer === 'species' ? ui.species.name.toUpperCase() : { temp: 'WATER', wind: 'WIND', waves: 'WAVES', depth: 'DEPTH' }[L];
+    $('#lg-name').textContent = ui.layer === 'temp_depth' ? `WATER · ${depthLabel(ui.depthFt, u.length).toUpperCase()}`
+      : ui.layer === 'species' ? ui.species.name.toUpperCase() : { temp: 'WATER', wind: 'WIND', waves: 'WAVES', depth: 'DEPTH' }[L];
+    $('#lg-note').hidden = ui.layer !== 'temp_depth';
+    $('#lg-note').textContent = ui.layer === 'temp_depth' ? TEMP_DEPTH_NOTE : '';
+    $('#depth-chip').hidden = ui.layer !== 'temp_depth';
+    $('#depth-chip').textContent = depthLabel(ui.depthFt, u.length);
     let ticks;
     if (ui.layer === 'species') { const sp = ui.species, c = u.temp === 'C'; ticks = [[toTemp(sp.lo, u.temp), `${Math.round(toTemp(sp.lo, u.temp))}`], [toTemp(sp.hi, u.temp), `${Math.round(toTemp(sp.hi, u.temp))}${c ? '°C' : '°F'}`]]; }
     else if (L === 'temp') ticks = u.temp === 'C' ? [[5, '5'], [10, '10'], [15, '15'], [20, '20'], [25, '25°C']] : [[40, '40'], [50, '50'], [60, '60'], [70, '70°F']];
@@ -475,14 +513,18 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     const p = piers.find((x) => x.id === ui.selected), card = $('#pier');
     if (!p) { card.hidden = true; $('#readout').hidden = false; $('#cross').hidden = false; return; }
     const s = lm.sampleAt(p.lon, p.lat), s12 = lm.sampleAt(p.lon, p.lat, Math.min(maxHour, ui.t + 12)), u = ui.units;
-    const tU = u.temp === 'C' ? '°C' : '°F', dd = toTemp(s12.temp, u.temp) - toTemp(s.temp, u.temp);
+    const atDepth = ui.layer === 'temp_depth';
+    const waterTemp = atDepth ? s.tempDepth : s.temp, waterTemp12 = atDepth ? s12.tempDepth : s12.temp;
+    const tU = u.temp === 'C' ? '°C' : '°F', dd = toTemp(waterTemp12, u.temp) - toTemp(waterTemp, u.temp);
     const ev = events.find((e) => e.pier.id === p.id && ui.t <= e.bottomHour + 24);
     card.hidden = false; $('#readout').hidden = true; $('#cross').hidden = true;
     $('#p-k').textContent = `${{ MI: 'MICHIGAN', WI: 'WISCONSIN', IL: 'ILLINOIS', IN: 'INDIANA' }[p.st]} · ${p.lake.toUpperCase()}`;
     $('#p-t').textContent = p.name; $('#p-s').textContent = p.structure;
-    const ok = Number.isFinite(s.temp);
-    $('#p-water').textContent = ok ? `${toTemp(s.temp, u.temp).toFixed(1)}°` : '—';
-    $('#p-water-s').textContent = !ok || !Number.isFinite(dd) ? 'Loading…' : Math.abs(dd) < 0.3 ? 'Steady next 12 h' : `${dd > 0 ? '+' : '−'}${Math.abs(dd).toFixed(1)}° next 12 h`;
+    const ok = Number.isFinite(waterTemp), depthText = depthLabel(ui.depthFt, u.length);
+    $('#p-water').textContent = ok ? `${toTemp(waterTemp, u.temp).toFixed(1)}°` : '—';
+    $('#p-water-s').textContent = atDepth && s.tempDepthReady && !ok ? `Shallower than ${depthText} here`
+      : !ok || !Number.isFinite(dd) ? 'Loading…'
+        : `${atDepth ? `at ${depthText} · ` : ''}${Math.abs(dd) < 0.3 ? 'steady next 12 h' : `${dd > 0 ? '+' : '−'}${Math.abs(dd).toFixed(1)}° next 12 h`}`;
     $('#p-wind').textContent = Number.isFinite(s.wind) ? `${compass(s.windFrom)} ${fmtWind(s.wind, u.wind)}` : '—'; $('#p-wind-s').textContent = u.wind === 'kph' ? 'km/h' : u.wind;
     $('#p-waves').textContent = fmtWaves(s.waves, u.length); $('#p-waves-s').textContent = u.length + (s.waves >= 4 ? ' · use caution' : '');
     const here = ui.nws ? nwsAt(p.lon, p.lat) : [], pn = $('#p-nws');
@@ -732,17 +774,80 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#layers').addEventListener('click', () => openSheet('layers'));
   $('#search').addEventListener('click', () => { openSheet('search'); $('#q').value = ''; renderResults(); });
   $('#fit').addEventListener('click', () => lm.fitAll());
-  $('#attrib').addEventListener('click', () => openSheet('credits'));
-  function setLayer(layer) {
+  let labsHeld = false, labsTimer = 0;
+  const clearLabsTimer = () => { clearTimeout(labsTimer); labsTimer = 0; };
+  $('#attrib').addEventListener('pointerdown', () => {
+    if (tempDepthMode !== 'labs') return;
+    labsHeld = false; clearLabsTimer();
+    labsTimer = setTimeout(async () => {
+      labsHeld = true; labsUnlocked = !labsUnlocked;
+      try { localStorage.setItem(LABS_KEY, labsUnlocked ? '1' : '0'); } catch { /* storage off */ }
+      tempDepthAccess = tempDepthEnabled(features, { labsUnlocked });
+      if (tempDepthAccess && !depthCatalog && activeRun) {
+        depthCatalog = await new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
+          { smoothTemperature: q.get('smooth') !== '0' }).init();
+      }
+      $('#temp-depth-layer').hidden = !tempDepthAccess;
+      if (!tempDepthAccess && ui.layer === 'temp_depth') await setLayer(DEFAULT_MAP_LAYER);
+      showToast(tempDepthAccess ? 'Labs on' : 'Labs off');
+      haptic();
+    }, 3000);
+  });
+  for (const type of ['pointerup', 'pointercancel', 'pointerleave']) $('#attrib').addEventListener(type, clearLabsTimer);
+  $('#attrib').addEventListener('click', (event) => {
+    if (labsHeld) { event.preventDefault(); labsHeld = false; return; }
+    openSheet('credits');
+  });
+
+  $('#temp-depth-layer').hidden = !tempDepthAccess;
+  function renderDepthPicker() {
+    $('#td-chips').innerHTML = TEMP_DEPTHS_FT.map((depth) => `<button data-depth-ft="${depth}" aria-pressed="${depth === ui.depthFt}">${depthLabel(depth, ui.units.length)}</button>`).join('');
+  }
+  renderDepthPicker();
+  let depthSwitch = 0;
+  async function selectTempDepth(depthFt) {
+    if (!tempDepthAccess) return false;
+    if (!depthCatalog && activeRun) depthCatalog = new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
+      { smoothTemperature: q.get('smooth') !== '0' });
+    if (depthCatalog && !depthCatalog.available) await depthCatalog.init();
+    if (!depthCatalog?.available) { showToast(TEMP_DEPTH_UNAVAILABLE); return false; }
+    const switchId = ++depthSwitch;
+    try {
+      const source = await depthCatalog.store(depthFt);
+      source.prefetch(ui.t, ['temp'], 2);
+      const br = source.bracket(ui.t);
+      await Promise.all([br.ia, br.ib].map((index) => source.load(source.framePath('temp', index))));
+      if (switchId !== depthSwitch) return false;
+      ui.depthFt = depthFt; lm.setTempDepth(source, depthFt); renderDepthPicker();
+      return true;
+    } catch {
+      if (switchId === depthSwitch) showToast(TEMP_DEPTH_UNAVAILABLE);
+      return false;
+    }
+  }
+  async function setLayer(layer) {
+    if (layer === 'temp_depth' && !(await selectTempDepth(ui.depthFt))) return false;
     ui.layer = layer; lm.setLayer(layer);
     document.querySelectorAll('[data-layer]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.layer === layer)));
-    $('#layer-l').textContent = { temp: 'TEMP', wind: 'WIND', waves: 'WAVES', depth: 'DEPTH', species: 'MATCH' }[layer];
+    $('#layer-l').textContent = { temp: 'TEMP', temp_depth: 'TEMP ↓', wind: 'WIND', waves: 'WAVES', depth: 'DEPTH', species: 'MATCH' }[layer];
     $('#sp-chips').hidden = layer !== 'species';
+    $('#td-picker').hidden = layer !== 'temp_depth';
     legend(); queueReadout(); if (ui.selected) pierCard();
+    fitLayout();
+    return true;
   }
-  document.querySelectorAll('[data-layer]').forEach((b) => b.addEventListener('click', () => {
-    setLayer(b.dataset.layer); savePrefs(); haptic(); track_('layer_changed', { layer: ui.layer });
+  document.querySelectorAll('[data-layer]').forEach((b) => b.addEventListener('click', async () => {
+    if (!(await setLayer(b.dataset.layer))) return;
+    savePrefs(); haptic(); track_('layer_changed', layerChangedProps(ui.layer, ui.depthFt));
   }));
+  $('#td-chips').addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-depth-ft]'); if (!button) return;
+    const depthFt = Number(button.dataset.depthFt); if (depthFt === ui.depthFt) return;
+    if (!(await selectTempDepth(depthFt))) return;
+    ui.layer = 'temp_depth'; lm.setLayer('temp_depth'); savePrefs(); renderDepthPicker(); legend(); queueReadout(); if (ui.selected) pierCard();
+    haptic(); track_('layer_changed', layerChangedProps('temp_depth', ui.depthFt));
+  });
+  $('#depth-chip').addEventListener('click', () => openSheet('layers'));
   const toggle = (id, key, fn) => $(id).addEventListener('click', () => { ui[key] = !ui[key]; $(id).setAttribute('aria-checked', String(ui[key])); fn(ui[key]); savePrefs(); });
   toggle('#sw-streaks', 'streaks', (v) => lm.setOptions({ streaks: v }));
   toggle('#sw-lines', 'lines', (v) => lm.setOptions({ lines: v }));
@@ -754,7 +859,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   }
   document.querySelectorAll('[data-unit]').forEach((b) => b.addEventListener('click', () => {
     const [k, v] = b.dataset.unit.split(':'); setUnit(k, v); savePrefs();
-    legend(); queueReadout(); renderAlertList(); renderChips(); updateAlerts(); if (ui.selected) pierCard(); if (ui.selectedBuoy) buoyCard();
+    renderDepthPicker(); legend(); queueReadout(); renderAlertList(); renderChips(); updateAlerts(); if (ui.selected) pierCard(); if (ui.selectedBuoy) buoyCard();
   }));
   // start from the saved (or app-provided) choices
   for (const k of Object.keys(ui.units)) setUnit(k, ui.units[k]);
@@ -777,7 +882,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#q').addEventListener('input', renderResults);
   $('#results').addEventListener('click', (e) => { const b = e.target.closest('.res'); if (b) selectPier(b.dataset.id, true); });
 
-  buildTrack(); setLayer(ui.layer);
+  buildTrack(); if (!(await setLayer(ui.layer))) await setLayer(DEFAULT_MAP_LAYER);
   fitLayout();
   addEventListener('resize', fitLayout);
   if (window.ResizeObserver) {
