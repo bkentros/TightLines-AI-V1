@@ -194,7 +194,7 @@ class CycleTest(unittest.TestCase):
         root_workflow = JOB.parents[3] / ".github/workflows/lake-map-data.yml"
         mirror_workflow = JOB / "lake-map-data.workflow.yml"
         root_text = root_workflow.read_text()
-        self.assertEqual(root_text, mirror_workflow.read_text())
+        self.assertFalse(mirror_workflow.exists(), "the retired data-workflow mirror must not return")
         crons = re.findall(r'cron:\s*"([^"]+)"', root_text)
         self.assertEqual(crons, ["45 2,8,14,20 * * *", "0,15,30,45 3,9,15,21 * * *", "0 4,10,16,22 * * *"])
         scheduled_checks = sum(len(cron.split()[0].split(",")) * len(cron.split()[1].split(",")) for cron in crons)

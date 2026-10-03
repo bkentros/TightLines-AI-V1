@@ -27,6 +27,11 @@ test('bad or obsolete saved layers fall back to temperature', () => {
   assert.equal(resolveInitialMapLayer({}), 'temp');
 });
 
+test('Temp at depth is restored only while its feature is enabled', () => {
+  assert.equal(resolveInitialMapLayer('temp_depth'), DEFAULT_MAP_LAYER);
+  assert.equal(resolveInitialMapLayer('temp_depth', { tempDepth: true }), 'temp_depth');
+});
+
 test('a routed species does not override the initial or saved layer', () => {
   assert.doesNotMatch(pageShell, /speciesFromRoute/);
   assert.match(pageShell, /if \(routed\) ui\.species = routed/);
