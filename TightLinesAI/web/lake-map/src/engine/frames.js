@@ -225,7 +225,7 @@ export class FrameStore {
       m.grids.temp = { ...m.grids.temp, ...DISPLAY_TEMP, smoothed: TEMP_SMOOTHING };
     }
     const [events, depth] = await Promise.all([
-      fetch(this.url(m.events)).then((r) => r.ok ? r.json() : { events: [] }).catch(() => ({ events: [] })),
+      m.events ? fetch(this.url(m.events)).then((r) => r.ok ? r.json() : { events: [] }).catch(() => ({ events: [] })) : Promise.resolve({ events: [] }),
       m.depth ? this.load(m.depth) : Promise.resolve(null),
     ]);
     this.events = events.events || [];

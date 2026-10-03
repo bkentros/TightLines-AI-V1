@@ -18,6 +18,7 @@ import { ParticleLayer } from './particleLayer.js';
 import { PALETTES, colorAt, toTemp, fmtWind, fmtWaves, compass, tempBand, bandSpec, speciesFit, FIT_COLORS, bandIndex } from './scales.js';
 import { BandLabeler } from './bandLabels.js';
 import { addStaticLayers, GLYPHS, ATTRIBUTION } from './staticLayers.js';
+import { depthCellValid } from './tempDepth.js';
 
 const LAND = '#12253A', INLAND = '#0B1B2A';
 /* Reference towns for orientation (piers are labeled separately). tier 1 shows earlier. */
@@ -49,6 +50,7 @@ export async function createLakeMap(container, options = {}) {
     layer: 'temp', t: 0, units: { temp: 'F', wind: 'mph', length: 'ft' }, lines: true, streaks: true,
     piers: options.piers || [], selected: null, species: null, alerts: {}, boxes: [],
     buoys: [], buoysOn: true, buoyDim: false, selectedBuoy: null,
+    depthStore: null, depthFt: null,
   };
   const map = new maplibregl.Map({
     container, attributionControl: false, dragRotate: false, pitchWithRotate: false, touchPitch: false,
@@ -70,6 +72,7 @@ export async function createLakeMap(container, options = {}) {
   });
   map.touchZoomRotate.disableRotation();
   const field = new FieldLayer(store), particles = new ParticleLayer(store);
+  let depthField = null;
   await new Promise((r) => map.on('load', r));
   const hd = !!options.staticUrl, bm = !!options.basemap;
   const coarse = hd ? { maxzoom: 4.3 } : {};
@@ -121,17 +124,19 @@ export async function createLakeMap(container, options = {}) {
   const sampleDepth = gridSampler(store.manifest.grids.depth, store.manifest.domain);
   const sampleWind = gridCubicSampler(store.manifest.grids.wind, store.manifest.domain);
   const resolved = (p) => p && p.__v;
-  const lastFrames = {};
-  function framesFor(kind, t) {
-    const br = store.bracket(t);
-    const a = store.loaded(store.framePath(kind, br.ia)), b = store.loaded(store.framePath(kind, br.ib));
+  const lastFramesByStore = new WeakMap();
+  function framesFor(source, kind, t) {
+    let lastFrames = lastFramesByStore.get(source);
+    if (!lastFrames) { lastFrames = {}; lastFramesByStore.set(source, lastFrames); }
+    const br = source.bracket(t);
+    const a = source.loaded(source.framePath(kind, br.ia)), b = source.loaded(source.framePath(kind, br.ib));
     [a, b].forEach((p) => onFrameReady(p, refresh));
     const A = resolved(a), B = resolved(b);
     if (A && B) {
       // neighbors for smooth motion, exactly as the color field picks them
-      const last = store.hours.length - 1, span = br.ib > br.ia;
-      const P = span && br.ia > 0 ? resolved(store.loaded(store.framePath(kind, br.ia - 1))) : null;
-      const N = span && br.ib < last ? resolved(store.loaded(store.framePath(kind, br.ib + 1))) : null;
+      const last = source.hours.length - 1, span = br.ib > br.ia;
+      const P = span && br.ia > 0 ? resolved(source.loaded(source.framePath(kind, br.ia - 1))) : null;
+      const N = span && br.ib < last ? resolved(source.loaded(source.framePath(kind, br.ib + 1))) : null;
       lastFrames[kind] = [A, B, br.mix, P || null, N || null];
       return lastFrames[kind];
     }
@@ -143,7 +148,7 @@ export async function createLakeMap(container, options = {}) {
    */
   function sampleFast(lon, lat, t = state.t) {
     const g = store.manifest.grids;
-    const T = framesFor('temp', t), Wd = framesFor('wind', t), Wv = framesFor('waves', t);
+    const T = framesFor(store, 'temp', t), Wd = framesFor(store, 'wind', t), Wv = framesFor(store, 'waves', t);
     // value at time t from one sampler: hours p, a, b, n blended like the color field
     const blend = ([fa, fb, m, fp, fn], sample) => blendHours(fp ? sample(fp) : NaN, sample(fa), sample(fb), fn ? sample(fn) : NaN, m);
     // right against a breakwall the model cell can be empty: use the closest cell that has water
@@ -162,6 +167,22 @@ export async function createLakeMap(container, options = {}) {
     const waves = blend(Wv, (f) => near((x, y) => sampleWaves(f, x, y), wr)) / g.waves.scale;
     return { temp, wind: Math.hypot(u, v), windFrom: (Math.atan2(-u, -v) * 180 / Math.PI + 360) % 360, u, v, waves };
   }
+  const depthSamplers = new WeakMap();
+  function sampleDepthFast(lon, lat, t = state.t) {
+    const source = state.depthStore;
+    if (!source) return { temp: NaN, ready: false };
+    const frames = framesFor(source, 'temp', t);
+    if (!frames[0] || !frames[1]) return { temp: NaN, ready: false };
+    let sampler = depthSamplers.get(source);
+    if (!sampler) { sampler = gridCubicSampler(source.manifest.grids.temp, source.manifest.domain); depthSamplers.set(source, sampler); }
+    const grid = source.manifest.grids.temp;
+    // The source mask is authoritative: smoothing may interpolate valid values
+    // near an edge, but it must never color water shallower than this depth.
+    if (!depthCellValid(frames[0], grid, source.manifest.domain, lon, lat)
+      && !depthCellValid(frames[1], grid, source.manifest.domain, lon, lat)) return { temp: NaN, ready: true };
+    const blend = ([fa, fb, m, fp, fn]) => blendHours(fp ? sampler(fp, lon, lat) : NaN, sampler(fa, lon, lat), sampler(fb, lon, lat), fn ? sampler(fn, lon, lat) : NaN, m);
+    return { temp: blend(frames) / grid.scale + grid.offset, ready: true };
+  }
   /** Values at a point for the current time (native units: °F, mph, ft). */
   function sampleAt(lon, lat, t = state.t) {
     const g = store.manifest.grids, fast = sampleFast(lon, lat, t);
@@ -177,7 +198,8 @@ export async function createLakeMap(container, options = {}) {
     const hdDepth = kind === 'lake' ? statics.depthAt(lon, lat, refresh) : NaN;
     const depth = kind !== 'lake' ? NaN : Number.isFinite(hdDepth) ? hdDepth : sampleDepth(store.depth, lon, lat) / g.depth.scale;
     const depthNear = Number.isFinite(depth) ? depth : near((x, y) => sampleDepth(store.depth, x, y), g.depth.res) / g.depth.scale;
-    return { ...fast, depth, depthNear, onWater: kind === 'lake', harbor: kind === 'harbor', kind };
+    const below = sampleDepthFast(lon, lat, t);
+    return { ...fast, tempDepth: below.temp, tempDepthReady: below.ready, depth, depthNear, onWater: kind === 'lake', harbor: kind === 'harbor', kind };
   }
   /**
    * 'lake' (Great Lakes water with model data), 'harbor' (rivers and harbor lakes:
@@ -229,7 +251,9 @@ export async function createLakeMap(container, options = {}) {
     return d;
   }
   function pierLook(p) {
-    const s = state.layer === 'depth' ? { depthNear: depthNearPier(p) } : sampleFast(p.lon, p.lat), u = state.units;
+    const s = state.layer === 'depth' ? { depthNear: depthNearPier(p) }
+      : state.layer === 'temp_depth' ? sampleDepthFast(p.lon, p.lat) : sampleFast(p.lon, p.lat);
+    const u = state.units;
     if (state.layer === 'wind') return { color: colorAt('wind', s.wind), text: `${compass(s.windFrom)} ${fmtWind(s.wind, u.wind)}` };
     if (state.layer === 'waves') return { color: colorAt('waves', s.waves), text: fmtWaves(s.waves, u.length) };
     if (state.layer === 'depth') return { color: colorAt('depth', s.depthNear), text: u.length === 'm' ? `${Math.round(s.depthNear * 0.3048)}m` : `${Math.round(s.depthNear)}'` };
@@ -237,6 +261,7 @@ export async function createLakeMap(container, options = {}) {
       const f = speciesFit(s.temp, state.species), disp = toTemp(s.temp, u.temp);
       return { color: FIT_COLORS[f.grade], text: Number.isFinite(disp) ? `${Math.round(disp)}°` : '—', fit: f };
     }
+    if (!Number.isFinite(s.temp)) return { color: '#506274', text: '—' };
     const band = tempBand(u.temp), disp = toTemp(s.temp, u.temp), mid = (bandIndex(disp, band) + 0.5) * band;
     return { color: colorAt('temp', u.temp === 'C' ? mid * 9 / 5 + 32 : mid), text: Number.isFinite(disp) ? `${Math.round(disp)}°` : '—' };
   }
@@ -330,7 +355,12 @@ export async function createLakeMap(container, options = {}) {
     for (const [id, el] of buoyEls) if (!seen.has(id)) el.style.display = 'none';
   }
 
-  const labeler = new BandLabeler(store, isWater);
+  const labelers = new WeakMap([[store, new BandLabeler(store, isWater)]]);
+  function labelerFor(source) {
+    if (!source) return null;
+    if (!labelers.has(source)) labelers.set(source, new BandLabeler(source, isWater));
+    return labelers.get(source);
+  }
   function drawOverlay() {
     const dpr = window.devicePixelRatio || 1, W = container.clientWidth, H = container.clientHeight;
     if (overlay.width !== W * dpr) { overlay.width = W * dpr; overlay.height = H * dpr; }
@@ -395,10 +425,12 @@ export async function createLakeMap(container, options = {}) {
   /* One label inside each band, at its most interior point (see bandLabels.js). */
   let lastAnchors = null, lastAnchorKey = '', fade = new Map(), lastDraw = 0, fadeReady = false;
   function drawBandLabels(X, W, H, z, free) {
-    const kind = state.layer === 'species' ? 'temp' : state.layer;
-    const key = `${kind}|${JSON.stringify(state.units)}`;
-    const hour = Math.round(state.t); framesFor(kind, hour);
-    const anchors = labeler.compute(state.layer, hour, state.units, framesAt(kind, hour));
+    const depth = state.layer === 'temp_depth', source = depth ? state.depthStore : store;
+    if (!source) return;
+    const kind = state.layer === 'species' || depth ? 'temp' : state.layer;
+    const key = `${source.base}|${kind}|${JSON.stringify(state.units)}`;
+    const hour = Math.round(state.t); framesFor(source, kind, hour);
+    const anchors = labelerFor(source).compute(state.layer, hour, state.units, framesAt(source, kind, hour));
     if (anchors) { lastAnchors = anchors; lastAnchorKey = key; }
     const list = anchors || (lastAnchorKey === key ? lastAnchors : null); if (!list) return;
     const world = 512 * Math.pow(2, z);
@@ -414,7 +446,7 @@ export async function createLakeMap(container, options = {}) {
       // never show a label whose band disagrees with the continuously blended
       // field currently on screen.
       const spec = bandSpec(state.layer, state.units);
-      const sampled = sampleFast(a.lon, a.lat, state.t);
+      const sampled = depth ? sampleDepthFast(a.lon, a.lat, state.t) : sampleFast(a.lon, a.lat, state.t);
       const nativeValue = kind === 'temp' ? sampled.temp : kind === 'waves' ? sampled.waves : sampled.wind;
       const liveBand = Number.isFinite(nativeValue) && spec
         ? bandIndex(nativeValue * spec.a + spec.b, spec.width)
@@ -440,9 +472,9 @@ export async function createLakeMap(container, options = {}) {
     if (again) setTimeout(refresh, 16);
   }
   /* Decoded frames around hour t (null until both are loaded). */
-  function framesAt(kind, t) {
-    const br = store.bracket(t);
-    const a = resolved(store.loaded(store.framePath(kind, br.ia))), b = resolved(store.loaded(store.framePath(kind, br.ib)));
+  function framesAt(source, kind, t) {
+    const br = source.bracket(t);
+    const a = resolved(source.loaded(source.framePath(kind, br.ia))), b = resolved(source.loaded(source.framePath(kind, br.ib)));
     return a && b ? [a, b] : null;
   }
 
@@ -457,17 +489,36 @@ export async function createLakeMap(container, options = {}) {
   const api = {
     map, store, sampleAt, isWater, waterKind,
     get state() { return state; },
-    setTime(t) { state.t = Math.max(0, Math.min(store.maxHour, t)); store.prefetch(state.t, ['temp', 'wind', 'waves'], 2); field.set({ t: state.t }); particles.set({ t: state.t }); refresh(); },
+    setTime(t) {
+      state.t = Math.max(0, Math.min(store.maxHour, t));
+      if (state.layer === 'temp_depth' && state.depthStore) {
+        state.depthStore.prefetch(state.t, ['temp'], 2);
+        if (particles.visible) store.prefetch(state.t, ['wind'], 2);
+      } else store.prefetch(state.t, ['temp', 'wind', 'waves'], 2);
+      field.set({ t: state.t }); depthField?.set({ t: state.t }); particles.set({ t: state.t }); refresh();
+    },
     setLayer(layer) {
       state.layer = layer;
-      field.set({ layer: layer === 'species' ? 'temp' : layer, band: bandSpec(layer, state.units), species: layer === 'species' ? state.species : null,
-        hidden: layer === 'depth' && statics.dem });
-      statics.setLayer(layer);
+      const depth = layer === 'temp_depth';
+      field.set({ layer: layer === 'species' ? 'temp' : depth ? 'temp' : layer, band: bandSpec(layer, state.units), species: layer === 'species' ? state.species : null,
+        hidden: depth || (layer === 'depth' && statics.dem) });
+      depthField?.set({ layer: 'temp', band: bandSpec('temp_depth', state.units), species: null, hidden: !depth, t: state.t });
+      statics.setLayer(depth ? 'temp' : layer);
       // no wind streaks over the depth chart: the contour lines are the point there
       particles.set({ brightness: layer === 'wind' ? 0.75 : 0.4, visible: state.streaks !== false && !state.paused && layer !== 'depth' }); refresh();
     },
+    setTempDepth(source, depthFt) {
+      state.depthStore = source; state.depthFt = depthFt;
+      if (!depthField) {
+        depthField = new FieldLayer(source, 'lake-depth-temperature');
+        depthField.set({ layer: 'temp', band: bandSpec('temp_depth', state.units), strictMask: true, hidden: true, t: state.t });
+        map.addLayer(depthField, 'land');
+      } else depthField.setStore(source);
+      source.prefetch(state.t, ['temp'], 2);
+      if (state.layer === 'temp_depth') api.setLayer('temp_depth');
+    },
     setSpecies(sp) { state.species = sp; if (state.layer === 'species') field.set({ species: sp }); refresh(); },
-    setUnits(units) { Object.assign(state.units, units); field.set({ units: state.units, band: bandSpec(state.layer, state.units) }); statics.setUnits(state.units); refresh(); },
+    setUnits(units) { Object.assign(state.units, units); field.set({ units: state.units, band: bandSpec(state.layer, state.units) }); depthField?.set({ units: state.units, band: bandSpec('temp_depth', state.units) }); statics.setUnits(state.units); refresh(); },
     /** Stops all drawing work (streaks, repaints) while the map is covered or in the background. */
     setPaused(paused) {
       state.paused = !!paused;
@@ -475,7 +526,7 @@ export async function createLakeMap(container, options = {}) {
       if (!state.paused) refresh();
     },
     setOptions({ lines, streaks }) {
-      if (lines !== undefined) { state.lines = lines; field.set({ lines }); }
+      if (lines !== undefined) { state.lines = lines; field.set({ lines }); depthField?.set({ lines }); }
       if (streaks !== undefined) { state.streaks = streaks; particles.set({ visible: streaks && !state.paused && state.layer !== 'depth' }); }
       refresh();
     },
@@ -485,12 +536,24 @@ export async function createLakeMap(container, options = {}) {
      */
     setAnimating(on, hoursPerSecond = 0) {
       state.animating = !!on;
-      store.setLookahead(on ? hoursPerSecond * 1.5 + 2 : 0);
-      if (on) store.prefetch(state.t, ['temp', 'wind', 'waves']);
+      const lookahead = on ? hoursPerSecond * 1.5 + 2 : 0;
+      store.setLookahead(lookahead); state.depthStore?.setLookahead(lookahead);
+      if (on && state.layer === 'temp_depth' && state.depthStore) {
+        state.depthStore.prefetch(state.t, ['temp']);
+        if (particles.visible) store.prefetch(state.t, ['wind']);
+      } else if (on) store.prefetch(state.t, ['temp', 'wind', 'waves']);
       refresh();
     },
     /** true when everything drawn at hour t is decoded and on the GPU, so playback can move there without a hitch. */
     ready(t) {
+      if (state.layer === 'temp_depth') {
+        const source = state.depthStore;
+        if (!source || !depthField) return false;
+        const br = source.bracket(t), last = source.hours.length - 1;
+        const around = [br.ia - 1, br.ia, br.ib, br.ib + 1].filter((i) => i >= 0 && i <= last);
+        return source.isLoaded('temp', t) && around.every((i) => depthField.hasTexture(source.framePath('temp', i)))
+          && (!particles.visible || store.isLoaded('wind', t));
+      }
       const kinds = [];
       if (state.layer !== 'depth') kinds.push(state.layer === 'species' ? 'temp' : state.layer); // depth never changes with time
       if (particles.visible) kinds.push('wind');
