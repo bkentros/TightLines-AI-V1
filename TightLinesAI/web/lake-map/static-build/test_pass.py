@@ -25,7 +25,10 @@ def b64u(raw: bytes) -> str:
 
 
 def read_secret() -> str:
-    name = "PIER_CAST_MAP_STAGING_PASS_SECRET" if ".workers.dev" in BASE else "PIER_CAST_MAP_PASS_SECRET"
+    # The isolated staging Worker deliberately shares pass verification with
+    # production so owner dev-build passes and browser links exercise one auth
+    # contract. Its R2 binding still points only at the staging bucket.
+    name = "PIER_CAST_MAP_PASS_SECRET"
     if os.environ.get(name):
         return os.environ[name]
     if ENV.exists():

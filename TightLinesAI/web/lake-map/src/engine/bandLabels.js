@@ -80,7 +80,7 @@ export class BandLabeler {
    */
   compute(layer, t, units, frames) {
     const bs = bandSpec(layer, units); if (!bs || !frames || !frames[0] || !frames[1]) return null;
-    const kind = layer === 'species' ? 'temp' : layer;
+    const kind = layer === 'species' || layer === 'temp_depth' ? 'temp' : layer;
     const hour = Math.round(t);
     const key = `${kind}|${hour}|${bs.width}|${bs.a}`;
     if (this.cache.has(key)) return this.cache.get(key);

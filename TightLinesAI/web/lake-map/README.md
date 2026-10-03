@@ -103,11 +103,40 @@ complete depth pointer.
 
 The isolated staging resources are `piercast-lake-map-staging` and
 `https://piercast-map-gate-staging.finfindr.workers.dev`. The staging Worker has
-no custom-domain route or observation cron and uses a separate pass secret.
+no custom-domain route or observation cron. For owner dev-build testing it uses
+the same pass-verification secret as production, while its only R2 binding remains
+the staging bucket, so an app-issued pass cannot reach production through staging.
 `gate/wrangler.staging.toml`, `gate/setup-staging.sh`,
 `gate/create-staging-r2-credentials.py`, `job/copy_run_to_staging.py`, and
 `static-build/feature.py` are the staging setup tools. Staging depth objects
 under `runs/tdepth-` expire after 14 days.
+
+The only active data workflow is `.github/workflows/lake-map-data.yml`. An
+identical historical copy under `job/` was removed after the workflow moved to
+GitHub's required root workflow directory, so changes have one source of truth.
+
+For owner testing, set staging `map/features.json` to `labs` (or `on`) with
+`R2_BUCKET=piercast-lake-map-staging .venv/bin/python static-build/feature.py
+tempDepth labs`. Browser testers can generate a signed staging link without
+printing any stored secret by running:
+
+```sh
+PIER_CAST_LIVE_MAP_URL=https://piercast-map-gate-staging.finfindr.workers.dev \
+  .venv/bin/python static-build/test_pass.py
+```
+
+To open the staging map from an already-installed development build, start a
+one-off Metro session from `TightLinesAI/` (use any free port):
+
+```sh
+EXPO_PUBLIC_PIER_CAST_LIVE_MAP_URL=https://piercast-map-gate-staging.finfindr.workers.dev \
+  npx expo start --dev-client --host lan --port 8082
+```
+
+Scan Metro's QR code from the development build. This does not modify `.env` or
+committed app code. The binary must already contain `react-native-webview`; an
+`RNCWebViewModule could not be found` error means the installed dev binary is
+older than the live-map native dependency.
 
 
 The `gen/` scripts read the prototype's source geometry (GLATOS shoreline, Natural Earth

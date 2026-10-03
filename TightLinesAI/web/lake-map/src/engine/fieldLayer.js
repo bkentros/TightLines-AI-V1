@@ -42,6 +42,7 @@ uniform float u_species; // 1 = highlight u_sp (native °F window)
 uniform vec2 u_sp;
 uniform float u_relief;  // relief strength
 uniform float u_opacity;
+uniform float u_strict_mask; // depth temperatures: never smooth across a shallow-water mask
 const float PI = 3.141592653589793;
 const float BAND_EPS = ${BAND_EPS.toFixed(6)};  // bands; see scales.js
 const float FLAT = 1e-5;       // smaller per-pixel change than this = flat water, no edge line
@@ -98,6 +99,7 @@ void main() {
     vec2 w = (wm * 255.0 - u_dec.y) / u_dec.x;
     value = length(w);
   } else {
+    if (u_strict_mask > 0.5 && min(texture(u_a, uv).g, texture(u_b, uv).g) < 0.999) discard;
     vec2 a = validScalar(u_a, uv), b = validScalar(u_b, uv);
     bool av = a.y > 0.000001, bv = b.y > 0.000001;
     if (!av && !bv) discard;
@@ -152,9 +154,9 @@ const DECODE = {
 };
 
 export class FieldLayer {
-  constructor(store) {
-    this.id = 'lake-field'; this.type = 'custom'; this.renderingMode = '2d';
-    this.store = store; this.layer = 'temp'; this.t = 0; this.units = { temp: 'F', wind: 'mph', length: 'ft' }; this.lines = true; this.band = null; this.species = null; this.opacity = 1;
+  constructor(store, id = 'lake-field') {
+    this.id = id; this.type = 'custom'; this.renderingMode = '2d';
+    this.store = store; this.layer = 'temp'; this.t = 0; this.units = { temp: 'F', wind: 'mph', length: 'ft' }; this.lines = true; this.band = null; this.species = null; this.opacity = 1; this.strictMask = false;
     this.textures = new Map(); this.palettes = {};
     this.lastBy = {};      // per kind: the last complete [A, B, mix] drawn, shown while newer hours load
     this.held = new Set(); // textures released by the store but still on screen
@@ -167,14 +169,27 @@ export class FieldLayer {
     const x0 = mercX(d.west), x1 = mercX(d.east), y0 = mercY(d.north), y1 = mercY(d.south);
     this.quad = buffer(gl, new Float32Array([x0, y0, x1, y0, x0, y1, x1, y1]));
     for (const name of Object.keys(PALETTES)) this.palettes[name] = texture(gl, { width: 256, height: 1, data: paletteBytes(name) });
-    this.store.onLoad(() => map.triggerRepaint());
+    this.watchStore();
+  }
+  watchStore() {
+    this.stopLoad?.(); this.stopEvict?.();
+    this.stopLoad = this.store.onLoad(() => this.map.triggerRepaint());
     // A released hour that is still on screen keeps its texture until the field
     // moves on, so scrubbing or jumping never flashes empty water.
     this.stopEvict = this.store.onEvict((path) => {
       if (!this.textures.has(path)) return;
       if (this.onScreen(path)) this.held.add(path);
-      else { gl.deleteTexture(this.textures.get(path)); this.textures.delete(path); }
+      else { this.gl.deleteTexture(this.textures.get(path)); this.textures.delete(path); }
     });
+  }
+  /** Switches an already-added field to another FrameStore (used by Temp at depth). */
+  setStore(store) {
+    if (store === this.store) return;
+    if (this.gl) for (const tex of this.textures.values()) this.gl.deleteTexture(tex);
+    this.textures.clear(); this.held.clear(); this.lastBy = {}; this.hourOf = null;
+    this.store = store;
+    if (this.map) this.watchStore();
+    this.map?.triggerRepaint();
   }
   set(opts) { Object.assign(this, opts); this.map && this.map.triggerRepaint(); }
   onScreen(path) { return Object.values(this.lastBy).some((fr) => fr && [fr[0], fr[1], fr[3], fr[4]].some((f) => f && f.path === path)); }
@@ -298,12 +313,13 @@ export class FieldLayer {
     gl.uniform2f(P.u.u_sp, this.species ? this.species.lo : 0, this.species ? this.species.hi : 0);
     gl.uniform1f(P.u.u_relief, 0.012 * Math.pow(2, 7 - this.map.getZoom()));
     gl.uniform1f(P.u.u_opacity, this.opacity);
+    gl.uniform1f(P.u.u_strict_mask, this.strictMask ? 1 : 0);
     bindAttr(gl, this.quad, P.a.a_pos, 2);
     gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   onRemove(_map, gl) {
-    this.stopEvict?.();
+    this.stopLoad?.(); this.stopEvict?.();
     for (const tex of this.textures.values()) gl.deleteTexture(tex);
     for (const tex of Object.values(this.palettes)) gl.deleteTexture(tex);
     this.textures.clear(); this.palettes = {};

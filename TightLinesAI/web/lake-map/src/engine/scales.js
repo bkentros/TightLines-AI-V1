@@ -58,7 +58,7 @@ export const tempBand = (u) => u === 'C' ? 1 : 2;
  * width is one band in display units; label() names a band by its display range.
  */
 export function bandSpec(layer, units) {
-  if (layer === 'temp' || layer === 'species') {
+  if (layer === 'temp' || layer === 'temp_depth' || layer === 'species') {
     const c = units.temp === 'C';
     return { a: c ? 5 / 9 : 1, b: c ? -160 / 9 : 0, width: c ? 1 : 2, unit: c ? '°C' : '°F', label: (lo, hi) => `${lo}–${hi}°` };
   }
