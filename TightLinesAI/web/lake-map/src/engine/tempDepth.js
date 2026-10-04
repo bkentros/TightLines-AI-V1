@@ -18,8 +18,24 @@ export function depthLabel(depthFt, lengthUnit = 'ft') {
   return lengthUnit === 'm' ? `${Math.round(depthFt * 0.3048)} m` : `${depthFt} ft`;
 }
 
-export function layerChangedProps(layer, depthFt) {
-  return layer === 'temp_depth' ? { layer, depth_ft: depthFt } : { layer };
+export function depthPickerItems(lengthUnit = 'ft') {
+  return TEMP_DEPTHS_FT.map((depthFt) => ({ depthFt, label: depthLabel(depthFt, lengthUnit) }));
+}
+
+export function rememberedDepth(value, fallback = 30) {
+  const depthFt = Number(value);
+  return TEMP_DEPTHS_FT.includes(depthFt) ? depthFt : fallback;
+}
+
+export function depthPopoverTop({ anchorBottom, popoverHeight, floor = 0, ceiling, gap = 8 }) {
+  return Math.max(floor, Math.min(anchorBottom + gap, ceiling - popoverHeight));
+}
+
+export function layerChangedProps(layer, depthFt, source) {
+  if (layer !== 'temp_depth') return { layer };
+  const props = { layer, depth_ft: depthFt };
+  if (source === 'sheet' || source === 'readout') props.source = source;
+  return props;
 }
 
 export function depthCellValid(frame, grid, domain, lon, lat) {

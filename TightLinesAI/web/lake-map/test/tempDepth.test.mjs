@@ -7,8 +7,11 @@ import {
   TEMP_DEPTHS_FT,
   depthCellValid,
   depthLabel,
+  depthPickerItems,
+  depthPopoverTop,
   featureState,
   layerChangedProps,
+  rememberedDepth,
   tempDepthEnabled,
 } from '../src/engine/tempDepth.js';
 
@@ -28,12 +31,47 @@ test('only the five launch depths are exposed and metric labels are fixed', () =
   assert.deepEqual(TEMP_DEPTHS_FT, [10, 20, 30, 40, 50]);
   assert.deepEqual(TEMP_DEPTHS_FT.map((depth) => depthLabel(depth, 'm')), ['3 m', '6 m', '9 m', '12 m', '15 m']);
   assert.equal(depthLabel(30, 'ft'), '30 ft');
+  assert.deepEqual(depthPickerItems('ft').map((item) => item.label), ['10 ft', '20 ft', '30 ft', '40 ft', '50 ft']);
+  assert.deepEqual(depthPickerItems('m').map((item) => item.label), ['3 m', '6 m', '9 m', '12 m', '15 m']);
 });
 
-test('layer analytics reuse layer_changed with snake_case depth_ft', () => {
+test('layer analytics reuse layer_changed with snake_case depth_ft and picker source', () => {
   assert.deepEqual(layerChangedProps('temp_depth', 30), { layer: 'temp_depth', depth_ft: 30 });
+  assert.deepEqual(layerChangedProps('temp_depth', 10, 'sheet'), { layer: 'temp_depth', depth_ft: 10, source: 'sheet' });
+  assert.deepEqual(layerChangedProps('temp_depth', 50, 'readout'), { layer: 'temp_depth', depth_ft: 50, source: 'readout' });
   assert.deepEqual(layerChangedProps('wind', 30), { layer: 'wind' });
-  for (const key of Object.keys(layerChangedProps('temp_depth', 30))) assert.match(key, /^[a-z_]+$/);
+  for (const key of Object.keys(layerChangedProps('temp_depth', 30, 'readout'))) assert.match(key, /^[a-z_]+$/);
+});
+
+test('remembered depth accepts only launch depths', () => {
+  for (const depth of TEMP_DEPTHS_FT) assert.equal(rememberedDepth(depth), depth);
+  assert.equal(rememberedDepth('30'), 30);
+  assert.equal(rememberedDepth(75), 30);
+  assert.equal(rememberedDepth(null, 20), 20);
+});
+
+test('the depth popover stays between the readout and playback panel at phone sizes', () => {
+  for (const [width, height] of [[320, 568], [375, 667], [393, 852], [440, 956], [360, 760], [852, 393]]) {
+    const floor = 60, anchorBottom = height < width ? 122 : 154, ceiling = height < width ? 210 : height - 250;
+    const top = depthPopoverTop({ anchorBottom, popoverHeight: 58, floor, ceiling });
+    assert.ok(top >= floor, `${width}x${height}: below top controls`);
+    assert.ok(top + 58 <= ceiling, `${width}x${height}: above playback panel`);
+  }
+});
+
+test('the page exposes inline and readout pickers without the retired floating chip', () => {
+  const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
+  const shell = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.ok(page.indexOf('id="temp-depth-layer"') < page.indexOf('id="td-picker"'));
+  assert.ok(page.indexOf('id="td-picker"') < page.indexOf('data-layer="wind"'));
+  assert.match(page, /id="ro-depth"[^>]+aria-controls="depth-popover"/);
+  assert.match(page, /#ro-depth\{min-height:44px/);
+  assert.match(page, /\.depth-segments button\{[^}]*min-height:44px/);
+  assert.doesNotMatch(page, /depth-chip/);
+  assert.match(shell, /depthRowOpen = !depthRowOpen/);
+  assert.match(shell, /changeDepth\(event, 'sheet'\)/);
+  assert.match(shell, /changeDepth\(event, 'readout'\)/);
+  assert.match(shell, /event\.target\.closest\('#depth-popover,#ro-depth'\)/);
 });
 
 test('shallow-water no-data remains masked at the selected depth', () => {

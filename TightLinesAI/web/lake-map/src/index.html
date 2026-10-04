@@ -21,11 +21,20 @@ button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 .top{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top) + 12px);display:flex;align-items:center;gap:10px}
 .ib{width:44px;height:44px;border-radius:22px;display:flex;align-items:center;justify-content:center}
 .ttl{flex:1;text-align:center}.ttl small{display:block;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:2.2px;color:var(--gold)}.ttl b{font:700 21px 'Fraunces',Georgia,serif}
-#readout{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 68px);transform:translateX(-50%);min-width:214px;max-width:340px;padding:9px 16px 10px;border-radius:18px;text-align:center;pointer-events:none}
+#readout{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 68px);transform:translateX(-50%);min-width:214px;max-width:min(340px,calc(100vw - 16px));padding:5px 16px 8px;border-radius:18px;text-align:center;pointer-events:none}
+#ro-main{display:flex;align-items:center;justify-content:center;min-height:44px;white-space:nowrap}
 #ro-val{font:700 26px 'JetBrains Mono',monospace}#ro-unit{margin-left:6px;font-size:14px;font-weight:600;opacity:.8}
+#ro-depth{min-height:44px;margin-left:6px;padding:0 3px;display:inline-flex;align-items:center;gap:4px;pointer-events:auto;font-size:14px;font-weight:700;text-decoration:underline;text-decoration-color:rgba(255,255,255,.32);text-underline-offset:3px}
+#ro-depth svg{transition:transform .16s}#ro-depth[aria-expanded="true"] svg{transform:rotate(180deg)}
 #ro-sub{margin-top:2px;font-size:13.5px;font-weight:600;white-space:nowrap}#ro-loc{margin-top:3px;font-size:12px;opacity:.64}
+html[data-depth-popover="1"] #ro-sub,html[data-depth-popover="1"] #ro-loc{display:none}
+#depth-popover{position:fixed;left:50%;z-index:8;transform:translateX(-50%);width:min(304px,calc(100vw - 16px));padding:7px;border-radius:16px;pointer-events:auto}
+.depth-segments{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+.depth-segments button{display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;padding:0 3px;border-radius:11px;font:700 12.5px 'JetBrains Mono',monospace;text-align:center;white-space:nowrap;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+.depth-segments button[aria-pressed="true"]{background:#fff;color:var(--ink);border-color:#fff}
 #cross{position:fixed;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;pointer-events:none}
 #alert{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top) + 166px);display:flex;align-items:center;border-radius:16px;background:rgba(18,70,122,.93);border:1px solid rgba(140,200,245,.55)}
+#alert[data-crowded="1"]{opacity:0;pointer-events:none}
 #alert[data-kind="warning"]{background:rgba(128,28,26,.94);border-color:rgba(240,82,74,.7)}#alert[data-kind="warning"] .alert-ic{background:#F0524A;color:#fff}
 #alert[data-kind="advisory"]{background:rgba(122,62,14,.94);border-color:rgba(242,154,58,.7)}#alert[data-kind="advisory"] .alert-ic{background:#F29A3A;color:#2A1604}
 #alert[data-kind="statement"]{background:rgba(96,80,16,.94);border-color:rgba(233,203,74,.7)}#alert[data-kind="statement"] .alert-ic{background:#E9CB4A;color:#2A2204}
@@ -42,7 +51,6 @@ button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 .card{border-radius:20px;padding:12px 14px}
 .legend{display:flex;align-items:center;gap:10px;margin-bottom:10px}#lg-name{font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:1.4px;opacity:.72}
 #lg-bar{height:8px;border-radius:4px}#lg-ticks{position:relative;height:14px;margin-top:3px;font:600 10px 'JetBrains Mono',monospace;opacity:.72}#lg-ticks span{position:absolute;top:0;white-space:nowrap}
-#depth-chip{height:28px;padding:0 10px;border-radius:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);font:700 11px 'JetBrains Mono',monospace;white-space:nowrap;flex:0 0 auto}
 #lg-note{margin:-4px 0 9px;font-size:11px;line-height:15px;opacity:.68}
 .trow{display:flex;align-items:center;gap:12px}
 #play{width:46px;height:46px;border-radius:23px;background:var(--gold);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
@@ -83,7 +91,7 @@ button:focus-visible{outline:3px solid #7CB8DA;outline-offset:2px}
 .tile[aria-pressed="true"]{border-color:var(--gold);background:rgba(232,160,46,.1)}
 .tile.wide{grid-column:1/-1;min-height:0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.chips button{height:36px;padding:0 14px;border-radius:18px;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);font-size:13.5px;font-weight:700}.chips button[aria-pressed="true"]{background:#fff;color:var(--ink);border-color:#fff}.chips button small{font-weight:600;opacity:.6;margin-left:6px;font-size:12px}
 .tile i{display:block;height:30px;border-radius:9px;margin-bottom:6px}.tile b{display:block;font-size:15px}.tile small{font-size:12.5px;opacity:.68}
-.td-picker{margin-top:12px;padding:11px 12px;border-radius:15px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}.td-picker>small{font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:1.2px;opacity:.68}.td-picker .chips{margin-top:8px}.td-note{margin:10px 1px 0;font-size:12px;line-height:17px;opacity:.7}
+.td-picker{grid-column:1/-1;padding:11px 12px;border-radius:15px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}.td-picker>small{display:block;margin-bottom:8px;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:1.2px;opacity:.68}.td-note{margin:9px 1px 0;font-size:12px;line-height:17px;opacity:.7}
 .opts{margin-top:14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
 .opt{display:flex;align-items:center;gap:10px;width:100%;min-height:54px;padding:6px 14px}.opt+.opt{border-top:1px solid rgba(255,255,255,.08)}.opt>span{flex:1;font-size:15px;font-weight:600}
 .obs-health{padding:0 14px 11px;font:600 10.5px/15px 'JetBrains Mono',monospace;color:#BFDDF0;opacity:.72}.obs-health+.opt{border-top:1px solid rgba(255,255,255,.08)}
@@ -158,7 +166,7 @@ input{-webkit-user-select:text;user-select:text}
 .up-dot{width:8px;height:8px;border-radius:4px;background:var(--gold);box-shadow:0 0 0 0 rgba(232,160,46,.6);animation:up-pulse 2s ease-out infinite}
 @keyframes up-pulse{to{box-shadow:0 0 0 8px rgba(232,160,46,0)}}
 @media (prefers-reduced-motion: reduce){.up-dot{animation:none}}
-@media (max-width:340px){.bottom{left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom) + 8px)}.card{padding:10px 11px}.legend{gap:7px;margin-bottom:7px;flex-wrap:wrap}.legend>div{flex:1 0 100%!important;min-width:100%!important}#lg-name{letter-spacing:.8px}#depth-chip{padding:0 8px}.trow{gap:8px}#speed{min-width:44px;padding:0 7px}#now{padding:0 9px}}
+@media (max-width:340px){.bottom{left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom) + 8px)}.card{padding:10px 11px}.legend{gap:7px;margin-bottom:7px;flex-wrap:wrap}.legend>div{flex:1 0 100%!important;min-width:100%!important}#lg-name{letter-spacing:.8px}.trow{gap:8px}#speed{min-width:44px;padding:0 7px}#now{padding:0 9px}.sheet{padding-left:10px;padding-right:10px}.depth-segments button{font-size:11.5px}}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -175,7 +183,8 @@ input{-webkit-user-select:text;user-select:text}
   <div class="ttl"><small id="ttl-k">PIERCAST · PROTOTYPE</small><b>Live Lake Map</b></div>
   <button class="ib glass" id="search" aria-label="Search pier cities"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.6-4.6"/></svg></button>
 </div>
-<div id="readout" class="glass" aria-live="polite"><div><span id="ro-val">—</span><span id="ro-unit"></span></div><div id="ro-sub"></div><div id="ro-loc"></div></div>
+<div id="readout" class="glass" aria-live="polite"><div id="ro-main"><span id="ro-val">—</span><span id="ro-unit"></span><button id="ro-depth" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="depth-popover" hidden><span id="ro-depth-label">at 30 ft</span><svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l4 4 4-4"/></svg></button></div><div id="ro-sub"></div><div id="ro-loc"></div></div>
+<div id="depth-popover" class="glass" role="dialog" aria-label="Choose modeled depth" hidden><div class="depth-segments" id="ro-depth-options"></div></div>
 <div id="alert" hidden><button id="alert-main"><span class="alert-ic" id="alert-ic">↓</span><span style="min-width:0"><span id="alert-t"></span><span id="alert-s"></span></span></button><button id="alert-x" aria-label="Hide alert banner for this map session"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
 <div class="tools">
   <button class="tool glass" id="layers" aria-label="Map layers"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5" opacity=".75"/><path d="M3 17.5l9 5 9-5" opacity=".45"/></svg><span id="layer-l">TEMP</span></button>
@@ -198,7 +207,7 @@ input{-webkit-user-select:text;user-select:text}
     <p id="b-note">Observed point reading. Sensor depth may differ from the NOAA modeled surface.</p>
   </div>
   <div class="card glass">
-    <div class="legend"><span id="lg-name">WATER</span><button id="depth-chip" type="button" hidden aria-label="Choose depth">30 ft</button><div style="flex:1;min-width:80px"><div id="lg-bar"></div><div id="lg-ticks"></div></div></div>
+    <div class="legend"><span id="lg-name">WATER</span><div style="flex:1;min-width:80px"><div id="lg-bar"></div><div id="lg-ticks"></div></div></div>
     <div id="lg-note" hidden></div>
     <div class="trow">
       <button id="play" aria-label="Play forecast"><svg class="pl" width="20" height="20" viewBox="0 0 24 24" fill="#0A1B2E"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.7l-12-7.5A1 1 0 0 0 7 4.5z"/></svg><svg class="pz" width="18" height="18" viewBox="0 0 24 24" fill="#0A1B2E"><rect x="5" y="4" width="5" height="16" rx="1.5"/><rect x="14" y="4" width="5" height="16" rx="1.5"/></svg></button>
@@ -221,12 +230,12 @@ input{-webkit-user-select:text;user-select:text}
   <div class="tiles">
     <button class="tile" data-layer="temp" aria-pressed="true"><i style="background:linear-gradient(90deg,#3E50B6,#22A8C8,#69CB6A,#F0C046,#E7683A)"></i><b>Water temp</b><small>2°F bands and breaks</small></button>
     <button class="tile" id="temp-depth-layer" data-layer="temp_depth" aria-pressed="false" hidden><i style="background:linear-gradient(90deg,#3E50B6,#22A8C8,#69CB6A,#F0C046,#E7683A)"></i><b>Temp at depth</b><small>Water temp below the surface</small></button>
+    <div class="td-picker" id="td-picker" hidden><small>MODELED DEPTH</small><div class="depth-segments" id="td-chips"></div><p class="td-note">Modeled by NOAA. Temperatures below the surface are estimates.</p></div>
     <button class="tile" data-layer="wind" aria-pressed="false"><i style="background:linear-gradient(90deg,#2E66B4,#33AE8E,#D0C345,#DC5E3C,#7B2A8A)"></i><b>Wind</b><small>Speed bands and flow</small></button>
     <button class="tile" data-layer="waves" aria-pressed="false"><i style="background:linear-gradient(90deg,#173E6C,#2A9CB2,#B5C74F,#EDA23C,#A5275B)"></i><b>Waves</b><small>1 ft height bands</small></button>
     <button class="tile" data-layer="depth" aria-pressed="false"><i style="background:linear-gradient(90deg,#CBE9F1,#4AA7CF,#1B3A79,#0D173C)"></i><b>Depth</b><small>Relief and contours</small></button>
     <button class="tile wide" data-layer="species" aria-pressed="false"><i style="background:linear-gradient(90deg,#3a4656 0 30%,#69CB6A 30% 70%,#3a4656 70%)"></i><b>Species match</b><small>Where the water fits one fish's temperature window</small></button>
   </div>
-  <div class="td-picker" id="td-picker" hidden><small>MODELED DEPTH</small><div class="chips" id="td-chips"></div><p class="td-note">Modeled by NOAA. Temperatures below the surface are estimates.</p></div>
   <div class="chips" id="sp-chips" hidden></div>
   <div class="opts">
     <button class="opt" id="sw-streaks" role="switch" aria-checked="true"><span>Wind streaks</span><i class="sw"></i></button>
