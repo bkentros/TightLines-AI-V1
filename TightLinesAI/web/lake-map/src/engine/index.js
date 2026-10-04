@@ -176,8 +176,8 @@ export async function createLakeMap(container, options = {}) {
     let sampler = depthSamplers.get(source);
     if (!sampler) { sampler = gridCubicSampler(source.manifest.grids.temp, source.manifest.domain); depthSamplers.set(source, sampler); }
     const grid = source.manifest.grids.temp;
-    // The source mask is authoritative: smoothing may interpolate valid values
-    // near an edge, but it must never color water shallower than this depth.
+    // The source mask is authoritative for the point readout. The rendered
+    // field uses the surface run's bilinear bathymetry mask for a soft edge.
     if (!depthCellValid(frames[0], grid, source.manifest.domain, lon, lat)
       && !depthCellValid(frames[1], grid, source.manifest.domain, lon, lat)) return { temp: NaN, ready: true };
     const blend = ([fa, fb, m, fp, fn]) => blendHours(fp ? sampler(fp, lon, lat) : NaN, sampler(fa, lon, lat), sampler(fb, lon, lat), fn ? sampler(fn, lon, lat) : NaN, m);
@@ -511,9 +511,11 @@ export async function createLakeMap(container, options = {}) {
       state.depthStore = source; state.depthFt = depthFt;
       if (!depthField) {
         depthField = new FieldLayer(source, 'lake-depth-temperature');
-        depthField.set({ layer: 'temp', band: bandSpec('temp_depth', state.units), strictMask: true, hidden: true, t: state.t });
+        depthField.set({ layer: 'temp', band: bandSpec('temp_depth', state.units), strictMask: !!store.depth,
+          depthMask: store.depth ? { frame: store.depth, grid: store.manifest.grids.depth, domain: store.manifest.domain } : null,
+          depthFt, hidden: true, t: state.t });
         map.addLayer(depthField, 'land');
-      } else depthField.setStore(source);
+      } else { depthField.setStore(source); depthField.set({ depthFt }); }
       source.prefetch(state.t, ['temp'], 2);
       if (state.layer === 'temp_depth') api.setLayer('temp_depth');
     },
