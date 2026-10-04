@@ -3,6 +3,12 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 import { resolveInitialMapLayer } from '../src/engine/preferences.js';
 import {
+  SHALLOW_MASK_FEATHER_FT,
+  SHALLOW_WASH_ALPHA,
+  bilinearDepth,
+  shallowDepthMix,
+} from '../src/engine/fieldLayer.js';
+import {
   TempDepthCatalog,
   TEMP_DEPTHS_FT,
   depthCellValid,
@@ -74,15 +80,39 @@ test('the page exposes inline and readout pickers without the retired floating c
   assert.match(shell, /event\.target\.closest\('#depth-popover,#ro-depth'\)/);
 });
 
-test('shallow-water no-data remains masked at the selected depth', () => {
+test('shallow-water point readout remains masked at the selected depth', () => {
   const grid = { west: -90, north: 45, width: 3, height: 2, res: 1, nodata: 65535 };
   const frame = { w: 3, h: 2, data: new Uint16Array([100, 65535, 120, 130, 140, 150]) };
   const domain = { west: -90, east: -88, north: 45, south: 44 };
   assert.equal(depthCellValid(frame, grid, domain, -90, 45), true);
   assert.equal(depthCellValid(frame, grid, domain, -89, 45), false);
   assert.equal(depthCellValid(frame, grid, domain, -95, 45), false);
+});
+
+test('rendered shallow edge is bilinear, feathered and not cell-aligned', () => {
+  const samples = Array.from({ length: 401 }, (_, index) => {
+    const x = index / 400;
+    return shallowDepthMix(bilinearDepth([0, 60, 0, 60], x, 0.37), 30);
+  });
+  const transition = samples.filter((value) => value > 0 && value < 1);
+  const maxJump = Math.max(...samples.slice(1).map((value, index) => Math.abs(value - samples[index])));
+  assert.equal(SHALLOW_MASK_FEATHER_FT, 1.5);
+  assert.ok(transition.length >= 18, `expected a multi-pixel soft contour, got ${transition.length} samples`);
+  assert.ok(maxJump < 0.12, `mask jumps ${maxJump} like a grid-cell step`);
+  assert.ok(SHALLOW_WASH_ALPHA > 0 && SHALLOW_WASH_ALPHA < 0.5);
   const shader = readFileSync(new URL('../src/engine/fieldLayer.js', import.meta.url), 'utf8');
-  assert.match(shader, /u_strict_mask[\s\S]+discard/, 'GPU rendering enforces the same mask');
+  assert.match(shader, /texture\(u_depth, depthUV\)\.rg; \/\/ GL_LINEAR/);
+  assert.match(shader, /smoothstep\(u_depth_ft - feather, u_depth_ft \+ feather, waterDepth\)/);
+  assert.doesNotMatch(shader, /min\(texture\(u_a, uv\)\.g, texture\(u_b, uv\)\.g\)[^;]+discard/);
+});
+
+test('surface and depth temperature fields share the same precise shoreline clip', () => {
+  const engine = readFileSync(new URL('../src/engine/index.js', import.meta.url), 'utf8');
+  const statics = readFileSync(new URL('../src/engine/staticLayers.js', import.meta.url), 'utf8');
+  assert.match(engine, /map\.addLayer\(field\);[\s\S]+id: 'land'/);
+  assert.match(engine, /map\.addLayer\(depthField, 'land'\)/);
+  assert.match(engine, /depthMask: store\.depth \? \{ frame: store\.depth, grid: store\.manifest\.grids\.depth/);
+  assert.match(statics, /id: 'land-hd'[\s\S]+fill-antialias': true/);
 });
 
 test('depth catalog loads only the pointer and selected manifest until frames are requested', async () => {

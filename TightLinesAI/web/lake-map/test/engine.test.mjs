@@ -120,8 +120,8 @@ test('field shader validates both frames and releases its bounded texture cache'
   assert.match(source, /internal: isWind \? gl\.RGBA8 : gl\.RG8/);
   assert.doesNotMatch(source, /\b(?:float|vec[234])\s+sample\b/, 'GLSL reserves sample as a keyword');
   assert.match(source, /bool av = a\.y[^;]+bv = b\.y/);
-  assert.match(source, /if \(!av && !bv\) discard/);
-  assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : b\.x/);
+  assert.match(source, /if \(!av && !bv && u_strict_mask < 0\.5\) discard/);
+  assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : bv \? b\.x : 0\.0/);
   assert.match(source, /onRemove[\s\S]+deleteTexture[\s\S]+textures\.clear/);
 });
 
