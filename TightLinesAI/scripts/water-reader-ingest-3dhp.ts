@@ -21,8 +21,8 @@
  *     --skip-promote --ingest-run-id "$INGEST_RUN_ID" --target-scope national
  *   deno run ... --out tmp/water-reader/national/999-promote.sql --promote-only --ingest-run-id "$INGEST_RUN_ID"
  *
- * Apply generated SQL with:
- *   psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f tmp/water-reader/3dhp-national.sql
+ * Apply generated SQL with separate PGHOST/PGPORT/PGDATABASE/PGUSER and
+ * PGPASSWORD (or .pgpass); never put a credential-bearing URL in argv.
  */
 
 const WATERBODY_LAYER_URL =

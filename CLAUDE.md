@@ -114,13 +114,16 @@ Local `TightLinesAI/.env` status, verified 2026-09-16:
 | `SUPABASE_ANON_KEY` | absent locally | Use `EXPO_PUBLIC_SUPABASE_ANON_KEY`; scripts fall back to it. |
 | `CLOUDFLARE_API_KEY` | present locally | The former misplaced `cfk_…` value is a Cloudflare global API key, not a Supabase key. Never expose it; prefer a scoped token for Cloudflare work. |
 | `SUPABASE_SERVICE_ROLE_KEY` | works | Valid. |
-| `V1_DATABASE_URL` | works locally | One Session pooler URL remains. Its password is URL-encoded; a read-only `SELECT 1` succeeded. |
+| `V1_DATABASE_URL` | legacy local input | Contains a URL-encoded password. Database tools must split it in memory and pass credentials through `PGPASSWORD`/keyword args; never pass or log this URL. Prefer separate `PGHOST`, `PGPORT`, `PGDATABASE`, `PGUSER`, and `PGPASSWORD`. |
 
 Scripts that read `SUPABASE_ANON_KEY` fall back to
 `EXPO_PUBLIC_SUPABASE_ANON_KEY`; always prefer the latter in new code.
 
-`V1_DATABASE_URL` is only consumed by
-`scripts/water-reader-geometry-audit/audit_shoreline_features.py`.
+`V1_DATABASE_URL` is accepted only as a legacy input by the credential-safe
+database helper. New tooling must use separate `PG*` environment variables.
+No database URL or password may appear in argv, terminal output, CI output, or
+exception text; route `psql` and psycopg connections through
+`scripts/db_connection_safety.py`.
 
 Direct `psql` and the linked Supabase CLI both connected successfully on
 2026-09-16. Check migration parity with:
