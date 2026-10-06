@@ -19,6 +19,7 @@ from lakemap import store
 
 import scorecard
 import scorecard_pairing
+import scorecard_schema
 import verify
 
 
@@ -116,18 +117,25 @@ def main(argv=None):
     evidence = collect(s3, target)
     body = _json_bytes(evidence)
     digest = hashlib.sha256(body).hexdigest()
+    records = scorecard.records_from_evidence(evidence, "preflight", digest)
+    preflight = scorecard_schema.validate_records(records)
+    if preflight["invalidRows"]:
+        print(f"Scorecard job {target}: invalid, 0 records; {preflight['invalidRows']} invalid rows, "
+              f"constraints={json.dumps(preflight['violations'], sort_keys=True)}")
+        return 2
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     key = f"validation/scorecard/evidence/v1/{target:%Y/%m/%d}/{stamp}-{digest[:12]}.json"
     if args.out:
         args.out.write_bytes(body + b"\n")
     if args.upload:
         store.put(s3, key, body, store.IMMUTABLE)
-    result = ({"status": "dry_run", "recordCount": len(evidence["primaryPairs"])}
+    result = ({"status": "dry_run", "recordCount": len(records), "invalidRows": 0}
               if not args.sync else scorecard.sync_evidence(evidence, key, digest))
     coverage = evidence["coverage"]
     print(f"Scorecard job {target}: {result['status']}, {result.get('recordCount', 0)} records; "
           f"{coverage['stations']} stations, {coverage['frozenVerificationPairs']} frozen-site pairs, "
-          f"{coverage['savedSurfaceGridPairs']} saved-grid fallback pairs")
+          f"{coverage['savedSurfaceGridPairs']} saved-grid fallback pairs, "
+          f"{preflight['invalidRows']} constraint violations")
     return 2 if args.sync and result["status"] not in ("committed", "disabled") else 0
 
 

@@ -18,6 +18,8 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+import scorecard_schema
+
 MAX_BATCH = 500
 SYNC_TIMEOUT_SECONDS = 20
 SCORECARD_ENV = (
@@ -25,6 +27,9 @@ SCORECARD_ENV = (
     "SUPABASE_URL",
     "LAKE_MAP_SCORECARD_INTERNAL_KEY",
 )
+EMITTED_CONSTRAINED_VALUES = {
+    "source": frozenset({"live_archive", "backfill", "synthetic"}),
+}
 
 
 def _finite(value):
@@ -113,6 +118,10 @@ def sync_evidence(evidence, evidence_key, evidence_sha256, environment=None, ope
     """Best-effort upload. This function deliberately never raises."""
     environment = os.environ if environment is None else environment
     records = records_from_evidence(evidence, evidence_key, evidence_sha256)
+    preflight = scorecard_schema.validate_records(records)
+    if preflight["invalidRows"]:
+        return {"status": "invalid", "recordCount": 0, "candidateCount": len(records),
+                "invalidRows": preflight["invalidRows"], "violations": preflight["violations"]}
     if not _enabled(environment):
         return {"status": "disabled", "recordCount": 0, "candidateCount": len(records)}
     base_url = str(environment.get("SUPABASE_URL") or "").rstrip("/")
@@ -157,9 +166,11 @@ def main(argv=None):
         result = sync_evidence(evidence, f"local/{args.evidence.name}", digest)
     else:
         records = records_from_evidence(evidence, f"local/{args.evidence.name}", digest)
+        preflight = scorecard_schema.validate_records(records)
         leads = sorted({record["lead_hours"] for record in records})
         result = {"status": "dry_run", "recordCount": len(records), "leadHours": leads,
                   "stations": len({record["station_id"] for record in records}),
+                  "invalidRows": preflight["invalidRows"], "violations": preflight["violations"],
                   "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")}
     print(json.dumps(result, sort_keys=True))
     return 0
