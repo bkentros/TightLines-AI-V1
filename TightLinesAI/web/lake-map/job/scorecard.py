@@ -34,7 +34,8 @@ def _finite(value):
 def _sensor_key(pair):
     parameter = pair.get("parameterId")
     suffix = f"parameter:{parameter}" if parameter is not None else f"depth:{pair.get('depthKey') or 'unknown'}"
-    return f"{pair.get('station')}|{suffix}|{pair.get('source') or 'unknown'}"
+    provider = pair.get("observationSource") or pair.get("source") or "unknown"
+    return f"{pair.get('station')}|{suffix}|{provider}"
 
 
 def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
@@ -42,7 +43,10 @@ def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
     required_text = ("run", "cycle", "validTime", "station", "observed")
     if any(not isinstance(pair.get(key), str) or not pair[key] for key in required_text):
         return None
-    if not all(_finite(pair.get(key)) for key in ("leadHour", "observedF", "forecastF")):
+    if not all(_finite(pair.get(key)) for key in ("leadHour", "observedF", "sensorDepthM", "modelDepthM")):
+        return None
+    model_f = pair.get("forecastF")
+    if model_f is not None and not _finite(model_f):
         return None
     flags = sorted({str(flag) for flag in pair.get("qualityFlags", [])
                     if isinstance(flag, str) and re.fullmatch(r"[a-z0-9_]{1,40}", flag)})
@@ -52,11 +56,15 @@ def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
         "station_name": pair.get("stationName"),
         "station_class": pair.get("stationType") or "harbor",
         "raw_station_type": pair.get("rawStationType"),
-        "source": pair.get("source") or "unknown",
+        "source": pair.get("recordSource") or "live_archive",
+        "observation_source": pair.get("observationSource") or pair.get("source") or "unknown",
         "waterbody": pair.get("body") or "unknown",
         "station_lat": pair.get("stationLat"),
         "station_lon": pair.get("stationLon"),
-        "sensor_depth_m": pair.get("depthM"),
+        "sensor_depth_m": pair.get("sensorDepthM"),
+        "model_depth_m": pair.get("modelDepthM"),
+        "depth_method": pair.get("depthMethod"),
+        "depth_assumed": pair.get("depthAssumed") is True,
         "parameter_id": str(pair["parameterId"]) if pair.get("parameterId") is not None else None,
         "observation_time": pair["observed"],
         "observation_offset_minutes": pair.get("observationOffsetMinutes"),
@@ -64,14 +72,19 @@ def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
         "model_cycle": pair["cycle"],
         "model_issued_at": pair.get("issuedAt"),
         "valid_time": pair["validTime"],
-        "lead_hours": int(pair["leadHour"]),
+        "lead_hours": round(float(pair["leadHour"]), 6),
+        "lower_model_hour": int(pair.get("lowerHour", math.floor(float(pair["leadHour"])))),
+        "upper_model_hour": int(pair.get("upperHour", math.ceil(float(pair["leadHour"])))),
+        "time_interpolation_fraction": float(pair.get("timeInterpolationFraction", 0)),
         "run_id": pair["run"],
+        "model_version": pair.get("modelVersion") or "unknown",
+        "pair_status": pair.get("pairStatus") or "paired",
         "observed_temperature_f": round(float(pair["observedF"]), 3),
-        "model_temperature_f": round(float(pair["forecastF"]), 3),
+        "model_temperature_f": round(float(model_f), 3) if model_f is not None else None,
         "model_lat": pair.get("modelLat"),
         "model_lon": pair.get("modelLon"),
         "model_distance_km": pair.get("modelDistanceKm"),
-        "sample_method": pair.get("sampleMethod") or "frozen_verification_site",
+        "sample_method": pair.get("sampleMethod") or "uncovered",
         "wind_speed_mph": pair.get("windMph"),
         "wind_from_degrees": pair.get("windFrom"),
         "wind_observed_at": pair.get("windObservedAt"),

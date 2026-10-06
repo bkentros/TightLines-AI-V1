@@ -44,12 +44,20 @@ function validRecord(value: unknown): value is Record<string, unknown> {
     typeof record.model_cycle === "string" &&
     typeof record.valid_time === "string" &&
     typeof record.lead_hours === "number" &&
-    Number.isInteger(record.lead_hours) &&
+    Number.isFinite(record.lead_hours) &&
+    typeof record.sensor_depth_m === "number" &&
+    Number.isFinite(record.sensor_depth_m) &&
+    typeof record.model_depth_m === "number" &&
+    Number.isFinite(record.model_depth_m) &&
+    ["surface_layer", "interpolated_3d", "pending_3d"].includes(String(record.depth_method)) &&
+    typeof record.depth_assumed === "boolean" &&
+    ["paired", "pending_3d", "uncovered"].includes(String(record.pair_status)) &&
+    typeof record.model_version === "string" &&
     typeof record.run_id === "string" &&
     typeof record.observed_temperature_f === "number" &&
     Number.isFinite(record.observed_temperature_f) &&
-    typeof record.model_temperature_f === "number" &&
-    Number.isFinite(record.model_temperature_f) &&
+    (record.model_temperature_f === null ||
+      (typeof record.model_temperature_f === "number" && Number.isFinite(record.model_temperature_f))) &&
     Array.isArray(record.quality_flags);
 }
 

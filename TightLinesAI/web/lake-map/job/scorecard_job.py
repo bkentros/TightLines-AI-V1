@@ -18,6 +18,7 @@ from pathlib import Path
 from lakemap import store
 
 import scorecard
+import scorecard_pairing
 import verify
 
 
@@ -28,10 +29,21 @@ def _json_bytes(value):
 def collect(s3, target):
     snapshot_keys = list(verify.list_keys(s3, verify._daily_prefix(target)))
     snapshots = verify.load_many(s3, snapshot_keys)
+    if not snapshots:
+        try:
+            snapshots = [verify.object_json(s3, "observations/latest.json")]
+        except Exception:
+            snapshots = []
     observations = verify.collapse_observation_revisions(verify.unique_observations(snapshots))
     truth = [item for item in observations if item["observed"].date() == target]
 
-    index = verify.object_json(s3, "validation/forecast-index.json")
+    try:
+        index = verify.object_json(s3, "validation/forecast-index.json")
+    except Exception:
+        latest = verify.object_json(s3, "latest.json")
+        run = latest.get("run")
+        cycle = latest.get("cycle")
+        index = {"runs": [{"base": f"runs/{run}/", "cycle": cycle}]} if run and cycle else {"runs": []}
     day_start = datetime.combine(target, datetime.min.time(), timezone.utc)
     day_end = day_start + timedelta(days=1)
     verification_keys = []
@@ -45,11 +57,13 @@ def collect(s3, target):
         forecast["_base"] = key[:-len("verification.json")]
 
     sampler = verify.R2FrameSampler(s3)
-    pairs = list(verify.pairs_for(truth, forecasts, frame_sampler=sampler, all_readings=True))
+    pairs = list(scorecard_pairing.pairs_for(truth, forecasts, frame_sampler=sampler))
     paired_observations = {(pair["station"], pair.get("parameterId"), pair["depthKey"], pair["observed"], pair["source"])
                            for pair in pairs}
     exact = sum(pair.get("sampleMethod") == "frozen_verification_site" for pair in pairs)
     fallback = sum(pair.get("sampleMethod") == "saved_surface_grid" for pair in pairs)
+    pending = sum(pair.get("pairStatus") == "pending_3d" for pair in pairs)
+    uncovered = sum(pair.get("pairStatus") == "uncovered" for pair in pairs)
     return {
         "formatVersion": 1,
         "methodologyVersion": verify.METHODOLOGY_VERSION,
@@ -66,6 +80,9 @@ def collect(s3, target):
             "pairedObservations": len(paired_observations),
             "unpairedObservations": max(0, len(truth) - len(paired_observations)),
             "pairCount": len(pairs),
+            "pairedCount": sum(pair.get("pairStatus") == "paired" for pair in pairs),
+            "pending3dCount": pending,
+            "uncoveredCount": uncovered,
             "frozenVerificationPairs": exact,
             "savedSurfaceGridPairs": fallback,
             "stations": len({pair["station"] for pair in pairs}),

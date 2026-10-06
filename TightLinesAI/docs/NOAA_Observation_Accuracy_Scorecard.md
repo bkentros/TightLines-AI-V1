@@ -55,13 +55,41 @@ surface without adding evidence.
 
 ## Design
 
+### Depth, time, space, and model-version rules (corrected before production)
+
+- Provider depths at or above 1.5 m use the NOAA surface/top layer. Deeper
+  sensors can only use a 3-D temperature profile interpolated to the sensor's
+  actual depth by `lakemap/depth.py`. If that profile is unavailable, the
+  observation is retained with a null model value and `pending_3d`; it is never
+  compared with the surface. Unknown depths use a conservative 1.0 m default
+  for offshore buoys, nearshore buoys, harbors, and connecting-water stations,
+  and are permanently marked `depth_assumed=true`.
+- Model temperature is linearly interpolated between the two hourly outputs
+  bracketing the exact observation timestamp. The fractional lead, lower and
+  upper model hours, and interpolation fraction are stored with the row.
+- The nearest candidate must be a real model-water cell and no farther than
+  6 km. Uncovered observations are retained as `uncovered` with a null model
+  value, so coverage gaps remain countable and no value is fabricated.
+- Station classes are `offshore_buoy`, `nearshore_buoy`, `harbor`, and
+  `connecting_water`. Observation-provider name is separate from row origin
+  (`live_archive`, `backfill`, or `synthetic`).
+- Every row has a lake-specific model-version boundary. Current production is
+  tagged `<OFS>:COMF-3.6:2024-09-09`; NOAA's service notice made COMF 3.6 and
+  its updated FVCOM package effective September 9, 2024. Historical analysis
+  must not pool rows across a version boundary.
+
+The schema stores `sensor_depth_m`, `model_depth_m`, `depth_method`,
+`depth_assumed`, `pair_status`, `model_version`, exact fractional lead, wind,
+QC flags, and exact-water cell distance. Generated miss stays
+`observed - model` and is null for pending/uncovered evidence.
+
 The existing `Lake map validation` schedule remains the sole schedule. Its
 normal validator runs exactly as before. A separate, kill-switched
 `continue-on-error` job runs `job/scorecard_job.py`; therefore scorecard work
 cannot alter the validator result, block a map publish, or delay any collector.
 
 For every unique station/sensor/depth reading, each applicable saved NOAA run
-is aligned to its nearest hourly valid time within 30 minutes. The private job:
+is aligned by linear interpolation to the exact reading time. The private job:
 
 1. reuses frozen `verification.json` values for reviewed GLOS/CO-OPS sites;
 2. lazily decodes an immutable saved surface frame for NDBC-only sites;
@@ -72,7 +100,8 @@ is aligned to its nearest hourly valid time within 30 minutes. The private job:
    misleading distant lake value;
 4. retains every unique reading in scorecard mode (the pre-existing validation
    metrics still select one nearest reading per sensor/hour);
-5. records GLOS profile depths as distinct sensor keys; and
+5. records GLOS profile depths as distinct sensor keys, with deeper readings
+   pending until compatible 3-D evidence is available; and
 6. writes immutable private scorecard evidence to
    `validation/scorecard/evidence/v1/...` before best-effort Supabase sync.
 
@@ -91,8 +120,8 @@ two hours by readings within 3 °F of each other; and
 when its timestamp is within 90 minutes of the water observation.
 
 Buoys at least 10 km from the exact shoreline are classified offshore; other
-buoys are nearshore. Explicit CO-OPS identities remain `coops`; fixed harbor,
-pier, river, canal, marina, intake, and crib sites are `harbor`.
+buoys are nearshore. Fixed lake stations are harbors. River, canal, channel,
+strait, St. Clair, Detroit, St. Marys, and Niagara sites are connecting water.
 
 The private `lake_map_temperature_scorecard_weekly` view groups by station,
 UTC week, and model lead. It reports sample count, clean sample count, mean miss,
@@ -102,16 +131,11 @@ access.
 
 ### Current-data dry run
 
-A read-only run against the public 2026-10-06 14:30Z observation snapshot and
-the immutable `20261006T06Z-10060926` forecast produced 149 candidate rows from
-84 stations at model leads 6–8 hours. It retained 92 rows with known sensor
-depth, found only expected `stale` / `source_not_evaluated` flags, and kept every
-accepted model-cell distance at or below 2.17 km. Twenty-five distinct sensor
-readings were honestly uncovered: 11 were more than 6 km from the GLOFS water
-domain and 14 had no valid saved-grid value nearby. They were not paired to a
-distant or fabricated temperature. Earlier snapshots also exercised the
-NDBC-only saved-grid fallback; deterministic unit tests cover it independently.
-No object, database, workflow, or deployed function was changed by the dry run.
+The corrected read-only run against the production gate's 2026-10-06 06Z
+run processed 190 readings into 190 schema-valid rows: 95 paired surface rows,
+73 `pending_3d` rows, and 22 uncovered rows. It found 75 deep readings and zero
+deep readings incorrectly routed to the surface; the largest accepted cell
+distance was 2.17 km. No object or database write occurred.
 
 ## Safety and kill switch
 

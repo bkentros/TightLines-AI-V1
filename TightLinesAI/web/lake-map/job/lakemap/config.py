@@ -20,6 +20,11 @@ DOMAIN = {"west": -92.4, "east": -75.8, "south": 41.2, "north": 49.2}
 WIND_DOMAIN = {"west": -104.4, "east": -63.9, "south": 30.2, "north": 60.2}
 HOURS = 121  # forecast hours 0..120, hourly
 
+# Reviewed depths understood by the shared 3-D interpolation helper.  Keeping
+# these data-only constants here does not publish or enable Temp at depth.
+TEMP_DEPTHS_FT = (10, 20, 30, 40, 50)
+TEMP_DEPTHS_AVAILABLE_FT = (10, 20, 30, 40, 50, 75, 100, 150)
+
 # How far (in output cells) water values are extended onto land so the land
 # layer never shows a gap along the shore.
 EXTEND_CELLS = 8
