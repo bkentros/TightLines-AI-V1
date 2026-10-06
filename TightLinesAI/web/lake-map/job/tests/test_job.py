@@ -195,30 +195,16 @@ class CycleTest(unittest.TestCase):
         mirror_workflow = JOB / "lake-map-data.workflow.yml"
         root_text = root_workflow.read_text()
         self.assertEqual(root_text, mirror_workflow.read_text())
-        self.assertIn("TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql", root_text)
+        self.assertNotIn("supabase/migrations", root_text)
+        self.assertNotIn("lake-map-validation.yml", root_text)
+        self.assertIn("!/TightLinesAI/web/lake-map/job/scorecard*.py", root_text)
+        self.assertIn("!/TightLinesAI/web/lake-map/job/tests/test_scorecard*.py", root_text)
+        self.assertIn("Verify scorecard isolation", root_text)
         crons = re.findall(r'cron:\s*"([^"]+)"', root_text)
         self.assertEqual(crons, ["45 2,8,14,20 * * *", "0,15,30,45 3,9,15,21 * * *", "0 4,10,16,22 * * *"])
         scheduled_checks = sum(len(cron.split()[0].split(",")) * len(cron.split()[1].split(",")) for cron in crons)
         self.assertEqual(scheduled_checks, 24)  # six 15-minute checks around each of four releases
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
-
-        validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
-        validation_mirror = JOB / "lake-map-validation.workflow.yml"
-        validation_text = validation_workflow.read_text()
-        self.assertEqual(validation_text, validation_mirror.read_text())
-        self.assertIn('cron: "25 7 * * *"', validation_text)
-        self.assertIn("python job/verify.py --upload", validation_text)
-        self.assertIn("--fail-on-pipeline-error", validation_text)
-        self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
-        self.assertIn("scorecard_preflight_only", validation_text)
-        self.assertIn("scorecard_replay_only", validation_text)
-        self.assertIn("if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true", validation_text)
-        scorecard_job = validation_text.split("\n  scorecard:\n", 1)[1]
-        self.assertIn("TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql", scorecard_job)
-        self.assertIn('python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"', validation_text)
-        preflight_step = validation_text.split("- name: Read-only production archive schema preflight", 1)[1].split("- name:", 1)[0]
-        self.assertNotIn("--upload", preflight_step)
-        self.assertNotIn("--sync", preflight_step)
 
     def test_publication_requires_every_model_on_the_same_cycle(self):
         complete = {model["id"]: CYCLE for model in build.OFS_MODELS}

@@ -38,11 +38,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
-            .github/workflows/lake-map-data.yml
-            .github/workflows/lake-map-validation.yml
-            TightLinesAI/web/lake-map
-            TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql
+            /.github/workflows/lake-map-data.yml
+            /TightLinesAI/web/lake-map/
+            !/TightLinesAI/web/lake-map/job/scorecard*.py
+            !/TightLinesAI/web/lake-map/job/tests/test_scorecard*.py
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -55,6 +56,8 @@ jobs:
           cache-dependency-path: TightLinesAI/web/lake-map/package-lock.json
       - name: Install
         run: pip install -r job/requirements.txt && npm ci
+      - name: Verify scorecard isolation
+        run: test -z "$(find job -type f \( -name 'scorecard*.py' -o -name 'test_scorecard*.py' \) -print -quit)"
       - name: Test
         run: python -m unittest discover -s job/tests && node --test test/*.test.mjs job/*.test.mjs
       - name: Build and publish
