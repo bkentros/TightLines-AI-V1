@@ -87,11 +87,60 @@ class VerificationTest(unittest.TestCase):
         self.assertEqual(pairs[0]["leadHour"], 24)
         self.assertTrue(pairs[0]["strict"])
         self.assertAlmostEqual(pairs[0]["errorC"], 2 * 5 / 9)
+        self.assertAlmostEqual(pairs[0]["missC"], -2 * 5 / 9, places=3)
 
         not_evaluated = verify.unique_observations([{"stations": [station(waterQuality="not_evaluated")]}])
         self.assertFalse(next(verify.pairs_for(not_evaluated, [forecast()]))["strict"])
         unknown_depth = verify.unique_observations([{"stations": [station(waterDepthM=None, waterSurface=False)]}])
         self.assertFalse(next(verify.pairs_for(unknown_depth, [forecast()]))["strict"])
+
+    def test_qc_flags_stale_and_isolated_spikes_without_dropping_readings(self):
+        snapshots = [{"updated": "2026-10-02T14:00:00Z", "stations": [
+            station(waterTime="2026-10-02T10:00:00Z", waterF=60),
+            station(waterTime="2026-10-02T11:00:00Z", waterF=75),
+            station(waterTime="2026-10-02T12:00:00Z", waterF=61),
+        ]}]
+        observations = verify.unique_observations(snapshots)
+        self.assertEqual(len(observations), 3)
+        self.assertIn("spike", observations[1]["qualityFlags"])
+        self.assertTrue(all("stale" in item["qualityFlags"] for item in observations))
+
+    def test_scorecard_collapses_corrected_values_to_one_station_time_row(self):
+        snapshots = [
+            {"updated": "2026-10-02T12:05:00Z", "stations": [station(waterF=60)]},
+            {"updated": "2026-10-02T12:10:00Z", "stations": [station(waterF=61)]},
+        ]
+        collapsed = verify.collapse_observation_revisions(verify.unique_observations(snapshots))
+        self.assertEqual(len(collapsed), 1)
+        self.assertEqual(collapsed[0]["waterF"], 61)
+
+    def test_wind_is_kept_only_when_aligned_and_station_type_is_normalized(self):
+        observations = verify.unique_observations([{"updated": "2026-10-02T12:10:00Z", "stations": [station(
+            type="buoy", name="Nearshore buoy", weatherTime="2026-10-02T12:05:00Z",
+            windMph=12.5, windFrom=270,
+        )]}])
+        pair = next(verify.pairs_for(observations, [forecast()]))
+        self.assertEqual(pair["stationType"], "nearshore_buoy")
+        self.assertEqual(pair["windMph"], 12.5)
+        self.assertEqual(pair["windFrom"], 270)
+
+    def test_ndbc_only_station_uses_saved_surface_grid_fallback(self):
+        class Sampler:
+            def sample(self, model, observation, hour):
+                self.hour = hour
+                return {"value": 57.5, "modelLat": 43.1, "modelLon": -87.8,
+                        "modelDistanceKm": 0.4, "shoreDistanceKm": 12,
+                        "sampleMethod": "saved_surface_grid"}
+
+        reading = station(id="45199", externalId="45199", glosDatasetId=None, waterIdentity="external:45199",
+                          type="buoy", name="Offshore buoy")
+        observations = verify.unique_observations([{"stations": [reading]}])
+        sampler = Sampler()
+        pair = next(verify.pairs_for(observations, [forecast()], frame_sampler=sampler))
+        self.assertEqual(sampler.hour, 24)
+        self.assertEqual(pair["sampleMethod"], "saved_surface_grid")
+        self.assertEqual(pair["modelDistanceKm"], 0.4)
+        self.assertEqual(pair["stationType"], "offshore_buoy")
 
     def test_summary_reports_bias_rmse_tail_and_separates_context(self):
         observations = verify.unique_observations([{"stations": [
@@ -121,6 +170,16 @@ class VerificationTest(unittest.TestCase):
         pairs = list(verify.pairs_for(readings, [forecast()]))
         self.assertEqual(len(pairs), 1)
         self.assertEqual(pairs[0]["observed"], "2026-10-02T12:10:00Z")
+
+    def test_scorecard_mode_keeps_every_unique_reading_and_alignment_offset(self):
+        readings = verify.unique_observations([{"stations": [
+            station(waterTime="2026-10-02T11:40:00Z", waterF=59.0),
+            station(waterTime="2026-10-02T12:10:00Z", waterF=60.0),
+        ]}])
+        pairs = list(verify.pairs_for(readings, [forecast()], all_readings=True))
+        self.assertEqual(len(pairs), 2)
+        self.assertEqual([pair["observationOffsetMinutes"] for pair in pairs], [-20.0, 10.0])
+        self.assertTrue(all(pair["leadHour"] == 24 for pair in pairs))
 
     def test_product_score_excludes_prepublication_hours_and_persistence_never_looks_ahead(self):
         model = forecast(cycle="2026-10-01T12:00:00Z", value=62.0)

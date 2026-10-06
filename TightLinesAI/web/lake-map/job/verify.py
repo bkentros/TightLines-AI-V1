@@ -43,6 +43,11 @@ PERSISTENCE_MAX_AGE_HOURS = 3
 HEAD_TO_HEAD_MAX_DISTANCE_KM = 10
 TIE_TOLERANCE_C = 0.05
 ENV_KEYS = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET")
+QC_STALE_HOURS = 1.5
+QC_SPIKE_WINDOW_HOURS = 2
+QC_SPIKE_JUMP_F = 9
+QC_SPIKE_NEIGHBOR_F = 3
+MAX_MODEL_CELL_DISTANCE_KM = 6
 
 
 def parse_time(value):
@@ -127,6 +132,7 @@ def unique_observations(snapshots):
     """Deduplicate an unchanged sensor reading repeated across snapshots."""
     unique = {}
     for snapshot in snapshots:
+        collected = parse_time(snapshot.get("updated") or snapshot.get("generatedAt") or snapshot.get("scheduledFor"))
         for station in snapshot.get("stations", []):
             readings = [{**station}]
             for profile in station.get("profile", []):
@@ -147,9 +153,172 @@ def unique_observations(snapshots):
                 identity = observation_id(reading)
                 key = (identity, reading.get("parameterId"), observed.isoformat(), round(float(water_f), 3), depth_key(reading),
                        str(reading.get("source") or "unknown"))
-                unique[key] = {**reading, "identity": identity, "observed": observed,
-                               "waterF": float(water_f), "depthKey": depth_key(reading)}
-    return sorted(unique.values(), key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
+                candidate = {**reading, "identity": identity, "observed": observed,
+                             "waterF": float(water_f), "depthKey": depth_key(reading),
+                             "firstCollected": collected, "lastCollected": collected}
+                weather = parse_time(reading.get("weatherTime"))
+                if weather is not None and isinstance(reading.get("windMph"), (int, float)):
+                    candidate["windObserved"] = weather
+                    candidate["windOffsetHours"] = abs((weather - observed).total_seconds()) / 3600
+                prior = unique.get(key)
+                if prior is not None:
+                    times = [value for value in (prior.get("firstCollected"), collected) if value is not None]
+                    candidate["firstCollected"] = min(times) if times else None
+                    times = [value for value in (prior.get("lastCollected"), collected) if value is not None]
+                    candidate["lastCollected"] = max(times) if times else None
+                    if prior.get("windOffsetHours", math.inf) <= candidate.get("windOffsetHours", math.inf):
+                        for name in ("windMph", "windFrom", "windObserved", "windOffsetHours"):
+                            if name in prior:
+                                candidate[name] = prior[name]
+                unique[key] = candidate
+    observations = sorted(unique.values(), key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
+    annotate_quality_flags(observations)
+    return observations
+
+
+def collapse_observation_revisions(observations):
+    """Keep the newest captured value for one sensor/depth/source timestamp."""
+    latest = {}
+    for observation in observations:
+        key = (observation["identity"], observation.get("parameterId"), observation["observed"],
+               observation["depthKey"], str(observation.get("source") or "unknown"))
+        prior = latest.get(key)
+        current_time = observation.get("lastCollected") or datetime.min.replace(tzinfo=timezone.utc)
+        prior_time = prior.get("lastCollected") if prior else None
+        if prior is None or current_time >= (prior_time or datetime.min.replace(tzinfo=timezone.utc)):
+            latest[key] = observation
+    collapsed = sorted(latest.values(), key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
+    annotate_quality_flags(collapsed)
+    return collapsed
+
+
+def annotate_quality_flags(observations):
+    """Attach conservative, reviewable flags without discarding evidence."""
+    by_sensor = {}
+    for observation in observations:
+        flags = []
+        water_f = observation["waterF"]
+        if water_f < 28.4 or water_f > 104:
+            flags.append("out_of_range")
+        collected = observation.get("firstCollected")
+        if collected is not None and (collected - observation["observed"]).total_seconds() / 3600 > QC_STALE_HOURS:
+            flags.append("stale")
+        if observation.get("waterQuality") not in ("good", "provider_qc"):
+            flags.append("source_not_evaluated")
+        observation["qualityFlags"] = flags
+        key = (observation["identity"], observation["depthKey"], str(observation.get("source") or "unknown"))
+        by_sensor.setdefault(key, []).append(observation)
+    for values in by_sensor.values():
+        values.sort(key=lambda item: item["observed"])
+        for index in range(1, len(values) - 1):
+            before, current, after = values[index - 1:index + 2]
+            left_h = (current["observed"] - before["observed"]).total_seconds() / 3600
+            right_h = (after["observed"] - current["observed"]).total_seconds() / 3600
+            if (0 < left_h <= QC_SPIKE_WINDOW_HOURS and 0 < right_h <= QC_SPIKE_WINDOW_HOURS
+                    and abs(current["waterF"] - before["waterF"]) >= QC_SPIKE_JUMP_F
+                    and abs(current["waterF"] - after["waterF"]) >= QC_SPIKE_JUMP_F
+                    and abs(before["waterF"] - after["waterF"]) <= QC_SPIKE_NEIGHBOR_F):
+                current["qualityFlags"].append("spike")
+
+
+def station_class(observation, shore_distance_km=None):
+    source = str(observation.get("source") or "").lower()
+    identity = str(observation.get("identity") or "").lower()
+    kind = str(observation.get("type") or "").lower()
+    name = str(observation.get("name") or "").lower()
+    if "co-ops" in source or identity.startswith("coops:"):
+        return "coops"
+    if any(word in name for word in ("harbor", "pier", "river", "canal", "marina", "intake", "crib")):
+        return "harbor"
+    if "buoy" in kind or "buoy" in name:
+        return "offshore_buoy" if shore_distance_km is not None and shore_distance_km >= 10 else "nearshore_buoy"
+    return "harbor"
+
+
+class R2FrameSampler:
+    """Lazy fallback for NDBC-only sites absent from frozen verification sites."""
+
+    def __init__(self, s3):
+        import numpy as np
+        from scipy.ndimage import distance_transform_edt
+        from scipy.spatial import cKDTree
+        from lakemap.config import DOMAIN, GEO_PATH, TEMP
+        from lakemap.regrid import water_mask
+
+        self.s3 = s3
+        self.np = np
+        self.domain = DOMAIN
+        self.grid = TEMP
+        self.water = water_mask(TEMP, GEO_PATH)
+        rows, cols = np.nonzero(self.water)
+        self.rows, self.cols = rows, cols
+        lat = DOMAIN["north"] - rows * TEMP.res
+        lon = DOMAIN["west"] + cols * TEMP.res
+        self.tree = cKDTree(np.column_stack((lat, lon * math.cos(math.radians(45)))))
+        self.shore_cells = distance_transform_edt(self.water)
+        self.locations = {}
+        self.manifests = {}
+        self.frames = {}
+
+    def location(self, observation):
+        key = (round(float(observation["lat"]), 5), round(float(observation["lon"]), 5))
+        if key not in self.locations:
+            count = min(64, len(self.rows))
+            _, indices = self.tree.query((key[0], key[1] * math.cos(math.radians(45))), k=count)
+            indices = self.np.atleast_1d(indices).astype(int)
+            cells = [(int(self.rows[i]), int(self.cols[i])) for i in indices]
+            row, col = cells[0]
+            model_lat = self.domain["north"] - row * self.grid.res
+            model_lon = self.domain["west"] + col * self.grid.res
+            self.locations[key] = {
+                "cells": cells, "modelLat": round(model_lat, 5), "modelLon": round(model_lon, 5),
+                "modelDistanceKm": round(distance_km(observation, {"lat": model_lat, "lon": model_lon}), 3),
+                "shoreDistanceKm": round(float(self.shore_cells[row, col]) * self.grid.res * 111.195, 3),
+            }
+        return self.locations[key]
+
+    def _manifest(self, forecast):
+        base = forecast.get("_base")
+        if base not in self.manifests:
+            self.manifests[base] = object_json(self.s3, f"{base}manifest.json")
+        return self.manifests[base]
+
+    def _frame(self, forecast, hour):
+        from types import SimpleNamespace
+        from lakemap.encode import decode_scalar
+
+        base = forecast.get("_base")
+        key = (base, hour)
+        if key not in self.frames:
+            manifest = self._manifest(forecast)
+            descriptor = manifest["grids"]["temp"]
+            grid = SimpleNamespace(
+                scale=float(descriptor["scale"]), offset=float(descriptor["offset"]),
+                nodata=int(descriptor["nodata"]), encoding=descriptor.get("encoding", "u8"),
+            )
+            path = manifest["frames"][hour]["temp"]
+            obj = self.s3.get_object(Bucket=store.bucket(), Key=f"{base}{path}")
+            self.frames[key] = decode_scalar(obj["Body"].read(), grid)
+        return self.frames[key]
+
+    def sample(self, forecast, observation, hour):
+        if not forecast.get("_base") or not all(isinstance(observation.get(k), (int, float)) for k in ("lat", "lon")):
+            return None
+        location = self.location(observation)
+        if location["modelDistanceKm"] > MAX_MODEL_CELL_DISTANCE_KM:
+            return None
+        frame = self._frame(forecast, hour)
+        for row, col in location["cells"]:
+            value = frame[row, col]
+            if self.np.isfinite(value):
+                model_lat = self.domain["north"] - row * self.grid.res
+                model_lon = self.domain["west"] + col * self.grid.res
+                return {
+                    "value": float(value), "modelLat": round(model_lat, 5), "modelLon": round(model_lon, 5),
+                    "modelDistanceKm": round(distance_km(observation, {"lat": model_lat, "lon": model_lon}), 3),
+                    "shoreDistanceKm": location["shoreDistanceKm"], "sampleMethod": "saved_surface_grid",
+                }
+        return None
 
 
 def find_site(station, sites):
@@ -176,20 +345,24 @@ def is_strict(station):
     return station.get("waterQuality") == "good" and shallow
 
 
-def _pair_candidate(observation, forecast, cycle, issued_at, site, hour):
-    model_f = site["hours"][hour]
+def _pair_candidate(observation, forecast, cycle, issued_at, site, hour, model_f=None):
+    model_f = site["hours"][hour] if model_f is None else model_f
     if not isinstance(model_f, (int, float)) or not math.isfinite(model_f):
         return None
     valid = cycle + timedelta(hours=hour)
     product_eligible = issued_at is not None and valid >= issued_at
     source = str(observation.get("source") or "unknown")
     observed_f = observation["waterF"]
+    wind_offset = observation.get("windOffsetHours")
+    wind_valid = isinstance(wind_offset, (int, float)) and wind_offset <= QC_STALE_HOURS
+    miss_f = observed_f - float(model_f)
     return {
         "run": forecast.get("run"), "cycle": iso(cycle), "issuedAt": iso(issued_at) if issued_at else None,
         "validTime": iso(valid), "leadHour": hour, "modelLeadHour": hour,
         "userLeadHours": round((valid - issued_at).total_seconds() / 3600, 3) if product_eligible else None,
         "productEligible": product_eligible,
         "station": observation["identity"], "stationName": observation.get("name"),
+        "stationLat": observation.get("lat"), "stationLon": observation.get("lon"),
         "body": observation.get("body") or site.get("body") or "unknown",
         "source": source, "quality": observation.get("waterQuality") or "unknown",
         "parameterId": observation.get("parameterId"),
@@ -198,13 +371,30 @@ def _pair_candidate(observation, forecast, cycle, issued_at, site, hour):
         "observed": iso(observation["observed"]), "observedF": round(observed_f, 3),
         "forecastF": round(float(model_f), 3),
         "errorC": (float(model_f) - observed_f) * 5 / 9,
+        "missF": round(miss_f, 3), "missC": round(miss_f * 5 / 9, 4),
         "strict": is_strict(observation), "regime": thermal_regime(observed_f),
         "modelDistanceKm": site.get("modelDistanceKm"),
+        "modelLat": site.get("modelLat"), "modelLon": site.get("modelLon"),
+        "sampleMethod": site.get("sampleMethod", "frozen_verification_site"),
+        "stationType": station_class(observation, site.get("shoreDistanceKm")),
+        "rawStationType": observation.get("type"),
+        "shoreDistanceKm": site.get("shoreDistanceKm"),
+        "firstCollectedAt": iso(observation["firstCollected"]) if observation.get("firstCollected") else None,
+        "qualityFlags": sorted(set(observation.get("qualityFlags", []))),
+        "windMph": observation.get("windMph") if wind_valid else None,
+        "windFrom": observation.get("windFrom") if wind_valid else None,
+        "windObservedAt": iso(observation["windObserved"]) if wind_valid else None,
+        "windOffsetMinutes": round(wind_offset * 60, 2) if wind_valid else None,
     }
 
 
-def pairs_for(observations, forecasts):
-    """Yield one nearest observation for each run, sensor/depth, and model hour."""
+def pairs_for(observations, forecasts, frame_sampler=None, all_readings=False):
+    """Pair observations to the nearest hourly valid time within 30 minutes.
+
+    Validation keeps one nearest reading per sensor/hour for comparable metrics.
+    The private scorecard requests ``all_readings`` so no unique live reading is
+    discarded; observation time and alignment offset remain explicit per row.
+    """
     chosen = {}
     for forecast in forecasts:
         cycle = parse_time(forecast.get("cycle"))
@@ -219,26 +409,43 @@ def pairs_for(observations, forecasts):
                 continue
             site = find_site(observation, sites)
             values = site.get("hours") if site else None
-            if not isinstance(values, list) or len(values) != 121:
-                continue
-            pair = _pair_candidate(observation, forecast, cycle, issued_at, site, hour)
+            if isinstance(values, list) and len(values) == 121:
+                if frame_sampler is not None and all(isinstance(observation.get(k), (int, float)) for k in ("lat", "lon")):
+                    try:
+                        site = {**site, **{k: v for k, v in frame_sampler.location(observation).items()
+                                          if k == "shoreDistanceKm"}}
+                    except Exception:
+                        pass
+                pair = _pair_candidate(observation, forecast, cycle, issued_at, site, hour)
+            elif frame_sampler is not None:
+                try:
+                    sampled = frame_sampler.sample(forecast, observation, hour)
+                except Exception:
+                    sampled = None
+                pair = (_pair_candidate(observation, forecast, cycle, issued_at, sampled, hour, sampled["value"])
+                        if sampled else None)
+            else:
+                pair = None
             if pair is None:
                 continue
-            key = (forecast.get("run"), observation["identity"], observation["depthKey"],
-                   str(observation.get("source") or "unknown"), hour)
+            pair["observationOffsetMinutes"] = round((observation["observed"] - (cycle + timedelta(hours=hour))).total_seconds() / 60, 3)
+            key = (forecast.get("run"), observation["identity"], observation.get("parameterId"), observation["depthKey"],
+                   str(observation.get("source") or "unknown"), hour,
+                   iso(observation["observed"]) if all_readings else None)
             offset = abs(elapsed - hour)
             prior = chosen.get(key)
             if prior is None or offset < prior[0]:
                 chosen[key] = (offset, pair)
     for _, pair in sorted(chosen.values(), key=lambda item: (
-            item[1].get("cycle") or "", item[1]["station"], item[1]["depthKey"], item[1]["leadHour"])):
+            item[1].get("cycle") or "", item[1]["station"], item[1]["depthKey"], item[1]["leadHour"], item[1]["observed"])):
         yield pair
 
 
 def _observation_series(observations):
     series = {}
     for observation in observations:
-        key = (observation["identity"], observation["depthKey"], str(observation.get("source") or "unknown"))
+        key = (observation["identity"], observation.get("parameterId"), observation["depthKey"],
+               str(observation.get("source") or "unknown"))
         series.setdefault(key, []).append(observation)
     for values in series.values():
         values.sort(key=lambda item: item["observed"])
@@ -252,7 +459,7 @@ def attach_persistence(pairs, observations):
         issued_at = parse_time(pair.get("issuedAt"))
         if issued_at is None or not pair.get("productEligible"):
             continue
-        key = (pair["station"], pair["depthKey"], pair["source"])
+        key = (pair["station"], pair.get("parameterId"), pair["depthKey"], pair["source"])
         times, candidates = series.get(key, ([], []))
         index = bisect.bisect_right(times, issued_at) - 1
         if index < 0:

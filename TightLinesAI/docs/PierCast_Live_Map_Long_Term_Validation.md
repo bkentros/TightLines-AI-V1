@@ -76,6 +76,10 @@ At 07:25 UTC, after the prior UTC day is complete, the validation workflow:
 
 ## Private R2 evidence layout
 
+The optional private NOAA observation accuracy projection and its production
+runbook are documented in
+[NOAA_Observation_Accuracy_Scorecard.md](NOAA_Observation_Accuracy_Scorecard.md).
+
 These objects are not exposed by the map gatekeeper's public allow-list.
 
 | Key | Purpose | Mutation rule |
