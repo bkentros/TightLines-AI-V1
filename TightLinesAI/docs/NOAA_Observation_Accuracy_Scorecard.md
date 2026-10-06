@@ -149,6 +149,46 @@ distance was 2.17 km. No object or database write occurred.
   details. Existing map, app, PierCast, collector, and validation outputs do not
   depend on this path.
 
+## Public historical backfill boundaries
+
+The current comparable model era starts at **2024-09-09 15:00Z**, when NOAA
+made COMF 3.6 effective for the Great Lakes OFS and updated its FVCOM package.
+The one-off backfill therefore starts on that date, not an approximate 2023
+date, and includes May 1 through December 15 in later years. It samples 00Z and
+12Z cycles at leads 0, 24, 72, and 120 hours when those forecast products
+exist. Position history is part of station identity; a date without a verified
+station position is uncovered rather than assigned today's coordinates.
+
+There is a hard upstream retention limit. NOAA documents AWS retention of 3-D
+forecast fields as two months and NCEI retention as none; NCEI retains old 3-D
+**nowcasts**, not the missing historical forecasts. CO-OPS THREDDS keeps only
+about 31 days. Consequently:
+
+- recent deep lead 0/24/72/120 rows can be recovered from 3-D forecast fields;
+- old deep lead-0 rows can be recovered from NCEI nowcasts where available;
+- old deep +24/+72/+120 rows must remain absent/pending because the model files
+  no longer exist in the named public archives;
+- no surface value may be substituted for those missing deep products.
+
+Observation inputs remain available independently: NDBC annual stdmet,
+dataset-specific GLOS Seagull ERDDAP tables (including temperature strings),
+and bounded CO-OPS water-temperature API requests. The backfill writes
+`source='backfill'`, uses bounded batches and an on-disk checkpoint, and stores
+only station-near model samples in Supabase. Download caches are temporary and
+are not production schedules or GitHub Actions artifacts.
+
+## Research analysis (never runtime correction)
+
+`scorecard_analysis.py` reports clean observed-minus-model miss by station,
+surface/depth band, month, nearest canonical lead, and model version. “Typical”
+miss is median absolute miss. Its candidate is a circularly smoothed
+station/depth seasonal bias, shrunk toward zero by sample size and observed
+spread, then exponentially faded toward NOAA with lead time. Leave-one-season-
+out evaluation compares candidate MAE with unmodified NOAA MAE. Fewer than 90
+clean samples or fewer than three covered month/lead groups remains NOAA by
+default. This script emits research evidence only and cannot change a map,
+forecast, ranking, public API, or app response.
+
 ## Production steps (only after owner approval)
 
 1. Review and merge the branch through the normal protected workflow. Do not
