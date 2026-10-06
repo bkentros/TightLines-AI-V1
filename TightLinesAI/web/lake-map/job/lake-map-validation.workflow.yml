@@ -31,6 +31,10 @@ on:
         type: boolean
         default: false
         required: true
+      scorecard_expected_records:
+        description: "Exact preflight row count required for a scorecard replay"
+        type: string
+        required: false
 
 concurrency:
   group: lake-map-validation
@@ -133,4 +137,8 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           LAKE_MAP_SCORECARD_INTERNAL_KEY: ${{ secrets.LAKE_MAP_SCORECARD_INTERNAL_KEY }}
           VALIDATION_DATE: ${{ inputs.date }}
-        run: python job/scorecard_job.py --upload --sync --date "$VALIDATION_DATE"
+          EXPECTED_RECORDS: ${{ inputs.scorecard_expected_records }}
+        run: |
+          expected_args=()
+          if [ -n "$EXPECTED_RECORDS" ]; then expected_args=(--expected-records "$EXPECTED_RECORDS"); fi
+          python job/scorecard_job.py --upload --sync --date "$VALIDATION_DATE" "${expected_args[@]}"

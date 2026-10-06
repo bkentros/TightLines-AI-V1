@@ -23,9 +23,55 @@ import scorecard_pairing
 import scorecard_schema
 import verify
 
+PROGRESS_PREFIX = "validation/scorecard/replay-progress/v1"
+
 
 def _json_bytes(value):
     return json.dumps(value, separators=(",", ":"), sort_keys=True).encode()
+
+
+def _record_set_digest(records):
+    stable = [{key: value for key, value in record.items()
+               if key not in ("evidence_key", "evidence_sha256")} for record in records]
+    return hashlib.sha256(_json_bytes(stable)).hexdigest()
+
+
+def _resume_batch(s3, key, record_set_sha256, candidate_count):
+    state = store.read_json(s3, key)
+    if not isinstance(state, dict):
+        return 0
+    if (state.get("recordSetSha256") != record_set_sha256 or
+            state.get("candidateCount") != candidate_count):
+        return 0
+    next_batch = state.get("nextBatch")
+    batch_count = (candidate_count + scorecard.MAX_BATCH - 1) // scorecard.MAX_BATCH
+    return next_batch if isinstance(next_batch, int) and 0 <= next_batch <= batch_count else 0
+
+
+def _progress_writer(s3, key, target, record_set_sha256, candidate_count):
+    allowed = {"committed", "confirmed", "degraded"}
+
+    def write(state):
+        status = state.get("status")
+        if status not in allowed:
+            return
+        payload = {
+            "formatVersion": 1,
+            "date": target.isoformat(),
+            "recordSetSha256": record_set_sha256,
+            "candidateCount": candidate_count,
+            "status": status,
+            "nextBatch": state.get("nextBatch"),
+            "confirmedRecords": state.get("confirmedRecords"),
+            "updatedAt": verify.iso(datetime.now(timezone.utc)),
+        }
+        if status == "degraded":
+            payload["batchIndex"] = state.get("batchIndex")
+            payload["failureCategory"] = state.get("failureCategory")
+            payload["attempts"] = state.get("attempts")
+        store.put(s3, key, _json_bytes(payload), store.SHORT)
+
+    return write
 
 
 def collect(s3, target):
@@ -159,6 +205,8 @@ def main(argv=None):
     parser.add_argument("--env-file")
     parser.add_argument("--preflight-start", help="inclusive UTC date for read-only range preflight")
     parser.add_argument("--preflight-end", help="inclusive UTC date for read-only range preflight")
+    parser.add_argument("--expected-records", type=int,
+                        help="require this exact candidate and committed row count")
     args = parser.parse_args(argv)
     verify.load_env_file(args.env_file)
 
@@ -199,19 +247,39 @@ def main(argv=None):
         print(f"Scorecard job {target}: invalid, 0 records; {preflight['invalidRows']} invalid rows, "
               f"constraints={json.dumps(preflight['violations'], sort_keys=True)}")
         return 2
+    if args.expected_records is not None and len(records) != args.expected_records:
+        print(f"Scorecard job {target}: count_mismatch, expected={args.expected_records}, "
+              f"candidate={len(records)}, 0 records written")
+        return 2
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     key = f"validation/scorecard/evidence/v1/{target:%Y/%m/%d}/{stamp}-{digest[:12]}.json"
     if args.out:
         args.out.write_bytes(body + b"\n")
     if args.upload:
         store.put(s3, key, body, store.IMMUTABLE)
-    result = ({"status": "dry_run", "recordCount": len(records), "invalidRows": 0}
-              if not args.sync else scorecard.sync_evidence(evidence, key, digest))
+    if not args.sync:
+        result = {"status": "dry_run", "recordCount": len(records), "invalidRows": 0}
+    else:
+        progress_key = f"{PROGRESS_PREFIX}/{target.isoformat()}.json"
+        record_set_sha256 = _record_set_digest(records)
+        resume_batch = _resume_batch(s3, progress_key, record_set_sha256, len(records))
+        progress = _progress_writer(s3, progress_key, target, record_set_sha256, len(records))
+        result = scorecard.sync_evidence(
+            evidence, key, digest, resume_batch=resume_batch, progress_callback=progress,
+        )
     coverage = evidence["coverage"]
+    retry_note = f", retries={result.get('retryCount', 0)}, resumed_batch={result.get('resumedBatch', 0)}"
+    failure_note = ""
+    if result.get("failureCategory"):
+        failure_note = (f", failure_category={result['failureCategory']}, "
+                        f"batch_index={result.get('batchIndex')}")
+    if (args.expected_records is not None and
+            (result.get("status") != "committed" or result.get("recordCount") != args.expected_records)):
+        result["status"] = "count_mismatch"
     print(f"Scorecard job {target}: {result['status']}, {result.get('recordCount', 0)} records; "
           f"{coverage['stations']} stations, {coverage['frozenVerificationPairs']} frozen-site pairs, "
           f"{coverage['savedSurfaceGridPairs']} saved-grid fallback pairs, "
-          f"{preflight['invalidRows']} constraint violations")
+          f"{preflight['invalidRows']} constraint violations{retry_note}{failure_note}")
     return 2 if args.sync and result["status"] not in ("committed", "disabled") else 0
 
 
