@@ -12,6 +12,7 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -95,6 +96,60 @@ def collect(s3, target):
     }
 
 
+def preflight_range(s3, start, end, summary_stream=None):
+    """Validate an inclusive UTC-date range without writing any artifact."""
+    if end < start or (end - start).days > 30:
+        raise ValueError("preflight date range must be ordered and no longer than 31 days")
+    rows = []
+    total_records = 0
+    total_invalid = 0
+    violations = {}
+    target = start
+    while target <= end:
+        evidence = collect(s3, target)
+        digest = hashlib.sha256(_json_bytes(evidence)).hexdigest()
+        records = scorecard.records_from_evidence(evidence, "preflight", digest)
+        validation = scorecard_schema.validate_records(records)
+        coverage = evidence["coverage"]
+        row = {
+            "date": target.isoformat(),
+            "records": len(records),
+            "stations": coverage["stations"],
+            "paired": coverage["pairedCount"],
+            "pending_3d": coverage["pending3dCount"],
+            "uncovered": coverage["uncoveredCount"],
+            "invalid_rows": validation["invalidRows"],
+            "violations": validation["violations"],
+        }
+        rows.append(row)
+        total_records += row["records"]
+        total_invalid += row["invalid_rows"]
+        for code, count in row["violations"].items():
+            violations[code] = violations.get(code, 0) + count
+        print("Scorecard preflight " + json.dumps(row, sort_keys=True, separators=(",", ":")))
+        target += timedelta(days=1)
+
+    aggregate = {
+        "dates": len(rows), "records": total_records, "invalid_rows": total_invalid,
+        "violations": dict(sorted(violations.items())),
+    }
+    print("Scorecard preflight total " + json.dumps(aggregate, sort_keys=True, separators=(",", ":")))
+    if summary_stream is not None:
+        summary_stream.write("## Private scorecard schema preflight\n\n")
+        summary_stream.write("| UTC date | Rows | Stations | Paired | Pending 3D | Uncovered | Invalid |\n")
+        summary_stream.write("|---|---:|---:|---:|---:|---:|---:|\n")
+        for row in rows:
+            summary_stream.write(
+                f"| {row['date']} | {row['records']} | {row['stations']} | {row['paired']} | "
+                f"{row['pending_3d']} | {row['uncovered']} | {row['invalid_rows']} |\n"
+            )
+        summary_stream.write(
+            f"\n**Total:** {total_records} rows; {total_invalid} invalid rows.\n\n"
+            f"**Violation summary:** `{json.dumps(aggregate['violations'], sort_keys=True)}`\n"
+        )
+    return aggregate
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", help="UTC date to score (default: yesterday)")
@@ -102,8 +157,15 @@ def main(argv=None):
     parser.add_argument("--sync", action="store_true", help="best-effort private Supabase projection")
     parser.add_argument("--out", type=Path, help="write local evidence for a dry run")
     parser.add_argument("--env-file")
+    parser.add_argument("--preflight-start", help="inclusive UTC date for read-only range preflight")
+    parser.add_argument("--preflight-end", help="inclusive UTC date for read-only range preflight")
     args = parser.parse_args(argv)
     verify.load_env_file(args.env_file)
+
+    if bool(args.preflight_start) != bool(args.preflight_end):
+        parser.error("--preflight-start and --preflight-end must be supplied together")
+    if args.preflight_start and (args.upload or args.sync or args.out):
+        parser.error("range preflight cannot upload, sync, or write an output file")
 
     enabled = os.environ.get("LAKE_MAP_SCORECARD_ENABLED", "").strip().lower() == "true"
     if (args.upload or args.sync) and not enabled:
@@ -114,6 +176,20 @@ def main(argv=None):
 
     target = date.fromisoformat(args.date) if args.date else (datetime.now(timezone.utc) - timedelta(days=1)).date()
     s3 = store.client()
+    if args.preflight_start:
+        try:
+            start = date.fromisoformat(args.preflight_start)
+            end = date.fromisoformat(args.preflight_end)
+            summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+            if summary_path:
+                with open(summary_path, "a", encoding="utf-8") as summary:
+                    result = preflight_range(s3, start, end, summary)
+            else:
+                result = preflight_range(s3, start, end)
+        except ValueError as error:
+            print(f"Scorecard preflight rejected: {error}", file=sys.stderr)
+            return 2
+        return 2 if result["invalid_rows"] else 0
     evidence = collect(s3, target)
     body = _json_bytes(evidence)
     digest = hashlib.sha256(body).hexdigest()

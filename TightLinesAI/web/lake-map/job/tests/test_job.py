@@ -209,6 +209,11 @@ class CycleTest(unittest.TestCase):
         self.assertIn("python job/verify.py --upload", validation_text)
         self.assertIn("--fail-on-pipeline-error", validation_text)
         self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
+        self.assertIn("scorecard_preflight_only", validation_text)
+        self.assertIn('python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"', validation_text)
+        preflight_step = validation_text.split("- name: Read-only production archive schema preflight", 1)[1].split("- name:", 1)[0]
+        self.assertNotIn("--upload", preflight_step)
+        self.assertNotIn("--sync", preflight_step)
 
     def test_publication_requires_every_model_on_the_same_cycle(self):
         complete = {model["id"]: CYCLE for model in build.OFS_MODELS}
@@ -463,4 +468,3 @@ class TemperatureEncodingTest(unittest.TestCase):
                         text.index("store.put(s3, PAGE_CAPABILITIES_KEY"))
         frames = (Path(__file__).resolve().parents[2] / "src" / "engine" / "frames.js").read_text()
         self.assertIn("FRAME_ENCODINGS = ['u8', 'rgb16']", frames)
-
