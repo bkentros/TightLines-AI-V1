@@ -52,6 +52,7 @@ Deno.test("scorecard ingest kill switch and authentication run before database w
     internalSecret: SECRET,
     database,
   });
+  assertEquals((await disabled(request("wrong-secret-value"))).status, 403);
   assertEquals((await disabled(request())).status, 503);
   const enabled = createLakeMapScorecardHandler({
     enabled: true,
