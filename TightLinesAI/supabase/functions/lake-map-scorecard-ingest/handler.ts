@@ -68,7 +68,6 @@ export function createLakeMapScorecardHandler(
     if (request.method !== "POST") {
       return json({ error: "method_not_allowed" }, 405);
     }
-    if (!dependencies.enabled) return json({ status: "disabled" }, 503);
     const secret = dependencies.internalSecret;
     if (!secret || secret.length < 16) {
       return json({ error: "scorecard_misconfigured" }, 500);
@@ -77,6 +76,7 @@ export function createLakeMapScorecardHandler(
     if (!supplied || !constantTimeEqual(supplied, secret)) {
       return json({ error: "scorecard_forbidden" }, 403);
     }
+    if (!dependencies.enabled) return json({ status: "disabled" }, 503);
     const contentLength = Number(request.headers.get("content-length") ?? "0");
     if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
       return json({ error: "scorecard_batch_too_large" }, 413);
