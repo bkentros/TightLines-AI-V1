@@ -211,6 +211,8 @@ class CycleTest(unittest.TestCase):
         self.assertIn("--fail-on-pipeline-error", validation_text)
         self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
         self.assertIn("scorecard_preflight_only", validation_text)
+        self.assertIn("scorecard_replay_only", validation_text)
+        self.assertIn("if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true", validation_text)
         scorecard_job = validation_text.split("\n  scorecard:\n", 1)[1]
         self.assertIn("TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql", scorecard_job)
         self.assertIn('python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"', validation_text)

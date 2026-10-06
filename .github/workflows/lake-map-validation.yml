@@ -26,6 +26,11 @@ on:
         description: "Inclusive UTC end date for scorecard preflight (maximum 31 days)"
         type: string
         required: false
+      scorecard_replay_only:
+        description: "Replay one scorecard date without running the verifier publisher"
+        type: boolean
+        default: false
+        required: true
 
 concurrency:
   group: lake-map-validation
@@ -36,7 +41,7 @@ permissions:
 
 jobs:
   verify:
-    if: inputs.scorecard_preflight_only != true
+    if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true
     runs-on: ubuntu-latest
     timeout-minutes: 45
     defaults:
@@ -75,7 +80,7 @@ jobs:
 
   scorecard:
     if: vars.LAKE_MAP_SCORECARD_ENABLED == 'true' || inputs.scorecard_preflight_only == true
-    continue-on-error: ${{ inputs.scorecard_preflight_only != true }}
+    continue-on-error: ${{ inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:
