@@ -76,6 +76,31 @@ class ScorecardTest(unittest.TestCase):
         self.assertTrue(pair["depthAssumed"])
         self.assertEqual(pair["depthMethod"], "surface_layer")
 
+    def test_ndbc_station_inherits_reviewed_lake_and_buoy_type(self):
+        reading = observation(None)
+        reading.update({
+            "identity": "external:45006", "externalId": "45006",
+            "name": "West Lake Superior - 30 NM NE of Ontonagon, MI",
+            "source": "NOAA NDBC", "body": None, "type": None,
+        })
+        run = forecast()
+        run["sites"] = {
+            "glos:45006": {
+                "externalId": "45006", "name": "West Lake Superior buoy",
+                "body": "lake-superior", "type": "moored_buoy",
+                "lat": reading["lat"], "lon": reading["lon"],
+                "hours": [50.0] * 121, "modelLat": reading["lat"],
+                "modelLon": reading["lon"], "modelDistanceKm": 0.2,
+                "shoreDistanceKm": 30,
+            },
+        }
+        pair = pairing.pair_observation(reading, run)
+        self.assertEqual(pair["body"], "lake-superior")
+        self.assertEqual(pair["stationType"], "offshore_buoy")
+        self.assertEqual(pair["modelVersion"], "LSOFS:COMF-3.6:2024-09-09")
+        self.assertTrue(pair["depthAssumed"])
+        self.assertEqual(pair["sensorDepthM"], 1)
+
     def test_uncovered_station_is_countable_not_fabricated(self):
         pair = pairing.pair_observation(observation(1), forecast())
         # Frozen site remains valid when present; remove it to represent no exact-water coverage.
@@ -84,6 +109,22 @@ class ScorecardTest(unittest.TestCase):
         pair = pairing.pair_observation(observation(1), no_site)
         self.assertEqual(pair["pairStatus"], "uncovered")
         self.assertIsNone(pair["forecastF"])
+
+    def test_unknown_lake_never_uses_a_combined_grid_value(self):
+        reading = observation(1)
+        reading.update({"identity": "external:unknown", "externalId": "unknown", "body": None})
+        run = forecast()
+        run["sites"] = {}
+
+        class CombinedGridSampler(LocationSampler):
+            def sample(self, *_args):
+                return {"value": 54.0}
+
+        pair = pairing.pair_observation(reading, run, CombinedGridSampler())
+        self.assertEqual(pair["pairStatus"], "uncovered")
+        self.assertEqual(pair["sampleMethod"], "unresolved_model_domain")
+        self.assertIsNone(pair["forecastF"])
+        self.assertEqual(pair["modelVersion"], "GLOFS-uncovered:COMF-3.6:2024-09-09")
 
     def test_projection_keeps_nullable_pending_depth_model_and_version(self):
         pair = pairing.pair_observation(observation(3), forecast(), LocationSampler())
