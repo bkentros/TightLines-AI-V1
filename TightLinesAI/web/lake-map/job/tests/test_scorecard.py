@@ -50,6 +50,7 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(pair["leadHour"], 6.5)
         self.assertEqual(pair["timeInterpolationFraction"], .5)
         self.assertEqual(pair["validTime"], pair["observed"])
+        self.assertEqual(pair["observationSource"], "GLOS Seagull")
 
     def test_deep_routes_3d_and_reuses_profile_interpolator(self):
         def profiles(_forecast, _observation, hour):

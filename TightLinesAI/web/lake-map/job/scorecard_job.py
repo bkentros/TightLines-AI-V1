@@ -58,7 +58,8 @@ def collect(s3, target):
 
     sampler = verify.R2FrameSampler(s3)
     pairs = list(scorecard_pairing.pairs_for(truth, forecasts, frame_sampler=sampler))
-    paired_observations = {(pair["station"], pair.get("parameterId"), pair["depthKey"], pair["observed"], pair["source"])
+    paired_observations = {(pair["station"], pair.get("parameterId"), pair["depthKey"], pair["observed"],
+                            pair.get("observationSource") or pair.get("source") or "unknown")
                            for pair in pairs}
     exact = sum(pair.get("sampleMethod") == "frozen_verification_site" for pair in pairs)
     fallback = sum(pair.get("sampleMethod") == "saved_surface_grid" for pair in pairs)
