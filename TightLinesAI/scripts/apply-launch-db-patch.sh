@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PATCH_SQL="$ROOT_DIR/docs/db-reconciliation/launch_required_safe_patch_20260518.sql"
 VERIFY_SQL="$ROOT_DIR/docs/db-reconciliation/launch_required_safe_patch_verify_20260518.sql"
 POOLER_URL_FILE="$ROOT_DIR/supabase/.temp/pooler-url"
+SAFE_PSQL="$ROOT_DIR/scripts/db_connection_safety.py"
 PROJECT_REF_FILE="$ROOT_DIR/supabase/.temp/project-ref"
 ENV_LOCAL_FILE="$ROOT_DIR/.env.local"
 ENV_FILE="$ROOT_DIR/.env"
@@ -39,7 +40,6 @@ else
 fi
 
 PROJECT_REF="$(cat "$PROJECT_REF_FILE")"
-POOLER_URL="$(cat "$POOLER_URL_FILE")?sslmode=require"
 CONNECT_RETRIES="${SUPABASE_DB_CONNECT_RETRIES:-6}"
 RETRY_SLEEP_SECONDS="${SUPABASE_DB_RETRY_SLEEP_SECONDS:-10}"
 
@@ -72,11 +72,11 @@ load_password_from_env_file() {
 }
 
 run_psql_file() {
-  local url="$1"
-  local sql_file="$2"
-  PGPASSWORD="$SUPABASE_DB_PASSWORD" "$PSQL_BIN" "$url" \
-    -v ON_ERROR_STOP=1 \
-    -f "$sql_file"
+  local sql_file="$1"
+  PGPASSWORD="$SUPABASE_DB_PASSWORD" python3 "$SAFE_PSQL" \
+    --psql "$PSQL_BIN" \
+    --connection-url-file "$POOLER_URL_FILE" \
+    --sql-file "$sql_file"
 }
 
 run_psql_file_with_retries() {
@@ -85,7 +85,7 @@ run_psql_file_with_retries() {
 
   while (( attempt <= CONNECT_RETRIES )); do
     echo "Connecting through Supabase pooler (attempt $attempt/$CONNECT_RETRIES)..."
-    if run_psql_file "$POOLER_URL" "$sql_file"; then
+    if run_psql_file "$sql_file"; then
       return 0
     fi
 

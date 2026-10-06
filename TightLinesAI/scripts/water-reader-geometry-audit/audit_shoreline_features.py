@@ -33,6 +33,14 @@ from shapely.geometry import (
 from shapely.geometry.base import BaseGeometry
 from shapely.ops import transform, unary_union
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from db_connection_safety import (  # noqa: E402
+    SafeDatabaseError,
+    config_from_environment,
+    connect_psycopg_safely,
+    redact_database_text,
+)
+
 
 DEFAULT_DENSIFY_STEP_M = 22.0
 DEFAULT_STRIDE_M = 56.0
@@ -97,10 +105,6 @@ def parse_arc_lengths_csv(s: str) -> list[float]:
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_SEED = SCRIPT_DIR / "lake_set_seed.json"
-
-
-def env_db_url() -> str | None:
-    return os.environ.get("DATABASE_URL") or os.environ.get("V1_DATABASE_URL")
 
 
 def load_seed(path: Path) -> dict[str, Any]:
@@ -2991,9 +2995,10 @@ def main() -> int:
     per_lake_dir = out_dir / "per-lake"
     per_lake_dir.mkdir(exist_ok=True)
 
-    url = env_db_url()
-    if not url:
-        print("DATABASE_URL or V1_DATABASE_URL must be set.", file=sys.stderr)
+    try:
+        database = config_from_environment()
+    except SafeDatabaseError as error:
+        print(str(error), file=sys.stderr)
         return 2
 
     seed = load_seed(args.seed)
@@ -3004,7 +3009,9 @@ def main() -> int:
 
     run_t0 = time.perf_counter()
 
-    with psycopg.connect(url, autocommit=True, connect_timeout=20) as conn:
+    with connect_psycopg_safely(
+        psycopg.connect, database, autocommit=True, connect_timeout=20,
+    ) as conn:
         rows = fetch_lakes(
             conn,
             seed=seed,
@@ -3084,4 +3091,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    try:
+        raise SystemExit(main())
+    except SystemExit:
+        raise
+    except Exception as error:
+        print(redact_database_text(error), file=sys.stderr)
+        raise SystemExit(1) from None
