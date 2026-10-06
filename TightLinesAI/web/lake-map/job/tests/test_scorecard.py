@@ -97,6 +97,7 @@ class ScorecardTest(unittest.TestCase):
             validation_text,
         )
         scorecard_job = validation_text.split("\n  scorecard:\n", 1)[1]
+        self.assertIn(".github/workflows/lake-map-validation.yml", scorecard_job)
         self.assertIn(
             "TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql",
             scorecard_job,
