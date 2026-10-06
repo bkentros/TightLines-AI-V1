@@ -12,6 +12,7 @@ sys.path.insert(0, str(JOB))
 import scorecard  # noqa: E402
 import scorecard_pairing as pairing  # noqa: E402
 import scorecard_schema  # noqa: E402
+import scorecard_job  # noqa: E402
 
 
 def observation(depth=1.0, observed="2026-10-06T12:30:00Z"):
@@ -44,6 +45,33 @@ class LocationSampler:
 
 
 class ScorecardTest(unittest.TestCase):
+    def test_range_preflight_reports_only_aggregate_constraint_results(self):
+        original_collect = scorecard_job.collect
+        calls = []
+        try:
+            def fake_collect(_s3, target):
+                calls.append(target.isoformat())
+                pair = pairing.pair_observation(observation(1, f"{target}T12:30:00Z"), {
+                    **forecast(), "cycle": f"{target}T06:00:00Z",
+                    "issuedAt": f"{target}T09:00:00Z",
+                }, LocationSampler())
+                return {
+                    "methodologyVersion": "test-v2", "primaryPairs": [pair],
+                    "coverage": {"stations": 1, "pairedCount": 1, "pending3dCount": 0,
+                                 "uncoveredCount": 0},
+                }
+            scorecard_job.collect = fake_collect
+            from io import StringIO
+            summary = StringIO()
+            result = scorecard_job.preflight_range(
+                object(), datetime(2026, 10, 1).date(), datetime(2026, 10, 2).date(), summary,
+            )
+        finally:
+            scorecard_job.collect = original_collect
+        self.assertEqual(calls, ["2026-10-01", "2026-10-02"])
+        self.assertEqual(result, {"dates": 2, "records": 2, "invalid_rows": 0, "violations": {}})
+        self.assertIn("| 2026-10-01 | 1 | 1 | 1 | 0 | 0 | 0 |", summary.getvalue())
+
     def test_shallow_routes_surface_and_interpolates_hourly_time(self):
         pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
         self.assertEqual(pair["depthMethod"], "surface_layer")
