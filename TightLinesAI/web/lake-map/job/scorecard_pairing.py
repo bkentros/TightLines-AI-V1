@@ -70,6 +70,22 @@ def model_version(observation, forecast):
     return f"{model}:{CURRENT_MODEL_VERSION}"
 
 
+def station_metadata(observation, site):
+    """Fill provider omissions from the reviewed model-site catalog.
+
+    NDBC's live feed does not carry a lake name and occasionally omits a
+    useful platform type.  ``find_site`` has already made an exact identity or
+    reviewed-position match, so its metadata is the authoritative fallback.
+    Observation values always win when the provider supplied them.
+    """
+    resolved = dict(observation)
+    if isinstance(site, dict):
+        for key in ("body", "type", "name"):
+            if not resolved.get(key) and site.get(key):
+                resolved[key] = site[key]
+    return resolved
+
+
 def _linear(left, right, fraction):
     if not all(isinstance(value, (int, float)) and math.isfinite(value) for value in (left, right)):
         return None
@@ -140,12 +156,18 @@ def pair_observation(observation, forecast, frame_sampler=None, depth_sampler=No
     if bracket is None:
         return None
     site = verify.find_site(observation, sites)
+    observation = station_metadata(observation, site)
     location = _location(frame_sampler, observation)
     if location is None and site and site.get("modelDistanceKm", math.inf) <= verify.MAX_MODEL_CELL_DISTANCE_KM:
         location = {key: site.get(key) for key in ("modelLat", "modelLon", "modelDistanceKm", "shoreDistanceKm")}
     classification = station_class(observation, (location or {}).get("shoreDistanceKm"))
     depth_m, assumed = sensor_depth(observation, classification)
     pair = _base_pair(observation, forecast, cycle, issued_at, bracket, location, classification, depth_m, assumed)
+    if pair["modelVersion"].startswith("GLOFS-uncovered:"):
+        pair.update({"pairStatus": "uncovered", "depthMethod": "surface_layer" if depth_m <= SURFACE_MAX_DEPTH_M else "pending_3d",
+                     "modelDepthM": 0.0 if depth_m <= SURFACE_MAX_DEPTH_M else depth_m,
+                     "forecastF": None, "sampleMethod": "unresolved_model_domain"})
+        return pair
     if location is None:
         pair.update({"pairStatus": "uncovered", "depthMethod": "surface_layer" if depth_m <= SURFACE_MAX_DEPTH_M else "pending_3d",
                      "modelDepthM": 0.0 if depth_m <= SURFACE_MAX_DEPTH_M else depth_m,
