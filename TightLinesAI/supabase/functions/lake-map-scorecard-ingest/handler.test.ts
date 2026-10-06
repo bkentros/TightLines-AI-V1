@@ -9,6 +9,12 @@ const record = {
   model_cycle: "2026-10-06T06:00:00Z",
   valid_time: "2026-10-06T12:00:00Z",
   lead_hours: 6,
+  sensor_depth_m: 1,
+  model_depth_m: 0,
+  depth_method: "surface_layer",
+  depth_assumed: false,
+  pair_status: "paired",
+  model_version: "LMHOFS:COMF-3.6:2024-09-09",
   run_id: "run-1",
   observed_temperature_f: 60,
   model_temperature_f: 58,
@@ -111,11 +117,11 @@ Deno.test("scorecard migration is private, idempotent, durable, and exposes only
   );
   assertStringIncludes(
     migration,
-    "primary key (station_id, sensor_key, observation_time, model_cycle, lead_hours)",
+    "primary key (station_id, sensor_key, observation_time, model_cycle)",
   );
   assertStringIncludes(
     migration,
-    "on conflict (station_id, sensor_key, observation_time, model_cycle, lead_hours) do update",
+    "on conflict (station_id, sensor_key, observation_time, model_cycle) do update",
   );
   assertStringIncludes(
     migration,
@@ -124,6 +130,9 @@ Deno.test("scorecard migration is private, idempotent, durable, and exposes only
   assertStringIncludes(migration, "lake_map_temperature_scorecard_weekly");
   assertStringIncludes(migration, "percentile_cont(0.5)");
   assertStringIncludes(migration, "minimum two years");
+  assertStringIncludes(migration, "pending_3d");
+  assertStringIncludes(migration, "interpolated_3d");
+  assertStringIncludes(migration, "model_version");
   assertStringIncludes(migration, "auth.role() <> 'service_role'");
   assertStringIncludes(
     migration,
