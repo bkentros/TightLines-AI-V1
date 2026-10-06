@@ -1,6 +1,7 @@
 """Private scorecard depth/time projection tests; no network/database access."""
 from datetime import datetime, timezone
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -10,6 +11,7 @@ sys.path.insert(0, str(JOB))
 
 import scorecard  # noqa: E402
 import scorecard_pairing as pairing  # noqa: E402
+import scorecard_schema  # noqa: E402
 
 
 def observation(depth=1.0, observed="2026-10-06T12:30:00Z"):
@@ -122,9 +124,42 @@ class ScorecardTest(unittest.TestCase):
 
         pair = pairing.pair_observation(reading, run, CombinedGridSampler())
         self.assertEqual(pair["pairStatus"], "uncovered")
-        self.assertEqual(pair["sampleMethod"], "unresolved_model_domain")
+        self.assertEqual(pair["sampleMethod"], "uncovered")
         self.assertIsNone(pair["forecastF"])
         self.assertEqual(pair["modelVersion"], "GLOFS-uncovered:COMF-3.6:2024-09-09")
+
+    def test_every_emitted_enum_value_matches_production_migration_allowed_sets(self):
+        migration = (JOB.parent.parent.parent / "supabase" / "migrations" /
+                     "20261006150000_create_lake_map_temperature_scorecard.sql").read_text()
+        migration_values = {}
+        for field in scorecard_schema.CONSTRAINED_TEXT_VALUES:
+            match = re.search(rf"{field} in \(([^)]+)\)", migration)
+            self.assertIsNotNone(match, field)
+            migration_values[field] = frozenset(re.findall(r"'([^']+)'", match.group(1)))
+        self.assertEqual(migration_values, scorecard_schema.CONSTRAINED_TEXT_VALUES)
+
+        emitted = {}
+        for source in (pairing.EMITTED_CONSTRAINED_VALUES, scorecard.EMITTED_CONSTRAINED_VALUES):
+            for field, values in source.items():
+                emitted[field] = emitted.get(field, frozenset()) | values
+        self.assertEqual(set(emitted), set(migration_values))
+        for field, values in emitted.items():
+            self.assertLessEqual(values, migration_values[field], field)
+
+    def test_schema_preflight_covers_cross_column_and_range_constraints(self):
+        pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
+        record = scorecard.records_from_evidence(
+            {"methodologyVersion": "test-v2", "primaryPairs": [pair]},
+            "validation/evidence.json", "a" * 64,
+        )[0]
+        self.assertEqual(scorecard_schema.validate_record(record), [])
+        record["sample_method"] = "future_method"
+        record["model_distance_km"] = 6.1
+        record["valid_time"] = "2026-10-06T12:31:00Z"
+        errors = scorecard_schema.validate_record(record)
+        self.assertIn("sample_method:allowed_set", errors)
+        self.assertIn("model_distance_km:range", errors)
+        self.assertIn("valid_time:observation_time", errors)
 
     def test_projection_keeps_nullable_pending_depth_model_and_version(self):
         pair = pairing.pair_observation(observation(3), forecast(), LocationSampler())
@@ -150,6 +185,27 @@ class ScorecardTest(unittest.TestCase):
             evidence, "key", "c" * 64, environment=environment,
             opener=lambda *_a, **_k: (_ for _ in ()).throw(OSError("private detail")))
         self.assertEqual(degraded["status"], "degraded")
+
+    def test_schema_preflight_rejects_invalid_batch_before_network(self):
+        pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
+        pair["sampleMethod"] = "not_in_production_schema"
+        evidence = {"methodologyVersion": "test-v2", "primaryPairs": [pair]}
+        environment = {
+            "LAKE_MAP_SCORECARD_ENABLED": "true",
+            "SUPABASE_URL": "https://example.supabase.co",
+            "LAKE_MAP_SCORECARD_INTERNAL_KEY": "long-internal-test-key",
+        }
+
+        def should_not_open(*_args, **_kwargs):
+            raise AssertionError("network called for invalid scorecard batch")
+
+        result = scorecard.sync_evidence(
+            evidence, "validation/evidence.json", "d" * 64,
+            environment=environment, opener=should_not_open,
+        )
+        self.assertEqual(result["status"], "invalid")
+        self.assertEqual(result["invalidRows"], 1)
+        self.assertEqual(result["violations"], {"sample_method:allowed_set": 1})
 
 
 if __name__ == "__main__":

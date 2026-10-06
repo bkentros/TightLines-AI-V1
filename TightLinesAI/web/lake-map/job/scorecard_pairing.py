@@ -39,6 +39,18 @@ MODEL_BY_BODY = {
 }
 CURRENT_MODEL_VERSION = "COMF-3.6:2024-09-09"
 
+# Exhaustive enum values this module can emit.  The schema-contract test checks
+# these against the production migration instead of relying on a hand-reviewed
+# example row.
+EMITTED_CONSTRAINED_VALUES = {
+    "station_class": frozenset(DEFAULT_DEPTH_M),
+    "depth_method": frozenset({"surface_layer", "interpolated_3d", "pending_3d"}),
+    "pair_status": frozenset({"paired", "pending_3d", "uncovered"}),
+    "sample_method": frozenset({
+        "frozen_verification_site", "saved_surface_grid", "interpolated_3d", "pending_3d", "uncovered",
+    }),
+}
+
 
 def station_class(observation, shore_distance_km=None):
     text = " ".join(str(observation.get(key) or "").lower()
@@ -166,7 +178,7 @@ def pair_observation(observation, forecast, frame_sampler=None, depth_sampler=No
     if pair["modelVersion"].startswith("GLOFS-uncovered:"):
         pair.update({"pairStatus": "uncovered", "depthMethod": "surface_layer" if depth_m <= SURFACE_MAX_DEPTH_M else "pending_3d",
                      "modelDepthM": 0.0 if depth_m <= SURFACE_MAX_DEPTH_M else depth_m,
-                     "forecastF": None, "sampleMethod": "unresolved_model_domain"})
+                     "forecastF": None, "sampleMethod": "uncovered"})
         return pair
     if location is None:
         pair.update({"pairStatus": "uncovered", "depthMethod": "surface_layer" if depth_m <= SURFACE_MAX_DEPTH_M else "pending_3d",
@@ -188,7 +200,7 @@ def pair_observation(observation, forecast, frame_sampler=None, depth_sampler=No
         else:
             pair.update({"pairStatus": "paired", "depthMethod": "interpolated_3d", "modelDepthM": depth_m,
                          "forecastF": round(float(sampled["value"]), 3),
-                         "sampleMethod": sampled.get("sampleMethod", "interpolated_3d")})
+                         "sampleMethod": "interpolated_3d"})
         return pair
 
     values = site.get("hours") if site else None
