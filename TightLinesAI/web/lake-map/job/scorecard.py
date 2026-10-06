@@ -12,7 +12,10 @@ import argparse
 import json
 import math
 import os
+import random
 import re
+import socket
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -22,6 +25,10 @@ import scorecard_schema
 
 MAX_BATCH = 500
 SYNC_TIMEOUT_SECONDS = 20
+SYNC_MAX_ATTEMPTS = 4
+SYNC_BACKOFF_SECONDS = 1.0
+SYNC_MAX_BACKOFF_SECONDS = 8.0
+SYNC_JITTER_SECONDS = 0.5
 SCORECARD_ENV = (
     "LAKE_MAP_SCORECARD_ENABLED",
     "SUPABASE_URL",
@@ -114,7 +121,37 @@ def _enabled(environment):
     return str(environment.get("LAKE_MAP_SCORECARD_ENABLED", "")).strip().lower() == "true"
 
 
-def sync_evidence(evidence, evidence_key, evidence_sha256, environment=None, opener=None):
+def _failure_category(error=None, status=None):
+    """Return a bounded, non-sensitive transport category."""
+    if status is not None:
+        if 400 <= status < 500:
+            return "4xx"
+        if 500 <= status < 600:
+            return "5xx"
+        return "network"
+    if isinstance(error, (TimeoutError, socket.timeout)):
+        return "timeout"
+    if isinstance(error, urllib.error.HTTPError):
+        return _failure_category(status=error.code)
+    if isinstance(error, urllib.error.URLError):
+        reason = error.reason
+        if isinstance(reason, (TimeoutError, socket.timeout)) or "timed out" in str(reason).lower():
+            return "timeout"
+    return "network"
+
+
+def _notify(callback, state):
+    if callback is None:
+        return
+    try:
+        callback(state)
+    except Exception:
+        # Progress is advisory. It must never change or interrupt the upsert.
+        pass
+
+
+def sync_evidence(evidence, evidence_key, evidence_sha256, environment=None, opener=None,
+                  resume_batch=0, progress_callback=None, sleeper=None, jitter=None):
     """Best-effort upload. This function deliberately never raises."""
     environment = os.environ if environment is None else environment
     records = records_from_evidence(evidence, evidence_key, evidence_sha256)
@@ -129,9 +166,16 @@ def sync_evidence(evidence, evidence_key, evidence_sha256, environment=None, ope
     if not base_url.startswith("https://") or len(secret) < 16:
         return {"status": "misconfigured", "recordCount": 0, "candidateCount": len(records)}
     open_url = opener or urllib.request.urlopen
-    committed = 0
+    sleep = sleeper or time.sleep
+    jitter_seconds = jitter or (lambda: random.uniform(0, SYNC_JITTER_SECONDS))
+    batch_count = math.ceil(len(records) / MAX_BATCH)
+    if not isinstance(resume_batch, int) or resume_batch < 0 or resume_batch > batch_count:
+        resume_batch = 0
+    committed = min(resume_batch * MAX_BATCH, len(records))
+    retry_count = 0
     try:
-        for start in range(0, len(records), MAX_BATCH):
+        for batch_index in range(resume_batch, batch_count):
+            start = batch_index * MAX_BATCH
             batch = records[start:start + MAX_BATCH]
             request = urllib.request.Request(
                 f"{base_url}/functions/v1/lake-map-scorecard-ingest",
@@ -139,18 +183,55 @@ def sync_evidence(evidence, evidence_key, evidence_sha256, environment=None, ope
                 method="POST",
                 headers={"content-type": "application/json", "x-lake-map-scorecard-key": secret},
             )
-            with open_url(request, timeout=SYNC_TIMEOUT_SECONDS) as response:
-                if response.status != 200:
-                    return {"status": "degraded", "recordCount": committed, "candidateCount": len(records)}
-                result = json.loads(response.read())
-                if result.get("status") != "committed":
-                    return {"status": "degraded", "recordCount": committed, "candidateCount": len(records)}
-                committed += int(result.get("recordCount", 0))
-        return {"status": "committed", "recordCount": committed, "candidateCount": len(records)}
-    except (OSError, ValueError, TypeError, urllib.error.URLError, urllib.error.HTTPError):
-        return {"status": "degraded", "recordCount": committed, "candidateCount": len(records)}
+            confirmed = False
+            category = "network"
+            for attempt in range(1, SYNC_MAX_ATTEMPTS + 1):
+                try:
+                    with open_url(request, timeout=SYNC_TIMEOUT_SECONDS) as response:
+                        status = int(getattr(response, "status", 0))
+                        if status != 200:
+                            category = _failure_category(status=status)
+                        else:
+                            result = json.loads(response.read())
+                            returned = result.get("recordCount")
+                            if (result.get("status") == "committed" and
+                                    isinstance(returned, int) and returned == len(batch)):
+                                confirmed = True
+                            else:
+                                category = "network"
+                except Exception as error:
+                    category = _failure_category(error=error)
+                if confirmed:
+                    break
+                retry_count += 1
+                print(f"Scorecard batch attempt category={category} batch_index={batch_index} "
+                      f"attempt={attempt}/{SYNC_MAX_ATTEMPTS}")
+                if attempt < SYNC_MAX_ATTEMPTS:
+                    delay = min(SYNC_BACKOFF_SECONDS * (2 ** (attempt - 1)), SYNC_MAX_BACKOFF_SECONDS)
+                    sleep(delay + max(0.0, float(jitter_seconds())))
+            if not confirmed:
+                state = {"status": "degraded", "nextBatch": batch_index,
+                         "batchIndex": batch_index, "failureCategory": category,
+                         "confirmedRecords": committed, "attempts": SYNC_MAX_ATTEMPTS}
+                _notify(progress_callback, state)
+                return {"status": "degraded", "recordCount": committed,
+                        "candidateCount": len(records), "failureCategory": category,
+                        "batchIndex": batch_index, "attempts": SYNC_MAX_ATTEMPTS,
+                        "retryCount": retry_count, "resumedBatch": resume_batch}
+            committed += len(batch)
+            _notify(progress_callback, {"status": "confirmed", "nextBatch": batch_index + 1,
+                                        "batchIndex": batch_index, "confirmedRecords": committed})
+        result = {"status": "committed", "recordCount": committed,
+                  "candidateCount": len(records), "retryCount": retry_count,
+                  "resumedBatch": resume_batch}
+        _notify(progress_callback, {"status": "committed", "nextBatch": batch_count,
+                                    "confirmedRecords": committed})
+        return result
     except Exception:
-        return {"status": "degraded", "recordCount": committed, "candidateCount": len(records)}
+        return {"status": "degraded", "recordCount": committed,
+                "candidateCount": len(records), "failureCategory": "network",
+                "batchIndex": min(batch_count, committed // MAX_BATCH),
+                "attempts": 0, "retryCount": retry_count, "resumedBatch": resume_batch}
 
 
 def main(argv=None):

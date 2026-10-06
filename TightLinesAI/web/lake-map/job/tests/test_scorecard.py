@@ -5,6 +5,7 @@ import re
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 JOB = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(JOB))
@@ -44,6 +45,39 @@ class LocationSampler:
                 "shoreDistanceKm": 5}
 
 
+class Response:
+    def __init__(self, status=200, payload=None):
+        self.status = status
+        self.payload = payload or {}
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return False
+
+    def read(self):
+        return json.dumps(self.payload).encode()
+
+
+def evidence_with_pairs(count):
+    template = pairing.pair_observation(observation(1), forecast(), LocationSampler())
+    pairs = []
+    for index in range(count):
+        pair = dict(template)
+        pair["station"] = f"station-{index:04d}"
+        pair["stationName"] = f"Station {index:04d}"
+        pairs.append(pair)
+    return {"methodologyVersion": "test-v2", "primaryPairs": pairs}
+
+
+SYNC_ENVIRONMENT = {
+    "LAKE_MAP_SCORECARD_ENABLED": "true",
+    "SUPABASE_URL": "https://example.supabase.co",
+    "LAKE_MAP_SCORECARD_INTERNAL_KEY": "long-internal-test-key",
+}
+
+
 class ScorecardTest(unittest.TestCase):
     def test_validation_workflow_owns_scorecard_checks_and_replays(self):
         validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
@@ -56,6 +90,8 @@ class ScorecardTest(unittest.TestCase):
         self.assertNotIn("OPEN_METEO_API_KEY", validation_text)
         self.assertIn("scorecard_preflight_only", validation_text)
         self.assertIn("scorecard_replay_only", validation_text)
+        self.assertIn("scorecard_expected_records", validation_text)
+        self.assertIn('--expected-records "$EXPECTED_RECORDS"', validation_text)
         self.assertIn(
             "if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true",
             validation_text,
@@ -237,12 +273,123 @@ class ScorecardTest(unittest.TestCase):
             raise AssertionError("network called while disabled")
         result = scorecard.sync_evidence(evidence, "key", "b" * 64, environment={}, opener=should_not_open)
         self.assertEqual(result["status"], "disabled")
-        environment = {"LAKE_MAP_SCORECARD_ENABLED": "true", "SUPABASE_URL": "https://example.supabase.co",
-                       "LAKE_MAP_SCORECARD_INTERNAL_KEY": "long-internal-test-key"}
         degraded = scorecard.sync_evidence(
-            evidence, "key", "c" * 64, environment=environment,
-            opener=lambda *_a, **_k: (_ for _ in ()).throw(OSError("private detail")))
+            evidence, "key", "c" * 64, environment=SYNC_ENVIRONMENT,
+            opener=lambda *_a, **_k: (_ for _ in ()).throw(OSError("private detail")),
+            sleeper=lambda _seconds: None, jitter=lambda: 0,
+        )
         self.assertEqual(degraded["status"], "degraded")
+        self.assertEqual(degraded["failureCategory"], "network")
+        self.assertEqual(degraded["batchIndex"], 0)
+        self.assertEqual(degraded["attempts"], 4)
+
+    def test_batch_retries_timeout_and_5xx_then_commits_without_failing(self):
+        actions = [
+            TimeoutError("detail must stay private"),
+            Response(503),
+            Response(200, {"status": "committed", "recordCount": 1}),
+        ]
+        delays = []
+        states = []
+
+        def opener(*_args, **_kwargs):
+            action = actions.pop(0)
+            if isinstance(action, Exception):
+                raise action
+            return action
+
+        result = scorecard.sync_evidence(
+            evidence_with_pairs(1), "key", "e" * 64,
+            environment=SYNC_ENVIRONMENT, opener=opener,
+            sleeper=delays.append, jitter=lambda: 0,
+            progress_callback=states.append,
+        )
+        self.assertEqual(result["status"], "committed")
+        self.assertEqual(result["recordCount"], 1)
+        self.assertEqual(result["retryCount"], 2)
+        self.assertEqual(delays, [1.0, 2.0])
+        self.assertEqual(states[-1]["status"], "committed")
+
+    def test_batch_stops_after_four_sanitized_attempts(self):
+        result = scorecard.sync_evidence(
+            evidence_with_pairs(1), "key", "f" * 64,
+            environment=SYNC_ENVIRONMENT, opener=lambda *_a, **_k: Response(429),
+            sleeper=lambda _seconds: None, jitter=lambda: 0,
+        )
+        self.assertEqual(result["status"], "degraded")
+        self.assertEqual(result["recordCount"], 0)
+        self.assertEqual(result["failureCategory"], "4xx")
+        self.assertEqual(result["batchIndex"], 0)
+        self.assertEqual(result["attempts"], 4)
+
+    def test_resume_starts_at_first_unconfirmed_batch_and_counts_confirmed_rows(self):
+        sent = []
+
+        def opener(request, **_kwargs):
+            batch = json.loads(request.data)["records"]
+            sent.append(batch)
+            return Response(200, {"status": "committed", "recordCount": len(batch)})
+
+        result = scorecard.sync_evidence(
+            evidence_with_pairs(501), "key", "1" * 64,
+            environment=SYNC_ENVIRONMENT, opener=opener, resume_batch=1,
+            sleeper=lambda _seconds: None, jitter=lambda: 0,
+        )
+        self.assertEqual(len(sent), 1)
+        self.assertEqual(len(sent[0]), 1)
+        self.assertEqual(result["status"], "committed")
+        self.assertEqual(result["recordCount"], 501)
+        self.assertEqual(result["resumedBatch"], 1)
+
+    def test_private_r2_checkpoint_resumes_only_an_identical_record_set(self):
+        records = scorecard.records_from_evidence(evidence_with_pairs(501), "key", "2" * 64)
+        record_set = scorecard_job._record_set_digest(records)
+        checkpoint = {
+            "recordSetSha256": record_set, "candidateCount": 501, "nextBatch": 1,
+        }
+        with patch.object(scorecard_job.store, "read_json", return_value=checkpoint):
+            self.assertEqual(scorecard_job._resume_batch(object(), "private-key", record_set, 501), 1)
+            self.assertEqual(scorecard_job._resume_batch(object(), "private-key", "different", 501), 0)
+
+        writes = []
+        writer = scorecard_job._progress_writer(
+            object(), "validation/scorecard/replay-progress/v1/2026-10-03.json",
+            datetime(2026, 10, 3).date(), record_set, 501,
+        )
+        with patch.object(scorecard_job.store, "put", side_effect=lambda *_args: writes.append(_args)):
+            writer({"status": "degraded", "nextBatch": 1, "confirmedRecords": 500,
+                    "batchIndex": 1, "failureCategory": "timeout", "attempts": 4})
+        payload = json.loads(writes[0][2])
+        self.assertEqual(payload["failureCategory"], "timeout")
+        self.assertEqual(payload["batchIndex"], 1)
+        self.assertNotIn("error", payload)
+
+    def test_expected_count_mismatch_stops_before_r2_or_supabase_writes(self):
+        evidence = evidence_with_pairs(1)
+        evidence["coverage"] = {
+            "stations": 1, "frozenVerificationPairs": 1,
+            "savedSurfaceGridPairs": 0,
+        }
+        environment = {
+            **SYNC_ENVIRONMENT,
+            "R2_ACCOUNT_ID": "account",
+            "R2_ACCESS_KEY_ID": "access",
+            "R2_SECRET_ACCESS_KEY": "secret",
+        }
+        with (
+            patch.dict(scorecard_job.os.environ, environment, clear=True),
+            patch.object(scorecard_job.store, "client", return_value=object()),
+            patch.object(scorecard_job, "collect", return_value=evidence),
+            patch.object(scorecard_job.store, "put") as put,
+            patch.object(scorecard_job.scorecard, "sync_evidence") as sync,
+        ):
+            result = scorecard_job.main([
+                "--date", "2026-10-03", "--upload", "--sync",
+                "--expected-records", "2",
+            ])
+        self.assertEqual(result, 2)
+        put.assert_not_called()
+        sync.assert_not_called()
 
     def test_schema_preflight_rejects_invalid_batch_before_network(self):
         pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
