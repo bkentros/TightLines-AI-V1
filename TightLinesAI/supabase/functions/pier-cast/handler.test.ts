@@ -94,7 +94,6 @@ Deno.test("conditions v4 routes require species only where ranking/report needs 
         formulaVersion: "seasonal-outlook-plus-thermal-match-v1",
         rankingVersion: "species-seasonal-band-then-thermal-v1",
         generatedAt: "2026-09-27T12:00:00Z",
-        sourceIssuedAt: "2026-09-27T12:00:00Z",
         selectedSpeciesId: speciesId,
         selectionRequired: speciesId === null,
         targetSpecies: [],
@@ -129,14 +128,6 @@ Deno.test("conditions v4 routes require species only where ranking/report needs 
     "conditions/leaderboard?speciesId=chinook_salmon",
   ));
   assertEquals(selected.status, 200);
-  assertEquals(
-    selected.headers.get("Cache-Control"),
-    "public, max-age=30, s-maxage=60, stale-while-revalidate=120",
-  );
-  assertEquals(
-    selected.headers.get("ETag"),
-    'W/"conditions-leaderboard:chinook_salmon:2026-09-27T12:00:00Z"',
-  );
   assertEquals(leaderboardReads, [null, "chinook_salmon"]);
   const unselectedMap = await handler(request("conditions/map"));
   assertEquals(unselectedMap.status, 200);
@@ -178,36 +169,6 @@ Deno.test("conditions v4 routes require species only where ranking/report needs 
     (await handler(request("conditions/leaderboard", "POST"))).status,
     405,
   );
-});
-
-Deno.test("PierCast returns a clear 429 before route work", async () => {
-  let reads = 0;
-  const handler = createPierCastHandler({
-    ...dependencies({
-      readConditionsLeaderboard: () => {
-        reads += 1;
-        return Promise.resolve(null);
-      },
-    }),
-    checkRateLimit: () =>
-      Promise.resolve({
-        allowed: false,
-        feature: "pier_cast_ip",
-        windowSeconds: 600,
-        maxRequests: 600,
-        requestCount: 601,
-        remaining: 0,
-        resetAt: "2026-10-07T12:10:00.000Z",
-        retryAfterSeconds: 42,
-      }),
-  });
-  const response = await handler(request(
-    "conditions/leaderboard?speciesId=chinook_salmon",
-  ));
-  assertEquals(response.status, 429);
-  assertEquals(response.headers.get("Retry-After"), "42");
-  assertEquals((await response.json()).error, "rate_limited");
-  assertEquals(reads, 0);
 });
 
 Deno.test("conditions catalog omits retired score metadata and is cacheable", async () => {

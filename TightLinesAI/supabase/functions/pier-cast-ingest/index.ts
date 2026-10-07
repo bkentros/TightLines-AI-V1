@@ -7,21 +7,19 @@ import {
   archivePierCastShadowForecast,
   archivePierCastV3ShadowForecast,
   archivePierCastWisconsinShadowForecast,
-  buildPierCastConditionsV4OutlookFromBatch,
   buildPierCastDailyScoreSnapshot,
   buildPierCastPortWashingtonReviewOutlook,
   buildPierCastReviewOutlook,
   buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
   combinePierCastV3LmhofsBatches,
-  commitPierCastOutlookSnapshot,
   ingestPierCastCalibrationObservations,
   ingestPierCastChicagoAlpenaShadowCycle,
+  ingestPierCastStJosephHarrisvilleShadowCycle,
+  ingestPierCastPentwaterCasevilleShadowCycle,
   ingestPierCastFiveCityShadowCycle,
   ingestPierCastLakeHuronShadowCycle,
-  ingestPierCastPentwaterCasevilleShadowCycle,
   ingestPierCastPortWashingtonShadowCycle,
-  ingestPierCastStJosephHarrisvilleShadowCycle,
   ingestPierCastTemperatureCycle,
   ingestPierCastWisconsinShadowCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
@@ -33,7 +31,6 @@ import {
   validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
-import { projectPublicV3Outlook } from "../pier-cast/publicV3.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -345,26 +342,13 @@ const handler = createPierCastIngestHandler({
       batch,
       evaluationTime: now.toISOString(),
     });
-    const generatedAt = now.toISOString();
-    const [shadowForecast] = await Promise.all([
-      archivePierCastV3ShadowForecast({
-        database: archiveClient,
-        outlook,
-        batch,
-        ingestionSource: "fresh_archived_complete_cycle",
-        engineVersion: PIER_CAST_V3_ENGINE_VERSION,
-      }),
-      commitPierCastOutlookSnapshot({
-        database: archiveClient,
-        sourceIssuedAt: batch.issuedAt,
-        generatedAt,
-        publicOutlook: projectPublicV3Outlook(outlook),
-        conditionsOutlook: buildPierCastConditionsV4OutlookFromBatch({
-          batch,
-          evaluationTime: generatedAt,
-        }),
-      }),
-    ]);
+    const shadowForecast = await archivePierCastV3ShadowForecast({
+      database: archiveClient,
+      outlook,
+      batch,
+      ingestionSource: "fresh_archived_complete_cycle",
+      engineVersion: PIER_CAST_V3_ENGINE_VERSION,
+    });
     return {
       status: shadowForecast.status,
       source: "fresh_archived_complete_cycle" as const,

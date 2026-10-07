@@ -37,6 +37,31 @@ class HealthTest(unittest.TestCase):
         problems = health.evaluate(NOW, 200, '{"cities":[]}', None, None)
         self.assertEqual(len(problems), 3)
 
+    def test_public_synthetics_are_healthy_under_five_seconds(self):
+        results = {
+            "PierCast catalog": (200, '{"cities":[]}', 0.4),
+            "PierCast Chinook leaderboard": (200, FRESH_PC, 1.2),
+            "PierCast Coho leaderboard": (200, FRESH_PC, 4.99),
+            "Live Lake Map latest.json": (200, '{"run":"test-run"}', 0.2),
+        }
+        self.assertEqual(health.evaluate_synthetics(results), [])
+
+    def test_public_synthetics_fail_on_slow_error_and_invalid_map(self):
+        results = {
+            "PierCast catalog": (200, '{"cities":[]}', 5.0),
+            "PierCast Chinook leaderboard": (503, "", 0.4),
+            "PierCast Coho leaderboard": (200, FRESH_PC, 1.0),
+            "Live Lake Map latest.json": (200, '{}', 0.2),
+        }
+        problems = health.evaluate_synthetics(results)
+        self.assertEqual(len(problems), 3)
+        self.assertIn("took", problems[0])
+        self.assertIn("HTTP 503", problems[1])
+        self.assertIn("invalid JSON", problems[2])
+
+    def test_map_pass_has_expected_shape(self):
+        self.assertEqual(len(health.make_map_pass("test-secret").split(".")), 4)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,6 +1,8 @@
-# PierCast production health check. Fails when PierCast standings, the Live Lake
-# Map run or the live buoy feed are stale or down; GitHub emails the owner when a
-# scheduled workflow fails. Read-only. See TightLinesAI/web/lake-map/job/health.py.
+# Production synthetic health check. Fails when PierCast public/authenticated
+# reads, Today's Bite, the gated Live Lake Map, or the live map data are slow,
+# stale, or down; GitHub emails the owner when a scheduled workflow fails.
+# Read-only; the synthetic account must have an angler tier so report reads do
+# not create free-claim rows.
 name: PierCast health
 
 on:
@@ -38,6 +40,9 @@ jobs:
       - name: Check production
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          PIER_CAST_MAP_PASS_SECRET: ${{ secrets.PIER_CAST_MAP_PASS_SECRET }}
+          HEALTH_TEST_EMAIL: ${{ secrets.HEALTH_TEST_EMAIL }}
+          HEALTH_TEST_PASSWORD: ${{ secrets.HEALTH_TEST_PASSWORD }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
