@@ -14,6 +14,8 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
+import scorecard_store
+
 BAD_FLAGS = {"spike", "stale", "out_of_range"}
 MIN_READY_SAMPLES = 90
 EVENT_DELTA_C = 3.0
@@ -259,6 +261,8 @@ def readiness(summary):
 
 
 def load_rows(path):
+    if path.suffix.lower() == ".parquet" or path.is_dir():
+        return scorecard_store.read_rows(path)
     if path.suffix.lower() == ".json":
         value = json.loads(path.read_text())
         return value if isinstance(value, list) else value.get("rows", [])

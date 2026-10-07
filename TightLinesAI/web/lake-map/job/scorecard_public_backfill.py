@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """One-off, resumable public-archive backfill for the private scorecard.
 
-The command runs on an owner's workstation. It never reads R2, never writes a
-map object, and has no scheduled/Actions entry. NOAA model files are read with
-anonymous S3 byte ranges; observations come from public NDBC, GLOS ERDDAP and
-CO-OPS endpoints. ``--sync`` is required before the existing private ingest
-function is called.
+The command runs on an owner's workstation and has no scheduled/Actions entry.
+NOAA model files are read with anonymous S3 byte ranges; observations come from
+public NDBC, GLOS ERDDAP and CO-OPS endpoints. ``--store`` writes only local and
+private-R2 Parquet. Supabase is never contacted.
 """
 from __future__ import annotations
 
@@ -36,6 +35,7 @@ from scipy.spatial import cKDTree
 import scorecard
 import scorecard_pairing
 import scorecard_schema
+import scorecard_store
 import verify
 from lakemap.depth import profile_at
 
@@ -936,7 +936,8 @@ def main(argv=None):
     parser.add_argument("--end", type=date.fromisoformat, required=True)
     parser.add_argument("--cache", type=Path, default=Path("/tmp/finfindr-scorecard-public-backfill"))
     parser.add_argument("--env-file", type=Path)
-    parser.add_argument("--sync", action="store_true")
+    parser.add_argument("--store", action="store_true",
+                        help="write local/private-R2 Parquet and advance the checkpoint")
     parser.add_argument("--sources", default="ndbc,glos,coops")
     args = parser.parse_args(argv)
     if args.end < args.start:
@@ -961,12 +962,24 @@ def main(argv=None):
     checkpoint_path = args.cache / "checkpoint.json"
     checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else {"completed": []}
     environment = {**os.environ, **read_env(args.env_file)}
-    environment["LAKE_MAP_SCORECARD_ENABLED"] = "true"
+    s3 = None
+    if args.store:
+        required = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY")
+        if not all(environment.get(key) for key in required):
+            raise SystemExit("R2 credentials are required (values are never printed)")
+        prior_environment = os.environ.copy()
+        os.environ.update(environment)
+        try:
+            from lakemap import store
+            s3 = store.client()
+        finally:
+            os.environ.clear()
+            os.environ.update(prior_environment)
     totals = defaultdict(int)
     sample_methods = defaultdict(int)
     for day in daterange(args.start, args.end):
         day_text = day.isoformat()
-        if args.sync and day_text in checkpoint.get("completed", []):
+        if args.store and day_text in checkpoint.get("completed", []):
             print(f"Backfill day={day_text} status=checkpoint_skip")
             continue
         pairs = build_pairs(day, observations, sampler)
@@ -976,7 +989,7 @@ def main(argv=None):
         records = scorecard.records_from_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest)
         validation = scorecard_schema.validate_records(records)
         if validation["invalidRows"]:
-            if args.sync:
+            if args.store:
                 pause_backfill(checkpoint_path, checkpoint, day_text, "constraint_violation",
                                invalidRows=validation["invalidRows"],
                                violations=validation["violations"])
@@ -985,7 +998,7 @@ def main(argv=None):
         quarantine = quarantine_summary(records, source_quarantine.day(day_text))
         print("Backfill quarantine " + json.dumps({"day": day_text, **quarantine}, sort_keys=True))
         if quarantine["fraction"] > MAX_QUARANTINE_FRACTION:
-            if args.sync:
+            if args.store:
                 pause_backfill(checkpoint_path, checkpoint, day_text, "quarantine_threshold",
                                count=quarantine["count"], total=quarantine["total"],
                                reasons=quarantine["reasons"])
@@ -994,44 +1007,37 @@ def main(argv=None):
         for record in records:
             totals[record["pair_status"]] += 1
             sample_methods[record["sample_method"]] += 1
-        if args.sync:
-            prior = checkpoint.get("inProgress") or {}
-            resume_batch = (int(prior.get("nextBatch", 0))
-                            if prior.get("day") == day_text and
-                            prior.get("digest") == digest and
-                            prior.get("expected") == len(records) else 0)
+        if args.store:
             checkpoint["inProgress"] = {
-                "day": day_text, "digest": digest, "expected": len(records),
-                "nextBatch": resume_batch,
+                "day": day_text, "digest": digest, "expected": len(records), "store": "parquet-v1",
             }
             save_checkpoint(checkpoint_path, checkpoint)
-
-            def progress(state):
-                checkpoint["inProgress"] = {
-                    "day": day_text, "digest": digest, "expected": len(records),
-                    "nextBatch": int(state.get("nextBatch", resume_batch)),
-                }
-                save_checkpoint(checkpoint_path, checkpoint)
-
-            result = scorecard.sync_evidence(
-                evidence, f"public-backfill/v1/{day_text}.json", digest,
-                environment=environment, resume_batch=resume_batch,
-                progress_callback=progress,
-            )
-            if result.get("status") != "committed" or result.get("recordCount") != len(records):
-                pause_backfill(checkpoint_path, checkpoint, day_text, "batch_or_count_failure",
-                               category=result.get("failureCategory", "network"),
-                               confirmed=result.get("recordCount", 0), expected=len(records),
-                               batchIndex=result.get("batchIndex"))
-                print(f"Backfill day={day_text} status=degraded category={result.get('failureCategory','network')}")
+            prior_environment = os.environ.copy()
+            os.environ.update(environment)
+            try:
+                manifest = scorecard_store.write_fragment(
+                    records, "backfill", day_text, digest, s3=s3, environment=environment,
+                )
+            except Exception as error:
+                pause_backfill(checkpoint_path, checkpoint, day_text, "parquet_store_failure",
+                               category=type(error).__name__, expected=len(records))
+                print(f"Backfill day={day_text} status=degraded category=parquet_store_failure")
+                return 3
+            finally:
+                os.environ.clear()
+                os.environ.update(prior_environment)
+            if manifest.get("rowCount") != len(records):
+                pause_backfill(checkpoint_path, checkpoint, day_text, "parquet_count_mismatch",
+                               confirmed=manifest.get("rowCount", 0), expected=len(records))
+                print(f"Backfill day={day_text} status=degraded category=parquet_count_mismatch")
                 return 3
             checkpoint.setdefault("completed", []).append(day_text)
             checkpoint["completed"] = sorted(set(checkpoint["completed"]))
             checkpoint.pop("paused", None)
             checkpoint.pop("inProgress", None)
             save_checkpoint(checkpoint_path, checkpoint)
-        print(f"Backfill day={day_text} status={'committed' if args.sync else 'dry_run'} records={len(records)}")
-    print(json.dumps({"status": "complete", "days": len(checkpoint.get("completed", [])) if args.sync else 0,
+        print(f"Backfill day={day_text} status={'stored' if args.store else 'dry_run'} records={len(records)}")
+    print(json.dumps({"status": "complete", "days": len(checkpoint.get("completed", [])) if args.store else 0,
                       "counts": dict(sorted(totals.items())),
                       "sampleMethods": dict(sorted(sample_methods.items())),
                       "sourceQuarantine": dict(sorted(source_quarantine.overall.items()))}, sort_keys=True))
