@@ -12,18 +12,15 @@ Never prints keys. Read-only.
 """
 from __future__ import annotations
 
-import base64
-import hashlib
-import hmac
 import json
 import os
 import re
-import secrets
 import sys
 import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -100,15 +97,6 @@ def api_headers(anon_key: str, user_token: str | None = None) -> dict[str, str]:
     return headers
 
 
-def make_map_pass(secret: str) -> str:
-    account = base64.urlsafe_b64encode(secrets.token_bytes(12)).decode().rstrip("=")
-    payload = f"v1.{int(time.time()) + 600}.{account}"
-    signature = base64.urlsafe_b64encode(
-        hmac.new(secret.encode(), payload.encode(), hashlib.sha256).digest()
-    ).decode().rstrip("=")
-    return f"{payload}.{signature}"
-
-
 def evaluate_synthetics(results: dict[str, tuple[int | None, str, float]]) -> list[str]:
     problems: list[str] = []
     for name in ("PierCast catalog", "PierCast Chinook leaderboard", "PierCast Coho leaderboard"):
@@ -117,22 +105,10 @@ def evaluate_synthetics(results: dict[str, tuple[int | None, str, float]]) -> li
             problems.append(f"{name} returned HTTP {status}.")
         elif seconds >= PIERCAST_MAX_SECONDS:
             problems.append(f"{name} took {seconds:.2f} s (limit {PIERCAST_MAX_SECONDS} s).")
-    status, body, _seconds = results["Live Lake Map latest.json"]
-    if status != 200:
-        problems.append(f"Live Lake Map latest.json returned HTTP {status} through the gatekeeper.")
-    else:
-        try:
-            latest = json.loads(body)
-        except json.JSONDecodeError:
-            latest = None
-        if not isinstance(latest, dict) or not latest.get("run"):
-            problems.append("Live Lake Map latest.json returned invalid JSON through the gatekeeper.")
     return problems
 
 
-def public_synthetics(
-    anon_key: str, map_secret: str
-) -> tuple[list[str], tuple[int | None, str, float]]:
+def public_synthetics(anon_key: str) -> tuple[list[str], tuple[int | None, str, float]]:
     headers = api_headers(anon_key)
     results = {
         "PierCast catalog": timed_request(
@@ -145,10 +121,6 @@ def public_synthetics(
             f"{SUPABASE_URL}/functions/v1/pier-cast/conditions/leaderboard?speciesId=coho_salmon", headers
         ),
     }
-    map_pass = make_map_pass(map_secret)
-    results["Live Lake Map latest.json"] = timed_request(
-        f"{MAP_URL}/latest.json?t={urllib.parse.quote(map_pass)}", {"Accept": "application/json"}
-    )
     problems = evaluate_synthetics(results)
     return problems, results["PierCast Chinook leaderboard"]
 
@@ -198,6 +170,32 @@ def authenticated_synthetics(anon_key: str, email: str, password: str) -> list[s
     if bite_status != 200:
         problems.append(f"Today's Bite synthetic returned HTTP {bite_status}.")
 
+    access_status, access_body, _ = timed_request(
+        f"{SUPABASE_URL}/functions/v1/pier-cast-map-access",
+        api_headers(anon_key, token),
+        "POST",
+        {"visitId": str(uuid.uuid4())},
+    )
+    try:
+        map_pass = json.loads(access_body).get("pass")
+    except json.JSONDecodeError:
+        map_pass = None
+    if access_status != 200 or not map_pass:
+        problems.append(f"Live Lake Map access synthetic returned HTTP {access_status}.")
+    else:
+        map_status, map_body, _ = timed_request(
+            f"{MAP_URL}/latest.json?t={urllib.parse.quote(map_pass)}",
+            {"Accept": "application/json", "User-Agent": "FinFindr-Health/1.0"},
+        )
+        try:
+            latest = json.loads(map_body)
+        except json.JSONDecodeError:
+            latest = None
+        if map_status != 200:
+            problems.append(f"Live Lake Map latest.json returned HTTP {map_status} through the gatekeeper.")
+        elif not isinstance(latest, dict) or not latest.get("run"):
+            problems.append("Live Lake Map latest.json returned invalid JSON through the gatekeeper.")
+
     if paid_profile:
         report_status, _body, _ = timed_request(
             f"{SUPABASE_URL}/functions/v1/pier-cast/conditions/report?cityId=ludington_mi&speciesId=chinook_salmon",
@@ -210,16 +208,15 @@ def authenticated_synthetics(anon_key: str, email: str, password: str) -> list[s
 
 def main() -> int:
     anon_key = os.environ.get("SUPABASE_ANON_KEY", "").strip()
-    map_secret = os.environ.get("PIER_CAST_MAP_PASS_SECRET", "").strip()
     test_email = os.environ.get("HEALTH_TEST_EMAIL", "").strip()
     test_password = os.environ.get("HEALTH_TEST_PASSWORD", "").strip()
-    if not all((anon_key, map_secret, test_email, test_password)):
+    if not all((anon_key, test_email, test_password)):
         print("Required health-check secrets are not set.")
         return 1
     from lakemap import store
     s3 = store.client()
     now = datetime.now(timezone.utc)
-    synthetic_problems, standings = public_synthetics(anon_key, map_secret)
+    synthetic_problems, standings = public_synthetics(anon_key)
     problems = evaluate(now, standings[0], standings[1],
                         store.read_latest(s3), store.read_json(s3, "observations/latest.json"))
     problems.extend(synthetic_problems)
