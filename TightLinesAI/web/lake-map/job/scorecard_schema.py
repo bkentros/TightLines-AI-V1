@@ -1,8 +1,8 @@
 """Production-table constraint mirror for scorecard preflight validation.
 
-This module performs no I/O.  It deliberately mirrors the checks in migration
-20261006150000 so a locally generated batch can be rejected before an R2 write
-or Supabase request.  Tests compare the enum sets below with the migration.
+This module performs no I/O. It deliberately mirrors the latest scorecard
+migration constraints so a locally generated batch can be rejected before an
+R2 write or Supabase request. Tests compare the enum sets below with migrations.
 """
 from __future__ import annotations
 
@@ -17,7 +17,8 @@ CONSTRAINED_TEXT_VALUES = {
     "depth_method": frozenset({"surface_layer", "interpolated_3d", "pending_3d"}),
     "pair_status": frozenset({"paired", "pending_3d", "uncovered"}),
     "sample_method": frozenset({
-        "frozen_verification_site", "saved_surface_grid", "interpolated_3d", "pending_3d", "uncovered",
+        "frozen_verification_site", "saved_surface_grid", "interpolated_3d", "station_file",
+        "pending_3d", "uncovered",
     }),
 }
 

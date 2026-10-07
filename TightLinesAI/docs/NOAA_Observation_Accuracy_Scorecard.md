@@ -153,11 +153,14 @@ distance was 2.17 km. No object or database write occurred.
 
 The current comparable model era starts at **2024-09-16 15:00Z**, when NOAA
 made COMF 3.6 effective for the Great Lakes OFS and updated its FVCOM package.
-The one-off backfill therefore starts on that date, not an approximate 2023
-date, and includes May 1 through December 15 in later years. It samples 00Z and
-12Z cycles at leads 0, 24, 72, and 120 hours when those forecast products
-exist. Position history is part of station identity; a date without a verified
-station position is uncovered rather than assigned today's coordinates.
+Only rows tagged with that current version enter candidate-correction analysis.
+Older rows can still be retained as evidence, but remain tagged
+`pre-COMF-3.6` and are excluded from correction fitting and evaluation. The
+one-off backfill covers May 1 through December 15 for 2023–2025 and May 1
+through the current date in 2026. It samples 00Z and 12Z cycles at leads 0, 24,
+72, and 120 hours when those forecast products exist. Position history is part
+of station identity; a date without a verified station position is uncovered
+rather than assigned today's coordinates.
 
 There is a hard upstream retention limit. NOAA documents the production NODD
 bucket as rolling 30 days, native AWS 3-D forecast fields as two months, NCEI
@@ -172,11 +175,46 @@ probes on October 6, 2026 found the following surface-forecast coverage:
 | 2025 | none | no May-Dec gridded forecast fields found | native nowcast fields and station forecasts; no gridded forecasts | none |
 | 2026 | current rolling month | regular-grid forecasts May-Sep; native 3-D forecasts for the recent rolling period | native nowcast fields and station forecasts | September 6 onward at probe time |
 
-The backfill uses native AWS fields first, then AWS regular-grid 3-D fields,
-then NCEI native nowcast `n006` only for exact lead 0. It does not treat NCEI
-station forecasts as nearest-water-cell evidence. Missing gridded forecast
-leads remain uncovered (or `pending_3d` for deep sensors) rather than borrowing
-a station product or a surface value.
+NCEI's retained OFS station products materially improve that picture. Each
+file contains full-depth temperature at fixed NOAA output stations every six
+minutes through 120 hours. The sampler accepts one only when the output station
+is within 6 km of the observation position and belongs to the same modeled
+waterbody, then records `sample_method='station_file'`. It still interpolates
+the exact observation time between hourly samples. A current-catalog audit
+found these matches:
+
+| Model | Fixed OFS outputs | Outputs within 6 km | Unique observed sites |
+| --- | ---: | ---: | ---: |
+| LMHOFS | 48 | 33 | 32 |
+| LEOFS | 28 | 21 | 16 |
+| LOOFS | 12 | 7 | 7 |
+| LSOFS | 19 | 16 | 15 |
+| **Total** | **107** | **77** | **70** |
+
+Matched observed-site identifiers were:
+
+- LMHOFS: `9075014`, `9075099`, `9087096`, `NDBC_MNMM4`, `45184`, `DCW`,
+  `9087031`, `9075065`, `NDBC_FTGM4`, `NDBC_RCKM4`, `ECCC 26-1`, `45014`,
+  `45002`, `45175`, `45003`, `45154`, `45013`, `45024`, `45022`, `45162`,
+  `45137`, `45174`, `SPOT-1563`, `45029`, `45008`, `45143`, `SPOT-31964C`,
+  `45168`, `45163`, `45170`, `45026`, and `45149`.
+- LEOFS: `9063020`, `PA-DEP-1538`, `9063085`, `9063079`, `9063063`,
+  `9063053`, `WIM_968`, `45005`, `45132`, `NDBC_BUFN6`, `45165`, `45167`,
+  `45164`, `45169`, `UWRAEON7-26`, and `UWRAEON1-24`.
+- LOOFS: `9052000`, `45189`, `NDBC_RPRN6`, `NDBC_OLCN6`, `45139`, `45159`,
+  and `45012`.
+- LSOFS: `9099090`, `9099064`, `SPOT-33110C`, `SPOT-1360`, `NDBC_PTIM4`,
+  `NDBC_LTRM4`, `45006`, `45001`, `SPOT-31300C`, `45023`, `45027`, `45136`,
+  `SPOT-1980`, `45172`, and `SPOT-1362`.
+
+Some anonymous or connecting-water fixed outputs cluster near the same site,
+which is why output-match count exceeds unique-site count. Pairing is performed
+against that day's observation position, not merely this catalog audit.
+
+The backfill tries an eligible NCEI station file first, then native AWS fields,
+AWS regular-grid 3-D fields, and finally NCEI native nowcast `n006` for exact
+lead 0. Missing products remain uncovered (or `pending_3d` for deep sensors)
+rather than substituting a surface value.
 
 Consequently:
 
@@ -192,6 +230,24 @@ and bounded CO-OPS water-temperature API requests. The backfill writes
 `source='backfill'`, uses bounded batches and an on-disk checkpoint, and stores
 only station-near model samples in Supabase. Download caches are temporary and
 are not production schedules or GitHub Actions artifacts.
+
+### Temperature data-assimilation independence
+
+The LMHOFS, LEOFS, LOOFS, and LSOFS technical reports do not describe
+assimilation or nudging of model temperature toward NDBC, GLOS, or CO-OPS
+temperature observations at the scorecard stations. Forecast cycles continue
+from the preceding nowcast/restart and use atmospheric forcing. LEOFS does use
+observed water temperature at the Detroit and Niagara River open boundaries;
+those boundary inputs are not the buoy/CO-OPS validation sites. LOOFS/LSOFS
+also adjust water level through measured levels and artificial
+precipitation/evaporation, not water temperature. Therefore scorecard rows are
+not flagged `assimilated=true`; the independence caveat is documented instead
+of inventing a flag unsupported by the model configuration.
+
+Sources: [NOAA Technical Report 087 (LEOFS)](https://tidesandcurrents.noaa.gov/publications/CO-OPS_Tech_Report_087_LEOFS_Final.pdf),
+[Technical Report 091 (LMHOFS)](https://tidesandcurrents.noaa.gov/ofs/publications/CO-OPS_Techrpt_091_LMHOFS_2019.pdf),
+[Technical Report 103 (LOOFS/LSOFS)](https://tidesandcurrents.noaa.gov/ofs/publications/CO-OPS_Techreport_103_2023_LOOFS_LSOFS.pdf),
+and [NOAA's OFS archive FAQ](https://www.tidesandcurrents.noaa.gov/ofs/ofs_faq.html).
 
 The one-off workstation command is `job/scorecard_public_backfill.py`. It uses
 anonymous public-source reads only, requires an explicit `--sync` before it can
@@ -211,13 +267,19 @@ part of the scheduled map job. A typical invocation from `web/lake-map` is:
 
 `scorecard_analysis.py` reports clean observed-minus-model miss by station,
 surface/depth band, month, nearest canonical lead, and model version. “Typical”
-miss is median absolute miss. Its candidate is a circularly smoothed
-station/depth seasonal bias, shrunk toward zero by sample size and observed
-spread, then exponentially faded toward NOAA with lead time. Leave-one-season-
-out evaluation compares candidate MAE with unmodified NOAA MAE. Fewer than 90
-clean samples or fewer than three covered month/lead groups remains NOAA by
-default. This script emits research evidence only and cannot change a map,
-forecast, ranking, public API, or app response.
+miss is median absolute miss. Its candidate learns a circularly smoothed
+station/depth seasonal bias from current-version lead-0 rows, shrinks it toward
+zero by sample size and observed spread, then learns each station/depth lead
+fade from retained station-file, 2026, and private-archive forecast rows. Sparse
+lead evidence is conservatively shrunk toward an exponential fallback; a sign
+reversal fades to NOAA rather than applying a correction in the wrong
+direction. Wind-associated rapid rises and drops are reported separately and
+excluded from steady-correction fitting. Leave-one-season-out evaluation
+compares candidate MAE with unmodified NOAA MAE. Fewer than 90 clean samples or
+fewer than three covered month/lead groups remains NOAA by default. Only
+`COMF-3.6:2024-09-16` rows enter fitting/evaluation. This script emits research
+evidence only and cannot change a map, forecast, ranking, public API, or app
+response.
 
 ## Production steps (only after owner approval)
 

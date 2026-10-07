@@ -45,6 +45,8 @@ MODELS = {
     "lake-erie": "leofs", "lake-ontario": "loofs", "lake-superior": "lsofs",
 }
 CURRENT_MODEL_START = datetime(2024, 9, 16, 15, tzinfo=UTC)
+CURRENT_MODEL_VERSION = "COMF-3.6:2024-09-16"
+LEGACY_MODEL_VERSION = "pre-COMF-3.6"
 NCEI_ROOTS = {
     "lmhofs": "model-lmhofs-files", "leofs": "model-leofs",
     "loofs": "model-loofs-files", "lsofs": "model-lsofs-files",
@@ -55,6 +57,12 @@ CYCLES = (0, 12)
 MAX_OFFSET_MINUTES = 30
 MAX_QUARANTINE_FRACTION = 0.02
 USER_AGENT = "FinFindr-scorecard-backfill/1.0 (+https://finfindr.app)"
+GLOS_BASE_MISSING_TEMPERATURE_SENTINELS = frozenset({-999.0, -9999.0, 999.0, 9999.0})
+GLOS_MISSING_TEMPERATURE_SENTINELS = frozenset(
+    value + offset
+    for value in GLOS_BASE_MISSING_TEMPERATURE_SENTINELS
+    for offset in (-273.15, 0.0, 273.15)
+)
 NDBC_STATIONS = """45001 45002 45003 45004 45005 45006 45007 45008 45012 45013 45014 45022 45023
 45024 45025 45026 45027 45028 45029 45161 45162 45163 45164 45165 45167 45168 45170 45174 45175
 45176 45186 45187 45198 45199 45200 45210 45211 45212 45213 45214 45215 45216""".split()
@@ -82,6 +90,15 @@ def iso(value):
 
 def parse_time(value):
     return datetime.fromisoformat(str(value).replace("Z", "+00:00")).astimezone(UTC)
+
+
+def glos_temperature_is_missing(raw_text, raw):
+    """Recognize ERDDAP/provider fill values before Kelvin conversion or QC."""
+    if str(raw_text).strip().upper() in {"", "NAN", "NULL"}:
+        return True
+    return (any(math.isclose(raw, sentinel, abs_tol=0.05)
+                for sentinel in GLOS_MISSING_TEMPERATURE_SENTINELS)
+            or abs(raw) >= 1e20)
 
 
 def read_env(path):
@@ -416,6 +433,8 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
             except ValueError:
                 quarantine.add("impossible_temperature", observed)
                 continue
+            if glos_temperature_is_missing(raw_text, raw):
+                continue
             lat = values[columns["latitude"]] if "latitude" in columns and columns["latitude"] < len(values) else None
             lon = values[columns["longitude"]] if "longitude" in columns and columns["longitude"] < len(values) else None
             water_c = raw - 273.15 if unit in ("k", "kelvin") or raw > 100 else raw
@@ -471,15 +490,20 @@ def nearest_observations(rows, target):
 class PublicModelSampler:
     def __init__(self, cache_root):
         try:
+            import fsspec
             import h5py
             import s3fs
+            from scipy.io import netcdf_file
         except ImportError as error:
-            raise RuntimeError("one-off backfill requires h5py and s3fs") from error
-        self.h5py, self.fs = h5py, s3fs.S3FileSystem(anon=True, client_kwargs={"region_name": "us-east-1"})
+            raise RuntimeError("one-off backfill requires fsspec, h5py, scipy and s3fs") from error
+        self.fsspec, self.h5py, self.netcdf_file = fsspec, h5py, netcdf_file
+        self.fs = s3fs.S3FileSystem(anon=True, client_kwargs={"region_name": "us-east-1"})
         self.cache_root = Path(cache_root)
         self.cache_root.mkdir(parents=True, exist_ok=True)
         self.grids = {}
         self.sources = {}
+        self.station_grids = {}
+        self.station_urls = {}
 
     @staticmethod
     def key(model, cycle, hour, product="fields"):
@@ -493,6 +517,81 @@ class PublicModelSampler:
             return None, None
         stream = self.fs.open(path, "rb", block_size=1024 * 1024, cache_type="readahead")
         return stream, self.h5py.File(stream, "r")
+
+    @staticmethod
+    def _variable(dataset, name):
+        return dataset.variables[name] if hasattr(dataset, "variables") else dataset[name]
+
+    @staticmethod
+    def station_file_names(model, cycle):
+        modern = f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.stations.forecast.nc"
+        legacy = f"nos.{model}.stations.forecast.{cycle:%Y%m%d}.t{cycle:%H}z.nc"
+        return (modern, legacy) if cycle >= CURRENT_MODEL_START else (legacy, modern)
+
+    def _station_open(self, model, cycle):
+        cache_key = (model, cycle)
+        candidates = []
+        selected = self.station_urls.get(cache_key)
+        if selected:
+            candidates.append(selected)
+        root = NCEI_ROOTS[model]
+        candidates.extend(
+            f"https://www.ncei.noaa.gov/thredds/fileServer/{root}/{cycle:%Y/%m}/{name}"
+            for name in self.station_file_names(model, cycle)
+        )
+        for url in dict.fromkeys(candidates):
+            stream = dataset = None
+            try:
+                stream = self.fsspec.open(
+                    url, "rb", block_size=1024 * 1024, cache_type="readahead",
+                    headers={"user-agent": USER_AGENT},
+                ).open()
+                signature = stream.read(8)
+                stream.seek(0)
+                dataset = (self.netcdf_file(stream, "r", mmap=False)
+                           if signature.startswith(b"CDF") else self.h5py.File(stream, "r"))
+                self._variable(dataset, "lat").shape
+                self.station_urls[cache_key] = url
+                return stream, dataset
+            except Exception:
+                if dataset is not None:
+                    try:
+                        dataset.close()
+                    except Exception:
+                        pass
+                if stream is not None:
+                    try:
+                        stream.close()
+                    except Exception:
+                        pass
+        return None, None
+
+    def station_grid(self, model, cycle):
+        cache_key = (model, cycle)
+        if cache_key in self.station_grids:
+            return self.station_grids[cache_key]
+        stream, dataset = self._station_open(model, cycle)
+        if dataset is None:
+            self.station_grids[cache_key] = None
+            return None
+        try:
+            lat = np.asarray(self._variable(dataset, "lat")[:], dtype=np.float64)
+            lon = np.asarray(self._variable(dataset, "lon")[:], dtype=np.float64)
+            bottom = np.asarray(self._variable(dataset, "h")[:], dtype=np.float64)
+            sigma = np.asarray(self._variable(dataset, "siglay")[:], dtype=np.float64)
+            lon = np.where(lon > 180, lon - 360, lon)
+        except Exception:
+            self.station_grids[cache_key] = None
+            return None
+        finally:
+            dataset.close(); stream.close()
+        valid = np.isfinite(lat) & np.isfinite(lon) & np.isfinite(bottom) & (bottom > 0)
+        indices = np.flatnonzero(valid)
+        coords = np.column_stack((lat[indices], lon[indices] * np.cos(np.radians(lat[indices]))))
+        grid = {"lat": lat, "lon": lon, "bottom": bottom, "sigma": sigma,
+                "indices": indices, "tree": cKDTree(coords), "kind": "station_file"}
+        self.station_grids[cache_key] = grid
+        return grid
 
     def source_kind(self, model, cycle, hour):
         cache_key = (model, cycle, hour)
@@ -564,6 +663,21 @@ class PublicModelSampler:
         if not (isinstance(latitude, (int, float)) and math.isfinite(latitude) and
                 isinstance(longitude, (int, float)) and math.isfinite(longitude)):
             return None
+        station_grid = self.station_grid(model, cycle)
+        if station_grid is not None:
+            query = (observation["lat"], observation["lon"] * math.cos(math.radians(observation["lat"])))
+            _, station_tree_index = station_grid["tree"].query(query)
+            station_index = int(station_grid["indices"][int(station_tree_index)])
+            station_point = {"lat": float(station_grid["lat"][station_index]),
+                             "lon": float(station_grid["lon"][station_index])}
+            station_distance = verify.distance_km(observation, station_point)
+            if station_distance <= verify.MAX_MODEL_CELL_DISTANCE_KM:
+                levels = -station_grid["sigma"][:, station_index] * float(station_grid["bottom"][station_index])
+                return {"node": ("station_file", station_index),
+                        "modelLat": station_point["lat"], "modelLon": station_point["lon"],
+                        "modelDistanceKm": station_distance,
+                        "bottomM": float(station_grid["bottom"][station_index]),
+                        "levelsM": levels, "sourceKind": "station_file"}
         kind = self.source_kind(model, cycle, 0)
         if kind is None:
             return None
@@ -584,6 +698,38 @@ class PublicModelSampler:
         return {"node": node, "modelLat": model_point["lat"], "modelLon": model_point["lon"],
                 "modelDistanceKm": distance, "bottomM": float(grid["bottom"][node]),
                 "levelsM": levels, "sourceKind": kind}
+
+    def profiles_for_requests(self, model, cycle, requests):
+        output = {hour: {} for hour in requests}
+        station_requests = {
+            hour: sorted({node[1] for node in nodes
+                          if isinstance(node, tuple) and node[0] == "station_file"})
+            for hour, nodes in requests.items()
+        }
+        station_requests = {hour: nodes for hour, nodes in station_requests.items() if nodes}
+        if station_requests:
+            stream, dataset = self._station_open(model, cycle)
+            if dataset is not None:
+                try:
+                    variable = self._variable(dataset, "temp")
+                    for hour, nodes in station_requests.items():
+                        # Station products are written every six minutes; the
+                        # comparison contract deliberately interpolates the
+                        # exact observation time between hourly model outputs.
+                        time_index = int(hour) * 10
+                        for node in nodes:
+                            values = np.asarray(variable[time_index, :, node], dtype=np.float64)
+                            values[(values < -100) | (values > 60)] = np.nan
+                            output[hour][("station_file", node)] = values
+                except Exception:
+                    pass
+                finally:
+                    dataset.close(); stream.close()
+        for hour, nodes in requests.items():
+            grid_nodes = {node for node in nodes if isinstance(node, int)}
+            if grid_nodes:
+                output[hour].update(self.profiles(model, cycle, hour, grid_nodes))
+        return output
 
     def _ncei_profile(self, model, cycle, node):
         root = NCEI_ROOTS[model]
@@ -648,8 +794,6 @@ def build_pairs(day, observations, sampler):
     pairs = []
     for cycle_hour in CYCLES:
         cycle = datetime.combine(day, datetime.min.time(), UTC).replace(hour=cycle_hour)
-        if cycle < CURRENT_MODEL_START:
-            continue
         for canonical_lead in LEADS:
             target = cycle + timedelta(hours=canonical_lead)
             selected = nearest_observations(observations, target)
@@ -670,8 +814,11 @@ def build_pairs(day, observations, sampler):
                     locations[id(observation)] = (location, lead, lower, upper)
                     if location:
                         requests[lower].add(location["node"]); requests[upper].add(location["node"])
-                profiles = {hour: sampler.profiles(model, cycle, hour, nodes)
-                            for hour, nodes in requests.items()} if model else {}
+                if model and hasattr(sampler, "profiles_for_requests"):
+                    profiles = sampler.profiles_for_requests(model, cycle, requests)
+                else:
+                    profiles = {hour: sampler.profiles(model, cycle, hour, nodes)
+                                for hour, nodes in requests.items()} if model else {}
                 for observation in model_rows:
                     state = locations.get(id(observation))
                     if state is None:
@@ -704,7 +851,8 @@ def build_pairs(day, observations, sampler):
                         model_f = None
                     elif model_f is not None:
                         pair_status, depth_method, sample_method = (
-                            "paired", "surface_layer" if depth_m <= 1.5 else "interpolated_3d", "interpolated_3d")
+                            "paired", "surface_layer" if depth_m <= 1.5 else "interpolated_3d",
+                            "station_file" if location.get("sourceKind") == "station_file" else "interpolated_3d")
                     elif depth_m > 1.5:
                         pair_status, depth_method, sample_method = "pending_3d", "pending_3d", "pending_3d"
                     else:
@@ -726,7 +874,8 @@ def build_pairs(day, observations, sampler):
                         "observed": iso(observation["observed"]), "observedF": observation["waterF"],
                         "observationOffsetMinutes": 0.0, "stationType": classification,
                         "rawStationType": observation.get("type"),
-                        "modelVersion": f"{model.upper() if model else 'GLOFS-uncovered'}:COMF-3.6:2024-09-16",
+                        "modelVersion": (f"{model.upper() if model else 'GLOFS-uncovered'}:"
+                                         f"{CURRENT_MODEL_VERSION if cycle >= CURRENT_MODEL_START else LEGACY_MODEL_VERSION}"),
                         "modelLat": location.get("modelLat") if location else None,
                         "modelLon": location.get("modelLon") if location else None,
                         "modelDistanceKm": location.get("modelDistanceKm") if location else None,
@@ -814,6 +963,7 @@ def main(argv=None):
     environment = {**os.environ, **read_env(args.env_file)}
     environment["LAKE_MAP_SCORECARD_ENABLED"] = "true"
     totals = defaultdict(int)
+    sample_methods = defaultdict(int)
     for day in daterange(args.start, args.end):
         day_text = day.isoformat()
         if args.sync and day_text in checkpoint.get("completed", []):
@@ -843,6 +993,7 @@ def main(argv=None):
             return 4
         for record in records:
             totals[record["pair_status"]] += 1
+            sample_methods[record["sample_method"]] += 1
         if args.sync:
             prior = checkpoint.get("inProgress") or {}
             resume_batch = (int(prior.get("nextBatch", 0))
@@ -882,6 +1033,7 @@ def main(argv=None):
         print(f"Backfill day={day_text} status={'committed' if args.sync else 'dry_run'} records={len(records)}")
     print(json.dumps({"status": "complete", "days": len(checkpoint.get("completed", [])) if args.sync else 0,
                       "counts": dict(sorted(totals.items())),
+                      "sampleMethods": dict(sorted(sample_methods.items())),
                       "sourceQuarantine": dict(sorted(source_quarantine.overall.items()))}, sort_keys=True))
     return 0
 

@@ -36,6 +36,10 @@ SCORECARD_ENV = (
 )
 EMITTED_CONSTRAINED_VALUES = {
     "source": frozenset({"live_archive", "backfill", "synthetic"}),
+    "sample_method": frozenset({
+        "frozen_verification_site", "saved_surface_grid", "interpolated_3d",
+        "station_file", "pending_3d", "uncovered",
+    }),
 }
 
 

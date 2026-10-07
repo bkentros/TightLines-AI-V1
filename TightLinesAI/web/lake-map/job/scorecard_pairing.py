@@ -47,7 +47,8 @@ EMITTED_CONSTRAINED_VALUES = {
     "depth_method": frozenset({"surface_layer", "interpolated_3d", "pending_3d"}),
     "pair_status": frozenset({"paired", "pending_3d", "uncovered"}),
     "sample_method": frozenset({
-        "frozen_verification_site", "saved_surface_grid", "interpolated_3d", "pending_3d", "uncovered",
+        "frozen_verification_site", "saved_surface_grid", "interpolated_3d", "station_file",
+        "pending_3d", "uncovered",
     }),
 }
 
