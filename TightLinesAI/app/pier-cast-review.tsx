@@ -38,6 +38,7 @@ import type {
 import type {
   PierCastSpeciesId,
 } from "../lib/pierCastContracts";
+import { pierCastReportSpeciesOrBest } from "../lib/pierCastCityReportPresentation";
 import { PIER_CAST_MAP_REFRESH_INTERVAL_MS } from "../lib/pierCastMap";
 import { hapticSelection } from "../lib/safeHaptics";
 import {
@@ -100,6 +101,9 @@ export default function PierCastReviewScreen() {
   const [preferenceHydrated, setPreferenceHydrated] = useState(Boolean(routeSpeciesId));
   const [selectionLoading, setSelectionLoading] = useState(false);
   const [selectedCityId, setSelectedCityId] = useState<string | null>(null);
+  const [reportFallback, setReportFallback] = useState<{
+    requestedSpeciesId: PierCastSpeciesId;
+  } | null>(null);
   const [showingSavedCopy, setShowingSavedCopy] = useState(false);
   const [paywall, setPaywall] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -262,6 +266,7 @@ export default function PierCastReviewScreen() {
     selectionRequest.current += 1;
     setSelectedCityId(null);
     setCityReport(null);
+    setReportFallback(null);
     setShowingSavedCopy(false);
     setLeaderboard(null);
     setCatalog(null);
@@ -276,6 +281,7 @@ export default function PierCastReviewScreen() {
     cityId: string,
     target: PierCastSpeciesId,
     silent = false,
+    selectionGuard: PierCastSpeciesId = target,
   ) => {
     if (silent && openingCity.current) return;
     const reportRequestId = ++cityReportRequest.current;
@@ -288,13 +294,23 @@ export default function PierCastReviewScreen() {
       const envelope = await fetchPierCastConditionsCityReport(cityId, target);
       if (
         cityReportRequest.current !== reportRequestId ||
-        accountId.current !== userId || selectedSpeciesRef.current !== target ||
+        accountId.current !== userId || selectedSpeciesRef.current !== selectionGuard ||
         (!silent && requestedCity.current !== cityId)
       ) return;
+      const shownSpeciesId = pierCastReportSpeciesOrBest(
+        envelope.report,
+        selectionGuard,
+      ) ?? target;
+      const report = shownSpeciesId === envelope.report.selectedSpeciesId
+        ? envelope.report
+        : { ...envelope.report, selectedSpeciesId: shownSpeciesId };
       if (silent) {
-        setCityReport((current) => current?.cityId === cityId ? envelope.report : current);
+        setCityReport((current) => current?.cityId === cityId ? report : current);
       } else {
-        setCityReport(envelope.report);
+        setCityReport(report);
+        setReportFallback(shownSpeciesId === selectionGuard ? null : {
+          requestedSpeciesId: selectionGuard,
+        });
         setSelectedCityId(cityId);
         setError(null);
       }
@@ -302,7 +318,7 @@ export default function PierCastReviewScreen() {
     } catch (caught) {
       if (
         cityReportRequest.current !== reportRequestId ||
-        accountId.current !== userId || selectedSpeciesRef.current !== target ||
+        accountId.current !== userId || selectedSpeciesRef.current !== selectionGuard ||
         (!silent && requestedCity.current !== cityId)
       ) return;
       if (caught instanceof PierCastRequestError && caught.code === "subscription_required") {
@@ -313,7 +329,7 @@ export default function PierCastReviewScreen() {
           if (
             cityReportRequest.current !== reportRequestId ||
             accountId.current !== userId ||
-            selectedSpeciesRef.current !== target ||
+            selectedSpeciesRef.current !== selectionGuard ||
             requestedCity.current !== cityId
           ) return;
           if (
@@ -321,7 +337,16 @@ export default function PierCastReviewScreen() {
             saved.envelope.report.cityId === cityId &&
             saved.envelope.report.species.some((species) => species.speciesId === target)
           ) {
-            setCityReport(saved.envelope.report);
+            const shownSpeciesId = pierCastReportSpeciesOrBest(
+              saved.envelope.report,
+              selectionGuard,
+            ) ?? target;
+            setCityReport(shownSpeciesId === saved.envelope.report.selectedSpeciesId
+              ? saved.envelope.report
+              : { ...saved.envelope.report, selectedSpeciesId: shownSpeciesId });
+            setReportFallback(shownSpeciesId === selectionGuard ? null : {
+              requestedSpeciesId: selectionGuard,
+            });
             setShowingSavedCopy(true);
             setSelectedCityId(cityId);
             setError(null);
@@ -338,7 +363,7 @@ export default function PierCastReviewScreen() {
           if (
             cityReportRequest.current === reportRequestId &&
             accountId.current === userId &&
-            selectedSpeciesRef.current === target &&
+            selectedSpeciesRef.current === selectionGuard &&
             requestedCity.current === cityId
           ) {
             setError(caught instanceof Error ? caught.message : "Report could not load.");
@@ -355,18 +380,26 @@ export default function PierCastReviewScreen() {
   const openCity = useCallback(async (cityId: string, silent = false) => {
     const target = selectedSpeciesRef.current;
     if (!target) return;
-    if (!catalog?.cities.some((city) => city.cityId === cityId)) return;
-    if (
-      leaderboard?.selectedSpeciesId !== target ||
-      !leaderboard.cities.some((city) => city.cityId === cityId)
-    ) {
+    const city = catalog?.cities.find((candidate) => candidate.cityId === cityId);
+    if (!city) return;
+    const reportSpeciesId = finderReportSpecies(city, target);
+    if (!reportSpeciesId) {
       if (!silent) {
-        setError("This target species is not available for the selected PierCast city.");
+        setError("No PierCast species are available for the selected city.");
       }
       return;
     }
-    await loadCityReport(cityId, target, silent);
-  }, [catalog, leaderboard, loadCityReport]);
+    await loadCityReport(cityId, reportSpeciesId, silent, target);
+  }, [catalog, loadCityReport]);
+
+  const selectCityReportSpecies = useCallback((speciesId: PierCastSpeciesId) => {
+    setCityReport((current) => {
+      if (!current?.species.some((species) => species.speciesId === speciesId)) {
+        return current;
+      }
+      return { ...current, selectedSpeciesId: speciesId };
+    });
+  }, []);
 
   const openCityForSpecies = useCallback(async (
     cityId: string,
@@ -380,6 +413,7 @@ export default function PierCastReviewScreen() {
     const requestId = ++selectionRequest.current;
     selectedSpeciesRef.current = speciesId;
     setSelectedSpeciesId(speciesId);
+    setReportFallback(null);
     setError(null);
     setLoading(false);
     setSelectionLoading(true);
@@ -653,6 +687,8 @@ export default function PierCastReviewScreen() {
                 weather={weather}
                 weatherLoading={weatherLoading}
                 savedCopy={showingSavedCopy}
+                fallbackFromSpeciesId={reportFallback?.requestedSpeciesId ?? null}
+                onSelectReportSpecies={selectCityReportSpecies}
                 onOpenStandings={openStandingsFor}
                 onOpenCity={openFinderCity}
                 onOpenMap={() => router.push({

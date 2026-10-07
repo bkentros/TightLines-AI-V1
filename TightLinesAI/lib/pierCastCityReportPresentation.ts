@@ -45,6 +45,26 @@ export function pierCastSpeciesName(speciesId: PierCastSpeciesId): string {
   return PIER_CAST_SPECIES_LABELS[speciesId] ?? speciesId;
 }
 
+/**
+ * Keeps an explicitly requested city species when available. Otherwise the
+ * city's current best bet is the truthful default, with the server-selected
+ * species and first available species as compatibility fallbacks.
+ */
+export function pierCastReportSpeciesOrBest(
+  report: Pick<
+    PierCastCityReportReadV4,
+    "dailyOutlook" | "selectedSpeciesId" | "species"
+  >,
+  requestedSpeciesId: PierCastSpeciesId,
+): PierCastSpeciesId | null {
+  const available = new Set(report.species.map((species) => species.speciesId));
+  if (available.has(requestedSpeciesId)) return requestedSpeciesId;
+  const best = report.dailyOutlook?.[0]?.best?.speciesId;
+  if (best && available.has(best)) return best;
+  if (available.has(report.selectedSpeciesId)) return report.selectedSpeciesId;
+  return report.species[0]?.speciesId ?? null;
+}
+
 // ─── Local time ───────────────────────────────────────────────────────────
 
 export type PierCastLocalParts = {
