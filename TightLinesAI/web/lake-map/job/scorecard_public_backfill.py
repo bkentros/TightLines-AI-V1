@@ -24,7 +24,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -46,10 +46,27 @@ MODELS = {
 LEADS = (0, 24, 72, 120)
 CYCLES = (0, 12)
 MAX_OFFSET_MINUTES = 30
+MAX_QUARANTINE_FRACTION = 0.02
 USER_AGENT = "FinFindr-scorecard-backfill/1.0 (+https://finfindr.app)"
 NDBC_STATIONS = """45001 45002 45003 45004 45005 45006 45007 45008 45012 45013 45014 45022 45023
 45024 45025 45026 45027 45028 45029 45161 45162 45163 45164 45165 45167 45168 45170 45174 45175
 45176 45186 45187 45198 45199 45200 45210 45211 45212 45213 45214 45215 45216""".split()
+
+
+class SourceQuarantine:
+    """Count malformed public records without retaining payloads or identifiers."""
+
+    def __init__(self):
+        self.overall = Counter()
+        self.by_day = defaultdict(Counter)
+
+    def add(self, reason, observed=None):
+        self.overall[reason] += 1
+        if isinstance(observed, datetime):
+            self.by_day[observed.date().isoformat()][reason] += 1
+
+    def day(self, value):
+        return dict(sorted(self.by_day.get(value, {}).items()))
 
 
 def iso(value):
@@ -117,19 +134,33 @@ class PublicCache:
 
 def _observation(identity, name, source, body, kind, lat, lon, observed, water_f,
                  depth_m=None, parameter=None, quality="unknown", wind=None):
+    def coordinate(value, low, high):
+        try:
+            number = float(value)
+        except (TypeError, ValueError):
+            return None
+        return number if math.isfinite(number) and low <= number <= high else None
+
+    latitude = coordinate(lat, -90, 90)
+    longitude = coordinate(lon, -180, 180)
+    quality_flags = [] if latitude is not None and longitude is not None else ["invalid_position"]
     return {
         "identity": identity, "id": identity, "externalId": identity.split(":")[-1],
         "name": name, "source": source, "body": body, "type": kind,
-        "lat": float(lat), "lon": float(lon), "observed": observed,
+        # Preserve an unusable source position as null. Never substitute catalog
+        # coordinates or another station's position: it is evidence we could not
+        # spatially pair, not permission to fabricate a location.
+        "lat": latitude, "lon": longitude, "observed": observed,
         "waterTime": iso(observed), "waterF": float(water_f), "waterDepthM": depth_m,
         "waterSurface": depth_m is not None and depth_m <= 1.5,
         "waterQuality": quality, "parameterId": parameter,
         "depthKey": f"{depth_m:.2f}m" if depth_m is not None else "unknown",
-        "firstCollected": observed, "qualityFlags": [], **(wind or {}),
+        "firstCollected": observed, "qualityFlags": quality_flags, **(wind or {}),
     }
 
 
-def collect_ndbc(cache, start, end, datasets):
+def collect_ndbc(cache, start, end, datasets, quarantine=None):
+    quarantine = quarantine or SourceQuarantine()
     by_external = {}
     for item in datasets.values():
         external = str(item.get("externalId") or "").upper()
@@ -153,10 +184,26 @@ def collect_ndbc(cache, start, end, datasets):
             values = line.split()
             try:
                 observed = datetime(*(int(values[index[key]]) for key in ("YY", "MM", "DD", "hh", "mm")), tzinfo=UTC)
-                water_c = float(values[index["WTMP"]])
+            except (KeyError, ValueError, IndexError):
+                quarantine.add("invalid_timestamp")
+                continue
+            try:
+                raw_water = values[index["WTMP"]].strip()
             except (KeyError, ValueError, IndexError):
                 continue
-            if not start <= observed <= end or not -2 <= water_c <= 40:
+            if raw_water.upper() in {"", "MM", "NAN", "999", "999.0"}:
+                # Provider missing-value sentinels mean there was no temperature
+                # observation. They are not malformed temperature observations.
+                continue
+            try:
+                water_c = float(raw_water)
+            except ValueError:
+                quarantine.add("impossible_temperature", observed)
+                continue
+            if not start <= observed <= end:
+                continue
+            if not math.isfinite(water_c) or not -2 <= water_c <= 40:
+                quarantine.add("impossible_temperature", observed)
                 continue
             wind = {}
             try:
@@ -175,7 +222,8 @@ def collect_ndbc(cache, start, end, datasets):
     return rows
 
 
-def collect_coops(cache, start, end, stations):
+def collect_coops(cache, start, end, stations, quarantine=None):
+    quarantine = quarantine or SourceQuarantine()
     rows = []
     cursor = start
     while cursor <= end:
@@ -198,11 +246,25 @@ def collect_coops(cache, start, end, stations):
             for item in payload.get("data", []):
                 try:
                     observed = parse_time(item["t"].replace(" ", "T") + "Z")
-                    water_c = float(item["v"])
-                    flags = [value for value in str(item.get("f", "")).split(",") if value]
                 except (KeyError, ValueError):
+                    quarantine.add("invalid_timestamp")
                     continue
-                if not start <= observed <= end or not -2 <= water_c <= 40:
+                try:
+                    raw_water = str(item["v"]).strip()
+                except (KeyError, TypeError, ValueError):
+                    continue
+                if raw_water.upper() in {"", "NAN", "NULL"}:
+                    continue
+                try:
+                    water_c = float(raw_water)
+                except ValueError:
+                    quarantine.add("impossible_temperature", observed)
+                    continue
+                flags = [value for value in str(item.get("f", "")).split(",") if value]
+                if not start <= observed <= end:
+                    continue
+                if not math.isfinite(water_c) or not -2 <= water_c <= 40:
+                    quarantine.add("impossible_temperature", observed)
                     continue
                 quality = "provider_qc" if flags and all(flag == "0" for flag in flags) else "unknown"
                 rows.append(_observation(
@@ -213,7 +275,8 @@ def collect_coops(cache, start, end, stations):
     return rows
 
 
-def collect_glos(cache, start, end, datasets, parameters):
+def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
+    quarantine = quarantine or SourceQuarantine()
     latest = cache.get("glos-obs-latest.json", "https://seagull-api.glos.org/api/v2/obs-latest")
     if not latest:
         return []
@@ -254,13 +317,27 @@ def collect_glos(cache, start, end, datasets, parameters):
         for values in parsed[2:]:
             try:
                 observed = parse_time(values[columns["time"]])
-                raw = float(values[columns[variable]])
-                lat = float(values[columns["latitude"]]) if "latitude" in columns else float(meta["lat"])
-                lon = float(values[columns["longitude"]]) if "longitude" in columns else float(meta["lon"])
+            except (ValueError, IndexError):
+                quarantine.add("invalid_timestamp")
+                continue
+            try:
+                raw_text = values[columns[variable]].strip()
             except (ValueError, IndexError):
                 continue
+            if raw_text.upper() in {"", "NAN", "NULL"}:
+                continue
+            try:
+                raw = float(raw_text)
+            except ValueError:
+                quarantine.add("impossible_temperature", observed)
+                continue
+            lat = values[columns["latitude"]] if "latitude" in columns and columns["latitude"] < len(values) else None
+            lon = values[columns["longitude"]] if "longitude" in columns and columns["longitude"] < len(values) else None
             water_c = raw - 273.15 if unit in ("k", "kelvin") or raw > 100 else raw
-            if not start <= observed <= end or not -2 <= water_c <= 40:
+            if not start <= observed <= end:
+                continue
+            if not math.isfinite(water_c) or not -2 <= water_c <= 40:
+                quarantine.add("impossible_temperature", observed)
                 continue
             depth = parameter.get("depthM")
             depth = float(depth) if isinstance(depth, (int, float)) and depth >= 0 else None
@@ -359,6 +436,11 @@ class PublicModelSampler:
         return grid
 
     def locate(self, model, cycle, observation):
+        latitude = observation.get("lat")
+        longitude = observation.get("lon")
+        if not (isinstance(latitude, (int, float)) and math.isfinite(latitude) and
+                isinstance(longitude, (int, float)) and math.isfinite(longitude)):
+            return None
         grid = self.grid(model, cycle)
         if grid is None:
             return None
@@ -409,7 +491,8 @@ def build_pairs(day, observations, sampler):
                     if not 0 <= lead <= 120:
                         continue
                     lower, upper = math.floor(lead), math.ceil(lead)
-                    location = sampler.locate(model, cycle, observation) if model else None
+                    invalid_position = "invalid_position" in observation.get("qualityFlags", [])
+                    location = sampler.locate(model, cycle, observation) if model and not invalid_position else None
                     locations[id(observation)] = (location, lead, lower, upper)
                     if location:
                         requests[lower].add(location["node"]); requests[upper].add(location["node"])
@@ -438,7 +521,13 @@ def build_pairs(day, observations, sampler):
                                 model_f = value_c * 9 / 5 + 32
                         except (ValueError, IndexError):
                             model_f = None
-                    if model_f is not None:
+                    invalid_position = "invalid_position" in observation.get("qualityFlags", [])
+                    if invalid_position:
+                        pair_status = "uncovered"
+                        depth_method = "surface_layer" if depth_m <= 1.5 else "pending_3d"
+                        sample_method = "uncovered"
+                        model_f = None
+                    elif model_f is not None:
                         pair_status, depth_method, sample_method = (
                             "paired", "surface_layer" if depth_m <= 1.5 else "interpolated_3d", "interpolated_3d")
                     elif depth_m > 1.5:
@@ -479,6 +568,37 @@ def build_pairs(day, observations, sampler):
     return pairs
 
 
+def quarantine_summary(records, dropped=None):
+    """Return bounded per-reason counts; never include source-row contents."""
+    reasons = defaultdict(int)
+    quarantined = 0
+    for record in records:
+        row_reasons = sorted({flag for flag in record.get("quality_flags", [])
+                              if flag in {"invalid_position", "invalid_timestamp",
+                                          "impossible_temperature", "missing_position"}})
+        if not row_reasons:
+            continue
+        quarantined += 1
+        for reason in row_reasons:
+            reasons[reason] += 1
+    for reason, count in (dropped or {}).items():
+        reasons[reason] += count
+        quarantined += count
+    total = len(records) + sum((dropped or {}).values())
+    return {"count": quarantined, "total": total,
+            "fraction": quarantined / total if total else 0.0,
+            "reasons": dict(sorted(reasons.items()))}
+
+
+def save_checkpoint(path, checkpoint):
+    path.write_text(json.dumps(checkpoint, indent=2, sort_keys=True) + "\n")
+
+
+def pause_backfill(path, checkpoint, day_text, reason, **details):
+    checkpoint["paused"] = {"day": day_text, "reason": reason, **details}
+    save_checkpoint(path, checkpoint)
+
+
 def daterange(start, end):
     cursor = start
     while cursor <= end:
@@ -504,12 +624,13 @@ def main(argv=None):
     cache = PublicCache(args.cache / "sources")
     sources = {item.strip() for item in args.sources.split(",") if item.strip()}
     observations = []
+    source_quarantine = SourceQuarantine()
     if "ndbc" in sources:
-        observations += collect_ndbc(cache, start, end, datasets)
+        observations += collect_ndbc(cache, start, end, datasets, source_quarantine)
     if "glos" in sources:
-        observations += collect_glos(cache, start, end, datasets, parameters)
+        observations += collect_glos(cache, start, end, datasets, parameters, source_quarantine)
     if "coops" in sources:
-        observations += collect_coops(cache, start, end, coops)
+        observations += collect_coops(cache, start, end, coops, source_quarantine)
     observations = dedupe_and_qc(observations)
     print(f"Backfill observations={len(observations)} sensors={len({(r['identity'], r['depthKey']) for r in observations})}")
     sampler = PublicModelSampler(args.cache / "models")
@@ -530,22 +651,41 @@ def main(argv=None):
         records = scorecard.records_from_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest)
         validation = scorecard_schema.validate_records(records)
         if validation["invalidRows"]:
+            if args.sync:
+                pause_backfill(checkpoint_path, checkpoint, day_text, "constraint_violation",
+                               invalidRows=validation["invalidRows"],
+                               violations=validation["violations"])
             print(f"Backfill day={day_text} status=invalid count={validation['invalidRows']}")
             return 2
+        quarantine = quarantine_summary(records, source_quarantine.day(day_text))
+        print("Backfill quarantine " + json.dumps({"day": day_text, **quarantine}, sort_keys=True))
+        if quarantine["fraction"] > MAX_QUARANTINE_FRACTION:
+            if args.sync:
+                pause_backfill(checkpoint_path, checkpoint, day_text, "quarantine_threshold",
+                               count=quarantine["count"], total=quarantine["total"],
+                               reasons=quarantine["reasons"])
+            print(f"Backfill day={day_text} status=paused reason=quarantine_threshold")
+            return 4
         for record in records:
             totals[record["pair_status"]] += 1
         if args.sync:
             result = scorecard.sync_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest,
                                              environment=environment)
             if result.get("status") != "committed" or result.get("recordCount") != len(records):
+                pause_backfill(checkpoint_path, checkpoint, day_text, "batch_or_count_failure",
+                               category=result.get("failureCategory", "network"),
+                               confirmed=result.get("recordCount", 0), expected=len(records),
+                               batchIndex=result.get("batchIndex"))
                 print(f"Backfill day={day_text} status=degraded category={result.get('failureCategory','network')}")
                 return 3
             checkpoint.setdefault("completed", []).append(day_text)
             checkpoint["completed"] = sorted(set(checkpoint["completed"]))
-            checkpoint_path.write_text(json.dumps(checkpoint, indent=2) + "\n")
+            checkpoint.pop("paused", None)
+            save_checkpoint(checkpoint_path, checkpoint)
         print(f"Backfill day={day_text} status={'committed' if args.sync else 'dry_run'} records={len(records)}")
     print(json.dumps({"status": "complete", "days": len(checkpoint.get("completed", [])) if args.sync else 0,
-                      "counts": dict(sorted(totals.items()))}, sort_keys=True))
+                      "counts": dict(sorted(totals.items())),
+                      "sourceQuarantine": dict(sorted(source_quarantine.overall.items()))}, sort_keys=True))
     return 0
 
 
