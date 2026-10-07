@@ -68,6 +68,17 @@ NDBC_STATIONS = """45001 45002 45003 45004 45005 45006 45007 45008 45012 45013 4
 45176 45186 45187 45198 45199 45200 45210 45211 45212 45213 45214 45215 45216""".split()
 
 
+def worker_limit(default):
+    """Cap public-archive concurrency without increasing the shipped default."""
+    raw = os.environ.get("SCORECARD_BACKFILL_MAX_WORKERS")
+    if raw is None:
+        return default
+    try:
+        return max(1, min(default, int(raw)))
+    except ValueError:
+        return default
+
+
 class SourceQuarantine:
     """Count malformed public records without retaining payloads or identifiers."""
 
@@ -454,7 +465,7 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
     rows = []
     # Four workers keep the one-off polite to ERDDAP while preventing hundreds
     # of independent table slices from becoming an hours-long serial preamble.
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=worker_limit(4)) as executor:
         for result in executor.map(fetch, tasks):
             rows.extend(result)
     return rows
@@ -758,7 +769,7 @@ class PublicModelSampler:
         kind = self.source_kind(model, cycle, hour)
         if kind == "ncei_nowcast":
             output = {}
-            with ThreadPoolExecutor(max_workers=8) as executor:
+            with ThreadPoolExecutor(max_workers=worker_limit(8)) as executor:
                 for node, values in zip(sorted(set(nodes)), executor.map(
                         lambda item: self._ncei_profile(model, cycle, item), sorted(set(nodes)))):
                     if values is not None:

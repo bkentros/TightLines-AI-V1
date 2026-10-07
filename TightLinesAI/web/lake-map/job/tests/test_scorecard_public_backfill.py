@@ -1,7 +1,9 @@
+import os
 import sys
 import unittest
 from datetime import date, datetime, timezone
 from pathlib import Path
+from unittest import mock
 
 JOB = Path(__file__).resolve().parents[1]
 if str(JOB) not in sys.path:
@@ -38,6 +40,15 @@ def observation(depth, parameter):
 
 
 class PublicBackfillTest(unittest.TestCase):
+    def test_worker_limit_only_reduces_concurrency(self):
+        with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "2"}):
+            self.assertEqual(backfill.worker_limit(4), 2)
+            self.assertEqual(backfill.worker_limit(8), 2)
+        with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "99"}):
+            self.assertEqual(backfill.worker_limit(4), 4)
+        with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "invalid"}):
+            self.assertEqual(backfill.worker_limit(4), 4)
+
     def test_glos_kelvin_and_celsius_fill_values_are_provider_missing(self):
         for value in (-999.0, -9999.0, 999.0, 9999.0,
                       -999.0 + 273.15, -999.0 - 273.15,
