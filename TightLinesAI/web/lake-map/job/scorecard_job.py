@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Build the private NOAA/observation scorecard without touching map outputs.
+"""Build the private NOAA/observation scorecard without touching app systems.
 
 This runs after the existing daily validator in a separate continue-on-error
 workflow step. It reuses immutable R2 observations and saved run grids, writes
-its own immutable private evidence object, then best-effort projects rows into
-Supabase. The exact-value kill switch exits before any R2 or network work.
+writes content-addressed Parquet to a local/private-R2 store. It never opens a
+Supabase connection. The legacy database switch is intentionally ignored.
 """
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ from lakemap import store
 import scorecard
 import scorecard_pairing
 import scorecard_schema
+import scorecard_store
 import verify
 
 PROGRESS_PREFIX = "validation/scorecard/replay-progress/v1"
@@ -200,7 +201,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", help="UTC date to score (default: yesterday)")
     parser.add_argument("--upload", action="store_true", help="write immutable private R2 evidence")
-    parser.add_argument("--sync", action="store_true", help="best-effort private Supabase projection")
+    parser.add_argument("--store", action="store_true", help="write local and private-R2 Parquet")
     parser.add_argument("--out", type=Path, help="write local evidence for a dry run")
     parser.add_argument("--env-file")
     parser.add_argument("--preflight-start", help="inclusive UTC date for read-only range preflight")
@@ -212,11 +213,11 @@ def main(argv=None):
 
     if bool(args.preflight_start) != bool(args.preflight_end):
         parser.error("--preflight-start and --preflight-end must be supplied together")
-    if args.preflight_start and (args.upload or args.sync or args.out):
-        parser.error("range preflight cannot upload, sync, or write an output file")
+    if args.preflight_start and (args.upload or args.store or args.out):
+        parser.error("range preflight cannot upload, store, or write an output file")
 
-    enabled = os.environ.get("LAKE_MAP_SCORECARD_ENABLED", "").strip().lower() == "true"
-    if (args.upload or args.sync) and not enabled:
+    enabled = os.environ.get("LAKE_MAP_SCORECARD_PARQUET_ENABLED", "").strip().lower() == "true"
+    if (args.upload or args.store) and not enabled:
         print("Scorecard job: disabled by kill switch (0 records)")
         return 0
     if not all(os.environ.get(key) for key in verify.ENV_KEYS[:3]):
@@ -257,30 +258,22 @@ def main(argv=None):
         args.out.write_bytes(body + b"\n")
     if args.upload:
         store.put(s3, key, body, store.IMMUTABLE)
-    if not args.sync:
+    if not args.store:
         result = {"status": "dry_run", "recordCount": len(records), "invalidRows": 0}
     else:
-        progress_key = f"{PROGRESS_PREFIX}/{target.isoformat()}.json"
-        record_set_sha256 = _record_set_digest(records)
-        resume_batch = _resume_batch(s3, progress_key, record_set_sha256, len(records))
-        progress = _progress_writer(s3, progress_key, target, record_set_sha256, len(records))
-        result = scorecard.sync_evidence(
-            evidence, key, digest, resume_batch=resume_batch, progress_callback=progress,
+        manifest = scorecard_store.write_fragment(
+            records, "live", target.isoformat(), digest, s3=s3,
         )
+        result = {"status": "stored", "recordCount": manifest["rowCount"], "invalidRows": 0}
     coverage = evidence["coverage"]
-    retry_note = f", retries={result.get('retryCount', 0)}, resumed_batch={result.get('resumedBatch', 0)}"
-    failure_note = ""
-    if result.get("failureCategory"):
-        failure_note = (f", failure_category={result['failureCategory']}, "
-                        f"batch_index={result.get('batchIndex')}")
     if (args.expected_records is not None and
-            (result.get("status") != "committed" or result.get("recordCount") != args.expected_records)):
+            (result.get("status") != "stored" or result.get("recordCount") != args.expected_records)):
         result["status"] = "count_mismatch"
     print(f"Scorecard job {target}: {result['status']}, {result.get('recordCount', 0)} records; "
           f"{coverage['stations']} stations, {coverage['frozenVerificationPairs']} frozen-site pairs, "
           f"{coverage['savedSurfaceGridPairs']} saved-grid fallback pairs, "
-          f"{preflight['invalidRows']} constraint violations{retry_note}{failure_note}")
-    return 2 if args.sync and result["status"] not in ("committed", "disabled") else 0
+          f"{preflight['invalidRows']} constraint violations")
+    return 2 if args.store and result["status"] not in ("stored", "disabled") else 0
 
 
 if __name__ == "__main__":

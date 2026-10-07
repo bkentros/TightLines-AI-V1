@@ -3,6 +3,7 @@ dist/
 public/
 out/
 .venv/
+.scorecard-store/
 __pycache__/
 static-build/sources/
 static-build/proto/

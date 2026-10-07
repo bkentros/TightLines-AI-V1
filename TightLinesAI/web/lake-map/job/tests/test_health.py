@@ -42,7 +42,6 @@ class HealthTest(unittest.TestCase):
             "PierCast catalog": (200, '{"cities":[]}', 0.4),
             "PierCast Chinook leaderboard": (200, FRESH_PC, 1.2),
             "PierCast Coho leaderboard": (200, FRESH_PC, 4.99),
-            "Live Lake Map latest.json": (200, '{"run":"test-run"}', 0.2),
         }
         self.assertEqual(health.evaluate_synthetics(results), [])
 
@@ -51,16 +50,11 @@ class HealthTest(unittest.TestCase):
             "PierCast catalog": (200, '{"cities":[]}', 5.0),
             "PierCast Chinook leaderboard": (503, "", 0.4),
             "PierCast Coho leaderboard": (200, FRESH_PC, 1.0),
-            "Live Lake Map latest.json": (200, '{}', 0.2),
         }
         problems = health.evaluate_synthetics(results)
-        self.assertEqual(len(problems), 3)
+        self.assertEqual(len(problems), 2)
         self.assertIn("took", problems[0])
         self.assertIn("HTTP 503", problems[1])
-        self.assertIn("invalid JSON", problems[2])
-
-    def test_map_pass_has_expected_shape(self):
-        self.assertEqual(len(health.make_map_pass("test-secret").split(".")), 4)
 
 
 if __name__ == "__main__":

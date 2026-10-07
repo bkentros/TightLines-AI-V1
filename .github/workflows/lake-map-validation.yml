@@ -83,7 +83,7 @@ jobs:
         run: python job/verify.py --upload --fail-on-pipeline-error --date "$VALIDATION_DATE"
 
   scorecard:
-    if: vars.LAKE_MAP_SCORECARD_ENABLED == 'true' || inputs.scorecard_preflight_only == true
+    if: vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED == 'true' || inputs.scorecard_preflight_only == true
     continue-on-error: ${{ inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -96,9 +96,6 @@ jobs:
           sparse-checkout: |
             .github/workflows/lake-map-validation.yml
             TightLinesAI/web/lake-map
-            TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql
-            TightLinesAI/supabase/migrations/20261007120000_allow_scorecard_station_file_samples.sql
-            TightLinesAI/supabase/migrations/20261007130000_repair_scorecard_model_version_metadata.sql
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -125,10 +122,8 @@ jobs:
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
-          LAKE_MAP_SCORECARD_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_ENABLED }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          LAKE_MAP_SCORECARD_INTERNAL_KEY: ${{ secrets.LAKE_MAP_SCORECARD_INTERNAL_KEY }}
-        run: python job/scorecard_job.py --upload --sync
+          LAKE_MAP_SCORECARD_PARQUET_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED }}
+        run: python job/scorecard_job.py --store
       - name: Project requested private NOAA observation scorecard
         if: inputs.scorecard_preflight_only != true && github.event_name == 'workflow_dispatch' && inputs.date != ''
         env:
@@ -136,12 +131,10 @@ jobs:
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
-          LAKE_MAP_SCORECARD_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_ENABLED }}
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          LAKE_MAP_SCORECARD_INTERNAL_KEY: ${{ secrets.LAKE_MAP_SCORECARD_INTERNAL_KEY }}
+          LAKE_MAP_SCORECARD_PARQUET_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED }}
           VALIDATION_DATE: ${{ inputs.date }}
           EXPECTED_RECORDS: ${{ inputs.scorecard_expected_records }}
         run: |
           expected_args=()
           if [ -n "$EXPECTED_RECORDS" ]; then expected_args=(--expected-records "$EXPECTED_RECORDS"); fi
-          python job/scorecard_job.py --upload --sync --date "$VALIDATION_DATE" "${expected_args[@]}"
+          python job/scorecard_job.py --store --date "$VALIDATION_DATE" "${expected_args[@]}"

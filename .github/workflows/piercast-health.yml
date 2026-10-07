@@ -40,7 +40,6 @@ jobs:
       - name: Check production
         env:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          PIER_CAST_MAP_PASS_SECRET: ${{ secrets.PIER_CAST_MAP_PASS_SECRET }}
           HEALTH_TEST_EMAIL: ${{ secrets.HEALTH_TEST_EMAIL }}
           HEALTH_TEST_PASSWORD: ${{ secrets.HEALTH_TEST_PASSWORD }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}

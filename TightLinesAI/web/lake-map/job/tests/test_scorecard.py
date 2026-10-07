@@ -98,18 +98,14 @@ class ScorecardTest(unittest.TestCase):
         )
         scorecard_job = validation_text.split("\n  scorecard:\n", 1)[1]
         self.assertIn(".github/workflows/lake-map-validation.yml", scorecard_job)
-        self.assertIn(
+        self.assertNotIn(
             "TightLinesAI/supabase/migrations/20261006150000_create_lake_map_temperature_scorecard.sql",
             scorecard_job,
         )
-        self.assertIn(
-            "TightLinesAI/supabase/migrations/20261007120000_allow_scorecard_station_file_samples.sql",
-            scorecard_job,
-        )
-        self.assertIn(
-            "TightLinesAI/supabase/migrations/20261007130000_repair_scorecard_model_version_metadata.sql",
-            scorecard_job,
-        )
+        self.assertIn("LAKE_MAP_SCORECARD_PARQUET_ENABLED", scorecard_job)
+        self.assertIn("python job/scorecard_job.py --store", scorecard_job)
+        self.assertNotIn("SUPABASE_URL", scorecard_job)
+        self.assertNotIn("LAKE_MAP_SCORECARD_INTERNAL_KEY", scorecard_job)
         self.assertIn(
             'python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"',
             validation_text,
@@ -119,6 +115,7 @@ class ScorecardTest(unittest.TestCase):
         )[1].split("- name:", 1)[0]
         self.assertNotIn("--upload", preflight_step)
         self.assertNotIn("--sync", preflight_step)
+        self.assertNotIn("--store", preflight_step)
 
     def test_range_preflight_reports_only_aggregate_constraint_results(self):
         original_collect = scorecard_job.collect
@@ -402,7 +399,7 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(payload["batchIndex"], 1)
         self.assertNotIn("error", payload)
 
-    def test_expected_count_mismatch_stops_before_r2_or_supabase_writes(self):
+    def test_expected_count_mismatch_stops_before_parquet_or_r2_writes(self):
         evidence = evidence_with_pairs(1)
         evidence["coverage"] = {
             "stations": 1, "frozenVerificationPairs": 1,
@@ -410,6 +407,7 @@ class ScorecardTest(unittest.TestCase):
         }
         environment = {
             **SYNC_ENVIRONMENT,
+            "LAKE_MAP_SCORECARD_PARQUET_ENABLED": "true",
             "R2_ACCOUNT_ID": "account",
             "R2_ACCESS_KEY_ID": "access",
             "R2_SECRET_ACCESS_KEY": "secret",
@@ -419,15 +417,15 @@ class ScorecardTest(unittest.TestCase):
             patch.object(scorecard_job.store, "client", return_value=object()),
             patch.object(scorecard_job, "collect", return_value=evidence),
             patch.object(scorecard_job.store, "put") as put,
-            patch.object(scorecard_job.scorecard, "sync_evidence") as sync,
+            patch.object(scorecard_job.scorecard_store, "write_fragment") as write_fragment,
         ):
             result = scorecard_job.main([
-                "--date", "2026-10-03", "--upload", "--sync",
+                "--date", "2026-10-03", "--store",
                 "--expected-records", "2",
             ])
         self.assertEqual(result, 2)
         put.assert_not_called()
-        sync.assert_not_called()
+        write_fragment.assert_not_called()
 
     def test_schema_preflight_rejects_invalid_batch_before_network(self):
         pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())

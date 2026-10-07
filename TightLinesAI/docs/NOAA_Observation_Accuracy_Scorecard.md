@@ -1,6 +1,31 @@
 # NOAA Observation Accuracy Scorecard
 
-Status: production storage and private ingest enabled; no correction is built or shipped.
+Status: production database ingest permanently disabled; private Parquet storage only;
+no correction is built or shipped.
+
+## Off-app storage decision (2026-10-07)
+
+Scorecard compute must never use the production app database. The canonical
+research store is Zstandard-compressed Parquet mirrored between this Mac and
+the map-data R2 bucket under `private/scorecard/v1/`. That prefix is outside the
+gatekeeper Worker's allowlist and returns 404 even with a valid map pass.
+
+- Live pairing reads only the R2 observation archive and immutable NOAA runs.
+  It writes one content-addressed Parquet fragment locally and to private R2.
+- Historical backfill reads public NOAA/provider archives and writes the same
+  local/R2 Parquet format. Its existing checkpoint remains authoritative; it
+  currently contains 110 completed days and resumes without replaying them.
+- Analysis reads only a local Parquet file or directory. It identity-dedupes an
+  export baseline and later live/backfill fragments.
+- `lake-map-scorecard-ingest` is not called. Its Edge switch and the legacy
+  `LAKE_MAP_SCORECARD_ENABLED` Actions variable stay off.
+- The independent Parquet workflow has a new exact-value kill switch,
+  `LAKE_MAP_SCORECARD_PARQUET_ENABLED`, which defaults off until explicitly
+  approved after merge.
+
+The verified production export contains 368,092 rows. Its local Parquet copy
+is 6,697,268 bytes; the downloaded R2 copy matched the local SHA-256 and row
+count. Production deletion is a separate, owner-approved forward migration.
 
 ## Read-only audit (2026-10-06)
 
@@ -102,15 +127,14 @@ is aligned by linear interpolation to the exact reading time. The private job:
    metrics still select one nearest reading per sensor/hour);
 5. records GLOS profile depths as distinct sensor keys, with deeper readings
    pending until compatible 3-D evidence is available; and
-6. writes immutable private scorecard evidence to
-   `validation/scorecard/evidence/v1/...` before best-effort Supabase sync.
+6. writes a content-addressed Parquet fragment under
+   `private/scorecard/v1/samples/stream=<live|backfill>/date=YYYY-MM-DD/`.
 
-`lake_map_temperature_scorecard_samples` is private and idempotent on station,
-sensor, observation time, model cycle, and lead hour. It stores observed and
-model temperatures, generated observed-minus-model miss in °F and °C, sensor
-depth, normalized station class, raw type, colocated and time-aligned wind,
-source quality, QC flags, model-cell geometry/distance, run, and evidence hash.
-Rows are retained indefinitely, with a declared minimum of two years.
+The Parquet schema preserves the former table's observation/model identity,
+generated observed-minus-model miss in °F and °C, sensor depth, normalized
+station class, raw type, colocated and time-aligned wind, source quality, QC
+flags, model-cell geometry/distance, run, and evidence hash. Rows are retained
+indefinitely, with a declared minimum of two years.
 
 QC is additive: readings are never silently dropped. `out_of_range` is outside
 28.4–104 °F; `stale` means the first captured snapshot lagged the reading by
@@ -123,11 +147,9 @@ Buoys at least 10 km from the exact shoreline are classified offshore; other
 buoys are nearshore. Fixed lake stations are harbors. River, canal, channel,
 strait, St. Clair, Detroit, St. Marys, and Niagara sites are connecting water.
 
-The private `lake_map_temperature_scorecard_weekly` view groups by station,
-UTC week, and model lead. It reports sample count, clean sample count, mean miss,
-median absolute miss (the “typical” miss), and mean absolute miss. Public,
-anonymous, and authenticated roles have no table, view, or commit-function
-access.
+`scorecard_analysis.py` produces private summaries from Parquet by station,
+depth band, UTC month, model lead, version, and condition. No app role, RPC, or
+Edge Function can read this store.
 
 ### Current-data dry run
 
@@ -137,17 +159,15 @@ run processed 190 readings into 190 schema-valid rows: 95 paired surface rows,
 deep readings incorrectly routed to the surface; the largest accepted cell
 distance was 2.17 km. No object or database write occurred.
 
-## Safety and kill switch
+## Safety and kill switches
 
-- GitHub variable `LAKE_MAP_SCORECARD_ENABLED` must be exactly `true`.
-- Edge secret `LAKE_MAP_SCORECARD_ENABLED` must independently be exactly
-  `true`.
-- The Edge Function also requires a separate internal secret and limits input
-  to 500 validated records per request.
-- All scorecard workflow steps are `continue-on-error`; Python sync catches and
-  sanitizes every network/parse error; Edge responses never return database
-  details. Existing map, app, PierCast, collector, and validation outputs do not
-  depend on this path.
+- Legacy GitHub variable `LAKE_MAP_SCORECARD_ENABLED` stays `false`.
+- Edge secret `LAKE_MAP_SCORECARD_ENABLED` stays `false`; the legacy ingest
+  function is never called.
+- The off-app workflow runs only when the independent GitHub variable
+  `LAKE_MAP_SCORECARD_PARQUET_ENABLED` is exactly `true`.
+- All scorecard workflow steps remain `continue-on-error`. Existing map, app,
+  PierCast, collector, and validation outputs do not depend on this path.
 
 ## Public historical backfill boundaries
 
@@ -227,8 +247,8 @@ Consequently:
 Observation inputs remain available independently: NDBC annual stdmet,
 dataset-specific GLOS Seagull ERDDAP tables (including temperature strings),
 and bounded CO-OPS water-temperature API requests. The backfill writes
-`source='backfill'`, uses bounded batches and an on-disk checkpoint, and stores
-only station-near model samples in Supabase. Download caches are temporary and
+`source='backfill'`, uses an on-disk checkpoint, and stores only station-near
+model samples in local/private-R2 Parquet. Download caches are temporary and
 are not production schedules or GitHub Actions artifacts.
 
 ### Temperature data-assimilation independence
@@ -250,8 +270,8 @@ Sources: [NOAA Technical Report 087 (LEOFS)](https://tidesandcurrents.noaa.gov/p
 and [NOAA's OFS archive FAQ](https://www.tidesandcurrents.noaa.gov/ofs/ofs_faq.html).
 
 The one-off workstation command is `job/scorecard_public_backfill.py`. It uses
-anonymous public-source reads only, requires an explicit `--sync` before it can
-call the private ingest, validates every generated row against the migration
+anonymous public-source reads only, requires an explicit `--store` before it
+can advance its checkpoint, validates every generated row against the schema
 contract, and checkpoints completed UTC days locally. `h5py` and `s3fs` are
 workstation-only dependencies used for range reads; they are deliberately not
 part of the scheduled map job. A typical invocation from `web/lake-map` is:
@@ -260,7 +280,7 @@ part of the scheduled map job. A typical invocation from `web/lake-map` is:
 .venv/bin/python job/scorecard_public_backfill.py \
   --start 2026-08-07 --end 2026-10-05 \
   --cache /tmp/finfindr-scorecard-public-backfill \
-  --env-file ../../.env --sync
+  --env-file ../../.env --store
 ```
 
 ## Research analysis (never runtime correction)
@@ -281,44 +301,25 @@ fewer than three covered month/lead groups remains NOAA by default. Only
 evidence only and cannot change a map, forecast, ranking, public API, or app
 response.
 
-## Production steps (only after owner approval)
+## Activation steps (only after owner approval)
 
-1. Review and merge the branch through the normal protected workflow. Do not
+1. Review and merge this branch through the normal protected workflow. Do not
    use `--admin`.
-2. Keep both kill switches off. Apply migration `20261006150000` with
-   `supabase db push`, then run `supabase migration list --linked` and confirm
-   local/remote parity through `20261006150000`.
-3. Create one new random internal secret. Store it as the Edge Function secret
-   and the GitHub Actions secret `LAKE_MAP_SCORECARD_INTERNAL_KEY` using the
-   respective secret-management UIs; never place or print its value in a
-   command, log, issue, or committed file.
-4. Run `supabase functions deploy lake-map-scorecard-ingest --no-verify-jwt` to
-   deploy only that function (the
-   dedicated internal secret is its authentication boundary). Confirm an unauthenticated call is
-   forbidden and an authenticated call still returns `disabled` while the Edge
-   kill switch is off.
-5. Turn on the Edge kill switch, leave the GitHub variable off, and send one
-   synthetic private batch. Confirm one row, observed-minus-model sign,
-   idempotent re-send, evidence hash, and weekly-view output; remove the
-   synthetic row with a forward cleanup migration if production policy requires
-   a pristine table.
-6. Set repository variable `LAKE_MAP_SCORECARD_ENABLED=true`, manually dispatch
-   `Lake map validation` for one completed UTC date, and confirm the original
-   validation step is unchanged while the separate scorecard step writes rows.
-7. Backfill each available immutable observation date (archive starts
-   2026-10-01) with
-   `gh workflow run lake-map-validation.yml -f date=YYYY-MM-DD`.
-   Re-runs are safe because the database key upserts.
-8. Verify canonical leads 0/6/12/24/48/72/120, NDBC saved-grid rows, GLOS depth
-   rows, nonnegative cell distances, sane wind offsets, QC counts, and the
-   weekly view. Monitor the next scheduled run before considering rollout done.
+2. Keep both legacy production switches off. Leave the independent Parquet
+   switch off during merge.
+3. Run one requested-date Parquet job and verify its local file, private R2
+   metadata, row count, readback, and Worker 404 behavior.
+4. Set `LAKE_MAP_SCORECARD_PARQUET_ENABLED=true` and monitor the next scheduled
+   live fragment. This never enables the legacy Edge ingest.
+5. Update the existing workstation runner to use `--store`, preserving
+   `/private/tmp/finfindr-scorecard-backfill-v2/checkpoint.json`, then resume
+   only after explicit owner approval.
+6. Point analysis at the local store root so the verified export baseline and
+   later fragments are read and identity-deduped together.
 
 ## Forward rollback
 
-Immediately set repository variable `LAKE_MAP_SCORECARD_ENABLED=false`; this
-prevents the workflow from doing any R2 or Supabase scorecard work. Set the Edge
-Function kill switch false as defense in depth. Existing app/map/PierCast paths
-need no rollback. If storage removal is required, add (do not edit history) a
-new migration that revokes and drops the weekly view, commit function, and
-scorecard table. Immutable private R2 evidence may be retained for audit or
-removed under a separately reviewed data-retention operation.
+Set `LAKE_MAP_SCORECARD_PARQUET_ENABLED=false` to stop new fragments. Both
+legacy switches remain false. Existing app/map/PierCast paths need no rollback.
+Private R2 evidence may be retained for audit or removed only under a separately
+reviewed data-retention operation.
