@@ -274,6 +274,9 @@ class ScorecardTest(unittest.TestCase):
         self.assertIn("v_after_count <> v_before_count - v_deleted_count", migration)
         self.assertIn("v_duplicate_identity_count <> 0", migration)
         self.assertIn("perform 1 from public.lake_map_temperature_scorecard_weekly", migration)
+        self.assertIn("set statement_timeout = '15min'", migration)
+        self.assertIn("reset statement_timeout", migration)
+        self.assertNotIn("lock table public.lake_map_temperature_scorecard_samples", migration)
 
     def test_schema_preflight_covers_cross_column_and_range_constraints(self):
         pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
