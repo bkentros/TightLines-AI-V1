@@ -1,6 +1,12 @@
 -- Repair the private scorecard's superseded COMF 3.6 effective-date tag.
 -- This table has no app/public read path. Exact-identity collisions are
 -- nevertheless checked defensively before any metadata is changed.
+-- The production table is large enough that the default two-minute statement
+-- timeout is too short for the guarded scan/update/verification transaction.
+-- Keep the repair bounded, but do not take a table lock that could hold up the
+-- independent live collector while this private metadata repair runs.
+set statement_timeout = '15min';
+
 do $$
 declare
   v_boundary constant timestamptz := '2024-09-16 15:00:00+00';
@@ -16,8 +22,6 @@ declare
   v_remaining_obsolete_count bigint;
   v_duplicate_identity_count bigint;
 begin
-  lock table public.lake_map_temperature_scorecard_samples in share row exclusive mode;
-
   select count(*) into v_before_count
   from public.lake_map_temperature_scorecard_samples;
 
@@ -151,3 +155,5 @@ begin
     v_duplicate_identity_count, v_after_count;
 end;
 $$;
+
+reset statement_timeout;
