@@ -1,6 +1,6 @@
 # NOAA Observation Accuracy Scorecard
 
-Status: built on `feat/noaa-observation-scorecard`; **not deployed or enabled**.
+Status: production storage and private ingest enabled; no correction is built or shipped.
 
 ## Read-only audit (2026-10-06)
 
@@ -176,6 +176,20 @@ and bounded CO-OPS water-temperature API requests. The backfill writes
 `source='backfill'`, uses bounded batches and an on-disk checkpoint, and stores
 only station-near model samples in Supabase. Download caches are temporary and
 are not production schedules or GitHub Actions artifacts.
+
+The one-off workstation command is `job/scorecard_public_backfill.py`. It uses
+anonymous public-source reads only, requires an explicit `--sync` before it can
+call the private ingest, validates every generated row against the migration
+contract, and checkpoints completed UTC days locally. `h5py` and `s3fs` are
+workstation-only dependencies used for range reads; they are deliberately not
+part of the scheduled map job. A typical invocation from `web/lake-map` is:
+
+```sh
+.venv/bin/python job/scorecard_public_backfill.py \
+  --start 2026-08-07 --end 2026-10-05 \
+  --cache /tmp/finfindr-scorecard-public-backfill \
+  --env-file ../../.env --sync
+```
 
 ## Research analysis (never runtime correction)
 
