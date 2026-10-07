@@ -36,6 +36,33 @@ def observation(depth, parameter):
 
 
 class PublicBackfillTest(unittest.TestCase):
+    def test_current_year_historical_month_uses_monthly_archive_not_realtime(self):
+        sources = backfill._ndbc_sources(
+            "45002",
+            datetime(2026, 5, 1, tzinfo=timezone.utc),
+            datetime(2026, 5, 31, tzinfo=timezone.utc),
+            date(2026, 10, 6),
+        )
+        self.assertEqual(len(sources), 1)
+        self.assertEqual(sources[0][0], "ndbc-45002-2026-05-direct.txt.gz")
+        self.assertEqual(
+            sources[0][1],
+            "https://www.ndbc.noaa.gov/data/stdmet/May/4500252026.txt.gz",
+        )
+        self.assertNotIn("realtime2", sources[0][1])
+
+    def test_current_month_uses_realtime_ndbc_source(self):
+        sources = backfill._ndbc_sources(
+            "45002",
+            datetime(2026, 10, 1, tzinfo=timezone.utc),
+            datetime(2026, 10, 6, tzinfo=timezone.utc),
+            date(2026, 10, 6),
+        )
+        self.assertEqual(sources, [(
+            "ndbc-45002-2026-realtime.txt",
+            "https://www.ndbc.noaa.gov/data/realtime2/45002.txt",
+        )])
+
     def test_catalog_json_parser(self):
         text = 'export const A={"1":{"name":"x"}};\nexport const B={"2":{"name":"y"}};\n'
         self.assertEqual(backfill._json_export(text, "A", "B")["1"]["name"], "x")
@@ -118,6 +145,30 @@ class PublicBackfillTest(unittest.TestCase):
         ledger.add("impossible_temperature", datetime(2026, 8, 22, 12, tzinfo=timezone.utc))
         self.assertEqual(ledger.day("2026-08-22"), {"impossible_temperature": 1})
         self.assertEqual(dict(ledger.overall), {"invalid_timestamp": 1, "impossible_temperature": 1})
+
+    def test_historical_s3_keys_cover_old_and_new_directory_layouts(self):
+        old_cycle = datetime(2024, 9, 17, tzinfo=timezone.utc)
+        new_cycle = datetime(2026, 5, 1, 12, tzinfo=timezone.utc)
+        self.assertEqual(
+            backfill.PublicModelSampler.key("lmhofs", old_cycle, 24, "regulargrid"),
+            "lmhofs/netcdf/202409/lmhofs.t00z.20240917.regulargrid.f024.nc",
+        )
+        self.assertEqual(
+            backfill.PublicModelSampler.key("leofs", new_cycle, 120),
+            "leofs/netcdf/2026/05/01/leofs.t12z.20260501.fields.f120.nc",
+        )
+
+    def test_backfill_excludes_cycles_before_corrected_comf_boundary(self):
+        observed = datetime(2024, 9, 16, tzinfo=timezone.utc)
+        row = backfill._observation(
+            "glos:49", "Muskegon Buoy", "GLOS Seagull", "lake-michigan", "moored_buoy",
+            43.179, -86.361, observed, 62.0, 1.0, 1, "good",
+        )
+        self.assertEqual(backfill.build_pairs(date(2024, 9, 16), [row], FakeSampler()), [])
+
+    def test_backfill_uses_corrected_model_version(self):
+        pairs = backfill.build_pairs(date(2026, 10, 1), [observation(1.0, 1)], FakeSampler())
+        self.assertEqual(pairs[0]["modelVersion"], "LMHOFS:COMF-3.6:2024-09-16")
 
 
 if __name__ == "__main__":

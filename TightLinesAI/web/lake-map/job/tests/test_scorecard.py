@@ -194,7 +194,7 @@ class ScorecardTest(unittest.TestCase):
         pair = pairing.pair_observation(reading, run)
         self.assertEqual(pair["body"], "lake-superior")
         self.assertEqual(pair["stationType"], "offshore_buoy")
-        self.assertEqual(pair["modelVersion"], "LSOFS:COMF-3.6:2024-09-09")
+        self.assertEqual(pair["modelVersion"], "LSOFS:COMF-3.6:2024-09-16")
         self.assertTrue(pair["depthAssumed"])
         self.assertEqual(pair["sensorDepthM"], 1)
 
@@ -221,7 +221,7 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(pair["pairStatus"], "uncovered")
         self.assertEqual(pair["sampleMethod"], "uncovered")
         self.assertIsNone(pair["forecastF"])
-        self.assertEqual(pair["modelVersion"], "GLOFS-uncovered:COMF-3.6:2024-09-09")
+        self.assertEqual(pair["modelVersion"], "GLOFS-uncovered:COMF-3.6:2024-09-16")
 
     def test_every_emitted_enum_value_matches_production_migration_allowed_sets(self):
         migration = (JOB.parent.parent.parent / "supabase" / "migrations" /
@@ -265,7 +265,7 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(record["model_depth_m"], 3)
         self.assertEqual(record["depth_method"], "pending_3d")
         self.assertIsNone(record["model_temperature_f"])
-        self.assertEqual(record["model_version"], "LMHOFS:COMF-3.6:2024-09-09")
+        self.assertEqual(record["model_version"], "LMHOFS:COMF-3.6:2024-09-16")
 
     def test_kill_switch_prevents_any_request_and_fail_open(self):
         evidence = {"methodologyVersion": "test-v2", "primaryPairs": [

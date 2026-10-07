@@ -24,6 +24,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
@@ -43,6 +44,12 @@ MODELS = {
     "lake-michigan": "lmhofs", "lake-huron": "lmhofs",
     "lake-erie": "leofs", "lake-ontario": "loofs", "lake-superior": "lsofs",
 }
+CURRENT_MODEL_START = datetime(2024, 9, 16, 15, tzinfo=UTC)
+NCEI_ROOTS = {
+    "lmhofs": "model-lmhofs-files", "leofs": "model-leofs",
+    "loofs": "model-loofs-files", "lsofs": "model-lsofs-files",
+}
+MODEL_LEVELS = {"lmhofs": 20, "leofs": 20, "loofs": 21, "lsofs": 21}
 LEADS = (0, 24, 72, 120)
 CYCLES = (0, 12)
 MAX_OFFSET_MINUTES = 30
@@ -133,7 +140,8 @@ class PublicCache:
 
 
 def _observation(identity, name, source, body, kind, lat, lon, observed, water_f,
-                 depth_m=None, parameter=None, quality="unknown", wind=None):
+                 depth_m=None, parameter=None, quality="unknown", wind=None,
+                 quality_flags=None):
     def coordinate(value, low, high):
         try:
             number = float(value)
@@ -143,7 +151,9 @@ def _observation(identity, name, source, body, kind, lat, lon, observed, water_f
 
     latitude = coordinate(lat, -90, 90)
     longitude = coordinate(lon, -180, 180)
-    quality_flags = [] if latitude is not None and longitude is not None else ["invalid_position"]
+    flags = list(quality_flags or [])
+    if (latitude is None or longitude is None) and not flags:
+        flags.append("invalid_position")
     return {
         "identity": identity, "id": identity, "externalId": identity.split(":")[-1],
         "name": name, "source": source, "body": body, "type": kind,
@@ -155,12 +165,72 @@ def _observation(identity, name, source, body, kind, lat, lon, observed, water_f
         "waterSurface": depth_m is not None and depth_m <= 1.5,
         "waterQuality": quality, "parameterId": parameter,
         "depthKey": f"{depth_m:.2f}m" if depth_m is not None else "unknown",
-        "firstCollected": observed, "qualityFlags": quality_flags, **(wind or {}),
+        "firstCollected": observed, "qualityFlags": flags, **(wind or {}),
     }
+
+
+def _ndbc_sources(station, start, end, today=None):
+    today = today or datetime.now(UTC).date()
+    current_month = today.replace(day=1)
+    sources = []
+    for year in range(start.year, end.year + 1):
+        if year < today.year:
+            sources.append((
+                f"ndbc-{station}-{year}-annual.txt.gz",
+                f"https://www.ndbc.noaa.gov/data/historical/stdmet/{station}h{year}.txt.gz",
+            ))
+            continue
+        if year > today.year:
+            continue
+        month_cursor = date(year, start.month if start.year == year else 1, 1)
+        final_month = date(year, end.month, 1)
+        while month_cursor <= final_month and month_cursor <= current_month:
+            if month_cursor == current_month:
+                sources.append((
+                    f"ndbc-{station}-{year}-realtime.txt",
+                    f"https://www.ndbc.noaa.gov/data/realtime2/{station}.txt",
+                ))
+            else:
+                month_name = month_cursor.strftime("%b")
+                sources.append((
+                    f"ndbc-{station}-{year}-{month_cursor.month:02d}-direct.txt.gz",
+                    f"https://www.ndbc.noaa.gov/data/stdmet/{month_name}/"
+                    f"{station}{month_cursor.month}{year}.txt.gz",
+                ))
+            month_cursor = (month_cursor.replace(day=28) + timedelta(days=4)).replace(day=1)
+    return sources
 
 
 def collect_ndbc(cache, start, end, datasets, quarantine=None):
     quarantine = quarantine or SourceQuarantine()
+    metadata_body = cache.get(
+        "ndbc-stationmetadata.xml",
+        "https://www.ndbc.noaa.gov/metadata/stationmetadata.xml",
+    )
+    position_history = defaultdict(list)
+    if metadata_body:
+        try:
+            root = ET.fromstring(metadata_body)
+            for station_node in root.findall("station"):
+                station_id = str(station_node.get("id") or "").upper()
+                for history in station_node.findall("history"):
+                    try:
+                        start_at = date.fromisoformat(history.get("start"))
+                        stop_at = date.fromisoformat(history.get("stop")) if history.get("stop") else None
+                        latitude = float(history.get("lat"))
+                        longitude = float(history.get("lng"))
+                    except (TypeError, ValueError):
+                        continue
+                    if math.isfinite(latitude) and math.isfinite(longitude):
+                        position_history[station_id].append((start_at, stop_at, latitude, longitude))
+        except ET.ParseError:
+            pass
+
+    def position(station_id, observed):
+        for start_at, stop_at, latitude, longitude in position_history.get(station_id, []):
+            if start_at <= observed.date() and (stop_at is None or observed.date() < stop_at):
+                return latitude, longitude
+        return None, None
     by_external = {}
     for item in datasets.values():
         external = str(item.get("externalId") or "").upper()
@@ -171,54 +241,63 @@ def collect_ndbc(cache, start, end, datasets, quarantine=None):
         meta = by_external.get(station)
         if not meta or meta.get("body") not in MODELS:
             continue
-        url = f"https://www.ndbc.noaa.gov/data/realtime2/{station}.txt"
-        body = cache.get(f"ndbc-{station}.txt", url)
-        if not body:
-            continue
-        lines = body.decode("utf-8", "replace").splitlines()
-        if len(lines) < 3:
-            continue
-        headers = lines[0].lstrip("#").split()
-        index = {name: headers.index(name) for name in headers}
-        for line in lines[2:]:
-            values = line.split()
-            try:
-                observed = datetime(*(int(values[index[key]]) for key in ("YY", "MM", "DD", "hh", "mm")), tzinfo=UTC)
-            except (KeyError, ValueError, IndexError):
-                quarantine.add("invalid_timestamp")
+        sources = _ndbc_sources(station, start, end)
+        for cache_name, url in sources:
+            body = cache.get(cache_name, url, quiet=True)
+            if not body:
+                continue
+            if cache_name.endswith(".txt.gz") and body[:2] != b"\x1f\x8b":
+                # Some legacy NDBC form URLs return an HTML selection page with
+                # HTTP 200. It is not source data and must not enter quarantine.
                 continue
             try:
-                raw_water = values[index["WTMP"]].strip()
-            except (KeyError, ValueError, IndexError):
+                text = gzip.decompress(body).decode("utf-8", "replace") if body[:2] == b"\x1f\x8b" else body.decode("utf-8", "replace")
+            except (OSError, UnicodeError):
                 continue
-            if raw_water.upper() in {"", "MM", "NAN", "999", "999.0"}:
-                # Provider missing-value sentinels mean there was no temperature
-                # observation. They are not malformed temperature observations.
+            lines = text.splitlines()
+            if len(lines) < 3:
                 continue
-            try:
-                water_c = float(raw_water)
-            except ValueError:
-                quarantine.add("impossible_temperature", observed)
-                continue
-            if not start <= observed <= end:
-                continue
-            if not math.isfinite(water_c) or not -2 <= water_c <= 40:
-                quarantine.add("impossible_temperature", observed)
-                continue
-            wind = {}
-            try:
-                speed = float(values[index["WSPD"]])
-                direction = float(values[index["WDIR"]])
-                if 0 <= speed <= 112 and 0 <= direction <= 360:
-                    wind = {"windMph": speed * 2.23694, "windFrom": direction,
-                            "windObserved": observed, "windOffsetHours": 0.0}
-            except (KeyError, ValueError, IndexError):
-                pass
-            rows.append(_observation(
-                f"external:{station}", meta["name"], "NOAA NDBC", meta["body"], meta["type"],
-                meta["lat"], meta["lon"], observed, water_c * 9 / 5 + 32,
-                quality="provider_qc", wind=wind,
-            ))
+            headers = lines[0].lstrip("#").split()
+            index = {name: headers.index(name) for name in headers}
+            for line in lines[2:]:
+                values = line.split()
+                try:
+                    observed = datetime(*(int(values[index[key]]) for key in ("YY", "MM", "DD", "hh", "mm")), tzinfo=UTC)
+                except (KeyError, ValueError, IndexError):
+                    quarantine.add("invalid_timestamp")
+                    continue
+                try:
+                    raw_water = values[index["WTMP"]].strip()
+                except (KeyError, ValueError, IndexError):
+                    continue
+                if raw_water.upper() in {"", "MM", "NAN", "999", "999.0"}:
+                    continue
+                try:
+                    water_c = float(raw_water)
+                except ValueError:
+                    quarantine.add("impossible_temperature", observed)
+                    continue
+                if not start <= observed <= end:
+                    continue
+                if not math.isfinite(water_c) or not -2 <= water_c <= 40:
+                    quarantine.add("impossible_temperature", observed)
+                    continue
+                wind = {}
+                try:
+                    speed = float(values[index["WSPD"]])
+                    direction = float(values[index["WDIR"]])
+                    if 0 <= speed <= 112 and 0 <= direction <= 360:
+                        wind = {"windMph": speed * 2.23694, "windFrom": direction,
+                                "windObserved": observed, "windOffsetHours": 0.0}
+                except (KeyError, ValueError, IndexError):
+                    pass
+                latitude, longitude = position(station, observed)
+                rows.append(_observation(
+                    f"external:{station}", meta["name"], "NOAA NDBC", meta["body"], meta["type"],
+                    latitude, longitude, observed, water_c * 9 / 5 + 32,
+                    quality="provider_qc", wind=wind,
+                    quality_flags=["missing_position"] if latitude is None or longitude is None else None,
+                ))
     return rows
 
 
@@ -291,18 +370,24 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
         for parameter_id in ids:
             parameter = parameters.get(parameter_id)
             if parameter:
-                tasks.append((dataset_id, meta, parameter_id, parameter))
+                cursor = start
+                while cursor <= end:
+                    stop = min(end, cursor + timedelta(days=89, hours=23, minutes=59, seconds=59))
+                    tasks.append((dataset_id, meta, parameter_id, parameter, cursor, stop))
+                    cursor = stop + timedelta(seconds=1)
 
     def fetch(task):
-        dataset_id, meta, parameter_id, parameter = task
+        dataset_id, meta, parameter_id, parameter, slice_start, slice_end = task
         variable = parameter.get("name")
         if not variable or not re.fullmatch(r"[A-Za-z0-9_]+", variable):
             return []
         select = urllib.parse.quote(f"time,longitude,latitude,{variable}", safe=",")
-        constraints = (f"&time%3E={urllib.parse.quote(iso(start))}"
-                       f"&time%3C={urllib.parse.quote(iso(end))}&orderBy(%22time%22)")
+        constraints = (f"&time%3E={urllib.parse.quote(iso(slice_start))}"
+                       f"&time%3C={urllib.parse.quote(iso(slice_end))}&orderBy(%22time%22)")
         url = f"https://seagull-erddap.glos.org/erddap/tabledap/obs_{dataset_id}.csv?{select}{constraints}"
-        body = cache.get(f"glos-{dataset_id}-{parameter_id}.csv", url, timeout=180, quiet=True)
+        range_key = f"{slice_start:%Y%m%d}-{slice_end:%Y%m%d}"
+        body = cache.get(f"glos-{dataset_id}-{parameter_id}-{range_key}.csv", url,
+                         timeout=180, quiet=True)
         if not body:
             return []
         parsed = list(csv.reader(io.StringIO(body.decode("utf-8", "replace"))))
@@ -394,11 +479,13 @@ class PublicModelSampler:
         self.cache_root = Path(cache_root)
         self.cache_root.mkdir(parents=True, exist_ok=True)
         self.grids = {}
+        self.sources = {}
 
     @staticmethod
-    def key(model, cycle, hour):
-        return (f"{model}/netcdf/{cycle:%Y/%m/%d}/"
-                f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.fields.f{hour:03d}.nc")
+    def key(model, cycle, hour, product="fields"):
+        directory = cycle.strftime("%Y/%m/%d") if cycle.year >= 2025 else cycle.strftime("%Y%m")
+        return (f"{model}/netcdf/{directory}/"
+                f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.{product}.f{hour:03d}.nc")
 
     def _open(self, key):
         path = f"noaa-nos-ofs-pds/{key}"
@@ -407,23 +494,59 @@ class PublicModelSampler:
         stream = self.fs.open(path, "rb", block_size=1024 * 1024, cache_type="readahead")
         return stream, self.h5py.File(stream, "r")
 
-    def grid(self, model, sample_cycle):
-        if model in self.grids:
-            return self.grids[model]
-        path = self.cache_root / f"grid-{model}.npz"
+    def source_kind(self, model, cycle, hour):
+        cache_key = (model, cycle, hour)
+        if cache_key in self.sources:
+            return self.sources[cache_key]
+        kind = None
+        if self.fs.exists(f"noaa-nos-ofs-pds/{self.key(model, cycle, hour)}"):
+            kind = "native"
+        elif self.fs.exists(f"noaa-nos-ofs-pds/{self.key(model, cycle, hour, 'regulargrid')}"):
+            kind = "regulargrid"
+        elif hour == 0 and cycle >= CURRENT_MODEL_START:
+            kind = "ncei_nowcast"
+        self.sources[cache_key] = kind
+        return kind
+
+    def grid(self, model, sample_cycle, kind="native"):
+        grid_key = (model, "regulargrid" if kind == "regulargrid" else "native")
+        if grid_key in self.grids:
+            return self.grids[grid_key]
+        suffix = "-regulargrid" if kind == "regulargrid" else ""
+        path = self.cache_root / f"grid-{model}{suffix}.npz"
         if path.exists():
             data = np.load(path)
             lat, lon, bottom, sigma = (data[name] for name in ("lat", "lon", "bottom", "sigma"))
         else:
-            stream, dataset = self._open(self.key(model, sample_cycle, 0))
+            product = "regulargrid" if kind == "regulargrid" else "fields"
+            stream, dataset = self._open(self.key(model, sample_cycle, 0, product))
+            if dataset is None and kind != "regulargrid":
+                # NCEI supplies historical node profiles but not a standalone
+                # grid endpoint. Bootstrap the invariant current-version grid
+                # from a recent public AWS field when the requested forecast
+                # itself has expired. This affects geometry only, never values.
+                today = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+                for offset in range(0, 91):
+                    candidate = today - timedelta(days=offset)
+                    stream, dataset = self._open(self.key(model, candidate, 0))
+                    if dataset is not None:
+                        break
             if dataset is None:
                 return None
             try:
-                lat = np.asarray(dataset["lat"], dtype=np.float64)
-                lon = np.asarray(dataset["lon"], dtype=np.float64)
+                if kind == "regulargrid":
+                    lat = np.asarray(dataset["Latitude"], dtype=np.float64).reshape(-1)
+                    lon = np.asarray(dataset["Longitude"], dtype=np.float64).reshape(-1)
+                    bottom = np.asarray(dataset["h"], dtype=np.float64).reshape(-1)
+                    sigma = np.asarray(dataset["Depth"], dtype=np.float64)
+                    mask = np.asarray(dataset["mask"], dtype=np.float64).reshape(-1)
+                    bottom = np.where(mask > 0, bottom, np.nan)
+                else:
+                    lat = np.asarray(dataset["lat"], dtype=np.float64)
+                    lon = np.asarray(dataset["lon"], dtype=np.float64)
+                    bottom = np.asarray(dataset["h"], dtype=np.float64)
+                    sigma = np.asarray(dataset["siglay"], dtype=np.float64)
                 lon = np.where(lon > 180, lon - 360, lon)
-                bottom = np.asarray(dataset["h"], dtype=np.float64)
-                sigma = np.asarray(dataset["siglay"], dtype=np.float64)
             finally:
                 dataset.close(); stream.close()
             np.savez_compressed(path, lat=lat, lon=lon, bottom=bottom, sigma=sigma)
@@ -431,8 +554,8 @@ class PublicModelSampler:
         indices = np.flatnonzero(valid)
         coords = np.column_stack((lat[indices], lon[indices] * np.cos(np.radians(lat[indices]))))
         grid = {"lat": lat, "lon": lon, "bottom": bottom, "sigma": sigma,
-                "indices": indices, "tree": cKDTree(coords)}
-        self.grids[model] = grid
+                "indices": indices, "tree": cKDTree(coords), "kind": kind}
+        self.grids[grid_key] = grid
         return grid
 
     def locate(self, model, cycle, observation):
@@ -441,7 +564,10 @@ class PublicModelSampler:
         if not (isinstance(latitude, (int, float)) and math.isfinite(latitude) and
                 isinstance(longitude, (int, float)) and math.isfinite(longitude)):
             return None
-        grid = self.grid(model, cycle)
+        kind = self.source_kind(model, cycle, 0)
+        if kind is None:
+            return None
+        grid = self.grid(model, cycle, kind)
         if grid is None:
             return None
         query = (observation["lat"], observation["lon"] * math.cos(math.radians(observation["lat"])))
@@ -451,24 +577,69 @@ class PublicModelSampler:
         distance = verify.distance_km(observation, model_point)
         if distance > verify.MAX_MODEL_CELL_DISTANCE_KM:
             return None
+        if kind == "regulargrid":
+            levels = grid["sigma"]
+        else:
+            levels = -grid["sigma"][:, node] * float(grid["bottom"][node])
         return {"node": node, "modelLat": model_point["lat"], "modelLon": model_point["lon"],
                 "modelDistanceKm": distance, "bottomM": float(grid["bottom"][node]),
-                "levelsM": -grid["sigma"][:, node] * float(grid["bottom"][node])}
+                "levelsM": levels, "sourceKind": kind}
+
+    def _ncei_profile(self, model, cycle, node):
+        root = NCEI_ROOTS[model]
+        name = f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.fields.n006.nc"
+        constraint = urllib.parse.quote(
+            f"temp[0:1:0][0:1:{MODEL_LEVELS[model] - 1}][{node}:1:{node}]", safe="[]:"
+        )
+        url = (f"https://www.ncei.noaa.gov/thredds/dodsC/{root}/{cycle:%Y/%m}/"
+               f"{name}.ascii?{constraint}")
+        request = urllib.request.Request(url, headers={"user-agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(request, timeout=45) as response:
+                text = response.read().decode("utf-8", "replace")
+        except Exception:
+            return None
+        values = [float(value) for value in re.findall(r"\]\s*,\s*(-?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?)", text)]
+        if not values:
+            return None
+        result = np.asarray(values, dtype=np.float64)
+        result[(result < -100) | (result > 60)] = np.nan
+        return result
 
     def profiles(self, model, cycle, hour, nodes):
         if not nodes:
             return {}
-        stream, dataset = self._open(self.key(model, cycle, hour))
+        kind = self.source_kind(model, cycle, hour)
+        if kind == "ncei_nowcast":
+            output = {}
+            with ThreadPoolExecutor(max_workers=8) as executor:
+                for node, values in zip(sorted(set(nodes)), executor.map(
+                        lambda item: self._ncei_profile(model, cycle, item), sorted(set(nodes)))):
+                    if values is not None:
+                        output[node] = values
+            return output
+        if kind is None:
+            return {}
+        product = "regulargrid" if kind == "regulargrid" else "fields"
+        stream, dataset = self._open(self.key(model, cycle, hour, product))
         if dataset is None:
             return {}
         ordered = sorted(set(nodes))
         try:
-            values = np.asarray(dataset["temp"][0, :, ordered], dtype=np.float64)
+            if kind == "regulargrid":
+                width = dataset["temp"].shape[3]
+                values = np.column_stack([
+                    np.asarray(dataset["temp"][0, :, node // width, node % width], dtype=np.float64)
+                    for node in ordered
+                ])
+            else:
+                values = np.asarray(dataset["temp"][0, :, ordered], dtype=np.float64)
         except Exception:
             return {}
         finally:
             dataset.close(); stream.close()
-        if values.shape == (len(ordered), 20):
+        values[(values < -100) | (values > 60)] = np.nan
+        if values.ndim == 2 and values.shape[0] == len(ordered) and values.shape[1] <= 30:
             values = values.T
         return {node: values[:, index] for index, node in enumerate(ordered)}
 
@@ -477,6 +648,8 @@ def build_pairs(day, observations, sampler):
     pairs = []
     for cycle_hour in CYCLES:
         cycle = datetime.combine(day, datetime.min.time(), UTC).replace(hour=cycle_hour)
+        if cycle < CURRENT_MODEL_START:
+            continue
         for canonical_lead in LEADS:
             target = cycle + timedelta(hours=canonical_lead)
             selected = nearest_observations(observations, target)
@@ -491,7 +664,8 @@ def build_pairs(day, observations, sampler):
                     if not 0 <= lead <= 120:
                         continue
                     lower, upper = math.floor(lead), math.ceil(lead)
-                    invalid_position = "invalid_position" in observation.get("qualityFlags", [])
+                    invalid_position = bool({"invalid_position", "missing_position"}.intersection(
+                        observation.get("qualityFlags", [])))
                     location = sampler.locate(model, cycle, observation) if model and not invalid_position else None
                     locations[id(observation)] = (location, lead, lower, upper)
                     if location:
@@ -521,7 +695,8 @@ def build_pairs(day, observations, sampler):
                                 model_f = value_c * 9 / 5 + 32
                         except (ValueError, IndexError):
                             model_f = None
-                    invalid_position = "invalid_position" in observation.get("qualityFlags", [])
+                    invalid_position = bool({"invalid_position", "missing_position"}.intersection(
+                        observation.get("qualityFlags", [])))
                     if invalid_position:
                         pair_status = "uncovered"
                         depth_method = "surface_layer" if depth_m <= 1.5 else "pending_3d"
@@ -551,7 +726,7 @@ def build_pairs(day, observations, sampler):
                         "observed": iso(observation["observed"]), "observedF": observation["waterF"],
                         "observationOffsetMinutes": 0.0, "stationType": classification,
                         "rawStationType": observation.get("type"),
-                        "modelVersion": f"{model.upper() if model else 'GLOFS-uncovered'}:COMF-3.6:2024-09-09",
+                        "modelVersion": f"{model.upper() if model else 'GLOFS-uncovered'}:COMF-3.6:2024-09-16",
                         "modelLat": location.get("modelLat") if location else None,
                         "modelLon": location.get("modelLon") if location else None,
                         "modelDistanceKm": location.get("modelDistanceKm") if location else None,
@@ -669,8 +844,29 @@ def main(argv=None):
         for record in records:
             totals[record["pair_status"]] += 1
         if args.sync:
-            result = scorecard.sync_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest,
-                                             environment=environment)
+            prior = checkpoint.get("inProgress") or {}
+            resume_batch = (int(prior.get("nextBatch", 0))
+                            if prior.get("day") == day_text and
+                            prior.get("digest") == digest and
+                            prior.get("expected") == len(records) else 0)
+            checkpoint["inProgress"] = {
+                "day": day_text, "digest": digest, "expected": len(records),
+                "nextBatch": resume_batch,
+            }
+            save_checkpoint(checkpoint_path, checkpoint)
+
+            def progress(state):
+                checkpoint["inProgress"] = {
+                    "day": day_text, "digest": digest, "expected": len(records),
+                    "nextBatch": int(state.get("nextBatch", resume_batch)),
+                }
+                save_checkpoint(checkpoint_path, checkpoint)
+
+            result = scorecard.sync_evidence(
+                evidence, f"public-backfill/v1/{day_text}.json", digest,
+                environment=environment, resume_batch=resume_batch,
+                progress_callback=progress,
+            )
             if result.get("status") != "committed" or result.get("recordCount") != len(records):
                 pause_backfill(checkpoint_path, checkpoint, day_text, "batch_or_count_failure",
                                category=result.get("failureCategory", "network"),
@@ -681,6 +877,7 @@ def main(argv=None):
             checkpoint.setdefault("completed", []).append(day_text)
             checkpoint["completed"] = sorted(set(checkpoint["completed"]))
             checkpoint.pop("paused", None)
+            checkpoint.pop("inProgress", None)
             save_checkpoint(checkpoint_path, checkpoint)
         print(f"Backfill day={day_text} status={'committed' if args.sync else 'dry_run'} records={len(records)}")
     print(json.dumps({"status": "complete", "days": len(checkpoint.get("completed", [])) if args.sync else 0,

@@ -74,8 +74,8 @@ surface without adding evidence.
   `connecting_water`. Observation-provider name is separate from row origin
   (`live_archive`, `backfill`, or `synthetic`).
 - Every row has a lake-specific model-version boundary. Current production is
-  tagged `<OFS>:COMF-3.6:2024-09-09`; NOAA's service notice made COMF 3.6 and
-  its updated FVCOM package effective September 9, 2024. Historical analysis
+  tagged `<OFS>:COMF-3.6:2024-09-16`; NOAA's updated service notice made COMF 3.6 and
+  its updated FVCOM package effective September 16, 2024. Historical analysis
   must not pool rows across a version boundary.
 
 The schema stores `sensor_depth_m`, `model_depth_m`, `depth_method`,
@@ -151,7 +151,7 @@ distance was 2.17 km. No object or database write occurred.
 
 ## Public historical backfill boundaries
 
-The current comparable model era starts at **2024-09-09 15:00Z**, when NOAA
+The current comparable model era starts at **2024-09-16 15:00Z**, when NOAA
 made COMF 3.6 effective for the Great Lakes OFS and updated its FVCOM package.
 The one-off backfill therefore starts on that date, not an approximate 2023
 date, and includes May 1 through December 15 in later years. It samples 00Z and
@@ -159,10 +159,26 @@ date, and includes May 1 through December 15 in later years. It samples 00Z and
 exist. Position history is part of station identity; a date without a verified
 station position is uncovered rather than assigned today's coordinates.
 
-There is a hard upstream retention limit. NOAA documents AWS retention of 3-D
-forecast fields as two months and NCEI retention as none; NCEI retains old 3-D
-**nowcasts**, not the missing historical forecasts. CO-OPS THREDDS keeps only
-about 31 days. Consequently:
+There is a hard upstream retention limit. NOAA documents the production NODD
+bucket as rolling 30 days, native AWS 3-D forecast fields as two months, NCEI
+3-D forecast retention as none, and CO-OPS THREDDS as 31 days. NCEI retains old
+3-D **nowcasts**, not gridded forecasts. Direct catalog and one-byte object
+probes on October 6, 2026 found the following surface-forecast coverage:
+
+| Year | `noaa-ofs-pds` | `noaa-nos-ofs-pds` | NCEI | CO-OPS THREDDS |
+| --- | --- | --- | --- | --- |
+| 2023 | none | expired | native nowcast fields and station forecasts; no gridded forecasts | none |
+| 2024 | none | regular-grid forecasts May-Aug, before the current comparable version; current-version Sep-Dec forecasts absent | native nowcast fields and station forecasts; no gridded forecasts | none |
+| 2025 | none | no May-Dec gridded forecast fields found | native nowcast fields and station forecasts; no gridded forecasts | none |
+| 2026 | current rolling month | regular-grid forecasts May-Sep; native 3-D forecasts for the recent rolling period | native nowcast fields and station forecasts | September 6 onward at probe time |
+
+The backfill uses native AWS fields first, then AWS regular-grid 3-D fields,
+then NCEI native nowcast `n006` only for exact lead 0. It does not treat NCEI
+station forecasts as nearest-water-cell evidence. Missing gridded forecast
+leads remain uncovered (or `pending_3d` for deep sensors) rather than borrowing
+a station product or a surface value.
+
+Consequently:
 
 - recent deep lead 0/24/72/120 rows can be recovered from 3-D forecast fields;
 - old deep lead-0 rows can be recovered from NCEI nowcasts where available;
