@@ -16,6 +16,8 @@ from pathlib import Path
 
 BAD_FLAGS = {"spike", "stale", "out_of_range"}
 MIN_READY_SAMPLES = 90
+EVENT_DELTA_C = 3.0
+EVENT_WIND_MPH = 10.0
 
 
 def _time(value):
@@ -57,20 +59,62 @@ def _metrics(values):
     }
 
 
+def condition_labels(rows):
+    """Classify wind-associated rapid thermal events separately from normal rows."""
+    unique = {}
+    for row in rows:
+        if not usable(row):
+            continue
+        observed = row.get("observed_temperature_f")
+        if observed is None:
+            continue
+        key = (row.get("station_id"), row.get("sensor_key"), row.get("observation_time"))
+        unique.setdefault(key, row)
+    labels = {}
+    by_sensor = defaultdict(list)
+    for row in unique.values():
+        by_sensor[(row.get("station_id"), row.get("sensor_key"))].append(row)
+    for sensor_rows in by_sensor.values():
+        previous = None
+        for row in sorted(sensor_rows, key=lambda item: _time(item["observation_time"])):
+            label = "normal"
+            if previous is not None:
+                elapsed = (_time(row["observation_time"]) - _time(previous["observation_time"])).total_seconds() / 3600
+                wind = row.get("wind_speed_mph")
+                direction = row.get("wind_from_degrees")
+                if (3 <= elapsed <= 24 and wind is not None and direction is not None and
+                        float(wind) >= EVENT_WIND_MPH):
+                    delta_c = (float(row["observed_temperature_f"]) -
+                               float(previous["observed_temperature_f"])) * 5 / 9
+                    if delta_c <= -EVENT_DELTA_C:
+                        label = "wind_associated_upwelling"
+                    elif delta_c >= EVENT_DELTA_C:
+                        label = "wind_associated_downwelling"
+            labels[(row.get("station_id"), row.get("sensor_key"), row.get("observation_time"))] = label
+            previous = row
+    return labels
+
+
+def condition_for(row, labels):
+    return labels.get((row.get("station_id"), row.get("sensor_key"), row.get("observation_time")), "normal")
+
+
 def summarize(rows):
     groups = defaultdict(list)
     coverage = defaultdict(int)
+    labels = condition_labels(rows)
     for row in rows:
         key = (row.get("station_id"), depth_band(row.get("sensor_depth_m", 0)),
                _time(row["observation_time"]).month, lead_band(row.get("lead_hours", 0)),
-               row.get("model_version"))
+               row.get("model_version"), condition_for(row, labels))
         coverage[(row.get("station_id"), row.get("pair_status"))] += 1
         if usable(row):
             groups[key].append(float(row["miss_c"]))
     result = []
-    for (station, depth, month, lead, version), values in sorted(groups.items()):
+    for (station, depth, month, lead, version, condition), values in sorted(groups.items()):
         result.append({"station_id": station, "depth_band": depth, "month": month,
-                       "lead_hours": lead, "model_version": version, **_metrics(values)})
+                       "lead_hours": lead, "model_version": version,
+                       "condition": condition, **_metrics(values)})
     return result, [{"station_id": key[0], "status": key[1], "count": count}
                     for key, count in sorted(coverage.items())]
 
@@ -114,7 +158,8 @@ def season_id(row):
 
 
 def leave_one_season_out(rows):
-    eligible = [row for row in rows if usable(row)]
+    labels = condition_labels(rows)
+    eligible = [row for row in rows if usable(row) and condition_for(row, labels) == "normal"]
     output = []
     for held in sorted({season_id(row) for row in eligible}):
         train = [row for row in eligible if season_id(row) != held]
@@ -132,6 +177,8 @@ def leave_one_season_out(rows):
 def readiness(summary):
     by_station = defaultdict(list)
     for item in summary:
+        if item.get("condition") != "normal":
+            continue
         by_station[(item["station_id"], item["depth_band"], item["model_version"])].append(item)
     ready, noaa, special = [], [], []
     for key, values in sorted(by_station.items()):

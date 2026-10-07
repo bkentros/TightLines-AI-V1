@@ -37,7 +37,7 @@ MODEL_BY_BODY = {
     "lake-ontario": "LOOFS",
     "ontario": "LOOFS",
 }
-CURRENT_MODEL_VERSION = "COMF-3.6:2024-09-09"
+CURRENT_MODEL_VERSION = "COMF-3.6:2024-09-16"
 
 # Exhaustive enum values this module can emit.  The schema-contract test checks
 # these against the production migration instead of relying on a hand-reviewed

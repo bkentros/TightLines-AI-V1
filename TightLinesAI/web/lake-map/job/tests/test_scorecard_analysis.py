@@ -48,6 +48,26 @@ class AnalysisTest(unittest.TestCase):
         self.assertTrue(result)
         self.assertTrue(all(item["candidate_mae_c"] < item["noaa_mae_c"] for item in result))
 
+    def test_wind_associated_rises_and_drops_are_separate_from_normal(self):
+        values = []
+        for hour, temperature in ((0, 65), (6, 55), (12, 66), (18, 65)):
+            item = row(6)
+            item.update({
+                "sensor_key": "surface", "observation_time": datetime(2025, 6, 15, hour,
+                                                                         tzinfo=timezone.utc).isoformat(),
+                "observed_temperature_f": temperature, "wind_speed_mph": 15,
+                "wind_from_degrees": 270,
+            })
+            values.append(item)
+        labels = analysis.condition_labels(values)
+        conditions = [analysis.condition_for(item, labels) for item in values]
+        self.assertEqual(conditions, ["normal", "wind_associated_upwelling",
+                                      "wind_associated_downwelling", "normal"])
+        summary, _ = analysis.summarize(values)
+        self.assertEqual({item["condition"] for item in summary}, {
+            "normal", "wind_associated_upwelling", "wind_associated_downwelling",
+        })
+
 
 if __name__ == "__main__":
     unittest.main()
