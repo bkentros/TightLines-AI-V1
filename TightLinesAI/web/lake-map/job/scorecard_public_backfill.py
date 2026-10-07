@@ -25,6 +25,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -217,7 +218,7 @@ def collect_glos(cache, start, end, datasets, parameters):
     if not latest:
         return []
     active = json.loads(latest)
-    rows = []
+    tasks = []
     for dataset_row in active:
         dataset_id = str(dataset_row.get("obs_dataset_id"))
         meta = datasets.get(dataset_id)
@@ -226,43 +227,55 @@ def collect_glos(cache, start, end, datasets, parameters):
         ids = sorted({str(group.get("parameter_id")) for group in dataset_row.get("parameters", [])})
         for parameter_id in ids:
             parameter = parameters.get(parameter_id)
-            if not parameter:
+            if parameter:
+                tasks.append((dataset_id, meta, parameter_id, parameter))
+
+    def fetch(task):
+        dataset_id, meta, parameter_id, parameter = task
+        variable = parameter.get("name")
+        if not variable or not re.fullmatch(r"[A-Za-z0-9_]+", variable):
+            return []
+        select = urllib.parse.quote(f"time,longitude,latitude,{variable}", safe=",")
+        constraints = (f"&time%3E={urllib.parse.quote(iso(start))}"
+                       f"&time%3C={urllib.parse.quote(iso(end))}&orderBy(%22time%22)")
+        url = f"https://seagull-erddap.glos.org/erddap/tabledap/obs_{dataset_id}.csv?{select}{constraints}"
+        body = cache.get(f"glos-{dataset_id}-{parameter_id}.csv", url, timeout=180, quiet=True)
+        if not body:
+            return []
+        parsed = list(csv.reader(io.StringIO(body.decode("utf-8", "replace"))))
+        if len(parsed) < 3:
+            return []
+        header, units = parsed[0], parsed[1]
+        columns = {name: index for index, name in enumerate(header)}
+        if not all(name in columns for name in ("time", variable)):
+            return []
+        unit = units[columns[variable]].lower()
+        output = []
+        for values in parsed[2:]:
+            try:
+                observed = parse_time(values[columns["time"]])
+                raw = float(values[columns[variable]])
+                lat = float(values[columns["latitude"]]) if "latitude" in columns else float(meta["lat"])
+                lon = float(values[columns["longitude"]]) if "longitude" in columns else float(meta["lon"])
+            except (ValueError, IndexError):
                 continue
-            variable = parameter.get("name")
-            if not variable or not re.fullmatch(r"[A-Za-z0-9_]+", variable):
+            water_c = raw - 273.15 if unit in ("k", "kelvin") or raw > 100 else raw
+            if not start <= observed <= end or not -2 <= water_c <= 40:
                 continue
-            select = urllib.parse.quote(f"time,longitude,latitude,{variable}", safe=",")
-            constraints = (f"&time%3E={urllib.parse.quote(iso(start))}"
-                           f"&time%3C={urllib.parse.quote(iso(end))}&orderBy(%22time%22)")
-            url = f"https://seagull-erddap.glos.org/erddap/tabledap/obs_{dataset_id}.csv?{select}{constraints}"
-            body = cache.get(f"glos-{dataset_id}-{parameter_id}.csv", url, timeout=180, quiet=True)
-            if not body:
-                continue
-            parsed = list(csv.reader(io.StringIO(body.decode("utf-8", "replace"))))
-            if len(parsed) < 3:
-                continue
-            header, units = parsed[0], parsed[1]
-            columns = {name: index for index, name in enumerate(header)}
-            if not all(name in columns for name in ("time", variable)):
-                continue
-            unit = units[columns[variable]].lower()
-            for values in parsed[2:]:
-                try:
-                    observed = parse_time(values[columns["time"]])
-                    raw = float(values[columns[variable]])
-                    lat = float(values[columns["latitude"]]) if "latitude" in columns else float(meta["lat"])
-                    lon = float(values[columns["longitude"]]) if "longitude" in columns else float(meta["lon"])
-                except (ValueError, IndexError):
-                    continue
-                water_c = raw - 273.15 if unit in ("k", "kelvin") or raw > 100 else raw
-                if not start <= observed <= end or not -2 <= water_c <= 40:
-                    continue
-                depth = parameter.get("depthM")
-                depth = float(depth) if isinstance(depth, (int, float)) and depth >= 0 else None
-                rows.append(_observation(
-                    f"glos:{dataset_id}", meta["name"], "GLOS Seagull", meta["body"], meta["type"],
-                    lat, lon, observed, water_c * 9 / 5 + 32, depth, parameter_id, "unknown",
-                ))
+            depth = parameter.get("depthM")
+            depth = float(depth) if isinstance(depth, (int, float)) and depth >= 0 else None
+            output.append(_observation(
+                f"glos:{dataset_id}", meta["name"], "GLOS Seagull", meta["body"], meta["type"],
+                lat, lon, observed, water_c * 9 / 5 + 32, depth, parameter_id, "unknown",
+            ))
+        return output
+
+    rows = []
+    # Four workers keep the one-off polite to ERDDAP while preventing hundreds
+    # of independent table slices from becoming an hours-long serial preamble.
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        for result in executor.map(fetch, tasks):
+            rows.extend(result)
     return rows
 
 
