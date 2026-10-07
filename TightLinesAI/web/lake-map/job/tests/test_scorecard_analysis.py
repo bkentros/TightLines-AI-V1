@@ -9,7 +9,8 @@ import scorecard_analysis as analysis  # noqa: E402
 
 
 def row(month, miss=1.0, station="s1", depth=1.0, lead=0, year=2025):
-    return {"station_id": station, "sensor_depth_m": depth, "model_version": "LMHOFS:v1",
+    return {"station_id": station, "sensor_depth_m": depth,
+            "model_version": "LMHOFS:COMF-3.6:2024-09-16",
             "observation_time": datetime(year, month, 15, tzinfo=timezone.utc).isoformat(),
             "lead_hours": lead, "pair_status": "paired", "miss_c": miss, "quality_flags": []}
 
@@ -41,12 +42,37 @@ class AnalysisTest(unittest.TestCase):
         self.assertGreater(later, 0)
         self.assertLess(now, 2)
 
+    def test_candidate_learns_lead_fade_from_forecast_rows(self):
+        training = []
+        for year in (2024, 2025):
+            for month in (5, 6, 7):
+                training += [row(month, 2, lead=0, year=year) for _ in range(30)]
+                training += [row(month, 1, lead=120, year=year) for _ in range(30)]
+        target = row(6, lead=120, year=2026)
+        learned = analysis.learned_lead_fade(training, target)
+        self.assertGreater(learned, 0.4)
+        self.assertLess(learned, 0.55)
+        summary = analysis.lead_fade_summary(training)
+        lead = next(item for item in summary if item["lead_hours"] == 120)
+        self.assertEqual(lead["lead_0_samples"], 180)
+        self.assertEqual(lead["lead_samples"], 180)
+
     def test_leave_one_season_out_compares_against_plain_noaa(self):
         rows = [row(month, 1.5, year=year) for year in (2024, 2025, 2026)
                 for month in (5, 6, 7, 8, 9)]
         result = analysis.leave_one_season_out(rows)
         self.assertTrue(result)
         self.assertTrue(all(item["candidate_mae_c"] < item["noaa_mae_c"] for item in result))
+
+    def test_correction_analysis_excludes_older_model_versions(self):
+        current = [row(month, 1.5, year=year) for year in (2025, 2026)
+                   for month in (5, 6, 7, 8, 9)]
+        legacy = [row(month, 20, year=2024) for month in (5, 6, 7, 8)]
+        for item in legacy:
+            item["model_version"] = "LMHOFS:pre-COMF-3.6"
+        result = analysis.leave_one_season_out(current + legacy)
+        self.assertTrue(result)
+        self.assertTrue(all(item["noaa_mae_c"] < 5 for item in result))
 
     def test_wind_associated_rises_and_drops_are_separate_from_normal(self):
         values = []

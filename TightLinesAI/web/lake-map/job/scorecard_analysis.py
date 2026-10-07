@@ -18,6 +18,7 @@ BAD_FLAGS = {"spike", "stale", "out_of_range"}
 MIN_READY_SAMPLES = 90
 EVENT_DELTA_C = 3.0
 EVENT_WIND_MPH = 10.0
+CURRENT_MODEL_SUFFIX = ":COMF-3.6:2024-09-16"
 
 
 def _time(value):
@@ -46,6 +47,10 @@ def usable(row):
         flags = {item.strip() for item in flags.strip("{}").split(",") if item.strip()}
     return (row.get("pair_status") == "paired" and row.get("miss_c") is not None
             and not BAD_FLAGS.intersection(flags))
+
+
+def current_model(row):
+    return str(row.get("model_version") or "").endswith(CURRENT_MODEL_SUFFIX)
 
 
 def _metrics(values):
@@ -124,16 +129,48 @@ def _circular_month_distance(left, right):
     return min(distance, 12 - distance)
 
 
+def _same_series(row, target):
+    return (row.get("station_id"), depth_band(row["sensor_depth_m"]), row.get("model_version")) == (
+        target.get("station_id"), depth_band(target["sensor_depth_m"]), target.get("model_version"))
+
+
+def learned_lead_fade(training, target, shrink_n=60):
+    """Estimate how station/depth bias changes with lead, conservatively.
+
+    The estimate is the signed-miss ratio at the requested lead versus lead 0.
+    Sparse or inconsistent evidence is shrunk toward an exponential fallback,
+    and a sign reversal fades the correction to zero rather than extrapolating
+    it in the wrong direction.
+    """
+    target_lead = lead_band(target.get("lead_hours", 0))
+    if target_lead == 0:
+        return 1.0
+    compatible = [row for row in training if usable(row) and _same_series(row, target)]
+    base = [float(row["miss_c"]) for row in compatible if lead_band(row.get("lead_hours", 0)) == 0]
+    at_lead = [float(row["miss_c"]) for row in compatible
+               if lead_band(row.get("lead_hours", 0)) == target_lead]
+    fallback = math.exp(-float(target_lead) / 120)
+    if len(base) < 10 or len(at_lead) < 10:
+        return fallback
+    base_mean = statistics.fmean(base)
+    lead_mean = statistics.fmean(at_lead)
+    if abs(base_mean) < 0.15 or base_mean * lead_mean <= 0:
+        empirical = 0.0
+    else:
+        empirical = min(1.25, max(0.0, lead_mean / base_mean))
+    evidence = min(len(base), len(at_lead))
+    reliability = evidence / (evidence + shrink_n)
+    return empirical * reliability + fallback * (1 - reliability)
+
+
 def candidate_bias(training, target, shrink_n=60):
-    """Smooth seasonal station bias, shrunk and faded with forecast lead."""
+    """Smooth lead-0 seasonal bias, shrunk and faded by learned lead behavior."""
     compatible = []
     target_month = _time(target["observation_time"]).month
-    target_depth = depth_band(target["sensor_depth_m"])
     for row in training:
         if not usable(row):
             continue
-        if (row.get("station_id"), depth_band(row["sensor_depth_m"]), row.get("model_version")) != (
-                target.get("station_id"), target_depth, target.get("model_version")):
+        if not _same_series(row, target) or lead_band(row.get("lead_hours", 0)) != 0:
             continue
         distance = _circular_month_distance(_time(row["observation_time"]).month, target_month)
         if distance <= 2:
@@ -145,8 +182,31 @@ def candidate_bias(training, target, shrink_n=60):
     spread = math.sqrt(sum(w * (value - mean) ** 2 for value, w in compatible) / weight)
     sample_shrink = len(compatible) / (len(compatible) + shrink_n)
     consistency_shrink = 1 / (1 + (spread / 1.5) ** 2)
-    lead_fade = math.exp(-float(target.get("lead_hours", 0)) / 120)
+    lead_fade = learned_lead_fade(training, target, shrink_n=shrink_n)
     return mean * sample_shrink * consistency_shrink * lead_fade
+
+
+def lead_fade_summary(rows):
+    """Describe the learned forecast-lead fade used by the candidate."""
+    groups = defaultdict(list)
+    for row in rows:
+        if current_model(row) and usable(row):
+            groups[(row.get("station_id"), depth_band(row["sensor_depth_m"]),
+                    row.get("model_version"))].append(row)
+    output = []
+    for (station, depth, version), values in sorted(groups.items()):
+        for lead in (6, 12, 24, 48, 72, 120):
+            base_count = sum(lead_band(row.get("lead_hours", 0)) == 0 for row in values)
+            lead_count = sum(lead_band(row.get("lead_hours", 0)) == lead for row in values)
+            if not lead_count:
+                continue
+            target = {"station_id": station, "sensor_depth_m": values[0]["sensor_depth_m"],
+                      "model_version": version, "lead_hours": lead}
+            output.append({"station_id": station, "depth_band": depth,
+                           "model_version": version, "lead_hours": lead,
+                           "lead_0_samples": base_count, "lead_samples": lead_count,
+                           "learned_fade": round(learned_lead_fade(values, target), 4)})
+    return output
 
 
 def season_id(row):
@@ -159,7 +219,8 @@ def season_id(row):
 
 def leave_one_season_out(rows):
     labels = condition_labels(rows)
-    eligible = [row for row in rows if usable(row) and condition_for(row, labels) == "normal"]
+    eligible = [row for row in rows if current_model(row) and usable(row)
+                and condition_for(row, labels) == "normal"]
     output = []
     for held in sorted({season_id(row) for row in eligible}):
         train = [row for row in eligible if season_id(row) != held]
@@ -177,7 +238,8 @@ def leave_one_season_out(rows):
 def readiness(summary):
     by_station = defaultdict(list)
     for item in summary:
-        if item.get("condition") != "normal":
+        if item.get("condition") != "normal" or not str(item.get("model_version") or "").endswith(
+                CURRENT_MODEL_SUFFIX):
             continue
         by_station[(item["station_id"], item["depth_band"], item["model_version"])].append(item)
     ready, noaa, special = [], [], []
@@ -212,6 +274,7 @@ def main(argv=None):
     rows = load_rows(args.input)
     summary, coverage = summarize(rows)
     result = {"row_count": len(rows), "summary": summary, "coverage": coverage,
+              "learned_lead_fade": lead_fade_summary(rows),
               "leave_one_season_out": leave_one_season_out(rows), "readiness": readiness(summary),
               "correction_shipped": False}
     body = json.dumps(result, indent=2, sort_keys=True)

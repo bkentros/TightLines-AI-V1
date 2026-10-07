@@ -13,14 +13,16 @@ import scorecard_schema
 
 
 class FakeSampler:
-    def __init__(self, available=True):
+    def __init__(self, available=True, source_kind="native"):
         self.available = available
+        self.source_kind = source_kind
 
     def locate(self, _model, _cycle, _observation):
         return {
             "node": 7, "modelLat": 43.0, "modelLon": -86.0,
             "modelDistanceKm": 0.4, "bottomM": 20.0,
             "levelsM": [0.5 + value for value in range(20)],
+            "sourceKind": self.source_kind,
         }
 
     def profiles(self, _model, _cycle, _hour, nodes):
@@ -36,6 +38,15 @@ def observation(depth, parameter):
 
 
 class PublicBackfillTest(unittest.TestCase):
+    def test_glos_kelvin_and_celsius_fill_values_are_provider_missing(self):
+        for value in (-999.0, -9999.0, 999.0, 9999.0,
+                      -999.0 + 273.15, -999.0 - 273.15,
+                      999.0 + 273.15, 999.0 - 273.15, 9.96921e36):
+            self.assertTrue(backfill.glos_temperature_is_missing(str(value), value))
+        self.assertTrue(backfill.glos_temperature_is_missing("NaN", float("nan")))
+        self.assertFalse(backfill.glos_temperature_is_missing("274.15", 274.15))
+        self.assertFalse(backfill.glos_temperature_is_missing("20.0", 20.0))
+
     def test_current_year_historical_month_uses_monthly_archive_not_realtime(self):
         sources = backfill._ndbc_sources(
             "45002",
@@ -158,13 +169,38 @@ class PublicBackfillTest(unittest.TestCase):
             "leofs/netcdf/2026/05/01/leofs.t12z.20260501.fields.f120.nc",
         )
 
-    def test_backfill_excludes_cycles_before_corrected_comf_boundary(self):
-        observed = datetime(2024, 9, 16, tzinfo=timezone.utc)
+    def test_station_forecast_names_cover_legacy_and_modern_archives(self):
+        legacy = datetime(2023, 5, 15, tzinfo=timezone.utc)
+        modern = datetime(2026, 5, 15, tzinfo=timezone.utc)
+        self.assertEqual(
+            backfill.PublicModelSampler.station_file_names("lmhofs", legacy)[0],
+            "nos.lmhofs.stations.forecast.20230515.t00z.nc",
+        )
+        self.assertEqual(
+            backfill.PublicModelSampler.station_file_names("lmhofs", modern)[0],
+            "lmhofs.t00z.20260515.stations.forecast.nc",
+        )
+
+    def test_backfill_tags_pre_boundary_station_rows_as_legacy(self):
+        observed = datetime(2024, 8, 15, tzinfo=timezone.utc)
         row = backfill._observation(
             "glos:49", "Muskegon Buoy", "GLOS Seagull", "lake-michigan", "moored_buoy",
             43.179, -86.361, observed, 62.0, 1.0, 1, "good",
         )
-        self.assertEqual(backfill.build_pairs(date(2024, 9, 16), [row], FakeSampler()), [])
+        pair = backfill.build_pairs(date(2024, 8, 15), [row], FakeSampler(source_kind="station_file"))[0]
+        self.assertEqual(pair["modelVersion"], "LMHOFS:pre-COMF-3.6")
+        self.assertEqual(pair["sampleMethod"], "station_file")
+
+    def test_station_file_pair_validates_against_schema_contract(self):
+        pair = backfill.build_pairs(
+            date(2026, 10, 1), [observation(5.0, 2)], FakeSampler(source_kind="station_file")
+        )[0]
+        self.assertEqual(pair["sampleMethod"], "station_file")
+        records = scorecard.records_from_evidence(
+            {"methodologyVersion": "public-scorecard-backfill-v1", "primaryPairs": [pair]},
+            "public-backfill/v1/2026-10-01.json", "0" * 64,
+        )
+        self.assertEqual(scorecard_schema.validate_records(records)["invalidRows"], 0)
 
     def test_backfill_uses_corrected_model_version(self):
         pairs = backfill.build_pairs(date(2026, 10, 1), [observation(1.0, 1)], FakeSampler())

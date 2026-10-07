@@ -103,6 +103,10 @@ class ScorecardTest(unittest.TestCase):
             scorecard_job,
         )
         self.assertIn(
+            "TightLinesAI/supabase/migrations/20261007120000_allow_scorecard_station_file_samples.sql",
+            scorecard_job,
+        )
+        self.assertIn(
             'python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"',
             validation_text,
         )
@@ -224,13 +228,17 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(pair["modelVersion"], "GLOFS-uncovered:COMF-3.6:2024-09-16")
 
     def test_every_emitted_enum_value_matches_production_migration_allowed_sets(self):
-        migration = (JOB.parent.parent.parent / "supabase" / "migrations" /
-                     "20261006150000_create_lake_map_temperature_scorecard.sql").read_text()
+        migrations = JOB.parent.parent.parent / "supabase" / "migrations"
+        migration = "\n".join(path.read_text() for path in (
+            migrations / "20261006150000_create_lake_map_temperature_scorecard.sql",
+            migrations / "20261007120000_allow_scorecard_station_file_samples.sql",
+        ))
         migration_values = {}
         for field in scorecard_schema.CONSTRAINED_TEXT_VALUES:
-            match = re.search(rf"{field} in \(([^)]+)\)", migration)
-            self.assertIsNotNone(match, field)
-            migration_values[field] = frozenset(re.findall(r"'([^']+)'", match.group(1)))
+            matches = re.findall(rf"{field} in \(([^)]+)\)", migration)
+            self.assertTrue(matches, field)
+            constraint = matches[-1] if field == "sample_method" else matches[0]
+            migration_values[field] = frozenset(re.findall(r"'([^']+)'", constraint))
         self.assertEqual(migration_values, scorecard_schema.CONSTRAINED_TEXT_VALUES)
 
         emitted = {}
