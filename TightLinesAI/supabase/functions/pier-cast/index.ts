@@ -17,15 +17,14 @@ import {
   buildPierCastCatalog,
   buildPierCastConditionsShadowComparisonV4,
   buildPierCastConditionsV4Outlook,
-  buildPierCastConditionsV4OutlookFromBatch,
   buildPierCastReviewOutlook,
   buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
   combinePierCastV3LmhofsBatches,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
-  PIER_CAST_V4_DISCLOSURE,
   PIER_CAST_V3_SPECIES_IDS,
+  PIER_CAST_V4_DISCLOSURE,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   projectPierCastConditionsLeaderboardV4,
@@ -34,15 +33,21 @@ import {
   readLatestFreshPierCastLmhofsBatch,
   readLatestFreshPierCastWisconsinLmhofsBatch,
   readPierCastObservedTemperatureMap,
+  readPierCastOutlookSnapshot,
   readPublishedPierCastDailyScoreSnapshot,
   recordPierCastShadowOutcome,
   withholdPierCastCurrentDayScores,
 } from "../_shared/pierCastEngine/index.ts";
 import type { PierCastSpeciesId } from "../_shared/pierCastEngine/types.ts";
 import { createPierCastHandler } from "./handler.ts";
-import { projectPublicV3Outlook } from "./publicV3.ts";
 import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
 import { createPierCastMapFoundationReader } from "../_shared/pierCastMapFoundation.ts";
+import {
+  checkSubjectRateLimit,
+  checkUserRateLimit,
+  hashRateLimitSubject,
+  requestClientIp,
+} from "../_shared/rateLimit.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -65,6 +70,32 @@ const readMapFoundation = createPierCastMapFoundationReader({
   openMeteoBaseUrl: Deno.env.get("OPEN_METEO_BASE_URL"),
   requirePaidOpenMeteo: true,
 });
+
+type AuthenticatedUser = { id: string; email?: string };
+const authenticatedUsers = new WeakMap<
+  Request,
+  Promise<AuthenticatedUser | null>
+>();
+
+function requestToken(request: Request): string | null {
+  return request.headers.get("x-user-token") ??
+    request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "") ?? null;
+}
+
+function authenticatedUser(
+  request: Request,
+): Promise<AuthenticatedUser | null> {
+  const existing = authenticatedUsers.get(request);
+  if (existing) return existing;
+  const promise = (async () => {
+    const token = requestToken(request);
+    if (!token) return null;
+    const { data: { user }, error } = await database.auth.getUser(token);
+    return error ? null : user;
+  })();
+  authenticatedUsers.set(request, promise);
+  return promise;
+}
 
 // The public release uses the reviewed v3 roster for every account.
 const publicCatalog = () => buildPierCastCatalog("public", "v3");
@@ -128,17 +159,15 @@ async function readV3Batch(now: Date, maxAgeHours: number) {
   );
 }
 async function account(request: Request) {
-  const token = request.headers.get("x-user-token") ??
-    request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
-  if (!token) {
+  if (!requestToken(request)) {
     throw new PierCastAccessError(
       "unauthorized",
       "Sign in to use PierCast.",
       401,
     );
   }
-  const { data: { user }, error } = await database.auth.getUser(token);
-  if (error || !user) {
+  const user = await authenticatedUser(request);
+  if (!user) {
     throw new PierCastAccessError(
       "unauthorized",
       "Sign in to use PierCast.",
@@ -166,36 +195,38 @@ async function account(request: Request) {
 const PUBLIC_FRESH_HOURS = 13;
 const PUBLIC_FALLBACK_HOURS = 24;
 
-async function readPublicV3Batch(now: Date) {
-  const fresh = await readV3Batch(now, PUBLIC_FRESH_HOURS);
-  if (fresh) return fresh;
-  const fallback = await readV3Batch(now, PUBLIC_FALLBACK_HOURS);
-  console.warn(JSON.stringify({
-    event: fallback ? "pier_cast_public_freshness_fallback" : "pier_cast_public_data_unavailable",
-    issuedAt: fallback?.issuedAt ?? null,
-    observedAt: now.toISOString(),
-  }));
-  return fallback;
-}
-
 async function readPublicOutlook() {
   const now = new Date();
-  const batch = await readPublicV3Batch(now);
-  const outlook = batch
-    ? buildPierCastV3ReviewOutlook({ batch, evaluationTime: now.toISOString() })
-    : null;
-  return outlook ? projectPublicV3Outlook(outlook) : null;
+  const snapshot = await readPublicSnapshot(now);
+  return snapshot?.publicOutlook ?? null;
 }
 
 async function readConditionsOutlook() {
   const now = new Date();
-  const batch = await readPublicV3Batch(now);
-  return batch
-    ? buildPierCastConditionsV4OutlookFromBatch({
-      batch,
-      evaluationTime: now.toISOString(),
-    })
-    : null;
+  const snapshot = await readPublicSnapshot(now);
+  return snapshot?.conditionsOutlook ?? null;
+}
+
+async function readPublicSnapshot(now: Date) {
+  const fresh = await readPierCastOutlookSnapshot({
+    database: archiveClient,
+    now,
+    maxAgeHours: PUBLIC_FRESH_HOURS,
+  });
+  if (fresh) return fresh;
+  const fallback = await readPierCastOutlookSnapshot({
+    database: archiveClient,
+    now,
+    maxAgeHours: PUBLIC_FALLBACK_HOURS,
+  });
+  console.warn(JSON.stringify({
+    event: fallback
+      ? "pier_cast_public_freshness_fallback"
+      : "pier_cast_public_data_unavailable",
+    issuedAt: fallback?.sourceIssuedAt ?? null,
+    observedAt: now.toISOString(),
+  }));
+  return fallback;
 }
 
 async function readClaimKeys(userId: string) {
@@ -244,6 +275,36 @@ const readConditionsReport = createPierConditionsReportAccess({
 });
 
 const handler = createPierCastHandler({
+  checkRateLimit: async (request) => {
+    const ip = requestClientIp(request) ?? "unknown";
+    const pepper = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const ipLimitPromise = hashRateLimitSubject("pier-cast-ip", ip, pepper)
+      .then((subjectHash) =>
+        checkSubjectRateLimit(database, {
+          subjectHash,
+          feature: "pier_cast_ip",
+          rules: [{ windowSeconds: 600, maxRequests: 600 }],
+        })
+      );
+    const userLimitPromise = request.headers.get("x-user-token")
+      ? authenticatedUser(request).then((user) =>
+        user
+          ? checkUserRateLimit(database, {
+            userId: user.id,
+            feature: "pier_cast_user",
+            rules: [{ windowSeconds: 600, maxRequests: 240 }],
+          })
+          : null
+      )
+      : Promise.resolve(null);
+    const [ipLimit, userLimit] = await Promise.all([
+      ipLimitPromise,
+      userLimitPromise,
+    ]);
+    if (!ipLimit.allowed) return ipLimit;
+    if (userLimit && !userLimit.allowed) return userLimit;
+    return null;
+  },
   recordLegacyRouteUse: (route) => {
     console.warn(JSON.stringify({
       event: "pier_cast_legacy_api_used",
@@ -288,7 +349,9 @@ const handler = createPierCastHandler({
       speciesId ? pierCastSpeciesId(speciesId) : null,
     );
     // Additive: which NOAA cycle the standings use (health monitoring; apps ignore it).
-    return Object.assign(leaderboard, { sourceIssuedAt: outlook.source.issuedAt });
+    return Object.assign(leaderboard, {
+      sourceIssuedAt: outlook.source.issuedAt,
+    });
   },
   readConditionsMap: async (speciesId) => {
     const outlook = await readConditionsOutlook();

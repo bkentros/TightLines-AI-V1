@@ -5,6 +5,13 @@ import {
   isCreatorPortalLoginAllowed,
   normalizeEmail,
 } from "../_shared/creatorPortalAccess.ts";
+import { checkPublicRequestRateLimits } from "../_shared/publicRateLimit.ts";
+import { rateLimitHeaders } from "../_shared/rateLimit.ts";
+
+const SUCCESS = {
+  ok: true,
+  message: "Check your email for a sign-in link. It expires in a few minutes.",
+};
 
 function corsHeaders() {
   return {
@@ -14,10 +21,18 @@ function corsHeaders() {
   };
 }
 
-function json(body: unknown, status = 200): Response {
+function json(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json", ...corsHeaders() },
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders(),
+      ...extraHeaders,
+    },
   });
 }
 
@@ -55,13 +70,30 @@ Deno.serve(async (req: Request) => {
   });
 
   try {
+    const limit = await checkPublicRequestRateLimits({
+      supabase,
+      request: req,
+      pepper: serviceRoleKey,
+      feature: "creator_portal_link",
+      ipMaxRequests: 20,
+      token: email,
+      tokenMaxRequests: 5,
+      windowSeconds: 3600,
+    });
+    if (limit) {
+      return json(
+        {
+          error: "rate_limited",
+          message: "Too many requests. Please wait before trying again.",
+          retryAfterSeconds: limit.retryAfterSeconds,
+        },
+        429,
+        rateLimitHeaders(limit),
+      );
+    }
     const access = await isCreatorPortalLoginAllowed(supabase, email);
     if (!access.allowed) {
-      return json({
-        error: "creator_portal_not_registered",
-        message:
-          "This email is not registered for the FinFindr creator program. Contact FinFindr if you believe this is a mistake.",
-      }, 403);
+      return json(SUCCESS);
     }
 
     const otpResponse = await fetch(`${supabaseUrl}/auth/v1/otp`, {
@@ -98,12 +130,11 @@ Deno.serve(async (req: Request) => {
       }, 502);
     }
 
-    return json({
-      ok: true,
-      message: "Check your email for a sign-in link. It expires in a few minutes.",
-    });
+    return json(SUCCESS);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Could not send sign-in link.";
+    const message = err instanceof Error
+      ? err.message
+      : "Could not send sign-in link.";
     console.error("[creator-portal-request-link] failed", { email, message });
     return json({ error: "creator_portal_link_failed", message }, 500);
   }

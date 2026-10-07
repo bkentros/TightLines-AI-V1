@@ -41,6 +41,17 @@ function fromBase64url(text) {
   return out;
 }
 
+const hmacKeys = new Map();
+
+function hmacKey(secret) {
+  let key = hmacKeys.get(secret);
+  if (!key) {
+    key = crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
+    hmacKeys.set(secret, key);
+  }
+  return key;
+}
+
 /** true when `pass` was signed with `secret` and has not expired. */
 export async function verifyPass(pass, secret, nowSeconds = Math.floor(Date.now() / 1000)) {
   if (typeof pass !== 'string' || pass.length > 200 || !secret) return false;
@@ -50,8 +61,7 @@ export async function verifyPass(pass, secret, nowSeconds = Math.floor(Date.now(
   if (!Number.isInteger(expiry) || expiry < nowSeconds || expiry > nowSeconds + 3 * 24 * 3600) return false;
   let signature;
   try { signature = fromBase64url(parts[3]); } catch { return false; }
-  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['verify']);
-  return crypto.subtle.verify('HMAC', key, signature, new TextEncoder().encode(parts.slice(0, 3).join('.')));
+  return crypto.subtle.verify('HMAC', await hmacKey(secret), signature, new TextEncoder().encode(parts.slice(0, 3).join('.')));
 }
 
 function cookiePass(request) {
@@ -72,10 +82,10 @@ async function withinLimit(binding, key) {
   return result?.success !== false;
 }
 
-function limited() {
+function limited(serverTiming) {
   return new Response('Too many map requests', {
     status: 429,
-    headers: { 'cache-control': 'no-store', 'retry-after': '60', 'content-type': 'text/plain; charset=utf-8' },
+    headers: { 'cache-control': 'no-store', 'retry-after': '60', 'content-type': 'text/plain; charset=utf-8', 'server-timing': serverTiming },
   });
 }
 
@@ -100,15 +110,32 @@ function checkRange(request, key) {
   return null;
 }
 
-function clientHeaders(input, setCookie) {
+function clientHeaders(input, setCookie, serverTiming, key = '') {
   const headers = new Headers(input);
   headers.set('cache-control', (headers.get('cache-control') || 'max-age=60').replace(/\bpublic\b/, 'private'));
+  if (key === 'latest.json' || key === 'map/index.html') {
+    headers.set('cache-control', 'private, max-age=60, must-revalidate');
+  }
   headers.set('x-content-type-options', 'nosniff');
   headers.set('referrer-policy', 'no-referrer');
   headers.set('permissions-policy', 'geolocation=(), camera=(), microphone=()');
   headers.set('content-security-policy', CONTENT_SECURITY_POLICY);
+  if (serverTiming) headers.set('server-timing', serverTiming);
   if (setCookie) headers.append('set-cookie', setCookie);
   return headers;
+}
+
+function immutableVersionedRequest(url, key) {
+  if (key.startsWith('runs/')) return true;
+  const version = url.searchParams.get('v');
+  if (!version || !/^[a-f0-9]{8,64}$/i.test(version)) return false;
+  return /^(?:map|static)\/.+\.(?:css|js|json|png|webp|woff2?|pmtiles)$/i.test(key);
+}
+
+function timingHeader(parts) {
+  return parts.map(([name, duration, description]) =>
+    `${name};dur=${Math.max(0, duration).toFixed(1)}${description ? `;desc="${description}"` : ''}`
+  ).join(', ');
 }
 
 function edgeCacheKey(url) {
@@ -157,26 +184,50 @@ export default {
   async fetch(request, env, ctx) {
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
     const url = new URL(request.url);
+    let key = decodeURIComponent(url.pathname.slice(1));
+    if (key === '' || key === 'map' || key === 'map/') key = 'map/index.html';
+    const immutable = immutableVersionedRequest(url, key);
     const ip = request.headers.get('cf-connecting-ip') || 'unknown';
-    if (!(await withinLimit(env.MAP_IP_LIMITER, ip))) return limited();
     const fresh = url.searchParams.get('t');
     const pass = fresh || cookiePass(request);
     let setCookie = null;
+    const authStarted = performance.now();
     if (!(await verifyPass(pass, env.MAP_PASS_SECRET))) return denied();
-    if (!(await withinLimit(env.MAP_ACCOUNT_LIMITER, pass.split('.')[2]))) return limited();
+    const authDuration = performance.now() - authStarted;
+    let limitDuration = 0;
+    if (!immutable) {
+      const limitStarted = performance.now();
+      const [ipAllowed, accountAllowed] = await Promise.all([
+        withinLimit(env.MAP_IP_LIMITER, ip),
+        withinLimit(env.MAP_ACCOUNT_LIMITER, pass.split('.')[2]),
+      ]);
+      limitDuration = performance.now() - limitStarted;
+      const limitedTiming = timingHeader([
+        ['auth', authDuration, 'signed-pass'],
+        ['limit', limitDuration, 'rate-limit'],
+      ]);
+      if (!ipAllowed || !accountAllowed) return limited(limitedTiming);
+    }
     if (fresh) {
       setCookie = passCookie(fresh);
     }
     if (url.pathname === '/_pass') {
-      return new Response(null, { status: 204, headers: { 'set-cookie': setCookie || '', 'cache-control': 'no-store' } });
+      return new Response(null, { status: 204, headers: { 'set-cookie': setCookie || '', 'cache-control': 'no-store', 'server-timing': timingHeader([['auth', authDuration, 'signed-pass'], ['limit', limitDuration, 'rate-limit']]) } });
     }
     // Live NOAA observations come from one centrally archived 15-minute
     // snapshot, with a direct-source fallback only before the first cron run.
     // A stale archive fails closed instead of fanning user traffic upstream.
-    if (url.pathname === '/obs/buoys.json') return buoysResponse(ctx, env);
+    if (url.pathname === '/obs/buoys.json') {
+      const sourceStarted = performance.now();
+      const buoy = await buoysResponse(ctx, env, request);
+      const timing = timingHeader([
+        ['auth', authDuration, 'signed-pass'],
+        ['limit', limitDuration, 'rate-limit'],
+        ['source', performance.now() - sourceStarted, 'observation-cache'],
+      ]);
+      return new Response(buoy.body, { status: buoy.status, headers: clientHeaders(buoy.headers, setCookie, timing, 'obs/buoys.json') });
+    }
 
-    let key = decodeURIComponent(url.pathname.slice(1));
-    if (key === '' || key === 'map' || key === 'map/') key = 'map/index.html';
     if (key.includes('..') || !ALLOWED.some((re) => re.test(key))) return new Response('Not found', { status: 404 });
     const rangeError = checkRange(request, key);
     if (rangeError) return rangeError;
@@ -186,21 +237,35 @@ export default {
       : null;
     const cacheKey = cache ? edgeCacheKey(url) : null;
     if (cache && cacheKey) {
+      const cacheStarted = performance.now();
       const hit = await cache.match(cacheKey);
       if (hit) {
-        const init = { status: hit.status, headers: clientHeaders(hit.headers, setCookie) };
+        const timing = timingHeader([
+          ['auth', authDuration, 'signed-pass'],
+          ['limit', limitDuration, immutable ? 'skipped-immutable' : 'rate-limit'],
+          ['cache', performance.now() - cacheStarted, 'hit'],
+        ]);
+        const init = { status: hit.status, headers: clientHeaders(hit.headers, setCookie, timing, key) };
         if (hit.headers.get('content-encoding')) init.encodeBody = 'manual';
         return new Response(hit.body, init);
       }
     }
 
+    const r2Started = performance.now();
     const object = await env.BUCKET.get(key, { range: request.headers, onlyIf: request.headers });
+    const r2Duration = performance.now() - r2Started;
     if (object === null) return new Response('Not found', { status: 404 });
     const headers = new Headers();
     object.writeHttpMetadata(headers);
     headers.set('etag', object.httpEtag);
     headers.set('accept-ranges', 'bytes');
-    if (!('body' in object) || !object.body) return new Response(null, { status: 304, headers: clientHeaders(headers, setCookie) });
+    const timing = timingHeader([
+      ['auth', authDuration, 'signed-pass'],
+      ['limit', limitDuration, immutable ? 'skipped-immutable' : 'rate-limit'],
+      ['cache', 0, 'miss'],
+      ['r2', r2Duration, 'object'],
+    ]);
+    if (!('body' in object) || !object.body) return new Response(null, { status: 304, headers: clientHeaders(headers, setCookie, timing, key) });
 
     let status = 200;
     if (object.range && request.headers.has('range')) {
@@ -212,7 +277,7 @@ export default {
       status = 206;
     }
     // bodies stored gzip-encoded (the data job's JSON) go out as they are
-    const init = { status, headers: clientHeaders(headers, setCookie) };
+    const init = { status, headers: clientHeaders(headers, setCookie, timing, key) };
     if (headers.get('content-encoding')) init.encodeBody = 'manual';
     const response = new Response(request.method === 'HEAD' ? null : object.body, init);
     if (cache && cacheKey && status === 200 && request.method === 'GET') {

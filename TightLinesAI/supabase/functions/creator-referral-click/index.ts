@@ -5,6 +5,8 @@ import {
   cleanString,
   normalizeCreatorCode,
 } from "../_shared/creatorProgram.ts";
+import { checkPublicRequestRateLimits } from "../_shared/publicRateLimit.ts";
+import { rateLimitHeaders } from "../_shared/rateLimit.ts";
 
 const SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$/;
 const APP_STORE_APP_URL = "https://apps.apple.com/app/id6769178136";
@@ -35,10 +37,18 @@ function corsHeaders() {
   };
 }
 
-function json(body: unknown, status = 200): Response {
+function json(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json", ...corsHeaders() },
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders(),
+      ...extraHeaders,
+    },
   });
 }
 
@@ -95,6 +105,27 @@ Deno.serve(async (req: Request) => {
   });
 
   try {
+    const limit = await checkPublicRequestRateLimits({
+      supabase,
+      request: req,
+      pepper: serviceRoleKey,
+      feature: "creator_referral_click",
+      ipMaxRequests: 240,
+      token: slug,
+      tokenMaxRequests: 120,
+      windowSeconds: 900,
+    });
+    if (limit) {
+      return json(
+        {
+          error: "rate_limited",
+          message: "Too many requests. Please wait before trying again.",
+          retryAfterSeconds: limit.retryAfterSeconds,
+        },
+        429,
+        rateLimitHeaders(limit),
+      );
+    }
     const { data: creator, error: creatorError } = await supabase
       .from("creators")
       .select("id, display_name, slug, status, instally_link_slug")
@@ -167,7 +198,10 @@ Deno.serve(async (req: Request) => {
     const clickToken = clickRow?.click_token as string;
     const referralClickId = clickRow?.id as string;
     const normalizedCode = normalizeCreatorCode(creatorCode.code);
-    const referralWebUrl = buildCreatorReferralWebUrl(normalizedCode!, clickToken);
+    const referralWebUrl = buildCreatorReferralWebUrl(
+      normalizedCode!,
+      clickToken,
+    );
     const installySlug = creatorRow.instally_link_slug?.trim() ?? null;
     const installyRedirectUrl = installySlug
       ? `https://finfindr.instally.io/${installySlug}`
@@ -191,9 +225,9 @@ Deno.serve(async (req: Request) => {
       app_store_app_url: APP_STORE_APP_URL,
       referral_web_url: referralWebUrl,
       deep_link_url: normalizedCode
-        ? `finfindr://creator?code=${encodeURIComponent(normalizedCode)}&click=${
-          encodeURIComponent(clickToken)
-        }`
+        ? `finfindr://creator?code=${
+          encodeURIComponent(normalizedCode)
+        }&click=${encodeURIComponent(clickToken)}`
         : null,
       instally_redirect_url: installyRedirectUrl,
     });
