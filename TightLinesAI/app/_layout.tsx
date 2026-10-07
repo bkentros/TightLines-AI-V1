@@ -4,6 +4,7 @@ import {
   AppState,
   Easing,
   LogBox,
+  Pressable,
   View,
   Text,
   StyleSheet,
@@ -148,19 +149,30 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
   const router = useRouter();
   const segments = useSegments();
   const pathname = usePathname();
-  const { session, isOnboarded, isLoading, isProfileLoading } = useAuthStore();
+  const {
+    session,
+    isOnboarded,
+    isLoading,
+    isProfileLoading,
+    profileLoadError,
+  } = useAuthStore();
 
   useEffect(() => {
     if (isLoading) return;
+
+    // A transport or server failure is not evidence that the account has no
+    // profile. Keep the signed-in user in a recoverable connection state until
+    // a profile read succeeds or definitively returns no row.
+    if (session && profileLoadError) return;
 
     const { inAuth, inOnboarding, inAuthEmailConfirm, inPublicLegal } =
       routeContextFlags(pathname, segments as string[]);
     const inResetPassword = segments.includes('reset-password');
 
-    // Email PKCE: redirect as soon as `exchangeCodeForSession` sets session.
-    // Do not wait for `fetchProfile` — that query can hang on bad networks and
-    // `isProfileLoading` would block this effect forever (spinner on auth/confirm).
+    // Email PKCE can now wait for the bounded profile retry policy. Only a
+    // successful read or a definitive no-row result may choose tabs/onboarding.
     if (inAuthEmailConfirm && session && !passwordRecoveryInFlight) {
+      if (isProfileLoading) return;
       if (!isOnboarded) {
         router.replace('/(onboarding)/step-2-preferences');
       } else {
@@ -201,6 +213,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
     isOnboarded,
     isLoading,
     isProfileLoading,
+    profileLoadError,
     segments,
     pathname,
     router,
@@ -210,8 +223,16 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile, user, profile } =
-    useAuthStore();
+  const {
+    hydrate,
+    setSession,
+    setProfile,
+    fetchProfile,
+    user,
+    profile,
+    profileLoadError,
+    isProfileLoading,
+  } = useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
   const syncSubscriptionTier = useRevenueCatStore(
@@ -494,6 +515,18 @@ export default function RootLayout() {
     );
   }
 
+  if (user && !profile && profileLoadError) {
+    return (
+      <>
+        <StatusBar style="dark" />
+        <ProfileConnectionScreen
+          isRetrying={isProfileLoading}
+          onRetry={() => void fetchProfile(user.id)}
+        />
+      </>
+    );
+  }
+
   return (
     <AppErrorBoundary>
       <AnalyticsProvider>
@@ -559,6 +592,40 @@ export default function RootLayout() {
         </Stack>
       </AnalyticsProvider>
     </AppErrorBoundary>
+  );
+}
+
+function ProfileConnectionScreen({
+  isRetrying,
+  onRetry,
+}: {
+  isRetrying: boolean;
+  onRetry: () => void;
+}) {
+  return (
+    <View style={styles.connectionScreen}>
+      <Text style={styles.connectionEyebrow}>— FINFINDR · ACCOUNT —</Text>
+      <Text style={styles.connectionTitle}>Couldn&apos;t connect</Text>
+      <Text style={styles.connectionBody}>
+        Your account is still signed in. We couldn&apos;t load it right now. Check
+        your connection and try again.
+      </Text>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Retry account connection"
+        disabled={isRetrying}
+        onPress={onRetry}
+        style={({ pressed }) => [
+          styles.connectionButton,
+          pressed && !isRetrying && styles.connectionButtonPressed,
+          isRetrying && styles.connectionButtonDisabled,
+        ]}
+      >
+        <Text style={styles.connectionButtonText}>
+          {isRetrying ? 'RETRYING…' : 'RETRY'}
+        </Text>
+      </Pressable>
+    </View>
   );
 }
 
@@ -642,6 +709,57 @@ function BootScreen() {
 }
 
 const styles = StyleSheet.create({
+  connectionScreen: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardCream,
+    paddingHorizontal: 32,
+  },
+  connectionEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 2,
+    marginBottom: 14,
+  },
+  connectionTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 30,
+    color: paper.dashboardInk,
+    textAlign: 'center',
+  },
+  connectionBody: {
+    maxWidth: 360,
+    marginTop: 12,
+    fontFamily: paperFonts.body,
+    fontSize: 15,
+    lineHeight: 22,
+    color: paper.dashboardInk,
+    opacity: 0.72,
+    textAlign: 'center',
+  },
+  connectionButton: {
+    minWidth: 144,
+    marginTop: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 13,
+    borderRadius: 8,
+    alignItems: 'center',
+    backgroundColor: paper.dashboardBlue,
+  },
+  connectionButtonPressed: {
+    opacity: 0.82,
+  },
+  connectionButtonDisabled: {
+    opacity: 0.55,
+  },
+  connectionButtonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 12,
+    color: '#FFFFFF',
+    letterSpacing: 1.4,
+  },
   bootScreen: {
     flex: 1,
     alignItems: 'center',

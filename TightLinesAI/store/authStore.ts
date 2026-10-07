@@ -2,6 +2,10 @@ import { create } from 'zustand';
 import type { Session, User } from '../lib/supabase';
 import type { UserProfile, OnboardingPrefs } from '../lib/types';
 import { isRefreshTokenRevokedError } from '../lib/authSessionErrors';
+import {
+  isMissingProfileError,
+  loadProfileWithRetry,
+} from '../lib/profileLoadRecovery';
 import { supabase } from '../lib/supabase';
 import { useEnvStore } from './envStore';
 
@@ -63,6 +67,7 @@ interface AuthState {
   // Derived status
   isLoading: boolean;
   isProfileLoading: boolean;
+  profileLoadError: string | null;
   isOnboarded: boolean;
 
   // Onboarding draft (held in memory between step-2 and step-3)
@@ -84,6 +89,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   profile: null,
   isLoading: true,
   isProfileLoading: false,
+  profileLoadError: null,
   isOnboarded: false,
   onboardingPrefs: {},
 
@@ -93,6 +99,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         session: null,
         user: null,
         isProfileLoading: false,
+        profileLoadError: null,
         profile: null,
         isOnboarded: false,
       });
@@ -109,6 +116,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       session,
       user: session.user,
       isProfileLoading: !profileMatchesSession,
+      profileLoadError:
+        profileMatchesSession || userChanged ? null : get().profileLoadError,
       profile: profileMatchesSession ? currentProfile : null,
       isOnboarded: profileMatchesSession
         ? currentProfile.onboarding_complete
@@ -121,6 +130,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   setProfile: (profile) => {
     set({
       profile,
+      profileLoadError: null,
       isOnboarded: profile?.onboarding_complete ?? false,
     });
   },
@@ -136,27 +146,30 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   fetchProfile: async (userId: string) => {
-    set({ isProfileLoading: true });
+    set({ isProfileLoading: true, profileLoadError: null });
     try {
-      const { data, error } = await fetchProfileRow(userId);
+      const { data, error } = await loadProfileWithRetry(() =>
+        fetchProfileRow(userId),
+      );
 
       if (error || !data) {
         const current = get().profile;
-        // Don’t clobber a completed profile on transient failures (slow network,
+        // Don’t clobber a known profile on transient failures (slow network,
         // token-refresh racing the onboarding upsert, RLS blips). Only a successful
         // select above replaces state; PGRST116 with no local row still clears below.
         if (__DEV__ && error) {
           console.warn('[auth] fetchProfile failed:', error.message);
         }
-        if (current?.id === userId && current.onboarding_complete) {
+        if (current?.id === userId) {
           return;
         }
-        if (
-          error?.code === 'PGRST116' ||
-          (typeof error?.message === 'string' &&
-            /0 rows|single.*not found/i.test(error.message))
-        ) {
-          set({ profile: null, isOnboarded: false });
+        if (isMissingProfileError(error)) {
+          set({ profile: null, isOnboarded: false, profileLoadError: null });
+        } else {
+          set({
+            profileLoadError:
+              error?.message || 'Could not connect to your account.',
+          });
         }
         return;
       }
@@ -164,6 +177,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (get().user?.id !== userId) return;
       set({
         profile: data as UserProfile,
+        profileLoadError: null,
         isOnboarded: (data as UserProfile).onboarding_complete,
       });
     } finally {
@@ -185,6 +199,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       session: null,
       user: null,
       profile: null,
+      profileLoadError: null,
       isOnboarded: false,
       isProfileLoading: false,
       onboardingPrefs: {},
@@ -202,7 +217,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       if (sessionError && isRefreshTokenRevokedError(sessionError)) {
         await supabase.auth.signOut({ scope: 'local' });
         supabase.functions.setAuth('');
-        set({ session: null, user: null, profile: null, isOnboarded: false });
+        set({
+          session: null,
+          user: null,
+          profile: null,
+          profileLoadError: null,
+          isOnboarded: false,
+        });
         return;
       }
 
@@ -212,14 +233,26 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         await get().fetchProfile(session.user.id);
       } else {
         supabase.functions.setAuth('');
-        set({ session: null, user: null, profile: null, isOnboarded: false });
+        set({
+          session: null,
+          user: null,
+          profile: null,
+          profileLoadError: null,
+          isOnboarded: false,
+        });
       }
     } catch (e) {
       supabase.functions.setAuth('');
       if (isRefreshTokenRevokedError(e)) {
         await supabase.auth.signOut({ scope: 'local' });
       }
-      set({ session: null, user: null, profile: null, isOnboarded: false });
+      set({
+        session: null,
+        user: null,
+        profile: null,
+        profileLoadError: null,
+        isOnboarded: false,
+      });
     } finally {
       set({ isLoading: false });
     }
