@@ -107,6 +107,10 @@ class ScorecardTest(unittest.TestCase):
             scorecard_job,
         )
         self.assertIn(
+            "TightLinesAI/supabase/migrations/20261007130000_repair_scorecard_model_version_metadata.sql",
+            scorecard_job,
+        )
+        self.assertIn(
             'python job/scorecard_job.py --preflight-start "$PREFLIGHT_START" --preflight-end "$PREFLIGHT_END"',
             validation_text,
         )
@@ -248,6 +252,28 @@ class ScorecardTest(unittest.TestCase):
         self.assertEqual(set(emitted), set(migration_values))
         for field, values in emitted.items():
             self.assertLessEqual(values, migration_values[field], field)
+
+    def test_model_version_repair_is_collision_guarded_and_count_preserving(self):
+        migration = (JOB.parent.parent.parent / "supabase" / "migrations" /
+                     "20261007130000_repair_scorecard_model_version_metadata.sql").read_text()
+        self.assertIn("scorecard_model_version_repair_collisions", migration)
+        self.assertIn(
+            "abs(obsolete.observed_temperature_f - corrected.observed_temperature_f) <= 0.01",
+            migration,
+        )
+        self.assertIn(
+            "abs(obsolete.model_temperature_f - corrected.model_temperature_f) <= 0.01",
+            migration,
+        )
+        self.assertIn(
+            "v_mismatch_count::numeric / nullif(v_collision_count, 0)::numeric > 0.001",
+            migration,
+        )
+        self.assertIn("if v_mismatch_count <> 0", migration)
+        self.assertIn("if v_remaining_obsolete_count <> 0", migration)
+        self.assertIn("v_after_count <> v_before_count - v_deleted_count", migration)
+        self.assertIn("v_duplicate_identity_count <> 0", migration)
+        self.assertIn("perform 1 from public.lake_map_temperature_scorecard_weekly", migration)
 
     def test_schema_preflight_covers_cross_column_and_range_constraints(self):
         pair = pairing.pair_observation(observation(1), forecast(), LocationSampler())
