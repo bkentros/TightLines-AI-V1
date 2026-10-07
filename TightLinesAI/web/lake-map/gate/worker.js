@@ -125,7 +125,7 @@ function clientHeaders(input, setCookie, serverTiming, key = '') {
   return headers;
 }
 
-function immutableVersionedRequest(url, key) {
+export function immutableVersionedRequest(url, key) {
   if (key.startsWith('runs/')) return true;
   const version = url.searchParams.get('v');
   if (!version || !/^[a-f0-9]{8,64}$/i.test(version)) return false;
@@ -143,6 +143,21 @@ function edgeCacheKey(url) {
   key.searchParams.delete('t');
   key.searchParams.delete('app');
   return new Request(key.toString(), { method: 'GET' });
+}
+
+export function edgeCacheControl(key, immutable, existing) {
+  if (immutable) return 'public, max-age=31536000, immutable';
+  if (key === 'latest.json' || key === 'map/index.html') {
+    return 'public, max-age=60, must-revalidate';
+  }
+  return existing || 'public, max-age=60';
+}
+
+export function etagMatches(request, etag) {
+  const supplied = request.headers.get('if-none-match');
+  if (!supplied || !etag) return false;
+  const normalize = (value) => value.trim().replace(/^W\//, '');
+  return supplied.split(',').some((candidate) => candidate.trim() === '*' || normalize(candidate) === normalize(etag));
 }
 
 const DENIED = `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -246,6 +261,9 @@ export default {
           ['cache', performance.now() - cacheStarted, 'hit'],
         ]);
         const init = { status: hit.status, headers: clientHeaders(hit.headers, setCookie, timing, key) };
+        if (etagMatches(request, hit.headers.get('etag'))) {
+          return new Response(null, { status: 304, headers: init.headers });
+        }
         if (hit.headers.get('content-encoding')) init.encodeBody = 'manual';
         return new Response(hit.body, init);
       }
@@ -283,6 +301,7 @@ export default {
     if (cache && cacheKey && status === 200 && request.method === 'GET') {
       const storedHeaders = new Headers(headers);
       storedHeaders.delete('set-cookie');
+      storedHeaders.set('cache-control', edgeCacheControl(key, immutable, storedHeaders.get('cache-control')));
       const storedInit = { status, headers: storedHeaders };
       if (headers.get('content-encoding')) storedInit.encodeBody = 'manual';
       const put = cache.put(cacheKey, new Response(response.clone().body, storedInit));
