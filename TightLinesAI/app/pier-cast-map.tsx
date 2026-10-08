@@ -82,6 +82,12 @@ export default function PierCastMapScreen() {
   // one id per opening of this screen: retries and renewals never use a second free visit
   const visitId = useRef(Crypto.randomUUID());
   const passIssuedAt = useRef(0);
+  // Begin the first access request during render. The effect below remains the
+  // only place that commits its result to React state.
+  const [initialAccessRequest] = useState(
+    () => requestPierCastMapPass(visitId.current),
+  );
+  const initialAccessConsumed = useRef(false);
 
   const baseUrl = useMemo(() => pierCastLiveMapBaseUrl(), []);
   const pageUrl = useMemo(
@@ -116,7 +122,11 @@ export default function PierCastMapScreen() {
 
   const authorize = useCallback(async (renew: boolean) => {
     try {
-      const next = await requestPierCastMapPass(visitId.current);
+      const pending = !renew && !initialAccessConsumed.current
+        ? initialAccessRequest
+        : requestPierCastMapPass(visitId.current);
+      if (!renew) initialAccessConsumed.current = true;
+      const next = await pending;
       passIssuedAt.current = Date.now();
       if (renew) {
         webRef.current?.injectJavaScript(pierCastLiveMapRenewScript(next.pass));
@@ -139,7 +149,7 @@ export default function PierCastMapScreen() {
       setErrorDetail(caught instanceof Error ? caught.message : "Map access failed.");
       setState("error");
     }
-  }, []);
+  }, [initialAccessRequest]);
 
   useEffect(() => {
     void authorize(false);

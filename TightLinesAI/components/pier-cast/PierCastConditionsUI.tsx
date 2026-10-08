@@ -37,6 +37,7 @@ import type {
 import {
   fahrenheit,
   formatConditionsFreshness,
+  pierCastForecastDelayMessage,
   PIER_CAST_STATE_LABELS,
 } from "../../lib/pierCastConditionsPresentation";
 import type { PierCastSpeciesId } from "../../lib/pierCastContracts";
@@ -876,6 +877,63 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
 
 // ─── Report ───────────────────────────────────────────────────────────────
 
+function ReportSpeciesSwitcher({
+  report,
+  onSelect,
+}: {
+  report: PierCastCityReportReadV4;
+  onSelect: (speciesId: PierCastSpeciesId) => void;
+}) {
+  const options = [...report.species].sort((left, right) =>
+    Number(right.speciesId === report.selectedSpeciesId) -
+      Number(left.speciesId === report.selectedSpeciesId) ||
+    pierCastSpeciesName(left.speciesId).localeCompare(
+      pierCastSpeciesName(right.speciesId),
+    )
+  );
+  return (
+    <View style={styles.reportSpecies}>
+      <Text style={styles.reportSpeciesLabel}>REPORT SPECIES</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.reportSpeciesOptions}
+      >
+        {options.map((species) => {
+          const selected = species.speciesId === report.selectedSpeciesId;
+          const name = pierCastSpeciesName(species.speciesId);
+          return (
+            <Pressable
+              key={species.speciesId}
+              accessibilityRole="button"
+              accessibilityState={{ selected }}
+              accessibilityLabel={`${name} city report`}
+              onPress={() => {
+                if (!selected) {
+                  hapticSelection();
+                  onSelect(species.speciesId);
+                }
+              }}
+              style={({ pressed }) => [
+                styles.reportSpeciesOption,
+                selected && styles.reportSpeciesOptionOn,
+                pressed && styles.pressed,
+              ]}
+            >
+              <Text style={[
+                styles.reportSpeciesOptionText,
+                selected && styles.reportSpeciesOptionTextOn,
+              ]}>
+                {name}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
+    </View>
+  );
+}
+
 export function PierCastConditionsCityReport({
   city,
   cities,
@@ -883,6 +941,7 @@ export function PierCastConditionsCityReport({
   weather,
   weatherLoading,
   savedCopy,
+  onSelectReportSpecies,
   onOpenStandings,
   onOpenCity,
   onOpenMap,
@@ -893,6 +952,7 @@ export function PierCastConditionsCityReport({
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
   savedCopy?: boolean;
+  onSelectReportSpecies: (speciesId: PierCastSpeciesId) => void;
   onOpenStandings: (speciesId: PierCastSpeciesId) => void;
   onOpenCity: (cityId: string) => void;
   onOpenMap: () => void;
@@ -921,13 +981,24 @@ export function PierCastConditionsCityReport({
     ? fahrenheit(report.currentTemperature.temperatureC)
     : null;
   const daySelection = Math.min(selectedDay, Math.max(0, days.length - 1));
+  const delayMessage = pierCastForecastDelayMessage({
+    generatedAt: report.generatedAt,
+    disclosure: report.disclosure,
+    issuedAt: report.source.issuedAt,
+    cycleAgeHours: report.source.cycleAgeHours,
+    force: savedCopy,
+  });
 
   return (
     <View>
-      {savedCopy ? (
+      {delayMessage ? (
         <View style={styles.savedBanner}>
-          <Ionicons name="archive-outline" size={17} color={paper.dashboardBlue} />
-          <Text style={styles.savedBannerText}>Showing your last saved conditions report while a fresh report is unavailable.</Text>
+          <Ionicons name="time-outline" size={17} color={paper.dashboardBlue} />
+          <Text style={styles.savedBannerText}>
+            {savedCopy
+              ? `Showing your last saved conditions report. ${delayMessage}`
+              : delayMessage}
+          </Text>
         </View>
       ) : null}
       <Hero
@@ -936,6 +1007,10 @@ export function PierCastConditionsCityReport({
         waterNowF={waterNowF}
         onOpenStandings={onOpenStandings}
         reduceMotion={reduceMotion}
+      />
+      <ReportSpeciesSwitcher
+        report={report}
+        onSelect={onSelectReportSpecies}
       />
       <CityMapLink cityName={report.displayName} onPress={onOpenMap} />
       {days.length > 0 ? (
@@ -983,6 +1058,14 @@ const styles = StyleSheet.create({
 
   savedBanner: { flexDirection: "row", alignItems: "flex-start", gap: 8, margin: 14, marginBottom: 0, padding: 11, backgroundColor: "#EAF4F9", borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 10 },
   savedBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 18 },
+
+  reportSpecies: { marginTop: 12 },
+  reportSpeciesLabel: { marginTop: 12, marginHorizontal: 16, color: paper.dashboardInkSoft, fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4 },
+  reportSpeciesOptions: { gap: 8, paddingHorizontal: 14, paddingTop: 8, paddingBottom: 2 },
+  reportSpeciesOption: { minHeight: 38, justifyContent: "center", paddingHorizontal: 13, borderWidth: 1.5, borderColor: paper.dashboardLine, borderRadius: 19, backgroundColor: "#FFFFFF" },
+  reportSpeciesOptionOn: { borderColor: INK, backgroundColor: INK },
+  reportSpeciesOptionText: { color: INK, fontFamily: paperFonts.bodySemiBold, fontSize: 13 },
+  reportSpeciesOptionTextOn: { color: "#FFFFFF" },
 
   hero: { overflow: "hidden", backgroundColor: INK, paddingHorizontal: 20, paddingTop: 22, paddingBottom: 22 },
   heroTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10 },

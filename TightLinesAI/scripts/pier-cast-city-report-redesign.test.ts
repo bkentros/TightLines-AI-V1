@@ -260,12 +260,14 @@ test("chart model labels days on the x axis and °F on the y axis", () => {
   assert.ok(model.shifts.some((shift) => shift.label === "↓ DROP"));
 });
 
-test("report screen is city-first: no species selector, no request-a-city, no scores", () => {
+test("report screen is city-first with an in-report species switcher and no scores", () => {
   const ui = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
   const visuals = readFileSync("components/pier-cast/PierCastVisuals.tsx", "utf8");
   const standings = readFileSync("components/pier-cast/PierCastStandings.tsx", "utf8");
-  assert.doesNotMatch(ui, /PierCastTargetSelector|selectedSpeciesId|PierCastCoverageRequest/);
+  assert.doesNotMatch(ui, /PierCastTargetSelector|PierCastCoverageRequest/);
+  assert.match(ui, /selectedSpeciesId/);
+  assert.match(ui, /onSelectReportSpecies/);
   assert.doesNotMatch(ui, /score\.toFixed|\/10\b/);
   assert.match(ui, /FiveDayOutlook/);
   assert.match(ui, /Supported species at \$\{report\.displayName\}/);

@@ -27,6 +27,7 @@ import type {
 } from "../../lib/pierCastConditionsV4";
 import {
   formatConditionsFreshness,
+  pierCastForecastDelayMessage,
   PIER_CAST_SPECIES_LABELS,
   PIER_CAST_STATE_LABELS,
 } from "../../lib/pierCastConditionsPresentation";
@@ -1002,6 +1003,10 @@ export function PierCastStandings({
   const [expanded, setExpanded] = useState(false);
   const [unratedOpen, setUnratedOpen] = useState(false);
   const [sheet, setSheet] = useState<"species" | "info" | null>(null);
+  const delayMessage = pierCastForecastDelayMessage({
+    generatedAt: leaderboard.generatedAt,
+    disclosure: leaderboard.disclosure,
+  });
 
   const boardMatches = Boolean(
     selectedSpeciesId && leaderboard.selectedSpeciesId === selectedSpeciesId,
@@ -1101,6 +1106,13 @@ export function PierCastStandings({
         token={token}
         reduceMotion={reduceMotion}
       />
+
+      {delayMessage ? (
+        <View style={styles.delayBanner} accessibilityRole="alert">
+          <Ionicons name="time-outline" size={18} color={paper.dashboardBlue} />
+          <Text style={styles.delayBannerText}>{delayMessage}</Text>
+        </View>
+      ) : null}
 
       <View style={styles.target}>
         <View style={styles.targetHead}>
@@ -1503,6 +1515,8 @@ const styles = StyleSheet.create({
   freshness: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, marginTop: 14 },
   freshnessDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: paper.bandPrime },
   freshnessText: { fontFamily: paperFonts.metaMono, fontSize: 11, letterSpacing: 0.4, color: "rgba(255,255,255,0.66)" },
+  delayBanner: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginHorizontal: 14, marginTop: 14, padding: 11, backgroundColor: "#EAF4F9", borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 10 },
+  delayBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.bodySemiBold, fontSize: 13, lineHeight: 18 },
 
   target: {
     zIndex: 2,

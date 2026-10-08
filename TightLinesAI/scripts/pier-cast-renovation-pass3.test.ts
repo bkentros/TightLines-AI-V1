@@ -23,13 +23,14 @@ const client = read("lib/pierCast.ts");
 const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const contract = read("docs/PierCast_Renovation_Pass1_Product_Contract.md");
 
-test("first visit opens on the best salmon or trout and never saves the automatic pick", () => {
+test("first visit picks from summary metadata without a leaderboard fan-out", () => {
   assert.match(standings, /WHAT ARE YOU TARGETING\?/);
   assert.match(standings, /leaderboard\.selectionRequired/);
   assert.match(screen, /readPierCastTargetPreference/);
   assert.match(screen, /fetchPierCastConditionsLeaderboard\(requestedTarget \?\? undefined\)/);
-  assert.match(screen, /PIER_CAST_SALMONID_ORDER\.filter/);
-  assert.match(screen, /pickDefaultStandingsSpecies\(boards\)/);
+  assert.match(screen, /pickFallbackStandingsSpecies\(nextLeaderboard\.targetSpecies\)/);
+  assert.doesNotMatch(screen, /Promise\.allSettled\([\s\S]*candidates\.map/);
+  assert.doesNotMatch(screen, /PIER_CAST_SALMONID_ORDER\.filter/);
   assert.doesNotMatch(screen, /setSelectedSpeciesId\([^\n]*targetSpecies\[0\]/);
   const autoPick = screen.slice(screen.indexOf("if (!requestedTarget) {"), screen.indexOf("rememberLakes(seenBoards)"));
   assert.ok(autoPick.length > 0);

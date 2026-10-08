@@ -24,6 +24,19 @@ supabase/migrations/
 docs/
 tmp/
 assets/store-listing/
+web/
+legacy/
+# Large QA-only River Run fixtures are never imported by the mobile app.
+lib/riverRun*ReviewFixtures.generated.ts
+lib/riverRunReviewFixtures.ts
+lib/riverRunReviewFixtures.types.ts
+# Design/archive images that are not referenced by app code or app.json.
+assets/icon-before-after.png
+assets/icon-original-build13.png
+assets/icon-before-vertical-centering.png
+assets/icon-preview-*.png
+assets/ChatGPT Image May 14, 2026 at 06_32_32 PM.png
+assets/finfindr-launchpad-logo-transparent.png
 .tools/
 .venv-rembg/
 

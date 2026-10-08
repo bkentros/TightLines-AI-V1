@@ -75,7 +75,7 @@ test("city-first target changes are persisted and guarded against stale async re
   assert.match(screen, /cityReportRequest\.current !== reportRequestId/);
   assert.match(screen, /writePierCastTargetPreference\(speciesId\)/);
   assert.match(screen, /router\.setParams\(\{ speciesId \}\)/);
-  assert.match(screen, /await loadCityReport\(cityId, speciesId\)/);
+  assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
 });
 
 test("city reports are city-first and keep season separate from water fit", () => {

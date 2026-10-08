@@ -97,6 +97,37 @@ export function formatConditionsFreshness(
   return `Updated ${hours}h ago`;
 }
 
+export function pierCastForecastDelayMessage(input: {
+  generatedAt: string;
+  disclosure: string;
+  issuedAt?: string;
+  cycleAgeHours?: number;
+  force?: boolean;
+  now?: number;
+}): string | null {
+  const delayed = input.force === true ||
+    input.disclosure.includes("NOAA forecast delivery is delayed") ||
+    (Number.isFinite(input.cycleAgeHours) && input.cycleAgeHours! > 24);
+  if (!delayed) return null;
+
+  const now = input.now ?? Date.now();
+  const issuedAge = input.issuedAt === undefined
+    ? Number.NaN
+    : (now - Date.parse(input.issuedAt)) / 3_600_000;
+  const generatedAge = (now - Date.parse(input.generatedAt)) / 3_600_000;
+  const ageHours = input.force && Number.isFinite(issuedAge)
+    ? issuedAge
+    : Number.isFinite(input.cycleAgeHours)
+    ? input.cycleAgeHours!
+    : generatedAge;
+  if (!Number.isFinite(ageHours)) {
+    return "Forecast delayed — showing NOAA's latest available cycle.";
+  }
+  return `Forecast delayed — showing NOAA's latest available cycle from ${
+    Math.max(0, Math.round(ageHours))
+  }h ago`;
+}
+
 export function formatLocalContext(
   label: "established" | "documented" | "limited_evidence" | null,
 ): string {
