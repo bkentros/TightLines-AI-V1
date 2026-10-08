@@ -106,9 +106,6 @@ export default function PierCastReviewScreen() {
   const [preferenceHydrated, setPreferenceHydrated] = useState(Boolean(routeSpeciesId));
   const [selectionLoading, setSelectionLoading] = useState(false);
   const [selectedCityId, setSelectedCityId] = useState<string | null>(null);
-  const [reportFallback, setReportFallback] = useState<{
-    requestedSpeciesId: PierCastSpeciesId;
-  } | null>(null);
   const [showingSavedCopy, setShowingSavedCopy] = useState(false);
   const [paywall, setPaywall] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -277,7 +274,6 @@ export default function PierCastReviewScreen() {
     selectionRequest.current += 1;
     setSelectedCityId(null);
     setCityReport(null);
-    setReportFallback(null);
     setShowingSavedCopy(false);
     setLeaderboard(null);
     setCatalog(null);
@@ -320,9 +316,6 @@ export default function PierCastReviewScreen() {
         setCityReport((current) => current?.cityId === cityId ? report : current);
       } else {
         setCityReport(report);
-        setReportFallback(shownSpeciesId === selectionGuard ? null : {
-          requestedSpeciesId: selectionGuard,
-        });
         setSelectedCityId(cityId);
         setError(null);
         setForecastDelayed(false);
@@ -357,9 +350,6 @@ export default function PierCastReviewScreen() {
             setCityReport(shownSpeciesId === saved.envelope.report.selectedSpeciesId
               ? saved.envelope.report
               : { ...saved.envelope.report, selectedSpeciesId: shownSpeciesId });
-            setReportFallback(shownSpeciesId === selectionGuard ? null : {
-              requestedSpeciesId: selectionGuard,
-            });
             setShowingSavedCopy(true);
             setSelectedCityId(cityId);
             setError(null);
@@ -430,7 +420,6 @@ export default function PierCastReviewScreen() {
     const requestId = ++selectionRequest.current;
     selectedSpeciesRef.current = speciesId;
     setSelectedSpeciesId(speciesId);
-    setReportFallback(null);
     setError(null);
     setForecastDelayed(false);
     setLoading(false);
@@ -701,7 +690,6 @@ export default function PierCastReviewScreen() {
                 weather={weather}
                 weatherLoading={weatherLoading}
                 savedCopy={showingSavedCopy}
-                fallbackFromSpeciesId={reportFallback?.requestedSpeciesId ?? null}
                 onSelectReportSpecies={selectCityReportSpecies}
                 onOpenStandings={openStandingsFor}
                 onOpenCity={openFinderCity}

@@ -879,11 +879,9 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
 
 function ReportSpeciesSwitcher({
   report,
-  fallbackFromSpeciesId,
   onSelect,
 }: {
   report: PierCastCityReportReadV4;
-  fallbackFromSpeciesId: PierCastSpeciesId | null;
   onSelect: (speciesId: PierCastSpeciesId) => void;
 }) {
   const options = [...report.species].sort((left, right) =>
@@ -893,18 +891,8 @@ function ReportSpeciesSwitcher({
       pierCastSpeciesName(right.speciesId),
     )
   );
-  const substituted = fallbackFromSpeciesId !== null &&
-    fallbackFromSpeciesId !== report.selectedSpeciesId;
   return (
     <View style={styles.reportSpecies}>
-      {substituted ? (
-        <View style={styles.reportSpeciesNotice} accessibilityRole="alert">
-          <Ionicons name="swap-horizontal" size={18} color={paper.dashboardBlue} />
-          <Text style={styles.reportSpeciesNoticeText}>
-            {pierCastSpeciesName(fallbackFromSpeciesId)} isn&apos;t forecast here — showing {pierCastSpeciesName(report.selectedSpeciesId)}.
-          </Text>
-        </View>
-      ) : null}
       <Text style={styles.reportSpeciesLabel}>REPORT SPECIES</Text>
       <ScrollView
         horizontal
@@ -953,7 +941,6 @@ export function PierCastConditionsCityReport({
   weather,
   weatherLoading,
   savedCopy,
-  fallbackFromSpeciesId,
   onSelectReportSpecies,
   onOpenStandings,
   onOpenCity,
@@ -965,7 +952,6 @@ export function PierCastConditionsCityReport({
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
   savedCopy?: boolean;
-  fallbackFromSpeciesId: PierCastSpeciesId | null;
   onSelectReportSpecies: (speciesId: PierCastSpeciesId) => void;
   onOpenStandings: (speciesId: PierCastSpeciesId) => void;
   onOpenCity: (cityId: string) => void;
@@ -1024,7 +1010,6 @@ export function PierCastConditionsCityReport({
       />
       <ReportSpeciesSwitcher
         report={report}
-        fallbackFromSpeciesId={fallbackFromSpeciesId}
         onSelect={onSelectReportSpecies}
       />
       <CityMapLink cityName={report.displayName} onPress={onOpenMap} />
@@ -1075,8 +1060,6 @@ const styles = StyleSheet.create({
   savedBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 18 },
 
   reportSpecies: { marginTop: 12 },
-  reportSpeciesNotice: { flexDirection: "row", alignItems: "flex-start", gap: 8, marginHorizontal: 14, padding: 11, borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 10, backgroundColor: "#EAF4F9" },
-  reportSpeciesNoticeText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.bodySemiBold, fontSize: 13, lineHeight: 18 },
   reportSpeciesLabel: { marginTop: 12, marginHorizontal: 16, color: paper.dashboardInkSoft, fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4 },
   reportSpeciesOptions: { gap: 8, paddingHorizontal: 14, paddingTop: 8, paddingBottom: 2 },
   reportSpeciesOption: { minHeight: 38, justifyContent: "center", paddingHorizontal: 13, borderWidth: 1.5, borderColor: paper.dashboardLine, borderRadius: 19, backgroundColor: "#FFFFFF" },

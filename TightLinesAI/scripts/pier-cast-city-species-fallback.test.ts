@@ -27,13 +27,15 @@ test("fallback remains compatible with older reports without daily outlook", () 
   }, "lake_trout"), "brown_trout");
 });
 
-test("the 1.16 route bypasses the missing leaderboard row and explains the substitution", () => {
+test("the 1.16 route silently opens the best available species and keeps the switcher", () => {
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
   const report = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
 
   assert.match(screen, /finderReportSpecies\(city, target\)/);
   assert.match(screen, /loadCityReport\(cityId, reportSpeciesId, silent, target\)/);
   assert.match(screen, /pierCastReportSpeciesOrBest/);
-  assert.match(report, /isn&apos;t forecast here — showing/);
+  assert.doesNotMatch(report, /isn&apos;t forecast here — showing/);
+  assert.doesNotMatch(report, /fallbackFromSpeciesId/);
+  assert.match(report, /REPORT SPECIES/);
   assert.match(report, /accessibilityState=\{\{ selected \}\}/);
 });
