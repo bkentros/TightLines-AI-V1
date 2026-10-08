@@ -84,6 +84,7 @@ export type PierCastLmhofsDiagnostic = {
   code:
     | "cycle_not_complete"
     | "cycle_stale"
+    | "source_failover"
     | "request_failed"
     | "invalid_provider_payload";
   message: string;
@@ -177,10 +178,11 @@ export function buildPierCastLmhofsPointUrl(
   source: LmhofsSource,
   issuedAt: Date,
   forecastHour: number,
+  endpointTemplate = source.endpoint,
 ): string {
   const location = source.configuredLocation;
   const datasetUrl = buildPierCastLmhofsDatasetUrl(
-    source.endpoint,
+    endpointTemplate,
     issuedAt,
     forecastHour,
   );
@@ -252,7 +254,7 @@ export async function fetchPierCastLmhofsBatch(
     maxAttempts,
   });
 
-  if (!discovery.cycle) {
+  if (!discovery.cycle || !discovery.endpointTemplate) {
     return {
       status: "unavailable",
       issuedAt: null,
@@ -274,6 +276,7 @@ export async function fetchPierCastLmhofsBatch(
         fetchImpl,
         requestTimeoutMs: options.requestTimeoutMs ?? 15_000,
         maxAttempts,
+        endpointTemplate: discovery.endpointTemplate!,
       })
     )
   );
@@ -345,53 +348,73 @@ async function discoverLatestCompleteCycle(input: {
   maxAttempts: number;
 }): Promise<{
   cycle: PierCastLmhofsCycle | null;
+  endpointTemplate: string | null;
   diagnostics: PierCastLmhofsDiagnostic[];
 }> {
   const diagnostics: PierCastLmhofsDiagnostic[] = [];
+  const endpoints = officialLmhofsEndpoints(input.citySource.source.endpoint);
   for (
     const issuedAt of listPierCastLmhofsCycleCandidates(
       input.requestedAt,
       input.lookbackHours,
     )
   ) {
-    const result = await fetchPoint({
-      citySource: input.citySource,
-      issuedAt,
-      forecastHour: 120,
-      fetchImpl: input.fetchImpl,
-      requestTimeoutMs: input.requestTimeoutMs,
-      maxAttempts: input.maxAttempts,
-    });
-    if (!result.ok) {
-      diagnostics.push({
-        ...result.diagnostic,
-        code: result.diagnostic.code === "request_failed" &&
-            result.diagnostic.httpStatus === 404
-          ? "cycle_not_complete"
-          : result.diagnostic.code,
+    for (const [endpointIndex, endpointTemplate] of endpoints.entries()) {
+      const result = await fetchPoint({
+        citySource: input.citySource,
+        issuedAt,
+        forecastHour: 120,
+        fetchImpl: input.fetchImpl,
+        requestTimeoutMs: input.requestTimeoutMs,
+        maxAttempts: input.maxAttempts,
+        endpointTemplate,
       });
-      continue;
-    }
+      if (!result.ok) {
+        diagnostics.push({
+          ...result.diagnostic,
+          code: result.diagnostic.code === "request_failed" &&
+              result.diagnostic.httpStatus === 404
+            ? "cycle_not_complete"
+            : result.diagnostic.code,
+        });
+        continue;
+      }
 
-    const ageHours = (input.requestedAt.getTime() - issuedAt.getTime()) /
-      (60 * 60 * 1000);
-    const freshnessLimit = input.citySource.source.freshnessLimitHours;
-    if (ageHours > freshnessLimit) {
-      diagnostics.push({
-        code: "cycle_stale",
-        message: `Latest complete LMHOFS cycle is ${
-          ageHours.toFixed(2)
-        } hours old; limit is ${freshnessLimit}.`,
-        sourceUrl: result.sample.sourceUrl,
-      });
-      return { cycle: null, diagnostics };
+      const ageHours = (input.requestedAt.getTime() - issuedAt.getTime()) /
+        (60 * 60 * 1000);
+      const freshnessLimit = input.citySource.source.freshnessLimitHours;
+      if (ageHours > freshnessLimit) {
+        diagnostics.push({
+          code: "cycle_stale",
+          message: `Latest complete LMHOFS cycle is ${
+            ageHours.toFixed(2)
+          } hours old; limit is ${freshnessLimit}.`,
+          sourceUrl: result.sample.sourceUrl,
+        });
+        return { cycle: null, endpointTemplate: null, diagnostics };
+      }
+      if (endpointIndex > 0) {
+        diagnostics.push({
+          code: "source_failover",
+          message:
+            "Primary NOAA CO-OPS THREDDS was unavailable; using the independent NOAA CO-OPS development THREDDS distribution.",
+          sourceUrl: result.sample.sourceUrl,
+        });
+      }
+      return {
+        cycle: { issuedAt: issuedAt.toISOString(), ageHours },
+        endpointTemplate,
+        diagnostics,
+      };
     }
-    return {
-      cycle: { issuedAt: issuedAt.toISOString(), ageHours },
-      diagnostics,
-    };
   }
-  return { cycle: null, diagnostics };
+  return { cycle: null, endpointTemplate: null, diagnostics };
+}
+
+function officialLmhofsEndpoints(primary: string): string[] {
+  const marker = "/thredds/dodsC/NOAA/LMHOFS/";
+  if (!primary.includes(marker)) return [primary];
+  return [primary, primary.replace(marker, "/threddsdev/dodsC/NOAA/LMHOFS/")];
 }
 
 async function fetchPoint(input: {
@@ -401,6 +424,7 @@ async function fetchPoint(input: {
   fetchImpl: PierCastLmhofsFetch;
   requestTimeoutMs: number;
   maxAttempts: number;
+  endpointTemplate?: string;
 }): Promise<PointFetchResult> {
   const { cityId, source } = input.citySource;
   const location = source.configuredLocation;
@@ -408,6 +432,7 @@ async function fetchPoint(input: {
     source,
     input.issuedAt,
     input.forecastHour,
+    input.endpointTemplate,
   );
   for (let attempt = 1; attempt <= input.maxAttempts; attempt += 1) {
     const controller = new AbortController();
