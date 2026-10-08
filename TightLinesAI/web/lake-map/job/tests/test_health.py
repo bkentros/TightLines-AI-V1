@@ -27,7 +27,7 @@ class HealthTest(unittest.TestCase):
         problems = health.evaluate(NOW, 200, old, FRESH_MAP, FRESH_OBS)
         self.assertEqual(len(problems), 1)
         self.assertIn("fallback", problems[0])
-        self.assertIn("36 h", problems[0])
+        self.assertIn("extended fallback active", problems[0])
 
     def test_first_missed_cycle_alerts_after_the_publication_window(self):
         old = FRESH_PC.replace("2026-10-02T06:00:00Z", "2026-10-02T02:59:59Z")

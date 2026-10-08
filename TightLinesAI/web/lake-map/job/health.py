@@ -58,7 +58,7 @@ def evaluate(now: datetime, piercast_status: int | None, piercast_body: str,
         if not ages:
             problems.append("PierCast standings carry no NOAA issue time.")
         elif min(ages) > PIERCAST_FRESH_HOURS:
-            problems.append(f"PierCast is serving a NOAA cycle {min(ages):.1f} h old (36 h fallback active): "
+            problems.append(f"PierCast is serving a NOAA cycle {min(ages):.1f} h old (extended fallback active): "
                             "an ingest cohort missed its cycle; check pier-cast-ingest responses in net._http_response.")
     if not map_latest:
         problems.append("Live Lake Map latest.json is missing or unreadable in R2.")

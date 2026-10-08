@@ -44,9 +44,11 @@ import { projectPublicV3Outlook } from "./publicV3.ts";
 import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
 import { createPierCastMapFoundationReader } from "../_shared/pierCastMapFoundation.ts";
 import {
-  extendedFallbackArchiveTime,
+  extendedFallbackArchiveTimes,
   extendedFallbackCycleAgeHours,
+  forecastHorizonIncludes,
   labelDelayedForecast,
+  PIER_CAST_EXPIRED_FORECAST_MESSAGE,
 } from "./outageFallback.ts";
 
 const database = createClient(
@@ -184,18 +186,21 @@ async function readPublicV3Batch(now: Date) {
     return { batch: fallback, delayed: false };
   }
 
-  // NOAA's production THREDDS service can remain unavailable beyond one day.
-  // Its archive RPCs deliberately accept at most 24 hours, so shift only the
-  // read clock and independently enforce a hard 36-hour public ceiling here.
-  // This does not change database functions or persist any stale snapshot.
-  const extended = await readV3Batch(
-    extendedFallbackArchiveTime(now),
-    PUBLIC_FALLBACK_HOURS,
-  );
+  // Archive RPCs remain bounded to 24 hours. Read the two older 24-hour
+  // windows in order, stopping as soon as the newest coherent cycle is found.
+  // This changes no database function and persists no stale snapshot.
+  let extended: Awaited<ReturnType<typeof readV3Batch>> = null;
+  for (const archiveTime of extendedFallbackArchiveTimes(now)) {
+    extended = await readV3Batch(archiveTime, PUBLIC_FALLBACK_HOURS);
+    if (extended) break;
+  }
   const cycleAgeHours = extended
     ? extendedFallbackCycleAgeHours(now, extended.issuedAt)
     : null;
-  if (extended && cycleAgeHours !== null) {
+  if (
+    extended && cycleAgeHours !== null &&
+    forecastHorizonIncludes(extended, now)
+  ) {
     const batch = { ...extended, cycleAgeHours };
     console.warn(JSON.stringify({
       event: "pier_cast_public_noaa_outage_fallback",
@@ -217,13 +222,20 @@ async function readPublicV3Batch(now: Date) {
 async function readPublicOutlook() {
   const now = new Date();
   const selected = await readPublicV3Batch(now);
+  if (!selected) {
+    throw new PierCastAccessError(
+      "pier_cast_conditions_unavailable",
+      PIER_CAST_EXPIRED_FORECAST_MESSAGE,
+      503,
+    );
+  }
   const outlook = selected
     ? buildPierCastV3ReviewOutlook({
       batch: selected.batch,
       evaluationTime: now.toISOString(),
     })
     : null;
-  if (!outlook || !selected) return null;
+  if (!outlook) return null;
   const projected = projectPublicV3Outlook(outlook);
   return selected.delayed
     ? labelDelayedForecast(
@@ -237,7 +249,13 @@ async function readPublicOutlook() {
 async function readConditionsOutlook() {
   const now = new Date();
   const selected = await readPublicV3Batch(now);
-  if (!selected) return null;
+  if (!selected) {
+    throw new PierCastAccessError(
+      "pier_cast_conditions_unavailable",
+      PIER_CAST_EXPIRED_FORECAST_MESSAGE,
+      503,
+    );
+  }
   const outlook = buildPierCastConditionsV4OutlookFromBatch({
     batch: selected.batch,
     evaluationTime: now.toISOString(),
