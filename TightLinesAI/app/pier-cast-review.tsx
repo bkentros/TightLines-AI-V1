@@ -46,7 +46,6 @@ import {
   mergePierCastCityLakes,
   PIER_CAST_SALMONID_ORDER,
   type PierCastLakeFilter,
-  pickDefaultStandingsSpecies,
   pickFallbackStandingsSpecies,
 } from "../lib/pierCastStandingsPresentation";
 import {
@@ -183,41 +182,46 @@ export default function PierCastReviewScreen() {
     const requestedTarget = selectedSpeciesRef.current;
     const requestId = ++selectionRequest.current;
     try {
-      const [nextCatalog, nextLeaderboard] = await Promise.all([
-        fetchPierCastConditionsCatalog(),
-        fetchPierCastConditionsLeaderboard(requestedTarget ?? undefined),
-      ]);
+      // Start both calls together, but publish the catalog first. A map
+      // deep-link can then open its report without waiting for standings.
+      const catalogRequest = fetchPierCastConditionsCatalog();
+      const leaderboardRequest = fetchPierCastConditionsLeaderboard(requestedTarget ?? undefined)
+        .then(
+          (value) => ({ ok: true as const, value }),
+          (error: unknown) => ({ ok: false as const, error }),
+        );
+      const nextCatalog = await catalogRequest;
       if (accountId.current !== userId) return;
       setCatalog(nextCatalog);
+      setSelectedCityId((current) =>
+        nextCatalog.cities.some((city) => city.cityId === current) ? current : null
+      );
+      // A routed city report only needs the catalog. Keep the standings fetch
+      // running, but let the report request control the remaining loading UI.
+      if (routeCityId && !silent) setLoading(false);
+
+      const leaderboardResult = await leaderboardRequest;
+      if (!leaderboardResult.ok) throw leaderboardResult.error;
+      const nextLeaderboard = leaderboardResult.value;
+      if (accountId.current !== userId) return;
       let board = nextLeaderboard;
       const seenBoards = [nextLeaderboard];
       if (!requestedTarget) {
-        // First visit (no remembered target): open on the salmon/trout whose
-        // #1 city is best today. The automatic pick is not saved as a
-        // preference, so it is re-evaluated on every visit until the angler
-        // chooses a species themselves.
-        const candidates = PIER_CAST_SALMONID_ORDER.filter((speciesId) =>
-          nextLeaderboard.targetSpecies.some((option) => option.speciesId === speciesId)
-        );
-        const settled = await Promise.allSettled(
-          candidates.map((speciesId) => fetchPierCastConditionsLeaderboard(speciesId)),
-        );
-        const boards = settled.flatMap((result) =>
-          result.status === "fulfilled" ? [result.value] : []
-        );
-        seenBoards.push(...boards);
-        let picked = pickDefaultStandingsSpecies(boards);
-        let pickedBoard = boards.find((candidate) => candidate.selectedSpeciesId === picked) ?? null;
-        if (!picked) {
-          const fallback = pickFallbackStandingsSpecies(nextLeaderboard.targetSpecies);
-          if (fallback) {
-            try {
-              pickedBoard = await fetchPierCastConditionsLeaderboard(fallback);
-              seenBoards.push(pickedBoard);
-              picked = fallback;
-            } catch {
-              pickedBoard = null;
-            }
+        // Use the response's species summary and fetch at most one selected
+        // board. This replaces the old six-species first-visit fan-out.
+        const picked = pickFallbackStandingsSpecies(nextLeaderboard.targetSpecies) ??
+          PIER_CAST_SALMONID_ORDER.find((speciesId) =>
+            nextLeaderboard.targetSpecies.some((option) => option.speciesId === speciesId)
+          ) ?? null;
+        let pickedBoard = picked === nextLeaderboard.selectedSpeciesId
+          ? nextLeaderboard
+          : null;
+        if (picked && !pickedBoard) {
+          try {
+            pickedBoard = await fetchPierCastConditionsLeaderboard(picked);
+            seenBoards.push(pickedBoard);
+          } catch {
+            pickedBoard = null;
           }
         }
         if (
@@ -240,12 +244,9 @@ export default function PierCastReviewScreen() {
         setSelectionLoading(false);
         setError(null);
       }
-      setSelectedCityId((current) =>
-        nextCatalog.cities.some((city) => city.cityId === current) ? current : null
-      );
     } catch (caught) {
       if (
-        !silent && selectionRequest.current === requestId &&
+        !routeCityId && !silent && selectionRequest.current === requestId &&
         selectedSpeciesRef.current === requestedTarget
       ) {
         setRouteReportLoading(false);
@@ -260,7 +261,7 @@ export default function PierCastReviewScreen() {
     } finally {
       if (!silent) setLoading(false);
     }
-  }, [preferenceHydrated, rememberLakes, user?.id]);
+  }, [preferenceHydrated, rememberLakes, routeCityId, user?.id]);
 
   useEffect(() => {
     selectionRequest.current += 1;
@@ -419,6 +420,9 @@ export default function PierCastReviewScreen() {
     setSelectionLoading(true);
     void writePierCastTargetPreference(speciesId);
     router.setParams({ speciesId });
+    // The report and standings are independent. Start the report immediately
+    // so a city tap never waits on the leaderboard request.
+    void loadCityReport(cityId, speciesId);
     try {
       const next = await fetchPierCastConditionsLeaderboard(speciesId);
       rememberLakes([next]);
@@ -427,18 +431,9 @@ export default function PierCastReviewScreen() {
         selectedSpeciesRef.current !== speciesId
       ) return;
       setLeaderboard(next);
-      if (!next.cities.some((candidate) => candidate.cityId === cityId)) {
-        setError("This target species is not available for the selected PierCast city.");
-        return;
-      }
-      await loadCityReport(cityId, speciesId);
-    } catch (caught) {
-      if (
-        selectionRequest.current === requestId &&
-        selectedSpeciesRef.current === speciesId
-      ) {
-        setError(caught instanceof Error ? caught.message : "The city report could not load.");
-      }
+    } catch {
+      // The city report owns its own error state. A standings refresh failure
+      // must not replace or block a report that is already loading.
     } finally {
       if (selectedSpeciesRef.current === speciesId) setSelectionLoading(false);
     }
@@ -477,7 +472,7 @@ export default function PierCastReviewScreen() {
   }, [cityReport, rememberLakes, router]);
 
   useEffect(() => {
-    if (!routeCityId || !catalog || !leaderboard || !selectedSpeciesId) {
+    if (!routeCityId || !catalog || !selectedSpeciesId) {
       if (routeCityId && preferenceHydrated && !selectedSpeciesId) setRouteReportLoading(false);
       return;
     }
@@ -491,7 +486,7 @@ export default function PierCastReviewScreen() {
     routeOpenedCity.current = routeCityId;
     setRouteReportLoading(true);
     void openCity(routeCityId).finally(() => setRouteReportLoading(false));
-  }, [catalog, leaderboard, openCity, preferenceHydrated, routeCityId, selectedSpeciesId]);
+  }, [catalog, openCity, preferenceHydrated, routeCityId, selectedSpeciesId]);
 
   useEffect(() => {
     if (!selectedCityId) return;
@@ -677,7 +672,7 @@ export default function PierCastReviewScreen() {
               onAction={() => void load()}
             />
           </View>
-        ) : catalog && leaderboard ? (
+        ) : catalog ? (
           selectedCity ? (
             cityReport && selectedSpeciesId ? (
               <PierCastConditionsCityReport
@@ -702,7 +697,7 @@ export default function PierCastReviewScreen() {
             ) : (
               <PierCastConditionsSkeleton />
             )
-          ) : (
+          ) : leaderboard ? (
             <PierCastStandings
               catalog={catalog}
               leaderboard={leaderboard}
@@ -722,7 +717,7 @@ export default function PierCastReviewScreen() {
                 <PierCastCoverageRequest profile={profile} user={user} city={null} cities={catalog.cities} />
               }
             />
-          )
+          ) : <PierCastStandingsSkeleton />
         ) : null}
       </ScrollView>
       <SubscribePrompt

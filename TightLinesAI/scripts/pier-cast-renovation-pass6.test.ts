@@ -75,8 +75,9 @@ test("unsupported city targets route to a supported species and stale requests a
   assert.match(standingsRules, /PIER_CAST_SALMONID_ORDER\.find/);
   assert.match(screen, /city\.supportedSpeciesIds\.includes\(speciesId\)/);
   assert.match(standingsRules, /Closed to targeting here/);
-  assert.match(screen, /leaderboard\?\.selectedSpeciesId !== target/);
-  assert.match(screen, /selectedSpeciesRef\.current !== target/);
+  assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
+  assert.match(screen, /if \(!routeCityId \|\| !catalog \|\| !selectedSpeciesId\)/);
+  assert.match(screen, /selectedSpeciesRef\.current !== selectionGuard/);
 });
 
 test("loading, stale, missing, restricted, access, and long-copy states are explicit", () => {

@@ -191,6 +191,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'PierCast rankings combine a typical seasonal outlook for your target species with modeled nearshore water temperature. They are planning estimates, not observations of fish, catch probabilities, or statements that a pier is open, accessible, safe, or productive.',
           'Water temperature, wind, wave, and current forecasts on PierCast and the Live Lake Map come from NOAA Great Lakes forecast models and other public sources. Model values describe broad areas and can differ substantially from conditions at a specific pier, beach, or depth, especially near shore, during upwelling, and around storms.',
+          'Temperatures below the surface are modeled estimates.',
           'Wave heights shown are modeled averages. Individual waves can be much larger, nearly twice the height shown, and conditions can change faster than forecasts update.',
           'Buoy, station, and sensor readings are provided by third parties such as NOAA and the Great Lakes Observing System. They may be delayed, offline, provisional, or incorrect, and describe only the instrument\'s location.',
           'Weather alerts shown on the map come from the National Weather Service and may be incomplete, delayed, or missing. The map is not a warning service. Check weather.gov and official alerts before and during any trip.',
