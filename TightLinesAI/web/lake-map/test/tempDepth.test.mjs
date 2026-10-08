@@ -21,13 +21,11 @@ import {
   tempDepthEnabled,
 } from '../src/engine/tempDepth.js';
 
-test('Temp at depth feature resolves off, labs and on without changing the off default', () => {
+test('Temp at depth has only explicit off/on launch states', () => {
   assert.equal(featureState(null), 'off');
   assert.equal(featureState({ tempDepth: 'unexpected' }), 'off');
-  assert.equal(tempDepthEnabled({ tempDepth: 'off' }, { labsUnlocked: true, labsQuery: true }), false);
+  assert.equal(tempDepthEnabled({ tempDepth: 'off' }), false);
   assert.equal(tempDepthEnabled({ tempDepth: 'labs' }), false);
-  assert.equal(tempDepthEnabled({ tempDepth: 'labs' }, { labsUnlocked: true }), true);
-  assert.equal(tempDepthEnabled({ tempDepth: 'labs' }, { labsQuery: true }), true);
   assert.equal(tempDepthEnabled({ tempDepth: 'on' }), true);
   assert.equal(resolveInitialMapLayer('temp_depth'), 'temp', 'off preserves the production layer set');
   assert.equal(resolveInitialMapLayer('temp_depth', { tempDepth: true }), 'temp_depth');
@@ -73,6 +71,8 @@ test('the page exposes inline and readout pickers without the retired floating c
   assert.match(page, /id="ro-depth"[^>]+aria-controls="depth-popover"/);
   assert.match(page, /#ro-depth\{min-height:44px/);
   assert.match(page, /\.depth-segments button\{[^}]*min-height:44px/);
+  assert.match(page, /id="temp-depth-status"/);
+  assert.match(shell, /Unavailable for this forecast cycle/);
   assert.doesNotMatch(page, /depth-chip/);
   assert.match(shell, /depthRowOpen = !depthRowOpen/);
   assert.match(shell, /changeDepth\(event, 'sheet'\)/);
