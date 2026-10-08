@@ -188,6 +188,7 @@ def build_temperature(cycles, t0, log, workers):
     for src in sources:
         log(f"{src['model']['id']}: minimum 0.01° lake-domain coverage {src['gridCoverageMin']:.1%}")
     info = [{"model": s["model"]["id"], "lakes": s["model"]["lakes"], "cycle": iso(s["lm"].cycle),
+             "distribution": s["lm"].distribution,
              "hoursBehind": 0, "hoursReceived": len(s["hours"]),
              "sourceCoverageMin": round(s["nativeCoverageMin"], 6),
              "gridCoverageMin": round(s["gridCoverageMin"], 6),

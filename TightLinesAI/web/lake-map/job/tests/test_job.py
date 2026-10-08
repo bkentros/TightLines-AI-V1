@@ -190,6 +190,30 @@ class CycleTest(unittest.TestCase):
         self.assertEqual(c[1], CYCLE - timedelta(hours=6))
         self.assertTrue(all(x.hour in (1, 7, 13, 19) for x in waves.cycle_candidates(NOW)))
 
+    def test_noaa_aws_is_used_when_thredds_distribution_is_down(self):
+        model = next(model for model in build.OFS_MODELS if model["id"] == "LMHOFS")
+        with patch.object(ofs.net, "fetch", side_effect=net.HttpError(503, "https://noaa.test")), patch.object(
+            ofs.net, "head", return_value={"content-length": "1"}
+        ) as head:
+            self.assertEqual(ofs.discover(model, NOW, 6), CYCLE)
+        self.assertIn("noaa-nos-ofs-pds.s3.amazonaws.com", head.call_args.args[0])
+        self.assertIn("fields.f120.nc", head.call_args.args[0])
+
+    def test_lake_model_falls_back_to_native_aws_surface(self):
+        model = next(model for model in build.OFS_MODELS if model["id"] == "LMHOFS")
+        lat = np.array([43.0, 43.01, 43.0, 43.01])
+        lon = np.array([-87.0, -87.0, -86.99, -86.99])
+        depth = np.full(4, 50.0)
+        with patch.object(ofs.net, "fetch", side_effect=net.HttpError(503, "https://noaa.test")), patch.object(
+            ofs, "_aws_grid", return_value=(lat, lon, depth)
+        ), patch.object(ofs, "_aws_surface_temp", return_value=np.array([10.0, 11.0, -99999.0, 12.0])):
+            lake = ofs.LakeModel(model, CYCLE)
+            values = lake.surface_temp_c(0)
+        self.assertEqual(lake.distribution, "NOAA_NODD_AWS")
+        self.assertEqual(len(lake.lat), 4)
+        np.testing.assert_allclose(values[[0, 1, 3]], [10.0, 11.0, 12.0])
+        self.assertTrue(np.isnan(values[2]))
+
     def test_workflow_checks_noaa_release_windows_without_exceeding_budget(self):
         root_workflow = JOB.parents[3] / ".github/workflows/lake-map-data.yml"
         mirror_workflow = JOB / "lake-map-data.workflow.yml"
@@ -326,6 +350,7 @@ class FullRunTest(unittest.TestCase):
         self.assertEqual(m["grids"]["temp"]["width"], 1661)
         self.assertEqual([s["model"] for s in m["sources"]["temp"]], ["LMHOFS"])
         self.assertEqual(m["sources"]["temp"][0]["hoursReceived"], 121)
+        self.assertEqual(m["sources"]["temp"][0]["distribution"], "NOAA_COOPS_THREDDS")
         self.assertGreaterEqual(m["sources"]["temp"][0]["sourceCoverageMin"], 0.98)
         self.assertGreaterEqual(m["sources"]["temp"][0]["gridCoverageMin"], 0.97)
         self.assertEqual(m["sources"]["waves"]["cycle"], "2026-09-30T13:00:00Z")
