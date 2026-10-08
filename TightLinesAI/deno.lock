@@ -5278,6 +5278,7 @@
         "npm:expo-sqlite@~55.0.20",
         "npm:expo-status-bar@~55.0.6",
         "npm:expo-system-ui@~55.0.22",
+        "npm:expo-updates@~55.0.33",
         "npm:expo@~55.0.31",
         "npm:patch-package@^8.0.1",
         "npm:pdfjs-dist@^4.10.38",
