@@ -89,6 +89,56 @@ responses; no network).
 `gen/geo.mjs` builds the prototype's vector layers; the production shoreline
 comes from OpenStreetMap land polygons.
 
+### Temp at depth data (feature branch / staging)
+
+`job/depth.py` is a separate, non-blocking producer that starts only after a
+surface publish. It reads the immutable surface pointer, downloads NOAA's
+regular-grid z-level slab every three forecast hours, interpolates 10, 20, 30,
+40 and 50 ft, and writes `runs/tdepth-<surface-run>/…`. The deeper reviewed
+depths (75/100/150 ft) remain available in config but are not published. Each
+depth has its own FrameStore-compatible manifest; `runs/tdepth/latest.json` is
+written only after every frame, manifest, verification sidecar and timing file.
+A failed depth run therefore cannot change either surface data or the previous
+complete depth pointer.
+
+The isolated staging resources are `piercast-lake-map-staging` and
+`https://piercast-map-gate-staging.finfindr.workers.dev`. The staging Worker has
+no custom-domain route or observation cron. For owner dev-build testing it uses
+the same pass-verification secret as production, while its only R2 binding remains
+the staging bucket, so an app-issued pass cannot reach production through staging.
+`gate/wrangler.staging.toml`, `gate/setup-staging.sh`,
+`gate/create-staging-r2-credentials.py`, `job/copy_run_to_staging.py`, and
+`static-build/feature.py` are the staging setup tools. Staging depth objects
+under `runs/tdepth-` expire after 14 days.
+
+The active workflow is `.github/workflows/lake-map-data.yml`. Its checked-in
+mirror under `job/` stays byte-identical; the parity test prevents either copy
+from drifting.
+
+For owner testing, set staging `map/features.json` to `on` with
+`R2_BUCKET=piercast-lake-map-staging .venv/bin/python static-build/feature.py
+tempDepth on`. The launch has no Labs or hidden-device unlock path; production
+rollback is the same command with `off`. Browser testers can generate a signed staging link without
+printing any stored secret by running:
+
+```sh
+PIER_CAST_LIVE_MAP_URL=https://piercast-map-gate-staging.finfindr.workers.dev \
+  .venv/bin/python static-build/test_pass.py
+```
+
+To open the staging map from an already-installed development build, start a
+one-off Metro session from `TightLinesAI/` (use any free port):
+
+```sh
+EXPO_PUBLIC_PIER_CAST_LIVE_MAP_URL=https://piercast-map-gate-staging.finfindr.workers.dev \
+  npx expo start --dev-client --host lan --port 8082
+```
+
+Scan Metro's QR code from the development build. This does not modify `.env` or
+committed app code. The binary must already contain `react-native-webview`; an
+`RNCWebViewModule could not be found` error means the installed dev binary is
+older than the live-map native dependency.
+
 
 The `gen/` scripts read the prototype's source geometry (GLATOS shoreline, Natural Earth
 lakes, us-atlas borders) from a local folder; phase 3 moves this into the data job.

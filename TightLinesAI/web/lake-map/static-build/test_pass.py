@@ -25,14 +25,18 @@ def b64u(raw: bytes) -> str:
 
 
 def read_secret() -> str:
-    if os.environ.get("PIER_CAST_MAP_PASS_SECRET"):
-        return os.environ["PIER_CAST_MAP_PASS_SECRET"]
+    # The isolated staging Worker deliberately shares pass verification with
+    # production so owner dev-build passes and browser links exercise one auth
+    # contract. Its R2 binding still points only at the staging bucket.
+    name = "PIER_CAST_MAP_PASS_SECRET"
+    if os.environ.get(name):
+        return os.environ[name]
     if ENV.exists():
         for line in ENV.read_text(errors="replace").splitlines():
-            m = re.match(r"^\s*(?:export\s+)?PIER_CAST_MAP_PASS_SECRET\s*[=:]\s*['\"]?([^'\"\s]+)", line)
+            m = re.match(rf"^\s*(?:export\s+)?{name}\s*[=:]\s*['\"]?([^'\"\s]+)", line)
             if m:
                 return m.group(1)
-    sys.exit("PIER_CAST_MAP_PASS_SECRET not found in .env — run web/lake-map/gate/setup.sh first.")
+    sys.exit(f"{name} not found in .env — run the matching gate setup script first.")
 
 
 def make_pass(secret: str, hours: float = 24) -> str:

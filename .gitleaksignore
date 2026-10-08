@@ -6,6 +6,9 @@
 
 # Exact historical false positives introduced before the scanner was pinned:
 # generated PierCast research fixtures, public-source metadata, and checksums.
+# Temp-at-depth Pass 3 records a Cloudflare Worker deployment version UUID,
+# not credential material. Its rebase-specific fingerprint is scoped exactly.
+9e543c966ee5731c13b3923090095a5cefbc6e4a:Claude outputs/temp-at-depth/pass3/Validation-Report.md:generic-api-key:31
 b5d576cc63de607844e61e6d0d5f87bfe42d421c:TightLinesAI/scripts/pier-cast-renovation-pass1.test.ts:generic-api-key:295
 a133f68da0a9b25c9c24db38a41198a5d73e9eda:TightLinesAI/docs/onboarding/piercast/st-joseph-harrisville-2026-09-pass1/michigan-creel-pier-dock-raw.json:generic-api-key:7
 654b5919e73dfe3b8cd1857637748735f6810a71:TightLinesAI/docs/onboarding/piercast/five-city-2026-09-pass1/generate-decisions.mjs:generic-api-key:35

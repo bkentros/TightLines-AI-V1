@@ -24,6 +24,8 @@ HOURS = 121  # forecast hours 0..120, hourly
 # these data-only constants here does not publish or enable Temp at depth.
 TEMP_DEPTHS_FT = (10, 20, 30, 40, 50)
 TEMP_DEPTHS_AVAILABLE_FT = (10, 20, 30, 40, 50, 75, 100, 150)
+DEPTH_STEP_HOURS = 3
+PAGE_FEATURES = ("tempDepth",)
 
 # How far (in output cells) water values are extended onto land so the land
 # layer never shows a gap along the shore.

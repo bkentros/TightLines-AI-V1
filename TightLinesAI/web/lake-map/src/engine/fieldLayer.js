@@ -14,6 +14,19 @@ import { gridBox, packScalarTexturePixels, packScalarHalfPixels, halfCenter, onF
 
 /** Textures kept on the GPU around the playhead (hours behind / ahead); the rest stay decoded on the CPU only. */
 export const GPU_BEHIND = 2, GPU_AHEAD = 4;
+export const SHALLOW_MASK_FEATHER_FT = 1.5;
+export const SHALLOW_WASH_ALPHA = 0.28;
+
+/** CPU mirror of the depth-mask shader, used by geometry/edge regression tests. */
+export function bilinearDepth(corners, x, y) {
+  const [nw, ne, sw, se] = corners;
+  return (nw * (1 - x) + ne * x) * (1 - y) + (sw * (1 - x) + se * x) * y;
+}
+
+export function shallowDepthMix(depthFt, selectedFt, featherFt = SHALLOW_MASK_FEATHER_FT) {
+  const t = Math.max(0, Math.min(1, (depthFt - (selectedFt - featherFt)) / (2 * featherFt)));
+  return t * t * (3 - 2 * t);
+}
 
 const VS = `#version 300 es
 in vec2 a_pos;
@@ -26,6 +39,7 @@ precision highp float;
 in vec2 v_merc;
 out vec4 outColor;
 uniform sampler2D u_a, u_b, u_p, u_n, u_pal; // hours a, b and the ones before (p) / after (n)
+uniform sampler2D u_depth; // surface-run bathymetry; LINEAR filtered for the shallow mask
 uniform float u_mix;
 uniform float u_cubic;   // 1 = p and n are bound: smooth motion across hours
 uniform vec2 u_lin;      // scalar texture -> native: value = stored * x + y
@@ -42,17 +56,23 @@ uniform float u_species; // 1 = highlight u_sp (native °F window)
 uniform vec2 u_sp;
 uniform float u_relief;  // relief strength
 uniform float u_opacity;
+uniform float u_strict_mask; // depth temperatures: draw the soft bathymetry mask
+uniform vec4 u_depth_dom;
+uniform vec2 u_depth_size;
+uniform vec2 u_depth_lin;
+uniform float u_depth_ft;
 const float PI = 3.141592653589793;
 const float BAND_EPS = ${BAND_EPS.toFixed(6)};  // bands; see scales.js
 const float FLAT = 1e-5;       // smaller per-pixel change than this = flat water, no edge line
 const float SP_EPS = 0.004;    // °F
 
-vec2 gridUV(vec2 merc) {
+vec2 gridUVFor(vec2 merc, vec4 dom, vec2 size) {
   float lon = merc.x * 360.0 - 180.0;
   float lat = degrees(atan(sinh(PI * (1.0 - 2.0 * merc.y))));
-  vec2 g = vec2((lon - u_dom.x) / (u_dom.y - u_dom.x), (u_dom.w - lat) / (u_dom.w - u_dom.z));
-  return (g * (u_size - 1.0) + 0.5) / u_size;
+  vec2 g = vec2((lon - dom.x) / (dom.y - dom.x), (dom.w - lat) / (dom.w - dom.z));
+  return (g * (size - 1.0) + 0.5) / size;
 }
+vec2 gridUV(vec2 merc) { return gridUVFor(merc, u_dom, u_size); }
 // Cubic B-spline filtering with 4 bilinear taps (smooth, no stair steps).
 vec4 cubic(float v) {
   vec4 n = vec4(1.0, 2.0, 3.0, 4.0) - v; vec4 s = n * n * n;
@@ -88,7 +108,15 @@ vec3 pal(float v) { return texture(u_pal, vec2(clamp((v - u_range.x) / (u_range.
 void main() {
   vec2 uv = gridUV(v_merc);
   if (uv.x < 0.0 || uv.y < 0.0 || uv.x > 1.0 || uv.y > 1.0) discard;
-  float value;
+  float value, maskMix = 1.0, tempCoverage = 1.0;
+  if (u_strict_mask > 0.5) {
+    vec2 depthUV = gridUVFor(v_merc, u_depth_dom, u_depth_size);
+    vec2 bath = texture(u_depth, depthUV).rg; // GL_LINEAR: no cell-aligned contour steps
+    float waterDepth = bath.g > 0.000001 ? bath.r / bath.g * u_depth_lin.x + u_depth_lin.y : 0.0;
+    float feather = max(${SHALLOW_MASK_FEATHER_FT.toFixed(1)}, 1.5 * fwidth(waterDepth));
+    maskMix = smoothstep(u_depth_ft - feather, u_depth_ft + feather, waterDepth)
+      * smoothstep(0.0, 0.02, bath.g);
+  }
   if (u_mode == 3) {
     vec2 wa = bicubic(u_a, uv).rg, wb = bicubic(u_b, uv).rg, wm = mix(wa, wb, u_mix);
     if (u_cubic > 0.5) {
@@ -100,8 +128,12 @@ void main() {
   } else {
     vec2 a = validScalar(u_a, uv), b = validScalar(u_b, uv);
     bool av = a.y > 0.000001, bv = b.y > 0.000001;
-    if (!av && !bv) discard;
-    float raw = av && bv ? mix(a.x, b.x, u_mix) : av ? a.x : b.x;
+    if (!av && !bv && u_strict_mask < 0.5) discard;
+    float raw = av && bv ? mix(a.x, b.x, u_mix) : av ? a.x : bv ? b.x : 0.0;
+    // The bathymetry contour owns the visible edge. Frame coverage only guards
+    // genuine holes, and reaches full opacity quickly enough not to redraw the
+    // old cell-shaped validity boundary.
+    if (u_strict_mask > 0.5) tempCoverage = smoothstep(0.001, 0.08, max(a.y, b.y));
     if (u_cubic > 0.5) { // uniform branch: the extra taps run only when both neighbors exist
       vec2 p = validScalar(u_p, uv), n = validScalar(u_n, uv);
       if (av && bv && p.y > 0.000001 && n.y > 0.000001) raw = hours(p.x, a.x, b.x, n.x, u_mix);
@@ -141,7 +173,14 @@ void main() {
     float w = fwidth(value), dl = min(abs(value - u_sp.x), abs(value - u_sp.y));
     color = mix(color, vec3(1.0), (1.0 - smoothstep(0.6 * w, 2.0 * w, dl)) * 0.9 * step(FLAT, w));
   }
-  outColor = vec4(color * u_opacity, u_opacity);
+  if (u_strict_mask > 0.5) {
+    float deep = maskMix * tempCoverage;
+    vec3 shallow = vec3(0.76, 0.80, 0.80);
+    float alpha = mix(${SHALLOW_WASH_ALPHA.toFixed(2)}, u_opacity, deep);
+    outColor = vec4(mix(shallow * ${SHALLOW_WASH_ALPHA.toFixed(2)}, color * u_opacity, deep), alpha);
+  } else {
+    outColor = vec4(color * u_opacity, u_opacity);
+  }
 }`;
 
 const DECODE = {
@@ -152,9 +191,9 @@ const DECODE = {
 };
 
 export class FieldLayer {
-  constructor(store) {
-    this.id = 'lake-field'; this.type = 'custom'; this.renderingMode = '2d';
-    this.store = store; this.layer = 'temp'; this.t = 0; this.units = { temp: 'F', wind: 'mph', length: 'ft' }; this.lines = true; this.band = null; this.species = null; this.opacity = 1;
+  constructor(store, id = 'lake-field') {
+    this.id = id; this.type = 'custom'; this.renderingMode = '2d';
+    this.store = store; this.layer = 'temp'; this.t = 0; this.units = { temp: 'F', wind: 'mph', length: 'ft' }; this.lines = true; this.band = null; this.species = null; this.opacity = 1; this.strictMask = false; this.depthMask = null; this.depthFt = 0;
     this.textures = new Map(); this.palettes = {};
     this.lastBy = {};      // per kind: the last complete [A, B, mix] drawn, shown while newer hours load
     this.held = new Set(); // textures released by the store but still on screen
@@ -167,14 +206,27 @@ export class FieldLayer {
     const x0 = mercX(d.west), x1 = mercX(d.east), y0 = mercY(d.north), y1 = mercY(d.south);
     this.quad = buffer(gl, new Float32Array([x0, y0, x1, y0, x0, y1, x1, y1]));
     for (const name of Object.keys(PALETTES)) this.palettes[name] = texture(gl, { width: 256, height: 1, data: paletteBytes(name) });
-    this.store.onLoad(() => map.triggerRepaint());
+    this.watchStore();
+  }
+  watchStore() {
+    this.stopLoad?.(); this.stopEvict?.();
+    this.stopLoad = this.store.onLoad(() => this.map.triggerRepaint());
     // A released hour that is still on screen keeps its texture until the field
     // moves on, so scrubbing or jumping never flashes empty water.
     this.stopEvict = this.store.onEvict((path) => {
       if (!this.textures.has(path)) return;
       if (this.onScreen(path)) this.held.add(path);
-      else { gl.deleteTexture(this.textures.get(path)); this.textures.delete(path); }
+      else { this.gl.deleteTexture(this.textures.get(path)); this.textures.delete(path); }
     });
+  }
+  /** Switches an already-added field to another FrameStore (used by Temp at depth). */
+  setStore(store) {
+    if (store === this.store) return;
+    if (this.gl) for (const tex of this.textures.values()) this.gl.deleteTexture(tex);
+    this.textures.clear(); this.held.clear(); this.lastBy = {}; this.hourOf = null;
+    this.store = store;
+    if (this.map) this.watchStore();
+    this.map?.triggerRepaint();
   }
   set(opts) { Object.assign(this, opts); this.map && this.map.triggerRepaint(); }
   onScreen(path) { return Object.values(this.lastBy).some((fr) => fr && [fr[0], fr[1], fr[3], fr[4]].some((f) => f && f.path === path)); }
@@ -280,6 +332,8 @@ export class FieldLayer {
     // texture units 3/4 always hold something valid; they are read only when u_cubic is 1
     bindTex(gl, 3, cubic ? this.tex(fr[3], grid) : this.tex(fr[0], grid), P.u.u_p);
     bindTex(gl, 4, cubic ? this.tex(fr[4], grid) : this.tex(fr[1], grid), P.u.u_n);
+    const dm = this.depthMask, depthGrid = dm?.grid;
+    bindTex(gl, 5, dm ? this.tex(dm.frame, depthGrid) : this.tex(fr[0], grid), P.u.u_depth);
     gl.uniform1f(P.u.u_cubic, cubic ? 1 : 0);
     gl.uniform2f(P.u.u_lin, grid.encoding === 'rgb16' ? 1 : 255 / grid.scale, grid.encoding === 'rgb16' ? halfCenter(grid) : grid.offset);
     // the grid's own box (wind covers a wider area; a last column need not land on the domain edge)
@@ -298,12 +352,18 @@ export class FieldLayer {
     gl.uniform2f(P.u.u_sp, this.species ? this.species.lo : 0, this.species ? this.species.hi : 0);
     gl.uniform1f(P.u.u_relief, 0.012 * Math.pow(2, 7 - this.map.getZoom()));
     gl.uniform1f(P.u.u_opacity, this.opacity);
+    gl.uniform1f(P.u.u_strict_mask, this.strictMask ? 1 : 0);
+    const dd = dm ? gridBox({ ...depthGrid, width: dm.frame.w, height: dm.frame.h }, dm.domain) : d;
+    gl.uniform4f(P.u.u_depth_dom, dd.west, dd.east, dd.south, dd.north);
+    gl.uniform2f(P.u.u_depth_size, dm?.frame.w || fr[0].w, dm?.frame.h || fr[0].h);
+    gl.uniform2f(P.u.u_depth_lin, depthGrid?.encoding === 'rgb16' ? 1 : 255 / (depthGrid?.scale || grid.scale), depthGrid?.encoding === 'rgb16' ? halfCenter(depthGrid) : (depthGrid?.offset || 0));
+    gl.uniform1f(P.u.u_depth_ft, this.depthFt || 0);
     bindAttr(gl, this.quad, P.a.a_pos, 2);
     gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
   onRemove(_map, gl) {
-    this.stopEvict?.();
+    this.stopLoad?.(); this.stopEvict?.();
     for (const tex of this.textures.values()) gl.deleteTexture(tex);
     for (const tex of Object.values(this.palettes)) gl.deleteTexture(tex);
     this.textures.clear(); this.palettes = {};

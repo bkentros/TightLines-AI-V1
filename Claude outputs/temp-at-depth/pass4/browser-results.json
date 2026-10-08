@@ -1,0 +1,94 @@
+[
+  {
+    "viewport": "320x568",
+    "screenshotPixels": "320x568",
+    "status": 200,
+    "run": "20261008T12Z-10081639",
+    "depthVisible": true,
+    "depthDisabled": true,
+    "depthStatus": "Unavailable for this forecast cycle",
+    "requests": {
+      "html": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, max-age=60, must-revalidate",
+          "etag": "W/\"fd93d2a20ebf540060f30d6f45e33ded\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"rate-limit\", cache;dur=0.0;desc=\"miss\", r2;dur=71.0;desc=\"object\"\ncfExtPri"
+        }
+      },
+      "latest": {
+        "status": 200,
+        "ms": 461,
+        "headers": {
+          "cache-control": "private, max-age=60, must-revalidate",
+          "etag": "\"7b4d8420fefe5b5935e6a6591eb65bd9\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"rate-limit\", cache;dur=0.0;desc=\"miss\", r2;dur=195.0;desc=\"object\""
+        }
+      },
+      "manifest": {
+        "status": 200,
+        "ms": 130,
+        "headers": {
+          "cache-control": "private, max-age=31536000, immutable",
+          "etag": "W/\"ca6f47e5dec10f389a3483d854ca5cd5\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"skipped-immutable\", cache;dur=13.0;desc=\"hit\""
+        }
+      },
+      "firstFrame": {
+        "status": 200,
+        "ms": 145,
+        "headers": {
+          "cache-control": "private, max-age=31536000, immutable",
+          "etag": "\"6200fbf868a11e522885d2f787df0030\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"skipped-immutable\", cache;dur=15.0;desc=\"hit\""
+        }
+      }
+    }
+  },
+  {
+    "viewport": "393x852",
+    "screenshotPixels": "393x852",
+    "status": 200,
+    "run": "20261008T12Z-10081639",
+    "depthVisible": true,
+    "depthDisabled": true,
+    "depthStatus": "Unavailable for this forecast cycle",
+    "requests": {
+      "html": {
+        "status": 200,
+        "headers": {
+          "cache-control": "private, max-age=60, must-revalidate",
+          "etag": "W/\"fd93d2a20ebf540060f30d6f45e33ded\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"rate-limit\", cache;dur=13.0;desc=\"hit\"\ncfExtPri"
+        }
+      },
+      "latest": {
+        "status": 200,
+        "ms": 175,
+        "headers": {
+          "cache-control": "private, max-age=60, must-revalidate",
+          "etag": "W/\"7b4d8420fefe5b5935e6a6591eb65bd9\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"rate-limit\", cache;dur=6.0;desc=\"hit\""
+        }
+      },
+      "manifest": {
+        "status": 200,
+        "ms": 63,
+        "headers": {
+          "cache-control": "private, max-age=31536000, immutable",
+          "etag": "W/\"ca6f47e5dec10f389a3483d854ca5cd5\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"skipped-immutable\", cache;dur=4.0;desc=\"hit\""
+        }
+      },
+      "firstFrame": {
+        "status": 200,
+        "ms": 130,
+        "headers": {
+          "cache-control": "private, max-age=31536000, immutable",
+          "etag": "\"6200fbf868a11e522885d2f787df0030\"",
+          "server-timing": "auth;dur=0.0;desc=\"signed-pass\", limit;dur=0.0;desc=\"skipped-immutable\", cache;dur=4.0;desc=\"hit\""
+        }
+      }
+    }
+  }
+]

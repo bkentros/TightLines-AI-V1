@@ -120,8 +120,8 @@ test('field shader validates both frames and releases its bounded texture cache'
   assert.match(source, /internal: isWind \? gl\.RGBA8 : gl\.RG8/);
   assert.doesNotMatch(source, /\b(?:float|vec[234])\s+sample\b/, 'GLSL reserves sample as a keyword');
   assert.match(source, /bool av = a\.y[^;]+bv = b\.y/);
-  assert.match(source, /if \(!av && !bv\) discard/);
-  assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : b\.x/);
+  assert.match(source, /if \(!av && !bv && u_strict_mask < 0\.5\) discard/);
+  assert.match(source, /av && bv \? mix\(a\.x, b\.x, u_mix\) : av \? a\.x : bv \? b\.x : 0\.0/);
   assert.match(source, /onRemove[\s\S]+deleteTexture[\s\S]+textures\.clear/);
 });
 
@@ -391,11 +391,12 @@ test('band specs for waves, wind and species', () => {
   assert.equal(speciesFit(40, coho).grade, 3);
 });
 
-test('small screens: tools step clear of the panel, day labels shorten, cards stay below the header', () => {
+test('small screens: tools and depth picker clear the panel, day labels shorten, cards stay below the header', () => {
   const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
   const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
   assert.ok(source.includes("addEventListener('resize', fitLayout)"));
-  assert.ok(source.includes("for (const sel of ['.bottom', '#alert', '#readout'])"));
+  assert.ok(source.includes("for (const sel of ['.bottom', '#alert', '#readout', '#depth-popover'])"));
+  assert.ok(source.includes("for (const sel of ['#readout', '#depth-popover', '#alert'])"));
   assert.ok(source.includes('<span class="dd"> ${d.getDate()}</span>'));
   assert.ok(page.includes('#track .day.short .dd{display:none}'));
   assert.ok(page.includes('.tools[data-crowded="1"]{opacity:0;pointer-events:none}'));
