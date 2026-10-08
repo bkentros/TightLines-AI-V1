@@ -5,7 +5,7 @@ repo owner. Checks:
   - PierCast catalog and two standings answer 200 in under five seconds
   - an authenticated profile, Today's Bite, and one PierCast report work
   - gated Live Lake Map latest.json is reachable
-  - standings use a NOAA cycle issued within 13 hours
+  - standings and map use a NOAA cycle issued within 10 hours
   - the Live Lake Map's published run (R2 latest.json) is recent
   - the live buoy/sensor archive (R2 observations/latest.json) is updating
 Never prints keys. Read-only.
@@ -27,8 +27,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 SUPABASE_URL = "https://hsesngprhpgajyfbrwbf.supabase.co"
-PIERCAST_FRESH_HOURS = 13       # the public freshness standard (pier-cast/index.ts)
-MAP_RUN_MAX_HOURS = 13          # NOAA cycles every 6 h; one missed cycle plus publishing time
+# Each cycle is normally complete about 2.5 hours after issue. Ten hours allows
+# that publication window plus one health-check interval, while alerting on the
+# first missed six-hour cycle instead of waiting until a second cycle is due.
+PIERCAST_FRESH_HOURS = 10
+MAP_RUN_MAX_HOURS = 10
 OBSERVATIONS_MAX_MINUTES = 45   # the gatekeeper collects every 15 minutes
 HTTP_TIMEOUT_SECONDS = 20
 PIERCAST_MAX_SECONDS = 5
@@ -55,7 +58,7 @@ def evaluate(now: datetime, piercast_status: int | None, piercast_body: str,
         if not ages:
             problems.append("PierCast standings carry no NOAA issue time.")
         elif min(ages) > PIERCAST_FRESH_HOURS:
-            problems.append(f"PierCast is serving a NOAA cycle {min(ages):.1f} h old (24 h fallback active): "
+            problems.append(f"PierCast is serving a NOAA cycle {min(ages):.1f} h old (36 h fallback active): "
                             "an ingest cohort missed its cycle; check pier-cast-ingest responses in net._http_response.")
     if not map_latest:
         problems.append("Live Lake Map latest.json is missing or unreadable in R2.")
