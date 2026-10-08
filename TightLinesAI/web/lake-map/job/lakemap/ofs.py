@@ -1,24 +1,38 @@
 """NOAA Great Lakes lake models (LSOFS, LMHOFS, LEOFS, LOOFS): surface water
 temperature for each forecast hour, plus the model depth, from the
-regular-grid files on NOAA's THREDDS server."""
+regular-grid files on NOAA's THREDDS server, with NOAA's independent public
+AWS/NODD distribution as the automatic failover."""
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 
 import numpy as np
+from scipy.spatial import cKDTree
 
 from . import net
 from .config import OFS_CYCLES, OFS_MODELS, THREDDS
 from .dap import parse_dods
 
 FILL = -99990.0
+AWS_BUCKET = "noaa-nos-ofs-pds"
+AWS_HTTPS = f"https://{AWS_BUCKET}.s3.amazonaws.com"
 
 
 def dataset_url(model, cycle: datetime, hour: int) -> str:
     d = cycle.strftime("%Y%m%d")
     return (f"{THREDDS}/{model['id']}/MODELS/{cycle:%Y/%m/%d}/"
             f"{model['prefix']}.t{cycle:%H}z.{d}.regulargrid.f{hour:03d}.nc")
+
+
+def aws_dataset_key(model, cycle: datetime, hour: int) -> str:
+    d = cycle.strftime("%Y%m%d")
+    return (f"{model['prefix']}/netcdf/{cycle:%Y/%m/%d}/"
+            f"{model['prefix']}.t{cycle:%H}z.{d}.fields.f{hour:03d}.nc")
+
+
+def aws_dataset_url(model, cycle: datetime, hour: int) -> str:
+    return f"{AWS_HTTPS}/{aws_dataset_key(model, cycle, hour)}"
 
 
 def cycle_candidates(now: datetime, lookback_hours=30):
@@ -32,14 +46,56 @@ def cycle_candidates(now: datetime, lookback_hours=30):
 
 
 def discover(model, now: datetime, lookback_hours=30):
-    """Newest cycle whose last forecast hour (f120) is published."""
+    """Newest cycle complete on either official NOAA distribution."""
     for cycle in cycle_candidates(now, lookback_hours):
         try:
             net.fetch(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
             return cycle
         except Exception:
+            pass
+        try:
+            net.head(aws_dataset_url(model, cycle, 120), timeout=15, retries=2)
+            return cycle
+        except Exception:
             continue
     return None
+
+
+def _aws_grid(model, cycle: datetime):
+    import fsspec
+    import h5py
+    stream = fsspec.open(
+        aws_dataset_url(model, cycle, 0),
+        "rb",
+        block_size=1024 * 1024,
+        cache_type="readahead",
+    ).open()
+    dataset = h5py.File(stream, "r")
+    try:
+        return tuple(
+            np.asarray(dataset[name], dtype=np.float64)
+            for name in ("lat", "lon", "h")
+        )
+    finally:
+        dataset.close()
+        stream.close()
+
+
+def _aws_surface_temp(model, cycle: datetime, hour: int):
+    import fsspec
+    import h5py
+    stream = fsspec.open(
+        aws_dataset_url(model, cycle, hour),
+        "rb",
+        block_size=1024 * 1024,
+        cache_type="readahead",
+    ).open()
+    dataset = h5py.File(stream, "r")
+    try:
+        return np.asarray(dataset["temp"][0, 0, :], dtype=np.float32)
+    finally:
+        dataset.close()
+        stream.close()
 
 
 class LakeModel:
@@ -48,21 +104,52 @@ class LakeModel:
     def __init__(self, model, cycle: datetime):
         self.model = model
         self.cycle = cycle
-        raw = parse_dods(net.fetch(dataset_url(model, cycle, 0) + ".dods?Latitude,Longitude,mask,h", timeout=120))
-        lat, lon = raw["Latitude"].astype(np.float64), raw["Longitude"].astype(np.float64)
-        lon = np.where(lon > 180, lon - 360, lon)
-        self.shape = lat.shape
-        mask = raw["mask"] > 0.5
-        h = raw["h"].astype(np.float64)
-        ok = mask & np.isfinite(lat) & np.isfinite(lon) & (np.abs(lat) <= 90)
-        self.flat = np.flatnonzero(ok)
-        self.lat, self.lon = lat.ravel()[self.flat], lon.ravel()[self.flat]
-        depth = h.ravel()[self.flat]
-        self.depth_m = np.where(depth > FILL, depth, np.nan)
-        # typical point spacing, for the long-triangle test
-        self.spacing = float(np.nanmedian(np.abs(np.diff(lat, axis=0)))) if lat.shape[0] > 1 else 0.01
+        self.distribution = "NOAA_COOPS_THREDDS"
+        self._aws = False
+        try:
+            raw = parse_dods(net.fetch(
+                dataset_url(model, cycle, 0) + ".dods?Latitude,Longitude,mask,h",
+                timeout=120,
+            ))
+            lat = raw["Latitude"].astype(np.float64)
+            lon = raw["Longitude"].astype(np.float64)
+            lon = np.where(lon > 180, lon - 360, lon)
+            self.shape = lat.shape
+            mask = raw["mask"] > 0.5
+            h = raw["h"].astype(np.float64)
+            ok = mask & np.isfinite(lat) & np.isfinite(lon) & (np.abs(lat) <= 90)
+            self.flat = np.flatnonzero(ok)
+            self.lat, self.lon = lat.ravel()[self.flat], lon.ravel()[self.flat]
+            depth = h.ravel()[self.flat]
+            self.depth_m = np.where(depth > FILL, depth, np.nan)
+            self.spacing = (float(np.nanmedian(np.abs(np.diff(lat, axis=0))))
+                            if lat.shape[0] > 1 else 0.01)
+        except Exception:
+            # NOAA publishes the same operational run through its NODD bucket.
+            # Native unstructured fields avoid downloading the much larger 3-D
+            # regular-grid files; h5py/fsspec issue range requests for the surface.
+            lat, lon, h = _aws_grid(model, cycle)
+            lon = np.where(lon > 180, lon - 360, lon)
+            ok = (np.isfinite(lat) & np.isfinite(lon) & np.isfinite(h) &
+                  (np.abs(lat) <= 90) & (h > 0))
+            self.flat = np.flatnonzero(ok)
+            self.lat, self.lon = lat.ravel()[self.flat], lon.ravel()[self.flat]
+            self.depth_m = h.ravel()[self.flat]
+            self.shape = None
+            self._aws = True
+            self.distribution = "NOAA_NODD_AWS"
+            if len(self.lat) > 1:
+                points = np.column_stack((self.lat, self.lon * np.cos(np.radians(self.lat))))
+                distances, _ = cKDTree(points).query(points, k=2)
+                self.spacing = float(np.nanmedian(distances[:, 1]))
+            else:
+                self.spacing = 0.01
 
     def surface_temp_c(self, hour: int) -> np.ndarray:
+        if self._aws:
+            t = _aws_surface_temp(self.model, self.cycle, hour).reshape(-1)[self.flat]
+            t[(t < -5) | (t > 40)] = np.nan
+            return t
         ny, nx = self.shape
         # brackets must be percent-encoded or NOAA's server answers HTTP 400
         q = ".dods?temp" + f"[0:1:0][0:1:0][0:1:{ny - 1}][0:1:{nx - 1}]".replace("[", "%5B").replace("]", "%5D")

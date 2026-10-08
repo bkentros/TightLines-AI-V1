@@ -42,3 +42,29 @@ def _fetch(url: str, timeout: float = 60, retries: int = 3) -> bytes:
 
 
 fetch = _fetch
+
+
+def _head(url: str, timeout: float = 30, retries: int = 3) -> dict[str, str]:
+    """Fetch response headers without downloading the model object."""
+    last = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": USER_AGENT},
+                method="HEAD",
+            )
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return {key.lower(): value for key, value in res.headers.items()}
+        except urllib.error.HTTPError as err:
+            last = HttpError(err.code, url)
+            if err.code in (400, 403, 404):
+                raise last
+            time.sleep(2 ** attempt)
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as err:
+            last = err
+            time.sleep(2 ** attempt)
+    raise last
+
+
+head = _head
