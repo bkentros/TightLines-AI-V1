@@ -111,13 +111,14 @@ the staging bucket, so an app-issued pass cannot reach production through stagin
 `static-build/feature.py` are the staging setup tools. Staging depth objects
 under `runs/tdepth-` expire after 14 days.
 
-The only active data workflow is `.github/workflows/lake-map-data.yml`. An
-identical historical copy under `job/` was removed after the workflow moved to
-GitHub's required root workflow directory, so changes have one source of truth.
+The active workflow is `.github/workflows/lake-map-data.yml`. Its checked-in
+mirror under `job/` stays byte-identical; the parity test prevents either copy
+from drifting.
 
-For owner testing, set staging `map/features.json` to `labs` (or `on`) with
+For owner testing, set staging `map/features.json` to `on` with
 `R2_BUCKET=piercast-lake-map-staging .venv/bin/python static-build/feature.py
-tempDepth labs`. Browser testers can generate a signed staging link without
+tempDepth on`. The launch has no Labs or hidden-device unlock path; production
+rollback is the same command with `off`. Browser testers can generate a signed staging link without
 printing any stored secret by running:
 
 ```sh

@@ -15,7 +15,7 @@ from build import ENV_KEYS, Log, load_env_file  # noqa: E402
 from lakemap import store  # noqa: E402
 
 FEATURES = {"tempDepth"}
-STATES = {"off", "labs", "on"}
+STATES = {"off", "on"}
 
 
 def main(argv=None):

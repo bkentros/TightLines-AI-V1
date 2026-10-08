@@ -33,7 +33,9 @@ def latest():
 class ConfigurationTest(unittest.TestCase):
     def test_only_reviewed_launch_depths_ship(self):
         self.assertEqual(depth_job.parse_depths(None), (10, 20, 30, 40, 50))
-        self.assertEqual(depth_job.parse_depths("10,50,75,100,150"), (10, 50, 75, 100, 150))
+        self.assertEqual(depth_job.parse_depths("10,50"), (10, 50))
+        with self.assertRaises(ValueError):
+            depth_job.parse_depths("10,50,75,100,150")
         with self.assertRaises(ValueError):
             depth_job.parse_depths("10,60")
         with self.assertRaises(ValueError):
@@ -90,12 +92,22 @@ class OfsDepthSlabTest(unittest.TestCase):
         lm.shape = (2, 2)
         lm.flat = np.arange(4)
         lm.depth_m = np.full(4, 100.0)
+        lm._aws = False
         lm._depth_levels_m = None
         with patch.object(ofs.net, "fetch", side_effect=responses) as fetch:
             values, byte_count = lm.depth_temperatures_c(0, (10, 20, 30, 40, 50))
         self.assertEqual(values.shape, (5, 4))
         self.assertGreater(byte_count, 0)
         self.assertIn("%5B2:1:9%5D", fetch.call_args_list[1].args[0])
+
+    def test_nodd_native_source_fails_closed_for_depth(self):
+        lm = ofs.LakeModel.__new__(ofs.LakeModel)
+        lm.model = {"id": "LMHOFS", "prefix": "lmofs"}
+        lm.cycle = CYCLE
+        lm._aws = True
+        lm.distribution = "NOAA_NODD_AWS"
+        with self.assertRaisesRegex(ofs.DepthDataUnavailable, "NOAA_NODD_AWS"):
+            lm.depth_temperatures_c(0, (10, 20, 30, 40, 50))
 
 
 class PublicationSafetyTest(unittest.TestCase):

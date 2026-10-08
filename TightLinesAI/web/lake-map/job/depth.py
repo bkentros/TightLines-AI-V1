@@ -24,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build import C_TO_F, ENV_KEYS, Log, TemperatureIntegrityError, iso, load_env_file, load_observation_sites  # noqa: E402
 from lakemap import depth as depth_math, ofs, store  # noqa: E402
 from lakemap.config import (DEPTH_STEP_HOURS, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, OFS_MODELS,  # noqa: E402
-                            PAGE_CAPABILITIES_KEY, TEMP, TEMP16, TEMP_DEPTHS_AVAILABLE_FT, TEMP_DEPTHS_FT)
+                            PAGE_CAPABILITIES_KEY, TEMP, TEMP16, TEMP_DEPTHS_FT)
 from lakemap.encode import scalar_png  # noqa: E402
 from lakemap.regrid import combine, target_mask, water_mask  # noqa: E402
 
@@ -55,9 +55,9 @@ def parse_depths(value: str | None) -> tuple[int, ...]:
     depths = TEMP_DEPTHS_FT if value is None else tuple(int(part.strip()) for part in value.split(",") if part.strip())
     if not depths or len(set(depths)) != len(depths) or tuple(sorted(depths)) != depths:
         raise ValueError("depths must be a non-empty, unique, increasing comma-separated list")
-    unsupported = [depth for depth in depths if depth not in TEMP_DEPTHS_AVAILABLE_FT]
+    unsupported = [depth for depth in depths if depth not in TEMP_DEPTHS_FT]
     if unsupported:
-        raise ValueError(f"unsupported depth(s): {unsupported}; available: {TEMP_DEPTHS_AVAILABLE_FT}")
+        raise ValueError(f"unsupported depth(s): {unsupported}; launch depths: {TEMP_DEPTHS_FT}")
     return depths
 
 
