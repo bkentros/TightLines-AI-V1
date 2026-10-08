@@ -6,6 +6,8 @@ import {
   createPierCastHandler,
   type PierCastHandlerDependencies,
 } from "./handler.ts";
+import { PIER_CAST_EXPIRED_FORECAST_MESSAGE } from "./outageFallback.ts";
+import { PierCastAccessError } from "./reportAccess.ts";
 
 function request(path: string, method = "GET", body?: unknown): Request {
   return new Request(`https://example.test/functions/v1/pier-cast/${path}`, {
@@ -190,6 +192,35 @@ Deno.test("conditions catalog omits retired score metadata and is cacheable", as
   assertEquals(body.schemaVersion, "piercast-conditions-catalog-v2");
   assertEquals("ratingName" in body, false);
   assertEquals("formulaVersion" in body, false);
+});
+
+Deno.test("expired NOAA data keeps the existing error shape with clear copy", async () => {
+  const expired = () => {
+    throw new PierCastAccessError(
+      "pier_cast_conditions_unavailable",
+      PIER_CAST_EXPIRED_FORECAST_MESSAGE,
+      503,
+    );
+  };
+  const handler = createPierCastHandler(dependencies({
+    readConditionsLeaderboard: expired,
+    readConditionsMap: expired,
+    readConditionsCityReport: expired,
+  }));
+  for (
+    const path of [
+      "conditions/leaderboard?speciesId=chinook_salmon",
+      "conditions/map?speciesId=chinook_salmon",
+      "conditions/report?cityId=grand_haven_mi&speciesId=chinook_salmon",
+    ]
+  ) {
+    const response = await handler(request(path));
+    assertEquals(response.status, 503);
+    assertEquals(await response.json(), {
+      error: "pier_cast_conditions_unavailable",
+      message: PIER_CAST_EXPIRED_FORECAST_MESSAGE,
+    });
+  }
 });
 
 Deno.test("legacy score routes stay compatible, declare deprecation, and emit telemetry", async () => {
