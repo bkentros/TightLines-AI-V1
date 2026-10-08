@@ -159,6 +159,43 @@ Deno.test("all-five LMHOFS pipeline builds complete 121-hour timelines", async (
   }
 });
 
+Deno.test("LMHOFS selects NOAA development THREDDS once when the primary distribution is down", async () => {
+  const baseFetch = completeCycleFetch();
+  const urls: string[] = [];
+  const batch = await fetchPierCastLmhofsBatch({
+    fetchImpl: async (input, init) => {
+      const url = String(input);
+      urls.push(url);
+      if (url.includes("/thredds/dodsC/")) {
+        return new Response("primary unavailable", { status: 503 });
+      }
+      return await baseFetch(input, init);
+    },
+    now: () => NOW,
+    forecastHours: [0, 1, 120],
+    maxAttempts: 1,
+  });
+
+  assertEquals(batch.status, "available");
+  assert(
+    batch.diagnostics.some((diagnostic) =>
+      diagnostic.code === "source_failover"
+    ),
+  );
+  assert(
+    batch.status !== "unavailable" &&
+      batch.cities.every((city) =>
+        city.samples.every((sample) =>
+          sample.sourceUrl.includes("/threddsdev/dodsC/")
+        )
+      ),
+  );
+  assertEquals(
+    urls.filter((url) => url.includes("/thredds/dodsC/")).length,
+    2,
+  );
+});
+
 Deno.test("one failed city-hour stays unavailable without contaminating other cities", async () => {
   const batch = await fetchPierCastLmhofsBatch({
     fetchImpl: completeCycleFetch((request) =>
