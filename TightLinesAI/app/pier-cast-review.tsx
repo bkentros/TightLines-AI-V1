@@ -72,6 +72,12 @@ function citySupportsSpecies(
     city.supportedSpeciesIds.includes(speciesId);
 }
 
+function isForecastDelayedError(error: unknown): boolean {
+  return error instanceof PierCastRequestError &&
+    (error.code === "pier_cast_conditions_unavailable" ||
+      error.code === "report_unavailable");
+}
+
 export default function PierCastReviewScreen() {
   const router = useRouter();
   const routeParams = useLocalSearchParams<{
@@ -108,6 +114,7 @@ export default function PierCastReviewScreen() {
   const [loading, setLoading] = useState(true);
   const [routeReportLoading, setRouteReportLoading] = useState(Boolean(routeCityId && routeSpeciesId));
   const [error, setError] = useState<string | null>(null);
+  const [forecastDelayed, setForecastDelayed] = useState(false);
   const [weather, setWeather] = useState<PierCastHourlyWeatherPoint[]>([]);
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [lakeFilter, setLakeFilter] = useState<PierCastLakeFilter>("all");
@@ -177,6 +184,7 @@ export default function PierCastReviewScreen() {
     if (!silent) {
       setLoading(true);
       setError(null);
+      setForecastDelayed(false);
     }
     const userId = user?.id;
     const requestedTarget = selectedSpeciesRef.current;
@@ -243,6 +251,7 @@ export default function PierCastReviewScreen() {
         setLeaderboard(board);
         setSelectionLoading(false);
         setError(null);
+        setForecastDelayed(false);
       }
     } catch (caught) {
       if (
@@ -250,6 +259,7 @@ export default function PierCastReviewScreen() {
         selectedSpeciesRef.current === requestedTarget
       ) {
         setRouteReportLoading(false);
+        setForecastDelayed(isForecastDelayedError(caught));
         setError(
           caught instanceof PierCastRequestError
             ? caught.message
@@ -273,6 +283,7 @@ export default function PierCastReviewScreen() {
     setCatalog(null);
     setPaywall(false);
     setError(null);
+    setForecastDelayed(false);
     requestedCity.current = null;
     routeOpenedCity.current = null;
     setRouteReportLoading(Boolean(routeCityId && selectedSpeciesRef.current));
@@ -314,6 +325,7 @@ export default function PierCastReviewScreen() {
         });
         setSelectedCityId(cityId);
         setError(null);
+        setForecastDelayed(false);
       }
       setShowingSavedCopy(false);
     } catch (caught) {
@@ -351,7 +363,9 @@ export default function PierCastReviewScreen() {
             setShowingSavedCopy(true);
             setSelectedCityId(cityId);
             setError(null);
+            setForecastDelayed(false);
           } else {
+            setForecastDelayed(isForecastDelayedError(caught));
             setError(
               saved.status === "archived_legacy"
                 ? "Your previous score report is archived. Refresh to create a current conditions report."
@@ -367,6 +381,7 @@ export default function PierCastReviewScreen() {
             selectedSpeciesRef.current === selectionGuard &&
             requestedCity.current === cityId
           ) {
+            setForecastDelayed(isForecastDelayedError(caught));
             setError(caught instanceof Error ? caught.message : "Report could not load.");
           }
         }
@@ -386,6 +401,7 @@ export default function PierCastReviewScreen() {
     const reportSpeciesId = finderReportSpecies(city, target);
     if (!reportSpeciesId) {
       if (!silent) {
+        setForecastDelayed(false);
         setError("No PierCast species are available for the selected city.");
       }
       return;
@@ -416,6 +432,7 @@ export default function PierCastReviewScreen() {
     setSelectedSpeciesId(speciesId);
     setReportFallback(null);
     setError(null);
+    setForecastDelayed(false);
     setLoading(false);
     setSelectionLoading(true);
     void writePierCastTargetPreference(speciesId);
@@ -444,6 +461,7 @@ export default function PierCastReviewScreen() {
     selectedSpeciesRef.current = speciesId;
     setSelectedSpeciesId(speciesId);
     setError(null);
+    setForecastDelayed(false);
     setLoading(false);
     setSelectionLoading(true);
     void writePierCastTargetPreference(speciesId);
@@ -462,6 +480,7 @@ export default function PierCastReviewScreen() {
             (species) => species.speciesId === speciesId,
           ) === true;
           if (!reportAlreadySupportsTarget) {
+            setForecastDelayed(isForecastDelayedError(caught));
             setError(caught instanceof Error ? caught.message : "The standings could not load.");
           }
         }
@@ -665,8 +684,8 @@ export default function PierCastReviewScreen() {
         ) : error ? (
           <View style={styles.landingPad}>
             <MessageCard
-              icon="alert-circle-outline"
-              title="PierCast could not load"
+              icon={forecastDelayed ? "time-outline" : "alert-circle-outline"}
+              title={forecastDelayed ? "Forecast delayed" : "PierCast could not load"}
               body={error}
               actionLabel="TRY AGAIN"
               onAction={() => void load()}

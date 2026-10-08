@@ -37,6 +37,7 @@ import type {
 import {
   fahrenheit,
   formatConditionsFreshness,
+  pierCastForecastDelayMessage,
   PIER_CAST_STATE_LABELS,
 } from "../../lib/pierCastConditionsPresentation";
 import type { PierCastSpeciesId } from "../../lib/pierCastContracts";
@@ -994,13 +995,24 @@ export function PierCastConditionsCityReport({
     ? fahrenheit(report.currentTemperature.temperatureC)
     : null;
   const daySelection = Math.min(selectedDay, Math.max(0, days.length - 1));
+  const delayMessage = pierCastForecastDelayMessage({
+    generatedAt: report.generatedAt,
+    disclosure: report.disclosure,
+    issuedAt: report.source.issuedAt,
+    cycleAgeHours: report.source.cycleAgeHours,
+    force: savedCopy,
+  });
 
   return (
     <View>
-      {savedCopy ? (
+      {delayMessage ? (
         <View style={styles.savedBanner}>
-          <Ionicons name="archive-outline" size={17} color={paper.dashboardBlue} />
-          <Text style={styles.savedBannerText}>Showing your last saved conditions report while a fresh report is unavailable.</Text>
+          <Ionicons name="time-outline" size={17} color={paper.dashboardBlue} />
+          <Text style={styles.savedBannerText}>
+            {savedCopy
+              ? `Showing your last saved conditions report. ${delayMessage}`
+              : delayMessage}
+          </Text>
         </View>
       ) : null}
       <Hero
