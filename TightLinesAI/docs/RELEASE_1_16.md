@@ -34,6 +34,58 @@ Rollback is a republish, not a rebuild: identify the last known-good 1.16 update
 
 `app.json` carries app version `1.16`. The current EAS remote values are iOS build 42 and Android versionCode 23. EAS uses remote version state and the production profile has `autoIncrement: true`, so the first 1.16 production builds will advance these to iOS 43 and Android 24. This pass does not start either build.
 
+## Runtime-aware Edge parity gate
+
+Supabase stores a frozen copy of shared dependencies inside each deployed
+function bundle. Consequently, two production deployments can legitimately
+contain different historical bytes for the same shared source path. Release
+parity is evaluated as follows:
+
+1. Each function's owned runtime source (`supabase/functions/<function>/`) must
+   match `main` exactly.
+2. Shared runtime modules imported by each deployment are recorded and compared
+   per deployment, rather than treating the newest shared file as if every
+   historical deployment contained it.
+3. Type-only files erased by the deployed bundle are ignored. They cannot alter
+   JavaScript runtime behavior.
+
+The 2026-10-08 audit compared 30 deployed functions and 636 downloaded files.
+All function-owned runtime sources matched `main` exactly. The only shared
+runtime version split was `supabase/functions/_shared/rateLimit.ts`:
+
+| Deployment | Version | Imports `rateLimit.ts` | Frozen SHA-256 | Effect of a redeploy from `main` |
+| --- | ---: | --- | --- | --- |
+| `color-picker` | 40 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `forecast-scores` | 188 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `get-environment` | 187 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `how-fishing` | 227 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `recommender` | 167 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `river-run` | 92 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `submit-feedback` | 71 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `water-reader-history` | 70 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `water-reader-read` | 124 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `waterbody-polygon` | 85 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `waterbody-search` | 108 | Yes | `c7fc094bd5b055a73c5d4d3633a89707966c8feef148cd0c729d874758354a8d` | No expected runtime change |
+| `waterbody-source-validation` | 87 | No | Not bundled | Type-only contract difference; no runtime change |
+| `creator-portal-request-link` | 37 | Yes | `83990a3f5cea8f85104a029ed46bb538208fb330fdbff4bc8dc573dbb6497bf5` | Already matches `main` |
+| `creator-referral-click` | 38 | Yes | `83990a3f5cea8f85104a029ed46bb538208fb330fdbff4bc8dc573dbb6497bf5` | Already matches `main` |
+| `creator-referral-enrich` | 35 | Yes | `83990a3f5cea8f85104a029ed46bb538208fb330fdbff4bc8dc573dbb6497bf5` | Already matches `main` |
+| `creator-referral-resolve` | 42 | Yes | `83990a3f5cea8f85104a029ed46bb538208fb330fdbff4bc8dc573dbb6497bf5` | Already matches `main` |
+| `main` | — | — | `83990a3f5cea8f85104a029ed46bb538208fb330fdbff4bc8dc573dbb6497bf5` | Current source |
+
+The eleven older functions import only the pre-existing `checkUserRateLimit`,
+`rateLimitExceededResponse`, and/or `rateLimitHeaders` APIs. Those APIs retain
+their deployed behavior. The newer module adds helpers used by the creator
+endpoint's bounded in-memory, fail-open limiter; that limiter makes no
+synchronous database write. None of the eleven older deployments imports the
+new helpers, and `waterbody-source-validation` does not import the limiter at
+all. The remaining downloaded differences were type-only contracts erased from
+runtime bundles. Therefore, redeploying one of these twelve from the audited
+`main` source is not expected to change runtime behavior, but is not part of
+this release.
+
+Before redeploying any of these 12, run deno check + tests against main and verify on one function first.
+
 ## Store release runbook
 
 Do not begin this runbook until the owner says **build**. Use the dedicated release worktree; do not switch the checkout used by the detached scorecard backfill.
