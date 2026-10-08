@@ -24,8 +24,8 @@ import {
   combinePierCastV3LmhofsBatches,
   PIER_CAST_ENGINE_VERSION,
   PIER_CAST_FORMULA_VERSION,
-  PIER_CAST_V4_DISCLOSURE,
   PIER_CAST_V3_SPECIES_IDS,
+  PIER_CAST_V4_DISCLOSURE,
   type PierCastArchiveClient,
   type PierCastShadowOutcomeRead,
   projectPierCastConditionsLeaderboardV4,
@@ -43,6 +43,11 @@ import { createPierCastHandler } from "./handler.ts";
 import { projectPublicV3Outlook } from "./publicV3.ts";
 import { PIER_CAST_PUBLIC_V3_RELEASE } from "../_shared/pierCastEngine/config/publicV3Release.ts";
 import { createPierCastMapFoundationReader } from "../_shared/pierCastMapFoundation.ts";
+import {
+  extendedFallbackArchiveTime,
+  extendedFallbackCycleAgeHours,
+  labelDelayedForecast,
+} from "./outageFallback.ts";
 
 const database = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -168,34 +173,82 @@ const PUBLIC_FALLBACK_HOURS = 24;
 
 async function readPublicV3Batch(now: Date) {
   const fresh = await readV3Batch(now, PUBLIC_FRESH_HOURS);
-  if (fresh) return fresh;
+  if (fresh) return { batch: fresh, delayed: false };
   const fallback = await readV3Batch(now, PUBLIC_FALLBACK_HOURS);
+  if (fallback) {
+    console.warn(JSON.stringify({
+      event: "pier_cast_public_freshness_fallback",
+      issuedAt: fallback.issuedAt,
+      observedAt: now.toISOString(),
+    }));
+    return { batch: fallback, delayed: false };
+  }
+
+  // NOAA's production THREDDS service can remain unavailable beyond one day.
+  // Its archive RPCs deliberately accept at most 24 hours, so shift only the
+  // read clock and independently enforce a hard 36-hour public ceiling here.
+  // This does not change database functions or persist any stale snapshot.
+  const extended = await readV3Batch(
+    extendedFallbackArchiveTime(now),
+    PUBLIC_FALLBACK_HOURS,
+  );
+  const cycleAgeHours = extended
+    ? extendedFallbackCycleAgeHours(now, extended.issuedAt)
+    : null;
+  if (extended && cycleAgeHours !== null) {
+    const batch = { ...extended, cycleAgeHours };
+    console.warn(JSON.stringify({
+      event: "pier_cast_public_noaa_outage_fallback",
+      issuedAt: batch.issuedAt,
+      cycleAgeHours,
+      observedAt: now.toISOString(),
+    }));
+    return { batch, delayed: true };
+  }
+
   console.warn(JSON.stringify({
-    event: fallback ? "pier_cast_public_freshness_fallback" : "pier_cast_public_data_unavailable",
-    issuedAt: fallback?.issuedAt ?? null,
+    event: "pier_cast_public_data_unavailable",
+    issuedAt: extended?.issuedAt ?? null,
     observedAt: now.toISOString(),
   }));
-  return fallback;
+  return null;
 }
 
 async function readPublicOutlook() {
   const now = new Date();
-  const batch = await readPublicV3Batch(now);
-  const outlook = batch
-    ? buildPierCastV3ReviewOutlook({ batch, evaluationTime: now.toISOString() })
+  const selected = await readPublicV3Batch(now);
+  const outlook = selected
+    ? buildPierCastV3ReviewOutlook({
+      batch: selected.batch,
+      evaluationTime: now.toISOString(),
+    })
     : null;
-  return outlook ? projectPublicV3Outlook(outlook) : null;
+  if (!outlook || !selected) return null;
+  const projected = projectPublicV3Outlook(outlook);
+  return selected.delayed
+    ? labelDelayedForecast(
+      projected,
+      selected.batch.fetchedAt,
+      selected.batch.cycleAgeHours,
+    )
+    : projected;
 }
 
 async function readConditionsOutlook() {
   const now = new Date();
-  const batch = await readPublicV3Batch(now);
-  return batch
-    ? buildPierCastConditionsV4OutlookFromBatch({
-      batch,
-      evaluationTime: now.toISOString(),
-    })
-    : null;
+  const selected = await readPublicV3Batch(now);
+  if (!selected) return null;
+  const outlook = buildPierCastConditionsV4OutlookFromBatch({
+    batch: selected.batch,
+    evaluationTime: now.toISOString(),
+  });
+  return selected.delayed
+    ? labelDelayedForecast(
+      outlook,
+      selected.batch.fetchedAt,
+      selected.batch.cycleAgeHours,
+    )
+    : outlook;
 }
 
 async function readClaimKeys(userId: string) {
@@ -288,7 +341,9 @@ const handler = createPierCastHandler({
       speciesId ? pierCastSpeciesId(speciesId) : null,
     );
     // Additive: which NOAA cycle the standings use (health monitoring; apps ignore it).
-    return Object.assign(leaderboard, { sourceIssuedAt: outlook.source.issuedAt });
+    return Object.assign(leaderboard, {
+      sourceIssuedAt: outlook.source.issuedAt,
+    });
   },
   readConditionsMap: async (speciesId) => {
     const outlook = await readConditionsOutlook();
