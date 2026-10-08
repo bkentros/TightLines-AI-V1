@@ -60,12 +60,12 @@ test("current conditions routes declare the v4 response contract", () => {
 });
 
 test("release copy describes target conditions instead of a universal numeric rating", () => {
-  const pierCastGuide = guide.slice(guide.indexOf('title: "Pier Cast"'), guide.indexOf('title: "Color Match"'));
-  assert.match(pierCastGuide, /Choose a target species first/);
-  assert.match(pierCastGuide, /seasonal outlook/);
-  assert.match(pierCastGuide, /temperature match/);
-  assert.match(pierCastGuide, /32 researched pier cities/);
-  assert.match(pierCastGuide, /observed station readings/);
+  const pierCastGuide = guide.slice(guide.indexOf('title: "PierCast"'), guide.indexOf('title: "Water Read"'));
+  assert.match(pierCastGuide, /target fish/);
+  assert.match(pierCastGuide, /season/);
+  assert.match(pierCastGuide, /nearshore water temperature/);
+  assert.match(pierCastGuide, /32 pier cities/);
+  assert.match(pierCastGuide, /all five Great Lakes/);
   assert.doesNotMatch(pierCastGuide, /compare live observations/);
   assert.doesNotMatch(pierCastGuide, /1\\u201310 rating|1–10 rating|score/i);
 });

@@ -103,7 +103,7 @@ test("city report includes the calendar, species, pier conditions, chart, shifts
   assert.match(conditionsUi, />WIND</);
   assert.match(conditionsUi, /Temperature outlook/);
   assert.match(conditionsUi, /Water temp shifts/);
-  assert.match(conditionsUi, /modeled values, not observed pier readings/);
+  assert.match(conditionsUi, /Water temps are NOAA nearshore model estimates/);
   assert.match(conditionsUi, /NEARBY PORTS/);
   assert.match(conditionsUi, /WHERE TO FISH/);
   assert.doesNotMatch(conditionsUi, /CHANGE TARGET|OTHER SPECIES/);
