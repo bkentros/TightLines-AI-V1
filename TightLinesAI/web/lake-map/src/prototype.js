@@ -11,7 +11,7 @@ import { createLakeMap } from './engine/index.js';
 import { fmtWind, fmtWaves, compass, toTemp, PALETTES, colorAt, bandSpec, SPECIES, speciesFit } from './engine/scales.js';
 import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
 import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
-import { TempDepthCatalog, TEMP_DEPTH_NOTE, TEMP_DEPTH_UNAVAILABLE, depthLabel, depthPickerItems, depthPopoverTop, featureState, layerChangedProps, rememberedDepth, tempDepthEnabled } from './engine/tempDepth.js';
+import { TempDepthCatalog, TEMP_DEPTH_NOTE, TEMP_DEPTH_UNAVAILABLE, depthLabel, depthPickerItems, depthPopoverTop, layerChangedProps, rememberedDepth, tempDepthEnabled } from './engine/tempDepth.js';
 import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS, RUN_CHECK_MS } from './engine/freshness.js';
 import cities from './cities.json';
 
@@ -41,7 +41,6 @@ const post = (msg) => { try { if (window.ReactNativeWebView) window.ReactNativeW
 const track_ = (event, props = {}) => post({ type: 'analytics', event, props });
 const haptic = () => post({ type: 'haptic' });
 const PREFS_KEY = 'pc-lake-map-prefs-v1';
-const LABS_KEY = 'pc-lake-map-labs-v1';
 const UNIT_OPTIONS = { temp: ['F', 'C'], wind: ['mph', 'kph', 'kt'], length: ['ft', 'm'] };
 let savedLayer = null;
 function loadPrefs() { try { return JSON.parse(localStorage.getItem(PREFS_KEY) || 'null'); } catch (e) { return null; } }
@@ -72,10 +71,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     const response = await fetch('features.json', { cache: 'no-store', credentials: 'same-origin' });
     if (response.ok) features = await response.json();
   } catch { /* absent means every optional feature is off */ }
-  const tempDepthMode = featureState(features);
-  let labsUnlocked = false;
-  try { labsUnlocked = QS.get('labs') === '1' || localStorage.getItem(LABS_KEY) === '1'; } catch { labsUnlocked = QS.get('labs') === '1'; }
-  let tempDepthAccess = tempDepthEnabled(features, { labsUnlocked });
+  const tempDepthAccess = tempDepthEnabled(features);
   if (tempDepthAccess) ui.layer = resolveInitialMapLayer(savedLayer, { tempDepth: true });
 
   const piers = CITIES.map((c) => ({ id: c[0], name: c[1], st: c[2], lat: c[3], lon: c[4], structure: c[5], lake: HURON.has(c[0]) ? 'Lake Huron' : 'Lake Michigan', nameSide: HURON.has(c[0]) || c[2] === 'WI' || c[2] === 'IL' ? 'left' : 'right' }));
@@ -807,32 +803,11 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#layers').addEventListener('click', () => openSheet('layers'));
   $('#search').addEventListener('click', () => { openSheet('search'); $('#q').value = ''; renderResults(); });
   $('#fit').addEventListener('click', () => lm.fitAll());
-  let labsHeld = false, labsTimer = 0;
-  const clearLabsTimer = () => { clearTimeout(labsTimer); labsTimer = 0; };
-  $('#attrib').addEventListener('pointerdown', () => {
-    if (tempDepthMode !== 'labs') return;
-    labsHeld = false; clearLabsTimer();
-    labsTimer = setTimeout(async () => {
-      labsHeld = true; labsUnlocked = !labsUnlocked;
-      try { localStorage.setItem(LABS_KEY, labsUnlocked ? '1' : '0'); } catch { /* storage off */ }
-      tempDepthAccess = tempDepthEnabled(features, { labsUnlocked });
-      if (tempDepthAccess && !depthCatalog && activeRun) {
-        depthCatalog = await new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
-          { smoothTemperature: q.get('smooth') !== '0' }).init();
-      }
-      $('#temp-depth-layer').hidden = !tempDepthAccess;
-      if (!tempDepthAccess && ui.layer === 'temp_depth') { depthRowOpen = false; setDepthPopover(false); await setLayer(DEFAULT_MAP_LAYER); }
-      showToast(tempDepthAccess ? 'Labs on' : 'Labs off');
-      haptic();
-    }, 3000);
-  });
-  for (const type of ['pointerup', 'pointercancel', 'pointerleave']) $('#attrib').addEventListener(type, clearLabsTimer);
-  $('#attrib').addEventListener('click', (event) => {
-    if (labsHeld) { event.preventDefault(); labsHeld = false; return; }
-    openSheet('credits');
-  });
+  $('#attrib').addEventListener('click', () => openSheet('credits'));
 
   $('#temp-depth-layer').hidden = !tempDepthAccess;
+  $('#temp-depth-layer').disabled = tempDepthAccess && !depthCatalog?.available;
+  if ($('#temp-depth-layer').disabled) $('#temp-depth-status').textContent = 'Unavailable for this forecast cycle';
   function renderDepthPicker() {
     const options = depthPickerItems(ui.units.length).map(({ depthFt, label }) => `<button data-depth-ft="${depthFt}" aria-pressed="${depthFt === ui.depthFt}">${label}</button>`).join('');
     $('#td-chips').innerHTML = options;

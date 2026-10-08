@@ -28,11 +28,11 @@ class FeatureFlagTest(unittest.TestCase):
         with patch.dict(os.environ, env, clear=True), patch.object(feature.store, "client", return_value=object()), \
              patch.object(feature.store, "read_json", return_value={"other": "on"}), \
              patch.object(feature.store, "put") as put:
-            self.assertEqual(feature.main(["tempDepth", "labs"]), 0)
+            self.assertEqual(feature.main(["tempDepth", "on"]), 0)
         self.assertEqual(put.call_args.args[1], "map/features.json")
         self.assertEqual(put.call_args.args[3], "public, max-age=30")
         self.assertIn(b'"other":"on"', put.call_args.args[2])
-        self.assertIn(b'"tempDepth":"labs"', put.call_args.args[2])
+        self.assertIn(b'"tempDepth":"on"', put.call_args.args[2])
 
 
 if __name__ == "__main__":

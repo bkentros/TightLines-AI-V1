@@ -6,12 +6,11 @@ export const TEMP_DEPTH_UNAVAILABLE = 'Depth temps unavailable for this forecast
 
 export function featureState(features) {
   const state = features && features.tempDepth;
-  return state === 'labs' || state === 'on' ? state : 'off';
+  return state === 'on' ? 'on' : 'off';
 }
 
-export function tempDepthEnabled(features, { labsQuery = false, labsUnlocked = false } = {}) {
-  const state = featureState(features);
-  return state === 'on' || (state === 'labs' && (labsQuery || labsUnlocked));
+export function tempDepthEnabled(features) {
+  return featureState(features) === 'on';
 }
 
 export function depthLabel(depthFt, lengthUnit = 'ft') {
