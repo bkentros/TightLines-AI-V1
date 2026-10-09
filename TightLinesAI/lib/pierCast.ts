@@ -28,13 +28,22 @@ import {
   projectPierCastLakeTroutStandingsV5,
 } from "./pierCastLakeTroutV5";
 import {
+  clearUnverifiedPierCastTargetSummariesV5,
   projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
+  projectPierCastTargetSpeciesSummariesV5,
 } from "./pierCastOpportunityV5";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
 const CLIENT_TIMEOUT_MS = 15_000;
+const TARGET_SUMMARY_MAP_CACHE_MS = 15 * 60 * 1000;
+let targetSummaryMapCache: {
+  value: PierCastConditionsMapResponseV4;
+  cachedAt: number;
+} | null = null;
+let targetSummaryMapRequest: Promise<PierCastConditionsMapResponseV4> | null =
+  null;
 
 export class PierCastRequestError extends Error {
   constructor(
@@ -210,6 +219,27 @@ export async function fetchPierCastConditionsMap(
   );
 }
 
+function fetchPierCastTargetSummaryMap(): Promise<
+  PierCastConditionsMapResponseV4
+> {
+  if (
+    targetSummaryMapCache &&
+    Date.now() - targetSummaryMapCache.cachedAt < TARGET_SUMMARY_MAP_CACHE_MS
+  ) {
+    return Promise.resolve(targetSummaryMapCache.value);
+  }
+  if (targetSummaryMapRequest) return targetSummaryMapRequest;
+  targetSummaryMapRequest = fetchPierCastConditionsMap()
+    .then((value) => {
+      targetSummaryMapCache = { value, cachedAt: Date.now() };
+      return value;
+    })
+    .finally(() => {
+      targetSummaryMapRequest = null;
+    });
+  return targetSummaryMapRequest;
+}
+
 /**
  * App-facing standings loader. Lake trout uses the approved v5 city
  * calibration while retaining the frozen v4 network contract. Until the
@@ -219,22 +249,24 @@ export async function fetchPierCastConditionsMap(
 export async function fetchPierCastConditionsLeaderboardForApp(
   speciesId?: PierCastSpeciesId,
 ): Promise<PierCastLeaderboardResponseV4> {
+  const summaryMapRequest = fetchPierCastTargetSummaryMap().catch(() => null);
   const leaderboard = await fetchPierCastConditionsLeaderboard(speciesId);
+  const summaryMap = await summaryMapRequest;
+  let projected: PierCastLeaderboardResponseV4;
   if (leaderboard.selectedSpeciesId !== "lake_trout") {
-    return projectPierCastLeaderboardV5(leaderboard);
+    projected = projectPierCastLeaderboardV5(leaderboard);
+  } else {
+    projected = projectPierCastLakeTroutStandingsV5({
+      leaderboard,
+      map: pierCastLakeTroutV5NeedsMap(leaderboard) ? summaryMap : null,
+    });
   }
-  if (!pierCastLakeTroutV5NeedsMap(leaderboard)) {
-    return projectPierCastLakeTroutStandingsV5({ leaderboard });
-  }
-  try {
-    const map = await fetchPierCastConditionsMap("lake_trout");
-    return projectPierCastLakeTroutStandingsV5({ leaderboard, map });
-  } catch {
-    // Keep the already validated standings usable if the supplemental map
-    // request is temporarily unavailable; existing lake-trout cities still
-    // receive the v5 calibration.
-    return projectPierCastLakeTroutStandingsV5({ leaderboard });
-  }
+  return summaryMap
+    ? projectPierCastTargetSpeciesSummariesV5({
+      leaderboard: projected,
+      map: summaryMap,
+    })
+    : clearUnverifiedPierCastTargetSummariesV5(projected);
 }
 export async function fetchPierCastObservedTemperatureMap(): Promise<
   PierCastObservedTemperatureMapResponseV1

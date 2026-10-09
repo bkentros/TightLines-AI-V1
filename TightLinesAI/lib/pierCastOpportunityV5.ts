@@ -1,5 +1,6 @@
 import type {
   PierCastCityReportReadV4,
+  PierCastConditionsMapResponseV4,
   PierCastLeaderboardResponseV4,
   PierCastSeasonalBandV4,
   PierCastSpeciesConditionsReadV4,
@@ -22,7 +23,7 @@ import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
 import { applyPierCastSalmonidBatch2V5 } from "./pierCastSalmonidBatch2V5";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
-  "piercast-opportunity-v5-1.17-batch2-v1" as const;
+  "piercast-opportunity-v5-1.17-target-summaries-v1" as const;
 
 export type PierCastOpportunityTimingV5 =
   | "off"
@@ -311,6 +312,101 @@ export function projectPierCastLeaderboardV5(
         : option
     ),
     cities,
+  };
+}
+
+function mapLocalDate(instant: string, timezone: string): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: timezone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date(instant));
+  const values = new Map(parts.map((part) => [part.type, part.value]));
+  return `${values.get("year")}-${values.get("month")}-${values.get("day")}`;
+}
+
+function mapTemperatureAt(
+  city: PierCastConditionsMapResponseV4["cities"][number],
+  generatedAt: string,
+): number | null {
+  const target = Date.parse(generatedAt);
+  if (!Number.isFinite(target)) return null;
+  const point = city.temperatureTimeline.reduce<
+    (typeof city.temperatureTimeline)[number] | null
+  >((nearest, candidate) => {
+    if (!Number.isFinite(candidate.temperatureC)) return nearest;
+    if (!nearest) return candidate;
+    return Math.abs(Date.parse(candidate.validAt) - target) <
+        Math.abs(Date.parse(nearest.validAt) - target)
+      ? candidate
+      : nearest;
+  }, null);
+  return point?.temperatureC ?? null;
+}
+
+/**
+ * Replaces every target picker's legacy relative-season summary with the
+ * absolute v5 result. One all-city temperature map supplies every species, so
+ * selecting a tab never changes its `Best` label merely by loading that board.
+ */
+export function projectPierCastTargetSpeciesSummariesV5(input: {
+  leaderboard: PierCastLeaderboardResponseV4;
+  map: PierCastConditionsMapResponseV4;
+}): PierCastLeaderboardResponseV4 {
+  const { leaderboard, map } = input;
+  const selectedSpeciesId = leaderboard.selectedSpeciesId;
+  return {
+    ...leaderboard,
+    targetSpecies: leaderboard.targetSpecies.map((option) => {
+      // The fully projected selected board remains authoritative for its exact
+      // eligibility gates and count.
+      if (option.speciesId === selectedSpeciesId) return option;
+      const evaluated = map.cities.flatMap((city) => {
+        const temperatureC = mapTemperatureAt(city, leaderboard.generatedAt);
+        const thermalValue = pierCastTemperatureSuitabilityV5(
+          option.speciesId,
+          temperatureC,
+        );
+        const opportunity = evaluatePierCastOpportunityV5({
+          cityId: city.cityId,
+          speciesId: option.speciesId,
+          localDate: mapLocalDate(leaderboard.generatedAt, city.timezone),
+          thermalValue,
+        });
+        return opportunity && opportunity.score !== null && !opportunity.closed
+          ? [{
+            cityId: city.cityId,
+            score: opportunity.score,
+            band: opportunity.band,
+            thermalValue: thermalValue ?? 0,
+          }]
+          : [];
+      }).sort((left, right) =>
+        right.score - left.score ||
+        right.thermalValue - left.thermalValue ||
+        left.cityId.localeCompare(right.cityId)
+      );
+      return {
+        ...option,
+        bestSeasonalBand: evaluated[0]?.band ?? null,
+        availableCityCount: evaluated.length,
+      };
+    }),
+  };
+}
+
+/** Never present an unselected v4 seasonal phase as a v5 `Best today` label. */
+export function clearUnverifiedPierCastTargetSummariesV5(
+  leaderboard: PierCastLeaderboardResponseV4,
+): PierCastLeaderboardResponseV4 {
+  return {
+    ...leaderboard,
+    targetSpecies: leaderboard.targetSpecies.map((option) =>
+      option.speciesId === leaderboard.selectedSpeciesId
+        ? option
+        : { ...option, bestSeasonalBand: null }
+    ),
   };
 }
 

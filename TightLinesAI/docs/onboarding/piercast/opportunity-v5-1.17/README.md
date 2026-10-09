@@ -37,6 +37,7 @@ fishery calibration or the app candidate's current-opportunity ranking.
 The same candidate evaluator now supplies:
 
 - city order within every species leaderboard;
+- every `What are you targeting?` Best label before its tab is selected;
 - Today labels and Season timing in those standings;
 - label and exact species order inside a city report;
 - the selected species' city standing; and
@@ -46,6 +47,12 @@ Non-selected species do not display their old v4 standing in a projected city
 report. Showing no rank is preferable to presenting a stale rank, and avoids a
 17-request leaderboard fan-out. A later version-gated server projection can
 return all exact standings in one response without changing older clients.
+
+The target picker does not reuse the server's old relative seasonal summaries.
+One cached all-city temperature map is evaluated locally against every v5
+pairing, so all target labels are ready together and do not change merely
+because a species is tapped. If that map is unavailable, unselected legacy
+labels are cleared instead of being presented as current-opportunity ratings.
 
 ## Calendar contract
 

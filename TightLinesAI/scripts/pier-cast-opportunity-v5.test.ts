@@ -4,13 +4,16 @@ import test from "node:test";
 import {
   buildPierCastConditionsV4Outlook,
   projectPierCastConditionsCityReportV4,
+  projectPierCastConditionsMapV4,
   projectPierCastConditionsLeaderboardV4,
 } from "../supabase/functions/_shared/pierCastEngine/pipeline/conditionsV4";
 import {
+  clearUnverifiedPierCastTargetSummariesV5,
   evaluatePierCastOpportunityV5,
   PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION,
   projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
+  projectPierCastTargetSpeciesSummariesV5,
 } from "../lib/pierCastOpportunityV5";
 import { PIER_CAST_V3_PAIR_CALIBRATIONS } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 
@@ -377,6 +380,75 @@ test("leaderboards use exact hidden opportunity and expose labels only", () => {
     city.seasonalOutlook.profileId === PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION
   ));
   assert.equal(JSON.stringify(projected).includes('"score"'), false);
+});
+
+test("target picker Best labels are complete before a species is selected", () => {
+  const source = buildPierCastConditionsV4Outlook({
+    generatedAt: "2026-10-09T18:00:00.000Z",
+    source: {
+      status: "fresh_archived_complete_cycle",
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+      issuedAt: "2026-10-09T15:00:00.000Z",
+      fetchedAt: "2026-10-09T18:00:00.000Z",
+      cycleAgeHours: 3,
+    },
+    cities: CITY_IDS.map((cityId) => ({
+      cityId,
+      temperatureTimeline: Array.from({ length: 121 }, (_, hour) => ({
+        validAt: new Date(Date.parse("2026-10-09T18:00:00.000Z") + hour * 3_600_000)
+          .toISOString(),
+        temperatureC: 13,
+      })),
+      dates: [{ localDate: "2026-10-09" }],
+    })),
+  } as never);
+  const map = projectPierCastConditionsMapV4(source, null);
+  const stalePrime = (speciesId: "chinook_salmon" | "steelhead") => {
+    const projected = projectPierCastLeaderboardV5(
+      projectPierCastConditionsLeaderboardV4(source, speciesId),
+    );
+    return {
+      ...projected,
+      targetSpecies: projected.targetSpecies.map((option) => ({
+        ...option,
+        bestSeasonalBand: "excellent" as const,
+      })),
+    };
+  };
+  const fromChinook = projectPierCastTargetSpeciesSummariesV5({
+    leaderboard: stalePrime("chinook_salmon"),
+    map,
+  });
+  const fromSteelhead = projectPierCastTargetSpeciesSummariesV5({
+    leaderboard: stalePrime("steelhead"),
+    map,
+  });
+  const cohoFromChinook = fromChinook.targetSpecies.find((option) =>
+    option.speciesId === "coho_salmon"
+  );
+  const cohoFromSteelhead = fromSteelhead.targetSpecies.find((option) =>
+    option.speciesId === "coho_salmon"
+  );
+  assert.ok(cohoFromChinook);
+  assert.ok(cohoFromSteelhead);
+  assert.equal(cohoFromChinook.bestSeasonalBand, "good");
+  assert.deepEqual(cohoFromSteelhead, cohoFromChinook);
+});
+
+test("target picker clears legacy Best labels when its summary map is unavailable", () => {
+  const projected = projectPierCastLeaderboardV5(
+    projectPierCastConditionsLeaderboardV4(outlook(), "chinook_salmon"),
+  );
+  const cleared = clearUnverifiedPierCastTargetSummariesV5(projected);
+  for (const option of cleared.targetSpecies) {
+    if (option.speciesId === "chinook_salmon") {
+      assert.equal(option.bestSeasonalBand, projected.targetSpecies.find((row) =>
+        row.speciesId === option.speciesId
+      )?.bestSeasonalBand);
+    } else {
+      assert.equal(option.bestSeasonalBand, null, option.speciesId);
+    }
+  }
 });
 
 test("city report labels, species order and selected standing use the same model", () => {
