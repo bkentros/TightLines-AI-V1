@@ -23,6 +23,10 @@ import {
   validatePierCastSavedReportEnvelope,
   validatePierCastSavedReportRead,
 } from "./pierCastConditionsValidation";
+import {
+  pierCastLakeTroutV5NeedsMap,
+  projectPierCastLakeTroutStandingsV5,
+} from "./pierCastLakeTroutV5";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
@@ -200,6 +204,31 @@ export async function fetchPierCastConditionsMap(
     await pierCastGet(`conditions/map${query}`, false),
     speciesId,
   );
+}
+
+/**
+ * App-facing standings loader. Lake trout uses the approved v5 city
+ * calibration while retaining the frozen v4 network contract. Until the
+ * matching server projection is deployed, the map response supplies current
+ * temperature data for newly admitted cities.
+ */
+export async function fetchPierCastConditionsLeaderboardForApp(
+  speciesId?: PierCastSpeciesId,
+): Promise<PierCastLeaderboardResponseV4> {
+  const leaderboard = await fetchPierCastConditionsLeaderboard(speciesId);
+  if (leaderboard.selectedSpeciesId !== "lake_trout") return leaderboard;
+  if (!pierCastLakeTroutV5NeedsMap(leaderboard)) {
+    return projectPierCastLakeTroutStandingsV5({ leaderboard });
+  }
+  try {
+    const map = await fetchPierCastConditionsMap("lake_trout");
+    return projectPierCastLakeTroutStandingsV5({ leaderboard, map });
+  } catch {
+    // Keep the already validated standings usable if the supplemental map
+    // request is temporarily unavailable; existing lake-trout cities still
+    // receive the v5 calibration.
+    return projectPierCastLakeTroutStandingsV5({ leaderboard });
+  }
 }
 export async function fetchPierCastObservedTemperatureMap(): Promise<
   PierCastObservedTemperatureMapResponseV1

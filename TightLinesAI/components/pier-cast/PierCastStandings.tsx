@@ -47,6 +47,7 @@ import {
   standingsBandRank,
   standingsForecastDate,
   standingsLeaderSummary,
+  standingsOutlookTimingLabel,
   standingsStageLabel,
   standingsTrendCue,
   standingsUnrankedReason,
@@ -565,6 +566,7 @@ function LeaderCard({
   speciesId,
   weak,
   alternatives,
+  fullReportAvailable,
   onOpen,
   onSelectSpecies,
   token,
@@ -575,6 +577,7 @@ function LeaderCard({
   speciesId: PierCastSpeciesId;
   weak: boolean;
   alternatives: PierCastTargetSpeciesOptionV4[];
+  fullReportAvailable: boolean;
   onOpen: () => void;
   onSelectSpecies: (speciesId: PierCastSpeciesId) => void;
   token: string;
@@ -598,7 +601,7 @@ function LeaderCard({
     <View style={styles.leaderWrap}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`${weak ? "Best available" : "Today's leader"}: ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}. ${summary} Opens full report.`}
+        accessibilityLabel={`${weak ? "Best available" : "Today's leader"}: ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}. ${summary} Opens ${fullReportAvailable ? "full report" : "city map"}.`}
         onPress={() => {
           hapticSelection();
           onOpen();
@@ -648,7 +651,8 @@ function LeaderCard({
               <View style={[styles.chip, styles.stageChip, { backgroundColor: bandStyle.chip, borderColor: bandStyle.color }]}>
                 <View style={[styles.dot, { backgroundColor: bandStyle.color }]} />
                 <Text style={[styles.chipText, { color: bandStyle.ink }]} numberOfLines={1}>
-                  {standingsStageLabel(outlook.stage, outlook.band).toUpperCase()}
+                  {(standingsOutlookTimingLabel(outlook) ??
+                    standingsStageLabel(outlook.stage, outlook.band)).toUpperCase()}
                 </Text>
               </View>
             ) : null}
@@ -691,7 +695,9 @@ function LeaderCard({
         <View style={styles.leaderCta}>
           <View style={[styles.corner, styles.cornerBL]} />
           <View style={[styles.corner, styles.cornerBR]} />
-          <Text style={styles.leaderCtaText}>OPEN FULL PIERCAST</Text>
+          <Text style={styles.leaderCtaText}>
+            {fullReportAvailable ? "OPEN FULL PIERCAST" : "OPEN CITY MAP"}
+          </Text>
           <Ionicons name="arrow-forward" size={18} color={INK} />
         </View>
       </Pressable>
@@ -706,6 +712,7 @@ function ChaserRow({
   token,
   reduceMotion,
   onOpen,
+  fullReportAvailable,
 }: {
   entry: RankedRow;
   speciesId: PierCastSpeciesId;
@@ -713,6 +720,7 @@ function ChaserRow({
   token: string;
   reduceMotion: boolean;
   onOpen: () => void;
+  fullReportAvailable: boolean;
 }) {
   const { row, rank } = entry;
   const outlook = row.seasonalOutlook;
@@ -727,7 +735,7 @@ function ChaserRow({
     <Reveal token={token} delay={delay} reduceMotion={reduceMotion}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Rank ${rank}, ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}${trendCue ? `, ${trendCue.label.toLowerCase()}` : ""}. ${waterLine ?? ""}. Opens full report.`}
+        accessibilityLabel={`Rank ${rank}, ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}${trendCue ? `, ${trendCue.label.toLowerCase()}` : ""}. ${waterLine ?? ""}. Opens ${fullReportAvailable ? "full report" : "city map"}.`}
         onPress={() => {
           hapticSelection();
           onOpen();
@@ -1235,6 +1243,8 @@ export function PierCastStandings({
                 speciesId={selectedSpeciesId}
                 weak={weakLeader}
                 alternatives={alternatives}
+                fullReportAvailable={catalogById.get(leader.row.cityId)
+                  ?.supportedSpeciesIds.includes(selectedSpeciesId) === true}
                 onOpen={() => onOpenCity(leader.row.cityId)}
                 onSelectSpecies={onSelectSpecies}
                 token={token}
@@ -1252,7 +1262,7 @@ export function PierCastStandings({
               </View>
               <View style={styles.tapHint}>
                 <Ionicons name="hand-left-outline" size={14} color={paper.dashboardBlue} />
-                <Text style={styles.tapHintText}>Tap any city for its full PierCast report</Text>
+                <Text style={styles.tapHintText}>Tap any city for its PierCast details</Text>
               </View>
               {groups.map((group) => {
                 const style = PIER_CAST_STANDINGS_BANDS[group.band];
@@ -1265,7 +1275,11 @@ export function PierCastStandings({
                         · {group.rows.length} {group.rows.length === 1 ? "CITY" : "CITIES"}
                       </Text>
                       {group.rows.length > 1 ? (
-                        <Text style={styles.groupNote} numberOfLines={1}>Ordered by water-temp suitability</Text>
+                        <Text style={styles.groupNote} numberOfLines={1}>
+                          {selectedSpeciesId === "lake_trout"
+                            ? "Ordered by overall opportunity"
+                            : "Ordered by water-temp suitability"}
+                        </Text>
                       ) : null}
                     </View>
                     {group.rows.map((entry) => (
@@ -1276,6 +1290,8 @@ export function PierCastStandings({
                         index={entry.rank - 2}
                         token={token}
                         reduceMotion={reduceMotion}
+                        fullReportAvailable={catalogById.get(entry.row.cityId)
+                          ?.supportedSpeciesIds.includes(selectedSpeciesId) === true}
                         onOpen={() => onOpenCity(entry.row.cityId)}
                       />
                     ))}

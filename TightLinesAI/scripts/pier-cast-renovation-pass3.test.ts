@@ -27,7 +27,7 @@ test("first visit picks from summary metadata without a leaderboard fan-out", ()
   assert.match(standings, /WHAT ARE YOU TARGETING\?/);
   assert.match(standings, /leaderboard\.selectionRequired/);
   assert.match(screen, /readPierCastTargetPreference/);
-  assert.match(screen, /fetchPierCastConditionsLeaderboard\(requestedTarget \?\? undefined\)/);
+  assert.match(screen, /fetchPierCastConditionsLeaderboardForApp\(requestedTarget \?\? undefined\)/);
   assert.match(screen, /pickFallbackStandingsSpecies\(nextLeaderboard\.targetSpecies\)/);
   assert.doesNotMatch(screen, /Promise\.allSettled\([\s\S]*candidates\.map/);
   assert.doesNotMatch(screen, /PIER_CAST_SALMONID_ORDER\.filter/);

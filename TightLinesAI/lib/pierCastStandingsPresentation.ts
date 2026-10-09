@@ -4,6 +4,7 @@ import type {
   PierCastLeaderboardCityReadV4,
   PierCastLeaderboardResponseV4,
   PierCastSeasonalBandV4,
+  PierCastSeasonalOutlookReadV4,
   PierCastSeasonStageV4,
   PierCastSpeciesConditionsReadV4,
   PierCastTargetSpeciesOptionV4,
@@ -127,11 +128,11 @@ export function standingsBandRank(band: PierCastSeasonalBandV4 | null): number {
 }
 
 const STAGE_LABELS: Record<PierCastSeasonStageV4, string> = {
-  early: "Early season",
-  building: "Season building",
+  early: "Approaching peak",
+  building: "Approaching peak",
   active: "In season",
-  fading: "Season fading",
-  late: "Late season",
+  fading: "Past peak",
+  late: "Past peak",
   off: "Off-season",
 };
 
@@ -145,6 +146,22 @@ export function standingsStageLabel(
     : STAGE_LABELS[stage];
 }
 
+/** Uses the explicit v5 timing state when present, then falls back to v4. */
+export function standingsOutlookTimingLabel(
+  outlook: PierCastSeasonalOutlookReadV4,
+): string | null {
+  if (outlook.status !== "available") return null;
+  const timing = outlook.reasonCodes.find((code) =>
+    code.startsWith("lake_trout_v5_timing:")
+  )?.slice("lake_trout_v5_timing:".length);
+  if (timing === "peak") return "Peak season";
+  if (timing === "approaching") return "Approaching peak";
+  if (timing === "past") return "Past peak";
+  if (timing === "off") return "Off season";
+  if (timing === "in_season") return "In season";
+  return standingsStageLabel(outlook.stage, outlook.band);
+}
+
 export type StandingsTrend = "building" | "steady" | "fading";
 
 /** Only building / fading earn an arrow; steady is the quiet default. */
@@ -152,10 +169,10 @@ export function standingsTrendCue(
   trend: StandingsTrend | null,
 ): { icon: "arrow-up" | "arrow-down"; label: string; color: string } | null {
   if (trend === "building") {
-    return { icon: "arrow-up", label: "Season building", color: "#1F6B3A" };
+    return { icon: "arrow-up", label: "Approaching peak", color: "#1F6B3A" };
   }
   if (trend === "fading") {
-    return { icon: "arrow-down", label: "Season fading", color: "#9A4A12" };
+    return { icon: "arrow-down", label: "Past peak", color: "#9A4A12" };
   }
   return null;
 }
@@ -209,7 +226,7 @@ export function standingsLeaderSummary(
   const parts: string[] = [];
   const outlook = row.seasonalOutlook;
   if (outlook.status === "available") {
-    let sentence = `${standingsStageLabel(outlook.stage, outlook.band)} for ${speciesShortName} here`;
+    let sentence = `${standingsOutlookTimingLabel(outlook)} for ${speciesShortName} here`;
     const trendAlreadyStated = outlook.stage === "building" ||
       outlook.stage === "fading" || outlook.stage === "off";
     if (!trendAlreadyStated && outlook.trend === "building") {
@@ -237,6 +254,9 @@ export function standingsUnrankedReason(
     ...row.seasonalOutlook.reasonCodes,
     ...row.thermalMatch.reasonCodes,
   ]);
+  if (codes.has("lake_trout_research_hold")) {
+    return "Local pier evidence still under review";
+  }
   if (row.targetingEligibility === "unknown" || codes.has("targeting_unknown")) {
     return "Targeting rules unconfirmed";
   }

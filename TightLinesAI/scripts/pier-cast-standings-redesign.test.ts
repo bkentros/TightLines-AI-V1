@@ -37,13 +37,13 @@ test("Standings copy, ranking and default-species rules follow the server fields
   // Stage label: Peak only when active + Prime
   assert.equal(P.standingsStageLabel("active", "excellent"), "Peak season");
   assert.equal(P.standingsStageLabel("active", "good"), "In season");
-  assert.equal(P.standingsStageLabel("fading", "fair"), "Season fading");
+  assert.equal(P.standingsStageLabel("fading", "fair"), "Past peak");
 
   // Leader summary never duplicates trend
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "excellent", stage: "active", trend: "fading", thermal: thermal(12, 10, 14, "excellent") }), "Chinook"),
     "Peak season for Chinook here, and starting to fade. Water is 54°F — right in range.");
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "fair", stage: "building", trend: "building", thermal: thermal(16, 10, 14, "fair") }), "Coho"),
-    "Season building for Coho here. Water is 61°F — running warm.");
+    "Approaching peak for Coho here. Water is 61°F — running warm.");
 
   // Unranked reasons
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", elig: "restricted", disp: "blocked" })), "Closed to targeting here");
