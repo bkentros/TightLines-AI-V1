@@ -1,4 +1,5 @@
 import type {
+  PierCastCityReportReadV4,
   PierCastConditionsMapResponseV4,
   PierCastLeaderboardCityReadV4,
   PierCastLeaderboardResponseV4,
@@ -363,4 +364,46 @@ export function projectPierCastLakeTroutStandingsV5(input: {
       : option
   );
   return { ...leaderboard, targetSpecies, cities: rankedRows };
+}
+
+/** Keeps a fresh lake-trout city report aligned with the app leaderboard. */
+export function projectPierCastLakeTroutCityReportV5(input: {
+  report: PierCastCityReportReadV4;
+  leaderboard: PierCastLeaderboardResponseV4;
+}): PierCastCityReportReadV4 {
+  const { report, leaderboard } = input;
+  if (report.selectedSpeciesId !== "lake_trout") return report;
+  const row = leaderboard.cities.find((city) => city.cityId === report.cityId);
+  if (!row) return report;
+  const species = report.species.map((entry) =>
+    entry.speciesId === "lake_trout"
+      ? {
+        speciesId: row.speciesId,
+        seasonalOutlook: row.seasonalOutlook,
+        thermalMatch: row.thermalMatch,
+        targetingEligibility: row.targetingEligibility,
+        rankingDisposition: row.rankingDisposition,
+        localFisheryContext: row.localFisheryContext,
+        reasonCodes: row.reasonCodes,
+      }
+      : entry
+  );
+  const currentStandings = Array.isArray(report.speciesStandings)
+    ? report.speciesStandings
+    : [];
+  const lakeTroutStanding = {
+    speciesId: "lake_trout" as const,
+    rank: row.rank,
+    rankedCityCount: leaderboard.cities.filter((city) =>
+      city.rankingDisposition === "ranked"
+    ).length,
+  };
+  const speciesStandings = currentStandings.some((standing) =>
+      standing.speciesId === "lake_trout"
+    )
+    ? currentStandings.map((standing) =>
+      standing.speciesId === "lake_trout" ? lakeTroutStanding : standing
+    )
+    : [...currentStandings, lakeTroutStanding];
+  return { ...report, species, speciesStandings };
 }

@@ -24,7 +24,7 @@ import {
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
   fetchPierCastConditionsCatalog,
-  fetchPierCastConditionsCityReport,
+  fetchPierCastConditionsCityReportForApp,
   fetchPierCastConditionsLeaderboardForApp,
   fetchSavedPierCastConditionsReport,
   PierCastRequestError,
@@ -299,7 +299,7 @@ export default function PierCastReviewScreen() {
       openingCity.current = true;
     }
     try {
-      const envelope = await fetchPierCastConditionsCityReport(cityId, target);
+      const envelope = await fetchPierCastConditionsCityReportForApp(cityId, target);
       if (
         cityReportRequest.current !== reportRequestId ||
         accountId.current !== userId || selectedSpeciesRef.current !== selectionGuard ||

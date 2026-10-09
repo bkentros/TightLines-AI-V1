@@ -12,9 +12,11 @@ The 1.17 app now applies the v5 calibration in the real PierCast standings path 
 ## Product rules
 
 - The internal number is a model input and ordering signal, not a catch probability and not an angler-facing `x/10` rating.
-- The UI displays only **Prime**, **Good**, **Fair**, or **Poor**. A legal/access closure displays **Off season** instead of a score label.
-- Timing uses **Peak season**, **In season**, **Approaching peak**, **Past peak**, and **Off season**. The ambiguous term “shoulder” is prohibited.
+- The UI separates **Today** from **Season**. Today displays only **Prime**, **Good**, **Fair**, or **Poor**. A legal/access closure displays **Off season** instead of a score label.
+- Season timing uses **Peak season**, **In season**, **Approaching peak**, **Past peak**, and **Off season**. The ambiguous term “shoulder” is prohibited.
+- Water-temperature fit is supporting context, not a third rating.
 - Absolute opportunity must drive cross-city ordering. A city's seasonal curve says *when that city's fishery is strongest*; it does not say that city is better than another city.
+- After eligibility and closure gates, lake-trout cities are ordered by the exact unrounded daily opportunity score. Display-label ties never erase the configured city/species/date differences.
 - November is the candidate high point and December remains strong wherever harvest is legal. January-February remain catchable when open water or safe legal ice access exists. Live access, ice and regulation gates always override the biological curve.
 - Offshore abundance, charter success, reef stocking and a general port listing are not automatically transferred to a pedestrian pier.
 

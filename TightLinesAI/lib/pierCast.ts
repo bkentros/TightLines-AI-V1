@@ -25,6 +25,7 @@ import {
 } from "./pierCastConditionsValidation";
 import {
   pierCastLakeTroutV5NeedsMap,
+  projectPierCastLakeTroutCityReportV5,
   projectPierCastLakeTroutStandingsV5,
 } from "./pierCastLakeTroutV5";
 
@@ -259,6 +260,26 @@ export async function fetchPierCastConditionsCityReport(
     ),
     { cityId, speciesId },
   );
+}
+
+export async function fetchPierCastConditionsCityReportForApp(
+  cityId: string,
+  speciesId: PierCastSpeciesId,
+): Promise<PierCastSavedReportEnvelopeV4> {
+  const envelope = await fetchPierCastConditionsCityReport(cityId, speciesId);
+  if (speciesId !== "lake_trout") return envelope;
+  try {
+    const leaderboard = await fetchPierCastConditionsLeaderboardForApp(speciesId);
+    return {
+      ...envelope,
+      report: projectPierCastLakeTroutCityReportV5({
+        report: envelope.report,
+        leaderboard,
+      }),
+    };
+  } catch {
+    return envelope;
+  }
 }
 export async function fetchSavedPierCastConditionsReport(
   speciesId?: PierCastSpeciesId,

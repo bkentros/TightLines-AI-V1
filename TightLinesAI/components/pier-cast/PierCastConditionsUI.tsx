@@ -54,10 +54,9 @@ import { paper, paperFonts, paperShadows } from "../../lib/theme";
 import { CornerMarkSet, TopographicLines } from "../paper";
 import {
   BandChip,
-  BandMeter,
   BottomSheet,
   Reveal,
-  TrendArrow,
+  SeasonTimingChip,
   useReduceMotion,
 } from "./PierCastStandings";
 import { PierCastCityTemperatureChart } from "./PierCastVisuals";
@@ -205,7 +204,7 @@ function Hero({
               <Text style={styles.pickName} numberOfLines={1}>{top.name}</Text>
               <Text style={styles.pickLine} numberOfLines={2}>{top.line}</Text>
             </View>
-            <BandChip band={top.band} />
+            <BandChip band={top.band} prefix="Today" />
           </Pressable>
         ) : (
           <View style={[styles.pick, styles.pickWeak]}>
@@ -370,7 +369,6 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
       >
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
         <View style={styles.spTop}>
-          <Text style={styles.spRank}>{card.rankLabel}</Text>
           <View style={styles.spFish}>
             <SpeciesFish speciesId={card.speciesId} width={84} height={84} />
           </View>
@@ -378,11 +376,11 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
             <Text style={styles.spName} numberOfLines={1}>{card.name}</Text>
             <View style={styles.spChips}>
               {card.ranked && card.band ? (
-                <BandChip band={card.band} />
+                <BandChip band={card.band} prefix="Today" />
               ) : (
                 <View style={styles.notRated}><Text style={styles.notRatedText}>NOT RATED</Text></View>
               )}
-              {card.ranked ? <TrendArrow trend={card.trend} /> : null}
+              {card.ranked ? <SeasonTimingChip label={card.seasonLine} /> : null}
               {card.standing ? (
                 <Text style={styles.spStand}>
                   #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
@@ -394,20 +392,7 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
         </View>
         <View style={styles.spRows}>
           <View style={styles.flex}>
-            <Text style={styles.spKey}>SEASON</Text>
-            <Text style={styles.spValue} numberOfLines={1}>{card.seasonLine}</Text>
-            {card.ranked && style ? (
-              <BandMeter
-                level={style.level}
-                token={`meter-${card.speciesId}`}
-                delay={200 + Math.min(index, 6) * 80}
-                compact
-                reduceMotion={reduceMotion}
-              />
-            ) : null}
-          </View>
-          <View style={styles.flex}>
-            <Text style={styles.spKey}>WATER FIT</Text>
+            <Text style={styles.spKey}>WATER TODAY</Text>
             <Text style={styles.spValue} numberOfLines={1}>{card.waterLine ?? "Unavailable"}</Text>
             <WaterFitBar card={card} />
             {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : null}
@@ -434,7 +419,7 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
   return (
     <Card label={`Supported species at ${report.displayName}`}>
       <CardHead title={`Supported species at ${report.displayName}`} />
-      <Text style={styles.cardSub}>Ranked by seasonal rating and water-temperature suitability.</Text>
+      <Text style={styles.cardSub}>Today’s opportunity and season timing are shown separately. Water fit explains the current context.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}
@@ -840,22 +825,22 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>1</Text></View>
         <View style={styles.flex}>
-          <Text style={styles.infoStepTitle}>Each species gets a season rating</Text>
-          <Text style={styles.infoStepBody}>Prime, Good, Fair, Poor or Off-season, based on when that fish usually shows up at this part of the lake.</Text>
+          <Text style={styles.infoStepTitle}>Today is the trip signal</Text>
+          <Text style={styles.infoStepBody}>Prime, Good, Fair or Poor summarizes today’s opportunity. The internal number used for ordering is never shown as a catch guarantee.</Text>
         </View>
       </View>
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>2</Text></View>
         <View style={styles.flex}>
-          <Text style={styles.infoStepTitle}>Water-temp fit orders the rest</Text>
-          <Text style={styles.infoStepBody}>The bar shows where today's modeled water sits against each fish's preferred range. It decides the order among species with the same rating.</Text>
+          <Text style={styles.infoStepTitle}>Season timing is separate</Text>
+          <Text style={styles.infoStepBody}>Peak season, Approaching peak, In season, Past peak or Off season tells you where today sits within the species’ annual pier window.</Text>
         </View>
       </View>
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>3</Text></View>
         <View style={styles.flex}>
-          <Text style={styles.infoStepTitle}>The calendar shows each day's best bet</Text>
-          <Text style={styles.infoStepBody}>The top species for that day by the same rules, using that day's season timing and average modeled water temperature.</Text>
+          <Text style={styles.infoStepTitle}>Water explains current context</Text>
+          <Text style={styles.infoStepBody}>The bar shows where modeled nearshore water sits against the species’ preferred range. It supports the rating but is not proof fish are present.</Text>
         </View>
       </View>
       <View style={styles.legend}>
@@ -891,6 +876,9 @@ function ReportSpeciesSwitcher({
       pierCastSpeciesName(right.speciesId),
     )
   );
+  const selectedCard = buildPierCastCitySpeciesCards(report).find((card) =>
+    card.speciesId === report.selectedSpeciesId
+  ) ?? null;
   return (
     <View style={styles.reportSpecies}>
       <Text style={styles.reportSpeciesLabel}>REPORT SPECIES</Text>
@@ -930,6 +918,27 @@ function ReportSpeciesSwitcher({
           );
         })}
       </ScrollView>
+      {selectedCard ? (
+        <View style={styles.reportSpeciesSnapshot}>
+          <Text style={styles.reportSpeciesSnapshotLabel}>SELECTED SPECIES</Text>
+          <Text style={styles.reportSpeciesSnapshotName}>{selectedCard.name}</Text>
+          <View style={styles.reportSpeciesSnapshotChips}>
+            {selectedCard.ranked && selectedCard.band ? (
+              <>
+                <BandChip band={selectedCard.band} prefix="Today" />
+                <SeasonTimingChip label={selectedCard.seasonLine} />
+              </>
+            ) : (
+              <View style={styles.notRated}>
+                <Text style={styles.notRatedText}>NOT RATED · {selectedCard.seasonLine.toUpperCase()}</Text>
+              </View>
+            )}
+          </View>
+          <Text style={styles.reportSpeciesSnapshotWater}>
+            WATER TODAY · {selectedCard.waterLine ?? "Unavailable"}
+          </Text>
+        </View>
+      ) : null}
     </View>
   );
 }
@@ -1066,6 +1075,11 @@ const styles = StyleSheet.create({
   reportSpeciesOptionOn: { borderColor: INK, backgroundColor: INK },
   reportSpeciesOptionText: { color: INK, fontFamily: paperFonts.bodySemiBold, fontSize: 13 },
   reportSpeciesOptionTextOn: { color: "#FFFFFF" },
+  reportSpeciesSnapshot: { marginTop: 10, marginHorizontal: 14, padding: 12, borderWidth: 1.5, borderColor: paper.dashboardLine, borderRadius: 12, backgroundColor: paper.dashboardWhite },
+  reportSpeciesSnapshotLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.4, color: paper.dashboardBlue },
+  reportSpeciesSnapshotName: { marginTop: 2, fontFamily: paperFonts.display, fontSize: 20, color: INK },
+  reportSpeciesSnapshotChips: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 7 },
+  reportSpeciesSnapshotWater: { marginTop: 8, fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.8, color: paper.dashboardInkSoft },
 
   hero: { overflow: "hidden", backgroundColor: INK, paddingHorizontal: 20, paddingTop: 22, paddingBottom: 22 },
   heroTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10 },
@@ -1121,7 +1135,6 @@ const styles = StyleSheet.create({
   sp: { overflow: "hidden", marginTop: 10, paddingVertical: 14, paddingRight: 14, paddingLeft: 18, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 14, backgroundColor: "#FFFFFF", gap: 10 },
   spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
   spTop: { flexDirection: "row", alignItems: "center", gap: 10 },
-  spRank: { width: 24, fontFamily: paperFonts.metaMonoBold, fontSize: 14, color: "#777777" },
   spFish: { width: 84, height: 50, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   spName: { fontFamily: paperFonts.display, fontSize: 19, lineHeight: 23, color: INK },
   spChips: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 4 },

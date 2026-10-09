@@ -16,6 +16,7 @@ import {
 } from "./pierCastTemperatureEventPresentation";
 import {
   standingsStageLabel,
+  standingsOutlookTimingLabel,
   standingsUnrankedReason,
   standingsWaterPhrase,
 } from "./pierCastStandingsPresentation";
@@ -28,8 +29,8 @@ import type { PierCastHourlyWeatherPoint } from "./pierCastWeather";
  * is derived here from server fields so copy cannot drift from data:
  *
  * - Main targets are salmon, trout, steelhead and freshwater drum. They appear
- *   before the remaining species, and each group follows the leaderboard rule
- *   (ranked first, then seasonal band, then thermal match). No scores are shown.
+ *   before the remaining species. Today's label, season timing and water fit
+ *   remain visually distinct, and internal scores are never shown.
  * - The five-day calendar shows each day's best species and its seasonal band
  *   from the server's `dailyOutlook`. Older servers and saved copies without it
  *   still get the days, water ranges and air temps, plus today's best species.
@@ -205,7 +206,7 @@ export type PierCastCitySpeciesCard = {
   ranked: boolean;
   band: PierCastSeasonalBandV4 | null;
   trend: "building" | "steady" | "fading" | null;
-  /** "Peak season", "Season building" … or the not-rated reason. */
+  /** "Peak season", "Approaching peak" … or the not-rated reason. */
   seasonLine: string;
   /** "A touch warm" / "Right in range" or null when unavailable. */
   waterLine: string | null;
@@ -244,7 +245,8 @@ export function buildPierCastCitySpeciesCards(
       band: outlook.status === "available" ? outlook.band : null,
       trend: outlook.status === "available" ? outlook.trend : null,
       seasonLine: ranked && outlook.status === "available"
-        ? standingsStageLabel(outlook.stage, outlook.band)
+        ? standingsOutlookTimingLabel(outlook) ??
+          standingsStageLabel(outlook.stage, outlook.band)
         : standingsUnrankedReason(species),
       waterLine: phrase ? capitalize(phrase) : null,
       idealLine: fit
@@ -299,10 +301,11 @@ export function pierCastCityTopPick(
     leader.seasonalOutlook.status !== "available"
   ) return null;
   const phrase = standingsWaterPhrase(leader.thermalMatch);
-  const stage = standingsStageLabel(
-    leader.seasonalOutlook.stage,
-    leader.seasonalOutlook.band,
-  );
+  const stage = standingsOutlookTimingLabel(leader.seasonalOutlook) ??
+    standingsStageLabel(
+      leader.seasonalOutlook.stage,
+      leader.seasonalOutlook.band,
+    );
   return {
     speciesId: leader.speciesId,
     name: pierCastSpeciesName(leader.speciesId),

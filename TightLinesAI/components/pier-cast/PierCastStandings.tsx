@@ -48,7 +48,6 @@ import {
   standingsForecastDate,
   standingsLeaderSummary,
   standingsOutlookTimingLabel,
-  standingsStageLabel,
   standingsTrendCue,
   standingsUnrankedReason,
   standingsWaterLine,
@@ -228,11 +227,29 @@ export function Fish({
   );
 }
 
-export function BandChip({ band }: { band: PierCastSeasonalBandV4 }) {
+export function BandChip({
+  band,
+  prefix,
+}: {
+  band: PierCastSeasonalBandV4;
+  prefix?: string;
+}) {
   const style = PIER_CAST_STANDINGS_BANDS[band];
   return (
     <View style={[styles.chip, { backgroundColor: style.chip, borderColor: style.color }]}>
-      <Text style={[styles.chipText, { color: style.ink }]}>{style.label.toUpperCase()}</Text>
+      <Text style={[styles.chipText, { color: style.ink }]}>
+        {prefix ? `${prefix.toUpperCase()} · ` : ""}{style.label.toUpperCase()}
+      </Text>
+    </View>
+  );
+}
+
+export function SeasonTimingChip({ label }: { label: string }) {
+  return (
+    <View style={[styles.chip, styles.seasonChip]}>
+      <Text style={[styles.chipText, styles.seasonChipText]} numberOfLines={1}>
+        SEASON · {label.toUpperCase()}
+      </Text>
     </View>
   );
 }
@@ -395,7 +412,16 @@ function SpeciesSheet({
   );
 }
 
-function InfoSheet({ visible, onClose }: { visible: boolean; onClose: () => void }) {
+function InfoSheet({
+  visible,
+  onClose,
+  speciesId,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  speciesId: PierCastSpeciesId | null;
+}) {
+  const absoluteOpportunity = speciesId === "lake_trout";
   return (
     <BottomSheet
       visible={visible}
@@ -406,18 +432,26 @@ function InfoSheet({ visible, onClose }: { visible: boolean; onClose: () => void
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>1</Text></View>
         <View style={styles.flex}>
-          <Text style={styles.infoStepTitle}>Season comes first</Text>
+          <Text style={styles.infoStepTitle}>
+            {absoluteOpportunity ? "Today’s opportunity drives the order" : "Season comes first"}
+          </Text>
           <Text style={styles.infoStepBody}>
-            Every city gets one rating for your species today, based on when that fish usually shows up at that part of the lake.
+            {absoluteOpportunity
+              ? "Each city’s hidden score combines its lake-trout fishery strength, local-date season timing and current modeled water-temperature fit."
+              : "Every city gets one rating for your species today, based on when that fish usually shows up at that part of the lake."}
           </Text>
         </View>
       </View>
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>2</Text></View>
         <View style={styles.flex}>
-          <Text style={styles.infoStepTitle}>Water-temp suitability orders the rest</Text>
+          <Text style={styles.infoStepTitle}>
+            {absoluteOpportunity ? "The exact score breaks label ties" : "Water-temp suitability orders the rest"}
+          </Text>
           <Text style={styles.infoStepBody}>
-            Among cities with the same rating, the one whose modeled water temperature best suits that fish ranks higher.
+            {absoluteOpportunity
+              ? "Prime, Good, Fair and Poor are display bands. Cities are ordered by the underlying current-day score, not alphabetically within a label."
+              : "Among cities with the same rating, the one whose modeled water temperature best suits that fish ranks higher."}
           </Text>
         </View>
       </View>
@@ -435,9 +469,9 @@ function InfoSheet({ visible, onClose }: { visible: boolean; onClose: () => void
       </View>
       <View style={styles.legendTrendRow}>
         <Ionicons name="arrow-up" size={13} color="#1F6B3A" />
-        <Text style={styles.legendMeaning}>Season building</Text>
+        <Text style={styles.legendMeaning}>Approaching peak</Text>
         <Ionicons name="arrow-down" size={13} color="#9A4A12" style={styles.legendTrendGap} />
-        <Text style={styles.legendMeaning}>Season fading</Text>
+        <Text style={styles.legendMeaning}>Past peak</Text>
       </View>
       <Text style={styles.infoFine}>
         Ratings are research-based outlooks, not catch guarantees. Water temperatures are NOAA nearshore model estimates, not pier readings.
@@ -594,6 +628,9 @@ function LeaderCard({
     ? structures[0]!.displayName
     : `${structures[0]!.displayName} + ${structures.length - 1} more`;
   const summary = standingsLeaderSummary(row, speciesShort(speciesId));
+  const timingLabel = outlook.status === "available"
+    ? standingsOutlookTimingLabel(outlook)
+    : null;
   const weakNote = band === "usually_off"
     ? `${speciesName(speciesId)} is mostly off-season right now.`
     : `${speciesName(speciesId)} fishing is slow everywhere right now.`;
@@ -644,17 +681,10 @@ function LeaderCard({
                 <Text style={[styles.verdict, { color: bandStyle?.ink ?? INK }]}>
                   {(bandStyle?.label ?? "Unrated").toUpperCase()}
                 </Text>
-                <TrendArrow trend={outlook.status === "available" ? outlook.trend : null} />
               </View>
             </View>
-            {outlook.status === "available" && bandStyle ? (
-              <View style={[styles.chip, styles.stageChip, { backgroundColor: bandStyle.chip, borderColor: bandStyle.color }]}>
-                <View style={[styles.dot, { backgroundColor: bandStyle.color }]} />
-                <Text style={[styles.chipText, { color: bandStyle.ink }]} numberOfLines={1}>
-                  {(standingsOutlookTimingLabel(outlook) ??
-                    standingsStageLabel(outlook.stage, outlook.band)).toUpperCase()}
-                </Text>
-              </View>
+            {timingLabel ? (
+              <SeasonTimingChip label={timingLabel} />
             ) : null}
           </View>
           <BandMeter level={bandStyle?.level ?? 0} token={token} delay={250} reduceMotion={reduceMotion} />
@@ -730,6 +760,9 @@ function ChaserRow({
   const waterLine = standingsWaterLine(row.thermalMatch);
   const trend = outlook.status === "available" ? outlook.trend : null;
   const trendCue = standingsTrendCue(trend);
+  const timingLabel = outlook.status === "available"
+    ? standingsOutlookTimingLabel(outlook)
+    : null;
   const delay = 120 + Math.min(index, 8) * 60;
   return (
     <Reveal token={token} delay={delay} reduceMotion={reduceMotion}>
@@ -753,15 +786,14 @@ function ChaserRow({
           <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
           <Text style={styles.rowCity} numberOfLines={1}>{row.displayName}</Text>
           {waterLine ? <Text style={styles.rowLine} numberOfLines={1}>{waterLine}</Text> : null}
-          <BandMeter level={bandStyle?.level ?? 0} token={token} delay={delay + 180} compact reduceMotion={reduceMotion} />
+          {timingLabel ? <SeasonTimingChip label={timingLabel} /> : null}
         </View>
         <View style={styles.rowRight}>
           <View style={styles.rowFish}>
             <Fish speciesId={speciesId} width={48} height={48} />
           </View>
           <View style={styles.rowChipLine}>
-            {band ? <BandChip band={band} /> : null}
-            <TrendArrow trend={trend} />
+            {band ? <BandChip band={band} prefix="Today" /> : null}
           </View>
         </View>
         <View style={styles.go}>
@@ -1398,7 +1430,11 @@ export function PierCastStandings({
         }}
         onClose={() => setSheet(null)}
       />
-      <InfoSheet visible={sheet === "info"} onClose={() => setSheet(null)} />
+      <InfoSheet
+        visible={sheet === "info"}
+        speciesId={selectedSpeciesId}
+        onClose={() => setSheet(null)}
+      />
     </View>
   );
 }
@@ -1758,7 +1794,14 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderRadius: 6,
   },
-  stageChip: { maxWidth: 150 },
+  seasonChip: {
+    alignSelf: "flex-start",
+    maxWidth: 210,
+    marginTop: 5,
+    borderColor: paper.dashboardBlueLight,
+    backgroundColor: "#EEF6FA",
+  },
+  seasonChipText: { color: paper.dashboardBlue },
   chipText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.1 },
   trend: {
     width: 20,

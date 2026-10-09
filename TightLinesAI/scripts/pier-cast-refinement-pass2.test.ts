@@ -42,14 +42,14 @@ test("leaderboard is species-specific with the documented ranking hierarchy", ()
 test("temperature fit is compact and visually secondary on leaderboard rows", () => {
   // City-report species cards show water fit against the ideal range.
   assert.match(ui, /function WaterFitBar/);
-  assert.match(ui, />WATER FIT</);
+  assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Ideal \{card\.idealLine\}/);
   assert.match(reportRules, /export function pierCastWaterFit/);
   assert.match(reportRules, /thermal\.optimumRangeC/);
   assert.match(ui, /MODELED/);
   // Standings rows lead with the seasonal rating chip; water temp is a
   // secondary line derived from the thermal match.
-  assert.match(standings, /<BandChip band=\{band\} \/>/);
+  assert.match(standings, /<BandChip band=\{band\} prefix="Today" \/>/);
   assert.match(standings, /standingsWaterLine\(row\.thermalMatch\)/);
   assert.match(standingsRules, /Water \$\{temperatureF\}°F · \$\{phrase\}/);
 });
@@ -78,10 +78,10 @@ test("city-first target changes are persisted and guarded against stale async re
   assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
 });
 
-test("city reports are city-first and keep season separate from water fit", () => {
-  assert.match(ui, /Ranked by seasonal rating and water-temperature suitability/);
-  assert.match(ui, />SEASON</);
-  assert.match(ui, />WATER FIT</);
+test("city reports are city-first and separate today, season, and water", () => {
+  assert.match(ui, /Today’s opportunity and season timing are shown separately/);
+  assert.match(ui, /<SeasonTimingChip/);
+  assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Best bet each day/);
   assert.match(ui, /TOP PICK TODAY/);
   assert.doesNotMatch(ui, /YOUR TARGET|CHANGE TARGET/);

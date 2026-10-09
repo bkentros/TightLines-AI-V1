@@ -5,6 +5,7 @@ import type {
 } from "../../../../../lib/pierCastConditionsV4.ts";
 import {
   pierCastLakeTroutV5NeedsMap,
+  projectPierCastLakeTroutCityReportV5,
   projectPierCastLakeTroutStandingsV5,
 } from "../../../../../lib/pierCastLakeTroutV5.ts";
 import { PIER_CAST_LAKE_TROUT_V5_CANDIDATES } from "../config/lakeTroutV5.candidate.ts";
@@ -162,4 +163,70 @@ Deno.test("all twelve monthly snapshots retain complete, contiguous city guidanc
       generatedAt,
     );
   }
+});
+
+Deno.test("city report inherits the same lake-trout label and standing", () => {
+  const generatedAt = "2026-11-15T17:00:00.000Z";
+  const leaderboard = projectPierCastLakeTroutStandingsV5({
+    leaderboard: board(generatedAt),
+    map: map(generatedAt),
+  });
+  const harbor = leaderboard.cities.find((city) =>
+    city.cityId === "harbor_beach_mi"
+  )!;
+  const report = projectPierCastLakeTroutCityReportV5({
+    leaderboard,
+    report: {
+      schemaVersion: "piercast-conditions-v4",
+      formulaVersion: "seasonal-outlook-plus-thermal-match-v1",
+      generatedAt,
+      cityId: "harbor_beach_mi",
+      displayName: "Harbor Beach",
+      stateCode: "MI",
+      lakeId: "huron",
+      basinId: "lake_huron_west",
+      timezone: "America/Detroit",
+      selectedSpeciesId: "lake_trout",
+      species: [{
+        speciesId: "lake_trout",
+        seasonalOutlook: {
+          status: "unavailable",
+          value: null,
+          band: null,
+          stage: null,
+          trend: null,
+          profileId: null,
+          basis: null,
+          localDate: "2026-11-15",
+          reasonCodes: ["seasonal_profile_missing"],
+        },
+        thermalMatch: harbor.thermalMatch,
+        targetingEligibility: "unknown",
+        rankingDisposition: "unranked",
+        localFisheryContext: null,
+        reasonCodes: [],
+      }],
+      currentTemperature: null,
+      temperatureTimeline: [],
+      speciesStandings: [],
+      source: {
+        status: "fresh_archived_complete_cycle",
+        productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+        issuedAt: generatedAt,
+        fetchedAt: generatedAt,
+        cycleAgeHours: 0,
+      },
+      disclosure: "test",
+    },
+  });
+  const lakeTrout = report.species.find((species) =>
+    species.speciesId === "lake_trout"
+  )!;
+  assert.deepEqual(lakeTrout.seasonalOutlook, harbor.seasonalOutlook);
+  assert.equal(report.speciesStandings?.[0]?.rank, harbor.rank);
+  assert.equal(
+    report.speciesStandings?.[0]?.rankedCityCount,
+    leaderboard.cities.filter((city) => city.rankingDisposition === "ranked")
+      .length,
+  );
 });

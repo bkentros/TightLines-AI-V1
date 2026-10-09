@@ -20,10 +20,10 @@ import { dashboardBandColor, paper } from "./theme";
  * Everything the screen says is derived here from the v4 server fields so the
  * copy can never drift from the data:
  *
- * - The rating word (Prime / Good / Fair / Poor / Off-season) is the city's
- *   seasonal band. It is the primary ranking key.
- * - Water-temp copy comes from the thermal match. It only orders cities that
- *   share a seasonal band (the server sorts by `thermalMatch.value`).
+ * - The rating word (Prime / Good / Fair / Poor / Off-season) is presentation,
+ *   while season timing and water-temperature fit remain separate context.
+ * - V4 species retain server ordering (seasonal band, then thermal match).
+ *   Audited lake trout v5 uses exact city/date opportunity before labels.
  */
 
 /** Salmon and trout are the headline Great Lakes pier targets. */
