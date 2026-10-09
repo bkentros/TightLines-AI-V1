@@ -133,6 +133,167 @@ test("St. Joseph Chinook adds a modest fall peak without raising its annual ceil
   assert.equal(annualMaximum, 6.8);
 });
 
+test("Batch 2 corrects Charlevoix Chinook timing without changing its annual ceiling", () => {
+  const may10 = evaluatePierCastOpportunityV5({
+    cityId: "charlevoix_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-05-10",
+    thermalValue: 1,
+  });
+  assert.ok(may10);
+  assert.equal(may10.availability, 0);
+  assert.equal(may10.band, "usually_off");
+  assert.equal(may10.timing, "off");
+
+  const july15 = evaluatePierCastOpportunityV5({
+    cityId: "charlevoix_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-07-15",
+    thermalValue: 1,
+  });
+  assert.ok(july15);
+  assert.equal(july15.modeId, "summer_channel");
+  assert.equal(july15.availability, 1);
+  assert.equal(july15.score, 4.84);
+  assert.equal(july15.band, "fair");
+  assert.equal(july15.timing, "peak");
+
+  const september10 = evaluatePierCastOpportunityV5({
+    cityId: "charlevoix_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-09-10",
+    thermalValue: 1,
+  });
+  assert.ok(september10);
+  assert.equal(september10.modeId, "fall_harbor_staging");
+  assert.equal(september10.score, 7.2);
+  assert.equal(september10.timing, "peak");
+});
+
+test("Batch 2 moves Rogers City Chinook peak into September", () => {
+  const september10 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-09-10",
+    thermalValue: 1,
+  });
+  assert.ok(september10);
+  assert.equal(september10.modeId, "fall_harbor_staging");
+  assert.equal(september10.availability, 1);
+  assert.equal(september10.score, 6);
+  assert.equal(september10.band, "fair");
+  assert.equal(september10.timing, "peak");
+
+  const october5 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-10-05",
+    thermalValue: 1,
+  });
+  assert.ok(october5);
+  assert.equal(october5.availability, 0.4);
+  assert.equal(october5.score, 3);
+  assert.equal(october5.band, "poor");
+  assert.equal(october5.timing, "past");
+});
+
+test("Batch 2 centers Rogers City Atlantic salmon on May and removes the winter seam", () => {
+  const january15 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "atlantic_salmon",
+    localDate: "2026-01-15",
+    thermalValue: 1,
+  });
+  assert.ok(january15);
+  assert.equal(january15.availability, 0);
+  assert.equal(january15.band, "usually_off");
+  assert.equal(january15.timing, "off");
+
+  const may15 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "atlantic_salmon",
+    localDate: "2026-05-15",
+    thermalValue: 1,
+  });
+  assert.ok(may15);
+  assert.equal(may15.modeId, "spring_early_summer_harbor");
+  assert.equal(may15.availability, 1);
+  assert.equal(may15.score, 6.8);
+  assert.equal(may15.band, "good");
+  assert.equal(may15.timing, "peak");
+
+  const october20 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "atlantic_salmon",
+    localDate: "2026-10-20",
+    thermalValue: 1,
+  });
+  assert.ok(october20);
+  assert.equal(october20.modeId, "fall_breakwall");
+  assert.equal(october20.availability, 1);
+  assert.equal(october20.score, 5.99);
+  assert.equal(october20.band, "fair");
+  assert.equal(october20.timing, "peak");
+
+  const december15 = evaluatePierCastOpportunityV5({
+    cityId: "rogers_city_mi",
+    speciesId: "atlantic_salmon",
+    localDate: "2026-12-15",
+    thermalValue: 1,
+  });
+  assert.ok(december15);
+  assert.equal(december15.availability, 0);
+  assert.equal(december15.band, "usually_off");
+  assert.equal(december15.timing, "off");
+});
+
+test("Batch 2 preserves the approved annual fishery-strength ceilings", () => {
+  const pairs = [
+    ["charlevoix_mi", "chinook_salmon", 7.2],
+    ["rogers_city_mi", "chinook_salmon", 6],
+    ["rogers_city_mi", "atlantic_salmon", 6.8],
+  ] as const;
+
+  for (const [cityId, speciesId, expectedMaximum] of pairs) {
+    let annualMaximum = 0;
+    for (let day = 0; day < 365; day += 1) {
+      const localDate = new Date(Date.UTC(2026, 0, day + 1))
+        .toISOString().slice(0, 10);
+      const scores = [0, 0.5, 1].map((thermalValue) =>
+        evaluatePierCastOpportunityV5({
+          cityId,
+          speciesId,
+          localDate,
+          thermalValue,
+        })!.score!
+      );
+      assert.ok(scores[0] >= 1, `${cityId}/${speciesId}/${localDate}`);
+      assert.ok(scores[0] <= scores[1], `${cityId}/${speciesId}/${localDate}`);
+      assert.ok(scores[1] <= scores[2], `${cityId}/${speciesId}/${localDate}`);
+      assert.ok(
+        scores[2] <= expectedMaximum,
+        `${cityId}/${speciesId}/${localDate}`,
+      );
+      annualMaximum = Math.max(annualMaximum, scores[2]);
+    }
+    assert.equal(annualMaximum, expectedMaximum, `${cityId}/${speciesId}`);
+  }
+});
+
+test("Batch 2 does not turn limited Lexington access into a score gate", () => {
+  for (const speciesId of ["atlantic_salmon", "lake_trout"] as const) {
+    const evaluation = evaluatePierCastOpportunityV5({
+      cityId: "lexington_mi",
+      speciesId,
+      localDate: "2026-10-09",
+      thermalValue: 1,
+    });
+    assert.ok(evaluation, speciesId);
+    assert.equal(evaluation.closed, false, speciesId);
+    assert.notEqual(evaluation.score, null, speciesId);
+  }
+});
+
 test("St. Joseph fall correction reaches leaderboard and city report through one projection", () => {
   const generatedAt = "2026-09-16T16:00:00.000Z";
   const source = buildPierCastConditionsV4Outlook({

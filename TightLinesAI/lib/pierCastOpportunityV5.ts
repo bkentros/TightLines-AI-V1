@@ -19,9 +19,10 @@ import { calculatePierCastV3Opportunity } from "../supabase/functions/_shared/pi
 import { evaluateTemperatureSuitability } from "../supabase/functions/_shared/pierCastEngine/scoring/temperature";
 import { evaluatePierCastLakeTroutOpportunityV5 } from "./pierCastLakeTroutV5";
 import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
+import { applyPierCastSalmonidBatch2V5 } from "./pierCastSalmonidBatch2V5";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
-  "piercast-opportunity-v5-1.17-batch1-v2" as const;
+  "piercast-opportunity-v5-1.17-batch2-v1" as const;
 
 export type PierCastOpportunityTimingV5 =
   | "off"
@@ -134,7 +135,9 @@ export function evaluatePierCastOpportunityV5(input: {
     candidate.cityId === input.cityId && candidate.speciesId === input.speciesId
   );
   if (!basePair) return null;
-  const pair = applyPierCastSalmonidBatch1V5(basePair);
+  const pair = applyPierCastSalmonidBatch2V5(
+    applyPierCastSalmonidBatch1V5(basePair),
+  );
   const modes = evaluatePierCastV3ModePotentials({
     localDate: input.localDate,
     modes: pair.modes,

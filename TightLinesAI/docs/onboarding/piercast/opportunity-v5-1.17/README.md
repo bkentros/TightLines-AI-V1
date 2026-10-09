@@ -18,11 +18,17 @@ Poor or an unavailable/off-season state and never displays the number.
 Lake trout uses the owner-approved October 2026 all-city replacement: 26
 numeric cities and six research holds. Every other configured species uses the
 evidence-reviewed Formula v3 pairing and temperature curve already preserved
-in the repository, with one owner-approved Batch 1 timing correction: St.
-Joseph Chinook adds a modest fall-harbor mode that peaks September 16 at a 5.8
-prime-condition ceiling and ends November 1. The city's 6.8 annual Chinook
-ceiling and cross-city peak ordering do not change. The candidate does not
-enable the private v3 server flags or change the v4 wire contract.
+in the repository, with owner-approved Batch 1 and Batch 2 timing corrections.
+Batch 1 adds St. Joseph's modest fall Chinook period. Batch 2 removes the
+unsupported May Charlevoix Chinook peak, moves Rogers City Chinook's peak to
+September, and centers Rogers City Atlantic salmon on May instead of winter.
+None of these corrections changes an annual fishery-strength ceiling. The
+candidate does not enable the private v3 server flags or change the v4 wire
+contract.
+
+Batch 2 does not add a Lexington access gate. Existing access information can
+remain visible to anglers, but limited access does not change the historical
+fishery calibration or the app candidate's current-opportunity ranking.
 
 ## Surface consistency
 
@@ -74,6 +80,7 @@ Relevant review artifacts:
 - `docs/onboarding/piercast/seasonal-opportunity-audit-2026-09/`
 - `docs/onboarding/piercast/lake-trout-recalibration-2026-10/`
 - `docs/onboarding/piercast/salmonid-batch1-2026-10/`
+- `docs/onboarding/piercast/salmonid-batch2-2026-10/`
 - `supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts`
 
 ## Release boundary
