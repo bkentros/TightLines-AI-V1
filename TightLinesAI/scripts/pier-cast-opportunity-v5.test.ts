@@ -11,6 +11,7 @@ import {
   clearUnverifiedPierCastTargetSummariesV5,
   evaluatePierCastOpportunityV5,
   PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION,
+  projectPierCastCityReportLabelsV5,
   projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
   projectPierCastTargetSpeciesSummariesV5,
@@ -482,4 +483,40 @@ test("city report labels, species order and selected standing use the same model
   assert.equal(report.speciesStandings?.length, 1);
   assert.equal(report.speciesStandings?.[0]?.speciesId, "chinook_salmon");
   assert.equal(JSON.stringify(report).includes('"score"'), false);
+});
+
+test("city reports retain v5 labels when standings are unavailable", () => {
+  const source = outlook();
+  const raw = projectPierCastConditionsCityReportV4(
+    source,
+    "ludington_mi",
+    "chinook_salmon",
+  );
+  assert.ok((raw.speciesStandings?.length ?? 0) > 0);
+  const projected = projectPierCastCityReportLabelsV5(raw);
+  assert.deepEqual(projected.speciesStandings, []);
+  for (const species of projected.species) {
+    assert.equal(
+      species.seasonalOutlook.status === "available"
+        ? species.seasonalOutlook.profileId
+        : null,
+      PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION,
+      species.speciesId,
+    );
+  }
+  const lakeTrout = projected.species.find((species) =>
+    species.speciesId === "lake_trout"
+  );
+  assert.ok(lakeTrout);
+  const expected = evaluatePierCastOpportunityV5({
+    cityId: projected.cityId,
+    speciesId: "lake_trout",
+    localDate: lakeTrout.seasonalOutlook.localDate,
+    thermalValue: lakeTrout.thermalMatch.status === "available"
+      ? lakeTrout.thermalMatch.value
+      : null,
+  });
+  assert.ok(expected);
+  assert.equal(lakeTrout.seasonalOutlook.band, expected.band);
+  assert.equal(JSON.stringify(projected).includes('"score"'), false);
 });

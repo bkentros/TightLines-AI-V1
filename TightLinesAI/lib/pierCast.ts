@@ -29,6 +29,7 @@ import {
 } from "./pierCastLakeTroutV5";
 import {
   clearUnverifiedPierCastTargetSummariesV5,
+  projectPierCastCityReportLabelsV5,
   projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
   projectPierCastTargetSpeciesSummariesV5,
@@ -316,15 +317,44 @@ export async function fetchPierCastConditionsCityReportForApp(
       }),
     };
   } catch {
-    return envelope;
+    return {
+      ...envelope,
+      report: projectPierCastCityReportLabelsV5(envelope.report),
+    };
   }
 }
 export async function fetchSavedPierCastConditionsReport(
   speciesId?: PierCastSpeciesId,
 ): Promise<PierCastSavedReportReadV4> {
   const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
-  return validatePierCastSavedReportRead(
+  const saved = validatePierCastSavedReportRead(
     await pierCastGet(`conditions/saved-report${query}`, true),
     speciesId,
   );
+  if (saved.status !== "available") return saved;
+  const labelsOnly = projectPierCastCityReportLabelsV5(saved.envelope.report);
+  const target = speciesId ?? labelsOnly.selectedSpeciesId;
+  try {
+    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
+      target,
+    );
+    return {
+      ...saved,
+      envelope: {
+        ...saved.envelope,
+        report: projectPierCastCityReportV5({
+          report: labelsOnly,
+          selectedLeaderboard,
+        }),
+      },
+    };
+  } catch {
+    return {
+      ...saved,
+      envelope: {
+        ...saved.envelope,
+        report: labelsOnly,
+      },
+    };
+  }
 }

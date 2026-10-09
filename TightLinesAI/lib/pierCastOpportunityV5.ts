@@ -411,17 +411,16 @@ export function clearUnverifiedPierCastTargetSummariesV5(
 }
 
 /**
- * Projects every city-report species through the same model and preserves only
- * the selected species' verified v5 standing. This avoids showing stale v4
- * ranks without issuing a leaderboard request for every species on the card.
+ * Projects every city-report label locally and removes old standings. This is
+ * safe even when the selected leaderboard cannot be fetched, so a saved or
+ * degraded report never exposes the v4 relative-season band as Today's label.
  */
-export function projectPierCastCityReportV5(input: {
-  report: PierCastCityReportReadV4;
-  selectedLeaderboard: PierCastLeaderboardResponseV4;
-}): PierCastCityReportReadV4 {
-  const evaluated = input.report.species.map((species) => {
+export function projectPierCastCityReportLabelsV5(
+  report: PierCastCityReportReadV4,
+): PierCastCityReportReadV4 {
+  const evaluated = report.species.map((species) => {
     const projected = projectPierCastSpeciesConditionsV5({
-      cityId: input.report.cityId,
+      cityId: report.cityId,
       species,
     });
     return {
@@ -447,8 +446,24 @@ export function projectPierCastCityReportV5(input: {
     }
     return left.species.speciesId.localeCompare(right.species.speciesId);
   });
+  return {
+    ...report,
+    species: evaluated.map(({ species }) => species),
+    speciesStandings: [],
+  };
+}
+
+/**
+ * Adds only the selected species' verified v5 standing to a locally projected
+ * report. This avoids a leaderboard fan-out for every species card.
+ */
+export function projectPierCastCityReportV5(input: {
+  report: PierCastCityReportReadV4;
+  selectedLeaderboard: PierCastLeaderboardResponseV4;
+}): PierCastCityReportReadV4 {
+  const report = projectPierCastCityReportLabelsV5(input.report);
   const selectedRow = input.selectedLeaderboard.cities.find((city) =>
-    city.cityId === input.report.cityId &&
+    city.cityId === report.cityId &&
     city.rankingDisposition === "ranked" &&
     typeof city.rank === "number"
   );
@@ -456,11 +471,10 @@ export function projectPierCastCityReportV5(input: {
     city.rankingDisposition === "ranked"
   ).length;
   return {
-    ...input.report,
-    species: evaluated.map(({ species }) => species),
+    ...report,
     speciesStandings: selectedRow
       ? [{
-        speciesId: input.report.selectedSpeciesId,
+        speciesId: report.selectedSpeciesId,
         rank: selectedRow.rank,
         rankedCityCount,
       }]

@@ -54,6 +54,10 @@ pairing, so all target labels are ready together and do not change merely
 because a species is tapped. If that map is unavailable, unselected legacy
 labels are cleared instead of being presented as current-opportunity ratings.
 
+Fresh city reports and saved-report recovery are also projected locally before
+rendering. If their selected leaderboard cannot be refreshed, v5 Today and
+Season labels remain available while unverifiable old standings are cleared.
+
 ## Calendar contract
 
 Only these six primary Great Lakes pier species may become the calendar's top
