@@ -247,7 +247,7 @@ export function BandChip({
 export function SeasonTimingChip({ label }: { label: string }) {
   return (
     <View style={[styles.chip, styles.seasonChip]}>
-      <Text style={[styles.chipText, styles.seasonChipText]} numberOfLines={1}>
+      <Text style={[styles.chipText, styles.seasonChipText]}>
         SEASON · {label.toUpperCase()}
       </Text>
     </View>
@@ -683,10 +683,12 @@ function LeaderCard({
                 </Text>
               </View>
             </View>
-            {timingLabel ? (
-              <SeasonTimingChip label={timingLabel} />
-            ) : null}
           </View>
+          {timingLabel ? (
+            <View style={styles.leaderSeason}>
+              <SeasonTimingChip label={timingLabel} />
+            </View>
+          ) : null}
           <BandMeter level={bandStyle?.level ?? 0} token={token} delay={250} reduceMotion={reduceMotion} />
           {summary ? <Text style={styles.leaderWhy}>{summary}</Text> : null}
           {weak ? (
@@ -782,22 +784,26 @@ function ChaserRow({
           </View>
           {medal.label ? <Text style={styles.medalLabel}>{medal.label}</Text> : null}
         </View>
-        <View style={styles.rowMain}>
-          <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
-          <Text style={styles.rowCity} numberOfLines={1}>{row.displayName}</Text>
-          {waterLine ? <Text style={styles.rowLine} numberOfLines={1}>{waterLine}</Text> : null}
-          {timingLabel ? <SeasonTimingChip label={timingLabel} /> : null}
-        </View>
-        <View style={styles.rowRight}>
-          <View style={styles.rowFish}>
-            <Fish speciesId={speciesId} width={48} height={48} />
+        <View style={styles.rowContent}>
+          <View style={styles.rowTop}>
+            <View style={styles.rowMain}>
+              <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
+              <Text style={styles.rowCity} numberOfLines={2}>{row.displayName}</Text>
+              {waterLine ? <Text style={styles.rowLine}>{waterLine}</Text> : null}
+            </View>
+            <View style={styles.rowActions}>
+              <View style={styles.rowFish}>
+                <Fish speciesId={speciesId} width={48} height={48} />
+              </View>
+              <View style={styles.go}>
+                <Ionicons name="chevron-forward" size={16} color={INK} />
+              </View>
+            </View>
           </View>
-          <View style={styles.rowChipLine}>
+          <View style={styles.rowSignals}>
             {band ? <BandChip band={band} prefix="Today" /> : null}
+            {timingLabel ? <SeasonTimingChip label={timingLabel} /> : null}
           </View>
-        </View>
-        <View style={styles.go}>
-          <Ionicons name="chevron-forward" size={16} color={INK} />
         </View>
       </Pressable>
     </Reveal>
@@ -1743,6 +1749,7 @@ const styles = StyleSheet.create({
   verdictLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.6, color: "#555555" },
   verdictLine: { flexDirection: "row", alignItems: "center", gap: 8 },
   verdict: { fontFamily: paperFonts.display, fontSize: 38, lineHeight: 44, letterSpacing: 0.5 },
+  leaderSeason: { marginTop: 6, alignItems: "flex-start" },
   leaderWhy: { marginTop: 12, fontFamily: paperFonts.body, fontSize: 15, lineHeight: 21, color: "#1F2B38" },
   weakBox: {
     marginTop: 14,
@@ -1796,12 +1803,12 @@ const styles = StyleSheet.create({
   },
   seasonChip: {
     alignSelf: "flex-start",
-    maxWidth: 210,
-    marginTop: 5,
+    maxWidth: "100%",
+    paddingVertical: 4,
     borderColor: paper.dashboardBlueLight,
     backgroundColor: "#EEF6FA",
   },
-  seasonChipText: { color: paper.dashboardBlue },
+  seasonChipText: { flexShrink: 1, lineHeight: 16, color: paper.dashboardBlue },
   chipText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.1 },
   trend: {
     width: 20,
@@ -1825,7 +1832,7 @@ const styles = StyleSheet.create({
 
   row: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "stretch",
     gap: 8,
     minHeight: 92,
     marginHorizontal: 14,
@@ -1841,7 +1848,7 @@ const styles = StyleSheet.create({
   },
   rowPressed: { backgroundColor: "#FAFAF7" },
   rowEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
-  medal: { width: 46, alignItems: "center", gap: 3 },
+  medal: { width: 46, alignItems: "center", justifyContent: "center", gap: 3 },
   medalCircle: {
     width: 40,
     height: 40,
@@ -1852,13 +1859,15 @@ const styles = StyleSheet.create({
   },
   medalNumber: { fontFamily: paperFonts.display, fontSize: 18 },
   medalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.2, color: "#555555" },
+  rowContent: { flex: 1, minWidth: 0 },
+  rowTop: { flexDirection: "row", alignItems: "center", gap: 8 },
   rowMain: { flex: 1, minWidth: 0 },
   rowState: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.8, color: GOLD_INK },
   rowCity: { fontFamily: paperFonts.display, fontSize: 21, lineHeight: 25, color: INK },
   rowLine: { marginTop: 1, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 17, color: "#555555" },
-  rowRight: { alignItems: "flex-end", gap: 6 },
+  rowActions: { flexDirection: "row", alignItems: "center", gap: 6 },
   rowFish: { width: 54, height: 30, overflow: "hidden", alignItems: "center", justifyContent: "center" },
-  rowChipLine: { flexDirection: "row", alignItems: "center", gap: 4 },
+  rowSignals: { alignItems: "flex-start", gap: 6, marginTop: 9 },
   go: {
     width: 30,
     height: 30,

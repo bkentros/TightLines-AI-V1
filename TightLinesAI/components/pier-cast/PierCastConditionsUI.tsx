@@ -373,22 +373,22 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
             <SpeciesFish speciesId={card.speciesId} width={84} height={84} />
           </View>
           <View style={styles.flex}>
-            <Text style={styles.spName} numberOfLines={1}>{card.name}</Text>
-            <View style={styles.spChips}>
-              {card.ranked && card.band ? (
-                <BandChip band={card.band} prefix="Today" />
-              ) : (
-                <View style={styles.notRated}><Text style={styles.notRatedText}>NOT RATED</Text></View>
-              )}
-              {card.ranked ? <SeasonTimingChip label={card.seasonLine} /> : null}
-              {card.standing ? (
-                <Text style={styles.spStand}>
-                  #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
-                </Text>
-              ) : null}
-            </View>
+            <Text style={styles.spName} numberOfLines={2}>{card.name}</Text>
           </View>
           <Ionicons name="chevron-forward" size={16} color="#999999" />
+        </View>
+        <View style={styles.spChips}>
+          {card.ranked && card.band ? (
+            <BandChip band={card.band} prefix="Today" />
+          ) : (
+            <View style={styles.notRated}><Text style={styles.notRatedText}>NOT RATED</Text></View>
+          )}
+          {card.ranked ? <SeasonTimingChip label={card.seasonLine} /> : null}
+          {card.standing ? (
+            <Text style={styles.spStand}>
+              #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
+            </Text>
+          ) : null}
         </View>
         <View style={styles.spRows}>
           <View style={styles.flex}>
@@ -1137,8 +1137,8 @@ const styles = StyleSheet.create({
   spTop: { flexDirection: "row", alignItems: "center", gap: 10 },
   spFish: { width: 84, height: 50, overflow: "hidden", alignItems: "center", justifyContent: "center" },
   spName: { fontFamily: paperFonts.display, fontSize: 19, lineHeight: 23, color: INK },
-  spChips: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 4 },
-  spStand: { overflow: "hidden", paddingHorizontal: 6, paddingVertical: 3, borderWidth: 1, borderColor: "rgba(212,175,55,0.6)", borderRadius: 5, backgroundColor: "#FBF3DC", fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.6, color: "#6B5310" },
+  spChips: { alignItems: "flex-start", gap: 6 },
+  spStand: { alignSelf: "flex-start", overflow: "hidden", paddingHorizontal: 6, paddingVertical: 3, borderWidth: 1, borderColor: "rgba(212,175,55,0.6)", borderRadius: 5, backgroundColor: "#FBF3DC", fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.6, color: "#6B5310" },
   notRated: { minHeight: 26, justifyContent: "center", paddingHorizontal: 9, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.2)", borderRadius: 6, backgroundColor: paper.dashboardCream },
   notRatedText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.1, color: "#555555" },
   spRows: { flexDirection: "row", gap: 12 },

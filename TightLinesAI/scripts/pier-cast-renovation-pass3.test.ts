@@ -89,6 +89,8 @@ test("missing and restricted inputs remain explicitly unranked", () => {
 test("city report separates today's label, season timing, and water context", () => {
   assert.match(conditionsUi, /prefix="Today"/);
   assert.match(conditionsUi, /<SeasonTimingChip/);
+  assert.match(conditionsUi, /spChips: \{ alignItems: "flex-start"/);
+  assert.doesNotMatch(standings, /seasonChipText\]\} numberOfLines/);
   assert.match(conditionsUi, />WATER TODAY</);
   assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);
   assert.match(reportRules, /standingsOutlookTimingLabel\(outlook\)/);
