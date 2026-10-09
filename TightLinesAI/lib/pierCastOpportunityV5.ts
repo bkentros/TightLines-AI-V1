@@ -8,6 +8,7 @@ import type { PierCastSpeciesId } from "./pierCastContracts";
 import {
   PIER_CAST_V3_PAIR_CALIBRATIONS,
   getPierCastV3TemperatureCurve,
+  type PierCastV3OpportunityMode,
 } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 import {
   evaluatePierCastV3ModePotential,
@@ -17,9 +18,10 @@ import {
 import { calculatePierCastV3Opportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/opportunityV3";
 import { evaluateTemperatureSuitability } from "../supabase/functions/_shared/pierCastEngine/scoring/temperature";
 import { evaluatePierCastLakeTroutOpportunityV5 } from "./pierCastLakeTroutV5";
+import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
-  "piercast-opportunity-v5-1.17-candidate" as const;
+  "piercast-opportunity-v5-1.17-batch1-v2" as const;
 
 export type PierCastOpportunityTimingV5 =
   | "off"
@@ -55,7 +57,7 @@ function shiftedLocalDate(localDate: string, days: number): string {
 
 function modeTrend(input: {
   localDate: string;
-  mode: (typeof PIER_CAST_V3_PAIR_CALIBRATIONS)[number]["modes"][number];
+  mode: PierCastV3OpportunityMode;
 }): "building" | "steady" | "fading" {
   const before = evaluatePierCastV3ModePotential({
     localDate: shiftedLocalDate(input.localDate, -7),
@@ -128,10 +130,11 @@ export function evaluatePierCastOpportunityV5(input: {
       }
       : null;
   }
-  const pair = PIER_CAST_V3_PAIR_CALIBRATIONS.find((candidate) =>
+  const basePair = PIER_CAST_V3_PAIR_CALIBRATIONS.find((candidate) =>
     candidate.cityId === input.cityId && candidate.speciesId === input.speciesId
   );
-  if (!pair) return null;
+  if (!basePair) return null;
+  const pair = applyPierCastSalmonidBatch1V5(basePair);
   const modes = evaluatePierCastV3ModePotentials({
     localDate: input.localDate,
     modes: pair.modes,

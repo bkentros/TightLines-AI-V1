@@ -18,8 +18,11 @@ Poor or an unavailable/off-season state and never displays the number.
 Lake trout uses the owner-approved October 2026 all-city replacement: 26
 numeric cities and six research holds. Every other configured species uses the
 evidence-reviewed Formula v3 pairing and temperature curve already preserved
-in the repository. The candidate does not enable the private v3 server flags or
-change the v4 wire contract.
+in the repository, with one owner-approved Batch 1 timing correction: St.
+Joseph Chinook adds a modest fall-harbor mode that peaks September 16 at a 5.8
+prime-condition ceiling and ends November 1. The city's 6.8 annual Chinook
+ceiling and cross-city peak ordering do not change. The candidate does not
+enable the private v3 server flags or change the v4 wire contract.
 
 ## Surface consistency
 
@@ -70,6 +73,7 @@ Relevant review artifacts:
 - `docs/onboarding/piercast/major-species-all-city-audit-2026-09/`
 - `docs/onboarding/piercast/seasonal-opportunity-audit-2026-09/`
 - `docs/onboarding/piercast/lake-trout-recalibration-2026-10/`
+- `docs/onboarding/piercast/salmonid-batch1-2026-10/`
 - `supabase/functions/_shared/pierCastEngine/config/v3Calibration.generated.ts`
 
 ## Release boundary
@@ -84,4 +88,3 @@ server used by 1.14, 1.15 and 1.16. Before production promotion:
    order, timing and calendar winner.
 5. Use a normal PR, deploy one function at a quiet time with the prior version
    ready for rollback, and run the health workflow.
-

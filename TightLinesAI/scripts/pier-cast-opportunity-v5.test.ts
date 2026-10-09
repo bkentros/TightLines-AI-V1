@@ -73,6 +73,118 @@ test("all 254 admitted pairs resolve monthly through one opportunity evaluator",
   }
 });
 
+test("St. Joseph Chinook adds a modest fall peak without raising its annual ceiling", () => {
+  const september16 = evaluatePierCastOpportunityV5({
+    cityId: "st_joseph_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-09-16",
+    thermalValue: 1,
+  });
+  assert.ok(september16);
+  assert.equal(september16.modeId, "fall_harbor_staging");
+  assert.equal(september16.availability, 1);
+  assert.equal(september16.score, 5.8);
+  assert.equal(september16.band, "fair");
+  assert.equal(september16.timing, "peak");
+
+  const september30 = evaluatePierCastOpportunityV5({
+    cityId: "st_joseph_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-09-30",
+    thermalValue: 1,
+  });
+  assert.ok(september30);
+  assert.equal(september30.modeId, "fall_harbor_staging");
+  assert.equal(september30.availability, 0.7);
+  assert.ok(Math.abs(september30.score! - 4.36) < 1e-10);
+  assert.equal(september30.band, "fair");
+  assert.equal(september30.timing, "past");
+
+  const november1 = evaluatePierCastOpportunityV5({
+    cityId: "st_joseph_mi",
+    speciesId: "chinook_salmon",
+    localDate: "2026-11-01",
+    thermalValue: 1,
+  });
+  assert.ok(november1);
+  assert.equal(november1.availability, 0);
+  assert.equal(november1.score, 1);
+  assert.equal(november1.band, "usually_off");
+  assert.equal(november1.timing, "off");
+
+  let annualMaximum = 0;
+  for (let day = 0; day < 365; day += 1) {
+    const localDate = new Date(Date.UTC(2026, 0, day + 1))
+      .toISOString().slice(0, 10);
+    const scores = [0, 0.5, 1].map((thermalValue) =>
+      evaluatePierCastOpportunityV5({
+        cityId: "st_joseph_mi",
+        speciesId: "chinook_salmon",
+        localDate,
+        thermalValue,
+      })!.score!
+    );
+    assert.ok(scores[0]! >= 1, localDate);
+    assert.ok(scores[0]! <= scores[1]!, localDate);
+    assert.ok(scores[1]! <= scores[2]!, localDate);
+    assert.ok(scores[2]! <= 6.8, localDate);
+    annualMaximum = Math.max(annualMaximum, scores[2]!);
+  }
+  assert.equal(annualMaximum, 6.8);
+});
+
+test("St. Joseph fall correction reaches leaderboard and city report through one projection", () => {
+  const generatedAt = "2026-09-16T16:00:00.000Z";
+  const source = buildPierCastConditionsV4Outlook({
+    generatedAt,
+    source: {
+      status: "fresh_archived_complete_cycle",
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+      issuedAt: "2026-09-16T13:00:00.000Z",
+      fetchedAt: generatedAt,
+      cycleAgeHours: 3,
+    },
+    cities: [{
+      cityId: "st_joseph_mi",
+      temperatureTimeline: Array.from({ length: 121 }, (_, hour) => ({
+        validAt: new Date(Date.parse(generatedAt) + hour * 3_600_000)
+          .toISOString(),
+        temperatureC: 13,
+      })),
+      dates: [{ localDate: "2026-09-16" }],
+    }],
+  } as never);
+  const leaderboard = projectPierCastLeaderboardV5(
+    projectPierCastConditionsLeaderboardV4(source, "chinook_salmon"),
+  );
+  const leaderboardRow = leaderboard.cities.find((city) =>
+    city.cityId === "st_joseph_mi"
+  );
+  assert.ok(leaderboardRow);
+  assert.equal(leaderboardRow.rank, 1);
+  assert.equal(leaderboardRow.seasonalOutlook.band, "fair");
+  assert.equal(leaderboardRow.seasonalOutlook.stage, "active");
+  assert.ok(leaderboardRow.seasonalOutlook.reasonCodes.includes(
+    "pier_cast_v5_mode:fall_harbor_staging",
+  ));
+
+  const report = projectPierCastCityReportV5({
+    report: projectPierCastConditionsCityReportV4(
+      source,
+      "st_joseph_mi",
+      "chinook_salmon",
+    ),
+    selectedLeaderboard: leaderboard,
+  });
+  const reportRow = report.species.find((species) =>
+    species.speciesId === "chinook_salmon"
+  );
+  assert.ok(reportRow);
+  assert.equal(reportRow.seasonalOutlook.band, "fair");
+  assert.equal(reportRow.seasonalOutlook.stage, "active");
+  assert.equal(report.speciesStandings?.[0]?.rank, 1);
+});
+
 test("leaderboards use exact hidden opportunity and expose labels only", () => {
   const original = projectPierCastConditionsLeaderboardV4(
     outlook(),
