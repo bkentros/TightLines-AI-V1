@@ -13,6 +13,7 @@ const contract = read("lib/pierCastConditionsV4.ts");
 const edge = read("supabase/functions/pier-cast/index.ts");
 const handler = read("supabase/functions/pier-cast/handler.ts");
 const decision = read("docs/PierCast_Refinement_Pass2_Leaderboard_and_Reports.md");
+const unifiedDecision = read("docs/onboarding/piercast/opportunity-v5-1.17/README.md");
 
 test("conditions catalog v2 exposes only the discovery roster needed by city-first navigation", () => {
   assert.match(contract, /piercast-conditions-catalog-v2/);
@@ -31,11 +32,12 @@ test("conditions catalog v2 exposes only the discovery roster needed by city-fir
 test("leaderboard is species-specific with the documented ranking hierarchy", () => {
   assert.match(standings, /WHAT ARE YOU TARGETING\?/);
   assert.match(standings, /Each species gets its own ranking/);
-  assert.match(standings, /Season comes first/);
-  assert.match(standings, /Water-temp suitability orders the rest/);
-  assert.match(standings, /Ordered by water-temp suitability/);
-  assert.match(decision, /seasonal band first/i);
-  assert.match(decision, /temperature fit.*within/i);
+  assert.match(standings, /Today’s opportunity drives the order/);
+  assert.match(standings, /The exact score breaks label ties/);
+  assert.match(standings, /Ordered by overall opportunity/);
+  assert.match(unifiedDecision, /all 18 configured[\s\S]*254 admitted/i);
+  assert.match(unifiedDecision, /Exact[\s\S]*opportunity orders rows/i);
+  assert.match(decision, /seasonal band first/i); // preserved v4 history
   assert.doesNotMatch(standings + ui, /\/10|combined score/i);
 });
 

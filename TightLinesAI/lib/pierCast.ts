@@ -25,9 +25,12 @@ import {
 } from "./pierCastConditionsValidation";
 import {
   pierCastLakeTroutV5NeedsMap,
-  projectPierCastLakeTroutCityReportV5,
   projectPierCastLakeTroutStandingsV5,
 } from "./pierCastLakeTroutV5";
+import {
+  projectPierCastCityReportV5,
+  projectPierCastLeaderboardV5,
+} from "./pierCastOpportunityV5";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
@@ -217,7 +220,9 @@ export async function fetchPierCastConditionsLeaderboardForApp(
   speciesId?: PierCastSpeciesId,
 ): Promise<PierCastLeaderboardResponseV4> {
   const leaderboard = await fetchPierCastConditionsLeaderboard(speciesId);
-  if (leaderboard.selectedSpeciesId !== "lake_trout") return leaderboard;
+  if (leaderboard.selectedSpeciesId !== "lake_trout") {
+    return projectPierCastLeaderboardV5(leaderboard);
+  }
   if (!pierCastLakeTroutV5NeedsMap(leaderboard)) {
     return projectPierCastLakeTroutStandingsV5({ leaderboard });
   }
@@ -267,14 +272,15 @@ export async function fetchPierCastConditionsCityReportForApp(
   speciesId: PierCastSpeciesId,
 ): Promise<PierCastSavedReportEnvelopeV4> {
   const envelope = await fetchPierCastConditionsCityReport(cityId, speciesId);
-  if (speciesId !== "lake_trout") return envelope;
   try {
-    const leaderboard = await fetchPierCastConditionsLeaderboardForApp(speciesId);
+    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
+      speciesId,
+    );
     return {
       ...envelope,
-      report: projectPierCastLakeTroutCityReportV5({
+      report: projectPierCastCityReportV5({
         report: envelope.report,
-        leaderboard,
+        selectedLeaderboard,
       }),
     };
   } catch {

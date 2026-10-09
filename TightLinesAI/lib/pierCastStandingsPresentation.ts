@@ -22,8 +22,8 @@ import { dashboardBandColor, paper } from "./theme";
  *
  * - The rating word (Prime / Good / Fair / Poor / Off-season) is presentation,
  *   while season timing and water-temperature fit remain separate context.
- * - V4 species retain server ordering (seasonal band, then thermal match).
- *   Audited lake trout v5 uses exact city/date opportunity before labels.
+ * - The 1.17 candidate projection orders every species by exact hidden
+ *   city/species/local-date opportunity before deriving display labels.
  */
 
 /** Salmon and trout are the headline Great Lakes pier targets. */
@@ -151,9 +151,11 @@ export function standingsOutlookTimingLabel(
   outlook: PierCastSeasonalOutlookReadV4,
 ): string | null {
   if (outlook.status !== "available") return null;
-  const timing = outlook.reasonCodes.find((code) =>
+  const timingCode = outlook.reasonCodes.find((code) =>
+    code.startsWith("pier_cast_v5_timing:") ||
     code.startsWith("lake_trout_v5_timing:")
-  )?.slice("lake_trout_v5_timing:".length);
+  );
+  const timing = timingCode?.slice(timingCode.indexOf(":") + 1);
   if (timing === "peak") return "Peak season";
   if (timing === "approaching") return "Approaching peak";
   if (timing === "past") return "Past peak";

@@ -421,7 +421,7 @@ function InfoSheet({
   onClose: () => void;
   speciesId: PierCastSpeciesId | null;
 }) {
-  const absoluteOpportunity = speciesId === "lake_trout";
+  const absoluteOpportunity = speciesId !== null;
   return (
     <BottomSheet
       visible={visible}
@@ -437,7 +437,7 @@ function InfoSheet({
           </Text>
           <Text style={styles.infoStepBody}>
             {absoluteOpportunity
-              ? "Each city’s hidden score combines its lake-trout fishery strength, local-date season timing and current modeled water-temperature fit."
+              ? "Each city’s hidden score combines that species’ local fishery strength, local-date season timing and current modeled water-temperature fit."
               : "Every city gets one rating for your species today, based on when that fish usually shows up at that part of the lake."}
           </Text>
         </View>
@@ -1314,9 +1314,7 @@ export function PierCastStandings({
                       </Text>
                       {group.rows.length > 1 ? (
                         <Text style={styles.groupNote} numberOfLines={1}>
-                          {selectedSpeciesId === "lake_trout"
-                            ? "Ordered by overall opportunity"
-                            : "Ordered by water-temp suitability"}
+                          Ordered by overall opportunity
                         </Text>
                       ) : null}
                     </View>

@@ -24,7 +24,10 @@ import type {
   PierCastSpeciesConditionsReadV4,
 } from "../lib/pierCastConditionsV4";
 import type { PierCastSpeciesId } from "../lib/pierCastContracts";
-import { isPrimaryPierCastSpecies } from "../lib/pierCastSpeciesPresentation";
+import {
+  isPierCastCalendarSpecies,
+  isPrimaryPierCastSpecies,
+} from "../lib/pierCastSpeciesPresentation";
 
 /* A Ludington-like fall week: a sharp drop into Wednesday evening, then recovery. */
 const START = Date.parse("2026-09-29T20:00:00Z");
@@ -121,12 +124,9 @@ test("server city report adds a daily outlook and species standings", () => {
     assert.equal(day.temperatureBasis, "daily_mean");
     assert.ok(day.temperatureRangeC[0] <= day.temperatureRangeC[1]);
   }
-  const top = pierCastCityTopPick(read.species);
-  assert.ok(top && isPrimaryPierCastSpecies(top.speciesId));
-  const expectedTop = rankPierCastCitySpecies(
-    read.species.filter((species) => isPrimaryPierCastSpecies(species.speciesId)),
-  )[0];
-  assert.equal(top.speciesId, expectedTop?.speciesId);
+  const top = pierCastCityTopPick(read.species, read.cityId);
+  assert.ok(top && isPierCastCalendarSpecies(top.speciesId));
+  assert.ok(isPierCastCalendarSpecies(top.speciesId));
   assert.ok(read.speciesStandings && read.speciesStandings.length === read.species.length);
   for (const standing of read.speciesStandings) {
     assert.ok(standing.rank === null || standing.rank <= standing.rankedCityCount);
@@ -138,7 +138,10 @@ test("five-day calendar shows a species and rating word per day, never a score",
   const days = buildPierCastCityCalendar({ report: read, weather, now: NOW });
   assert.equal(days.length, 5);
   assert.equal(days[0]!.label, "TODAY");
-  assert.equal(days[0]!.best?.speciesId, pierCastCityTopPick(read.species)?.speciesId);
+  assert.equal(
+    days[0]!.best?.speciesId,
+    pierCastCityTopPick(read.species, read.cityId)?.speciesId,
+  );
   assert.equal(days[1]!.label, "WED");
   for (const day of days) {
     assert.ok(day.best, `${day.localDate} has a best species`);
@@ -159,10 +162,38 @@ test("a higher-ranked secondary species never becomes today's top pick", () => {
   assert.equal(pierCastCityPrimeCount(species), 0);
 });
 
+test("future calendar days recompute from salmonids and ignore a secondary server winner", () => {
+  const read = report();
+  const future = read.dailyOutlook?.[1];
+  assert.ok(future);
+  const altered = {
+    ...read,
+    dailyOutlook: read.dailyOutlook?.map((day, index) =>
+      index === 1
+        ? {
+          ...day,
+          best: {
+            speciesId: "northern_pike" as const,
+            seasonalBand: "excellent" as const,
+            thermalBand: "excellent" as const,
+          },
+        }
+        : day
+    ),
+  };
+  const day = buildPierCastCityCalendar({ report: altered, weather, now: NOW })[1];
+  assert.ok(day?.best);
+  assert.ok(isPierCastCalendarSpecies(day.best.speciesId));
+  assert.notEqual(day.best.speciesId, "northern_pike");
+});
+
 test("calendar falls back to water ranges when an older server sends no daily outlook", () => {
   const read = { ...report(), dailyOutlook: undefined };
   const days = buildPierCastCityCalendar({ report: read, weather, now: NOW });
-  assert.equal(days[0]!.best?.speciesId, pierCastCityTopPick(read.species)?.speciesId);
+  assert.equal(
+    days[0]!.best?.speciesId,
+    pierCastCityTopPick(read.species, read.cityId)?.speciesId,
+  );
   assert.equal(days[1]!.best, null);
   assert.equal(days[1]!.bestUnavailable, true);
   assert.ok(days[1]!.waterRange);

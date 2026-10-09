@@ -116,6 +116,63 @@ function opportunityBand(score: number): PierCastSeasonalBandV4 {
   return "poor";
 }
 
+export type PierCastLakeTroutOpportunityV5 = {
+  score: number | null;
+  availability: number;
+  trend: "building" | "steady" | "fading";
+  band: PierCastSeasonalBandV4 | null;
+  timing: "off" | "approaching" | "peak" | "past" | "in_season";
+  closed: boolean;
+  evidenceGrade: Candidate["evidenceGrade"];
+  sourceIds: readonly string[];
+};
+
+/** Canonical hidden lake-trout opportunity read used by every 1.17 surface. */
+export function evaluatePierCastLakeTroutOpportunityV5(input: {
+  cityId: string;
+  localDate: string;
+  thermalValue: number | null;
+}): PierCastLakeTroutOpportunityV5 | null {
+  const candidate = getPierCastLakeTroutV5Candidate(input.cityId);
+  if (!candidate || !isNumericCandidate(candidate)) {
+    return null;
+  }
+  const month = Number(input.localDate.slice(5, 7));
+  const closed = (candidate.closedMonths as readonly number[]).includes(month);
+  const availability = closed
+    ? 0
+    : monthlyAvailabilityAt(candidate.monthlyAvailability, input.localDate);
+  const trend = availabilityTrend(candidate.monthlyAvailability, input.localDate);
+  const score = closed || input.thermalValue === null
+    ? null
+    : 1 + (candidate.fisheryStrength - 1) * availability *
+      (THERMAL_FLOOR + THERMAL_WEIGHT * input.thermalValue);
+  const band = closed || availability < 0.05
+    ? "usually_off"
+    : score === null
+    ? null
+    : opportunityBand(score);
+  const timing = closed || availability < 0.05
+    ? "off"
+    : availability >= 0.85
+    ? "peak"
+    : trend === "building"
+    ? "approaching"
+    : trend === "fading"
+    ? "past"
+    : "in_season";
+  return {
+    score,
+    availability,
+    trend,
+    band,
+    timing,
+    closed,
+    evidenceGrade: candidate.evidenceGrade,
+    sourceIds: candidate.sourceIds,
+  };
+}
+
 function thermalBand(value: number): PierCastThermalBandV4 {
   if (value >= 0.85) return "excellent";
   if (value >= 0.65) return "good";
@@ -254,35 +311,22 @@ export function projectPierCastLakeTroutStandingsV5(input: {
     if (!existing && !mapCity) return [];
     const timezone = existing?.timezone ?? mapCity!.timezone;
     const localDate = localDateAt(leaderboard.generatedAt, timezone);
-    const month = Number(localDate.slice(5, 7));
-    const closed = (candidate.closedMonths as readonly number[]).includes(month);
-    const availability = closed
-      ? 0
-      : monthlyAvailabilityAt(candidate.monthlyAvailability, localDate);
-    const trend = availabilityTrend(candidate.monthlyAvailability, localDate);
     const thermal = existing?.thermalMatch.status === "available"
       ? existing.thermalMatch
       : thermalFromMap(mapCity, leaderboard.generatedAt);
     const thermalValue = thermal.status === "available" ? thermal.value : null;
-    const score = thermalValue === null
-      ? null
-      : 1 + (candidate.fisheryStrength - 1) * availability *
-        (THERMAL_FLOOR + THERMAL_WEIGHT * thermalValue);
+    const opportunity = evaluatePierCastLakeTroutOpportunityV5({
+      cityId: candidate.cityId,
+      localDate,
+      thermalValue,
+    });
+    const score = opportunity?.score ?? null;
     if (score !== null) scoreById.set(candidate.cityId, score);
-    const band = closed || availability < 0.05
-      ? "usually_off" as const
-      : score === null
-      ? null
-      : opportunityBand(score);
-    const timing = closed || availability < 0.05
-      ? "off"
-      : availability >= 0.85
-      ? "peak"
-      : trend === "building"
-      ? "approaching"
-      : trend === "fading"
-      ? "past"
-      : "in_season";
+    const availability = opportunity?.availability ?? 0;
+    const trend = opportunity?.trend ?? "steady";
+    const band = opportunity?.band ?? null;
+    const timing = opportunity?.timing ?? "off";
+    const closed = opportunity?.closed ?? false;
     const eligible = !closed;
     const ranked = eligible && score !== null;
     const row: PierCastLeaderboardCityReadV4 = {

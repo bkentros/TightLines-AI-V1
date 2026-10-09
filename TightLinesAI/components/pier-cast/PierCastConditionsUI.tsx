@@ -156,7 +156,7 @@ function Hero({
   onOpenStandings: (speciesId: PierCastSpeciesId) => void;
   reduceMotion: boolean;
 }) {
-  const top = pierCastCityTopPick(report.species);
+  const top = pierCastCityTopPick(report.species, report.cityId);
   const primeCount = pierCastCityPrimeCount(report.species);
   const structures = selectPierCastCoveredStructures(city.structures);
   const pierLine = structures.length === 0
