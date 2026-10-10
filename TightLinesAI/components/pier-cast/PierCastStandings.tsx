@@ -660,7 +660,7 @@ function LeaderCard({
         <View style={styles.leaderBody}>
           <View style={styles.leaderHeadRow}>
             <View style={[styles.stamp, weak && styles.stampWeak]}>
-              <Ionicons name={weak ? "compass-outline" : "trophy"} size={13} color={weak ? INK : "#8A6A14"} />
+              <Ionicons name={weak ? "compass-outline" : "trophy"} size={11} color={weak ? INK : "#8A6A14"} />
               <Text style={[styles.stampText, weak && styles.stampTextWeak]}>
                 {weak ? "BEST AVAILABLE" : "TODAY'S LEADER"}
               </Text>
@@ -677,9 +677,7 @@ function LeaderCard({
               {pierLine ? <Text style={styles.leaderPier}>{pierLine}</Text> : null}
             </View>
             <Reveal token={token} from="left" delay={120} reduceMotion={reduceMotion}>
-              <View style={styles.leaderFish}>
-                <Fish speciesId={speciesId} width={96} height={96} />
-              </View>
+              <PierCastFishCrop speciesId={speciesId} width={96} height={46} />
             </Reveal>
           </View>
           <View style={styles.rule} />
@@ -739,7 +737,7 @@ function LeaderCard({
           <Text style={styles.leaderCtaText}>
             {fullReportAvailable ? "OPEN FULL PIERCAST" : "OPEN CITY MAP"}
           </Text>
-          <Ionicons name="arrow-forward" size={18} color={INK} />
+          <Ionicons name="arrow-forward" size={15} color={INK} />
         </View>
       </Pressable>
     </View>
@@ -779,7 +777,7 @@ function ChaserRow({
   const waterPhrase = standingsWaterPhrase(row.thermalMatch);
   const fit = pierCastWaterFitFromThermal(row.thermalMatch);
   const { width: windowWidth } = useWindowDimensions();
-  const fishWidth = windowWidth < 360 ? 92 : 112;
+  const fishWidth = windowWidth < 360 ? 64 : 76;
   return (
     <Reveal token={token} delay={delay} reduceMotion={reduceMotion}>
       <Pressable
@@ -793,42 +791,36 @@ function ChaserRow({
       >
         <View style={[styles.rowEdge, { backgroundColor: rank <= 3 ? medal.ring : bandStyle?.color ?? "#999999" }]} />
         <View style={styles.rowHead}>
-          <View style={styles.medal}>
-            <View style={[styles.medalCircle, { borderColor: medal.ring, backgroundColor: medal.fill }]}>
-              <Text style={[styles.medalNumber, { color: medal.ink }]}>{rank}</Text>
-            </View>
-            {medal.label ? <Text style={styles.medalLabel}>{medal.label}</Text> : null}
+          <View style={[styles.medalCircle, { borderColor: medal.ring, backgroundColor: medal.fill }]}>
+            <Text style={[styles.medalNumber, { color: medal.ink }]}>{rank}</Text>
           </View>
           <View style={styles.rowMain}>
-            <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
+            <Text style={styles.rowState}>
+              {stateName(row.stateCode).toUpperCase()}{medal.label ? ` · ${medal.label}` : ""}
+            </Text>
             <Text style={styles.rowCity}>{row.displayName}</Text>
           </View>
-          <PierCastFishCrop speciesId={speciesId} width={fishWidth} />
+          <PierCastFishCrop speciesId={speciesId} width={fishWidth} height={34} />
+          <Ionicons name="chevron-forward" size={15} color={paper.dashboardBlue} />
         </View>
         {band || timingLabel ? (
           <PierCastStatStrip band={band} season={timingLabel} compact />
         ) : null}
-        <View style={styles.rowWater}>
+        <View>
           <View style={styles.rowWaterHead}>
             <Text style={styles.rowWaterKey}>
-              WATER{waterF !== null ? ` ${waterF}°F` : ""}
+              WATER{waterF !== null ? ` ${waterF}°F` : ""}{"  "}
+              <Text style={styles.rowWaterPhrase}>
+                {waterPhrase ? capitalize(waterPhrase) : "Unavailable"}
+              </Text>
             </Text>
-            <Text style={styles.rowWaterPhrase}>
-              {waterPhrase ? capitalize(waterPhrase) : "Unavailable"}
-            </Text>
-          </View>
-          <PierCastWaterGauge fit={fit} />
-          <View style={styles.rowFoot}>
             {fit ? (
               <Text style={styles.rowIdeal}>
                 Ideal {Math.round(fit.idealLowF)}–{Math.round(fit.idealHighF)}°F
               </Text>
-            ) : <View />}
-            <View style={styles.rowGo}>
-              <Text style={styles.rowGoText}>{fullReportAvailable ? "OPEN REPORT" : "OPEN MAP"}</Text>
-              <Ionicons name="arrow-forward" size={13} color={paper.dashboardBlue} />
-            </View>
+            ) : null}
           </View>
+          <PierCastWaterGauge fit={fit} />
         </View>
       </Pressable>
     </Reveal>
@@ -1713,7 +1705,7 @@ const styles = StyleSheet.create({
   lakeText: { fontFamily: paperFonts.bodyBold, fontSize: 13, color: "#444444" },
   lakeCount: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, color: "#666666" },
 
-  leaderWrap: { marginTop: 18, marginHorizontal: 14 },
+  leaderWrap: { marginTop: 14, marginHorizontal: 14 },
   leader: {
     overflow: "hidden",
     backgroundColor: "#FFFFFF",
@@ -1727,53 +1719,52 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   leaderPressed: { opacity: 0.9 },
-  leaderTopBar: { height: 6, backgroundColor: GOLD },
-  corner: { position: "absolute", width: 18, height: 18, borderColor: CORNER_RED },
-  cornerTL: { top: 16, left: 14, borderTopWidth: 3, borderLeftWidth: 3 },
-  cornerTR: { top: 16, right: 14, borderTopWidth: 3, borderRightWidth: 3 },
-  cornerBL: { top: -24, left: 14, borderBottomWidth: 3, borderLeftWidth: 3 },
-  cornerBR: { top: -24, right: 14, borderBottomWidth: 3, borderRightWidth: 3 },
-  leaderBody: { paddingHorizontal: 24, paddingTop: 24, paddingBottom: 30 },
+  leaderTopBar: { height: 4, backgroundColor: GOLD },
+  corner: { position: "absolute", width: 14, height: 14, borderColor: CORNER_RED },
+  cornerTL: { top: 12, left: 10, borderTopWidth: 2.5, borderLeftWidth: 2.5 },
+  cornerTR: { top: 12, right: 10, borderTopWidth: 2.5, borderRightWidth: 2.5 },
+  cornerBL: { top: -20, left: 10, borderBottomWidth: 2.5, borderLeftWidth: 2.5 },
+  cornerBR: { top: -20, right: 10, borderBottomWidth: 2.5, borderRightWidth: 2.5 },
+  leaderBody: { paddingHorizontal: 18, paddingTop: 16, paddingBottom: 18 },
   leaderHeadRow: { flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between", gap: 10 },
   stamp: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 1.5,
+    gap: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
     borderColor: GOLD,
-    borderRadius: 6,
+    borderRadius: 5,
     backgroundColor: "#FBF3DC",
   },
   stampWeak: { borderColor: "rgba(0,0,0,0.2)", backgroundColor: paper.dashboardCream },
-  stampText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 2, color: GOLD_INK },
+  stampText: { fontFamily: paperFonts.metaMonoBold, fontSize: 9.5, letterSpacing: 1.6, color: GOLD_INK },
   stampTextWeak: { color: INK },
   bigMedal: { alignItems: "center", gap: 4 },
   bigMedalCircle: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    borderWidth: 3,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    borderWidth: 2.5,
     borderColor: GOLD,
     backgroundColor: "#FBF3DC",
     alignItems: "center",
     justifyContent: "center",
   },
-  bigMedalNumber: { fontFamily: paperFonts.display, fontSize: 22, color: GOLD_INK },
-  bigMedalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: GOLD_INK },
-  leaderState: { marginTop: 14, fontFamily: paperFonts.metaMonoBold, fontSize: 12, letterSpacing: 2.4, color: GOLD_INK },
+  bigMedalNumber: { fontFamily: paperFonts.display, fontSize: 17, color: GOLD_INK },
+  bigMedalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 8.5, letterSpacing: 1.2, color: GOLD_INK },
+  leaderState: { marginTop: 8, fontFamily: paperFonts.metaMonoBold, fontSize: 9.5, letterSpacing: 1.8, color: GOLD_INK },
   leaderIdentity: { flexDirection: "row", alignItems: "center", gap: 8 },
-  leaderFish: { width: 104, height: 60, overflow: "hidden", alignItems: "center", justifyContent: "center" },
-  leaderCity: { fontFamily: paperFonts.display, fontSize: 34, lineHeight: 38, color: INK },
-  leaderPier: { marginTop: 2, fontFamily: paperFonts.body, fontSize: 15, color: "#555555" },
-  rule: { height: 1, marginVertical: 16, backgroundColor: paper.dashboardLine },
+  leaderCity: { fontFamily: paperFonts.display, fontSize: 24, lineHeight: 28, color: INK },
+  leaderPier: { marginTop: 1, fontFamily: paperFonts.body, fontSize: 12.5, color: "#555555" },
+  rule: { height: 1, marginVertical: 10, backgroundColor: paper.dashboardLine },
   verdictRow: { flexDirection: "row", alignItems: "center", gap: 10 },
-  verdictLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.6, color: "#555555" },
+  verdictLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.4, color: "#555555" },
   verdictLine: { flexDirection: "row", alignItems: "center", gap: 8 },
-  verdict: { fontFamily: paperFonts.display, fontSize: 38, lineHeight: 44, letterSpacing: 0.5 },
-  leaderSeason: { marginTop: 6, alignItems: "flex-start" },
-  leaderWhy: { marginTop: 12, fontFamily: paperFonts.body, fontSize: 15, lineHeight: 21, color: "#1F2B38" },
+  verdict: { fontFamily: paperFonts.display, fontSize: 26, lineHeight: 30, letterSpacing: 0.5 },
+  leaderSeason: { marginTop: 4, alignItems: "flex-start" },
+  leaderWhy: { marginTop: 8, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 18, color: "#1F2B38" },
   weakBox: {
     marginTop: 14,
     padding: 12,
@@ -1798,20 +1789,20 @@ const styles = StyleSheet.create({
   },
   weakChipText: { fontFamily: paperFonts.bodyBold, fontSize: 13, color: INK },
   leaderCta: {
-    minHeight: 54,
+    minHeight: 42,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 10,
+    gap: 8,
     backgroundColor: paper.dashboardCream,
     borderTopWidth: 1,
     borderTopColor: paper.dashboardLine,
   },
-  leaderCtaText: { fontFamily: paperFonts.metaMonoBold, fontSize: 13, letterSpacing: 2.4, color: INK },
+  leaderCtaText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 2, color: INK },
 
-  meter: { flexDirection: "row", gap: 4, marginTop: 12 },
+  meter: { flexDirection: "row", gap: 4, marginTop: 8 },
   meterCompact: { gap: 3, marginTop: 7, maxWidth: 150 },
-  meterSegment: { flex: 1, height: 9, borderRadius: 5, overflow: "hidden", backgroundColor: "#E6E6E0" },
+  meterSegment: { flex: 1, height: 7, borderRadius: 4, overflow: "hidden", backgroundColor: "#E6E6E0" },
   meterSegmentCompact: { height: 6, borderRadius: 3 },
   meterFill: { flex: 1, borderRadius: 5, transformOrigin: "left" },
 
@@ -1854,44 +1845,38 @@ const styles = StyleSheet.create({
   groupNote: { flex: 1, textAlign: "right", fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
 
   row: {
-    gap: 12,
+    gap: 7,
     marginHorizontal: 14,
-    marginBottom: 12,
-    paddingTop: 12,
-    paddingBottom: 13,
-    paddingLeft: 16,
-    paddingRight: 12,
+    marginBottom: 8,
+    paddingTop: 9,
+    paddingBottom: 10,
+    paddingLeft: 13,
+    paddingRight: 10,
     overflow: "hidden",
     backgroundColor: "#FFFFFF",
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 16,
+    borderRadius: 12,
   },
   rowPressed: { backgroundColor: "#FAFAF7" },
-  rowEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
-  rowHead: { flexDirection: "row", alignItems: "center", gap: 10, minHeight: 56 },
-  medal: { width: 46, alignItems: "center", justifyContent: "center", gap: 3 },
+  rowEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 4 },
+  rowHead: { flexDirection: "row", alignItems: "center", gap: 8 },
   medalCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 2.5,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
   },
-  medalNumber: { fontFamily: paperFonts.display, fontSize: 18 },
-  medalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.2, color: "#555555" },
+  medalNumber: { fontFamily: paperFonts.display, fontSize: 14 },
   rowMain: { flex: 1, minWidth: 0 },
-  rowState: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.8, color: GOLD_INK },
-  rowCity: { marginTop: 1, fontFamily: paperFonts.display, fontSize: 21, lineHeight: 25, color: INK },
-  rowWater: { paddingTop: 2 },
-  rowWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 10, rowGap: 2 },
-  rowWaterKey: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: "#666666" },
-  rowWaterPhrase: { flexShrink: 1, fontFamily: paperFonts.bodyBold, fontSize: 15, color: INK },
-  rowFoot: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", columnGap: 10, rowGap: 4, marginTop: 6 },
-  rowIdeal: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
-  rowGo: { flexDirection: "row", alignItems: "center", gap: 4, marginLeft: "auto" },
-  rowGoText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.3, color: paper.dashboardBlue },
+  rowState: { fontFamily: paperFonts.metaMonoBold, fontSize: 8.5, letterSpacing: 1.3, color: GOLD_INK },
+  rowCity: { marginTop: 1, fontFamily: paperFonts.display, fontSize: 16, lineHeight: 20, color: INK },
+  rowWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 8, rowGap: 1 },
+  rowWaterKey: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 8.5, letterSpacing: 1.2, color: "#666666" },
+  rowWaterPhrase: { fontFamily: paperFonts.bodyBold, fontSize: 12.5, letterSpacing: 0, color: INK },
+  rowIdeal: { fontFamily: paperFonts.body, fontSize: 11, color: "#666666" },
   go: {
     width: 30,
     height: 30,
