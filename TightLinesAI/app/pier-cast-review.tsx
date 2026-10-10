@@ -24,8 +24,8 @@ import {
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import {
   fetchPierCastConditionsCatalog,
-  fetchPierCastConditionsCityReport,
-  fetchPierCastConditionsLeaderboard,
+  fetchPierCastConditionsCityReportForApp,
+  fetchPierCastConditionsLeaderboardForApp,
   fetchSavedPierCastConditionsReport,
   PierCastRequestError,
 } from "../lib/pierCast";
@@ -190,7 +190,7 @@ export default function PierCastReviewScreen() {
       // Start both calls together, but publish the catalog first. A map
       // deep-link can then open its report without waiting for standings.
       const catalogRequest = fetchPierCastConditionsCatalog();
-      const leaderboardRequest = fetchPierCastConditionsLeaderboard(requestedTarget ?? undefined)
+      const leaderboardRequest = fetchPierCastConditionsLeaderboardForApp(requestedTarget ?? undefined)
         .then(
           (value) => ({ ok: true as const, value }),
           (error: unknown) => ({ ok: false as const, error }),
@@ -223,7 +223,7 @@ export default function PierCastReviewScreen() {
           : null;
         if (picked && !pickedBoard) {
           try {
-            pickedBoard = await fetchPierCastConditionsLeaderboard(picked);
+            pickedBoard = await fetchPierCastConditionsLeaderboardForApp(picked);
             seenBoards.push(pickedBoard);
           } catch {
             pickedBoard = null;
@@ -299,7 +299,7 @@ export default function PierCastReviewScreen() {
       openingCity.current = true;
     }
     try {
-      const envelope = await fetchPierCastConditionsCityReport(cityId, target);
+      const envelope = await fetchPierCastConditionsCityReportForApp(cityId, target);
       if (
         cityReportRequest.current !== reportRequestId ||
         accountId.current !== userId || selectedSpeciesRef.current !== selectionGuard ||
@@ -388,6 +388,13 @@ export default function PierCastReviewScreen() {
     if (!target) return;
     const city = catalog?.cities.find((candidate) => candidate.cityId === cityId);
     if (!city) return;
+    if (target === "lake_trout" && !citySupportsSpecies(city, target)) {
+      router.push({
+        pathname: "/pier-cast-map",
+        params: { cityId, speciesId: target },
+      });
+      return;
+    }
     const reportSpeciesId = finderReportSpecies(city, target);
     if (!reportSpeciesId) {
       if (!silent) {
@@ -397,7 +404,7 @@ export default function PierCastReviewScreen() {
       return;
     }
     await loadCityReport(cityId, reportSpeciesId, silent, target);
-  }, [catalog, loadCityReport]);
+  }, [catalog, loadCityReport, router]);
 
   const selectCityReportSpecies = useCallback((speciesId: PierCastSpeciesId) => {
     setCityReport((current) => {
@@ -430,7 +437,7 @@ export default function PierCastReviewScreen() {
     // so a city tap never waits on the leaderboard request.
     void loadCityReport(cityId, speciesId);
     try {
-      const next = await fetchPierCastConditionsLeaderboard(speciesId);
+      const next = await fetchPierCastConditionsLeaderboardForApp(speciesId);
       rememberLakes([next]);
       if (
         selectionRequest.current !== requestId ||
@@ -455,7 +462,7 @@ export default function PierCastReviewScreen() {
     setSelectionLoading(true);
     void writePierCastTargetPreference(speciesId);
     router.setParams({ speciesId });
-    void fetchPierCastConditionsLeaderboard(speciesId)
+    void fetchPierCastConditionsLeaderboardForApp(speciesId)
       .then((next) => {
         rememberLakes([next]);
         if (

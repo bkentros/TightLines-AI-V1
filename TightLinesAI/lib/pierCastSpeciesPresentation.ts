@@ -14,10 +14,27 @@ export const PRIMARY_PIER_CAST_SPECIES: ReadonlySet<PierCastSpeciesId> =
     "freshwater_drum",
   ]);
 
+/** Species allowed to become the city report's five-day featured target. */
+export const PIER_CAST_CALENDAR_SPECIES: ReadonlySet<PierCastSpeciesId> =
+  new Set([
+    "coho_salmon",
+    "chinook_salmon",
+    "atlantic_salmon",
+    "steelhead",
+    "brown_trout",
+    "lake_trout",
+  ]);
+
 export function isPrimaryPierCastSpecies(
   speciesId: PierCastSpeciesId,
 ): boolean {
   return PRIMARY_PIER_CAST_SPECIES.has(speciesId);
+}
+
+export function isPierCastCalendarSpecies(
+  speciesId: PierCastSpeciesId,
+): boolean {
+  return PIER_CAST_CALENDAR_SPECIES.has(speciesId);
 }
 
 const PIER_CAST_SPECIES_SHORT_LABELS: Record<PierCastSpeciesId, string> = {

@@ -27,7 +27,7 @@ test("first visit picks from summary metadata without a leaderboard fan-out", ()
   assert.match(standings, /WHAT ARE YOU TARGETING\?/);
   assert.match(standings, /leaderboard\.selectionRequired/);
   assert.match(screen, /readPierCastTargetPreference/);
-  assert.match(screen, /fetchPierCastConditionsLeaderboard\(requestedTarget \?\? undefined\)/);
+  assert.match(screen, /fetchPierCastConditionsLeaderboardForApp\(requestedTarget \?\? undefined\)/);
   assert.match(screen, /pickFallbackStandingsSpecies\(nextLeaderboard\.targetSpecies\)/);
   assert.doesNotMatch(screen, /Promise\.allSettled\([\s\S]*candidates\.map/);
   assert.doesNotMatch(screen, /PIER_CAST_SALMONID_ORDER\.filter/);
@@ -81,17 +81,20 @@ test("missing and restricted inputs remain explicitly unranked", () => {
   assert.match(standings, /Missing or updating data stays unrated instead of counting as poor fishing/);
   assert.match(standings, /Not rated today/);
   assert.match(standings, /standingsUnrankedReason\(row\)/);
-  assert.match(standingsRules, /Closed to targeting here/);
+  assert.match(standingsRules, /State season closed here/);
   assert.match(reportRules, /standingsUnrankedReason\(species\)/);
-  assert.match(conditionsUi, /NOT RATED/);
+  assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
+  assert.match(conditionsUi, /unratedReason=\{card\.ranked \? null : card\.seasonLine\}/);
 });
 
-test("city report keeps seasonal outlook and thermal match independent", () => {
-  assert.match(conditionsUi, />SEASON</);
-  assert.match(conditionsUi, /<BandMeter/);
-  assert.match(conditionsUi, />WATER FIT</);
+test("city report separates today's label, season timing, and water context", () => {
+  assert.match(conditionsUi, /prefix="Today"/);
+  assert.match(conditionsUi, /<PierCastStatStrip/);
+  assert.doesNotMatch(read("components/pier-cast/PierCastStatStrip.tsx"), /numberOfLines|ellipsizeMode/);
+  assert.doesNotMatch(standings, /seasonChipText\]\} numberOfLines/);
+  assert.match(conditionsUi, />WATER TODAY</);
   assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);
-  assert.match(reportRules, /standingsStageLabel\(outlook\.stage, outlook\.band\)/);
+  assert.match(reportRules, /standingsOutlookTimingLabel\(outlook\)/);
   assert.match(reportRules, /standingsWaterPhrase\(species\.thermalMatch\)/);
 });
 
@@ -113,7 +116,7 @@ test("city report includes the calendar, species, pier conditions, chart, shifts
 test("authenticated v4 report and saved-report recovery are fully wired", () => {
   assert.match(client, /conditions\/report\?cityId=/);
   assert.match(client, /conditions\/saved-report/);
-  assert.match(screen, /fetchPierCastConditionsCityReport\(cityId, target\)/);
+  assert.match(screen, /fetchPierCastConditionsCityReportForApp\(cityId, target\)/);
   assert.match(screen, /fetchSavedPierCastConditionsReport\(target\)/);
   assert.match(screen, /saved\.envelope\.report\.cityId === cityId/);
   assert.match(conditionsUi, /Showing your last saved conditions report/);

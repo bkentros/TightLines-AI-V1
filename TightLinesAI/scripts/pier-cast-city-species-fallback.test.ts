@@ -27,7 +27,7 @@ test("fallback remains compatible with older reports without daily outlook", () 
   }, "lake_trout"), "brown_trout");
 });
 
-test("the 1.16 route silently opens the best available species and keeps the switcher", () => {
+test("the route silently opens the best available species; 1.17 shows every species as a card", () => {
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
   const report = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
 
@@ -36,6 +36,6 @@ test("the 1.16 route silently opens the best available species and keeps the swi
   assert.match(screen, /pierCastReportSpeciesOrBest/);
   assert.doesNotMatch(report, /isn&apos;t forecast here — showing/);
   assert.doesNotMatch(report, /fallbackFromSpeciesId/);
-  assert.match(report, /REPORT SPECIES/);
-  assert.match(report, /accessibilityState=\{\{ selected \}\}/);
+  assert.doesNotMatch(report, /REPORT SPECIES|SELECTED SPECIES/);
+  assert.match(report, /<SpeciesCard/);
 });

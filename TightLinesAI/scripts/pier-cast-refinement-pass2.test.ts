@@ -13,6 +13,7 @@ const contract = read("lib/pierCastConditionsV4.ts");
 const edge = read("supabase/functions/pier-cast/index.ts");
 const handler = read("supabase/functions/pier-cast/handler.ts");
 const decision = read("docs/PierCast_Refinement_Pass2_Leaderboard_and_Reports.md");
+const unifiedDecision = read("docs/onboarding/piercast/opportunity-v5-1.17/README.md");
 
 test("conditions catalog v2 exposes only the discovery roster needed by city-first navigation", () => {
   assert.match(contract, /piercast-conditions-catalog-v2/);
@@ -31,25 +32,26 @@ test("conditions catalog v2 exposes only the discovery roster needed by city-fir
 test("leaderboard is species-specific with the documented ranking hierarchy", () => {
   assert.match(standings, /WHAT ARE YOU TARGETING\?/);
   assert.match(standings, /Each species gets its own ranking/);
-  assert.match(standings, /Season comes first/);
-  assert.match(standings, /Water-temp suitability orders the rest/);
-  assert.match(standings, /Ordered by water-temp suitability/);
-  assert.match(decision, /seasonal band first/i);
-  assert.match(decision, /temperature fit.*within/i);
+  assert.match(standings, /Today’s opportunity drives the order/);
+  assert.match(standings, /The exact score breaks label ties/);
+  assert.match(standings, /Ordered by overall opportunity/);
+  assert.match(unifiedDecision, /all 18 configured[\s\S]*254 admitted/i);
+  assert.match(unifiedDecision, /Exact[\s\S]*opportunity orders rows/i);
+  assert.match(decision, /seasonal band first/i); // preserved v4 history
   assert.doesNotMatch(standings + ui, /\/10|combined score/i);
 });
 
 test("temperature fit is compact and visually secondary on leaderboard rows", () => {
   // City-report species cards show water fit against the ideal range.
   assert.match(ui, /function WaterFitBar/);
-  assert.match(ui, />WATER FIT</);
+  assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Ideal \{card\.idealLine\}/);
   assert.match(reportRules, /export function pierCastWaterFit/);
   assert.match(reportRules, /thermal\.optimumRangeC/);
   assert.match(ui, /MODELED/);
   // Standings rows lead with the seasonal rating chip; water temp is a
   // secondary line derived from the thermal match.
-  assert.match(standings, /<BandChip band=\{band\} \/>/);
+  assert.match(standings, /<PierCastStatStrip band=\{band\} season=\{timingLabel\} compact \/>/);
   assert.match(standings, /standingsWaterLine\(row\.thermalMatch\)/);
   assert.match(standingsRules, /Water \$\{temperatureF\}°F · \$\{phrase\}/);
 });
@@ -78,10 +80,10 @@ test("city-first target changes are persisted and guarded against stale async re
   assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
 });
 
-test("city reports are city-first and keep season separate from water fit", () => {
-  assert.match(ui, /Ranked by seasonal rating and water-temperature suitability/);
-  assert.match(ui, />SEASON</);
-  assert.match(ui, />WATER FIT</);
+test("city reports are city-first and separate today, season, and water", () => {
+  assert.match(ui, /Tap a species to see where it ranks/);
+  assert.match(ui, /<PierCastStatStrip/);
+  assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Best bet each day/);
   assert.match(ui, /TOP PICK TODAY/);
   assert.doesNotMatch(ui, /YOUR TARGET|CHANGE TARGET/);

@@ -74,7 +74,7 @@ test("unsupported city targets route to a supported species and stale requests a
   assert.match(standingsRules, /supported\.includes\(currentSpeciesId\)/);
   assert.match(standingsRules, /PIER_CAST_SALMONID_ORDER\.find/);
   assert.match(screen, /city\.supportedSpeciesIds\.includes\(speciesId\)/);
-  assert.match(standingsRules, /Closed to targeting here/);
+  assert.match(standingsRules, /State season closed here/);
   assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
   assert.match(screen, /if \(!routeCityId \|\| !catalog \|\| !selectedSpeciesId\)/);
   assert.match(screen, /selectedSpeciesRef\.current !== selectionGuard/);
@@ -86,7 +86,7 @@ test("loading, stale, missing, restricted, access, and long-copy states are expl
   assert.match(screen, /archived_legacy/);
   assert.match(conditionsUi, /Showing your last saved conditions report/);
   assert.match(standings, /Missing or updating data stays unrated/);
-  assert.match(conditionsUi, /NOT RATED/);
+  assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
   assert.match(conditionsUi, /No species is rated here today/);
   assert.match(conditionsSupport, /reported closed/);
   assert.match(conditionsUi, /REPORTED CLOSED/);

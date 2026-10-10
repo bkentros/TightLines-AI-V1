@@ -135,6 +135,9 @@ test("species filters normalize different source aspect ratios", () => {
 });
 
 test("leaderboard fish art is enlarged for the leader and every ranked row", () => {
+  assert.match(standingsUi, /<PierCastFishCrop speciesId=\{speciesId\} width=\{fishWidth\}/);
+  assert.match(standingsUi, /windowWidth < 360 \? 92 : 112/);
+  assert.match(conditionsUi, /windowWidth < 360 \? 100 : 124/);
   assert.match(
     standingsUi,
     /<Fish speciesId=\{speciesId\} width=\{96\} height=\{96\} \/>/,
@@ -144,11 +147,7 @@ test("leaderboard fish art is enlarged for the leader and every ranked row", () 
     /leaderFish: \{ width: 104, height: 60, overflow: "hidden"/,
   );
   assert.match(
-    standingsUi,
-    /<Fish speciesId=\{speciesId\} width=\{48\} height=\{48\} \/>/,
-  );
-  assert.match(
-    standingsUi,
-    /rowFish: \{ width: 54, height: 30, overflow: "hidden"/,
+    conditionsUi,
+    /<PierCastFishCrop speciesId=\{card\.speciesId\} width=\{fishWidth\}/,
   );
 });

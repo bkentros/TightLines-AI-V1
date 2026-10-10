@@ -8,6 +8,7 @@ import type {
 import {
   formatPierCastModeId,
   formatPierCastSeasonalPotential,
+  isPierCastCalendarSpecies,
   isPrimaryPierCastSpecies,
   pierCastSeasonalTrend,
   pierCastSpeciesShortLabel,
@@ -130,6 +131,29 @@ test("warm-water species never drive a city or leaderboard headline", () => {
   assert.equal(isPrimaryPierCastSpecies("walleye"), false);
   assert.equal(isPrimaryPierCastSpecies("smallmouth_bass"), false);
   assert.equal(isPrimaryPierCastSpecies("freshwater_drum"), true);
+});
+
+test("five-day calendar eligibility is limited to the six salmonids", () => {
+  for (const speciesId of [
+    "chinook_salmon",
+    "coho_salmon",
+    "atlantic_salmon",
+    "steelhead",
+    "brown_trout",
+    "lake_trout",
+  ] as const) {
+    assert.equal(isPierCastCalendarSpecies(speciesId), true, speciesId);
+  }
+  for (const speciesId of [
+    "freshwater_drum",
+    "northern_pike",
+    "smallmouth_bass",
+    "largemouth_bass",
+    "walleye",
+    "yellow_perch",
+  ] as const) {
+    assert.equal(isPierCastCalendarSpecies(speciesId), false, speciesId);
+  }
 });
 
 test("species cards use raw opportunity score instead of rounded display ties", () => {

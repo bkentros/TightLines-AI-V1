@@ -23,10 +23,28 @@ import {
   validatePierCastSavedReportEnvelope,
   validatePierCastSavedReportRead,
 } from "./pierCastConditionsValidation";
+import {
+  pierCastLakeTroutV5NeedsMap,
+  projectPierCastLakeTroutStandingsV5,
+} from "./pierCastLakeTroutV5";
+import {
+  clearUnverifiedPierCastTargetSummariesV5,
+  projectPierCastCityReportLabelsV5,
+  projectPierCastCityReportV5,
+  projectPierCastLeaderboardV5,
+  projectPierCastTargetSpeciesSummariesV5,
+} from "./pierCastOpportunityV5";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
 const CLIENT_TIMEOUT_MS = 15_000;
+const TARGET_SUMMARY_MAP_CACHE_MS = 15 * 60 * 1000;
+let targetSummaryMapCache: {
+  value: PierCastConditionsMapResponseV4;
+  cachedAt: number;
+} | null = null;
+let targetSummaryMapRequest: Promise<PierCastConditionsMapResponseV4> | null =
+  null;
 
 export class PierCastRequestError extends Error {
   constructor(
@@ -201,6 +219,56 @@ export async function fetchPierCastConditionsMap(
     speciesId,
   );
 }
+
+function fetchPierCastTargetSummaryMap(): Promise<
+  PierCastConditionsMapResponseV4
+> {
+  if (
+    targetSummaryMapCache &&
+    Date.now() - targetSummaryMapCache.cachedAt < TARGET_SUMMARY_MAP_CACHE_MS
+  ) {
+    return Promise.resolve(targetSummaryMapCache.value);
+  }
+  if (targetSummaryMapRequest) return targetSummaryMapRequest;
+  targetSummaryMapRequest = fetchPierCastConditionsMap()
+    .then((value) => {
+      targetSummaryMapCache = { value, cachedAt: Date.now() };
+      return value;
+    })
+    .finally(() => {
+      targetSummaryMapRequest = null;
+    });
+  return targetSummaryMapRequest;
+}
+
+/**
+ * App-facing standings loader. Lake trout uses the approved v5 city
+ * calibration while retaining the frozen v4 network contract. Until the
+ * matching server projection is deployed, the map response supplies current
+ * temperature data for newly admitted cities.
+ */
+export async function fetchPierCastConditionsLeaderboardForApp(
+  speciesId?: PierCastSpeciesId,
+): Promise<PierCastLeaderboardResponseV4> {
+  const summaryMapRequest = fetchPierCastTargetSummaryMap().catch(() => null);
+  const leaderboard = await fetchPierCastConditionsLeaderboard(speciesId);
+  const summaryMap = await summaryMapRequest;
+  let projected: PierCastLeaderboardResponseV4;
+  if (leaderboard.selectedSpeciesId !== "lake_trout") {
+    projected = projectPierCastLeaderboardV5(leaderboard);
+  } else {
+    projected = projectPierCastLakeTroutStandingsV5({
+      leaderboard,
+      map: pierCastLakeTroutV5NeedsMap(leaderboard) ? summaryMap : null,
+    });
+  }
+  return summaryMap
+    ? projectPierCastTargetSpeciesSummariesV5({
+      leaderboard: projected,
+      map: summaryMap,
+    })
+    : clearUnverifiedPierCastTargetSummariesV5(projected);
+}
 export async function fetchPierCastObservedTemperatureMap(): Promise<
   PierCastObservedTemperatureMapResponseV1
 > {
@@ -231,12 +299,62 @@ export async function fetchPierCastConditionsCityReport(
     { cityId, speciesId },
   );
 }
+
+export async function fetchPierCastConditionsCityReportForApp(
+  cityId: string,
+  speciesId: PierCastSpeciesId,
+): Promise<PierCastSavedReportEnvelopeV4> {
+  const envelope = await fetchPierCastConditionsCityReport(cityId, speciesId);
+  try {
+    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
+      speciesId,
+    );
+    return {
+      ...envelope,
+      report: projectPierCastCityReportV5({
+        report: envelope.report,
+        selectedLeaderboard,
+      }),
+    };
+  } catch {
+    return {
+      ...envelope,
+      report: projectPierCastCityReportLabelsV5(envelope.report),
+    };
+  }
+}
 export async function fetchSavedPierCastConditionsReport(
   speciesId?: PierCastSpeciesId,
 ): Promise<PierCastSavedReportReadV4> {
   const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
-  return validatePierCastSavedReportRead(
+  const saved = validatePierCastSavedReportRead(
     await pierCastGet(`conditions/saved-report${query}`, true),
     speciesId,
   );
+  if (saved.status !== "available") return saved;
+  const labelsOnly = projectPierCastCityReportLabelsV5(saved.envelope.report);
+  const target = speciesId ?? labelsOnly.selectedSpeciesId;
+  try {
+    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
+      target,
+    );
+    return {
+      ...saved,
+      envelope: {
+        ...saved.envelope,
+        report: projectPierCastCityReportV5({
+          report: labelsOnly,
+          selectedLeaderboard,
+        }),
+      },
+    };
+  } catch {
+    return {
+      ...saved,
+      envelope: {
+        ...saved.envelope,
+        report: labelsOnly,
+      },
+    };
+  }
 }
