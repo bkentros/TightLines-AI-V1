@@ -358,11 +358,14 @@ export const PIER_CAST_LAKE_TROUT_V5_CANDIDATES = [
     decision: "recalibrate",
     evidenceGrade: "B",
     fisheryStrength: 5.4,
-    monthlyAvailability: CLOSED_OCT_DEC,
-    closedMonths: [10, 11, 12],
+    monthlyAvailability: LH_OPEN_YEAR,
+    // Oscoda lies in Lake Huron unit MH-3 (between 44°50'N and Au Sable
+    // Point, 44°20'N), where lake trout possession is open all year. The
+    // Jan 1-Sep 30 season applies only to MH-1 and MH-2 (Rogers City, Alpena).
+    closedMonths: [],
     sourceIds: MI_LH_PIER,
     rationale:
-      "Exact pier reports establish recurring occurrence, but modest wording supports Fair rather than Good and the fall closure applies.",
+      "Exact pier reports establish recurring occurrence, but modest wording supports Fair rather than Good. MH-3 is open all year, so no fall closure applies.",
   },
   {
     batch: 2,

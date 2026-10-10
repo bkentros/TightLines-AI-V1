@@ -46,7 +46,7 @@ test("Standings copy, ranking and default-species rules follow the server fields
     "Approaching peak for Coho here. Water is 61°F — running warm.");
 
   // Unranked reasons
-  assert.equal(P.standingsUnrankedReason(row({ cityId: "a", elig: "restricted", disp: "blocked" })), "Closed to targeting here");
+  assert.equal(P.standingsUnrankedReason(row({ cityId: "a", elig: "restricted", disp: "blocked" })), "State season closed here");
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", band: "good", disp: "unranked", thermalCodes: ["temperature_stale"] })), "Water temp updating");
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", disp: "unranked", seasonCodes: ["seasonal_profile_missing"] })), "Season data unavailable");
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", disp: "unranked" })), "Not enough data today");

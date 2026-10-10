@@ -81,15 +81,16 @@ test("missing and restricted inputs remain explicitly unranked", () => {
   assert.match(standings, /Missing or updating data stays unrated instead of counting as poor fishing/);
   assert.match(standings, /Not rated today/);
   assert.match(standings, /standingsUnrankedReason\(row\)/);
-  assert.match(standingsRules, /Closed to targeting here/);
+  assert.match(standingsRules, /State season closed here/);
   assert.match(reportRules, /standingsUnrankedReason\(species\)/);
-  assert.match(conditionsUi, /NOT RATED/);
+  assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
+  assert.match(conditionsUi, /unratedReason=\{card\.ranked \? null : card\.seasonLine\}/);
 });
 
 test("city report separates today's label, season timing, and water context", () => {
   assert.match(conditionsUi, /prefix="Today"/);
-  assert.match(conditionsUi, /<SeasonTimingChip/);
-  assert.match(conditionsUi, /spChips: \{ alignItems: "flex-start"/);
+  assert.match(conditionsUi, /<PierCastStatStrip/);
+  assert.doesNotMatch(read("components/pier-cast/PierCastStatStrip.tsx"), /numberOfLines|ellipsizeMode/);
   assert.doesNotMatch(standings, /seasonChipText\]\} numberOfLines/);
   assert.match(conditionsUi, />WATER TODAY</);
   assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);

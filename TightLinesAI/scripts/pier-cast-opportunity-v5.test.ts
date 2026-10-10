@@ -520,3 +520,43 @@ test("city reports retain v5 labels when standings are unavailable", () => {
   assert.equal(lakeTrout.seasonalOutlook.band, expected.band);
   assert.equal(JSON.stringify(projected).includes('"score"'), false);
 });
+
+test("lake-trout legal gates follow the v5 calibration, not stale v4 server closures", () => {
+  const generatedAt = "2026-10-15T16:00:00.000Z";
+  const source = buildPierCastConditionsV4Outlook({
+    generatedAt,
+    source: {
+      status: "fresh_archived_complete_cycle",
+      productId: "NOAA_NOS_LMHOFS_REGULARGRID",
+      issuedAt: "2026-10-15T13:00:00.000Z",
+      fetchedAt: generatedAt,
+      cycleAgeHours: 3,
+    },
+    cities: ["oscoda_mi", "frankfort_elberta_mi"].map((cityId) => ({
+      cityId,
+      temperatureTimeline: Array.from({ length: 121 }, (_, hour) => ({
+        validAt: new Date(Date.parse(generatedAt) + hour * 3_600_000)
+          .toISOString(),
+        temperatureC: 10,
+      })),
+      dates: [{ localDate: "2026-10-15" }],
+    })),
+  } as never);
+  const lakeTroutFor = (cityId: string) =>
+    projectPierCastCityReportLabelsV5(
+      projectPierCastConditionsCityReportV4(source, cityId, "lake_trout"),
+    ).species.find((species) => species.speciesId === "lake_trout");
+
+  // Oscoda is Lake Huron unit MH-3: lake trout are open all year.
+  const oscoda = lakeTroutFor("oscoda_mi");
+  assert.ok(oscoda);
+  assert.equal(oscoda.targetingEligibility, "eligible");
+  assert.equal(oscoda.rankingDisposition, "ranked");
+  assert.equal(oscoda.reasonCodes.includes("targeting_restricted"), false);
+
+  // Frankfort is Lake Michigan unit MM-5: possession closes Oct 1-Dec 31.
+  const frankfort = lakeTroutFor("frankfort_elberta_mi");
+  assert.ok(frankfort);
+  assert.equal(frankfort.targetingEligibility, "restricted");
+  assert.equal(frankfort.rankingDisposition, "blocked");
+});

@@ -207,9 +207,14 @@ export function projectPierCastSpeciesConditionsV5(input: {
     thermalValue,
   });
   if (!evaluation) return { species, evaluation: null };
-  const restricted = species.targetingEligibility === "restricted" ||
-    evaluation.closed;
-  const unknown = species.targetingEligibility === "unknown";
+  // The owner-approved v5 lake-trout calibration owns lake-trout legal gates
+  // (its closedMonths follow the 2026 Michigan management units). The frozen
+  // v4 server data still carries a stale Oct-Dec closure for Oscoda (MH-3 is
+  // open all year), so the server flag must not override v5 for lake trout.
+  const v5OwnsGates = species.speciesId === "lake_trout";
+  const restricted = evaluation.closed ||
+    (!v5OwnsGates && species.targetingEligibility === "restricted");
+  const unknown = !v5OwnsGates && species.targetingEligibility === "unknown";
   const ranked = !restricted && !unknown && evaluation.score !== null;
   const fallbackBand = species.seasonalOutlook.status === "available"
     ? species.seasonalOutlook.band
@@ -240,6 +245,8 @@ export function projectPierCastSpeciesConditionsV5(input: {
       },
       targetingEligibility: evaluation.closed
         ? "restricted"
+        : v5OwnsGates
+        ? "eligible"
         : species.targetingEligibility,
       rankingDisposition: ranked
         ? "ranked"
@@ -252,9 +259,16 @@ export function projectPierCastSpeciesConditionsV5(input: {
         evidenceIds: [...evaluation.evidenceIds],
         affectsRanking: false,
       },
-      reasonCodes: evaluation.closed
-        ? [...species.reasonCodes, "targeting_restricted"]
-        : species.reasonCodes,
+      reasonCodes: (() => {
+        const base = v5OwnsGates
+          ? species.reasonCodes.filter((code) =>
+            code !== "targeting_restricted" && code !== "targeting_unknown"
+          )
+          : species.reasonCodes;
+        return evaluation.closed && !base.includes("targeting_restricted")
+          ? [...base, "targeting_restricted"]
+          : base;
+      })(),
     },
   };
 }

@@ -61,7 +61,7 @@ Batch 1 conclusion: the prior ceilings were too compressed. Holland, Grand Haven
 | Rogers City | 5.1 | 6.8 | Good | Recalibrate; Oct-Dec closed | A |
 | Alpena | 5.0 | 6.2 | Good | Recalibrate; Oct-Dec closed | B |
 | Harrisville | — | 5.5 | Fair | Provisional admission | C |
-| Oscoda | 4.6 | 5.4 | Fair | Recalibrate; Oct-Dec closed | B |
+| Oscoda | 4.6 | 5.4 | Fair | Recalibrate; open all year (MH-3) | B |
 | Tawas City | 5.1 | 5.4 | Fair | Recalibrate | B |
 | Caseville | 4.6 | 6.8 | Good | Recalibrate | B |
 | Harbor Beach | 5.3 | 7.2 | Good | Recalibrate | B |
@@ -88,6 +88,12 @@ Batch 2 conclusion: Caseville and Harbor Beach were materially understated. Harb
 | Algoma | — | — | Not ranked | Research hold | C |
 
 Batch 3 conclusion: Wisconsin DNR confirms that pier/shore lake trout are real, especially early and late, but recent harvest is tiny compared with boat modes. Racine, Milwaukee, Port Washington and Sheboygan now have cautious provisional values because their county geography and recent pier/shore positives are usable. Pooled-county or zero-harvest cities remain unscored rather than receiving invented placeholders. Indiana's documented fall shoreline run is near the Port of Indiana, not proof of repeatable Michigan City East Pier catch.
+
+## Regulation correction — 2026-10-09
+
+Oscoda was originally marked closed October-December. That was wrong: Oscoda sits in Lake Huron unit MH-3 (between 44°50'N and Au Sable Point, 44°20'N), where the 2026 Michigan lake trout possession season is open all year. The Jan 1-Sep 30 season applies only to MH-1/MH-2 (Rogers City, Alpena) and Lake Michigan MM-1-5 (Charlevoix, Frankfort). Oscoda now uses the Lake Huron open-year curve, and the 1.17 app treats this calibration as the authority for lake-trout closures, so the stale Oscoda closure still present in the live v4 server data no longer blocks it. The live server data also lacks the Charlevoix and Rogers City Oct-Dec closures; both need a separately approved server data fix.
+
+Closed-season audit across all 254 pairs (salmon, trout and steelhead prioritized): Michigan Great Lakes brown trout, chinook, coho, steelhead and Atlantic salmon are open all year; Wisconsin Lake Michigan trout and salmon — including lake trout since July 2021 — are continuous; Illinois lists no lake trout closure. Perch closures (Wisconsin and Illinois, May 1-Jun 15) are correct.
 
 ## Strong-source ledger
 

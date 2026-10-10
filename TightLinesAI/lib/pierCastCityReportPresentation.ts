@@ -6,6 +6,7 @@ import {
   type PierCastModeledTemperaturePointV4,
   type PierCastSeasonalBandV4,
   type PierCastSpeciesConditionsReadV4,
+  type PierCastThermalMatchReadV4,
 } from "./pierCastConditionsV4";
 import { fahrenheit, PIER_CAST_SPECIES_LABELS } from "./pierCastConditionsPresentation";
 import type { PierCastSpeciesId } from "./pierCastContracts";
@@ -185,7 +186,13 @@ const FIT_CONTEXT_F = 8;
 export function pierCastWaterFit(
   species: PierCastSpeciesConditionsReadV4,
 ): PierCastWaterFit | null {
-  const thermal = species.thermalMatch;
+  return pierCastWaterFitFromThermal(species.thermalMatch);
+}
+
+/** Same water-fit gauge model, from any thermal match (city report or leaderboard row). */
+export function pierCastWaterFitFromThermal(
+  thermal: PierCastThermalMatchReadV4,
+): PierCastWaterFit | null {
   if (thermal.status !== "available") return null;
   const idealLowF = fahrenheit(thermal.optimumRangeC[0]);
   const idealHighF = fahrenheit(thermal.optimumRangeC[1]);

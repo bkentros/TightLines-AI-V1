@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 
@@ -56,9 +57,9 @@ import {
   BandChip,
   BottomSheet,
   Reveal,
-  SeasonTimingChip,
   useReduceMotion,
 } from "./PierCastStandings";
+import { PierCastFishCrop, PierCastStatStrip } from "./PierCastStatStrip";
 import { PierCastCityTemperatureChart } from "./PierCastVisuals";
 
 const INK = paper.dashboardInk;
@@ -171,7 +172,7 @@ function Hero({
       <TopographicLines style={StyleSheet.absoluteFill} color="#FFFFFF" count={7} />
       <Reveal token="city-hero" reduceMotion={reduceMotion}>
         <View style={styles.heroTop}>
-          <Text style={styles.heroKicker} numberOfLines={1}>
+          <Text style={styles.heroKicker}>
             {`${state} · Lake ${pierCastLakeName(report.lakeId)}`.toUpperCase()}
           </Text>
           <View style={styles.fresh}>
@@ -183,7 +184,7 @@ function Hero({
         {pierLine ? (
           <View style={styles.heroPier}>
             <Ionicons name="location" size={15} color={GOLD} />
-            <Text style={styles.heroPierText} numberOfLines={1}>{pierLine}</Text>
+            <Text style={styles.heroPierText}>{pierLine}</Text>
           </View>
         ) : null}
         {top && topStyle ? (
@@ -201,8 +202,8 @@ function Hero({
             </View>
             <View style={styles.flex}>
               <Text style={styles.pickKicker}>TOP PICK TODAY</Text>
-              <Text style={styles.pickName} numberOfLines={1}>{top.name}</Text>
-              <Text style={styles.pickLine} numberOfLines={2}>{top.line}</Text>
+              <Text style={styles.pickName}>{top.name}</Text>
+              <Text style={styles.pickLine}>{top.line}</Text>
             </View>
             <BandChip band={top.band} prefix="Today" />
           </Pressable>
@@ -356,11 +357,13 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
 }) {
   const style = card.band ? PIER_CAST_STANDINGS_BANDS[card.band] : null;
   const edge = card.ranked && style ? style.color : "#C9CCCF";
+  const { width: windowWidth } = useWindowDimensions();
+  const fishWidth = windowWidth < 360 ? 100 : 124;
   return (
     <Reveal token={`sp-${card.speciesId}`} delay={Math.min(index, 6) * 70} reduceMotion={reduceMotion}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`${card.name}, ${card.ranked && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}. Opens the ${card.name} standings.`}
+        accessibilityLabel={`${card.name}, ${card.ranked && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}${card.standing ? `, number ${card.standing.rank} of ${card.standing.rankedCityCount} in the standings` : ""}. Opens the ${card.name} standings.`}
         onPress={() => {
           hapticSelection();
           onPress();
@@ -368,34 +371,37 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
         style={({ pressed }) => [styles.sp, pressed && styles.pressed]}
       >
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
-        <View style={styles.spTop}>
-          <View style={styles.spFish}>
-            <SpeciesFish speciesId={card.speciesId} width={84} height={84} />
+        <View style={styles.spHead}>
+          <View style={styles.spHeadText}>
+            {card.standing ? (
+              <View style={styles.spRibbon}>
+                <Ionicons name="trophy" size={11} color="#8A6A14" />
+                <Text style={styles.spRibbonText}>
+                  #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
+                </Text>
+              </View>
+            ) : null}
+            <Text style={styles.spName}>{card.name}</Text>
           </View>
-          <View style={styles.flex}>
-            <Text style={styles.spName} numberOfLines={2}>{card.name}</Text>
-          </View>
-          <Ionicons name="chevron-forward" size={16} color="#999999" />
+          <PierCastFishCrop speciesId={card.speciesId} width={fishWidth} style={styles.spFishBleed} />
         </View>
-        <View style={styles.spChips}>
-          {card.ranked && card.band ? (
-            <BandChip band={card.band} prefix="Today" />
-          ) : (
-            <View style={styles.notRated}><Text style={styles.notRatedText}>NOT RATED</Text></View>
-          )}
-          {card.ranked ? <SeasonTimingChip label={card.seasonLine} /> : null}
-          {card.standing ? (
-            <Text style={styles.spStand}>
-              #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
-            </Text>
-          ) : null}
-        </View>
-        <View style={styles.spRows}>
-          <View style={styles.flex}>
+        <PierCastStatStrip
+          band={card.ranked ? card.band : null}
+          season={card.ranked ? card.seasonLine : null}
+          unratedReason={card.ranked ? null : card.seasonLine}
+        />
+        <View style={styles.spWater}>
+          <View style={styles.spWaterHead}>
             <Text style={styles.spKey}>WATER TODAY</Text>
-            <Text style={styles.spValue} numberOfLines={1}>{card.waterLine ?? "Unavailable"}</Text>
-            <WaterFitBar card={card} />
-            {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : null}
+            <Text style={styles.spValue}>{card.waterLine ?? "Unavailable"}</Text>
+          </View>
+          <WaterFitBar card={card} />
+          <View style={styles.spFoot}>
+            {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : <View />}
+            <View style={styles.spGo}>
+              <Text style={styles.spGoText}>STANDINGS</Text>
+              <Ionicons name="arrow-forward" size={13} color={paper.dashboardBlue} />
+            </View>
           </View>
         </View>
       </Pressable>
@@ -419,7 +425,7 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
   return (
     <Card label={`Supported species at ${report.displayName}`}>
       <CardHead title={`Supported species at ${report.displayName}`} />
-      <Text style={styles.cardSub}>Today’s opportunity and season timing are shown separately. Water fit explains the current context.</Text>
+      <Text style={styles.cardSub}>Tap a species to see where it ranks across the Great Lakes.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}
@@ -862,87 +868,6 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
 
 // ─── Report ───────────────────────────────────────────────────────────────
 
-function ReportSpeciesSwitcher({
-  report,
-  onSelect,
-}: {
-  report: PierCastCityReportReadV4;
-  onSelect: (speciesId: PierCastSpeciesId) => void;
-}) {
-  const options = [...report.species].sort((left, right) =>
-    Number(right.speciesId === report.selectedSpeciesId) -
-      Number(left.speciesId === report.selectedSpeciesId) ||
-    pierCastSpeciesName(left.speciesId).localeCompare(
-      pierCastSpeciesName(right.speciesId),
-    )
-  );
-  const selectedCard = buildPierCastCitySpeciesCards(report).find((card) =>
-    card.speciesId === report.selectedSpeciesId
-  ) ?? null;
-  return (
-    <View style={styles.reportSpecies}>
-      <Text style={styles.reportSpeciesLabel}>REPORT SPECIES</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.reportSpeciesOptions}
-      >
-        {options.map((species) => {
-          const selected = species.speciesId === report.selectedSpeciesId;
-          const name = pierCastSpeciesName(species.speciesId);
-          return (
-            <Pressable
-              key={species.speciesId}
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
-              accessibilityLabel={`${name} city report`}
-              onPress={() => {
-                if (!selected) {
-                  hapticSelection();
-                  onSelect(species.speciesId);
-                }
-              }}
-              style={({ pressed }) => [
-                styles.reportSpeciesOption,
-                selected && styles.reportSpeciesOptionOn,
-                pressed && styles.pressed,
-              ]}
-            >
-              <Text style={[
-                styles.reportSpeciesOptionText,
-                selected && styles.reportSpeciesOptionTextOn,
-              ]}>
-                {name}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
-      {selectedCard ? (
-        <View style={styles.reportSpeciesSnapshot}>
-          <Text style={styles.reportSpeciesSnapshotLabel}>SELECTED SPECIES</Text>
-          <Text style={styles.reportSpeciesSnapshotName}>{selectedCard.name}</Text>
-          <View style={styles.reportSpeciesSnapshotChips}>
-            {selectedCard.ranked && selectedCard.band ? (
-              <>
-                <BandChip band={selectedCard.band} prefix="Today" />
-                <SeasonTimingChip label={selectedCard.seasonLine} />
-              </>
-            ) : (
-              <View style={styles.notRated}>
-                <Text style={styles.notRatedText}>NOT RATED · {selectedCard.seasonLine.toUpperCase()}</Text>
-              </View>
-            )}
-          </View>
-          <Text style={styles.reportSpeciesSnapshotWater}>
-            WATER TODAY · {selectedCard.waterLine ?? "Unavailable"}
-          </Text>
-        </View>
-      ) : null}
-    </View>
-  );
-}
-
 export function PierCastConditionsCityReport({
   city,
   cities,
@@ -950,7 +875,6 @@ export function PierCastConditionsCityReport({
   weather,
   weatherLoading,
   savedCopy,
-  onSelectReportSpecies,
   onOpenStandings,
   onOpenCity,
   onOpenMap,
@@ -961,7 +885,11 @@ export function PierCastConditionsCityReport({
   weather: PierCastHourlyWeatherPoint[];
   weatherLoading: boolean;
   savedCopy?: boolean;
-  onSelectReportSpecies: (speciesId: PierCastSpeciesId) => void;
+  /**
+   * Retained for call-site compatibility. 1.17 removed the in-report species
+   * switcher; every supported species is shown as its own card instead.
+   */
+  onSelectReportSpecies?: (speciesId: PierCastSpeciesId) => void;
   onOpenStandings: (speciesId: PierCastSpeciesId) => void;
   onOpenCity: (cityId: string) => void;
   onOpenMap: () => void;
@@ -1017,10 +945,6 @@ export function PierCastConditionsCityReport({
         onOpenStandings={onOpenStandings}
         reduceMotion={reduceMotion}
       />
-      <ReportSpeciesSwitcher
-        report={report}
-        onSelect={onSelectReportSpecies}
-      />
       <CityMapLink cityName={report.displayName} onPress={onOpenMap} />
       {days.length > 0 ? (
         <FiveDayOutlook days={days} selected={daySelection} onSelect={setSelectedDay} />
@@ -1068,18 +992,6 @@ const styles = StyleSheet.create({
   savedBanner: { flexDirection: "row", alignItems: "flex-start", gap: 8, margin: 14, marginBottom: 0, padding: 11, backgroundColor: "#EAF4F9", borderWidth: 1, borderColor: paper.dashboardBlueLight, borderRadius: 10 },
   savedBannerText: { flex: 1, color: paper.dashboardInkSoft, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 18 },
 
-  reportSpecies: { marginTop: 12 },
-  reportSpeciesLabel: { marginTop: 12, marginHorizontal: 16, color: paper.dashboardInkSoft, fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4 },
-  reportSpeciesOptions: { gap: 8, paddingHorizontal: 14, paddingTop: 8, paddingBottom: 2 },
-  reportSpeciesOption: { minHeight: 38, justifyContent: "center", paddingHorizontal: 13, borderWidth: 1.5, borderColor: paper.dashboardLine, borderRadius: 19, backgroundColor: "#FFFFFF" },
-  reportSpeciesOptionOn: { borderColor: INK, backgroundColor: INK },
-  reportSpeciesOptionText: { color: INK, fontFamily: paperFonts.bodySemiBold, fontSize: 13 },
-  reportSpeciesOptionTextOn: { color: "#FFFFFF" },
-  reportSpeciesSnapshot: { marginTop: 10, marginHorizontal: 14, padding: 12, borderWidth: 1.5, borderColor: paper.dashboardLine, borderRadius: 12, backgroundColor: paper.dashboardWhite },
-  reportSpeciesSnapshotLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.4, color: paper.dashboardBlue },
-  reportSpeciesSnapshotName: { marginTop: 2, fontFamily: paperFonts.display, fontSize: 20, color: INK },
-  reportSpeciesSnapshotChips: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 7 },
-  reportSpeciesSnapshotWater: { marginTop: 8, fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.8, color: paper.dashboardInkSoft },
 
   hero: { overflow: "hidden", backgroundColor: INK, paddingHorizontal: 20, paddingTop: 22, paddingBottom: 22 },
   heroTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 10 },
@@ -1132,19 +1044,22 @@ const styles = StyleSheet.create({
   calNote: { marginTop: 12, textAlign: "center", fontFamily: paperFonts.body, fontSize: 14, lineHeight: 19, color: "#444444" },
   calNoteStrong: { fontFamily: paperFonts.bodyBold, color: INK },
 
-  sp: { overflow: "hidden", marginTop: 10, paddingVertical: 14, paddingRight: 14, paddingLeft: 18, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 14, backgroundColor: "#FFFFFF", gap: 10 },
+  sp: { overflow: "hidden", marginTop: 12, paddingTop: 12, paddingBottom: 14, paddingRight: 14, paddingLeft: 18, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 16, backgroundColor: "#FFFFFF", gap: 12 },
   spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
-  spTop: { flexDirection: "row", alignItems: "center", gap: 10 },
-  spFish: { width: 84, height: 50, overflow: "hidden", alignItems: "center", justifyContent: "center" },
-  spName: { fontFamily: paperFonts.display, fontSize: 19, lineHeight: 23, color: INK },
-  spChips: { alignItems: "flex-start", gap: 6 },
-  spStand: { alignSelf: "flex-start", overflow: "hidden", paddingHorizontal: 6, paddingVertical: 3, borderWidth: 1, borderColor: "rgba(212,175,55,0.6)", borderRadius: 5, backgroundColor: "#FBF3DC", fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 0.6, color: "#6B5310" },
-  notRated: { minHeight: 26, justifyContent: "center", paddingHorizontal: 9, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.2)", borderRadius: 6, backgroundColor: paper.dashboardCream },
-  notRatedText: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.1, color: "#555555" },
-  spRows: { flexDirection: "row", gap: 12 },
+  spHead: { flexDirection: "row", alignItems: "center", minHeight: 60 },
+  spHeadText: { flex: 1, minWidth: 0, gap: 6, paddingRight: 6 },
+  spFishBleed: { marginVertical: -4 },
+  spName: { fontFamily: paperFonts.display, fontSize: 22, lineHeight: 26, color: INK },
+  spRibbon: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 5, paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, borderWidth: 1, borderColor: "rgba(212,175,55,0.65)", backgroundColor: "#FBF3DC" },
+  spRibbonText: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 9.5, letterSpacing: 0.8, color: "#6B5310" },
+  spWater: { paddingTop: 2 },
+  spWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 10, rowGap: 2 },
   spKey: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: "#666666" },
-  spValue: { marginTop: 3, fontFamily: paperFonts.bodyBold, fontSize: 14, color: INK },
-  spSub: { marginTop: 5, fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
+  spValue: { flexShrink: 1, fontFamily: paperFonts.bodyBold, fontSize: 15, color: INK },
+  spFoot: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", columnGap: 10, rowGap: 4, marginTop: 6 },
+  spSub: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
+  spGo: { flexDirection: "row", alignItems: "center", gap: 4 },
+  spGoText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.3, color: paper.dashboardBlue },
   fitWrap: { marginTop: 7, height: 14, justifyContent: "center" },
   fitBar: { flexDirection: "row", height: 6, borderRadius: 3, overflow: "hidden", gap: 2 },
   fitBarEmpty: { marginTop: 11, backgroundColor: "#E6E6E0" },

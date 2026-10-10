@@ -250,7 +250,9 @@ export function standingsLeaderSummary(
 export function standingsUnrankedReason(
   row: PierCastSpeciesConditionsReadV4,
 ): string {
-  if (row.targetingEligibility === "restricted") return "Closed to targeting here";
+  // A legal closed season, not a fish-availability call (e.g. Michigan lake
+  // trout in units MM-1-5 / MH-1-2 from Oct 1 to Dec 31).
+  if (row.targetingEligibility === "restricted") return "State season closed here";
   const codes = new Set<string>([
     ...row.reasonCodes,
     ...row.seasonalOutlook.reasonCodes,

@@ -51,7 +51,7 @@ test("temperature fit is compact and visually secondary on leaderboard rows", ()
   assert.match(ui, /MODELED/);
   // Standings rows lead with the seasonal rating chip; water temp is a
   // secondary line derived from the thermal match.
-  assert.match(standings, /<BandChip band=\{band\} prefix="Today" \/>/);
+  assert.match(standings, /<PierCastStatStrip band=\{band\} season=\{timingLabel\} compact \/>/);
   assert.match(standings, /standingsWaterLine\(row\.thermalMatch\)/);
   assert.match(standingsRules, /Water \$\{temperatureF\}°F · \$\{phrase\}/);
 });
@@ -81,8 +81,8 @@ test("city-first target changes are persisted and guarded against stale async re
 });
 
 test("city reports are city-first and separate today, season, and water", () => {
-  assert.match(ui, /Today’s opportunity and season timing are shown separately/);
-  assert.match(ui, /<SeasonTimingChip/);
+  assert.match(ui, /Tap a species to see where it ranks/);
+  assert.match(ui, /<PierCastStatStrip/);
   assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Best bet each day/);
   assert.match(ui, /TOP PICK TODAY/);

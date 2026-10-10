@@ -94,11 +94,11 @@ Deno.test("app projection ranks absolute lake-trout opportunity across every cit
   assert.equal(result.cities.length, 32);
   assert.equal(
     result.cities.filter((city) => city.rankingDisposition === "ranked").length,
-    21,
+    22,
   );
   assert.equal(result.cities[0]?.cityId, "harbor_beach_mi");
   assert.equal(result.cities[0]?.seasonalOutlook.band, "good");
-  assert.equal(result.targetSpecies[0]?.availableCityCount, 21);
+  assert.equal(result.targetSpecies[0]?.availableCityCount, 22);
   assert.equal(result.targetSpecies[0]?.bestSeasonalBand, "good");
   assert.equal(JSON.stringify(result).includes("fisheryStrength"), false);
   assert.equal(JSON.stringify(result).includes('"score"'), false);
@@ -113,12 +113,18 @@ Deno.test("November is peak, legal closures block ranking, and holds stay unscor
   const harbor = result.cities.find((city) => city.cityId === "harbor_beach_mi");
   const frankfort = result.cities.find((city) => city.cityId === "frankfort_elberta_mi");
   const kenosha = result.cities.find((city) => city.cityId === "kenosha_wi");
+  const oscoda = result.cities.find((city) => city.cityId === "oscoda_mi");
+  const alpena = result.cities.find((city) => city.cityId === "alpena_mi");
   assert.deepEqual(harbor?.seasonalOutlook.reasonCodes, [
     "lake_trout_v5_timing:peak",
   ]);
   assert.equal(frankfort?.targetingEligibility, "restricted");
   assert.equal(frankfort?.rankingDisposition, "blocked");
   assert.equal(frankfort?.seasonalOutlook.band, "usually_off");
+  // MH-3 (Oscoda) is open all year; MH-2 (Alpena) closes Oct 1-Dec 31.
+  assert.equal(oscoda?.targetingEligibility, "eligible");
+  assert.equal(oscoda?.rankingDisposition, "ranked");
+  assert.equal(alpena?.targetingEligibility, "restricted");
   assert.equal(kenosha?.rankingDisposition, "unranked");
   assert.deepEqual(kenosha?.reasonCodes, ["lake_trout_research_hold"]);
 });
@@ -152,7 +158,7 @@ Deno.test("all twelve monthly snapshots retain complete, contiguous city guidanc
       city.rankingDisposition === "ranked"
     );
     assert.equal(result.cities.length, 32, generatedAt);
-    assert.equal(ranked.length, month >= 10 ? 21 : 26, generatedAt);
+    assert.equal(ranked.length, month >= 10 ? 22 : 26, generatedAt);
     assert.deepEqual(
       ranked.map((city) => city.rank),
       ranked.map((_, index) => index + 1),

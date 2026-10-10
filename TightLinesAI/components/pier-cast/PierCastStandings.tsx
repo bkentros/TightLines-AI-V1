@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -51,11 +52,15 @@ import {
   standingsTrendCue,
   standingsUnrankedReason,
   standingsWaterLine,
+  standingsWaterPhrase,
+  standingsWaterTempF,
 } from "../../lib/pierCastStandingsPresentation";
 import { hapticSelection } from "../../lib/safeHaptics";
 import { paper, paperFonts } from "../../lib/theme";
 import { usePaperBonePulse } from "../../lib/usePaperBonePulse";
 import { TopographicLines } from "../paper";
+import { pierCastWaterFitFromThermal } from "../../lib/pierCastCityReportPresentation";
+import { PierCastFishCrop, PierCastStatStrip, PierCastWaterGauge } from "./PierCastStatStrip";
 
 const INK = paper.dashboardInk;
 const GOLD = paper.medalGold;
@@ -588,6 +593,10 @@ function SpeciesTab({
 
 type RankedRow = { row: PierCastLeaderboardCityReadV4; rank: number };
 
+function capitalize(text: string): string {
+  return text ? text[0]!.toUpperCase() + text.slice(1) : text;
+}
+
 function medalFor(rank: number) {
   if (rank === 2) return { ring: "#9C9C9C", fill: "#F1F1F1", ink: "#4A4A4A", label: "SILVER" };
   if (rank === 3) return { ring: paper.medalBronze, fill: "#FBEBDD", ink: "#7A4414", label: "BRONZE" };
@@ -664,8 +673,8 @@ function LeaderCard({
           <Text style={styles.leaderState}>{stateName(row.stateCode).toUpperCase()}</Text>
           <View style={styles.leaderIdentity}>
             <View style={styles.flex}>
-              <Text style={styles.leaderCity} numberOfLines={2}>{row.displayName}</Text>
-              {pierLine ? <Text style={styles.leaderPier} numberOfLines={1}>{pierLine}</Text> : null}
+              <Text style={styles.leaderCity}>{row.displayName}</Text>
+              {pierLine ? <Text style={styles.leaderPier}>{pierLine}</Text> : null}
             </View>
             <Reveal token={token} from="left" delay={120} reduceMotion={reduceMotion}>
               <View style={styles.leaderFish}>
@@ -766,11 +775,16 @@ function ChaserRow({
     ? standingsOutlookTimingLabel(outlook)
     : null;
   const delay = 120 + Math.min(index, 8) * 60;
+  const waterF = standingsWaterTempF(row.thermalMatch);
+  const waterPhrase = standingsWaterPhrase(row.thermalMatch);
+  const fit = pierCastWaterFitFromThermal(row.thermalMatch);
+  const { width: windowWidth } = useWindowDimensions();
+  const fishWidth = windowWidth < 360 ? 92 : 112;
   return (
     <Reveal token={token} delay={delay} reduceMotion={reduceMotion}>
       <Pressable
         accessibilityRole="button"
-        accessibilityLabel={`Rank ${rank}, ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}${trendCue ? `, ${trendCue.label.toLowerCase()}` : ""}. ${waterLine ?? ""}. Opens ${fullReportAvailable ? "full report" : "city map"}.`}
+        accessibilityLabel={`Rank ${rank}, ${row.displayName}, ${stateName(row.stateCode)}. ${bandStyle?.label ?? "Unrated"}${trendCue ? `, ${trendCue.label.toLowerCase()}` : ""}.${timingLabel ? ` Season: ${timingLabel}.` : ""} ${waterLine ?? ""}. Opens ${fullReportAvailable ? "full report" : "city map"}.`}
         onPress={() => {
           hapticSelection();
           onOpen();
@@ -778,31 +792,42 @@ function ChaserRow({
         style={({ pressed }) => [styles.row, pressed && styles.rowPressed]}
       >
         <View style={[styles.rowEdge, { backgroundColor: rank <= 3 ? medal.ring : bandStyle?.color ?? "#999999" }]} />
-        <View style={styles.medal}>
-          <View style={[styles.medalCircle, { borderColor: medal.ring, backgroundColor: medal.fill }]}>
-            <Text style={[styles.medalNumber, { color: medal.ink }]}>{rank}</Text>
+        <View style={styles.rowHead}>
+          <View style={styles.medal}>
+            <View style={[styles.medalCircle, { borderColor: medal.ring, backgroundColor: medal.fill }]}>
+              <Text style={[styles.medalNumber, { color: medal.ink }]}>{rank}</Text>
+            </View>
+            {medal.label ? <Text style={styles.medalLabel}>{medal.label}</Text> : null}
           </View>
-          {medal.label ? <Text style={styles.medalLabel}>{medal.label}</Text> : null}
+          <View style={styles.rowMain}>
+            <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
+            <Text style={styles.rowCity}>{row.displayName}</Text>
+          </View>
+          <PierCastFishCrop speciesId={speciesId} width={fishWidth} />
         </View>
-        <View style={styles.rowContent}>
-          <View style={styles.rowTop}>
-            <View style={styles.rowMain}>
-              <Text style={styles.rowState}>{stateName(row.stateCode).toUpperCase()}</Text>
-              <Text style={styles.rowCity} numberOfLines={2}>{row.displayName}</Text>
-              {waterLine ? <Text style={styles.rowLine}>{waterLine}</Text> : null}
-            </View>
-            <View style={styles.rowActions}>
-              <View style={styles.rowFish}>
-                <Fish speciesId={speciesId} width={48} height={48} />
-              </View>
-              <View style={styles.go}>
-                <Ionicons name="chevron-forward" size={16} color={INK} />
-              </View>
-            </View>
+        {band || timingLabel ? (
+          <PierCastStatStrip band={band} season={timingLabel} compact />
+        ) : null}
+        <View style={styles.rowWater}>
+          <View style={styles.rowWaterHead}>
+            <Text style={styles.rowWaterKey}>
+              WATER{waterF !== null ? ` ${waterF}°F` : ""}
+            </Text>
+            <Text style={styles.rowWaterPhrase}>
+              {waterPhrase ? capitalize(waterPhrase) : "Unavailable"}
+            </Text>
           </View>
-          <View style={styles.rowSignals}>
-            {band ? <BandChip band={band} prefix="Today" /> : null}
-            {timingLabel ? <SeasonTimingChip label={timingLabel} /> : null}
+          <PierCastWaterGauge fit={fit} />
+          <View style={styles.rowFoot}>
+            {fit ? (
+              <Text style={styles.rowIdeal}>
+                Ideal {Math.round(fit.idealLowF)}–{Math.round(fit.idealHighF)}°F
+              </Text>
+            ) : <View />}
+            <View style={styles.rowGo}>
+              <Text style={styles.rowGoText}>{fullReportAvailable ? "OPEN REPORT" : "OPEN MAP"}</Text>
+              <Ionicons name="arrow-forward" size={13} color={paper.dashboardBlue} />
+            </View>
           </View>
         </View>
       </Pressable>
@@ -1313,7 +1338,7 @@ export function PierCastStandings({
                         · {group.rows.length} {group.rows.length === 1 ? "CITY" : "CITIES"}
                       </Text>
                       {group.rows.length > 1 ? (
-                        <Text style={styles.groupNote} numberOfLines={1}>
+                        <Text style={styles.groupNote}>
                           Ordered by overall opportunity
                         </Text>
                       ) : null}
@@ -1829,23 +1854,22 @@ const styles = StyleSheet.create({
   groupNote: { flex: 1, textAlign: "right", fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
 
   row: {
-    flexDirection: "row",
-    alignItems: "stretch",
-    gap: 8,
-    minHeight: 92,
+    gap: 12,
     marginHorizontal: 14,
-    marginBottom: 10,
-    paddingVertical: 12,
+    marginBottom: 12,
+    paddingTop: 12,
+    paddingBottom: 13,
     paddingLeft: 16,
-    paddingRight: 10,
+    paddingRight: 12,
     overflow: "hidden",
     backgroundColor: "#FFFFFF",
     borderWidth: 1.5,
     borderColor: paper.dashboardLine,
-    borderRadius: 14,
+    borderRadius: 16,
   },
   rowPressed: { backgroundColor: "#FAFAF7" },
   rowEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
+  rowHead: { flexDirection: "row", alignItems: "center", gap: 10, minHeight: 56 },
   medal: { width: 46, alignItems: "center", justifyContent: "center", gap: 3 },
   medalCircle: {
     width: 40,
@@ -1857,15 +1881,17 @@ const styles = StyleSheet.create({
   },
   medalNumber: { fontFamily: paperFonts.display, fontSize: 18 },
   medalLabel: { fontFamily: paperFonts.metaMonoBold, fontSize: 9, letterSpacing: 1.2, color: "#555555" },
-  rowContent: { flex: 1, minWidth: 0 },
-  rowTop: { flexDirection: "row", alignItems: "center", gap: 8 },
   rowMain: { flex: 1, minWidth: 0 },
   rowState: { fontFamily: paperFonts.metaMonoBold, fontSize: 11, letterSpacing: 1.8, color: GOLD_INK },
-  rowCity: { fontFamily: paperFonts.display, fontSize: 21, lineHeight: 25, color: INK },
-  rowLine: { marginTop: 1, fontFamily: paperFonts.body, fontSize: 13, lineHeight: 17, color: "#555555" },
-  rowActions: { flexDirection: "row", alignItems: "center", gap: 6 },
-  rowFish: { width: 54, height: 30, overflow: "hidden", alignItems: "center", justifyContent: "center" },
-  rowSignals: { alignItems: "flex-start", gap: 6, marginTop: 9 },
+  rowCity: { marginTop: 1, fontFamily: paperFonts.display, fontSize: 21, lineHeight: 25, color: INK },
+  rowWater: { paddingTop: 2 },
+  rowWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 10, rowGap: 2 },
+  rowWaterKey: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: "#666666" },
+  rowWaterPhrase: { flexShrink: 1, fontFamily: paperFonts.bodyBold, fontSize: 15, color: INK },
+  rowFoot: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", columnGap: 10, rowGap: 4, marginTop: 6 },
+  rowIdeal: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
+  rowGo: { flexDirection: "row", alignItems: "center", gap: 4, marginLeft: "auto" },
+  rowGoText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.3, color: paper.dashboardBlue },
   go: {
     width: 30,
     height: 30,
