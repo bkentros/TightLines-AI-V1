@@ -225,9 +225,15 @@ class CycleTest(unittest.TestCase):
         self.assertIn("!/TightLinesAI/web/lake-map/job/tests/test_scorecard*.py", root_text)
         self.assertIn("Verify scorecard isolation", root_text)
         crons = re.findall(r'cron:\s*"([^"]+)"', root_text)
-        self.assertEqual(crons, ["45 2,8,14,20 * * *", "0,15,30,45 3,9,15,21 * * *", "0 4,10,16,22 * * *"])
+        self.assertEqual(crons, [
+            "45 2,8,14,20 * * *",
+            "0,15,30,45 3,4,5,9,10,11,15,16,17,21,22,23 * * *",
+        ])
         scheduled_checks = sum(len(cron.split()[0].split(",")) * len(cron.split()[1].split(",")) for cron in crons)
-        self.assertEqual(scheduled_checks, 24)  # six 15-minute checks around each of four releases
+        self.assertEqual(scheduled_checks, 52)  # 13 quarter-hour checks through cycle hour +5:45
+        self.assertIn("group: lake-map-data", root_text)
+        self.assertIn("cancel-in-progress: false", root_text)
+        self.assertIn("needs.build.outputs.surface_published == 'true'", root_text)
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
 
     def test_publication_requires_every_model_on_the_same_cycle(self):

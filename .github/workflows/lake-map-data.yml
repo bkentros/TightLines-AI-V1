@@ -8,12 +8,12 @@ name: Lake map data
 on:
   schedule:
     # NOAA's four Great Lakes OFS releases should finish around :40. Start at
-    # :45 and poll every 15 minutes for 75 more minutes so a delayed lake is
-    # picked up quickly. Discovery is free; build.py publishes only after all
-    # four models have the identical complete cycle, at most once per cycle.
+    # :45 and poll every 15 minutes through :45 of the fifth hour after the
+    # cycle timestamp. This leaves the next cycle to win when its window starts.
+    # Discovery is free; build.py publishes only after all four models have the
+    # identical complete cycle, at most once per cycle.
     - cron: "45 2,8,14,20 * * *"
-    - cron: "0,15,30,45 3,9,15,21 * * *"
-    - cron: "0 4,10,16,22 * * *"
+    - cron: "0,15,30,45 3,4,5,9,10,11,15,16,17,21,22,23 * * *"
   workflow_dispatch:
     inputs:
       force:
