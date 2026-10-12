@@ -13,7 +13,7 @@ from scipy.spatial import cKDTree
 from . import net
 from .config import OFS_CYCLES, OFS_MODELS, THREDDS
 from .dap import parse_dods
-from .depth import feet_to_m, interpolate_to_depths, level_slab
+from .depth import feet_to_m, interpolate_sigma_to_depths, interpolate_to_depths, level_slab
 from .regrid import Regridder
 
 FILL = -99990.0
@@ -23,6 +23,14 @@ AWS_HTTPS = f"https://{AWS_BUCKET}.s3.amazonaws.com"
 
 class DepthDataUnavailable(RuntimeError):
     """The selected NOAA distribution cannot safely supply fixed-depth data."""
+
+
+THREDDS_DISTRIBUTION = "NOAA_COOPS_THREDDS"
+NODD_DISTRIBUTION = "NOAA_NODD_AWS"
+# Every entry must be backed by the checked-in two-cycle validation report.
+# Remove a model from this set if a later revalidation fails; automatic NODD
+# depth publication will then fail closed for the entire coherent cycle.
+NODD_DEPTH_VALIDATED_MODELS = frozenset({"LSOFS", "LMHOFS", "LEOFS", "LOOFS"})
 
 
 def dataset_url(model, cycle: datetime, hour: int) -> str:
@@ -104,16 +112,47 @@ def _aws_surface_temp(model, cycle: datetime, hour: int):
         stream.close()
 
 
+def _aws_depth_profile(model, cycle: datetime, hour: int, include_sigma: bool):
+    """Read one native profile hour; the returned byte count is uncompressed data."""
+    import fsspec
+    import h5py
+    stream = fsspec.open(
+        aws_dataset_url(model, cycle, hour),
+        "rb",
+        block_size=1024 * 1024,
+        cache_type="readahead",
+    ).open()
+    dataset = h5py.File(stream, "r")
+    try:
+        temp = np.asarray(dataset["temp"][0], dtype=np.float32)
+        zeta = np.asarray(dataset["zeta"][0], dtype=np.float64)
+        sigma = np.asarray(dataset["siglay"], dtype=np.float64) if include_sigma else None
+        interfaces = np.asarray(dataset["siglev"], dtype=np.float64) if include_sigma else None
+        byte_count = temp.nbytes + zeta.nbytes
+        if sigma is not None:
+            byte_count += sigma.nbytes + interfaces.nbytes
+        return temp, zeta, sigma, interfaces, byte_count
+    finally:
+        dataset.close()
+        stream.close()
+
+
 class LakeModel:
     """One model cycle: static grid (lat/lon, water mask, depth) + hourly surface temps."""
 
-    def __init__(self, model, cycle: datetime):
+    def __init__(self, model, cycle: datetime, distribution: str = "auto"):
+        if distribution not in ("auto", "thredds", "nodd"):
+            raise ValueError(f"unsupported NOAA distribution {distribution!r}")
         self.model = model
         self.cycle = cycle
-        self.distribution = "NOAA_COOPS_THREDDS"
+        self.distribution = THREDDS_DISTRIBUTION
         self._aws = False
         self._depth_levels_m = None
+        self._aws_sigma_layers = None
+        self._aws_sigma_interfaces = None
         try:
+            if distribution == "nodd":
+                raise DepthDataUnavailable("NODD explicitly selected")
             raw = parse_dods(net.fetch(
                 dataset_url(model, cycle, 0) + ".dods?Latitude,Longitude,mask,h",
                 timeout=120,
@@ -132,6 +171,8 @@ class LakeModel:
             self.spacing = (float(np.nanmedian(np.abs(np.diff(lat, axis=0))))
                             if lat.shape[0] > 1 else 0.01)
         except Exception:
+            if distribution == "thredds":
+                raise
             # NOAA publishes the same operational run through its NODD bucket.
             # Native unstructured fields avoid downloading the much larger 3-D
             # regular-grid files; h5py/fsspec issue range requests for the surface.
@@ -144,7 +185,7 @@ class LakeModel:
             self.depth_m = h.ravel()[self.flat]
             self.shape = None
             self._aws = True
-            self.distribution = "NOAA_NODD_AWS"
+            self.distribution = NODD_DISTRIBUTION
             if len(self.lat) > 1:
                 points = np.column_stack((self.lat, self.lon * np.cos(np.radians(self.lat))))
                 distances, _ = cKDTree(points).query(points, k=2)
@@ -166,12 +207,7 @@ class LakeModel:
         return t
 
     def depth_levels_m(self) -> np.ndarray:
-        """Fixed regular-grid z-levels, unavailable on native NODD fields.
-
-        NOAA's NODD failover files use terrain-following native coordinates,
-        not the regular-grid ``Depth`` axis used by the reviewed interpolation.
-        Surface publishing remains supported, but depth must fail closed.
-        """
+        """Fixed regular-grid z-levels (THREDDS only)."""
         if self._aws:
             raise DepthDataUnavailable(
                 f"{self.model['id']} depth is unavailable from NOAA_NODD_AWS"
@@ -193,7 +229,31 @@ class LakeModel:
         return self._depth_levels_m
 
     def depth_temperatures_c(self, hour: int, depths_ft) -> tuple[np.ndarray, int]:
-        """Interpolate only reviewed regular-grid fixed-depth temperatures."""
+        """Interpolate the selected distribution to exact fixed depths."""
+        if self._aws:
+            temps, zeta, sigma, interfaces, byte_count = _aws_depth_profile(
+                self.model, self.cycle, hour, self._aws_sigma_layers is None
+            )
+            if temps.ndim != 2 or not len(self.flat) or temps.shape[1] <= int(np.max(self.flat)):
+                raise DepthDataUnavailable(f"{self.model['id']} returned an invalid NODD temperature shape")
+            if sigma is not None:
+                if sigma.shape != temps.shape:
+                    raise DepthDataUnavailable(f"{self.model['id']} returned an invalid NODD sigma shape")
+                if interfaces.shape != (temps.shape[0] + 1, temps.shape[1]):
+                    raise DepthDataUnavailable(f"{self.model['id']} returned an invalid NODD sigma-interface shape")
+                self._aws_sigma_layers = sigma[:, self.flat]
+                self._aws_sigma_interfaces = interfaces[:, self.flat]
+            if self._aws_sigma_layers is None or self._aws_sigma_interfaces is None or zeta.size != temps.shape[1]:
+                raise DepthDataUnavailable(f"{self.model['id']} returned incomplete NODD depth coordinates")
+            values = interpolate_sigma_to_depths(
+                temps[:, self.flat],
+                self._aws_sigma_layers,
+                self.depth_m,
+                zeta.reshape(-1)[self.flat],
+                feet_to_m(depths_ft),
+                self._aws_sigma_interfaces,
+            )
+            return values, byte_count
         levels = self.depth_levels_m()
         depths_m = feet_to_m(depths_ft)
         k0, k1 = level_slab(levels, depths_m)
@@ -215,14 +275,55 @@ class LakeModel:
         return values, len(payload)
 
 
-def prepare_regridders(cycles, grid, targets, water, log):
+def _distribution_complete(model, cycle, distribution):
+    if distribution == "thredds":
+        net.fetch(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
+        raw = parse_dods(net.fetch(dataset_url(model, cycle, 0) + ".dods?Depth", timeout=60, retries=2))
+        levels = np.asarray(raw.get("Depth"), np.float64).reshape(-1)
+        return levels.size >= 2 and np.all(np.isfinite(levels)) and np.all(np.diff(levels) > 0)
+    if distribution == "nodd":
+        net.head(aws_dataset_url(model, cycle, 0), timeout=15, retries=2)
+        net.head(aws_dataset_url(model, cycle, 120), timeout=15, retries=2)
+        return True
+    raise ValueError(f"unsupported NOAA distribution {distribution!r}")
+
+
+def select_depth_distribution(cycles, requested="auto", validated_models=NODD_DEPTH_VALIDATED_MODELS):
+    """Choose one readable distribution for every model in a coherent cycle."""
+    if requested not in ("auto", "thredds", "nodd"):
+        raise ValueError(f"unsupported NOAA distribution {requested!r}")
+    required = {model["id"] for model in OFS_MODELS}
+    if set(cycles) != required or len(set(cycles.values())) != 1:
+        raise DepthDataUnavailable("depth source selection requires one cycle for all four NOAA models")
+    failures = {}
+    choices = ("thredds", "nodd") if requested == "auto" else (requested,)
+    for distribution in choices:
+        if distribution == "nodd" and not required.issubset(set(validated_models)):
+            missing = sorted(required - set(validated_models))
+            failures[distribution] = f"unvalidated models: {', '.join(missing)}"
+            continue
+        unavailable = []
+        for model in OFS_MODELS:
+            try:
+                if not _distribution_complete(model, cycles[model["id"]], distribution):
+                    unavailable.append(model["id"])
+            except Exception:
+                unavailable.append(model["id"])
+        if not unavailable:
+            return distribution
+        failures[distribution] = f"unavailable models: {', '.join(unavailable)}"
+    detail = "; ".join(f"{name}: {reason}" for name, reason in failures.items())
+    raise DepthDataUnavailable(f"no coherent validated depth source ({detail})")
+
+
+def prepare_regridders(cycles, grid, targets, water, log, distribution="auto"):
     """Create the lake-model/regridder set shared by surface and depth."""
     sources = []
     for model in OFS_MODELS:
         cycle = cycles.get(model["id"])
         if cycle is None:
             continue
-        lm = LakeModel(model, cycle)
+        lm = LakeModel(model, cycle, distribution=distribution)
         rg = Regridder(
             lm.lon,
             lm.lat,

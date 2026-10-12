@@ -1,0 +1,98 @@
+[
+  {
+    "source": "thredds",
+    "viewport": "393x852",
+    "lake": "superior",
+    "status": 200,
+    "screenshot": "393x852-superior.png",
+    "run": "20261012T06Z-10120946",
+    "cycle": "2026-10-12T06:00:00Z",
+    "depthRun": "20261012T06Z-10120946",
+    "depthBase": "runs/tdepth-20261012T06Z-10120946-thredds/",
+    "sourceDistribution": "thredds",
+    "depthsFt": [
+      10,
+      20,
+      30,
+      40,
+      50
+    ],
+    "depthVisible": true,
+    "depthEnabled": true,
+    "depthSelected": true,
+    "selectedDepthLabel": "at 30 ft",
+    "sampleTempF": 56.56
+  },
+  {
+    "source": "thredds",
+    "viewport": "393x852",
+    "lake": "ontario",
+    "status": 200,
+    "screenshot": "393x852-ontario.png",
+    "run": "20261012T06Z-10120946",
+    "cycle": "2026-10-12T06:00:00Z",
+    "depthRun": "20261012T06Z-10120946",
+    "depthBase": "runs/tdepth-20261012T06Z-10120946-thredds/",
+    "sourceDistribution": "thredds",
+    "depthsFt": [
+      10,
+      20,
+      30,
+      40,
+      50
+    ],
+    "depthVisible": true,
+    "depthEnabled": true,
+    "depthSelected": true,
+    "selectedDepthLabel": "at 30 ft",
+    "sampleTempF": 60.55
+  },
+  {
+    "source": "thredds",
+    "viewport": "320x568",
+    "lake": "superior",
+    "status": 200,
+    "screenshot": "320x568-superior.png",
+    "run": "20261012T06Z-10120946",
+    "cycle": "2026-10-12T06:00:00Z",
+    "depthRun": "20261012T06Z-10120946",
+    "depthBase": "runs/tdepth-20261012T06Z-10120946-thredds/",
+    "sourceDistribution": "thredds",
+    "depthsFt": [
+      10,
+      20,
+      30,
+      40,
+      50
+    ],
+    "depthVisible": true,
+    "depthEnabled": true,
+    "depthSelected": true,
+    "selectedDepthLabel": "at 30 ft",
+    "sampleTempF": 56.56
+  },
+  {
+    "source": "thredds",
+    "viewport": "320x568",
+    "lake": "ontario",
+    "status": 200,
+    "screenshot": "320x568-ontario.png",
+    "run": "20261012T06Z-10120946",
+    "cycle": "2026-10-12T06:00:00Z",
+    "depthRun": "20261012T06Z-10120946",
+    "depthBase": "runs/tdepth-20261012T06Z-10120946-thredds/",
+    "sourceDistribution": "thredds",
+    "depthsFt": [
+      10,
+      20,
+      30,
+      40,
+      50
+    ],
+    "depthVisible": true,
+    "depthEnabled": true,
+    "depthSelected": true,
+    "selectedDepthLabel": "at 30 ft",
+    "sampleTempF": 60.55
+  }
+]

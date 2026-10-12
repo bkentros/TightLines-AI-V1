@@ -1,0 +1,248 @@
+{
+  "generatedAt": "2026-10-12T17:29:02Z",
+  "cycles": [
+    "2026-10-12T00:00:00Z",
+    "2026-10-12T06:00:00Z"
+  ],
+  "hours": [
+    0,
+    24,
+    72,
+    120
+  ],
+  "depthsFt": [
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "thresholds": {
+    "maeF": 1.0,
+    "p95AbsoluteDifferenceF": 2.0,
+    "absoluteBiasF": 0.5
+  },
+  "overallPass": true,
+  "results": [
+    {
+      "model": "LSOFS",
+      "lakes": "superior",
+      "depthFt": 10,
+      "meanAbsoluteDifferenceF": 0.1247,
+      "p95AbsoluteDifferenceF": 0.4816,
+      "meanBiasF": -0.0745,
+      "maskAgreementPercent": 99.1393,
+      "comparedCells": 784739,
+      "pass": true
+    },
+    {
+      "model": "LSOFS",
+      "lakes": "superior",
+      "depthFt": 20,
+      "meanAbsoluteDifferenceF": 0.0712,
+      "p95AbsoluteDifferenceF": 0.2654,
+      "meanBiasF": -0.0006,
+      "maskAgreementPercent": 98.7202,
+      "comparedCells": 768122,
+      "pass": true
+    },
+    {
+      "model": "LSOFS",
+      "lakes": "superior",
+      "depthFt": 30,
+      "meanAbsoluteDifferenceF": 0.0745,
+      "p95AbsoluteDifferenceF": 0.261,
+      "meanBiasF": 0.0193,
+      "maskAgreementPercent": 98.6982,
+      "comparedCells": 755460,
+      "pass": true
+    },
+    {
+      "model": "LSOFS",
+      "lakes": "superior",
+      "depthFt": 40,
+      "meanAbsoluteDifferenceF": 0.0896,
+      "p95AbsoluteDifferenceF": 0.2976,
+      "meanBiasF": 0.037,
+      "maskAgreementPercent": 98.6662,
+      "comparedCells": 746011,
+      "pass": true
+    },
+    {
+      "model": "LSOFS",
+      "lakes": "superior",
+      "depthFt": 50,
+      "meanAbsoluteDifferenceF": 0.1233,
+      "p95AbsoluteDifferenceF": 0.3852,
+      "meanBiasF": 0.0744,
+      "maskAgreementPercent": 98.643,
+      "comparedCells": 737960,
+      "pass": true
+    },
+    {
+      "model": "LMHOFS",
+      "lakes": "michigan,huron",
+      "depthFt": 10,
+      "meanAbsoluteDifferenceF": 0.0845,
+      "p95AbsoluteDifferenceF": 0.2393,
+      "meanBiasF": 0.0175,
+      "maskAgreementPercent": 97.2568,
+      "comparedCells": 1020302,
+      "pass": true
+    },
+    {
+      "model": "LMHOFS",
+      "lakes": "michigan,huron",
+      "depthFt": 20,
+      "meanAbsoluteDifferenceF": 0.0688,
+      "p95AbsoluteDifferenceF": 0.2434,
+      "meanBiasF": 0.0168,
+      "maskAgreementPercent": 97.3211,
+      "comparedCells": 972370,
+      "pass": true
+    },
+    {
+      "model": "LMHOFS",
+      "lakes": "michigan,huron",
+      "depthFt": 30,
+      "meanAbsoluteDifferenceF": 0.0869,
+      "p95AbsoluteDifferenceF": 0.3063,
+      "meanBiasF": 0.0361,
+      "maskAgreementPercent": 97.4497,
+      "comparedCells": 937544,
+      "pass": true
+    },
+    {
+      "model": "LMHOFS",
+      "lakes": "michigan,huron",
+      "depthFt": 40,
+      "meanAbsoluteDifferenceF": 0.1091,
+      "p95AbsoluteDifferenceF": 0.3725,
+      "meanBiasF": 0.0633,
+      "maskAgreementPercent": 97.3122,
+      "comparedCells": 900153,
+      "pass": true
+    },
+    {
+      "model": "LMHOFS",
+      "lakes": "michigan,huron",
+      "depthFt": 50,
+      "meanAbsoluteDifferenceF": 0.1471,
+      "p95AbsoluteDifferenceF": 0.4841,
+      "meanBiasF": 0.1044,
+      "maskAgreementPercent": 97.3097,
+      "comparedCells": 868976,
+      "pass": true
+    },
+    {
+      "model": "LEOFS",
+      "lakes": "erie",
+      "depthFt": 10,
+      "meanAbsoluteDifferenceF": 0.0353,
+      "p95AbsoluteDifferenceF": 0.0896,
+      "meanBiasF": 0.0091,
+      "maskAgreementPercent": 97.0163,
+      "comparedCells": 217433,
+      "pass": true
+    },
+    {
+      "model": "LEOFS",
+      "lakes": "erie",
+      "depthFt": 20,
+      "meanAbsoluteDifferenceF": 0.0226,
+      "p95AbsoluteDifferenceF": 0.0766,
+      "meanBiasF": 0.0084,
+      "maskAgreementPercent": 97.3017,
+      "comparedCells": 198480,
+      "pass": true
+    },
+    {
+      "model": "LEOFS",
+      "lakes": "erie",
+      "depthFt": 30,
+      "meanAbsoluteDifferenceF": 0.0291,
+      "p95AbsoluteDifferenceF": 0.0942,
+      "meanBiasF": 0.0136,
+      "maskAgreementPercent": 98.4867,
+      "comparedCells": 182421,
+      "pass": true
+    },
+    {
+      "model": "LEOFS",
+      "lakes": "erie",
+      "depthFt": 40,
+      "meanAbsoluteDifferenceF": 0.0399,
+      "p95AbsoluteDifferenceF": 0.1588,
+      "meanBiasF": 0.0252,
+      "maskAgreementPercent": 97.7147,
+      "comparedCells": 160643,
+      "pass": true
+    },
+    {
+      "model": "LEOFS",
+      "lakes": "erie",
+      "depthFt": 50,
+      "meanAbsoluteDifferenceF": 0.141,
+      "p95AbsoluteDifferenceF": 0.4693,
+      "meanBiasF": 0.1332,
+      "maskAgreementPercent": 98.4854,
+      "comparedCells": 140976,
+      "pass": true
+    },
+    {
+      "model": "LOOFS",
+      "lakes": "ontario",
+      "depthFt": 10,
+      "meanAbsoluteDifferenceF": 0.0865,
+      "p95AbsoluteDifferenceF": 0.3123,
+      "meanBiasF": 0.0252,
+      "maskAgreementPercent": 97.4716,
+      "comparedCells": 164805,
+      "pass": true
+    },
+    {
+      "model": "LOOFS",
+      "lakes": "ontario",
+      "depthFt": 20,
+      "meanAbsoluteDifferenceF": 0.1067,
+      "p95AbsoluteDifferenceF": 0.3492,
+      "meanBiasF": 0.0762,
+      "maskAgreementPercent": 97.689,
+      "comparedCells": 159702,
+      "pass": true
+    },
+    {
+      "model": "LOOFS",
+      "lakes": "ontario",
+      "depthFt": 30,
+      "meanAbsoluteDifferenceF": 0.1545,
+      "p95AbsoluteDifferenceF": 0.4455,
+      "meanBiasF": 0.1296,
+      "maskAgreementPercent": 97.4886,
+      "comparedCells": 155389,
+      "pass": true
+    },
+    {
+      "model": "LOOFS",
+      "lakes": "ontario",
+      "depthFt": 40,
+      "meanAbsoluteDifferenceF": 0.2211,
+      "p95AbsoluteDifferenceF": 0.5453,
+      "meanBiasF": 0.2062,
+      "maskAgreementPercent": 98.0462,
+      "comparedCells": 150246,
+      "pass": true
+    },
+    {
+      "model": "LOOFS",
+      "lakes": "ontario",
+      "depthFt": 50,
+      "meanAbsoluteDifferenceF": 0.3046,
+      "p95AbsoluteDifferenceF": 0.6688,
+      "meanBiasF": 0.2949,
+      "maskAgreementPercent": 97.9577,
+      "comparedCells": 146098,
+      "pass": true
+    }
+  ]
+}

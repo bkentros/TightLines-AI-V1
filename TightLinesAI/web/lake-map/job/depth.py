@@ -30,7 +30,10 @@ from lakemap.regrid import combine, target_mask, water_mask  # noqa: E402
 
 DEPTH_POINTER_KEY = "runs/tdepth/latest.json"
 MIN_DEPTH_COVERAGE = 0.97
-DEPTH_SOURCE = "NOAA GLOFS regulargrid z-levels"
+DEPTH_SOURCES = {
+    "thredds": "NOAA GLOFS regular-grid fixed z-levels (THREDDS)",
+    "nodd": "NOAA GLOFS native sigma layers (NODD AWS)",
+}
 PRODUCTION_BUCKET = "piercast-lake-map"
 
 
@@ -88,11 +91,14 @@ def validate_surface_latest(latest) -> tuple[str, datetime, dict]:
     return run, cycle, cycles
 
 
-def depth_run_name(surface_run: str) -> str:
-    return f"tdepth-{surface_run}"
+def depth_run_name(surface_run: str, distribution="thredds") -> str:
+    """Immutable producer run; source suffix prevents forced staging collisions."""
+    if distribution not in DEPTH_SOURCES:
+        raise ValueError(f"unsupported depth distribution {distribution!r}")
+    return f"tdepth-{surface_run}-{distribution}"
 
 
-def depth_manifest(surface_run, cycle, generated_at, depth_ft, grid, frames):
+def depth_manifest(surface_run, cycle, generated_at, depth_ft, grid, frames, distribution="thredds"):
     return {
         "formatVersion": FORMAT_VERSION,
         "sample": False,
@@ -106,21 +112,23 @@ def depth_manifest(surface_run, cycle, generated_at, depth_ft, grid, frames):
         "events": None,
         "depthFt": depth_ft,
         "depthM": round(float(depth_math.feet_to_m(depth_ft)), 4),
-        "source": DEPTH_SOURCE,
+        "source": DEPTH_SOURCES[distribution],
+        "sourceDistribution": distribution,
         "stepHours": DEPTH_STEP_HOURS,
         "note": "Modeled by NOAA. Temperatures below the surface are estimates.",
     }
 
 
-def depth_pointer(surface_run, cycle, generated_at, depths_ft, grid):
+def depth_pointer(surface_run, cycle, generated_at, depths_ft, grid, distribution="thredds"):
     return {
         "formatVersion": FORMAT_VERSION,
         "run": surface_run,
         "cycle": iso(cycle),
-        "base": f"runs/{depth_run_name(surface_run)}/",
+        "base": f"runs/{depth_run_name(surface_run, distribution)}/",
         "depthsFt": list(depths_ft),
         "stepHours": DEPTH_STEP_HOURS,
         "encoding": grid.encoding,
+        "sourceDistribution": distribution,
         "generatedAt": iso(generated_at),
     }
 
@@ -136,6 +144,16 @@ def validate_depth_coverage(values, expected, context):
             f"{context} coverage {coverage:.1%} is below {MIN_DEPTH_COVERAGE:.0%}"
         )
     return coverage
+
+
+def validate_uniform_depth_distribution(sources, distribution):
+    actual = {source["lm"].distribution for source in sources}
+    expected = {
+        "thredds": ofs.THREDDS_DISTRIBUTION,
+        "nodd": ofs.NODD_DISTRIBUTION,
+    }[distribution]
+    if actual != {expected}:
+        raise TemperatureIntegrityError(f"mixed depth sources are refused: {sorted(actual)}")
 
 
 def _sample_frame(frame, site, radius=4):
@@ -176,13 +194,15 @@ def upload_depth_run(s3, run_dir: Path, pointer: dict):
     return upload_seconds
 
 
-def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, workers=4):
+def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, workers=4,
+                    distribution="thredds"):
     hours = list(range(0, 121, DEPTH_STEP_HOURS))
     water = water_mask(TEMP, GEO_PATH)
     targets = target_mask(water, EXTEND_CELLS)
-    sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log)
+    sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log, distribution=distribution)
     if len(sources) != len(OFS_MODELS):
         raise TemperatureIntegrityError("not every NOAA lake model could be prepared")
+    validate_uniform_depth_distribution(sources, distribution)
 
     depths_m = depth_math.feet_to_m(depths_ft)
     for source in sources:
@@ -193,7 +213,7 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
             mapped = source["rg"].apply(np.where(expected, 1.0, np.nan).astype(np.float32))
             source["expectedGrid"].append(np.isfinite(mapped) & water)
 
-    run_dir = Path(out) / "runs" / depth_run_name(surface_run)
+    run_dir = Path(out) / "runs" / depth_run_name(surface_run, distribution)
     for depth_ft in depths_ft:
         (run_dir / f"d{depth_ft:03d}" / "temp").mkdir(parents=True, exist_ok=True)
 
@@ -256,7 +276,8 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
 
     generated_at = datetime.now(timezone.utc)
     for depth_ft in depths_ft:
-        manifest = depth_manifest(surface_run, cycle, generated_at, depth_ft, grid, manifest_frames[depth_ft])
+        manifest = depth_manifest(surface_run, cycle, generated_at, depth_ft, grid,
+                                  manifest_frames[depth_ft], distribution)
         (run_dir / f"d{depth_ft:03d}" / "manifest.json").write_text(json.dumps(manifest, separators=(",", ":")))
     verification = {
         "formatVersion": 1,
@@ -268,6 +289,7 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
         "unit": "F",
         "depthsFt": list(depths_ft),
         "stepHours": DEPTH_STEP_HOURS,
+        "sourceDistribution": distribution,
         "sites": verification_sites,
     }
     (run_dir / "verification.json").write_text(json.dumps(verification, separators=(",", ":")))
@@ -280,9 +302,10 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
         "downloadBytes": download_bytes,
         "encodeSeconds": round(encode_seconds, 1),
         "frameSizes": frame_sizes,
+        "sourceDistribution": distribution,
     }
     (run_dir / "timing.json").write_text(json.dumps(timing, separators=(",", ":")))
-    pointer = depth_pointer(surface_run, cycle, generated_at, depths_ft, grid)
+    pointer = depth_pointer(surface_run, cycle, generated_at, depths_ft, grid, distribution)
     pointer_path = Path(out) / DEPTH_POINTER_KEY
     pointer_path.parent.mkdir(parents=True, exist_ok=True)
     pointer_path.write_text(json.dumps(pointer, separators=(",", ":")))
@@ -303,6 +326,8 @@ def main(argv=None):
     parser.add_argument("--env-file", help="read R2 credentials from this .env file")
     parser.add_argument("--depths", help="comma-separated reviewed depths; default is the shipped 10,20,30,40,50")
     parser.add_argument("--temp-encoding", choices=("auto", "u8", "rgb16"), default="auto")
+    parser.add_argument("--source", choices=("auto", "thredds", "nodd"), default="auto",
+                        help="one source for all four models; forcing a source is staging-only")
     parser.add_argument("--workers", type=int, default=4, help="parallel lake-model downloads per forecast hour")
     args = parser.parse_args(argv)
     log = Log()
@@ -321,6 +346,9 @@ def main(argv=None):
     if args.force and store.bucket() == PRODUCTION_BUCKET:
         log("--force is staging-only and is refused for the production bucket.")
         return 2
+    if args.source != "auto" and store.bucket() == PRODUCTION_BUCKET:
+        log("--source is staging-only and is refused for the production bucket.")
+        return 2
 
     s3 = store.client()
     caps = store.read_json(s3, PAGE_CAPABILITIES_KEY)
@@ -331,18 +359,21 @@ def main(argv=None):
         grid = choose_depth_grid(args.temp_encoding, caps, log)
         surface_latest = store.read_latest(s3)
         surface_run, cycle, cycles = validate_surface_latest(surface_latest)
-    except TemperatureIntegrityError as err:
+        distribution = ofs.select_depth_distribution(cycles, requested=args.source)
+        log(f"Depth source for all four models: {DEPTH_SOURCES[distribution]}")
+    except (TemperatureIntegrityError, ofs.DepthDataUnavailable) as err:
         log(f"Depth preflight failed ({err}) — previous depth pointer is unchanged.")
         return 2
     previous = store.read_json(s3, DEPTH_POINTER_KEY)
     if (not args.force and isinstance(previous, dict) and previous.get("run") == surface_run
-            and previous.get("depthsFt") == list(depths_ft) and previous.get("encoding") == grid.encoding):
+            and previous.get("depthsFt") == list(depths_ft) and previous.get("encoding") == grid.encoding
+            and previous.get("sourceDistribution") == distribution):
         log(f"Depth data for surface run {surface_run} already exists — skipping.")
         return 0
 
     try:
         run_dir, pointer, _timing = build_depth_run(surface_run, cycle, cycles, depths_ft, grid,
-                                                     Path(args.out), log, args.workers)
+                                                     Path(args.out), log, args.workers, distribution)
         upload_seconds = upload_depth_run(s3, run_dir, pointer)
         log(f"Uploaded complete depth run and wrote {DEPTH_POINTER_KEY} last in {upload_seconds:.1f} s")
     except Exception as err:

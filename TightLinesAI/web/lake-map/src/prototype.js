@@ -107,7 +107,9 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   }
   let depthCatalog = null;
   if (tempDepthAccess && activeRun) {
-    depthCatalog = await new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
+    const pointerUrl = new URL('../runs/tdepth/latest.json', location.href);
+    pointerUrl.searchParams.set('surface', activeRun);
+    depthCatalog = await new TempDepthCatalog(pointerUrl.href, activeRun,
       { smoothTemperature: q.get('smooth') !== '0' }).init();
   }
   if (ui.layer === 'temp_depth' && !depthCatalog?.available) ui.layer = DEFAULT_MAP_LAYER;
@@ -818,8 +820,12 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   let depthSwitch = 0;
   async function selectTempDepth(depthFt) {
     if (!tempDepthAccess) return false;
-    if (!depthCatalog && activeRun) depthCatalog = new TempDepthCatalog(new URL('../runs/tdepth/latest.json', location.href).href, activeRun,
-      { smoothTemperature: q.get('smooth') !== '0' });
+    if (!depthCatalog && activeRun) {
+      const pointerUrl = new URL('../runs/tdepth/latest.json', location.href);
+      pointerUrl.searchParams.set('surface', activeRun);
+      depthCatalog = new TempDepthCatalog(pointerUrl.href, activeRun,
+        { smoothTemperature: q.get('smooth') !== '0' });
+    }
     if (depthCatalog && !depthCatalog.available) await depthCatalog.init();
     if (!depthCatalog?.available) { showToast(TEMP_DEPTH_UNAVAILABLE); return false; }
     const switchId = ++depthSwitch;

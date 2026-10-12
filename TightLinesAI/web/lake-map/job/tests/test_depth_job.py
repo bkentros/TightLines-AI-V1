@@ -77,7 +77,7 @@ class ConfigurationTest(unittest.TestCase):
     def test_pointer_publishes_only_five_launch_depths(self):
         pointer = depth_job.depth_pointer("surface", CYCLE, CYCLE, depth_job.parse_depths(None), TEMP16)
         self.assertEqual(pointer["depthsFt"], [10, 20, 30, 40, 50])
-        self.assertEqual(pointer["base"], "runs/tdepth-surface/")
+        self.assertEqual(pointer["base"], "runs/tdepth-surface-thredds/")
         self.assertEqual(pointer["encoding"], "rgb16")
 
 
@@ -100,14 +100,50 @@ class OfsDepthSlabTest(unittest.TestCase):
         self.assertGreater(byte_count, 0)
         self.assertIn("%5B2:1:9%5D", fetch.call_args_list[1].args[0])
 
-    def test_nodd_native_source_fails_closed_for_depth(self):
+    def test_nodd_native_source_produces_all_five_depths_and_masks_shallow_water(self):
         lm = ofs.LakeModel.__new__(ofs.LakeModel)
         lm.model = {"id": "LMHOFS", "prefix": "lmofs"}
         lm.cycle = CYCLE
         lm._aws = True
+        lm.flat = np.arange(2)
+        lm.shape = None
+        lm.depth_m = np.array([100.0, 10.0])
+        lm._aws_sigma_layers = None
+        lm._aws_sigma_interfaces = None
         lm.distribution = "NOAA_NODD_AWS"
-        with self.assertRaisesRegex(ofs.DepthDataUnavailable, "NOAA_NODD_AWS"):
-            lm.depth_temperatures_c(0, (10, 20, 30, 40, 50))
+        sigma = -np.linspace(0.025, 0.975, 20)[:, None] * np.ones((1, 2))
+        interfaces = -np.linspace(0.0, 1.0, 21)[:, None] * np.ones((1, 2))
+        actual = -sigma * lm.depth_m[None, :]
+        temps = (20 - actual * 0.1).astype(np.float32)
+        with patch.object(ofs, "_aws_depth_profile", return_value=(temps, np.zeros(2), sigma, interfaces, 123)):
+            values, byte_count = lm.depth_temperatures_c(0, (10, 20, 30, 40, 50))
+        self.assertEqual(byte_count, 123)
+        self.assertTrue(np.all(np.isfinite(values[:, 0])))
+        self.assertTrue(np.all(np.isnan(values[3:, 1])))
+
+
+class SourceSelectionTest(unittest.TestCase):
+    def setUp(self):
+        self.cycles = {model["id"]: CYCLE for model in OFS_MODELS}
+
+    def test_thredds_is_preferred_when_complete_for_every_model(self):
+        with patch.object(ofs, "_distribution_complete", return_value=True) as complete:
+            self.assertEqual(ofs.select_depth_distribution(self.cycles), "thredds")
+        self.assertTrue(all(call.args[2] == "thredds" for call in complete.call_args_list))
+
+    def test_fallback_from_thredds_to_validated_nodd(self):
+        def complete(_model, _cycle, distribution):
+            return distribution == "nodd"
+        with patch.object(ofs, "_distribution_complete", side_effect=complete):
+            self.assertEqual(ofs.select_depth_distribution(self.cycles), "nodd")
+
+    def test_fallback_is_unavailable_when_neither_source_is_valid(self):
+        with patch.object(ofs, "_distribution_complete", return_value=False):
+            with self.assertRaisesRegex(ofs.DepthDataUnavailable, "no coherent validated depth source"):
+                ofs.select_depth_distribution(self.cycles)
+        with patch.object(ofs, "_distribution_complete", return_value=False):
+            with self.assertRaisesRegex(ofs.DepthDataUnavailable, "unvalidated models"):
+                ofs.select_depth_distribution(self.cycles, requested="nodd", validated_models={"LSOFS"})
 
 
 class PublicationSafetyTest(unittest.TestCase):
@@ -140,6 +176,16 @@ class PublicationSafetyTest(unittest.TestCase):
         self.assertLess(max(i for i, key in enumerate(keys) if key.endswith("manifest.json")),
                         keys.index("runs/tdepth-surface/verification.json"))
         self.assertIn("uploadSeconds", timing)
+
+    def test_mixed_sources_are_refused(self):
+        sources = []
+        for index, model in enumerate(OFS_MODELS):
+            lm = type("LM", (), {"distribution": (
+                ofs.THREDDS_DISTRIBUTION if index < 3 else ofs.NODD_DISTRIBUTION
+            )})()
+            sources.append({"model": model, "lm": lm})
+        with self.assertRaisesRegex(depth_job.TemperatureIntegrityError, "mixed depth sources"):
+            depth_job.validate_uniform_depth_distribution(sources, "thredds")
 
     def test_upload_failure_never_reaches_the_pointer(self):
         with tempfile.TemporaryDirectory() as temp:

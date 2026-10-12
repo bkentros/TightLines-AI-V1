@@ -50,7 +50,7 @@ test('immutable run assets keep HMAC enforcement but skip rate-limit lookups', a
 });
 
 test('mutable pointers and HTML retain rate limits and a consistent 60 second cache', async () => {
-  for (const key of ['latest.json', 'map/index.html']) {
+  for (const key of ['latest.json', 'runs/tdepth/latest.json', 'map/index.html']) {
     const { env, limits } = environment(key);
     const response = await worker.fetch(
       new Request(`https://staging.test/${key}?t=${encodeURIComponent(pass())}`), env, context(),
@@ -77,12 +77,15 @@ test('edge caching cannot hide a mutable cycle pointer for more than 60 seconds'
     'public, max-age=60, must-revalidate');
   assert.equal(edgeCacheControl('map/index.html', false, 'public, max-age=14400'),
     'public, max-age=60, must-revalidate');
+  assert.equal(edgeCacheControl('runs/tdepth/latest.json', false, 'public, max-age=31536000, immutable'),
+    'public, max-age=60, must-revalidate');
   assert.equal(edgeCacheControl('runs/run/frame.bin', true, null),
     'public, max-age=31536000, immutable');
 });
 
 test('only run paths or explicitly hashed static assets skip limiters', () => {
   assert.equal(immutableVersionedRequest(new URL('https://x/runs/run/frame.bin'), 'runs/run/frame.bin'), true);
+  assert.equal(immutableVersionedRequest(new URL('https://x/runs/tdepth/latest.json'), 'runs/tdepth/latest.json'), false);
   assert.equal(immutableVersionedRequest(new URL('https://x/map/app.js?v=abcdef123456'), 'map/app.js'), true);
   assert.equal(immutableVersionedRequest(new URL('https://x/map/app.js'), 'map/app.js'), false);
   assert.equal(immutableVersionedRequest(new URL('https://x/latest.json?v=abcdef123456'), 'latest.json'), false);

@@ -110,10 +110,12 @@ function checkRange(request, key) {
   return null;
 }
 
+const MUTABLE_KEYS = new Set(['latest.json', 'map/index.html', 'runs/tdepth/latest.json']);
+
 function clientHeaders(input, setCookie, serverTiming, key = '') {
   const headers = new Headers(input);
   headers.set('cache-control', (headers.get('cache-control') || 'max-age=60').replace(/\bpublic\b/, 'private'));
-  if (key === 'latest.json' || key === 'map/index.html') {
+  if (MUTABLE_KEYS.has(key)) {
     headers.set('cache-control', 'private, max-age=60, must-revalidate');
   }
   headers.set('x-content-type-options', 'nosniff');
@@ -126,7 +128,7 @@ function clientHeaders(input, setCookie, serverTiming, key = '') {
 }
 
 export function immutableVersionedRequest(url, key) {
-  if (key.startsWith('runs/')) return true;
+  if (key.startsWith('runs/') && !MUTABLE_KEYS.has(key)) return true;
   const version = url.searchParams.get('v');
   if (!version || !/^[a-f0-9]{8,64}$/i.test(version)) return false;
   return /^(?:map|static)\/.+\.(?:css|js|json|png|webp|woff2?|pmtiles)$/i.test(key);
@@ -147,7 +149,7 @@ function edgeCacheKey(url) {
 
 export function edgeCacheControl(key, immutable, existing) {
   if (immutable) return 'public, max-age=31536000, immutable';
-  if (key === 'latest.json' || key === 'map/index.html') {
+  if (MUTABLE_KEYS.has(key)) {
     return 'public, max-age=60, must-revalidate';
   }
   return existing || 'public, max-age=60';
