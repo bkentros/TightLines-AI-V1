@@ -1,11 +1,12 @@
 import importlib.util
+import http.client
 import os
 import sys
 import tempfile
 import unittest
 from datetime import datetime, timezone
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, call, patch
 
 import numpy as np
 
@@ -147,6 +148,67 @@ class SourceSelectionTest(unittest.TestCase):
 
 
 class PublicationSafetyTest(unittest.TestCase):
+    def test_transient_failure_succeeds_on_retry(self):
+        source = {
+            "model": {"id": "LSOFS"},
+            "lm": Mock(),
+        }
+        expected = (np.ones((5, 2)), 123)
+        source["lm"].depth_temperatures_c.side_effect = [
+            http.client.IncompleteRead(b"partial", 100),
+            expected,
+        ]
+        messages = []
+        result = depth_job.fetch_depth_with_retry(
+            source, 63, (10, 20, 30, 40, 50), "thredds",
+            messages.append, attempts=3, base_delay=1, sleep=lambda _seconds: None,
+        )
+        self.assertIs(result, expected)
+        self.assertEqual(source["lm"].depth_temperatures_c.call_count, 2)
+        self.assertEqual(
+            source["lm"].depth_temperatures_c.call_args_list,
+            [call(63, (10, 20, 30, 40, 50), request_retries=1)] * 2,
+        )
+        self.assertIn("Retrying thredds LSOFS f063", messages[0])
+        self.assertIn("attempt 2/3 in 1 s", messages[0])
+
+    def test_persistent_thredds_failure_rebuilds_everything_from_nodd(self):
+        thredds_failure = depth_job.DepthSourceFailure("thredds", "persistent read failure")
+
+        def built(distribution):
+            pointer = {"sourceDistribution": distribution}
+            return Path(f"/{distribution}"), pointer, {"sourceDistribution": distribution}
+
+        with patch.object(depth_job, "build_depth_run",
+                          side_effect=[thredds_failure, built("nodd")]) as build, \
+             patch.object(depth_job.ofs, "select_depth_distribution", return_value="nodd") as select:
+            result = depth_job.build_depth_with_fallback(
+                "surface", CYCLE, {model["id"]: CYCLE for model in OFS_MODELS},
+                (10, 20, 30, 40, 50), TEMP16, Path("/tmp/out"), lambda *_: None,
+                distribution="thredds",
+            )
+        self.assertEqual([item.args[-1] for item in build.call_args_list], ["thredds", "nodd"])
+        select.assert_called_once_with({model["id"]: CYCLE for model in OFS_MODELS}, requested="nodd")
+        self.assertEqual(result[1]["sourceDistribution"], "nodd")
+        self.assertEqual(result[2]["sourceDistribution"], "nodd")
+        self.assertEqual(result[3], "nodd")
+
+    def test_both_sources_failing_means_no_publish(self):
+        failures = [
+            depth_job.DepthSourceFailure("thredds", "read failed"),
+            depth_job.DepthSourceFailure("nodd", "read failed"),
+        ]
+        with patch.object(depth_job, "build_depth_run", side_effect=failures), \
+             patch.object(depth_job.ofs, "select_depth_distribution", return_value="nodd"), \
+             patch.object(depth_job, "upload_depth_run") as upload:
+            with self.assertRaisesRegex(depth_job.DepthSourceFailure, "both coherent sources failed"):
+                depth_job.build_depth_with_fallback(
+                    "surface", CYCLE, {model["id"]: CYCLE for model in OFS_MODELS},
+                    (10, 20, 30, 40, 50), TEMP16, Path("/tmp/out"), lambda *_: None,
+                    distribution="thredds",
+                )
+        upload.assert_not_called()
+
     def test_coverage_integrity_rejects_empty_and_low_coverage(self):
         expected = np.ones(100, bool)
         self.assertEqual(depth_job.validate_depth_coverage(np.ones(100), expected, "test"), 1.0)
@@ -165,8 +227,14 @@ class PublicationSafetyTest(unittest.TestCase):
                 (folder / "temp" / "000.png").write_bytes(b"png")
                 (folder / "manifest.json").write_text("{}")
             (run / "verification.json").write_text("{}")
-            (run / "timing.json").write_text("{}")
-            pointer = {"base": "runs/tdepth-surface/", "run": "surface"}
+            (run / "timing.json").write_text('{"sourceDistribution":"thredds"}')
+            (run / "verification.json").write_text('{"sourceDistribution":"thredds"}')
+            for depth in (10, 20):
+                (run / f"d{depth:03d}" / "manifest.json").write_text(
+                    '{"sourceDistribution":"thredds"}'
+                )
+            pointer = {"base": "runs/tdepth-surface/", "run": "surface",
+                       "sourceDistribution": "thredds"}
             with patch.object(depth_job.store, "put") as put:
                 depth_job.upload_depth_run(object(), run, pointer)
             timing = (run / "timing.json").read_text()
@@ -187,6 +255,22 @@ class PublicationSafetyTest(unittest.TestCase):
         with self.assertRaisesRegex(depth_job.TemperatureIntegrityError, "mixed depth sources"):
             depth_job.validate_uniform_depth_distribution(sources, "thredds")
 
+    def test_mixed_source_artifacts_are_refused_before_upload(self):
+        with tempfile.TemporaryDirectory() as temp:
+            run = Path(temp)
+            folder = run / "d010"
+            (folder / "temp").mkdir(parents=True)
+            (folder / "temp" / "000.png").write_bytes(b"png")
+            (folder / "manifest.json").write_text('{"sourceDistribution":"nodd"}')
+            (run / "verification.json").write_text('{"sourceDistribution":"thredds"}')
+            (run / "timing.json").write_text('{"sourceDistribution":"thredds"}')
+            pointer = {"base": "runs/tdepth-surface/", "run": "surface",
+                       "sourceDistribution": "thredds"}
+            with patch.object(depth_job.store, "put") as put:
+                with self.assertRaisesRegex(depth_job.TemperatureIntegrityError, "mixed depth output"):
+                    depth_job.upload_depth_run(object(), run, pointer)
+        put.assert_not_called()
+
     def test_upload_failure_never_reaches_the_pointer(self):
         with tempfile.TemporaryDirectory() as temp:
             run = Path(temp)
@@ -195,8 +279,11 @@ class PublicationSafetyTest(unittest.TestCase):
             (folder / "temp" / "000.png").write_bytes(b"png")
             (folder / "manifest.json").write_text("{}")
             (run / "verification.json").write_text("{}")
-            (run / "timing.json").write_text("{}")
-            pointer = {"base": "runs/tdepth-surface/", "run": "surface"}
+            (run / "timing.json").write_text('{"sourceDistribution":"thredds"}')
+            (run / "verification.json").write_text('{"sourceDistribution":"thredds"}')
+            (folder / "manifest.json").write_text('{"sourceDistribution":"thredds"}')
+            pointer = {"base": "runs/tdepth-surface/", "run": "surface",
+                       "sourceDistribution": "thredds"}
             with patch.object(depth_job.store, "put", side_effect=RuntimeError("upload failed")) as put:
                 with self.assertRaises(RuntimeError):
                     depth_job.upload_depth_run(object(), run, pointer)

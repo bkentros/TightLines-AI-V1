@@ -206,7 +206,7 @@ class LakeModel:
         t[(t < -5) | (t > 40)] = np.nan
         return t
 
-    def depth_levels_m(self) -> np.ndarray:
+    def depth_levels_m(self, request_retries=3) -> np.ndarray:
         """Fixed regular-grid z-levels (THREDDS only)."""
         if self._aws:
             raise DepthDataUnavailable(
@@ -216,6 +216,7 @@ class LakeModel:
             raw = parse_dods(net.fetch(
                 dataset_url(self.model, self.cycle, 0) + ".dods?Depth",
                 timeout=120,
+                retries=request_retries,
             ))
             levels = np.asarray(raw["Depth"], np.float64).reshape(-1)
             if (
@@ -228,7 +229,7 @@ class LakeModel:
             self._depth_levels_m = levels
         return self._depth_levels_m
 
-    def depth_temperatures_c(self, hour: int, depths_ft) -> tuple[np.ndarray, int]:
+    def depth_temperatures_c(self, hour: int, depths_ft, request_retries=3) -> tuple[np.ndarray, int]:
         """Interpolate the selected distribution to exact fixed depths."""
         if self._aws:
             temps, zeta, sigma, interfaces, byte_count = _aws_depth_profile(
@@ -254,7 +255,7 @@ class LakeModel:
                 self._aws_sigma_interfaces,
             )
             return values, byte_count
-        levels = self.depth_levels_m()
+        levels = self.depth_levels_m(request_retries=request_retries)
         depths_m = feet_to_m(depths_ft)
         k0, k1 = level_slab(levels, depths_m)
         ny, nx = self.shape
@@ -263,6 +264,7 @@ class LakeModel:
         payload = net.fetch(
             dataset_url(self.model, self.cycle, hour) + q,
             timeout=240,
+            retries=request_retries,
         )
         raw = parse_dods(payload)
         temps = raw["temp"].reshape(k1 - k0 + 1, -1)[:, self.flat]

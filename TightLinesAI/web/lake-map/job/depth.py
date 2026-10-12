@@ -9,11 +9,15 @@ surface forecast and the previous complete depth forecast untouched.
 from __future__ import annotations
 
 import argparse
+import errno
+import http.client
 import json
 import os
 import re
+import socket
 import sys
 import time
+import urllib.error
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -35,6 +39,16 @@ DEPTH_SOURCES = {
     "nodd": "NOAA GLOFS native sigma layers (NODD AWS)",
 }
 PRODUCTION_BUCKET = "piercast-lake-map"
+DEPTH_REQUEST_ATTEMPTS = 4
+DEPTH_RETRY_BASE_SECONDS = 1.0
+
+
+class DepthSourceFailure(RuntimeError):
+    """One coherent NOAA distribution could not produce a complete run."""
+
+    def __init__(self, distribution, detail):
+        self.distribution = distribution
+        super().__init__(f"{distribution} source failed: {detail}")
 
 
 def capabilities_allow_depth(caps) -> bool:
@@ -156,6 +170,71 @@ def validate_uniform_depth_distribution(sources, distribution):
         raise TemperatureIntegrityError(f"mixed depth sources are refused: {sorted(actual)}")
 
 
+def is_transient_download_error(err):
+    """Only retry transport failures that can plausibly succeed unchanged."""
+    seen = set()
+    current = err
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        if isinstance(current, (http.client.IncompleteRead, http.client.RemoteDisconnected,
+                                ConnectionResetError, ConnectionAbortedError, BrokenPipeError,
+                                TimeoutError, socket.timeout, urllib.error.URLError)):
+            return True
+        if isinstance(current, urllib.error.HTTPError) and (current.code == 429 or current.code >= 500):
+            return True
+        if isinstance(current, ofs.net.HttpError) and (current.status == 429 or current.status >= 500):
+            return True
+        if isinstance(current, OSError) and current.errno in {
+            errno.ECONNABORTED, errno.ECONNRESET, errno.ETIMEDOUT, errno.EPIPE,
+        }:
+            return True
+        current = current.__cause__ or current.__context__
+    return False
+
+
+def fetch_depth_with_retry(source, hour, depths_ft, distribution, log,
+                           attempts=DEPTH_REQUEST_ATTEMPTS,
+                           base_delay=DEPTH_RETRY_BASE_SECONDS, sleep=time.sleep):
+    """Fetch one model/hour request with bounded, logged exponential backoff."""
+    model_id = source["model"]["id"]
+    for attempt in range(1, attempts + 1):
+        try:
+            # Own the retries here so every backoff is visible in the job log.
+            return source["lm"].depth_temperatures_c(
+                hour, depths_ft, request_retries=1
+            )
+        except Exception as err:
+            if not is_transient_download_error(err) or attempt == attempts:
+                raise DepthSourceFailure(
+                    distribution,
+                    f"{model_id} f{hour:03d} after {attempt} attempt(s): {ofs.net.redact(err)}",
+                ) from err
+            delay = base_delay * (2 ** (attempt - 1))
+            log(
+                f"Retrying {distribution} {model_id} f{hour:03d} after "
+                f"{type(err).__name__}: attempt {attempt + 1}/{attempts} in {delay:g} s"
+            )
+            sleep(delay)
+
+
+def validate_depth_run_distribution(run_dir: Path, pointer: dict):
+    """Refuse upload unless every artifact names the pointer's one source."""
+    distribution = pointer.get("sourceDistribution")
+    if distribution not in DEPTH_SOURCES:
+        raise TemperatureIntegrityError("depth pointer has no valid source distribution")
+    records = [json.loads((run_dir / "verification.json").read_text()),
+               json.loads((run_dir / "timing.json").read_text())]
+    records.extend(
+        json.loads(path.read_text())
+        for path in sorted(run_dir.glob("d[0-9][0-9][0-9]/manifest.json"))
+    )
+    actual = {record.get("sourceDistribution") for record in records}
+    if actual != {distribution}:
+        raise TemperatureIntegrityError(
+            f"mixed depth output is refused: pointer={distribution}, artifacts={sorted(map(str, actual))}"
+        )
+
+
 def _sample_frame(frame, site, radius=4):
     col = int(round((site["lon"] - DOMAIN["west"]) / TEMP.res))
     row = int(round((DOMAIN["north"] - site["lat"]) / TEMP.res))
@@ -173,6 +252,7 @@ def _sample_frame(frame, site, radius=4):
 
 def upload_depth_run(s3, run_dir: Path, pointer: dict):
     """Upload immutable data first and the mutable pointer strictly last."""
+    validate_depth_run_distribution(run_dir, pointer)
     started = time.monotonic()
     base = pointer["base"]
     depth_dirs = sorted(path for path in run_dir.glob("d[0-9][0-9][0-9]") if path.is_dir())
@@ -199,7 +279,10 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
     hours = list(range(0, 121, DEPTH_STEP_HOURS))
     water = water_mask(TEMP, GEO_PATH)
     targets = target_mask(water, EXTEND_CELLS)
-    sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log, distribution=distribution)
+    try:
+        sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log, distribution=distribution)
+    except Exception as err:
+        raise DepthSourceFailure(distribution, f"model setup: {ofs.net.redact(err)}") from err
     if len(sources) != len(OFS_MODELS):
         raise TemperatureIntegrityError("not every NOAA lake model could be prepared")
     validate_uniform_depth_distribution(sources, distribution)
@@ -232,7 +315,9 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
     encode_seconds = 0.0
 
     def fetch(source, hour):
-        values, byte_count = source["lm"].depth_temperatures_c(hour, depths_ft)
+        values, byte_count = fetch_depth_with_retry(
+            source, hour, depths_ft, distribution, log
+        )
         return source, values, byte_count
 
     for frame_number, hour in enumerate(hours, 1):
@@ -243,20 +328,27 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
         download_bytes += sum(item[2] for item in fetched)
         depth_grids = [[] for _ in depths_ft]
         depth_qualities = [[] for _ in depths_ft]
-        for source, values, _ in fetched:
-            if values.shape != (len(depths_ft), len(source["lm"].lat)):
-                raise TemperatureIntegrityError(f"{source['model']['id']} f{hour:03d} returned an unsafe depth shape")
-            for index, depth_ft in enumerate(depths_ft):
-                expected_native = source["expectedNative"][index]
-                context = f"{source['model']['id']} f{hour:03d} {depth_ft} ft source"
-                native_coverage = validate_depth_coverage(values[index], expected_native, context)
-                mapped = source["rg"].apply(C_TO_F(values[index]))
-                expected_grid = source["expectedGrid"][index]
-                context = f"{source['model']['id']} f{hour:03d} {depth_ft} ft map"
-                grid_coverage = validate_depth_coverage(mapped, expected_grid, context)
-                source["coverageMin"][index] = min(source["coverageMin"][index], native_coverage, grid_coverage)
-                depth_grids[index].append(mapped)
-                depth_qualities[index].append(source["q"])
+        try:
+            for source, values, _ in fetched:
+                if values.shape != (len(depths_ft), len(source["lm"].lat)):
+                    raise TemperatureIntegrityError(
+                        f"{source['model']['id']} f{hour:03d} returned an unsafe depth shape"
+                    )
+                for index, depth_ft in enumerate(depths_ft):
+                    expected_native = source["expectedNative"][index]
+                    context = f"{source['model']['id']} f{hour:03d} {depth_ft} ft source"
+                    native_coverage = validate_depth_coverage(values[index], expected_native, context)
+                    mapped = source["rg"].apply(C_TO_F(values[index]))
+                    expected_grid = source["expectedGrid"][index]
+                    context = f"{source['model']['id']} f{hour:03d} {depth_ft} ft map"
+                    grid_coverage = validate_depth_coverage(mapped, expected_grid, context)
+                    source["coverageMin"][index] = min(
+                        source["coverageMin"][index], native_coverage, grid_coverage
+                    )
+                    depth_grids[index].append(mapped)
+                    depth_qualities[index].append(source["q"])
+        except TemperatureIntegrityError as err:
+            raise DepthSourceFailure(distribution, err) from err
 
         encode_started = time.monotonic()
         for index, depth_ft in enumerate(depths_ft):
@@ -318,6 +410,38 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
     return run_dir, pointer, timing
 
 
+def build_depth_with_fallback(surface_run, cycle, cycles, depths_ft, grid, out, log,
+                              workers=4, distribution="thredds"):
+    """Build from one coherent source, then restart wholly on the alternate."""
+    try:
+        result = build_depth_run(
+            surface_run, cycle, cycles, depths_ft, grid, out, log, workers, distribution
+        )
+        return (*result, distribution)
+    except DepthSourceFailure as first:
+        alternate = "nodd" if distribution == "thredds" else "thredds"
+        log(f"{first}; discarding that local build before considering {alternate}")
+        try:
+            selected = ofs.select_depth_distribution(cycles, requested=alternate)
+        except Exception as err:
+            raise DepthSourceFailure(
+                distribution,
+                f"fallback {alternate} is not complete and validated: {ofs.net.redact(err)}",
+            ) from err
+        if selected != alternate:
+            raise DepthSourceFailure(distribution, f"fallback selected unexpected source {selected}")
+        log(f"Rebuilding ALL depth frames from validated {alternate}; sources will not be mixed")
+        try:
+            result = build_depth_run(
+                surface_run, cycle, cycles, depths_ft, grid, out, log, workers, alternate
+            )
+            return (*result, alternate)
+        except DepthSourceFailure as second:
+            raise DepthSourceFailure(
+                alternate, f"both coherent sources failed ({first}; {second})"
+            ) from second
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--out", default="out-depth")
@@ -372,8 +496,12 @@ def main(argv=None):
         return 0
 
     try:
-        run_dir, pointer, _timing = build_depth_run(surface_run, cycle, cycles, depths_ft, grid,
-                                                     Path(args.out), log, args.workers, distribution)
+        run_dir, pointer, _timing, used_distribution = build_depth_with_fallback(
+            surface_run, cycle, cycles, depths_ft, grid,
+            Path(args.out), log, args.workers, distribution
+        )
+        if used_distribution != distribution:
+            log(f"Depth fallback completed from {DEPTH_SOURCES[used_distribution]}")
         upload_seconds = upload_depth_run(s3, run_dir, pointer)
         log(f"Uploaded complete depth run and wrote {DEPTH_POINTER_KEY} last in {upload_seconds:.1f} s")
     except Exception as err:
