@@ -158,3 +158,8 @@ test('the pointer fetch is called without rebinding browser fetch', async () => 
   const catalog = await new TempDepthCatalog('https://staging.example/runs/tdepth/latest.json', 'surface', { fetchImpl }).init();
   assert.equal(catalog.available, true);
 });
+
+test('the page versions the mutable depth pointer by surface run', () => {
+  const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
+  assert.match(source, /pointerUrl\.searchParams\.set\('surface', activeRun\)/);
+});

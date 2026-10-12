@@ -130,6 +130,38 @@ class EdgeCaseTest(unittest.TestCase):
         self.assertTrue(np.all((v > 0.5) & (v < 4.0)))
 
 
+class SigmaInterpolationTest(unittest.TestCase):
+    def test_all_five_launch_depths_are_interpolated_without_extrapolation(self):
+        sigma = -np.linspace(0.025, 0.975, 20, dtype=np.float64)
+        interfaces = -np.linspace(0.0, 1.0, 21, dtype=np.float64)
+        bottom = np.array([100.0, 10.0])
+        zeta = np.array([0.4, -0.2])
+        actual = -sigma[:, None] * (bottom + zeta)[None, :]
+        temps = 20.0 - actual * 0.1
+        values = depth.interpolate_sigma_to_depths(
+            temps, sigma, bottom, zeta, depth.feet_to_m(depth.TEMP_DEPTHS_FT), interfaces
+        )
+        self.assertEqual(values.shape, (5, 2))
+        self.assertTrue(np.all(np.isfinite(values[:, 0])))
+        expected = 20.0 - depth.feet_to_m(depth.TEMP_DEPTHS_FT) * 0.1
+        np.testing.assert_allclose(values[:, 0], expected, rtol=0, atol=1e-5)
+        self.assertTrue(np.all(np.isnan(values[3:, 1])))
+
+    def test_boundary_cells_are_valid_but_shallow_water_is_masked(self):
+        sigma = np.array([-0.25, -0.75])
+        interfaces = np.array([0.0, -0.5, -1.0])
+        temps = np.array([[8.0, 9.0], [4.0, 5.0]])
+        out = depth.interpolate_sigma_to_depths(
+            temps, sigma, [2.0, 100.0], [0.0, 0.0], [3.0], interfaces
+        )
+        self.assertTrue(np.isnan(out[0, 0]))  # shallower than the target
+        self.assertEqual(out[0, 1], 9.0)  # inside the top model cell, above its centre
+
+    def test_rejects_invalid_sigma_geometry(self):
+        with self.assertRaises(ValueError):
+            depth.interpolate_sigma_to_depths(np.ones((2, 3)), np.ones((3, 2)), [10] * 3, [0] * 3, [3])
+
+
 class ExtendOntoLandTest(unittest.TestCase):
     def test_shallow_lake_cells_stay_empty_and_land_is_filled(self):
         # columns: 0-1 land | 2-3 shallow lake (no value at depth) | 4-5 deep lake

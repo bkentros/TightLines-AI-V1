@@ -1,0 +1,83 @@
+{
+  "source": "thredds",
+  "hours": [
+    0,
+    24,
+    72,
+    120
+  ],
+  "depthsFt": [
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "plausibleRangeF": [
+    30,
+    90
+  ],
+  "allPlausible": true,
+  "models": [
+    {
+      "model": "LSOFS",
+      "samples": 436616,
+      "minimumF": 42.7,
+      "maximumF": 62.55,
+      "medianByDepthF": {
+        "10": 52.9,
+        "20": 52.75,
+        "30": 52.6,
+        "40": 52.3,
+        "50": 51.8
+      },
+      "median50Minus10F": -0.65,
+      "percent50AtOrColderThan10": 87.37
+    },
+    {
+      "model": "LMHOFS",
+      "samples": 579988,
+      "minimumF": 42.75,
+      "maximumF": 67.1,
+      "medianByDepthF": {
+        "10": 58.1,
+        "20": 58.1,
+        "30": 58.0,
+        "40": 57.8,
+        "50": 57.35
+      },
+      "median50Minus10F": -0.25,
+      "percent50AtOrColderThan10": 86.12
+    },
+    {
+      "model": "LEOFS",
+      "samples": 77556,
+      "minimumF": 56.05,
+      "maximumF": 67.1,
+      "medianByDepthF": {
+        "10": 64.5,
+        "20": 64.5,
+        "30": 64.5,
+        "40": 64.45,
+        "50": 64.2
+      },
+      "median50Minus10F": -0.1,
+      "percent50AtOrColderThan10": 77.75
+    },
+    {
+      "model": "LOOFS",
+      "samples": 94100,
+      "minimumF": 45.8,
+      "maximumF": 64.65,
+      "medianByDepthF": {
+        "10": 59.8,
+        "20": 59.65,
+        "30": 59.3,
+        "40": 58.7,
+        "50": 57.45
+      },
+      "median50Minus10F": -2.0,
+      "percent50AtOrColderThan10": 93.45
+    }
+  ]
+}

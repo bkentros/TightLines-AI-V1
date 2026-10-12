@@ -92,14 +92,31 @@ comes from OpenStreetMap land polygons.
 ### Temp at depth data (feature branch / staging)
 
 `job/depth.py` is a separate, non-blocking producer that starts only after a
-surface publish. It reads the immutable surface pointer, downloads NOAA's
-regular-grid z-level slab every three forecast hours, interpolates 10, 20, 30,
-40 and 50 ft, and writes `runs/tdepth-<surface-run>/…`. The deeper reviewed
+surface publish. It reads the immutable surface pointer and selects one source
+for all four lake models: THREDDS regular-grid z levels when that distribution
+is complete and readable, otherwise the validated NODD native sigma fields.
+NODD layer centres are converted with `-siglay * (h + zeta)` and bounded by
+their `siglev` cell interfaces; values are never extended above the surface or
+below the instantaneous lakebed. The job interpolates 10, 20, 30, 40 and 50 ft
+every three forecast hours onto the same output grid and shoreline/bathymetry
+mask, and writes `runs/tdepth-<surface-run>-<source>/…`. The source suffix keeps
+forced staging proofs immutable instead of overwriting one distribution with
+the other. The deeper reviewed
 depths (75/100/150 ft) remain available in config but are not published. Each
 depth has its own FrameStore-compatible manifest; `runs/tdepth/latest.json` is
 written only after every frame, manifest, verification sidecar and timing file.
 A failed depth run therefore cannot change either surface data or the previous
 complete depth pointer.
+
+Automatic NODD use is allow-listed per model in `job/lakemap/ofs.py` and is
+backed by the two-cycle comparison tool `job/validate_depth_sources.py`.
+Validation covers f000/f024/f072/f120 on the production grid and requires every
+lake/depth combination to meet MAE ≤ 1.0 °F, p95 absolute difference ≤ 2.0 °F,
+and mean bias within ±0.5 °F. `--source thredds|nodd` is staging-only; production
+refuses a forced distribution. If neither one coherent source nor all required
+validated models are available, the previous depth pointer remains unchanged
+and the client shows **Unavailable for this forecast cycle** for a new surface
+run.
 
 The isolated staging resources are `piercast-lake-map-staging` and
 `https://piercast-map-gate-staging.finfindr.workers.dev`. The staging Worker has

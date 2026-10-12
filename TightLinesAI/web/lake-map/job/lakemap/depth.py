@@ -70,6 +70,92 @@ def interpolate_to_depths(
     return out
 
 
+def interpolate_sigma_to_depths(
+    temps_c, sigma_layers, bottom_m, zeta_m, depths_m, sigma_interfaces=None
+) -> np.ndarray:
+    """Interpolate terrain-following native profiles to fixed depths.
+
+    NOAA's native GLOFS files define each layer by a negative ``siglay``
+    fraction (near zero at the surface, near -1 at the bottom).  The physical
+    depth below the instantaneous surface is therefore ``-siglay * (h+zeta)``.
+    Internal targets are linearly interpolated between layer centres.  A target
+    between a boundary layer's centre and its ``siglev`` interface takes that
+    layer's cell value: it remains inside the modelled finite-volume cell and
+    is not extrapolated beyond the surface or lakebed.
+    """
+    t = clean_temperatures(temps_c)
+    if t.ndim == 1:
+        t = t[:, None]
+    sigma = np.asarray(sigma_layers, np.float64)
+    if sigma.ndim == 1:
+        sigma = np.broadcast_to(sigma[:, None], t.shape)
+    if sigma.shape != t.shape:
+        raise ValueError(f"sigma shape {sigma.shape} does not match temperature shape {t.shape}")
+    if t.shape[0] < 2:
+        raise ValueError("at least two sigma layers are required")
+    bottom = np.broadcast_to(np.asarray(bottom_m, np.float64), (t.shape[1],))
+    zeta = np.broadcast_to(np.asarray(zeta_m, np.float64), (t.shape[1],))
+    total_depth = bottom + zeta
+    actual = -sigma * total_depth[None, :]
+    interfaces = None
+    if sigma_interfaces is not None:
+        interface_sigma = np.asarray(sigma_interfaces, np.float64)
+        if interface_sigma.ndim == 1:
+            interface_sigma = np.broadcast_to(interface_sigma[:, None], (t.shape[0] + 1, t.shape[1]))
+        if interface_sigma.shape != (t.shape[0] + 1, t.shape[1]):
+            raise ValueError(
+                f"sigma interface shape {interface_sigma.shape} does not match "
+                f"temperature shape {t.shape}"
+            )
+        interfaces = -interface_sigma * total_depth[None, :]
+    valid_geometry = (
+        np.isfinite(actual).all(axis=0)
+        & np.isfinite(total_depth)
+        & (total_depth > 0)
+        & np.all(np.diff(actual, axis=0) > 0, axis=0)
+    )
+    if interfaces is not None:
+        valid_geometry &= np.isfinite(interfaces).all(axis=0) & np.all(np.diff(interfaces, axis=0) > 0, axis=0)
+    targets = np.atleast_1d(np.asarray(depths_m, np.float64))
+    if targets.size == 0 or not np.all(np.isfinite(targets)) or np.any(targets <= 0):
+        raise ValueError("target depths must be finite and positive")
+    out = np.full((targets.size, t.shape[1]), np.nan, np.float32)
+    columns = np.arange(t.shape[1])
+    for n, target in enumerate(targets):
+        # First layer centre at or below the requested depth. Internal targets
+        # require two neighbours; boundary targets are handled only inside the
+        # finite-volume cell limits below.
+        high = np.sum(actual < target, axis=0)
+        bracketed = valid_geometry & (high > 0) & (high < t.shape[0]) & (total_depth >= target)
+        clipped_high = np.clip(high, 1, t.shape[0] - 1)
+        low = clipped_high - 1
+        za = actual[low, columns]
+        zb = actual[clipped_high, columns]
+        a = t[low, columns]
+        b = t[clipped_high, columns]
+        finite = bracketed & np.isfinite(a) & np.isfinite(b) & (zb > za)
+        fraction = np.divide(
+            target - za,
+            zb - za,
+            out=np.zeros_like(za, dtype=np.float64),
+            where=finite,
+        )
+        values = a + (b - a) * fraction.astype(np.float32)
+        out[n, finite] = values[finite]
+        if interfaces is not None:
+            top = valid_geometry & (high == 0) & (target >= interfaces[0]) & (target <= interfaces[1])
+            bottom_cell = (
+                valid_geometry & (high == t.shape[0]) &
+                (target >= interfaces[-2]) & (target <= interfaces[-1]) &
+                (total_depth >= target)
+            )
+            top &= np.isfinite(t[0])
+            bottom_cell &= np.isfinite(t[-1])
+            out[n, top] = t[0, top]
+            out[n, bottom_cell] = t[-1, bottom_cell]
+    return out
+
+
 def profile_at(profile_c, levels_m, bottom_m, depth_m, near_bottom_m=NEAR_BOTTOM_M) -> float:
     v = interpolate_to_depths(
         np.asarray(profile_c)[:, None], levels_m, bottom_m, [depth_m], near_bottom_m
