@@ -213,7 +213,7 @@ Browser metadata is in `browser-results-thredds.json` and
 
 ## Pull request
 
-PR: pending
+PR: #70 — `feat/temp-at-depth-nodd` → `main`
 
 The PR is not merged. Production `features.json`, `capabilities.json`, map page,
 R2 objects, workflow, database, Edge Functions, app release policy, EAS, legal
