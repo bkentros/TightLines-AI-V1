@@ -1,0 +1,14 @@
+# Independent trigger for the Lake map data workflow. GitHub's native schedule
+# remains enabled as a backup; the workflow concurrency group serializes any
+# duplicate triggers and its at-most-once cycle gate makes the second a no-op.
+name = "finfindr-lake-map-scheduler"
+main = "worker.js"
+account_id = "fe7a8d144a9b29b73dd513830858774c"
+compatibility_date = "2026-10-13"
+workers_dev = false
+
+[triggers]
+crons = [
+  "45 2,8,14,20 * * *",
+  "0,15,30,45 3,4,5,9,10,11,15,16,17,21,22,23 * * *",
+]
