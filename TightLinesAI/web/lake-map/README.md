@@ -64,9 +64,10 @@ limited to `bkentros/TightLines-AI-V1` with repository Actions read/write only
 | Wind | Open-Meteo `best_match` over the lake area (2,211 locations per run), NOAA GFS 0.25° for the wider map area (NOMADS GRIB filter, 3-hourly steps, ~41 small downloads), blended over 2 cells at the seam | Production upload requires `OPEN_METEO_API_KEY`. The four-runs/day, 31-day ceiling projects to 274,164 of the configured 1,000,000 monthly calls and the job refuses a future grid that exceeds it. If GFS is unavailable the lake-area wind is carried outward. |
 | Events | `job/events.mjs` → `src/engine/signals.js` | Same rule as the app, for every pier in `job/piers.json` (the live 32-city roster; a test keeps them in sync). |
 
-Bucket layout: `latest.json` (points at the current run, 2-minute cache),
-`runs/<runId>/…` (immutable), `static/geo-v1.json`. Published runs are retained;
-the uploader never deletes R2 objects. The app loads `latest.json`, then `createLakeMap({ dataUrl: <public
+Bucket layout: `latest.json` (points at the current run, 60-second revalidating cache),
+`runs/<runId>/…` (immutable), `static/geo-v1.json`. A bucket lifecycle expires
+objects under `runs/` after 14 days while leaving `map/` untouched. The app loads
+`latest.json`, then `createLakeMap({ dataUrl: <public
 URL>/<base> })`.
 
 The workflow polls every 15 minutes during NOAA's four daily Great Lakes model
@@ -260,11 +261,17 @@ month, then $0.30 per million). The Worker caps traffic at 600 requests/IP/minut
 - **Forecast runs** (`runs/<id>/…`) never change once written and are cached for a year.
 - **Cloudflare edge cache:** after a pass is validated, non-range objects are cached
   without the pass or cookie in the cache key. The response remains private to the
-  browser, while repeat requests avoid another R2 Class B read.
+  browser, while repeat requests avoid another R2 Class B read. The two mutable
+  forecast pointers bypass edge Cache API and retain a 60-second browser
+  revalidation policy; pointer 404s are never cached.
 - **Always fetched:** `index.html` (fresh pass); `latest.json` on open and every
   10 minutes; `/obs/buoys.json` on open and every 5 minutes while the map is open.
   The latter reads the shared 15-minute R2 snapshot and is edge-cached for five
   minutes; upstream sensor requests occur once per scheduled collection, not per user or edge.
+
+After a surface and depth publish, the workflow checks both production pointer
+URLs for the new run for up to two minutes, samples multiple Cloudflare POPs when
+the runner can reach them, and fails visibly if content or cache policy stays stale.
 
 ### Forecast playback
 

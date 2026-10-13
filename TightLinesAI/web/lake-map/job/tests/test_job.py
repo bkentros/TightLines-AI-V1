@@ -30,6 +30,24 @@ GLWU_CYCLE = datetime(2026, 9, 30, 13, tzinfo=timezone.utc)
 
 
 class StoreTest(unittest.TestCase):
+    def test_mutable_pointer_metadata_is_short_and_revalidating(self):
+        class RecordingS3:
+            def __init__(self):
+                self.calls = []
+
+            def put_object(self, **kwargs):
+                self.calls.append(kwargs)
+
+        s3 = RecordingS3()
+        store.put(s3, "latest.json", b'{}', store.SHORT)
+        store.put(s3, "runs/tdepth/latest.json", b'{}', store.SHORT)
+        store.put(s3, "runs/run/manifest.json", b'{}', store.IMMUTABLE)
+        self.assertEqual([call["CacheControl"] for call in s3.calls], [
+            "public, max-age=60, must-revalidate",
+            "public, max-age=60, must-revalidate",
+            "public, max-age=31536000, immutable",
+        ])
+
     def test_account_id_formats_produce_the_same_endpoint(self):
         account_id = "0123456789abcdef0123456789abcdef"
         expected = f"https://{account_id}.r2.cloudflarestorage.com"

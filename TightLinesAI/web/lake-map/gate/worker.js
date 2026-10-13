@@ -111,6 +111,7 @@ function checkRange(request, key) {
 }
 
 const MUTABLE_KEYS = new Set(['latest.json', 'map/index.html', 'runs/tdepth/latest.json']);
+const MUTABLE_POINTER_KEYS = new Set(['latest.json', 'runs/tdepth/latest.json']);
 
 function clientHeaders(input, setCookie, serverTiming, key = '') {
   const headers = new Headers(input);
@@ -153,6 +154,10 @@ export function edgeCacheControl(key, immutable, existing) {
     return 'public, max-age=60, must-revalidate';
   }
   return existing || 'public, max-age=60';
+}
+
+export function isMutablePointer(key) {
+  return MUTABLE_POINTER_KEYS.has(key);
 }
 
 export function etagMatches(request, etag) {
@@ -249,7 +254,11 @@ export default {
     const rangeError = checkRange(request, key);
     if (rangeError) return rangeError;
 
-    const cache = request.method === 'GET' && !request.headers.has('range') && typeof caches !== 'undefined'
+    // Mutable pointers bypass Cache API entirely. Browser revalidation is still
+    // allowed for 60 seconds, but every edge read goes back to R2 so an old
+    // response can never be pinned under a versioned query string.
+    const cache = request.method === 'GET' && !request.headers.has('range')
+      && !isMutablePointer(key) && typeof caches !== 'undefined'
       ? caches.default
       : null;
     const cacheKey = cache ? edgeCacheKey(url) : null;
@@ -274,7 +283,10 @@ export default {
     const r2Started = performance.now();
     const object = await env.BUCKET.get(key, { range: request.headers, onlyIf: request.headers });
     const r2Duration = performance.now() - r2Started;
-    if (object === null) return new Response('Not found', { status: 404 });
+    if (object === null) return new Response('Not found', {
+      status: 404,
+      headers: { 'cache-control': 'no-store' },
+    });
     const headers = new Headers();
     object.writeHttpMetadata(headers);
     headers.set('etag', object.httpEtag);

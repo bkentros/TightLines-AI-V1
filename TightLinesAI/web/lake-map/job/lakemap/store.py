@@ -16,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 IMMUTABLE = "public, max-age=31536000, immutable"
-SHORT = "public, max-age=120"
+SHORT = "public, max-age=60, must-revalidate"
 
 
 def endpoint() -> str:
