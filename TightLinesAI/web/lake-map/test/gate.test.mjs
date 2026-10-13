@@ -13,7 +13,9 @@ async function makePass(secret = SECRET, expiry = Math.floor(Date.now() / 1000) 
 
 const FILES = {
   'map/index.html': { body: '<html>map</html>', meta: { contentType: 'text/html', cacheControl: 'public, max-age=60' } },
-  'latest.json': { body: 'gz', meta: { contentType: 'application/json', contentEncoding: 'gzip', cacheControl: 'public, max-age=120' } },
+  'latest.json': { body: 'gz', meta: { contentType: 'application/json', contentEncoding: 'gzip', cacheControl: 'public, max-age=60, must-revalidate' } },
+  'runs/tdepth/latest.json': { body: '{"run":"surface"}', meta: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } },
+  'runs/surface/manifest.json': { body: '{}', meta: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } },
   'static/lakes-v2.pmtiles': { body: '0123456789', meta: { contentType: 'application/vnd.pmtiles' } },
   'proto/index.html': { body: 'old', meta: { contentType: 'text/html' } },
 };
@@ -167,6 +169,33 @@ test('authenticated edge cache strips tickets and avoids repeat R2 reads', async
     assert.match(second.headers.get('set-cookie'), /^pcmap=/);
     assert.equal(reads, 1);
     assert.equal((await worker.fetch(new Request('https://map.finfindr.app/map/index.html'), cachedEnv)).status, 401);
+  } finally {
+    if (previousCaches === undefined) delete globalThis.caches;
+    else globalThis.caches = previousCaches;
+  }
+});
+
+test('mutable pointers bypass edge Cache API while content-addressed run objects remain immutable', async () => {
+  const previousCaches = globalThis.caches;
+  const entries = new Map();
+  let cacheReads = 0;
+  globalThis.caches = { default: {
+    match: async (request) => { cacheReads++; return entries.get(request.url)?.clone(); },
+    put: async (request, response) => { entries.set(request.url, response.clone()); },
+  } };
+  const cookie = `pcmap=${encodeURIComponent(await makePass())}`;
+  try {
+    const surface = await get('/latest.json', { cookie });
+    const depth = await get('/runs/tdepth/latest.json?surface=surface&v=abcdef123456', { cookie });
+    assert.equal(surface.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
+    assert.equal(depth.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
+    assert.equal(cacheReads, 0);
+    assert.equal(entries.size, 0);
+
+    const run = await get('/runs/surface/manifest.json', { cookie });
+    assert.equal(run.headers.get('cache-control'), 'private, max-age=31536000, immutable');
+    assert.equal(cacheReads, 1);
+    assert.deepEqual([...entries.keys()], ['https://map.finfindr.app/runs/surface/manifest.json']);
   } finally {
     if (previousCaches === undefined) delete globalThis.caches;
     else globalThis.caches = previousCaches;

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { createHmac } from 'node:crypto';
 import test from 'node:test';
 
-import worker, { edgeCacheControl, etagMatches, immutableVersionedRequest } from './worker.js';
+import worker, { edgeCacheControl, etagMatches, immutableVersionedRequest, isMutablePointer } from './worker.js';
 
 const SECRET = 'test-map-secret-that-is-at-least-thirty-two-characters';
 
@@ -89,6 +89,21 @@ test('only run paths or explicitly hashed static assets skip limiters', () => {
   assert.equal(immutableVersionedRequest(new URL('https://x/map/app.js?v=abcdef123456'), 'map/app.js'), true);
   assert.equal(immutableVersionedRequest(new URL('https://x/map/app.js'), 'map/app.js'), false);
   assert.equal(immutableVersionedRequest(new URL('https://x/latest.json?v=abcdef123456'), 'latest.json'), false);
+});
+
+test('only mutable pointers bypass the edge cache and pointer 404s are never cached', async () => {
+  assert.equal(isMutablePointer('latest.json'), true);
+  assert.equal(isMutablePointer('runs/tdepth/latest.json'), true);
+  assert.equal(isMutablePointer('runs/a-run/manifest.json'), false);
+  assert.equal(isMutablePointer('runs/tdepth-a-run/d010/manifest.json'), false);
+
+  const { env } = environment('unrelated.json');
+  const response = await worker.fetch(
+    new Request(`https://staging.test/runs/tdepth/latest.json?t=${encodeURIComponent(pass())}`),
+    env, context(),
+  );
+  assert.equal(response.status, 404);
+  assert.equal(response.headers.get('cache-control'), 'no-store');
 });
 
 test('conditional cache requests match strong and weak forms of the same ETag', () => {
