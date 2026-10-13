@@ -10,7 +10,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, call, patch
 from urllib.parse import parse_qs, urlparse
 
 import numpy as np
@@ -322,11 +322,68 @@ class CycleTest(unittest.TestCase):
             latest = Path(tmp) / "latest.json"
             latest.write_text('{"run":"known-good"}')
             with patch.object(build.ofs, "discover", return_value=CYCLE), patch.object(
-                build, "build_temperature", side_effect=build.TemperatureIntegrityError("corrupt hour")
+                build, "build_temperature_with_fallback",
+                side_effect=build.TemperatureIntegrityError("corrupt hour")
             ):
                 rc = build.main(["--out", tmp, "--now", NOW.isoformat(), "--force"])
             self.assertEqual(rc, 2)
             self.assertEqual(json.loads(latest.read_text())["run"], "known-good")
+
+    def test_surface_transient_503_succeeds_on_retry(self):
+        source = {"model": {"id": "LSOFS"}, "lm": Mock()}
+        expected = np.ones(3, np.float32)
+        source["lm"].surface_temp_c.side_effect = [
+            net.HttpError(503, "https://noaa.test/model"),
+            expected,
+        ]
+        messages = []
+        result = build.fetch_surface_with_retry(
+            source, 85, "thredds", messages.append,
+            attempts=3, base_delay=1, sleep=lambda _seconds: None,
+        )
+        self.assertIs(result, expected)
+        self.assertEqual(
+            source["lm"].surface_temp_c.call_args_list,
+            [call(85, request_retries=1)] * 2,
+        )
+        self.assertIn("Retrying thredds LSOFS f085", messages[0])
+        self.assertIn("attempt 2/3 in 1 s", messages[0])
+
+    def test_persistent_thredds_failure_rebuilds_everything_from_nodd(self):
+        failure = build.SurfaceSourceFailure("thredds", "persistent read failure")
+        nodd = ([], None, [{"distribution": ofs.NODD_DISTRIBUTION}])
+        cycles = {model["id"]: CYCLE for model in build.OFS_MODELS}
+        with patch.object(build, "build_temperature", side_effect=[failure, nodd]) as attempt, \
+             patch.object(build.ofs, "select_surface_distribution", return_value="nodd") as select:
+            result = build.build_temperature_with_fallback(
+                cycles, CYCLE, lambda *_: None, 4, distribution="thredds"
+            )
+        self.assertEqual([item.args[-1] for item in attempt.call_args_list], ["thredds", "nodd"])
+        select.assert_called_once_with(cycles, requested="nodd")
+        self.assertEqual(result[2][0]["distribution"], ofs.NODD_DISTRIBUTION)
+
+    def test_both_surface_sources_failing_keeps_prior_run(self):
+        failure = build.SurfaceSourceFailure("nodd", "both coherent sources failed")
+        with tempfile.TemporaryDirectory() as tmp:
+            latest = Path(tmp) / "latest.json"
+            latest.write_text('{"run":"known-good"}')
+            with patch.object(build.ofs, "discover", return_value=CYCLE), patch.object(
+                build, "build_temperature_with_fallback", side_effect=failure
+            ), patch.object(build.store, "upload_run") as upload:
+                rc = build.main(["--out", tmp, "--now", NOW.isoformat(), "--force"])
+            self.assertEqual(rc, 2)
+            self.assertEqual(json.loads(latest.read_text())["run"], "known-good")
+            upload.assert_not_called()
+
+    def test_mixed_surface_sources_are_refused(self):
+        sources = []
+        for index, model in enumerate(build.OFS_MODELS):
+            lm = type("LM", (), {"distribution": (
+                ofs.THREDDS_DISTRIBUTION if index < 3 else ofs.NODD_DISTRIBUTION
+            )})()
+            sources.append({"model": model, "lm": lm})
+        with self.assertRaisesRegex(build.TemperatureIntegrityError, "mixed surface sources"):
+            build.validate_uniform_surface_distribution(sources, "thredds")
 
 
 class FullRunTest(unittest.TestCase):

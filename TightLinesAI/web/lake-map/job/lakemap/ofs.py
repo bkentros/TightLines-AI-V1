@@ -25,6 +25,10 @@ class DepthDataUnavailable(RuntimeError):
     """The selected NOAA distribution cannot safely supply fixed-depth data."""
 
 
+class SurfaceDataUnavailable(RuntimeError):
+    """No one NOAA distribution can safely supply a complete surface run."""
+
+
 THREDDS_DISTRIBUTION = "NOAA_COOPS_THREDDS"
 NODD_DISTRIBUTION = "NOAA_NODD_AWS"
 # Every entry must be backed by the checked-in two-cycle validation report.
@@ -140,7 +144,7 @@ def _aws_depth_profile(model, cycle: datetime, hour: int, include_sigma: bool):
 class LakeModel:
     """One model cycle: static grid (lat/lon, water mask, depth) + hourly surface temps."""
 
-    def __init__(self, model, cycle: datetime, distribution: str = "auto"):
+    def __init__(self, model, cycle: datetime, distribution: str = "auto", request_retries=3):
         if distribution not in ("auto", "thredds", "nodd"):
             raise ValueError(f"unsupported NOAA distribution {distribution!r}")
         self.model = model
@@ -156,6 +160,7 @@ class LakeModel:
             raw = parse_dods(net.fetch(
                 dataset_url(model, cycle, 0) + ".dods?Latitude,Longitude,mask,h",
                 timeout=120,
+                retries=request_retries,
             ))
             lat = raw["Latitude"].astype(np.float64)
             lon = raw["Longitude"].astype(np.float64)
@@ -193,7 +198,7 @@ class LakeModel:
             else:
                 self.spacing = 0.01
 
-    def surface_temp_c(self, hour: int) -> np.ndarray:
+    def surface_temp_c(self, hour: int, request_retries=3) -> np.ndarray:
         if self._aws:
             t = _aws_surface_temp(self.model, self.cycle, hour).reshape(-1)[self.flat]
             t[(t < -5) | (t > 40)] = np.nan
@@ -201,7 +206,11 @@ class LakeModel:
         ny, nx = self.shape
         # brackets must be percent-encoded or NOAA's server answers HTTP 400
         q = ".dods?temp" + f"[0:1:0][0:1:0][0:1:{ny - 1}][0:1:{nx - 1}]".replace("[", "%5B").replace("]", "%5D")
-        raw = parse_dods(net.fetch(dataset_url(self.model, self.cycle, hour) + q, timeout=180))
+        raw = parse_dods(net.fetch(
+            dataset_url(self.model, self.cycle, hour) + q,
+            timeout=180,
+            retries=request_retries,
+        ))
         t = raw["temp"].reshape(-1)[self.flat].astype(np.float32)
         t[(t < -5) | (t > 40)] = np.nan
         return t
@@ -318,14 +327,40 @@ def select_depth_distribution(cycles, requested="auto", validated_models=NODD_DE
     raise DepthDataUnavailable(f"no coherent validated depth source ({detail})")
 
 
-def prepare_regridders(cycles, grid, targets, water, log, distribution="auto"):
+def select_surface_distribution(cycles, requested="auto"):
+    """Choose one complete distribution for every model in a coherent cycle."""
+    if requested not in ("auto", "thredds", "nodd"):
+        raise ValueError(f"unsupported NOAA distribution {requested!r}")
+    required = {model["id"] for model in OFS_MODELS}
+    if set(cycles) != required or len(set(cycles.values())) != 1:
+        raise SurfaceDataUnavailable("surface source selection requires one cycle for all four NOAA models")
+    failures = {}
+    choices = ("thredds", "nodd") if requested == "auto" else (requested,)
+    for distribution in choices:
+        unavailable = []
+        for model in OFS_MODELS:
+            try:
+                if not _distribution_complete(model, cycles[model["id"]], distribution):
+                    unavailable.append(model["id"])
+            except Exception:
+                unavailable.append(model["id"])
+        if not unavailable:
+            return distribution
+        failures[distribution] = f"unavailable models: {', '.join(unavailable)}"
+    detail = "; ".join(f"{name}: {reason}" for name, reason in failures.items())
+    raise SurfaceDataUnavailable(f"no coherent surface source ({detail})")
+
+
+def prepare_regridders(cycles, grid, targets, water, log, distribution="auto", request_retries=3):
     """Create the lake-model/regridder set shared by surface and depth."""
     sources = []
     for model in OFS_MODELS:
         cycle = cycles.get(model["id"])
         if cycle is None:
             continue
-        lm = LakeModel(model, cycle, distribution=distribution)
+        lm = LakeModel(
+            model, cycle, distribution=distribution, request_retries=request_retries
+        )
         rg = Regridder(
             lm.lon,
             lm.lat,

@@ -14,13 +14,17 @@ shared rule in src/engine/signals.js, and optionally uploads to Cloudflare R2.
 from __future__ import annotations
 
 import argparse
+import errno
+import http.client
 import json
 import math
 import os
 import re
+import socket
 import subprocess
 import sys
 import time
+import urllib.error
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -85,6 +89,16 @@ class TemperatureIntegrityError(RuntimeError):
     """A model run is incomplete or unsafe to publish."""
 
 
+class SurfaceSourceFailure(RuntimeError):
+    """One coherent NOAA distribution could not produce a complete run."""
+
+    def __init__(self, distribution, detail):
+        self.distribution = distribution
+        super().__init__(f"{distribution} source failed: {detail}")
+
+
+SURFACE_REQUEST_ATTEMPTS = 4
+SURFACE_RETRY_BASE_SECONDS = 1.0
 MIN_NATIVE_COVERAGE = 0.98
 MIN_GRID_COVERAGE = 0.97
 
@@ -133,7 +147,102 @@ def validate_grid_hour(model_id, hour, values, expected_mask):
     return coverage
 
 
-def build_temperature(cycles, t0, log, workers):
+def is_transient_download_error(err):
+    """Only retry transport failures that can plausibly succeed unchanged."""
+    seen = set()
+    current = err
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        if isinstance(current, (http.client.IncompleteRead, http.client.RemoteDisconnected,
+                                ConnectionResetError, ConnectionAbortedError, BrokenPipeError,
+                                TimeoutError, socket.timeout, urllib.error.URLError)):
+            return True
+        if isinstance(current, urllib.error.HTTPError) and (current.code == 429 or current.code >= 500):
+            return True
+        if isinstance(current, net.HttpError) and (current.status == 429 or current.status >= 500):
+            return True
+        status = (getattr(current, "status", None) or
+                  getattr(current, "status_code", None) or
+                  getattr(current, "code", None))
+        try:
+            if int(status) == 429 or int(status) >= 500:
+                return True
+        except (TypeError, ValueError):
+            pass
+        response = getattr(current, "response", None)
+        if isinstance(response, dict):
+            code = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+            try:
+                if int(code) == 429 or int(code) >= 500:
+                    return True
+            except (TypeError, ValueError):
+                pass
+        if isinstance(current, OSError) and current.errno in {
+            errno.ECONNABORTED, errno.ECONNRESET, errno.ETIMEDOUT, errno.EPIPE,
+        }:
+            return True
+        current = current.__cause__ or current.__context__
+    return False
+
+
+def fetch_surface_with_retry(source, hour, distribution, log,
+                             attempts=SURFACE_REQUEST_ATTEMPTS,
+                             base_delay=SURFACE_RETRY_BASE_SECONDS, sleep=time.sleep):
+    """Fetch one model/hour request with bounded, logged exponential backoff."""
+    model_id = source["model"]["id"]
+    for attempt in range(1, attempts + 1):
+        try:
+            # Own the retries here so every backoff is visible in the job log.
+            return source["lm"].surface_temp_c(hour, request_retries=1)
+        except Exception as err:
+            if not is_transient_download_error(err) or attempt == attempts:
+                raise SurfaceSourceFailure(
+                    distribution,
+                    f"{model_id} f{hour:03d} after {attempt} attempt(s): {net.redact(err)}",
+                ) from err
+            delay = base_delay * (2 ** (attempt - 1))
+            log(
+                f"Retrying {distribution} {model_id} f{hour:03d} after "
+                f"{type(err).__name__}: attempt {attempt + 1}/{attempts} in {delay:g} s"
+            )
+            sleep(delay)
+
+
+def prepare_surface_with_retry(cycles, grid, targets, water, distribution, log,
+                               attempts=SURFACE_REQUEST_ATTEMPTS,
+                               base_delay=SURFACE_RETRY_BASE_SECONDS, sleep=time.sleep):
+    """Prepare all model grids with visible retries for transient reads."""
+    for attempt in range(1, attempts + 1):
+        try:
+            return ofs.prepare_regridders(
+                cycles, grid, targets, water, log,
+                distribution=distribution, request_retries=1,
+            )
+        except Exception as err:
+            if not is_transient_download_error(err) or attempt == attempts:
+                raise SurfaceSourceFailure(
+                    distribution,
+                    f"model setup after {attempt} attempt(s): {net.redact(err)}",
+                ) from err
+            delay = base_delay * (2 ** (attempt - 1))
+            log(
+                f"Retrying {distribution} model setup after {type(err).__name__}: "
+                f"attempt {attempt + 1}/{attempts} in {delay:g} s"
+            )
+            sleep(delay)
+
+
+def validate_uniform_surface_distribution(sources, distribution):
+    actual = {source["lm"].distribution for source in sources}
+    expected = {
+        "thredds": ofs.THREDDS_DISTRIBUTION,
+        "nodd": ofs.NODD_DISTRIBUTION,
+    }[distribution]
+    if actual != {expected}:
+        raise TemperatureIntegrityError(f"mixed surface sources are refused: {sorted(actual)}")
+
+
+def build_temperature(cycles, t0, log, workers, distribution="thredds"):
     """Hourly water temperature (°F) on NOAA's 0.01° grid, plus depth (ft)."""
     required = {model["id"] for model in OFS_MODELS}
     if set(cycles) != required:
@@ -144,36 +253,63 @@ def build_temperature(cycles, t0, log, workers):
         raise TemperatureIntegrityError(f"model cycles do not match: {detail}")
     water = water_mask(TEMP, GEO_PATH)
     targets = target_mask(water, EXTEND_CELLS)
-    sources = ofs.prepare_regridders(cycles, TEMP, targets, water, log)
+    sources = prepare_surface_with_retry(
+        cycles, TEMP, targets, water, distribution, log
+    )
+    if len(sources) != len(OFS_MODELS):
+        raise SurfaceSourceFailure(distribution, "not every NOAA lake model could be prepared")
+    try:
+        validate_uniform_surface_distribution(sources, distribution)
+    except TemperatureIntegrityError as err:
+        raise SurfaceSourceFailure(distribution, err) from err
 
     def fetch(src):
-        src["hours"] = ofs.fetch_all_hours(src["lm"], range(HOURS), workers=workers)
-        src["nativeCoverageMin"] = validate_temperature_hours(
-            src["model"]["id"], src["hours"], len(src["lm"].lat)
-        )
+        try:
+            with ThreadPoolExecutor(workers) as pool:
+                values = list(pool.map(
+                    lambda hour: fetch_surface_with_retry(
+                        src, hour, distribution, log
+                    ),
+                    range(HOURS),
+                ))
+            src["hours"] = dict(enumerate(values))
+            src["nativeCoverageMin"] = validate_temperature_hours(
+                src["model"]["id"], src["hours"], len(src["lm"].lat)
+            )
+        except SurfaceSourceFailure:
+            raise
+        except Exception as err:
+            raise SurfaceSourceFailure(
+                distribution, f"{src['model']['id']} surface validation: {net.redact(err)}"
+            ) from err
         log(f"{src['model']['id']}: 121/121 hours downloaded; minimum source coverage {src['nativeCoverageMin']:.1%}")
     with ThreadPoolExecutor(len(sources) or 1) as pool:
         list(pool.map(fetch, sources))
 
-    frames = []
-    for h in range(HOURS):
-        grids, quals = [], []
-        for src in sources:
-            grid = src["rg"].apply(C_TO_F(src["hours"][h]))
-            coverage = validate_grid_hour(src["model"]["id"], h, grid, src["gridMask"])
-            src["gridCoverageMin"] = min(src["gridCoverageMin"], coverage)
-            grids.append(grid)
-            quals.append(src["q"])
-        g = combine(grids, quals)
-        g = fill_nearest(g, targets, EXTEND_CELLS)
-        g[~targets] = np.nan
-        frames.append(g)
+    try:
+        frames = []
+        for h in range(HOURS):
+            grids, quals = [], []
+            for src in sources:
+                grid = src["rg"].apply(C_TO_F(src["hours"][h]))
+                coverage = validate_grid_hour(src["model"]["id"], h, grid, src["gridMask"])
+                src["gridCoverageMin"] = min(src["gridCoverageMin"], coverage)
+                grids.append(grid)
+                quals.append(src["q"])
+            g = combine(grids, quals)
+            g = fill_nearest(g, targets, EXTEND_CELLS)
+            g[~targets] = np.nan
+            frames.append(g)
 
-    depth = None
-    if sources:
-        dg = [s["rg"].apply(s["lm"].depth_m * M_TO_FT) for s in sources]
-        depth = fill_nearest(combine(dg, [s["q"] for s in sources]), targets, EXTEND_CELLS)
-        depth[~targets] = np.nan
+        depth = None
+        if sources:
+            dg = [s["rg"].apply(s["lm"].depth_m * M_TO_FT) for s in sources]
+            depth = fill_nearest(combine(dg, [s["q"] for s in sources]), targets, EXTEND_CELLS)
+            depth[~targets] = np.nan
+    except SurfaceSourceFailure:
+        raise
+    except Exception as err:
+        raise SurfaceSourceFailure(distribution, f"surface assembly: {net.redact(err)}") from err
     for src in sources:
         log(f"{src['model']['id']}: minimum 0.01° lake-domain coverage {src['gridCoverageMin']:.1%}")
     info = [{"model": s["model"]["id"], "lakes": s["model"]["lakes"], "cycle": iso(s["lm"].cycle),
@@ -183,6 +319,31 @@ def build_temperature(cycles, t0, log, workers):
              "gridCoverageMin": round(s["gridCoverageMin"], 6),
              "gridCells": int(s["gridMask"].sum())} for s in sources]
     return frames, depth, info
+
+
+def build_temperature_with_fallback(cycles, t0, log, workers, distribution="thredds"):
+    """Build from one coherent source, then restart wholly on the alternate."""
+    try:
+        return build_temperature(cycles, t0, log, workers, distribution)
+    except SurfaceSourceFailure as first:
+        alternate = "nodd" if distribution == "thredds" else "thredds"
+        log(f"{first}; discarding that in-memory build before considering {alternate}")
+        try:
+            selected = ofs.select_surface_distribution(cycles, requested=alternate)
+        except Exception as err:
+            raise SurfaceSourceFailure(
+                distribution,
+                f"fallback {alternate} is not complete: {net.redact(err)}",
+            ) from err
+        if selected != alternate:
+            raise SurfaceSourceFailure(distribution, f"fallback selected unexpected source {selected}")
+        log(f"Rebuilding ALL surface frames from {alternate}; sources will not be mixed")
+        try:
+            return build_temperature(cycles, t0, log, workers, alternate)
+        except SurfaceSourceFailure as second:
+            raise SurfaceSourceFailure(
+                alternate, f"both coherent sources failed ({first}; {second})"
+            ) from second
 
 
 def build_waves(t0, now, log):
@@ -498,8 +659,8 @@ def main(argv=None):
             return 0
 
     try:
-        frames, depth, temp_info = build_temperature(cycles, t0, log, args.workers)
-    except TemperatureIntegrityError as err:
+        frames, depth, temp_info = build_temperature_with_fallback(cycles, t0, log, args.workers)
+    except (TemperatureIntegrityError, SurfaceSourceFailure) as err:
         log(f"Temperature integrity check failed ({err}) — retaining the last complete published run.")
         return 2
     log.mark("temperature")
