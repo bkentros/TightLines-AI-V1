@@ -44,6 +44,18 @@ Cloudflare R2. GitHub Actions polls every 15 minutes during NOAA's four daily
 release windows (`.github/workflows/lake-map-data.yml`); it exits before paid
 APIs when a complete new cycle is unavailable.
 
+`scheduler/` is the independent Cloudflare Cron trigger for that same workflow.
+It uses the two polling-window cron expressions from the workflow and sends a
+`workflow_dispatch` on `main` with `force=false`; GitHub's native schedule stays
+enabled as a backup. The existing workflow concurrency group serializes duplicate
+triggers, and the data job's cycle gate makes the second run a no-op. The Worker
+has no route or workers.dev endpoint. Its `GITHUB_ACTIONS_TOKEN` secret must be a
+GitHub App installation token (preferred) or fine-grained personal access token
+limited to `bkentros/TightLines-AI-V1` with repository Actions read/write only
+(plus GitHub's implicit metadata read permission). Deploy from `scheduler/` with
+`npx --yes wrangler@4 deploy`, then store the credential without echoing it using
+`npx --yes wrangler@4 secret put GITHUB_ACTIONS_TOKEN`.
+
 | Layer | Source | Notes |
 | --- | --- | --- |
 | Water temp, depth | NOAA LSOFS, LMHOFS, LEOFS, LOOFS (CO-OPS THREDDS primary; official AWS/NODD native fields failover; surface layer only) | The primary 0.01° regular grid is preserved. During a THREDDS distribution outage, range reads select the equivalent surface layer from NOAA's independent NODD publication and regrid it to the same map grid. Publication still requires all four models on one cycle, all 121 hours, at least 98% finite source coverage and 97% post-regrid lake-domain coverage every hour. Any failure retains the previous complete run. |
