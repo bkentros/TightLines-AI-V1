@@ -81,6 +81,40 @@ function queueTransition(state, key, active, now, details) {
   state.outbox = state.outbox.slice(-20);
 }
 
+export function clearSkippedDeliveryFalseAlarm(rawState, now = new Date()) {
+  const state = normalizeState(rawState);
+  const incident = state.incidents.deliveryFailed;
+  const alreadySent = state.alertHistory.some((item) => item.type === 'deliveryFalseAlarm');
+  const conflictingActiveIncident = incident.active
+    && !/concluded (?:skipped|cancelled)\b/i.test(incident.details || '');
+  if (alreadySent || conflictingActiveIncident) {
+    return { state, cleared: false };
+  }
+  const at = now.toISOString();
+  state.incidents.deliveryFailed = {
+    active: false,
+    clearedAt: at,
+    previousOpenedAt: incident.openedAt,
+    details: 'False alarm: a no-op workflow skipped the delivery job; no delivery failure occurred.',
+  };
+  state.outbox.push({
+    id: `lake-map-delivery-false-alarm-recovery-${at}`,
+    type: 'deliveryFalseAlarm',
+    transition: 'RECOVERY',
+    at,
+    subject: 'FinFindr Live Lake Map — RECOVERY: DELIVERY FAILED (false alarm)',
+    text: [
+      'FALSE ALARM RECOVERY — DELIVERY FAILED',
+      '',
+      'The incident was caused by a no-op workflow whose delivery job was correctly skipped. No publish or delivery failed.',
+      '',
+      `Cleared: ${at}`,
+    ].join('\n'),
+  });
+  state.outbox = state.outbox.slice(-20);
+  return { state, cleared: true };
+}
+
 export function evaluateIncidents(rawState, observation, now = new Date()) {
   const state = normalizeState(rawState);
   const age = surfaceAgeHours(observation.surfaceCycle, now);
