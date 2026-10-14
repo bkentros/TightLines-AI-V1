@@ -1,4 +1,5 @@
 import {
+  clearSkippedDeliveryFalseAlarm,
   easternMondayMorningKey,
   evaluateIncidents,
   initialState,
@@ -95,9 +96,10 @@ export async function ingestWorkflowRuns(rawState, env, fetchImpl = fetch) {
     const jobsPayload = await githubJson(`/actions/runs/${run.id}/jobs?per_page=20`, env, fetchImpl);
     const jobs = jobsPayload.jobs || [];
     const delivery = jobs.find((job) => job.name === 'delivery');
-    if (delivery) {
+    const deliveryRan = delivery && ['success', 'failure', 'timed_out'].includes(delivery.conclusion);
+    if (deliveryRan) {
       latestDelivery = {
-        failed: delivery.conclusion !== 'success',
+        failed: ['failure', 'timed_out'].includes(delivery.conclusion),
         details: `Workflow run ${run.id} delivery job concluded ${delivery.conclusion}.`,
       };
       const build = jobs.find((job) => job.name === 'build');
@@ -148,15 +150,18 @@ export async function sendEmail(env, message, fetchImpl = fetch) {
 }
 
 async function drainOutbox(state, env, fetchImpl, log) {
+  const sent = [];
   while (state.outbox.length) {
     const message = state.outbox[0];
-    await sendEmail(env, message, fetchImpl);
+    const result = await sendEmail(env, message, fetchImpl);
     state.outbox.shift();
     state.alertHistory.push({ type: message.type, transition: message.transition, at: message.at });
     state.alertHistory = state.alertHistory.slice(-100);
     await writeState(env, state);
     log(JSON.stringify({ event: 'lake_map_alert_email', type: message.type, transition: message.transition }));
+    sent.push({ eventId: message.id, messageId: result?.id || null });
   }
+  return sent;
 }
 
 export async function runAlertCheck(env, scheduledTime = Date.now(), fetchImpl = fetch, log = console.log) {
@@ -220,12 +225,26 @@ async function testMessage(request, env, fetchImpl = fetch) {
   return new Response(JSON.stringify({ ok: true, kind, id: result?.id || null }), { status: 200, headers: jsonHeaders });
 }
 
+async function repairSkippedDeliveryFalseAlarm(request, env, fetchImpl = fetch) {
+  if (!authorizedTest(request, env)) return new Response('Not found', { status: 404 });
+  const repaired = clearSkippedDeliveryFalseAlarm(await readState(env), new Date());
+  if (!repaired.cleared) {
+    return new Response(JSON.stringify({ ok: false, cleared: false }), { status: 409, headers: jsonHeaders });
+  }
+  await writeState(env, repaired.state);
+  const messages = await drainOutbox(repaired.state, env, fetchImpl, console.log);
+  return new Response(JSON.stringify({ ok: true, cleared: true, messages }), { status: 200, headers: jsonHeaders });
+}
+
 export default {
   async scheduled(controller, env, ctx) {
     ctx.waitUntil(runAlertCheck(env, controller.scheduledTime));
   },
   async fetch(request, env) {
     if (request.method !== 'POST') return new Response('Not found', { status: 404 });
+    if (new URL(request.url).pathname === '/__repair/delivery-skipped-false-alarm') {
+      return repairSkippedDeliveryFalseAlarm(request, env);
+    }
     return testMessage(request, env);
   },
 };

@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
+  clearSkippedDeliveryFalseAlarm,
   DEPTH_MISMATCH_CYCLES,
   SURFACE_STALE_HOURS,
   easternMondayMorningKey,
@@ -128,6 +129,70 @@ test('delivery failure remains alertable when workflow log download is unavailab
   assert.match(result.latestDelivery.details, /run 42.*failure/);
   assert.equal(result.state.github.records.length, 1);
   assert.equal(result.state.github.records[0].surfaceSource, 'unknown');
+});
+
+test('a skipped or cancelled delivery job on a no-op run does not alert or record a publish', async () => {
+  for (const conclusion of ['skipped', 'cancelled']) {
+    const fetchImpl = async (url) => {
+      if (url.includes('/actions/workflows/')) return Response.json({ workflow_runs: [{
+        id: conclusion === 'skipped' ? 51 : 52,
+        event: 'workflow_dispatch',
+        created_at: '2026-10-14T15:00:00Z',
+        updated_at: '2026-10-14T15:01:00Z',
+      }] });
+      if (url.includes('/jobs')) return Response.json({ jobs: [
+        { id: 510, name: 'build', conclusion: 'success' },
+        { id: 512, name: 'delivery', conclusion },
+      ] });
+      throw new Error(`unexpected URL ${url}`);
+    };
+    const result = await ingestWorkflowRuns(initialState(), { GITHUB_ACTIONS_TOKEN: 'token' }, fetchImpl);
+    assert.equal(result.latestDelivery, null);
+    assert.equal(result.state.github.records.length, 0);
+  }
+});
+
+test('a failed delivery job after a publish opens an alert', async () => {
+  const fetchImpl = async (url) => {
+    if (url.includes('/actions/workflows/')) return Response.json({ workflow_runs: [{
+      id: 61, event: 'workflow_dispatch', created_at: '2026-10-14T15:00:00Z', updated_at: '2026-10-14T15:10:00Z',
+    }] });
+    if (url.includes('/actions/runs/61/jobs')) return Response.json({ jobs: [
+      { id: 610, name: 'build', conclusion: 'success' },
+      { id: 611, name: 'depth', conclusion: 'success' },
+      { id: 612, name: 'delivery', conclusion: 'failure' },
+    ] });
+    if (url.includes('/actions/jobs/610/logs')) return new Response(
+      '2026-10-14T15:01:00Z NOAA 2026-10-14T12:00:00Z release ready\n'
+      + '2026-10-14T15:08:00Z Uploaded run 20261014T12Z-10141508 and pointed latest.json at it',
+    );
+    if (url.includes('/actions/jobs/611/logs')) return new Response(
+      '2026-10-14T15:09:00Z Uploaded complete depth run and wrote runs/tdepth/latest.json last in 20 s',
+    );
+    throw new Error(`unexpected URL ${url}`);
+  };
+  const ingested = await ingestWorkflowRuns(initialState(), { GITHUB_ACTIONS_TOKEN: 'token' }, fetchImpl);
+  const state = evaluateIncidents(ingested.state, {
+    ...observation,
+    deliveryFailed: ingested.latestDelivery.failed,
+    deliveryDetails: ingested.latestDelivery.details,
+  }, now);
+  assert.equal(state.incidents.deliveryFailed.active, true);
+  assert.match(state.outbox.at(-1).subject, /DELIVERY FAILED/);
+});
+
+test('the known skipped-delivery false alarm is cleared with an explicit recovery', () => {
+  const state = initialState();
+  state.incidents.deliveryFailed = {
+    active: true,
+    openedAt: '2026-10-14T15:30:00Z',
+    details: 'Workflow run 38585602258 delivery job concluded skipped.',
+  };
+  const repaired = clearSkippedDeliveryFalseAlarm(state, now);
+  assert.equal(repaired.cleared, true);
+  assert.equal(repaired.state.incidents.deliveryFailed.active, false);
+  assert.match(repaired.state.outbox[0].subject, /false alarm/i);
+  assert.match(repaired.state.outbox[0].text, /no publish or delivery failed/i);
 });
 
 test('Resend uses the fixed inbox, verified sender and idempotency key without exposing the key', async () => {
