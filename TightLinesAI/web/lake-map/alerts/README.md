@@ -13,8 +13,17 @@ Production secrets are installed only with `wrangler secret put`:
 - `RESEND_API_KEY` — sends from the existing verified
   `support@finfindr.app` sender.
 - `ALERT_TEST_TOKEN` — protects the two explicit test-delivery endpoints.
+- `SUPABASE_ANON_KEY` — calls the public PierCast leaderboard through the same
+  production endpoint as clients. The key is a Worker secret, never source.
 
-The authenticated `POST /__test/alert` and `POST /__test/weekly` endpoints send
-clearly labeled test messages without changing incident state. Resend
+The authenticated `POST /__test/alert`, `POST /__test/piercast`, and
+`POST /__test/weekly` endpoints send clearly labeled test messages without
+changing incident state. Resend
 idempotency keys make retries safe. The Worker never creates a stale or
 mismatched production pointer for testing.
+
+PierCast alerting reads `sourceIssuedAt` from the public leaderboard every 30
+minutes. A cycle older than 10 hours opens `PIERCAST STALE`; 10 hours or less
+recovers it. Network failures, non-success HTTP responses, malformed JSON, and
+missing/invalid timestamps open the separate `PIERCAST AVAILABILITY` incident.
+Both are transition-only and are included in the Monday weekly totals.
