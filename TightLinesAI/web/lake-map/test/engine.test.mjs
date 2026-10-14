@@ -14,6 +14,7 @@ import {
   onFrameReady,
   packScalarTexturePixels,
 } from '../src/engine/frames.js';
+import { essentialControlTop } from '../src/engine/layout.js';
 
 const series = (fn) => Array.from({ length: 121 }, (_, h) => fn(h));
 const ramp = (a, b, h0, h1) => (h) => h <= h0 ? a : h >= h1 ? b : a + (b - a) * (h - h0) / (h1 - h0);
@@ -391,7 +392,7 @@ test('band specs for waves, wind and species', () => {
   assert.equal(speciesFit(40, coho).grade, 3);
 });
 
-test('small screens: tools and depth picker clear the panel, day labels shorten, cards stay below the header', () => {
+test('small screens: essential Layers control survives crowding and depth legend compacts', () => {
   const source = readFileSync(new URL('../src/prototype.js', import.meta.url), 'utf8');
   const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
   assert.ok(source.includes("addEventListener('resize', fitLayout)"));
@@ -399,6 +400,37 @@ test('small screens: tools and depth picker clear the panel, day labels shorten,
   assert.ok(source.includes("for (const sel of ['#readout', '#depth-popover', '#alert'])"));
   assert.ok(source.includes('<span class="dd"> ${d.getDate()}</span>'));
   assert.ok(page.includes('#track .day.short .dd{display:none}'));
-  assert.ok(page.includes('.tools[data-crowded="1"]{opacity:0;pointer-events:none}'));
+  assert.ok(!page.includes('.tools[data-crowded="1"]{opacity:0;pointer-events:none}'));
+  assert.ok(page.includes('.tools[data-crowded="1"] .tool:not(#layers){display:none}'));
+  assert.ok(page.includes('.tools[data-crowded="1"] #layers{display:flex;pointer-events:auto}'));
+  assert.ok(page.includes('#alert[data-crowded="1"],#alert[data-layout-crowded="1"]{opacity:0;pointer-events:none}'));
+  assert.ok(page.includes('#scrim{position:fixed;inset:0;z-index:10'));
+  assert.ok(page.includes('.sheet{position:fixed;left:0;right:0;bottom:0;z-index:11'));
+  assert.ok(page.includes('.bottom[data-compact-depth="1"] #lg-note:not([aria-expanded="true"]) #lg-note-short{display:inline}'));
+  assert.ok(source.includes('essentialControlTop({'));
+  assert.ok(source.includes("if (ar.bottom + 8 > br.top) alert.dataset.layoutCrowded = '1';"));
+  assert.ok(source.includes("ui.alertHidden = true;\n    updateAlerts();\n    fitLayout();"));
   assert.ok(page.includes('.bottom{max-height:calc(100% - env(safe-area-inset-top) - 80px)}'));
+});
+
+test('320x568 depth legend layout keeps Layers clear of the readout, alert and bottom panel', () => {
+  const rect = (left, top, right, bottom) => ({ left, top, right, bottom, width: right - left, height: bottom - top });
+  const top = essentialControlTop({
+    left: 250, right: 308, height: 50,
+    minTop: 64, maxBottom: 290, preferredTop: 242,
+    obstacles: [rect(8, 68, 312, 150), rect(12, 166, 308, 230)],
+  });
+  assert.ok(top >= 64 && top + 50 <= 290);
+  assert.ok(top >= 230 + 8, 'Layers clears the alert');
+});
+
+test('short landscape places Layers beside the centered readout instead of hiding it', () => {
+  const rect = (left, top, right, bottom) => ({ left, top, right, bottom, width: right - left, height: bottom - top });
+  const top = essentialControlTop({
+    left: 498, right: 556, height: 50,
+    minTop: 64, maxBottom: 176, preferredTop: 242,
+    obstacles: [rect(114, 68, 454, 150), rect(12, 166, 556, 230)],
+  });
+  assert.ok(top >= 64 && top + 50 <= 176);
+  assert.ok(top + 50 <= 166 - 8, 'Layers clears the alert in landscape');
 });

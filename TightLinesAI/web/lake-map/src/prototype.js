@@ -13,6 +13,7 @@ import { fetchNwsAlerts, alertShapes, activeAt } from './engine/nws.js';
 import { DEFAULT_MAP_LAYER, resolveInitialMapLayer } from './engine/preferences.js';
 import { TempDepthCatalog, TEMP_DEPTH_NOTE, TEMP_DEPTH_UNAVAILABLE, depthLabel, depthPickerItems, depthPopoverTop, layerChangedProps, rememberedDepth, tempDepthEnabled } from './engine/tempDepth.js';
 import { currentForecastHour, hasNewPublishedRun, mapFreshnessText, MODEL_REFRESH_CHECK_MS, OBSERVATION_REFRESH_MS, RUN_CHECK_MS } from './engine/freshness.js';
+import { essentialControlTop } from './engine/layout.js';
 import cities from './cities.json';
 
 window.maplibregl.setWorkerUrl(new URL('maplibre-gl-csp-worker.js', location.href).href);
@@ -205,7 +206,8 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     $('#lg-name').textContent = ui.layer === 'temp_depth' ? `WATER · ${depthLabel(ui.depthFt, u.length).toUpperCase()}`
       : ui.layer === 'species' ? ui.species.name.toUpperCase() : { temp: 'WATER', wind: 'WIND', waves: 'WAVES', depth: 'DEPTH' }[L];
     $('#lg-note').hidden = ui.layer !== 'temp_depth';
-    $('#lg-note').textContent = ui.layer === 'temp_depth' ? TEMP_DEPTH_NOTE : '';
+    $('#lg-note-full').textContent = ui.layer === 'temp_depth' ? TEMP_DEPTH_NOTE : '';
+    if (ui.layer !== 'temp_depth') $('#lg-note').setAttribute('aria-expanded', 'false');
     let ticks;
     if (ui.layer === 'species') { const sp = ui.species, c = u.temp === 'C'; ticks = [[toTemp(sp.lo, u.temp), `${Math.round(toTemp(sp.lo, u.temp))}`], [toTemp(sp.hi, u.temp), `${Math.round(toTemp(sp.hi, u.temp))}${c ? '°C' : '°F'}`]]; }
     else if (L === 'temp') ticks = u.temp === 'C' ? [[5, '5'], [10, '10'], [15, '15'], [20, '20'], [25, '25°C']] : [[40, '40'], [50, '50'], [60, '60'], [70, '70°F']];
@@ -277,10 +279,23 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
       if (el.scrollWidth > el.clientWidth + 1) el.style.visibility = 'hidden';
     }
     positionDepthPopover();
-    const tools = $('.tools');
+    const tools = $('.tools'), bottom = $('.bottom'), alert = $('#alert');
+    alert.dataset.layoutCrowded = '';
+    bottom.dataset.compactDepth = '';
     tools.style.top = ''; tools.dataset.crowded = '';
-    const box = tools.getBoundingClientRect(), floor = $('.bottom').getBoundingClientRect().top - 10;
-    if (box.bottom <= floor) return;
+    let box = tools.getBoundingClientRect(), floor = bottom.getBoundingClientRect().top - 10;
+    const syncAlertCrowding = () => {
+      if (alert.hidden) return;
+      const ar = alert.getBoundingClientRect(), br = bottom.getBoundingClientRect();
+      if (ar.bottom + 8 > br.top) alert.dataset.layoutCrowded = '1';
+    };
+    if (box.bottom <= floor) { syncAlertCrowding(); return; }
+    if (ui.layer === 'temp_depth' && $('#lg-note').getAttribute('aria-expanded') !== 'true') {
+      bottom.dataset.compactDepth = '1';
+      box = tools.getBoundingClientRect(); floor = bottom.getBoundingClientRect().top - 10;
+      if (box.bottom <= floor) { syncAlertCrowding(); return; }
+    }
+    syncAlertCrowding();
     let ceiling = $('.top').getBoundingClientRect().bottom + 8;
     for (const sel of ['#readout', '#depth-popover', '#alert']) {
       const el = $(sel); if (!el || el.hidden) continue;
@@ -289,7 +304,22 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     }
     const top = Math.max(ceiling, floor - box.height);
     tools.style.top = `${Math.round(top)}px`;
-    if (top + box.height > floor) tools.dataset.crowded = '1';
+    if (top + box.height <= floor) return;
+    tools.dataset.crowded = '1';
+    box = tools.getBoundingClientRect();
+    const layer = $('#layers').getBoundingClientRect();
+    const obstacles = ['#readout', '#depth-popover', '#alert', '#toast'].map((sel) => $(sel))
+      .filter((el) => el && !el.hidden && getComputedStyle(el).visibility !== 'hidden'
+        && getComputedStyle(el).opacity !== '0' && getComputedStyle(el).pointerEvents !== 'none')
+      .map((el) => el.getBoundingClientRect());
+    const essentialTop = essentialControlTop({
+      left: layer.left, right: layer.right, height: box.height,
+      minTop: $('.top').getBoundingClientRect().bottom + 8,
+      maxBottom: bottom.getBoundingClientRect().top - 10,
+      preferredTop: top,
+      obstacles,
+    });
+    tools.style.top = `${essentialTop}px`;
   }
   const setText = (sel, text) => { const el = $(sel); if (el.textContent !== text) el.textContent = text; };
   function setTime(t, fromPlay) {
@@ -450,6 +480,7 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
     e.stopPropagation();
     ui.alertHidden = true;
     updateAlerts();
+    fitLayout();
     $('#alerts-tool').focus();
   });
   $('#alerts-tool').addEventListener('click', () => openAlerts(events.some((e) => eventStatus(e) !== 'past') ? 'water' : 'nws'));
@@ -803,6 +834,11 @@ function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ un
   $('#scrim').addEventListener('click', closeSheets);
   document.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', closeSheets));
   $('#layers').addEventListener('click', () => openSheet('layers'));
+  $('#lg-note').addEventListener('click', () => {
+    const note = $('#lg-note');
+    note.setAttribute('aria-expanded', String(note.getAttribute('aria-expanded') !== 'true'));
+    fitLayout();
+  });
   $('#search').addEventListener('click', () => { openSheet('search'); $('#q').value = ''; renderResults(); });
   $('#fit').addEventListener('click', () => lm.fitAll());
   $('#attrib').addEventListener('click', () => openSheet('credits'));
