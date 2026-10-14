@@ -244,6 +244,40 @@ test('test endpoint is authenticated and clearly labels both messages', async ()
   assert.match(emails[1].text, /TEST ONLY/);
 });
 
+test('authenticated repair clears only the known skipped-delivery false alarm and sends recovery', async () => {
+  let stored = initialState();
+  stored.incidents.deliveryFailed = {
+    active: true,
+    openedAt: '2026-10-14T15:30:00Z',
+    details: 'Workflow run 38585602258 delivery job concluded skipped.',
+  };
+  const bucket = {
+    get: async () => ({ json: async () => stored }),
+    put: async (_key, body) => { stored = JSON.parse(body); },
+  };
+  const env = { BUCKET: bucket, ALERT_TEST_TOKEN: 'repair-auth', RESEND_API_KEY: 'resend' };
+  const originalFetch = globalThis.fetch;
+  let email;
+  globalThis.fetch = async (_url, init) => {
+    email = JSON.parse(init.body);
+    return new Response(JSON.stringify({ id: 'recovery-email-id' }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    });
+  };
+  try {
+    const response = await worker.fetch(new Request(
+      'https://alerts.example/__repair/delivery-skipped-false-alarm',
+      { method: 'POST', headers: { authorization: 'Bearer repair-auth' } },
+    ), env);
+    assert.equal(response.status, 200);
+    assert.deepEqual((await response.json()).messages.map((item) => item.messageId), ['recovery-email-id']);
+  } finally { globalThis.fetch = originalFetch; }
+  assert.equal(stored.incidents.deliveryFailed.active, false);
+  assert.equal(stored.outbox.length, 0);
+  assert.equal(stored.alertHistory.at(-1).type, 'deliveryFalseAlarm');
+  assert.match(email.subject, /false alarm/i);
+});
+
 test('Worker config checks every 30 minutes and stores state in the existing R2 bucket', () => {
   const config = readFileSync(new URL('../alerts/wrangler.toml', import.meta.url), 'utf8');
   assert.match(config, /name = "finfindr-lake-map-alerts"/);
