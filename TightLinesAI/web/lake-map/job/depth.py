@@ -26,7 +26,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build import C_TO_F, ENV_KEYS, Log, TemperatureIntegrityError, iso, load_env_file, load_observation_sites  # noqa: E402
-from lakemap import depth as depth_math, ofs, store  # noqa: E402
+from lakemap import depth as depth_math, ofs, source_health, store  # noqa: E402
 from lakemap.config import (DEPTH_STEP_HOURS, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, OFS_MODELS,  # noqa: E402
                             PAGE_CAPABILITIES_KEY, TEMP, TEMP16, TEMP_DEPTHS_FT)
 from lakemap.encode import scalar_png  # noqa: E402
@@ -209,10 +209,12 @@ def fetch_depth_with_retry(source, hour, depths_ft, distribution, log,
                     distribution,
                     f"{model_id} f{hour:03d} after {attempt} attempt(s): {ofs.net.redact(err)}",
                 ) from err
-            delay = base_delay * (2 ** (attempt - 1))
+            delay = ofs.net.retry_delay(err, attempt, base_delay)
+            status = getattr(err, "status", None) or getattr(err, "code", None)
+            label = f"{type(err).__name__} HTTP {status}" if status else type(err).__name__
             log(
                 f"Retrying {distribution} {model_id} f{hour:03d} after "
-                f"{type(err).__name__}: attempt {attempt + 1}/{attempts} in {delay:g} s"
+                f"{label}: attempt {attempt + 1}/{attempts} in {delay:g} s"
             )
             sleep(delay)
 
@@ -411,7 +413,8 @@ def build_depth_run(surface_run, cycle, cycles, depths_ft, grid, out, log, worke
 
 
 def build_depth_with_fallback(surface_run, cycle, cycles, depths_ft, grid, out, log,
-                              workers=4, distribution="thredds"):
+                              workers=4, distribution="thredds", allow_alternate=True,
+                              on_source_failure=None):
     """Build from one coherent source, then restart wholly on the alternate."""
     try:
         result = build_depth_run(
@@ -419,6 +422,10 @@ def build_depth_with_fallback(surface_run, cycle, cycles, depths_ft, grid, out, 
         )
         return (*result, distribution)
     except DepthSourceFailure as first:
+        if on_source_failure is not None:
+            on_source_failure(first)
+        if not allow_alternate:
+            raise
         alternate = "nodd" if distribution == "thredds" else "thredds"
         log(f"{first}; discarding that local build before considering {alternate}")
         try:
@@ -475,6 +482,7 @@ def main(argv=None):
         return 2
 
     s3 = store.client()
+    health_state = source_health.load(s3)
     caps = store.read_json(s3, PAGE_CAPABILITIES_KEY)
     if not capabilities_allow_depth(caps) and not args.force:
         log("Temp at depth is absent from page capabilities — exiting before any NOAA fetch.")
@@ -483,8 +491,19 @@ def main(argv=None):
         grid = choose_depth_grid(args.temp_encoding, caps, log)
         surface_latest = store.read_latest(s3)
         surface_run, cycle, cycles = validate_surface_latest(surface_latest)
-        distribution = ofs.select_depth_distribution(cycles, requested=args.source)
-        log(f"Depth source for all four models: {DEPTH_SOURCES[distribution]}")
+        cycle_key = iso(cycle)
+        if args.source == "auto":
+            requested_distribution, source_reason = source_health.source_for_depth(health_state, cycle_key)
+        else:
+            requested_distribution, source_reason = args.source, "explicit non-production source override"
+        distribution = ofs.select_depth_distribution(cycles, requested=requested_distribution)
+        health_state = source_health.record_source(
+            health_state, cycle_key, "depth", distribution, source_reason
+        )
+        log(
+            f"Depth source for all four models: {DEPTH_SOURCES[distribution]} "
+            f"({source_reason}); THREDDS concurrency cap {ofs.net.THREDDS_CONCURRENCY}"
+        )
     except (TemperatureIntegrityError, ofs.DepthDataUnavailable) as err:
         log(f"Depth preflight failed ({err}) — previous depth pointer is unchanged.")
         return 2
@@ -495,16 +514,43 @@ def main(argv=None):
         log(f"Depth data for surface run {surface_run} already exists — skipping.")
         return 0
 
+    def record_depth_failure(error):
+        nonlocal health_state
+        if getattr(error, "distribution", None) != "thredds":
+            return
+        failure_type = source_health.classify_failure(error)
+        health_state = source_health.record_thredds_result(
+            health_state, cycle_key, failure_type, kind="build"
+        )
+        health_state = source_health.record_source(
+            health_state, cycle_key, "depth", "nodd", f"THREDDS depth failed ({failure_type}); full NODD rebuild"
+        )
+
     try:
         run_dir, pointer, _timing, used_distribution = build_depth_with_fallback(
             surface_run, cycle, cycles, depths_ft, grid,
-            Path(args.out), log, args.workers, distribution
+            Path(args.out), log, args.workers, distribution,
+            allow_alternate=(distribution == "thredds"),
+            on_source_failure=record_depth_failure,
         )
         if used_distribution != distribution:
             log(f"Depth fallback completed from {DEPTH_SOURCES[used_distribution]}")
+        if used_distribution == "thredds":
+            health_state = source_health.record_thredds_result(
+                health_state, cycle_key, "success", kind="build"
+            )
+        health_state = source_health.record_source(
+            health_state, cycle_key, "depth", used_distribution,
+            source_reason if used_distribution == distribution else "full-cycle fallback after THREDDS failure",
+        )
+        source_health.save(s3, health_state)
         upload_seconds = upload_depth_run(s3, run_dir, pointer)
         log(f"Uploaded complete depth run and wrote {DEPTH_POINTER_KEY} last in {upload_seconds:.1f} s")
     except Exception as err:
+        try:
+            source_health.save(s3, health_state)
+        except Exception as state_error:
+            log(f"THREDDS health state write also failed ({ofs.net.redact(state_error)})")
         log(f"Depth job failed ({err}) — surface and previous depth pointers are unchanged.")
         return 2
     log(f"Done in {time.time() - log.t0:.0f} s")

@@ -3,11 +3,15 @@
 Run:  python -m unittest discover -s job/tests   (from web/lake-map)
 """
 import json
+import http.client
 import os
 import re
 import sys
 import tempfile
+import threading
+import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import Mock, call, patch
@@ -92,6 +96,78 @@ class StoreTest(unittest.TestCase):
             (run_dir / "verification.json").write_text('{"formatVersion":1}')
             store.upload_run(s3, run_dir, "test-run", {"run": "test-run"}, {"formatVersion": 1, "runs": []})
         self.assertCountEqual(s3.keys, ["runs/test-run/verification.json", "validation/forecast-index.json", "latest.json"])
+
+
+class NetworkPolicyTest(unittest.TestCase):
+    def setUp(self):
+        self.previous_gate = net.THREDDS_GATE
+        net.THREDDS_GATE = net.RequestGate(3)
+
+    def tearDown(self):
+        net.THREDDS_GATE = self.previous_gate
+
+    def test_thredds_concurrency_is_capped_globally(self):
+        active = 0
+        maximum = 0
+        lock = threading.Lock()
+
+        class Response:
+            headers = {}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self):
+                nonlocal active, maximum
+                with lock:
+                    active += 1
+                    maximum = max(maximum, active)
+                time.sleep(0.02)
+                with lock:
+                    active -= 1
+                return b"ok"
+
+        with patch.object(net.urllib.request, "urlopen", side_effect=lambda *_args, **_kwargs: Response()):
+            with ThreadPoolExecutor(12) as pool:
+                results = list(pool.map(
+                    lambda index: net._fetch(
+                        f"https://{net.THREDDS_HOST}/thredds/dodsC/test-{index}.dds",
+                        retries=1,
+                    ),
+                    range(12),
+                ))
+        self.assertEqual(results, [b"ok"] * 12)
+        self.assertEqual(maximum, 3)
+
+    def test_overload_backoff_honors_retry_after(self):
+        overloaded = net.HttpError(503, "https://noaa.test", headers={"Retry-After": "17"})
+        self.assertEqual(net.retry_delay(overloaded, 1, base_delay=1), 17)
+        self.assertEqual(net.retry_delay(net.HttpError(504, "https://noaa.test"), 1, base_delay=1), 2)
+        self.assertEqual(net.retry_delay(http.client.IncompleteRead(b"partial", 10), 1, base_delay=1), 1)
+
+    def test_404_is_confirmed_once_and_not_retried(self):
+        query = (f"https://{net.THREDDS_HOST}/thredds/dodsC/NOAA/LSOFS/MODELS/2026/10/14/"
+                 "lsofs.t00z.20261014.regulargrid.f049.nc.dods?temp%5B0:1:0%5D")
+        with patch.object(ofs.net, "fetch", side_effect=[
+            net.HttpError(404, query),
+            net.HttpError(404, query.split(".dods?", 1)[0] + ".dds"),
+        ]) as fetch:
+            with self.assertRaises(net.HttpError) as raised:
+                ofs._fetch_thredds(query, retries=1)
+        self.assertTrue(raised.exception.confirmed_missing)
+        self.assertEqual(fetch.call_count, 2)
+
+        source = {"model": {"id": "LSOFS"}, "lm": Mock()}
+        source["lm"].surface_temp_c.side_effect = raised.exception
+        with self.assertRaises(build.SurfaceSourceFailure):
+            build.fetch_surface_with_retry(
+                source, 49, "thredds", lambda *_: None,
+                attempts=4, sleep=lambda _seconds: None,
+            )
+        self.assertEqual(source["lm"].surface_temp_c.call_count, 1)
 
 # Fake LMHOFS grid: 0.05° over southern/central Lake Michigan (mask = water everywhere).
 LAT = np.arange(46.0, 41.6, -0.05)
@@ -365,7 +441,7 @@ class CycleTest(unittest.TestCase):
             [call(85, request_retries=1)] * 2,
         )
         self.assertIn("Retrying thredds LSOFS f085", messages[0])
-        self.assertIn("attempt 2/3 in 1 s", messages[0])
+        self.assertIn("attempt 2/3 in 2 s", messages[0])
 
     def test_persistent_thredds_failure_rebuilds_everything_from_nodd(self):
         failure = build.SurfaceSourceFailure("thredds", "persistent read failure")
@@ -379,6 +455,19 @@ class CycleTest(unittest.TestCase):
         self.assertEqual([item.args[-1] for item in attempt.call_args_list], ["thredds", "nodd"])
         select.assert_called_once_with(cycles, requested="nodd")
         self.assertEqual(result[2][0]["distribution"], ofs.NODD_DISTRIBUTION)
+
+    def test_open_circuit_nodd_failure_does_not_try_thredds(self):
+        failure = build.SurfaceSourceFailure("nodd", "persistent read failure")
+        cycles = {model["id"]: CYCLE for model in build.OFS_MODELS}
+        with patch.object(build, "build_temperature", side_effect=failure) as attempt, \
+             patch.object(build.ofs, "select_surface_distribution") as select:
+            with self.assertRaises(build.SurfaceSourceFailure):
+                build.build_temperature_with_fallback(
+                    cycles, CYCLE, lambda *_: None, 4,
+                    distribution="nodd", allow_alternate=False,
+                )
+        attempt.assert_called_once()
+        select.assert_not_called()
 
     def test_both_surface_sources_failing_keeps_prior_run(self):
         failure = build.SurfaceSourceFailure("nodd", "both coherent sources failed")
