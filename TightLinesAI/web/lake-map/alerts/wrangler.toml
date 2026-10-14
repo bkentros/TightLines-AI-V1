@@ -1,0 +1,12 @@
+name = "finfindr-lake-map-alerts"
+main = "worker.js"
+account_id = "fe7a8d144a9b29b73dd513830858774c"
+compatibility_date = "2026-10-14"
+workers_dev = true
+
+[triggers]
+crons = ["*/30 * * * *"]
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "piercast-lake-map"
