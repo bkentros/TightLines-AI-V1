@@ -145,6 +145,76 @@ The active workflow is `.github/workflows/lake-map-data.yml`. Its checked-in
 mirror under `job/` stays byte-identical; the parity test prevents either copy
 from drifting.
 
+## Live Lake Map operations
+
+### Production data flow and source selection
+
+The independent `finfindr-lake-map-scheduler` Cloudflare Cron Worker dispatches
+`lake-map-data.yml` with `force=false` every 15 minutes during each NOAA polling
+window. The matching GitHub `schedule` expressions remain enabled as a backup;
+the workflow concurrency group and at-most-once cycle gate safely collapse
+duplicate triggers. Discovery remains free and publication requires LSOFS,
+LMHOFS, LEOFS and LOOFS to share one complete newest cycle.
+
+For a publish, the job chooses one source for the whole cycle, builds and
+validates every immutable surface object, and writes `latest.json` last. Only
+after that succeeds does the depth job build 10/20/30/40/50-ft frames from the
+same cycle/source and write `runs/tdepth/latest.json` last. A failed build keeps
+the previous pointers; partial or mixed-source runs are never published.
+
+THREDDS requests are capped at three in flight. Transient errors use bounded
+adaptive exponential backoff, slow further for 503/504, and honor
+`Retry-After`; a confirmed 404 is not repeatedly retried. Health is persisted
+at `state/thredds-health.json`. A THREDDS build failure opens the circuit, so the
+next new cycle starts with validated NODD and runs only a cheap THREDDS probe.
+Two consecutive healthy cycle probes close the circuit for the following
+cycle. Logs state the chosen source and reason.
+
+### Delivery, monitoring and rollback
+
+`finfindr-lake-map-alerts` runs independently of GitHub every 30 minutes. It
+reads the authenticated public surface, depth and feature URLs, stores incident
+state at `state/lake-map-alerts.json`, and sends transition-only email from
+`support@finfindr.app` to `brandonkentros@icloud.com` through Resend. Alerts are
+surface cycle age over 9 hours, a depth/surface mismatch across two consecutive
+surface cycles while Temp at depth is on, and a failed or timed-out public
+delivery job after a publish. Recovery mail clears each incident. A weekly
+summary is sent Monday morning (09:00-12:00 US Eastern check window).
+
+Temp at depth is controlled by `map/features.json`, independently of the app
+release. For a depth-only production problem, rollback first and read back the
+flag; do not modify the surface pointer or delete runs:
+
+```sh
+cd TightLinesAI/web/lake-map
+.venv/bin/python static-build/feature.py tempDepth off --allow-production
+```
+
+R2 lifecycle policy expires immutable objects under `runs/` after 14 days and
+keeps the existing seven-day incomplete-multipart abort rule. It does not match
+`map/`, mutable pointers, state, or validation data. Content-addressed run
+objects are immutable; `latest.json` and `runs/tdepth/latest.json` use a
+60-second revalidating policy, bypass the Worker edge cache, and never cache
+404s.
+
+### Credentials and renewal
+
+Secret values never belong in Git, logs or documentation. Local operator
+credentials live in `TightLinesAI/.env` (git-ignored): `R2_ACCOUNT_ID`,
+`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`,
+`OPEN_METEO_API_KEY`, `GITHUB_ACTIONS_TOKEN`, `RESEND_API_KEY`, and
+`PIER_CAST_MAP_PASS_SECRET`. Install Worker copies only with
+`wrangler secret put`: the scheduler uses `GITHUB_ACTIONS_TOKEN`; alerts use
+`GITHUB_ACTIONS_TOKEN`, `RESEND_API_KEY`, `PIER_CAST_MAP_PASS_SECRET`, and
+`ALERT_TEST_TOKEN`; the gate uses `MAP_PASS_SECRET` corresponding to
+`PIER_CAST_MAP_PASS_SECRET`.
+
+Renewal record (audited 2026-10-14): GitHub's repository API does not expose the
+fine-grained `GITHUB_ACTIONS_TOKEN` expiry. Check and record its expiry in the
+owner account, renew at least 14 days beforehand, and re-audit by 2026-11-01.
+The sending-only Resend key exposes no provider expiry; rotate
+`RESEND_API_KEY` by 2027-10-14 or immediately after suspected exposure.
+
 For owner testing, set staging `map/features.json` to `on` with
 `R2_BUCKET=piercast-lake-map-staging .venv/bin/python static-build/feature.py
 tempDepth on`. The launch has no Labs or hidden-device unlock path; production

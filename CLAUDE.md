@@ -141,8 +141,7 @@ Never print or materialize API keys into the transcript.
 
 - Project ref `hsesngprhpgajyfbrwbf` ("FinFindr"), East US, already linked.
 - Migrations under `TightLinesAI/supabase/migrations/`.
-  As of 2026-09-16 local and remote are fully reconciled with **zero drift**;
-  check with `supabase migration list --linked` before assuming work is needed.
+  Always check `supabase migration list --linked` before assuming local and remote are reconciled.
 - Deploy a function with `supabase functions deploy <name>` — required for any
   River Run config change to reach users.
 
@@ -152,12 +151,39 @@ Never print or materialize API keys into the transcript.
 
 Read `web/lake-map/README.md` first. Quick facts:
 
-- Tests: `npm test` (JS, expect 71+) and `.venv/bin/python -m unittest discover -s job/tests`
-  (expect 41+). Always use the project `.venv` for Python; system Python lacks numpy/eccodes.
+- Tests: `npm test` (JS) and `.venv/bin/python -m unittest discover -s job/tests`.
+  Always use the project `.venv` for Python; system Python lacks numpy/eccodes.
 - The page is published separately from the app: `npm run build:page`, `cp dist/* static-build/proto/`,
   `.venv/bin/python static-build/publish.py`. No app release is needed for map page changes.
 - Publish the page BEFORE merging data-job changes: `publish.py` writes `map/capabilities.json`,
   and the scheduled job (runs from `main`) only emits frame encodings the live page declares.
+
+### Live Lake Map operations
+
+- The Cloudflare scheduler dispatches the GitHub data workflow during each NOAA window;
+  GitHub's native schedule is the backup. A successful surface publish writes its immutable
+  run first and `latest.json` last, then the depth job publishes the matching five-depth run
+  and writes `runs/tdepth/latest.json` last. Never mix cycles or sources.
+- THREDDS is limited to three concurrent requests and honors adaptive/`Retry-After` backoff.
+  `state/thredds-health.json` opens the circuit after a THREDDS failure: the next cycle starts
+  on validated NODD while a cheap probe runs, and two healthy cycle probes close it.
+- `finfindr-lake-map-alerts` runs every 30 minutes, stores transition state in R2, and emails
+  `brandonkentros@icloud.com` from `support@finfindr.app` through Resend. It also sends the
+  Monday-morning US Eastern weekly summary.
+- Production Temp at depth is controlled only by `map/features.json`. First rollback action:
+  `.venv/bin/python static-build/feature.py tempDepth off --allow-production`, then read back
+  the object. Do not roll back surface runs for a depth-only problem.
+- R2 expires immutable `runs/` objects after 14 days; `map/`, mutable pointers, state, and the
+  current pointer targets are outside that lifecycle prefix.
+- Secret names only: local `TightLinesAI/.env` holds `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
+  `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `OPEN_METEO_API_KEY`, `GITHUB_ACTIONS_TOKEN`,
+  `RESEND_API_KEY`, and `PIER_CAST_MAP_PASS_SECRET`. Worker secrets are installed with
+  `wrangler secret put`; never print or commit values.
+- Renewal tracking (audited 2026-10-14): GitHub does not expose the fine-grained
+  `GITHUB_ACTIONS_TOKEN` expiry through the repository API, so record its account-settings
+  expiry and renew at least 14 days before it (recheck by 2026-11-01). The sending-only Resend
+  key exposes no provider expiry; rotate `RESEND_API_KEY` by 2027-10-14 or immediately after
+  suspected exposure.
 
 ## Git conventions
 
