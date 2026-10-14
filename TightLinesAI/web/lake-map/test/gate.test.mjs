@@ -15,6 +15,7 @@ const FILES = {
   'map/index.html': { body: '<html>map</html>', meta: { contentType: 'text/html', cacheControl: 'public, max-age=60' } },
   'latest.json': { body: 'gz', meta: { contentType: 'application/json', contentEncoding: 'gzip', cacheControl: 'public, max-age=60, must-revalidate' } },
   'runs/tdepth/latest.json': { body: '{"run":"surface"}', meta: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } },
+  'runs/piercast/latest.json': { body: '{"run":"surface"}', meta: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } },
   'runs/surface/manifest.json': { body: '{}', meta: { contentType: 'application/json', cacheControl: 'public, max-age=31536000, immutable' } },
   'static/lakes-v2.pmtiles': { body: '0123456789', meta: { contentType: 'application/vnd.pmtiles' } },
   'proto/index.html': { body: 'old', meta: { contentType: 'text/html' } },
@@ -187,8 +188,10 @@ test('mutable pointers bypass edge Cache API while content-addressed run objects
   try {
     const surface = await get('/latest.json', { cookie });
     const depth = await get('/runs/tdepth/latest.json?surface=surface&v=abcdef123456', { cookie });
+    const piercast = await get('/runs/piercast/latest.json?v=abcdef123456', { cookie });
     assert.equal(surface.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
     assert.equal(depth.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
+    assert.equal(piercast.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
     assert.equal(cacheReads, 0);
     assert.equal(entries.size, 0);
 

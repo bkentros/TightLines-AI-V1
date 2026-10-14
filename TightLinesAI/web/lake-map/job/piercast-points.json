@@ -1,0 +1,270 @@
+{
+  "formatVersion": 1,
+  "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+  "model": "LMHOFS",
+  "grid": {
+    "south": 41.6,
+    "west": -88.06,
+    "rows": 478,
+    "columns": 837,
+    "resolution": 0.01
+  },
+  "points": [
+    {
+      "cityId": "ludington_mi",
+      "gridRow": 235,
+      "gridColumn": 159,
+      "latitude": 43.95,
+      "longitude": -86.47,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "grand_haven_mi",
+      "gridRow": 146,
+      "gridColumn": 180,
+      "latitude": 43.06,
+      "longitude": -86.26,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "manistee_mi",
+      "gridRow": 265,
+      "gridColumn": 171,
+      "latitude": 44.25,
+      "longitude": -86.35,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "frankfort_elberta_mi",
+      "gridRow": 303,
+      "gridColumn": 180,
+      "latitude": 44.63,
+      "longitude": -86.26,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "sheboygan_wi",
+      "gridRow": 215,
+      "gridColumn": 37,
+      "latitude": 43.75,
+      "longitude": -87.69,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "port_washington_wi",
+      "gridRow": 179,
+      "gridColumn": 21,
+      "latitude": 43.39,
+      "longitude": -87.85,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "milwaukee_wi",
+      "gridRow": 143,
+      "gridColumn": 18,
+      "latitude": 43.03,
+      "longitude": -87.88,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "racine_wi",
+      "gridRow": 113,
+      "gridColumn": 29,
+      "latitude": 42.73,
+      "longitude": -87.77,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "kenosha_wi",
+      "gridRow": 99,
+      "gridColumn": 26,
+      "latitude": 42.59,
+      "longitude": -87.8,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "harbor_beach_mi",
+      "gridRow": 224,
+      "gridColumn": 542,
+      "latitude": 43.84,
+      "longitude": -82.64,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "oscoda_mi",
+      "gridRow": 281,
+      "gridColumn": 475,
+      "latitude": 44.41,
+      "longitude": -83.31,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "port_sanilac_mi",
+      "gridRow": 183,
+      "gridColumn": 553,
+      "latitude": 43.43,
+      "longitude": -82.53,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "two_rivers_wi",
+      "gridRow": 254,
+      "gridColumn": 50,
+      "latitude": 44.14,
+      "longitude": -87.56,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "kewaunee_wi",
+      "gridRow": 286,
+      "gridColumn": 58,
+      "latitude": 44.46,
+      "longitude": -87.48,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "algoma_wi",
+      "gridRow": 301,
+      "gridColumn": 64,
+      "latitude": 44.61,
+      "longitude": -87.42,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "manitowoc_wi",
+      "gridRow": 249,
+      "gridColumn": 42,
+      "latitude": 44.09,
+      "longitude": -87.64,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "waukegan_il",
+      "gridRow": 76,
+      "gridColumn": 26,
+      "latitude": 42.36,
+      "longitude": -87.8,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "chicago_il",
+      "gridRow": 36,
+      "gridColumn": 44,
+      "latitude": 41.96,
+      "longitude": -87.62,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "michigan_city_in",
+      "gridRow": 13,
+      "gridColumn": 115,
+      "latitude": 41.73,
+      "longitude": -86.91,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "muskegon_mi",
+      "gridRow": 162,
+      "gridColumn": 172,
+      "latitude": 43.22,
+      "longitude": -86.34,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "whitehall_mi",
+      "gridRow": 178,
+      "gridColumn": 163,
+      "latitude": 43.38,
+      "longitude": -86.43,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "alpena_mi",
+      "gridRow": 346,
+      "gridColumn": 464,
+      "latitude": 45.06,
+      "longitude": -83.42,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "st_joseph_mi",
+      "gridRow": 52,
+      "gridColumn": 156,
+      "latitude": 42.12,
+      "longitude": -86.5,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "south_haven_mi",
+      "gridRow": 80,
+      "gridColumn": 177,
+      "latitude": 42.4,
+      "longitude": -86.29,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "holland_mi",
+      "gridRow": 117,
+      "gridColumn": 184,
+      "latitude": 42.77,
+      "longitude": -86.22,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "lexington_mi",
+      "gridRow": 167,
+      "gridColumn": 554,
+      "latitude": 43.27,
+      "longitude": -82.52,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "harrisville_mi",
+      "gridRow": 306,
+      "gridColumn": 478,
+      "latitude": 44.66,
+      "longitude": -83.28,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "pentwater_mi",
+      "gridRow": 218,
+      "gridColumn": 161,
+      "latitude": 43.78,
+      "longitude": -86.45,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "rogers_city_mi",
+      "gridRow": 382,
+      "gridColumn": 426,
+      "latitude": 45.42,
+      "longitude": -83.8,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "tawas_city_mi",
+      "gridRow": 267,
+      "gridColumn": 456,
+      "latitude": 44.27,
+      "longitude": -83.5,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "charlevoix_mi",
+      "gridRow": 372,
+      "gridColumn": 278,
+      "latitude": 45.32,
+      "longitude": -85.28,
+      "depthIndex": 0
+    },
+    {
+      "cityId": "caseville_mi",
+      "gridRow": 235,
+      "gridColumn": 478,
+      "latitude": 43.95,
+      "longitude": -83.28,
+      "depthIndex": 0
+    }
+  ]
+}

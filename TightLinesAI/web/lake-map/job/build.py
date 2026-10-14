@@ -32,7 +32,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lakemap import gfs, net, ofs, seagull, source_health, store, waves, wind  # noqa: E402
+from lakemap import gfs, net, ofs, piercast, seagull, source_health, store, waves, wind  # noqa: E402
 from lakemap.config import (DEPTH, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, GEO_VERSION,  # noqa: E402
                             HOURS, OFS_MODELS, PAGE_CAPABILITIES_KEY, PIERS_PATH, SIGNALS_EVENTS_SCRIPT, TEMP,
                             TEMP16, WAVES, WIND)
@@ -322,7 +322,11 @@ def build_temperature(cycles, t0, log, workers, distribution="thredds"):
              "sourceCoverageMin": round(s["nativeCoverageMin"], 6),
              "gridCoverageMin": round(s["gridCoverageMin"], 6),
              "gridCells": int(s["gridMask"].sum())} for s in sources]
-    return frames, depth, info
+    try:
+        piercast_feed = piercast.extract_point_feed(sources, t0)
+    except piercast.PierCastPointIntegrityError as err:
+        raise SurfaceSourceFailure(distribution, f"PierCast point feed: {err}") from err
+    return frames, depth, info, piercast_feed
 
 
 def build_temperature_with_fallback(cycles, t0, log, workers, distribution="thredds",
@@ -726,7 +730,7 @@ def main(argv=None):
         )
 
     try:
-        frames, depth, temp_info = build_temperature_with_fallback(
+        frames, depth, temp_info, piercast_feed = build_temperature_with_fallback(
             cycles, t0, log, args.workers,
             distribution=distribution,
             allow_alternate=(distribution == "thredds"),
@@ -787,6 +791,11 @@ def main(argv=None):
                                 "temp": f"temp/{name}", "wind": f"wind/{name}", "waves": f"waves/{name}"})
     if depth is not None:
         (run_dir / "depth.png").write_bytes(scalar_png(depth / 1.0, DEPTH))
+    piercast_payload = piercast.versioned_payload(piercast_feed, run_id, now)
+    (run_dir / "piercast-points.json").write_text(
+        json.dumps(piercast_payload, separators=(",", ":"))
+    )
+    piercast_pointer = piercast.pointer(piercast_payload)
     log.mark("encode")
 
     piers = json.loads(PIERS_PATH.read_text())
@@ -832,7 +841,10 @@ def main(argv=None):
 
     if s3 is not None:
         store.ensure_static(s3, GEO_PATH, f"static/geo-{GEO_VERSION}.json")
-        store.upload_run(s3, run_dir, run_id, latest, research_index)
+        store.upload_run(
+            s3, run_dir, run_id, latest, research_index,
+            piercast_pointer=piercast_pointer,
+        )
         log(f"Uploaded run {run_id} and pointed latest.json at it")
         log.mark("upload")
         # Benchmark collection starts only after the live pointer changes, so

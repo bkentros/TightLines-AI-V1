@@ -45,8 +45,10 @@ class StoreTest(unittest.TestCase):
         s3 = RecordingS3()
         store.put(s3, "latest.json", b'{}', store.SHORT)
         store.put(s3, "runs/tdepth/latest.json", b'{}', store.SHORT)
+        store.put(s3, "runs/piercast/latest.json", b'{}', store.SHORT)
         store.put(s3, "runs/run/manifest.json", b'{}', store.IMMUTABLE)
         self.assertEqual([call["CacheControl"] for call in s3.calls], [
+            "public, max-age=60, must-revalidate",
             "public, max-age=60, must-revalidate",
             "public, max-age=60, must-revalidate",
             "public, max-age=31536000, immutable",
@@ -96,6 +98,28 @@ class StoreTest(unittest.TestCase):
             (run_dir / "verification.json").write_text('{"formatVersion":1}')
             store.upload_run(s3, run_dir, "test-run", {"run": "test-run"}, {"formatVersion": 1, "runs": []})
         self.assertCountEqual(s3.keys, ["runs/test-run/verification.json", "validation/forecast-index.json", "latest.json"])
+
+    def test_upload_writes_piercast_pointer_after_files_and_before_surface_pointer(self):
+        class PutOnlyS3:
+            def __init__(self):
+                self.keys = []
+
+            def put_object(self, **kwargs):
+                self.keys.append(kwargs["Key"])
+
+        s3 = PutOnlyS3()
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            (run_dir / "piercast-points.json").write_text('{"formatVersion":1}')
+            store.upload_run(
+                s3, run_dir, "test-run", {"run": "test-run"},
+                piercast_pointer={"run": "test-run"},
+            )
+        self.assertEqual(s3.keys, [
+            "runs/test-run/piercast-points.json",
+            "runs/piercast/latest.json",
+            "latest.json",
+        ])
 
 
 class NetworkPolicyTest(unittest.TestCase):
@@ -445,7 +469,7 @@ class CycleTest(unittest.TestCase):
 
     def test_persistent_thredds_failure_rebuilds_everything_from_nodd(self):
         failure = build.SurfaceSourceFailure("thredds", "persistent read failure")
-        nodd = ([], None, [{"distribution": ofs.NODD_DISTRIBUTION}])
+        nodd = ([], None, [{"distribution": ofs.NODD_DISTRIBUTION}], {"source": "nodd"})
         cycles = {model["id"]: CYCLE for model in build.OFS_MODELS}
         with patch.object(build, "build_temperature", side_effect=[failure, nodd]) as attempt, \
              patch.object(build.ofs, "select_surface_distribution", return_value="nodd") as select:
@@ -500,7 +524,24 @@ class FullRunTest(unittest.TestCase):
         gfs.PAUSE = 0
         cls.out = Path(tempfile.mkdtemp())
         lmhofs = [model for model in build.OFS_MODELS if model["id"] == "LMHOFS"]
-        with patch.object(build, "OFS_MODELS", lmhofs):
+        point_feed = {
+            "formatVersion": 1, "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+            "cycle": "2026-09-30T12:00:00Z", "source": "thredds",
+            "sourceDistribution": ofs.THREDDS_DISTRIBUTION,
+            "sampleMethod": "test_fixture", "cityCount": 32, "forecastHours": 121,
+            "points": [{
+                "cityId": pier["id"], "gridRow": 0, "gridColumn": index,
+                "latitude": pier["lat"], "longitude": pier["lon"], "depthIndex": 0,
+                "samples": [{
+                    "forecastHour": hour,
+                    "validAt": build.iso(CYCLE + timedelta(hours=hour)),
+                    "temperatureC": 10.0,
+                } for hour in range(121)],
+            } for index, pier in enumerate(json.loads(build.PIERS_PATH.read_text()))],
+        }
+        with patch.object(build, "OFS_MODELS", lmhofs), patch.object(
+            build.piercast, "extract_point_feed", return_value=point_feed,
+        ):
             rc = build.main(["--out", str(cls.out), "--now", NOW.isoformat(), "--force"])
         assert rc == 0
         cls.latest = json.loads((cls.out / "latest.json").read_text())
@@ -535,6 +576,10 @@ class FullRunTest(unittest.TestCase):
         self.assertEqual(len(verification["pierSites"]["ludington_mi"]["hours"]), 121)
         self.assertEqual(verification["benchmarkRefs"], {})  # network benchmark is production-upload only
         self.assertEqual(self.latest["verificationRuns"][0]["run"], self.latest["run"])
+        point_feed = json.loads((self.rdir / "piercast-points.json").read_text())
+        self.assertEqual(point_feed["run"], self.latest["run"])
+        self.assertEqual(point_feed["cycle"], self.latest["cycle"])
+        self.assertEqual(point_feed["cityCount"], 32)
         for f in m["frames"][:3]:
             for k in ("temp", "wind", "waves"):
                 self.assertTrue((self.rdir / f[k]).exists())

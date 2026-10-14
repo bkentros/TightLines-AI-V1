@@ -65,7 +65,11 @@ limited to `bkentros/TightLines-AI-V1` with repository Actions read/write only
 | Events | `job/events.mjs` → `src/engine/signals.js` | Same rule as the app, for every pier in `job/piers.json` (the live 32-city roster; a test keeps them in sync). |
 
 Bucket layout: `latest.json` (points at the current run, 60-second revalidating cache),
-`runs/<runId>/…` (immutable), `static/geo-v1.json`. A bucket lifecycle expires
+`runs/<runId>/…` (immutable), `runs/piercast/latest.json` (60-second
+revalidating pointer to the current run's 32-city, 121-hour surface point
+feed), and `static/geo-v1.json`. The point feed is extracted from the successful
+LMHOFS surface build at the exact reviewed `lmhofs.ts` row/column and records
+whether the coherent run used THREDDS or NODD. A bucket lifecycle expires
 objects under `runs/` after 14 days while leaving `map/` untouched. The app loads
 `latest.json`, then `createLakeMap({ dataUrl: <public
 URL>/<base> })`.
