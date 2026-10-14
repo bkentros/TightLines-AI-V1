@@ -173,8 +173,9 @@ Read `web/lake-map/README.md` first. Quick facts:
 - Production Temp at depth is controlled only by `map/features.json`. First rollback action:
   `.venv/bin/python static-build/feature.py tempDepth off --allow-production`, then read back
   the object. Do not roll back surface runs for a depth-only problem.
-- R2 expires immutable `runs/` objects after 14 days; `map/`, mutable pointers, state, and the
-  current pointer targets are outside that lifecycle prefix.
+- R2 expires objects under `runs/` after 14 days; `map/`, the root surface pointer, and state
+  are outside that prefix. The depth pointer is rewritten every cycle, so verify it and both
+  current pointer targets are younger than 14 days before changing the rule.
 - Secret names only: local `TightLinesAI/.env` holds `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
   `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `OPEN_METEO_API_KEY`, `GITHUB_ACTIONS_TOKEN`,
   `RESEND_API_KEY`, and `PIER_CAST_MAP_PASS_SECRET`. Worker secrets are installed with

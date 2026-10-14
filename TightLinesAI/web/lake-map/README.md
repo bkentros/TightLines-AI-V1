@@ -192,8 +192,10 @@ cd TightLinesAI/web/lake-map
 
 R2 lifecycle policy expires immutable objects under `runs/` after 14 days and
 keeps the existing seven-day incomplete-multipart abort rule. It does not match
-`map/`, mutable pointers, state, or validation data. Content-addressed run
-objects are immutable; `latest.json` and `runs/tdepth/latest.json` use a
+`map/`, the root surface pointer, state, or validation data. The mutable depth
+pointer is under `runs/` but is rewritten every cycle; verify it and both current
+pointer targets are younger than 14 days before changing the rule. Content-addressed
+run objects are immutable; `latest.json` and `runs/tdepth/latest.json` use a
 60-second revalidating policy, bypass the Worker edge cache, and never cache
 404s.
 
