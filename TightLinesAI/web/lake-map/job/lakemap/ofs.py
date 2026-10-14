@@ -53,6 +53,31 @@ def aws_dataset_url(model, cycle: datetime, hour: int) -> str:
     return f"{AWS_HTTPS}/{aws_dataset_key(model, cycle, hour)}"
 
 
+def _fetch_thredds(url, **kwargs):
+    """Fetch THREDDS once; independently confirm a query-level 404."""
+    try:
+        return net.fetch(url, **kwargs)
+    except net.HttpError as error:
+        if error.status != 404:
+            raise
+        if ".dods?" not in url:
+            raise net.HttpError(
+                404, url, headers=error.headers, confirmed_missing=True
+            ) from error
+        metadata_url = url.split(".dods?", 1)[0] + ".dds"
+        try:
+            net.fetch(metadata_url, timeout=min(float(kwargs.get("timeout", 60)), 30), retries=1)
+        except net.HttpError as confirmation:
+            if confirmation.status == 404:
+                raise net.HttpError(
+                    404, url, headers=error.headers, confirmed_missing=True
+                ) from error
+            raise
+        raise net.HttpError(
+            404, url, headers=error.headers, dataset_present=True
+        ) from error
+
+
 def cycle_candidates(now: datetime, lookback_hours=30):
     t = now.replace(minute=0, second=0, microsecond=0, tzinfo=timezone.utc)
     t = t.replace(hour=max(c for c in OFS_CYCLES if c <= t.hour))
@@ -63,19 +88,21 @@ def cycle_candidates(now: datetime, lookback_hours=30):
     return out
 
 
-def discover(model, now: datetime, lookback_hours=30):
+def discover(model, now: datetime, lookback_hours=30, distribution="auto"):
     """Newest cycle complete on either official NOAA distribution."""
+    if distribution not in ("auto", "thredds", "nodd"):
+        raise ValueError(f"unsupported NOAA distribution {distribution!r}")
+    choices = ("thredds", "nodd") if distribution == "auto" else (distribution,)
     for cycle in cycle_candidates(now, lookback_hours):
-        try:
-            net.fetch(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
-            return cycle
-        except Exception:
-            pass
-        try:
-            net.head(aws_dataset_url(model, cycle, 120), timeout=15, retries=2)
-            return cycle
-        except Exception:
-            continue
+        for choice in choices:
+            try:
+                if choice == "thredds":
+                    _fetch_thredds(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
+                else:
+                    net.head(aws_dataset_url(model, cycle, 120), timeout=15, retries=2)
+                return cycle
+            except Exception:
+                continue
     return None
 
 
@@ -157,7 +184,7 @@ class LakeModel:
         try:
             if distribution == "nodd":
                 raise DepthDataUnavailable("NODD explicitly selected")
-            raw = parse_dods(net.fetch(
+            raw = parse_dods(_fetch_thredds(
                 dataset_url(model, cycle, 0) + ".dods?Latitude,Longitude,mask,h",
                 timeout=120,
                 retries=request_retries,
@@ -206,7 +233,7 @@ class LakeModel:
         ny, nx = self.shape
         # brackets must be percent-encoded or NOAA's server answers HTTP 400
         q = ".dods?temp" + f"[0:1:0][0:1:0][0:1:{ny - 1}][0:1:{nx - 1}]".replace("[", "%5B").replace("]", "%5D")
-        raw = parse_dods(net.fetch(
+        raw = parse_dods(_fetch_thredds(
             dataset_url(self.model, self.cycle, hour) + q,
             timeout=180,
             retries=request_retries,
@@ -222,7 +249,7 @@ class LakeModel:
                 f"{self.model['id']} depth is unavailable from NOAA_NODD_AWS"
             )
         if self._depth_levels_m is None:
-            raw = parse_dods(net.fetch(
+            raw = parse_dods(_fetch_thredds(
                 dataset_url(self.model, self.cycle, 0) + ".dods?Depth",
                 timeout=120,
                 retries=request_retries,
@@ -270,7 +297,7 @@ class LakeModel:
         ny, nx = self.shape
         slab = f"[0:1:0][{k0}:1:{k1}][0:1:{ny - 1}][0:1:{nx - 1}]"
         q = ".dods?temp" + slab.replace("[", "%5B").replace("]", "%5D")
-        payload = net.fetch(
+        payload = _fetch_thredds(
             dataset_url(self.model, self.cycle, hour) + q,
             timeout=240,
             retries=request_retries,
@@ -288,8 +315,8 @@ class LakeModel:
 
 def _distribution_complete(model, cycle, distribution):
     if distribution == "thredds":
-        net.fetch(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
-        raw = parse_dods(net.fetch(dataset_url(model, cycle, 0) + ".dods?Depth", timeout=60, retries=2))
+        _fetch_thredds(dataset_url(model, cycle, 120) + ".dds", timeout=30, retries=2)
+        raw = parse_dods(_fetch_thredds(dataset_url(model, cycle, 0) + ".dods?Depth", timeout=60, retries=2))
         levels = np.asarray(raw.get("Depth"), np.float64).reshape(-1)
         return levels.size >= 2 and np.all(np.isfinite(levels)) and np.all(np.diff(levels) > 0)
     if distribution == "nodd":
@@ -297,6 +324,27 @@ def _distribution_complete(model, cycle, distribution):
         net.head(aws_dataset_url(model, cycle, 120), timeout=15, retries=2)
         return True
     raise ValueError(f"unsupported NOAA distribution {distribution!r}")
+
+
+def probe_thredds(cycles):
+    """Cheap serial probe of both ends of every model's current cycle."""
+    required = {model["id"] for model in OFS_MODELS}
+    if set(cycles) != required or len(set(cycles.values())) != 1:
+        raise SurfaceDataUnavailable("THREDDS probe requires one cycle for all four models")
+    scalar = "%5B0:1:0%5D%5B0:1:0%5D%5B0:1:0%5D%5B0:1:0%5D"
+    for model in OFS_MODELS:
+        cycle = cycles[model["id"]]
+        _fetch_thredds(
+            dataset_url(model, cycle, 0) + ".dods?temp" + scalar,
+            timeout=30,
+            retries=1,
+        )
+        _fetch_thredds(
+            dataset_url(model, cycle, 120) + ".dds",
+            timeout=30,
+            retries=1,
+        )
+    return True
 
 
 def select_depth_distribution(cycles, requested="auto", validated_models=NODD_DEPTH_VALIDATED_MODELS):
