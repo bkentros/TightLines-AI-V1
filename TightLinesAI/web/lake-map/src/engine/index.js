@@ -165,7 +165,7 @@ export async function createLakeMap(container, options = {}) {
     const u = (blend(Wd, (f) => sampleWind(f, lon, lat, 0)) - g.wind.offset) / g.wind.scale;
     const v = (blend(Wd, (f) => sampleWind(f, lon, lat, 1)) - g.wind.offset) / g.wind.scale;
     const waves = blend(Wv, (f) => near((x, y) => sampleWaves(f, x, y), wr)) / g.waves.scale;
-    return { temp, wind: Math.hypot(u, v), windFrom: (Math.atan2(-u, -v) * 180 / Math.PI + 360) % 360, u, v, waves };
+    return { temp, tempReady: store.isLoaded('temp', t), wind: Math.hypot(u, v), windFrom: (Math.atan2(-u, -v) * 180 / Math.PI + 360) % 360, u, v, waves };
   }
   const depthSamplers = new WeakMap();
   function sampleDepthFast(lon, lat, t = state.t) {
@@ -194,12 +194,14 @@ export async function createLakeMap(container, options = {}) {
       }
       return NaN;
     };
+    const inModelDomain = lon >= store.manifest.domain.west && lon <= store.manifest.domain.east
+      && lat >= store.manifest.domain.south && lat <= store.manifest.domain.north;
     const kind = waterKind(lon, lat);
     const hdDepth = kind === 'lake' ? statics.depthAt(lon, lat, refresh) : NaN;
     const depth = kind !== 'lake' ? NaN : Number.isFinite(hdDepth) ? hdDepth : sampleDepth(store.depth, lon, lat) / g.depth.scale;
     const depthNear = Number.isFinite(depth) ? depth : near((x, y) => sampleDepth(store.depth, x, y), g.depth.res) / g.depth.scale;
     const below = sampleDepthFast(lon, lat, t);
-    return { ...fast, tempDepth: below.temp, tempDepthReady: below.ready, depth, depthNear, onWater: kind === 'lake', harbor: kind === 'harbor', kind };
+    return { ...fast, tempDepth: below.temp, tempDepthReady: below.ready, depth, depthNear, onWater: kind === 'lake', harbor: kind === 'harbor', outsideCoverage: !inModelDomain, kind };
   }
   /**
    * 'lake' (Great Lakes water with model data), 'harbor' (rivers and harbor lakes:
