@@ -8,11 +8,18 @@ import {
   SURFACE_STALE_HOURS,
   easternMondayMorningKey,
   evaluateIncidents,
+  evaluatePierCastObservation,
   initialState,
+  PIER_CAST_STALE_HOURS,
   parseWorkflowMetrics,
   weeklySummary,
 } from '../alerts/logic.js';
-import worker, { ingestWorkflowRuns, mapPass, sendEmail } from '../alerts/worker.js';
+import worker, {
+  ingestWorkflowRuns,
+  mapPass,
+  readPierCastFreshness,
+  sendEmail,
+} from '../alerts/worker.js';
 import { verifyPass } from '../gate/worker.js';
 
 const now = new Date('2026-10-14T16:00:00Z');
@@ -68,6 +75,45 @@ test('delivery failure and recovery transition once per incident', () => {
   assert.match(state.outbox[0].subject, /RECOVERY: DELIVERY FAILED/);
 });
 
+test('PierCast stale opens once above 10 hours and recovers at the threshold', () => {
+  assert.equal(PIER_CAST_STALE_HOURS, 10);
+  let state = evaluatePierCastObservation(initialState(), {
+    ok: true, sourceIssuedAt: '2026-10-14T05:59:00Z',
+  }, now);
+  assert.equal(state.incidents.pierCastStale.active, true);
+  assert.equal(state.outbox.filter((item) => item.type === 'pierCastStale').length, 1);
+  state.outbox = [];
+  state = evaluatePierCastObservation(state, {
+    ok: true, sourceIssuedAt: '2026-10-14T05:59:00Z',
+  }, new Date('2026-10-14T16:30:00Z'));
+  assert.equal(state.outbox.length, 0);
+  state = evaluatePierCastObservation(state, {
+    ok: true, sourceIssuedAt: '2026-10-14T07:00:00Z',
+  }, new Date('2026-10-14T17:00:00Z'));
+  assert.equal(state.incidents.pierCastStale.active, false);
+  assert.match(state.outbox[0].subject, /RECOVERY: PIERCAST STALE/);
+});
+
+test('PierCast malformed and 5xx responses share a separate availability incident', () => {
+  let state = evaluatePierCastObservation(initialState(), {
+    ok: false, status: 503, failureType: 'http_5xx', details: 'HTTP 503',
+  }, now);
+  assert.equal(state.incidents.pierCastUnavailable.active, true);
+  assert.equal(state.incidents.pierCastStale.active, false);
+  assert.equal(state.pierCast.records.at(-1).failureType, 'http_5xx');
+  state.outbox = [];
+  state = evaluatePierCastObservation(state, {
+    ok: false, failureType: 'malformed', details: 'missing sourceIssuedAt',
+  }, new Date('2026-10-14T16:30:00Z'));
+  assert.equal(state.outbox.length, 0, 'one availability email per incident');
+  assert.equal(state.pierCast.records.at(-1).failureType, 'malformed');
+  state = evaluatePierCastObservation(state, {
+    ok: true, sourceIssuedAt: '2026-10-14T12:00:00Z',
+  }, new Date('2026-10-14T17:00:00Z'));
+  assert.equal(state.incidents.pierCastUnavailable.active, false);
+  assert.match(state.outbox[0].subject, /RECOVERY: PIERCAST AVAILABILITY/);
+});
+
 test('weekly summary is due Monday at 9 Eastern across DST and aggregates metrics', () => {
   assert.equal(easternMondayMorningKey(new Date('2026-10-19T13:00:00Z')), '2026-10-19');
   assert.equal(easternMondayMorningKey(new Date('2026-11-02T14:30:00Z')), '2026-11-02');
@@ -88,6 +134,39 @@ test('weekly summary is due Monday at 9 Eastern across DST and aggregates metric
   assert.equal(summary.retries, 2);
   assert.equal(summary.fallbacks, 1);
   assert.match(summary.text, /median 10\.0 min; worst 10\.0 min/);
+  assert.deepEqual(summary.pierCast, { checks: 0, cycles: 0, stale: 0, unavailable: 0 });
+});
+
+test('weekly summary includes PierCast freshness and availability totals', () => {
+  const state = initialState();
+  state.pierCast.records.push(
+    { checkedAt: '2026-10-19T12:00:00Z', available: true, stale: false, sourceIssuedAt: '2026-10-19T06:00:00Z' },
+    { checkedAt: '2026-10-19T12:30:00Z', available: true, stale: true, sourceIssuedAt: '2026-10-19T00:00:00Z' },
+    { checkedAt: '2026-10-19T12:45:00Z', available: false, failureType: 'http_5xx' },
+  );
+  const summary = weeklySummary(state, new Date('2026-10-19T13:00:00Z'));
+  assert.deepEqual(summary.pierCast, { checks: 3, cycles: 2, stale: 1, unavailable: 1 });
+  assert.match(summary.text, /PierCast freshness checks: 3; distinct cycles 2; stale 1; unavailable\/malformed 1/);
+});
+
+test('PierCast public observation separates fresh, 5xx and malformed responses', async () => {
+  const env = { SUPABASE_ANON_KEY: 'anon-test' };
+  let request;
+  const fresh = await readPierCastFreshness(env, async (url, init) => {
+    request = { url, init };
+    return Response.json({ sourceIssuedAt: '2026-10-14T12:00:00Z' });
+  });
+  assert.equal(fresh.ok, true);
+  assert.match(request.url, /pier-cast\/conditions\/leaderboard/);
+  assert.equal(request.init.headers.apikey, 'anon-test');
+  assert.doesNotMatch(request.url, /anon-test/);
+  const unavailable = await readPierCastFreshness(env, async () => new Response('', { status: 503 }));
+  assert.deepEqual(unavailable, {
+    ok: false, status: 503, failureType: 'http_5xx',
+    details: 'The public PierCast endpoint returned HTTP 503.',
+  });
+  const malformed = await readPierCastFreshness(env, async () => Response.json({ generatedAt: now.toISOString() }));
+  assert.equal(malformed.failureType, 'malformed');
 });
 
 test('workflow log metrics capture sources, retries, fallbacks and pointer lag inputs', () => {
@@ -219,7 +298,7 @@ test('alert checks use the same short-lived signed pass contract as production u
   assert.equal(await verifyPass(token, 'wrong-secret', Math.floor(nowMs / 1000)), false);
 });
 
-test('test endpoint is authenticated and clearly labels both messages', async () => {
+test('test endpoint is authenticated and clearly labels all messages', async () => {
   const bucket = { get: async () => null };
   const env = { BUCKET: bucket, ALERT_TEST_TOKEN: 'test-auth', RESEND_API_KEY: 'resend' };
   const originalFetch = globalThis.fetch;
@@ -231,7 +310,7 @@ test('test endpoint is authenticated and clearly labels both messages', async ()
   try {
     const denied = await worker.fetch(new Request('https://alerts.example/__test/alert', { method: 'POST' }), env);
     assert.equal(denied.status, 404);
-    for (const kind of ['alert', 'weekly']) {
+    for (const kind of ['alert', 'piercast', 'weekly']) {
       const response = await worker.fetch(new Request(`https://alerts.example/__test/${kind}`, {
         method: 'POST', headers: { authorization: 'Bearer test-auth' },
       }), env);
@@ -241,7 +320,10 @@ test('test endpoint is authenticated and clearly labels both messages', async ()
   assert.match(emails[0].subject, /^TEST —/);
   assert.match(emails[0].text, /no production incident was created/);
   assert.match(emails[1].subject, /^TEST —/);
-  assert.match(emails[1].text, /TEST ONLY/);
+  assert.match(emails[1].subject, /PierCast freshness/);
+  assert.match(emails[1].text, /no production incident was created/i);
+  assert.match(emails[2].subject, /^TEST —/);
+  assert.match(emails[2].text, /TEST ONLY/);
 });
 
 test('authenticated repair clears only the known skipped-delivery false alarm and sends recovery', async () => {

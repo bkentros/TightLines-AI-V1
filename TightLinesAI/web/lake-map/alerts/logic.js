@@ -1,8 +1,15 @@
 export const SURFACE_STALE_HOURS = 9;
 export const DEPTH_MISMATCH_CYCLES = 2;
+export const PIER_CAST_STALE_HOURS = 10;
 export const STATE_VERSION = 1;
 
-const INCIDENTS = ['surfaceStale', 'depthMismatch', 'deliveryFailed'];
+const INCIDENTS = [
+  'surfaceStale',
+  'depthMismatch',
+  'deliveryFailed',
+  'pierCastStale',
+  'pierCastUnavailable',
+];
 
 export function initialState() {
   return {
@@ -10,6 +17,7 @@ export function initialState() {
     incidents: Object.fromEntries(INCIDENTS.map((key) => [key, { active: false }])),
     mismatch: { consecutiveCycles: 0, lastSurfaceRun: null },
     github: { seenRunIds: [], records: [] },
+    pierCast: { records: [] },
     outbox: [],
     alertHistory: [],
     lastWeeklyKey: null,
@@ -32,6 +40,8 @@ export function normalizeState(raw) {
     ? raw.github.seenRunIds.filter(Number.isSafeInteger).slice(-100) : [];
   clean.github.records = Array.isArray(raw.github?.records)
     ? raw.github.records.filter((item) => item && typeof item === 'object').slice(-40) : [];
+  clean.pierCast.records = Array.isArray(raw.pierCast?.records)
+    ? raw.pierCast.records.filter((item) => item && typeof item === 'object').slice(-400) : [];
   clean.outbox = Array.isArray(raw.outbox)
     ? raw.outbox.filter((item) => item?.id && item?.subject).slice(-20) : [];
   clean.alertHistory = Array.isArray(raw.alertHistory)
@@ -62,6 +72,8 @@ function queueTransition(state, key, active, now, details) {
     surfaceStale: 'SURFACE STALE',
     depthMismatch: 'DEPTH MISMATCH',
     deliveryFailed: 'DELIVERY FAILED',
+    pierCastStale: 'PIERCAST STALE',
+    pierCastUnavailable: 'PIERCAST AVAILABILITY',
   }[key];
   const transition = active ? 'OPEN' : 'RECOVERY';
   const id = `lake-map-${key}-${transition.toLowerCase()}-${at}`;
@@ -79,6 +91,56 @@ function queueTransition(state, key, active, now, details) {
       : `RECOVERY — ${label} is back to normal.\n\n${details}\n\nCleared: ${at}`,
   });
   state.outbox = state.outbox.slice(-20);
+}
+
+export function evaluatePierCastObservation(rawState, observation, now = new Date()) {
+  const state = normalizeState(rawState);
+  const at = now.toISOString();
+  if (!observation?.ok) {
+    const detail = observation?.details || 'The public PierCast response was unavailable.';
+    queueTransition(state, 'pierCastUnavailable', true, now, detail);
+    state.pierCast.records.push({
+      checkedAt: at,
+      available: false,
+      failureType: observation?.failureType || 'unknown',
+      status: Number.isInteger(observation?.status) ? observation.status : null,
+    });
+    state.pierCast.records = state.pierCast.records.slice(-400);
+    return state;
+  }
+
+  const age = surfaceAgeHours(observation.sourceIssuedAt, now);
+  if (age == null) {
+    return evaluatePierCastObservation(state, {
+      ok: false,
+      failureType: 'malformed',
+      details: 'The public PierCast response did not contain a valid sourceIssuedAt timestamp.',
+    }, now);
+  }
+
+  queueTransition(
+    state,
+    'pierCastUnavailable',
+    false,
+    now,
+    `The public PierCast endpoint is healthy and serves cycle ${observation.sourceIssuedAt}.`,
+  );
+  queueTransition(
+    state,
+    'pierCastStale',
+    age > PIER_CAST_STALE_HOURS,
+    now,
+    `PierCast serves ${observation.sourceIssuedAt} (${age.toFixed(1)} hours old; threshold ${PIER_CAST_STALE_HOURS} hours).`,
+  );
+  state.pierCast.records.push({
+    checkedAt: at,
+    available: true,
+    sourceIssuedAt: observation.sourceIssuedAt,
+    ageHours: Number(age.toFixed(3)),
+    stale: age > PIER_CAST_STALE_HOURS,
+  });
+  state.pierCast.records = state.pierCast.records.slice(-400);
+  return state;
 }
 
 export function clearSkippedDeliveryFalseAlarm(rawState, now = new Date()) {
@@ -209,6 +271,14 @@ export function weeklySummary(rawState, now = new Date()) {
     if (depthLag != null) depthLags.push(depthLag);
   }
   const alerts = state.alertHistory.filter((item) => (parseTime(item.at) || 0) >= since);
+  const pierCastRecords = state.pierCast.records.filter(
+    (record) => (parseTime(record.checkedAt) || 0) >= since,
+  );
+  const pierCastUnavailable = pierCastRecords.filter((record) => !record.available).length;
+  const pierCastStale = pierCastRecords.filter((record) => record.available && record.stale).length;
+  const pierCastCycles = new Set(
+    pierCastRecords.map((record) => record.sourceIssuedAt).filter(Boolean),
+  ).size;
   const fmtLag = (values) => values.length
     ? `median ${median(values).toFixed(1)} min; worst ${Math.max(...values).toFixed(1)} min`
     : 'unavailable';
@@ -221,10 +291,26 @@ export function weeklySummary(rawState, now = new Date()) {
     `Retries: ${retries}; fallbacks: ${fallbacks}`,
     `Surface lag from first observed NOAA completion: ${fmtLag(surfaceLags)}`,
     `Depth lag from first observed NOAA completion: ${fmtLag(depthLags)}`,
+    `PierCast freshness checks: ${pierCastRecords.length}; distinct cycles ${pierCastCycles}; stale ${pierCastStale}; unavailable/malformed ${pierCastUnavailable}`,
     `Alert transitions: ${alerts.length}`,
     ...alerts.map((item) => `- ${item.at} ${item.transition} ${item.type}`),
   ].join('\n');
-  return { cycles: cycles.length, expected: 28, sourceCounts, depthSourceCounts, retries, fallbacks, alerts, text };
+  return {
+    cycles: cycles.length,
+    expected: 28,
+    sourceCounts,
+    depthSourceCounts,
+    retries,
+    fallbacks,
+    alerts,
+    pierCast: {
+      checks: pierCastRecords.length,
+      cycles: pierCastCycles,
+      stale: pierCastStale,
+      unavailable: pierCastUnavailable,
+    },
+    text,
+  };
 }
 
 function timestampFor(log, pattern) {

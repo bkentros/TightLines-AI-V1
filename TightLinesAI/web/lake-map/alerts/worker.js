@@ -2,6 +2,7 @@ import {
   clearSkippedDeliveryFalseAlarm,
   easternMondayMorningKey,
   evaluateIncidents,
+  evaluatePierCastObservation,
   initialState,
   normalizeState,
   parseWorkflowMetrics,
@@ -15,6 +16,7 @@ const MAP_URL = 'https://map.finfindr.app';
 const STATE_KEY = 'state/lake-map-alerts.json';
 const EMAIL_TO = 'brandonkentros@icloud.com';
 const EMAIL_FROM = 'FinFindr <support@finfindr.app>';
+const PIER_CAST_URL = 'https://hsesngprhpgajyfbrwbf.supabase.co/functions/v1/pier-cast/conditions/leaderboard?speciesId=chinook_salmon';
 
 const jsonHeaders = { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' };
 
@@ -60,6 +62,57 @@ export async function readPublicPointers(env, fetchImpl = fetch, now = Date.now(
     depthEnabled,
     depthRun: depth?.run || null,
   };
+}
+
+export async function readPierCastFreshness(env, fetchImpl = fetch) {
+  if (!env.SUPABASE_ANON_KEY) throw new Error('SUPABASE_ANON_KEY is not configured');
+  let response;
+  try {
+    response = await fetchImpl(PIER_CAST_URL, {
+      headers: {
+        accept: 'application/json',
+        apikey: env.SUPABASE_ANON_KEY,
+        authorization: `Bearer ${env.SUPABASE_ANON_KEY}`,
+      },
+      cache: 'no-store',
+    });
+  } catch (error) {
+    return {
+      ok: false,
+      failureType: 'network',
+      details: `The public PierCast request failed (${error?.name || 'network error'}).`,
+    };
+  }
+  if (!response.ok) {
+    const failureType = response.status >= 500 ? 'http_5xx' : 'http_error';
+    return {
+      ok: false,
+      status: response.status,
+      failureType,
+      details: `The public PierCast endpoint returned HTTP ${response.status}.`,
+    };
+  }
+  let body;
+  try {
+    body = await response.json();
+  } catch {
+    return {
+      ok: false,
+      status: response.status,
+      failureType: 'malformed',
+      details: 'The public PierCast endpoint returned malformed JSON.',
+    };
+  }
+  if (!body || typeof body.sourceIssuedAt !== 'string'
+      || !Number.isFinite(Date.parse(body.sourceIssuedAt))) {
+    return {
+      ok: false,
+      status: response.status,
+      failureType: 'malformed',
+      details: 'The public PierCast response did not contain a valid sourceIssuedAt timestamp.',
+    };
+  }
+  return { ok: true, status: response.status, sourceIssuedAt: body.sourceIssuedAt };
 }
 
 function githubHeaders(env) {
@@ -166,7 +219,14 @@ async function drainOutbox(state, env, fetchImpl, log) {
 
 export async function runAlertCheck(env, scheduledTime = Date.now(), fetchImpl = fetch, log = console.log) {
   let state = await readState(env);
-  const pointers = await readPublicPointers(env, fetchImpl, scheduledTime);
+  const [pointers, pierCast] = await Promise.all([
+    readPublicPointers(env, fetchImpl, scheduledTime),
+    readPierCastFreshness(env, fetchImpl).catch((error) => ({
+      ok: false,
+      failureType: 'configuration',
+      details: `PierCast freshness observation failed (${error?.name || 'Error'}).`,
+    })),
+  ]);
   let workflow;
   try {
     workflow = await ingestWorkflowRuns(state, env, fetchImpl);
@@ -180,6 +240,7 @@ export async function runAlertCheck(env, scheduledTime = Date.now(), fetchImpl =
     deliveryFailed: workflow.latestDelivery ? workflow.latestDelivery.failed : null,
     deliveryDetails: workflow.latestDelivery?.details,
   }, new Date(scheduledTime));
+  state = evaluatePierCastObservation(state, pierCast, new Date(scheduledTime));
   await writeState(env, state);
   await drainOutbox(state, env, fetchImpl, log);
 
@@ -195,8 +256,17 @@ export async function runAlertCheck(env, scheduledTime = Date.now(), fetchImpl =
     await writeState(env, state);
     log(JSON.stringify({ event: 'lake_map_weekly_email', week: weeklyKey }));
   }
-  log(JSON.stringify({ event: 'lake_map_alert_check', ...pointers }));
-  return { state, pointers };
+  log(JSON.stringify({
+    event: 'lake_map_alert_check',
+    ...pointers,
+    pierCast: {
+      ok: pierCast.ok,
+      status: pierCast.status || null,
+      sourceIssuedAt: pierCast.sourceIssuedAt || null,
+      failureType: pierCast.failureType || null,
+    },
+  }));
+  return { state, pointers, pierCast };
 }
 
 function authorizedTest(request, env) {
@@ -207,7 +277,7 @@ function authorizedTest(request, env) {
 async function testMessage(request, env, fetchImpl = fetch) {
   if (!authorizedTest(request, env)) return new Response('Not found', { status: 404 });
   const kind = new URL(request.url).pathname.split('/').pop();
-  if (!['alert', 'weekly'].includes(kind)) return new Response('Not found', { status: 404 });
+  if (!['alert', 'weekly', 'piercast'].includes(kind)) return new Response('Not found', { status: 404 });
   const now = new Date();
   const state = await readState(env);
   const message = kind === 'alert'
@@ -215,6 +285,12 @@ async function testMessage(request, env, fetchImpl = fetch) {
       id: `lake-map-test-alert-${now.toISOString()}`,
       subject: 'TEST — FinFindr Live Lake Map alert delivery',
       text: `TEST ONLY — no production incident was created.\n\nSent ${now.toISOString()}.`,
+    }
+    : kind === 'piercast'
+    ? {
+      id: `lake-map-test-piercast-${now.toISOString()}`,
+      subject: 'TEST — FinFindr PierCast freshness alert',
+      text: `TEST ONLY — PierCast freshness alert delivery. No production incident was created.\n\nSent ${now.toISOString()}.`,
     }
     : {
       id: `lake-map-test-weekly-${now.toISOString()}`,
