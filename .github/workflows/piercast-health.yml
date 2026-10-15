@@ -26,11 +26,11 @@ jobs:
       run:
         working-directory: TightLinesAI/web/lake-map
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: |
             TightLinesAI/web/lake-map/job
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install
