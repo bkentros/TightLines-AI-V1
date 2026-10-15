@@ -334,14 +334,15 @@ class CycleTest(unittest.TestCase):
 
     def test_workflow_checks_noaa_release_windows_without_exceeding_budget(self):
         root_workflow = JOB.parents[3] / ".github/workflows/lake-map-data.yml"
-        mirror_workflow = JOB / "lake-map-data.workflow.yml"
         root_text = root_workflow.read_text()
-        self.assertEqual(root_text, mirror_workflow.read_text())
+        self.assertFalse((JOB / "lake-map-data.workflow.yml").exists())
         self.assertNotIn("supabase/migrations", root_text)
         self.assertNotIn("lake-map-validation.yml", root_text)
         self.assertIn("!/TightLinesAI/web/lake-map/job/scorecard*.py", root_text)
         self.assertIn("!/TightLinesAI/web/lake-map/job/tests/test_scorecard*.py", root_text)
-        self.assertIn("Verify scorecard isolation", root_text)
+        self.assertNotIn("Verify scorecard isolation", root_text)
+        self.assertNotIn("python -m unittest", root_text)
+        self.assertNotIn("node --test", root_text)
         crons = re.findall(r'cron:\s*"([^"]+)"', root_text)
         self.assertEqual(crons, [
             "45 2,8,14,20 * * *",
@@ -353,6 +354,30 @@ class CycleTest(unittest.TestCase):
         self.assertIn("cancel-in-progress: false", root_text)
         self.assertIn("needs.build.outputs.surface_published == 'true'", root_text)
         self.assertEqual(4, OPEN_METEO_MAX_RUNS_PER_DAY)  # one coherent publication per NOAA cycle
+
+    def test_pipeline_workflows_share_action_pins_and_ci_owns_repo_tests(self):
+        workflows = JOB.parents[3] / ".github/workflows"
+        data_text = (workflows / "lake-map-data.yml").read_text()
+        ci_text = (workflows / "lake-map-ci.yml").read_text()
+        health_text = (workflows / "piercast-health.yml").read_text()
+
+        def versions(text, action):
+            return set(re.findall(rf"uses:\s*actions/{action}@(v\d+)", text))
+
+        for action in ("checkout", "setup-python", "setup-node"):
+            expected = versions(ci_text, action)
+            if versions(data_text, action):
+                self.assertEqual(versions(data_text, action), expected)
+        self.assertEqual(versions(health_text, "setup-python"), versions(ci_text, "setup-python"))
+        self.assertIn("python -m unittest discover -s job/tests", ci_text)
+        self.assertIn("node --test test/*.test.mjs job/*.test.mjs", ci_text)
+        self.assertIn('python job/build.py --out "$RUNNER_TEMP/lake-map-canary"', ci_text)
+        self.assertNotIn('lake-map-canary" --upload', ci_text)
+
+        dependabot = (JOB.parents[3] / ".github/dependabot.yml").read_text()
+        self.assertIn("pipeline-actions:", dependabot)
+        self.assertIn("- pipeline", dependabot)
+        self.assertIn('patterns:\n          - "*"', dependabot)
 
     def test_publication_requires_every_model_on_the_same_cycle(self):
         complete = {model["id"]: CYCLE for model in build.OFS_MODELS}

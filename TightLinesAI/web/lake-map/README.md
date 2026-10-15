@@ -145,9 +145,10 @@ the staging bucket, so an app-issued pass cannot reach production through stagin
 `static-build/feature.py` are the staging setup tools. Staging depth objects
 under `runs/tdepth-` expire after 14 days.
 
-The active workflow is `.github/workflows/lake-map-data.yml`. Its checked-in
-mirror under `job/` stays byte-identical; the parity test prevents either copy
-from drifting.
+The active and only workflow definition is `.github/workflows/lake-map-data.yml`.
+The former copies under `job/` were bootstrap artifacts from when tooling could
+not write `.github`; nothing executes or consumes them, and they were removed so
+workflow definitions cannot drift.
 
 ## Live Lake Map operations
 
@@ -175,6 +176,28 @@ Two consecutive healthy cycle probes close the circuit for the following
 cycle. Logs state the chosen source and reason.
 
 ### Delivery, monitoring and rollback
+
+The scheduled publish path installs only runtime dependencies and runs the
+builder's candidate-data gates: common complete NOAA cycle across all four
+models, complete 0–120-hour fields, finite-value/coverage sanity, coherent
+single-source output, and pointer-last delivery verification. Repository
+hygiene, unit and workflow-policy tests never block the scheduler before data
+discovery. They run in the required `lake-map-tests` PR check whenever a PR
+touches `web/lake-map/`, any GitHub workflow, Dependabot policy, or the
+scheduler/alerts Workers.
+
+Every matching push to `main` also runs `lake-map-dry-run-canary`: a full build
+against the latest complete NOAA cycle with no `--upload`, R2 write, or pointer
+write. A failure immediately calls the alerts Worker with `PIPELINE BROKEN`;
+two consecutive executed production-workflow failures open the transition-only
+`PIPELINE FAILING` incident, including job, step and first error line, and the
+next successful execution sends recovery.
+
+GitHub Actions updates are one weekly Dependabot group labeled `pipeline` and
+are never auto-merged. Before merging one, require the full PR suite and
+manually dispatch `Lake map CI` on that branch to prove the no-upload canary.
+Do not merge unattended overnight pipeline changes, and make one production
+pipeline change at a time.
 
 `finfindr-lake-map-alerts` runs independently of GitHub every 30 minutes. It
 reads the authenticated public surface, depth and feature URLs, stores incident
@@ -212,7 +235,8 @@ credentials live in `TightLinesAI/.env` (git-ignored): `R2_ACCOUNT_ID`,
 `PIER_CAST_MAP_PASS_SECRET`. Install Worker copies only with
 `wrangler secret put`: the scheduler uses `GITHUB_ACTIONS_TOKEN`; alerts use
 `GITHUB_ACTIONS_TOKEN`, `RESEND_API_KEY`, `PIER_CAST_MAP_PASS_SECRET`, and
-`ALERT_TEST_TOKEN`; the gate uses `MAP_PASS_SECRET` corresponding to
+`ALERT_TEST_TOKEN`, plus `PIPELINE_ALERT_TOKEN` shared only with the repository
+Actions secret; the gate uses `MAP_PASS_SECRET` corresponding to
 `PIER_CAST_MAP_PASS_SECRET`.
 
 Renewal record (audited 2026-10-14): GitHub's repository API does not expose the

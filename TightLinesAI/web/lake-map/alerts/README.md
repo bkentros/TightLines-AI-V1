@@ -15,6 +15,8 @@ Production secrets are installed only with `wrangler secret put`:
 - `ALERT_TEST_TOKEN` — protects the two explicit test-delivery endpoints.
 - `SUPABASE_ANON_KEY` — calls the public PierCast leaderboard through the same
   production endpoint as clients. The key is a Worker secret, never source.
+- `PIPELINE_ALERT_TOKEN` — authenticates the post-merge dry-run canary callback;
+  the same value is stored as a GitHub Actions repository secret.
 
 The authenticated `POST /__test/alert`, `POST /__test/piercast`, and
 `POST /__test/weekly` endpoints send clearly labeled test messages without
@@ -27,3 +29,10 @@ minutes. A cycle older than 10 hours opens `PIERCAST STALE`; 10 hours or less
 recovers it. Network failures, non-success HTTP responses, malformed JSON, and
 missing/invalid timestamps open the separate `PIERCAST AVAILABILITY` incident.
 Both are transition-only and are included in the Monday weekly totals.
+
+The Worker also watches completed `Lake map data` runs. Two consecutive
+executed failures open `PIPELINE FAILING` with the failed job, step and first
+error line; the next successful execution sends recovery. A post-merge
+no-upload canary can open `PIPELINE BROKEN` immediately through the authenticated
+callback. Resend message IDs are persisted with alert history so accepted sends
+can be reconciled with provider delivery events.

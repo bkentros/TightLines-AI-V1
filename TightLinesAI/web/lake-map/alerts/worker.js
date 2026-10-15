@@ -1,7 +1,9 @@
 import {
   clearSkippedDeliveryFalseAlarm,
   easternMondayMorningKey,
+  evaluateCanary,
   evaluateIncidents,
+  evaluatePipelineRun,
   evaluatePierCastObservation,
   initialState,
   normalizeState,
@@ -139,7 +141,7 @@ async function jobLog(jobId, env, fetchImpl) {
 }
 
 export async function ingestWorkflowRuns(rawState, env, fetchImpl = fetch) {
-  const state = normalizeState(rawState);
+  let state = normalizeState(rawState);
   const payload = await githubJson(`/actions/workflows/${WORKFLOW}/runs?status=completed&per_page=12`, env, fetchImpl);
   const seen = new Set(state.github.seenRunIds);
   const pending = (payload.workflow_runs || []).filter((run) => !seen.has(run.id))
@@ -148,6 +150,28 @@ export async function ingestWorkflowRuns(rawState, env, fetchImpl = fetch) {
   for (const run of pending) {
     const jobsPayload = await githubJson(`/actions/runs/${run.id}/jobs?per_page=20`, env, fetchImpl);
     const jobs = jobsPayload.jobs || [];
+    const executed = ['success', 'failure', 'timed_out'].includes(run.conclusion);
+    if (executed) {
+      const failed = ['failure', 'timed_out'].includes(run.conclusion);
+      const failedJob = failed
+        ? jobs.find((job) => ['failure', 'timed_out'].includes(job.conclusion))
+        : null;
+      const failedStep = failedJob?.steps?.find(
+        (step) => ['failure', 'timed_out'].includes(step.conclusion),
+      );
+      const failedLog = failedJob
+        ? await jobLog(failedJob.id, env, fetchImpl).catch(() => '')
+        : '';
+      state = evaluatePipelineRun(state, {
+        executed: true,
+        failed,
+        runId: run.id,
+        job: failedJob?.name,
+        step: failedStep?.name,
+        error: firstErrorLine(failedLog),
+        url: run.html_url,
+      }, new Date(run.updated_at || run.created_at));
+    }
     const delivery = jobs.find((job) => job.name === 'delivery');
     const deliveryRan = delivery && ['success', 'failure', 'timed_out'].includes(delivery.conclusion);
     if (deliveryRan) {
@@ -173,6 +197,15 @@ export async function ingestWorkflowRuns(rawState, env, fetchImpl = fetch) {
   }
   state.github.seenRunIds = [...seen].slice(-100);
   return { state, latestDelivery };
+}
+
+export function firstErrorLine(log = '') {
+  const lines = String(log).split('\n').map((line) => line
+    .replace(/\u001b\[[0-9;]*m/g, '')
+    .replace(/^\S+\s+(?:Z\s+)?/, '')
+    .trim()).filter(Boolean);
+  const line = lines.find((entry) => /##\[error\]|\b(?:FAIL|ERROR|AssertionError|Traceback)\b|Error:/i.test(entry));
+  return (line || lines.at(-1) || 'unavailable').slice(0, 500);
 }
 
 async function readState(env) {
@@ -202,19 +235,75 @@ export async function sendEmail(env, message, fetchImpl = fetch) {
   return response.json();
 }
 
+export async function listRecentEmails(env, fetchImpl = fetch) {
+  if (!env.RESEND_API_KEY) throw new Error('RESEND_API_KEY is not configured');
+  const response = await fetchImpl('https://api.resend.com/emails?limit=100', {
+    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, accept: 'application/json' },
+  });
+  if (!response.ok) throw new Error(`Resend email history returned HTTP ${response.status}`);
+  const payload = await response.json();
+  return Array.isArray(payload?.data) ? payload.data : [];
+}
+
 async function drainOutbox(state, env, fetchImpl, log) {
   const sent = [];
   while (state.outbox.length) {
     const message = state.outbox[0];
     const result = await sendEmail(env, message, fetchImpl);
+    if (!result?.id) throw new Error('Resend accepted an alert without returning a message ID');
     state.outbox.shift();
-    state.alertHistory.push({ type: message.type, transition: message.transition, at: message.at });
+    state.alertHistory.push({
+      type: message.type,
+      transition: message.transition,
+      at: message.at,
+      messageId: result.id,
+      lastEvent: 'accepted',
+    });
     state.alertHistory = state.alertHistory.slice(-100);
     await writeState(env, state);
     log(JSON.stringify({ event: 'lake_map_alert_email', type: message.type, transition: message.transition }));
     sent.push({ eventId: message.id, messageId: result?.id || null });
   }
   return sent;
+}
+
+function authorizedPipeline(request, env) {
+  return Boolean(env.PIPELINE_ALERT_TOKEN)
+    && request.headers.get('authorization') === `Bearer ${env.PIPELINE_ALERT_TOKEN}`;
+}
+
+async function pipelineCanary(request, env, fetchImpl = fetch) {
+  if (!authorizedPipeline(request, env)) return new Response('Not found', { status: 404 });
+  let observation;
+  try { observation = await request.json(); } catch { return new Response('Bad request', { status: 400 }); }
+  if (!['failure', 'timed_out', 'success'].includes(observation?.conclusion)) {
+    return new Response('Bad request', { status: 400 });
+  }
+  const bounded = {
+    conclusion: observation.conclusion,
+    runId: String(observation.runId || '').slice(0, 30),
+    job: String(observation.job || '').slice(0, 120),
+    step: String(observation.step || '').slice(0, 120),
+    error: String(observation.error || '').slice(0, 500),
+    url: /^https:\/\/github\.com\//.test(observation.url || '') ? observation.url : null,
+  };
+  const state = evaluateCanary(await readState(env), bounded, new Date());
+  await writeState(env, state);
+  const messages = await drainOutbox(state, env, fetchImpl, console.log);
+  return new Response(JSON.stringify({ ok: true, messages }), { status: 200, headers: jsonHeaders });
+}
+
+async function resendAudit(request, env, fetchImpl = fetch) {
+  if (!authorizedPipeline(request, env)) return new Response('Not found', { status: 404 });
+  const emails = await listRecentEmails(env, fetchImpl);
+  const records = emails.filter((email) => /FinFindr Live Lake Map/i.test(email.subject || ''))
+    .map((email) => ({
+      id: email.id,
+      createdAt: email.created_at,
+      subject: email.subject,
+      lastEvent: email.last_event || null,
+    }));
+  return new Response(JSON.stringify({ records }), { status: 200, headers: jsonHeaders });
 }
 
 export async function runAlertCheck(env, scheduledTime = Date.now(), fetchImpl = fetch, log = console.log) {
@@ -318,7 +407,10 @@ export default {
   },
   async fetch(request, env) {
     if (request.method !== 'POST') return new Response('Not found', { status: 404 });
-    if (new URL(request.url).pathname === '/__repair/delivery-skipped-false-alarm') {
+    const path = new URL(request.url).pathname;
+    if (path === '/__pipeline/canary') return pipelineCanary(request, env);
+    if (path === '/__audit/resend') return resendAudit(request, env);
+    if (path === '/__repair/delivery-skipped-false-alarm') {
       return repairSkippedDeliveryFalseAlarm(request, env);
     }
     return testMessage(request, env);

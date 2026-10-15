@@ -81,9 +81,8 @@ SYNC_ENVIRONMENT = {
 class ScorecardTest(unittest.TestCase):
     def test_validation_workflow_owns_scorecard_checks_and_replays(self):
         validation_workflow = JOB.parents[3] / ".github/workflows/lake-map-validation.yml"
-        validation_mirror = JOB / "lake-map-validation.workflow.yml"
         validation_text = validation_workflow.read_text()
-        self.assertEqual(validation_text, validation_mirror.read_text())
+        self.assertFalse((JOB / "lake-map-validation.workflow.yml").exists())
         self.assertIn('cron: "25 7 * * *"', validation_text)
         self.assertIn("python job/verify.py --upload", validation_text)
         self.assertIn("--fail-on-pipeline-error", validation_text)

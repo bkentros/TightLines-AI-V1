@@ -11,9 +11,8 @@ LOG="$LM/out/first-run.log"
 exec > >(tee "$LOG") 2>&1
 echo "== Live Lake Map first run — $(date)"
 
-# 1. GitHub workflow file into place (my tools can't write inside .github)
-mkdir -p "$ROOT/.github/workflows"
-cp "$LM/job/lake-map-data.workflow.yml" "$ROOT/.github/workflows/lake-map-data.yml" && echo "workflow file: ok"
+# 1. The GitHub workflow is the only source of truth (there is no job/ mirror).
+test -f "$ROOT/.github/workflows/lake-map-data.yml" && echo "workflow file: ok"
 
 # 2. Python 3.10+ in its own environment
 PY=""
