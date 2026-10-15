@@ -134,20 +134,42 @@ test("species filters normalize different source aspect ratios", () => {
   );
 });
 
-test("leaderboard fish art is enlarged for the leader and every ranked row", () => {
-  assert.match(standingsUi, /<PierCastFishCrop speciesId=\{speciesId\} width=\{fishWidth\}/);
-  assert.match(standingsUi, /windowWidth < 360 \? 92 : 112/);
-  assert.match(conditionsUi, /windowWidth < 360 \? 100 : 124/);
-  assert.match(
-    standingsUi,
-    /<Fish speciesId=\{speciesId\} width=\{96\} height=\{96\} \/>/,
+test("leaderboard and city report fish art is compact and never clipped", () => {
+  const stripUi = readFileSync(
+    resolve(root, "components/pier-cast/PierCastStatStrip.tsx"),
+    "utf8",
   );
   assert.match(
     standingsUi,
-    /leaderFish: \{ width: 104, height: 60, overflow: "hidden"/,
+    /<PierCastFishCrop speciesId=\{speciesId\} width=\{fishWidth\} height=\{34\} \/>/,
+  );
+  assert.match(standingsUi, /windowWidth < 360 \? 64 : 76/);
+  assert.match(conditionsUi, /windowWidth < 360 \? 64 : 76/);
+  assert.match(
+    standingsUi,
+    /<PierCastFishCrop speciesId=\{speciesId\} width=\{96\} height=\{46\} \/>/,
   );
   assert.match(
     conditionsUi,
-    /<PierCastFishCrop speciesId=\{card\.speciesId\} width=\{fishWidth\}/,
+    /<PierCastFishCrop speciesId=\{card\.speciesId\} width=\{fishWidth\} height=\{34\} \/>/,
   );
+  // The crop fits each image's measured fish bounds instead of one fixed
+  // ratio, so deep-bodied species such as drum are never cut off.
+  assert.match(stripUi, /PIER_CAST_SPECIES_IMAGE_BOUNDS\[speciesId\]/);
+  assert.match(stripUi, /Math\.min\(width \/ fishWidth, height \/ fishHeight\)/);
+});
+
+test("every PierCast species image has measured fish bounds inside the image", async () => {
+  const { PIER_CAST_SPECIES_IMAGE_BOUNDS } = await import(
+    "../lib/pierCastSpeciesImageBounds"
+  );
+  const speciesIds = [...imagesModule.matchAll(/^\s+(\w+): require\(/gm)].map((m) => m[1]);
+  assert.ok(speciesIds.length >= 19);
+  for (const speciesId of speciesIds) {
+    const bounds = PIER_CAST_SPECIES_IMAGE_BOUNDS[speciesId as keyof typeof PIER_CAST_SPECIES_IMAGE_BOUNDS];
+    assert.ok(bounds, speciesId);
+    assert.ok(bounds.left >= 0 && bounds.top >= 0, speciesId);
+    assert.ok(bounds.right <= bounds.imageWidth && bounds.bottom <= bounds.imageHeight, speciesId);
+    assert.ok(bounds.right - bounds.left > 0 && bounds.bottom - bounds.top > 0, speciesId);
+  }
 });

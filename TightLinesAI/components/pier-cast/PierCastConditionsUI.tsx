@@ -358,7 +358,7 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
   const style = card.band ? PIER_CAST_STANDINGS_BANDS[card.band] : null;
   const edge = card.ranked && style ? style.color : "#C9CCCF";
   const { width: windowWidth } = useWindowDimensions();
-  const fishWidth = windowWidth < 360 ? 100 : 124;
+  const fishWidth = windowWidth < 360 ? 64 : 76;
   return (
     <Reveal token={`sp-${card.speciesId}`} delay={Math.min(index, 6) * 70} reduceMotion={reduceMotion}>
       <Pressable
@@ -373,36 +373,34 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
         <View style={styles.spHead}>
           <View style={styles.spHeadText}>
+            <Text style={styles.spName}>{card.name}</Text>
             {card.standing ? (
               <View style={styles.spRibbon}>
-                <Ionicons name="trophy" size={11} color="#8A6A14" />
+                <Ionicons name="trophy" size={9} color="#8A6A14" />
                 <Text style={styles.spRibbonText}>
                   #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
                 </Text>
               </View>
             ) : null}
-            <Text style={styles.spName}>{card.name}</Text>
           </View>
-          <PierCastFishCrop speciesId={card.speciesId} width={fishWidth} style={styles.spFishBleed} />
+          <PierCastFishCrop speciesId={card.speciesId} width={fishWidth} height={34} />
+          <Ionicons name="chevron-forward" size={15} color={paper.dashboardBlue} />
         </View>
         <PierCastStatStrip
           band={card.ranked ? card.band : null}
           season={card.ranked ? card.seasonLine : null}
           unratedReason={card.ranked ? null : card.seasonLine}
+          compact
         />
         <View style={styles.spWater}>
           <View style={styles.spWaterHead}>
-            <Text style={styles.spKey}>WATER TODAY</Text>
-            <Text style={styles.spValue}>{card.waterLine ?? "Unavailable"}</Text>
+            <Text style={styles.spKey}>
+              <Text>WATER TODAY</Text>{"  "}
+              <Text style={styles.spValue}>{card.waterLine ?? "Unavailable"}</Text>
+            </Text>
+            {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : null}
           </View>
           <WaterFitBar card={card} />
-          <View style={styles.spFoot}>
-            {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : <View />}
-            <View style={styles.spGo}>
-              <Text style={styles.spGoText}>STANDINGS</Text>
-              <Ionicons name="arrow-forward" size={13} color={paper.dashboardBlue} />
-            </View>
-          </View>
         </View>
       </Pressable>
     </Reveal>
@@ -1044,27 +1042,23 @@ const styles = StyleSheet.create({
   calNote: { marginTop: 12, textAlign: "center", fontFamily: paperFonts.body, fontSize: 14, lineHeight: 19, color: "#444444" },
   calNoteStrong: { fontFamily: paperFonts.bodyBold, color: INK },
 
-  sp: { overflow: "hidden", marginTop: 12, paddingTop: 12, paddingBottom: 14, paddingRight: 14, paddingLeft: 18, borderWidth: 1.5, borderColor: "rgba(0,0,0,0.12)", borderRadius: 16, backgroundColor: "#FFFFFF", gap: 12 },
-  spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 6 },
-  spHead: { flexDirection: "row", alignItems: "center", minHeight: 60 },
-  spHeadText: { flex: 1, minWidth: 0, gap: 6, paddingRight: 6 },
-  spFishBleed: { marginVertical: -4 },
-  spName: { fontFamily: paperFonts.display, fontSize: 22, lineHeight: 26, color: INK },
-  spRibbon: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 5, paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, borderWidth: 1, borderColor: "rgba(212,175,55,0.65)", backgroundColor: "#FBF3DC" },
-  spRibbonText: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 9.5, letterSpacing: 0.8, color: "#6B5310" },
-  spWater: { paddingTop: 2 },
-  spWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 10, rowGap: 2 },
-  spKey: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.4, color: "#666666" },
-  spValue: { flexShrink: 1, fontFamily: paperFonts.bodyBold, fontSize: 15, color: INK },
-  spFoot: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", columnGap: 10, rowGap: 4, marginTop: 6 },
-  spSub: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 12, color: "#666666" },
-  spGo: { flexDirection: "row", alignItems: "center", gap: 4 },
-  spGoText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10, letterSpacing: 1.3, color: paper.dashboardBlue },
-  fitWrap: { marginTop: 7, height: 14, justifyContent: "center" },
-  fitBar: { flexDirection: "row", height: 6, borderRadius: 3, overflow: "hidden", gap: 2 },
-  fitBarEmpty: { marginTop: 11, backgroundColor: "#E6E6E0" },
-  fitSeg: { height: 6 },
-  fitPin: { position: "absolute", top: 0, width: 14, height: 14, marginLeft: -7, borderRadius: 7, borderWidth: 3, borderColor: INK, backgroundColor: "#FFFFFF" },
+  sp: { overflow: "hidden", marginTop: 8, paddingTop: 9, paddingBottom: 10, paddingRight: 10, paddingLeft: 14, borderWidth: 1, borderColor: "rgba(0,0,0,0.12)", borderRadius: 12, backgroundColor: "#FFFFFF", gap: 7 },
+  spEdge: { position: "absolute", left: 0, top: 0, bottom: 0, width: 4 },
+  spHead: { flexDirection: "row", alignItems: "center", gap: 6 },
+  spHeadText: { flex: 1, minWidth: 0, gap: 3 },
+  spName: { fontFamily: paperFonts.display, fontSize: 16, lineHeight: 20, color: INK },
+  spRibbon: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 999, borderWidth: 1, borderColor: "rgba(212,175,55,0.65)", backgroundColor: "#FBF3DC" },
+  spRibbonText: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 0.6, color: "#6B5310" },
+  spWater: {},
+  spWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 8, rowGap: 1 },
+  spKey: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 8.5, letterSpacing: 1.2, color: "#666666" },
+  spValue: { fontFamily: paperFonts.bodyBold, fontSize: 12.5, letterSpacing: 0, color: INK },
+  spSub: { fontFamily: paperFonts.body, fontSize: 11, color: "#666666" },
+  fitWrap: { marginTop: 5, height: 10, justifyContent: "center" },
+  fitBar: { flexDirection: "row", height: 4, borderRadius: 2, overflow: "hidden", gap: 2 },
+  fitBarEmpty: { marginTop: 8, backgroundColor: "#E6E6E0" },
+  fitSeg: { height: 4 },
+  fitPin: { position: "absolute", top: 0, width: 10, height: 10, marginLeft: -5, borderRadius: 5, borderWidth: 2.5, borderColor: INK, backgroundColor: "#FFFFFF" },
   moreButton: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 46, marginTop: 10, borderWidth: 1.5, borderColor: INK, borderRadius: 12, backgroundColor: "#FFFFFF" },
   moreText: { fontFamily: paperFonts.bodyBold, fontSize: 14, color: INK },
 
