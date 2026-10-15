@@ -373,6 +373,7 @@ class CycleTest(unittest.TestCase):
         self.assertIn("node --test test/*.test.mjs job/*.test.mjs", ci_text)
         self.assertIn('python job/canary.py --out "$RUNNER_TEMP/lake-map-canary"', ci_text)
         self.assertNotIn('lake-map-canary" --upload', ci_text)
+        self.assertIn("cancel-in-progress: ${{ github.event_name == 'pull_request' }}", ci_text)
 
         dependabot = (JOB.parents[3] / ".github/dependabot.yml").read_text()
         self.assertIn("pipeline-actions:", dependabot)
