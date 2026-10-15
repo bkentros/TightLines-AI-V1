@@ -85,6 +85,7 @@ export type PierCastLmhofsDiagnostic = {
     | "cycle_not_complete"
     | "cycle_stale"
     | "source_failover"
+    | "lake_map_surface"
     | "request_failed"
     | "invalid_provider_payload";
   message: string;

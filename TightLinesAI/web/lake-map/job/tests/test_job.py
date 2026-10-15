@@ -3,11 +3,15 @@
 Run:  python -m unittest discover -s job/tests   (from web/lake-map)
 """
 import json
+import http.client
 import os
 import re
 import sys
 import tempfile
+import threading
+import time
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import Mock, call, patch
@@ -41,8 +45,10 @@ class StoreTest(unittest.TestCase):
         s3 = RecordingS3()
         store.put(s3, "latest.json", b'{}', store.SHORT)
         store.put(s3, "runs/tdepth/latest.json", b'{}', store.SHORT)
+        store.put(s3, "runs/piercast/latest.json", b'{}', store.SHORT)
         store.put(s3, "runs/run/manifest.json", b'{}', store.IMMUTABLE)
         self.assertEqual([call["CacheControl"] for call in s3.calls], [
+            "public, max-age=60, must-revalidate",
             "public, max-age=60, must-revalidate",
             "public, max-age=60, must-revalidate",
             "public, max-age=31536000, immutable",
@@ -92,6 +98,100 @@ class StoreTest(unittest.TestCase):
             (run_dir / "verification.json").write_text('{"formatVersion":1}')
             store.upload_run(s3, run_dir, "test-run", {"run": "test-run"}, {"formatVersion": 1, "runs": []})
         self.assertCountEqual(s3.keys, ["runs/test-run/verification.json", "validation/forecast-index.json", "latest.json"])
+
+    def test_upload_writes_piercast_pointer_after_files_and_before_surface_pointer(self):
+        class PutOnlyS3:
+            def __init__(self):
+                self.keys = []
+
+            def put_object(self, **kwargs):
+                self.keys.append(kwargs["Key"])
+
+        s3 = PutOnlyS3()
+        with tempfile.TemporaryDirectory() as tmp:
+            run_dir = Path(tmp)
+            (run_dir / "piercast-points.json").write_text('{"formatVersion":1}')
+            store.upload_run(
+                s3, run_dir, "test-run", {"run": "test-run"},
+                piercast_pointer={"run": "test-run"},
+            )
+        self.assertEqual(s3.keys, [
+            "runs/test-run/piercast-points.json",
+            "runs/piercast/latest.json",
+            "latest.json",
+        ])
+
+
+class NetworkPolicyTest(unittest.TestCase):
+    def setUp(self):
+        self.previous_gate = net.THREDDS_GATE
+        net.THREDDS_GATE = net.RequestGate(3)
+
+    def tearDown(self):
+        net.THREDDS_GATE = self.previous_gate
+
+    def test_thredds_concurrency_is_capped_globally(self):
+        active = 0
+        maximum = 0
+        lock = threading.Lock()
+
+        class Response:
+            headers = {}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self):
+                nonlocal active, maximum
+                with lock:
+                    active += 1
+                    maximum = max(maximum, active)
+                time.sleep(0.02)
+                with lock:
+                    active -= 1
+                return b"ok"
+
+        with patch.object(net.urllib.request, "urlopen", side_effect=lambda *_args, **_kwargs: Response()):
+            with ThreadPoolExecutor(12) as pool:
+                results = list(pool.map(
+                    lambda index: net._fetch(
+                        f"https://{net.THREDDS_HOST}/thredds/dodsC/test-{index}.dds",
+                        retries=1,
+                    ),
+                    range(12),
+                ))
+        self.assertEqual(results, [b"ok"] * 12)
+        self.assertEqual(maximum, 3)
+
+    def test_overload_backoff_honors_retry_after(self):
+        overloaded = net.HttpError(503, "https://noaa.test", headers={"Retry-After": "17"})
+        self.assertEqual(net.retry_delay(overloaded, 1, base_delay=1), 17)
+        self.assertEqual(net.retry_delay(net.HttpError(504, "https://noaa.test"), 1, base_delay=1), 2)
+        self.assertEqual(net.retry_delay(http.client.IncompleteRead(b"partial", 10), 1, base_delay=1), 1)
+
+    def test_404_is_confirmed_once_and_not_retried(self):
+        query = (f"https://{net.THREDDS_HOST}/thredds/dodsC/NOAA/LSOFS/MODELS/2026/10/14/"
+                 "lsofs.t00z.20261014.regulargrid.f049.nc.dods?temp%5B0:1:0%5D")
+        with patch.object(ofs.net, "fetch", side_effect=[
+            net.HttpError(404, query),
+            net.HttpError(404, query.split(".dods?", 1)[0] + ".dds"),
+        ]) as fetch:
+            with self.assertRaises(net.HttpError) as raised:
+                ofs._fetch_thredds(query, retries=1)
+        self.assertTrue(raised.exception.confirmed_missing)
+        self.assertEqual(fetch.call_count, 2)
+
+        source = {"model": {"id": "LSOFS"}, "lm": Mock()}
+        source["lm"].surface_temp_c.side_effect = raised.exception
+        with self.assertRaises(build.SurfaceSourceFailure):
+            build.fetch_surface_with_retry(
+                source, 49, "thredds", lambda *_: None,
+                attempts=4, sleep=lambda _seconds: None,
+            )
+        self.assertEqual(source["lm"].surface_temp_c.call_count, 1)
 
 # Fake LMHOFS grid: 0.05° over southern/central Lake Michigan (mask = water everywhere).
 LAT = np.arange(46.0, 41.6, -0.05)
@@ -365,11 +465,11 @@ class CycleTest(unittest.TestCase):
             [call(85, request_retries=1)] * 2,
         )
         self.assertIn("Retrying thredds LSOFS f085", messages[0])
-        self.assertIn("attempt 2/3 in 1 s", messages[0])
+        self.assertIn("attempt 2/3 in 2 s", messages[0])
 
     def test_persistent_thredds_failure_rebuilds_everything_from_nodd(self):
         failure = build.SurfaceSourceFailure("thredds", "persistent read failure")
-        nodd = ([], None, [{"distribution": ofs.NODD_DISTRIBUTION}])
+        nodd = ([], None, [{"distribution": ofs.NODD_DISTRIBUTION}], {"source": "nodd"})
         cycles = {model["id"]: CYCLE for model in build.OFS_MODELS}
         with patch.object(build, "build_temperature", side_effect=[failure, nodd]) as attempt, \
              patch.object(build.ofs, "select_surface_distribution", return_value="nodd") as select:
@@ -379,6 +479,19 @@ class CycleTest(unittest.TestCase):
         self.assertEqual([item.args[-1] for item in attempt.call_args_list], ["thredds", "nodd"])
         select.assert_called_once_with(cycles, requested="nodd")
         self.assertEqual(result[2][0]["distribution"], ofs.NODD_DISTRIBUTION)
+
+    def test_open_circuit_nodd_failure_does_not_try_thredds(self):
+        failure = build.SurfaceSourceFailure("nodd", "persistent read failure")
+        cycles = {model["id"]: CYCLE for model in build.OFS_MODELS}
+        with patch.object(build, "build_temperature", side_effect=failure) as attempt, \
+             patch.object(build.ofs, "select_surface_distribution") as select:
+            with self.assertRaises(build.SurfaceSourceFailure):
+                build.build_temperature_with_fallback(
+                    cycles, CYCLE, lambda *_: None, 4,
+                    distribution="nodd", allow_alternate=False,
+                )
+        attempt.assert_called_once()
+        select.assert_not_called()
 
     def test_both_surface_sources_failing_keeps_prior_run(self):
         failure = build.SurfaceSourceFailure("nodd", "both coherent sources failed")
@@ -411,7 +524,24 @@ class FullRunTest(unittest.TestCase):
         gfs.PAUSE = 0
         cls.out = Path(tempfile.mkdtemp())
         lmhofs = [model for model in build.OFS_MODELS if model["id"] == "LMHOFS"]
-        with patch.object(build, "OFS_MODELS", lmhofs):
+        point_feed = {
+            "formatVersion": 1, "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
+            "cycle": "2026-09-30T12:00:00Z", "source": "thredds", "units": "C",
+            "sourceDistribution": ofs.THREDDS_DISTRIBUTION,
+            "sampleMethod": "test_fixture", "cityCount": 32, "forecastHours": 121,
+            "points": [{
+                "cityId": pier["id"], "gridRow": 0, "gridColumn": index,
+                "latitude": pier["lat"], "longitude": pier["lon"], "depthIndex": 0,
+                "samples": [{
+                    "forecastHour": hour,
+                    "validAt": build.iso(CYCLE + timedelta(hours=hour)),
+                    "temperatureC": 10.0,
+                } for hour in range(121)],
+            } for index, pier in enumerate(json.loads(build.PIERS_PATH.read_text()))],
+        }
+        with patch.object(build, "OFS_MODELS", lmhofs), patch.object(
+            build.piercast, "extract_point_feed", return_value=point_feed,
+        ):
             rc = build.main(["--out", str(cls.out), "--now", NOW.isoformat(), "--force"])
         assert rc == 0
         cls.latest = json.loads((cls.out / "latest.json").read_text())
@@ -446,6 +576,10 @@ class FullRunTest(unittest.TestCase):
         self.assertEqual(len(verification["pierSites"]["ludington_mi"]["hours"]), 121)
         self.assertEqual(verification["benchmarkRefs"], {})  # network benchmark is production-upload only
         self.assertEqual(self.latest["verificationRuns"][0]["run"], self.latest["run"])
+        point_feed = json.loads((self.rdir / "piercast-points.json").read_text())
+        self.assertEqual(point_feed["run"], self.latest["run"])
+        self.assertEqual(point_feed["cycle"], self.latest["cycle"])
+        self.assertEqual(point_feed["cityCount"], 32)
         for f in m["frames"][:3]:
             for k in ("temp", "wind", "waves"):
                 self.assertTrue((self.rdir / f[k]).exists())

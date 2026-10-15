@@ -77,7 +77,8 @@ def ensure_static(s3, geo_path: Path, geo_key: str):
         put(s3, geo_key, geo_path.read_bytes(), IMMUTABLE)
 
 
-def upload_run(s3, run_dir: Path, run_id: str, latest: dict, forecast_index: dict | None = None):
+def upload_run(s3, run_dir: Path, run_id: str, latest: dict, forecast_index: dict | None = None,
+               piercast_pointer: dict | None = None):
     files = [p for p in run_dir.rglob("*") if p.is_file()]
 
     def one(p):
@@ -86,5 +87,10 @@ def upload_run(s3, run_dir: Path, run_id: str, latest: dict, forecast_index: dic
         list(pool.map(one, files))
     if forecast_index is not None:
         put(s3, "validation/forecast-index.json", json.dumps(forecast_index).encode(), SHORT)
+    if piercast_pointer is not None:
+        # The immutable point file is already present. Publish its mutable
+        # pointer before the surface pointer so a visible surface run never
+        # references a feed that is not ready yet.
+        put(s3, "runs/piercast/latest.json", json.dumps(piercast_pointer).encode(), SHORT)
     # switch the app over only after every file of the run is in place
     put(s3, "latest.json", json.dumps(latest).encode(), SHORT)

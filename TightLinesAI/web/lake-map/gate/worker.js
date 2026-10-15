@@ -110,8 +110,12 @@ function checkRange(request, key) {
   return null;
 }
 
-const MUTABLE_KEYS = new Set(['latest.json', 'map/index.html', 'runs/tdepth/latest.json']);
-const MUTABLE_POINTER_KEYS = new Set(['latest.json', 'runs/tdepth/latest.json']);
+const MUTABLE_KEYS = new Set([
+  'latest.json', 'map/index.html', 'runs/tdepth/latest.json', 'runs/piercast/latest.json',
+]);
+const MUTABLE_POINTER_KEYS = new Set([
+  'latest.json', 'runs/tdepth/latest.json', 'runs/piercast/latest.json',
+]);
 
 function clientHeaders(input, setCookie, serverTiming, key = '') {
   const headers = new Headers(input);

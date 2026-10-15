@@ -33,6 +33,7 @@ export * from "./scoring/daily.ts";
 export * from "./scoring/headline.ts";
 export * from "./scoring/dateWindows.ts";
 export * from "./providers/lmhofs.ts";
+export * from "./providers/lakeMapPoints.ts";
 export * from "./providers/glos.ts";
 export * from "./validation/temperatureComparison.ts";
 export * from "./validation/fieldTemperature.ts";
