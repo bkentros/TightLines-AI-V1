@@ -32,7 +32,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lakemap import gfs, net, ofs, seagull, store, waves, wind  # noqa: E402
+from lakemap import gfs, net, ofs, piercast, seagull, source_health, store, waves, wind  # noqa: E402
 from lakemap.config import (DEPTH, DOMAIN, EXTEND_CELLS, FORMAT_VERSION, GEO_PATH, GEO_VERSION,  # noqa: E402
                             HOURS, OFS_MODELS, PAGE_CAPABILITIES_KEY, PIERS_PATH, SIGNALS_EVENTS_SCRIPT, TEMP,
                             TEMP16, WAVES, WIND)
@@ -200,10 +200,12 @@ def fetch_surface_with_retry(source, hour, distribution, log,
                     distribution,
                     f"{model_id} f{hour:03d} after {attempt} attempt(s): {net.redact(err)}",
                 ) from err
-            delay = base_delay * (2 ** (attempt - 1))
+            delay = net.retry_delay(err, attempt, base_delay)
+            status = getattr(err, "status", None) or getattr(err, "code", None)
+            label = f"{type(err).__name__} HTTP {status}" if status else type(err).__name__
             log(
                 f"Retrying {distribution} {model_id} f{hour:03d} after "
-                f"{type(err).__name__}: attempt {attempt + 1}/{attempts} in {delay:g} s"
+                f"{label}: attempt {attempt + 1}/{attempts} in {delay:g} s"
             )
             sleep(delay)
 
@@ -224,9 +226,11 @@ def prepare_surface_with_retry(cycles, grid, targets, water, distribution, log,
                     distribution,
                     f"model setup after {attempt} attempt(s): {net.redact(err)}",
                 ) from err
-            delay = base_delay * (2 ** (attempt - 1))
+            delay = net.retry_delay(err, attempt, base_delay)
+            status = getattr(err, "status", None) or getattr(err, "code", None)
+            label = f"{type(err).__name__} HTTP {status}" if status else type(err).__name__
             log(
-                f"Retrying {distribution} model setup after {type(err).__name__}: "
+                f"Retrying {distribution} model setup after {label}: "
                 f"attempt {attempt + 1}/{attempts} in {delay:g} s"
             )
             sleep(delay)
@@ -318,14 +322,23 @@ def build_temperature(cycles, t0, log, workers, distribution="thredds"):
              "sourceCoverageMin": round(s["nativeCoverageMin"], 6),
              "gridCoverageMin": round(s["gridCoverageMin"], 6),
              "gridCells": int(s["gridMask"].sum())} for s in sources]
-    return frames, depth, info
+    try:
+        piercast_feed = piercast.extract_point_feed(sources, t0)
+    except piercast.PierCastPointIntegrityError as err:
+        raise SurfaceSourceFailure(distribution, f"PierCast point feed: {err}") from err
+    return frames, depth, info, piercast_feed
 
 
-def build_temperature_with_fallback(cycles, t0, log, workers, distribution="thredds"):
+def build_temperature_with_fallback(cycles, t0, log, workers, distribution="thredds",
+                                    allow_alternate=True, on_source_failure=None):
     """Build from one coherent source, then restart wholly on the alternate."""
     try:
         return build_temperature(cycles, t0, log, workers, distribution)
     except SurfaceSourceFailure as first:
+        if on_source_failure is not None:
+            on_source_failure(first)
+        if not allow_alternate:
+            raise
         alternate = "nodd" if distribution == "thredds" else "thredds"
         log(f"{first}; discarding that in-memory build before considering {alternate}")
         try:
@@ -627,8 +640,30 @@ def main(argv=None):
         log("OPEN_METEO_API_KEY missing — refusing a commercial production publish from the free endpoint.")
         return 2
 
+    s3 = None
+    previous_latest = None
+    previous_forecast_index = None
+    health_state = None
+    discovery_distribution = "auto"
+    if args.upload:
+        s3 = store.client()
+        previous_latest = store.read_latest(s3)
+        previous_forecast_index = store.read_json(s3, "validation/forecast-index.json")
+        health_state = source_health.load(s3)
+        if source_health.is_open(health_state):
+            discovery_distribution = "nodd"
+            log("THREDDS circuit is open; discovery will use NODD and leave THREDDS to the cheap probe")
+
+    def discover_model(model):
+        if discovery_distribution == "auto":
+            return ofs.discover(model, now)
+        return ofs.discover(model, now, distribution=discovery_distribution)
+
     with ThreadPoolExecutor(4) as pool:
-        found = dict(zip([m["id"] for m in OFS_MODELS], pool.map(lambda m: ofs.discover(m, now), OFS_MODELS)))
+        found = dict(zip(
+            [m["id"] for m in OFS_MODELS],
+            pool.map(discover_model, OFS_MODELS),
+        ))
     cycles = {k: v for k, v in found.items() if v is not None}
     if not cycles:
         log("No NOAA lake model cycle is published yet — keeping the last good run.")
@@ -647,22 +682,83 @@ def main(argv=None):
     log(f"Run start time {iso(t0)}; models {inputs}")
     log.mark("discover")
 
-    s3 = None
-    previous_latest = None
-    previous_forecast_index = None
-    if args.upload:
-        s3 = store.client()
-        previous_latest = store.read_latest(s3)
-        previous_forecast_index = store.read_json(s3, "validation/forecast-index.json")
+    if s3 is not None:
         if previous_latest and previous_latest.get("inputs", {}).get("temp") == inputs and not args.force:
             log(f"Nothing new since run {previous_latest['run']} — skipping before paid data calls.")
             return 0
 
+    cycle_key = iso(t0)
+    distribution = "thredds"
+    source_reason = "local build without persistent source state"
+    if health_state is not None:
+        distribution, source_reason = source_health.choose_source(health_state, cycle_key)
+        health_state = source_health.record_source(
+            health_state, cycle_key, "surface", distribution, source_reason
+        )
+    log(
+        f"Surface source choice: {distribution} ({source_reason}); "
+        f"THREDDS concurrency cap {net.THREDDS_CONCURRENCY}"
+    )
+
+    if health_state is not None and distribution == "nodd":
+        try:
+            ofs.probe_thredds(cycles)
+            health_state = source_health.record_thredds_result(
+                health_state, cycle_key, "success", kind="probe"
+            )
+            if source_health.is_open(health_state):
+                log("THREDDS health probe succeeded (1/2); circuit stays open for this cycle")
+            else:
+                log("THREDDS health probe succeeded (2/2); circuit closed for the next new cycle")
+        except Exception as err:
+            failure_type = source_health.classify_failure(err)
+            health_state = source_health.record_thredds_result(
+                health_state, cycle_key, failure_type, kind="probe"
+            )
+            log(f"THREDDS health probe failed ({failure_type}: {net.redact(err)}); circuit remains open")
+
+    def record_surface_failure(error):
+        nonlocal health_state
+        if health_state is None or getattr(error, "distribution", None) != "thredds":
+            return
+        failure_type = source_health.classify_failure(error)
+        health_state = source_health.record_thredds_result(
+            health_state, cycle_key, failure_type, kind="build"
+        )
+        health_state = source_health.record_source(
+            health_state, cycle_key, "surface", "nodd", f"THREDDS build failed ({failure_type}); full NODD rebuild"
+        )
+
     try:
-        frames, depth, temp_info = build_temperature_with_fallback(cycles, t0, log, args.workers)
+        frames, depth, temp_info, piercast_feed = build_temperature_with_fallback(
+            cycles, t0, log, args.workers,
+            distribution=distribution,
+            allow_alternate=(distribution == "thredds"),
+            on_source_failure=record_surface_failure,
+        )
     except (TemperatureIntegrityError, SurfaceSourceFailure) as err:
+        if health_state is not None:
+            source_health.save(s3, health_state)
         log(f"Temperature integrity check failed ({err}) — retaining the last complete published run.")
         return 2
+    used_distribution = (
+        "thredds" if temp_info and {item.get("distribution") for item in temp_info} == {ofs.THREDDS_DISTRIBUTION}
+        else "nodd"
+    )
+    if health_state is not None:
+        if used_distribution == "thredds":
+            health_state = source_health.record_thredds_result(
+                health_state, cycle_key, "success", kind="build"
+            )
+        health_state = source_health.record_source(
+            health_state, cycle_key, "surface", used_distribution,
+            source_reason if used_distribution == distribution else "full-cycle fallback after THREDDS failure",
+        )
+        try:
+            source_health.save(s3, health_state)
+        except Exception as err:
+            log(f"THREDDS health state write failed ({net.redact(err)}) — retaining the last complete published run.")
+            return 2
     log.mark("temperature")
     wave_frames, wave_info = build_waves(t0, now, log)
     log.mark("waves")
@@ -695,6 +791,11 @@ def main(argv=None):
                                 "temp": f"temp/{name}", "wind": f"wind/{name}", "waves": f"waves/{name}"})
     if depth is not None:
         (run_dir / "depth.png").write_bytes(scalar_png(depth / 1.0, DEPTH))
+    piercast_payload = piercast.versioned_payload(piercast_feed, run_id, now)
+    (run_dir / "piercast-points.json").write_text(
+        json.dumps(piercast_payload, separators=(",", ":"))
+    )
+    piercast_pointer = piercast.pointer(piercast_payload)
     log.mark("encode")
 
     piers = json.loads(PIERS_PATH.read_text())
@@ -740,7 +841,10 @@ def main(argv=None):
 
     if s3 is not None:
         store.ensure_static(s3, GEO_PATH, f"static/geo-{GEO_VERSION}.json")
-        store.upload_run(s3, run_dir, run_id, latest, research_index)
+        store.upload_run(
+            s3, run_dir, run_id, latest, research_index,
+            piercast_pointer=piercast_pointer,
+        )
         log(f"Uploaded run {run_id} and pointed latest.json at it")
         log.mark("upload")
         # Benchmark collection starts only after the live pointer changes, so

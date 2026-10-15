@@ -193,6 +193,19 @@ class PublicationSafetyTest(unittest.TestCase):
         self.assertEqual(result[2]["sourceDistribution"], "nodd")
         self.assertEqual(result[3], "nodd")
 
+    def test_open_circuit_nodd_failure_does_not_try_thredds(self):
+        failure = depth_job.DepthSourceFailure("nodd", "persistent read failure")
+        with patch.object(depth_job, "build_depth_run", side_effect=failure) as build, \
+             patch.object(depth_job.ofs, "select_depth_distribution") as select:
+            with self.assertRaises(depth_job.DepthSourceFailure):
+                depth_job.build_depth_with_fallback(
+                    "surface", CYCLE, {model["id"]: CYCLE for model in OFS_MODELS},
+                    (10, 20, 30, 40, 50), TEMP16, Path("/tmp/out"), lambda *_: None,
+                    distribution="nodd", allow_alternate=False,
+                )
+        build.assert_called_once()
+        select.assert_not_called()
+
     def test_both_sources_failing_means_no_publish(self):
         failures = [
             depth_job.DepthSourceFailure("thredds", "read failed"),

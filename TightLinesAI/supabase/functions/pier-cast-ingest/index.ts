@@ -13,19 +13,29 @@ import {
   buildPierCastV3ReviewOutlook,
   buildPierCastWisconsinReviewOutlook,
   combinePierCastV3LmhofsBatches,
+  fetchConfiguredPierCastTemperatureBatch,
   ingestPierCastCalibrationObservations,
   ingestPierCastChicagoAlpenaShadowCycle,
-  ingestPierCastStJosephHarrisvilleShadowCycle,
-  ingestPierCastPentwaterCasevilleShadowCycle,
   ingestPierCastFiveCityShadowCycle,
   ingestPierCastLakeHuronShadowCycle,
+  ingestPierCastPentwaterCasevilleShadowCycle,
   ingestPierCastPortWashingtonShadowCycle,
+  ingestPierCastStJosephHarrisvilleShadowCycle,
   ingestPierCastTemperatureCycle,
   ingestPierCastWisconsinShadowCycle,
   PIER_CAST_BASELINE_FORMULA_VERSION,
+  PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES,
+  PIER_CAST_CITY_PROFILES,
   PIER_CAST_ENGINE_VERSION,
+  PIER_CAST_FIVE_CITY_PROFILES,
+  PIER_CAST_LAKE_HURON_CITY_PROFILES,
+  PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
+  PIER_CAST_PORT_WASHINGTON_PROFILE,
+  PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
   PIER_CAST_V3_ENGINE_VERSION,
+  PIER_CAST_WISCONSIN_CITY_PROFILES,
   type PierCastArchiveClient,
+  type PierCastCityProfile,
   pierCastDailyScoreLakeDateForCycle,
   readLatestCoherentPierCastV3SourceCohorts,
   validatePierCastFieldTemperatureObservation,
@@ -48,12 +58,29 @@ const archiveClient: PierCastArchiveClient = {
   },
 };
 
+const temperatureSourceMode = Deno.env.get("PIER_CAST_TEMPERATURE_SOURCE") ??
+  "thredds";
+const lakeMapPassSecret = Deno.env.get("PIER_CAST_MAP_PASS_SECRET") ?? null;
+
+function temperatureOperations(cityProfiles: readonly PierCastCityProfile[]) {
+  if (temperatureSourceMode !== "lake_map") return undefined;
+  return {
+    fetchLive: () =>
+      fetchConfiguredPierCastTemperatureBatch({
+        mode: temperatureSourceMode,
+        mapPassSecret: lakeMapPassSecret,
+        cityProfiles,
+      }),
+  };
+}
+
 const handler = createPierCastIngestHandler({
   internalSecret: Deno.env.get("PIER_CAST_INTERNAL_KEY") ?? null,
   ingest: () =>
     ingestPierCastTemperatureCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(PIER_CAST_CITY_PROFILES),
     }),
   ingestObservations: () =>
     ingestPierCastCalibrationObservations({
@@ -107,6 +134,7 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastPortWashingtonShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations([PIER_CAST_PORT_WASHINGTON_PROFILE]),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -148,6 +176,7 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastWisconsinShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(PIER_CAST_WISCONSIN_CITY_PROFILES),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -189,6 +218,7 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastLakeHuronShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(PIER_CAST_LAKE_HURON_CITY_PROFILES),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -216,6 +246,7 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastFiveCityShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(PIER_CAST_FIVE_CITY_PROFILES),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -243,6 +274,7 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastChicagoAlpenaShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(PIER_CAST_CHICAGO_ALPENA_CITY_PROFILES),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -270,6 +302,9 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastStJosephHarrisvilleShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(
+        PIER_CAST_ST_JOSEPH_HARRISVILLE_CITY_PROFILES,
+      ),
     });
     if (outcome.status === "unavailable") {
       return {
@@ -297,6 +332,9 @@ const handler = createPierCastIngestHandler({
     const outcome = await ingestPierCastPentwaterCasevilleShadowCycle({
       database: archiveClient,
       engineVersion: PIER_CAST_ENGINE_VERSION,
+      operations: temperatureOperations(
+        PIER_CAST_PENTWATER_CASEVILLE_CITY_PROFILES,
+      ),
     });
     if (outcome.status === "unavailable") {
       return {

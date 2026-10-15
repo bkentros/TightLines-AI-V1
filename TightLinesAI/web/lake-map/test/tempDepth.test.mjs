@@ -80,6 +80,16 @@ test('the page exposes inline and readout pickers without the retired floating c
   assert.match(shell, /event\.target\.closest\('#depth-popover,#ro-depth'\)/);
 });
 
+test('layer cards keep titles top-aligned and subtitles readable', () => {
+  const page = readFileSync(new URL('../src/index.html', import.meta.url), 'utf8');
+  assert.match(page, /id="temp-depth-status">10–50 ft below surface<\/small>/);
+  assert.match(page, /\.tile\{[^}]*display:flex;[^}]*flex-direction:column;[^}]*justify-content:flex-start/);
+  assert.match(page, /\.tile i\{[^}]*flex:0 0 30px/);
+  assert.match(page, /\.tile b\{[^}]*line-height:20px/);
+  assert.match(page, /\.tile small\{[^}]*display:block;[^}]*white-space:normal;[^}]*overflow:visible;[^}]*overflow-wrap:anywhere/);
+  assert.doesNotMatch(page, /\.tile (?:b|small)\{[^}]*(?:white-space:nowrap|text-overflow:ellipsis|-webkit-line-clamp)/);
+});
+
 test('shallow-water point readout remains masked at the selected depth', () => {
   const grid = { west: -90, north: 45, width: 3, height: 2, res: 1, nodata: 65535 };
   const frame = { w: 3, h: 2, data: new Uint16Array([100, 65535, 120, 130, 140, 150]) };
