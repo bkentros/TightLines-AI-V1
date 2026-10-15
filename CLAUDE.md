@@ -170,6 +170,14 @@ Read `web/lake-map/README.md` first. Quick facts:
 - `finfindr-lake-map-alerts` runs every 30 minutes, stores transition state in R2, and emails
   `brandonkentros@icloud.com` from `support@finfindr.app` through Resend. It also sends the
   Monday-morning US Eastern weekly summary.
+- The production publish workflow checks only candidate data integrity (schema, four-model
+  completeness and value sanity) plus public delivery. Repository unit and workflow-policy
+  tests belong to the required `lake-map-tests` PR check, never in the scheduled publish path.
+- `.github/workflows/lake-map-data.yml` is the single workflow definition; do not restore the
+  retired copies under `job/`. Pipeline-path pushes to `main` run a full no-upload NOAA canary.
+- Never merge unattended changes to lake-map code, GitHub workflows, Dependabot policy, or the
+  scheduler/alerts Workers. Run the full PR suite and, for action updates, manually dispatch the
+  no-upload canary on the PR branch. Make one production pipeline change at a time.
 - Production Temp at depth is controlled only by `map/features.json`. First rollback action:
   `.venv/bin/python static-build/feature.py tempDepth off --allow-production`, then read back
   the object. Do not roll back surface runs for a depth-only problem.
@@ -179,7 +187,8 @@ Read `web/lake-map/README.md` first. Quick facts:
 - Secret names only: local `TightLinesAI/.env` holds `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
   `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `OPEN_METEO_API_KEY`, `GITHUB_ACTIONS_TOKEN`,
   `RESEND_API_KEY`, and `PIER_CAST_MAP_PASS_SECRET`. Worker secrets are installed with
-  `wrangler secret put`; never print or commit values.
+  `wrangler secret put`; `PIPELINE_ALERT_TOKEN` is shared only between GitHub Actions and
+  the alerts Worker. Never print or commit values.
 - Renewal tracking (audited 2026-10-14): GitHub does not expose the fine-grained
   `GITHUB_ACTIONS_TOKEN` expiry through the repository API, so record its account-settings
   expiry and renew at least 14 days before it (recheck by 2026-11-01). The sending-only Resend
@@ -191,7 +200,7 @@ Read `web/lake-map/README.md` first. Quick facts:
 - `main` is the working and release branch. Work happens on short-lived feature branches off
   `main`, merged through a PR. (`develop/cross-platform-next` was retired 2026-10-02; its
   content is fully superseded by `main` and preserved as `archive/develop-cross-platform-next-2026-09-29`.)
-- `main` enforces linear history and required checks (CodeQL, Gitleaks, JS/TS): merge PRs with
+- `main` enforces linear history and required checks (CodeQL, Gitleaks, JS/TS, lake-map-tests): merge PRs with
   `gh pr merge <n> --rebase`. Never use `--admin`; fix CodeQL findings instead (in tests, prefer
   exact string checks over unanchored URL regexes).
 - Abandoned or superseded work is preserved as `archive/*` branches rather

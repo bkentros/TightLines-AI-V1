@@ -7,7 +7,9 @@ import {
   DEPTH_MISMATCH_CYCLES,
   SURFACE_STALE_HOURS,
   easternMondayMorningKey,
+  evaluateCanary,
   evaluateIncidents,
+  evaluatePipelineRun,
   evaluatePierCastObservation,
   initialState,
   PIER_CAST_STALE_HOURS,
@@ -16,6 +18,8 @@ import {
 } from '../alerts/logic.js';
 import worker, {
   ingestWorkflowRuns,
+  firstErrorLine,
+  listRecentEmails,
   mapPass,
   readPierCastFreshness,
   sendEmail,
@@ -73,6 +77,47 @@ test('delivery failure and recovery transition once per incident', () => {
   assert.equal(state.outbox.length, 0);
   state = evaluateIncidents(state, { ...observation, deliveryFailed: false }, new Date('2026-10-14T17:00:00Z'));
   assert.match(state.outbox[0].subject, /RECOVERY: DELIVERY FAILED/);
+});
+
+test('pipeline alert opens after two executed failures and recovers on success', () => {
+  let state = evaluatePipelineRun(initialState(), {
+    executed: true, failed: true, runId: 101, job: 'build', step: 'Build and publish',
+    error: 'first failure', url: 'https://github.com/example/actions/runs/101',
+  }, now);
+  assert.equal(state.pipeline.consecutiveFailures, 1);
+  assert.equal(state.incidents.pipelineFailing.active, false);
+  assert.equal(state.outbox.length, 0);
+  state = evaluatePipelineRun(state, {
+    executed: true, failed: true, runId: 102, job: 'build', step: 'Build and publish',
+    error: 'second failure', url: 'https://github.com/example/actions/runs/102',
+  }, new Date('2026-10-14T16:30:00Z'));
+  assert.equal(state.pipeline.consecutiveFailures, 2);
+  assert.equal(state.incidents.pipelineFailing.active, true);
+  assert.match(state.outbox.at(-1).text, /Job: build[\s\S]*Step: Build and publish[\s\S]*First error: second failure/);
+  state.outbox = [];
+  state = evaluatePipelineRun(state, {
+    executed: true, failed: false, runId: 103,
+  }, new Date('2026-10-14T17:00:00Z'));
+  assert.equal(state.pipeline.consecutiveFailures, 0);
+  assert.equal(state.incidents.pipelineFailing.active, false);
+  assert.match(state.outbox.at(-1).subject, /RECOVERY: PIPELINE FAILING/);
+});
+
+test('cancelled workflow does not count as an executed pipeline failure', () => {
+  const state = evaluatePipelineRun(initialState(), {
+    executed: false, failed: true, runId: 104,
+  }, now);
+  assert.equal(state.pipeline.consecutiveFailures, 0);
+  assert.equal(state.incidents.pipelineFailing.active, false);
+});
+
+test('post-merge canary opens an immediate PIPELINE BROKEN incident', () => {
+  const state = evaluateCanary(initialState(), {
+    conclusion: 'failure', runId: '200', job: 'lake-map-dry-run-canary',
+    step: 'Full lake-map dry run', error: 'NOAA decode failed',
+  }, now);
+  assert.equal(state.incidents.canaryBroken.active, true);
+  assert.match(state.outbox.at(-1).subject, /PIPELINE BROKEN/);
 });
 
 test('PierCast stale opens once above 10 hours and recovers at the threshold', () => {
@@ -191,6 +236,28 @@ test('workflow log metrics capture sources, retries, fallbacks and pointer lag i
   assert.equal(metrics.surfacePublishedAt, '2026-10-14T15:10:00Z');
 });
 
+test('workflow ingestion reports the failed job, step and first error after two failures', async () => {
+  const runs = [
+    { id: 71, conclusion: 'failure', created_at: '2026-10-14T15:00:00Z', updated_at: '2026-10-14T15:01:00Z', html_url: 'https://github.com/example/71' },
+    { id: 72, conclusion: 'failure', created_at: '2026-10-14T15:15:00Z', updated_at: '2026-10-14T15:16:00Z', html_url: 'https://github.com/example/72' },
+  ];
+  const fetchImpl = async (url) => {
+    if (url.includes('/actions/workflows/')) return Response.json({ workflow_runs: runs });
+    if (url.includes('/actions/runs/')) return Response.json({ jobs: [{
+      id: url.includes('/71/') ? 710 : 720,
+      name: 'build', conclusion: 'failure',
+      steps: [{ name: 'Test', conclusion: 'failure' }],
+    }] });
+    if (url.includes('/actions/jobs/')) return new Response('2026-10-14T15:15:02Z ##[error]AssertionError: workflow drift');
+    throw new Error(`unexpected URL ${url}`);
+  };
+  const result = await ingestWorkflowRuns(initialState(), { GITHUB_ACTIONS_TOKEN: 'token' }, fetchImpl);
+  assert.equal(result.state.pipeline.consecutiveFailures, 2);
+  assert.equal(result.state.incidents.pipelineFailing.active, true);
+  assert.match(result.state.outbox.at(-1).text, /Job: build[\s\S]*Step: Test[\s\S]*AssertionError/);
+  assert.equal(firstErrorLine('noise\n##[error]boom\nmore'), '##[error]boom');
+});
+
 test('delivery failure remains alertable when workflow log download is unavailable', async () => {
   const fetchImpl = async (url) => {
     if (url.includes('/actions/workflows/')) return Response.json({ workflow_runs: [{
@@ -289,6 +356,17 @@ test('Resend uses the fixed inbox, verified sender and idempotency key without e
   assert.equal(body.from, 'FinFindr <support@finfindr.app>');
   assert.deepEqual(body.to, ['brandonkentros@icloud.com']);
   assert.doesNotMatch(request.init.body, /secret-value/);
+});
+
+test('Resend audit lists delivery events without exposing the API key', async () => {
+  let request;
+  const records = await listRecentEmails({ RESEND_API_KEY: 'secret-value' }, async (url, init) => {
+    request = { url, init };
+    return Response.json({ data: [{ id: 'email-1', subject: 'FinFindr Live Lake Map — SURFACE STALE', last_event: 'delivered' }] });
+  });
+  assert.equal(request.url, 'https://api.resend.com/emails?limit=100');
+  assert.equal(records[0].last_event, 'delivered');
+  assert.doesNotMatch(request.url, /secret-value/);
 });
 
 test('alert checks use the same short-lived signed pass contract as production users', async () => {

@@ -7,6 +7,8 @@ const INCIDENTS = [
   'surfaceStale',
   'depthMismatch',
   'deliveryFailed',
+  'pipelineFailing',
+  'canaryBroken',
   'pierCastStale',
   'pierCastUnavailable',
 ];
@@ -16,6 +18,7 @@ export function initialState() {
     version: STATE_VERSION,
     incidents: Object.fromEntries(INCIDENTS.map((key) => [key, { active: false }])),
     mismatch: { consecutiveCycles: 0, lastSurfaceRun: null },
+    pipeline: { consecutiveFailures: 0, lastRunId: null },
     github: { seenRunIds: [], records: [] },
     pierCast: { records: [] },
     outbox: [],
@@ -35,6 +38,12 @@ export function normalizeState(raw) {
   clean.mismatch = {
     consecutiveCycles: Number.isSafeInteger(count) && count >= 0 ? count : 0,
     lastSurfaceRun: typeof raw.mismatch?.lastSurfaceRun === 'string' ? raw.mismatch.lastSurfaceRun : null,
+  };
+  const pipelineFailures = Number(raw.pipeline?.consecutiveFailures);
+  clean.pipeline = {
+    consecutiveFailures: Number.isSafeInteger(pipelineFailures) && pipelineFailures >= 0
+      ? pipelineFailures : 0,
+    lastRunId: Number.isSafeInteger(raw.pipeline?.lastRunId) ? raw.pipeline.lastRunId : null,
   };
   clean.github.seenRunIds = Array.isArray(raw.github?.seenRunIds)
     ? raw.github.seenRunIds.filter(Number.isSafeInteger).slice(-100) : [];
@@ -72,6 +81,8 @@ function queueTransition(state, key, active, now, details) {
     surfaceStale: 'SURFACE STALE',
     depthMismatch: 'DEPTH MISMATCH',
     deliveryFailed: 'DELIVERY FAILED',
+    pipelineFailing: 'PIPELINE FAILING',
+    canaryBroken: 'PIPELINE BROKEN',
     pierCastStale: 'PIERCAST STALE',
     pierCastUnavailable: 'PIERCAST AVAILABILITY',
   }[key];
@@ -91,6 +102,57 @@ function queueTransition(state, key, active, now, details) {
       : `RECOVERY — ${label} is back to normal.\n\n${details}\n\nCleared: ${at}`,
   });
   state.outbox = state.outbox.slice(-20);
+}
+
+export function evaluatePipelineRun(rawState, observation, now = new Date()) {
+  const state = normalizeState(rawState);
+  if (!observation?.executed || !Number.isSafeInteger(observation.runId)
+      || state.pipeline.lastRunId === observation.runId) return state;
+
+  state.pipeline.lastRunId = observation.runId;
+  if (observation.failed) {
+    state.pipeline.consecutiveFailures += 1;
+    const details = [
+      `Workflow run ${observation.runId} failed (${state.pipeline.consecutiveFailures} consecutive executed failures).`,
+      `Job: ${observation.job || 'unknown'}`,
+      `Step: ${observation.step || 'unknown'}`,
+      `First error: ${observation.error || 'unavailable'}`,
+      observation.url ? `Run: ${observation.url}` : null,
+    ].filter(Boolean).join('\n');
+    queueTransition(
+      state,
+      'pipelineFailing',
+      state.pipeline.consecutiveFailures >= 2,
+      now,
+      details,
+    );
+  } else {
+    state.pipeline.consecutiveFailures = 0;
+    queueTransition(
+      state,
+      'pipelineFailing',
+      false,
+      now,
+      `Workflow run ${observation.runId} completed successfully.`,
+    );
+  }
+  return state;
+}
+
+export function evaluateCanary(rawState, observation, now = new Date()) {
+  const state = normalizeState(rawState);
+  const failed = observation?.conclusion === 'failure' || observation?.conclusion === 'timed_out';
+  const details = failed
+    ? [
+      `Post-merge canary ${observation.runId || 'unknown'} failed.`,
+      `Job: ${observation.job || 'lake-map-dry-run-canary'}`,
+      `Step: ${observation.step || 'Full lake-map dry run'}`,
+      `First error: ${observation.error || 'unavailable'}`,
+      observation.url ? `Run: ${observation.url}` : null,
+    ].filter(Boolean).join('\n')
+    : `Post-merge canary ${observation?.runId || 'unknown'} completed successfully.`;
+  queueTransition(state, 'canaryBroken', failed, now, details);
+  return state;
 }
 
 export function evaluatePierCastObservation(rawState, observation, now = new Date()) {

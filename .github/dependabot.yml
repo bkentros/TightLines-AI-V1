@@ -15,4 +15,12 @@ updates:
     schedule:
       interval: weekly
       day: monday
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 1
+    labels:
+      - pipeline
+    groups:
+      pipeline-actions:
+        patterns:
+          - "*"
+    # Never auto-merge pipeline dependency updates. Dispatch Lake map CI on
+    # the PR branch and verify its no-upload canary before merging.
