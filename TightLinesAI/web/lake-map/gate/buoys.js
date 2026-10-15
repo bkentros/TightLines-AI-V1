@@ -355,13 +355,31 @@ async function centralSnapshot(env) {
   } catch { return null; }
 }
 
-export async function buoysResponse(ctx, env) {
+function observationEtag(payload) {
+  const updated = typeof payload?.updated === 'string' ? payload.updated : 'unknown';
+  return `W/"observations-v3-${updated.replace(/[^0-9A-Za-z]/g, '')}"`;
+}
+
+function observationJson(body, payload, request, status = 200, cacheControl = `private, max-age=${OBS_CACHE_SECONDS}`) {
+  const etag = observationEtag(payload);
+  const headers = { 'content-type': 'application/json', 'cache-control': cacheControl, etag };
+  if (request?.headers?.get('if-none-match') === etag) {
+    return new Response(null, { status: 304, headers });
+  }
+  return new Response(body, { status, headers });
+}
+
+export async function buoysResponse(ctx, env, request = null) {
   const finalCache = typeof caches !== 'undefined' ? caches.default : null;
   const finalKey = new Request('https://cache.piercast/observations-v3');
   try {
     if (finalCache) {
       const hit = await finalCache.match(finalKey);
-      if (hit) return new Response(hit.body, { headers: { 'content-type': 'application/json', 'cache-control': `private, max-age=${OBS_CACHE_SECONDS}` } });
+      if (hit) {
+        const body = await hit.text();
+        const payload = JSON.parse(body);
+        return observationJson(body, payload, request);
+      }
     }
     const archived = await centralSnapshot(env);
     // Once the scheduled archive exists, never turn map traffic into upstream
@@ -379,9 +397,7 @@ export async function buoysResponse(ctx, env) {
       const put = finalCache.put(finalKey, new Response(body, { headers: { 'content-type': 'application/json', 'cache-control': `max-age=${OBS_CACHE_SECONDS}` } }));
       if (ctx?.waitUntil) ctx.waitUntil(put); else await put;
     }
-    return new Response(body, {
-      headers: { 'content-type': 'application/json', 'cache-control': 'private, max-age=300' },
-    });
+    return observationJson(body, payload, request);
   } catch (err) {
     return new Response(JSON.stringify({ source: 'NOAA NDBC + NOAA CO-OPS + GLOS Seagull', error: 'unavailable', stations: [] }), {
       status: 503, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },

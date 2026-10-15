@@ -17,6 +17,8 @@ import {
   recordReferralAppOpen,
   type ReferralAppOpenMatchMethod,
 } from "../_shared/creatorReferralFunnel.ts";
+import { checkPublicRequestRateLimits } from "../_shared/publicRateLimit.ts";
+import { rateLimitHeaders } from "../_shared/rateLimit.ts";
 
 type MatchMethod = ReferralAppOpenMatchMethod;
 
@@ -28,10 +30,18 @@ function corsHeaders() {
   };
 }
 
-function json(body: unknown, status = 200): Response {
+function json(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json", ...corsHeaders() },
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders(),
+      ...extraHeaders,
+    },
   });
 }
 
@@ -129,6 +139,27 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
+    const limit = await checkPublicRequestRateLimits({
+      supabase,
+      request: req,
+      pepper: serviceRoleKey,
+      feature: "creator_referral_resolve",
+      ipMaxRequests: 120,
+      token: resolvedToken ?? resolvedCode,
+      tokenMaxRequests: 30,
+      windowSeconds: 900,
+    });
+    if (limit) {
+      return json(
+        {
+          error: "rate_limited",
+          message: "Too many requests. Please wait before trying again.",
+          retryAfterSeconds: limit.retryAfterSeconds,
+        },
+        429,
+        rateLimitHeaders(limit),
+      );
+    }
     if (resolvedToken) {
       const { data: clickRow, error } = await supabase
         .from("referral_clicks")
@@ -298,9 +329,7 @@ Deno.serve(async (req: Request) => {
       code,
       creator_name: creator?.display_name ?? null,
       creator_slug: creator?.slug ?? null,
-      referral_web_url: code
-        ? buildCreatorReferralWebUrl(code, token)
-        : null,
+      referral_web_url: code ? buildCreatorReferralWebUrl(code, token) : null,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Resolve failed.";

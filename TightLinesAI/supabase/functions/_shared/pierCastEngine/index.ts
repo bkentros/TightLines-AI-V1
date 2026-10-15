@@ -53,6 +53,7 @@ export * from "./archive/v3ShadowForecasts.ts";
 export * from "./archive/v3SourceCohorts.ts";
 export * from "./archive/shadowOutcomes.ts";
 export * from "./archive/dailyScoreSnapshots.ts";
+export * from "./archive/outlookSnapshots.ts";
 export * from "./pipeline/temperatureIngestion.ts";
 export * from "./pipeline/portWashingtonShadow.ts";
 export * from "./pipeline/wisconsinShadow.ts";

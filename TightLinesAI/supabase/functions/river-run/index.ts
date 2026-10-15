@@ -100,6 +100,7 @@ const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 86400, maxRequests: 1000 },
 ];
 const PROVIDER_TIMEOUT_MS = 8_000;
+const INTERNAL_REFRESH_CONCURRENCY = 3;
 const PUSH_HISTORY_WINDOW_COUNT = 24;
 const PUSH_HISTORY_DATE_LOOKBACK_DAYS = 4;
 const INTERNAL_KEY_HEADER = "x-river-run-internal-key";
@@ -1402,115 +1403,123 @@ async function handleInternalRefresh(
     }
   }
   const providerFetch = deps.fetchFn ?? fetch;
-  const fishCountResults: Array<Record<string, unknown>> = [];
-  for (const target of fishCountSources.values()) {
-    try {
-      const report = await readOrRefreshFishCountSource({
-        client,
-        riverId: target.riverId,
-        source: target.source,
-        fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
-        now,
-        forceRefresh: true,
-      });
-      fishCountResults.push({
-        riverId: target.riverId,
-        sourceId: target.source.sourceId,
-        reportIdentity: report.reportIdentity,
-        fetchStatus: report.fetchStatus,
-      });
-    } catch (error) {
-      failed++;
-      fishCountResults.push({
-        riverId: target.riverId,
-        sourceId: target.source.sourceId,
-        error: "refresh_failed",
-      });
-      console.error("[river-run] fish-count refresh failed", {
-        riverId: target.riverId,
-        sourceId: target.source.sourceId,
-        message: error instanceof Error ? error.message : String(error),
-      });
-    }
-  }
-
-  for (const target of targets) {
-    const timing = resolveRequestTiming(
-      new URL(req.url),
-      target.river,
-      target.run,
-      now,
-      false,
-    );
-    const liveConditionsTiming = resolveRiverLiveConditionsTiming({
-      url: new URL(req.url),
-      river: target.river,
-      runs: deps.runs,
-      fallbackRun: target.run,
-      now,
-      allowTestOverrides: false,
-    });
-    try {
-      const providerFetch = deps.fetchFn ?? fetch;
-      const [snapshot, riverConditions] = await Promise.all([
-        readOrBuildSnapshot({
+  const fishCountResults = await mapWithConcurrency(
+    [...fishCountSources.values()],
+    INTERNAL_REFRESH_CONCURRENCY,
+    async (target): Promise<Record<string, unknown>> => {
+      try {
+        const report = await readOrRefreshFishCountSource({
           client,
-          river: target.river,
-          run: target.run,
-          timing,
-          engineVersion: deps.engineVersion,
-          configVersion: deps.configVersion ??
-            deps.configVersionByRun.get(target.run.runId) ??
-            CONFIG_VERSION,
-          fetchFn: providerFetch,
-          gaugeObservations: deps.gaugeObservations,
-          waterTemperatureObservationsBySource:
-            deps.waterTemperatureObservationsBySource,
-          weatherSnapshot: deps.weatherSnapshot,
-          openMeteoApiKey: deps.openMeteoApiKey,
-          openMeteoBaseUrl: deps.openMeteoBaseUrl,
-        }),
-        readOrBuildRiverLiveConditions({
-          client,
-          river: target.river,
-          localDate: liveConditionsTiming.localDate,
-          refreshSlot: liveConditionsTiming.refreshSlot,
-          refreshAtUtc: liveConditionsTiming.refreshAtUtc,
+          riverId: target.riverId,
+          source: target.source,
           fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
-          gaugeObservations: deps.gaugeObservations,
-          waterTemperatureObservationsBySource:
-            deps.waterTemperatureObservationsBySource,
-          turbidityObservationsBySource: deps.turbidityObservationsBySource,
-          seasonalContextsByMetric: deps.seasonalContextsByMetric,
-        }),
-      ]);
-      results.push({
-        riverId: target.river.riverId,
-        runId: target.run.runId,
-        localDate: timing.localDate,
-        refreshSlot: timing.refreshSlot,
-        conditionRefreshAt: snapshot.condition.conditionRefreshAt,
-        dataQuality: snapshot.condition.dataQuality.label,
-        gaugeFreshness: snapshot.condition.freshness.gauge,
-        weatherFreshness: snapshot.condition.freshness.weather,
-        liveConditionsStatus: riverConditions.status,
+          now,
+          forceRefresh: true,
+        });
+        return {
+          riverId: target.riverId,
+          sourceId: target.source.sourceId,
+          reportIdentity: report.reportIdentity,
+          fetchStatus: report.fetchStatus,
+        };
+      } catch (error) {
+        failed++;
+        console.error("[river-run] fish-count refresh failed", {
+          riverId: target.riverId,
+          sourceId: target.source.sourceId,
+          message: error instanceof Error ? error.message : String(error),
+        });
+        return {
+          riverId: target.riverId,
+          sourceId: target.source.sourceId,
+          error: "refresh_failed",
+        };
+      }
+    },
+  );
+
+  const refreshResults = await mapWithConcurrency(
+    targets,
+    INTERNAL_REFRESH_CONCURRENCY,
+    async (target): Promise<Record<string, unknown>> => {
+      const timing = resolveRequestTiming(
+        new URL(req.url),
+        target.river,
+        target.run,
+        now,
+        false,
+      );
+      const liveConditionsTiming = resolveRiverLiveConditionsTiming({
+        url: new URL(req.url),
+        river: target.river,
+        runs: deps.runs,
+        fallbackRun: target.run,
+        now,
+        allowTestOverrides: false,
       });
-    } catch (error) {
-      failed++;
-      console.error("[river-run] internal refresh failed", {
-        riverId: target.river.riverId,
-        runId: target.run.runId,
-        message: error instanceof Error ? error.message : String(error),
-      });
-      results.push({
-        riverId: target.river.riverId,
-        runId: target.run.runId,
-        localDate: timing.localDate,
-        refreshSlot: timing.refreshSlot,
-        error: "refresh_failed",
-      });
-    }
-  }
+      try {
+        const providerFetch = deps.fetchFn ?? fetch;
+        const [snapshot, riverConditions] = await Promise.all([
+          readOrBuildSnapshot({
+            client,
+            river: target.river,
+            run: target.run,
+            timing,
+            engineVersion: deps.engineVersion,
+            configVersion: deps.configVersion ??
+              deps.configVersionByRun.get(target.run.runId) ??
+              CONFIG_VERSION,
+            fetchFn: providerFetch,
+            gaugeObservations: deps.gaugeObservations,
+            waterTemperatureObservationsBySource:
+              deps.waterTemperatureObservationsBySource,
+            weatherSnapshot: deps.weatherSnapshot,
+            openMeteoApiKey: deps.openMeteoApiKey,
+            openMeteoBaseUrl: deps.openMeteoBaseUrl,
+          }),
+          readOrBuildRiverLiveConditions({
+            client,
+            river: target.river,
+            localDate: liveConditionsTiming.localDate,
+            refreshSlot: liveConditionsTiming.refreshSlot,
+            refreshAtUtc: liveConditionsTiming.refreshAtUtc,
+            fetchFn: withTimeoutFetch(providerFetch, PROVIDER_TIMEOUT_MS),
+            gaugeObservations: deps.gaugeObservations,
+            waterTemperatureObservationsBySource:
+              deps.waterTemperatureObservationsBySource,
+            turbidityObservationsBySource: deps.turbidityObservationsBySource,
+            seasonalContextsByMetric: deps.seasonalContextsByMetric,
+          }),
+        ]);
+        return {
+          riverId: target.river.riverId,
+          runId: target.run.runId,
+          localDate: timing.localDate,
+          refreshSlot: timing.refreshSlot,
+          conditionRefreshAt: snapshot.condition.conditionRefreshAt,
+          dataQuality: snapshot.condition.dataQuality.label,
+          gaugeFreshness: snapshot.condition.freshness.gauge,
+          weatherFreshness: snapshot.condition.freshness.weather,
+          liveConditionsStatus: riverConditions.status,
+        };
+      } catch (error) {
+        failed++;
+        console.error("[river-run] internal refresh failed", {
+          riverId: target.river.riverId,
+          runId: target.run.runId,
+          message: error instanceof Error ? error.message : String(error),
+        });
+        return {
+          riverId: target.river.riverId,
+          runId: target.run.runId,
+          localDate: timing.localDate,
+          refreshSlot: timing.refreshSlot,
+          error: "refresh_failed",
+        };
+      }
+    },
+  );
+  results.push(...refreshResults);
 
   return jsonResponse(
     {
@@ -1523,6 +1532,27 @@ async function handleInternalRefresh(
     },
     failed > 0 ? 503 : 200,
   );
+}
+
+async function mapWithConcurrency<T, R>(
+  values: readonly T[],
+  concurrency: number,
+  work: (value: T) => Promise<R>,
+): Promise<R[]> {
+  const results = new Array<R>(values.length);
+  let next = 0;
+  await Promise.all(
+    Array.from(
+      { length: Math.min(Math.max(1, concurrency), values.length) },
+      async () => {
+        while (next < values.length) {
+          const index = next++;
+          results[index] = await work(values[index]!);
+        }
+      },
+    ),
+  );
+  return results;
 }
 
 async function readOrBuildSnapshot(input: {

@@ -1,6 +1,8 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { cleanString, isUuid } from "../_shared/creatorProgram.ts";
+import { checkPublicRequestRateLimits } from "../_shared/publicRateLimit.ts";
+import { rateLimitHeaders } from "../_shared/rateLimit.ts";
 
 function corsHeaders() {
   return {
@@ -10,10 +12,18 @@ function corsHeaders() {
   };
 }
 
-function json(body: unknown, status = 200): Response {
+function json(
+  body: unknown,
+  status = 200,
+  extraHeaders: Record<string, string> = {},
+): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { "Content-Type": "application/json", ...corsHeaders() },
+    headers: {
+      "Content-Type": "application/json",
+      ...corsHeaders(),
+      ...extraHeaders,
+    },
   });
 }
 
@@ -83,6 +93,27 @@ Deno.serve(async (req: Request) => {
   });
 
   try {
+    const limit = await checkPublicRequestRateLimits({
+      supabase,
+      request: req,
+      pepper: serviceRoleKey,
+      feature: "creator_referral_enrich",
+      ipMaxRequests: 120,
+      token: clickToken,
+      tokenMaxRequests: 30,
+      windowSeconds: 900,
+    });
+    if (limit) {
+      return json(
+        {
+          error: "rate_limited",
+          message: "Too many requests. Please wait before trying again.",
+          retryAfterSeconds: limit.retryAfterSeconds,
+        },
+        429,
+        rateLimitHeaders(limit),
+      );
+    }
     const { data: clickRow, error: lookupError } = await supabase
       .from("referral_clicks")
       .select("id, app_opened_at")

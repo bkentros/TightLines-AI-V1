@@ -190,7 +190,10 @@ export function createPierReportAccess(deps: {
   now?: () => Date;
 }) {
   return async (userId: string, free: boolean, cityId: string) => {
-    const claimKeys = free ? await deps.readClaimKeys(userId) : [];
+    const [claimKeys, outlook] = await Promise.all([
+      free ? deps.readClaimKeys(userId) : Promise.resolve([]),
+      deps.readOutlook(),
+    ]);
     const timezone = deps.cityTimezone(cityId);
     if (!timezone) {
       throw new PierCastAccessError(
@@ -213,7 +216,6 @@ export function createPierReportAccess(deps: {
         403,
       );
     }
-    const outlook = await deps.readOutlook();
     if (
       !outlook ||
       (outlook.formulaVersion !==
@@ -255,7 +257,10 @@ export function createPierConditionsReportAccess(deps: {
     cityId: string,
     selectedSpeciesId: PierCastSpeciesId,
   ) => {
-    const claimKeys = free ? await deps.readClaimKeys(userId) : [];
+    const [claimKeys, outlook] = await Promise.all([
+      free ? deps.readClaimKeys(userId) : Promise.resolve([]),
+      deps.readOutlook(),
+    ]);
     const timezone = deps.cityTimezone(cityId);
     if (!timezone) {
       throw new PierCastAccessError(
@@ -278,7 +283,6 @@ export function createPierConditionsReportAccess(deps: {
         403,
       );
     }
-    const outlook = await deps.readOutlook();
     if (!outlook) {
       throw new PierCastAccessError(
         "report_unavailable",

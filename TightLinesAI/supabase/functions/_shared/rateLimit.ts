@@ -129,10 +129,13 @@ export async function checkUserRateLimit(
         maxRequests,
       });
       if (!result) {
-        console.error("[rate-limit] check returned invalid data; denying request", {
-          feature: params.feature,
-          windowSeconds,
-        });
+        console.error(
+          "[rate-limit] check returned invalid data; denying request",
+          {
+            feature: params.feature,
+            windowSeconds,
+          },
+        );
         return closedResult(params.feature, { windowSeconds, maxRequests });
       }
       if (result && !result.allowed) return result;
@@ -147,6 +150,65 @@ export async function checkUserRateLimit(
   }
 
   return allowedResult ?? { ...OPEN_RESULT, feature: params.feature };
+}
+
+export async function checkSubjectRateLimit(
+  supabase: unknown,
+  params: {
+    subjectHash: string;
+    feature: string;
+    rules: RateLimitRule[];
+  },
+): Promise<RateLimitResult> {
+  const rpc = (supabase as { rpc?: (...args: unknown[]) => unknown })?.rpc;
+  if (typeof rpc !== "function") {
+    return closedResult(params.feature, params.rules[0]);
+  }
+  let allowedResult: RateLimitResult | null = null;
+  for (const rule of params.rules) {
+    try {
+      const response = await rpc.call(
+        supabase,
+        "consume_app_feature_subject_rate_limit",
+        {
+          in_subject_hash: params.subjectHash,
+          in_feature: params.feature,
+          in_window_seconds: Math.max(1, Math.floor(rule.windowSeconds)),
+          in_max_requests: Math.max(1, Math.floor(rule.maxRequests)),
+        },
+      ) as { data: unknown; error: { message?: string } | null };
+      if (response.error) return closedResult(params.feature, rule);
+      const result = normalizeRateLimitRow(response.data, params.feature, rule);
+      if (!result) return closedResult(params.feature, rule);
+      if (!result.allowed) return result;
+      allowedResult = result;
+    } catch {
+      return closedResult(params.feature, rule);
+    }
+  }
+  return allowedResult ?? { ...OPEN_RESULT, feature: params.feature };
+}
+
+export function requestClientIp(request: Request): string | null {
+  const connecting = request.headers.get("cf-connecting-ip")?.trim();
+  if (connecting) return connecting.slice(0, 80);
+  const forwarded = request.headers.get("x-forwarded-for");
+  const first = forwarded?.split(",")[0]?.trim();
+  if (first) return first.slice(0, 80);
+  const real = request.headers.get("x-real-ip")?.trim();
+  return real ? real.slice(0, 80) : null;
+}
+
+export async function hashRateLimitSubject(
+  namespace: string,
+  value: string,
+  pepper: string,
+): Promise<string> {
+  const bytes = new TextEncoder().encode(`${namespace}:${value}:${pepper}`);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 export function rateLimitHeaders(

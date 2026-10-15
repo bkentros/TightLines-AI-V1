@@ -66,7 +66,8 @@ test('a pass in the link opens the page and becomes a cookie', async () => {
   assert.equal(r.status, 200);
   assert.equal(await r.text(), '<html>map</html>');
   assert.match(r.headers.get('set-cookie'), /^pcmap=.*; Path=\/; Max-Age=\d+; Secure; HttpOnly; SameSite=Lax$/);
-  assert.equal(r.headers.get('cache-control'), 'private, max-age=60');
+  assert.equal(r.headers.get('cache-control'), 'private, max-age=60, must-revalidate');
+  assert.match(r.headers.get('server-timing'), /auth;dur=/);
   assert.equal(r.headers.get('x-content-type-options'), 'nosniff');
   assert.equal(r.headers.get('referrer-policy'), 'no-referrer');
   assert.match(r.headers.get('content-security-policy'), /script-src 'self'/);
@@ -103,6 +104,27 @@ test('request fuses reject abusive IP or account traffic before R2', async () =>
   assert.equal((await worker.fetch(new Request('https://map.finfindr.app/latest.json', { headers: { cookie } }), ipLimited)).status, 429);
   const accountLimited = { ...env, MAP_IP_LIMITER: allowed, MAP_ACCOUNT_LIMITER: blocked };
   assert.equal((await worker.fetch(new Request('https://map.finfindr.app/latest.json', { headers: { cookie } }), accountLimited)).status, 429);
+});
+
+test('content-versioned immutable assets keep pass verification but skip limiter lookups', async () => {
+  const pass = await makePass();
+  const cookie = `pcmap=${encodeURIComponent(pass)}`;
+  const blocked = { limit: async () => ({ success: false }) };
+  const response = await worker.fetch(
+    new Request('https://map.finfindr.app/static/lakes-v2.pmtiles?v=abcdef123456', {
+      headers: { cookie, range: 'bytes=0-3' },
+    }),
+    { ...env, MAP_IP_LIMITER: blocked, MAP_ACCOUNT_LIMITER: blocked },
+  );
+  assert.equal(response.status, 206);
+  assert.match(response.headers.get('server-timing'), /skipped-immutable/);
+  assert.equal(
+    (await worker.fetch(
+      new Request('https://map.finfindr.app/static/lakes-v2.pmtiles?v=abcdef123456'),
+      { ...env, MAP_PASS_SECRET: 'wrong', MAP_IP_LIMITER: blocked, MAP_ACCOUNT_LIMITER: blocked },
+    )).status,
+    401,
+  );
 });
 
 test('authenticated edge cache strips tickets and avoids repeat R2 reads', async () => {

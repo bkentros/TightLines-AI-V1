@@ -20,6 +20,10 @@ import type {
   PierCastLeaderboardResponseV4,
   PierCastObservedTemperatureMapResponseV1,
 } from "../../../lib/pierCastConditionsV4.ts";
+import {
+  rateLimitHeaders,
+  type RateLimitResult,
+} from "../_shared/rateLimit.ts";
 
 export const PIER_CAST_CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -61,7 +65,21 @@ function error(message: string, code: string, status: number): Response {
   return json({ error: code, message }, status);
 }
 
+function representationEtag(
+  route: string,
+  speciesId: string | null,
+  cycle: unknown,
+): string | null {
+  if (typeof cycle !== "string" || cycle.length === 0) return null;
+  const token = `${route}:${speciesId ?? "all"}:${cycle}`.replace(
+    /[^a-zA-Z0-9:_.-]/g,
+    "_",
+  );
+  return `W/"${token}"`;
+}
+
 export type PierCastHandlerDependencies = {
+  checkRateLimit?: (request: Request) => Promise<RateLimitResult | null>;
   readPublicCatalog?: () => ReturnType<typeof buildPierCastCatalog>;
   readConditionsCatalog?: () => PierCastConditionsCatalogResponseV4;
   readLeaderboard?: () => Promise<ReturnType<typeof leaderboardOnly> | null>;
@@ -151,9 +169,29 @@ export function createPierCastHandler(
       body: unknown,
       status = 200,
       cacheControl = "no-store",
-    ) => json(body, status, cacheControl, contractHeaders);
+      extraHeaders: Record<string, string> = {},
+    ) =>
+      json(body, status, cacheControl, {
+        ...contractHeaders,
+        ...extraHeaders,
+      });
     const routeError = (message: string, code: string, status: number) =>
       routeJson({ error: code, message }, status);
+    if (dependencies.checkRateLimit) {
+      const limit = await dependencies.checkRateLimit(request);
+      if (limit && !limit.allowed) {
+        return routeJson(
+          {
+            error: "rate_limited",
+            message: "Too many requests. Please wait a moment and try again.",
+            retryAfterSeconds: limit.retryAfterSeconds,
+          },
+          429,
+          "no-store",
+          rateLimitHeaders(limit),
+        );
+      }
+    }
     if (
       conditionsCatalog || url.pathname.endsWith("/leaderboard") ||
       conditionsMap ||
@@ -240,11 +278,24 @@ export function createPierCastHandler(
           const leaderboard = await dependencies.readConditionsLeaderboard(
             speciesId,
           );
-          return leaderboard ? routeJson(leaderboard) : routeError(
-            "PierCast conditions are not available right now.",
-            "pier_cast_conditions_unavailable",
-            503,
+          const etag = representationEtag(
+            "conditions-leaderboard",
+            speciesId,
+            (leaderboard as { sourceIssuedAt?: unknown } | null)
+              ?.sourceIssuedAt,
           );
+          return leaderboard
+            ? routeJson(
+              leaderboard,
+              200,
+              "public, max-age=30, s-maxage=60, stale-while-revalidate=120",
+              etag ? { ETag: etag } : {},
+            )
+            : routeError(
+              "PierCast conditions are not available right now.",
+              "pier_cast_conditions_unavailable",
+              503,
+            );
         }
         if (conditionsMap) {
           if (!dependencies.readConditionsMap) {
@@ -326,11 +377,23 @@ export function createPierCastHandler(
           return routeError("Route unavailable.", "not_found", 404);
         }
         const leaderboard = await dependencies.readLeaderboard?.();
-        return leaderboard ? routeJson(leaderboard) : routeError(
-          "PierCast is not publicly available yet.",
-          "pier_cast_unavailable",
-          503,
+        const etag = representationEtag(
+          "legacy-leaderboard",
+          null,
+          (leaderboard as { generatedAt?: unknown } | null)?.generatedAt,
         );
+        return leaderboard
+          ? routeJson(
+            leaderboard,
+            200,
+            "public, max-age=30, s-maxage=60, stale-while-revalidate=120",
+            etag ? { ETag: etag } : {},
+          )
+          : routeError(
+            "PierCast is not publicly available yet.",
+            "pier_cast_unavailable",
+            503,
+          );
       } catch (caught) {
         if (caught instanceof PierCastAccessError) {
           return routeError(caught.message, caught.code, caught.status);
