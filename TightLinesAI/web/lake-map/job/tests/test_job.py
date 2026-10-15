@@ -526,7 +526,7 @@ class FullRunTest(unittest.TestCase):
         lmhofs = [model for model in build.OFS_MODELS if model["id"] == "LMHOFS"]
         point_feed = {
             "formatVersion": 1, "productId": "NOAA_NOS_LMHOFS_REGULARGRID",
-            "cycle": "2026-09-30T12:00:00Z", "source": "thredds",
+            "cycle": "2026-09-30T12:00:00Z", "source": "thredds", "units": "C",
             "sourceDistribution": ofs.THREDDS_DISTRIBUTION,
             "sampleMethod": "test_fixture", "cityCount": 32, "forecastHours": 121,
             "points": [{
