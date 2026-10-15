@@ -30,7 +30,7 @@ jobs:
         with:
           sparse-checkout: |
             TightLinesAI/web/lake-map/job
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install
