@@ -98,7 +98,7 @@ jobs:
       - name: Full lake-map dry run
         id: dry_run
         working-directory: TightLinesAI/web/lake-map
-        run: python job/build.py --out "$RUNNER_TEMP/lake-map-canary"
+        run: python job/canary.py --out "$RUNNER_TEMP/lake-map-canary"
       - name: Alert immediately if the canary fails
         if: failure()
         env:
