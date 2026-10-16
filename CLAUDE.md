@@ -197,26 +197,36 @@ Read `web/lake-map/README.md` first. Quick facts:
 
 ## Current state / open tasks (2026-10-16)
 
-- Production ships app **1.17**, `pier-cast` **v88**, and `pier-cast-ingest` **v63**.
-  Those Edge Function versions are frozen until a separately approved rollout.
+- Production ships app **1.17**, `pier-cast` **v90**, and `pier-cast-ingest` **v73**.
+  `pier-cast-ingest` v73 is a redeploy of the exact v63 source bytes: its 84 downloaded
+  source files verify against the saved recursive manifest whose SHA-256 is
+  `415871dc46136aabab02eb0cba4c7f7377f244b9395f9b660dfe29e8a77496be`.
+  The production source setting is `thredds`; keep these bytes and setting frozen until
+  a separately approved rollout.
 - The Live Lake Map pipeline, scheduler, THREDDS/NODD circuit breaker, pointer-last delivery,
   alerting, required PR suites, post-merge no-upload canary, and one-production-change-at-a-time
   rule are documented above and in `web/lake-map/README.md`. `PIERCAST STALE` opens only when
   the public cycle is more than 12 hours old; the normal aggregate replaces it at roughly
   10 hours 10 minutes.
-- **PARKED — PierCast lake-map feed switchover.** The reader code is on `main`, its
-  `PIER_CAST_TEMPERATURE_SOURCE` switch remains off/direct-THREDDS in production, and the
-  lake-map pipeline is publishing a complete 32-city × 121-hour point feed. Resume only with
-  explicit approval, one production change at a time: (1) download the exact v63 bundle and
-  verify a recursive SHA-256 manifest; (2) deploy current `pier-cast-ingest` with source
-  `thredds`; (3) verify one automatic cycle; (4) set the source to `lake_map`; (5) verify the
-  next automatic cycle against the THREDDS-equivalent gate: mean absolute difference ≤ 0.05°F,
-  maximum ≤ 1.0°F, and zero rating-band changes. Roll back first by setting source=`thredds`,
-  then, if necessary, redeploy the verified v63 bytes using the saved work directory.
-- Deferred work: 12 Edge Functions where `main` is newer than production (ship with the next
+- **PARKED — PierCast lake-map feed switchover.** PR #93 merged the read-only comparison,
+  service-role JWT-claim authorization, and versioned pointer reads to `main`. The local
+  read-only comparison passed the committed `2026-10-16T12:00:00Z` cycle across all seven
+  cohorts and 32 cities (mean absolute difference 0.038516°F, maximum 0.323986°F, zero
+  rating-band changes). The approved production rollout then returned HTTP 546 from the
+  comparison endpoint before producing a result, so it failed closed and was automatically
+  rolled back: source=`thredds`, then the verified v63 bytes were redeployed as v73 and
+  re-downloaded/hash-verified. The public 32-city v3 API passed its post-rollback smoke.
+  Do not retry without explicit approval and a diagnosed 546 cause. Roll back any future feed
+  attempt in the same order: set source=`thredds` first, redeploy the manifest-verified v63
+  source, re-download and hash it, then run the public API smoke.
+- **Event-driven PierCast is not deployed.** Part 2 was intentionally stopped when the feed
+  switchover gate failed. The existing fixed `pg_net` cohort/v3 schedules remain the only
+  ingestion trigger and the stale alerts are unchanged; there is no event hook to roll back.
+- Deferred work: 14 Edge Functions where `main` is newer than production (ship with the next
   app release); Dependabot PR #89 (requires its manual no-upload canary before merge); three
-  development-tool security alerts tied to the Expo upgrade decision; and `wip/*` branches
-  holding in-progress PierCast/River Run work plus five unapplied migrations.
+  development-tool security alerts tied to the Expo upgrade decision; and archived `wip/*`
+  branches holding prior PierCast/River Run work. Local and production migration history is
+  reconciled through `20261014173000`; no migration was added by the switchover work.
 - The staging Supabase project no longer exists. Treat every `STAGING_*` variable in local
   environment files as stale; do not infer a usable staging target from those names.
 
