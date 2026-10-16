@@ -37,6 +37,7 @@ export * from "./providers/lakeMapPoints.ts";
 export * from "./providers/glos.ts";
 export * from "./validation/temperatureComparison.ts";
 export * from "./validation/fieldTemperature.ts";
+export * from "./validation/lakeMapCompare.ts";
 export * from "./archive/lmhofsArchive.ts";
 export * from "./archive/portWashingtonLmhofsArchive.ts";
 export * from "./archive/wisconsinLmhofsArchive.ts";
@@ -65,6 +66,7 @@ export * from "./pipeline/pentwaterCasevilleShadow.ts";
 export * from "./pipeline/reviewOutlook.ts";
 export * from "./pipeline/v3ReviewOutlook.ts";
 export * from "./pipeline/conditionsV4.ts";
+export * from "./pipeline/lakeMapComparison.ts";
 export * from "./validation.ts";
 
 export const PIER_CAST_ENGINE_VERSION = "pier-cast-simple-model-v0.10.0";

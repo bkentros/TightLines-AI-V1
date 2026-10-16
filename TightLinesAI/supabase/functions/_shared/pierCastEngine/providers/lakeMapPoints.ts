@@ -161,7 +161,12 @@ export async function fetchPierCastLakeMapBatch(options: {
   const base = (options.mapUrl ?? DEFAULT_MAP_URL).replace(/\/$/, "");
   const pass = await createLakeMapPass(options.mapPassSecret, now);
   const auth = `t=${encodeURIComponent(pass)}`;
-  const pointerUrl = `${base}/runs/piercast/latest.json?${auth}`;
+  // Minute-scoped versioning shares one edge-cache entry across each cohort
+  // while bypassing any pointer response cached under an obsolete policy.
+  const pointerVersion = Math.floor(now.getTime() / 60_000).toString(16)
+    .padStart(8, "0");
+  const pointerUrl =
+    `${base}/runs/piercast/latest.json?v=${pointerVersion}&${auth}`;
   const pointer = await responseJson(
     await fetchImpl(pointerUrl, {
       headers: { accept: "application/json" },
