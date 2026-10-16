@@ -1,6 +1,6 @@
 export const SURFACE_STALE_HOURS = 9;
 export const DEPTH_MISMATCH_CYCLES = 2;
-export const PIER_CAST_STALE_HOURS = 10;
+export const PIER_CAST_STALE_HOURS = 12;
 export const STATE_VERSION = 1;
 
 const INCIDENTS = [

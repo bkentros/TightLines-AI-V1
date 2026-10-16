@@ -25,8 +25,10 @@ idempotency keys make retries safe. The Worker never creates a stale or
 mismatched production pointer for testing.
 
 PierCast alerting reads `sourceIssuedAt` from the public leaderboard every 30
-minutes. A cycle older than 10 hours opens `PIERCAST STALE`; 10 hours or less
-recovers it. Network failures, non-success HTTP responses, malformed JSON, and
+minutes. A cycle older than 12 hours opens `PIERCAST STALE`; 12 hours or less
+recovers it. The threshold clears the normal aggregate's roughly 10-hour-10-minute
+replacement cadence while still detecting a genuinely missed cycle. Network
+failures, non-success HTTP responses, malformed JSON, and
 missing/invalid timestamps open the separate `PIERCAST AVAILABILITY` incident.
 Both are transition-only and are included in the Monday weekly totals.
 

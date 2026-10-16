@@ -195,6 +195,31 @@ Read `web/lake-map/README.md` first. Quick facts:
   key exposes no provider expiry; rotate `RESEND_API_KEY` by 2027-10-14 or immediately after
   suspected exposure.
 
+## Current state / open tasks (2026-10-16)
+
+- Production ships app **1.17**, `pier-cast` **v88**, and `pier-cast-ingest` **v63**.
+  Those Edge Function versions are frozen until a separately approved rollout.
+- The Live Lake Map pipeline, scheduler, THREDDS/NODD circuit breaker, pointer-last delivery,
+  alerting, required PR suites, post-merge no-upload canary, and one-production-change-at-a-time
+  rule are documented above and in `web/lake-map/README.md`. `PIERCAST STALE` opens only when
+  the public cycle is more than 12 hours old; the normal aggregate replaces it at roughly
+  10 hours 10 minutes.
+- **PARKED — PierCast lake-map feed switchover.** The reader code is on `main`, its
+  `PIER_CAST_TEMPERATURE_SOURCE` switch remains off/direct-THREDDS in production, and the
+  lake-map pipeline is publishing a complete 32-city × 121-hour point feed. Resume only with
+  explicit approval, one production change at a time: (1) download the exact v63 bundle and
+  verify a recursive SHA-256 manifest; (2) deploy current `pier-cast-ingest` with source
+  `thredds`; (3) verify one automatic cycle; (4) set the source to `lake_map`; (5) verify the
+  next automatic cycle against the THREDDS-equivalent gate: mean absolute difference ≤ 0.05°F,
+  maximum ≤ 1.0°F, and zero rating-band changes. Roll back first by setting source=`thredds`,
+  then, if necessary, redeploy the verified v63 bytes using the saved work directory.
+- Deferred work: 12 Edge Functions where `main` is newer than production (ship with the next
+  app release); Dependabot PR #89 (requires its manual no-upload canary before merge); three
+  development-tool security alerts tied to the Expo upgrade decision; and `wip/*` branches
+  holding in-progress PierCast/River Run work plus five unapplied migrations.
+- The staging Supabase project no longer exists. Treat every `STAGING_*` variable in local
+  environment files as stale; do not infer a usable staging target from those names.
+
 ## Git conventions
 
 - `main` is the working and release branch. Work happens on short-lived feature branches off
