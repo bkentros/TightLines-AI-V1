@@ -6,13 +6,13 @@ import type {
   PierCastSeasonalBandV4,
   PierCastThermalBandV4,
   PierCastThermalMatchReadV4,
-} from "./pierCastConditionsV4";
+} from "./pierCastConditionsV4.ts";
 import {
   getPierCastLakeTroutV5Candidate,
   PIER_CAST_LAKE_TROUT_V5_APP_ENABLED,
   PIER_CAST_LAKE_TROUT_V5_CANDIDATES,
   PIER_CAST_LAKE_TROUT_V5_CANDIDATE_VERSION,
-} from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate";
+} from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate.ts";
 
 // Keep aligned with conditionsV4Thermal.ts. This small app-safe mirror avoids
 // bundling the entire server calibration module into the 1.17 client.
