@@ -197,7 +197,7 @@ Read `web/lake-map/README.md` first. Quick facts:
 
 ## Current state / open tasks (2026-10-16)
 
-- Production ships app **1.17**, `pier-cast` **v90**, and `pier-cast-ingest` **v73**.
+- Production ships app **1.17**, `pier-cast` **v92**, and `pier-cast-ingest` **v73**.
   `pier-cast-ingest` v73 is a redeploy of the exact v63 source bytes: its 84 downloaded
   source files verify against the saved recursive manifest whose SHA-256 is
   `415871dc46136aabab02eb0cba4c7f7377f244b9395f9b660dfe29e8a77496be`.
