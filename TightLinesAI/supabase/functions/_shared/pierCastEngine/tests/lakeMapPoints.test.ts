@@ -94,7 +94,7 @@ Deno.test("lake-map point feed preserves exact cells and a complete cohort", asy
   assertEquals(batch.cities[0].samples[120].temperatureC, 11.2);
   assertEquals(batch.diagnostics[0].code, "lake_map_surface");
   assertEquals(requests.length, 2);
-  assertMatch(requests[0], /\?t=v1\./);
+  assertMatch(requests[0], /\?v=[0-9a-f]{8,}&t=v1\./);
   assertMatch(
     requests[1],
     new RegExp(`/runs/${run}/piercast-points\\.json\\?t=v1\\.`),

@@ -2,6 +2,7 @@ import type {
   PierCastDailyScoreSnapshotCommitSummary,
   PierCastFieldTemperatureInput,
   PierCastFieldTemperatureRecord,
+  PierCastLakeMapComparison,
   PierCastObservationIngestionSummary,
   PierCastShadowForecastCommitSummary,
   PierCastTemperatureIngestionOutcome,
@@ -14,6 +15,7 @@ const OPERATION_HEADER = "x-pier-cast-operation";
 export type PierCastIngestHandlerDependencies = {
   internalSecret: string | null;
   ingest: () => Promise<PierCastTemperatureIngestionOutcome>;
+  compareLakeMap?: () => Promise<PierCastLakeMapComparison>;
   ingestObservations?: () => Promise<PierCastObservationIngestionSummary>;
   archiveShadowForecast?: (
     outcome: Exclude<
@@ -129,6 +131,20 @@ export function createPierCastIngestHandler(
     if (request.method !== "POST") {
       return json({ error: "method_not_allowed" }, 405);
     }
+    const operation = request.headers.get(OPERATION_HEADER);
+    if (operation === "lake-map-compare") {
+      if (!hasServiceRoleBearer(request)) {
+        return json({ error: "pier_cast_ingest_forbidden" }, 403);
+      }
+      if (!dependencies.compareLakeMap) {
+        return json({ error: "pier_cast_lake_map_compare_misconfigured" }, 500);
+      }
+      try {
+        return json(await dependencies.compareLakeMap());
+      } catch {
+        return json({ error: "pier_cast_lake_map_compare_failed" }, 503);
+      }
+    }
     const secret = dependencies.internalSecret;
     if (!secret || secret.trim().length < 16) {
       return json({ error: "pier_cast_ingest_misconfigured" }, 500);
@@ -137,8 +153,6 @@ export function createPierCastIngestHandler(
     if (!suppliedSecret || !constantTimeEqual(suppliedSecret, secret)) {
       return json({ error: "pier_cast_ingest_forbidden" }, 403);
     }
-
-    const operation = request.headers.get(OPERATION_HEADER);
     if (operation === "field-temperature") {
       return await handleFieldTemperature(request, dependencies);
     }
@@ -502,4 +516,28 @@ function constantTimeEqual(left: string, right: string): boolean {
       (right.charCodeAt(index) || 0);
   }
   return difference === 0;
+}
+
+/**
+ * The deployed function keeps verify_jwt enabled, so the gateway verifies the
+ * signature before this handler sees the request. Authorize the role claim
+ * instead of comparing the bearer bytes with one particular valid key.
+ */
+function hasServiceRoleBearer(request: Request): boolean {
+  const bearer = request.headers.get("authorization")?.match(
+    /^Bearer\s+([^\s]+)$/i,
+  )?.[1];
+  if (!bearer) return false;
+  const segments = bearer.split(".");
+  if (segments.length !== 3) return false;
+  try {
+    const encoded = segments[1].replaceAll("-", "+").replaceAll("_", "/");
+    const padded = encoded.padEnd(Math.ceil(encoded.length / 4) * 4, "=");
+    const claims = JSON.parse(atob(padded)) as Record<string, unknown>;
+    return claims.role === "service_role" &&
+      (claims.exp === undefined ||
+        (typeof claims.exp === "number" && claims.exp * 1000 > Date.now()));
+  } catch {
+    return false;
+  }
 }

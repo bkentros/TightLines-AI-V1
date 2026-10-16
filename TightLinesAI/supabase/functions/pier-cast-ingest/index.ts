@@ -38,6 +38,7 @@ import {
   type PierCastCityProfile,
   pierCastDailyScoreLakeDateForCycle,
   readLatestCoherentPierCastV3SourceCohorts,
+  runPierCastLakeMapComparison,
   validatePierCastFieldTemperatureObservation,
 } from "../_shared/pierCastEngine/index.ts";
 import { createPierCastIngestHandler } from "./handler.ts";
@@ -76,6 +77,15 @@ function temperatureOperations(cityProfiles: readonly PierCastCityProfile[]) {
 
 const handler = createPierCastIngestHandler({
   internalSecret: Deno.env.get("PIER_CAST_INTERNAL_KEY") ?? null,
+  compareLakeMap: async () => {
+    if (!lakeMapPassSecret) {
+      throw new Error("Lake-map pass secret is unavailable.");
+    }
+    return await runPierCastLakeMapComparison({
+      database: archiveClient,
+      mapPassSecret: lakeMapPassSecret,
+    });
+  },
   ingest: () =>
     ingestPierCastTemperatureCycle({
       database: archiveClient,

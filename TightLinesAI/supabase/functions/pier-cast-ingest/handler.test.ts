@@ -8,6 +8,12 @@ import { completeLmhofsBatch } from "../_shared/pierCastEngine/tests/fixtures/lm
 import { createPierCastIngestHandler } from "./handler.ts";
 
 const SECRET = "pier-cast-test-secret";
+const SERVICE_ROLE_JWT = `test.${
+  btoa(JSON.stringify({
+    role: "service_role",
+    exp: 4_102_444_800,
+  }))
+}.signature`;
 
 function request(secret: string | null = SECRET, method = "POST"): Request {
   const headers = new Headers();
@@ -472,13 +478,18 @@ Deno.test("St. Joseph-Harrisville operation commits only its private five-city c
       });
     },
   });
-  const response = await handler(new Request(
-    "https://example.test/functions/v1/pier-cast-ingest",
-    { method: "POST", headers: new Headers({
-      "x-pier-cast-internal-key": SECRET,
-      "x-pier-cast-operation": "st-joseph-harrisville-shadow",
-    }) },
-  ));
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "st-joseph-harrisville-shadow",
+        }),
+      },
+    ),
+  );
   const body = await response.json();
   assertEquals(response.status, 200);
   assertEquals(body.cityCount, 5);
@@ -511,13 +522,18 @@ Deno.test("Pentwater-Caseville operation commits only its private five-city coho
       });
     },
   });
-  const response = await handler(new Request(
-    "https://example.test/functions/v1/pier-cast-ingest",
-    { method: "POST", headers: new Headers({
-      "x-pier-cast-internal-key": SECRET,
-      "x-pier-cast-operation": "pentwater-caseville-shadow",
-    }) },
-  ));
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: new Headers({
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "pentwater-caseville-shadow",
+        }),
+      },
+    ),
+  );
   const body = await response.json();
   assertEquals(response.status, 200);
   assertEquals(body.cityCount, 5);
@@ -570,6 +586,78 @@ Deno.test("Formula v3 shadow operation is authenticated and isolated from v2 ing
   assertEquals(body.shadowForecast.forecastCount, 1270);
   assertEquals(productionCalls, 0);
   assertEquals(v3Calls, 1);
+});
+
+Deno.test("lake-map comparison is authenticated, read-only, and isolated from ingest", async () => {
+  let ingestCalls = 0;
+  let compareCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => {
+      ingestCalls += 1;
+      return Promise.resolve(liveOutcome());
+    },
+    compareLakeMap: () => {
+      compareCalls += 1;
+      return Promise.resolve({
+        status: "compared",
+        mode: "read_only",
+        issuedAt: "2026-10-16T12:00:00.000Z",
+        cohorts: [],
+        temperature: {
+          sampleCount: 3872,
+          meanAbsDifferenceF: 0.03,
+          maxAbsDifferenceF: 0.4,
+          cities: [],
+        },
+        ratings: { forecastCount: 1270, bandChanges: 0 },
+        durationMs: 1234,
+      });
+    },
+  });
+  const headers = new Headers({
+    authorization: `Bearer ${SERVICE_ROLE_JWT}`,
+    "x-pier-cast-operation": "lake-map-compare",
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      { method: "POST", headers },
+    ),
+  );
+  const body = await response.json();
+  assertEquals(response.status, 200);
+  assertEquals(body.mode, "read_only");
+  assertEquals(body.temperature.sampleCount, 3872);
+  assertEquals(body.ratings.bandChanges, 0);
+  assertEquals(ingestCalls, 0);
+  assertEquals(compareCalls, 1);
+});
+
+Deno.test("lake-map comparison rejects the regular ingest secret", async () => {
+  let compareCalls = 0;
+  const handler = createPierCastIngestHandler({
+    internalSecret: SECRET,
+    ingest: () => Promise.resolve(liveOutcome()),
+    compareLakeMap: () => {
+      compareCalls += 1;
+      throw new Error("must not run");
+    },
+  });
+  const response = await handler(
+    new Request(
+      "https://example.test/functions/v1/pier-cast-ingest",
+      {
+        method: "POST",
+        headers: {
+          "x-pier-cast-internal-key": SECRET,
+          "x-pier-cast-operation": "lake-map-compare",
+        },
+      },
+    ),
+  );
+  assertEquals(response.status, 403);
+  assertEquals(compareCalls, 0);
 });
 
 Deno.test("observation archive failure is nonfatal and explicitly diagnosed", async () => {
