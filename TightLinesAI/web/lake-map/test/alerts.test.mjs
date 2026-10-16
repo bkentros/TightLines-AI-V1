@@ -120,20 +120,20 @@ test('post-merge canary opens an immediate PIPELINE BROKEN incident', () => {
   assert.match(state.outbox.at(-1).subject, /PIPELINE BROKEN/);
 });
 
-test('PierCast stale opens once above 10 hours and recovers at the threshold', () => {
-  assert.equal(PIER_CAST_STALE_HOURS, 10);
+test('PierCast stale opens once above 12 hours and recovers at the threshold', () => {
+  assert.equal(PIER_CAST_STALE_HOURS, 12);
   let state = evaluatePierCastObservation(initialState(), {
-    ok: true, sourceIssuedAt: '2026-10-14T05:59:00Z',
+    ok: true, sourceIssuedAt: '2026-10-14T03:59:00Z',
   }, now);
   assert.equal(state.incidents.pierCastStale.active, true);
   assert.equal(state.outbox.filter((item) => item.type === 'pierCastStale').length, 1);
   state.outbox = [];
   state = evaluatePierCastObservation(state, {
-    ok: true, sourceIssuedAt: '2026-10-14T05:59:00Z',
+    ok: true, sourceIssuedAt: '2026-10-14T03:59:00Z',
   }, new Date('2026-10-14T16:30:00Z'));
   assert.equal(state.outbox.length, 0);
   state = evaluatePierCastObservation(state, {
-    ok: true, sourceIssuedAt: '2026-10-14T07:00:00Z',
+    ok: true, sourceIssuedAt: '2026-10-14T05:00:00Z',
   }, new Date('2026-10-14T17:00:00Z'));
   assert.equal(state.incidents.pierCastStale.active, false);
   assert.match(state.outbox[0].subject, /RECOVERY: PIERCAST STALE/);
