@@ -97,7 +97,7 @@ function fourHourSeries(low: number, high: number): DirectEventSample[] {
   }));
 }
 
-Deno.test("Umpqua Pass 4 profiles validate in the public and review registries", () => {
+Deno.test("Umpqua Pass 4 profiles are public and absent from owner review", () => {
   assertEquals(
     truth.deliveryContract.clientCapabilityId,
     "river_run_umpqua_fall_v1",
@@ -108,13 +108,13 @@ Deno.test("Umpqua Pass 4 profiles validate in the public and review registries",
   );
   assertEquals(
     RIVER_RUN_DRAFT_RIVER_PROFILES.map((river) => river.riverId).toSorted(),
-    ["north_umpqua", "umpqua_mainstem"],
+    [],
   );
   assertEquals(
     RIVER_RUN_DRAFT_RUN_PROFILES.map((run) => run.runId).toSorted(),
-    runs.map((run) => run.runId).toSorted(),
+    [],
   );
-  assertEquals(RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.length, 2);
+  assertEquals(RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS.length, 0);
 
   for (const river of rivers) {
     const result = validateRiverProfile(river);
@@ -146,9 +146,9 @@ Deno.test("Umpqua Pass 4 profiles validate in the public and review registries",
     const issues = validateConfigurationRevision({
       configKey: document.river.riverId,
       revision: 1,
-      status: "draft",
+      status: "published",
       document,
-      evidenceNotes: "Umpqua Pass 4 hidden owner-review implementation.",
+      evidenceNotes: "Umpqua Pass 4 public release implementation.",
     });
     assert(
       issues.every((issue) => issue.severity !== "error"),

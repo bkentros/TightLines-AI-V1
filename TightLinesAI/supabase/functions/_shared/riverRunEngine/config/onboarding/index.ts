@@ -3,24 +3,13 @@ import type {
   RiverProfile,
   RiverRunConfigurationDocument,
 } from "../../types.ts";
-import {
-  UMPQUA_DRAFT_CONFIGURATION_DOCUMENTS,
-  UMPQUA_DRAFT_RIVERS,
-  UMPQUA_DRAFT_RUNS,
-} from "./umpqua.ts";
 /** Hidden owner-review candidates; these never enter the public registry here. */
-export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [
-  ...UMPQUA_DRAFT_RIVERS,
-];
+export const RIVER_RUN_DRAFT_RIVER_PROFILES: RiverProfile[] = [];
 
-export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [
-  ...UMPQUA_DRAFT_RUNS,
-];
+export const RIVER_RUN_DRAFT_RUN_PROFILES: AuditedRiverRunProfile[] = [];
 
 export const RIVER_RUN_DRAFT_CONFIGURATION_DOCUMENTS:
-  RiverRunConfigurationDocument[] = [
-    ...UMPQUA_DRAFT_CONFIGURATION_DOCUMENTS,
-  ];
+  RiverRunConfigurationDocument[] = [];
 
 export * from "./grand.ts";
 export * from "./platte.ts";

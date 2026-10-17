@@ -43,6 +43,8 @@ const expectedRivers = new Set([
   "oswego",
   "bear_creek_manistee",
   "rogue_mi",
+  "umpqua_mainstem",
+  "north_umpqua",
 ]);
 const expectedSpeciesCounts = new Map([
   ["pere_marquette", 4],
@@ -55,6 +57,8 @@ const expectedSpeciesCounts = new Map([
   ["white", 4],
   ["bear_creek_manistee", 4],
   ["rogue_mi", 4],
+  ["umpqua_mainstem", 2],
+  ["north_umpqua", 1],
   ["milwaukee", 6],
   ["sheboygan", 6],
   ["root", 6],
@@ -172,6 +176,9 @@ const expectedRunIds = new Set([
   "rogue_mi_fall_coho",
   "rogue_mi_fall_steelhead",
   "rogue_mi_winter_steelhead",
+  "umpqua_mainstem_fall_chinook",
+  "umpqua_mainstem_fall_coho",
+  "north_umpqua_fall_coho",
 ]);
 
 assert(report.status === "ready", JSON.stringify(report, null, 2));
@@ -184,12 +191,12 @@ assert(
   "Existing portfolio must have no noisy onboarding warnings.",
 );
 assert(
-  report.riverCount === 25,
-  `Expected 25 rivers, received ${report.riverCount}.`,
+  report.riverCount === 27,
+  `Expected 27 rivers, received ${report.riverCount}.`,
 );
 assert(
-  report.runCount === 100,
-  `Expected 100 runs, received ${report.runCount}.`,
+  report.runCount === 103,
+  `Expected 103 runs, received ${report.runCount}.`,
 );
 for (const river of report.rivers) {
   assert(

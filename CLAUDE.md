@@ -76,26 +76,31 @@ Registries live in `supabase/functions/_shared/riverRunEngine/config/`:
 - Public: `rivers.ts`, `runs.ts`, `catalog.ts`
 - Owner-review: `config/onboarding/index.ts` (`RIVER_RUN_DRAFT_*`)
 
-**As of 2026-09-15 every completed candidate is public and the draft
-registries are intentionally empty** (23 rivers / 72 runs, MI IN WI NY WA OR).
+**As of 2026-10-16 every completed candidate is public and the draft
+registries are intentionally empty** (27 rivers / 103 runs, MI IN WI NY WA OR).
+The public registry explicitly includes the Umpqua Mainstem and North Umpqua
+with all three audited Umpqua runs; do not move them back to owner-review.
 
 When promoting a cohort, append inside the existing
 `.map(withSeasonalZonePlan)` / `withSeasonalZonePlans(...)` mappings —
 appending after them silently drops seasonal zone plans.
 
-### Counting rivers: 23 vs 24 vs 75
+### Counting rivers: 27 vs 28
 
 `st_joseph` is intentionally placed in **both MI and IN**. Any count that
-walks `states[].rivers[]` double-counts it, so the live `/rivers` catalog
-reports 24 placements and 75 runs for 23 unique rivers and 72 unique runs.
-This is not a bug. De-duplicate by `riverId` / `runId` before comparing to
-config.
+walks `states[].rivers[]` double-counts it, so the `/rivers` catalog reports
+28 placements for 27 unique rivers. This is not a bug. De-duplicate by
+`riverId` / `runId` before comparing to config.
+
+There are 103 public-approved runs in code. The live catalog is seasonally
+gated and reports 83 active runs as of 2026-10-16; the remaining 20 are
+approved winter profiles that appear only on their audited activation dates.
 
 ### Verify River Run changes with
 
 ```bash
 cd TightLinesAI
-deno run --allow-read scripts/river-run-onboarding-qa.ts   # expects 23 rivers / 72 runs
+deno run --allow-read scripts/river-run-onboarding-qa.ts   # expects 27 rivers / 103 runs
 npm run qa:river-run:onboarding-weather-activity
 npm run check:river-run:review-fixtures
 npx tsc --noEmit
@@ -197,7 +202,9 @@ Read `web/lake-map/README.md` first. Quick facts:
 
 ## Current state / open tasks (2026-10-16)
 
-- Production ships app **1.17**, `pier-cast` **v92**, and `pier-cast-ingest` **v73**.
+- Production ships app **1.17**, `river-run` **v97**, `pier-cast` **v92**, and
+  `pier-cast-ingest` **v73**. River Run v97 explicitly publishes the Umpqua
+  Mainstem and North Umpqua with all three audited Umpqua runs.
   `pier-cast-ingest` v73 is a redeploy of the exact v63 source bytes: its 84 downloaded
   source files verify against the saved recursive manifest whose SHA-256 is
   `415871dc46136aabab02eb0cba4c7f7377f244b9395f9b660dfe29e8a77496be`.
@@ -222,7 +229,7 @@ Read `web/lake-map/README.md` first. Quick facts:
 - **Event-driven PierCast is not deployed.** Part 2 was intentionally stopped when the feed
   switchover gate failed. The existing fixed `pg_net` cohort/v3 schedules remain the only
   ingestion trigger and the stale alerts are unchanged; there is no event hook to roll back.
-- Deferred work: 14 Edge Functions where `main` is newer than production (ship with the next
+- Deferred work: 13 Edge Functions where `main` is newer than production (ship with the next
   app release); Dependabot PR #89 (requires its manual no-upload canary before merge); three
   development-tool security alerts tied to the Expo upgrade decision; and archived `wip/*`
   branches holding prior PierCast/River Run work. Local and production migration history is
