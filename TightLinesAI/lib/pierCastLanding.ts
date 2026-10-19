@@ -180,7 +180,7 @@ export function pierCastSalmonidsFor(
 /**
  * The city's best trout/salmon species today across the given species
  * conditions feeds: always one pick when any supported salmonid has a row,
- * even when the best is only Fair or Poor.
+ * even when the best is only Fair or Limited.
  */
 export function pickPierCastTopSalmonid(
   city: PierCastConditionsCatalogCityV4,

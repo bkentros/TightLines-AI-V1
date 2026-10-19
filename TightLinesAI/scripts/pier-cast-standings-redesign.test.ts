@@ -34,16 +34,20 @@ test("Standings copy, ranking and default-species rules follow the server fields
   assert.equal(P.standingsWaterLine(thermal(12.8, 10, 14, "excellent")), "Water 55°F · Excellent fit");
   assert.equal(P.standingsWaterLine(row({ cityId: "x" }).thermalMatch), null);
 
-  // Stage label: Peak only when active + Prime
-  assert.equal(P.standingsStageLabel("active", "excellent"), "Peak season");
+  // Stage and opportunity stay independent; compatibility tokens get 1.18 copy.
+  assert.equal(P.PIER_CAST_STANDINGS_BANDS.poor.label, "Limited");
+  assert.equal(P.PIER_CAST_STANDINGS_BANDS.usually_off.label, "Limited");
+  assert.equal(P.standingsStageLabel("active", "excellent"), "Peak window");
   assert.equal(P.standingsStageLabel("active", "good"), "In season");
-  assert.equal(P.standingsStageLabel("fading", "fair"), "Past peak");
+  assert.equal(P.standingsStageLabel("building", "fair"), "Building");
+  assert.equal(P.standingsStageLabel("fading", "fair"), "Tapering");
+  assert.equal(P.standingsStageLabel("off", "usually_off"), "Outside main window");
 
   // Leader summary never duplicates trend
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "excellent", stage: "active", trend: "fading", thermal: thermal(12, 10, 14, "excellent") }), "Chinook"),
-    "Peak season for Chinook here, and starting to fade. Water is 54°F — excellent fit.");
+    "Peak window for Chinook here, and tapering. Water is 54°F — excellent fit.");
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "fair", stage: "building", trend: "building", thermal: thermal(16, 10, 14, "fair") }), "Coho"),
-    "Approaching peak for Coho here. Water is 61°F — fair fit.");
+    "Building for Coho here. Water is 61°F — fair fit.");
 
   // Unranked reasons
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", elig: "restricted", disp: "blocked" })), "State season closed here");
@@ -89,7 +93,8 @@ test("Standings copy, ranking and default-species rules follow the server fields
 
   // Trend cue
   assert.equal(P.standingsTrendCue("steady"), null);
-  assert.equal(P.standingsTrendCue("building")?.icon, "arrow-up");
+  assert.deepEqual(P.standingsTrendCue("building"), { icon: "arrow-up", label: "Building", color: "#1F6B3A" });
+  assert.deepEqual(P.standingsTrendCue("fading"), { icon: "arrow-down", label: "Tapering", color: "#9A4A12" });
   assert.equal(P.parsePierCastLakeFilter("huron"), "huron");
   assert.equal(P.parsePierCastLakeFilter("bogus"), "all");
 });

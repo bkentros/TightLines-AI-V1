@@ -13,7 +13,11 @@ import {
   PIER_CAST_LAKE_TROUT_V5_CANDIDATES,
   PIER_CAST_LAKE_TROUT_V5_CANDIDATE_VERSION,
 } from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate.ts";
-import { pierCastTemperatureProfileV18 } from "./pierCastTemperatureFitV18";
+import { pierCastTemperatureProfileV18 } from "./pierCastTemperatureFitV18.ts";
+import {
+  PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY,
+  pierCastLegacyTimingCodeV5,
+} from "./pierCastOpportunityPresentationV5.ts";
 
 const LAKE_TROUT_PROFILE = pierCastTemperatureProfileV18("lake_trout")!;
 const THERMAL_FLOOR = 0.3;
@@ -131,20 +135,17 @@ export function evaluatePierCastLakeTroutOpportunityV5(input: {
     ? null
     : 1 + (candidate.fisheryStrength - 1) * availability *
       (THERMAL_FLOOR + THERMAL_WEIGHT * input.thermalValue);
-  const band = closed || availability < 0.05
+  const band = closed || availability < PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
     ? "usually_off"
     : score === null
     ? null
     : opportunityBand(score);
-  const timing = closed || availability < 0.05
-    ? "off"
-    : availability >= 0.85
-    ? "peak"
-    : trend === "building"
-    ? "approaching"
-    : trend === "fading"
-    ? "past"
-    : "in_season";
+  const timing = pierCastLegacyTimingCodeV5({
+    availability,
+    trend,
+    regulationOpen: !closed,
+    accessOpen: true,
+  }) ?? "off";
   return {
     score,
     availability,

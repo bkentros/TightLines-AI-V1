@@ -17,6 +17,10 @@ import {
 } from "../supabase/functions/_shared/pierCastEngine/scoring/modesV3";
 import { calculatePierCastV3Opportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/opportunityV3";
 import { evaluatePierCastLakeTroutOpportunityV5 } from "./pierCastLakeTroutV5";
+import {
+  PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY,
+  pierCastLegacyTimingCodeV5,
+} from "./pierCastOpportunityPresentationV5";
 import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
 import { applyPierCastSalmonidBatch2V5 } from "./pierCastSalmonidBatch2V5";
 import {
@@ -81,11 +85,12 @@ function timingFor(input: {
   trend: "building" | "steady" | "fading";
   closed: boolean;
 }): PierCastOpportunityTimingV5 {
-  if (input.closed || input.availability < 0.05) return "off";
-  if (input.availability >= 0.85) return "peak";
-  if (input.trend === "building") return "approaching";
-  if (input.trend === "fading") return "past";
-  return "in_season";
+  return pierCastLegacyTimingCodeV5({
+    availability: input.availability,
+    trend: input.trend,
+    regulationOpen: !input.closed,
+    accessOpen: true,
+  }) ?? "off";
 }
 
 /** Temperature suitability on the species' evidence-reviewed 1.18 curve. */
@@ -169,7 +174,7 @@ export function evaluatePierCastOpportunityV5(input: {
     score,
     availability,
     trend,
-    band: closed || availability < 0.05
+    band: closed || availability < PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
       ? "usually_off"
       : score === null
       ? null

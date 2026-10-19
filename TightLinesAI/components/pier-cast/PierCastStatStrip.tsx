@@ -4,8 +4,8 @@
  * One visual language for every place PierCast shows a rating:
  *   ┌──────────────┬──────────────┐
  *   │ TODAY        │ SEASON       │
- *   │ Prime        │ Approaching  │
- *   │ ▮▮▮▮         │ peak         │
+ *   │ Prime        │ Building     │
+ *   │ ▮▮▮▮         │              │
  *   └──────────────┴──────────────┘
  *
  * `compact` uses smaller type and padding for dense lists; every tile keeps
@@ -48,14 +48,14 @@ type IoniconName = ComponentProps<typeof Ionicons>["name"];
 function seasonIcon(label: string): IoniconName {
   const value = label.toLowerCase();
   if (value.startsWith("peak")) return "star";
-  if (value.startsWith("approaching")) return "trending-up";
-  if (value.startsWith("past")) return "trending-down";
-  if (value.startsWith("off")) return "moon-outline";
+  if (value.startsWith("building")) return "trending-up";
+  if (value.startsWith("tapering")) return "trending-down";
+  if (value.startsWith("outside")) return "moon-outline";
   if (value.startsWith("in season")) return "checkmark-circle-outline";
   return "calendar-outline";
 }
 
-/** Four quiet ticks under the Today value: Poor → Prime. No numbers. */
+/** Four quiet ticks under the Today value: Limited → Prime. No numbers. */
 function BandTicks({ level, color }: { level: number; color: string }) {
   const filled = Math.max(0, Math.min(4, level - 1));
   return (
@@ -86,7 +86,7 @@ export function PierCastStatStrip({
 }: {
   /** Today's band. `null` renders an explicit "NOT RATED" tile. */
   band: PierCastSeasonalBandV4 | null;
-  /** Season timing label ("Approaching peak"); omitted tile when null. */
+  /** Season phase label ("Building"); omitted tile when null. */
   season: string | null;
   /** Shown inside the NOT RATED tile (research holds, closures, missing data). */
   unratedReason?: string | null;
