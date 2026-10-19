@@ -222,7 +222,7 @@ export type PierCastCitySpeciesCard = {
   rated: boolean;
   band: PierCastSeasonalBandV4 | null;
   trend: "building" | "steady" | "fading" | null;
-  /** "Peak season", "Approaching peak" … or the not-rated reason. */
+  /** "Peak window", "Building" … or the not-rated reason. */
   seasonLine: string;
   /** Explicit temperature-only result, e.g. "Excellent fit". */
   waterLine: string | null;
@@ -291,7 +291,7 @@ export type PierCastCityTopPick = {
   speciesId: PierCastSpeciesId;
   name: string;
   band: PierCastSeasonalBandV4;
-  /** "Peak season · excellent water fit" */
+  /** "Peak window · excellent water fit" */
   line: string;
 };
 

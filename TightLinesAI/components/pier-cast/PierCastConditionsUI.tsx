@@ -300,7 +300,7 @@ function DayTile({ day, selected, onPress }: {
               <SpeciesFish speciesId={day.best.speciesId} width={44} height={44} />
             </View>
             <Text style={[styles.dayBandText, { color: style.ink }]} numberOfLines={1}>
-              {style.label === "Off-season" ? "OFF" : style.label.toUpperCase()}
+              {style.label.toUpperCase()}
             </Text>
           </>
         ) : day.bestUnavailable ? (
@@ -847,14 +847,14 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>1</Text></View>
         <View style={styles.flex}>
           <Text style={styles.infoStepTitle}>Today is the trip signal</Text>
-          <Text style={styles.infoStepBody}>Prime, Good, Fair or Poor summarizes today’s opportunity. The internal number used for ordering is never shown as a catch guarantee.</Text>
+          <Text style={styles.infoStepBody}>Prime, Good, Fair or Limited summarizes today’s opportunity. The internal number used for ordering is never shown as a catch guarantee.</Text>
         </View>
       </View>
       <View style={styles.infoStep}>
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>2</Text></View>
         <View style={styles.flex}>
           <Text style={styles.infoStepTitle}>Season timing is separate</Text>
-          <Text style={styles.infoStepBody}>Peak season, Approaching peak, In season, Past peak or Off season tells you where today sits within the species’ annual pier window.</Text>
+          <Text style={styles.infoStepBody}>Building, Peak window, In season, Tapering or Outside main window describes the seasonal window independently from today’s rating.</Text>
         </View>
       </View>
       <View style={styles.infoStep}>

@@ -85,7 +85,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
   assert.equal(pierCastOpportunityLabelV5(8.1), "Prime");
   assert.equal(pierCastOpportunityLabelV5(6.1), "Good");
   assert.equal(pierCastOpportunityLabelV5(4.1), "Fair");
-  assert.equal(pierCastOpportunityLabelV5(4), "Poor");
+  assert.equal(pierCastOpportunityLabelV5(4), "Limited");
   assert.equal(
     pierCastSeasonTimingLabelV5({
       availability: 0.9,
@@ -93,7 +93,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
       regulationOpen: true,
       accessOpen: true,
     }),
-    "Peak season",
+    "Peak window",
   );
   assert.equal(
     pierCastSeasonTimingLabelV5({
@@ -102,7 +102,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
       regulationOpen: true,
       accessOpen: true,
     }),
-    "Approaching peak",
+    "Building",
   );
   assert.equal(
     pierCastSeasonTimingLabelV5({
@@ -111,7 +111,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
       regulationOpen: true,
       accessOpen: true,
     }),
-    "Past peak",
+    "Tapering",
   );
   assert.equal(
     pierCastSeasonTimingLabelV5({
@@ -129,7 +129,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
       regulationOpen: false,
       accessOpen: true,
     }),
-    "Off season",
+    "Outside main window",
   );
   const presentation = pierCastOpportunityPresentationV5({
     internalScore: 7.2,
@@ -138,7 +138,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
     regulationOpen: true,
     accessOpen: true,
   });
-  assert.deepEqual(presentation, { label: "Good", timing: "Peak season" });
+  assert.deepEqual(presentation, { label: "Good", timing: "Peak window" });
   assert.equal("score" in presentation, false);
   assert.equal("displayText" in presentation, false);
 });

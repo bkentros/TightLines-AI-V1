@@ -12,6 +12,7 @@ import type {
 } from "./pierCastConditionsV4";
 import { fahrenheit } from "./pierCastConditionsPresentation";
 import type { PierCastSpeciesId } from "./pierCastContracts";
+import { pierCastSeasonTimingLabelFromLegacyCodeV5 } from "./pierCastOpportunityPresentationV5";
 import { dashboardBandColor, paper } from "./theme";
 
 /**
@@ -20,7 +21,7 @@ import { dashboardBandColor, paper } from "./theme";
  * Everything the screen says is derived here from the v4 server fields so the
  * copy can never drift from the data:
  *
- * - The rating word (Prime / Good / Fair / Poor / Off-season) is presentation,
+ * - The rating word (Prime / Good / Fair / Limited) is presentation,
  *   while season timing and water-temperature fit remain separate context.
  * - The 1.17 candidate projection orders every species by exact hidden
  *   city/species/local-date opportunity before deriving display labels.
@@ -50,7 +51,7 @@ export type StandingsBandStyle = {
   chip: string;
   /** Text color that passes contrast on `chip` and on white. */
   ink: string;
-  /** 1 (Off-season) … 5 (Prime): how many meter segments are filled. */
+  /** 2 (Limited) … 5 (Prime): how many meter segments are filled. */
   level: number;
 };
 
@@ -80,22 +81,22 @@ export const PIER_CAST_STANDINGS_BANDS: Record<
     level: 3,
   },
   poor: {
-    label: "Poor",
+    label: "Limited",
     color: paper.bandPoor,
     chip: dashboardBandColor.Poor.chipBg,
     ink: "#9A4A12",
     level: 2,
   },
   usually_off: {
-    label: "Off-season",
-    color: paper.bandTough,
-    chip: dashboardBandColor.Tough.chipBg,
-    ink: "#A3291C",
-    level: 1,
+    label: "Limited",
+    color: paper.bandPoor,
+    chip: dashboardBandColor.Poor.chipBg,
+    ink: "#9A4A12",
+    level: 2,
   },
 };
 
-/** Meter segment colors, Off-season → Prime. */
+/** Frozen internal meter palette, lowest opportunity → Prime. */
 export const PIER_CAST_STANDINGS_METER = [
   paper.bandTough,
   paper.bandPoor,
@@ -108,11 +109,10 @@ export const PIER_CAST_STANDINGS_BAND_MEANINGS: ReadonlyArray<{
   band: PierCastSeasonalBandV4;
   meaning: string;
 }> = [
-  { band: "excellent", meaning: "Peak time for this fish here" },
-  { band: "good", meaning: "Fish are around — worth the trip" },
-  { band: "fair", meaning: "Workable, pick your window" },
-  { band: "poor", meaning: "In season, but slow" },
-  { band: "usually_off", meaning: "Usually not here this time of year" },
+  { band: "excellent", meaning: "Strongest current opportunity" },
+  { band: "good", meaning: "Solid current opportunity" },
+  { band: "fair", meaning: "Viable with some limitations" },
+  { band: "poor", meaning: "Possible, but less consistent" },
 ];
 
 const BAND_RANK: Record<PierCastSeasonalBandV4, number> = {
@@ -128,21 +128,21 @@ export function standingsBandRank(band: PierCastSeasonalBandV4 | null): number {
 }
 
 const STAGE_LABELS: Record<PierCastSeasonStageV4, string> = {
-  early: "Approaching peak",
-  building: "Approaching peak",
+  early: "Building",
+  building: "Building",
   active: "In season",
-  fading: "Past peak",
-  late: "Past peak",
-  off: "Off-season",
+  fading: "Tapering",
+  late: "Tapering",
+  off: "Outside main window",
 };
 
-/** "Peak season" is reserved for an active stage that is also rated Prime. */
+/** "Peak window" is reserved for an active stage that is also rated Prime. */
 export function standingsStageLabel(
   stage: PierCastSeasonStageV4,
   band: PierCastSeasonalBandV4,
 ): string {
   return stage === "active" && band === "excellent"
-    ? "Peak season"
+    ? "Peak window"
     : STAGE_LABELS[stage];
 }
 
@@ -156,11 +156,8 @@ export function standingsOutlookTimingLabel(
     code.startsWith("lake_trout_v5_timing:")
   );
   const timing = timingCode?.slice(timingCode.indexOf(":") + 1);
-  if (timing === "peak") return "Peak season";
-  if (timing === "approaching") return "Approaching peak";
-  if (timing === "past") return "Past peak";
-  if (timing === "off") return "Off season";
-  if (timing === "in_season") return "In season";
+  const v5Label = pierCastSeasonTimingLabelFromLegacyCodeV5(timing);
+  if (v5Label) return v5Label;
   return standingsStageLabel(outlook.stage, outlook.band);
 }
 
@@ -171,10 +168,10 @@ export function standingsTrendCue(
   trend: StandingsTrend | null,
 ): { icon: "arrow-up" | "arrow-down"; label: string; color: string } | null {
   if (trend === "building") {
-    return { icon: "arrow-up", label: "Approaching peak", color: "#1F6B3A" };
+    return { icon: "arrow-up", label: "Building", color: "#1F6B3A" };
   }
   if (trend === "fading") {
-    return { icon: "arrow-down", label: "Past peak", color: "#9A4A12" };
+    return { icon: "arrow-down", label: "Tapering", color: "#9A4A12" };
   }
   return null;
 }
@@ -214,13 +211,14 @@ export function standingsLeaderSummary(
   const parts: string[] = [];
   const outlook = row.seasonalOutlook;
   if (outlook.status === "available") {
-    let sentence = `${standingsOutlookTimingLabel(outlook)} for ${speciesShortName} here`;
-    const trendAlreadyStated = outlook.stage === "building" ||
-      outlook.stage === "fading" || outlook.stage === "off";
+    const phase = standingsOutlookTimingLabel(outlook);
+    let sentence = `${phase} for ${speciesShortName} here`;
+    const trendAlreadyStated = phase === "Building" || phase === "Tapering" ||
+      phase === "Outside main window";
     if (!trendAlreadyStated && outlook.trend === "building") {
       sentence += ", and still building";
     } else if (!trendAlreadyStated && outlook.trend === "fading") {
-      sentence += ", and starting to fade";
+      sentence += ", and tapering";
     }
     parts.push(`${sentence}.`);
   }
