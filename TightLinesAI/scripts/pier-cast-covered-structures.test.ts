@@ -80,11 +80,11 @@ test("all 32 owner cities use an explicit water label and Caseville retains Lake
   );
 });
 
-test("mixed-city standings use neutral Great Lakes copy", () => {
+test("the mixed-city landing uses neutral Great Lakes copy", () => {
   const conditions = readFileSync(resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"), "utf8");
-  const standings = readFileSync(resolve(root, "components/pier-cast/PierCastStandings.tsx"), "utf8");
-  assert.match(standings, /TODAY ON THE GREAT LAKES/);
-  assert.doesNotMatch(standings + conditions, /TODAY ON LAKE MICHIGAN/);
+  const landing = readFileSync(resolve(root, "components/pier-cast/PierCastLanding.tsx"), "utf8");
+  assert.match(landing, /Where are you fishing\?/);
+  assert.doesNotMatch(landing + conditions, /TODAY ON LAKE MICHIGAN/);
 });
 
 test("expanded city access keeps the standard user-facing PierCast header", () => {

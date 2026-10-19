@@ -58,7 +58,7 @@ import {
   BottomSheet,
   Reveal,
   useReduceMotion,
-} from "./PierCastStandings";
+} from "./PierCastShared";
 import { PierCastFishCrop, PierCastStatStrip } from "./PierCastStatStrip";
 import { PierCastCityTemperatureChart } from "./PierCastVisuals";
 
@@ -144,17 +144,40 @@ function CityMapLink({ cityName, onPress }: { cityName: string; onPress: () => v
 
 // ─── Hero ─────────────────────────────────────────────────────────────────
 
+function SaveButton({ saved, onPress, cityName }: { saved: boolean; onPress: () => void; cityName: string }) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ selected: saved }}
+      accessibilityLabel={saved ? `Remove ${cityName} from My Piers` : `Save ${cityName} to My Piers`}
+      hitSlop={6}
+      onPress={() => {
+        hapticSelection();
+        onPress();
+      }}
+      style={({ pressed }) => [styles.save, saved && styles.saveOn, pressed && styles.pressed]}
+    >
+      <Ionicons name={saved ? "star" : "star-outline"} size={15} color={saved ? INK : GOLD} />
+      <Text style={[styles.saveText, saved && styles.saveTextOn]}>{saved ? "SAVED" : "SAVE PIER"}</Text>
+    </Pressable>
+  );
+}
+
 function Hero({
   report,
   city,
   waterNowF,
-  onOpenStandings,
+  saved,
+  saveNotice,
+  onToggleSaved,
   reduceMotion,
 }: {
   report: PierCastCityReportReadV4;
   city: PierCastConditionsCatalogCityV4;
   waterNowF: number | null;
-  onOpenStandings: (speciesId: PierCastSpeciesId) => void;
+  saved: boolean;
+  saveNotice: string | null;
+  onToggleSaved: () => void;
   reduceMotion: boolean;
 }) {
   const top = pierCastCityTopPick(report.species, report.cityId);
@@ -187,15 +210,19 @@ function Hero({
             <Text style={styles.heroPierText}>{pierLine}</Text>
           </View>
         ) : null}
+        <View style={styles.saveRow}>
+          <SaveButton saved={saved} onPress={onToggleSaved} cityName={report.displayName} />
+        </View>
+        {saveNotice ? (
+          <View style={styles.saveNotice} accessibilityRole="alert">
+            <Text style={styles.saveNoticeText}>{saveNotice}</Text>
+          </View>
+        ) : null}
         {top && topStyle ? (
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={`Top pick today: ${top.name}, ${topStyle.label}. ${top.line}. Opens the ${top.name} standings.`}
-            onPress={() => {
-              hapticSelection();
-              onOpenStandings(top.speciesId);
-            }}
-            style={({ pressed }) => [styles.pick, pressed && styles.pressed]}
+          <View
+            accessible
+            accessibilityLabel={`Top pick today: ${top.name}, ${topStyle.label}. ${top.line}.`}
+            style={styles.pick}
           >
             <View style={styles.pickFish}>
               <SpeciesFish speciesId={top.speciesId} width={104} height={104} />
@@ -206,7 +233,7 @@ function Hero({
               <Text style={styles.pickLine}>{top.line}</Text>
             </View>
             <BandChip band={top.band} prefix="Today" />
-          </Pressable>
+          </View>
         ) : (
           <View style={[styles.pick, styles.pickWeak]}>
             <Ionicons name="time-outline" size={22} color="rgba(255,255,255,0.7)" />
@@ -349,11 +376,10 @@ function WaterFitBar({ card }: { card: PierCastCitySpeciesCard }) {
   );
 }
 
-function SpeciesCard({ card, index, reduceMotion, onPress }: {
+function SpeciesCard({ card, index, reduceMotion }: {
   card: PierCastCitySpeciesCard;
   index: number;
   reduceMotion: boolean;
-  onPress: () => void;
 }) {
   const style = card.band ? PIER_CAST_STANDINGS_BANDS[card.band] : null;
   const edge = card.ranked && style ? style.color : "#C9CCCF";
@@ -361,30 +387,17 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
   const fishWidth = windowWidth < 360 ? 64 : 76;
   return (
     <Reveal token={`sp-${card.speciesId}`} delay={Math.min(index, 6) * 70} reduceMotion={reduceMotion}>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${card.name}, ${card.ranked && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}${card.standing ? `, number ${card.standing.rank} of ${card.standing.rankedCityCount} in the standings` : ""}. Opens the ${card.name} standings.`}
-        onPress={() => {
-          hapticSelection();
-          onPress();
-        }}
-        style={({ pressed }) => [styles.sp, pressed && styles.pressed]}
+      <View
+        accessible
+        accessibilityLabel={`${card.name}, ${card.ranked && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}.`}
+        style={styles.sp}
       >
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
         <View style={styles.spHead}>
           <View style={styles.spHeadText}>
             <Text style={styles.spName}>{card.name}</Text>
-            {card.standing ? (
-              <View style={styles.spRibbon}>
-                <Ionicons name="trophy" size={9} color="#8A6A14" />
-                <Text style={styles.spRibbonText}>
-                  #{card.standing.rank} OF {card.standing.rankedCityCount} IN STANDINGS
-                </Text>
-              </View>
-            ) : null}
           </View>
           <PierCastFishCrop speciesId={card.speciesId} width={fishWidth} height={34} />
-          <Ionicons name="chevron-forward" size={15} color={paper.dashboardBlue} />
         </View>
         <PierCastStatStrip
           band={card.ranked ? card.band : null}
@@ -402,15 +415,14 @@ function SpeciesCard({ card, index, reduceMotion, onPress }: {
           </View>
           <WaterFitBar card={card} />
         </View>
-      </Pressable>
+      </View>
     </Reveal>
   );
 }
 
-function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
+function SpeciesSection({ report, reduceMotion }: {
   report: PierCastCityReportReadV4;
   reduceMotion: boolean;
-  onOpenStandings: (speciesId: PierCastSpeciesId) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const cards = useMemo(() => buildPierCastCitySpeciesCards(report), [report]);
@@ -423,14 +435,13 @@ function SpeciesSection({ report, reduceMotion, onOpenStandings }: {
   return (
     <Card label={`Supported species at ${report.displayName}`}>
       <CardHead title={`Supported species at ${report.displayName}`} />
-      <Text style={styles.cardSub}>Tap a species to see where it ranks across the Great Lakes.</Text>
+      <Text style={styles.cardSub}>Today's rating and water fit for every species PierCast covers here.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}
           card={card}
           index={index}
           reduceMotion={reduceMotion}
-          onPress={() => onOpenStandings(card.speciesId)}
         />
       ))}
       {otherSpecies.length > 0 ? (
@@ -873,7 +884,9 @@ export function PierCastConditionsCityReport({
   weather,
   weatherLoading,
   savedCopy,
-  onOpenStandings,
+  saved = false,
+  saveNotice = null,
+  onToggleSaved,
   onOpenCity,
   onOpenMap,
 }: {
@@ -888,7 +901,10 @@ export function PierCastConditionsCityReport({
    * switcher; every supported species is shown as its own card instead.
    */
   onSelectReportSpecies?: (speciesId: PierCastSpeciesId) => void;
-  onOpenStandings: (speciesId: PierCastSpeciesId) => void;
+  /** Whether this city is one of the angler's saved piers (My Piers). */
+  saved?: boolean;
+  saveNotice?: string | null;
+  onToggleSaved: () => void;
   onOpenCity: (cityId: string) => void;
   onOpenMap: () => void;
 }) {
@@ -940,14 +956,16 @@ export function PierCastConditionsCityReport({
         report={report}
         city={city}
         waterNowF={waterNowF}
-        onOpenStandings={onOpenStandings}
+        saved={saved}
+        saveNotice={saveNotice}
+        onToggleSaved={onToggleSaved}
         reduceMotion={reduceMotion}
       />
       <CityMapLink cityName={report.displayName} onPress={onOpenMap} />
       {days.length > 0 ? (
         <FiveDayOutlook days={days} selected={daySelection} onSelect={setSelectedDay} />
       ) : null}
-      <SpeciesSection report={report} reduceMotion={reduceMotion} onOpenStandings={onOpenStandings} />
+      <SpeciesSection report={report} reduceMotion={reduceMotion} />
       <PierConditions
         report={report}
         weather={weather}
@@ -998,6 +1016,13 @@ const styles = StyleSheet.create({
   freshDot: { width: 7, height: 7, borderRadius: 4, backgroundColor: paper.bandPrime },
   freshText: { fontFamily: paperFonts.metaMono, fontSize: 11, color: "rgba(255,255,255,0.66)" },
   heroCity: { marginTop: 10, fontFamily: paperFonts.display, fontSize: 42, lineHeight: 48, color: "#FFFFFF" },
+  saveRow: { flexDirection: "row", marginTop: 12 },
+  save: { flexDirection: "row", alignItems: "center", gap: 6, minHeight: 36, paddingHorizontal: 12, borderRadius: 18, borderWidth: 1.5, borderColor: "rgba(232,160,46,0.75)", backgroundColor: "rgba(232,160,46,0.10)" },
+  saveOn: { borderColor: GOLD, backgroundColor: GOLD },
+  saveText: { fontFamily: paperFonts.metaMonoBold, fontSize: 10.5, letterSpacing: 1.2, color: GOLD },
+  saveTextOn: { color: INK },
+  saveNotice: { marginTop: 8, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 8, backgroundColor: "rgba(232,160,46,0.14)" },
+  saveNoticeText: { fontFamily: paperFonts.bodyMedium, fontSize: 12.5, lineHeight: 17, color: "#F6E3BC" },
   heroPier: { flexDirection: "row", alignItems: "center", gap: 6, marginTop: 4 },
   heroPierText: { flexShrink: 1, fontFamily: paperFonts.body, fontSize: 15, color: "rgba(255,255,255,0.78)" },
   pick: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 18, paddingHorizontal: 14, paddingVertical: 12, borderWidth: 1.5, borderColor: "rgba(232,160,46,0.7)", borderRadius: 14, backgroundColor: "rgba(232,160,46,0.10)" },
@@ -1047,8 +1072,6 @@ const styles = StyleSheet.create({
   spHead: { flexDirection: "row", alignItems: "center", gap: 6 },
   spHeadText: { flex: 1, minWidth: 0, gap: 3 },
   spName: { fontFamily: paperFonts.display, fontSize: 16, lineHeight: 20, color: INK },
-  spRibbon: { alignSelf: "flex-start", flexDirection: "row", alignItems: "center", gap: 4, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 999, borderWidth: 1, borderColor: "rgba(212,175,55,0.65)", backgroundColor: "#FBF3DC" },
-  spRibbonText: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 8, letterSpacing: 0.6, color: "#6B5310" },
   spWater: {},
   spWaterHead: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", columnGap: 8, rowGap: 1 },
   spKey: { flexShrink: 1, fontFamily: paperFonts.metaMonoBold, fontSize: 8.5, letterSpacing: 1.2, color: "#666666" },

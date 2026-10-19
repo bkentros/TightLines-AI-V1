@@ -229,23 +229,20 @@ test("season presentation identifies trend, mode handoff, and estimated precisio
   assert.equal(pierCastSpeciesShortLabel("chinook_salmon"), "CHINOOK");
 });
 
-test("PierCast UI exposes species-specific seasonal and temperature handoffs", () => {
+test("PierCast UI exposes species-specific seasonal and temperature context", () => {
   const source = readFileSync(
     new URL("../components/pier-cast/PierCastConditionsUI.tsx", import.meta.url),
     "utf8",
   );
 
-  assert.match(
-    readFileSync(new URL("../components/pier-cast/PierCastStandings.tsx", import.meta.url), "utf8"),
-    /Each species gets its own ranking/,
-  );
+
   const rules = readFileSync(
     new URL("../lib/pierCastCityReportPresentation.ts", import.meta.url),
     "utf8",
   );
-  // City report: each species opens its own standings.
-  assert.match(source, /onOpenStandings\(card\.speciesId\)/);
-  assert.match(source, /Opens the \$\{card\.name\} standings/);
+  // 1.18: species cards are the report's own detail; no standings handoff.
+  assert.match(source, /<SpeciesCard/);
+  assert.doesNotMatch(source, /onOpenStandings|standings\./);
   assert.match(rules, /PIER_CAST_SPECIES_LABELS/);
   assert.match(rules, /standingsStageLabel/);
   assert.match(rules, /standingsWaterPhrase/);

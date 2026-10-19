@@ -4,7 +4,8 @@ import test from "node:test";
 
 const screen = read("app/pier-cast-review.tsx");
 const conditionsUi = read("components/pier-cast/PierCastConditionsUI.tsx");
-const standings = read("components/pier-cast/PierCastStandings.tsx");
+const landing = read("components/pier-cast/PierCastLanding.tsx");
+const landingData = read("lib/pierCastLanding.ts");
 const standingsRules = read("lib/pierCastStandingsPresentation.ts");
 const conditionsSupport = read("components/pier-cast/PierCastConditionsSupport.tsx");
 const visuals = read("components/pier-cast/PierCastVisuals.tsx");
@@ -16,7 +17,7 @@ const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const matrix = JSON.parse(read("docs/PierCast_Renovation_Pass6_Visual_Matrix.json"));
 
 test("shipping PierCast screen has no retired public score consumer", () => {
-  const shippingUi = screen + conditionsUi + conditionsSupport + visuals + standings + standingsRules;
+  const shippingUi = screen + conditionsUi + conditionsSupport + visuals + landing + landingData + standingsRules;
   for (const retired of [
     "fetchPierCastLeaderboard",
     "fetchPierCastCatalog",
@@ -29,7 +30,8 @@ test("shipping PierCast screen has no retired public score consumer", () => {
     assert.doesNotMatch(shippingUi + client, new RegExp(retired));
   }
   assert.doesNotMatch(shippingUi, /score\.toFixed|\/10|SCORE \/ 10/);
-  assert.match(screen, /fetchPierCastConditionsLeaderboard/);
+  // 1.18: saved piers read species conditions; the screen itself loads only the catalog.
+  assert.match(landing, /fetchPierCastConditionsLeaderboardForApp/);
   assert.match(screen, /fetchPierCastConditionsCatalog/);
   assert.match(screen, /fetchPierCastConditionsCityReport/);
   assert.match(screen, /fetchSavedPierCastConditionsReport/);
@@ -73,19 +75,19 @@ test("release copy describes target conditions instead of a universal numeric ra
 test("unsupported city targets route to a supported species and stale requests are rejected", () => {
   assert.match(standingsRules, /supported\.includes\(currentSpeciesId\)/);
   assert.match(standingsRules, /PIER_CAST_SALMONID_ORDER\.find/);
-  assert.match(screen, /city\.supportedSpeciesIds\.includes\(speciesId\)/);
+  assert.match(screen, /finderReportSpecies\(city, targetRef\.current\)/);
   assert.match(standingsRules, /State season closed here/);
-  assert.match(screen, /void loadCityReport\(cityId, speciesId\)/);
-  assert.match(screen, /if \(!routeCityId \|\| !catalog \|\| !selectedSpeciesId\)/);
-  assert.match(screen, /selectedSpeciesRef\.current !== selectionGuard/);
+  assert.match(screen, /await loadCityReport\(cityId, speciesId, silent\)/);
+  assert.match(screen, /if \(!routeCityId \|\| !catalog\) return;/);
+  assert.match(screen, /cityReportRequest\.current !== reportRequestId/);
 });
 
 test("loading, stale, missing, restricted, access, and long-copy states are explicit", () => {
   assert.match(screen, /PierCastConditionsSkeleton/);
-  assert.match(screen, /PierCastStandingsSkeleton/);
+  assert.match(screen, /PierCastLandingSkeleton/);
   assert.match(screen, /archived_legacy/);
   assert.match(conditionsUi, /Showing your last saved conditions report/);
-  assert.match(standings, /Missing or updating data stays unrated/);
+  assert.match(landing, /No trout or salmon forecast for this pier right now/);
   assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
   assert.match(conditionsUi, /No species is rated here today/);
   assert.match(conditionsSupport, /reported closed/);
@@ -93,11 +95,10 @@ test("loading, stale, missing, restricted, access, and long-copy states are expl
   assert.match(conditionsUi, /flex: \{ flex: 1, minWidth: 0 \}/);
 });
 
-test("rapid target changes cannot commit an older leaderboard response", () => {
-  assert.match(screen, /const selectionRequest = useRef\(0\)/);
-  assert.match(screen, /const requestId = \+\+selectionRequest\.current/);
-  assert.match(screen, /selectionRequest\.current === requestId/);
-  assert.match(screen, /selectedSpeciesRef\.current === requestedTarget/);
+test("rapid city opens cannot commit an older report response", () => {
+  assert.match(screen, /const reportRequestId = \+\+cityReportRequest\.current/);
+  assert.match(screen, /requestedCity\.current !== cityId/);
+  assert.match(landing, /if \(active\) setBoards\(next\)/);
 });
 
 test("visual matrix covers all required devices, text sizes, report states, and map permutations", () => {

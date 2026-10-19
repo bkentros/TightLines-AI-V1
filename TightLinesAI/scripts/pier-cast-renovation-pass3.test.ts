@@ -15,7 +15,7 @@ import { parsePierCastTargetSpecies } from "../lib/pierCastTargetPreference";
 
 const screen = read("app/pier-cast-review.tsx");
 const conditionsUi = read("components/pier-cast/PierCastConditionsUI.tsx");
-const standings = read("components/pier-cast/PierCastStandings.tsx");
+const landing = read("components/pier-cast/PierCastLanding.tsx");
 const standingsRules = read("lib/pierCastStandingsPresentation.ts");
 const reportRules = read("lib/pierCastCityReportPresentation.ts");
 const targetPreference = read("lib/pierCastTargetPreference.ts");
@@ -23,18 +23,10 @@ const client = read("lib/pierCast.ts");
 const map = read("legacy/pier-cast-map-v1.tsx") /* retired first map */;
 const contract = read("docs/PierCast_Renovation_Pass1_Product_Contract.md");
 
-test("first visit picks from summary metadata without a leaderboard fan-out", () => {
-  assert.match(standings, /WHAT ARE YOU TARGETING\?/);
-  assert.match(standings, /leaderboard\.selectionRequired/);
+test("first visit loads only the catalog; the default-species rule stays available", () => {
   assert.match(screen, /readPierCastTargetPreference/);
-  assert.match(screen, /fetchPierCastConditionsLeaderboardForApp\(requestedTarget \?\? undefined\)/);
-  assert.match(screen, /pickFallbackStandingsSpecies\(nextLeaderboard\.targetSpecies\)/);
+  assert.doesNotMatch(screen, /fetchPierCastConditionsLeaderboardForApp/);
   assert.doesNotMatch(screen, /Promise\.allSettled\([\s\S]*candidates\.map/);
-  assert.doesNotMatch(screen, /PIER_CAST_SALMONID_ORDER\.filter/);
-  assert.doesNotMatch(screen, /setSelectedSpeciesId\([^\n]*targetSpecies\[0\]/);
-  const autoPick = screen.slice(screen.indexOf("if (!requestedTarget) {"), screen.indexOf("rememberLakes(seenBoards)"));
-  assert.ok(autoPick.length > 0);
-  assert.doesNotMatch(autoPick, /writePierCastTargetPreference/);
   assert.match(standingsRules, /isPierCastSalmonid\(speciesId\)/);
 
   const board = (speciesId: string, band: string, value: number) => ({
@@ -62,25 +54,21 @@ test("target preference is validated, persisted, and route-addressable", () => {
   assert.match(targetPreference, /PIER_CAST_SPECIES_IDS\.has/);
   assert.match(targetPreference, /AsyncStorage\.getItem/);
   assert.match(targetPreference, /AsyncStorage\.setItem/);
-  assert.match(screen, /router\.setParams\(\{ speciesId \}\)/);
+  assert.match(screen, /writePierCastTargetPreference\(routeSpeciesId\)/);
   assert.match(screen, /speciesId\?: string \| string\[\]/);
   assert.equal(parsePierCastTargetSpecies("bluegill"), null);
 });
 
-test("leaderboard is species-specific and never renders a combined numeric score", () => {
-  assert.match(standings, /Best for \$\{speciesShort\(selectedSpeciesId\)\} today/);
-  assert.match(standings, /Each species gets its own ranking/);
-  assert.match(standings, /TODAY'S LEADER/);
-  assert.match(standings, /rankingDisposition === "ranked"/);
-  assert.doesNotMatch(standings + conditionsUi, /\/10/);
-  assert.doesNotMatch(standings + conditionsUi, /score\.toFixed/);
-  assert.doesNotMatch(standings + conditionsUi, /strongest main species/i);
+test("the landing never renders a ranking or a combined numeric score", () => {
+  assert.doesNotMatch(landing, /TODAY'S LEADER|Each species gets its own ranking/);
+  assert.doesNotMatch(landing + conditionsUi, /\/10/);
+  assert.doesNotMatch(landing + conditionsUi, /score\.toFixed/);
+  assert.doesNotMatch(landing + conditionsUi, /strongest main species/i);
 });
 
 test("missing and restricted inputs remain explicitly unranked", () => {
-  assert.match(standings, /Missing or updating data stays unrated instead of counting as poor fishing/);
-  assert.match(standings, /Not rated today/);
-  assert.match(standings, /standingsUnrankedReason\(row\)/);
+  assert.match(landing, /NOT RATED/);
+  assert.match(landing, /row\.rankingDisposition === "ranked"/);
   assert.match(standingsRules, /State season closed here/);
   assert.match(reportRules, /standingsUnrankedReason\(species\)/);
   assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
@@ -91,7 +79,6 @@ test("city report separates today's label, season timing, and water context", ()
   assert.match(conditionsUi, /prefix="Today"/);
   assert.match(conditionsUi, /<PierCastStatStrip/);
   assert.doesNotMatch(read("components/pier-cast/PierCastStatStrip.tsx"), /numberOfLines|ellipsizeMode/);
-  assert.doesNotMatch(standings, /seasonChipText\]\} numberOfLines/);
   assert.match(conditionsUi, />WATER TODAY</);
   assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);
   assert.match(reportRules, /standingsOutlookTimingLabel\(outlook\)/);
@@ -116,16 +103,16 @@ test("city report includes the calendar, species, pier conditions, chart, shifts
 test("authenticated v4 report and saved-report recovery are fully wired", () => {
   assert.match(client, /conditions\/report\?cityId=/);
   assert.match(client, /conditions\/saved-report/);
-  assert.match(screen, /fetchPierCastConditionsCityReportForApp\(cityId, target\)/);
-  assert.match(screen, /fetchSavedPierCastConditionsReport\(target\)/);
+  assert.match(screen, /fetchPierCastConditionsCityReportForApp\(cityId, speciesId\)/);
+  assert.match(screen, /fetchSavedPierCastConditionsReport\(speciesId\)/);
   assert.match(screen, /saved\.envelope\.report\.cityId === cityId/);
   assert.match(conditionsUi, /Showing your last saved conditions report/);
   assert.match(screen, /previous score report is archived/);
 });
 
-test("selected species follows the user between standings, report, and map", () => {
+test("selected species follows the user between the landing, report, and map", () => {
   assert.match(screen, /pathname: "\/pier-cast-map"/);
-  assert.match(screen, /params: selectedSpeciesId \? \{ speciesId: selectedSpeciesId \}/);
+  assert.match(screen, /\.\.\.\(targetRef\.current \? \{ speciesId: targetRef\.current \} : \{\}\)/);
   assert.match(map, /readPierCastTargetPreference/);
   assert.match(map, /lastAppliedRouteSpecies\.current !== routeSpeciesId/);
   assert.match(map, /conditionsRequest\.current !== requestId/);
@@ -140,8 +127,8 @@ test("the v4 cutover retains the frozen PierCast visual language", () => {
   assert.match(conditionsUi, /CornerMarkSet/);
   assert.match(conditionsUi, /TopographicLines/);
   assert.match(conditionsUi, /paperShadows\.hard/);
-  assert.match(standings, /paper\.medalGold[\s\S]*paper\.medalBronze/);
-  assert.match(standings, /TopographicLines/);
+  assert.match(landing, /paperShadows\.hard/);
+  assert.match(landing, /PierCastLighthouseArt/);
   assert.match(conditionsUi, /PierCastCityTemperatureChart/);
   assert.match(contract, /alter information hierarchy, not the design language/i);
 });

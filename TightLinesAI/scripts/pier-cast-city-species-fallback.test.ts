@@ -31,8 +31,8 @@ test("the route silently opens the best available species; 1.17 shows every spec
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
   const report = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
 
-  assert.match(screen, /finderReportSpecies\(city, target\)/);
-  assert.match(screen, /loadCityReport\(cityId, reportSpeciesId, silent, target\)/);
+  assert.match(screen, /finderReportSpecies\(city, targetRef\.current\)/);
+  assert.match(screen, /loadCityReport\(cityId, speciesId, silent\)/);
   assert.match(screen, /pierCastReportSpeciesOrBest/);
   assert.doesNotMatch(report, /isn&apos;t forecast here — showing/);
   assert.doesNotMatch(report, /fallbackFromSpeciesId/);

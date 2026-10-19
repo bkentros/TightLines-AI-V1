@@ -262,10 +262,11 @@ test("visual contract locks the established PierCast design foundations", () => 
 
   assert.match(conditionsUi + conditionsSupport, /CornerMarkSet/);
   assert.match(conditionsUi + conditionsSupport, /TopographicLines/);
-  assert.match(
-    readFileSync(new URL("../components/pier-cast/PierCastStandings.tsx", import.meta.url), "utf8"),
-    /paper\.medalGold[\s\S]*paper\.medalBronze/,
-  );
+  // 1.18 landing keeps the same field-guide language (medal palette retired with the leaderboard).
+  const landingUi = readFileSync(new URL("../components/pier-cast/PierCastLanding.tsx", import.meta.url), "utf8");
+  for (const token of [/paper\.dashboardInk/, /paperFonts\.display/, /PierCastLighthouseArt/, /paperShadows\.hard/]) {
+    assert.match(landingUi, token);
+  }
   assert.match(conditionsUi, /PierCastCityTemperatureChart/);
   assert.match(mapScreen, /PierCastTemperatureGradient/);
   assert.match(mapScreen, /PierCastDepthGradient/);
