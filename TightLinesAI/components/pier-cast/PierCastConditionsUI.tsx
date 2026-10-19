@@ -382,14 +382,14 @@ function SpeciesCard({ card, index, reduceMotion }: {
   reduceMotion: boolean;
 }) {
   const style = card.band ? PIER_CAST_STANDINGS_BANDS[card.band] : null;
-  const edge = card.ranked && style ? style.color : "#C9CCCF";
+  const edge = card.rated && style ? style.color : "#C9CCCF";
   const { width: windowWidth } = useWindowDimensions();
   const fishWidth = windowWidth < 360 ? 64 : 76;
   return (
     <Reveal token={`sp-${card.speciesId}`} delay={Math.min(index, 6) * 70} reduceMotion={reduceMotion}>
       <View
         accessible
-        accessibilityLabel={`${card.name}, ${card.ranked && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}.`}
+        accessibilityLabel={`${card.name}, ${card.rated && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}.`}
         style={styles.sp}
       >
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
@@ -400,9 +400,9 @@ function SpeciesCard({ card, index, reduceMotion }: {
           <PierCastFishCrop speciesId={card.speciesId} width={fishWidth} height={34} />
         </View>
         <PierCastStatStrip
-          band={card.ranked ? card.band : null}
-          season={card.ranked ? card.seasonLine : null}
-          unratedReason={card.ranked ? null : card.seasonLine}
+          band={card.rated ? card.band : null}
+          season={card.rated ? card.seasonLine : null}
+          unratedReason={card.rated ? null : card.seasonLine}
           compact
         />
         <View style={styles.spWater}>

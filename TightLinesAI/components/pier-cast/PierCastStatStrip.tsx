@@ -91,7 +91,7 @@ export function PierCastStatStrip({
   /** Shown inside the NOT RATED tile (research holds, closures, missing data). */
   unratedReason?: string | null;
   /**
-   * Dense list mode (city report species cards and standings rows): each tile
+   * Dense list mode (city report species cards and saved-pier rows): each tile
    * is a single label-and-value line, roughly half the height of the full tile.
    */
   compact?: boolean;

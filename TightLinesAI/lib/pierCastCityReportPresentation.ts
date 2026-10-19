@@ -156,8 +156,8 @@ function weekdayFromLocalDate(localDate: string): string {
 
 // ─── Species ──────────────────────────────────────────────────────────────
 
-/** City species in leaderboard order; name breaks exact ties. */
-export function rankPierCastCitySpecies(
+/** Orders species by today's conditions; name breaks exact ties. */
+export function orderPierCastCitySpecies(
   species: readonly PierCastSpeciesConditionsReadV4[],
 ): PierCastSpeciesConditionsReadV4[] {
   return [...species].sort((left, right) =>
@@ -189,7 +189,7 @@ export function pierCastWaterFit(
   return pierCastWaterFitFromThermal(species.thermalMatch);
 }
 
-/** Same water-fit gauge model, from any thermal match (city report or leaderboard row). */
+/** Same water-fit gauge model, from any thermal match (city report or target-conditions row). */
 export function pierCastWaterFitFromThermal(
   thermal: PierCastThermalMatchReadV4,
 ): PierCastWaterFit | null {
@@ -216,9 +216,7 @@ export function pierCastWaterFitFromThermal(
 export type PierCastCitySpeciesCard = {
   speciesId: PierCastSpeciesId;
   name: string;
-  /** "01" */
-  rankLabel: string;
-  ranked: boolean;
+  rated: boolean;
   band: PierCastSeasonalBandV4 | null;
   trend: "building" | "steady" | "fading" | null;
   /** "Peak season", "Approaching peak" … or the not-rated reason. */
@@ -228,7 +226,6 @@ export type PierCastCitySpeciesCard = {
   /** "50–56°F" */
   idealLine: string | null;
   fit: PierCastWaterFit | null;
-  standing: { rank: number; rankedCityCount: number } | null;
 };
 
 function capitalize(value: string): string {
@@ -236,37 +233,27 @@ function capitalize(value: string): string {
 }
 
 export function buildPierCastCitySpeciesCards(
-  report: Pick<PierCastCityReportReadV4, "species" | "speciesStandings">,
+  report: Pick<PierCastCityReportReadV4, "species">,
 ): PierCastCitySpeciesCard[] {
-  const standings = new Map(
-    (Array.isArray(report.speciesStandings) ? report.speciesStandings : [])
-      .filter((entry) =>
-        entry && typeof entry.speciesId === "string" &&
-        typeof entry.rankedCityCount === "number"
-      )
-      .map((entry) => [entry.speciesId, entry]),
-  );
   const v5Ordered = report.species.some((species) =>
     species.seasonalOutlook.status === "available" &&
     species.seasonalOutlook.profileId === PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION
   );
   const orderedSpecies = v5Ordered
     ? [...report.species]
-    : rankPierCastCitySpecies(report.species);
-  return orderedSpecies.map((species, index) => {
+    : orderPierCastCitySpecies(report.species);
+  return orderedSpecies.map((species) => {
     const outlook = species.seasonalOutlook;
-    const ranked = species.rankingDisposition === "ranked";
+    const rated = species.rankingDisposition === "ranked";
     const fit = pierCastWaterFit(species);
     const phrase = standingsWaterPhrase(species.thermalMatch);
-    const standing = standings.get(species.speciesId);
     return {
       speciesId: species.speciesId,
       name: pierCastSpeciesName(species.speciesId),
-      rankLabel: String(index + 1).padStart(2, "0"),
-      ranked,
+      rated,
       band: outlook.status === "available" ? outlook.band : null,
       trend: outlook.status === "available" ? outlook.trend : null,
-      seasonLine: ranked && outlook.status === "available"
+      seasonLine: rated && outlook.status === "available"
         ? standingsOutlookTimingLabel(outlook) ??
           standingsStageLabel(outlook.stage, outlook.band)
         : standingsUnrankedReason(species),
@@ -275,9 +262,6 @@ export function buildPierCastCitySpeciesCards(
         ? `${Math.round(fit.idealLowF)}–${Math.round(fit.idealHighF)}°F`
         : null,
       fit,
-      standing: ranked && standing && typeof standing.rank === "number"
-        ? { rank: standing.rank, rankedCityCount: standing.rankedCityCount }
-        : null,
     };
   });
 }
@@ -294,13 +278,9 @@ export function splitPierCastCitySpeciesCards(
   const otherSpecies = cards.filter((card) =>
     !isPrimaryPierCastSpecies(card.speciesId)
   );
-  const ordered = [...mainTargets, ...otherSpecies].map((card, index) => ({
-    ...card,
-    rankLabel: String(index + 1).padStart(2, "0"),
-  }));
   return {
-    mainTargets: ordered.slice(0, mainTargets.length),
-    otherSpecies: ordered.slice(mainTargets.length),
+    mainTargets,
+    otherSpecies,
   };
 }
 
@@ -336,7 +316,7 @@ export function pierCastCityTopPick(
       right.score! - left.score! ||
       left.row.speciesId.localeCompare(right.row.speciesId)
     )[0]?.row
-    : rankPierCastCitySpecies(calendarSpecies)[0];
+    : orderPierCastCitySpecies(calendarSpecies)[0];
   if (
     !leader || leader.rankingDisposition !== "ranked" ||
     leader.seasonalOutlook.status !== "available"

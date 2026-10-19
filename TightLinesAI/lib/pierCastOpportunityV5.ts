@@ -466,32 +466,3 @@ export function projectPierCastCityReportLabelsV5(
     speciesStandings: [],
   };
 }
-
-/**
- * Adds only the selected species' verified v5 standing to a locally projected
- * report. This avoids a leaderboard fan-out for every species card.
- */
-export function projectPierCastCityReportV5(input: {
-  report: PierCastCityReportReadV4;
-  selectedLeaderboard: PierCastLeaderboardResponseV4;
-}): PierCastCityReportReadV4 {
-  const report = projectPierCastCityReportLabelsV5(input.report);
-  const selectedRow = input.selectedLeaderboard.cities.find((city) =>
-    city.cityId === report.cityId &&
-    city.rankingDisposition === "ranked" &&
-    typeof city.rank === "number"
-  );
-  const rankedCityCount = input.selectedLeaderboard.cities.filter((city) =>
-    city.rankingDisposition === "ranked"
-  ).length;
-  return {
-    ...report,
-    speciesStandings: selectedRow
-      ? [{
-        speciesId: report.selectedSpeciesId,
-        rank: selectedRow.rank,
-        rankedCityCount,
-      }]
-      : [],
-  };
-}

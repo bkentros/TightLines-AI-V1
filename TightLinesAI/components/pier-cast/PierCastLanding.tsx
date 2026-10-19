@@ -43,7 +43,11 @@ import {
 } from "react-native";
 import Svg, { Circle, Defs, LinearGradient, Path, Rect, Stop } from "react-native-svg";
 
-import { fetchPierCastConditionsLeaderboardForApp, fetchPierCastConditionsSummaryMap } from "../../lib/pierCast";
+import {
+  fetchPierCastConditionsSummaryMap,
+  fetchPierCastTargetConditionsForApp,
+  type PierCastTargetConditionsResponse,
+} from "../../lib/pierCast";
 import { pierCastSpeciesName, pierCastWaterFitFromThermal } from "../../lib/pierCastCityReportPresentation";
 import { PIER_CAST_STATE_LABELS } from "../../lib/pierCastConditionsPresentation";
 import type {
@@ -51,7 +55,6 @@ import type {
   PierCastConditionsCatalogResponseV4,
   PierCastConditionsMapResponseV4,
   PierCastGreatLakeIdV4,
-  PierCastLeaderboardResponseV4,
 } from "../../lib/pierCastConditionsV4";
 import type { PierCastSpeciesId } from "../../lib/pierCastContracts";
 import { selectPierCastCoveredStructures } from "../../lib/pierCastCoveredStructures";
@@ -93,7 +96,7 @@ const CREAM = "#F7F2E6";
 const COLD = "#2F86C9";
 const WARM = "#E0772F";
 const SWINGS_OPEN_KEY = "tightlines_pier_cast_swings_open_v1";
-const BOARD_CACHE_MS = 10 * 60 * 1000;
+const TARGET_CONDITIONS_CACHE_MS = 10 * 60 * 1000;
 const SIDE = 14;
 const PEEK = 26;
 const CARD_GAP = 10;
@@ -103,24 +106,27 @@ type Timeline = PierCastConditionsMapResponseV4["cities"][number]["temperatureTi
 
 // ─── Data ─────────────────────────────────────────────────────────────────
 
-const boardCache = new Map<PierCastSpeciesId, { at: number; board: PierCastLeaderboardResponseV4 }>();
+const targetConditionsCache = new Map<
+  PierCastSpeciesId,
+  { at: number; conditions: PierCastTargetConditionsResponse }
+>();
 
-async function loadSalmonidBoards(
+async function loadSalmonidConditions(
   speciesIds: readonly PierCastSpeciesId[],
   force: boolean,
-): Promise<PierCastLeaderboardResponseV4[]> {
+): Promise<PierCastTargetConditionsResponse[]> {
   const results = await Promise.all(speciesIds.map(async (speciesId) => {
-    const cached = boardCache.get(speciesId);
-    if (!force && cached && Date.now() - cached.at < BOARD_CACHE_MS) return cached.board;
+    const cached = targetConditionsCache.get(speciesId);
+    if (!force && cached && Date.now() - cached.at < TARGET_CONDITIONS_CACHE_MS) return cached.conditions;
     try {
-      const board = await fetchPierCastConditionsLeaderboardForApp(speciesId);
-      boardCache.set(speciesId, { at: Date.now(), board });
-      return board;
+      const conditions = await fetchPierCastTargetConditionsForApp(speciesId);
+      targetConditionsCache.set(speciesId, { at: Date.now(), conditions });
+      return conditions;
     } catch {
-      return cached?.board ?? null;
+      return cached?.conditions ?? null;
     }
   }));
-  return results.filter((board): board is PierCastLeaderboardResponseV4 => board !== null);
+  return results.filter((conditions): conditions is PierCastTargetConditionsResponse => conditions !== null);
 }
 
 // ─── Shared bits ──────────────────────────────────────────────────────────
@@ -826,8 +832,8 @@ function MyPiers({
   cities,
   cityLakes,
   timelines,
-  boards,
-  boardsLoading,
+  conditions,
+  conditionsLoading,
   onOpenCity,
   onToggleSaved,
   onAdd,
@@ -835,8 +841,8 @@ function MyPiers({
   cities: PierCastConditionsCatalogCityV4[];
   cityLakes: ReadonlyMap<string, PierCastGreatLakeIdV4>;
   timelines: ReadonlyMap<string, Timeline>;
-  boards: readonly PierCastLeaderboardResponseV4[];
-  boardsLoading: boolean;
+  conditions: readonly PierCastTargetConditionsResponse[];
+  conditionsLoading: boolean;
   onOpenCity: (cityId: string) => void;
   onToggleSaved: (cityId: string) => void;
   onAdd: () => void;
@@ -936,8 +942,8 @@ function MyPiers({
                   city={city}
                   lakeId={cityLakes.get(city.cityId)}
                   timeline={timelines.get(city.cityId)}
-                  pick={pickPierCastTopSalmonid(city, boards)}
-                  pickLoading={boardsLoading}
+                  pick={pickPierCastTopSalmonid(city, conditions)}
+                  pickLoading={conditionsLoading}
                   width={cardWidth}
                   onOpen={() => onOpenCity(city.cityId)}
                   onRemove={() => onToggleSaved(city.cityId)}
@@ -1152,8 +1158,8 @@ export function PierCastLanding({
   const searchRef = useRef<TextInput | null>(null);
   const [summary, setSummary] = useState<PierCastConditionsMapResponseV4 | null>(null);
   const [summaryLoading, setSummaryLoading] = useState(true);
-  const [boards, setBoards] = useState<PierCastLeaderboardResponseV4[]>([]);
-  const [boardsLoading, setBoardsLoading] = useState(false);
+  const [targetConditions, setTargetConditions] = useState<PierCastTargetConditionsResponse[]>([]);
+  const [targetConditionsLoading, setTargetConditionsLoading] = useState(false);
   const lastRefresh = useRef(refreshToken);
 
   const firstSummary = useRef(true);
@@ -1180,16 +1186,17 @@ export function PierCastLanding({
 
   useEffect(() => {
     if (salmonids.length === 0) {
-      setBoards([]);
+      setTargetConditions([]);
+      setTargetConditionsLoading(false);
       return;
     }
     let active = true;
     const force = lastRefresh.current !== refreshToken;
     lastRefresh.current = refreshToken;
-    setBoardsLoading(true);
-    void loadSalmonidBoards(salmonids, force)
-      .then((next) => { if (active) setBoards(next); })
-      .finally(() => { if (active) setBoardsLoading(false); });
+    setTargetConditionsLoading(true);
+    void loadSalmonidConditions(salmonids, force)
+      .then((next) => { if (active) setTargetConditions(next); })
+      .finally(() => { if (active) setTargetConditionsLoading(false); });
     return () => { active = false; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [salmonidKey, refreshToken]);
@@ -1241,8 +1248,8 @@ export function PierCastLanding({
         cities={savedCities}
         cityLakes={cityLakes}
         timelines={timelines}
-        boards={boards}
-        boardsLoading={boardsLoading}
+        conditions={targetConditions}
+        conditionsLoading={targetConditionsLoading}
         onOpenCity={onOpenCity}
         onToggleSaved={onToggleSaved}
         onAdd={focusSearch}
