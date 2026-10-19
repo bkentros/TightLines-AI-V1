@@ -8,7 +8,6 @@ import type {
 import type { PierCastSpeciesId } from "./pierCastContracts";
 import {
   PIER_CAST_V3_PAIR_CALIBRATIONS,
-  getPierCastV3TemperatureCurve,
   type PierCastV3OpportunityMode,
 } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 import {
@@ -17,10 +16,13 @@ import {
   pierCastV3RegulationClosureApplies,
 } from "../supabase/functions/_shared/pierCastEngine/scoring/modesV3";
 import { calculatePierCastV3Opportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/opportunityV3";
-import { evaluateTemperatureSuitability } from "../supabase/functions/_shared/pierCastEngine/scoring/temperature";
 import { evaluatePierCastLakeTroutOpportunityV5 } from "./pierCastLakeTroutV5";
 import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
 import { applyPierCastSalmonidBatch2V5 } from "./pierCastSalmonidBatch2V5";
+import {
+  pierCastTemperatureSuitabilityV18,
+  projectPierCastThermalMatchV18,
+} from "./pierCastTemperatureFitV18";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
   "piercast-opportunity-v5-1.17-target-summaries-v1" as const;
@@ -86,20 +88,12 @@ function timingFor(input: {
   return "in_season";
 }
 
-/** Temperature suitability on the species' evidence-reviewed v3 curve. */
+/** Temperature suitability on the species' evidence-reviewed 1.18 curve. */
 export function pierCastTemperatureSuitabilityV5(
   speciesId: PierCastSpeciesId,
   temperatureC: number | null,
 ): number | null {
-  const result = evaluateTemperatureSuitability({
-    ratingEnabled: true,
-    mode: "review",
-    monthEvidenceState: "sourced_biology",
-    inputStatus: temperatureC === null ? "missing" : "valid",
-    waterTemperatureC: temperatureC,
-    curve: getPierCastV3TemperatureCurve(speciesId),
-  });
-  return result.status === "available" ? result.suitability : null;
+  return pierCastTemperatureSuitabilityV18(speciesId, temperatureC);
 }
 
 /**
@@ -195,10 +189,14 @@ export function projectPierCastSpeciesConditionsV5(input: {
   species: PierCastSpeciesConditionsReadV4;
   evaluation: PierCastOpportunityEvaluationV5 | null;
 } {
-  const { species } = input;
+  const thermalMatch = projectPierCastThermalMatchV18(
+    input.species.speciesId,
+    input.species.thermalMatch,
+  );
+  const species = { ...input.species, thermalMatch };
   const localDate = species.seasonalOutlook.localDate;
-  const thermalValue = species.thermalMatch.status === "available"
-    ? species.thermalMatch.value
+  const thermalValue = thermalMatch.status === "available"
+    ? thermalMatch.value
     : null;
   const evaluation = evaluatePierCastOpportunityV5({
     cityId: input.cityId,
@@ -223,6 +221,7 @@ export function projectPierCastSpeciesConditionsV5(input: {
     evaluation,
     species: {
       ...species,
+      thermalMatch,
       seasonalOutlook: {
         status: "available",
         value: Math.round(evaluation.availability * 10_000) / 10_000,

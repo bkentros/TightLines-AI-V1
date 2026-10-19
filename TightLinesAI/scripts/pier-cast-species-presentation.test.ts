@@ -245,5 +245,5 @@ test("PierCast UI exposes species-specific seasonal and temperature context", ()
   assert.doesNotMatch(source, /onOpenStandings|standings\./);
   assert.match(rules, /PIER_CAST_SPECIES_LABELS/);
   assert.match(rules, /standingsStageLabel/);
-  assert.match(rules, /standingsWaterPhrase/);
+  assert.match(rules, /pierCastWaterFitLabelV18/);
 });

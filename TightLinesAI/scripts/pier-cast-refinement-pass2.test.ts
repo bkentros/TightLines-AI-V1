@@ -40,12 +40,12 @@ test("1.18 retires the leaderboard: the landing never ranks cities", () => {
 test("temperature fit stays compact on city reports and saved piers", () => {
   assert.match(ui, /function WaterFitBar/);
   assert.match(ui, />WATER TODAY</);
-  assert.match(ui, /Ideal \{card\.idealLine\}/);
+  assert.match(ui, /Best range \{card\.bestRangeLine\}/);
   assert.match(reportRules, /export function pierCastWaterFit/);
   assert.match(reportRules, /thermal\.optimumRangeC/);
   assert.match(ui, /MODELED/);
   assert.match(landing, /<PierCastWaterGauge fit=\{fit\} \/>/);
-  assert.match(landing, /standingsWaterPhrase\(row\.thermalMatch\)/);
+  assert.match(landing, /pierCastWaterFitLabelV18\(thermal\)/);
 });
 
 test("city finder opens only supported targets", () => {

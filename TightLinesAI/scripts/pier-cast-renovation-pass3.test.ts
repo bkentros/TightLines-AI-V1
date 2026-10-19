@@ -82,7 +82,7 @@ test("city report separates today's label, season timing, and water context", ()
   assert.match(conditionsUi, />WATER TODAY</);
   assert.match(conditionsUi, /<WaterFitBar card=\{card\} \/>/);
   assert.match(reportRules, /standingsOutlookTimingLabel\(outlook\)/);
-  assert.match(reportRules, /standingsWaterPhrase\(species\.thermalMatch\)/);
+  assert.match(reportRules, /pierCastWaterFitLabelV18\(thermal\)/);
 });
 
 test("city report includes the calendar, species, pier conditions, chart, shifts, and provenance", () => {

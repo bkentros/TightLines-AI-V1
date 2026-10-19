@@ -81,8 +81,11 @@ import {
 } from "../../lib/pierCastLanding";
 import {
   pierCastLakeName,
-  standingsWaterPhrase,
 } from "../../lib/pierCastStandingsPresentation";
+import {
+  pierCastWaterFitLabelV18,
+  projectPierCastThermalMatchV18,
+} from "../../lib/pierCastTemperatureFitV18";
 import { hapticSelection } from "../../lib/safeHaptics";
 import { paper, paperFonts, paperShadows } from "../../lib/theme";
 import { usePaperBonePulse } from "../../lib/usePaperBonePulse";
@@ -645,8 +648,9 @@ function SalmonidPick({ pick, loading }: { pick: PierCastSalmonidPick | null; lo
   const { row, speciesId } = pick;
   const rated = row.rankingDisposition === "ranked" && row.seasonalOutlook.status === "available";
   const band = row.seasonalOutlook.status === "available" ? row.seasonalOutlook.band : null;
-  const fit = pierCastWaterFitFromThermal(row.thermalMatch);
-  const phrase = standingsWaterPhrase(row.thermalMatch);
+  const thermal = projectPierCastThermalMatchV18(speciesId, row.thermalMatch);
+  const fit = pierCastWaterFitFromThermal(thermal);
+  const fitLabel = pierCastWaterFitLabelV18(thermal);
   return (
     <View>
       <View style={styles.pickRow}>
@@ -666,9 +670,9 @@ function SalmonidPick({ pick, loading }: { pick: PierCastSalmonidPick | null; lo
       <View style={styles.fitHead}>
         <Text style={styles.fitKey}>
           WATER{fit ? ` ${Math.round(fit.temperatureF)}°F` : ""}{"  "}
-          <Text style={styles.fitPhrase}>{phrase ? phrase[0]!.toUpperCase() + phrase.slice(1) : "Unavailable"}</Text>
+          <Text style={styles.fitPhrase}>{fitLabel ?? "Unavailable"}</Text>
         </Text>
-        {fit ? <Text style={styles.fitIdeal}>Ideal {Math.round(fit.idealLowF)}–{Math.round(fit.idealHighF)}°F</Text> : null}
+        {fit ? <Text style={styles.fitIdeal}>Best range {Math.round(fit.idealLowF)}–{Math.round(fit.idealHighF)}°F</Text> : null}
       </View>
       <PierCastWaterGauge fit={fit} />
     </View>
