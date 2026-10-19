@@ -1,8 +1,8 @@
 /**
  * PierCast landing page data (1.18 redesign — the Standings leaderboard is
  * retired). Everything here is deterministic presentation over data the app
- * already receives (the catalog and the conditions summary map with every
- * pier's five-day modeled water temperature); nothing new is fetched:
+ * receives (the catalog, the conditions summary map with every pier's
+ * five-day modeled water temperature, and target conditions for saved piers):
  *
  * - the lake snapshot (water range, coldest and warmest pier right now);
  * - water temp swings, from the same shift rule as the City Report's
@@ -11,7 +11,7 @@
  * - "My Piers": up to five saved cities, remembered on this device;
  * - nearest pier cities for "Near me";
  * - each saved city's best trout/salmon species today, chosen with the same
- *   rule the City Report uses (ranked first, then seasonal band, then water fit).
+ *   rule the City Report uses (rated first, then seasonal band, then water fit).
  */
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -179,19 +179,19 @@ export function pierCastSalmonidsFor(
 
 /**
  * The city's best trout/salmon species today across the given species
- * boards: always one pick when any supported salmonid has a row, even when
- * the best is only Fair or Poor.
+ * conditions feeds: always one pick when any supported salmonid has a row,
+ * even when the best is only Fair or Poor.
  */
 export function pickPierCastTopSalmonid(
   city: PierCastConditionsCatalogCityV4,
-  boards: readonly PierCastLeaderboardResponseV4[],
+  conditionsFeeds: readonly PierCastLeaderboardResponseV4[],
 ): PierCastSalmonidPick | null {
   const supported = new Set(city.supportedSpeciesIds ?? []);
   const rows: PierCastLeaderboardCityReadV4[] = [];
-  for (const board of boards) {
-    const speciesId = board.selectedSpeciesId;
+  for (const conditions of conditionsFeeds) {
+    const speciesId = conditions.selectedSpeciesId;
     if (!speciesId || !PIER_CAST_SALMONID_ORDER.includes(speciesId) || !supported.has(speciesId)) continue;
-    const row = board.cities.find((candidate) => candidate.cityId === city.cityId);
+    const row = conditions.cities.find((candidate) => candidate.cityId === city.cityId);
     if (row && row.speciesId === speciesId) rows.push(row);
   }
   if (rows.length === 0) return null;

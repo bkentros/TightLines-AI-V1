@@ -69,22 +69,22 @@ function row(cityId: string, speciesId: string, band: string | null, thermal: nu
     thermalMatch: { status: "available", value: thermal, temperatureC: 12, optimumRangeC: [10, 14], distanceFromOptimumC: 0, band: "excellent" },
   };
 }
-const board = (speciesId: string, rows: unknown[]) => ({ selectedSpeciesId: speciesId, cities: rows }) as never;
+const conditionsFeed = (speciesId: string, rows: unknown[]) => ({ selectedSpeciesId: speciesId, cities: rows }) as never;
 
 test("a saved pier shows its best trout or salmon only, even when the best is weak", () => {
-  const boards = [
-    board("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "fair", 0.9)]),
-    board("steelhead", [row("grand_haven_mi", "steelhead", "good", 0.4)]),
-    board("yellow_perch", [row("grand_haven_mi", "yellow_perch", "excellent", 1)]),
-    board("coho_salmon", [row("grand_haven_mi", "coho_salmon", "excellent", 1)]), // not supported here
+  const conditions = [
+    conditionsFeed("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "fair", 0.9)]),
+    conditionsFeed("steelhead", [row("grand_haven_mi", "steelhead", "good", 0.4)]),
+    conditionsFeed("yellow_perch", [row("grand_haven_mi", "yellow_perch", "excellent", 1)]),
+    conditionsFeed("coho_salmon", [row("grand_haven_mi", "coho_salmon", "excellent", 1)]), // not supported here
   ];
-  assert.equal(pickPierCastTopSalmonid(CITIES[0]!, boards)?.speciesId, "steelhead");
-  const weak = [board("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "poor", 0.2)])];
+  assert.equal(pickPierCastTopSalmonid(CITIES[0]!, conditions)?.speciesId, "steelhead");
+  const weak = [conditionsFeed("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "poor", 0.2)])];
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, weak)?.speciesId, "chinook_salmon");
   // ranked beats unranked; thermal fit breaks a band tie
   const tie = [
-    board("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "good", 0.3)]),
-    board("steelhead", [row("grand_haven_mi", "steelhead", "good", 0.8)]),
+    conditionsFeed("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "good", 0.3)]),
+    conditionsFeed("steelhead", [row("grand_haven_mi", "steelhead", "good", 0.8)]),
   ];
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, tie)?.speciesId, "steelhead");
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, []), null);

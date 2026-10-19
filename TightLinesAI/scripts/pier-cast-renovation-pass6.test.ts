@@ -30,8 +30,10 @@ test("shipping PierCast screen has no retired public score consumer", () => {
     assert.doesNotMatch(shippingUi + client, new RegExp(retired));
   }
   assert.doesNotMatch(shippingUi, /score\.toFixed|\/10|SCORE \/ 10/);
-  // 1.18: saved piers read species conditions; the screen itself loads only the catalog.
-  assert.match(landing, /fetchPierCastConditionsLeaderboardForApp/);
+  // 1.18: saved piers read rank-free target conditions; the screen itself loads only the catalog.
+  assert.match(landing, /fetchPierCastTargetConditionsForApp/);
+  assert.doesNotMatch(landing + client, /fetchPierCastConditionsLeaderboardForApp/);
+  assert.match(client, /rank: null/);
   assert.match(screen, /fetchPierCastConditionsCatalog/);
   assert.match(screen, /fetchPierCastConditionsCityReport/);
   assert.match(screen, /fetchSavedPierCastConditionsReport/);
@@ -98,7 +100,7 @@ test("loading, stale, missing, restricted, access, and long-copy states are expl
 test("rapid city opens cannot commit an older report response", () => {
   assert.match(screen, /const reportRequestId = \+\+cityReportRequest\.current/);
   assert.match(screen, /requestedCity\.current !== cityId/);
-  assert.match(landing, /if \(active\) setBoards\(next\)/);
+  assert.match(landing, /if \(active\) setTargetConditions\(next\)/);
 });
 
 test("visual matrix covers all required devices, text sizes, report states, and map permutations", () => {

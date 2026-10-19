@@ -23,6 +23,7 @@ import {
   pierCastLiveMapPauseScript,
   pierCastLiveMapRenewScript,
 } from "../lib/pierCastLiveMap.ts";
+import { finderReportSpecies } from "../lib/pierCastStandingsPresentation.ts";
 
 const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const screen = read("app/pier-cast-map.tsx");
@@ -77,6 +78,25 @@ test("page messages are validated before the app acts on them", () => {
   assert.equal(parsePierCastLiveMapMessage("not json"), null);
   assert.equal(parsePierCastLiveMapMessage({ type: "back" }), null);
   for (const name of Object.values(PIER_CAST_LIVE_MAP_ANALYTICS)) assert.match(name, /^pier_cast_live_map_/);
+});
+
+test("a map species selection opens a supported report target without leaderboard state", () => {
+  const city = {
+    cityId: "ludington_mi",
+    supportedSpeciesIds: ["coho_salmon", "walleye"],
+  } as never;
+  const selected = parsePierCastLiveMapMessage(
+    '{"type":"openCity","cityId":"ludington_mi","speciesId":"coho_salmon"}',
+  );
+  assert.ok(selected?.type === "openCity");
+  assert.equal(finderReportSpecies(city, selected.speciesId), "coho_salmon");
+
+  const invalid = parsePierCastLiveMapMessage(
+    '{"type":"openCity","cityId":"ludington_mi","speciesId":"shark"}',
+  );
+  assert.ok(invalid?.type === "openCity");
+  assert.equal(finderReportSpecies(city, invalid.speciesId), "coho_salmon");
+  assert.equal(finderReportSpecies(city, "chinook_salmon"), "coho_salmon");
 });
 
 test("only the map's own host loads inside the web view", () => {

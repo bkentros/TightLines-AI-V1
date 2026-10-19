@@ -30,7 +30,6 @@ import {
 import {
   clearUnverifiedPierCastTargetSummariesV5,
   projectPierCastCityReportLabelsV5,
-  projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
   projectPierCastTargetSpeciesSummariesV5,
 } from "./pierCastOpportunityV5";
@@ -201,7 +200,7 @@ function readErrorMessage(parsed: unknown, status: number): string {
   return `PierCast request failed with status ${status}.`;
 }
 
-export async function fetchPierCastConditionsLeaderboard(
+async function fetchPierCastTargetConditionsTransport(
   speciesId?: PierCastSpeciesId,
 ): Promise<PierCastLeaderboardResponseV4> {
   const query = speciesId ? `?speciesId=${encodeURIComponent(speciesId)}` : "";
@@ -222,7 +221,7 @@ export async function fetchPierCastConditionsMap(
 
 /**
  * The all-species conditions map (every city's lake, coordinates and five-day
- * modeled temperature timeline), shared by the standings projection and the
+ * modeled temperature timeline), shared by target-conditions projection and the
  * PierCast landing page. Cached for 15 minutes and de-duplicated in flight.
  */
 export function fetchPierCastConditionsSummaryMap(
@@ -253,17 +252,31 @@ function fetchPierCastTargetSummaryMap(force = false): Promise<
   return targetSummaryMapRequest;
 }
 
+export type PierCastTargetConditionsResponse = Omit<
+  PierCastLeaderboardResponseV4,
+  "cities"
+> & {
+  cities: Array<
+    Omit<PierCastLeaderboardResponseV4["cities"][number], "rank"> & {
+      rank: null;
+    }
+  >;
+};
+
 /**
- * App-facing standings loader. Lake trout uses the approved v5 city
- * calibration while retaining the frozen v4 network contract. Until the
- * matching server projection is deployed, the map response supplies current
- * temperature data for newly admitted cities.
+ * Loads one species' city conditions for app features such as My Piers.
+ *
+ * The frozen v4 transport is still named `conditions/leaderboard` for older
+ * installed clients. Version 1.18 treats it only as a conditions feed and
+ * clears relative city ranks before returning it to shipping UI code. Lake
+ * trout keeps its approved v5 city calibration, while the map response fills
+ * current temperatures for newly admitted cities when needed.
  */
-export async function fetchPierCastConditionsLeaderboardForApp(
+export async function fetchPierCastTargetConditionsForApp(
   speciesId?: PierCastSpeciesId,
-): Promise<PierCastLeaderboardResponseV4> {
+): Promise<PierCastTargetConditionsResponse> {
   const summaryMapRequest = fetchPierCastTargetSummaryMap().catch(() => null);
-  const leaderboard = await fetchPierCastConditionsLeaderboard(speciesId);
+  const leaderboard = await fetchPierCastTargetConditionsTransport(speciesId);
   const summaryMap = await summaryMapRequest;
   let projected: PierCastLeaderboardResponseV4;
   if (leaderboard.selectedSpeciesId !== "lake_trout") {
@@ -274,12 +287,16 @@ export async function fetchPierCastConditionsLeaderboardForApp(
       map: pierCastLakeTroutV5NeedsMap(leaderboard) ? summaryMap : null,
     });
   }
-  return summaryMap
+  const conditions = summaryMap
     ? projectPierCastTargetSpeciesSummariesV5({
       leaderboard: projected,
       map: summaryMap,
     })
     : clearUnverifiedPierCastTargetSummariesV5(projected);
+  return {
+    ...conditions,
+    cities: conditions.cities.map((city) => ({ ...city, rank: null })),
+  };
 }
 export async function fetchPierCastObservedTemperatureMap(): Promise<
   PierCastObservedTemperatureMapResponseV1
@@ -317,23 +334,10 @@ export async function fetchPierCastConditionsCityReportForApp(
   speciesId: PierCastSpeciesId,
 ): Promise<PierCastSavedReportEnvelopeV4> {
   const envelope = await fetchPierCastConditionsCityReport(cityId, speciesId);
-  try {
-    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
-      speciesId,
-    );
-    return {
-      ...envelope,
-      report: projectPierCastCityReportV5({
-        report: envelope.report,
-        selectedLeaderboard,
-      }),
-    };
-  } catch {
-    return {
-      ...envelope,
-      report: projectPierCastCityReportLabelsV5(envelope.report),
-    };
-  }
+  return {
+    ...envelope,
+    report: projectPierCastCityReportLabelsV5(envelope.report),
+  };
 }
 export async function fetchSavedPierCastConditionsReport(
   speciesId?: PierCastSpeciesId,
@@ -345,28 +349,11 @@ export async function fetchSavedPierCastConditionsReport(
   );
   if (saved.status !== "available") return saved;
   const labelsOnly = projectPierCastCityReportLabelsV5(saved.envelope.report);
-  const target = speciesId ?? labelsOnly.selectedSpeciesId;
-  try {
-    const selectedLeaderboard = await fetchPierCastConditionsLeaderboardForApp(
-      target,
-    );
-    return {
-      ...saved,
-      envelope: {
-        ...saved.envelope,
-        report: projectPierCastCityReportV5({
-          report: labelsOnly,
-          selectedLeaderboard,
-        }),
-      },
-    };
-  } catch {
-    return {
-      ...saved,
-      envelope: {
-        ...saved.envelope,
-        report: labelsOnly,
-      },
-    };
-  }
+  return {
+    ...saved,
+    envelope: {
+      ...saved.envelope,
+      report: labelsOnly,
+    },
+  };
 }

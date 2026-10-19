@@ -12,7 +12,6 @@ import {
   evaluatePierCastOpportunityV5,
   PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION,
   projectPierCastCityReportLabelsV5,
-  projectPierCastCityReportV5,
   projectPierCastLeaderboardV5,
   projectPierCastTargetSpeciesSummariesV5,
 } from "../lib/pierCastOpportunityV5";
@@ -298,7 +297,7 @@ test("Batch 2 does not turn limited Lexington access into a score gate", () => {
   }
 });
 
-test("St. Joseph fall correction reaches leaderboard and city report through one projection", () => {
+test("St. Joseph fall correction reaches target conditions and city report labels", () => {
   const generatedAt = "2026-09-16T16:00:00.000Z";
   const source = buildPierCastConditionsV4Outlook({
     generatedAt,
@@ -333,21 +332,20 @@ test("St. Joseph fall correction reaches leaderboard and city report through one
     "pier_cast_v5_mode:fall_harbor_staging",
   ));
 
-  const report = projectPierCastCityReportV5({
-    report: projectPierCastConditionsCityReportV4(
+  const report = projectPierCastCityReportLabelsV5(
+    projectPierCastConditionsCityReportV4(
       source,
       "st_joseph_mi",
       "chinook_salmon",
     ),
-    selectedLeaderboard: leaderboard,
-  });
+  );
   const reportRow = report.species.find((species) =>
     species.speciesId === "chinook_salmon"
   );
   assert.ok(reportRow);
   assert.equal(reportRow.seasonalOutlook.band, "fair");
   assert.equal(reportRow.seasonalOutlook.stage, "active");
-  assert.equal(report.speciesStandings?.[0]?.rank, 1);
+  assert.deepEqual(report.speciesStandings, []);
 });
 
 test("leaderboards use exact hidden opportunity and expose labels only", () => {
@@ -452,19 +450,15 @@ test("target picker clears legacy Best labels when its summary map is unavailabl
   }
 });
 
-test("city report labels, species order and selected standing use the same model", () => {
+test("city report labels and species order use the same model without standings", () => {
   const source = outlook();
-  const selectedLeaderboard = projectPierCastLeaderboardV5(
-    projectPierCastConditionsLeaderboardV4(source, "chinook_salmon"),
-  );
-  const report = projectPierCastCityReportV5({
-    report: projectPierCastConditionsCityReportV4(
+  const report = projectPierCastCityReportLabelsV5(
+    projectPierCastConditionsCityReportV4(
       source,
       "ludington_mi",
       "chinook_salmon",
     ),
-    selectedLeaderboard,
-  });
+  );
   const rankedScores = report.species.filter((species) =>
     species.rankingDisposition === "ranked"
   ).map((species) =>
@@ -480,8 +474,7 @@ test("city report labels, species order and selected standing use the same model
   for (let index = 1; index < rankedScores.length; index += 1) {
     assert.ok(rankedScores[index - 1]! >= rankedScores[index]!);
   }
-  assert.equal(report.speciesStandings?.length, 1);
-  assert.equal(report.speciesStandings?.[0]?.speciesId, "chinook_salmon");
+  assert.deepEqual(report.speciesStandings, []);
   assert.equal(JSON.stringify(report).includes('"score"'), false);
 });
 

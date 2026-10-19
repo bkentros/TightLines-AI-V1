@@ -15,7 +15,7 @@ import {
   pierCastCityPrimeCount,
   pierCastCityTopPick,
   pierCastCompass,
-  rankPierCastCitySpecies,
+  orderPierCastCitySpecies,
   splitPierCastCitySpeciesCards,
   pierCastTimelinePoints,
 } from "../lib/pierCastCityReportPresentation";
@@ -157,7 +157,7 @@ test("a higher-ranked secondary species never becomes today's top pick", () => {
     rankedSpecies("lake_trout", "good", 0.8),
     rankedSpecies("freshwater_drum", "fair", 0.7),
   ];
-  assert.equal(rankPierCastCitySpecies(species)[0]!.speciesId, "walleye");
+  assert.equal(orderPierCastCitySpecies(species)[0]!.speciesId, "walleye");
   assert.equal(pierCastCityTopPick(species)?.speciesId, "lake_trout");
   assert.equal(pierCastCityPrimeCount(species), 0);
 });
@@ -199,17 +199,18 @@ test("calendar falls back to water ranges when an older server sends no daily ou
   assert.ok(days[1]!.waterRange);
 });
 
-test("species cards follow the leaderboard rule and carry no numeric score", () => {
+test("species cards follow the conditions rule and carry no ranking fields", () => {
   const cards = buildPierCastCitySpeciesCards(report());
   assert.ok(cards.length > 0);
-  assert.equal(cards[0]!.rankLabel, "01");
   const order = { excellent: 5, good: 4, fair: 3, poor: 2, usually_off: 1 } as const;
-  const ranked = cards.filter((card) => card.ranked && card.band);
-  for (let index = 1; index < ranked.length; index += 1) {
-    assert.ok(order[ranked[index - 1]!.band!] >= order[ranked[index]!.band!]);
+  const rated = cards.filter((card) => card.rated && card.band);
+  for (let index = 1; index < rated.length; index += 1) {
+    assert.ok(order[rated[index - 1]!.band!] >= order[rated[index]!.band!]);
   }
   for (const card of cards) {
     assert.equal("score" in card, false);
+    assert.equal("standing" in card, false);
+    assert.equal("rankLabel" in card, false);
     if (card.fit) {
       assert.ok(card.fit.pin >= 0 && card.fit.pin <= 1);
       assert.match(card.idealLine ?? "", /^\d+–\d+°F$/);
@@ -223,13 +224,9 @@ test("city report keeps only salmon, trout, steelhead and drum in main targets",
   assert.ok(groups.otherSpecies.length > 0);
   assert.ok(groups.mainTargets.every((card) => isPrimaryPierCastSpecies(card.speciesId)));
   assert.ok(groups.otherSpecies.every((card) => !isPrimaryPierCastSpecies(card.speciesId)));
-  assert.deepEqual(
-    [...groups.mainTargets, ...groups.otherSpecies].map((card) => card.rankLabel),
-    Array.from(
-      { length: groups.mainTargets.length + groups.otherSpecies.length },
-      (_, index) => String(index + 1).padStart(2, "0"),
-    ),
-  );
+  assert.ok([...groups.mainTargets, ...groups.otherSpecies].every((card) =>
+    !("standing" in card) && !("rankLabel" in card)
+  ));
 });
 
 test("hourly strip exposes the next 120 modeled hours at one-hour intervals", () => {
@@ -341,5 +338,7 @@ test("a one-city outlook sends no species standings", () => {
   } as never);
   const read = projectPierCastConditionsCityReportV4(outlook, "ludington_mi", "chinook_salmon");
   assert.deepEqual(read.speciesStandings, []);
-  assert.ok(buildPierCastCitySpeciesCards(read).every((card) => card.standing === null));
+  assert.ok(buildPierCastCitySpeciesCards(read).every((card) =>
+    !("standing" in card) && !("rankLabel" in card)
+  ));
 });

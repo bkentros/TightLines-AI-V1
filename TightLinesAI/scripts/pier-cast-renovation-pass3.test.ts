@@ -72,7 +72,7 @@ test("missing and restricted inputs remain explicitly unranked", () => {
   assert.match(standingsRules, /State season closed here/);
   assert.match(reportRules, /standingsUnrankedReason\(species\)/);
   assert.match(read("components/pier-cast/PierCastStatStrip.tsx"), /NOT RATED/);
-  assert.match(conditionsUi, /unratedReason=\{card\.ranked \? null : card\.seasonLine\}/);
+  assert.match(conditionsUi, /unratedReason=\{card\.rated \? null : card\.seasonLine\}/);
 });
 
 test("city report separates today's label, season timing, and water context", () => {
