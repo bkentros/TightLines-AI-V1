@@ -295,7 +295,7 @@ test("report screen is city-first, shows every species as a card, and has no sco
   const ui = readFileSync("components/pier-cast/PierCastConditionsUI.tsx", "utf8");
   const screen = readFileSync("app/pier-cast-review.tsx", "utf8");
   const visuals = readFileSync("components/pier-cast/PierCastVisuals.tsx", "utf8");
-  const standings = readFileSync("components/pier-cast/PierCastStandings.tsx", "utf8");
+  const landing = readFileSync("components/pier-cast/PierCastLanding.tsx", "utf8");
   assert.doesNotMatch(ui, /PierCastTargetSelector|PierCastCoverageRequest/);
   assert.doesNotMatch(ui, /REPORT SPECIES|SELECTED SPECIES|ReportSpeciesSwitcher/);
   assert.match(ui, /onSelectReportSpecies\?:/);
@@ -314,9 +314,11 @@ test("report screen is city-first, shows every species as a card, and has no sco
   assert.doesNotMatch(ui, /Tile color is that species|cycle issued|productId\.replace|PierCastAccessNotice/);
   assert.match(visuals, /onResponderTerminationRequest=\{\(\) => false\}/);
   assert.doesNotMatch(visuals, /onResponderRelease=\{\(\) => setScrubIndex\(null\)\}/);
-  assert.match(standings, /footer: \{ marginTop: 18, marginHorizontal: 14 \}/);
-  assert.match(screen, /onOpenStandings=\{openStandingsFor\}/);
-  assert.match(screen, /cityId: selectedCity\.cityId/);
+  assert.match(landing, /footer: \{ marginTop: 18 \}/);
+  // 1.18: the leaderboard is retired, so a report never links into standings.
+  assert.doesNotMatch(ui, /onOpenStandings|IN STANDINGS/);
+  assert.match(screen, /onToggleSaved=\{\(\) => toggleSaved\(selectedCity\.cityId\)\}/);
+  assert.match(screen, /openMap\(selectedCity\.cityId\)/);
 });
 
 test("an open city report disables the stack back-swipe", () => {

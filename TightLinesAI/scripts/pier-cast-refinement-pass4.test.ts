@@ -71,11 +71,10 @@ test("catalog validation requires the v2 supported-target roster", () => {
     }),
     PierCastContractError,
   );
-  assert.match(report, /citySupportsSpecies/);
-  assert.match(
-    report,
-    /Array\.isArray\(city\.supportedSpeciesIds\)[\s\S]*city\.supportedSpeciesIds\.includes/,
-  );
+  // 1.18: the screen opens each city on a species the city supports.
+  assert.match(report, /finderReportSpecies\(city, targetRef\.current\)/);
+  const finder = readFileSync(new URL("../lib/pierCastStandingsPresentation.ts", import.meta.url), "utf8");
+  assert.match(finder, /Array\.isArray\(city\.supportedSpeciesIds\)[\s\S]*supported\.includes\(currentSpeciesId\)/);
 });
 
 test("species-specific responses reject cross-target or stale payloads", () => {

@@ -20,8 +20,8 @@ const conditionsUi = readFileSync(
   resolve(root, "components/pier-cast/PierCastConditionsUI.tsx"),
   "utf8",
 );
-const standingsUi = readFileSync(
-  resolve(root, "components/pier-cast/PierCastStandings.tsx"),
+const landingUi = readFileSync(
+  resolve(root, "components/pier-cast/PierCastLanding.tsx"),
   "utf8",
 );
 
@@ -115,39 +115,15 @@ test("new species assets and all conditions fish art stay normalized", () => {
   assert.match(conditionsUi, /getPierCastSpeciesImage\(speciesId\)/);
 });
 
-test("species filters normalize different source aspect ratios", () => {
-  assert.match(
-    standingsUi,
-    /<Fish speciesId=\{option\.speciesId\} width=\{86\} height=\{86\} \/>/,
-  );
-  assert.match(
-    standingsUi,
-    /tabFish: \{ width: 86, height: 40, overflow: "hidden"/,
-  );
-  assert.match(
-    standingsUi,
-    /<Fish speciesId=\{option\.speciesId\} width=\{48\} height=\{48\} \/>/,
-  );
-  assert.match(
-    standingsUi,
-    /tileFish: \{ width: 48, height: 32, overflow: "hidden"/,
-  );
-});
-
-test("leaderboard and city report fish art is compact and never clipped", () => {
+test("saved-pier and city report fish art is compact and never clipped", () => {
   const stripUi = readFileSync(
     resolve(root, "components/pier-cast/PierCastStatStrip.tsx"),
     "utf8",
   );
-  assert.match(
-    standingsUi,
-    /<PierCastFishCrop speciesId=\{speciesId\} width=\{fishWidth\} height=\{34\} \/>/,
-  );
-  assert.match(standingsUi, /windowWidth < 360 \? 64 : 76/);
   assert.match(conditionsUi, /windowWidth < 360 \? 64 : 76/);
   assert.match(
-    standingsUi,
-    /<PierCastFishCrop speciesId=\{speciesId\} width=\{96\} height=\{46\} \/>/,
+    landingUi,
+    /<PierCastFishCrop speciesId=\{speciesId\} width=\{74\} height=\{36\} \/>/,
   );
   assert.match(
     conditionsUi,

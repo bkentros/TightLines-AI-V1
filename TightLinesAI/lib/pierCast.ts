@@ -220,10 +220,22 @@ export async function fetchPierCastConditionsMap(
   );
 }
 
-function fetchPierCastTargetSummaryMap(): Promise<
+/**
+ * The all-species conditions map (every city's lake, coordinates and five-day
+ * modeled temperature timeline), shared by the standings projection and the
+ * PierCast landing page. Cached for 15 minutes and de-duplicated in flight.
+ */
+export function fetchPierCastConditionsSummaryMap(
+  options?: { force?: boolean },
+): Promise<PierCastConditionsMapResponseV4> {
+  return fetchPierCastTargetSummaryMap(options?.force === true);
+}
+
+function fetchPierCastTargetSummaryMap(force = false): Promise<
   PierCastConditionsMapResponseV4
 > {
   if (
+    !force &&
     targetSummaryMapCache &&
     Date.now() - targetSummaryMapCache.cachedAt < TARGET_SUMMARY_MAP_CACHE_MS
   ) {

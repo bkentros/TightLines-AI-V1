@@ -257,9 +257,9 @@ const GO_DEEPER: FeatureGuide[] = [
     question: "Which pier is worth the drive?",
     cue: "Which pier",
     summary:
-      "Ranks Great Lakes pier cities for your target fish by season and nearshore water temperature.",
+      "Rates Great Lakes pier cities for your target fish by season and nearshore water temperature.",
     gets: [
-      { icon: "podium-outline", label: "City rankings" },
+      { icon: "star-outline", label: "Saved piers" },
       { icon: "thermometer-outline", label: "5-day water temps" },
       { icon: "map-outline", label: "Live lake map" },
     ],

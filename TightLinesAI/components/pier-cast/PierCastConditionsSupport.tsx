@@ -68,7 +68,7 @@ export function PierCastCoverageRequest({
         "Request category: PierCast coverage",
         city
           ? `Current PierCast city: ${city.displayName}, ${city.stateCode}`
-          : "Current PierCast view: Target leaderboard",
+          : "Current PierCast view: Landing",
         city
           ? `Current covered structures: ${selectPierCastCoveredStructures(city.structures).map((structure) => structure.displayName).join(", ")}`
           : `Currently supported states: ${Array.from(new Set(cities.map((candidate) => candidate.stateCode))).join(", ")}`,

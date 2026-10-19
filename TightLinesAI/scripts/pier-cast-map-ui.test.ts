@@ -60,6 +60,6 @@ test("map and report retain the required dedicated-screen back stack", () => {
   assert.match(mapScreen, /pathname: "\/pier-cast-review"/);
   assert.match(mapScreen, /from: "map"/);
   assert.match(reportScreen, /returnToMap/);
-  assert.match(reportScreen, /Back to PierCast conditions map/);
+  assert.match(reportScreen, /Back to the Live Lake Map/);
   assert.match(reportScreen, /router\.back\(\)/);
 });

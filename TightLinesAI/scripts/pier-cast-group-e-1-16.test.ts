@@ -6,26 +6,21 @@ import { pierCastForecastDelayMessage } from "../lib/pierCastConditionsPresentat
 const review = readFileSync(new URL("../app/pier-cast-review.tsx", import.meta.url), "utf8");
 const map = readFileSync(new URL("../app/pier-cast-map.tsx", import.meta.url), "utf8");
 
-test("map-routed reports do not wait for leaderboard state", () => {
-  const routeEffect = review.slice(
-    review.indexOf("if (!routeCityId || !catalog || !selectedSpeciesId)"),
-    review.indexOf("useFocusEffect(", review.indexOf("if (!routeCityId || !catalog || !selectedSpeciesId)")),
-  );
-  assert.ok(routeEffect.length > 0);
-  assert.doesNotMatch(routeEffect, /!leaderboard/);
+test("map-routed reports need only the catalog (1.18: no leaderboard on the screen)", () => {
+  const start = review.indexOf("if (!routeCityId || !catalog) return;");
+  const routeEffect = review.slice(start, review.indexOf("useEffect(", start));
+  assert.ok(start > 0);
   assert.match(routeEffect, /openCity\(routeCityId\)/);
   assert.match(review, /\) : catalog \? \(/);
   assert.match(review, /selectedCity \? \(/);
-  assert.doesNotMatch(review, /\) : catalog && leaderboard \? \(/);
-  assert.match(review, /if \(routeCityId && !silent\) setLoading\(false\)/);
+  assert.doesNotMatch(review, /fetchPierCastConditionsLeaderboard|<PierCastStandings|PierCastStandingsSkeleton/);
 });
 
-test("first visit never fans out across all species leaderboards", () => {
-  const start = review.indexOf("const load = useCallback");
+test("the landing loads the catalog once and never fans out across species", () => {
+  const start = review.indexOf("const loadCatalog = useCallback");
   const load = review.slice(start, review.indexOf("useEffect(() =>", start));
-  assert.match(load, /pickFallbackStandingsSpecies\(nextLeaderboard\.targetSpecies\)/);
-  assert.doesNotMatch(load, /Promise\.allSettled/);
-  assert.doesNotMatch(load, /candidates\.map/);
+  assert.match(load, /fetchPierCastConditionsCatalog\(\)/);
+  assert.doesNotMatch(load, /Promise\.allSettled|Promise\.all/);
 });
 
 test("map access begins during initial render and is consumed by the effect", () => {
