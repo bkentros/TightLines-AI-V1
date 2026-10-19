@@ -389,7 +389,7 @@ function SpeciesCard({ card, index, reduceMotion }: {
     <Reveal token={`sp-${card.speciesId}`} delay={Math.min(index, 6) * 70} reduceMotion={reduceMotion}>
       <View
         accessible
-        accessibilityLabel={`${card.name}, ${card.rated && style ? style.label : "not rated today"}, ${card.seasonLine}${card.waterLine ? `, water ${card.waterLine.toLowerCase()}` : ""}.`}
+        accessibilityLabel={`${card.name}, ${card.rated && style ? style.label : "not rated today"}, ${card.seasonLine}${card.fit && card.waterLine ? `, water ${Math.round(card.fit.temperatureF)} degrees Fahrenheit, ${card.waterLine.toLowerCase()}` : ""}.`}
         style={styles.sp}
       >
         <View style={[styles.spEdge, { backgroundColor: edge }]} />
@@ -409,9 +409,15 @@ function SpeciesCard({ card, index, reduceMotion }: {
           <View style={styles.spWaterHead}>
             <Text style={styles.spKey}>
               <Text>WATER TODAY</Text>{"  "}
-              <Text style={styles.spValue}>{card.waterLine ?? "Unavailable"}</Text>
+              <Text style={styles.spValue}>
+                {card.fit && card.waterLine
+                  ? `${Math.round(card.fit.temperatureF)}°F · ${card.waterLine}`
+                  : "Unavailable"}
+              </Text>
             </Text>
-            {card.idealLine ? <Text style={styles.spSub}>Ideal {card.idealLine}</Text> : null}
+            {card.bestRangeLine
+              ? <Text style={styles.spSub}>Best range {card.bestRangeLine}</Text>
+              : null}
           </View>
           <WaterFitBar card={card} />
         </View>

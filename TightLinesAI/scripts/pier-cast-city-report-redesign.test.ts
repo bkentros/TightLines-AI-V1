@@ -213,7 +213,8 @@ test("species cards follow the conditions rule and carry no ranking fields", () 
     assert.equal("rankLabel" in card, false);
     if (card.fit) {
       assert.ok(card.fit.pin >= 0 && card.fit.pin <= 1);
-      assert.match(card.idealLine ?? "", /^\d+–\d+°F$/);
+      assert.match(card.bestRangeLine ?? "", /^\d+–\d+°F$/);
+      assert.match(card.waterLine ?? "", /^(Excellent|Good|Fair|Poor) fit$/);
     }
   }
 });

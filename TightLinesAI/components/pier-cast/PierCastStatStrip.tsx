@@ -213,7 +213,7 @@ export function PierCastFishCrop({
   );
 }
 
-/** Cool · ideal · warm water bar with a pin, matching the city report gauge. */
+/** Cool · best-range · warm water bar with a pin, matching the city report gauge. */
 export function PierCastWaterGauge({ fit }: { fit: PierCastWaterFit | null }) {
   if (!fit) return <View style={[styles.gaugeBar, styles.gaugeBarEmpty]} />;
   return (

@@ -13,25 +13,9 @@ import {
   PIER_CAST_LAKE_TROUT_V5_CANDIDATES,
   PIER_CAST_LAKE_TROUT_V5_CANDIDATE_VERSION,
 } from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate.ts";
+import { pierCastTemperatureProfileV18 } from "./pierCastTemperatureFitV18";
 
-// Keep aligned with conditionsV4Thermal.ts. This small app-safe mirror avoids
-// bundling the entire server calibration module into the 1.17 client.
-const LAKE_TROUT_PROFILE = {
-  curveId: "lake_trout__modeled_nearshore_surface__2026_09_v1",
-  acceptedDomainC: [0, 38] as const,
-  optimumRangeC: [9, 12] as const,
-  knots: [
-    { temperatureC: 0, suitability: 0.65 },
-    { temperatureC: 4, suitability: 0.85 },
-    { temperatureC: 9, suitability: 1 },
-    { temperatureC: 12, suitability: 1 },
-    { temperatureC: 14, suitability: 0.85 },
-    { temperatureC: 16, suitability: 0.65 },
-    { temperatureC: 18.5, suitability: 0.35 },
-    { temperatureC: 24, suitability: 0.05 },
-    { temperatureC: 38, suitability: 0.01 },
-  ],
-} as const;
+const LAKE_TROUT_PROFILE = pierCastTemperatureProfileV18("lake_trout")!;
 const THERMAL_FLOOR = 0.3;
 const THERMAL_WEIGHT = 0.7;
 

@@ -27,8 +27,11 @@ import {
   standingsStageLabel,
   standingsOutlookTimingLabel,
   standingsUnrankedReason,
-  standingsWaterPhrase,
 } from "./pierCastStandingsPresentation";
+import {
+  pierCastWaterFitLabelV18,
+  projectPierCastThermalMatchV18,
+} from "./pierCastTemperatureFitV18";
 import type { PierCastHourlyWeatherPoint } from "./pierCastWeather";
 
 /**
@@ -221,16 +224,12 @@ export type PierCastCitySpeciesCard = {
   trend: "building" | "steady" | "fading" | null;
   /** "Peak season", "Approaching peak" … or the not-rated reason. */
   seasonLine: string;
-  /** "A touch warm" / "Right in range" or null when unavailable. */
+  /** Explicit temperature-only result, e.g. "Excellent fit". */
   waterLine: string | null;
-  /** "50–56°F" */
-  idealLine: string | null;
+  /** Rounded evidence-backed Excellent range, e.g. "39–54°F". */
+  bestRangeLine: string | null;
   fit: PierCastWaterFit | null;
 };
-
-function capitalize(value: string): string {
-  return value ? value[0]!.toUpperCase() + value.slice(1) : value;
-}
 
 export function buildPierCastCitySpeciesCards(
   report: Pick<PierCastCityReportReadV4, "species">,
@@ -245,8 +244,12 @@ export function buildPierCastCitySpeciesCards(
   return orderedSpecies.map((species) => {
     const outlook = species.seasonalOutlook;
     const rated = species.rankingDisposition === "ranked";
-    const fit = pierCastWaterFit(species);
-    const phrase = standingsWaterPhrase(species.thermalMatch);
+    const thermal = projectPierCastThermalMatchV18(
+      species.speciesId,
+      species.thermalMatch,
+    );
+    const fit = pierCastWaterFitFromThermal(thermal);
+    const fitLabel = pierCastWaterFitLabelV18(thermal);
     return {
       speciesId: species.speciesId,
       name: pierCastSpeciesName(species.speciesId),
@@ -257,8 +260,8 @@ export function buildPierCastCitySpeciesCards(
         ? standingsOutlookTimingLabel(outlook) ??
           standingsStageLabel(outlook.stage, outlook.band)
         : standingsUnrankedReason(species),
-      waterLine: phrase ? capitalize(phrase) : null,
-      idealLine: fit
+      waterLine: fitLabel,
+      bestRangeLine: fit
         ? `${Math.round(fit.idealLowF)}–${Math.round(fit.idealHighF)}°F`
         : null,
       fit,
@@ -288,7 +291,7 @@ export type PierCastCityTopPick = {
   speciesId: PierCastSpeciesId;
   name: string;
   band: PierCastSeasonalBandV4;
-  /** "Peak season · water a touch warm" */
+  /** "Peak season · excellent water fit" */
   line: string;
 };
 
@@ -306,9 +309,12 @@ export function pierCastCityTopPick(
         cityId,
         speciesId: row.speciesId,
         localDate: row.seasonalOutlook.localDate,
-        thermalValue: row.thermalMatch.status === "available"
-          ? row.thermalMatch.value
-          : null,
+        thermalValue: pierCastTemperatureSuitabilityV5(
+          row.speciesId,
+          row.thermalMatch.status === "available"
+            ? row.thermalMatch.temperatureC
+            : null,
+        ),
       })?.score ?? null,
     })).filter((entry) =>
       entry.row.rankingDisposition === "ranked" && entry.score !== null
@@ -321,7 +327,11 @@ export function pierCastCityTopPick(
     !leader || leader.rankingDisposition !== "ranked" ||
     leader.seasonalOutlook.status !== "available"
   ) return null;
-  const phrase = standingsWaterPhrase(leader.thermalMatch);
+  const thermal = projectPierCastThermalMatchV18(
+    leader.speciesId,
+    leader.thermalMatch,
+  );
+  const fitLabel = pierCastWaterFitLabelV18(thermal);
   const stage = standingsOutlookTimingLabel(leader.seasonalOutlook) ??
     standingsStageLabel(
       leader.seasonalOutlook.stage,
@@ -331,7 +341,9 @@ export function pierCastCityTopPick(
     speciesId: leader.speciesId,
     name: pierCastSpeciesName(leader.speciesId),
     band: leader.seasonalOutlook.band,
-    line: phrase ? `${stage} · water ${phrase}` : stage,
+    line: fitLabel
+      ? `${stage} · ${fitLabel.toLowerCase().replace(" fit", "")} water fit`
+      : stage,
   };
 }
 

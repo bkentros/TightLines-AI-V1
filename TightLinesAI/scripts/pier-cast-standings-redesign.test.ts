@@ -25,13 +25,13 @@ function board(speciesId: any, rows: any[]) {
 }
 
 test("Standings copy, ranking and default-species rules follow the server fields", () => {
-  // Water phrase: inside range, direction, band wording
-  assert.equal(P.standingsWaterPhrase(thermal(12, 10, 14, "excellent")), "right in range");
-  assert.equal(P.standingsWaterPhrase(thermal(15, 10, 14, "excellent")), "a touch warm");
-  assert.equal(P.standingsWaterPhrase(thermal(9, 10, 14, "good")), "a touch cool");
-  assert.equal(P.standingsWaterPhrase(thermal(17, 10, 14, "fair")), "running warm");
-  assert.equal(P.standingsWaterPhrase(thermal(4, 10, 14, "poor")), "too cool");
-  assert.equal(P.standingsWaterLine(thermal(12.8, 10, 14, "excellent")), "Water 55°F · right in range");
+  // Water copy states the explicit temperature-only fit band.
+  assert.equal(P.standingsWaterPhrase(thermal(12, 10, 14, "excellent")), "Excellent fit");
+  assert.equal(P.standingsWaterPhrase(thermal(15, 10, 14, "excellent")), "Excellent fit");
+  assert.equal(P.standingsWaterPhrase(thermal(9, 10, 14, "good")), "Good fit");
+  assert.equal(P.standingsWaterPhrase(thermal(17, 10, 14, "fair")), "Fair fit");
+  assert.equal(P.standingsWaterPhrase(thermal(4, 10, 14, "poor")), "Poor fit");
+  assert.equal(P.standingsWaterLine(thermal(12.8, 10, 14, "excellent")), "Water 55°F · Excellent fit");
   assert.equal(P.standingsWaterLine(row({ cityId: "x" }).thermalMatch), null);
 
   // Stage label: Peak only when active + Prime
@@ -41,9 +41,9 @@ test("Standings copy, ranking and default-species rules follow the server fields
 
   // Leader summary never duplicates trend
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "excellent", stage: "active", trend: "fading", thermal: thermal(12, 10, 14, "excellent") }), "Chinook"),
-    "Peak season for Chinook here, and starting to fade. Water is 54°F — right in range.");
+    "Peak season for Chinook here, and starting to fade. Water is 54°F — excellent fit.");
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "fair", stage: "building", trend: "building", thermal: thermal(16, 10, 14, "fair") }), "Coho"),
-    "Approaching peak for Coho here. Water is 61°F — running warm.");
+    "Approaching peak for Coho here. Water is 61°F — fair fit.");
 
   // Unranked reasons
   assert.equal(P.standingsUnrankedReason(row({ cityId: "a", elig: "restricted", disp: "blocked" })), "State season closed here");

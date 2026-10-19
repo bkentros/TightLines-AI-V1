@@ -179,26 +179,12 @@ export function standingsTrendCue(
   return null;
 }
 
-/**
- * Plain-language water-temp phrase for a thermal match.
- *
- * Inside the optimum range → "right in range". Outside it, the wording follows
- * the server's thermal band so it always agrees with the ranking input:
- * excellent/good → "a touch", fair → "running", poor → "too".
- */
+/** Explicit water-fit result retained under the compatibility export name. */
 export function standingsWaterPhrase(
   thermal: PierCastThermalMatchReadV4,
 ): string | null {
   if (thermal.status !== "available") return null;
-  if (thermal.distanceFromOptimumC <= 0.05) return "right in range";
-  const direction = thermal.temperatureC < thermal.optimumRangeC[0]
-    ? "cool"
-    : "warm";
-  if (thermal.band === "excellent" || thermal.band === "good") {
-    return `a touch ${direction}`;
-  }
-  if (thermal.band === "fair") return `running ${direction}`;
-  return `too ${direction}`;
+  return `${thermal.band[0]!.toUpperCase()}${thermal.band.slice(1)} fit`;
 }
 
 export function standingsWaterTempF(
@@ -209,7 +195,7 @@ export function standingsWaterTempF(
     : null;
 }
 
-/** "Water 55°F · right in range" (or null when the match is unavailable). */
+/** "Water 55°F · Excellent fit" (or null when unavailable). */
 export function standingsWaterLine(
   thermal: PierCastThermalMatchReadV4,
 ): string | null {
@@ -241,7 +227,7 @@ export function standingsLeaderSummary(
   const phrase = standingsWaterPhrase(row.thermalMatch);
   const temperatureF = standingsWaterTempF(row.thermalMatch);
   if (phrase && temperatureF !== null) {
-    parts.push(`Water is ${temperatureF}°F — ${phrase}.`);
+    parts.push(`Water is ${temperatureF}°F — ${phrase.toLowerCase()}.`);
   }
   return parts.join(" ");
 }

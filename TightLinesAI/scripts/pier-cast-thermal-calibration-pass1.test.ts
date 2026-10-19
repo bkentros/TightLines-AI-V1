@@ -25,7 +25,7 @@ const LEGACY_V3_THERMAL_SHA256 =
 test("the scientific calibration is explicit, complete, and isolated from legacy v3", () => {
   assert.equal(
     PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
-    "piercast-v4-thermal-calibration-2026-09-v1",
+    "piercast-v4-temperature-fit-1.18-v1",
   );
   assert.equal(
     PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
@@ -53,7 +53,7 @@ test("the scientific calibration is explicit, complete, and isolated from legacy
       profile.interpretation,
       "surface_temperature_compatibility_not_fish_presence",
     );
-    assert.match(profile.curveId, /__modeled_nearshore_surface__2026_09_v1$/);
+    assert.match(profile.curveId, /__modeled_nearshore_surface__1_18_v1$/);
     assert.notEqual(
       profile.curveId,
       getPierCastV3TemperatureCurve(profile.speciesId)?.curveId,
