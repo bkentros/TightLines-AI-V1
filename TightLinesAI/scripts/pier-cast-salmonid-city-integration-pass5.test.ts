@@ -90,7 +90,7 @@ test("the 1.18 city report presents the three signals without stale ranking or d
   assert.match(ui, /Prime, Good, Fair or Limited/);
   assert.match(
     ui,
-    /Building, Peak window, In season, Tapering or Outside main window/,
+    /Building, Peak window, In season, Tapering off or Outside main window/,
   );
   assert.doesNotMatch(
     cityReportSurface,

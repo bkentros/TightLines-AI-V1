@@ -43,7 +43,7 @@ For every open scored row, the audit requires exact agreement among:
 1. the canonical 1.18 opportunity evaluator;
 2. the projected app report's hidden band and compatibility fields;
 3. the visible **Today** label: Prime, Good, Fair, or Limited;
-4. the visible **Season** phase: Building, Peak window, In season, Tapering, or
+4. the visible **Season** phase: Building, Peak window, In season, Tapering off, or
    Outside main window;
 5. the visible water-fit label, gauge range, and species-specific best range.
 

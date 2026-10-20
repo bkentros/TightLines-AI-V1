@@ -131,8 +131,8 @@ const STAGE_LABELS: Record<PierCastSeasonStageV4, string> = {
   early: "Building",
   building: "Building",
   active: "In season",
-  fading: "Tapering",
-  late: "Tapering",
+  fading: "Tapering off",
+  late: "Tapering off",
   off: "Outside main window",
 };
 
@@ -171,7 +171,7 @@ export function standingsTrendCue(
     return { icon: "arrow-up", label: "Building", color: "#1F6B3A" };
   }
   if (trend === "fading") {
-    return { icon: "arrow-down", label: "Tapering", color: "#9A4A12" };
+    return { icon: "arrow-down", label: "Tapering off", color: "#9A4A12" };
   }
   return null;
 }
@@ -213,12 +213,12 @@ export function standingsLeaderSummary(
   if (outlook.status === "available") {
     const phase = standingsOutlookTimingLabel(outlook);
     let sentence = `${phase} for ${speciesShortName} here`;
-    const trendAlreadyStated = phase === "Building" || phase === "Tapering" ||
+    const trendAlreadyStated = phase === "Building" || phase === "Tapering off" ||
       phase === "Outside main window";
     if (!trendAlreadyStated && outlook.trend === "building") {
       sentence += ", and still building";
     } else if (!trendAlreadyStated && outlook.trend === "fading") {
-      sentence += ", and tapering";
+      sentence += ", and tapering off";
     }
     parts.push(`${sentence}.`);
   }

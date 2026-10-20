@@ -854,7 +854,7 @@ function ReportInfoSheet({ visible, onClose, disclosure }: {
         <View style={styles.infoNumber}><Text style={styles.infoNumberText}>2</Text></View>
         <View style={styles.flex}>
           <Text style={styles.infoStepTitle}>Season timing is separate</Text>
-          <Text style={styles.infoStepBody}>Building, Peak window, In season, Tapering or Outside main window describes the seasonal window independently from today’s rating.</Text>
+          <Text style={styles.infoStepBody}>Building, Peak window, In season, Tapering off or Outside main window describes the seasonal window independently from today’s rating.</Text>
         </View>
       </View>
       <View style={styles.infoStep}>
