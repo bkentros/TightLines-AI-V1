@@ -9,6 +9,7 @@ import type { PierCastSpeciesId } from "./pierCastContracts";
 import {
   PIER_CAST_V3_PAIR_CALIBRATIONS,
   type PierCastV3OpportunityMode,
+  type PierCastV3PairCalibration,
 } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 import {
   evaluatePierCastV3ModePotential,
@@ -102,6 +103,26 @@ export function pierCastTemperatureSuitabilityV5(
 }
 
 /**
+ * Returns the effective app-local calibration after both reviewed salmonid
+ * batches have been applied. Audit and presentation code use this accessor so
+ * they cannot accidentally inspect the frozen v3 pair instead of the 1.18
+ * candidate that the bundled app actually scores.
+ */
+export function getPierCastOpportunityPairV5(input: {
+  cityId: string;
+  speciesId: PierCastSpeciesId;
+}): PierCastV3PairCalibration | null {
+  if (input.speciesId === "lake_trout") return null;
+  const basePair = PIER_CAST_V3_PAIR_CALIBRATIONS.find((candidate) =>
+    candidate.cityId === input.cityId &&
+    candidate.speciesId === input.speciesId
+  );
+  return basePair
+    ? applyPierCastSalmonidBatch2V5(applyPierCastSalmonidBatch1V5(basePair))
+    : null;
+}
+
+/**
  * Canonical 1.17 candidate calculation for a city/species/local-date tuple.
  * The number never enters the UI; it only supplies ordering and word labels.
  */
@@ -131,13 +152,8 @@ export function evaluatePierCastOpportunityV5(input: {
       }
       : null;
   }
-  const basePair = PIER_CAST_V3_PAIR_CALIBRATIONS.find((candidate) =>
-    candidate.cityId === input.cityId && candidate.speciesId === input.speciesId
-  );
-  if (!basePair) return null;
-  const pair = applyPierCastSalmonidBatch2V5(
-    applyPierCastSalmonidBatch1V5(basePair),
-  );
+  const pair = getPierCastOpportunityPairV5(input);
+  if (!pair) return null;
   const modes = evaluatePierCastV3ModePotentials({
     localDate: input.localDate,
     modes: pair.modes,
