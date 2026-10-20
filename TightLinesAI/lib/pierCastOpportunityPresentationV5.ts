@@ -16,7 +16,7 @@ export type PierCastSeasonTimingLabelV5 =
   | "Peak window"
   | "In season"
   | "Building"
-  | "Tapering"
+  | "Tapering off"
   | "Outside main window";
 
 export type PierCastSeasonTrendV5 = "building" | "steady" | "fading";
@@ -72,7 +72,7 @@ export function pierCastSeasonTimingLabelV5(input: {
     return "Peak window";
   }
   if (trend === "building") return "Building";
-  if (trend === "fading") return "Tapering";
+  if (trend === "fading") return "Tapering off";
   return "In season";
 }
 
@@ -92,7 +92,7 @@ export function pierCastLegacyTimingCodeV5(input: {
   if (label === "Outside main window") return "off";
   if (label === "Peak window") return "peak";
   if (label === "Building") return "approaching";
-  if (label === "Tapering") return "past";
+  if (label === "Tapering off") return "past";
   return "in_season";
 }
 
@@ -102,7 +102,7 @@ export function pierCastSeasonTimingLabelFromLegacyCodeV5(
   if (code === "off") return "Outside main window";
   if (code === "peak") return "Peak window";
   if (code === "approaching") return "Building";
-  if (code === "past") return "Tapering";
+  if (code === "past") return "Tapering off";
   if (code === "in_season") return "In season";
   return null;
 }

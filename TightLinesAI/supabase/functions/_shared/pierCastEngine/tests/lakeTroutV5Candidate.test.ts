@@ -111,7 +111,7 @@ Deno.test("v5 exposes labels and directional timing, never ambiguous shoulder wo
       regulationOpen: true,
       accessOpen: true,
     }),
-    "Tapering",
+    "Tapering off",
   );
   assert.equal(
     pierCastSeasonTimingLabelV5({

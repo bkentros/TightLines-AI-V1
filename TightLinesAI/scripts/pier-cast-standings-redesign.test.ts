@@ -40,12 +40,12 @@ test("Standings copy, ranking and default-species rules follow the server fields
   assert.equal(P.standingsStageLabel("active", "excellent"), "Peak window");
   assert.equal(P.standingsStageLabel("active", "good"), "In season");
   assert.equal(P.standingsStageLabel("building", "fair"), "Building");
-  assert.equal(P.standingsStageLabel("fading", "fair"), "Tapering");
+  assert.equal(P.standingsStageLabel("fading", "fair"), "Tapering off");
   assert.equal(P.standingsStageLabel("off", "usually_off"), "Outside main window");
 
   // Leader summary never duplicates trend
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "excellent", stage: "active", trend: "fading", thermal: thermal(12, 10, 14, "excellent") }), "Chinook"),
-    "Peak window for Chinook here, and tapering. Water is 54°F — excellent fit.");
+    "Peak window for Chinook here, and tapering off. Water is 54°F — excellent fit.");
   assert.equal(P.standingsLeaderSummary(row({ cityId: "a", band: "fair", stage: "building", trend: "building", thermal: thermal(16, 10, 14, "fair") }), "Coho"),
     "Building for Coho here. Water is 61°F — fair fit.");
 
@@ -94,7 +94,7 @@ test("Standings copy, ranking and default-species rules follow the server fields
   // Trend cue
   assert.equal(P.standingsTrendCue("steady"), null);
   assert.deepEqual(P.standingsTrendCue("building"), { icon: "arrow-up", label: "Building", color: "#1F6B3A" });
-  assert.deepEqual(P.standingsTrendCue("fading"), { icon: "arrow-down", label: "Tapering", color: "#9A4A12" });
+  assert.deepEqual(P.standingsTrendCue("fading"), { icon: "arrow-down", label: "Tapering off", color: "#9A4A12" });
   assert.equal(P.parsePierCastLakeFilter("huron"), "huron");
   assert.equal(P.parsePierCastLakeFilter("bogus"), "all");
 });

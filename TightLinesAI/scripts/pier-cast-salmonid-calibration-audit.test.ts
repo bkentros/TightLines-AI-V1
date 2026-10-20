@@ -133,6 +133,6 @@ test("audit output is stably ordered and matches the reviewed Pass 4 baseline", 
   assert.deepEqual(report.pairs.map((pair) => pair.pairKey), sortedPairKeys);
   assert.equal(
     pierCastSalmonidCalibrationAuditFingerprint(report),
-    "f7f6244d9c6c41ffca185d65d9a06619d5ae5e2c5fee7fe7f6948ed9d2113673",
+    "3410a17e0d22f62852d3e7fbf8ef94bac6ddb560421c592a6abd822982d5bf9b",
   );
 });

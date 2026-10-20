@@ -27,14 +27,14 @@ The annual audit remains complete at 229,848 of 229,848 rows:
 
 Current deterministic fingerprint:
 
-`f7f6244d9c6c41ffca185d65d9a06619d5ae5e2c5fee7fe7f6948ed9d2113673`
+`3410a17e0d22f62852d3e7fbf8ef94bac6ddb560421c592a6abd822982d5bf9b`
 
 ## Shared season-phase correction
 
 Today's score still selects the maximum realized mode and uses that mode's exact
 evidence-reviewed strength and availability. Season phase is now normalized
 against the pair's annual ceiling. This prevents a mode handoff from changing
-`Peak window`, `Building`, or `Tapering` merely because two modes use different
+`Peak window`, `Building`, or `Tapering off` merely because two modes use different
 strength ceilings.
 
 The original active-mode availability remains in the frozen app projection for
@@ -56,7 +56,7 @@ Sheboygan, Two Rivers, and Whitehall.
 | November 15 |                        0.10 |
 | December 1  |                        0.00 |
 
-With Excellent water fit, these ports are Fair and Tapering on October 19 but
+With Excellent water fit, these ports are Fair and Tapering off on October 19 but
 Limited by November 1–15. This corrects the premature collapse without claiming
 that late fish are numerous. Grand Haven receives a smaller Limited tail, while
 the evidence-specific St. Joseph curve remains unchanged.

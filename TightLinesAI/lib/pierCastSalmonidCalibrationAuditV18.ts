@@ -167,7 +167,7 @@ function emptyPhaseCounts(): PhaseCounts {
     "Peak window": 0,
     "In season": 0,
     Building: 0,
-    Tapering: 0,
+    "Tapering off": 0,
     "Outside main window": 0,
   };
 }

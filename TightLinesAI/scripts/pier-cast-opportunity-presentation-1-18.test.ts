@@ -38,7 +38,7 @@ test("season phase is absolute first and directional second", () => {
   assert.equal(season(0.75, "fading"), "Peak window");
   assert.equal(season(0.749, "building"), "Building");
   assert.equal(season(0.6, "steady"), "In season");
-  assert.equal(season(0.6, "fading"), "Tapering");
+  assert.equal(season(0.6, "fading"), "Tapering off");
   assert.equal(season(0.049, "building"), "Outside main window");
   assert.equal(
     pierCastSeasonTimingLabelV5({
@@ -60,7 +60,7 @@ test("season phase never caps today's opportunity label", () => {
       regulationOpen: true,
       accessOpen: true,
     }),
-    { label: "Prime", timing: "Tapering" },
+    { label: "Prime", timing: "Tapering off" },
   );
   assert.deepEqual(
     pierCastOpportunityPresentationV5({
@@ -99,7 +99,7 @@ test("frozen timing tokens round-trip to the 1.18 phase vocabulary", () => {
     [0.01, "steady", "off", "Outside main window"],
     [0.5, "building", "approaching", "Building"],
     [0.8, "fading", "peak", "Peak window"],
-    [0.5, "fading", "past", "Tapering"],
+    [0.5, "fading", "past", "Tapering off"],
     [0.5, "steady", "in_season", "In season"],
   ] as const;
   for (const [availability, trend, code, label] of cases) {
@@ -126,5 +126,6 @@ test("shipping PierCast copy contains no retired opportunity language", () => {
     /Past peak|Approaching peak|Peak season|Off[- ]season|Prime, Good, Fair or Poor/,
   );
   assert.match(sources, /Prime, Good, Fair or Limited/);
+  assert.match(sources, /Tapering off/);
   assert.match(sources, /Outside main window/);
 });
