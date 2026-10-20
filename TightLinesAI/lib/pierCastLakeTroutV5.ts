@@ -18,6 +18,7 @@ import {
   PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY,
   pierCastLegacyTimingCodeV5,
 } from "./pierCastOpportunityPresentationV5.ts";
+import { pierCastLakeTroutMonthlyAvailabilityV18 } from "./pierCastSalmonidSeasonalityV18.ts";
 
 const LAKE_TROUT_PROFILE = pierCastTemperatureProfileV18("lake_trout")!;
 const THERMAL_FLOOR = 0.3;
@@ -127,10 +128,12 @@ export function evaluatePierCastLakeTroutOpportunityV5(input: {
   }
   const month = Number(input.localDate.slice(5, 7));
   const closed = (candidate.closedMonths as readonly number[]).includes(month);
+  const monthlyAvailability = pierCastLakeTroutMonthlyAvailabilityV18(candidate);
+  if (monthlyAvailability === null) return null;
   const availability = closed
     ? 0
-    : monthlyAvailabilityAt(candidate.monthlyAvailability, input.localDate);
-  const trend = availabilityTrend(candidate.monthlyAvailability, input.localDate);
+    : monthlyAvailabilityAt(monthlyAvailability, input.localDate);
+  const trend = availabilityTrend(monthlyAvailability, input.localDate);
   const score = closed || input.thermalValue === null
     ? null
     : 1 + (candidate.fisheryStrength - 1) * availability *

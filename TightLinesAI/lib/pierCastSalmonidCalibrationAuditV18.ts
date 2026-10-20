@@ -61,6 +61,7 @@ export type PierCastSalmonidCalibrationAuditRowV18 = Readonly<{
   activeFisheryStrength: number | null;
   activeModeId: string | null;
   activeModeCalibrationId: string | null;
+  activeModeAvailability: number | null;
   seasonalAvailability: number | null;
   trend: "building" | "steady" | "fading" | null;
   score: number | null;
@@ -207,6 +208,7 @@ function rounded(value: number): number {
  */
 export function buildPierCastSalmonidCalibrationAuditV18(options: {
   onRow?: (row: PierCastSalmonidCalibrationAuditRowV18) => void;
+  findingExampleLimit?: number;
 } = {}): PierCastSalmonidCalibrationAuditReportV18 {
   const dates = dateSequence(PIER_CAST_SALMONID_CALIBRATION_AUDIT_YEAR);
   const speciesSet = new Set<string>(PIER_CAST_SALMONID_AUDIT_SPECIES);
@@ -233,6 +235,10 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
   );
 
   const findings = new Map<string, FindingAccumulator>();
+  const findingExampleLimit = Number.isInteger(options.findingExampleLimit) &&
+      (options.findingExampleLimit ?? 0) >= 0
+    ? options.findingExampleLimit!
+    : MAX_FINDING_EXAMPLES;
   const addFinding = (input: {
     severity: FindingSeverity;
     code: string;
@@ -247,7 +253,7 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
       examples: [],
     };
     current.count += 1;
-    if (current.examples.length < MAX_FINDING_EXAMPLES) {
+    if (current.examples.length < findingExampleLimit) {
       current.examples.push({
         pairKey: input.pairKey,
         localDate: input.localDate ?? null,
@@ -375,6 +381,7 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
             activeFisheryStrength: null,
             activeModeId: null,
             activeModeCalibrationId: null,
+            activeModeAvailability: null,
             seasonalAvailability: null,
             trend: null,
             score: null,
@@ -476,6 +483,7 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
             activeFisheryStrength,
             activeModeId: expectedModeId,
             activeModeCalibrationId: expectedModeCalibrationId,
+            activeModeAvailability: null,
             seasonalAvailability: null,
             trend: null,
             score: null,
@@ -525,35 +533,39 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
         }
         if (
           !Number.isFinite(evaluation.availability) ||
-          evaluation.availability < 0 || evaluation.availability > 1
+          evaluation.availability < 0 || evaluation.availability > 1 ||
+          !Number.isFinite(evaluation.phaseAvailability) ||
+          evaluation.phaseAvailability < 0 || evaluation.phaseAvailability > 1
         ) {
           addFinding({
             severity: "error",
             code: "availability_out_of_range",
             pairKey: descriptor.pairKey,
             localDate,
-            detail: `Availability was ${evaluation.availability}.`,
+            detail:
+              `Mode availability was ${evaluation.availability}; phase availability was ${evaluation.phaseAvailability}.`,
           });
         }
         const label = evaluation.score === null
           ? null
           : pierCastOpportunityLabelV5(evaluation.score);
         const phase = pierCastSeasonTimingLabelV5({
-          availability: evaluation.availability,
+          availability: evaluation.phaseAvailability,
           trend: evaluation.trend,
           regulationOpen: !evaluation.closed,
           accessOpen: true,
         });
         if (referenceSeasonalState === null) {
           referenceSeasonalState = {
-            availability: evaluation.availability,
+            availability: evaluation.phaseAvailability,
             trend: evaluation.trend,
             closed: evaluation.closed,
             modeId: evaluation.modeId,
           };
         } else if (
           Math.abs(
-              referenceSeasonalState.availability - evaluation.availability,
+              referenceSeasonalState.availability -
+                evaluation.phaseAvailability,
             ) >
             1e-12 ||
           referenceSeasonalState.trend !== evaluation.trend ||
@@ -602,7 +614,8 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
           activeFisheryStrength,
           activeModeId: evaluation.modeId,
           activeModeCalibrationId: expectedModeCalibrationId,
-          seasonalAvailability: rounded(evaluation.availability),
+          activeModeAvailability: rounded(evaluation.availability),
+          seasonalAvailability: rounded(evaluation.phaseAvailability),
           trend: evaluation.trend,
           score: evaluation.score === null ? null : rounded(evaluation.score),
           todayLabel: label,
@@ -639,7 +652,8 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
           });
         }
         const expectedInternalBand = evaluation.closed ||
-            evaluation.availability < PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
+            evaluation.phaseAvailability <
+              PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
           ? "usually_off"
           : evaluation.score === null
           ? null
@@ -678,7 +692,7 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
             pairKey: descriptor.pairKey,
             localDate,
             detail: `${label} at availability ${
-              rounded(evaluation.availability)
+              rounded(evaluation.phaseAvailability)
             }.`,
           });
         }
@@ -688,7 +702,7 @@ export function buildPierCastSalmonidCalibrationAuditV18(options: {
             score: evaluation.score,
             label,
             phase,
-            availability: evaluation.availability,
+            availability: evaluation.phaseAvailability,
             modeId: evaluation.modeId,
             closed: evaluation.closed,
           });

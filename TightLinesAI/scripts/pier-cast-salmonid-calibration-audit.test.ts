@@ -63,7 +63,8 @@ test("row diagnostics expose every factor used by the rating and phase", () => {
   assert.equal(scoredRowSample.activeFisheryStrength, 6.8);
   assert.equal(scoredRowSample.temperatureModifier, 1);
   assert.equal(scoredRowSample.todayLabel, "Fair");
-  assert.equal(scoredRowSample.seasonPhase, "Peak window");
+  assert.equal(scoredRowSample.seasonPhase, "Building");
+  assert.ok(scoredRowSample.activeModeAvailability !== null);
   assert.ok(scoredRowSample.seasonalAvailability !== null);
   assert.ok(scoredRowSample.score !== null);
   assert.ok(scoredRowSample.activeModeId);
@@ -85,6 +86,14 @@ test("salmonid calibration audit has no structural or presentation errors", () =
     assert.ok(pair.maximumExcellentLabel !== null);
     assert.ok(pair.modeCount > 0);
   }
+  assert.deepEqual(
+    report.findings.map((finding) => [
+      finding.severity,
+      finding.code,
+      finding.count,
+    ]),
+    [["review", "strong_ceiling_never_good", 2]],
+  );
 });
 
 test("lake-trout research holds remain visible and deliberately unscored", () => {
@@ -114,7 +123,7 @@ test("lake-trout research holds remain visible and deliberately unscored", () =>
   }
 });
 
-test("audit output is stably ordered and matches the reviewed Pass 3 baseline", () => {
+test("audit output is stably ordered and matches the reviewed Pass 4 baseline", () => {
   const sortedPairKeys = [...report.pairs]
     .sort((left, right) =>
       left.speciesId.localeCompare(right.speciesId) ||
@@ -124,6 +133,6 @@ test("audit output is stably ordered and matches the reviewed Pass 3 baseline", 
   assert.deepEqual(report.pairs.map((pair) => pair.pairKey), sortedPairKeys);
   assert.equal(
     pierCastSalmonidCalibrationAuditFingerprint(report),
-    "6c532b997f5485d1441db4f9a6751e30654fa4d172dd17c4de49634b0e0562b0",
+    "f7f6244d9c6c41ffca185d65d9a06619d5ae5e2c5fee7fe7f6948ed9d2113673",
   );
 });
