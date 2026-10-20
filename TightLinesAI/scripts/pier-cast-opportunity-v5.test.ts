@@ -157,9 +157,10 @@ test("Batch 2 corrects Charlevoix Chinook timing without changing its annual cei
   assert.ok(july15);
   assert.equal(july15.modeId, "summer_channel");
   assert.equal(july15.availability, 1);
+  assert.ok(july15.phaseAvailability < 0.75);
   assert.equal(july15.score, 4.84);
   assert.equal(july15.band, "fair");
-  assert.equal(july15.timing, "peak");
+  assert.equal(july15.timing, "past");
 
   const september10 = evaluatePierCastOpportunityV5({
     cityId: "charlevoix_mi",

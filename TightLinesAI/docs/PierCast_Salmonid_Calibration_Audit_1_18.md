@@ -1,5 +1,8 @@
 # PierCast 1.18 salmonid calibration audit baseline
 
+> Historical Pass 3 baseline. Pass 4 calibration supersedes this fingerprint;
+> see `PierCast_Salmonid_Calibration_Pass4_1_18.md` for the current baseline.
+
 Pass 3 establishes a deterministic calibration baseline before any Pass 4
 seasonal curves are changed. The audit is app-local, performs no network or
 production writes, and uses the same effective 1.18 opportunity evaluators as

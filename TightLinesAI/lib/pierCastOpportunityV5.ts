@@ -8,11 +8,9 @@ import type {
 import type { PierCastSpeciesId } from "./pierCastContracts";
 import {
   PIER_CAST_V3_PAIR_CALIBRATIONS,
-  type PierCastV3OpportunityMode,
   type PierCastV3PairCalibration,
 } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 import {
-  evaluatePierCastV3ModePotential,
   evaluatePierCastV3ModePotentials,
   pierCastV3RegulationClosureApplies,
 } from "../supabase/functions/_shared/pierCastEngine/scoring/modesV3";
@@ -24,13 +22,14 @@ import {
 } from "./pierCastOpportunityPresentationV5";
 import { applyPierCastSalmonidBatch1V5 } from "./pierCastSalmonidBatch1V5";
 import { applyPierCastSalmonidBatch2V5 } from "./pierCastSalmonidBatch2V5";
+import { applyPierCastSalmonidSeasonalityV18 } from "./pierCastSalmonidSeasonalityV18.ts";
 import {
   pierCastTemperatureSuitabilityV18,
   projectPierCastThermalMatchV18,
 } from "./pierCastTemperatureFitV18";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
-  "piercast-opportunity-v5-1.17-target-summaries-v1" as const;
+  "piercast-opportunity-v5-1.18-salmonid-seasonality-v1" as const;
 
 export type PierCastOpportunityTimingV5 =
   | "off"
@@ -41,7 +40,10 @@ export type PierCastOpportunityTimingV5 =
 
 export type PierCastOpportunityEvaluationV5 = {
   score: number | null;
+  /** Active mode curve value retained for the frozen response projection. */
   availability: number;
+  /** Pair-relative annual availability used by the 1.18 season phase. */
+  phaseAvailability: number;
   trend: "building" | "steady" | "fading";
   band: PierCastSeasonalBandV4 | null;
   timing: PierCastOpportunityTimingV5;
@@ -64,20 +66,44 @@ function shiftedLocalDate(localDate: string, days: number): string {
   return instant.toISOString().slice(0, 10);
 }
 
-function modeTrend(input: {
+function pairSeasonalAvailability(input: {
   localDate: string;
-  mode: PierCastV3OpportunityMode;
+  pair: PierCastV3PairCalibration;
+}): number | null {
+  const modes = evaluatePierCastV3ModePotentials({
+    localDate: input.localDate,
+    modes: input.pair.modes,
+  });
+  if (modes.length !== input.pair.modes.length || modes.length === 0) {
+    return null;
+  }
+  const annualCeiling = Math.max(
+    ...input.pair.modes.map((mode) => mode.fisheryStrength),
+  );
+  const activePotential = Math.max(
+    ...modes.map((mode) => mode.seasonalPotential),
+  );
+  if (annualCeiling <= 1) return null;
+  return Math.min(
+    1,
+    Math.max(0, (activePotential - 1) / (annualCeiling - 1)),
+  );
+}
+
+function pairTrend(input: {
+  localDate: string;
+  pair: PierCastV3PairCalibration;
 }): "building" | "steady" | "fading" {
-  const before = evaluatePierCastV3ModePotential({
+  const before = pairSeasonalAvailability({
     localDate: shiftedLocalDate(input.localDate, -7),
-    mode: input.mode,
+    pair: input.pair,
   });
-  const after = evaluatePierCastV3ModePotential({
+  const after = pairSeasonalAvailability({
     localDate: shiftedLocalDate(input.localDate, 7),
-    mode: input.mode,
+    pair: input.pair,
   });
-  if (!before || !after) return "steady";
-  const delta = after.seasonalAvailability - before.seasonalAvailability;
+  if (before === null || after === null) return "steady";
+  const delta = after - before;
   return delta > 0.025 ? "building" : delta < -0.025 ? "fading" : "steady";
 }
 
@@ -118,12 +144,14 @@ export function getPierCastOpportunityPairV5(input: {
     candidate.speciesId === input.speciesId
   );
   return basePair
-    ? applyPierCastSalmonidBatch2V5(applyPierCastSalmonidBatch1V5(basePair))
+    ? applyPierCastSalmonidSeasonalityV18(
+      applyPierCastSalmonidBatch2V5(applyPierCastSalmonidBatch1V5(basePair)),
+    )
     : null;
 }
 
 /**
- * Canonical 1.17 candidate calculation for a city/species/local-date tuple.
+ * Canonical 1.18 candidate calculation for a city/species/local-date tuple.
  * The number never enters the UI; it only supplies ordering and word labels.
  */
 export function evaluatePierCastOpportunityV5(input: {
@@ -142,6 +170,7 @@ export function evaluatePierCastOpportunityV5(input: {
       ? {
         score: lakeTrout.score,
         availability: lakeTrout.availability,
+        phaseAvailability: lakeTrout.availability,
         trend: lakeTrout.trend,
         band: lakeTrout.band,
         timing: lakeTrout.timing,
@@ -181,7 +210,12 @@ export function evaluatePierCastOpportunityV5(input: {
     mode.modeCalibrationId === active.modeCalibrationId
   );
   if (!configuredMode) return null;
-  const trend = modeTrend({ localDate: input.localDate, mode: configuredMode });
+  const phaseAvailability = pairSeasonalAvailability({
+    localDate: input.localDate,
+    pair,
+  });
+  if (phaseAvailability === null) return null;
+  const trend = pairTrend({ localDate: input.localDate, pair });
   const score = opportunity?.status === "available" && !closed
     ? opportunity.score
     : null;
@@ -189,13 +223,15 @@ export function evaluatePierCastOpportunityV5(input: {
   return {
     score,
     availability,
+    phaseAvailability,
     trend,
-    band: closed || availability < PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
+    band: closed ||
+        phaseAvailability < PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY
       ? "usually_off"
       : score === null
       ? null
       : opportunityBand(score),
-    timing: timingFor({ availability, trend, closed }),
+    timing: timingFor({ availability: phaseAvailability, trend, closed }),
     closed,
     evidenceGrade: configuredMode.evidenceGrade,
     evidenceIds: configuredMode.fisheryEvidenceIds,
