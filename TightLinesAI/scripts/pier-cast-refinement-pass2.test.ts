@@ -65,7 +65,10 @@ test("city reports are guarded against stale async responses", () => {
 });
 
 test("city reports are city-first and separate today, season, and water", () => {
-  assert.match(ui, /Today's rating and water fit for every species/);
+  assert.match(
+    ui,
+    /Today’s opportunity, season timing, and water fit for every species/,
+  );
   assert.match(ui, /<PierCastStatStrip/);
   assert.match(ui, />WATER TODAY</);
   assert.match(ui, /Best bet each day/);
