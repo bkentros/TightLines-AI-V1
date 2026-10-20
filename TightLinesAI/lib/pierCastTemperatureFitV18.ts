@@ -1,16 +1,16 @@
-import { PIER_CAST_V4_THERMAL_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/conditionsV4Thermal.ts";
 import {
   pierCastThermalBandV4,
   type PierCastThermalMatchReadV4,
   type PierCastThermalProfileV4,
 } from "./pierCastConditionsV4.ts";
 import type { PierCastSpeciesId } from "./pierCastContracts.ts";
+import { PIER_CAST_V18_THERMAL_PROFILES } from "./pierCastTemperatureProfilesV18.ts";
 
 /** The 18 app-supported profiles. Bluegill is intentionally not supported. */
 export function pierCastTemperatureProfileV18(
   speciesId: PierCastSpeciesId,
 ): PierCastThermalProfileV4 | null {
-  return PIER_CAST_V4_THERMAL_PROFILES.find((profile) =>
+  return PIER_CAST_V18_THERMAL_PROFILES.find((profile) =>
     profile.speciesId === speciesId
   ) ?? null;
 }

@@ -7,9 +7,9 @@ import {
   pierCastThermalBandV4,
 } from "../lib/pierCastConditionsV4.ts";
 import {
-  PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
-  PIER_CAST_V4_THERMAL_PROFILES,
-} from "../supabase/functions/_shared/pierCastEngine/config/conditionsV4.ts";
+  PIER_CAST_V18_THERMAL_CALIBRATION_VERSION,
+  PIER_CAST_V18_THERMAL_PROFILES,
+} from "../lib/pierCastTemperatureProfilesV18.ts";
 import {
   getPierCastV3TemperatureCurve,
   PIER_CAST_V3_SPECIES_IDS,
@@ -24,16 +24,16 @@ const LEGACY_V3_THERMAL_SHA256 =
 
 test("the scientific calibration is explicit, complete, and isolated from legacy v3", () => {
   assert.equal(
-    PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
+    PIER_CAST_V18_THERMAL_CALIBRATION_VERSION,
     "piercast-v4-temperature-fit-1.18-v1",
   );
   assert.equal(
     PIER_CAST_THERMAL_PROFILE_SCHEMA_VERSION,
     "piercast-thermal-profile-v2",
   );
-  assert.equal(PIER_CAST_V4_THERMAL_PROFILES.length, 18);
+  assert.equal(PIER_CAST_V18_THERMAL_PROFILES.length, 18);
   assert.deepEqual(
-    PIER_CAST_V4_THERMAL_PROFILES.map((profile) => profile.speciesId).sort(),
+    PIER_CAST_V18_THERMAL_PROFILES.map((profile) => profile.speciesId).sort(),
     [...PIER_CAST_V3_SPECIES_IDS].sort(),
   );
 
@@ -43,10 +43,10 @@ test("the scientific calibration is explicit, complete, and isolated from legacy
     ),
   )).digest("hex");
   assert.equal(legacyHash, LEGACY_V3_THERMAL_SHA256);
-  for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
+  for (const profile of PIER_CAST_V18_THERMAL_PROFILES) {
     assert.equal(
       profile.calibrationVersion,
-      PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
+      PIER_CAST_V18_THERMAL_CALIBRATION_VERSION,
     );
     assert.equal(profile.calibrationStatus, "approved_for_pilot");
     assert.equal(
@@ -77,7 +77,7 @@ test("every curve is traceable to preserved evidence", () => {
     ...coreLedger.records.map((record) => record.evidenceId),
     ...expansionLedger.sources.map((record) => record.evidenceId),
   ]);
-  for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
+  for (const profile of PIER_CAST_V18_THERMAL_PROFILES) {
     assert.ok(profile.evidenceIds.length >= 2, profile.speciesId);
     for (const evidenceId of profile.evidenceIds) {
       assert.ok(
@@ -89,7 +89,7 @@ test("every curve is traceable to preserved evidence", () => {
 });
 
 test("profiles have valid single-peaked response geometry and all four labels", () => {
-  for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
+  for (const profile of PIER_CAST_V18_THERMAL_PROFILES) {
     assert.deepEqual(validatePierCastV4ThermalProfile(profile), []);
     assert.deepEqual(profile.acceptedDomainC, [0, 38]);
     const observedBands = new Set<string>();
@@ -126,7 +126,7 @@ test("thermal label boundaries remain inclusive and exact", () => {
   assert.equal(pierCastThermalBandV4(0.35), "fair");
   assert.equal(pierCastThermalBandV4(0.3499), "poor");
 
-  for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
+  for (const profile of PIER_CAST_V18_THERMAL_PROFILES) {
     for (
       const knot of profile.knots.filter((candidate) =>
         [0.35, 0.65, 0.85, 1].includes(candidate.suitability)
@@ -147,7 +147,7 @@ test("thermal label boundaries remain inclusive and exact", () => {
 });
 
 test("valid extremes are Poor while invalid provider values stay unavailable", () => {
-  for (const profile of PIER_CAST_V4_THERMAL_PROFILES) {
+  for (const profile of PIER_CAST_V18_THERMAL_PROFILES) {
     const warmExtreme = evaluatePierCastThermalMatchV4({
       profile,
       temperatureC: 38,
