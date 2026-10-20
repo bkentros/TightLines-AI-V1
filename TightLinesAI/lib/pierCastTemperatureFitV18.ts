@@ -56,7 +56,23 @@ export function projectPierCastThermalMatchV18(
     thermal.temperatureC,
   );
   const band = value === null ? null : pierCastThermalBandV4(value);
-  if (!profile || value === null || !band) return thermal;
+  if (!profile) return thermal;
+  if (value === null || !band) {
+    return {
+      status: "unavailable",
+      value: null,
+      band: null,
+      temperatureC: Number.isFinite(thermal.temperatureC)
+        ? thermal.temperatureC
+        : null,
+      optimumRangeC: null,
+      distanceFromOptimumC: null,
+      curveId: profile.curveId,
+      validAt: thermal.validAt,
+      sourceKind: "model",
+      reasonCodes: ["temperature_out_of_domain"],
+    };
+  }
   const [minimum, maximum] = profile.optimumRangeC;
   const distanceFromOptimumC = thermal.temperatureC < minimum
     ? minimum - thermal.temperatureC

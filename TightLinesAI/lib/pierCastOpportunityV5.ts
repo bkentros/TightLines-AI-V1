@@ -15,6 +15,7 @@ import {
   pierCastV3RegulationClosureApplies,
 } from "../supabase/functions/_shared/pierCastEngine/scoring/modesV3";
 import { calculatePierCastV3Opportunity } from "../supabase/functions/_shared/pierCastEngine/scoring/opportunityV3";
+import { getPierCastLakeTroutV5Candidate } from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate.ts";
 import { evaluatePierCastLakeTroutOpportunityV5 } from "./pierCastLakeTroutV5";
 import {
   PIER_CAST_MAIN_WINDOW_MIN_AVAILABILITY,
@@ -64,6 +65,13 @@ function shiftedLocalDate(localDate: string, days: number): string {
   const instant = new Date(`${localDate}T12:00:00.000Z`);
   instant.setUTCDate(instant.getUTCDate() + days);
   return instant.toISOString().slice(0, 10);
+}
+
+function validLocalDate(localDate: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(localDate)) return false;
+  const instant = new Date(`${localDate}T12:00:00.000Z`);
+  return Number.isFinite(instant.getTime()) &&
+    instant.toISOString().slice(0, 10) === localDate;
 }
 
 function pairSeasonalAvailability(input: {
@@ -160,11 +168,17 @@ export function evaluatePierCastOpportunityV5(input: {
   localDate: string;
   thermalValue: number | null;
 }): PierCastOpportunityEvaluationV5 | null {
+  if (!validLocalDate(input.localDate)) return null;
+  const thermalValue = input.thermalValue !== null &&
+      Number.isFinite(input.thermalValue) && input.thermalValue >= 0 &&
+      input.thermalValue <= 1
+    ? input.thermalValue
+    : null;
   if (input.speciesId === "lake_trout") {
     const lakeTrout = evaluatePierCastLakeTroutOpportunityV5({
       cityId: input.cityId,
       localDate: input.localDate,
-      thermalValue: input.thermalValue,
+      thermalValue,
     });
     return lakeTrout
       ? {
@@ -192,11 +206,11 @@ export function evaluatePierCastOpportunityV5(input: {
     localDate: input.localDate,
     pair,
   });
-  const opportunity = input.thermalValue === null
+  const opportunity = thermalValue === null
     ? null
     : calculatePierCastV3Opportunity({
       modes,
-      temperatureSuitability: input.thermalValue,
+      temperatureSuitability: thermalValue,
       allowDisabledConfiguration: true,
     });
   const active = opportunity?.status === "available"
@@ -261,7 +275,33 @@ export function projectPierCastSpeciesConditionsV5(input: {
     localDate,
     thermalValue,
   });
-  if (!evaluation) return { species, evaluation: null };
+  if (!evaluation) {
+    const lakeTroutCandidate = species.speciesId === "lake_trout"
+      ? getPierCastLakeTroutV5Candidate(input.cityId)
+      : null;
+    if (lakeTroutCandidate?.decision !== "research_hold") {
+      return { species, evaluation: null };
+    }
+    // A research hold is an affirmative 1.18 product decision, not permission
+    // to inherit a stale rating from the frozen server response. Fail closed
+    // even if an older or inconsistent payload marks the row as ranked.
+    const reasonCodes = [
+      ...species.reasonCodes.filter((code) =>
+        code !== "targeting_restricted" && code !== "targeting_unknown"
+      ),
+      "lake_trout_research_hold",
+      "targeting_unknown",
+    ];
+    return {
+      evaluation: null,
+      species: {
+        ...species,
+        targetingEligibility: "unknown",
+        rankingDisposition: "unranked",
+        reasonCodes: [...new Set(reasonCodes)],
+      },
+    };
+  }
   // The owner-approved v5 lake-trout calibration owns lake-trout legal gates
   // (its closedMonths follow the 2026 Michigan management units). The frozen
   // v4 server data still carries a stale Oct-Dec closure for Oscoda (MH-3 is
