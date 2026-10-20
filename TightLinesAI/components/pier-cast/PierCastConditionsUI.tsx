@@ -441,7 +441,7 @@ function SpeciesSection({ report, reduceMotion }: {
   return (
     <Card label={`Supported species at ${report.displayName}`}>
       <CardHead title={`Supported species at ${report.displayName}`} />
-      <Text style={styles.cardSub}>Today's rating and water fit for every species PierCast covers here.</Text>
+      <Text style={styles.cardSub}>Today’s opportunity, season timing, and water fit for every species PierCast covers here.</Text>
       {shown.map((card, index) => (
         <SpeciesCard
           key={card.speciesId}
