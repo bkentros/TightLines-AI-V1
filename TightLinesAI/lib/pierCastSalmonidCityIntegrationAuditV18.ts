@@ -138,9 +138,6 @@ function baseSpecies(input: {
   researchHold: boolean;
 }): PierCastSpeciesConditionsReadV4 {
   const unavailable = input.temperatureC === null;
-  const reasonCodes = input.researchHold
-    ? ["lake_trout_research_hold", "targeting_unknown"]
-    : [];
   return {
     speciesId: input.speciesId,
     seasonalOutlook: {
@@ -179,10 +176,12 @@ function baseSpecies(input: {
         sourceKind: "model",
         reasonCodes: [],
       },
-    targetingEligibility: input.researchHold ? "unknown" : "eligible",
-    rankingDisposition: input.researchHold ? "unranked" : "ranked",
+    // Deliberately hostile legacy state: Pass 6 requires the app projection to
+    // demote a research hold even if a frozen payload incorrectly rates it.
+    targetingEligibility: "eligible",
+    rankingDisposition: "ranked",
     localFisheryContext: null,
-    reasonCodes,
+    reasonCodes: [],
   };
 }
 
