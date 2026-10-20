@@ -15,9 +15,11 @@ import {
   isPrimaryPierCastSpecies,
 } from "./pierCastSpeciesPresentation";
 import {
+  comparePierCastOpportunityCandidatesV5,
   evaluatePierCastOpportunityV5,
   PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION,
   pierCastTemperatureSuitabilityV5,
+  selectPierCastTopSpeciesConditionsV5,
 } from "./pierCastOpportunityV5";
 import {
   orderPierCastTemperatureEvents,
@@ -303,25 +305,10 @@ export function pierCastCityTopPick(
     isPierCastCalendarSpecies(row.speciesId)
   );
   const leader = cityId
-    ? calendarSpecies.map((row) => ({
-      row,
-      score: evaluatePierCastOpportunityV5({
-        cityId,
-        speciesId: row.speciesId,
-        localDate: row.seasonalOutlook.localDate,
-        thermalValue: pierCastTemperatureSuitabilityV5(
-          row.speciesId,
-          row.thermalMatch.status === "available"
-            ? row.thermalMatch.temperatureC
-            : null,
-        ),
-      })?.score ?? null,
-    })).filter((entry) =>
-      entry.row.rankingDisposition === "ranked" && entry.score !== null
-    ).sort((left, right) =>
-      right.score! - left.score! ||
-      left.row.speciesId.localeCompare(right.row.speciesId)
-    )[0]?.row
+    ? selectPierCastTopSpeciesConditionsV5({
+      cityId,
+      species: calendarSpecies,
+    })
     : orderPierCastCitySpecies(calendarSpecies)[0];
   if (
     !leader || leader.rankingDisposition !== "ranked" ||
@@ -521,11 +508,23 @@ export function buildPierCastCityCalendar(input: {
           thermalValue,
         });
         return evaluation?.score !== null && evaluation?.band
-          ? [{ speciesId: species.speciesId, evaluation }]
+          ? [{ speciesId: species.speciesId, evaluation, thermalValue }]
           : [];
       }).sort((left, right) =>
-        right.evaluation.score! - left.evaluation.score! ||
-        left.speciesId.localeCompare(right.speciesId)
+        comparePierCastOpportunityCandidatesV5(
+          {
+            ranked: true,
+            score: left.evaluation.score,
+            thermalValue: left.thermalValue,
+            stableId: left.speciesId,
+          },
+          {
+            ranked: true,
+            score: right.evaluation.score,
+            thermalValue: right.thermalValue,
+            stableId: right.speciesId,
+          },
+        )
       );
       const leader = candidates[0];
       best = leader

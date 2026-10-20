@@ -54,6 +54,43 @@ export type PierCastOpportunityEvaluationV5 = {
   modeId: string;
 };
 
+export type PierCastOpportunityRankingCandidateV5 = {
+  ranked: boolean;
+  score: number | null;
+  thermalValue: number | null;
+  stableId: string;
+};
+
+/**
+ * One ranking rule for every 1.18 city surface. Public labels are intentionally
+ * broad, so two Fair species are ordered by their hidden unrounded opportunity
+ * score, then water fit, then a stable ID. Scores remain internal.
+ */
+export function comparePierCastOpportunityCandidatesV5(
+  left: PierCastOpportunityRankingCandidateV5,
+  right: PierCastOpportunityRankingCandidateV5,
+): number {
+  const leftRated = left.ranked && left.score !== null &&
+    Number.isFinite(left.score);
+  const rightRated = right.ranked && right.score !== null &&
+    Number.isFinite(right.score);
+  if (leftRated !== rightRated) return rightRated ? 1 : -1;
+  if (leftRated && rightRated) {
+    const scoreDifference = right.score! - left.score!;
+    if (Math.abs(scoreDifference) > 0.0001) return scoreDifference;
+    const leftThermal = left.thermalValue !== null &&
+        Number.isFinite(left.thermalValue)
+      ? left.thermalValue
+      : -1;
+    const rightThermal = right.thermalValue !== null &&
+        Number.isFinite(right.thermalValue)
+      ? right.thermalValue
+      : -1;
+    if (rightThermal !== leftThermal) return rightThermal - leftThermal;
+  }
+  return left.stableId.localeCompare(right.stableId);
+}
+
 function opportunityBand(score: number): PierCastSeasonalBandV4 {
   if (score > 8) return "excellent";
   if (score > 6) return "good";
@@ -369,6 +406,39 @@ export function projectPierCastSpeciesConditionsV5(input: {
   };
 }
 
+/** Selects one city's best species with the exact shared 1.18 ranking rule. */
+export function selectPierCastTopSpeciesConditionsV5<
+  T extends PierCastSpeciesConditionsReadV4,
+>(input: {
+  cityId: string;
+  species: readonly T[];
+}): T | null {
+  const candidates = input.species.map((source) => {
+    const projected = projectPierCastSpeciesConditionsV5({
+      cityId: input.cityId,
+      species: source,
+    });
+    return {
+      row: { ...source, ...projected.species } as T,
+      ranking: {
+        ranked: projected.species.rankingDisposition === "ranked",
+        score: projected.evaluation?.score ?? null,
+        thermalValue: projected.species.thermalMatch.status === "available"
+          ? projected.species.thermalMatch.value
+          : null,
+        stableId: projected.species.speciesId,
+      },
+    };
+  }).sort((left, right) =>
+    comparePierCastOpportunityCandidatesV5(left.ranking, right.ranking)
+  );
+  const leader = candidates[0];
+  return leader?.ranking.ranked && leader.ranking.score !== null &&
+      Number.isFinite(leader.ranking.score)
+    ? leader.row
+    : null;
+}
+
 /** Applies the common hidden score to a non-lake-trout species leaderboard. */
 export function projectPierCastLeaderboardV5(
   leaderboard: PierCastLeaderboardResponseV4,
@@ -385,23 +455,26 @@ export function projectPierCastLeaderboardV5(
       score: projected.evaluation?.score ?? null,
     };
   });
-  evaluated.sort((left, right) => {
-    const leftRanked = left.row.rankingDisposition === "ranked";
-    const rightRanked = right.row.rankingDisposition === "ranked";
-    if (leftRanked !== rightRanked) return rightRanked ? 1 : -1;
-    if (leftRanked && rightRanked) {
-      const scoreDifference = (right.score ?? 0) - (left.score ?? 0);
-      if (Math.abs(scoreDifference) > 0.0001) return scoreDifference;
-      const rightThermal = right.row.thermalMatch.status === "available"
-        ? right.row.thermalMatch.value
-        : 0;
-      const leftThermal = left.row.thermalMatch.status === "available"
-        ? left.row.thermalMatch.value
-        : 0;
-      if (rightThermal !== leftThermal) return rightThermal - leftThermal;
-    }
-    return left.row.displayName.localeCompare(right.row.displayName);
-  });
+  evaluated.sort((left, right) =>
+    comparePierCastOpportunityCandidatesV5(
+      {
+        ranked: left.row.rankingDisposition === "ranked",
+        score: left.score,
+        thermalValue: left.row.thermalMatch.status === "available"
+          ? left.row.thermalMatch.value
+          : null,
+        stableId: `${left.row.displayName}:${left.row.cityId}`,
+      },
+      {
+        ranked: right.row.rankingDisposition === "ranked",
+        score: right.score,
+        thermalValue: right.row.thermalMatch.status === "available"
+          ? right.row.thermalMatch.value
+          : null,
+        stableId: `${right.row.displayName}:${right.row.cityId}`,
+      },
+    )
+  );
   let rank = 0;
   const cities = evaluated.map(({ row }) => ({
     ...row,
@@ -538,24 +611,26 @@ export function projectPierCastCityReportLabelsV5(
       score: projected.evaluation?.score ?? null,
     };
   });
-  evaluated.sort((left, right) => {
-    const leftRanked = left.species.rankingDisposition === "ranked";
-    const rightRanked = right.species.rankingDisposition === "ranked";
-    if (leftRanked !== rightRanked) return rightRanked ? 1 : -1;
-    if (leftRanked && rightRanked) {
-      const scoreDifference = (right.score ?? 0) - (left.score ?? 0);
-      if (Math.abs(scoreDifference) > 0.0001) return scoreDifference;
-      const thermalDifference =
-        (right.species.thermalMatch.status === "available"
-          ? right.species.thermalMatch.value
-          : 0) -
-        (left.species.thermalMatch.status === "available"
+  evaluated.sort((left, right) =>
+    comparePierCastOpportunityCandidatesV5(
+      {
+        ranked: left.species.rankingDisposition === "ranked",
+        score: left.score,
+        thermalValue: left.species.thermalMatch.status === "available"
           ? left.species.thermalMatch.value
-          : 0);
-      if (thermalDifference !== 0) return thermalDifference;
-    }
-    return left.species.speciesId.localeCompare(right.species.speciesId);
-  });
+          : null,
+        stableId: left.species.speciesId,
+      },
+      {
+        ranked: right.species.rankingDisposition === "ranked",
+        score: right.score,
+        thermalValue: right.species.thermalMatch.status === "available"
+          ? right.species.thermalMatch.value
+          : null,
+        stableId: right.species.speciesId,
+      },
+    )
+  );
   return {
     ...report,
     species: evaluated.map(({ species }) => species),

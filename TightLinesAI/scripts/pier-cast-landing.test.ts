@@ -15,7 +15,12 @@ import {
   searchPierCastCities,
   togglePierCastSavedCity,
 } from "../lib/pierCastLanding";
+import { pierCastCityTopPick } from "../lib/pierCastCityReportPresentation";
 import { PIER_CAST_LAKE_SHAPES, pierCastLakePoint } from "../lib/pierCastLakeShapes";
+import { projectPierCastSpeciesConditionsV5 } from "../lib/pierCastOpportunityV5";
+import { PIER_CAST_SALMONID_AUDIT_SPECIES } from "../lib/pierCastSalmonidCalibrationAuditV18";
+import { PIER_CAST_LAKE_TROUT_V5_CANDIDATES } from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate";
+import { PIER_CAST_V3_PAIR_CALIBRATIONS } from "../supabase/functions/_shared/pierCastEngine/config/v3Calibration";
 
 const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
@@ -61,12 +66,56 @@ test("search matches city and state names, prefix matches first", () => {
   assert.deepEqual(searchPierCastCities(CITIES, "  ", states), []);
 });
 
-function row(cityId: string, speciesId: string, band: string | null, thermal: number, ranked = true) {
+function row(
+  cityId: string,
+  speciesId: string,
+  band: string | null,
+  thermal: number,
+  ranked = true,
+  temperatureC = 12,
+  localDate = "2026-10-20",
+) {
   return {
     cityId, speciesId, displayName: cityId,
     rankingDisposition: ranked ? "ranked" : "unranked",
-    seasonalOutlook: band ? { status: "available", band } : { status: "unavailable", band: null },
-    thermalMatch: { status: "available", value: thermal, temperatureC: 12, optimumRangeC: [10, 14], distanceFromOptimumC: 0, band: "excellent" },
+    targetingEligibility: ranked ? "eligible" : "unknown",
+    seasonalOutlook: band
+      ? {
+        status: "available",
+        value: 1,
+        band,
+        stage: "active",
+        trend: "steady",
+        profileId: "landing-test-source",
+        basis: "regional",
+        localDate,
+        reasonCodes: [],
+      }
+      : {
+        status: "unavailable",
+        value: null,
+        band: null,
+        stage: null,
+        trend: null,
+        profileId: null,
+        basis: null,
+        localDate,
+        reasonCodes: ["seasonal_profile_missing"],
+      },
+    thermalMatch: {
+      status: "available",
+      value: thermal,
+      temperatureC,
+      optimumRangeC: [10, 14],
+      distanceFromOptimumC: 0,
+      band: "excellent",
+      curveId: "landing-test-source",
+      validAt: `${localDate}T12:00:00.000Z`,
+      sourceKind: "model",
+      reasonCodes: [],
+    },
+    localFisheryContext: null,
+    reasonCodes: [],
   };
 }
 const conditionsFeed = (speciesId: string, rows: unknown[]) => ({ selectedSpeciesId: speciesId, cities: rows }) as never;
@@ -81,13 +130,124 @@ test("a saved pier shows its best trout or salmon only, even when the best is we
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, conditions)?.speciesId, "steelhead");
   const weak = [conditionsFeed("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "poor", 0.2)])];
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, weak)?.speciesId, "chinook_salmon");
-  // ranked beats unranked; thermal fit breaks a band tie
+  // The exact opportunity calculation, not the shared label, breaks a tie.
   const tie = [
     conditionsFeed("chinook_salmon", [row("grand_haven_mi", "chinook_salmon", "good", 0.3)]),
     conditionsFeed("steelhead", [row("grand_haven_mi", "steelhead", "good", 0.8)]),
   ];
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, tie)?.speciesId, "steelhead");
   assert.equal(pickPierCastTopSalmonid(CITIES[0]!, []), null);
+});
+
+test("Caseville landing and city report agree when Coho and Lake Trout are both Fair", () => {
+  const caseville = city(
+    "caseville_mi",
+    "Caseville",
+    "MI",
+    43.94,
+    -83.27,
+    ["coho_salmon", "lake_trout"],
+  );
+  const coho = row("caseville_mi", "coho_salmon", "fair", 1, true, 12);
+  const lakeTrout = row(
+    "caseville_mi",
+    "lake_trout",
+    "fair",
+    1,
+    true,
+    12,
+  );
+  const cohoProjected = projectPierCastSpeciesConditionsV5({
+    cityId: caseville.cityId,
+    species: coho as never,
+  });
+  const lakeTroutProjected = projectPierCastSpeciesConditionsV5({
+    cityId: caseville.cityId,
+    species: lakeTrout as never,
+  });
+  assert.equal(cohoProjected.evaluation?.band, "fair");
+  assert.equal(lakeTroutProjected.evaluation?.band, "fair");
+  assert.ok(
+    lakeTroutProjected.evaluation!.score! > cohoProjected.evaluation!.score!,
+  );
+  const feeds = [
+    conditionsFeed("coho_salmon", [coho]),
+    conditionsFeed("lake_trout", [lakeTrout]),
+  ];
+  assert.equal(
+    pickPierCastTopSalmonid(caseville, feeds)?.speciesId,
+    "lake_trout",
+  );
+  assert.equal(
+    pierCastCityTopPick(
+      [cohoProjected.species, lakeTroutProjected.species],
+      caseville.cityId,
+    )?.speciesId,
+    "lake_trout",
+  );
+});
+
+test("landing and city report choose the same salmonid across all 32 cities", () => {
+  const salmonids = new Set<string>(PIER_CAST_SALMONID_AUDIT_SPECIES);
+  const byCity = new Map<string, Set<string>>();
+  for (const pair of PIER_CAST_V3_PAIR_CALIBRATIONS) {
+    if (pair.speciesId === "lake_trout" || !salmonids.has(pair.speciesId)) {
+      continue;
+    }
+    const species = byCity.get(pair.cityId) ?? new Set<string>();
+    species.add(pair.speciesId);
+    byCity.set(pair.cityId, species);
+  }
+  for (const candidate of PIER_CAST_LAKE_TROUT_V5_CANDIDATES) {
+    const species = byCity.get(candidate.cityId) ?? new Set<string>();
+    species.add("lake_trout");
+    byCity.set(candidate.cityId, species);
+  }
+  assert.equal(byCity.size, 32);
+  for (const [cityId, supported] of byCity) {
+    const testCity = city(cityId, cityId, "MI", 44, -84, [...supported]);
+    for (
+      const localDate of [
+        "2028-01-15",
+        "2028-04-15",
+        "2028-07-15",
+        "2028-10-20",
+        "2028-11-15",
+      ]
+    ) {
+      for (const temperatureC of [0, 12, 20]) {
+        const sources = [...supported].map((speciesId) =>
+          row(
+            cityId,
+            speciesId,
+            "fair",
+            0.5,
+            true,
+            temperatureC,
+            localDate,
+          )
+        );
+        const feeds = sources.map((source) =>
+          conditionsFeed(source.speciesId, [source])
+        );
+        const projected = sources.map((source) =>
+          projectPierCastSpeciesConditionsV5({
+            cityId,
+            species: source as never,
+          }).species
+        );
+        const landing = pickPierCastTopSalmonid(testCity, feeds)?.speciesId ??
+          null;
+        const report = pierCastCityTopPick(projected, cityId)?.speciesId ??
+          null;
+        assert.equal(
+          landing,
+          report,
+          `${cityId}/${localDate}/${temperatureC}C`,
+        );
+      }
+    }
+  }
 });
 
 const START = Date.parse("2026-10-19T12:00:00Z");
