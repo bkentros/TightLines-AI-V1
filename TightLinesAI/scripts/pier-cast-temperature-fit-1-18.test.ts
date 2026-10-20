@@ -11,7 +11,8 @@ import {
   projectPierCastThermalMatchV18,
 } from "../lib/pierCastTemperatureFitV18.ts";
 import { pierCastThermalBandV4 } from "../lib/pierCastConditionsV4.ts";
-import { PIER_CAST_V4_THERMAL_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/conditionsV4Thermal.ts";
+import { PIER_CAST_V18_THERMAL_CALIBRATION_VERSION, PIER_CAST_V18_THERMAL_PROFILES } from "../lib/pierCastTemperatureProfilesV18.ts";
+import { PIER_CAST_V4_THERMAL_CALIBRATION_VERSION, PIER_CAST_V4_THERMAL_PROFILES } from "../supabase/functions/_shared/pierCastEngine/config/conditionsV4.ts";
 
 const fToC = (fahrenheit: number) => (fahrenheit - 32) * 5 / 9;
 
@@ -41,8 +42,29 @@ const EXPECTED: Record<Exclude<PierCastSpeciesId, "bluegill">, ExpectedProfile> 
   white_bass: { excellent: [58, 82], bands: [[32, 39, "poor"], [40, 49, "fair"], [50, 57, "good"], [58, 82, "excellent"], [83, 86, "good"], [87, 90, "fair"], [91, 100, "poor"]] },
 };
 
+test("1.18 temperature profiles are app-local and leave the server calibration frozen", () => {
+  const projectionSource = readFileSync(
+    new URL("../lib/pierCastTemperatureFitV18.ts", import.meta.url),
+    "utf8",
+  );
+  assert.equal(
+    PIER_CAST_V18_THERMAL_CALIBRATION_VERSION,
+    "piercast-v4-temperature-fit-1.18-v1",
+  );
+  assert.equal(
+    PIER_CAST_V4_THERMAL_CALIBRATION_VERSION,
+    "piercast-v4-thermal-calibration-2026-09-v1",
+  );
+  assert.notDeepEqual(
+    PIER_CAST_V18_THERMAL_PROFILES,
+    PIER_CAST_V4_THERMAL_PROFILES,
+  );
+  assert.match(projectionSource, /\.\/pierCastTemperatureProfilesV18\.ts/);
+  assert.doesNotMatch(projectionSource, /supabase\/functions/);
+});
+
 test("1.18 defines the approved bands for all 18 supported species", () => {
-  assert.equal(PIER_CAST_V4_THERMAL_PROFILES.length, 18);
+  assert.equal(PIER_CAST_V18_THERMAL_PROFILES.length, 18);
   assert.equal(pierCastTemperatureProfileV18("bluegill"), null);
   for (const [speciesId, expected] of Object.entries(EXPECTED) as [Exclude<PierCastSpeciesId, "bluegill">, ExpectedProfile][]) {
     const profile = pierCastTemperatureProfileV18(speciesId);
