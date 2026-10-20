@@ -71,6 +71,14 @@ test("fresh, saved, future-day, and landing paths all use the bundled 1.18 proje
   assert.match(presentation, /evaluatePierCastOpportunityV5\(\{/);
   assert.match(presentation, /entry\.representativeTemperatureC/);
   assert.match(projection, /speciesStandings: \[\]/);
+  assert.match(
+    projection,
+    /piercast-opportunity-v5-1\.18-salmonid-seasonality-v2/,
+  );
+  assert.doesNotMatch(
+    projection,
+    /piercast-opportunity-v5-1\.18-salmonid-seasonality-v1/,
+  );
 });
 
 test("the 1.18 city report presents the three signals without stale ranking or discouraging copy", () => {

@@ -123,7 +123,7 @@ test("lake-trout research holds remain visible and deliberately unscored", () =>
   }
 });
 
-test("audit output is stably ordered and matches the reviewed Pass 4 baseline", () => {
+test("audit output is stably ordered and matches the reviewed brown-trout Pass 4 baseline", () => {
   const sortedPairKeys = [...report.pairs]
     .sort((left, right) =>
       left.speciesId.localeCompare(right.speciesId) ||
@@ -133,6 +133,6 @@ test("audit output is stably ordered and matches the reviewed Pass 4 baseline", 
   assert.deepEqual(report.pairs.map((pair) => pair.pairKey), sortedPairKeys);
   assert.equal(
     pierCastSalmonidCalibrationAuditFingerprint(report),
-    "3410a17e0d22f62852d3e7fbf8ef94bac6ddb560421c592a6abd822982d5bf9b",
+    "535468ea857c7de9a2fab8658c059db38e8cb55b926866e4c379ffe84f36c662",
   );
 });

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "piercast-brown-trout-seasonality-pass2-source-ledger-v1",
+  "reviewedAt": "2026-10-20",
+  "rules": [
+    "Pier, shore, harbor, stream/tributary, and boat/offshore evidence are separate fishing modes; one mode never raises another mode's rating without direct support.",
+    "A legal year-round season establishes legality, not a year-round Good or Fair PierCast opportunity.",
+    "A zero outside a survey's sampled months is not evidence of biological absence.",
+    "Port-, county-, or citywide evidence can bound timing but cannot be represented as an exact-structure catch rate.",
+    "Daily curve knots remain model judgments because the reviewed agencies generally publish seasonal or monthly evidence, not daily pier catch probability."
+  ],
+  "sources": [
+    {
+      "id": "WI_DNR_2026_FORECAST",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Wisconsin fishing report 2026 — Great Lakes salmon and trout",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/outreach/wifishingreport",
+      "cities": ["sheboygan_wi", "port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi", "two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi"],
+      "mode": "Regional Lake Michigan/Green Bay open water, tributary, and shore context; passages are kept mode-specific.",
+      "finding": "Brown trout fishing is year-round; early spring is a major nearshore period. Adults are collected each fall at Kewaunee, Root, and Milwaukee, with eggs taken in November and early December. The report identifies late-September-through-winter shore opportunity in major tributaries.",
+      "limits": "It does not publish daily city-pier catch rates. Green Bay, tributary, and trolling statements cannot be copied to every Lake Michigan pier."
+    },
+    {
+      "id": "WI_DNR_YEAR_OF_FISHING",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Fabulous year of fishing",
+      "url": "https://dnr.wisconsin.gov/topic/Fishing/outreach/yearoffishing.html",
+      "cities": ["sheboygan_wi", "port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi", "two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi"],
+      "mode": "Regional harbor, river-mouth, nearshore, and pier timing.",
+      "finding": "The agency describes a strong open-water winter harbor/river-mouth brown-trout fishery and explicitly says brown trout are available to Lake Michigan pier anglers in August.",
+      "limits": "Statewide month guidance establishes a prior, not equal strength at every port."
+    },
+    {
+      "id": "WI_DNR_CREEL_2024",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Wisconsin's 2024 Open Water Sportfishing Effort and Harvest From Lake Michigan and Green Bay",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_LakeMichiganSportHarvestReport2024.pdf",
+      "cities": ["sheboygan_wi", "port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi", "two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi"],
+      "mode": "Pier and shore tables separated from boat modes.",
+      "finding": "Pier brown-trout harvest is strongly spring-weighted in 2024.",
+      "limits": "East-shore direct sampling ran May-September; spring was modeled and October pier/shore estimates were omitted. The table therefore cannot prove October absence."
+    },
+    {
+      "id": "WI_DNR_CREEL_1998_2024",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Lake Michigan Creel Harvest Tables 1998-2024",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/Fishing/LM_CreelHarvestTables1998-2024.pdf",
+      "cities": ["sheboygan_wi", "port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi", "two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi"],
+      "mode": "County-by-mode recurrence; pier column used and boat columns excluded.",
+      "finding": "Brown-trout pier harvest recurs across the Wisconsin counties and supports differing port ceilings.",
+      "limits": "County rows can pool ports and do not provide directed species effort."
+    },
+    {
+      "id": "WI_DNR_EXACT_ACCESS",
+      "publisher": "Wisconsin Department of Natural Resources",
+      "title": "Close to Home Fishing Opportunities",
+      "url": "https://dnr.wisconsin.gov/sites/default/files/topic/ClosetoHomeFishing.pdf",
+      "cities": ["sheboygan_wi", "port_washington_wi", "milwaukee_wi", "racine_wi", "kenosha_wi", "two_rivers_wi", "kewaunee_wi", "algoma_wi", "manitowoc_wi"],
+      "mode": "Named pier, breakwall, harbor, and shore access/species inventory.",
+      "finding": "Confirms target identity and access geography at named Wisconsin structures.",
+      "limits": "Species lists do not quantify season, effort, or catch rate."
+    },
+    {
+      "id": "MI_DNR_CREEL",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Creel Sportfishing Estimates dashboard — preserved Pier/Dock extracts",
+      "url": "https://www.michigan.gov/dnr/managing-resources/fisheries/creel",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "muskegon_mi", "whitehall_mi", "alpena_mi", "south_haven_mi", "holland_mi", "lexington_mi", "harrisville_mi", "pentwater_mi", "rogers_city_mi"],
+      "mode": "Monthly port Pier/Dock estimates; other fishing modes excluded from magnitude decisions.",
+      "finding": "Supports recurrence, month-level shape, and relative port strength for the listed Michigan cities.",
+      "limits": "Coverage varies by port, month, and year; port rows may pool multiple structures and all-species effort is not directed brown-trout effort."
+    },
+    {
+      "id": "MI_DNR_LAKE_MICHIGAN_ROADMAP",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Roadmap to Fishing Lake Michigan — accessible version",
+      "url": "https://www.michigan.gov/documents/dnr/Roadmap-LakeMichigan-fishing-accessible-version_621804_7.pdf",
+      "cities": ["ludington_mi", "grand_haven_mi", "manistee_mi", "frankfort_elberta_mi", "muskegon_mi", "whitehall_mi", "st_joseph_mi", "south_haven_mi", "holland_mi", "pentwater_mi"],
+      "mode": "Port-level seasonal guide; fishing modes mixed.",
+      "finding": "Corroborates winter/spring brown-trout windows across western Lake Michigan and a fall brown-trout lead at Whitehall.",
+      "limits": "It is not an exact-pier catch-rate source and some ports are grouped."
+    },
+    {
+      "id": "MI_DNR_LAKE_HURON_ROADMAP",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Roadmap to Fishing Lake Huron — accessible version",
+      "url": "https://www.michigan.gov/dnr/-/media/Project/Websites/dnr/Documents/Fisheries/Maps/RoadmapLake_Huron-accessible.pdf",
+      "cities": ["alpena_mi", "lexington_mi", "harrisville_mi", "rogers_city_mi", "port_sanilac_mi"],
+      "mode": "Port-level seasonal lead; fishing modes mixed.",
+      "finding": "Provides seasonal port context used only with Pier/Dock or exact-city corroboration.",
+      "limits": "Blank cells are not absence; port-level occurrence cannot set a pier score by itself."
+    },
+    {
+      "id": "MI_DNR_BETTER_WATERS",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Better Fishing Waters",
+      "url": "https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters",
+      "cities": ["alpena_mi", "st_joseph_mi", "south_haven_mi", "holland_mi", "pentwater_mi"],
+      "mode": "Named-pier species inventory.",
+      "finding": "Confirms brown trout as a target at named or grouped pier fisheries.",
+      "limits": "Does not quantify season or catch rate; some ports are grouped."
+    },
+    {
+      "id": "MI_DNR_CENTRAL_UNIT",
+      "publisher": "Michigan Department of Natural Resources",
+      "title": "Central Lake Michigan Management Unit",
+      "url": "https://www.michigan.gov/dnr/managing-resources/fisheries/units/c-michigan",
+      "cities": ["muskegon_mi"],
+      "mode": "Channel and pier fishery description.",
+      "finding": "Directly supports fall and spring brown-trout fishing in the Muskegon channel/pier setting.",
+      "limits": "Qualitative management guidance, not a daily catch-rate series."
+    },
+    {
+      "id": "INHS_ILLINOIS_CREEL_2024",
+      "publisher": "Illinois Natural History Survey / Illinois Department of Natural Resources",
+      "title": "Survey of Sport Fishing in the Illinois Portion of Lake Michigan, 2024",
+      "url": "https://www.ideals.illinois.edu/items/137450/bitstreams/448334/data.pdf",
+      "cities": ["waukegan_il", "chicago_il"],
+      "mode": "Pedestrian site estimates, kept separate from boat modes.",
+      "finding": "Directly records spring brown trout at Chicago's Montrose site and supports cold-season Illinois shore opportunity with the multi-year site program.",
+      "limits": "Seasonal sampling does not cover every winter month or every structure; survey zeroes outside coverage are not absence."
+    },
+    {
+      "id": "CHICAGO_PARK_DISTRICT",
+      "publisher": "Chicago Park District",
+      "title": "Fishing Areas",
+      "url": "https://www.chicagoparkdistrict.com/facilities/fishing-areas",
+      "cities": ["chicago_il"],
+      "mode": "Citywide shore, harbor dock, and pier access/timing.",
+      "finding": "Supports year-round access context and the city's broad species calendar.",
+      "limits": "Citywide timing cannot be treated as a Montrose- or Navy-Pier-specific catch rate."
+    },
+    {
+      "id": "INDIANA_DNR_LAKE_MICHIGAN",
+      "publisher": "Indiana Department of Natural Resources",
+      "title": "Fishing in Lake Michigan and tributaries",
+      "url": "https://www.in.gov/dnr/fish-and-wildlife/fishing/lake-michigan-fishing/",
+      "cities": ["michigan_city_in"],
+      "mode": "Seasonal shore, pier, tributary, and offshore guidance with each passage kept separate.",
+      "finding": "Identifies brown trout at winter shore discharges, in spring nearshore catches, and during fall returns to stocking sites; summer salmonids are described offshore.",
+      "limits": "The fall passage combines pier and stream availability and supplies no directed catch rate."
+    }
+  ]
+}

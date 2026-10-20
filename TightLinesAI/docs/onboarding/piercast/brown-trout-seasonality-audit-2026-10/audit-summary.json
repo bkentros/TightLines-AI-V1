@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "piercast-brown-trout-seasonality-pass1-2-v1",
+  "generatedForAppVersion": "1.18",
+  "auditYear": 2028,
+  "leapYearDayCount": 366,
+  "speciesId": "brown_trout",
+  "cityCount": 27,
+  "dailyRowCount": 9882,
+  "thermalScenarioCount": 3,
+  "scenarioEvaluationCount": 29646,
+  "evidenceGradeCityCounts": {
+    "B": 16,
+    "A": 11
+  },
+  "thermalScenarios": [
+    {
+      "id": "cold",
+      "fahrenheit": 32,
+      "celsius": 0,
+      "suitability": 0.4
+    },
+    {
+      "id": "ideal",
+      "fahrenheit": 50,
+      "celsius": 10,
+      "suitability": 1
+    },
+    {
+      "id": "warm",
+      "fahrenheit": 72,
+      "celsius": 22.22222222222222,
+      "suitability": 0.338339
+    }
+  ],
+  "invariants": {
+    "everyCityHasEffectiveCalibration": true,
+    "everyDateAndScenarioIsScoreable": true,
+    "temperatureDoesNotChangeSeasonPhaseOrMode": true,
+    "allScoresHavePublicLabels": true
+  },
+  "structuralReview": {
+    "nonzeroYearWrapModeCount": 4,
+    "citiesWithNonzeroYearWrap": [
+      "algoma_wi",
+      "kewaunee_wi",
+      "manitowoc_wi",
+      "two_rivers_wi"
+    ],
+    "note": "A nonzero final knot interpolates across New Year to the first knot. This can be intentional for winter modes, but requires explicit review when used by a fall-only mode."
+  },
+  "scope": "Pass 1 baseline and Pass 2 evidence/structure review only; no production calibration changed."
+}
