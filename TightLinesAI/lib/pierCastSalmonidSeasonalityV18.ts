@@ -7,11 +7,40 @@ import { evaluatePierCastV3ModePotential } from "../supabase/functions/_shared/p
 import type { PierCastLakeTroutV5Calibration } from "../supabase/functions/_shared/pierCastEngine/config/lakeTroutV5.candidate.ts";
 
 export const PIER_CAST_SALMONID_SEASONALITY_V18_VERSION =
-  "piercast-salmonid-seasonality-1.18-v1" as const;
+  "piercast-salmonid-seasonality-1.18-v2" as const;
 
 const CALIBRATION_SUFFIX = "__seasonality_1_18_v1";
+const BROWN_TROUT_PASS3_SUFFIX = "__brown_trout_pass3_1_18_v1";
 const LIMITATION =
   "The 1.18 taper calibration preserves the evidence-reviewed fishery-strength ceiling and does not imply uniform daily catchability.";
+const BROWN_TROUT_WISCONSIN_LIMITATION =
+  "The 1.18 Wisconsin brown-trout correction repairs recurring-season continuity without raising the evidence-reviewed fishery-strength ceiling or transferring tributary and boat success to the pier.";
+
+/** Evidence-reviewed Wisconsin pairs changed by the brown-trout Pass 3 correction. */
+export const PIER_CAST_V18_BROWN_TROUT_CORRECTION_CITY_IDS = [
+  "algoma_wi",
+  "kenosha_wi",
+  "kewaunee_wi",
+  "manitowoc_wi",
+  "milwaukee_wi",
+  "port_washington_wi",
+  "racine_wi",
+  "two_rivers_wi",
+] as const;
+
+const BROWN_TROUT_SOUTHERN_WISCONSIN_CITY_IDS = [
+  "kenosha_wi",
+  "milwaukee_wi",
+  "port_washington_wi",
+  "racine_wi",
+] as const;
+
+const BROWN_TROUT_NORTHERN_WISCONSIN_CITY_IDS = [
+  "algoma_wi",
+  "kewaunee_wi",
+  "manitowoc_wi",
+  "two_rivers_wi",
+] as const;
 
 /** Strong fall fisheries where the prior curve collapsed before late October. */
 export const PIER_CAST_V18_STRONG_CHINOOK_TAIL_CITY_IDS = [
@@ -129,21 +158,27 @@ function replaceWindow(input: {
   startMonthDay: string;
   endMonthDay: string;
   knots: readonly PierCastV3AvailabilityKnot[];
+  limitation?: string;
+  calibrationSuffix?: string;
 }): PierCastV3OpportunityMode {
   const retained = input.mode.availabilityKnots.filter((knot) =>
     knot.monthDay < input.startMonthDay || knot.monthDay > input.endMonthDay
   );
   return {
     ...input.mode,
-    modeCalibrationId: input.mode.modeCalibrationId.endsWith(CALIBRATION_SUFFIX)
+    modeCalibrationId: input.mode.modeCalibrationId.endsWith(
+        input.calibrationSuffix ?? CALIBRATION_SUFFIX,
+      )
       ? input.mode.modeCalibrationId
-      : `${input.mode.modeCalibrationId}${CALIBRATION_SUFFIX}`,
+      : `${input.mode.modeCalibrationId}${
+        input.calibrationSuffix ?? CALIBRATION_SUFFIX
+      }`,
     availabilityKnots: [...retained, ...input.knots].sort((left, right) =>
       left.monthDay.localeCompare(right.monthDay)
     ),
-    limitations: input.mode.limitations.includes(LIMITATION)
+    limitations: input.mode.limitations.includes(input.limitation ?? LIMITATION)
       ? input.mode.limitations
-      : [...input.mode.limitations, LIMITATION],
+      : [...input.mode.limitations, input.limitation ?? LIMITATION],
   };
 }
 
@@ -240,7 +275,7 @@ function applySteelheadCalibration(
   };
 }
 
-function applyBrownTroutCalibration(
+function applyBrownTroutCalibrationBeforePass3(
   pair: PierCastV3PairCalibration,
 ): PierCastV3PairCalibration {
   if (pair.pairKey !== "port_sanilac_mi/brown_trout") return pair;
@@ -263,6 +298,66 @@ function applyBrownTroutCalibration(
         : mode
     ),
   };
+}
+
+function applyBrownTroutWisconsinPass3(
+  pair: PierCastV3PairCalibration,
+): PierCastV3PairCalibration {
+  if (
+    (BROWN_TROUT_SOUTHERN_WISCONSIN_CITY_IDS as readonly string[]).includes(
+      pair.cityId,
+    )
+  ) {
+    return {
+      ...pair,
+      modes: pair.modes.map((mode) =>
+        mode.modeId === "winter_harbor_open_water"
+          ? replaceWindow({
+            mode,
+            startMonthDay: "08-01",
+            endMonthDay: "11-15",
+            knots: [
+              { monthDay: "08-01", availability: 0 },
+              { monthDay: "08-25", availability: 0.04 },
+              { monthDay: "09-15", availability: 0.10 },
+              { monthDay: "10-01", availability: 0.16 },
+              { monthDay: "10-15", availability: 0.26 },
+              { monthDay: "11-15", availability: 0.45 },
+            ],
+            limitation: BROWN_TROUT_WISCONSIN_LIMITATION,
+            calibrationSuffix: BROWN_TROUT_PASS3_SUFFIX,
+          })
+          : mode
+      ),
+    };
+  }
+  if (
+    (BROWN_TROUT_NORTHERN_WISCONSIN_CITY_IDS as readonly string[]).includes(
+      pair.cityId,
+    )
+  ) {
+    return {
+      ...pair,
+      modes: pair.modes.map((mode) =>
+        mode.modeId === "fall_harbor"
+          ? replaceWindow({
+            mode,
+            startMonthDay: "11-10",
+            endMonthDay: "12-31",
+            knots: [
+              { monthDay: "11-10", availability: 1 },
+              { monthDay: "12-01", availability: 0.80 },
+              { monthDay: "12-20", availability: 0.45 },
+              { monthDay: "12-31", availability: 0 },
+            ],
+            limitation: BROWN_TROUT_WISCONSIN_LIMITATION,
+            calibrationSuffix: BROWN_TROUT_PASS3_SUFFIX,
+          })
+          : mode
+      ),
+    };
+  }
+  return pair;
 }
 
 function applyAtlanticCalibration(
@@ -289,18 +384,30 @@ function applyAtlanticCalibration(
   };
 }
 
-/** Applies the three reviewed 1.18 salmonid calibration waves. */
-export function applyPierCastSalmonidSeasonalityV18(
+/** Frozen state used by the completed brown-trout Pass 1 baseline. */
+export function applyPierCastSalmonidSeasonalityV18BeforeBrownTroutPass3(
   pair: PierCastV3PairCalibration,
 ): PierCastV3PairCalibration {
   if (pair.speciesId === "chinook_salmon") return applyChinookCalibration(pair);
   if (pair.speciesId === "coho_salmon") return applyCohoCalibration(pair);
   if (pair.speciesId === "steelhead") return applySteelheadCalibration(pair);
-  if (pair.speciesId === "brown_trout") return applyBrownTroutCalibration(pair);
+  if (pair.speciesId === "brown_trout") {
+    return applyBrownTroutCalibrationBeforePass3(pair);
+  }
   if (pair.speciesId === "atlantic_salmon") {
     return applyAtlanticCalibration(pair);
   }
   return pair;
+}
+
+/** Applies all reviewed 1.18 waves, including brown-trout Pass 3. */
+export function applyPierCastSalmonidSeasonalityV18(
+  pair: PierCastV3PairCalibration,
+): PierCastV3PairCalibration {
+  const prior = applyPierCastSalmonidSeasonalityV18BeforeBrownTroutPass3(pair);
+  return pair.speciesId === "brown_trout"
+    ? applyBrownTroutWisconsinPass3(prior)
+    : prior;
 }
 
 const LAKE_TROUT_OCTOBER_BY_ARCHETYPE = new Map<number, number>([

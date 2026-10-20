@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "piercast-brown-trout-seasonality-pass3-4-validation-v1",
+  "generatedForAppVersion": "1.18",
+  "calibrationVersion": "piercast-salmonid-seasonality-1.18-v2",
+  "auditYear": 2028,
+  "coverage": {
+    "cityCount": 27,
+    "dailyRowCount": 9882,
+    "thermalScenarioCount": 3,
+    "scenarioEvaluationCount": 29646
+  },
+  "correctionScope": {
+    "correctedCityCount": 8,
+    "correctedCityIds": [
+      "algoma_wi",
+      "kenosha_wi",
+      "kewaunee_wi",
+      "manitowoc_wi",
+      "milwaukee_wi",
+      "port_washington_wi",
+      "racine_wi",
+      "two_rivers_wi"
+    ],
+    "unchangedPublicBrownTroutCityCount": 19,
+    "sheboyganDisposition": "retained_without_numeric_change"
+  },
+  "currentStructuralReview": {
+    "nonzeroYearWrapModeCount": 0,
+    "citiesWithNonzeroYearWrap": [],
+    "note": "A nonzero final knot interpolates across New Year to the first knot. This can be intentional for winter modes, but requires explicit review when used by a fall-only mode."
+  },
+  "invariants": {
+    "everyCityHasEffectiveCalibration": true,
+    "everyDateAndScenarioIsScoreable": true,
+    "temperatureDoesNotChangeSeasonPhaseOrMode": true,
+    "allScoresHavePublicLabels": true,
+    "fisheryStrengthCeilingsPreserved": true,
+    "modeCountsPreserved": true,
+    "evidenceIdsPreserved": true,
+    "thermalCurvesPreserved": true,
+    "unapprovedBrownTroutPairsUnchanged": true,
+    "nonBrownTroutCalibrationsUnchanged": true,
+    "southernWisconsinOctober20Phase": "Building",
+    "southernWisconsinOctober20Label": "Limited",
+    "northernWisconsinYearEndHandoffMaximumScoreDeltaExclusive": 0.1
+  },
+  "scope": "App-bundled 1.18 brown-trout seasonality only; no backend, deployment, build, update, migration, or store action."
+}

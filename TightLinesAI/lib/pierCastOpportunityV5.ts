@@ -30,7 +30,7 @@ import {
 } from "./pierCastTemperatureFitV18";
 
 export const PIER_CAST_OPPORTUNITY_V5_CANDIDATE_VERSION =
-  "piercast-opportunity-v5-1.18-salmonid-seasonality-v1" as const;
+  "piercast-opportunity-v5-1.18-salmonid-seasonality-v2" as const;
 
 export type PierCastOpportunityTimingV5 =
   | "off"
@@ -480,9 +480,9 @@ export function projectPierCastLeaderboardV5(
     ...row,
     rank: row.rankingDisposition === "ranked" ? ++rank : null,
   }));
-  const bestSeasonalBand = cities.find((row) =>
-    row.rankingDisposition === "ranked"
-  )?.seasonalOutlook.band ?? null;
+  const bestSeasonalBand =
+    cities.find((row) => row.rankingDisposition === "ranked")?.seasonalOutlook
+      .band ?? null;
   return {
     ...leaderboard,
     targetSpecies: leaderboard.targetSpecies.map((option) =>

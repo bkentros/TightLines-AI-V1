@@ -1,6 +1,6 @@
 # PierCast 1.18 salmonid calibration — Pass 4
 
-Reviewed: 2026-10-19
+Reviewed: 2026-10-20
 
 Runtime boundary: **bundled 1.18 app only**. This pass does not alter the frozen
 server v3 configuration, response contracts, database, lake map, Edge Function,
@@ -27,7 +27,11 @@ The annual audit remains complete at 229,848 of 229,848 rows:
 
 Current deterministic fingerprint:
 
-`3410a17e0d22f62852d3e7fbf8ef94bac6ddb560421c592a6abd822982d5bf9b`
+`535468ea857c7de9a2fab8658c059db38e8cb55b926866e4c379ffe84f36c662`
+
+This fingerprint includes the October 20 brown-trout Pass 3 correction. The
+pre-correction brown-trout baseline is frozen separately under
+`docs/onboarding/piercast/brown-trout-seasonality-audit-2026-10/`.
 
 ## Shared season-phase correction
 
@@ -92,16 +96,26 @@ full-year review.
 
 ## Wave 3 — brown trout and Atlantic salmon
 
-The phase normalization resolved every brown-trout mode-handoff discontinuity.
-Only the two remaining audit transitions required curve changes:
+The original phase-normalization pass resolved the general brown-trout
+mode-handoff discontinuities. Its two initial transition changes were:
 
 - Port Sanilac brown trout now tapers smoothly from its October peak through
   November and reaches zero December 10.
 - Harbor Beach Atlantic salmon now tapers from October through November and
   reaches zero December 1.
 
-All other brown-trout and Atlantic-salmon curves and all 25 Atlantic research
-holds outside the seven supported pairs remain unchanged.
+The subsequent city-specific brown-trout audit corrected eight Wisconsin pairs
+without changing a fishery-strength ceiling. Port Washington, Milwaukee,
+Racine, and Kenosha now build conservatively through fall instead of remaining
+Outside through October 21. Two Rivers, Kewaunee, Algoma, and Manitowoc now end
+their fall mode explicitly on December 31 and hand smoothly to their existing
+cold-season curve instead of carrying a nonzero fall knot toward the next
+August. Sheboygan and the other 18 public brown-trout pairs remain numerically
+unchanged. See the dedicated `PASS_3_4_REPORT.md` in the brown-trout audit
+directory for the full evidence boundary and replay.
+
+All Atlantic-salmon curves and all 25 Atlantic research holds outside the seven
+supported pairs remain unchanged.
 
 ## Accepted constraints
 
