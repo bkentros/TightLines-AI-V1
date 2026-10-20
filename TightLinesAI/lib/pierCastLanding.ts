@@ -11,13 +11,12 @@
  * - "My Piers": up to five saved cities, remembered on this device;
  * - nearest pier cities for "Near me";
  * - each saved city's best trout/salmon species today, chosen with the same
- *   rule the City Report uses (rated first, then seasonal band, then water fit).
+ *   exact hidden opportunity ranking as the City Report.
  */
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { fahrenheit } from "./pierCastConditionsPresentation";
 import {
-  comparePierCastSpeciesConditionsV4,
   type PierCastConditionsCatalogCityV4,
   type PierCastConditionsMapResponseV4,
   type PierCastGreatLakeIdV4,
@@ -27,6 +26,7 @@ import {
 } from "./pierCastConditionsV4";
 import type { PierCastSpeciesId } from "./pierCastContracts";
 import { buildPierCastShiftCards, type PierCastShiftCard } from "./pierCastCityReportPresentation";
+import { selectPierCastTopSpeciesConditionsV5 } from "./pierCastOpportunityV5";
 import {
   PIER_CAST_LAKE_ORDER,
   PIER_CAST_SALMONID_ORDER,
@@ -195,11 +195,11 @@ export function pickPierCastTopSalmonid(
     if (row && row.speciesId === speciesId) rows.push(row);
   }
   if (rows.length === 0) return null;
-  rows.sort((a, b) =>
-    comparePierCastSpeciesConditionsV4(a, b) ||
-    PIER_CAST_SALMONID_ORDER.indexOf(a.speciesId) - PIER_CAST_SALMONID_ORDER.indexOf(b.speciesId)
-  );
-  return { speciesId: rows[0]!.speciesId, row: rows[0]! };
+  const row = selectPierCastTopSpeciesConditionsV5({
+    cityId: city.cityId,
+    species: rows,
+  });
+  return row ? { speciesId: row.speciesId, row } : null;
 }
 
 // ─── Temperature sparkline ────────────────────────────────────────────────
