@@ -1,0 +1,99 @@
+name: Scorecard stray cleanup
+
+on:
+  push:
+    branches: [research/scorecard-backfill]
+
+permissions:
+  contents: read
+
+jobs:
+  remove-exact-stray:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "boto3>=1.34"
+      - name: Verify and remove exact 2023-11-20 research fragment
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+
+          import boto3
+          from botocore.config import Config
+
+          bucket = "piercast-lake-map"
+          stream_prefix = "private/scorecard/v1/samples/stream=backfill/"
+          date_prefix = stream_prefix + "date=2023-11-20/"
+          raw = os.environ["R2_ACCOUNT_ID"].strip().strip("\"'")
+          endpoint = raw.rstrip("/") if raw.startswith("http") else \
+              f"https://{raw.split('.')[0]}.r2.cloudflarestorage.com"
+          s3 = boto3.client(
+              "s3", endpoint_url=endpoint,
+              aws_access_key_id=os.environ["R2_ACCESS_KEY_ID"],
+              aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],
+              region_name="auto", config=Config(retries={"max_attempts": 5, "mode": "standard"}),
+          )
+          keys = sorted(
+              item["Key"]
+              for page in s3.get_paginator("list_objects_v2").paginate(
+                  Bucket=bucket, Prefix=date_prefix,
+              )
+              for item in page.get("Contents", [])
+          )
+          all_stream_keys = sorted(
+              item["Key"]
+              for page in s3.get_paginator("list_objects_v2").paginate(
+                  Bucket=bucket, Prefix=stream_prefix,
+              )
+              for item in page.get("Contents", [])
+          )
+          print(f"Stray keys found count={len(keys)}")
+          for key in keys:
+              print(f"Stray key={key}")
+          unexpected = sorted(set(all_stream_keys) - set(keys))
+          if unexpected:
+              for key in unexpected:
+                  print(f"Unexpected key={key}")
+              raise SystemExit("Unexpected production backfill objects found; refusing deletion")
+          parquet = [key for key in keys if key.endswith(".parquet")]
+          manifests = [key for key in keys if key.endswith(".manifest.json")]
+          same_stem = (len(parquet) == len(manifests) == 1 and
+                       manifests[0] == parquet[0].removesuffix(".parquet") + ".manifest.json")
+          if len(keys) != 2 or not same_stem:
+              raise SystemExit("Unexpected keys; refusing deletion")
+          manifest = json.loads(s3.get_object(Bucket=bucket, Key=manifests[0])["Body"].read())
+          metadata = s3.head_object(Bucket=bucket, Key=parquet[0]).get("Metadata", {})
+          expected = (
+              manifest.get("stream") == "backfill" and
+              manifest.get("date") == "2023-11-20" and
+              manifest.get("rowCount") == 595 and
+              manifest.get("key") == parquet[0] and
+              str(metadata.get("rows")) == "595" and
+              str(manifest.get("writtenAt", "")).startswith("2026-10-21T00:49:")
+          )
+          if not expected:
+              raise SystemExit("Object metadata did not match Actions run 39522732016; refusing deletion")
+          for key in keys:
+              s3.delete_object(Bucket=bucket, Key=key)
+          remaining = [
+              item["Key"]
+              for page in s3.get_paginator("list_objects_v2").paginate(
+                  Bucket=bucket, Prefix=stream_prefix,
+              )
+              for item in page.get("Contents", [])
+          ]
+          print(f"Stray keys deleted count={len(keys)}")
+          print(f"Production backfill objects remaining count={len(remaining)}")
+          if remaining:
+              for key in sorted(remaining):
+                  print(f"Unexpected remaining key={key}")
+              raise SystemExit("Unexpected production backfill objects remain")
+          PY

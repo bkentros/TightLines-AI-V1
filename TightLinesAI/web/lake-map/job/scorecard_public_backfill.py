@@ -80,19 +80,34 @@ def worker_limit(default):
 
 
 class SourceQuarantine:
-    """Count malformed public records without retaining payloads or identifiers."""
+    """Count malformed public records without retaining observation values."""
 
     def __init__(self):
         self.overall = Counter()
         self.by_day = defaultdict(Counter)
+        self.details_by_day = defaultdict(lambda: {
+            "reasons": Counter(), "sources": Counter(), "stationClasses": Counter(),
+            "stations": Counter(),
+        })
 
-    def add(self, reason, observed=None):
+    def add(self, reason, observed=None, source=None, station_class=None, station_id=None):
         self.overall[reason] += 1
         if isinstance(observed, datetime):
-            self.by_day[observed.date().isoformat()][reason] += 1
+            day = observed.date().isoformat()
+            self.by_day[day][reason] += 1
+            detail = self.details_by_day[day]
+            detail["reasons"][reason] += 1
+            detail["sources"][source or "unknown"] += 1
+            detail["stationClasses"][station_class or "unknown"] += 1
+            detail["stations"][station_id or "unknown"] += 1
 
     def day(self, value):
         return dict(sorted(self.by_day.get(value, {}).items()))
+
+    def details(self, value):
+        detail = self.details_by_day.get(value, {})
+        return {key: dict(sorted(detail.get(key, {}).items()))
+                for key in ("reasons", "sources", "stationClasses", "stations")}
 
 
 def iso(value):
@@ -303,12 +318,18 @@ def collect_ndbc(cache, start, end, datasets, quarantine=None):
                 try:
                     water_c = float(raw_water)
                 except ValueError:
-                    quarantine.add("impossible_temperature", observed)
+                    quarantine.add(
+                        "impossible_temperature", observed, "ndbc", meta.get("type"),
+                        f"external:{station}",
+                    )
                     continue
                 if not start <= observed <= end:
                     continue
                 if not math.isfinite(water_c) or not -2 <= water_c <= 40:
-                    quarantine.add("impossible_temperature", observed)
+                    quarantine.add(
+                        "impossible_temperature", observed, "ndbc", meta.get("type"),
+                        f"external:{station}",
+                    )
                     continue
                 wind = {}
                 try:
@@ -365,13 +386,19 @@ def collect_coops(cache, start, end, stations, quarantine=None):
                 try:
                     water_c = float(raw_water)
                 except ValueError:
-                    quarantine.add("impossible_temperature", observed)
+                    quarantine.add(
+                        "impossible_temperature", observed, "coops", "fixed",
+                        f"coops:{station['id']}",
+                    )
                     continue
                 flags = [value for value in str(item.get("f", "")).split(",") if value]
                 if not start <= observed <= end:
                     continue
                 if not math.isfinite(water_c) or not -2 <= water_c <= 40:
-                    quarantine.add("impossible_temperature", observed)
+                    quarantine.add(
+                        "impossible_temperature", observed, "coops", "fixed",
+                        f"coops:{station['id']}",
+                    )
                     continue
                 quality = "provider_qc" if flags and all(flag == "0" for flag in flags) else "unknown"
                 rows.append(_observation(
@@ -442,7 +469,10 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
             try:
                 raw = float(raw_text)
             except ValueError:
-                quarantine.add("impossible_temperature", observed)
+                quarantine.add(
+                    "impossible_temperature", observed, "glos", meta.get("type"),
+                    f"glos:{dataset_id}",
+                )
                 continue
             if glos_temperature_is_missing(raw_text, raw):
                 continue
@@ -452,7 +482,10 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
             if not start <= observed <= end:
                 continue
             if not math.isfinite(water_c) or not -2 <= water_c <= 40:
-                quarantine.add("impossible_temperature", observed)
+                quarantine.add(
+                    "impossible_temperature", observed, "glos", meta.get("type"),
+                    f"glos:{dataset_id}",
+                )
                 continue
             depth = parameter.get("depthM")
             depth = float(depth) if isinstance(depth, (int, float)) and depth >= 0 else None
@@ -925,6 +958,47 @@ def quarantine_summary(records, dropped=None):
             "reasons": dict(sorted(reasons.items()))}
 
 
+def quarantine_report_summary(records, dropped=None):
+    """Return aggregate quarantine dimensions without observation values."""
+    reasons = Counter()
+    sources = Counter()
+    station_classes = Counter()
+    stations = Counter()
+    quarantined = 0
+    for record in records:
+        row_reasons = sorted({flag for flag in record.get("quality_flags", [])
+                              if flag in {"invalid_position", "invalid_timestamp",
+                                          "impossible_temperature", "missing_position"}})
+        if not row_reasons:
+            continue
+        quarantined += 1
+        reasons.update(row_reasons)
+        raw_source = str(record.get("observation_source") or "unknown").lower()
+        source = next((name for name in ("ndbc", "glos", "coops") if name in raw_source),
+                      "unknown")
+        sources[source] += 1
+        station_classes[str(record.get("station_class") or "unknown")] += 1
+        stations[str(record.get("station_id") or "unknown")] += 1
+    dropped = dropped or {}
+    dropped_count = sum(dropped.get("reasons", {}).values())
+    quarantined += dropped_count
+    reasons.update(dropped.get("reasons", {}))
+    sources.update(dropped.get("sources", {}))
+    station_classes.update(dropped.get("stationClasses", {}))
+    stations.update(dropped.get("stations", {}))
+    total = len(records) + dropped_count
+    top_stations = [
+        {"id": station_id, "count": count}
+        for station_id, count in sorted(stations.items(), key=lambda item: (-item[1], item[0]))[:5]
+    ]
+    return {
+        "total": total, "count": quarantined,
+        "fraction": quarantined / total if total else 0.0,
+        "reasons": dict(sorted(reasons.items())), "sources": dict(sorted(sources.items())),
+        "stationClasses": dict(sorted(station_classes.items())), "topStations": top_stations,
+    }
+
+
 def save_checkpoint(path, checkpoint):
     path.write_text(json.dumps(checkpoint, indent=2, sort_keys=True) + "\n")
 
@@ -965,12 +1039,16 @@ def main(argv=None):
                         help="write local/private-R2 Parquet and advance the checkpoint")
     parser.add_argument("--skip-existing-r2", action="store_true",
                         help="skip dates that already have a private R2 backfill partition")
+    parser.add_argument("--quarantine-report", action="store_true",
+                        help="report aggregate quarantine details without storing rows")
     parser.add_argument("--sources", default="ndbc,glos,coops")
     args = parser.parse_args(argv)
     if args.end < args.start:
         parser.error("end precedes start")
     if args.skip_existing_r2 and not args.store:
         parser.error("--skip-existing-r2 requires --store")
+    if args.quarantine_report and args.store:
+        parser.error("--quarantine-report cannot be combined with --store")
     root = Path(__file__).resolve().parents[1]
     datasets, parameters, coops = load_catalogs(root)
     start = datetime.combine(args.start, datetime.min.time(), UTC)
@@ -1029,6 +1107,14 @@ def main(argv=None):
                                violations=validation["violations"])
             print(f"Backfill day={day_text} status=invalid count={validation['invalidRows']}")
             return 2
+        if args.quarantine_report:
+            report = quarantine_report_summary(records, source_quarantine.details(day_text))
+            print("Backfill quarantine-report " +
+                  json.dumps({"day": day_text, **report}, sort_keys=True))
+            for record in records:
+                totals[record["pair_status"]] += 1
+                sample_methods[record["sample_method"]] += 1
+            continue
         quarantine = quarantine_summary(records, source_quarantine.day(day_text))
         print("Backfill quarantine " + json.dumps({"day": day_text, **quarantine}, sort_keys=True))
         if quarantine["fraction"] > MAX_QUARANTINE_FRACTION:

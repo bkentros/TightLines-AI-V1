@@ -186,6 +186,28 @@ class PublicBackfillTest(unittest.TestCase):
             "reasons": {"impossible_temperature": 1, "invalid_position": 1},
         })
 
+    def test_quarantine_report_summary_is_aggregate_and_ranked(self):
+        records = [{
+            "quality_flags": ["invalid_position"], "observation_source": "GLOS Seagull",
+            "station_class": "moored_buoy", "station_id": "glos:49",
+        }, {
+            "quality_flags": [], "observation_source": "NOAA NDBC",
+            "station_class": "offshore_buoy", "station_id": "external:45002",
+        }]
+        dropped = {
+            "reasons": {"impossible_temperature": 2}, "sources": {"ndbc": 2},
+            "stationClasses": {"offshore_buoy": 2}, "stations": {"external:45002": 2},
+        }
+        self.assertEqual(backfill.quarantine_report_summary(records, dropped), {
+            "total": 4, "count": 3, "fraction": 0.75,
+            "reasons": {"impossible_temperature": 2, "invalid_position": 1},
+            "sources": {"glos": 1, "ndbc": 2},
+            "stationClasses": {"moored_buoy": 1, "offshore_buoy": 2},
+            "topStations": [
+                {"id": "external:45002", "count": 2}, {"id": "glos:49", "count": 1},
+            ],
+        })
+
     def test_deep_nonfinite_position_is_uncovered_not_surface_paired(self):
         row = observation(5.0, 2)
         row.update({"lat": None, "lon": None, "qualityFlags": ["invalid_position"]})
