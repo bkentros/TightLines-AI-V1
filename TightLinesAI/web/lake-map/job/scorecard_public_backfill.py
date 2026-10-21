@@ -559,8 +559,26 @@ class PublicModelSampler:
         path = f"noaa-nos-ofs-pds/{key}"
         if not self.fs.exists(path):
             return None, None
-        stream = self.fs.open(path, "rb", block_size=1024 * 1024, cache_type="readahead")
-        return stream, self.h5py.File(stream, "r")
+        stream = dataset = None
+        try:
+            stream = self.fs.open(path, "rb", block_size=1024 * 1024, cache_type="readahead")
+            signature = stream.read(8)
+            stream.seek(0)
+            dataset = (self.netcdf_file(stream, "r", mmap=False)
+                       if signature.startswith(b"CDF") else self.h5py.File(stream, "r"))
+            return stream, dataset
+        except Exception:
+            if dataset is not None:
+                try:
+                    dataset.close()
+                except Exception:
+                    pass
+            if stream is not None:
+                try:
+                    stream.close()
+                except Exception:
+                    pass
+            return None, None
 
     @staticmethod
     def _variable(dataset, name):

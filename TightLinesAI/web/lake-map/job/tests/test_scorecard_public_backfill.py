@@ -52,6 +52,18 @@ class PublicBackfillTest(unittest.TestCase):
         with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "invalid"}):
             self.assertEqual(backfill.worker_limit(4), 4)
 
+    def test_invalid_public_model_object_is_treated_as_unavailable(self):
+        sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)
+        stream = io.BytesIO(b"not-a-netcdf-file")
+        sampler.fs = mock.Mock()
+        sampler.fs.exists.return_value = True
+        sampler.fs.open.return_value = stream
+        sampler.h5py = mock.Mock()
+        sampler.h5py.File.side_effect = OSError("invalid signature")
+        sampler.netcdf_file = mock.Mock()
+        self.assertEqual(sampler._open("bad.nc"), (None, None))
+        self.assertTrue(stream.closed)
+
     def test_skip_existing_r2_works_without_local_checkpoint(self):
         s3 = mock.Mock()
         s3.list_objects_v2.return_value = {
