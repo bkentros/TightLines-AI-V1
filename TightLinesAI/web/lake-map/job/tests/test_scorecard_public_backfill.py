@@ -1,6 +1,9 @@
+import io
 import os
 import sys
+import tempfile
 import unittest
+from contextlib import redirect_stdout
 from datetime import date, datetime, timezone
 from pathlib import Path
 from unittest import mock
@@ -48,6 +51,37 @@ class PublicBackfillTest(unittest.TestCase):
             self.assertEqual(backfill.worker_limit(4), 4)
         with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "invalid"}):
             self.assertEqual(backfill.worker_limit(4), 4)
+
+    def test_skip_existing_r2_works_without_local_checkpoint(self):
+        s3 = mock.Mock()
+        s3.list_objects_v2.return_value = {
+            "Contents": [{
+                "Key": "private/scorecard/v1/samples/stream=backfill/"
+                       "date=2023-11-20/existing.parquet",
+            }],
+        }
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.dict(os.environ, {
+                    "R2_ACCOUNT_ID": "account", "R2_ACCESS_KEY_ID": "access",
+                    "R2_SECRET_ACCESS_KEY": "secret", "R2_BUCKET": "test-bucket",
+                }, clear=False), \
+                mock.patch.object(backfill, "load_catalogs", return_value=({}, {}, {})), \
+                mock.patch.object(backfill, "PublicModelSampler"), \
+                mock.patch("lakemap.store.client", return_value=s3), \
+                mock.patch.object(backfill.scorecard_store, "write_fragment") as write_fragment, \
+                redirect_stdout(io.StringIO()) as output:
+            result = backfill.main([
+                "--start", "2023-11-20", "--end", "2023-11-20",
+                "--cache", temporary, "--sources", "", "--store", "--skip-existing-r2",
+            ])
+        self.assertEqual(result, 0)
+        self.assertIn("day=2023-11-20 status=r2_skip", output.getvalue())
+        s3.list_objects_v2.assert_called_once_with(
+            Bucket="test-bucket",
+            Prefix="private/scorecard/v1/samples/stream=backfill/date=2023-11-20/",
+            MaxKeys=1,
+        )
+        write_fragment.assert_not_called()
 
     def test_glos_kelvin_and_celsius_fill_values_are_provider_missing(self):
         for value in (-999.0, -9999.0, 999.0, 9999.0,

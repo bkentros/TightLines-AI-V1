@@ -1,0 +1,117 @@
+name: Scorecard backfill
+
+on:
+  push:
+    branches: [research/scorecard-backfill]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-backfill-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.chunks.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: chunks
+        name: Read chunk matrix
+        run: echo "matrix=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)" >> "$GITHUB_OUTPUT"
+
+  backfill:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    env:
+      SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-store
+      SCORECARD_BACKFILL_CACHE: ${{ runner.temp }}/scorecard-cache
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Run scorecard backfill
+        id: backfill
+        shell: bash
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+          CHUNK_START: ${{ matrix.chunk.start }}
+          CHUNK_END: ${{ matrix.chunk.end }}
+        run: |
+          set +e
+          python job/scorecard_public_backfill.py \
+            --start "$CHUNK_START" --end "$CHUNK_END" \
+            --store --skip-existing-r2 --sources ndbc,glos,coops \
+            2>&1 | tee "$RUNNER_TEMP/scorecard-backfill.log"
+          exit_code=${PIPESTATUS[0]}
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+          exit "$exit_code"
+      - name: Summarize
+        if: always()
+        shell: bash
+        env:
+          CHUNK_START: ${{ matrix.chunk.start }}
+          CHUNK_END: ${{ matrix.chunk.end }}
+          BACKFILL_EXIT_CODE: ${{ steps.backfill.outputs.exit_code }}
+        run: |
+          python - "$RUNNER_TEMP/scorecard-backfill.log" "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json
+          import os
+          import re
+          import sys
+          from pathlib import Path
+
+          log_path, summary_path = map(Path, sys.argv[1:])
+          text = log_path.read_text(errors="replace") if log_path.exists() else ""
+          stored = len(re.findall(r"^Backfill day=\d{4}-\d{2}-\d{2} status=stored\b", text, re.M))
+          skipped = len(re.findall(r"^Backfill day=\d{4}-\d{2}-\d{2} status=r2_skip\b", text, re.M))
+          counts = {"paired": 0, "uncovered": 0, "pending_3d": 0}
+          quarantine_count = 0
+          quarantine_total = 0
+          quarantine_max = 0.0
+          for line in text.splitlines():
+              if line.startswith("Backfill quarantine "):
+                  item = json.loads(line.removeprefix("Backfill quarantine "))
+                  quarantine_count += int(item.get("count", 0))
+                  quarantine_total += int(item.get("total", 0))
+                  quarantine_max = max(quarantine_max, float(item.get("fraction", 0)))
+              elif line.startswith("{"):
+                  try:
+                      item = json.loads(line)
+                  except json.JSONDecodeError:
+                      continue
+                  if item.get("status") == "complete":
+                      for key in counts:
+                          counts[key] = int(item.get("counts", {}).get(key, 0))
+          exit_code = os.environ.get("BACKFILL_EXIT_CODE") or "unavailable"
+          lines = [
+              "## Scorecard backfill",
+              f"- Chunk: {os.environ['CHUNK_START']}..{os.environ['CHUNK_END']}",
+              f"- Days stored: {stored}",
+              f"- Days skipped: {skipped}",
+              f"- Counts: paired={counts['paired']}, uncovered={counts['uncovered']}, pending_3d={counts['pending_3d']}",
+              f"- Quarantine: {quarantine_count}/{quarantine_total}; max fraction={quarantine_max:.6f}",
+              f"- Exit code: {exit_code}",
+          ]
+          summary_path.write_text("\n".join(lines) + "\n")
+          PY

@@ -161,7 +161,7 @@ class PublicCache:
         except Exception as error:
             category = scorecard._failure_category(error=error)
             if not quiet:
-                print(f"Backfill source unavailable category={category} source={name}")
+                print(f"Backfill source unavailable count=1 category={category}")
             return None
         path.write_bytes(body)
         return body
@@ -929,6 +929,16 @@ def save_checkpoint(path, checkpoint):
     path.write_text(json.dumps(checkpoint, indent=2, sort_keys=True) + "\n")
 
 
+def r2_backfill_partition_exists(s3, bucket, day_text):
+    prefix = f"{scorecard_store.PRIVATE_PREFIX}/samples/stream=backfill/date={day_text}/"
+    try:
+        response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix, MaxKeys=1)
+    except Exception as error:
+        print(f"Backfill R2 lookup failed count=1 category={type(error).__name__}")
+        raise RuntimeError("R2 backfill partition lookup failed") from None
+    return bool(response.get("Contents"))
+
+
 def pause_backfill(path, checkpoint, day_text, reason, **details):
     checkpoint["paused"] = {"day": day_text, "reason": reason, **details}
     save_checkpoint(path, checkpoint)
@@ -945,14 +955,22 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--start", type=date.fromisoformat, required=True)
     parser.add_argument("--end", type=date.fromisoformat, required=True)
-    parser.add_argument("--cache", type=Path, default=Path("/tmp/finfindr-scorecard-public-backfill"))
+    parser.add_argument(
+        "--cache", type=Path,
+        default=Path(os.environ.get("SCORECARD_BACKFILL_CACHE") or
+                     "/tmp/finfindr-scorecard-public-backfill"),
+    )
     parser.add_argument("--env-file", type=Path)
     parser.add_argument("--store", action="store_true",
                         help="write local/private-R2 Parquet and advance the checkpoint")
+    parser.add_argument("--skip-existing-r2", action="store_true",
+                        help="skip dates that already have a private R2 backfill partition")
     parser.add_argument("--sources", default="ndbc,glos,coops")
     args = parser.parse_args(argv)
     if args.end < args.start:
         parser.error("end precedes start")
+    if args.skip_existing_r2 and not args.store:
+        parser.error("--skip-existing-r2 requires --store")
     root = Path(__file__).resolve().parents[1]
     datasets, parameters, coops = load_catalogs(root)
     start = datetime.combine(args.start, datetime.min.time(), UTC)
@@ -974,6 +992,7 @@ def main(argv=None):
     checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else {"completed": []}
     environment = {**os.environ, **read_env(args.env_file)}
     s3 = None
+    r2_bucket = None
     if args.store:
         required = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY")
         if not all(environment.get(key) for key in required):
@@ -983,6 +1002,7 @@ def main(argv=None):
         try:
             from lakemap import store
             s3 = store.client()
+            r2_bucket = store.bucket()
         finally:
             os.environ.clear()
             os.environ.update(prior_environment)
@@ -990,6 +1010,9 @@ def main(argv=None):
     sample_methods = defaultdict(int)
     for day in daterange(args.start, args.end):
         day_text = day.isoformat()
+        if args.skip_existing_r2 and r2_backfill_partition_exists(s3, r2_bucket, day_text):
+            print(f"Backfill day={day_text} status=r2_skip")
+            continue
         if args.store and day_text in checkpoint.get("completed", []):
             print(f"Backfill day={day_text} status=checkpoint_skip")
             continue
