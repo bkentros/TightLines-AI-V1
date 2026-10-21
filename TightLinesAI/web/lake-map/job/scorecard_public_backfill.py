@@ -56,6 +56,8 @@ LEADS = (0, 24, 72, 120)
 CYCLES = (0, 12)
 MAX_OFFSET_MINUTES = 30
 MAX_QUARANTINE_FRACTION = 0.02
+METHODOLOGY_VERSION = "public-scorecard-backfill-v1"
+CODE_VERSION = "station-suspect-day-v1"
 USER_AGENT = "FinFindr-scorecard-backfill/1.0 (+https://finfindr.app)"
 GLOS_BASE_MISSING_TEMPERATURE_SENTINELS = frozenset({-999.0, -9999.0, 999.0, 9999.0})
 GLOS_MISSING_TEMPERATURE_SENTINELS = frozenset(
@@ -85,6 +87,7 @@ class SourceQuarantine:
     def __init__(self):
         self.overall = Counter()
         self.by_day = defaultdict(Counter)
+        self.station_reasons_by_day = defaultdict(lambda: defaultdict(set))
         self.details_by_day = defaultdict(lambda: {
             "reasons": Counter(), "sources": Counter(), "stationClasses": Counter(),
             "stations": Counter(),
@@ -100,6 +103,8 @@ class SourceQuarantine:
             detail["sources"][source or "unknown"] += 1
             detail["stationClasses"][station_class or "unknown"] += 1
             detail["stations"][station_id or "unknown"] += 1
+            if station_id:
+                self.station_reasons_by_day[day][reason].add(station_id)
 
     def day(self, value):
         return dict(sorted(self.by_day.get(value, {}).items()))
@@ -108,6 +113,9 @@ class SourceQuarantine:
         detail = self.details_by_day.get(value, {})
         return {key: dict(sorted(detail.get(key, {}).items()))
                 for key in ("reasons", "sources", "stationClasses", "stations")}
+
+    def stations_for_reason(self, value, reason):
+        return set(self.station_reasons_by_day.get(value, {}).get(reason, set()))
 
 
 def iso(value):
@@ -512,6 +520,30 @@ def dedupe_and_qc(rows):
     output = sorted(unique.values(), key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
     verify.annotate_quality_flags(output)
     return output
+
+
+def apply_station_suspect_days(rows, quarantine):
+    """Flag valid station rows within one day of an impossible source reading."""
+    suspect = set()
+    for day_text, reasons in quarantine.station_reasons_by_day.items():
+        stations = reasons.get("impossible_temperature", set())
+        if not stations:
+            continue
+        incident = date.fromisoformat(day_text)
+        for offset in (-1, 0, 1):
+            target = (incident + timedelta(days=offset)).isoformat()
+            suspect.update((station_id, target) for station_id in stations)
+    flagged = 0
+    for row in rows:
+        key = (row.get("identity"), row["observed"].date().isoformat())
+        if key not in suspect:
+            continue
+        flags = row.setdefault("qualityFlags", [])
+        if "station_suspect_day" not in flags:
+            flags.append("station_suspect_day")
+            flags.sort()
+            flagged += 1
+    return flagged
 
 
 def nearest_observations(rows, target):
@@ -950,7 +982,9 @@ def build_pairs(day, observations, sampler):
                         "windOffsetMinutes": wind_offset * 60 if wind_ok else None,
                         "pairStatus": pair_status, "forecastF": model_f,
                         "sampleMethod": sample_method,
-                        "strict": observation.get("waterQuality") in ("good", "provider_qc") and depth_m <= 3,
+                        "strict": (observation.get("waterQuality") in ("good", "provider_qc")
+                                   and depth_m <= 3
+                                   and "station_suspect_day" not in observation.get("qualityFlags", [])),
                     })
     return pairs
 
@@ -968,10 +1002,12 @@ def quarantine_summary(records, dropped=None):
         quarantined += 1
         for reason in row_reasons:
             reasons[reason] += 1
-    for reason, count in (dropped or {}).items():
+    pause_dropped = {reason: count for reason, count in (dropped or {}).items()
+                     if reason != "impossible_temperature"}
+    for reason, count in pause_dropped.items():
         reasons[reason] += count
         quarantined += count
-    total = len(records) + sum((dropped or {}).values())
+    total = len(records) + sum(pause_dropped.values())
     return {"count": quarantined, "total": total,
             "fraction": quarantined / total if total else 0.0,
             "reasons": dict(sorted(reasons.items()))}
@@ -1022,14 +1058,19 @@ def save_checkpoint(path, checkpoint):
     path.write_text(json.dumps(checkpoint, indent=2, sort_keys=True) + "\n")
 
 
-def r2_backfill_partition_exists(s3, bucket, day_text):
-    prefix = f"{scorecard_store.PRIVATE_PREFIX}/samples/stream=backfill/date={day_text}/"
+def r2_done_marker_exists(s3, bucket, day_text):
+    key = scorecard_store.done_marker_key("backfill", day_text)
     try:
-        response = s3.list_objects_v2(Bucket=bucket, Prefix=prefix, MaxKeys=1)
+        s3.head_object(Bucket=bucket, Key=key)
+        return True
     except Exception as error:
+        response = getattr(error, "response", {}) or {}
+        code = str(response.get("Error", {}).get("Code", ""))
+        status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+        if code in {"404", "NoSuchKey", "NotFound"} or status == 404:
+            return False
         print(f"Backfill R2 lookup failed count=1 category={type(error).__name__}")
-        raise RuntimeError("R2 backfill partition lookup failed") from None
-    return bool(response.get("Contents"))
+        raise RuntimeError("R2 backfill marker lookup failed") from None
 
 
 def pause_backfill(path, checkpoint, day_text, reason, **details):
@@ -1072,18 +1113,24 @@ def main(argv=None):
     datasets, parameters, coops = load_catalogs(root)
     start = datetime.combine(args.start, datetime.min.time(), UTC)
     end = datetime.combine(args.end + timedelta(days=1), datetime.min.time(), UTC) - timedelta(microseconds=1)
+    collection_start = start - timedelta(days=1)
+    collection_end = end + timedelta(days=1)
     cache = PublicCache(args.cache / "sources")
     sources = {item.strip() for item in args.sources.split(",") if item.strip()}
     observations = []
     source_quarantine = SourceQuarantine()
     if "ndbc" in sources:
-        observations += collect_ndbc(cache, start, end, datasets, source_quarantine)
+        observations += collect_ndbc(cache, collection_start, collection_end, datasets, source_quarantine)
     if "glos" in sources:
-        observations += collect_glos(cache, start, end, datasets, parameters, source_quarantine)
+        observations += collect_glos(cache, collection_start, collection_end, datasets, parameters,
+                                    source_quarantine)
     if "coops" in sources:
-        observations += collect_coops(cache, start, end, coops, source_quarantine)
+        observations += collect_coops(cache, collection_start, collection_end, coops,
+                                     source_quarantine)
     observations = dedupe_and_qc(observations)
+    suspect_observations = apply_station_suspect_days(observations, source_quarantine)
     print(f"Backfill observations={len(observations)} sensors={len({(r['identity'], r['depthKey']) for r in observations})}")
+    print(f"Backfill station_suspect observations={suspect_observations}")
     sampler = PublicModelSampler(args.cache / "models")
     checkpoint_path = args.cache / "checkpoint.json"
     checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else {"completed": []}
@@ -1107,14 +1154,14 @@ def main(argv=None):
     sample_methods = defaultdict(int)
     for day in daterange(args.start, args.end):
         day_text = day.isoformat()
-        if args.skip_existing_r2 and r2_backfill_partition_exists(s3, r2_bucket, day_text):
+        if args.skip_existing_r2 and r2_done_marker_exists(s3, r2_bucket, day_text):
             print(f"Backfill day={day_text} status=r2_skip")
             continue
         if args.store and day_text in checkpoint.get("completed", []):
             print(f"Backfill day={day_text} status=checkpoint_skip")
             continue
         pairs = build_pairs(day, observations, sampler)
-        evidence = {"methodologyVersion": "public-scorecard-backfill-v1", "primaryPairs": pairs}
+        evidence = {"methodologyVersion": METHODOLOGY_VERSION, "primaryPairs": pairs}
         body = json.dumps(evidence, separators=(",", ":"), sort_keys=True).encode()
         digest = hashlib.sha256(body).hexdigest()
         records = scorecard.records_from_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest)
@@ -1169,6 +1216,16 @@ def main(argv=None):
                 pause_backfill(checkpoint_path, checkpoint, day_text, "parquet_count_mismatch",
                                confirmed=manifest.get("rowCount", 0), expected=len(records))
                 print(f"Backfill day={day_text} status=degraded category=parquet_count_mismatch")
+                return 3
+            try:
+                scorecard_store.write_done_marker(
+                    manifest, METHODOLOGY_VERSION, CODE_VERSION, s3=s3,
+                    environment=environment,
+                )
+            except Exception as error:
+                pause_backfill(checkpoint_path, checkpoint, day_text, "done_marker_failure",
+                               category=type(error).__name__, expected=len(records))
+                print(f"Backfill day={day_text} status=degraded category=done_marker_failure")
                 return 3
             checkpoint.setdefault("completed", []).append(day_text)
             checkpoint["completed"] = sorted(set(checkpoint["completed"]))

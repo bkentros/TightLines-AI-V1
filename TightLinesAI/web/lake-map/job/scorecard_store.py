@@ -113,6 +113,12 @@ def fragment_key(stream: str, day: str, digest: str) -> str:
     return f"{PRIVATE_PREFIX}/samples/stream={stream}/date={day}/{digest[:24]}.parquet"
 
 
+def done_marker_key(stream: str, day: str) -> str:
+    if stream not in {"live", "backfill"}:
+        raise ValueError("scorecard stream must be live or backfill")
+    return f"{PRIVATE_PREFIX}/samples/stream={stream}/_done/date={day}.json"
+
+
 def write_fragment(records: list[dict], stream: str, day: str, evidence_sha256: str,
                    s3=None, environment=None) -> dict:
     """Write one immutable local Parquet fragment and optionally mirror it to R2."""
@@ -157,12 +163,46 @@ def write_fragment(records: list[dict], stream: str, day: str, evidence_sha256: 
     sidecar.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n")
     if s3 is not None:
         from lakemap import store
+        manifest_body = json.dumps(manifest, separators=(",", ":"), sort_keys=True).encode()
+        manifest_key = key.removesuffix(".parquet") + ".manifest.json"
         s3.put_object(
-            Bucket=store.bucket(), Key=key.removesuffix(".parquet") + ".manifest.json",
-            Body=json.dumps(manifest, separators=(",", ":"), sort_keys=True).encode(),
+            Bucket=store.bucket(), Key=manifest_key, Body=manifest_body,
             ContentType="application/json", CacheControl="private, no-store",
         )
+        readback = s3.get_object(Bucket=store.bucket(), Key=manifest_key)["Body"].read()
+        if readback != manifest_body:
+            raise RuntimeError("R2 scorecard manifest verification failed")
     return manifest
+
+
+def write_done_marker(manifest: dict, methodology_version: str, code_version: str,
+                      s3, environment=None) -> dict:
+    """Write and verify the deterministic completion marker after both data objects exist."""
+    if manifest.get("stream") != "backfill":
+        raise ValueError("done markers are only supported for backfill fragments")
+    fragment = manifest["key"]
+    sidecar = fragment.removesuffix(".parquet") + ".manifest.json"
+    marker = {
+        "date": manifest["date"],
+        "fragmentKey": fragment,
+        "manifestKey": sidecar,
+        "rowCount": int(manifest["rowCount"]),
+        "digest": manifest["evidenceSha256"],
+        "methodologyVersion": methodology_version,
+        "codeVersion": code_version,
+    }
+    body = json.dumps(marker, separators=(",", ":"), sort_keys=True).encode()
+    from lakemap import store
+    bucket = (environment or {}).get("R2_BUCKET") or store.bucket()
+    key = done_marker_key("backfill", manifest["date"])
+    s3.put_object(
+        Bucket=bucket, Key=key, Body=body,
+        ContentType="application/json", CacheControl="private, no-store",
+    )
+    readback = s3.get_object(Bucket=bucket, Key=key)["Body"].read()
+    if readback != body:
+        raise RuntimeError("R2 scorecard done marker verification failed")
+    return marker
 
 
 def parquet_paths(path: Path) -> list[Path]:

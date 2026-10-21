@@ -34,6 +34,14 @@ class FakeSampler:
         return {node: [20.0 - value * 0.25 for value in range(20)] for node in nodes} if self.available else {}
 
 
+class NotFound(Exception):
+    def __init__(self):
+        self.response = {
+            "Error": {"Code": "404"},
+            "ResponseMetadata": {"HTTPStatusCode": 404},
+        }
+
+
 def observation(depth, parameter):
     observed = datetime(2026, 10, 1, tzinfo=timezone.utc)
     return backfill._observation(
@@ -105,12 +113,7 @@ class PublicBackfillTest(unittest.TestCase):
 
     def test_skip_existing_r2_works_without_local_checkpoint(self):
         s3 = mock.Mock()
-        s3.list_objects_v2.return_value = {
-            "Contents": [{
-                "Key": "private/scorecard/v1/samples/stream=backfill/"
-                       "date=2023-11-20/existing.parquet",
-            }],
-        }
+        s3.head_object.return_value = {}
         with tempfile.TemporaryDirectory() as temporary, \
                 mock.patch.dict(os.environ, {
                     "R2_ACCOUNT_ID": "account", "R2_ACCESS_KEY_ID": "access",
@@ -127,12 +130,40 @@ class PublicBackfillTest(unittest.TestCase):
             ])
         self.assertEqual(result, 0)
         self.assertIn("day=2023-11-20 status=r2_skip", output.getvalue())
-        s3.list_objects_v2.assert_called_once_with(
+        s3.head_object.assert_called_once_with(
             Bucket="test-bucket",
-            Prefix="private/scorecard/v1/samples/stream=backfill/date=2023-11-20/",
-            MaxKeys=1,
+            Key="private/scorecard/v1/samples/stream=backfill/_done/date=2023-11-20.json",
         )
         write_fragment.assert_not_called()
+
+    def test_absent_r2_marker_processes_day(self):
+        s3 = mock.Mock()
+        s3.head_object.side_effect = NotFound()
+        manifest = {
+            "stream": "backfill", "date": "2023-11-21", "rowCount": 0,
+            "evidenceSha256": "a" * 64,
+            "key": "private/scorecard/v1/samples/stream=backfill/date=2023-11-21/a.parquet",
+        }
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.dict(os.environ, {
+                    "R2_ACCOUNT_ID": "account", "R2_ACCESS_KEY_ID": "access",
+                    "R2_SECRET_ACCESS_KEY": "secret", "R2_BUCKET": "test-bucket",
+                }, clear=False), \
+                mock.patch.object(backfill, "load_catalogs", return_value=({}, {}, {})), \
+                mock.patch.object(backfill, "PublicModelSampler"), \
+                mock.patch("lakemap.store.client", return_value=s3), \
+                mock.patch.object(backfill.scorecard_store, "write_fragment",
+                                  return_value=manifest) as write_fragment, \
+                mock.patch.object(backfill.scorecard_store, "write_done_marker") as marker, \
+                redirect_stdout(io.StringIO()) as output:
+            result = backfill.main([
+                "--start", "2023-11-21", "--end", "2023-11-21",
+                "--cache", temporary, "--sources", "", "--store", "--skip-existing-r2",
+            ])
+        self.assertEqual(result, 0)
+        self.assertIn("day=2023-11-21 status=stored records=0", output.getvalue())
+        write_fragment.assert_called_once()
+        marker.assert_called_once()
 
     def test_glos_kelvin_and_celsius_fill_values_are_provider_missing(self):
         for value in (-999.0, -9999.0, 999.0, 9999.0,
@@ -233,9 +264,110 @@ class PublicBackfillTest(unittest.TestCase):
     def test_quarantine_summary_counts_rows_without_dumping_source_values(self):
         records = [{"quality_flags": ["invalid_position"]}, {"quality_flags": []}]
         self.assertEqual(backfill.quarantine_summary(records, {"impossible_temperature": 1}), {
-            "count": 2, "total": 3, "fraction": 2 / 3,
-            "reasons": {"impossible_temperature": 1, "invalid_position": 1},
+            "count": 1, "total": 2, "fraction": 1 / 2,
+            "reasons": {"invalid_position": 1},
         })
+
+    def test_impossible_reading_flags_station_three_day_window_without_pause(self):
+        incident = date(2026, 10, 2)
+        rows = []
+        for day in (incident - backfill.timedelta(days=1), incident,
+                    incident + backfill.timedelta(days=1)):
+            for station in ("glos:suspect", "glos:other"):
+                row = observation(1.0, 1)
+                row.update({
+                    "identity": station, "id": station,
+                    "observed": datetime.combine(day, datetime.min.time(), timezone.utc),
+                    "waterTime": datetime.combine(day, datetime.min.time(), timezone.utc)
+                    .isoformat().replace("+00:00", "Z"),
+                    "firstCollected": datetime.combine(day, datetime.min.time(), timezone.utc),
+                })
+                rows.append(row)
+        ledger = backfill.SourceQuarantine()
+        ledger.add(
+            "impossible_temperature",
+            datetime.combine(incident, datetime.min.time(), timezone.utc),
+            "glos", "moored_buoy", "glos:suspect",
+        )
+        self.assertEqual(backfill.apply_station_suspect_days(rows, ledger), 3)
+        suspect = [row for row in rows if row["identity"] == "glos:suspect"]
+        other = [row for row in rows if row["identity"] == "glos:other"]
+        self.assertTrue(all("station_suspect_day" in row["qualityFlags"] for row in suspect))
+        self.assertTrue(all("station_suspect_day" not in row["qualityFlags"] for row in other))
+        pairs = backfill.build_pairs(incident, rows, FakeSampler())
+        suspect_pairs = [pair for pair in pairs if pair["station"] == "glos:suspect"]
+        self.assertTrue(suspect_pairs)
+        self.assertTrue(all(not pair["strict"] for pair in suspect_pairs))
+        records = scorecard.records_from_evidence({
+            "methodologyVersion": backfill.METHODOLOGY_VERSION, "primaryPairs": pairs,
+        })
+        summary = backfill.quarantine_summary(records, ledger.day(incident.isoformat()))
+        self.assertEqual(summary["count"], 0)
+        self.assertLessEqual(summary["fraction"], backfill.MAX_QUARANTINE_FRACTION)
+
+    def test_station_suspect_day_stores_and_collection_is_padded(self):
+        target = date(2026, 10, 2)
+        captured = {}
+
+        def collect(_cache, start, end, _datasets, _parameters, quarantine):
+            self.assertEqual(start.date(), target - backfill.timedelta(days=1))
+            self.assertEqual(end.date(), target + backfill.timedelta(days=1))
+            quarantine.add(
+                "impossible_temperature",
+                datetime.combine(target, datetime.min.time(), timezone.utc),
+                "glos", "moored_buoy", "glos:suspect",
+            )
+            rows = []
+            for station in ("glos:suspect", "glos:other"):
+                row = observation(1.0, 1)
+                observed = datetime.combine(target, datetime.min.time(), timezone.utc)
+                row.update({
+                    "identity": station, "id": station, "observed": observed,
+                    "waterTime": observed.isoformat().replace("+00:00", "Z"),
+                    "firstCollected": observed,
+                })
+                rows.append(row)
+            return rows
+
+        def write_fragment(records, stream, day, digest, **_kwargs):
+            captured["records"] = records
+            return {
+                "stream": stream, "date": day, "rowCount": len(records),
+                "evidenceSha256": digest,
+                "key": f"private/scorecard/v1/samples/stream=backfill/date={day}/x.parquet",
+            }
+
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.dict(os.environ, {
+                    "R2_ACCOUNT_ID": "account", "R2_ACCESS_KEY_ID": "access",
+                    "R2_SECRET_ACCESS_KEY": "secret", "R2_BUCKET": "test-bucket",
+                }, clear=False), \
+                mock.patch.object(backfill, "load_catalogs", return_value=({}, {}, [])), \
+                mock.patch.object(backfill, "collect_glos", side_effect=collect), \
+                mock.patch.object(backfill, "PublicModelSampler", return_value=FakeSampler()), \
+                mock.patch("lakemap.store.client", return_value=mock.Mock()), \
+                mock.patch.object(backfill.scorecard_store, "write_fragment",
+                                  side_effect=write_fragment), \
+                mock.patch.object(backfill.scorecard_store, "write_done_marker") as marker, \
+                redirect_stdout(io.StringIO()) as output:
+            result = backfill.main([
+                "--start", target.isoformat(), "--end", target.isoformat(),
+                "--cache", temporary, "--sources", "glos", "--store",
+            ])
+        self.assertEqual(result, 0)
+        self.assertIn(f"day={target} status=stored", output.getvalue())
+        by_station = {record["station_id"]: record for record in captured["records"]}
+        self.assertIn("station_suspect_day", by_station["glos:suspect"]["quality_flags"])
+        self.assertFalse(by_station["glos:suspect"]["strict_quality"])
+        self.assertNotIn("station_suspect_day", by_station["glos:other"]["quality_flags"])
+        marker.assert_called_once()
+
+    def test_unrelated_failure_over_two_percent_still_pauses(self):
+        records = ([{"quality_flags": []} for _ in range(97)] +
+                   [{"quality_flags": ["invalid_position"]} for _ in range(3)])
+        summary = backfill.quarantine_summary(records)
+        self.assertEqual(summary["fraction"], 0.03)
+        self.assertGreater(summary["fraction"], backfill.MAX_QUARANTINE_FRACTION)
 
     def test_quarantine_report_summary_is_aggregate_and_ranked(self):
         records = [{
