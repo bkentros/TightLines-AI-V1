@@ -25,6 +25,7 @@ jobs:
           python - <<'PY'
           import json
           import os
+          from datetime import datetime
 
           import boto3
           from botocore.config import Config
@@ -70,14 +71,19 @@ jobs:
           if len(keys) != 2 or not same_stem:
               raise SystemExit("Unexpected keys; refusing deletion")
           manifest = json.loads(s3.get_object(Bucket=bucket, Key=manifests[0])["Body"].read())
-          metadata = s3.head_object(Bucket=bucket, Key=parquet[0]).get("Metadata", {})
+          head = s3.head_object(Bucket=bucket, Key=parquet[0])
+          metadata = head.get("Metadata", {})
+          run_start = datetime.fromisoformat("2026-10-21T00:40:27+00:00")
+          run_end = datetime.fromisoformat("2026-10-21T00:49:06+00:00")
+          written_at = datetime.fromisoformat(str(manifest.get("writtenAt", "")).replace("Z", "+00:00"))
           expected = (
               manifest.get("stream") == "backfill" and
               manifest.get("date") == "2023-11-20" and
               manifest.get("rowCount") == 595 and
               manifest.get("key") == parquet[0] and
               str(metadata.get("rows")) == "595" and
-              str(manifest.get("writtenAt", "")).startswith("2026-10-21T00:49:")
+              run_start <= written_at <= run_end and
+              run_start <= head["LastModified"] <= run_end
           )
           if not expected:
               raise SystemExit("Object metadata did not match Actions run 39522732016; refusing deletion")
