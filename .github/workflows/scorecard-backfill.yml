@@ -35,9 +35,6 @@ jobs:
     defaults:
       run:
         working-directory: TightLinesAI/web/lake-map
-    env:
-      SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-store
-      SCORECARD_BACKFILL_CACHE: ${{ runner.temp }}/scorecard-cache
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,6 +48,8 @@ jobs:
         id: backfill
         shell: bash
         env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-store
+          SCORECARD_BACKFILL_CACHE: ${{ runner.temp }}/scorecard-cache
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
