@@ -43,7 +43,9 @@ jobs:
           cache: pip
           cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
       - name: Install
-        run: pip install -r job/requirements.txt
+        run: |
+          pip install -r job/requirements.txt
+          pip install "s3fs>=2024.6"
       - name: Run scorecard backfill
         id: backfill
         shell: bash
