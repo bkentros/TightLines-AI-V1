@@ -65,12 +65,20 @@ class PublicBackfillTest(unittest.TestCase):
         self.assertTrue(stream.closed)
 
     def test_grid_reads_classic_netcdf_variables(self):
+        class ClassicVariable:
+            def __init__(self, values):
+                self.values = backfill.np.asarray(values)
+
+            def __getitem__(self, key):
+                return self.values[key]
+
         sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)
         sampler.grids = {}
         dataset = mock.Mock(spec=["variables", "close"])
         dataset.variables = {
-            "lat": [43.0], "lon": [-86.0], "h": [10.0],
-            "siglay": [[-0.25], [-0.75]],
+            "lat": ClassicVariable([43.0]), "lon": ClassicVariable([-86.0]),
+            "h": ClassicVariable([10.0]),
+            "siglay": ClassicVariable([[-0.25], [-0.75]]),
         }
         stream = io.BytesIO(b"CDF\x01")
         sampler._open = mock.Mock(return_value=(stream, dataset))

@@ -696,17 +696,17 @@ class PublicModelSampler:
                 return None
             try:
                 if kind == "regulargrid":
-                    lat = np.asarray(self._variable(dataset, "Latitude"), dtype=np.float64).reshape(-1)
-                    lon = np.asarray(self._variable(dataset, "Longitude"), dtype=np.float64).reshape(-1)
-                    bottom = np.asarray(self._variable(dataset, "h"), dtype=np.float64).reshape(-1)
-                    sigma = np.asarray(self._variable(dataset, "Depth"), dtype=np.float64)
-                    mask = np.asarray(self._variable(dataset, "mask"), dtype=np.float64).reshape(-1)
+                    lat = np.asarray(self._variable(dataset, "Latitude")[:], dtype=np.float64).reshape(-1)
+                    lon = np.asarray(self._variable(dataset, "Longitude")[:], dtype=np.float64).reshape(-1)
+                    bottom = np.asarray(self._variable(dataset, "h")[:], dtype=np.float64).reshape(-1)
+                    sigma = np.asarray(self._variable(dataset, "Depth")[:], dtype=np.float64)
+                    mask = np.asarray(self._variable(dataset, "mask")[:], dtype=np.float64).reshape(-1)
                     bottom = np.where(mask > 0, bottom, np.nan)
                 else:
-                    lat = np.asarray(self._variable(dataset, "lat"), dtype=np.float64)
-                    lon = np.asarray(self._variable(dataset, "lon"), dtype=np.float64)
-                    bottom = np.asarray(self._variable(dataset, "h"), dtype=np.float64)
-                    sigma = np.asarray(self._variable(dataset, "siglay"), dtype=np.float64)
+                    lat = np.asarray(self._variable(dataset, "lat")[:], dtype=np.float64)
+                    lon = np.asarray(self._variable(dataset, "lon")[:], dtype=np.float64)
+                    bottom = np.asarray(self._variable(dataset, "h")[:], dtype=np.float64)
+                    sigma = np.asarray(self._variable(dataset, "siglay")[:], dtype=np.float64)
                 lon = np.where(lon > 180, lon - 360, lon)
             finally:
                 dataset.close(); stream.close()
