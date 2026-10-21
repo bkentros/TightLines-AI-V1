@@ -64,6 +64,37 @@ class PublicBackfillTest(unittest.TestCase):
         self.assertEqual(sampler._open("bad.nc"), (None, None))
         self.assertTrue(stream.closed)
 
+    def test_grid_reads_classic_netcdf_variables(self):
+        sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)
+        sampler.grids = {}
+        dataset = mock.Mock(spec=["variables", "close"])
+        dataset.variables = {
+            "lat": [43.0], "lon": [-86.0], "h": [10.0],
+            "siglay": [[-0.25], [-0.75]],
+        }
+        stream = io.BytesIO(b"CDF\x01")
+        sampler._open = mock.Mock(return_value=(stream, dataset))
+        with tempfile.TemporaryDirectory() as temporary:
+            sampler.cache_root = Path(temporary)
+            grid = sampler.grid("lmofs", datetime(2024, 5, 1, tzinfo=timezone.utc))
+        self.assertEqual(grid["bottom"].tolist(), [10.0])
+        dataset.close.assert_called_once_with()
+        self.assertTrue(stream.closed)
+
+    def test_profiles_read_classic_netcdf_variables(self):
+        sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)
+        sampler.source_kind = mock.Mock(return_value="native")
+        dataset = mock.Mock(spec=["variables", "close"])
+        dataset.variables = {"temp": backfill.np.asarray([[[4.0], [5.0]]])}
+        stream = io.BytesIO(b"CDF\x01")
+        sampler._open = mock.Mock(return_value=(stream, dataset))
+        result = sampler.profiles(
+            "lmofs", datetime(2024, 5, 1, tzinfo=timezone.utc), 0, {0},
+        )
+        self.assertEqual(result[0].tolist(), [4.0, 5.0])
+        dataset.close.assert_called_once_with()
+        self.assertTrue(stream.closed)
+
     def test_skip_existing_r2_works_without_local_checkpoint(self):
         s3 = mock.Mock()
         s3.list_objects_v2.return_value = {

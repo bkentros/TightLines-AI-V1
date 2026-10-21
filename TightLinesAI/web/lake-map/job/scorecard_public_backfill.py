@@ -696,17 +696,17 @@ class PublicModelSampler:
                 return None
             try:
                 if kind == "regulargrid":
-                    lat = np.asarray(dataset["Latitude"], dtype=np.float64).reshape(-1)
-                    lon = np.asarray(dataset["Longitude"], dtype=np.float64).reshape(-1)
-                    bottom = np.asarray(dataset["h"], dtype=np.float64).reshape(-1)
-                    sigma = np.asarray(dataset["Depth"], dtype=np.float64)
-                    mask = np.asarray(dataset["mask"], dtype=np.float64).reshape(-1)
+                    lat = np.asarray(self._variable(dataset, "Latitude"), dtype=np.float64).reshape(-1)
+                    lon = np.asarray(self._variable(dataset, "Longitude"), dtype=np.float64).reshape(-1)
+                    bottom = np.asarray(self._variable(dataset, "h"), dtype=np.float64).reshape(-1)
+                    sigma = np.asarray(self._variable(dataset, "Depth"), dtype=np.float64)
+                    mask = np.asarray(self._variable(dataset, "mask"), dtype=np.float64).reshape(-1)
                     bottom = np.where(mask > 0, bottom, np.nan)
                 else:
-                    lat = np.asarray(dataset["lat"], dtype=np.float64)
-                    lon = np.asarray(dataset["lon"], dtype=np.float64)
-                    bottom = np.asarray(dataset["h"], dtype=np.float64)
-                    sigma = np.asarray(dataset["siglay"], dtype=np.float64)
+                    lat = np.asarray(self._variable(dataset, "lat"), dtype=np.float64)
+                    lon = np.asarray(self._variable(dataset, "lon"), dtype=np.float64)
+                    bottom = np.asarray(self._variable(dataset, "h"), dtype=np.float64)
+                    sigma = np.asarray(self._variable(dataset, "siglay"), dtype=np.float64)
                 lon = np.where(lon > 180, lon - 360, lon)
             finally:
                 dataset.close(); stream.close()
@@ -834,14 +834,15 @@ class PublicModelSampler:
             return {}
         ordered = sorted(set(nodes))
         try:
+            temperature = self._variable(dataset, "temp")
             if kind == "regulargrid":
-                width = dataset["temp"].shape[3]
+                width = temperature.shape[3]
                 values = np.column_stack([
-                    np.asarray(dataset["temp"][0, :, node // width, node % width], dtype=np.float64)
+                    np.asarray(temperature[0, :, node // width, node % width], dtype=np.float64)
                     for node in ordered
                 ])
             else:
-                values = np.asarray(dataset["temp"][0, :, ordered], dtype=np.float64)
+                values = np.asarray(temperature[0, :, ordered], dtype=np.float64)
         except Exception:
             return {}
         finally:
