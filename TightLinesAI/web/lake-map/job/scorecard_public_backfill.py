@@ -18,6 +18,7 @@ import json
 import math
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.error
@@ -56,8 +57,7 @@ LEADS = (0, 24, 72, 120)
 CYCLES = (0, 12)
 MAX_OFFSET_MINUTES = 30
 MAX_QUARANTINE_FRACTION = 0.02
-METHODOLOGY_VERSION = "public-scorecard-backfill-v1"
-CODE_VERSION = "station-suspect-day-v1"
+METHODOLOGY_VERSION = "public-scorecard-backfill-v2"
 USER_AGENT = "FinFindr-scorecard-backfill/1.0 (+https://finfindr.app)"
 GLOS_BASE_MISSING_TEMPERATURE_SENTINELS = frozenset({-999.0, -9999.0, 999.0, 9999.0})
 GLOS_MISSING_TEMPERATURE_SENTINELS = frozenset(
@@ -118,6 +118,53 @@ class SourceQuarantine:
         return set(self.station_reasons_by_day.get(value, {}).get(reason, set()))
 
 
+class SourceAccounting:
+    """Bounded station/day transport accounting; never retains source values."""
+
+    SOURCES = ("ndbc", "coops", "glos")
+
+    def __init__(self):
+        self._days = defaultdict(lambda: defaultdict(lambda: {
+            "attempted": set(), "withData": set(), "errors": set(),
+        }))
+
+    @staticmethod
+    def _dates(start, end):
+        cursor = start.date()
+        while cursor <= end.date():
+            yield cursor.isoformat()
+            cursor += timedelta(days=1)
+
+    def attempt(self, source, station, start, end):
+        for day_text in self._dates(start, end):
+            self._days[day_text][source]["attempted"].add(str(station))
+
+    def data(self, source, station, observed):
+        self._days[observed.date().isoformat()][source]["withData"].add(str(station))
+
+    def error(self, source, station, start, end):
+        for day_text in self._dates(start, end):
+            self._days[day_text][source]["errors"].add(str(station))
+
+    def summary(self, day_text):
+        result = {}
+        for source in self.SOURCES:
+            state = self._days[day_text][source]
+            attempted = state["attempted"]
+            with_data = state["withData"]
+            errors = state["errors"]
+            result[source] = {
+                "attempted": len(attempted),
+                "withData": len(with_data),
+                "empty": len(attempted - with_data - errors),
+                "errors": len(errors),
+            }
+        return result
+
+    def has_errors(self, day_text):
+        return any(item["errors"] for item in self.summary(day_text).values())
+
+
 def iso(value):
     return value.astimezone(UTC).isoformat().replace("+00:00", "Z")
 
@@ -148,6 +195,22 @@ def read_env(path):
     return values
 
 
+def producer_revision():
+    candidate = os.environ.get("GITHUB_SHA", "").strip().lower()
+    if re.fullmatch(r"[0-9a-f]{40}", candidate):
+        return candidate
+    try:
+        candidate = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=Path(__file__).resolve().parents[4],
+            text=True, stderr=subprocess.DEVNULL,
+        ).strip().lower()
+    except (OSError, subprocess.SubprocessError):
+        candidate = ""
+    if not re.fullmatch(r"[0-9a-f]{40}", candidate):
+        raise RuntimeError("scorecard backfill requires a git commit revision")
+    return candidate
+
+
 def _json_export(text, name, next_name=None):
     end = rf";\s*export const {next_name}" if next_name else r";?\s*$"
     match = re.search(rf"export const {name}=(\{{.*?\}}){end}", text, re.S)
@@ -172,22 +235,55 @@ class PublicCache:
     def __init__(self, root):
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
+        self.outcomes = {}
 
     def get(self, name, url, timeout=90, quiet=False):
         path = self.root / name
         if path.exists() and path.stat().st_size:
+            self.outcomes[name] = {"status": 200, "error": False, "notFound": False}
             return path.read_bytes()
         request = urllib.request.Request(url, headers={"user-agent": USER_AGENT})
-        try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
-                body = response.read()
-        except Exception as error:
-            category = scorecard._failure_category(error=error)
+        body = None
+        last_error = None
+        for attempt in range(3):
+            try:
+                with urllib.request.urlopen(request, timeout=timeout) as response:
+                    body = response.read()
+                    self.outcomes[name] = {
+                        "status": int(getattr(response, "status", 200)),
+                        "error": False, "notFound": False,
+                    }
+                    break
+            except urllib.error.HTTPError as error:
+                if error.code == 404:
+                    self.outcomes[name] = {"status": 404, "error": False, "notFound": True}
+                    return None
+                detail = error.read(2048) if error.code == 400 else b""
+                if error.code == 400 and b"Unrecognized variable" in detail:
+                    # GLOS's live registry can retain retired parameters after the
+                    # corresponding ERDDAP column disappears. That station/parameter
+                    # is legitimately empty, not a transport or parse failure.
+                    self.outcomes[name] = {"status": 400, "error": False, "notFound": True}
+                    return None
+                last_error = error
+                if 400 <= error.code < 500:
+                    break
+            except Exception as error:
+                last_error = error
+            if attempt < 2:
+                time.sleep(1 + attempt)
+        if body is None:
+            category = scorecard._failure_category(error=last_error)
+            self.outcomes[name] = {"status": None, "error": True, "notFound": False,
+                                   "category": category}
             if not quiet:
                 print(f"Backfill source unavailable count=1 category={category}")
             return None
         path.write_bytes(body)
         return body
+
+    def outcome(self, name):
+        return self.outcomes.get(name, {"status": None, "error": True, "notFound": False})
 
 
 def _observation(identity, name, source, body, kind, lat, lon, observed, water_f,
@@ -252,10 +348,12 @@ def _ndbc_sources(station, start, end, today=None):
     return sources
 
 
-def collect_ndbc(cache, start, end, datasets, quarantine=None):
+def collect_ndbc(cache, start, end, datasets, quarantine=None, accounting=None):
     quarantine = quarantine or SourceQuarantine()
+    accounting = accounting or SourceAccounting()
+    metadata_name = "ndbc-stationmetadata.xml"
     metadata_body = cache.get(
-        "ndbc-stationmetadata.xml",
+        metadata_name,
         "https://www.ndbc.noaa.gov/metadata/stationmetadata.xml",
     )
     position_history = defaultdict(list)
@@ -275,7 +373,9 @@ def collect_ndbc(cache, start, end, datasets, quarantine=None):
                     if math.isfinite(latitude) and math.isfinite(longitude):
                         position_history[station_id].append((start_at, stop_at, latitude, longitude))
         except ET.ParseError:
-            pass
+            accounting.error("ndbc", "metadata", start, end)
+    elif cache.outcome(metadata_name).get("error"):
+        accounting.error("ndbc", "metadata", start, end)
 
     def position(station_id, observed):
         for start_at, stop_at, latitude, longitude in position_history.get(station_id, []):
@@ -292,24 +392,33 @@ def collect_ndbc(cache, start, end, datasets, quarantine=None):
         meta = by_external.get(station)
         if not meta or meta.get("body") not in MODELS:
             continue
+        accounting.attempt("ndbc", station, start, end)
         sources = _ndbc_sources(station, start, end)
         for cache_name, url in sources:
             body = cache.get(cache_name, url, quiet=True)
             if not body:
+                if cache.outcome(cache_name).get("error"):
+                    accounting.error("ndbc", station, start, end)
                 continue
             if cache_name.endswith(".txt.gz") and body[:2] != b"\x1f\x8b":
                 # Some legacy NDBC form URLs return an HTML selection page with
                 # HTTP 200. It is not source data and must not enter quarantine.
+                accounting.error("ndbc", station, start, end)
                 continue
             try:
                 text = gzip.decompress(body).decode("utf-8", "replace") if body[:2] == b"\x1f\x8b" else body.decode("utf-8", "replace")
             except (OSError, UnicodeError):
+                accounting.error("ndbc", station, start, end)
                 continue
             lines = text.splitlines()
             if len(lines) < 3:
+                accounting.error("ndbc", station, start, end)
                 continue
             headers = lines[0].lstrip("#").split()
-            index = {name: headers.index(name) for name in headers}
+            index = {name: offset for offset, name in enumerate(headers)}
+            if not all(name in index for name in ("YY", "MM", "DD", "hh", "mm", "WTMP")):
+                accounting.error("ndbc", station, start, end)
+                continue
             for line in lines[2:]:
                 values = line.split()
                 try:
@@ -355,12 +464,16 @@ def collect_ndbc(cache, start, end, datasets, quarantine=None):
                     quality="provider_qc", wind=wind,
                     quality_flags=["missing_position"] if latitude is None or longitude is None else None,
                 ))
+                accounting.data("ndbc", station, observed)
     return rows
 
 
-def collect_coops(cache, start, end, stations, quarantine=None):
+def collect_coops(cache, start, end, stations, quarantine=None, accounting=None):
     quarantine = quarantine or SourceQuarantine()
+    accounting = accounting or SourceAccounting()
     rows = []
+    for station in stations:
+        accounting.attempt("coops", station["id"], start, end)
     cursor = start
     while cursor <= end:
         stop = min(end, cursor + timedelta(days=30) - timedelta(seconds=1))
@@ -374,10 +487,21 @@ def collect_coops(cache, start, end, stations, quarantine=None):
             name = f"coops-{station['id']}-{cursor:%Y%m%d}-{stop:%Y%m%d}.json"
             body = cache.get(name, f"https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?{query}")
             if not body:
+                if cache.outcome(name).get("error"):
+                    accounting.error("coops", station["id"], cursor, stop)
                 continue
             try:
                 payload = json.loads(body)
             except ValueError:
+                accounting.error("coops", station["id"], cursor, stop)
+                continue
+            if payload.get("error"):
+                message = str(payload["error"].get("message", payload["error"])).lower()
+                if "no data" not in message:
+                    accounting.error("coops", station["id"], cursor, stop)
+                continue
+            if not isinstance(payload.get("data", []), list):
+                accounting.error("coops", station["id"], cursor, stop)
                 continue
             for item in payload.get("data", []):
                 try:
@@ -413,22 +537,34 @@ def collect_coops(cache, start, end, stations, quarantine=None):
                     f"coops:{station['id']}", station["name"], "NOAA CO-OPS", station["body"], "fixed",
                     station["lat"], station["lon"], observed, water_c * 9 / 5 + 32, quality=quality,
                 ))
+                accounting.data("coops", station["id"], observed)
         cursor = stop + timedelta(seconds=1)
     return rows
 
 
-def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
+def collect_glos(cache, start, end, datasets, parameters, quarantine=None, accounting=None):
     quarantine = quarantine or SourceQuarantine()
-    latest = cache.get("glos-obs-latest.json", "https://seagull-api.glos.org/api/v2/obs-latest")
+    accounting = accounting or SourceAccounting()
+    latest_name = "glos-obs-latest.json"
+    latest = cache.get(latest_name, "https://seagull-api.glos.org/api/v2/obs-latest")
     if not latest:
+        accounting.attempt("glos", "catalog", start, end)
+        if cache.outcome(latest_name).get("error"):
+            accounting.error("glos", "catalog", start, end)
         return []
-    active = json.loads(latest)
+    try:
+        active = json.loads(latest)
+    except ValueError:
+        accounting.attempt("glos", "catalog", start, end)
+        accounting.error("glos", "catalog", start, end)
+        return []
     tasks = []
     for dataset_row in active:
         dataset_id = str(dataset_row.get("obs_dataset_id"))
         meta = datasets.get(dataset_id)
         if not meta:
             continue
+        accounting.attempt("glos", dataset_id, start, end)
         ids = sorted({str(group.get("parameter_id")) for group in dataset_row.get("parameters", [])})
         for parameter_id in ids:
             parameter = parameters.get(parameter_id)
@@ -451,14 +587,22 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
         range_key = f"{slice_start:%Y%m%d}-{slice_end:%Y%m%d}"
         body = cache.get(f"glos-{dataset_id}-{parameter_id}-{range_key}.csv", url,
                          timeout=180, quiet=True)
+        cache_name = f"glos-{dataset_id}-{parameter_id}-{range_key}.csv"
         if not body:
+            if cache.outcome(cache_name).get("error"):
+                accounting.error("glos", dataset_id, slice_start, slice_end)
             return []
-        parsed = list(csv.reader(io.StringIO(body.decode("utf-8", "replace"))))
+        try:
+            parsed = list(csv.reader(io.StringIO(body.decode("utf-8", "replace"))))
+        except (UnicodeError, csv.Error):
+            accounting.error("glos", dataset_id, slice_start, slice_end)
+            return []
         if len(parsed) < 3:
             return []
         header, units = parsed[0], parsed[1]
         columns = {name: index for index, name in enumerate(header)}
         if not all(name in columns for name in ("time", variable)):
+            accounting.error("glos", dataset_id, slice_start, slice_end)
             return []
         unit = units[columns[variable]].lower()
         output = []
@@ -501,6 +645,7 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
                 f"glos:{dataset_id}", meta["name"], "GLOS Seagull", meta["body"], meta["type"],
                 lat, lon, observed, water_c * 9 / 5 + 32, depth, parameter_id, "unknown",
             ))
+            accounting.data("glos", dataset_id, observed)
         return output
 
     rows = []
@@ -512,13 +657,108 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None):
     return rows
 
 
+SOURCE_PRIORITY = {"NOAA NDBC": 0, "NOAA CO-OPS": 1, "GLOS Seagull": 2}
+
+
+def _distance_km(left, right):
+    if any(row.get(key) is None for row in (left, right) for key in ("lat", "lon")):
+        return math.inf
+    lat1, lon1, lat2, lon2 = map(math.radians, (
+        left["lat"], left["lon"], right["lat"], right["lon"],
+    ))
+    value = (math.sin((lat2 - lat1) / 2) ** 2 +
+             math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2)
+    return 12742.0 * math.asin(math.sqrt(min(1.0, value)))
+
+
+def _same_depth(left, right):
+    first, second = left.get("waterDepthM"), right.get("waterDepthM")
+    if first is None or second is None:
+        return first is None and second is None
+    return abs(float(first) - float(second)) <= 0.05
+
+
+def _physical_identity(rows):
+    positioned = sorted((round(float(row["lat"]), 5), round(float(row["lon"]), 5))
+                        for row in rows if row.get("lat") is not None and row.get("lon") is not None)
+    depth = rows[0].get("waterDepthM")
+    anchor = positioned[0] if positioned else (None, None)
+    payload = f"{anchor[0]}|{anchor[1]}|{float(depth):.2f}" if depth is not None else f"{anchor[0]}|{anchor[1]}|unknown"
+    return "physical:" + hashlib.sha256(payload.encode()).hexdigest()[:20]
+
+
 def dedupe_and_qc(rows):
+    """Dedupe exact rows, then deterministic cross-network physical duplicates."""
     unique = {}
     for row in rows:
         key = (row["identity"], row.get("parameterId"), row["observed"], row["depthKey"], row["source"])
         unique[key] = row
-    output = sorted(unique.values(), key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
+    values = sorted(unique.values(), key=lambda item: (
+        SOURCE_PRIORITY.get(item["source"], 99), item["observed"], item["identity"],
+        str(item.get("parameterId")), item["depthKey"],
+    ))
+    buckets = defaultdict(list)
+    for index, row in enumerate(values):
+        if row.get("lat") is None or row.get("lon") is None:
+            continue
+        time_cell = int(row["observed"].timestamp() // (MAX_OFFSET_MINUTES * 60))
+        lat_cell = math.floor(float(row["lat"]) / 0.01)
+        lon_cell = math.floor(float(row["lon"]) / 0.01)
+        depth = "unknown" if row.get("waterDepthM") is None else round(float(row["waterDepthM"]), 1)
+        buckets[(time_cell, lat_cell, lon_cell, depth)].append(index)
+
+    removed = set()
+    contributors = {index: [row] for index, row in enumerate(values)}
+    for index, winner in enumerate(values):
+        if index in removed or winner.get("lat") is None or winner.get("lon") is None:
+            continue
+        priority = SOURCE_PRIORITY.get(winner["source"], 99)
+        time_cell = int(winner["observed"].timestamp() // (MAX_OFFSET_MINUTES * 60))
+        lat_cell = math.floor(float(winner["lat"]) / 0.01)
+        lon_cell = math.floor(float(winner["lon"]) / 0.01)
+        depth = "unknown" if winner.get("waterDepthM") is None else round(float(winner["waterDepthM"]), 1)
+        candidates = set()
+        for time_offset in (-1, 0, 1):
+            for lat_offset in (-1, 0, 1):
+                for lon_offset in (-2, -1, 0, 1, 2):
+                    candidates.update(buckets.get(
+                        (time_cell + time_offset, lat_cell + lat_offset,
+                         lon_cell + lon_offset, depth),
+                        (),
+                    ))
+        for candidate_index in sorted(candidates):
+            if candidate_index == index or candidate_index in removed:
+                continue
+            candidate = values[candidate_index]
+            candidate_priority = SOURCE_PRIORITY.get(candidate["source"], 99)
+            if candidate["source"] == winner["source"] or candidate_priority <= priority:
+                continue
+            if not _same_depth(winner, candidate):
+                continue
+            if abs((candidate["observed"] - winner["observed"]).total_seconds()) > MAX_OFFSET_MINUTES * 60:
+                continue
+            if _distance_km(winner, candidate) > 1.0:
+                continue
+            contributors[index].append(candidate)
+            removed.add(candidate_index)
+
+    output = []
+    for index, row in enumerate(values):
+        if index in removed:
+            continue
+        group = contributors[index]
+        networks = sorted({item["source"] for item in group},
+                          key=lambda value: (SOURCE_PRIORITY.get(value, 99), value))
+        row = dict(row)
+        row["source"] = " + ".join(networks)
+        row["physicalIdentity"] = _physical_identity(group)
+        row["qualityFlags"] = sorted({flag for item in group for flag in item.get("qualityFlags", [])})
+        output.append(row)
+    output.sort(key=lambda item: (item["observed"], item["identity"], item["depthKey"]))
+    preserved_flags = [set(item.get("qualityFlags", [])) for item in output]
     verify.annotate_quality_flags(output)
+    for item, preserved in zip(output, preserved_flags):
+        item["qualityFlags"] = sorted(set(item.get("qualityFlags", [])) | preserved)
     return output
 
 
@@ -892,27 +1132,29 @@ def build_pairs(day, observations, sampler):
         for canonical_lead in LEADS:
             target = cycle + timedelta(hours=canonical_lead)
             selected = nearest_observations(observations, target)
-            by_model = defaultdict(list)
+            by_model_cycle = defaultdict(list)
             for observation in selected:
                 model = MODELS.get(observation.get("body"))
-                by_model[model].append(observation)
-            for model, model_rows in by_model.items():
+                forecast_cycle = cycle if observation["observed"] >= cycle else cycle - timedelta(hours=12)
+                by_model_cycle[(model, forecast_cycle)].append(observation)
+            for (model, forecast_cycle), model_rows in by_model_cycle.items():
                 locations, requests = {}, defaultdict(set)
                 for observation in model_rows:
-                    lead = (observation["observed"] - cycle).total_seconds() / 3600
+                    lead = (observation["observed"] - forecast_cycle).total_seconds() / 3600
                     if not 0 <= lead <= 120:
                         continue
                     lower, upper = math.floor(lead), math.ceil(lead)
                     invalid_position = bool({"invalid_position", "missing_position"}.intersection(
                         observation.get("qualityFlags", [])))
-                    location = sampler.locate(model, cycle, observation) if model and not invalid_position else None
+                    location = (sampler.locate(model, forecast_cycle, observation)
+                                if model and not invalid_position else None)
                     locations[id(observation)] = (location, lead, lower, upper)
                     if location:
                         requests[lower].add(location["node"]); requests[upper].add(location["node"])
                 if model and hasattr(sampler, "profiles_for_requests"):
-                    profiles = sampler.profiles_for_requests(model, cycle, requests)
+                    profiles = sampler.profiles_for_requests(model, forecast_cycle, requests)
                 else:
-                    profiles = {hour: sampler.profiles(model, cycle, hour, nodes)
+                    profiles = {hour: sampler.profiles(model, forecast_cycle, hour, nodes)
                                 for hour, nodes in requests.items()} if model else {}
                 for observation in model_rows:
                     state = locations.get(id(observation))
@@ -955,10 +1197,12 @@ def build_pairs(day, observations, sampler):
                     wind_offset = observation.get("windOffsetHours")
                     wind_ok = isinstance(wind_offset, (int, float)) and wind_offset <= 1.5
                     pairs.append({
-                        "run": f"public-{model or 'uncovered'}-{cycle:%Y%m%dT%H}Z",
-                        "cycle": iso(cycle), "issuedAt": iso(cycle), "validTime": iso(observation["observed"]),
+                        "run": f"public-{model or 'uncovered'}-{forecast_cycle:%Y%m%dT%H}Z",
+                        "cycle": iso(forecast_cycle), "issuedAt": iso(forecast_cycle),
+                        "validTime": iso(observation["observed"]),
                         "leadHour": lead, "lowerHour": lower, "upperHour": upper,
                         "timeInterpolationFraction": fraction, "station": observation["identity"],
+                        "sensorIdentity": observation.get("physicalIdentity"),
                         "stationName": observation.get("name"), "stationLat": observation["lat"],
                         "stationLon": observation["lon"], "body": observation.get("body") or "unknown",
                         "observationSource": observation["source"], "recordSource": "backfill",
@@ -970,7 +1214,7 @@ def build_pairs(day, observations, sampler):
                         "observationOffsetMinutes": 0.0, "stationType": classification,
                         "rawStationType": observation.get("type"),
                         "modelVersion": (f"{model.upper() if model else 'GLOFS-uncovered'}:"
-                                         f"{CURRENT_MODEL_VERSION if cycle >= CURRENT_MODEL_START else LEGACY_MODEL_VERSION}"),
+                                         f"{CURRENT_MODEL_VERSION if forecast_cycle >= CURRENT_MODEL_START else LEGACY_MODEL_VERSION}"),
                         "modelLat": location.get("modelLat") if location else None,
                         "modelLon": location.get("modelLon") if location else None,
                         "modelDistanceKm": location.get("modelDistanceKm") if location else None,
@@ -1059,7 +1303,7 @@ def save_checkpoint(path, checkpoint):
 
 
 def r2_done_marker_exists(s3, bucket, day_text):
-    key = scorecard_store.done_marker_key("backfill", day_text)
+    key = scorecard_store.done_marker_key("backfill", day_text, METHODOLOGY_VERSION)
     try:
         s3.head_object(Bucket=bucket, Key=key)
         return True
@@ -1116,25 +1360,48 @@ def main(argv=None):
     collection_start = start - timedelta(days=1)
     collection_end = end + timedelta(days=1)
     cache = PublicCache(args.cache / "sources")
+    checkpoint_path = args.cache / "checkpoint-v2.json"
+    checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else {"completed": []}
     sources = {item.strip() for item in args.sources.split(",") if item.strip()}
     observations = []
     source_quarantine = SourceQuarantine()
+    source_accounting = SourceAccounting()
     if "ndbc" in sources:
-        observations += collect_ndbc(cache, collection_start, collection_end, datasets, source_quarantine)
+        observations += collect_ndbc(
+            cache, collection_start, collection_end, datasets, source_quarantine, source_accounting,
+        )
     if "glos" in sources:
         observations += collect_glos(cache, collection_start, collection_end, datasets, parameters,
-                                    source_quarantine)
+                                    source_quarantine, source_accounting)
     if "coops" in sources:
         observations += collect_coops(cache, collection_start, collection_end, coops,
-                                     source_quarantine)
-    observations = dedupe_and_qc(observations)
+                                     source_quarantine, source_accounting)
+    for day in daterange(args.start, args.end):
+        day_text = day.isoformat()
+        report = source_accounting.summary(day_text)
+        print("Backfill source-accounting " + json.dumps({"day": day_text, **report}, sort_keys=True))
+        if source_accounting.has_errors(day_text):
+            if args.store:
+                pause_backfill(checkpoint_path, checkpoint, day_text, "source_fetch_error",
+                               sources={name: item["errors"] for name, item in report.items()})
+            print(f"Backfill day={day_text} status=paused reason=source_fetch_error")
+            return 5
+    before_dedupe = list(observations)
     suspect_observations = apply_station_suspect_days(observations, source_quarantine)
+    observations = dedupe_and_qc(observations)
+    for day in daterange(args.start, args.end):
+        lower = datetime.combine(day, datetime.min.time(), UTC)
+        upper = lower + timedelta(days=1)
+        before = sum(lower <= row["observed"] < upper for row in before_dedupe)
+        after = sum(lower <= row["observed"] < upper for row in observations)
+        print("Backfill dedupe " + json.dumps({
+            "day": day.isoformat(), "before": before, "after": after,
+        }, sort_keys=True))
     print(f"Backfill observations={len(observations)} sensors={len({(r['identity'], r['depthKey']) for r in observations})}")
     print(f"Backfill station_suspect observations={suspect_observations}")
     sampler = PublicModelSampler(args.cache / "models")
-    checkpoint_path = args.cache / "checkpoint.json"
-    checkpoint = json.loads(checkpoint_path.read_text()) if checkpoint_path.exists() else {"completed": []}
     environment = {**os.environ, **read_env(args.env_file)}
+    code_version = producer_revision()
     s3 = None
     r2_bucket = None
     if args.store:
@@ -1160,11 +1427,14 @@ def main(argv=None):
         if args.store and day_text in checkpoint.get("completed", []):
             print(f"Backfill day={day_text} status=checkpoint_skip")
             continue
-        pairs = build_pairs(day, observations, sampler)
+        day_start = datetime.combine(day, datetime.min.time(), UTC)
+        day_end = day_start + timedelta(days=1)
+        day_observations = [row for row in observations if day_start <= row["observed"] < day_end]
+        pairs = build_pairs(day, day_observations, sampler)
         evidence = {"methodologyVersion": METHODOLOGY_VERSION, "primaryPairs": pairs}
         body = json.dumps(evidence, separators=(",", ":"), sort_keys=True).encode()
         digest = hashlib.sha256(body).hexdigest()
-        records = scorecard.records_from_evidence(evidence, f"public-backfill/v1/{day_text}.json", digest)
+        records = scorecard.records_from_evidence(evidence, f"public-backfill/v2/{day_text}.json", digest)
         validation = scorecard_schema.validate_records(records)
         if validation["invalidRows"]:
             if args.store:
@@ -1195,7 +1465,7 @@ def main(argv=None):
             sample_methods[record["sample_method"]] += 1
         if args.store:
             checkpoint["inProgress"] = {
-                "day": day_text, "digest": digest, "expected": len(records), "store": "parquet-v1",
+                "day": day_text, "digest": digest, "expected": len(records), "store": "parquet-v2",
             }
             save_checkpoint(checkpoint_path, checkpoint)
             prior_environment = os.environ.copy()
@@ -1203,6 +1473,7 @@ def main(argv=None):
             try:
                 manifest = scorecard_store.write_fragment(
                     records, "backfill", day_text, digest, s3=s3, environment=environment,
+                    methodology_version=METHODOLOGY_VERSION, code_version=code_version,
                 )
             except Exception as error:
                 pause_backfill(checkpoint_path, checkpoint, day_text, "parquet_store_failure",
@@ -1219,7 +1490,7 @@ def main(argv=None):
                 return 3
             try:
                 scorecard_store.write_done_marker(
-                    manifest, METHODOLOGY_VERSION, CODE_VERSION, s3=s3,
+                    manifest, METHODOLOGY_VERSION, code_version, s3=s3,
                     environment=environment,
                 )
             except Exception as error:

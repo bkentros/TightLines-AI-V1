@@ -48,6 +48,10 @@ def _finite(value):
 
 
 def _sensor_key(pair):
+    physical = pair.get("sensorIdentity")
+    if isinstance(physical, str) and physical:
+        suffix = f"depth:{pair.get('depthKey') or 'unknown'}"
+        return f"{physical}|{suffix}"
     parameter = pair.get("parameterId")
     suffix = f"parameter:{parameter}" if parameter is not None else f"depth:{pair.get('depthKey') or 'unknown'}"
     provider = pair.get("observationSource") or pair.get("source") or "unknown"

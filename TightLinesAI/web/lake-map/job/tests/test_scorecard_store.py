@@ -83,6 +83,29 @@ class ScorecardStoreTest(unittest.TestCase):
         s3.put_object.assert_called_once()
         s3.get_object.assert_called_once_with(Bucket="private-test", Key=key)
 
+    def test_v2_fragment_and_marker_are_distinct_and_versioned(self):
+        s3 = mock.Mock()
+        bodies = {}
+        s3.put_object.side_effect = lambda **kwargs: bodies.__setitem__(kwargs["Key"], kwargs["Body"])
+        s3.get_object.side_effect = lambda **kwargs: {"Body": io.BytesIO(bodies[kwargs["Key"]])}
+        with tempfile.TemporaryDirectory() as temporary:
+            manifest = scorecard_store.write_fragment(
+                [record()], "backfill", "2026-10-01", "c" * 64,
+                environment={"SCORECARD_STORE_DIR": temporary},
+                methodology_version="public-scorecard-backfill-v2", code_version="d" * 40,
+            )
+        self.assertIn("/methodology=v2/", manifest["key"])
+        self.assertEqual(manifest["methodologyVersion"], "public-scorecard-backfill-v2")
+        self.assertEqual(manifest["codeVersion"], "d" * 40)
+        scorecard_store.write_done_marker(
+            manifest, "public-scorecard-backfill-v2", "d" * 40, s3,
+            environment={"R2_BUCKET": "private-test"},
+        )
+        self.assertIn(
+            "private/scorecard/v1/samples/stream=backfill/_done/v2/date=2026-10-01.json",
+            bodies,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

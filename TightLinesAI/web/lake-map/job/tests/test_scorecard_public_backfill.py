@@ -60,6 +60,19 @@ class PublicBackfillTest(unittest.TestCase):
         with mock.patch.dict(os.environ, {"SCORECARD_BACKFILL_MAX_WORKERS": "invalid"}):
             self.assertEqual(backfill.worker_limit(4), 4)
 
+    def test_retired_glos_variable_is_accounted_as_empty_not_fetch_error(self):
+        error = backfill.urllib.error.HTTPError(
+            "https://public.invalid", 400, "Bad Request", {},
+            io.BytesIO(b'Error { message="Unrecognized variable=temperature"; }'),
+        )
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.object(backfill.urllib.request, "urlopen", side_effect=error):
+            cache = backfill.PublicCache(temporary)
+            self.assertIsNone(cache.get("retired.csv", "https://public.invalid", quiet=True))
+            self.assertFalse(cache.outcome("retired.csv")["error"])
+            self.assertTrue(cache.outcome("retired.csv")["notFound"])
+        error.close()
+
     def test_invalid_public_model_object_is_treated_as_unavailable(self):
         sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)
         stream = io.BytesIO(b"not-a-netcdf-file")
@@ -132,7 +145,7 @@ class PublicBackfillTest(unittest.TestCase):
         self.assertIn("day=2023-11-20 status=r2_skip", output.getvalue())
         s3.head_object.assert_called_once_with(
             Bucket="test-bucket",
-            Key="private/scorecard/v1/samples/stream=backfill/_done/date=2023-11-20.json",
+            Key="private/scorecard/v1/samples/stream=backfill/_done/v2/date=2023-11-20.json",
         )
         write_fragment.assert_not_called()
 
@@ -210,6 +223,16 @@ class PublicBackfillTest(unittest.TestCase):
         row = observation(1.0, 1)
         self.assertEqual(backfill.nearest_observations([row], row["observed"]), [row])
         self.assertEqual(backfill.nearest_observations([row], row["observed"].replace(hour=1)), [])
+
+    def test_precycle_observation_uses_preceding_forecast_cycle(self):
+        row = observation(1.0, 1)
+        observed = datetime(2026, 10, 1, 11, 50, tzinfo=timezone.utc)
+        row.update({"observed": observed, "waterTime": backfill.iso(observed),
+                    "firstCollected": observed})
+        pairs = backfill.build_pairs(date(2026, 10, 1), [row], FakeSampler())
+        self.assertEqual(len(pairs), 1)
+        self.assertEqual(pairs[0]["cycle"], "2026-10-01T00:00:00Z")
+        self.assertAlmostEqual(pairs[0]["leadHour"], 11 + 50 / 60)
 
     def test_surface_and_deep_rows_validate(self):
         pairs = backfill.build_pairs(date(2026, 10, 1), [observation(1.0, 1), observation(5.0, 2)], FakeSampler())
@@ -309,7 +332,7 @@ class PublicBackfillTest(unittest.TestCase):
         target = date(2026, 10, 2)
         captured = {}
 
-        def collect(_cache, start, end, _datasets, _parameters, quarantine):
+        def collect(_cache, start, end, _datasets, _parameters, quarantine, _accounting):
             self.assertEqual(start.date(), target - backfill.timedelta(days=1))
             self.assertEqual(end.date(), target + backfill.timedelta(days=1))
             quarantine.add(
@@ -318,15 +341,17 @@ class PublicBackfillTest(unittest.TestCase):
                 "glos", "moored_buoy", "glos:suspect",
             )
             rows = []
-            for station in ("glos:suspect", "glos:other"):
-                row = observation(1.0, 1)
-                observed = datetime.combine(target, datetime.min.time(), timezone.utc)
-                row.update({
-                    "identity": station, "id": station, "observed": observed,
-                    "waterTime": observed.isoformat().replace("+00:00", "Z"),
-                    "firstCollected": observed,
-                })
-                rows.append(row)
+            for observed_day in (target - backfill.timedelta(days=1), target,
+                                 target + backfill.timedelta(days=1)):
+                for station in ("glos:suspect", "glos:other"):
+                    row = observation(1.0, 1)
+                    observed = datetime.combine(observed_day, datetime.min.time(), timezone.utc)
+                    row.update({
+                        "identity": station, "id": station, "observed": observed,
+                        "waterTime": observed.isoformat().replace("+00:00", "Z"),
+                        "firstCollected": observed,
+                    })
+                    rows.append(row)
             return rows
 
         def write_fragment(records, stream, day, digest, **_kwargs):
@@ -356,11 +381,57 @@ class PublicBackfillTest(unittest.TestCase):
             ])
         self.assertEqual(result, 0)
         self.assertIn(f"day={target} status=stored", output.getvalue())
+        self.assertTrue(all(record["observation_time"].startswith(target.isoformat())
+                            for record in captured["records"]))
         by_station = {record["station_id"]: record for record in captured["records"]}
         self.assertIn("station_suspect_day", by_station["glos:suspect"]["quality_flags"])
         self.assertFalse(by_station["glos:suspect"]["strict_quality"])
         self.assertNotIn("station_suspect_day", by_station["glos:other"]["quality_flags"])
         marker.assert_called_once()
+
+    def test_cross_network_dedupe_uses_priority_and_stable_physical_key(self):
+        observed = datetime(2026, 10, 1, tzinfo=timezone.utc)
+        rows = []
+        for identity, source, offset in (
+                ("glos:1", "GLOS Seagull", 0.002),
+                ("coops:1", "NOAA CO-OPS", 0.001),
+                ("external:1", "NOAA NDBC", 0.0)):
+            rows.append(backfill._observation(
+                identity, identity, source, "lake-michigan", "fixed",
+                43.0 + offset, -86.0, observed, 62.0, 1.0, quality="provider_qc",
+            ))
+        first = backfill.dedupe_and_qc(rows)
+        second = backfill.dedupe_and_qc(list(reversed(rows)))
+        self.assertEqual(len(first), 1)
+        self.assertEqual(first[0]["identity"], "external:1")
+        self.assertEqual(first[0]["source"], "NOAA NDBC + NOAA CO-OPS + GLOS Seagull")
+        self.assertEqual(first[0]["physicalIdentity"], second[0]["physicalIdentity"])
+        first_pair = backfill.build_pairs(date(2026, 10, 1), first, FakeSampler())[0]
+        second_pair = backfill.build_pairs(date(2026, 10, 1), second, FakeSampler())[0]
+        first_record = scorecard.record_from_pair(first_pair, "e", "0" * 64, "v2")
+        second_record = scorecard.record_from_pair(second_pair, "e", "0" * 64, "v2")
+        self.assertEqual(first_record["sensor_key"], second_record["sensor_key"])
+
+    def test_source_fetch_error_pauses_before_model_work(self):
+        target = date(2026, 10, 2)
+
+        def collect(_cache, start, end, _datasets, _parameters, _quarantine, accounting):
+            accounting.attempt("glos", "station", start, end)
+            accounting.error("glos", "station", start, end)
+            return []
+
+        with tempfile.TemporaryDirectory() as temporary, \
+                mock.patch.object(backfill, "load_catalogs", return_value=({}, {}, [])), \
+                mock.patch.object(backfill, "collect_glos", side_effect=collect), \
+                mock.patch.object(backfill, "PublicModelSampler") as sampler, \
+                redirect_stdout(io.StringIO()) as output:
+            result = backfill.main([
+                "--start", target.isoformat(), "--end", target.isoformat(),
+                "--cache", temporary, "--sources", "glos",
+            ])
+        self.assertEqual(result, 5)
+        self.assertIn("reason=source_fetch_error", output.getvalue())
+        sampler.assert_not_called()
 
     def test_unrelated_failure_over_two_percent_still_pauses(self):
         records = ([{"quality_flags": []} for _ in range(97)] +

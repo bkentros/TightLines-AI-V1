@@ -107,23 +107,26 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def fragment_key(stream: str, day: str, digest: str) -> str:
+def fragment_key(stream: str, day: str, digest: str, methodology_version: str | None = None) -> str:
     if stream not in {"live", "backfill"}:
         raise ValueError("scorecard stream must be live or backfill")
-    return f"{PRIVATE_PREFIX}/samples/stream={stream}/date={day}/{digest[:24]}.parquet"
+    version = "/methodology=v2" if methodology_version == "public-scorecard-backfill-v2" else ""
+    return f"{PRIVATE_PREFIX}/samples/stream={stream}{version}/date={day}/{digest[:24]}.parquet"
 
 
-def done_marker_key(stream: str, day: str) -> str:
+def done_marker_key(stream: str, day: str, methodology_version: str | None = None) -> str:
     if stream not in {"live", "backfill"}:
         raise ValueError("scorecard stream must be live or backfill")
-    return f"{PRIVATE_PREFIX}/samples/stream={stream}/_done/date={day}.json"
+    version = "/v2" if methodology_version == "public-scorecard-backfill-v2" else ""
+    return f"{PRIVATE_PREFIX}/samples/stream={stream}/_done{version}/date={day}.json"
 
 
 def write_fragment(records: list[dict], stream: str, day: str, evidence_sha256: str,
-                   s3=None, environment=None) -> dict:
+                   s3=None, environment=None, methodology_version: str | None = None,
+                   code_version: str | None = None) -> dict:
     """Write one immutable local Parquet fragment and optionally mirror it to R2."""
     root = local_root(environment)
-    key = fragment_key(stream, day, evidence_sha256)
+    key = fragment_key(stream, day, evidence_sha256, methodology_version)
     path = root / key
     path.parent.mkdir(parents=True, exist_ok=True)
     table = records_table(records)
@@ -157,6 +160,8 @@ def write_fragment(records: list[dict], stream: str, day: str, evidence_sha256: 
         "evidenceSha256": evidence_sha256,
         "parquetSha256": file_sha256,
         "key": key,
+        "methodologyVersion": methodology_version,
+        "codeVersion": code_version,
         "writtenAt": _iso_now(),
     }
     sidecar = path.with_suffix(".manifest.json")
@@ -194,7 +199,7 @@ def write_done_marker(manifest: dict, methodology_version: str, code_version: st
     body = json.dumps(marker, separators=(",", ":"), sort_keys=True).encode()
     from lakemap import store
     bucket = (environment or {}).get("R2_BUCKET") or store.bucket()
-    key = done_marker_key("backfill", manifest["date"])
+    key = done_marker_key("backfill", manifest["date"], methodology_version)
     s3.put_object(
         Bucket=bucket, Key=key, Body=body,
         ContentType="application/json", CacheControl="private, no-store",
