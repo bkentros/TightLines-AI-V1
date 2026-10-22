@@ -25,6 +25,17 @@ def test_hourly_aggregation_uses_vector_direction_and_max_gust():
     assert result["coverage_qc_flags"] == []
 
 
+def test_hourly_aggregation_prefers_ndbc_over_relay_networks():
+    when = datetime(2024, 7, 1, 0, 5, tzinfo=timezone.utc)
+    result = weather.aggregate([
+        {"station_id": "s1", "network": "glos", "time": when, "speed": 99.0, "direction": 90.0},
+        {"station_id": "s1", "network": "ndbc", "time": when, "speed": 10.0, "direction": 180.0},
+    ])[0]
+    assert result["observation_source"] == "ndbc"
+    assert result["wind_speed_mph"] == 10.0
+    assert result["wind_from_degrees"] == 180.0
+
+
 class FakeS3:
     def __init__(self):
         self.objects = {}

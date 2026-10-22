@@ -226,6 +226,17 @@ def coops_rows(start, end, aliases, cache):
 
 
 def aggregate(rows):
+    # The same physical platform is often relayed by both NDBC and GLOS. Keep
+    # one deterministic provider per station-hour so relays cannot double
+    # weight a measurement or change the result when a second feed appears.
+    preferred = {}
+    for row in rows:
+        if not row.get("station_id"):
+            continue
+        hour = row["time"].replace(minute=0, second=0, microsecond=0)
+        key = (row["station_id"], hour)
+        rank = NETWORK_PRIORITY.get(row["network"], 99)
+        preferred[key] = min(rank, preferred.get(key, rank))
     merged = defaultdict(lambda: defaultdict(list))
     networks = defaultdict(set)
     for row in rows:
@@ -233,6 +244,8 @@ def aggregate(rows):
             continue
         hour = row["time"].replace(minute=0, second=0, microsecond=0)
         key = (row["station_id"], hour)
+        if NETWORK_PRIORITY.get(row["network"], 99) != preferred[key]:
+            continue
         networks[key].add(row["network"])
         for field in ("speed", "direction", "gust", "air"):
             value = row.get(field)
@@ -286,7 +299,7 @@ def write_station(rows, station_id, start, end, root, s3=None):
 
 def compare_v2(rows, start, end, s3):
     weather = {(row["station_id"], row["observation_hour"]): row for row in rows}
-    speed, direction = [], []
+    raw = {}
     day = start.date()
     while day <= end.date():
         marker_key = f"private/scorecard/v1/samples/stream=backfill/_done/v2/date={day}.json"
@@ -300,14 +313,23 @@ def compare_v2(rows, start, end, s3):
         for row in pq.read_table(pa.BufferReader(body)).to_pylist():
             if row.get("wind_speed_mph") is None or row.get("wind_from_degrees") is None:
                 continue
-            hour = row["observation_time"][:13] + ":00:00Z"
-            candidate = weather.get((row["station_id"], hour))
-            if not candidate or candidate.get("wind_speed_mph") is None or candidate.get("wind_from_degrees") is None:
-                continue
-            speed.append(abs(row["wind_speed_mph"] - candidate["wind_speed_mph"]))
-            delta = abs(row["wind_from_degrees"] - candidate["wind_from_degrees"]) % 360
-            direction.append(min(delta, 360 - delta))
+            # Scorecard rows repeat one physical observation across leads,
+            # cycles, and sensor depths. Collapse that fan-out before hourly
+            # aggregation so this is a like-for-like weather comparison.
+            key = (row["station_id"], row["observation_time"],
+                   row["wind_speed_mph"], row["wind_from_degrees"])
+            raw[key] = {"station_id": row["station_id"], "network": "ndbc",
+                        "time": datetime.fromisoformat(row["observation_time"].replace("Z", "+00:00")),
+                        "speed": row["wind_speed_mph"], "direction": row["wind_from_degrees"]}
         day += timedelta(days=1)
+    speed, direction = [], []
+    for observed in aggregate(list(raw.values())):
+        candidate = weather.get((observed["station_id"], observed["observation_hour"]))
+        if not candidate or candidate.get("wind_speed_mph") is None or candidate.get("wind_from_degrees") is None:
+            continue
+        speed.append(abs(observed["wind_speed_mph"] - candidate["wind_speed_mph"]))
+        delta = abs(observed["wind_from_degrees"] - candidate["wind_from_degrees"]) % 360
+        direction.append(min(delta, 360 - delta))
     return {"matches": len(speed), "speedMaeMph": sum(speed) / len(speed) if speed else None,
             "directionMaeDegrees": sum(direction) / len(direction) if direction else None}
 
