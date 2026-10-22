@@ -1,6 +1,13 @@
 name: Scorecard add-on stations
 
 on:
+  push:
+    branches: [research/hybrid-phase1]
+    paths:
+      - .github/workflows/scorecard-addon.yml
+      - .github/hybrid-backfill-launch.json
+      - TightLinesAI/web/lake-map/job/scorecard_addon_backfill.py
+      - TightLinesAI/web/lake-map/job/scorecard_store.py
   workflow_dispatch:
     inputs:
       chunks_json:
@@ -26,8 +33,18 @@ jobs:
       - id: matrix
         env:
           CHUNKS_JSON: ${{ inputs.chunks_json }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
-          if [[ -n "$CHUNKS_JSON" ]]; then
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            mode=$(jq -r .mode .github/hybrid-backfill-launch.json)
+            if [[ "$mode" == "test" ]]; then
+              value='[{"start":"2025-07-15","end":"2025-07-21"}]'
+            elif [[ "$mode" == "full" ]]; then
+              value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+            else
+              echo "unsupported launch mode" >&2; exit 2
+            fi
+          elif [[ -n "$CHUNKS_JSON" ]]; then
             value=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
           else
             value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
