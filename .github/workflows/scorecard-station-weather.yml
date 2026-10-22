@@ -1,0 +1,85 @@
+name: Scorecard station weather
+
+on:
+  push:
+    branches: [research/hybrid-phase1]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Test July 2024 or run all configured chunks
+        type: choice
+        options: [test, full]
+        default: test
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-station-weather-${{ github.ref }}-${{ inputs.mode || 'test' }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        shell: bash
+        env:
+          MODE: ${{ inputs.mode || 'test' }}
+        run: |
+          if [[ "$MODE" == "full" ]]; then
+            value=$(jq -c . TightLinesAI/web/lake-map/job/weather_chunks.json)
+          else
+            value='[{"start":"2024-07-01","end":"2024-07-31"}]'
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+  weather:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private scorecard bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          if [[ -z "$R2_BUCKET" || "$R2_BUCKET" == "piercast-lake-map" ]]; then
+            echo "::error::Private scorecard bucket is unset or resolves to the production map bucket"
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Build station weather
+        env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-weather-store
+          SCORECARD_WEATHER_CACHE: ${{ runner.temp }}/scorecard-weather-cache
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          CHUNK_START: ${{ matrix.chunk.start }}
+          CHUNK_END: ${{ matrix.chunk.end }}
+          MODE: ${{ inputs.mode || 'test' }}
+        shell: bash
+        run: |
+          compare=()
+          if [[ "$MODE" == "test" ]]; then compare=(--compare-v2); fi
+          python job/scorecard_station_weather.py --start "$CHUNK_START" --end "$CHUNK_END" --store "${compare[@]}"
