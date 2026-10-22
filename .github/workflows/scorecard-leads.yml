@@ -1,0 +1,96 @@
+name: Scorecard forecast leads
+
+on:
+  workflow_dispatch:
+    inputs:
+      chunks_json:
+        description: Optional JSON chunk list; blank uses all 29 chunks
+        type: string
+        default: ""
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-leads-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        env:
+          CHUNKS_JSON: ${{ inputs.chunks_json }}
+        run: |
+          if [[ -n "$CHUNKS_JSON" ]]; then
+            value=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
+          else
+            value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+  leads:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private scorecard bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$R2_BUCKET" && test "$R2_BUCKET" != "piercast-lake-map"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Build forecast-lead pairs
+        env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-store
+          SCORECARD_LEADS_CACHE: ${{ runner.temp }}/scorecard-leads-cache
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          python job/scorecard_leads_backfill.py --start "$START" --end "$END" \
+            --store --skip-existing-r2 | tee "$RUNNER_TEMP/leads.log"
+      - name: Summarize
+        if: always()
+        env:
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          python - "$RUNNER_TEMP/leads.log" "$GITHUB_STEP_SUMMARY" "$START" "$END" <<'PY'
+          import json,sys
+          from pathlib import Path
+          log, summary, start, end = sys.argv[1:]
+          result = {}
+          for line in Path(log).read_text(errors="replace").splitlines() if Path(log).exists() else []:
+              if line.startswith("{"):
+                  try: result = json.loads(line)
+                  except ValueError: pass
+          counts = result.get("counts", {})
+          Path(summary).write_text(
+              f"## Forecast leads\n- Chunk: {start}..{end}\n- Days: {result.get('days', 0)}\n"
+              f"- Skipped: {result.get('skipped', 0)}\n"
+              f"- Counts: " + ", ".join(f"{key}h={counts.get(key, 0)}" for key in ('6','12','24','48','72','96','120')) + "\n"
+              f"- Errors: {result.get('errors', 'unavailable')}\n")
+          PY

@@ -1,0 +1,5 @@
+station_id,station_name,waterbody,station_class,lat,lon,reason
+external:4403587,Whitefish Bay,lake-superior,nearshore_buoy,46.545,-84.769,no_2023_plus_archive
+glerl:sb14,Inner Saginaw Bay Buoy SB14,lake-huron,nearshore_buoy,43.720178,-83.610242,realtime_only
+glerl:sb26,Outer Saginaw Bay Buoy SB26,lake-huron,offshore_buoy,44.072981,-83.060408,realtime_only
+glerl:stannard-rock,Stannard Rock Light,lake-superior,offshore_buoy,47.183457,-87.225097,realtime_only

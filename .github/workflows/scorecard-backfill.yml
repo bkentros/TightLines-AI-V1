@@ -11,6 +11,11 @@ on:
         options: [quarantine-report, store]
         default: quarantine-report
         required: true
+      chunks_json:
+        description: Optional JSON chunk list; blank uses backfill_chunks.json
+        type: string
+        default: ""
+        required: false
 
 permissions:
   contents: read
@@ -29,7 +34,15 @@ jobs:
       - uses: actions/checkout@v4
       - id: chunks
         name: Read chunk matrix
-        run: echo "matrix=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)" >> "$GITHUB_OUTPUT"
+        env:
+          CHUNKS_JSON: ${{ inputs.chunks_json }}
+        run: |
+          if [[ -n "$CHUNKS_JSON" ]]; then
+            matrix=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
+          else
+            matrix=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+          fi
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   backfill:
     if: github.event_name == 'workflow_dispatch' && inputs.mode == 'store'

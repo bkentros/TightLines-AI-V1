@@ -106,6 +106,19 @@ class ScorecardStoreTest(unittest.TestCase):
             bodies,
         )
 
+    def test_research_stream_paths_are_distinct(self):
+        digest = "e" * 64
+        self.assertEqual(
+            scorecard_store.fragment_key("backfill_leads", "2026-10-01", digest),
+            "private/scorecard/v1/samples/stream=backfill_leads/version=leads_v1/"
+            "date=2026-10-01/eeeeeeeeeeeeeeeeeeeeeeee.parquet",
+        )
+        self.assertEqual(
+            scorecard_store.done_marker_key("backfill_leads", "2026-10-01"),
+            "private/scorecard/v1/samples/stream=backfill_leads/_done/leads_v1/"
+            "date=2026-10-01.json",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

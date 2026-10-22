@@ -1238,9 +1238,12 @@ def quarantine_summary(records, dropped=None):
     reasons = defaultdict(int)
     quarantined = 0
     for record in records:
-        row_reasons = sorted({flag for flag in record.get("quality_flags", [])
+        flags = set(record.get("quality_flags", []))
+        row_reasons = sorted({flag for flag in flags
                               if flag in {"invalid_position", "invalid_timestamp",
                                           "impossible_temperature", "missing_position"}})
+        if "invalid_position_station_day" in flags:
+            row_reasons = [reason for reason in row_reasons if reason != "invalid_position"]
         if not row_reasons:
             continue
         quarantined += 1
@@ -1255,6 +1258,28 @@ def quarantine_summary(records, dropped=None):
     return {"count": quarantined, "total": total,
             "fraction": quarantined / total if total else 0.0,
             "reasons": dict(sorted(reasons.items()))}
+
+
+def apply_invalid_position_station_day(records, max_stations=3):
+    """Bound a localized bad-position feed without disabling the day QC gate."""
+    stations = {
+        str(record.get("station_id"))
+        for record in records
+        if "invalid_position" in set(record.get("quality_flags", []))
+    }
+    stations.discard("None")
+    if not stations or len(stations) > max_stations:
+        return {"stations": len(stations), "records": 0, "applied": False}
+    flagged = 0
+    for record in records:
+        flags = set(record.get("quality_flags", []))
+        if str(record.get("station_id")) not in stations or "invalid_position" not in flags:
+            continue
+        flags.add("invalid_position_station_day")
+        record["quality_flags"] = sorted(flags)
+        record["strict_quality"] = False
+        flagged += 1
+    return {"stations": len(stations), "records": flagged, "applied": True}
 
 
 def quarantine_report_summary(records, dropped=None):
@@ -1435,6 +1460,10 @@ def main(argv=None):
         body = json.dumps(evidence, separators=(",", ":"), sort_keys=True).encode()
         digest = hashlib.sha256(body).hexdigest()
         records = scorecard.records_from_evidence(evidence, f"public-backfill/v2/{day_text}.json", digest)
+        position_rule = apply_invalid_position_station_day(records)
+        if position_rule["stations"]:
+            print("Backfill invalid-position-station-day " + json.dumps(
+                {"day": day_text, **position_rule}, sort_keys=True))
         validation = scorecard_schema.validate_records(records)
         if validation["invalidRows"]:
             if args.store:

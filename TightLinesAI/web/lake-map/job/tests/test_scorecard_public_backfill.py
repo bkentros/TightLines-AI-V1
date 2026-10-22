@@ -291,6 +291,32 @@ class PublicBackfillTest(unittest.TestCase):
             "reasons": {"invalid_position": 1},
         })
 
+    def test_invalid_position_station_day_is_stored_non_strict_and_not_paused(self):
+        records = [
+            {
+                "station_id": "glos:709", "quality_flags": ["invalid_position"],
+                "strict_quality": True,
+            }
+            for _ in range(4)
+        ] + [{"station_id": "glos:other", "quality_flags": [], "strict_quality": True}]
+        result = backfill.apply_invalid_position_station_day(records)
+        self.assertEqual(result, {"stations": 1, "records": 4, "applied": True})
+        for record in records[:4]:
+            self.assertIn("invalid_position", record["quality_flags"])
+            self.assertIn("invalid_position_station_day", record["quality_flags"])
+            self.assertFalse(record["strict_quality"])
+        self.assertEqual(backfill.quarantine_summary(records)["fraction"], 0.0)
+
+    def test_invalid_position_rule_does_not_hide_broad_failure(self):
+        records = [
+            {"station_id": f"glos:{index}", "quality_flags": ["invalid_position"],
+             "strict_quality": True}
+            for index in range(4)
+        ]
+        result = backfill.apply_invalid_position_station_day(records)
+        self.assertEqual(result, {"stations": 4, "records": 0, "applied": False})
+        self.assertEqual(backfill.quarantine_summary(records)["fraction"], 1.0)
+
     def test_impossible_reading_flags_station_three_day_window_without_pause(self):
         incident = date(2026, 10, 2)
         rows = []

@@ -107,16 +107,29 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+RESEARCH_STREAM_VERSIONS = {
+    "backfill_fields": "fields_v1",
+    "backfill_leads": "leads_v1",
+    "backfill_addon": "addon_v1",
+}
+
+
 def fragment_key(stream: str, day: str, digest: str, methodology_version: str | None = None) -> str:
-    if stream not in {"live", "backfill"}:
-        raise ValueError("scorecard stream must be live or backfill")
-    version = "/methodology=v2" if methodology_version == "public-scorecard-backfill-v2" else ""
+    if stream not in {"live", "backfill", *RESEARCH_STREAM_VERSIONS}:
+        raise ValueError("unsupported scorecard stream")
+    if stream in RESEARCH_STREAM_VERSIONS:
+        version = f"/version={RESEARCH_STREAM_VERSIONS[stream]}"
+    else:
+        version = "/methodology=v2" if methodology_version == "public-scorecard-backfill-v2" else ""
     return f"{PRIVATE_PREFIX}/samples/stream={stream}{version}/date={day}/{digest[:24]}.parquet"
 
 
 def done_marker_key(stream: str, day: str, methodology_version: str | None = None) -> str:
-    if stream not in {"live", "backfill"}:
-        raise ValueError("scorecard stream must be live or backfill")
+    if stream not in {"live", "backfill", *RESEARCH_STREAM_VERSIONS}:
+        raise ValueError("unsupported scorecard stream")
+    if stream in RESEARCH_STREAM_VERSIONS:
+        return (f"{PRIVATE_PREFIX}/samples/stream={stream}/_done/"
+                f"{RESEARCH_STREAM_VERSIONS[stream]}/date={day}.json")
     version = "/v2" if methodology_version == "public-scorecard-backfill-v2" else ""
     return f"{PRIVATE_PREFIX}/samples/stream={stream}/_done{version}/date={day}.json"
 
@@ -183,8 +196,8 @@ def write_fragment(records: list[dict], stream: str, day: str, evidence_sha256: 
 def write_done_marker(manifest: dict, methodology_version: str, code_version: str,
                       s3, environment=None) -> dict:
     """Write and verify the deterministic completion marker after both data objects exist."""
-    if manifest.get("stream") != "backfill":
-        raise ValueError("done markers are only supported for backfill fragments")
+    if manifest.get("stream") not in {"backfill", *RESEARCH_STREAM_VERSIONS}:
+        raise ValueError("done markers are only supported for backfill research fragments")
     fragment = manifest["key"]
     sidecar = fragment.removesuffix(".parquet") + ".manifest.json"
     marker = {
@@ -199,7 +212,7 @@ def write_done_marker(manifest: dict, methodology_version: str, code_version: st
     body = json.dumps(marker, separators=(",", ":"), sort_keys=True).encode()
     from lakemap import store
     bucket = (environment or {}).get("R2_BUCKET") or store.bucket()
-    key = done_marker_key("backfill", manifest["date"], methodology_version)
+    key = done_marker_key(manifest["stream"], manifest["date"], methodology_version)
     s3.put_object(
         Bucket=bucket, Key=key, Body=body,
         ContentType="application/json", CacheControl="private, no-store",
