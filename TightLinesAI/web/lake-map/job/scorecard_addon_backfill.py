@@ -186,6 +186,16 @@ def normalize_surface_field_methods(pairs: list[dict]) -> int:
     return changed
 
 
+def validate_research_records(records: list[dict]) -> dict:
+    """Apply the production shape/range checks while admitting private field_node rows."""
+    projected = [
+        {**record, "sample_method": "saved_surface_grid"}
+        if record.get("sample_method") == "field_node" else record
+        for record in records
+    ]
+    return scorecard_schema.validate_records(projected)
+
+
 def marker_exists(s3, bucket, day_text):
     try:
         s3.head_object(Bucket=bucket, Key=scorecard_store.done_marker_key(STREAM, day_text, METHODOLOGY))
@@ -252,7 +262,7 @@ def main(argv=None):
         records = scorecard.records_from_evidence(evidence, f"public-addon/v1/{day_text}.json", digest)
         for record in records:
             record["methodology_version"] = METHODOLOGY
-        validation = scorecard_schema.validate_records(records)
+        validation = validate_research_records(records)
         if validation["invalidRows"]:
             print(f"Addon day={day_text} status=invalid count={validation['invalidRows']}"); return 2
         if args.store:

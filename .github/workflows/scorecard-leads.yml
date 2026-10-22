@@ -87,6 +87,7 @@ jobs:
           START: ${{ matrix.chunk.start }}
           END: ${{ matrix.chunk.end }}
         run: |
+          set -o pipefail
           python job/scorecard_leads_backfill.py --start "$START" --end "$END" \
             --store --skip-existing-r2 | tee "$RUNNER_TEMP/leads.log"
       - name: Summarize

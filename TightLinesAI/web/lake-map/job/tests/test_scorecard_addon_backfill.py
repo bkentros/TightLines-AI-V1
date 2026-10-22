@@ -23,6 +23,14 @@ class ScorecardAddonBackfillTest(unittest.TestCase):
         self.assertEqual(pairs[0]["depthMethod"], "surface_layer")
         self.assertEqual(pairs[1]["sampleMethod"], "station_file")
 
+    def test_private_field_node_passes_base_record_validation(self):
+        with unittest.mock.patch.object(
+            addon.scorecard_schema, "validate_records", return_value={"invalidRows": 0}
+        ) as validate:
+            result = addon.validate_research_records([{"sample_method": "field_node"}])
+        self.assertEqual(result, {"invalidRows": 0})
+        self.assertEqual(validate.call_args.args[0][0]["sample_method"], "saved_surface_grid")
+
 
 if __name__ == "__main__":
     unittest.main()
