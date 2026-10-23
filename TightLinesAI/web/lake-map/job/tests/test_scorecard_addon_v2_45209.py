@@ -18,12 +18,13 @@ class AddonV245209Test(unittest.TestCase):
                 "sensorDepthM": 1.0}
         sampler = mock.Mock()
         sampler.locate.return_value = (9, 43.13, -82.39, 0.2)
-        sampler.value.side_effect = [20.0, 21.0]
+        sampler.value_with_source.side_effect = [(20.0, "ncei"), (21.0, "nodd")]
         result = addon_v2.fix_pair(pair, sampler)
         self.assertEqual(result["cycle"], pair["observed"])
         self.assertEqual(result["validTime"], pair["observed"])
         self.assertEqual(result["leadHour"], 0.0)
         self.assertEqual(result["sampleMethod"], "field_node")
+        self.assertEqual(result["modelSource"], "nodd")
         self.assertAlmostEqual(result["forecastF"], 68.3)
 
     def test_v2_marker_is_distinct_from_v1(self):

@@ -88,6 +88,7 @@ def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
         "parameter_id": str(pair["parameterId"]) if pair.get("parameterId") is not None else None,
         "observation_time": pair["observed"],
         "observation_offset_minutes": pair.get("observationOffsetMinutes"),
+        "obs_count_in_hour": pair.get("obsCountInHour"),
         "first_collected_at": pair.get("firstCollectedAt"),
         "model_cycle": pair["cycle"],
         "model_issued_at": pair.get("issuedAt"),
@@ -115,6 +116,7 @@ def record_from_pair(pair, evidence_key, evidence_sha256, methodology_version):
         "evidence_key": evidence_key,
         "evidence_sha256": evidence_sha256,
         "methodology_version": methodology_version,
+        "model_source": pair.get("modelSource"),
     }
 
 

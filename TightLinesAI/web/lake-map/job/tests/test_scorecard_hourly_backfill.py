@@ -1,0 +1,47 @@
+import sys
+import unittest
+from datetime import date, datetime, timezone
+from pathlib import Path
+from unittest import mock
+
+JOB = Path(__file__).resolve().parents[1]
+if str(JOB) not in sys.path:
+    sys.path.insert(0, str(JOB))
+
+import scorecard_hourly_backfill as hourly  # noqa: E402
+
+
+class HourlyBackfillTest(unittest.TestCase):
+    def test_hour_means_round_and_count_without_crossing_day(self):
+        base = {"identity": "station:x", "waterDepthM": 1.0, "waterF": 50.0,
+                "waterQuality": "provider_qc", "qualityFlags": [], "source": "NOAA NDBC",
+                "observed": datetime(2024, 7, 15, 0, 10, tzinfo=timezone.utc),
+                "firstCollected": datetime(2024, 7, 15, 0, 10, tzinfo=timezone.utc),
+                "depthKey": "1.00m", "body": "lake-michigan", "type": "buoy"}
+        rows = [
+            base,
+            {**base, "observed": datetime(2024, 7, 15, 0, 20, tzinfo=timezone.utc), "waterF": 52.0},
+            {**base, "observed": datetime(2024, 7, 15, 23, 45, tzinfo=timezone.utc)},
+        ]
+        result = hourly.hour_mean_rows(rows, date(2024, 7, 15))
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["observation_time"], "2024-07-15T00:00:00Z")
+        self.assertEqual(result[0]["observed_temperature_f"], 51.0)
+        self.assertEqual(result[0]["obs_count_in_hour"], 2)
+
+    def test_pair_falls_back_to_field_node(self):
+        row = {"observation_time": "2024-07-15T12:00:00Z", "waterbody": "lake-michigan",
+               "station_lat": 43.0, "station_lon": -86.0}
+        sampler = mock.Mock()
+        sampler.station_value.return_value = None
+        sampler.field_value.return_value = (20.0, datetime(2024, 7, 15, 12, tzinfo=timezone.utc),
+                                             "nodd", 43.0, -86.0, 1.0, 6)
+        result = hourly.pair_hours([row], sampler)[0]
+        self.assertEqual(result["sample_method"], "field_node")
+        self.assertEqual(result["model_source"], "nodd")
+        self.assertEqual(result["lead_hours"], 0.0)
+        self.assertEqual(result["nowcast_hour"], 6)
+
+
+if __name__ == "__main__":
+    unittest.main()

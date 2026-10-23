@@ -24,7 +24,8 @@ STRING_FIELDS = {
     "source", "observation_source", "waterbody", "depth_method", "parameter_id", "observation_time",
     "first_collected_at", "model_cycle", "model_issued_at", "valid_time", "run_id",
     "model_version", "pair_status", "sample_method", "wind_observed_at", "source_quality",
-    "evidence_key", "evidence_sha256", "methodology_version", "created_at", "updated_at",
+    "evidence_key", "evidence_sha256", "methodology_version", "model_source",
+    "created_at", "updated_at",
 }
 FLOAT_FIELDS = {
     "station_lat", "station_lon", "sensor_depth_m", "model_depth_m",
@@ -33,7 +34,7 @@ FLOAT_FIELDS = {
     "model_lon", "model_distance_km", "wind_speed_mph", "wind_from_degrees",
     "wind_offset_minutes",
 }
-INT_FIELDS = {"lower_model_hour", "upper_model_hour"}
+INT_FIELDS = {"lower_model_hour", "upper_model_hour", "obs_count_in_hour", "nowcast_hour"}
 BOOL_FIELDS = {"depth_assumed", "strict_quality"}
 
 
@@ -43,14 +44,15 @@ def schema() -> pa.Schema:
         "station_id", "sensor_key", "station_name", "station_class", "raw_station_type", "source",
         "observation_source", "waterbody", "station_lat", "station_lon", "sensor_depth_m",
         "model_depth_m", "depth_method", "depth_assumed", "parameter_id", "observation_time",
-        "observation_offset_minutes", "first_collected_at", "model_cycle", "model_issued_at",
+        "observation_offset_minutes", "obs_count_in_hour", "first_collected_at", "model_cycle", "model_issued_at",
+        "nowcast_hour",
         "valid_time", "lead_hours", "lower_model_hour", "upper_model_hour",
         "time_interpolation_fraction", "run_id", "model_version", "pair_status",
         "observed_temperature_f", "model_temperature_f", "miss_f", "miss_c", "model_lat",
         "model_lon", "model_distance_km", "sample_method", "wind_speed_mph",
         "wind_from_degrees", "wind_observed_at", "wind_offset_minutes", "source_quality",
         "quality_flags", "strict_quality", "evidence_key", "evidence_sha256",
-        "methodology_version", "created_at", "updated_at",
+        "methodology_version", "model_source", "created_at", "updated_at",
     ]
     for name in ordered:
         if name in STRING_FIELDS:
@@ -111,6 +113,7 @@ RESEARCH_STREAM_VERSIONS = {
     "backfill_fields": "fields_v1",
     "backfill_leads": "leads_v1",
     "backfill_addon": "addon_v1",
+    "backfill_hourly": "hourly_v1",
 }
 
 

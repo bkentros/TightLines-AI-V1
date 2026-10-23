@@ -70,28 +70,42 @@ class FileCache:
         self.root = root
         self.transferred = 0
 
-    def station_file(self, model: str, cycle: datetime) -> bytes:
+    @staticmethod
+    def nodd_name(model: str, cycle: datetime) -> str:
+        return f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.stations.forecast.nc"
+
+    @staticmethod
+    def nodd_url(model: str, cycle: datetime) -> str:
+        directory = cycle.strftime("%Y/%m/%d") if cycle.year >= 2025 else cycle.strftime("%Y%m")
+        return (f"https://noaa-nos-ofs-pds.s3.amazonaws.com/{model}/netcdf/{directory}/"
+                f"{FileCache.nodd_name(model, cycle)}")
+
+    def station_file(self, model: str, cycle: datetime) -> tuple[bytes, str]:
         name = station_name(model, cycle)
         path = self.root / model / f"{cycle:%Y/%m}" / name
+        source_path = path.with_suffix(path.suffix + ".source")
         if path.exists() and path.stat().st_size:
-            return path.read_bytes()
+            source = source_path.read_text().strip() if source_path.exists() else "ncei"
+            return path.read_bytes(), source
         url = f"https://www.ncei.noaa.gov/thredds/fileServer/{ROOTS[model]}/{cycle:%Y/%m}/{name}"
-        request = urllib.request.Request(url, headers={"user-agent": USER_AGENT})
         last = None
-        for attempt in range(3):
-            try:
-                with urllib.request.urlopen(request, timeout=180) as response:
-                    body = response.read()
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(body)
-                self.transferred += len(body)
-                return body
-            except Exception as error:  # logs report a count, never URL/source contents
-                last = error
-                if isinstance(error, urllib.error.HTTPError) and 400 <= error.code < 500:
-                    break
-                if attempt < 2:
-                    time.sleep(attempt + 1)
+        for candidate_url, source in ((url, "ncei"), (self.nodd_url(model, cycle), "nodd")):
+            request = urllib.request.Request(candidate_url, headers={"user-agent": USER_AGENT})
+            for attempt in range(3):
+                try:
+                    with urllib.request.urlopen(request, timeout=180) as response:
+                        body = response.read()
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(body)
+                    source_path.write_text(source + "\n")
+                    self.transferred += len(body)
+                    return body, source
+                except Exception as error:  # logs report counts/categories, never URLs
+                    last = error
+                    if isinstance(error, urllib.error.HTTPError) and 400 <= error.code < 500:
+                        break
+                    if attempt < 2:
+                        time.sleep(attempt + 1)
         raise RuntimeError(f"forecast file unavailable category={type(last).__name__}")
 
 
@@ -170,7 +184,7 @@ def build_day(rows: list[dict], cache: FileCache):
     output, counts, errors = [], Counter(), 0
     for (model, cycle), items in sorted(requests.items()):
         try:
-            body = cache.station_file(model, cycle)
+            body, model_source = cache.station_file(model, cycle)
             dataset = open_dataset(body)
             source = variables(dataset)
             data = {name: np.array(source[name][:], copy=True) for name in ("lat", "lon", "temp")}
@@ -197,7 +211,7 @@ def build_day(rows: list[dict], cache: FileCache):
                 "run_id": f"public-leads-{model}-{cycle:%Y%m%dT%H}Z",
                 "model_temperature_f": temperature_f, "model_lat": model_lat,
                 "model_lon": model_lon, "pair_status": "paired", "sample_method": "station_file",
-                "methodology_version": METHODOLOGY,
+                "methodology_version": METHODOLOGY, "model_source": model_source,
             })
             output.append(candidate)
             counts[target] += 1

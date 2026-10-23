@@ -36,7 +36,7 @@ class ScorecardFieldsBackfillTest(unittest.TestCase):
         }
         sampler = mock.Mock()
         sampler.locate.return_value = (7, 43.01, -86.01, 1.2)
-        sampler.value.side_effect = [20.0, 21.0]
+        sampler.value_with_source.side_effect = [(20.0, "ncei"), (21.0, "nodd")]
         recovered, attempted = fields.recover([row], sampler)
         self.assertEqual(attempted, 1)
         self.assertEqual(len(recovered), 1)
@@ -48,9 +48,16 @@ class ScorecardFieldsBackfillTest(unittest.TestCase):
         self.assertEqual(recovered[0]["lead_hours"], 0.0)
         self.assertEqual(recovered[0]["quality_flags"], ["station_suspect_day"])
         self.assertFalse(recovered[0]["strict_quality"])
+        self.assertEqual(recovered[0]["model_source"], "nodd")
         projected = {**recovered[0], "sample_method": "saved_surface_grid",
                      "evidence_key": "source", "evidence_sha256": "0" * 64}
         self.assertEqual(scorecard_schema.validate_record(projected), [])
+
+    def test_nodd_key_uses_historical_and_current_layouts(self):
+        old = datetime(2024, 7, 15, 6, tzinfo=timezone.utc)
+        new = datetime(2025, 7, 15, 6, tzinfo=timezone.utc)
+        self.assertIn("lmhofs/netcdf/202407/", fields.ArchivedFieldSampler.nodd_key("lmhofs", old, 3))
+        self.assertIn("lmhofs/netcdf/2025/07/15/", fields.ArchivedFieldSampler.nodd_key("lmhofs", new, 3))
 
 
 if __name__ == "__main__":

@@ -4,10 +4,7 @@ on:
   push:
     branches: [research/hybrid-phase1]
     paths:
-      - .github/workflows/scorecard-leads.yml
       - .github/hybrid-backfill-launch.json
-      - TightLinesAI/web/lake-map/job/scorecard_leads_backfill.py
-      - TightLinesAI/web/lake-map/job/scorecard_store.py
   workflow_dispatch:
     inputs:
       chunks_json:

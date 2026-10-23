@@ -1,0 +1,108 @@
+name: Scorecard hourly nowcast
+
+on:
+  push:
+    branches: [research/hybrid-phase1]
+    paths:
+      - .github/workflows/scorecard-hourly.yml
+      - .github/hourly-backfill-launch.json
+  workflow_dispatch:
+    inputs:
+      chunks_json:
+        description: Optional JSON chunk list; blank uses all 29 chunks
+        type: string
+        default: ""
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-hourly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        env:
+          CHUNKS_JSON: ${{ inputs.chunks_json }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            mode=$(jq -r .mode .github/hourly-backfill-launch.json)
+            if [[ "$mode" == "test" ]]; then
+              value='[{"start":"2024-07-15","end":"2024-07-21"}]'
+            elif [[ "$mode" == "full" ]]; then
+              value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+            else
+              echo "unsupported launch mode" >&2; exit 2
+            fi
+          elif [[ -n "$CHUNKS_JSON" ]]; then
+            value=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
+          else
+            value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+  hourly:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private scorecard bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$R2_BUCKET" && test "$R2_BUCKET" != "piercast-lake-map"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: |
+          pip install -r job/requirements.txt
+          pip install "s3fs>=2024.6"
+      - name: Build hourly nowcast pairs
+        env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-hourly-store
+          SCORECARD_HOURLY_CACHE: ${{ runner.temp }}/scorecard-hourly-cache
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          set -o pipefail
+          python job/scorecard_hourly_backfill.py --start "$START" --end "$END" \
+            --store --skip-existing-r2 | tee "$RUNNER_TEMP/hourly.log"
+      - name: Summarize
+        if: always()
+        env:
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          stored=$(grep -c 'status=stored' "$RUNNER_TEMP/hourly.log" 2>/dev/null || true)
+          skipped=$(grep -c 'status=r2_skip' "$RUNNER_TEMP/hourly.log" 2>/dev/null || true)
+          rows=$(grep -o ' rows=[0-9]*' "$RUNNER_TEMP/hourly.log" 2>/dev/null | cut -d= -f2 | awk '{s+=$1} END {print s+0}')
+          {
+            echo "## Hourly nowcast"
+            echo "- Chunk: $START..$END"
+            echo "- Days stored: $stored"
+            echo "- Days skipped: $skipped"
+            echo "- Rows: $rows"
+          } >> "$GITHUB_STEP_SUMMARY"

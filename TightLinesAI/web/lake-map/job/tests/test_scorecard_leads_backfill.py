@@ -2,6 +2,7 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 import sys
+import tempfile
 
 JOB = Path(__file__).resolve().parents[1]
 if str(JOB) not in sys.path:
@@ -23,6 +24,18 @@ class ScorecardLeadsBackfillTest(unittest.TestCase):
             cycle = leads.target_cycle(observed, target)
             self.assertIsNotNone(cycle)
             self.assertLessEqual(cycle.date(), observed.date())
+
+    def test_nodd_fallback_uses_public_archive(self):
+        cycle = datetime(2024, 7, 15, 6, tzinfo=timezone.utc)
+        with tempfile.TemporaryDirectory() as root:
+            cache = leads.FileCache(Path(root))
+            response = unittest.mock.MagicMock()
+            response.__enter__.return_value.read.return_value = b"CDF-test"
+            ncei_error = leads.urllib.error.HTTPError("redacted", 404, "missing", {}, None)
+            with unittest.mock.patch.object(leads.urllib.request, "urlopen", side_effect=[ncei_error, response]):
+                body, source = cache.station_file("lmhofs", cycle)
+        self.assertEqual(body, b"CDF-test")
+        self.assertEqual(source, "nodd")
 
 
 if __name__ == "__main__":

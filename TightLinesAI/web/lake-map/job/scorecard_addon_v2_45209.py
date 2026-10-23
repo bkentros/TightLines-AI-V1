@@ -80,8 +80,10 @@ def fix_pair(pair, sampler):
     if location is None:
         return None
     node, model_lat, model_lon, distance = location
-    low = sampler.value((model, lower[1], lower[2], node))
-    high = sampler.value((model, upper[1], upper[2], node))
+    low_result = sampler.value_with_source((model, lower[1], lower[2], node))
+    high_result = sampler.value_with_source((model, upper[1], upper[2], node))
+    low, low_source = low_result
+    high, high_source = high_result
     if low is None or high is None:
         return None
     value_c = low + (high - low) * fraction
@@ -101,6 +103,7 @@ def fix_pair(pair, sampler):
         "observationOffsetMinutes": 0.0,
         "modelVersion": (public.CURRENT_MODEL_VERSION
                          if archive_cycle >= public.CURRENT_MODEL_START else public.LEGACY_MODEL_VERSION),
+        "modelSource": "nodd" if "nodd" in {low_source, high_source} else "ncei",
     })
     return result
 

@@ -84,6 +84,7 @@ class ArchivedFieldSampler:
         self.cache.mkdir(parents=True, exist_ok=True)
         self.geometry = public.PublicModelSampler(cache / "geometry")
         self.values: dict[tuple, float | None] = {}
+        self.value_sources: dict[tuple, str | None] = {}
         self.fetch_errors = 0
 
     @staticmethod
@@ -108,17 +109,37 @@ class ArchivedFieldSampler:
             return None
         return node, model_lat, model_lon, distance
 
-    def value(self, request: tuple[str, datetime, int, int]) -> float | None:
+    @staticmethod
+    def nodd_key(model: str, cycle: datetime, slot: int) -> str:
+        directory = cycle.strftime("%Y/%m/%d") if cycle.year >= 2025 else cycle.strftime("%Y%m")
+        return (f"{model}/netcdf/{directory}/"
+                f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.fields.n{slot:03d}.nc")
+
+    def _nodd_value(self, model: str, cycle: datetime, slot: int, node: int):
+        stream, dataset = self.geometry._open(self.nodd_key(model, cycle, slot))
+        if dataset is None:
+            return None
+        try:
+            result = float(self.geometry._variable(dataset, "temp")[0, 0, node])
+            return result if math.isfinite(result) else None
+        except Exception:
+            return None
+        finally:
+            dataset.close(); stream.close()
+
+    def value_with_source(self, request: tuple[str, datetime, int, int]):
         if request in self.values:
-            return self.values[request]
+            return self.values[request], self.value_sources.get(request)
         model, cycle, slot, node = request
-        cache_file = self.cache / "values" / model / f"{cycle:%Y%m%d%H}-n{slot:03d}-{node}.txt"
+        cache_file = self.cache / "values" / model / f"{cycle:%Y%m%d%H}-n{slot:03d}-{node}.json"
         if cache_file.exists():
             try:
-                result = float(cache_file.read_text())
+                payload = json.loads(cache_file.read_text())
+                result, source = float(payload["value"]), str(payload["source"])
                 self.values[request] = result
-                return result
-            except ValueError:
+                self.value_sources[request] = source
+                return result, source
+            except (ValueError, TypeError, KeyError, json.JSONDecodeError):
                 pass
         root = public.NCEI_ROOTS[model]
         name = self.filename(model, cycle, slot)
@@ -126,6 +147,7 @@ class ArchivedFieldSampler:
         url = (f"https://www.ncei.noaa.gov/thredds/dodsC/{root}/{cycle:%Y/%m}/"
                f"{name}.ascii?{constraint}")
         result = None
+        source = None
         failed = False
         for attempt in range(3):
             try:
@@ -137,6 +159,7 @@ class ArchivedFieldSampler:
                 )
                 if found:
                     result = float(found[-1])
+                    source = "ncei"
                     break
                 failed = True
             except urllib.error.HTTPError as error:
@@ -147,13 +170,20 @@ class ArchivedFieldSampler:
                 failed = True
             if attempt < 2:
                 time.sleep(attempt + 1)
+        if result is None:
+            result = self._nodd_value(model, cycle, slot, node)
+            source = "nodd" if result is not None else None
         if result is None and failed:
             self.fetch_errors += 1
         if result is not None:
             cache_file.parent.mkdir(parents=True, exist_ok=True)
-            cache_file.write_text(f"{result:.12g}\n")
+            cache_file.write_text(json.dumps({"source": source, "value": result}, sort_keys=True) + "\n")
         self.values[request] = result
-        return result
+        self.value_sources[request] = source
+        return result, source
+
+    def value(self, request: tuple[str, datetime, int, int]) -> float | None:
+        return self.value_with_source(request)[0]
 
 
 def field_bracket(observation_time: str):
@@ -196,11 +226,14 @@ def recover(rows: list[dict], sampler: ArchivedFieldSampler) -> tuple[list[dict]
     for _, model, _, lower, upper, _, node, *_ in selected:
         requests.append((model, lower[1], lower[2], node))
         requests.append((model, upper[1], upper[2], node))
+    unique_requests = list(dict.fromkeys(requests))
     with ThreadPoolExecutor(max_workers=8) as executor:
-        values = list(executor.map(sampler.value, requests))
+        sampled = list(executor.map(sampler.value_with_source, unique_requests))
+    lookup = dict(zip(unique_requests, sampled))
+    values = [lookup[request] for request in requests]
     recovered = []
     for index, item in enumerate(selected):
-        lower_c, upper_c = values[index * 2:index * 2 + 2]
+        (lower_c, lower_source), (upper_c, upper_source) = values[index * 2:index * 2 + 2]
         if (lower_c is None or upper_c is None or not math.isfinite(lower_c)
                 or not math.isfinite(upper_c)):
             continue
@@ -237,6 +270,7 @@ def recover(rows: list[dict], sampler: ArchivedFieldSampler) -> tuple[list[dict]
             "sample_method": "field_node",
             "observation_offset_minutes": 0.0,
             "methodology_version": METHODOLOGY,
+            "model_source": "nodd" if "nodd" in {lower_source, upper_source} else "ncei",
         })
         recovered.append(result)
     return recovered, len(selected)
