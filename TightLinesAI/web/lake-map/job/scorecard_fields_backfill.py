@@ -1,0 +1,289 @@
+#!/usr/bin/env python3
+"""Recover private v2 uncovered surface rows from archived FVCOM fields."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import os
+import re
+import subprocess
+import time
+import urllib.error
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
+
+import pyarrow as pa
+import pyarrow.parquet as pq
+from botocore.exceptions import ClientError
+
+import scorecard_addon_backfill as addon
+import scorecard_public_backfill as public
+import scorecard_store
+from lakemap import store
+
+UTC = timezone.utc
+STREAM = "backfill_fields"
+METHODOLOGY = "public-scorecard-fields-v1"
+USER_AGENT = "FinFindr-scorecard-fields/1.0 (+https://finfindr.app)"
+
+
+def revision() -> str:
+    value = os.environ.get("GITHUB_SHA")
+    if value:
+        return value
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        return "unknown"
+
+
+def marker_exists(s3, bucket: str, day_text: str) -> bool:
+    key = scorecard_store.done_marker_key(STREAM, day_text, METHODOLOGY)
+    try:
+        s3.head_object(Bucket=bucket, Key=key)
+        return True
+    except ClientError as error:
+        if error.response.get("ResponseMetadata", {}).get("HTTPStatusCode") == 404:
+            return False
+        raise
+
+
+def source_marker(day_text: str) -> str:
+    return scorecard_store.done_marker_key(
+        "backfill", day_text, public.METHODOLOGY_VERSION,
+    )
+
+
+def read_source_rows(s3, bucket: str, day_text: str) -> tuple[list[dict], dict]:
+    marker = json.loads(
+        s3.get_object(Bucket=bucket, Key=source_marker(day_text))["Body"].read()
+    )
+    body = s3.get_object(Bucket=bucket, Key=marker["fragmentKey"])["Body"].read()
+    return pq.read_table(pa.BufferReader(body)).to_pylist(), marker
+
+
+def nowcast_request(observation_time: str) -> tuple[datetime, datetime, int]:
+    """Return nearest valid hour, enclosing six-hour cycle, and n001..n006 slot."""
+    observed = public.parse_time(observation_time)
+    valid = (observed + timedelta(minutes=30)).replace(minute=0, second=0, microsecond=0)
+    delta = (6 - valid.hour % 6) % 6
+    cycle = valid + timedelta(hours=delta)
+    slot = 6 - delta
+    return valid, cycle, slot
+
+
+class ArchivedFieldSampler:
+    def __init__(self, cache: Path):
+        self.cache = cache
+        self.cache.mkdir(parents=True, exist_ok=True)
+        self.geometry = public.PublicModelSampler(cache / "geometry")
+        self.values: dict[tuple, float | None] = {}
+        self.fetch_errors = 0
+
+    @staticmethod
+    def filename(model: str, cycle: datetime, slot: int) -> str:
+        product = f"fields.n{slot:03d}"
+        if cycle >= public.CURRENT_MODEL_START:
+            return f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.{product}.nc"
+        return f"nos.{model}.{product}.{cycle:%Y%m%d}.t{cycle:%H}z.nc"
+
+    def locate(self, model: str, cycle: datetime, lat: float, lon: float):
+        grid = self.geometry.grid(model, cycle, "native")
+        if grid is None:
+            return None
+        query = (lat, lon * math.cos(math.radians(lat)))
+        _, position = grid["tree"].query(query)
+        node = int(grid["indices"][int(position)])
+        model_lat, model_lon = float(grid["lat"][node]), float(grid["lon"][node])
+        distance = public.verify.distance_km(
+            {"lat": lat, "lon": lon}, {"lat": model_lat, "lon": model_lon},
+        )
+        if distance > public.verify.MAX_MODEL_CELL_DISTANCE_KM:
+            return None
+        return node, model_lat, model_lon, distance
+
+    def value(self, request: tuple[str, datetime, int, int]) -> float | None:
+        if request in self.values:
+            return self.values[request]
+        model, cycle, slot, node = request
+        cache_file = self.cache / "values" / model / f"{cycle:%Y%m%d%H}-n{slot:03d}-{node}.txt"
+        if cache_file.exists():
+            try:
+                result = float(cache_file.read_text())
+                self.values[request] = result
+                return result
+            except ValueError:
+                pass
+        root = public.NCEI_ROOTS[model]
+        name = self.filename(model, cycle, slot)
+        constraint = f"temp[0:1:0][0:1:0][{node}:1:{node}]"
+        url = (f"https://www.ncei.noaa.gov/thredds/dodsC/{root}/{cycle:%Y/%m}/"
+               f"{name}.ascii?{constraint}")
+        result = None
+        failed = False
+        for attempt in range(3):
+            try:
+                request_object = urllib.request.Request(url, headers={"user-agent": USER_AGENT})
+                with urllib.request.urlopen(request_object, timeout=90) as response:
+                    text = response.read().decode("utf-8", "replace")
+                found = re.findall(
+                    r"\]\s*,\s*(-?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?)", text,
+                )
+                if found:
+                    result = float(found[-1])
+                    break
+                failed = True
+            except urllib.error.HTTPError as error:
+                failed = True
+                if 400 <= error.code < 500:
+                    break
+            except Exception:
+                failed = True
+            if attempt < 2:
+                time.sleep(attempt + 1)
+        if result is None and failed:
+            self.fetch_errors += 1
+        if result is not None:
+            cache_file.parent.mkdir(parents=True, exist_ok=True)
+            cache_file.write_text(f"{result:.12g}\n")
+        self.values[request] = result
+        return result
+
+
+def candidates(rows: list[dict], sampler: ArchivedFieldSampler):
+    output = []
+    for row in rows:
+        if row.get("pair_status") != "uncovered":
+            continue
+        depth = row.get("sensor_depth_m")
+        lat, lon = row.get("station_lat"), row.get("station_lon")
+        model = public.MODELS.get(row.get("waterbody"))
+        if not (isinstance(depth, (int, float)) and depth <= 1.5 and model and
+                isinstance(lat, (int, float)) and math.isfinite(lat) and
+                isinstance(lon, (int, float)) and math.isfinite(lon)):
+            continue
+        valid, cycle, slot = nowcast_request(row["observation_time"])
+        location = sampler.locate(model, cycle, float(lat), float(lon))
+        if location is None:
+            continue
+        node, model_lat, model_lon, distance = location
+        output.append((row, model, valid, cycle, slot, node, model_lat, model_lon, distance))
+    return output
+
+
+def recover(rows: list[dict], sampler: ArchivedFieldSampler) -> tuple[list[dict], int]:
+    selected = candidates(rows, sampler)
+    requests = [(model, cycle, slot, node)
+                for _, model, _, cycle, slot, node, *_ in selected]
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        values = list(executor.map(sampler.value, requests))
+    recovered = []
+    for item, value_c in zip(selected, values):
+        if value_c is None or not math.isfinite(value_c) or not -2 <= value_c <= 40:
+            continue
+        row, model, valid, cycle, slot, _, model_lat, model_lon, distance = item
+        result = dict(row)
+        result.update({
+            "model_cycle": public.iso(cycle),
+            "model_issued_at": public.iso(cycle),
+            "valid_time": public.iso(valid),
+            "lead_hours": 0.0,
+            "lower_model_hour": 0,
+            "upper_model_hour": 0,
+            "time_interpolation_fraction": 0.0,
+            "run_id": f"field-nowcast/{model}/{cycle:%Y%m%d%H}/n{slot:03d}",
+            "model_version": (public.CURRENT_MODEL_VERSION
+                              if cycle >= public.CURRENT_MODEL_START else public.LEGACY_MODEL_VERSION),
+            "pair_status": "paired",
+            "model_temperature_f": value_c * 1.8 + 32,
+            "model_depth_m": 0.0,
+            "depth_method": "surface_layer",
+            "model_lat": model_lat,
+            "model_lon": model_lon,
+            "model_distance_km": distance,
+            "sample_method": "field_node",
+            "observation_offset_minutes": abs(
+                (public.parse_time(row["observation_time"]) - valid).total_seconds()
+            ) / 60,
+            "methodology_version": METHODOLOGY,
+        })
+        recovered.append(result)
+    return recovered, len(selected)
+
+
+def validate(records: list[dict]) -> dict:
+    return addon.validate_research_records(records)
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--start", required=True, type=date.fromisoformat)
+    parser.add_argument("--end", required=True, type=date.fromisoformat)
+    parser.add_argument("--cache", type=Path, default=Path(os.environ.get(
+        "SCORECARD_FIELDS_CACHE", "/tmp/finfindr-scorecard-fields")))
+    parser.add_argument("--store", action="store_true")
+    parser.add_argument("--skip-existing-r2", action="store_true")
+    args = parser.parse_args(argv)
+    if args.end < args.start:
+        parser.error("end precedes start")
+    bucket = store.bucket()
+    if bucket in {"", "piercast-lake-map"}:
+        raise SystemExit("refusing unset or production map bucket")
+    s3 = store.client()
+    sampler = ArchivedFieldSampler(args.cache)
+    code_version = revision()
+    day = args.start
+    total = attempted = 0
+    while day <= args.end:
+        day_text = day.isoformat()
+        if args.skip_existing_r2 and marker_exists(s3, bucket, day_text):
+            print(f"Fields day={day_text} status=r2_skip")
+            day += timedelta(days=1)
+            continue
+        rows, source = read_source_rows(s3, bucket, day_text)
+        before_errors = sampler.fetch_errors
+        records, candidates_count = recover(rows, sampler)
+        day_errors = sampler.fetch_errors - before_errors
+        if day_errors:
+            print(f"Fields day={day_text} status=paused reason=source_fetch_error errors={day_errors}")
+            return 5
+        validation = validate(records)
+        if validation["invalidRows"]:
+            print(f"Fields day={day_text} status=invalid count={validation['invalidRows']}")
+            return 2
+        evidence = {
+            "methodologyVersion": METHODOLOGY,
+            "sourceFragment": source["fragmentKey"],
+            "records": records,
+        }
+        digest = hashlib.sha256(json.dumps(
+            evidence, separators=(",", ":"), sort_keys=True, default=str,
+        ).encode()).hexdigest()
+        for record in records:
+            record["evidence_key"] = source["fragmentKey"]
+            record["evidence_sha256"] = digest
+        if args.store:
+            manifest = scorecard_store.write_fragment(
+                records, STREAM, day_text, digest, s3=s3, environment=os.environ,
+                methodology_version=METHODOLOGY, code_version=code_version,
+            )
+            scorecard_store.write_done_marker(
+                manifest, METHODOLOGY, code_version, s3, os.environ,
+            )
+        total += len(records)
+        attempted += candidates_count
+        print(f"Fields day={day_text} status=stored candidates={candidates_count} recovered={len(records)} errors=0")
+        day += timedelta(days=1)
+    print(json.dumps({"status": "complete", "candidates": attempted, "recovered": total,
+                      "errors": sampler.fetch_errors}, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

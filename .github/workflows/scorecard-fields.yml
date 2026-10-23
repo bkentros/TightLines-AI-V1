@@ -1,0 +1,114 @@
+name: Scorecard uncovered field recovery
+
+on:
+  push:
+    branches: [research/hybrid-phase1]
+    paths:
+      - .github/workflows/scorecard-fields.yml
+      - .github/field-backfill-launch.json
+      - TightLinesAI/web/lake-map/job/scorecard_fields_backfill.py
+  workflow_dispatch:
+    inputs:
+      chunks_json:
+        description: Optional JSON chunk list; blank uses all 29 chunks
+        type: string
+        default: ""
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-fields-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        env:
+          CHUNKS_JSON: ${{ inputs.chunks_json }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            mode=$(jq -r .mode .github/field-backfill-launch.json)
+            if [[ "$mode" == "test" ]]; then
+              value='[{"start":"2024-07-15","end":"2024-07-21"}]'
+            elif [[ "$mode" == "full" ]]; then
+              value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+            else
+              echo "unsupported launch mode" >&2; exit 2
+            fi
+          elif [[ -n "$CHUNKS_JSON" ]]; then
+            value=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
+          else
+            value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+  fields:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private scorecard bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: |
+          if [[ -z "$R2_BUCKET" || "$R2_BUCKET" == "piercast-lake-map" ]]; then
+            echo "::error::Private scorecard bucket is unset or resolves to the production map bucket"
+            exit 1
+          fi
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: |
+          pip install -r job/requirements.txt
+          pip install "s3fs>=2024.6"
+      - name: Recover uncovered surface rows
+        env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-fields-store
+          SCORECARD_FIELDS_CACHE: ${{ runner.temp }}/scorecard-fields-cache
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        shell: bash
+        run: |
+          set -o pipefail
+          python job/scorecard_fields_backfill.py --start "$START" --end "$END" \
+            --store --skip-existing-r2 2>&1 | tee "$RUNNER_TEMP/scorecard-fields.log"
+      - name: Summarize
+        if: always()
+        env:
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          stored=$(grep -c 'status=stored' "$RUNNER_TEMP/scorecard-fields.log" 2>/dev/null || true)
+          skipped=$(grep -c 'status=r2_skip' "$RUNNER_TEMP/scorecard-fields.log" 2>/dev/null || true)
+          recovered=$(grep -o 'recovered=[0-9]*' "$RUNNER_TEMP/scorecard-fields.log" 2>/dev/null | cut -d= -f2 | awk '{s+=$1} END {print s+0}')
+          {
+            echo "## Uncovered field recovery"
+            echo "- Chunk: $START..$END"
+            echo "- Days stored: $stored"
+            echo "- Days skipped: $skipped"
+            echo "- Rows recovered: $recovered"
+          } >> "$GITHUB_STEP_SUMMARY"
