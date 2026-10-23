@@ -1,6 +1,11 @@
 name: Scorecard Lakeport addon v2
 
 on:
+  push:
+    branches: [research/hybrid-phase1]
+    paths:
+      - .github/workflows/scorecard-addon-v2.yml
+      - TightLinesAI/web/lake-map/job/scorecard_addon_v2_45209.py
   workflow_dispatch:
     inputs:
       chunks_json:
