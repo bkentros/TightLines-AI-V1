@@ -1,4 +1,5 @@
 import io
+import json
 import os
 import sys
 import tempfile
@@ -72,6 +73,30 @@ class PublicBackfillTest(unittest.TestCase):
             self.assertFalse(cache.outcome("retired.csv")["error"])
             self.assertTrue(cache.outcome("retired.csv")["notFound"])
         error.close()
+
+    def test_dense_glos_dataset_uses_week_slices(self):
+        start = datetime(2025, 5, 1, tzinfo=timezone.utc)
+        end = datetime(2025, 5, 31, 23, 59, 59, tzinfo=timezone.utc)
+        active = [{
+            "obs_dataset_id": "74",
+            "parameters": [{"parameter_id": str(value)} for value in range(10)],
+        }]
+        cache = mock.Mock()
+        cache.get.side_effect = [json.dumps(active).encode(), *([None] * 50)]
+        cache.outcome.return_value = {"error": False, "notFound": True}
+        datasets = {"74": {"name": "Dense", "body": "lake-ontario", "type": "moored_buoy"}}
+        parameters = {
+            str(value): {"name": f"temperature_{value}", "depthM": value}
+            for value in range(10)
+        }
+
+        backfill.collect_glos(cache, start, end, datasets, parameters)
+
+        # One catalog request plus 10 parameters x five seven-day slices.
+        self.assertEqual(cache.get.call_count, 51)
+        source_names = [call.args[0] for call in cache.get.call_args_list[1:]]
+        self.assertEqual(sum("20250501-20250507" in name for name in source_names), 10)
+        self.assertTrue(any("20250529-20250531" in name for name in source_names))
 
     def test_invalid_public_model_object_is_treated_as_unavailable(self):
         sampler = backfill.PublicModelSampler.__new__(backfill.PublicModelSampler)

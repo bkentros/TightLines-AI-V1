@@ -566,12 +566,23 @@ def collect_glos(cache, start, end, datasets, parameters, quarantine=None, accou
             continue
         accounting.attempt("glos", dataset_id, start, end)
         ids = sorted({str(group.get("parameter_id")) for group in dataset_row.get("parameters", [])})
+        # Dense thermistor strings can expose many temperature parameters at a
+        # high sampling cadence.  A month per parameter is large enough to time
+        # out ERDDAP even though shorter slices are healthy (notably obs_74).
+        # Keep sparse datasets on the low-request-count path and bound dense
+        # datasets to seven calendar days per request.
+        slice_days = 7 if sum(parameter_id in parameters for parameter_id in ids) >= 10 else 90
         for parameter_id in ids:
             parameter = parameters.get(parameter_id)
             if parameter:
                 cursor = start
                 while cursor <= end:
-                    stop = min(end, cursor + timedelta(days=89, hours=23, minutes=59, seconds=59))
+                    stop = min(
+                        end,
+                        cursor + timedelta(
+                            days=slice_days - 1, hours=23, minutes=59, seconds=59,
+                        ),
+                    )
                     tasks.append((dataset_id, meta, parameter_id, parameter, cursor, stop))
                     cursor = stop + timedelta(seconds=1)
 
