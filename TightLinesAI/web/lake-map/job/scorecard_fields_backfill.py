@@ -156,6 +156,18 @@ class ArchivedFieldSampler:
         return result
 
 
+def field_bracket(observation_time: str):
+    """Return archived field requests bracketing the exact observation time."""
+    observed = public.parse_time(observation_time)
+    lower = observed.replace(minute=0, second=0, microsecond=0)
+    upper = lower if observed == lower else lower + timedelta(hours=1)
+    lower_valid, lower_cycle, lower_slot = nowcast_request(public.iso(lower))
+    upper_valid, upper_cycle, upper_slot = nowcast_request(public.iso(upper))
+    fraction = (observed - lower).total_seconds() / 3600
+    return observed, (lower_valid, lower_cycle, lower_slot), (
+        upper_valid, upper_cycle, upper_slot), fraction
+
+
 def candidates(rows: list[dict], sampler: ArchivedFieldSampler):
     output = []
     for row in rows:
@@ -168,38 +180,53 @@ def candidates(rows: list[dict], sampler: ArchivedFieldSampler):
                 isinstance(lat, (int, float)) and math.isfinite(lat) and
                 isinstance(lon, (int, float)) and math.isfinite(lon)):
             continue
-        valid, cycle, slot = nowcast_request(row["observation_time"])
-        location = sampler.locate(model, cycle, float(lat), float(lon))
+        observed, lower, upper, fraction = field_bracket(row["observation_time"])
+        location = sampler.locate(model, lower[1], float(lat), float(lon))
         if location is None:
             continue
         node, model_lat, model_lon, distance = location
-        output.append((row, model, valid, cycle, slot, node, model_lat, model_lon, distance))
+        output.append((row, model, observed, lower, upper, fraction, node,
+                       model_lat, model_lon, distance))
     return output
 
 
 def recover(rows: list[dict], sampler: ArchivedFieldSampler) -> tuple[list[dict], int]:
     selected = candidates(rows, sampler)
-    requests = [(model, cycle, slot, node)
-                for _, model, _, cycle, slot, node, *_ in selected]
+    requests = []
+    for _, model, _, lower, upper, _, node, *_ in selected:
+        requests.append((model, lower[1], lower[2], node))
+        requests.append((model, upper[1], upper[2], node))
     with ThreadPoolExecutor(max_workers=8) as executor:
         values = list(executor.map(sampler.value, requests))
     recovered = []
-    for item, value_c in zip(selected, values):
-        if value_c is None or not math.isfinite(value_c) or not -2 <= value_c <= 40:
+    for index, item in enumerate(selected):
+        lower_c, upper_c = values[index * 2:index * 2 + 2]
+        if (lower_c is None or upper_c is None or not math.isfinite(lower_c)
+                or not math.isfinite(upper_c)):
             continue
-        row, model, valid, cycle, slot, _, model_lat, model_lon, distance = item
+        row, model, observed, lower, upper, fraction, _, model_lat, model_lon, distance = item
+        value_c = lower_c + (upper_c - lower_c) * fraction
+        if not math.isfinite(value_c) or not -2 <= value_c <= 40:
+            continue
+        logical_cycle = observed
+        archive_cycle = max(lower[1], upper[1])
         result = dict(row)
         result.update({
-            "model_cycle": public.iso(cycle),
-            "model_issued_at": public.iso(cycle),
-            "valid_time": public.iso(valid),
+            # This research stream represents a lead-zero estimate at the
+            # observation instant. run_id preserves the physical archives
+            # used to interpolate that estimate.
+            "model_cycle": public.iso(logical_cycle),
+            "model_issued_at": public.iso(archive_cycle),
+            "valid_time": public.iso(observed),
             "lead_hours": 0.0,
             "lower_model_hour": 0,
             "upper_model_hour": 0,
             "time_interpolation_fraction": 0.0,
-            "run_id": f"field-nowcast/{model}/{cycle:%Y%m%d%H}/n{slot:03d}",
+            "run_id": (f"field-nowcast/{model}/"
+                       f"{lower[1]:%Y%m%d%H}n{lower[2]:03d}-"
+                       f"{upper[1]:%Y%m%d%H}n{upper[2]:03d}"),
             "model_version": (public.CURRENT_MODEL_VERSION
-                              if cycle >= public.CURRENT_MODEL_START else public.LEGACY_MODEL_VERSION),
+                              if archive_cycle >= public.CURRENT_MODEL_START else public.LEGACY_MODEL_VERSION),
             "pair_status": "paired",
             "model_temperature_f": value_c * 1.8 + 32,
             "model_depth_m": 0.0,
@@ -208,9 +235,7 @@ def recover(rows: list[dict], sampler: ArchivedFieldSampler) -> tuple[list[dict]
             "model_lon": model_lon,
             "model_distance_km": distance,
             "sample_method": "field_node",
-            "observation_offset_minutes": abs(
-                (public.parse_time(row["observation_time"]) - valid).total_seconds()
-            ) / 60,
+            "observation_offset_minutes": 0.0,
             "methodology_version": METHODOLOGY,
         })
         recovered.append(result)
