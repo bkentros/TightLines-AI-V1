@@ -1,0 +1,93 @@
+name: Scorecard Lakeport addon v2
+
+on:
+  workflow_dispatch:
+    inputs:
+      chunks_json:
+        description: Optional JSON chunk list; blank uses all 29 chunks
+        type: string
+        default: ""
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorecard-addon-v2-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chunks:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: matrix
+        env:
+          CHUNKS_JSON: ${{ inputs.chunks_json }}
+        run: |
+          if [[ -n "$CHUNKS_JSON" ]]; then
+            value=$(jq -ce 'if type == "array" then . else error("array required") end' <<<"$CHUNKS_JSON")
+          else
+            value=$(jq -c . TightLinesAI/web/lake-map/job/backfill_chunks.json)
+          fi
+          echo "value=$value" >> "$GITHUB_OUTPUT"
+
+  addon-v2:
+    needs: chunks
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        chunk: ${{ fromJSON(needs.chunks.outputs.matrix) }}
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private scorecard bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$R2_BUCKET" && test "$R2_BUCKET" != "piercast-lake-map"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: |
+          pip install -r job/requirements.txt
+          pip install "s3fs>=2024.6"
+      - name: Rebuild Lakeport with validated field sampler
+        env:
+          SCORECARD_STORE_DIR: ${{ runner.temp }}/scorecard-addon-v2-store
+          SCORECARD_ADDON_V2_CACHE: ${{ runner.temp }}/scorecard-addon-v2-cache
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          set -o pipefail
+          python job/scorecard_addon_v2_45209.py --start "$START" --end "$END" \
+            --store --skip-existing-r2 | tee "$RUNNER_TEMP/addon-v2.log"
+      - name: Summarize
+        if: always()
+        env:
+          START: ${{ matrix.chunk.start }}
+          END: ${{ matrix.chunk.end }}
+        run: |
+          stored=$(grep -c 'status=stored' "$RUNNER_TEMP/addon-v2.log" 2>/dev/null || true)
+          skipped=$(grep -c 'status=r2_skip' "$RUNNER_TEMP/addon-v2.log" 2>/dev/null || true)
+          rows=$(grep -o 'records=[0-9]*' "$RUNNER_TEMP/addon-v2.log" 2>/dev/null | cut -d= -f2 | awk '{s+=$1} END {print s+0}')
+          {
+            echo "## Lakeport add-on v2"
+            echo "- Chunk: $START..$END"
+            echo "- Days stored: $stored"
+            echo "- Days skipped: $skipped"
+            echo "- Rows: $rows"
+          } >> "$GITHUB_STEP_SUMMARY"

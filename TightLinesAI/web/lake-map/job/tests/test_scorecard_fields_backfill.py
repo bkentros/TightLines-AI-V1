@@ -1,5 +1,6 @@
 import sys
 import unittest
+from unittest import mock
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -33,7 +34,7 @@ class ScorecardFieldsBackfillTest(unittest.TestCase):
             "observed_temperature_f": 67.0, "depth_assumed": False,
             "strict_quality": False, "quality_flags": ["station_suspect_day"],
         }
-        sampler = unittest.mock.Mock()
+        sampler = mock.Mock()
         sampler.locate.return_value = (7, 43.01, -86.01, 1.2)
         sampler.value.side_effect = [20.0, 21.0]
         recovered, attempted = fields.recover([row], sampler)
