@@ -34,6 +34,15 @@ GLWU_CYCLE = datetime(2026, 9, 30, 13, tzinfo=timezone.utc)
 
 
 class StoreTest(unittest.TestCase):
+    def test_auxiliary_health_state_failure_cannot_block_publish(self):
+        messages = []
+        with patch.object(build.source_health, "save", side_effect=PermissionError("denied")):
+            saved = build.persist_source_health(object(), {"formatVersion": 1}, messages.append)
+        self.assertFalse(saved)
+        self.assertEqual(len(messages), 1)
+        self.assertIn("continuing", messages[0])
+        self.assertNotIn("retaining the last", messages[0])
+
     def test_mutable_pointer_metadata_is_short_and_revalidating(self):
         class RecordingS3:
             def __init__(self):

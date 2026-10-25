@@ -103,6 +103,19 @@ MIN_NATIVE_COVERAGE = 0.98
 MIN_GRID_COVERAGE = 0.97
 
 
+def persist_source_health(s3, health_state, log) -> bool:
+    """Persist auxiliary source health without blocking a validated publish."""
+    try:
+        source_health.save(s3, health_state)
+        return True
+    except Exception as err:
+        log(
+            f"THREDDS health state write failed ({net.redact(err)}) — "
+            "continuing because source health is advisory and the validated run is complete."
+        )
+        return False
+
+
 def validate_temperature_hours(model_id, hours, point_count):
     """Require every forecast hour and nearly complete finite source coverage."""
     expected = set(range(HOURS))
@@ -738,7 +751,7 @@ def main(argv=None):
         )
     except (TemperatureIntegrityError, SurfaceSourceFailure) as err:
         if health_state is not None:
-            source_health.save(s3, health_state)
+            persist_source_health(s3, health_state, log)
         log(f"Temperature integrity check failed ({err}) — retaining the last complete published run.")
         return 2
     used_distribution = (
@@ -754,11 +767,7 @@ def main(argv=None):
             health_state, cycle_key, "surface", used_distribution,
             source_reason if used_distribution == distribution else "full-cycle fallback after THREDDS failure",
         )
-        try:
-            source_health.save(s3, health_state)
-        except Exception as err:
-            log(f"THREDDS health state write failed ({net.redact(err)}) — retaining the last complete published run.")
-            return 2
+        persist_source_health(s3, health_state, log)
     log.mark("temperature")
     wave_frames, wave_info = build_waves(t0, now, log)
     log.mark("waves")

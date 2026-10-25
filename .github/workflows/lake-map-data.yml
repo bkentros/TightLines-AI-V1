@@ -58,12 +58,20 @@ jobs:
           cache-dependency-path: TightLinesAI/web/lake-map/package-lock.json
       - name: Install data-job dependencies
         run: pip install -r job/requirements.txt
+      - name: Verify production R2 access before paid work
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: piercast-lake-map
+        run: |
+          python -c 'import sys; sys.path.insert(0, "job"); from lakemap import store; store.client().head_object(Bucket=store.bucket(), Key="latest.json"); print("Production R2 preflight: ok")'
       - name: Build and publish
         id: publish
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
           OPEN_METEO_API_KEY: ${{ secrets.OPEN_METEO_API_KEY }}
         run: python job/build.py --out "$RUNNER_TEMP/lakemap" --upload ${{ inputs.force && '--force' || '' }}
@@ -101,9 +109,9 @@ jobs:
         run: pip install -r job/requirements.txt
       - name: Build and publish Temp at depth
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
         run: python job/depth.py --out "$RUNNER_TEMP/lakemap-depth" --upload
 
