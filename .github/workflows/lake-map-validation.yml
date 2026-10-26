@@ -67,17 +67,17 @@ jobs:
       - name: Verify yesterday and publish
         if: github.event_name == 'schedule' || inputs.date == ''
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
         run: python job/verify.py --upload --fail-on-pipeline-error
       - name: Verify requested date and publish
         if: github.event_name == 'workflow_dispatch' && inputs.date != ''
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
           VALIDATION_DATE: ${{ inputs.date }}
         run: python job/verify.py --upload --fail-on-pipeline-error --date "$VALIDATION_DATE"
@@ -108,9 +108,9 @@ jobs:
       - name: Read-only production archive schema preflight
         if: github.event_name == 'workflow_dispatch' && inputs.scorecard_preflight_only == true
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
           PREFLIGHT_START: ${{ inputs.scorecard_preflight_start }}
           PREFLIGHT_END: ${{ inputs.scorecard_preflight_end }}
@@ -118,18 +118,18 @@ jobs:
       - name: Project private NOAA observation scorecard
         if: inputs.scorecard_preflight_only != true && (github.event_name == 'schedule' || inputs.date == '')
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
           LAKE_MAP_SCORECARD_PARQUET_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED }}
         run: python job/scorecard_job.py --store
       - name: Project requested private NOAA observation scorecard
         if: inputs.scorecard_preflight_only != true && github.event_name == 'workflow_dispatch' && inputs.date != ''
         env:
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: piercast-lake-map
           LAKE_MAP_SCORECARD_PARQUET_ENABLED: ${{ vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED }}
           VALIDATION_DATE: ${{ inputs.date }}
