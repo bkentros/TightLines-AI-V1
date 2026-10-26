@@ -59,6 +59,36 @@ class ScorecardFieldsBackfillTest(unittest.TestCase):
         self.assertIn("lmhofs/netcdf/202407/", fields.ArchivedFieldSampler.nodd_key("lmhofs", old, 3))
         self.assertIn("lmhofs/netcdf/2025/07/15/", fields.ArchivedFieldSampler.nodd_key("lmhofs", new, 3))
 
+    def test_nodd_missing_object_reports_not_found(self):
+        sampler = object.__new__(fields.ArchivedFieldSampler)
+        sampler.geometry = mock.Mock()
+        sampler.geometry.fs.exists.return_value = False
+        value, category = sampler._nodd_value(
+            "lmhofs", datetime(2024, 7, 15, 6, tzinfo=timezone.utc), 3, 7)
+        self.assertIsNone(value)
+        self.assertEqual(category, "not_found")
+
+    def test_confirmed_dual_archive_gap_is_not_a_fetch_error(self):
+        sampler = object.__new__(fields.ArchivedFieldSampler)
+        sampler.values = {}
+        sampler.value_sources = {}
+        sampler.fetch_errors = 0
+        sampler.failure_counts = fields.Counter()
+        sampler.archive_missing = 0
+        sampler.missing_counts = fields.Counter()
+        sampler.ncei_file_states = {}
+        sampler.cache = Path("/tmp/nonexistent-scorecard-test-cache")
+        sampler._nodd_value = mock.Mock(return_value=(None, "not_found"))
+        sampler._ncei_file_exists = mock.Mock(return_value=False)
+        missing = fields.urllib.error.HTTPError("redacted", 500, "missing", {}, None)
+        with mock.patch.object(fields.urllib.request, "urlopen", side_effect=missing):
+            value, source = sampler.value_with_source((
+                "lmhofs", datetime(2023, 7, 2, 12, tzinfo=timezone.utc), 6, 7))
+        self.assertIsNone(value)
+        self.assertIsNone(source)
+        self.assertEqual(sampler.archive_missing, 1)
+        self.assertEqual(sampler.fetch_errors, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

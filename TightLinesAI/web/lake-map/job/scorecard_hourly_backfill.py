@@ -178,6 +178,11 @@ class NowcastCache:
         return netcdf_file(io.BytesIO(body), "r", mmap=False) if body.startswith(b"CDF") else h5py.File(io.BytesIO(body), "r")
 
     @staticmethod
+    def _variables(dataset):
+        """Return the variable mapping for NetCDF3 and NetCDF4/HDF5 files."""
+        return dataset.variables if hasattr(dataset, "variables") else dataset
+
+    @staticmethod
     def _time_datetimes(variable):
         raw_units = getattr(variable, "units", None)
         if raw_units is None and hasattr(variable, "attrs"):
@@ -205,7 +210,7 @@ class NowcastCache:
                 return None
             dataset = self._dataset(body)
             try:
-                variables = dataset.variables
+                variables = self._variables(dataset)
                 self.station_data[cache_key] = {
                     "source": source, "times": self._time_datetimes(variables["time"]),
                     "lat": np.asarray(variables["lat"][:], dtype=float).reshape(-1),

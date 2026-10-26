@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import sys
 import tempfile
+from unittest import mock
 
 JOB = Path(__file__).resolve().parents[1]
 if str(JOB) not in sys.path:
@@ -36,6 +37,29 @@ class ScorecardLeadsBackfillTest(unittest.TestCase):
                 body, source = cache.station_file("lmhofs", cycle)
         self.assertEqual(body, b"CDF-test")
         self.assertEqual(source, "nodd")
+
+    def test_build_day_reports_failed_cycle_category(self):
+        observed = "2024-07-15T12:00:00Z"
+        row = {"observation_time": observed, "waterbody": "lake-michigan"}
+        cache = mock.Mock()
+        cache.station_file.side_effect = RuntimeError("unavailable")
+        with mock.patch.object(leads, "TARGET_LEADS", (6,)):
+            records, counts, errors = leads.build_day([row], cache)
+        self.assertEqual(records, [])
+        self.assertEqual(counts, {})
+        self.assertEqual(sum(errors.values()), 1)
+        self.assertIn("RuntimeError", next(iter(errors)))
+
+    def test_build_day_treats_confirmed_archive_gap_as_missing(self):
+        observed = "2024-09-09T12:00:00Z"
+        row = {"observation_time": observed, "waterbody": "lake-michigan"}
+        cache = mock.Mock()
+        cache.station_file.side_effect = leads.ArchiveMissing("absent")
+        with mock.patch.object(leads, "TARGET_LEADS", (6,)):
+            records, counts, errors = leads.build_day([row], cache)
+        self.assertEqual(records, [])
+        self.assertEqual(counts, {})
+        self.assertEqual(errors, {})
 
 
 if __name__ == "__main__":

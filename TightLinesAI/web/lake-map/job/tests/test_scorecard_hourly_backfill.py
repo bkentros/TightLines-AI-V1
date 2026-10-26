@@ -12,6 +12,13 @@ import scorecard_hourly_backfill as hourly  # noqa: E402
 
 
 class HourlyBackfillTest(unittest.TestCase):
+    def test_variable_mapping_supports_netcdf3_and_hdf5(self):
+        netcdf = mock.Mock()
+        netcdf.variables = {"temp": "classic"}
+        hdf5 = {"temp": "hdf5"}
+        self.assertEqual(hourly.NowcastCache._variables(netcdf)["temp"], "classic")
+        self.assertEqual(hourly.NowcastCache._variables(hdf5)["temp"], "hdf5")
+
     def test_hour_means_round_and_count_without_crossing_day(self):
         base = {"identity": "station:x", "waterDepthM": 1.0, "waterF": 50.0,
                 "waterQuality": "provider_qc", "qualityFlags": [], "source": "NOAA NDBC",

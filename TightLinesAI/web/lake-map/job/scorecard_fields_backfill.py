@@ -12,6 +12,7 @@ import subprocess
 import time
 import urllib.error
 import urllib.request
+from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -86,6 +87,10 @@ class ArchivedFieldSampler:
         self.values: dict[tuple, float | None] = {}
         self.value_sources: dict[tuple, str | None] = {}
         self.fetch_errors = 0
+        self.failure_counts = Counter()
+        self.archive_missing = 0
+        self.missing_counts = Counter()
+        self.ncei_file_states = {}
 
     @staticmethod
     def filename(model: str, cycle: datetime, slot: int) -> str:
@@ -116,16 +121,38 @@ class ArchivedFieldSampler:
                 f"{model}.t{cycle:%H}z.{cycle:%Y%m%d}.fields.n{slot:03d}.nc")
 
     def _nodd_value(self, model: str, cycle: datetime, slot: int, node: int):
-        stream, dataset = self.geometry._open(self.nodd_key(model, cycle, slot))
+        key = self.nodd_key(model, cycle, slot)
+        if not self.geometry.fs.exists(f"noaa-nos-ofs-pds/{key}"):
+            return None, "not_found"
+        stream, dataset = self.geometry._open(key)
         if dataset is None:
-            return None
+            return None, "open_error"
         try:
             result = float(self.geometry._variable(dataset, "temp")[0, 0, node])
-            return result if math.isfinite(result) else None
-        except Exception:
-            return None
+            return (result, "ok") if math.isfinite(result) else (None, "invalid_value")
+        except Exception as error:
+            return None, type(error).__name__
         finally:
             dataset.close(); stream.close()
+
+    def _ncei_file_exists(self, model: str, cycle: datetime, slot: int):
+        """Return True/False for a conclusive HEAD, or None for a HEAD failure."""
+        cache_key = (model, cycle, slot)
+        if cache_key in self.ncei_file_states:
+            return self.ncei_file_states[cache_key]
+        root = public.NCEI_ROOTS[model]
+        url = (f"https://www.ncei.noaa.gov/thredds/fileServer/{root}/{cycle:%Y/%m}/"
+               f"{self.filename(model, cycle, slot)}")
+        try:
+            request = urllib.request.Request(url, method="HEAD", headers={"user-agent": USER_AGENT})
+            with urllib.request.urlopen(request, timeout=45):
+                result = True
+        except urllib.error.HTTPError as error:
+            result = False if error.code == 404 else None
+        except Exception:
+            result = None
+        self.ncei_file_states[cache_key] = result
+        return result
 
     def value_with_source(self, request: tuple[str, datetime, int, int]):
         if request in self.values:
@@ -149,6 +176,7 @@ class ArchivedFieldSampler:
         result = None
         source = None
         failed = False
+        ncei_category = "no_value"
         for attempt in range(3):
             try:
                 request_object = urllib.request.Request(url, headers={"user-agent": USER_AGENT})
@@ -160,21 +188,38 @@ class ArchivedFieldSampler:
                 if found:
                     result = float(found[-1])
                     source = "ncei"
+                    ncei_category = "ok"
                     break
                 failed = True
+                ncei_category = "parse_empty"
             except urllib.error.HTTPError as error:
                 failed = True
+                ncei_category = f"http_{error.code}"
                 if 400 <= error.code < 500:
                     break
-            except Exception:
+            except Exception as error:
                 failed = True
+                ncei_category = type(error).__name__
             if attempt < 2:
                 time.sleep(attempt + 1)
         if result is None:
-            result = self._nodd_value(model, cycle, slot, node)
+            result, nodd_category = self._nodd_value(model, cycle, slot, node)
             source = "nodd" if result is not None else None
+        else:
+            nodd_category = "not_needed"
         if result is None and failed:
-            self.fetch_errors += 1
+            key = (f"{model}:{cycle:%Y-%m-%dT%H}:n{slot:03d}:"
+                   f"ncei={ncei_category}:nodd={nodd_category}")
+            # NCEI's OPeNDAP endpoint returns HTTP 500 for files that are not
+            # present in its catalog. A conclusive fileServer 404 together
+            # with a missing NODD object is a real archive gap, not a fetch
+            # failure. Any ambiguous or existing-file failure remains fatal.
+            if nodd_category == "not_found" and self._ncei_file_exists(model, cycle, slot) is False:
+                self.archive_missing += 1
+                self.missing_counts[key] += 1
+            else:
+                self.fetch_errors += 1
+                self.failure_counts[key] += 1
         if result is not None:
             cache_file.parent.mkdir(parents=True, exist_ok=True)
             cache_file.write_text(json.dumps({"source": source, "value": result}, sort_keys=True) + "\n")
@@ -298,7 +343,7 @@ def main(argv=None):
     sampler = ArchivedFieldSampler(args.cache)
     code_version = revision()
     day = args.start
-    total = attempted = 0
+    total = attempted = unavailable = 0
     while day <= args.end:
         day_text = day.isoformat()
         if args.skip_existing_r2 and marker_exists(s3, bucket, day_text):
@@ -307,10 +352,14 @@ def main(argv=None):
             continue
         rows, source = read_source_rows(s3, bucket, day_text)
         before_errors = sampler.fetch_errors
+        before_missing = sampler.archive_missing
         records, candidates_count = recover(rows, sampler)
         day_errors = sampler.fetch_errors - before_errors
+        day_missing = sampler.archive_missing - before_missing
         if day_errors:
-            print(f"Fields day={day_text} status=paused reason=source_fetch_error errors={day_errors}")
+            print("Fields day=" + day_text + " status=paused reason=source_fetch_error errors="
+                  + str(day_errors) + " categories=" + json.dumps(
+                      dict(sampler.failure_counts.most_common(10)), sort_keys=True))
             return 5
         validation = validate(records)
         if validation["invalidRows"]:
@@ -337,10 +386,12 @@ def main(argv=None):
             )
         total += len(records)
         attempted += candidates_count
-        print(f"Fields day={day_text} status=stored candidates={candidates_count} recovered={len(records)} errors=0")
+        unavailable += day_missing
+        print(f"Fields day={day_text} status=stored candidates={candidates_count} "
+              f"recovered={len(records)} archive_missing={day_missing} errors=0")
         day += timedelta(days=1)
     print(json.dumps({"status": "complete", "candidates": attempted, "recovered": total,
-                      "errors": sampler.fetch_errors}, sort_keys=True))
+                      "archiveMissing": unavailable, "errors": sampler.fetch_errors}, sort_keys=True))
     return 0
 
 

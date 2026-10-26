@@ -42,6 +42,10 @@ CURRENT_MODEL_START = datetime(2024, 9, 16, 15, tzinfo=UTC)
 USER_AGENT = "FinFindr-scorecard-leads/1.0 (+https://finfindr.app)"
 
 
+class ArchiveMissing(RuntimeError):
+    """Both public distributions conclusively lack a requested model file."""
+
+
 def iso(value: datetime) -> str:
     return value.astimezone(UTC).isoformat().replace("+00:00", "Z")
 
@@ -69,6 +73,7 @@ class FileCache:
     def __init__(self, root: Path):
         self.root = root
         self.transferred = 0
+        self.missing_files = Counter()
 
     @staticmethod
     def nodd_name(model: str, cycle: datetime) -> str:
@@ -89,6 +94,7 @@ class FileCache:
             return path.read_bytes(), source
         url = f"https://www.ncei.noaa.gov/thredds/fileServer/{ROOTS[model]}/{cycle:%Y/%m}/{name}"
         last = None
+        missing_sources = 0
         for candidate_url, source in ((url, "ncei"), (self.nodd_url(model, cycle), "nodd")):
             request = urllib.request.Request(candidate_url, headers={"user-agent": USER_AGENT})
             for attempt in range(3):
@@ -103,9 +109,15 @@ class FileCache:
                 except Exception as error:  # logs report counts/categories, never URLs
                     last = error
                     if isinstance(error, urllib.error.HTTPError) and 400 <= error.code < 500:
+                        if error.code == 404:
+                            missing_sources += 1
                         break
                     if attempt < 2:
                         time.sleep(attempt + 1)
+        if missing_sources == 2:
+            key = f"{model}:{cycle:%Y-%m-%dT%H}"
+            self.missing_files[key] += 1
+            raise ArchiveMissing("forecast file absent from both public archives")
         raise RuntimeError(f"forecast file unavailable category={type(last).__name__}")
 
 
@@ -181,15 +193,17 @@ def build_day(rows: list[dict], cache: FileCache):
             cycle = target_cycle(observed, target)
             if cycle is not None:
                 requests[(model, cycle)].append((row, target))
-    output, counts, errors = [], Counter(), 0
+    output, counts, errors = [], Counter(), Counter()
     for (model, cycle), items in sorted(requests.items()):
         try:
             body, model_source = cache.station_file(model, cycle)
             dataset = open_dataset(body)
             source = variables(dataset)
             data = {name: np.array(source[name][:], copy=True) for name in ("lat", "lon", "temp")}
-        except Exception:
-            errors += 1
+        except ArchiveMissing:
+            continue
+        except Exception as error:
+            errors[f"file:{model}:{cycle:%Y-%m-%dT%H}:{type(error).__name__}"] += 1
             continue
         finally:
             if "dataset" in locals():
@@ -198,7 +212,7 @@ def build_day(rows: list[dict], cache: FileCache):
         for row, target in items:
             sampled = model_value(data, row, cycle)
             if sampled is None:
-                errors += 1
+                errors[f"value:{model}:{cycle:%Y-%m-%dT%H}"] += 1
                 continue
             temperature_f, lead, valid, offset, model_lat, model_lon = sampled
             candidate = dict(row)
@@ -253,6 +267,7 @@ def main(argv=None):
     cache = FileCache(args.cache / "cycles")
     code_version = revision()
     totals, total_errors, stored, skipped = Counter(), 0, 0, 0
+    total_missing = 0
     started = time.monotonic()
     for day in daterange(args.start, args.end):
         day_text = day.isoformat()
@@ -262,13 +277,18 @@ def main(argv=None):
             continue
         try:
             rows = source_rows(s3, bucket, day_text)
+            before_missing = sum(cache.missing_files.values())
             records, counts, errors = build_day(rows, cache)
+            day_missing = sum(cache.missing_files.values()) - before_missing
         except Exception as error:
             print(f"Leads day={day_text} status=error category={type(error).__name__}")
             return 2
-        total_errors += errors
+        error_count = sum(errors.values())
+        total_errors += error_count
+        total_missing += day_missing
         if errors:
-            print(f"Leads day={day_text} status=error count={errors}")
+            print("Leads day=" + day_text + " status=error count=" + str(error_count)
+                  + " categories=" + json.dumps(dict(errors.most_common(10)), sort_keys=True))
             return 3
         digest = hashlib.sha256(json.dumps(records, separators=(",", ":"), sort_keys=True).encode()).hexdigest()
         for record in records:
@@ -290,14 +310,15 @@ def main(argv=None):
         stored += 1
         totals.update(counts)
         print("Leads day=" + day_text + " status=" + ("stored" if args.store else "validated")
-              + " counts=" + json.dumps({str(k): counts[k] for k in TARGET_LEADS}, sort_keys=True))
+              + " counts=" + json.dumps({str(k): counts[k] for k in TARGET_LEADS}, sort_keys=True)
+              + f" archive_missing={day_missing}")
     elapsed = time.monotonic() - started
     days = max(stored, 1)
     print(json.dumps({
         "status": "complete", "start": args.start.isoformat(), "end": args.end.isoformat(),
         "days": stored, "skipped": skipped, "counts": {str(k): totals[k] for k in TARGET_LEADS},
         "secondsPerDay": elapsed / days, "megabytesPerDay": cache.transferred / 1048576 / days,
-        "errors": total_errors,
+        "archiveMissing": total_missing, "errors": total_errors,
     }, separators=(",", ":"), sort_keys=True))
     return 0
 
