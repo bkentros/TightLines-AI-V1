@@ -198,7 +198,7 @@ class NowcastCache:
 
     def station_value(self, row, valid):
         model = public.MODELS.get(row.get("waterbody"))
-        if not model:
+        if not model or not valid_position(row):
             return None
         cycle = valid + timedelta(hours=(6 - valid.hour % 6) % 6)
         cycle = cycle.replace(minute=0, second=0, microsecond=0)
@@ -245,7 +245,7 @@ class NowcastCache:
 
     def field_value(self, row, valid):
         model = public.MODELS.get(row.get("waterbody"))
-        if not model:
+        if not model or not valid_position(row):
             return None
         _, cycle, slot = fields.nowcast_request(public.iso(valid))
         location = self.field.locate(model, cycle, float(row["station_lat"]), float(row["station_lon"]))
@@ -258,10 +258,17 @@ class NowcastCache:
         return value_c, cycle, source, model_lat, model_lon, distance, slot
 
 
+def valid_position(row):
+    return all(isinstance(row.get(key), (int, float)) and math.isfinite(row[key])
+               for key in ("station_lat", "station_lon"))
+
+
 def pair_hours(rows, sampler):
     sampled_rows = []
     unresolved = []
     for row in rows:
+        if not valid_position(row):
+            continue
         valid = public.parse_time(row["observation_time"])
         sampled = sampler.station_value(row, valid)
         if sampled is None:

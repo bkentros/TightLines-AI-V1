@@ -49,6 +49,14 @@ class HourlyBackfillTest(unittest.TestCase):
         self.assertEqual(result["lead_hours"], 0.0)
         self.assertEqual(result["nowcast_hour"], 6)
 
+    def test_pair_skips_observation_without_coordinates(self):
+        row = {"observation_time": "2026-09-01T12:00:00Z", "waterbody": "lake-superior",
+               "station_lat": None, "station_lon": None}
+        sampler = mock.Mock()
+        self.assertEqual(hourly.pair_hours([row], sampler), [])
+        sampler.station_value.assert_not_called()
+        sampler.field_value.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
