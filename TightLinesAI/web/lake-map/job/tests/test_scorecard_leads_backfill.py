@@ -5,6 +5,8 @@ import sys
 import tempfile
 from unittest import mock
 
+import numpy as np
+
 JOB = Path(__file__).resolve().parents[1]
 if str(JOB) not in sys.path:
     sys.path.insert(0, str(JOB))
@@ -60,6 +62,12 @@ class ScorecardLeadsBackfillTest(unittest.TestCase):
         self.assertEqual(records, [])
         self.assertEqual(counts, {})
         self.assertEqual(errors, {})
+
+    def test_short_forecast_horizon_is_unavailable_not_an_error(self):
+        cycle = datetime(2025, 11, 7, 12, tzinfo=timezone.utc)
+        row = {"observation_time": "2025-11-10T12:00:00Z"}
+        data = {"temp": np.zeros((541, 1, 1))}  # 54 hours at 10-minute intervals.
+        self.assertFalse(leads.within_forecast_horizon(data, row, cycle))
 
 
 if __name__ == "__main__":

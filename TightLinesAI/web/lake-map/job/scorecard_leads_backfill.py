@@ -182,6 +182,14 @@ def model_value(data: dict, row: dict, cycle: datetime):
     return value_c * 1.8 + 32, lead, observed, 0.0, float(lat[station]), float(lon[station])
 
 
+def within_forecast_horizon(data: dict, row: dict, cycle: datetime) -> bool:
+    """Return whether the station file contains the row's requested valid time."""
+    observed = parse_time(row["observation_time"])
+    lead = (observed - cycle).total_seconds() / 3600
+    upper_index = math.ceil(lead) * 10
+    return lead >= 0 and upper_index < np.asarray(data["temp"]).shape[0]
+
+
 def build_day(rows: list[dict], cache: FileCache):
     requests = defaultdict(list)
     for row in rows:
@@ -210,6 +218,11 @@ def build_day(rows: list[dict], cache: FileCache):
                 dataset.close()
                 del dataset
         for row, target in items:
+            # Forecast horizons vary by model and cycle.  A shorter, otherwise
+            # valid station file is an expected unavailable lead, not a source
+            # fetch/value error that should fail the entire observation day.
+            if not within_forecast_horizon(data, row, cycle):
+                continue
             sampled = model_value(data, row, cycle)
             if sampled is None:
                 errors[f"value:{model}:{cycle:%Y-%m-%dT%H}"] += 1
