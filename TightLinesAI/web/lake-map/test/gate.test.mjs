@@ -205,7 +205,11 @@ test('mutable pointers bypass edge Cache API while content-addressed run objects
   }
 });
 
-import { COOPS_CACHE_SECONDS, COOPS_STATIONS, GLOS_CACHE_SECONDS, buoysResponse, mergeStations, parseCoopsLatest, parseGlosLatest, parseLatestObs, parseStations } from '../gate/buoys.js';
+import {
+  COOPS_CACHE_SECONDS, COOPS_STATIONS, GLERL_CACHE_SECONDS, GLERL_STATIONS,
+  GLOS_CACHE_SECONDS, buoysResponse, mergeStations, parseCoopsLatest,
+  parseGlerlTemperatureCsv, parseGlosLatest, parseLatestObs, parseStations,
+} from '../gate/buoys.js';
 
 const OBS = `#STN     LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE
 #text    deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft
@@ -252,6 +256,8 @@ test('CO-OPS adds current all-clear water temperatures and rejects flagged value
   assert.equal(COOPS_CACHE_SECONDS, 900);
   assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], f: '0,1,0' }] }, site, now), null);
   assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], t: '2026-10-01 14:00' }] }, site, now), null);
+  assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], v: '-1' }] }, site, now), null);
+  assert.equal(parseCoopsLatest({ ...payload, data: [{ ...payload.data[0], v: '33' }] }, site, now), null);
 });
 
 test('GLOS observations retain shallow depth profiles and reject bad quality or stale data', () => {
@@ -276,6 +282,31 @@ test('GLOS observations retain shallow depth profiles and reject bad quality or 
   assert.deepEqual(stations[0].profile.map((item) => item.depthM), [0, 1]);
   assert.ok(stations[0].profile.every((item) => item.identity === 'glos:2'));
   assert.equal(GLOS_CACHE_SECONDS, 600);
+});
+
+test('GLERL parser uses the newest current good row and enforces the hard range', () => {
+  const now = Date.UTC(2026, 9, 27, 1, 30);
+  const station = GLERL_STATIONS[0];
+  const csv = `partial row from byte range\n2026/10/27 01:22:00, 15.20, 0\n2026/10/27 01:23:00, 33.00, 1\n2026/10/27 01:24:54, 15.25, 1\n`;
+  const parsed = parseGlerlTemperatureCsv(csv, station, now);
+  assert.equal(parsed.id, 'GLERL-MKGPIER');
+  assert.equal(parsed.waterF, 59.5);
+  assert.equal(parsed.waterTime, '2026-10-27T01:24:54.000Z');
+  assert.equal(parsed.waterDepthM, 2.2);
+  assert.equal(parsed.waterIdentity, 'glerl:mkgpier');
+  assert.equal(parsed.source, 'NOAA GLERL');
+  assert.equal(GLERL_CACHE_SECONDS, 300);
+  assert.equal(parseGlerlTemperatureCsv('2026/10/26 21:00:00, 15.25, 1', station, now), null);
+  assert.equal(parseGlerlTemperatureCsv('2026/10/27 01:25:00, -1.00, 1', station, now), null);
+});
+
+test('all live water parsers reject values outside 32-90 F', () => {
+  const now = Date.UTC(2026, 8, 30, 22, 30);
+  const extreme = `${OBS}\nBAD01 42.000 -83.000 2026 09 30 22 00 MM MM MM MM MM MM MM MM MM MM -1.0 MM MM MM MM`;
+  assert.equal(parseLatestObs(extreme, {}, now).some((station) => station.id === 'BAD01'), false);
+  const seconds = now / 1000;
+  assert.equal(parseGlosLatest([{ obs_dataset_id: 2, parameters: [{ parameter_id: 148,
+    observations: [{ timestamp: seconds, value: 310, qartod: 1 }] }] }], now).length, 0);
 });
 
 test('GLOS merge adds profiles but only replaces NDBC surface water with a shallow sensor', () => {
