@@ -14,10 +14,6 @@ const DATASETS_URL = 'https://seagull-api.glos.org/api/v1/obs-datasets.geojson';
 const PARAMETERS_URL = 'https://seagull-api.glos.org/api/v1/parameters';
 const TEMP_NAMES = new Set(['sea_surface_temperature', 'sea_water_temperature']);
 const BOX = { west: -92.6, east: -75.6, south: 41.0, north: 49.4 };
-// The Lake Erie tributary network extends just south of the main Great Lakes
-// viewport. GLOS labels these reviewed stations as lake-erie, but the former
-// rectangular cutoff silently dropped them despite current temperature data.
-const SOUTHERN_ERIE_WATERSHED = { west: -84.0, east: -82.5, south: 40.5, north: 41.0 };
 const MAX_RESPONSE_BYTES = 16 * 1024 * 1024;
 const CONTROL_CHARACTERS = /[\u0000-\u001f\u007f]/u;
 
@@ -81,14 +77,6 @@ function safeDepth(value, label) {
   return value;
 }
 
-function inCatalogArea(lon, lat, body) {
-  const inMainBox = lon >= BOX.west && lon <= BOX.east && lat >= BOX.south && lat <= BOX.north;
-  const inSouthernErie = body === 'lake-erie'
-    && lon >= SOUTHERN_ERIE_WATERSHED.west && lon <= SOUTHERN_ERIE_WATERSHED.east
-    && lat >= SOUTHERN_ERIE_WATERSHED.south && lat < SOUTHERN_ERIE_WATERSHED.north;
-  return inMainBox || inSouthernErie;
-}
-
 export function normalizeCatalog(featureCollection, parameters) {
   if (!featureCollection || featureCollection.type !== 'FeatureCollection' || !Array.isArray(featureCollection.features)) {
     throw new Error('datasets: expected a GeoJSON FeatureCollection');
@@ -101,7 +89,7 @@ export function normalizeCatalog(featureCollection, parameters) {
     const [lon, lat] = Array.isArray(feature?.geometry?.coordinates) ? feature.geometry.coordinates : [];
     const props = feature?.properties;
     if (!props || !Number.isFinite(lon) || !Number.isFinite(lat)) continue;
-    if (!inCatalogArea(lon, lat, props.body_of_water)) continue;
+    if (lon < BOX.west || lon > BOX.east || lat < BOX.south || lat > BOX.north) continue;
     if (!Array.isArray(props.parameters) || !props.parameters.some((item) => TEMP_NAMES.has(item?.standard_name))) continue;
 
     const id = safeId(props.obs_dataset_id, 'dataset id');

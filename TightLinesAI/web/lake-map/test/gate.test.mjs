@@ -210,7 +210,6 @@ import {
   GLOS_CACHE_SECONDS, buoysResponse, mergeStations, parseCoopsLatest,
   parseGlerlTemperatureCsv, parseGlosLatest, parseLatestObs, parseStations,
 } from '../gate/buoys.js';
-import { GLOS_DATASETS } from '../gate/glos-catalog.js';
 
 const OBS = `#STN     LAT      LON  YYYY MM DD hh mm WDIR WSPD   GST WVHT  DPD APD MWD   PRES  PTDY  ATMP  WTMP  DEWP  VIS   TIDE
 #text    deg      deg   yr mo day hr mn degT  m/s   m/s   m   sec sec degT   hPa   hPa  degC  degC  degC  nmi     ft
@@ -283,14 +282,6 @@ test('GLOS observations retain shallow depth profiles and reject bad quality or 
   assert.deepEqual(stations[0].profile.map((item) => item.depthM), [0, 1]);
   assert.ok(stations[0].profile.every((item) => item.identity === 'glos:2'));
   assert.equal(GLOS_CACHE_SECONDS, 600);
-});
-
-test('southern Lake Erie GLOS platforms are cataloged without admitting unrelated platforms', () => {
-  assert.equal(GLOS_DATASETS[207].name, 'HTLP Potato Run');
-  assert.equal(GLOS_DATASETS[208].name, 'HTLP Shallow Run');
-  assert.equal(GLOS_DATASETS[207].body, 'lake-erie');
-  assert.equal(GLOS_DATASETS[208].body, 'lake-erie');
-  assert.equal(GLOS_DATASETS[209], undefined);
 });
 
 test('GLERL parser uses the newest current good row and enforces the hard range', () => {
