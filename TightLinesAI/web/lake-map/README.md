@@ -59,7 +59,7 @@ limited to `bkentros/TightLines-AI-V1` with repository Actions read/write only
 | Layer | Source | Notes |
 | --- | --- | --- |
 | Water temp, depth | NOAA LSOFS, LMHOFS, LEOFS, LOOFS (CO-OPS THREDDS primary; official AWS/NODD native fields failover; surface layer only) | The primary 0.01° regular grid is preserved. During a THREDDS distribution outage, range reads select the equivalent surface layer from NOAA's independent NODD publication and regrid it to the same map grid. Publication still requires all four models on one cycle, all 121 hours, at least 98% finite source coverage and 97% post-regrid lake-domain coverage every hour. Any failure retains the previous complete run. |
-| Live water observations | NOAA NDBC, NOAA CO-OPS and the GLOS Seagull bulk latest feed | Collected centrally every 15 minutes and merged by physical station. CO-OPS supplies current six-minute Great Lakes readings (including Toledo when absent from NDBC); flagged CO-OPS and GLOS QARTOD suspect/failed values are rejected. Explicit sensor depths and vertical profiles are preserved. These validate the surface model but are not blindly smeared across unsampled water. |
+| Live water observations | NOAA NDBC, NOAA CO-OPS, NOAA GLERL ReCON and the GLOS Seagull bulk latest feed | Collected centrally every 15 minutes and merged by physical station. CO-OPS supplies current six-minute Great Lakes readings (including Toledo when absent from NDBC); GLERL supplies the Muskegon Channel Pier feed. Flagged values and temperatures outside 32–90 °F are rejected. Explicit sensor depths and vertical profiles are preserved. These validate the surface model but are not blindly smeared across unsampled water. |
 | Waves | NOAA GLWU 2.5 km (NOMADS GRIB filter, `HTSGW` only) | Matched to each hour by valid time. |
 | Wind | Open-Meteo `best_match` over the lake area (2,211 locations per run), NOAA GFS 0.25° for the wider map area (NOMADS GRIB filter, 3-hourly steps, ~41 small downloads), blended over 2 cells at the seam | Production upload requires `OPEN_METEO_API_KEY`. The four-runs/day, 31-day ceiling projects to 274,164 of the configured 1,000,000 monthly calls and the job refuses a future grid that exceeds it. If GFS is unavailable the lake-area wind is carried outward. |
 | Events | `job/events.mjs` → `src/engine/signals.js` | Same rule as the app, for every pier in `job/piers.json` (the live 32-city roster; a test keeps them in sync). |
@@ -79,7 +79,7 @@ release windows. It publishes once only after all four lake systems have the
 same complete cycle; it never mixes cycles or lets `--force` bypass integrity
 checks. An open map checks `latest.json` every
 10 minutes and reloads only when a new run is published. A Cloudflare scheduled
-collector refreshes NOAA NDBC, NOAA CO-OPS and GLOS observations every 15 minutes,
+collector refreshes NOAA NDBC, NOAA CO-OPS, NOAA GLERL and GLOS observations every 15 minutes,
 writes one central pointer, and retains an immutable dated snapshot in R2. Map opens
 therefore do not multiply upstream sensor traffic. The sources are merged and
 deduplicated; flagged CO-OPS values, suspect/failed GLOS QARTOD readings, implausible
@@ -440,7 +440,8 @@ The first native map screen is archived in `legacy/pier-cast-map-v1.tsx` (not ro
   fetched once per session. Areas follow the timeline (start → end, 15-minute steps).
 - **Buoys and fixed sensors** (`gate/buoys.js`): the gatekeeper serves `/obs/buoys.json`
   from NOAA NDBC `latest_obs.txt` + `activestations.xml`, NOAA CO-OPS latest
-  water-temperature products, and GLOS Seagull's bulk latest feed: Great Lakes
+  water-temperature products, NOAA GLERL ReCON temperature CSVs, and GLOS
+  Seagull's bulk latest feed: Great Lakes
   stations with water temperature or waves, readings ≤ 3 h old, in °F / mph / ft.
   Duplicate physical stations are merged. A displayed reading is not automatically
   calibration evidence: only QARTOD-good explicit surface or ≤3 m readings enter the
