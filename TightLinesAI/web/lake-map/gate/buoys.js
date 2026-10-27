@@ -1,5 +1,5 @@
 /**
- * Observed Great Lakes conditions from NOAA NDBC, NOAA CO-OPS and GLOS Seagull, served by
+ * Observed Great Lakes conditions from NOAA NDBC, NOAA CO-OPS, NOAA GLERL and GLOS Seagull, served by
  * the gatekeeper at /obs/buoys.json. The page cannot reliably join these feeds
  * itself, so the Worker fetches, quality-filters, merges and caches them.
  *
@@ -17,15 +17,23 @@ export const LATEST_OBS_URL = 'https://www.ndbc.noaa.gov/data/latest_obs/latest_
 export const STATIONS_URL = 'https://www.ndbc.noaa.gov/activestations.xml';
 export const GLOS_LATEST_URL = 'https://seagull-api.glos.org/api/v2/obs-latest';
 export const COOPS_BASE_URL = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter';
+export const GLERL_STATIONS = Object.freeze([{
+  id: 'mkgpier', name: 'Muskegon Channel Pier', body: 'lake-michigan', type: 'fixed',
+  lat: 43.227513, lon: -86.33945, waterDepthM: 2.2,
+  url: 'https://www.glerl.noaa.gov/res/recon/data/now/mich-mkgpier/csv_format/temp_hadcp.csv',
+}]);
 export const OBS_CACHE_SECONDS = 300;
 export const GLOS_CACHE_SECONDS = 600; // GLOS says this bulk endpoint updates roughly every 10 minutes
 export const COOPS_CACHE_SECONDS = 900;
+export const GLERL_CACHE_SECONDS = 300;
 const COOPS_BATCH_SIZE = 4;
 const COOPS_BATCH_PAUSE_MS = 200;
 // the Great Lakes (and St. Clair / Niagara / St. Marys connecting waters)
 const BOX = { west: -92.6, east: -75.6, south: 41.0, north: 49.4 };
 const MAX_AGE_H = 3;
 const MAX_SOURCE_BYTES = 16 * 1024 * 1024;
+const MAX_GLERL_TAIL_BYTES = 64 * 1024;
+const MIN_WATER_F = 32, MAX_WATER_F = 90;
 const MS_TO_MPH = 2.23694, M_TO_FT = 3.28084;
 
 const num = (v) => (v === undefined || v === 'MM' || v === '' ? null : Number.isFinite(Number(v)) ? Number(v) : null);
@@ -33,6 +41,7 @@ const round1 = (v) => (v === null ? null : Math.round(v * 10) / 10);
 const cToF = (c) => (c === null ? null : c * 9 / 5 + 32);
 const kToF = (k) => round1((k - 273.15) * 9 / 5 + 32);
 const iso = (ms) => new Date(ms).toISOString();
+const validWaterF = (value) => Number.isFinite(value) && value >= MIN_WATER_F && value <= MAX_WATER_F;
 
 /** { id: {name, type, owner} } from activestations.xml */
 export function parseStations(xml) {
@@ -67,7 +76,8 @@ export function parseLatestObs(text, stations = {}, now = Date.now()) {
     if (lat === null || lon === null || lon < BOX.west || lon > BOX.east || lat < BOX.south || lat > BOX.north) continue;
     const t = Date.UTC(+v[I.y], +v[I.mo] - 1, +v[I.d], +v[I.h], +v[I.mi]);
     if (!Number.isFinite(t) || now - t > MAX_AGE_H * 3600e3 || t - now > 3600e3) continue;
-    const waterF = round1(cToF(num(v[I.wtmp])));
+    const parsedWaterF = round1(cToF(num(v[I.wtmp])));
+    const waterF = validWaterF(parsedWaterF) ? parsedWaterF : null;
     const wavesFt = round1(num(v[I.wvht]) === null ? null : num(v[I.wvht]) * M_TO_FT);
     if (waterF === null && wavesFt === null) continue; // wind-only land stations add clutter, not water facts
     const id = v[I.stn].toUpperCase(), st = stations[id] || {};
@@ -94,7 +104,7 @@ export function parseCoopsLatest(input, station, now = Date.now()) {
   const celsius = Number(row.v), lat = Number(metadata.lat), lon = Number(metadata.lon);
   const timestamp = typeof row.t === 'string' ? Date.parse(`${row.t.replace(' ', 'T')}Z`) : NaN;
   const flags = String(row.f ?? '').split(',').filter(Boolean);
-  if (!Number.isFinite(celsius) || celsius < -2 || celsius > 40 || !Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+  if (!Number.isFinite(celsius) || !validWaterF(cToF(celsius)) || !Number.isFinite(lat) || !Number.isFinite(lon)) return null;
   if (lon < BOX.west || lon > BOX.east || lat < BOX.south || lat > BOX.north) return null;
   if (milesBetween({ lat, lon }, station) > 0.5) return null; // reviewed station identity/geometry changed
   if (!Number.isFinite(timestamp) || now - timestamp > MAX_AGE_H * 3600e3 || timestamp - now > 3600e3) return null;
@@ -141,7 +151,7 @@ export function parseGlosLatest(input, now = Date.now()) {
       for (const observation of group.observations || []) {
         const value = Number(observation?.value), seconds = Number(observation?.timestamp), quality = Number(observation?.qartod);
         const time = seconds * 1000;
-        if (!Number.isFinite(value) || value < 270 || value > 313 || !Number.isFinite(time)) continue;
+        if (!Number.isFinite(value) || !validWaterF(kToF(value)) || !Number.isFinite(time)) continue;
         if (now - time > MAX_AGE_H * 3600e3 || time - now > 3600e3 || (quality !== 1 && quality !== 2)) continue;
         const observedDepth = observation?.depth == null ? null : Number(observation.depth);
         const depthM = Number.isFinite(observedDepth) ? observedDepth : parameter.depthM;
@@ -177,6 +187,36 @@ export function parseGlosLatest(input, now = Date.now()) {
   return stations;
 }
 
+/** Latest quality-passing row from a NOAA GLERL ReCON temperature CSV tail. */
+export function parseGlerlTemperatureCsv(input, station, now = Date.now()) {
+  let newest = null;
+  for (const line of String(input).split(/\r?\n/)) {
+    const match = /^\s*(\d{4})\/(\d{2})\/(\d{2})\s+(\d{2}):(\d{2})(?::(\d{2}))?\s*,\s*([^,]+)\s*,\s*([^,\s]+)/.exec(line);
+    if (!match) continue; // A bounded byte-range may begin with a partial row.
+    const timestamp = Date.UTC(+match[1], +match[2] - 1, +match[3], +match[4], +match[5], +(match[6] || 0));
+    const celsius = Number(match[7]), quality = Number(match[8]);
+    const waterF = round1(cToF(celsius));
+    if (!Number.isFinite(timestamp) || !validWaterF(waterF) || quality !== 1) continue;
+    if (now - timestamp > MAX_AGE_H * 3600e3 || timestamp - now > 3600e3) continue;
+    if (!newest || timestamp > newest.timestamp) newest = { timestamp, waterF };
+  }
+  if (!newest) return null;
+  const reading = {
+    parameterId: null, depthM: station.waterDepthM, waterF: newest.waterF,
+    time: iso(newest.timestamp), quality: 'provider_qc', qartod: null,
+    surface: false, identity: `glerl:${station.id}`, source: 'NOAA GLERL',
+  };
+  return {
+    id: `GLERL-${station.id.toUpperCase()}`, externalId: station.id, name: station.name,
+    type: station.type, body: station.body, lat: station.lat, lon: station.lon,
+    time: reading.time, waterTime: reading.time, weatherTime: null,
+    waterF: reading.waterF, waterDepthM: station.waterDepthM, waterSurface: false,
+    waterIdentity: reading.identity, waterQuality: reading.quality, profile: [reading],
+    airF: null, windMph: null, gustMph: null, windFrom: null, wavesFt: null, periodS: null,
+    source: 'NOAA GLERL',
+  };
+}
+
 function normalizedId(value) {
   return String(value || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
 }
@@ -197,8 +237,8 @@ function addSource(current, next) {
   return sources.join(' + ');
 }
 
-/** Merge duplicate NDBC/CO-OPS/GLOS platforms while retaining weather fields. */
-export function mergeStations(ndbc = [], glos = [], coops = []) {
+/** Merge duplicate NDBC/CO-OPS/GLERL/GLOS platforms while retaining weather fields. */
+export function mergeStations(ndbc = [], glos = [], coops = [], glerl = []) {
   const out = ndbc.map((station) => ({ ...station, externalId: station.id, profile: station.profile || [] }));
   for (const station of coops) {
     const match = out.find((candidate) =>
@@ -231,6 +271,19 @@ export function mergeStations(ndbc = [], glos = [], coops = []) {
       match.waterDepthM = station.waterDepthM; match.waterSurface = station.waterSurface;
       match.waterIdentity = station.waterIdentity || `glos:${station.glosDatasetId || normalizedId(station.id)}`;
       match.waterQuality = station.waterQuality;
+    }
+  }
+  for (const station of glerl) {
+    const external = normalizedId(station.externalId);
+    const match = out.find((candidate) =>
+      (external && normalizedId(candidate.externalId || candidate.id) === external) || milesBetween(candidate, station) <= 0.25);
+    if (!match) { out.push({ ...station }); continue; }
+    match.profile = combineProfiles(match.profile, station.profile);
+    match.source = addSource(match.source, 'NOAA GLERL');
+    if (station.waterF != null && (!match.waterTime || Date.parse(station.waterTime) >= Date.parse(match.waterTime))) {
+      match.waterF = station.waterF; match.waterTime = station.waterTime; match.time = station.waterTime;
+      match.waterDepthM = station.waterDepthM; match.waterSurface = false;
+      match.waterIdentity = station.waterIdentity; match.waterQuality = station.waterQuality;
     }
   }
   return out.sort((a, b) => String(a.id).localeCompare(String(b.id)));
@@ -276,6 +329,15 @@ async function fetchCoopsStations(ctx, now) {
   return results;
 }
 
+async function fetchGlerlStations(ctx, now) {
+  return Promise.all(GLERL_STATIONS.map(async (station) => {
+    try {
+      const raw = await cachedTail(station.url, GLERL_CACHE_SECONDS, ctx);
+      return { ok: true, value: parseGlerlTemperatureCsv(raw, station, now) };
+    } catch { return { ok: false, value: null }; }
+  }));
+}
+
 async function cachedText(url, ttlSeconds, ctx) {
   const cache = typeof caches !== 'undefined' ? caches.default : null;
   const key = new Request(`https://cache.piercast/${encodeURIComponent(url)}`);
@@ -311,22 +373,47 @@ async function cachedText(url, ttlSeconds, ctx) {
   return text;
 }
 
+async function cachedTail(url, ttlSeconds, ctx) {
+  const cache = typeof caches !== 'undefined' ? caches.default : null;
+  const key = new Request(`https://cache.piercast/tail/${encodeURIComponent(url)}`);
+  if (cache) {
+    const hit = await cache.match(key);
+    if (hit) return hit.text();
+  }
+  const res = await fetch(url, {
+    headers: { 'user-agent': 'PierCast-LakeMap/1.0 (+https://finfindr.app)', range: `bytes=-${MAX_GLERL_TAIL_BYTES}` },
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (res.status !== 206 || !res.headers.get('content-range')) throw new Error(`${url}: byte-range unavailable`);
+  const declared = Number(res.headers.get('content-length'));
+  if (!Number.isFinite(declared) || declared > MAX_GLERL_TAIL_BYTES) throw new Error(`${url}: invalid range size`);
+  const text = await res.text();
+  if (new TextEncoder().encode(text).byteLength > MAX_GLERL_TAIL_BYTES) throw new Error(`${url}: range too large`);
+  if (cache) {
+    const put = cache.put(key, new Response(text, { headers: { 'cache-control': `max-age=${ttlSeconds}` } }));
+    if (ctx?.waitUntil) ctx.waitUntil(put); else await put;
+  }
+  return text;
+}
+
 export async function buildObservationSnapshot(ctx, now = Date.now()) {
   const ndbcObs = cachedText(LATEST_OBS_URL, OBS_CACHE_SECONDS, ctx).catch(() => null);
   const ndbcXml = cachedText(STATIONS_URL, 86400, ctx).catch(() => '');
   const glosText = cachedText(GLOS_LATEST_URL, GLOS_CACHE_SECONDS, ctx).catch(() => null);
   const coopsResults = fetchCoopsStations(ctx, now);
-  const [obs, xml, glosRaw, coopsSettled] = await Promise.all([ndbcObs, ndbcXml, glosText, coopsResults]);
+  const glerlResults = fetchGlerlStations(ctx, now);
+  const [obs, xml, glosRaw, coopsSettled, glerlSettled] = await Promise.all([ndbcObs, ndbcXml, glosText, coopsResults, glerlResults]);
   let ndbc = [], ndbcOk = false;
   try { ndbc = obs ? parseLatestObs(obs, parseStations(xml), now) : []; ndbcOk = !!obs; } catch { ndbc = []; }
   let glos = [], glosOk = false;
   try { glos = glosRaw ? parseGlosLatest(JSON.parse(glosRaw), now) : []; glosOk = !!glosRaw; } catch { glos = []; }
   const coops = coopsSettled.map((result) => result.value).filter(Boolean);
-  const list = mergeStations(ndbc, glos, coops);
+  const glerl = glerlSettled.map((result) => result.value).filter(Boolean);
+  const list = mergeStations(ndbc, glos, coops, glerl);
   if (!list.length) throw new Error('No observation source available');
   return {
     formatVersion: 3,
-    source: 'NOAA NDBC + NOAA CO-OPS + GLOS Seagull', updated: new Date(now).toISOString(),
+    source: 'NOAA NDBC + NOAA CO-OPS + NOAA GLERL + GLOS Seagull', updated: new Date(now).toISOString(),
     catalogUpdated: GLOS_CATALOG_GENERATED_AT,
     health: {
       sources: {
@@ -336,6 +423,10 @@ export async function buildObservationSnapshot(ctx, now = Date.now()) {
           requested: COOPS_STATIONS.length, responses: coopsSettled.filter((result) => result.ok).length, stations: coops.length,
         },
         glos: { status: glosOk ? 'ok' : 'unavailable', stations: glos.length },
+        glerl: {
+          status: glerlSettled.every((result) => result.ok) ? 'ok' : glerl.length ? 'partial' : 'unavailable',
+          requested: GLERL_STATIONS.length, responses: glerlSettled.filter((result) => result.ok).length, stations: glerl.length,
+        },
       },
       quality: qualitySummary(list),
     },
@@ -399,7 +490,7 @@ export async function buoysResponse(ctx, env, request = null) {
     }
     return observationJson(body, payload, request);
   } catch (err) {
-    return new Response(JSON.stringify({ source: 'NOAA NDBC + NOAA CO-OPS + GLOS Seagull', error: 'unavailable', stations: [] }), {
+    return new Response(JSON.stringify({ source: 'NOAA NDBC + NOAA CO-OPS + NOAA GLERL + GLOS Seagull', error: 'unavailable', stations: [] }), {
       status: 503, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' },
     });
   }

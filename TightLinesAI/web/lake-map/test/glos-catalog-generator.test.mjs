@@ -44,6 +44,24 @@ test('GLOS catalog generator keeps only validated Great Lakes temperature metada
   });
 });
 
+test('GLOS catalog generator includes labeled Lake Erie watershed stations south of the old rectangle', () => {
+  const result = normalizeCatalog({
+    type: 'FeatureCollection',
+    features: [
+      { ...fixture({ obs_dataset_id: 207, body_of_water: 'lake-erie', platform_name: 'HTLP Potato Run' }),
+        geometry: { type: 'Point', coordinates: [-83.491388, 40.865555] } },
+      { ...fixture({ obs_dataset_id: 208, body_of_water: 'lake-erie', platform_name: 'HTLP Shallow Run' }),
+        geometry: { type: 'Point', coordinates: [-83.595277, 40.761388] } },
+      { ...fixture({ obs_dataset_id: 209, body_of_water: 'ohio-river' }),
+        geometry: { type: 'Point', coordinates: [-83.5, 40.8] } },
+    ],
+  }, parameters);
+
+  assert.deepEqual(Object.keys(result.datasets), ['207', '208']);
+  assert.equal(result.datasets['207'].name, 'HTLP Potato Run');
+  assert.equal(result.datasets['208'].name, 'HTLP Shallow Run');
+});
+
 test('GLOS catalog generator rejects unsafe or structurally invalid network metadata', () => {
   assert.throws(() => normalizeCatalog({}, parameters), /FeatureCollection/);
   assert.throws(() => normalizeCatalog({ type: 'FeatureCollection', features: [fixture({ obs_dataset_id: '../escape' })] }, parameters), /invalid positive integer/);
