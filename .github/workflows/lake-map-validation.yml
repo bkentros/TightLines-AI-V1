@@ -35,6 +35,21 @@ on:
         description: "Exact preflight row count required for a scorecard replay"
         type: string
         required: false
+      satellite_field_stream:
+        description: "Run the private research-only GLSEA/NOAA field sampler"
+        type: boolean
+        default: false
+        required: true
+      satellite_start:
+        description: "Inclusive satellite stream start date"
+        type: string
+        default: "2023-05-01"
+        required: false
+      satellite_end:
+        description: "Inclusive satellite stream end date"
+        type: string
+        default: "2026-10-27"
+        required: false
 
 concurrency:
   group: lake-map-validation
@@ -45,7 +60,7 @@ permissions:
 
 jobs:
   verify:
-    if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true
+    if: inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true && inputs.satellite_field_stream != true
     runs-on: ubuntu-latest
     timeout-minutes: 45
     defaults:
@@ -83,7 +98,7 @@ jobs:
         run: python job/verify.py --upload --fail-on-pipeline-error --date "$VALIDATION_DATE"
 
   scorecard:
-    if: vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED == 'true' || inputs.scorecard_preflight_only == true
+    if: inputs.satellite_field_stream != true && (vars.LAKE_MAP_SCORECARD_PARQUET_ENABLED == 'true' || inputs.scorecard_preflight_only == true)
     continue-on-error: ${{ inputs.scorecard_preflight_only != true && inputs.scorecard_replay_only != true }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -138,3 +153,46 @@ jobs:
           expected_args=()
           if [ -n "$EXPECTED_RECORDS" ]; then expected_args=(--expected-records "$EXPECTED_RECORDS"); fi
           python job/scorecard_job.py --store --date "$VALIDATION_DATE" "${expected_args[@]}"
+
+  satellite-field:
+    if: github.event_name == 'workflow_dispatch' && inputs.satellite_field_stream == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        lake: [lake-michigan, lake-huron, lake-superior, lake-erie, lake-ontario]
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guard private research bucket
+        env:
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$R2_BUCKET" && test "$R2_BUCKET" != "piercast-lake-map"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: |
+          pip install -r job/requirements.txt
+          pip install "s3fs>=2024.6"
+      - name: Test generic sampler
+        run: python -m unittest job/tests/test_satellite_field_stream.py
+      - name: Sample and store private satellite field
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          SATELLITE_LAKE: ${{ matrix.lake }}
+          SATELLITE_START: ${{ inputs.satellite_start }}
+          SATELLITE_END: ${{ inputs.satellite_end }}
+        run: |
+          python job/satellite_field_stream.py \
+            --lake "$SATELLITE_LAKE" --start "$SATELLITE_START" --end "$SATELLITE_END" \
+            --cache "$RUNNER_TEMP/satellite-field" --store --skip-existing-r2
