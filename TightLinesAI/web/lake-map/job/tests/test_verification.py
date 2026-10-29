@@ -43,6 +43,23 @@ class VerificationTest(unittest.TestCase):
         self.assertEqual(keys[0], "observations/v1/2026/10/27/20261027T000000Z.json")
         self.assertEqual(keys[-1], "observations/v1/2026/10/27/20261027T234500Z.json")
 
+    def test_archive_listing_is_bounded_to_one_day(self):
+        class Paginator:
+            def paginate(self, **kwargs):
+                self.kwargs = kwargs
+                return [{"Contents": [{"Key":"observations/v1/2026/10/27/20261027T000007Z.json"}]}]
+        class S3:
+            paginator = Paginator()
+            def get_paginator(self, name):
+                self.name = name
+                return self.paginator
+        s3 = S3()
+        self.assertEqual(list(verify.list_keys(s3, "observations/v1/2026/10/27/")),
+                         ["observations/v1/2026/10/27/20261027T000007Z.json"])
+        self.assertEqual(s3.name, "list_objects_v2")
+        with self.assertRaises(ValueError):
+            list(verify.list_keys(s3, "observations/v1/"))
+
     def test_daily_report_keys_are_deterministic_from_archive_start(self):
         self.assertEqual(verify.daily_report_keys(date(2026, 10, 2)), [
             "validation/daily/2026-10-01.json",

@@ -145,18 +145,15 @@ def parquet_rows(body):
     return pq.read_table(pa.BufferReader(body)).to_pylist()
 
 
-def observation_archive_keys(start, end):
-    """Return every deterministic 15-minute live-observation archive key."""
-    here = start.astimezone(timezone.utc).replace(
-        minute=(start.minute // verify.ARCHIVE_INTERVAL_MINUTES) * verify.ARCHIVE_INTERVAL_MINUTES,
-        second=0, microsecond=0,
-    )
-    stop = end.astimezone(timezone.utc)
+def observation_archive_keys(s3, start, end):
+    """Discover immutable snapshots using bounded one-day archive prefixes."""
+    here = start.astimezone(timezone.utc).date()
+    stop = end.astimezone(timezone.utc).date()
     keys = []
     while here <= stop:
-        keys.append(f"observations/v1/{here:%Y/%m/%d}/{here:%Y%m%dT%H%M00Z}.json")
-        here += timedelta(minutes=verify.ARCHIVE_INTERVAL_MINUTES)
-    return keys
+        keys.extend(verify.list_keys(s3, verify._daily_prefix(here)))
+        here += timedelta(days=1)
+    return sorted(set(keys))
 
 
 def load_optional_jsons(s3, bucket, keys, workers=24):
@@ -726,7 +723,7 @@ def load_runtime(live_s3, private_store, now):
     params = private_store.get_json(PARAMS_KEY)
     metadata = metadata_rows(read_bytes(private_store.s3, private_store.bucket, METADATA_KEY))
     meta, aliases = metadata_index(metadata)
-    snapshots = load_optional_jsons(live_s3, LIVE_BUCKET, observation_archive_keys(now - timedelta(days=31), now))
+    snapshots = load_optional_jsons(live_s3, LIVE_BUCKET, observation_archive_keys(live_s3, now - timedelta(days=31), now))
     latest_obs = read_json(live_s3, LIVE_BUCKET, "observations/latest.json")
     if latest_obs: snapshots.append(latest_obs)
     hourly = extract_hourly_rows(snapshots, meta, aliases, now)

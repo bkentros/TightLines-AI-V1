@@ -33,14 +33,20 @@ class HybridShadowTest(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             shadow.ShadowStore(object(), shadow.LIVE_BUCKET)
 
-    def test_quarter_hour_archive_keys_are_causal_and_deterministic(self):
+    def test_archive_discovery_uses_bounded_daily_prefixes(self):
+        class Paginator:
+            def paginate(self, **kwargs):
+                prefix = kwargs["Prefix"]
+                stamp = prefix.replace("observations/v1/", "").replace("/", "")
+                return [{"Contents": [{"Key":f"{prefix}{stamp}T000007Z.json"}]}]
+        class S3:
+            def get_paginator(self, _name): return Paginator()
         start = datetime(2026, 10, 1, 12, 45, tzinfo=timezone.utc)
-        end = start + timedelta(minutes=30)
-        keys = shadow.observation_archive_keys(start, end)
+        end = start + timedelta(days=1)
+        keys = shadow.observation_archive_keys(S3(), start, end)
         self.assertEqual(keys, [
-            "observations/v1/2026/10/01/20261001T124500Z.json",
-            "observations/v1/2026/10/01/20261001T130000Z.json",
-            "observations/v1/2026/10/01/20261001T131500Z.json",
+            "observations/v1/2026/10/01/20261001T000007Z.json",
+            "observations/v1/2026/10/02/20261002T000007Z.json",
         ])
 
     def test_station_suspect_rule_marks_adjacent_days_only_for_that_station(self):
