@@ -4,6 +4,7 @@ import sys
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 JOB = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(JOB))
@@ -19,6 +20,18 @@ class HybridShadowTest(unittest.TestCase):
         self.assertEqual(metadata["glos:74"]["sensor_depth_m"], "0.00;0.50;1.00")
         self.assertEqual(metadata["glos:74"]["lat"], 44.)
         self.assertEqual(aliases["45000"], "glos:74")
+
+    def test_missing_indexed_forecast_is_skipped(self):
+        cycle = "2026-10-29T00:00:00Z"
+        index = {"runs":[{"cycle":cycle, "base":"runs/missing/"},
+                         {"cycle":cycle, "base":"runs/present/"}]}
+        def fake_read(_s3, _bucket, key, optional=False):
+            self.assertTrue(optional)
+            return None if "missing" in key else {"sites":{}}
+        with patch.object(shadow, "read_json", side_effect=fake_read):
+            loaded = shadow.load_forecasts(object(), index, datetime(2026, 10, 1, tzinfo=timezone.utc))
+        self.assertEqual(len(loaded), 1)
+        self.assertEqual(loaded[0]["_base"], "runs/present/")
 
     def test_workflow_is_private_isolated_and_bounded(self):
         workflow = (JOB.parents[3] / ".github/workflows/hybrid-shadow.yml").read_text()
