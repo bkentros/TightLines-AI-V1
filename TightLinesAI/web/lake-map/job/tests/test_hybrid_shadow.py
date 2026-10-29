@@ -12,6 +12,14 @@ import hybrid_shadow as shadow  # noqa: E402
 
 
 class HybridShadowTest(unittest.TestCase):
+    def test_metadata_keeps_multi_sensor_depth_catalog_value(self):
+        rows = [{"station_id":"glos:74", "lat":"44.0", "lon":"-87.0",
+                 "sensor_depth_m":"0.00;0.50;1.00", "alternate_station_ids":"45000"}]
+        metadata, aliases = shadow.metadata_index(rows)
+        self.assertEqual(metadata["glos:74"]["sensor_depth_m"], "0.00;0.50;1.00")
+        self.assertEqual(metadata["glos:74"]["lat"], 44.)
+        self.assertEqual(aliases["45000"], "glos:74")
+
     def test_workflow_is_private_isolated_and_bounded(self):
         workflow = (JOB.parents[3] / ".github/workflows/hybrid-shadow.yml").read_text()
         self.assertIn('cron: "37 * * * *"', workflow)
