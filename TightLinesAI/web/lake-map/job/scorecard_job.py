@@ -122,7 +122,7 @@ def collect(s3, target):
         "date": target.isoformat(),
         "generatedAt": verify.iso(datetime.now(timezone.utc)),
         "inputs": {
-            "observationSnapshotCount": len(snapshot_keys),
+            "observationSnapshotCount": len(available),
             "forecastRunCount": len(forecasts),
         },
         "coverage": {

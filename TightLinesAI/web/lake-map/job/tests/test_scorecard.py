@@ -121,6 +121,7 @@ class ScorecardTest(unittest.TestCase):
         source = Path(scorecard_job.__file__).read_text()
         self.assertIn("verify.load_available(s3, verify.observation_keys(target))", source)
         self.assertNotIn("verify.list_keys", source)
+        self.assertNotIn("snapshot_keys", source)
 
     def test_range_preflight_reports_only_aggregate_constraint_results(self):
         original_collect = scorecard_job.collect
