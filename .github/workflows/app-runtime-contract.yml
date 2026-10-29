@@ -1,0 +1,36 @@
+name: App runtime contract
+
+on:
+  pull_request:
+    paths:
+      - "TightLinesAI/app/(tabs)/index.tsx"
+      - "TightLinesAI/lib/forecastScores.ts"
+      - "TightLinesAI/lib/forecastSnapshot.ts"
+      - "TightLinesAI/supabase/functions/_shared/forecastHorizon.ts"
+      - "TightLinesAI/scripts/forecast-horizon-runtime-export.test.mjs"
+      - ".github/workflows/app-runtime-contract.yml"
+  push:
+    branches: [main]
+    paths:
+      - "TightLinesAI/app/(tabs)/index.tsx"
+      - "TightLinesAI/lib/forecastScores.ts"
+      - "TightLinesAI/lib/forecastSnapshot.ts"
+      - "TightLinesAI/supabase/functions/_shared/forecastHorizon.ts"
+      - "TightLinesAI/scripts/forecast-horizon-runtime-export.test.mjs"
+      - ".github/workflows/app-runtime-contract.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  home-forecast-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Verify Home forecast runtime export
+        working-directory: TightLinesAI
+        run: node --test scripts/forecast-horizon-runtime-export.test.mjs
