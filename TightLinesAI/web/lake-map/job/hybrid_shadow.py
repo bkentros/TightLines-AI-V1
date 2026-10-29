@@ -175,7 +175,10 @@ def metadata_index(rows):
     for row in rows:
         station = str(row["station_id"])
         clean = dict(row)
-        for key in ("lat", "lon", "shore_distance_km", "shoreline_tangent_bearing", "sensor_depth_m"):
+        # The catalog intentionally preserves every known depth for multi-sensor
+        # stations as a semicolon-delimited value. Live readings, not this
+        # descriptive field, drive causal shallowest-sensor selection below.
+        for key in ("lat", "lon", "shore_distance_km", "shoreline_tangent_bearing"):
             if clean.get(key) is not None:
                 clean[key] = float(clean[key])
         canonical[station] = clean
