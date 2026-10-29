@@ -21,7 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -111,6 +111,42 @@ def evaluate_synthetics(results: dict[str, tuple[int | None, str, float]]) -> li
     return problems
 
 
+def validate_forecast_horizon(status: int | None, body: str,
+                              max_day_offset: int) -> str | None:
+    """Return a health problem unless every expected forecast day is present."""
+    if status != 200:
+        return f"Today's Bite synthetic returned HTTP {status}."
+    try:
+        payload = json.loads(body)
+        rows = payload.get("forecast") if isinstance(payload, dict) else None
+    except json.JSONDecodeError:
+        rows = None
+    if not isinstance(rows, list):
+        return "Today's Bite synthetic returned no forecast array."
+
+    by_offset: dict[int, dict] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        offset = row.get("day_offset")
+        if not isinstance(offset, int) or isinstance(offset, bool):
+            continue
+        if 0 <= offset <= max_day_offset:
+            if offset in by_offset:
+                return f"Today's Bite synthetic duplicated day offset {offset}."
+            by_offset[offset] = row
+    try:
+        start = date.fromisoformat(str(by_offset[0].get("date")))
+    except (KeyError, TypeError, ValueError):
+        return "Today's Bite synthetic is missing a valid day-0 date."
+    for offset in range(max_day_offset + 1):
+        expected = (start + timedelta(days=offset)).isoformat()
+        if by_offset.get(offset, {}).get("date") != expected:
+            return ("Today's Bite synthetic returned an incomplete horizon: "
+                    f"missing or invalid day offset {offset} of {max_day_offset}.")
+    return None
+
+
 def public_synthetics(anon_key: str) -> tuple[list[str], tuple[int | None, str, float]]:
     headers = api_headers(anon_key)
     results = {
@@ -163,15 +199,16 @@ def authenticated_synthetics(anon_key: str, email: str, password: str) -> list[s
     elif not paid_profile:
         problems.append("Synthetic profile must use an angler tier so report checks remain read-only.")
 
-    bite_status, _body, _ = timed_request(
+    bite_status, bite_body, _ = timed_request(
         f"{SUPABASE_URL}/functions/v1/forecast-scores",
         api_headers(anon_key, token),
         "POST",
-        {"latitude": 43.9553, "longitude": -86.4526, "max_day_offset": 3,
+        {"latitude": 43.9553, "longitude": -86.4526, "max_day_offset": 6,
          "include_snapshot_env": False},
     )
-    if bite_status != 200:
-        problems.append(f"Today's Bite synthetic returned HTTP {bite_status}.")
+    bite_problem = validate_forecast_horizon(bite_status, bite_body, 6)
+    if bite_problem:
+        problems.append(bite_problem)
 
     access_status, access_body, _ = timed_request(
         f"{SUPABASE_URL}/functions/v1/pier-cast-map-access",

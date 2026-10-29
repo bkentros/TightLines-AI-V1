@@ -81,6 +81,7 @@ import {
 import { howFishingMultiContexts } from "../../lib/howFishingRebuildContracts";
 import {
   type DayForecastScore,
+  buildFutureForecastSlots,
   formatScoreDisplay,
   getForecastScores,
   invalidateForecastCache,
@@ -822,14 +823,18 @@ export default function HomeScreen() {
   const heroBand = heroScore10 != null ? paperBandForScore(heroScore10) : null;
   const heroBandStyle = heroBand ? dashboardBandColor[heroBand] : null;
 
-  const forecastDisplayDays = (
-    forecastDays?.filter((d) => d.day_offset > 0) ?? []
-  ).slice(0, FORECAST_DAYS_SHOWN);
-  const lockedForecastSeedDate = forecastDisplayDays[0]?.date ??
+  const forecastDisplayDays = buildFutureForecastSlots(
+    forecastDays,
+    FORECAST_DAYS_SHOWN,
+  );
+  const lockedForecastSeedDate = forecastDisplayDays.find(
+    (day): day is DayForecastScore => day != null,
+  )?.date ??
     forecastDays?.find((d) => d.day_offset === 0)?.date ??
     "";
   const freeForecastPreviewDay = forecastDisplayDays.find(
     (d) =>
+      d != null &&
       canViewForecastScore(effectiveTier, d.day_offset) &&
       d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET,
   ) ?? null;
@@ -843,9 +848,7 @@ export default function HomeScreen() {
   const forecastTileSlots: Array<
     DayForecastScore | LockedForecastPlaceholder | null
   > = hasSubscription
-    ? forecastDisplayDays.length > 0
-      ? forecastDisplayDays
-      : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null)
+    ? forecastDisplayDays
     : freeForecastPreviewDay
     ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
       0,

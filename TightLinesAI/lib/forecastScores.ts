@@ -14,9 +14,15 @@ import {
   nextMidnightInTimeZoneMs,
   stripMeasuredWaterTempFields,
 } from "./forecastSnapshot";
+import {
+  buildFutureForecastSlots,
+  hasCompleteForecastHorizon,
+} from
+  "../supabase/functions/_shared/forecastHorizon";
 import { getValidAccessToken } from "./supabase";
 
 export {
+  buildFutureForecastSlots,
   MEASURED_WATER_TEMP_KEYS,
   nextMidnightInTimeZoneMs,
   stripMeasuredWaterTempFields,
@@ -293,6 +299,10 @@ export async function getForecastScores(
       // Valid until the midnight that was computed when the data was fetched
       if (Date.now() < (parsed._expires_at ?? 0)) {
         if (
+          !hasCompleteForecastHorizon(
+            parsed.forecast,
+            normalizedOptions.maxDayOffset,
+          ) ||
           requiresSnapshotEnv(normalizedOptions) &&
           !hasUsableSnapshotEnv(parsed.snapshot_env)
         ) {
@@ -361,6 +371,19 @@ export async function getForecastScores(
           console.warn(
             "[forecastScores] empty or missing forecast array:",
             json,
+          );
+        }
+        return null;
+      }
+      if (
+        !hasCompleteForecastHorizon(
+          json.forecast,
+          normalizedOptions.maxDayOffset,
+        )
+      ) {
+        if (__DEV__) {
+          console.warn(
+            "[forecastScores] incomplete forecast horizon; refusing to cache",
           );
         }
         return null;
