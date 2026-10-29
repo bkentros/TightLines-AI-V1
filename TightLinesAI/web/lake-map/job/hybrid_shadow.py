@@ -438,11 +438,14 @@ def load_forecasts(live_s3, index, start):
         if cycle and cycle >= start - timedelta(days=6):
             runs.append((cycle, item))
     with ThreadPoolExecutor(max_workers=20) as pool:
-        loaded = list(pool.map(lambda pair: read_json(live_s3, LIVE_BUCKET, f"{pair[1]['base']}verification.json"), runs))
-    for (cycle, item), forecast in zip(runs, loaded):
+        loaded = list(pool.map(lambda pair: read_json(
+            live_s3, LIVE_BUCKET, f"{pair[1]['base']}verification.json", optional=True,
+        ), runs))
+    available = [(pair, forecast) for pair, forecast in zip(runs, loaded) if isinstance(forecast, dict)]
+    for (cycle, item), forecast in available:
         forecast["_cycle"] = cycle
         forecast["_base"] = item["base"]
-    return sorted(loaded, key=lambda item: item["_cycle"])
+    return sorted((forecast for _, forecast in available), key=lambda item: item["_cycle"])
 
 
 def pair_history(rows, forecasts, metadata):
