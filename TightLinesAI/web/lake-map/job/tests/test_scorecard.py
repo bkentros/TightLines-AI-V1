@@ -117,11 +117,9 @@ class ScorecardTest(unittest.TestCase):
         self.assertNotIn("--sync", preflight_step)
         self.assertNotIn("--store", preflight_step)
 
-    def test_scorecard_archive_reads_use_deterministic_keys_without_listing(self):
+    def test_scorecard_archive_listing_is_bounded_to_target_day(self):
         source = Path(scorecard_job.__file__).read_text()
-        self.assertIn("verify.load_available(s3, verify.observation_keys(target))", source)
-        self.assertNotIn("verify.list_keys", source)
-        self.assertNotIn("snapshot_keys", source)
+        self.assertIn("verify.list_keys(s3, verify._daily_prefix(target))", source)
 
     def test_range_preflight_reports_only_aggregate_constraint_results(self):
         original_collect = scorecard_job.collect

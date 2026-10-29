@@ -923,6 +923,18 @@ def object_json_optional(s3, key):
         raise
 
 
+def list_keys(s3, prefix):
+    """List one bounded archive prefix using the dedicated live-map credential."""
+    if not re.fullmatch(r"observations/v1/\d{4}/\d{2}/\d{2}/", prefix):
+        raise ValueError("observation listing must be constrained to one UTC day")
+    paginator = s3.get_paginator("list_objects_v2")
+    for page in paginator.paginate(Bucket=store.bucket(), Prefix=prefix):
+        for item in page.get("Contents", []):
+            key = item.get("Key")
+            if isinstance(key, str) and key.endswith(".json"):
+                yield key
+
+
 def load_many(s3, keys, workers=16):
     if not keys:
         return []
@@ -1065,14 +1077,10 @@ def main(argv=None):
     archive_start_date = ARCHIVE_START_DATE.isoformat()
 
     days = [target - timedelta(days=offset) for offset in range(6, -1, -1)]
-    available = load_available(s3, [key for day in days for key in observation_keys(day)])
-    snapshots_by_key = dict(available)
-    keys_by_day = {
-        day: [key for key in observation_keys(day) if key in snapshots_by_key]
-        for day in days
-    }
+    keys_by_day = {day: list(list_keys(s3, _daily_prefix(day))) for day in days}
     all_snapshot_keys = [key for day in days for key in keys_by_day[day]]
-    snapshots = [snapshots_by_key[key] for key in all_snapshot_keys]
+    snapshots = load_many(s3, all_snapshot_keys)
+    snapshots_by_key = dict(zip(all_snapshot_keys, snapshots))
     target_snapshots = [snapshots_by_key[key] for key in keys_by_day[target]]
     observations = unique_observations(snapshots)
     truth = [item for item in observations if item["observed"].date() == target]
