@@ -579,6 +579,11 @@ def prior_a6(target, params):
 
 
 def map_correction(target, variant, states, metadata, params, exclude=None):
+    # Research parameters are intentionally fitted only for the five Great
+    # Lakes. Keep any other live waterbody exactly on NOAA instead of either
+    # failing the isolated job or extrapolating an untrained correction.
+    if not target.get("params"):
+        return 0.0, "outside", math.inf, None
     anchor = anchor_correction(target, target["lake"], states, metadata, params, exclude=exclude)
     if anchor is not None:
         return anchor[0], "anchor", anchor[1], anchor[2]
@@ -591,6 +596,7 @@ def map_correction(target, variant, states, metadata, params, exclude=None):
 
 
 def fade(value, lead, layer, target, params, anchor_tau=None):
+    if layer == "outside" or abs(value) < 1e-12: return 0.0
     if lead == 0: return value
     if layer == "anchor": return value * math.exp(-lead / max(6, anchor_tau or 24))
     p = params["v2"]["params"][target["lake"]]
@@ -611,7 +617,7 @@ def point_rows(forecast, states, metadata, params, candidate, issued_at):
     for station, state in states.items():
         site = find_site(station, metadata, forecast)
         if not site: continue
-        target = {**metadata[station], "lake": metadata[station]["waterbody"], "month": month, "params": params["v2"]["params"][metadata[station]["waterbody"]]}
+        target = {**metadata[station], "lake": metadata[station]["waterbody"], "month": month, "params": params["v2"]["params"].get(metadata[station]["waterbody"])}
         if candidate == "point":
             correction, layer, nearest, at_tau = state["correction"], "own-anchor", 0.0, tau(params, target["station_class"], month)
         else:
@@ -634,7 +640,7 @@ def point_rows(forecast, states, metadata, params, candidate, issued_at):
         state, site = states.get(gauge), pier_sites.get(pier)
         if not state or not site or gauge not in metadata: continue
         target_meta = metadata[gauge]
-        target = {**target_meta, "lake": target_meta["waterbody"], "month": month, "params": params["v2"]["params"][target_meta["waterbody"]]}
+        target = {**target_meta, "lake": target_meta["waterbody"], "month": month, "params": params["v2"]["params"].get(target_meta["waterbody"])}
         if candidate == "point":
             correction, layer, nearest, at_tau = state["correction"], "pier-anchor", 0.0, tau(params, target["station_class"], month)
         else:
@@ -663,7 +669,7 @@ def loo_rows(forecast, states, metadata, params, candidate, issued_at):
         site = find_site(station, metadata, forecast)
         if not site or model_lead >= len(site.get("hours", [])) or not finite(site["hours"][model_lead]): continue
         meta = metadata[station]
-        target = {**meta, "lake": meta["waterbody"], "month": forecast["_cycle"].month, "params": params["v2"]["params"][meta["waterbody"]]}
+        target = {**meta, "lake": meta["waterbody"], "month": forecast["_cycle"].month, "params": params["v2"]["params"].get(meta["waterbody"])}
         correction, layer, nearest, _ = map_correction(target, candidate, states, metadata, params, exclude=station)
         output.append({
             "target_id": station, "lake": target["lake"], "station_class": target["station_class"],

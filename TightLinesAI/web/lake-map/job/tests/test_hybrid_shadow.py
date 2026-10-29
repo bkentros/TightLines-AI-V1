@@ -114,6 +114,22 @@ class HybridShadowTest(unittest.TestCase):
         self.assertEqual(rows[0]["noaa_f"], 5.)
         self.assertEqual(rows[0]["valid_time"], "2026-07-15T05:00:00Z")
 
+    def test_untrained_waterbody_keeps_map_candidate_on_noaa(self):
+        cycle = datetime(2026, 7, 15, 0, tzinfo=timezone.utc)
+        forecast = {"_cycle": cycle, "sites": {"g": {"hours": [60.] * 121}}, "pierSites": {}}
+        metadata = {"g": {"station_id":"g", "station_class":"harbor", "waterbody":"lake-st-clair",
+                          "lat":42.5, "lon":-82.7, "alternate_station_ids":""}}
+        states = {"g": {"correction":4., "slow":4., "ramp":1.}}
+        params = {"v2":{"params":{"lake-michigan":{}}},
+                  "v4":{"taus":{"harbor|jul-aug":{"tau":24}}},
+                  "v5":{"anchorEnabled":["harbor"], "gatesA":{}},
+                  "v6":{"enable":{}, "nearPrior":{}, "openPrior":{}}, "piers": {}}
+        point = shadow.point_rows(forecast, states, metadata, params, "point", cycle)
+        mapped = shadow.point_rows(forecast, states, metadata, params, "map-a5", cycle)
+        self.assertEqual(point[0]["candidate_f"], 64.)
+        self.assertEqual(mapped[0]["candidate_f"], 60.)
+        self.assertEqual(mapped[0]["layer"], "outside")
+
     def test_scorecard_includes_core_lead_breakdown(self):
         rows = [{"observed_f":60., "noaa_f":65., "candidate_f":61., "lake":"lake-michigan",
                  "station_class":"harbor", "distance_band":"0-10", "lead_hours":lead} for lead in (0, 24)]
