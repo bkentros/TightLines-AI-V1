@@ -76,8 +76,8 @@ def _progress_writer(s3, key, target, record_set_sha256, candidate_count):
 
 
 def collect(s3, target):
-    snapshot_keys = list(verify.list_keys(s3, verify._daily_prefix(target)))
-    snapshots = verify.load_many(s3, snapshot_keys)
+    available = verify.load_available(s3, verify.observation_keys(target))
+    snapshots = [snapshot for _, snapshot in available]
     if not snapshots:
         try:
             snapshots = [verify.object_json(s3, "observations/latest.json")]
