@@ -14,6 +14,27 @@ FRESH_PC = '{"generatedAt":"2026-10-02T12:59:00Z","sourceIssuedAt":"2026-10-02T0
 
 
 class HealthTest(unittest.TestCase):
+    def test_forecast_horizon_requires_all_six_future_days(self):
+        rows = [
+            {"date": f"2026-10-{day:02d}", "day_offset": day - 2}
+            for day in range(2, 9)
+        ]
+        body = __import__("json").dumps({"forecast": rows})
+        self.assertIsNone(health.validate_forecast_horizon(200, body, 6))
+
+        partial = __import__("json").dumps({"forecast": rows[:5]})
+        problem = health.validate_forecast_horizon(200, partial, 6)
+        self.assertIn("day offset 5", problem)
+
+    def test_forecast_horizon_rejects_duplicate_offsets(self):
+        rows = [
+            {"date": f"2026-10-{day:02d}", "day_offset": day - 2}
+            for day in range(2, 9)
+        ]
+        rows.append({"date": "2026-10-08", "day_offset": 6})
+        body = __import__("json").dumps({"forecast": rows})
+        self.assertIn("duplicated", health.validate_forecast_horizon(200, body, 6))
+
     def test_all_fresh_is_healthy(self):
         self.assertEqual(health.evaluate(NOW, 200, FRESH_PC, FRESH_MAP, FRESH_OBS), [])
 

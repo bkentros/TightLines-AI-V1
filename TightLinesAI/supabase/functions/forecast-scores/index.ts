@@ -19,6 +19,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
+  hasCompleteForecastHorizon,
+  hasCompleteSnapshotHorizon,
+} from "../_shared/forecastHorizon.ts";
+import {
   buildSharedEngineRequestFromEnvData,
   type EngineContext,
   runHowFishingScoreOnly,
@@ -1205,20 +1209,38 @@ Deno.serve(async (req: Request) => {
     latitude,
     longitude,
   );
-  let envRecord = activeSnapshot?.payload ?? null;
-  let snapshotSource: ForecastSnapshotSource | "fresh" =
-    activeSnapshot?.source ?? "fresh";
+  let envRecord = activeSnapshot &&
+      hasCompleteSnapshotHorizon(activeSnapshot.payload, maxDayOffset)
+    ? activeSnapshot.payload
+    : null;
+  let snapshotSource: ForecastSnapshotSource | "fresh" = envRecord
+    ? activeSnapshot!.source
+    : "fresh";
 
   if (!envRecord) {
-    const staleFallback = await readRecentStaleForecastScoreSnapshot(
-      supabase,
-      latitude,
-      longitude,
-    ) ?? await readRecentEnvironmentForecastSnapshot(
+    const staleScoreCandidate = await readRecentStaleForecastScoreSnapshot(
       supabase,
       latitude,
       longitude,
     );
+    const staleEnvironmentCandidate = staleScoreCandidate &&
+        hasCompleteSnapshotHorizon(
+          staleScoreCandidate.payload,
+          maxDayOffset,
+        )
+      ? null
+      : await readRecentEnvironmentForecastSnapshot(
+        supabase,
+        latitude,
+        longitude,
+      );
+    const staleFallback = [
+      staleScoreCandidate,
+      staleEnvironmentCandidate,
+    ].find((candidate) =>
+      candidate != null &&
+      hasCompleteSnapshotHorizon(candidate.payload, maxDayOffset)
+    ) ?? null;
     const MAX_RETRIES = staleFallback ? 1 : 2;
     const RETRY_DELAY_MS = 600;
     let om = null;
@@ -1227,7 +1249,11 @@ Deno.serve(async (req: Request) => {
         om = await fetchOpenMeteo14Day(latitude, longitude, SNAPSHOT_UNITS, {
           requirePaid: true,
         });
-        if (om?.weather) break;
+        if (
+          om?.weather &&
+          hasCompleteSnapshotHorizon(om, maxDayOffset)
+        ) break;
+        if (om?.weather) om = null;
         if (om == null && attempt < MAX_RETRIES - 1) {
           await new Promise((r) =>
             setTimeout(r, RETRY_DELAY_MS * (attempt + 1))
@@ -1242,7 +1268,10 @@ Deno.serve(async (req: Request) => {
       }
     }
 
-    if (!om?.weather) {
+    if (
+      !om?.weather ||
+      !hasCompleteSnapshotHorizon(om, maxDayOffset)
+    ) {
       if (staleFallback) {
         envRecord = staleFallback.payload;
         snapshotSource = staleFallback.source;
@@ -1251,7 +1280,10 @@ Deno.serve(async (req: Request) => {
           latitude,
           longitude,
         );
-        if (nwsFallback) {
+        if (
+          nwsFallback &&
+          hasCompleteSnapshotHorizon(nwsFallback, maxDayOffset)
+        ) {
           envRecord = nwsFallback;
           snapshotSource = "nws_degraded";
           const timezone = typeof nwsFallback.timezone === "string"
@@ -1326,6 +1358,16 @@ Deno.serve(async (req: Request) => {
   if (!envRecord) {
     return new Response(
       JSON.stringify({ error: "Weather data unavailable" }),
+      {
+        status: 503,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
+    );
+  }
+
+  if (!hasCompleteSnapshotHorizon(envRecord, maxDayOffset)) {
+    return new Response(
+      JSON.stringify({ error: "Incomplete forecast horizon" }),
       {
         status: 503,
         headers: { ...corsHeaders(), "Content-Type": "application/json" },
@@ -1452,6 +1494,16 @@ Deno.serve(async (req: Request) => {
       coastal: scores["coastal"] ?? 50,
       coastal_flats_estuary: scores["coastal_flats_estuary"] ?? 50,
     });
+  }
+
+  if (!hasCompleteForecastHorizon(forecast, maxDayOffset)) {
+    return new Response(
+      JSON.stringify({ error: "Incomplete scored forecast horizon" }),
+      {
+        status: 503,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
+    );
   }
 
   const responseBody = includeSnapshotEnv
