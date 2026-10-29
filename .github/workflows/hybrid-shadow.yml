@@ -1,0 +1,110 @@
+name: Hybrid shadow
+
+on:
+  schedule:
+    - cron: "37 * * * *"
+    - cron: "52 7 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Private shadow task"
+        type: choice
+        options: [both, hourly, scorecard]
+        default: both
+        required: true
+      score_date:
+        description: "UTC scorecard date; blank uses today for a partial scorecard"
+        type: string
+        required: false
+
+concurrency:
+  group: hybrid-shadow-v1-${{ github.event.schedule == '52 7 * * *' && 'scorecard' || 'hourly' }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  hourly:
+    if: github.event.schedule == '37 * * * *' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'hourly' || inputs.mode == 'both'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/workflows/hybrid-shadow.yml
+            TightLinesAI/web/lake-map/job
+            TightLinesAI/web/lake-map/static/geo.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Test private shadow safety
+        run: python -m unittest job/tests/test_hybrid_shadow.py
+      - name: Guard isolated private output
+        env:
+          SHADOW_R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$SHADOW_R2_BUCKET" && test "$SHADOW_R2_BUCKET" != "piercast-lake-map"
+      - name: Run hourly shadow candidates
+        env:
+          LIVE_R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          LIVE_R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          LIVE_R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          SHADOW_R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: python job/hybrid_shadow.py hourly
+
+  scorecard:
+    if: github.event.schedule == '52 7 * * *' || (github.event_name == 'workflow_dispatch' && (inputs.mode == 'scorecard' || inputs.mode == 'both'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: TightLinesAI/web/lake-map
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/workflows/hybrid-shadow.yml
+            TightLinesAI/web/lake-map/job
+            TightLinesAI/web/lake-map/static/geo.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: TightLinesAI/web/lake-map/job/requirements.txt
+      - name: Install
+        run: pip install -r job/requirements.txt
+      - name: Test private shadow safety
+        run: python -m unittest job/tests/test_hybrid_shadow.py
+      - name: Guard isolated private output
+        env:
+          SHADOW_R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: test -n "$SHADOW_R2_BUCKET" && test "$SHADOW_R2_BUCKET" != "piercast-lake-map"
+      - name: Write private daily scorecard
+        env:
+          LIVE_R2_ACCOUNT_ID: ${{ secrets.LAKE_MAP_R2_ACCOUNT_ID }}
+          LIVE_R2_ACCESS_KEY_ID: ${{ secrets.LAKE_MAP_R2_ACCESS_KEY_ID }}
+          LIVE_R2_SECRET_ACCESS_KEY: ${{ secrets.LAKE_MAP_R2_SECRET_ACCESS_KEY }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          SHADOW_R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          SCORE_DATE: ${{ inputs.score_date }}
+        run: |
+          date_args=()
+          if [ -n "$SCORE_DATE" ]; then
+            date_args=(--score-date "$SCORE_DATE")
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            date_args=(--score-date "$(date -u -d yesterday +%F)")
+          fi
+          python job/hybrid_shadow.py scorecard "${date_args[@]}"
