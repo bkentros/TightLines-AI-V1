@@ -28,6 +28,8 @@ from pathlib import Path
 from lakemap import store
 
 METHODOLOGY_VERSION = "piercast-live-map-validation-v2"
+ARCHIVE_START_DATE = date(2026, 10, 1)
+ARCHIVE_INTERVAL_MINUTES = 15
 CORE_LEADS = (0, 24, 48, 72, 96, 120)
 MODEL_HORIZONS = (("nowcast", 0, 6), ("day1", 7, 30), ("day2", 31, 54),
                   ("day3", 55, 78), ("day4", 79, 102), ("day5", 103, 120))
@@ -908,11 +910,17 @@ def object_json(s3, key):
     return json.loads(body)
 
 
-def list_keys(s3, prefix):
-    paginator = s3.get_paginator("list_objects_v2")
-    for page in paginator.paginate(Bucket=store.bucket(), Prefix=prefix):
-        for item in page.get("Contents", []):
-            yield item["Key"]
+def object_json_optional(s3, key):
+    """Read one deterministic object without requiring bucket-list permission."""
+    try:
+        return object_json(s3, key)
+    except Exception as error:
+        response = getattr(error, "response", {})
+        code = str(response.get("Error", {}).get("Code", ""))
+        status = response.get("ResponseMetadata", {}).get("HTTPStatusCode")
+        if code in {"404", "NoSuchKey", "NotFound"} or status == 404:
+            return None
+        raise
 
 
 def load_many(s3, keys, workers=16):
@@ -966,13 +974,28 @@ def _daily_prefix(day):
     return f"observations/v1/{day:%Y/%m/%d}/"
 
 
-def _archive_start_date(s3):
-    page = s3.list_objects_v2(Bucket=store.bucket(), Prefix="observations/v1/", MaxKeys=1)
-    entries = page.get("Contents", [])
-    if not entries:
-        return None
-    match = re.match(r"observations/v1/(\d{4})/(\d{2})/(\d{2})/", entries[0].get("Key", ""))
-    return "-".join(match.groups()) if match else None
+def observation_keys(day):
+    """Keys written by the gate's fixed quarter-hour collector schedule."""
+    start = datetime.combine(day, datetime.min.time(), timezone.utc)
+    return [
+        f"{_daily_prefix(day)}{(start + timedelta(minutes=minute)):%Y%m%dT%H%M00Z}.json"
+        for minute in range(0, 24 * 60, ARCHIVE_INTERVAL_MINUTES)
+    ]
+
+
+def load_available(s3, keys, workers=16):
+    if not keys:
+        return []
+    with ThreadPoolExecutor(workers) as pool:
+        loaded = list(pool.map(lambda key: object_json_optional(s3, key), keys))
+    return [(key, item) for key, item in zip(keys, loaded) if isinstance(item, dict)]
+
+
+def daily_report_keys(through):
+    if through < ARCHIVE_START_DATE:
+        return []
+    count = (through - ARCHIVE_START_DATE).days + 1
+    return [f"validation/daily/{ARCHIVE_START_DATE + timedelta(days=offset)}.json" for offset in range(count)]
 
 
 def _source_health(snapshots):
@@ -1039,13 +1062,17 @@ def main(argv=None):
     if not all(os.environ.get(key) for key in ENV_KEYS[:3]):
         raise SystemExit("R2 credentials are required (values are never printed)")
     s3 = store.client()
-    archive_start_date = _archive_start_date(s3)
+    archive_start_date = ARCHIVE_START_DATE.isoformat()
 
     days = [target - timedelta(days=offset) for offset in range(6, -1, -1)]
-    keys_by_day = {day: list(list_keys(s3, _daily_prefix(day))) for day in days}
+    available = load_available(s3, [key for day in days for key in observation_keys(day)])
+    snapshots_by_key = dict(available)
+    keys_by_day = {
+        day: [key for key in observation_keys(day) if key in snapshots_by_key]
+        for day in days
+    }
     all_snapshot_keys = [key for day in days for key in keys_by_day[day]]
-    snapshots = load_many(s3, all_snapshot_keys)
-    snapshots_by_key = dict(zip(all_snapshot_keys, snapshots))
+    snapshots = [snapshots_by_key[key] for key in all_snapshot_keys]
     target_snapshots = [snapshots_by_key[key] for key in keys_by_day[target]]
     observations = unique_observations(snapshots)
     truth = [item for item in observations if item["observed"].date() == target]
@@ -1110,8 +1137,8 @@ def main(argv=None):
         daily["producerRevision"] = producer_revision
 
     daily_key = f"validation/daily/{target.isoformat()}.json"
-    existing_keys = list(list_keys(s3, "validation/daily/"))
-    previous = load_many(s3, [key for key in existing_keys if key != daily_key])
+    prior_keys = [key for key in daily_report_keys(target) if key != daily_key]
+    previous = [item for _, item in load_available(s3, prior_keys) if item.get("date")]
     reports = previous + [daily]
     summary = cumulative_report(reports, generated_at)
     month = target.strftime("%Y-%m")

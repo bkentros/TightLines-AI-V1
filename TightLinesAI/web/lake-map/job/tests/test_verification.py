@@ -37,6 +37,18 @@ def forecast(cycle="2026-10-01T12:00:00Z", value=62.0):
 
 
 class VerificationTest(unittest.TestCase):
+    def test_archive_keys_are_deterministic_quarter_hours_without_listing(self):
+        keys = verify.observation_keys(date(2026, 10, 27))
+        self.assertEqual(len(keys), 96)
+        self.assertEqual(keys[0], "observations/v1/2026/10/27/20261027T000000Z.json")
+        self.assertEqual(keys[-1], "observations/v1/2026/10/27/20261027T234500Z.json")
+
+    def test_daily_report_keys_are_deterministic_from_archive_start(self):
+        self.assertEqual(verify.daily_report_keys(date(2026, 10, 2)), [
+            "validation/daily/2026-10-01.json",
+            "validation/daily/2026-10-02.json",
+        ])
+
     def test_optional_benchmark_is_joined_from_its_bounded_validation_key(self):
         class S3:
             def get_object(self, **kwargs):
