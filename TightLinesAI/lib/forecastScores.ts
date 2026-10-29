@@ -22,11 +22,15 @@ import {
 import { getValidAccessToken } from "./supabase";
 
 export {
-  buildFutureForecastSlots,
   MEASURED_WATER_TEMP_KEYS,
   nextMidnightInTimeZoneMs,
   stripMeasuredWaterTempFields,
 } from "./forecastSnapshot";
+
+// This helper is imported from forecastHorizon above. Keep this as a local
+// export: re-exporting it from forecastSnapshot makes Metro bind `undefined`
+// at runtime and crashes Home as soon as it builds the forecast slots.
+export { buildFutureForecastSlots };
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
