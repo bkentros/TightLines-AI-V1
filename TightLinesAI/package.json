@@ -33,7 +33,7 @@
     "qa:pier-cast:foundation": "npm run qa:pier-cast:piers-covered && node --import tsx --test scripts/pier-cast-standings.test.ts && deno test --allow-read supabase/functions/_shared/pierCastEngine/tests supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts supabase/functions/pier-cast-ingest/handler.test.ts",
     "qa:pier-cast:landing": "node --import tsx --test scripts/pier-cast-landing.test.ts scripts/pier-cast-city-report-redesign.test.ts scripts/pier-cast-group-e-1-16.test.ts",
     "qa:pier-cast:map": "node --import tsx --test scripts/pier-cast-map.test.ts scripts/pier-cast-map-foundation.test.ts scripts/pier-cast-map-ui.test.ts scripts/pier-cast-temperature-scale.test.ts scripts/pier-cast-live-map.test.ts",
-    "qa:app-update": "node --import tsx --test scripts/app-update-policy.test.ts",
+    "qa:app-update": "node --import tsx --test scripts/app-update-policy.test.ts && node --test scripts/forecast-horizon-runtime-export.test.mjs",
     "qa:pier-cast:renovation-pass1": "node --import tsx --test scripts/pier-cast-renovation-pass1.test.ts",
     "qa:pier-cast:renovation-pass2": "node --import tsx --test scripts/pier-cast-renovation-pass2.test.ts && deno test --allow-read supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts",
     "qa:pier-cast:renovation-pass3": "node --import tsx --test scripts/pier-cast-renovation-pass1.test.ts scripts/pier-cast-renovation-pass2.test.ts scripts/pier-cast-renovation-pass3.test.ts && deno test --allow-read supabase/functions/pier-cast/handler.test.ts supabase/functions/pier-cast/reportAccess.test.ts",
