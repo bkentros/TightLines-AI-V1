@@ -945,7 +945,7 @@ def launch_gates(cumulative):
             "michigan": "PASS" if mature and all(mi[str(lead)] is not None and mi[str(lead)] >= 10 for lead in (0, 24)) else "FAIL" if mature else "NOT YET",
         }
         output[candidate] = {"days": qualified_days, "totalDays": len(days),
-                             "activeBuoysPerDay": [int(day.get("activeBuoys", 0)) for day in days.values()],
+                             "activeBuoysPerDay": [int(day["activeBuoys"]) for day in days.values() if "activeBuoys" in day],
                              "lead0": m0, "lead24": m24, "michigan": mi, "significantHarm": harm, "items": checks,
                              "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in checks.values()) else "FAIL"}
     return output
