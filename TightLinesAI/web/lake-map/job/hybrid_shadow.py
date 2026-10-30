@@ -37,11 +37,12 @@ LIVE_BUCKET = "piercast-lake-map"
 SHADOW_PREFIX = "shadow/v1/"
 METADATA_KEY = "private/scorecard/v1/metadata/v1/stations.parquet"
 PARAMS_KEY = f"{SHADOW_PREFIX}params/runtime-v1.json"
-CANDIDATES = ("point", "map-a5", "map-a6")
+CANDIDATES = ("point", "map-a5", "map-a6", "map-a7")
 VERSION_IDS = {
     "point": "gauge-anchored-point-v5-shadow1",
     "map-a5": "gauge-anchored-v5-a5-shadow1",
     "map-a6": "gauge-anchored-v6-a6-shadow1",
+    "map-a7": "gauge-anchored-v7-a7-shadow1",
 }
 SEASONS = {5: "may-jun", 6: "may-jun", 7: "jul-aug", 8: "jul-aug",
            9: "sep-oct", 10: "sep-oct", 11: "nov-dec", 12: "nov-dec"}
@@ -566,15 +567,16 @@ def anchor_correction(target, lake, states, metadata, params, exclude=None):
     return float(np.dot(weights, values) / np.sum(weights)), min(distances), float(np.mean(taus))
 
 
-def prior_a6(target, params):
+def zone_prior(target, params, version):
     lake, month, shore = target["lake"], target["month"], float(target.get("shore_distance_km") or 0)
+    fitted = params[version]
     near_weight = 1 if shore <= 3 else 0 if shore >= 7 else (7 - shore) / 4
     open_weight = 1 - near_weight
-    near_enabled = params["v6"]["enable"].get(f"{lake}|{month}|nearshore", False)
-    open_enabled = params["v6"]["enable"].get(f"{lake}|{month}|open-water", False)
+    near_enabled = fitted["enable"].get(f"{lake}|{month}|nearshore", False)
+    open_enabled = fitted["enable"].get(f"{lake}|{month}|open-water", False)
     region = mi_region(target["lat"], target["lon"]) if lake == "lake-michigan" else ("offshore" if shore >= 5 else "nearshore")
-    near = float(params["v6"]["nearPrior"].get(f"{lake}|{region}|{month}", 0)) if near_enabled else 0
-    opened = float(params["v6"]["openPrior"].get(f"{lake}|{month}", 0)) if open_enabled else 0
+    near = float(fitted["nearPrior"].get(f"{lake}|{region}|{month}", 0)) if near_enabled else 0
+    opened = float(fitted["openPrior"].get(f"{lake}|{month}", 0)) if open_enabled else 0
     return near_weight * near + open_weight * opened
 
 
@@ -591,7 +593,11 @@ def map_correction(target, variant, states, metadata, params, exclude=None):
     alpha = gate_alpha(params, target["lake"], target["month"], "open-water", nearest, target["lat"], target["lon"])
     if alpha is None or float(alpha) <= 0 or not math.isfinite(nearest):
         return 0.0, "outside", nearest, None
-    correction = float(alpha) * slow if variant == "map-a5" else prior_a6(target, params) + float(alpha) * (slow - prior_a6(target, params))
+    if variant == "map-a5":
+        correction = float(alpha) * slow
+    else:
+        prior = zone_prior(target, params, "v7" if variant == "map-a7" else "v6")
+        correction = prior + float(alpha) * (slow - prior)
     return correction, "broad", nearest, None
 
 
@@ -664,20 +670,24 @@ def point_rows(forecast, states, metadata, params, candidate, issued_at):
 
 def loo_rows(forecast, states, metadata, params, candidate, issued_at):
     output = []
-    model_lead = max(0, math.ceil((issued_at - forecast["_cycle"]).total_seconds() / 3600))
+    model_offset = max(0, math.ceil((issued_at - forecast["_cycle"]).total_seconds() / 3600))
     for station in states:
         site = find_site(station, metadata, forecast)
-        if not site or model_lead >= len(site.get("hours", [])) or not finite(site["hours"][model_lead]): continue
+        if not site: continue
         meta = metadata[station]
-        target = {**meta, "lake": meta["waterbody"], "month": forecast["_cycle"].month, "params": params["v2"]["params"].get(meta["waterbody"])}
-        correction, layer, nearest, _ = map_correction(target, candidate, states, metadata, params, exclude=station)
-        output.append({
-            "target_id": station, "lake": target["lake"], "station_class": target["station_class"],
-            "issued_at": iso(issued_at), "model_cycle": iso(forecast["_cycle"]),
-            "valid_time": iso(issued_at), "lead_hours": 0, "model_lead_hours": model_lead,
-            "noaa_f": float(site["hours"][model_lead]), "candidate_f": float(site["hours"][model_lead]) + correction,
-            "correction_f": correction, "layer": layer, "source_distance_km": nearest,
-        })
+        target = {**meta, "lake": meta["waterbody"], "month": issued_at.month, "params": params["v2"]["params"].get(meta["waterbody"])}
+        correction, layer, nearest, anchor_tau = map_correction(target, candidate, states, metadata, params, exclude=station)
+        for model_lead, noaa in enumerate(site.get("hours", [])):
+            lead = model_lead - model_offset
+            if lead < 0 or not finite(noaa): continue
+            corr = fade(correction, lead, layer, target, params, anchor_tau)
+            output.append({
+                "target_id": station, "lake": target["lake"], "station_class": target["station_class"],
+                "issued_at": iso(issued_at), "model_cycle": iso(forecast["_cycle"]),
+                "valid_time": iso(issued_at + timedelta(hours=lead)), "lead_hours": lead, "model_lead_hours": model_lead,
+                "noaa_f": float(noaa), "candidate_f": float(noaa) + corr,
+                "correction_f": corr, "layer": layer, "source_distance_km": nearest,
+            })
     return output
 
 
@@ -799,6 +809,26 @@ def aggregate_scores(rows):
             **{field: {name: one(part) for name, part in values.items()} for field, values in groups.items() if field != "overall"}}
 
 
+def gate_blocks(rows):
+    """Retain station-day error blocks, never raw readings, for bootstrap gates."""
+    grouped = defaultdict(list)
+    for row in rows:
+        day = str(row["valid_time"])[:10]
+        grouped[(row["target_id"], day, int(row["lead_hours"]))].append(row)
+    output = []
+    for (station, day, lead), part in grouped.items():
+        noaa = [abs(row["observed_f"] - row["noaa_f"]) for row in part]
+        candidate = [abs(row["observed_f"] - row["candidate_f"]) for row in part]
+        first = part[0]
+        output.append({
+            "stationDay": f"{station}|{day}", "lead": lead, "n": len(part),
+            "noaaAbsSum": round(float(sum(noaa)), 6), "candidateAbsSum": round(float(sum(candidate)), 6),
+            "lake": first.get("lake", "unknown"), "stationClass": first.get("station_class", "unknown"),
+            "distanceBand": first.get("distance_band", "unknown"),
+        })
+    return output
+
+
 def score_candidate(store, candidate, observations, score_day):
     scored, loo_scored = [], []
     for lead in (0, 6, 24, 48, 120):
@@ -814,18 +844,111 @@ def score_candidate(store, candidate, observations, score_day):
                 if prediction:
                     scored.append({**prediction, "observed_f": observation["water_f"],
                                    "distance_band": distance_band(float(prediction.get("source_distance_km") or 0))})
-            if candidate != "point" and lead == 0:
+            if candidate != "point" and lead in {0, 24}:
                 body = store.get_bytes(loo_key(candidate, issued), optional=True)
                 if body is None: continue
-                predictions = {(row["target_id"], row["valid_time"]): row for row in parquet_rows(body)}
+                predictions = {(row["target_id"], row["valid_time"]): row for row in parquet_rows(body)
+                               if row["lead_hours"] == lead}
                 for observation in observations:
                     if observation["time"] != valid: continue
                     prediction = predictions.get((observation["station_id"], iso(valid)))
                     if prediction:
                         loo_scored.append({**prediction, "observed_f": observation["water_f"],
                                            "distance_band": distance_band(float(prediction.get("source_distance_km") or math.inf))})
+    loo_inside = [row for row in loo_scored if row.get("layer") != "outside"]
     return {"candidate": aggregate_scores(scored), "loo": aggregate_scores(loo_scored),
-            "rows": len(scored), "looRows": len(loo_scored)}
+            "looInside": aggregate_scores(loo_inside),
+            "gateBlocks": {"candidate": gate_blocks(scored), "looInside": gate_blocks(loo_inside)},
+            "rows": len(scored), "looRows": len(loo_scored), "looInsideRows": len(loo_inside)}
+
+
+def combine_metric(days, candidate, source, lead):
+    values = []
+    for day in days.values():
+        metric = day.get("candidates", day).get(candidate, {}).get(source, {}).get("byLead", {}).get(str(lead), {})
+        if metric.get("n"):
+            values.append(metric)
+    count = sum(item["n"] for item in values)
+    if not count: return {"n": 0}
+    return {"n": count, **{
+        name: sum(item[name] * item["n"] for item in values) / count
+        for name in ("noaaMae", "candidateMae", "worseGt1", "worseGt2", "betterGt1")
+    }}
+
+
+def improvement(metric):
+    return None if not metric.get("n") or not metric.get("noaaMae") else 100 * (metric["noaaMae"] - metric["candidateMae"]) / metric["noaaMae"]
+
+
+def significant_harm(days, candidate, source, leads, dimensions):
+    blocks = []
+    for day in days.values():
+        blocks.extend(day.get("candidates", day).get(candidate, {}).get("gateBlocks", {}).get(source, []))
+    failures = []
+    for lead in leads:
+        selected = [block for block in blocks if block["lead"] == lead]
+        for field in dimensions:
+            names = sorted({block[field] for block in selected})
+            for name in names:
+                part = [block for block in selected if block[field] == name]
+                if len(part) < 20: continue
+                values = np.asarray([(block["candidateAbsSum"] - block["noaaAbsSum"]) / block["n"] for block in part])
+                delta = float(values.mean())
+                if delta <= .01: continue
+                rng = np.random.default_rng(710000 + lead + sum(map(ord, field + str(name))))
+                samples = np.empty(1000)
+                for start in range(0, 1000, 50):
+                    indexes = rng.integers(0, len(values), size=(50, len(values)))
+                    samples[start:start + 50] = values[indexes].mean(axis=1)
+                low, high = np.quantile(samples, [.025, .975])
+                if low > 0: failures.append({"lead": lead, "field": field, "cell": name, "delta": delta, "ci95": [float(low), float(high)]})
+    return failures
+
+
+def launch_gates(cumulative):
+    days = cumulative.get("days", {})
+    output = {}
+    point_days = sum(bool(day.get("candidates", day).get("point", {}).get("rows")) for day in days.values())
+    p6, p24 = combine_metric(days, "point", "candidate", 6), combine_metric(days, "point", "candidate", 24)
+    mature = point_days >= 21 and p24.get("n", 0) >= 500
+    point_harm = significant_harm(days, "point", "candidate", (6, 24), ("lake",)) if mature else []
+    point_checks = {
+        "days": "PASS" if point_days >= 21 else "NOT YET",
+        "n24": "PASS" if p24.get("n", 0) >= 500 else "NOT YET",
+        "improvement6": "PASS" if mature and improvement(p6) is not None and improvement(p6) >= 25 else "FAIL" if mature else "NOT YET",
+        "improvement24": "PASS" if mature and improvement(p24) is not None and improvement(p24) >= 25 else "FAIL" if mature else "NOT YET",
+        "worse2": "PASS" if mature and p24.get("worseGt2", 1) <= .05 else "FAIL" if mature else "NOT YET",
+        "lakeHarm": "PASS" if mature and not point_harm else "FAIL" if mature else "NOT YET",
+    }
+    output["point"] = {"days": point_days, "n24": p24.get("n", 0), "lead6": p6, "lead24": p24,
+                       "significantHarm": point_harm, "items": point_checks,
+                       "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in point_checks.values()) else "FAIL"}
+    for candidate in ("map-a5", "map-a6", "map-a7"):
+        qualifying = [day for day in days.values() if int(day.get("activeBuoys", 0)) >= 30]
+        qualified_days = len(qualifying)
+        m0, m24 = combine_metric(days, candidate, "looInside", 0), combine_metric(days, candidate, "looInside", 24)
+        mature = qualified_days >= 21
+        harm = significant_harm(days, candidate, "looInside", (0, 24), ("lake", "stationClass", "distanceBand")) if mature else []
+        # Michigan is one of the same station-day blocks; its metric is computed from stored blocks.
+        mi_blocks = [block for day in days.values() for block in day.get("candidates", day).get(candidate, {}).get("gateBlocks", {}).get("looInside", []) if block["lake"] == "lake-michigan"]
+        def block_improvement(lead):
+            part = [block for block in mi_blocks if block["lead"] == lead]
+            noaa = sum(block["noaaAbsSum"] for block in part); hybrid = sum(block["candidateAbsSum"] for block in part)
+            return None if not noaa else 100 * (noaa - hybrid) / noaa
+        mi = {str(lead): block_improvement(lead) for lead in (0, 24)}
+        checks = {
+            "days": "PASS" if mature else "NOT YET",
+            "improvement0": "PASS" if mature and improvement(m0) is not None and improvement(m0) >= 15 else "FAIL" if mature else "NOT YET",
+            "improvement24": "PASS" if mature and improvement(m24) is not None and improvement(m24) >= 15 else "FAIL" if mature else "NOT YET",
+            "cellHarm": "PASS" if mature and not harm else "FAIL" if mature else "NOT YET",
+            "harmShares": "PASS" if mature and all(metric.get("worseGt1", 1) <= .10 and metric.get("worseGt2", 1) <= .03 for metric in (m0, m24)) else "FAIL" if mature else "NOT YET",
+            "michigan": "PASS" if mature and all(mi[str(lead)] is not None and mi[str(lead)] >= 10 for lead in (0, 24)) else "FAIL" if mature else "NOT YET",
+        }
+        output[candidate] = {"days": qualified_days, "totalDays": len(days),
+                             "activeBuoysPerDay": [int(day.get("activeBuoys", 0)) for day in days.values()],
+                             "lead0": m0, "lead24": m24, "michigan": mi, "significantHarm": harm, "items": checks,
+                             "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in checks.values()) else "FAIL"}
+    return output
 
 
 def markdown_scorecard(day, scorecards, cumulative):
@@ -833,7 +956,9 @@ def markdown_scorecard(day, scorecards, cumulative):
     for candidate, item in scorecards.items():
         value = item["candidate"]["overall"]
         lines.append(f"| {candidate} | {value.get('n', 0)} | {value.get('noaaMae', '—')} | {value.get('candidateMae', '—')} | {value.get('worseGt1', '—')} | {value.get('worseGt2', '—')} |")
-    lines.extend(("", f"Cumulative days: {len(cumulative.get('days', {}))}. Private research output; never served by the map."))
+    lines.extend(("", f"Cumulative days: {len(cumulative.get('days', {}))}. Private research output; never served by the map.", "", "## Launch gates", ""))
+    for candidate, gate in cumulative.get("launchGates", {}).items():
+        lines.append(f"- {candidate}: **{gate['status']}** — " + ", ".join(f"{name}={status}" for name, status in gate["items"].items()))
     return "\n".join(lines) + "\n"
 
 
@@ -846,9 +971,12 @@ def run_scorecard(args):
     observations = [row for row in hourly if row["time"].date() == score_day and row["qc_pass"]]
     scorecards = {candidate: score_candidate(store, candidate, observations, score_day) for candidate in CANDIDATES}
     cumulative = store.get_json(f"{SHADOW_PREFIX}scorecard/cumulative.json", optional=True) or {"formatVersion": 1, "days": {}}
-    cumulative["days"][score_day.isoformat()] = scorecards
+    cumulative["days"][score_day.isoformat()] = {"activeBuoys": len({row["station_id"] for row in observations}), "candidates": scorecards}
     cumulative["updatedAt"] = iso(now)
-    daily = {"formatVersion": 1, "date": score_day.isoformat(), "generatedAt": iso(now), "partial": score_day >= now.date(), "candidates": scorecards}
+    cumulative["launchGates"] = launch_gates(cumulative)
+    daily = {"formatVersion": 2, "date": score_day.isoformat(), "generatedAt": iso(now), "partial": score_day >= now.date(),
+             "activeBuoys": len({row["station_id"] for row in observations}), "candidates": scorecards,
+             "launchGates": cumulative["launchGates"]}
     root = f"{SHADOW_PREFIX}scorecard/{score_day.isoformat()}"
     store.json(f"{root}.json", daily)
     store.put(f"{root}.md", markdown_scorecard(score_day, scorecards, cumulative).encode(), "text/markdown")
@@ -860,14 +988,14 @@ def run_scorecard(args):
 def upload_params(args):
     private_s3 = r2_client(""); store = ShadowStore(private_s3, os.environ["SHADOW_R2_BUCKET"])
     sources = {name: json.loads(Path(path).read_text()) for name, path in {
-        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v6": args.v6,
+        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v6": args.v6, "v7": args.v7,
     }.items()}
     certification = json.loads(Path(args.v5_certification).read_text())
     piers = {item["pier"]: item["gauge"] for item in certification["piers"]["points"] if item.get("qualifies")}
     bundle = {"formatVersion": 1, "methodology": "hybrid-shadow-v1", "versions": VERSION_IDS,
-              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"], "v6": sources["v6"],
+              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"], "v6": sources["v6"], "v7": sources["v7"],
               "piers": piers}
-    for name in ("v5", "v6"):
+    for name in ("v5", "v6", "v7"):
         store.json(f"{SHADOW_PREFIX}params/{name}.json", sources[name])
     digest = store.json(PARAMS_KEY, bundle)
     print(json.dumps({"stored": True, "key": PARAMS_KEY, "sha256": digest, "committed": False}, sort_keys=True))
@@ -877,24 +1005,22 @@ def upload_params(args):
 def print_scorecard(args):
     private_s3 = r2_client(""); store = ShadowStore(private_s3, os.environ["SHADOW_R2_BUCKET"])
     value = store.get_json(f"{SHADOW_PREFIX}scorecard/cumulative.json")
-    print("HYBRID SHADOW cumulative")
-    print(f"updated {value.get('updatedAt')} | days {len(value.get('days', {}))}")
-    totals = defaultdict(list)
-    for day in value.get("days", {}).values():
-        for candidate, item in day.items():
-            overall = item.get("candidate", {}).get("overall", {})
-            if overall.get("n"):
-                totals[candidate].append(overall)
-    for candidate in CANDIDATES:
-        items = totals.get(candidate, [])
-        count = sum(item["n"] for item in items)
-        if not count:
-            print(f"{candidate}: n=0 (partial archive)")
-            continue
-        noaa = sum(item["noaaMae"] * item["n"] for item in items) / count
-        hybrid = sum(item["candidateMae"] * item["n"] for item in items) / count
-        print(f"{candidate}: n={count} NOAA={noaa:.2f}F candidate={hybrid:.2f}F delta={hybrid-noaa:+.2f}F")
+    gates = launch_gates(value)
+    print("HYBRID SHADOW launch gates")
+    print(f"updated {value.get('updatedAt')} | archived days {len(value.get('days', {}))}")
+    point = gates["point"]
+    print(f"point: days={point['days']}/21 n24={point['n24']}/500 imp6={format_percent(improvement(point['lead6']))} imp24={format_percent(improvement(point['lead24']))} worse2={format_percent(100*point['lead24'].get('worseGt2',0) if point['lead24'].get('n') else None)} {point['status']}")
+    print("  " + " ".join(f"{name}={status}" for name, status in point["items"].items()))
+    for candidate in ("map-a5", "map-a6", "map-a7"):
+        gate = gates[candidate]; active = gate["activeBuoysPerDay"]
+        mean_active = statistics.mean(active) if active else 0
+        print(f"{candidate}: days30={gate['days']}/21 buoys/day={mean_active:.1f} n0={gate['lead0'].get('n',0)} n24={gate['lead24'].get('n',0)} imp0={format_percent(improvement(gate['lead0']))} imp24={format_percent(improvement(gate['lead24']))} {gate['status']}")
+        print("  " + " ".join(f"{name}={status}" for name, status in gate["items"].items()))
     return 0
+
+
+def format_percent(value):
+    return "n/a" if value is None else f"{value:.1f}%"
 
 
 def parser():
@@ -904,7 +1030,7 @@ def parser():
         item = sub.add_parser(name); item.add_argument("--now")
         if name == "scorecard": item.add_argument("--score-date")
     upload = sub.add_parser("upload-params")
-    for name in ("v2", "v4", "v5", "v6"): upload.add_argument(f"--{name}", required=True)
+    for name in ("v2", "v4", "v5", "v6", "v7"): upload.add_argument(f"--{name}", required=True)
     upload.add_argument("--v5-certification", required=True)
     sub.add_parser("print-scorecard")
     return result

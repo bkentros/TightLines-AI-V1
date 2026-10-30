@@ -136,6 +136,39 @@ class HybridShadowTest(unittest.TestCase):
         result = shadow.aggregate_scores(rows)
         self.assertEqual(set(result["byLead"]), {"0", "24"})
 
+    def test_a7_uses_its_frozen_enable_table(self):
+        target = {"lake":"lake-michigan", "month":7, "shore_distance_km":8,
+                  "lat":44., "lon":-86.5}
+        params = {"v7":{"enable":{"lake-michigan|7|open-water":True},
+                        "nearPrior":{}, "openPrior":{"lake-michigan|7":3.5}}}
+        self.assertEqual(shadow.zone_prior(target, params, "v7"), 3.5)
+        params["v7"]["enable"]["lake-michigan|7|open-water"] = False
+        self.assertEqual(shadow.zone_prior(target, params, "v7"), 0.)
+
+    def test_loo_emits_zero_and_24_hour_predictions(self):
+        cycle = datetime(2026, 7, 15, 0, tzinfo=timezone.utc)
+        forecast = {"_cycle":cycle, "sites":{"g":{"hours":[60.] * 121}}}
+        metadata = {"g":{"station_id":"g", "station_class":"harbor", "waterbody":"lake-michigan",
+                         "lat":43., "lon":-86., "alternate_station_ids":""}}
+        states = {"g":{"correction":2., "slow":2., "ramp":1.}}
+        params = {"v2":{"params":{"lake-michigan":{"fslow_6":.9,"fslow_24":.7,"fslow_48":.5,"fslow_120":.1}}},
+                  "v4":{"taus":{"harbor|jul-aug":{"tau":24}}},
+                  "v5":{"anchorEnabled":["harbor"], "gatesA":{}},
+                  "v6":{"enable":{}, "nearPrior":{}, "openPrior":{}},
+                  "v7":{"enable":{}, "nearPrior":{}, "openPrior":{}}}
+        rows = shadow.loo_rows(forecast, states, metadata, params, "map-a7", cycle)
+        self.assertIn(0, {row["lead_hours"] for row in rows})
+        self.assertIn(24, {row["lead_hours"] for row in rows})
+
+    def test_launch_gates_are_not_yet_before_minimum_days(self):
+        metric = {"overall":{"n":1}, "byLead":{"0":{"n":1,"noaaMae":4.,"candidateMae":2.,"worseGt1":0.,"worseGt2":0.,"betterGt1":1.},
+                                                   "24":{"n":1,"noaaMae":4.,"candidateMae":2.,"worseGt1":0.,"worseGt2":0.,"betterGt1":1.}}}
+        item = {"candidate":metric, "looInside":metric, "gateBlocks":{"candidate":[],"looInside":[]}, "rows":2}
+        day = {"activeBuoys":35, "candidates":{candidate:item for candidate in shadow.CANDIDATES}}
+        gates = shadow.launch_gates({"days":{"2026-10-29":day}})
+        self.assertEqual(gates["point"]["status"], "NOT YET")
+        self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a6","map-a7")))
+
 
 if __name__ == "__main__":
     unittest.main()
