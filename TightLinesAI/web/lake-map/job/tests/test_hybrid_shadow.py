@@ -168,6 +168,7 @@ class HybridShadowTest(unittest.TestCase):
         gates = shadow.launch_gates({"days":{"2026-10-29":day}})
         self.assertEqual(gates["point"]["status"], "NOT YET")
         self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a6","map-a7")))
+        self.assertEqual(gates["map-a7"]["activeBuoysPerDay"], [35])
 
 
 if __name__ == "__main__":
