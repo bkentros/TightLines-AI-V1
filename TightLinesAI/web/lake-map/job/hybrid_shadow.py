@@ -1039,12 +1039,14 @@ def run_scorecard(args):
 def upload_params(args):
     private_s3 = r2_client(""); store = ShadowStore(private_s3, os.environ["SHADOW_R2_BUCKET"])
     sources = {name: json.loads(Path(path).read_text()) for name, path in {
-        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v8": args.v8,
+        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v6": args.v6,
+        "v7": args.v7, "v8": args.v8,
     }.items()}
     certification = json.loads(Path(args.v5_certification).read_text())
     piers = {item["pier"]: item["gauge"] for item in certification["piers"]["points"] if item.get("qualifies")}
     bundle = {"formatVersion": 1, "methodology": "hybrid-shadow-v1", "versions": VERSION_IDS,
-              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"], "v8": sources["v8"],
+              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"],
+              "v6": sources["v6"], "v7": sources["v7"], "v8": sources["v8"],
               "piers": piers}
     for name in ("v5", "v8"):
         store.json(f"{SHADOW_PREFIX}params/{name}.json", sources[name])
@@ -1082,7 +1084,7 @@ def parser():
         item = sub.add_parser(name); item.add_argument("--now")
         if name == "scorecard": item.add_argument("--score-date")
     upload = sub.add_parser("upload-params")
-    for name in ("v2", "v4", "v5", "v8"): upload.add_argument(f"--{name}", required=True)
+    for name in ("v2", "v4", "v5", "v6", "v7", "v8"): upload.add_argument(f"--{name}", required=True)
     upload.add_argument("--v5-certification", required=True)
     sub.add_parser("print-scorecard")
     return result
