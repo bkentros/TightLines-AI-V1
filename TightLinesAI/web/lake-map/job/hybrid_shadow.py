@@ -37,12 +37,11 @@ LIVE_BUCKET = "piercast-lake-map"
 SHADOW_PREFIX = "shadow/v1/"
 METADATA_KEY = "private/scorecard/v1/metadata/v1/stations.parquet"
 PARAMS_KEY = f"{SHADOW_PREFIX}params/runtime-v1.json"
-CANDIDATES = ("point", "map-a5", "map-a6", "map-a7")
+CANDIDATES = ("point", "map-a5", "map-a8")
 VERSION_IDS = {
     "point": "gauge-anchored-point-v5-shadow1",
     "map-a5": "gauge-anchored-v5-a5-shadow1",
-    "map-a6": "gauge-anchored-v6-a6-shadow1",
-    "map-a7": "gauge-anchored-v7-a7-shadow1",
+    "map-a8": "gauge-anchored-v8-support-shadow1",
 }
 SEASONS = {5: "may-jun", 6: "may-jun", 7: "jul-aug", 8: "jul-aug",
            9: "sep-oct", 10: "sep-oct", 11: "nov-dec", 12: "nov-dec"}
@@ -410,6 +409,51 @@ def mi_region(lat, lon):
     return "east-shore" if lon > -87 else "west-shore"
 
 
+def build_support_context(paired, metadata, issued_at, params):
+    """Causal open-water availability for the trailing 24-hour A8 ramp."""
+    hours = [issued_at - timedelta(hours=offset) for offset in reversed(range(24))]
+    active = {}
+    for hour in hours:
+        here = set()
+        for station, values in paired.items():
+            meta = metadata.get(station, {})
+            if meta.get("station_class") not in {"nearshore_buoy", "offshore_buoy"}:
+                continue
+            if any(timedelta(0) <= hour - row["time"] <= timedelta(hours=3) for row in values):
+                here.add(station)
+        active[hour] = here
+    fitted = params["v8"]
+    return {"hours": hours, "active": active, "nMin": int(fitted["nMin"]),
+            "fallback": set(fitted.get("miFallbackRegions", [])), "metadata": metadata}
+
+
+def support_weight(target, params, exclude=None):
+    context = params.get("_support")
+    if not context:
+        return 0.0, 0
+    lake = target["lake"]
+    region = mi_region(target["lat"], target["lon"]) if lake == "lake-michigan" else None
+    regional = lake == "lake-michigan" and region not in context["fallback"]
+    weights, latest_count = [], 0
+    for index, hour in enumerate(context["hours"]):
+        count = 0
+        for station in context["active"][hour]:
+            if station == exclude:
+                continue
+            meta = context["metadata"].get(station, {})
+            if meta.get("station_class") not in {"nearshore_buoy", "offshore_buoy"}:
+                continue
+            if meta.get("waterbody") != lake:
+                continue
+            if regional and mi_region(meta["lat"], meta["lon"]) != region:
+                continue
+            count += 1
+        if index == len(context["hours"]) - 1:
+            latest_count = count
+        weights.append(float(np.clip(count - context["nMin"], 0, 1)))
+    return statistics.fmean(weights), latest_count
+
+
 def lake_for(lat, lon):
     if lat >= 46.15 and lon < -84.0: return "lake-superior"
     if lon > -79.5 and lat >= 43.0: return "lake-ontario"
@@ -595,9 +639,13 @@ def map_correction(target, variant, states, metadata, params, exclude=None):
         return 0.0, "outside", nearest, None
     if variant == "map-a5":
         correction = float(alpha) * slow
+    elif variant == "map-a8":
+        weight, count = support_weight(target, params, exclude=exclude)
+        if weight <= 0:
+            return 0.0, "outside", nearest, None
+        correction = float(alpha) * slow * weight
     else:
-        prior = zone_prior(target, params, "v7" if variant == "map-a7" else "v6")
-        correction = prior + float(alpha) * (slow - prior)
+        raise ValueError(f"retired or unknown map candidate: {variant}")
     return correction, "broad", nearest, None
 
 
@@ -753,6 +801,7 @@ def load_runtime(live_s3, private_store, now):
     forecasts = load_forecasts(live_s3, index, now - timedelta(days=31))
     paired = pair_history(hourly, forecasts, meta)
     states = residual_states(paired, now)
+    params["_support"] = build_support_context(paired, meta, now, params)
     return params, meta, hourly, forecasts, states
 
 
@@ -923,7 +972,7 @@ def launch_gates(cumulative):
     output["point"] = {"days": point_days, "n24": p24.get("n", 0), "lead6": p6, "lead24": p24,
                        "significantHarm": point_harm, "items": point_checks,
                        "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in point_checks.values()) else "FAIL"}
-    for candidate in ("map-a5", "map-a6", "map-a7"):
+    for candidate in ("map-a5", "map-a8"):
         qualifying = [day for day in days.values() if int(day.get("activeBuoys", 0)) >= 30]
         qualified_days = len(qualifying)
         m0, m24 = combine_metric(days, candidate, "looInside", 0), combine_metric(days, candidate, "looInside", 24)
@@ -945,6 +994,7 @@ def launch_gates(cumulative):
             "michigan": "PASS" if mature and all(mi[str(lead)] is not None and mi[str(lead)] >= 10 for lead in (0, 24)) else "FAIL" if mature else "NOT YET",
         }
         output[candidate] = {"days": qualified_days, "totalDays": len(days),
+                             "primary": candidate == "map-a8",
                              "activeBuoysPerDay": [int(day["activeBuoys"]) for day in days.values() if "activeBuoys" in day],
                              "lead0": m0, "lead24": m24, "michigan": mi, "significantHarm": harm, "items": checks,
                              "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in checks.values()) else "FAIL"}
@@ -958,7 +1008,8 @@ def markdown_scorecard(day, scorecards, cumulative):
         lines.append(f"| {candidate} | {value.get('n', 0)} | {value.get('noaaMae', '—')} | {value.get('candidateMae', '—')} | {value.get('worseGt1', '—')} | {value.get('worseGt2', '—')} |")
     lines.extend(("", f"Cumulative days: {len(cumulative.get('days', {}))}. Private research output; never served by the map.", "", "## Launch gates", ""))
     for candidate, gate in cumulative.get("launchGates", {}).items():
-        lines.append(f"- {candidate}: **{gate['status']}** — " + ", ".join(f"{name}={status}" for name, status in gate["items"].items()))
+        label = candidate + (" (primary)" if gate.get("primary") else "")
+        lines.append(f"- {label}: **{gate['status']}** — " + ", ".join(f"{name}={status}" for name, status in gate["items"].items()))
     return "\n".join(lines) + "\n"
 
 
@@ -988,14 +1039,14 @@ def run_scorecard(args):
 def upload_params(args):
     private_s3 = r2_client(""); store = ShadowStore(private_s3, os.environ["SHADOW_R2_BUCKET"])
     sources = {name: json.loads(Path(path).read_text()) for name, path in {
-        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v6": args.v6, "v7": args.v7,
+        "v2": args.v2, "v4": args.v4, "v5": args.v5, "v8": args.v8,
     }.items()}
     certification = json.loads(Path(args.v5_certification).read_text())
     piers = {item["pier"]: item["gauge"] for item in certification["piers"]["points"] if item.get("qualifies")}
     bundle = {"formatVersion": 1, "methodology": "hybrid-shadow-v1", "versions": VERSION_IDS,
-              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"], "v6": sources["v6"], "v7": sources["v7"],
+              "v2": sources["v2"], "v4": sources["v4"], "v5": sources["v5"], "v8": sources["v8"],
               "piers": piers}
-    for name in ("v5", "v6", "v7"):
+    for name in ("v5", "v8"):
         store.json(f"{SHADOW_PREFIX}params/{name}.json", sources[name])
     digest = store.json(PARAMS_KEY, bundle)
     print(json.dumps({"stored": True, "key": PARAMS_KEY, "sha256": digest, "committed": False}, sort_keys=True))
@@ -1011,10 +1062,11 @@ def print_scorecard(args):
     point = gates["point"]
     print(f"point: days={point['days']}/21 n24={point['n24']}/500 imp6={format_percent(improvement(point['lead6']))} imp24={format_percent(improvement(point['lead24']))} worse2={format_percent(100*point['lead24'].get('worseGt2',0) if point['lead24'].get('n') else None)} {point['status']}")
     print("  " + " ".join(f"{name}={status}" for name, status in point["items"].items()))
-    for candidate in ("map-a5", "map-a6", "map-a7"):
+    for candidate in ("map-a5", "map-a8"):
         gate = gates[candidate]; active = gate["activeBuoysPerDay"]
         mean_active = statistics.mean(active) if active else 0
-        print(f"{candidate}: days30={gate['days']}/21 buoys/day={mean_active:.1f} n0={gate['lead0'].get('n',0)} n24={gate['lead24'].get('n',0)} imp0={format_percent(improvement(gate['lead0']))} imp24={format_percent(improvement(gate['lead24']))} {gate['status']}")
+        label = candidate + ("(primary)" if gate.get("primary") else "")
+        print(f"{label}: days30={gate['days']}/21 buoys/day={mean_active:.1f} n0={gate['lead0'].get('n',0)} n24={gate['lead24'].get('n',0)} imp0={format_percent(improvement(gate['lead0']))} imp24={format_percent(improvement(gate['lead24']))} {gate['status']}")
         print("  " + " ".join(f"{name}={status}" for name, status in gate["items"].items()))
     return 0
 
@@ -1030,7 +1082,7 @@ def parser():
         item = sub.add_parser(name); item.add_argument("--now")
         if name == "scorecard": item.add_argument("--score-date")
     upload = sub.add_parser("upload-params")
-    for name in ("v2", "v4", "v5", "v6", "v7"): upload.add_argument(f"--{name}", required=True)
+    for name in ("v2", "v4", "v5", "v8"): upload.add_argument(f"--{name}", required=True)
     upload.add_argument("--v5-certification", required=True)
     sub.add_parser("print-scorecard")
     return result

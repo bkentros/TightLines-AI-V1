@@ -136,14 +136,20 @@ class HybridShadowTest(unittest.TestCase):
         result = shadow.aggregate_scores(rows)
         self.assertEqual(set(result["byLead"]), {"0", "24"})
 
-    def test_a7_uses_its_frozen_enable_table(self):
-        target = {"lake":"lake-michigan", "month":7, "shore_distance_km":8,
-                  "lat":44., "lon":-86.5}
-        params = {"v7":{"enable":{"lake-michigan|7|open-water":True},
-                        "nearPrior":{}, "openPrior":{"lake-michigan|7":3.5}}}
-        self.assertEqual(shadow.zone_prior(target, params, "v7"), 3.5)
-        params["v7"]["enable"]["lake-michigan|7|open-water"] = False
-        self.assertEqual(shadow.zone_prior(target, params, "v7"), 0.)
+    def test_a8_support_uses_open_water_only_and_24_hour_ramp(self):
+        start = datetime(2026, 7, 15, 0, tzinfo=timezone.utc)
+        hours = [start + timedelta(hours=offset) for offset in range(24)]
+        metadata = {
+            "a":{"station_class":"nearshore_buoy","waterbody":"lake-michigan","lat":44.,"lon":-86.5},
+            "b":{"station_class":"offshore_buoy","waterbody":"lake-michigan","lat":44.,"lon":-86.5},
+            "c":{"station_class":"nearshore_buoy","waterbody":"lake-michigan","lat":44.,"lon":-86.5},
+            "h":{"station_class":"harbor","waterbody":"lake-michigan","lat":44.,"lon":-86.5},
+        }
+        active = {hour:{"a","b","h"} | ({"c"} if index >= 12 else set()) for index,hour in enumerate(hours)}
+        params = {"_support":{"hours":hours,"active":active,"nMin":2,"fallback":set(),"metadata":metadata}}
+        weight, count = shadow.support_weight({"lake":"lake-michigan","lat":44.,"lon":-86.5}, params)
+        self.assertEqual(count, 3)
+        self.assertEqual(weight, .5)
 
     def test_loo_emits_zero_and_24_hour_predictions(self):
         cycle = datetime(2026, 7, 15, 0, tzinfo=timezone.utc)
@@ -154,9 +160,9 @@ class HybridShadowTest(unittest.TestCase):
         params = {"v2":{"params":{"lake-michigan":{"fslow_6":.9,"fslow_24":.7,"fslow_48":.5,"fslow_120":.1}}},
                   "v4":{"taus":{"harbor|jul-aug":{"tau":24}}},
                   "v5":{"anchorEnabled":["harbor"], "gatesA":{}},
-                  "v6":{"enable":{}, "nearPrior":{}, "openPrior":{}},
-                  "v7":{"enable":{}, "nearPrior":{}, "openPrior":{}}}
-        rows = shadow.loo_rows(forecast, states, metadata, params, "map-a7", cycle)
+                  "v8":{"nMin":2,"miFallbackRegions":["west-shore"]},
+                  "_support":{"hours":[cycle] * 24,"active":{cycle:set()},"nMin":2,"fallback":{"west-shore"},"metadata":metadata}}
+        rows = shadow.loo_rows(forecast, states, metadata, params, "map-a8", cycle)
         self.assertIn(0, {row["lead_hours"] for row in rows})
         self.assertIn(24, {row["lead_hours"] for row in rows})
 
@@ -167,8 +173,9 @@ class HybridShadowTest(unittest.TestCase):
         day = {"activeBuoys":35, "candidates":{candidate:item for candidate in shadow.CANDIDATES}}
         gates = shadow.launch_gates({"days":{"2026-10-29":day}})
         self.assertEqual(gates["point"]["status"], "NOT YET")
-        self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a6","map-a7")))
-        self.assertEqual(gates["map-a7"]["activeBuoysPerDay"], [35])
+        self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a8")))
+        self.assertEqual(gates["map-a8"]["activeBuoysPerDay"], [35])
+        self.assertTrue(gates["map-a8"]["primary"])
 
 
 if __name__ == "__main__":
