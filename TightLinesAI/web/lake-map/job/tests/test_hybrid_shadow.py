@@ -136,7 +136,7 @@ class HybridShadowTest(unittest.TestCase):
         result = shadow.aggregate_scores(rows)
         self.assertEqual(set(result["byLead"]), {"0", "24"})
 
-    def test_a8_support_uses_open_water_only_and_24_hour_ramp(self):
+    def test_a10_support_uses_open_water_only_and_24_hour_ramp(self):
         start = datetime(2026, 7, 15, 0, tzinfo=timezone.utc)
         hours = [start + timedelta(hours=offset) for offset in range(24)]
         metadata = {
@@ -162,7 +162,9 @@ class HybridShadowTest(unittest.TestCase):
                   "v5":{"anchorEnabled":["harbor"], "gatesA":{}},
                   "v8":{"nMin":2,"miFallbackRegions":["west-shore"]},
                   "_support":{"hours":[cycle] * 24,"active":{cycle:set()},"nMin":2,"fallback":{"west-shore"},"metadata":metadata}}
-        rows = shadow.loo_rows(forecast, states, metadata, params, "map-a8", cycle)
+        params["v10"] = {"southernMichiganBroadEnabled":False,
+                         "superiorBroadDisabledMonths":[9,10,11,12]}
+        rows = shadow.loo_rows(forecast, states, metadata, params, "map-a10", cycle)
         self.assertIn(0, {row["lead_hours"] for row in rows})
         self.assertIn(24, {row["lead_hours"] for row in rows})
 
@@ -173,9 +175,42 @@ class HybridShadowTest(unittest.TestCase):
         day = {"activeBuoys":35, "candidates":{candidate:item for candidate in shadow.CANDIDATES}}
         gates = shadow.launch_gates({"days":{"2026-10-29":day}})
         self.assertEqual(gates["point"]["status"], "NOT YET")
-        self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a8")))
-        self.assertEqual(gates["map-a8"]["activeBuoysPerDay"], [35])
-        self.assertTrue(gates["map-a8"]["primary"])
+        self.assertTrue(all(gates[name]["status"] == "NOT YET" for name in ("map-a5","map-a10")))
+        self.assertEqual(gates["map-a10"]["activeBuoysPerDay"], [35])
+        self.assertTrue(gates["map-a10"]["primary"])
+
+    def test_a10_broad_masks_do_not_disable_anchor(self):
+        now = datetime(2026, 10, 15, tzinfo=timezone.utc)
+        metadata = {
+            "g":{"station_class":"nearshore_buoy", "waterbody":"lake-superior",
+                 "lat":46.8, "lon":-90.0, "shoreline_tangent_bearing":0.},
+        }
+        states = {"g":{"correction":4., "slow":4., "ramp":1.}}
+        params = {
+            "v4":{"taus":{"nearshore_buoy|sep-oct":{"tau":24}}},
+            "v5":{"anchorEnabled":["nearshore_buoy"], "gatesA":{}},
+            "v10":{"southernMichiganBroadEnabled":False,
+                    "superiorBroadDisabledMonths":[9,10,11,12]},
+        }
+        target = {"lake":"lake-superior", "lat":46.805, "lon":-90.0,
+                  "month":10, "params":{"slow_l":20}}
+        correction, layer, _, _ = shadow.map_correction(
+            target, "map-a10", states, metadata, params)
+        self.assertEqual(layer, "anchor")
+        self.assertGreater(correction, 0)
+
+    def test_a10_disables_superior_fall_and_southern_mi_broad(self):
+        params = {"v10":{"southernMichiganBroadEnabled":False,
+                         "superiorBroadDisabledMonths":[9,10,11,12]},
+                  "v5":{"anchorEnabled":[], "gatesA":{}}}
+        for target in (
+            {"lake":"lake-superior", "lat":47., "lon":-88., "month":10, "params":{"slow_l":20}},
+            {"lake":"lake-michigan", "lat":42.5, "lon":-87., "month":7, "params":{"slow_l":20}},
+        ):
+            correction, layer, _, _ = shadow.map_correction(
+                target, "map-a10", {}, {}, params)
+            self.assertEqual(correction, 0.)
+            self.assertEqual(layer, "outside")
 
 
 if __name__ == "__main__":
