@@ -37,11 +37,11 @@ LIVE_BUCKET = "piercast-lake-map"
 SHADOW_PREFIX = "shadow/v1/"
 METADATA_KEY = "private/scorecard/v1/metadata/v1/stations.parquet"
 PARAMS_KEY = f"{SHADOW_PREFIX}params/runtime-v1.json"
-CANDIDATES = ("point", "map-a5", "map-a8")
+CANDIDATES = ("point", "map-a5", "map-a10")
 VERSION_IDS = {
     "point": "gauge-anchored-point-v5-shadow1",
     "map-a5": "gauge-anchored-v5-a5-shadow1",
-    "map-a8": "gauge-anchored-v8-support-shadow1",
+    "map-a10": "gauge-anchored-v10-a10-shadow1",
 }
 SEASONS = {5: "may-jun", 6: "may-jun", 7: "jul-aug", 8: "jul-aug",
            9: "sep-oct", 10: "sep-oct", 11: "nov-dec", 12: "nov-dec"}
@@ -633,13 +633,28 @@ def map_correction(target, variant, states, metadata, params, exclude=None):
     anchor = anchor_correction(target, target["lake"], states, metadata, params, exclude=exclude)
     if anchor is not None:
         return anchor[0], "anchor", anchor[1], anchor[2]
+    # A10 freezes the A8 open-water support layer with two do-no-harm masks.
+    # Anchors are deliberately evaluated first, so these masks affect only the
+    # broad field and never gauge dots or point forecasts.
+    if variant == "map-a10":
+        frozen = params.get("v10") or {
+            "southernMichiganBroadEnabled": False,
+            "superiorBroadDisabledMonths": [9, 10, 11, 12],
+        }
+        if (target["lake"] == "lake-michigan"
+                and mi_region(target["lat"], target["lon"]) == "southern-basin"
+                and not frozen.get("southernMichiganBroadEnabled", False)):
+            return 0.0, "outside", math.inf, None
+        if (target["lake"] == "lake-superior"
+                and int(target["month"]) in set(frozen.get("superiorBroadDisabledMonths", []))):
+            return 0.0, "outside", math.inf, None
     slow, nearest = oi_slow(target, target["lake"], states, metadata, exclude=exclude)
     alpha = gate_alpha(params, target["lake"], target["month"], "open-water", nearest, target["lat"], target["lon"])
     if alpha is None or float(alpha) <= 0 or not math.isfinite(nearest):
         return 0.0, "outside", nearest, None
     if variant == "map-a5":
         correction = float(alpha) * slow
-    elif variant == "map-a8":
+    elif variant == "map-a10":
         weight, count = support_weight(target, params, exclude=exclude)
         if weight <= 0:
             return 0.0, "outside", nearest, None
@@ -972,7 +987,7 @@ def launch_gates(cumulative):
     output["point"] = {"days": point_days, "n24": p24.get("n", 0), "lead6": p6, "lead24": p24,
                        "significantHarm": point_harm, "items": point_checks,
                        "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in point_checks.values()) else "FAIL"}
-    for candidate in ("map-a5", "map-a8"):
+    for candidate in ("map-a5", "map-a10"):
         qualifying = [day for day in days.values() if int(day.get("activeBuoys", 0)) >= 30]
         qualified_days = len(qualifying)
         m0, m24 = combine_metric(days, candidate, "looInside", 0), combine_metric(days, candidate, "looInside", 24)
@@ -994,7 +1009,7 @@ def launch_gates(cumulative):
             "michigan": "PASS" if mature and all(mi[str(lead)] is not None and mi[str(lead)] >= 10 for lead in (0, 24)) else "FAIL" if mature else "NOT YET",
         }
         output[candidate] = {"days": qualified_days, "totalDays": len(days),
-                             "primary": candidate == "map-a8",
+                             "primary": candidate == "map-a10",
                              "activeBuoysPerDay": [int(day["activeBuoys"]) for day in days.values() if "activeBuoys" in day],
                              "lead0": m0, "lead24": m24, "michigan": mi, "significantHarm": harm, "items": checks,
                              "status": "NOT YET" if not mature else "PASS" if all(x == "PASS" for x in checks.values()) else "FAIL"}
@@ -1064,7 +1079,7 @@ def print_scorecard(args):
     point = gates["point"]
     print(f"point: days={point['days']}/21 n24={point['n24']}/500 imp6={format_percent(improvement(point['lead6']))} imp24={format_percent(improvement(point['lead24']))} worse2={format_percent(100*point['lead24'].get('worseGt2',0) if point['lead24'].get('n') else None)} {point['status']}")
     print("  " + " ".join(f"{name}={status}" for name, status in point["items"].items()))
-    for candidate in ("map-a5", "map-a8"):
+    for candidate in ("map-a5", "map-a10"):
         gate = gates[candidate]; active = gate["activeBuoysPerDay"]
         mean_active = statistics.mean(active) if active else 0
         label = candidate + ("(primary)" if gate.get("primary") else "")
