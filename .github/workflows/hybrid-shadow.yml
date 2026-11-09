@@ -33,13 +33,13 @@ jobs:
       run:
         working-directory: TightLinesAI/web/lake-map
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: |
             .github/workflows/hybrid-shadow.yml
             TightLinesAI/web/lake-map/job
             TightLinesAI/web/lake-map/static/geo.json
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -71,13 +71,13 @@ jobs:
       run:
         working-directory: TightLinesAI/web/lake-map
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: |
             .github/workflows/hybrid-shadow.yml
             TightLinesAI/web/lake-map/job
             TightLinesAI/web/lake-map/static/geo.json
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
